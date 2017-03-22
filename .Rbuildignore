@@ -1,2 +1,5 @@
 ^.*\.Rproj$
+^\.Rprofile$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^docs$
