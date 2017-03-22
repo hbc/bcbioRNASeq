@@ -1,9 +1,31 @@
 Package: bcbioRnaseq
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Title: RNA-Seq Utilities
+Version: 0.0.1
+Date: 2017-03-21
+Authors@R: c(
+    person("Rory", "Kirchner",
+           email = "roryk@alum.mit.edu",
+           role = c("aut", "cre")),
+    person("Michael", "Steinbaugh",
+           email = "mike@steinbaugh.com",
+           role = "aut"))
+Description: Functions for processing bcbio-nextgen RNA-Seq results.
+URL: https://bcbio-nextgen.readthedocs.io, https://github.com/roryk/bcbioRnaseq
+BugReports: https://github.com/roryk/bcbioRnaseq/issues
+biocViews: GeneExpression, RNASeq
 Depends: R (>= 3.3.2)
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+    basejump,
+    dplyr,
+    magrittr,
+    purrr,
+    readr,
+    stringr,
+    tidyr,
+    tximport
+Remotes:
+    steinbaugh/basejump
+RoxygenNote: 6.0.1
