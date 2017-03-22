@@ -19,9 +19,8 @@ melt_log10 <- function(counts, metadata) {
         set_names(c("ensembl_gene",
                     "description",
                     "counts")) %>%
-        # Need to convert to SE here
-        dplyr::filter(counts > 0) %>%
-        dplyr::left_join(metadata) %>%
+        dplyr::filter_(.dots = quote(counts > 0)) %>%
+        merge(metadata) %>%
         dplyr::mutate_(.dots = set_names(list(
             quote(log(counts))),
             "counts"
