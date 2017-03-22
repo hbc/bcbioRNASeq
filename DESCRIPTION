@@ -19,11 +19,17 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     basejump,
+    DESeq2,
     dplyr,
+    grDevices,
     magrittr,
+    pheatmap,
     purrr,
+    RColorBrewer,
     readr,
+    stats,
     stringr,
+    SummarizedExperiment,
     tidyr,
     tximport
 Remotes:
