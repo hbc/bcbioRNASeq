@@ -29,7 +29,7 @@ import_config_metadata <- function(
         readr::read_csv(., col_types = readr::cols()) %>%
         basejump::setNamesSnake(.) %>%
         dplyr::mutate_(.dots = set_names(list(group), "group"))
-    
+
     # Lane splitting
     # Workflow used by Harvard Biopolymers Facility
     if (isTRUE(lane_split)) {
@@ -44,11 +44,11 @@ import_config_metadata <- function(
                 "description"
             ))
     }
-    
+
     # Arrange the rows by description
     metadata <- metadata %>%
         dplyr::arrange_(.dots = "samplename") %>%
-        basejump::setRownames(., "description")
-    
+        set_rownames("description")
+
     return(metadata)
 }

@@ -29,7 +29,7 @@ import_project_summary <- function(bcbio, metadata) {
                                  setdiff(sort(names(.)),
                                          "description"))) %>%
         dplyr::arrange_(.dots = "description") %>%
-        basejump::setRownames(., "description")
+        set_rownames("description")
 
     # Set the group, used for plots
     df$group <- metadata[rownames(df), "group"]
