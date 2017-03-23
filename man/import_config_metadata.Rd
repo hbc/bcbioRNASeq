@@ -4,12 +4,12 @@
 \alias{import_config_metadata}
 \title{Metadata for bcbio run}
 \usage{
-import_config_metadata(project, group = "treatment", laneSplit = FALSE)
+import_config_metadata(bcbio, group = "treatment", lane_split = FALSE)
 }
 \arguments{
-\item{group}{Sample grouping. Used later in pipline for plot colors.}
-
 \item{bcbio}{bcbio run object}
+
+\item{group}{Sample grouping. Used later in pipline for plot colors.}
 
 \item{lane_split}{Whether samples were split across flow cell lanes.}
 }
