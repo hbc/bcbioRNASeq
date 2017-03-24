@@ -6,7 +6,6 @@
 #' @param counts Counts matrix
 #' @param metadata Metadata data frame
 #'
-#' @return Dotplot
 #' @export
 plot_gene <- function(gene, counts, metadata) {
     ylab <- deparse(substitute(counts))
@@ -28,5 +27,5 @@ plot_gene <- function(gene, counts, metadata) {
         ggplot2::xlab("sample") +
         ggplot2::ylab(ylab) +
         ggplot2::expand_limits(y = 0)
-    return(plot)
+    print(plot)
 }
