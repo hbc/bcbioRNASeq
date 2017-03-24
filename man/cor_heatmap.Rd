@@ -4,8 +4,7 @@
 \alias{cor_heatmap}
 \title{Correlation matrix heatmap}
 \usage{
-cor_heatmap(counts, metadata, factor = "group", method = "pearson",
-  format = "DESeqTransform", ...)
+cor_heatmap(counts, metadata, factor = "group", method = "pearson", ...)
 }
 \arguments{
 \item{counts}{RNA-Seq counts}
@@ -16,9 +15,9 @@ cor_heatmap(counts, metadata, factor = "group", method = "pearson",
 
 \item{method}{Correlation coefficient (or covariance) to be computed}
 
-\item{format}{Format of input count data}
-
 \item{...}{Passthrough to \code{pheatmap()}}
+
+\item{format}{Format of input count data}
 }
 \value{
 Heatmap
