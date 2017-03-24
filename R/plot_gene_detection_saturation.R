@@ -4,20 +4,20 @@
 #'
 #' @import ggplot2
 #'
-#' @param counts Counts matrix
+#' @param raw_counts Raw counts matrix
 #' @param summary \code{bcbio-rnaseq} summary report
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_gene_detection_saturation(counts, summary)
+#' plot_gene_detection_saturation(raw_counts, summary)
 #' }
-plot_gene_detection_saturation <- function(counts, summary) {
+plot_gene_detection_saturation <- function(raw_counts, summary) {
     summary %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~mapped_reads / 1e6,
-                          y = ~colSums(counts > 0),
+                          y = ~colSums(raw_counts > 0),
                           color = ~group,
                           shape = ~group)) +
         ggplot2::ggtitle("gene detection saturation") +
