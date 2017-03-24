@@ -2,11 +2,11 @@
 % Please edit documentation in R/imports.R
 \name{set_rownames}
 \alias{set_rownames}
-\title{import basejump}
+\title{importFrom basejump setRownames}
 \usage{
 set_rownames(...)
 }
 \description{
-import basejump
+importFrom basejump setRownames
 }
 \keyword{internal}
