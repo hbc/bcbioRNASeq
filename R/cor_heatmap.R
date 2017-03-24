@@ -22,36 +22,29 @@ cor_heatmap <- function(counts,
                         metadata,
                         factor = "group",
                         method = "pearson",
-                        format = "DESeqTransform",
                         ...) {
     name <- deparse(substitute(counts))
+
+    metadata <- as.data.frame(metadata)
     if (!is.data.frame(metadata)) {
         stop("A metadata data frame is required.")
     }
     if (!is.character(factor)) {
         stop("A factor group character vector is required.")
     }
-    if (format == "DESeqTransform") {
-        if (class(counts)[1] != "DESeqTransform") {
-            stop("Format was delcared as DESeqTransform, but counts are not a
-                 DESeqTransform object.")
-        }
+    if (class(counts)[1] == "DESeqTransform") {
         counts <- SummarizedExperiment::assay(counts)
     }
     if (!is.matrix(counts)) {
         stop("A counts matrix is required.")
     }
-    color <-
-        grDevices::colorRampPalette(
-            RColorBrewer::brewer.pal(n = 9, name = "Blues")
-        )(100)
+
     counts %>%
         stats::cor(., method = method) %>%
         pheatmap::pheatmap(main = paste(method,
                                         "correlation:",
                                         name),
                            annotation = metadata[, factor],
-                           color = color,
                            show_colnames = FALSE,
                            ...)
 }
