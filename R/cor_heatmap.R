@@ -13,7 +13,6 @@
 #' @param metadata Metadata data frame
 #' @param factor Factor groups to use for clustering color headers
 #' @param method Correlation coefficient (or covariance) to be computed
-#' @param format Format of input count data
 #' @param ... Passthrough to \code{pheatmap()}
 #'
 #' @return Heatmap

@@ -16,8 +16,6 @@ cor_heatmap(counts, metadata, factor = "group", method = "pearson", ...)
 \item{method}{Correlation coefficient (or covariance) to be computed}
 
 \item{...}{Passthrough to \code{pheatmap()}}
-
-\item{format}{Format of input count data}
 }
 \value{
 Heatmap

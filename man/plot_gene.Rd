@@ -13,9 +13,6 @@ plot_gene(gene, counts, metadata)
 
 \item{metadata}{Metadata data frame}
 }
-\value{
-Dotplot
-}
 \description{
 Plot an individual gene
 }

@@ -19,19 +19,25 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     basejump,
+    biomaRt,
     DESeq2,
     dplyr,
+    edgeR,
+    ggplot2,
     grDevices,
     magrittr,
     pheatmap,
     purrr,
     RColorBrewer,
     readr,
+    reshape2,
     stats,
     stringr,
     SummarizedExperiment,
+    tibble,
     tidyr,
-    tximport
+    tximport,
+    utils
 Remotes:
     steinbaugh/basejump
 RoxygenNote: 6.0.1
