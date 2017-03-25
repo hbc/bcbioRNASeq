@@ -2,11 +2,8 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import DESeq2
 #' @import pheatmap
-#' @import RColorBrewer
 #' @import SummarizedExperiment
-#' @importFrom grDevices colorRampPalette
 #' @importFrom stats cor
 #'
 #' @param counts RNA-Seq counts
