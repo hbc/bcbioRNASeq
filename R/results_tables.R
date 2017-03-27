@@ -11,6 +11,7 @@
 #' @param alpha Alpha cutoff level
 #' @param lfc Log fold change ratio (base 2) cutoff level
 #' @param organism Organism
+#' @param print Print summary
 #'
 #' @return List of DGE results tables
 #' @export
@@ -23,7 +24,8 @@ results_tables <- function(
     results,
     alpha = 0.05,
     lfc = 0,
-    organism) {
+    organism,
+    print = TRUE) {
     annotations <- ensembl_annotations(organism)
 
     # Add test for alpha as numeric, less than 1
@@ -52,6 +54,17 @@ results_tables <- function(
         # ~-log_fold_change also works.
         # Adding `quote()` here is more readable.
         dplyr::arrange_(.dots = quote(-log2_fold_change))
+
+    if (isTRUE(print)) {
+        writeLines(c(
+            paste("Alpha (FDR) cutoff:", alpha),
+            paste("LFC (base 2) cutoff:", lfc),
+            # Add non-zero count here?
+            paste("Genes evaluated:", nrow(all)),
+            paste("Genes upregulated:", nrow(de_up)),
+            paste("Genes downregulated:", nrow(de_down))
+        ))
+    }
 
     return(list(
         all = all,
