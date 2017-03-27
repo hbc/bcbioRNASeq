@@ -11,7 +11,7 @@
 #' @param config_dir Set the config output directory, if non-standard
 #' @param final_dir Set the final output directory, if non-standard
 #'
-#' @return List with directory paths
+#' @return bcbio list object with directory paths
 #' @export
 #'
 #' @examples
@@ -59,11 +59,14 @@ load_bcbio_run <-
         dir.create("data", showWarnings = FALSE)
         dir.create("results", showWarnings = FALSE)
 
-        return(list(
+        bcbio <- list(
             parent_dir = normalizePath(parent_dir),
             run_dir = normalizePath(run_dir),
             config_dir = normalizePath(config_dir),
             final_dir = normalizePath(final_dir),
             project_dir = normalizePath(project_dir)
-        ))
+        )
+
+        save(bcbio, file = "data/bcbio.rda")
+        return(bcbio)
     }
