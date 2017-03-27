@@ -13,27 +13,28 @@
 run_deseq_pooled <- function(
     txi,
     intgroup,
-    design,
-    metadata) {
+    design) {
     counts <- as.matrix(txi$counts)
     stem <- gsub("_L\\d+$", "", colnames(counts)) %>% unique %>% sort
-
-    counts <- lapply(seq_along(stem), function(a) {
+    
+    pooled_counts <- lapply(seq_along(stem), function(a) {
         grep <- paste0("^", stem[a], "_L\\d+$")
         counts %>% .[, grepl(grep, colnames(.))] %>% rowSums
     }) %>%
         set_names(stem) %>%
-        do.call(cbind, .)
-
+        do.call(cbind, .) %>%
+        # Counts must be integers, otherwise DESeq will error
+        round
+    
     metadata <- import_metadata(bcbio,
                                 intgroup = intgroup,
                                 lane_split = FALSE)
-
+    
     dds <- DESeq2::DESeqDataSetFromMatrix(
-        counts,
+        pooled_counts,
         colData = metadata,
         design = design
-    ) %>% DeSeq2::DESeq(.)
-
+    ) %>% DESeq2::DESeq(.)
+    
     return(dds)
 }

@@ -4,7 +4,7 @@
 \alias{run_deseq_pooled}
 \title{Run DESeq2 with pooled technical replicates}
 \usage{
-run_deseq_pooled(txi, intgroup, design, metadata)
+run_deseq_pooled(txi, intgroup, design)
 }
 \arguments{
 \item{txi}{tximport list object}
