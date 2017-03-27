@@ -13,9 +13,9 @@
 #' @importFrom CHBUtils volcano_density_plot
 #'
 #' @param dds DESeq2 data set
-#' @param annotations Annotations data frame containing gene names
 #' @param alpha Alpha level cutoff for coloring
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
+#' @param organism Organism, used to obtain gene names for text labels
 #' @param text_alpha Alpha level cutoff for text labels
 #' @param text_lfc Log fold change ratio (base 2) cutoff for text labels
 #'
@@ -25,18 +25,24 @@
 #' @examples
 #' \dontrun{
 #' plot_volcano(dds,
-#'              annotations = annotations,
 #'              alpha = 0.05,
 #'              lfc = 1,
+#'              organism = "hsapiens"
 #'              text_alpha = 1e-6,
 #'              text_lfc = 1)
 #' }
 plot_volcano <- function(dds,
-                         annotations,
                          alpha = 0.05,
                          lfc = 1,
                          text_alpha = 1e-6,
-                         text_lfc = 1) {
+                         text_lfc = 1,
+                         organism) {
+    # We can modify this function to support other methods in the future.
+    # For now, it supports DESeq2 results.
+    if (class(dds)[1] != "DESeqDataSet") {
+        stop("A DESeqDataSet object is required.")
+    }
+
     df <- dds %>%
         DESeq2::results(.) %>%
         as.data.frame %>%
@@ -53,6 +59,10 @@ plot_volcano <- function(dds,
         )) %>%
         set_rownames("ensembl_gene_id") %>%
         dplyr::select_(.dots = c("logFC", "Adjusted.Pvalue"))
+
+    # Optimize this step to only download the needed plot_text gene names
+    # df$ensembl_gene_id as input here.
+    annotations <- ensembl_annotations(organism)
 
     plot_text <- df %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
