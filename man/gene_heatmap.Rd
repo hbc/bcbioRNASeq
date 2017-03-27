@@ -4,7 +4,7 @@
 \alias{gene_heatmap}
 \title{Gene heatmap}
 \usage{
-gene_heatmap(counts, deg = NULL, metadata, factor = "group")
+gene_heatmap(counts, deg = NULL, metadata, factor = "intgroup")
 }
 \arguments{
 \item{counts}{Counts matrix}

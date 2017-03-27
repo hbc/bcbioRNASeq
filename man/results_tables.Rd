@@ -4,7 +4,7 @@
 \alias{results_tables}
 \title{Differential gene expression results tables}
 \usage{
-results_tables(results, alpha = 0.05, lfc = 0, organism)
+results_tables(results, alpha = 0.05, lfc = 0, organism, print = TRUE)
 }
 \arguments{
 \item{results}{\code{DESeqResults} or \code{DESeqDataSet} object}
@@ -14,6 +14,8 @@ results_tables(results, alpha = 0.05, lfc = 0, organism)
 \item{lfc}{Log fold change ratio (base 2) cutoff level}
 
 \item{organism}{Organism}
+
+\item{print}{Print summary}
 }
 \value{
 List of DGE results tables

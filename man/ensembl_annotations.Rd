@@ -4,9 +4,14 @@
 \alias{ensembl_annotations}
 \title{Get gene annotations from Ensembl}
 \usage{
-ensembl_annotations(organism)
+ensembl_annotations(values = NULL, filters = "ensembl_gene_id", organism)
 }
 \arguments{
+\item{values}{Ensembl gene identifier values. Optional but will run faster if
+specified.}
+
+\item{filters}{biomaRt filters. See \code{biomaRt::listFilters()}.}
+
 \item{organism}{Organism identifier}
 }
 \value{
@@ -17,7 +22,7 @@ Get gene annotations from Ensembl
 }
 \examples{
 \dontrun{
-ensembl_annotations("mmusculus")
+ensembl_annotations("ENSMUSG00000000001", organism = "mmusculus")
 }
 }
 \author{

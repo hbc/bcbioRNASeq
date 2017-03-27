@@ -4,10 +4,12 @@
 \alias{import_summary}
 \title{Import a bcbio project summary}
 \usage{
-import_summary(bcbio)
+import_summary(bcbio, metadata)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
+
+\item{metadata}{Metadata data frame}
 }
 \description{
 Import a bcbio project summary

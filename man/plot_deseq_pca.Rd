@@ -4,7 +4,7 @@
 \alias{plot_deseq_pca}
 \title{Quickly plot principal component analysis (PCA)}
 \usage{
-plot_deseq_pca(dt, factor = c("group"), ...)
+plot_deseq_pca(dt, factor = c("intgroup"), ...)
 }
 \arguments{
 \item{dt}{\code{DESeqTransform} object generated from \code{rlog()} or

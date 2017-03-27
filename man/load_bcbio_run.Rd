@@ -18,7 +18,7 @@ originally called by \code{bcbio_nextgen.py}}
 \item{final_dir}{Set the final output directory, if non-standard}
 }
 \value{
-List with directory paths
+bcbio list object with directory paths
 }
 \description{
 We recommend loading the \code{bcbio-nextgen} run as a remote connection over

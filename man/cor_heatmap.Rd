@@ -11,7 +11,7 @@ cor_heatmap(counts, metadata, factor = "group", method = "pearson", ...)
 
 \item{metadata}{Metadata data frame}
 
-\item{factor}{Factor groups to use for clustering color headers}
+\item{factor}{Factor(s) to use for clustering color headers}
 
 \item{method}{Correlation coefficient (or covariance) to be computed}
 
