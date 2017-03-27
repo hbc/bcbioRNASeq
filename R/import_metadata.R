@@ -57,7 +57,7 @@ import_metadata <- function(
     # Arrange the rows by description
     metadata <- metadata %>%
         dplyr::arrange_(.dots = "samplename") %>%
-        set_rownames("description")
+        set_rownames("samplename")
 
     return(metadata)
 }
