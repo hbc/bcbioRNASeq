@@ -8,7 +8,7 @@
 #'
 #' @param counts RNA-Seq counts
 #' @param metadata Metadata data frame
-#' @param factor Factor groups to use for clustering color headers
+#' @param factor Factor(s) to use for clustering color headers
 #' @param method Correlation coefficient (or covariance) to be computed
 #' @param ... Passthrough to \code{pheatmap()}
 #'
