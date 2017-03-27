@@ -9,7 +9,7 @@
 #' @import tidyr
 #'
 #' @param bcbio bcbio run object
-#' @param group Sample grouping. Used later in pipline for plot colors.
+#' @param intgroup Internal sample groups used for plot coloring.
 #' @param lane_split Whether samples were split across flow cell lanes.
 #'
 #' @return Metadata data frame
@@ -17,18 +17,29 @@
 #'
 #' @examples
 #' \dontrun{
-#' import_config_metadata(bcbio, group = "treatment")
+#' import_metadata(bcbio, intgroup = "treatment")
 #' }
-import_config_metadata <- function(
+import_metadata <- function(
     bcbio,
-    group = "treatment",
+    intgroup = NA,
     lane_split = FALSE) {
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
-        basejump::setNamesSnake(.) %>%
-        dplyr::mutate_(.dots = set_names(list(group), "group"))
+        basejump::setNamesSnake(.)
+
+    # Set intgroup, if specified
+    if (!is.na(intgroup)) {
+        if (intgroup %in% colnames(metadata)) {
+            metadata <- dplyr::mutate_(
+                metadata,
+                .dots = set_names(list(intgroup), "intgroup")
+            )
+        } else {
+            stop("intgroup string is not present in the config metadata.")
+        }
+    }
 
     # Lane splitting
     # Workflow used by Harvard Biopolymers Facility
