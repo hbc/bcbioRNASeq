@@ -17,7 +17,7 @@ plot_mapped_reads <- function(summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / 1e6,
-                          fill = ~group)
+                          fill = ~intgroup)
         ) +
         ggplot2::ggtitle("mapped reads") +
         ggplot2::geom_bar(stat = "identity") +

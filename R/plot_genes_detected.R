@@ -18,7 +18,7 @@ plot_genes_detected <- function(raw_counts, summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = colSums(raw_counts > 0),
-                          fill = ~group)
+                          fill = ~intgroup)
         ) +
         ggplot2::ggtitle("genes detected") +
         ggplot2::geom_bar(stat = "identity") +

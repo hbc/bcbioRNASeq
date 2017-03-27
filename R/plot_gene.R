@@ -11,13 +11,13 @@ plot_gene <- function(gene, counts, metadata) {
     ylab <- deparse(substitute(counts))
     counts <- as.matrix(counts) %>% .[gene, ]
     df <- data.frame(counts = counts,
-                     group = metadata$group,
+                     intgroup = metadata$intgroup,
                      name = names(counts))
     plot <- ggplot2::ggplot(
         df,
         ggplot2::aes_(x = ~name,
                       y = ~counts,
-                      fill = ~group)
+                      fill = ~intgroup)
     ) +
         ggplot2::ggtitle(gene) +
         ggplot2::geom_dotplot(binaxis = "y") +

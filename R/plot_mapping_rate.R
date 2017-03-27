@@ -17,7 +17,7 @@ plot_mapping_rate <- function(summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / total_reads * 100,
-                          fill = ~group)
+                          fill = ~intgroup)
         ) +
         ggplot2::ggtitle("mapping rate") +
         ggplot2::geom_bar(stat = "identity") +

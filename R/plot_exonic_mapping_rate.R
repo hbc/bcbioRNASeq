@@ -18,7 +18,7 @@ plot_exonic_mapping_rate <- function(summary) {
             ggplot2::aes_(x = ~description,
                           # Multiple by 100 here for percentage
                           y = ~exonic_rate * 100,
-                          fill = ~group)
+                          fill = ~intgroup)
         ) +
         ggplot2::ggtitle("exonic mapping rate") +
         ggplot2::geom_bar(stat = "identity") +

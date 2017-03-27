@@ -16,7 +16,7 @@ plot_total_reads <- function(summary) {
     summary %>%
         ggplot2::ggplot(aes_(x = ~description,
                              y = ~total_reads / 1e6,
-                             fill = ~group)
+                             fill = ~intgroup)
         ) +
         ggplot2::ggtitle("total reads") +
         ggplot2::geom_bar(stat = "identity") +

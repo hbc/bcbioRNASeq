@@ -10,7 +10,7 @@
 gene_heatmap <- function(counts,
                          deg = NULL,
                          metadata,
-                         factor = "group") {
+                         factor = "intgroup") {
     metadata <- as.data.frame(metadata)
 
     if (!is.data.frame(metadata)) {

@@ -30,7 +30,7 @@ plot_counts_per_gene <- function(
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~counts,
-                          color = ~group)
+                          color = ~intgroup)
         ) +
         ggplot2::ggtitle(paste("counts per gene:", name)) +
         ggplot2::geom_boxplot(outlier.shape = NA) +

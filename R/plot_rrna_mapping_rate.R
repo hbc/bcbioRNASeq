@@ -17,7 +17,7 @@ plot_rrna_mapping_rate <- function(summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~rrna_rate * 100,
-                          fill = ~group)) +
+                          fill = ~intgroup)) +
         ggplot2::ggtitle("rRNA mapping rate") +
         ggplot2::geom_bar(stat = "identity") +
         #` ggplot2::geom_hline(linetype = 2, yintercept = 5) +
