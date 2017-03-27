@@ -21,7 +21,7 @@
 #' }
 import_metadata <- function(
     bcbio,
-    intgroup = NA,
+    intgroup,
     lane_split = FALSE) {
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
@@ -30,15 +30,13 @@ import_metadata <- function(
         basejump::setNamesSnake(.)
 
     # Set intgroup, if specified
-    if (!is.na(intgroup)) {
-        if (intgroup %in% colnames(metadata)) {
-            metadata <- dplyr::mutate_(
-                metadata,
-                .dots = set_names(list(intgroup), "intgroup")
-            )
-        } else {
-            stop("intgroup string is not present in the config metadata.")
-        }
+    if (intgroup %in% colnames(metadata)) {
+        metadata <- dplyr::mutate_(
+            metadata,
+            .dots = set_names(list(intgroup), "intgroup")
+        )
+    } else {
+        stop("Required intgroup is not present in the config metadata.")
     }
 
     # Lane splitting
