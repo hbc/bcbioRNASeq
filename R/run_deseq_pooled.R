@@ -7,7 +7,9 @@
 #' @param txi tximport list object
 #' @param intgroup intgroup
 #' @param design Design formula
+#'
 #' @return DESeqDataSet object
+#' @export
 run_deseq_pooled <- function(
     txi,
     intgroup,
