@@ -32,8 +32,8 @@ run_deseq_pooled <- function(
     dds <- DESeq2::DESeqDataSetFromMatrix(
         counts,
         colData = metadata,
-        design = design) %>%
-        DeSeq2::DESeq(.)
+        design = design
+    ) %>% DeSeq2::DESeq(.)
 
     return(dds)
 }
