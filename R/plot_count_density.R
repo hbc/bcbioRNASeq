@@ -24,7 +24,8 @@ plot_count_density <- function(
         melt_log10(metadata = metadata) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~counts,
-                          group = ~description)
+                          # Use `~description` instead?
+                          group = ~samplename)
         ) +
         ggplot2::ggtitle(paste("count density:", name)) +
         ggplot2::geom_density() +
