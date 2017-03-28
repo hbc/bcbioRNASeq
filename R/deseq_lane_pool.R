@@ -13,9 +13,6 @@ deseq_lane_pool <- function(bcbio, dds) {
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
-    if (class(design) != "formula") {
-        stop("design must be a formula.")
-    }
     metadata <- import_metadata(bcbio, lane_split = FALSE)
 
     # Get the internal parameters from DESeqDataSet
