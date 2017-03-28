@@ -11,9 +11,9 @@
 #' @param config_dir Set the config output directory, if non-standard
 #' @param final_dir Set the final output directory, if non-standard
 #' @param organism Organism (e.g. \code{hsapiens})
-#' @param intgroup Interesting groups. First entry is used for plot colors
-#'   during quality control analysis. Entire vector is used for PCA and heatmap
-#'   QC functions.
+#' @param intgroup Interesting groups. Defaults to \code{description} if not
+#'   set. First entry is used for plot colors during quality control analysis.
+#'   Entire vector is used for PCA and heatmap QC functions.
 #'
 #' @return bcbio list object with directory paths
 #' @export
@@ -28,7 +28,7 @@ load_bcbio_run <-
              config_dir = NULL,
              final_dir = NULL,
              organism,
-             intgroup) {
+             intgroup = NULL) {
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
@@ -68,6 +68,11 @@ load_bcbio_run <-
             lane_split <- TRUE
         } else {
             lane_split <- FALSE
+        }
+
+        # Interesting groups, defaults to description
+        if (is.null(intgroup)) {
+            intgroup <- "description"
         }
 
         # Create directories for R project
