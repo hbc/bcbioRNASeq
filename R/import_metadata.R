@@ -16,15 +16,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' import_metadata(bcbio, intgroup = "treatment")
+#' import_metadata(bcbio)
 #' }
 import_metadata <- function(bcbio, lane_split = NULL) {
-    # `intgroup` defaults to description, if not set in bcbio object
-    intgroup <- bcbio$intgroup
-    if (is.null(intgroup)) {
-        intgroup <- "description"
-    }
-
     # Automatically detect if lanes are split, from bcbio object
     if (is.null(lane_split)) {
         lane_split <- bcbio$lane_split
@@ -35,16 +29,6 @@ import_metadata <- function(bcbio, lane_split = NULL) {
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
         basejump::setNamesSnake(.)
-
-    # Set `intgroup`, use for plot colors
-    if (intgroup %in% colnames(metadata)) {
-        metadata <- dplyr::mutate_(
-            metadata,
-            .dots = set_names(list(intgroup), "intgroup")
-        )
-    } else {
-        stop("intgroup is not present in the config metadata.")
-    }
 
     # Lane splitting
     # Workflow used by Harvard Biopolymers Facility
