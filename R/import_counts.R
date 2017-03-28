@@ -15,7 +15,6 @@
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
-#' @param summary Summary data frame
 #' @param ... Passthrough to \code{tximport()}
 #'
 #' @return txi \code{tximport} list object
@@ -23,14 +22,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' import_sailfish(bcbio,
-#'                 type = "salmon",
-#'                 summary = summary)
+#' import_counts(bcbio, type = "salmon")
 #' }
 import_counts <- function(
     bcbio,
     type = "salmon",
-    summary,
     ...) {
     if (!is.list(bcbio)) {
         stop("bcbio run object is required.")
@@ -38,9 +34,8 @@ import_counts <- function(
     if (!type %in% c("salmon", "sailfish")) {
         stop("Unsupported type.")
     }
-    if (!is.data.frame(summary)) {
-        stop("bcbio run summary data frame is required.")
-    }
+
+    summary <- import_summary(bcbio)
 
     # tx2gene
     if (!file.exists(file.path(bcbio$project_dir, "tx2gene.csv"))) {
@@ -49,7 +44,8 @@ import_counts <- function(
     tx2gene <- file.path(bcbio$project_dir, "tx2gene.csv") %>%
         utils::read.csv(header = FALSE)
 
-    # Parse the HPC run
+    # Parse the bcbio RNA-Seq run
+    # bcbio names the final sample folders by `description`
     files <- dir(bcbio$final_dir) %>%
         .[. %in% summary$description] %>%
         file.path(bcbio$final_dir,
@@ -59,7 +55,7 @@ import_counts <- function(
                   "quant.sf") %>%
         sort
     if (!length(files)) {
-        stop(paste("No", type, "files were found."))
+        stop(paste(type, "files failed to load."))
     }
 
     names(files) <- sort(summary$description)
@@ -67,6 +63,7 @@ import_counts <- function(
     # Import the counts
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
+    # Use `lengthScaledTPM` for `salmon` and `sailfish`
     txi <- tximport::tximport(files,
                               type = type,
                               tx2gene = tx2gene,
@@ -76,24 +73,4 @@ import_counts <- function(
 
     save(txi, file = "data/txi.rda")
     return(txi)
-}
-
-
-
-#' Import sailfish counts
-#'
-#' @keywords internal
-#' @param ... Passthrough to \code{import_counts()}
-#' @export
-import_sailfish <- function(...) {
-    import_counts(..., type = "sailfish")
-}
-
-#' Import salmon counts
-#'
-#' @keywords internal
-#' @param ... Passthrough to \code{import_counts()}
-#' @export
-import_salmon <- function(...) {
-    import_counts(..., type = "salmon")
 }
