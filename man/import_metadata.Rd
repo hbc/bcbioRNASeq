@@ -19,7 +19,7 @@ Metadata for bcbio run
 }
 \examples{
 \dontrun{
-import_metadata(bcbio, intgroup = "treatment")
+import_metadata(bcbio)
 }
 }
 \author{
