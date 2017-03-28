@@ -9,7 +9,6 @@
 #' @import tidyr
 #'
 #' @param bcbio bcbio run object
-#' @param intgroup Internal sample groups used for plot coloring.
 #' @param lane_split Whether samples were split across flow cell lanes.
 #'
 #' @return Metadata data frame
@@ -19,24 +18,32 @@
 #' \dontrun{
 #' import_metadata(bcbio, intgroup = "treatment")
 #' }
-import_metadata <- function(
-    bcbio,
-    intgroup,
-    lane_split = FALSE) {
+import_metadata <- function(bcbio, lane_split = NULL) {
+    # `intgroup` defaults to description, if not set in bcbio object
+    intgroup <- bcbio$intgroup
+    if (is.null(intgroup)) {
+        intgroup <- "description"
+    }
+
+    # Automatically detect if lanes are split, from bcbio object
+    if (is.null(lane_split)) {
+        lane_split <- bcbio$lane_split
+    }
+
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
         basejump::setNamesSnake(.)
 
-    # Set intgroup, if specified
+    # Set `intgroup`, use for plot colors
     if (intgroup %in% colnames(metadata)) {
         metadata <- dplyr::mutate_(
             metadata,
             .dots = set_names(list(intgroup), "intgroup")
         )
     } else {
-        stop("Required intgroup is not present in the config metadata.")
+        stop("intgroup is not present in the config metadata.")
     }
 
     # Lane splitting
@@ -50,7 +57,7 @@ import_metadata <- function(
             dplyr::ungroup() %>%
             dplyr::mutate_(.dots = set_names(
                 list(quote(paste(samplename, lane, sep = "_"))),
-                "description"
+                "samplename"
             ))
     }
 
