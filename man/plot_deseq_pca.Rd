@@ -4,18 +4,15 @@
 \alias{plot_deseq_pca}
 \title{Quickly plot principal component analysis (PCA)}
 \usage{
-plot_deseq_pca(dt, factor = c("intgroup"), ...)
+plot_deseq_pca(bcbio, dt)
 }
 \arguments{
+\item{bcbio}{bcbio list object}
+
 \item{dt}{\code{DESeqTransform} object generated from \code{rlog()} or
 \code{vst()} on a \code{DESeqDataSet} object. We prefer to pipe the
 transformed data in to this function because the operation is CPU
 intensive, and is slow when applied to multiple PCA plot operations.}
-
-\item{factor}{PCA factor groups for \code{DESeq2::plotPCA()}. Shapes are
-defined by the first value.}
-
-\item{...}{Passthrough to \code{DESeq2::plotPCA()}.}
 }
 \value{
 PCA plot
