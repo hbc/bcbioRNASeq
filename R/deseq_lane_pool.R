@@ -10,7 +10,7 @@
 #' @return DESeqDataSet object
 #' @export
 deseq_lane_pool <- function(dds, bcbio) {
-    if (class(dds)[1] == "DESeqDataSet") {
+    if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
     if (class(design) != "formula") {
