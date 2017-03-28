@@ -7,13 +7,13 @@
 #'
 #' @param template Template name (YAML filename, without the extension)
 #'   originally called by \code{bcbio_nextgen.py}
-#' @param organism Organism (e.g. \code{hsapiens})
 #' @param parent_dir Parent directory containing the run folder
 #' @param config_dir Set the config output directory, if non-standard
 #' @param final_dir Set the final output directory, if non-standard
-#' @param factor Condition factor vector
-#' @param intgroup Internal grouping character (string) used for plot colors.
-#'   Defaults to the first entry in the factor vector if not specified.
+#' @param organism Organism (e.g. \code{hsapiens})
+#' @param intgroup Interesting groups. First entry is used for plot colors
+#'   during quality control analysis. Entire vector is used for PCA and heatmap
+#'   QC functions.
 #'
 #' @return bcbio list object with directory paths
 #' @export
@@ -24,12 +24,11 @@
 #' }
 load_bcbio_run <-
     function(template,
-             organism,
              parent_dir = NULL,
              config_dir = NULL,
              final_dir = NULL,
-             factor,
-             intgroup = NULL) {
+             organism,
+             intgroup) {
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
@@ -40,6 +39,7 @@ load_bcbio_run <-
             stop("Run directory failed to load.")
         }
 
+        # config_dir
         if (is.null(config_dir)) {
             config_dir <- file.path(run_dir, "config")
         }
@@ -47,6 +47,7 @@ load_bcbio_run <-
             stop("Config directory failed to load.")
         }
 
+        # final_dir
         if (is.null(final_dir)) {
             final_dir <- file.path(run_dir, "final")
         }
@@ -60,15 +61,6 @@ load_bcbio_run <-
             .[grepl(paste0("/\\d{4}-\\d{2}-\\d{2}_[^/]+$"), .)]
         if (!length(dir(project_dir))) {
             stop("Project directory failed to load.")
-        }
-
-        # Work on documenting this in better detail
-        if (is.null(factor)) {
-            stop("A condition factor vector is required.")
-        }
-
-        if (is.null(intgroup)) {
-            intgroup <- factor[1]
         }
 
         # Detect lane split samples
@@ -89,7 +81,6 @@ load_bcbio_run <-
             final_dir = normalizePath(final_dir),
             project_dir = normalizePath(project_dir),
             organism = organism,
-            factor = factor,
             intgroup = intgroup,
             lane_split = lane_split
         )
