@@ -80,6 +80,7 @@ load_bcbio_run <-
         dir.create("results", showWarnings = FALSE)
 
         bcbio <- list(
+            template = template,
             parent_dir = normalizePath(parent_dir),
             run_dir = normalizePath(run_dir),
             config_dir = normalizePath(config_dir),
