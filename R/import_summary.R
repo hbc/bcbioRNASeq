@@ -26,7 +26,16 @@ import_summary <- function(bcbio) {
                                          "description"))) %>%
         dplyr::arrange_(.dots = "description") %>%
         set_rownames("description")
+
     metadata <- import_metadata(bcbio)
-    summary$intgroup <- metadata[rownames(summary), "intgroup"]
+
+    # Use the first entry in interesting groups to define the QC plot colors. If
+    # empty, defaults to description.
+    qc_color <- bcbio$intgroup[1]
+    if (is.na(qc_color)) {
+        qc_color = "description"
+    }
+
+    summary$qc_color <- metadata[rownames(summary), qc_color]
     return(summary)
 }
