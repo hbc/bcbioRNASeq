@@ -4,8 +4,8 @@
 #'
 #' @import ggplot2
 #'
+#' @param bcbio bcbio list object
 #' @param counts Counts matrix
-#' @param metadata Metadata data frame
 #' @param flip Flip x and y axes
 #' @param print Print plot
 #'
@@ -14,23 +14,22 @@
 #'
 #' @examples
 #' \dontrun{
-#' plot_counts_per_gene(counts, metadata)
+#' plot_counts_per_gene(bcbio, counts)
 #' }
 plot_counts_per_gene <- function(
+    bcbio,
     counts,
-    metadata,
     flip = TRUE,
     print = TRUE) {
-    if (!is.data.frame(metadata)) {
-        stop("A metadata data frame is required.")
-    }
     name <- deparse(substitute(counts))
-    plot <- counts %>%
-        melt_log10(metadata = metadata) %>%
+    melted <- melt_log10(bcbio, counts)
+    plot <- data.frame(x = melted$samplename,
+                       y = melted$counts,
+                       color = melted[[bcbio$intgroup[1]]]) %>%
         ggplot2::ggplot(
-            ggplot2::aes_(x = ~description,
-                          y = ~counts,
-                          color = ~intgroup)
+            ggplot2::aes_(x = ~x,
+                          y = ~y,
+                          color = ~color)
         ) +
         ggplot2::ggtitle(paste("counts per gene:", name)) +
         ggplot2::geom_boxplot(outlier.shape = NA) +
