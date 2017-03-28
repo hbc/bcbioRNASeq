@@ -4,18 +4,25 @@
 \alias{load_bcbio_run}
 \title{Load bcbio run}
 \usage{
-load_bcbio_run(template, parent_dir = NULL, config_dir = NULL,
-  final_dir = NULL)
+load_bcbio_run(template, organism, parent_dir = NULL, config_dir = NULL,
+  final_dir = NULL, factor, intgroup = NULL)
 }
 \arguments{
 \item{template}{Template name (YAML filename, without the extension)
 originally called by \code{bcbio_nextgen.py}}
+
+\item{organism}{Organism (e.g. \code{hsapiens})}
 
 \item{parent_dir}{Parent directory containing the run folder}
 
 \item{config_dir}{Set the config output directory, if non-standard}
 
 \item{final_dir}{Set the final output directory, if non-standard}
+
+\item{factor}{Condition factor vector}
+
+\item{intgroup}{Internal grouping character (string) used for plot colors.
+Defaults to the first entry in the factor vector if not specified.}
 }
 \value{
 bcbio list object with directory paths

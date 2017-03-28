@@ -4,12 +4,10 @@
 \alias{import_metadata}
 \title{Metadata for bcbio run}
 \usage{
-import_metadata(bcbio, intgroup, lane_split = FALSE)
+import_metadata(bcbio, lane_split = NULL)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
-
-\item{intgroup}{Internal sample groups used for plot coloring.}
 
 \item{lane_split}{Whether samples were split across flow cell lanes.}
 }

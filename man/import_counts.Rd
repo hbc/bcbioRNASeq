@@ -4,15 +4,13 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", summary, ...)
+import_counts(bcbio, type = "salmon", ...)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
-
-\item{summary}{Summary data frame}
 
 \item{...}{Passthrough to \code{tximport()}}
 }
@@ -24,9 +22,7 @@ Import \code{bcbio-rnaseq} count data run using \code{tximport}
 }
 \examples{
 \dontrun{
-import_sailfish(bcbio,
-                type = "salmon",
-                summary = summary)
+import_counts(bcbio, type = "salmon")
 }
 }
 \author{
