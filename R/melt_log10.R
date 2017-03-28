@@ -14,7 +14,6 @@
 melt_log10 <- function(bcbio, counts) {
     metadata <- import_metadata(bcbio)
 
-    counts <- tmm_normalized_counts
     counts <- as.data.frame(counts)
     counts <- tibble::rownames_to_column(counts)
     counts <- reshape2::melt(counts, id = 1)
