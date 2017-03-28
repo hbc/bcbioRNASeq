@@ -35,7 +35,7 @@ import_summary <- function(bcbio) {
     if (is.na(qc_color)) {
         qc_color = "description"
     }
-
     summary$qc_color <- metadata[rownames(summary), qc_color]
+
     return(summary)
 }
