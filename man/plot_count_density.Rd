@@ -4,12 +4,12 @@
 \alias{plot_count_density}
 \title{Count density plot}
 \usage{
-plot_count_density(counts, metadata, print = TRUE)
+plot_count_density(bcbio, counts, print = TRUE)
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{bcbio}{bcbio list object}
 
-\item{metadata}{Metadata data frame}
+\item{counts}{Counts matrix}
 
 \item{print}{Print plot}
 }
@@ -21,7 +21,7 @@ Count density plot
 }
 \examples{
 \dontrun{
-plot_count_density(counts, metadata)
+plot_count_density(bcbio, counts)
 }
 }
 \author{

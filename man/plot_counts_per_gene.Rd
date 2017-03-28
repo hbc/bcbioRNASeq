@@ -4,12 +4,12 @@
 \alias{plot_counts_per_gene}
 \title{Counts per gene plot}
 \usage{
-plot_counts_per_gene(counts, metadata, flip = TRUE, print = TRUE)
+plot_counts_per_gene(bcbio, counts, flip = TRUE, print = TRUE)
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{bcbio}{bcbio list object}
 
-\item{metadata}{Metadata data frame}
+\item{counts}{Counts matrix}
 
 \item{flip}{Flip x and y axes}
 
@@ -23,7 +23,7 @@ Counts per gene plot
 }
 \examples{
 \dontrun{
-plot_counts_per_gene(counts, metadata)
+plot_counts_per_gene(bcbio, counts)
 }
 }
 \author{
