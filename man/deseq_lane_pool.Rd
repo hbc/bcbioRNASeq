@@ -4,12 +4,12 @@
 \alias{deseq_lane_pool}
 \title{Run DESeq2 with pooled technical replicates}
 \usage{
-deseq_lane_pool(dds, bcbio)
+deseq_lane_pool(bcbio, dds)
 }
 \arguments{
-\item{dds}{DESeqDataSet object}
-
 \item{bcbio}{bcbio list object}
+
+\item{dds}{DESeqDataSet object}
 }
 \value{
 DESeqDataSet object

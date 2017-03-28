@@ -4,12 +4,12 @@
 #'
 #' @import DESeq2
 #'
-#' @param dds DESeqDataSet object
 #' @param bcbio bcbio list object
+#' @param dds DESeqDataSet object
 #'
 #' @return DESeqDataSet object
 #' @export
-deseq_lane_pool <- function(dds, bcbio) {
+deseq_lane_pool <- function(bcbio, dds) {
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
