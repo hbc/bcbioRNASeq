@@ -12,7 +12,12 @@
 #' @return log10 melted data frame
 #' @export
 melt_log10 <- function(bcbio, counts) {
-    metadata <- import_metadata(bcbio)
+    metadata <- import_metadata(bcbio) %>%
+        dplyr::select_(.dots = unique(c(
+            "samplename",
+            "description",
+            bcbio$intgroup
+        )))
 
     counts <- counts %>%
         as.data.frame %>%
