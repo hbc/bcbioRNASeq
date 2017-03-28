@@ -71,6 +71,18 @@ import_counts <- function(
                               countsFromAbundance = "lengthScaledTPM",
                               ...)
 
-    save(txi, file = "data/txi.rda")
+    # Transcripts per million
+    tpm <- txi$abundance
+    assign("tpm", tpm, envir = parent.frame())
+
+    if (dir.exists("data")) {
+        save(tpm, file = "data/tpm.rda")
+        save(txi, file = "data/txi.rda")
+    }
+
+    if (dir.exists("results")) {
+        write.csv(tpm, file = "results/tpm.csv")
+    }
+
     return(txi)
 }
