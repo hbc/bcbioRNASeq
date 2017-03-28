@@ -7,9 +7,13 @@
 #'
 #' @param template Template name (YAML filename, without the extension)
 #'   originally called by \code{bcbio_nextgen.py}
+#' @param organism Organism (e.g. \code{hsapiens})
 #' @param parent_dir Parent directory containing the run folder
 #' @param config_dir Set the config output directory, if non-standard
 #' @param final_dir Set the final output directory, if non-standard
+#' @param factor Condition factor vector
+#' @param intgroup Internal grouping character (string) used for plot colors.
+#'   Defaults to the first entry in the factor vector if not specified.
 #'
 #' @return bcbio list object with directory paths
 #' @export
@@ -20,9 +24,12 @@
 #' }
 load_bcbio_run <-
     function(template,
+             organism,
              parent_dir = NULL,
              config_dir = NULL,
-             final_dir = NULL) {
+             final_dir = NULL,
+             factor,
+             intgroup = NULL) {
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
@@ -55,6 +62,22 @@ load_bcbio_run <-
             stop("Project directory failed to load.")
         }
 
+        # Work on documenting this in better detail
+        if (is.null(factor)) {
+            stop("A condition factor vector is required.")
+        }
+
+        if (is.null(intgroup)) {
+            intgroup <- factor[1]
+        }
+
+        # Detect lane split samples
+        if (any(grepl("_L\\d+$", dir(final_dir)))) {
+            lane_split <- TRUE
+        } else {
+            lane_split <- FALSE
+        }
+
         # Create directories for R project
         dir.create("data", showWarnings = FALSE)
         dir.create("results", showWarnings = FALSE)
@@ -64,7 +87,11 @@ load_bcbio_run <-
             run_dir = normalizePath(run_dir),
             config_dir = normalizePath(config_dir),
             final_dir = normalizePath(final_dir),
-            project_dir = normalizePath(project_dir)
+            project_dir = normalizePath(project_dir),
+            organism = organism,
+            factor = factor,
+            intgroup = intgroup,
+            lane_split = lane_split
         )
 
         save(bcbio, file = "data/bcbio.rda")
