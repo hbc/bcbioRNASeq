@@ -28,21 +28,9 @@ import_summary <- function(bcbio, save = FALSE) {
         dplyr::arrange_(.dots = "description") %>%
         set_rownames("description")
 
-    metadata <- import_metadata(bcbio)
-
-    # Use the first entry in interesting groups to define the QC plot colors. If
-    # empty, defaults to description.
-    qc_color <- bcbio$intgroup[1]
-    if (is.na(qc_color)) {
-        qc_color = "description"
-    }
-    summary$qc_color <- metadata[rownames(summary), qc_color]
-
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")
         write.csv(summary, file = "results/summary.csv")
-        basejump::printTable(summary,
-                             caption = "Quality control summary")
     }
 
     return(summary)
