@@ -4,7 +4,7 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", save_tpm = TRUE, ...)
+import_counts(bcbio, type = "salmon", save_tpm = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
@@ -13,8 +13,6 @@ import_counts(bcbio, type = "salmon", save_tpm = TRUE, ...)
 conventions of \code{tximport()}.}
 
 \item{save_tpm}{Whether to save transcripts per million data frame}
-
-\item{...}{Passthrough to \code{tximport()}}
 }
 \value{
 txi \code{tximport} list object
