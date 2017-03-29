@@ -12,11 +12,14 @@
 #' \dontrun{
 #' plot_total_reads(summary)
 #' }
-plot_total_reads <- function(summary) {
-    summary %>%
-        ggplot2::ggplot(aes_(x = ~description,
-                             y = ~total_reads / 1e6,
-                             fill = ~qc_color)
+plot_total_reads <- function(bcbio, summary) {
+    color <- bcbio$intgroup[1]
+    data.frame(x = summary$description,
+               y = summary$total_reads / 1e6,
+               fill = summary[[color]]) %>%
+        ggplot2::ggplot(aes_(x = ~x,
+                             y = ~y,
+                             fill = ~fill)
         ) +
         ggplot2::ggtitle("total reads") +
         ggplot2::geom_bar(stat = "identity") +
