@@ -4,18 +4,16 @@
 \alias{cor_heatmap}
 \title{Correlation matrix heatmap}
 \usage{
-cor_heatmap(counts, metadata, factor = "group", method = "pearson", ...)
+cor_heatmap(bcbio, counts, method = "pearson", ...)
 }
 \arguments{
+\item{bcbio}{bcbio list object}
+
 \item{counts}{RNA-Seq counts}
-
-\item{metadata}{Metadata data frame}
-
-\item{factor}{Factor(s) to use for clustering color headers}
 
 \item{method}{Correlation coefficient (or covariance) to be computed}
 
-\item{...}{Passthrough to \code{pheatmap()}}
+\item{...}{Optional passthrough to \code{pheatmap()}}
 }
 \value{
 Heatmap

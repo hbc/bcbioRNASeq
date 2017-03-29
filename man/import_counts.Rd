@@ -4,13 +4,15 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", ...)
+import_counts(bcbio, type = "salmon", save_tpm = TRUE, ...)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
+
+\item{save_tpm}{Whether to save transcripts per million data frame}
 
 \item{...}{Passthrough to \code{tximport()}}
 }

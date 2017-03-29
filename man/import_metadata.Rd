@@ -9,7 +9,7 @@ import_metadata(bcbio, lane_split = NULL)
 \arguments{
 \item{bcbio}{bcbio run object}
 
-\item{lane_split}{Whether samples were split across flow cell lanes.}
+\item{lane_split}{Whether samples were split across flow cell lanes}
 }
 \value{
 Metadata data frame

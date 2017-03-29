@@ -4,19 +4,19 @@
 \alias{plot_gene_detection_saturation}
 \title{Genes detection saturation plot}
 \usage{
-plot_gene_detection_saturation(raw_counts, summary)
+plot_gene_detection_saturation(summary, counts)
 }
 \arguments{
-\item{raw_counts}{Raw counts matrix}
-
 \item{summary}{\code{bcbio-rnaseq} summary report}
+
+\item{counts}{Raw counts matrix}
 }
 \description{
 Genes detection saturation plot
 }
 \examples{
 \dontrun{
-plot_gene_detection_saturation(raw_counts, summary)
+plot_gene_detection_saturation(summary, raw_counts)
 }
 }
 \author{

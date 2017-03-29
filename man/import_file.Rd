@@ -4,19 +4,16 @@
 \alias{import_file}
 \title{Import a bcbio project data file}
 \usage{
-import_file(bcbio, filename, input = "tsv", output = "data.frame",
-  rownames = NULL)
+import_file(bcbio, file, rownames = NULL, ...)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
-\item{filename}{Filename}
-
-\item{input}{Input format}
-
-\item{output}{Desired output format}
+\item{file}{File name}
 
 \item{rownames}{Column identifier to use for rownames}
+
+\item{...}{Optional pass through to \code{readr} package}
 }
 \value{
 bcbio data
@@ -26,8 +23,7 @@ Import a bcbio project data file
 }
 \examples{
 \dontrun{
-import_file(bcbio, "combined.counts",
-            output = "matrix", rownames = "id")
+import_file(bcbio, file = "tx2gene.csv", rownames = "id")
 }
 }
 \author{

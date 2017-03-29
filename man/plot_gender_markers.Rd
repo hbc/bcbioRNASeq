@@ -4,13 +4,13 @@
 \alias{plot_gender_markers}
 \title{Graph sexually dimorphic marker genes}
 \usage{
-plot_gender_markers(counts, organism)
+plot_gender_markers(bcbio, counts)
 }
 \arguments{
+\item{bcbio}{bcbio list object}
+
 \item{counts}{Counts matrix. Transcripts per million (TPM) or normalized
 counts are preferred.}
-
-\item{organism}{Organism. \code{hsapiens} and \code{mmusculus} are supported.}
 }
 \value{
 Scatterplot
@@ -20,7 +20,7 @@ Graph sexually dimorphic marker genes
 }
 \examples{
 \dontrun{
-plot_gender_markers(tpm, "mmusculus")
+plot_gender_markers(bcbio, tpm)
 }
 }
 \author{

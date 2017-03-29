@@ -4,14 +4,14 @@
 \alias{plot_gene}
 \title{Plot an individual gene}
 \usage{
-plot_gene(gene, counts, metadata)
+plot_gene(bcbio, counts, gene)
 }
 \arguments{
-\item{gene}{Gene identifier}
+\item{bcbio}{bcbio list object}
 
 \item{counts}{Counts matrix}
 
-\item{metadata}{Metadata data frame}
+\item{gene}{Gene identifier}
 }
 \description{
 Plot an individual gene
