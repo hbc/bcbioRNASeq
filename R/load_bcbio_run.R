@@ -91,7 +91,8 @@ load_bcbio_run <-
             # Automatic parameters
             lane_split = lane_split,
             date = Sys.Date(),
-            session_info = sessionInfo()
+            session_info = sessionInfo(),
+            wd = getwd()
         )
 
         save(bcbio, file = "data/bcbio.rda")
