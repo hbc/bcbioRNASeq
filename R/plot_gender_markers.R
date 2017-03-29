@@ -8,9 +8,9 @@
 #' @import reshape2
 #' @import tibble
 #'
+#' @param bcbio bcbio list object
 #' @param counts Counts matrix. Transcripts per million (TPM) or normalized
 #'   counts are preferred.
-#' @param organism Organism. \code{hsapiens} and \code{mmusculus} are supported.
 #'
 #' @return Scatterplot
 #' @export
@@ -19,7 +19,8 @@
 #' \dontrun{
 #' plot_gender_markers(tpm, "mmusculus")
 #' }
-plot_gender_markers <- function(counts, organism) {
+plot_gender_markers <- function(bcbio, counts) {
+    organism <- bcbio$organism
     # Download the CSV file from seqcloud repo
     csv <- file.path("https://raw.githubusercontent.com",
                      "steinbaugh",
