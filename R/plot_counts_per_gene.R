@@ -24,7 +24,7 @@ plot_counts_per_gene <- function(
     color <- bcbio$intgroup[1]
     name <- deparse(substitute(counts))
     melted <- melt_log10(bcbio, counts)
-    plot <- data.frame(x = melted$description,
+    plot <- data.frame(x = melted$samplename,
                        y = melted$counts,
                        color = melted[[color]]) %>%
         ggplot2::ggplot(
