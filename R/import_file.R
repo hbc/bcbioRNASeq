@@ -20,7 +20,8 @@
 #' }
 import_file <- function(bcbio,
                         file,
-                        rownames = NULL) {
+                        rownames = NULL,
+                        ...) {
     filepath <- file.path(bcbio$project_dir, file)
     if (!file.exists(filepath)) {
         stop("File could not be found.")
@@ -37,9 +38,9 @@ import_file <- function(bcbio,
 
     # File import
     if (ext == "csv") {
-        data <- readr::read_csv(filepath, ...)
+        data <- readr::read_csv(filepath, col_types = readr::cols(), ...)
     } else if (ext == "tsv") {
-        data <- readr::read_tsv(filepath, ...)
+        data <- readr::read_tsv(filepath, col_types = readr::cols(), ...)
     } else {
         stop("Unsupported file extension.")
     }
