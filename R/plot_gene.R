@@ -18,11 +18,11 @@ plot_gene <- function(
     # Import metadata with automatic lane split detection. This will match the
     # colnames format of the input counts.
     if (any(grepl("_L\\d+$", colnames(counts)))) {
-        lane_split <- TRUE
+        lanes <- "split"
     } else {
-        lane_split <- FALSE
+        lanes <- NULL
     }
-    metadata <- import_metadata(bcbio, lane_split = lane_split)
+    metadata <- import_metadata(bcbio, lanes = lanes)
 
     plot <- data.frame(x = names(counts),
                        y = counts,
