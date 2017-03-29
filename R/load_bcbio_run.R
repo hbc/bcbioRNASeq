@@ -24,7 +24,7 @@
 #' }
 load_bcbio_run <-
     function(template,
-             parent_dir = NULL,
+             parent_dir = getwd(),
              config_dir = NULL,
              final_dir = NULL,
              organism,
