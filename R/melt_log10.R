@@ -19,6 +19,10 @@ melt_log10 <- function(bcbio, counts) {
             bcbio$intgroup
         )))
 
+    if (!identical(colnames(counts), rownames(metadata))) {
+        stop("Sample descriptions in counts do not match metadata.")
+    }
+
     melted <- counts %>%
         as.data.frame %>%
         tibble::rownames_to_column(.) %>%
