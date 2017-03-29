@@ -9,8 +9,8 @@
 #' @import tidyr
 #'
 #' @param bcbio bcbio run object
-#' @param lane_split Whether samples were split across flow cell lanes
 #' @param save Save data frame
+#' @param lanes Whether samples were split across flow cell lanes
 #'
 #' @return Metadata data frame
 #' @export
@@ -21,17 +21,20 @@
 #' }
 import_metadata <- function(
     bcbio,
-    lane_split = NULL,
-    save = FALSE) {
+    save = FALSE,
+    lanes = NULL) {
     # Automatically detect if lanes are split, from bcbio object
-    if (is.null(lane_split)) {
-        lane_split <- bcbio$lane_split
+    if (is.null(lanes)) {
+        if (isTRUE(bcbio$lane_split)) {
+            lanes <- "split"
+        }
     }
 
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
+        as.data.frame %>%
         basejump::setNamesSnake(.)
 
     # Lane splitting This assumes the YAML descriptions won't match the
@@ -42,14 +45,16 @@ import_metadata <- function(
     # by pooling the counts with `deseq_lane_pool()`. We may want to deprecate
     # this method in the future and simply combine counts at the server level
     # for all lane split runs.
-    if (isTRUE(lane_split)) {
-        lane <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
+    if (lanes == "split") {
+        lane_id <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
         metadata <- metadata %>%
             dplyr::group_by_(.dots = "samplename") %>%
             tidyr::expand_(~lane) %>%
             dplyr::left_join(metadata, by = "samplename") %>%
             dplyr::ungroup()
-        metadata$samplename <- paste(metadata$samplename, lane, sep = "_")
+        metadata$samplename <- paste(metadata$samplename, lane_id, sep = "_")
+        metadata$description <- metadata$samplename
+    } else if (lanes == "pooled") {
         metadata$description <- metadata$samplename
     }
 

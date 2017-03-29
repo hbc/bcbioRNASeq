@@ -7,13 +7,12 @@
 #' @param bcbio bcbio list object
 #' @param dds DESeqDataSet object
 #'
-#' @return DESeqDataSet object
+#' @return DESeqDataSet object using pooled technical replicates
 #' @export
 deseq_lane_pool <- function(bcbio, dds) {
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
-    metadata <- import_metadata(bcbio, lane_split = FALSE)
 
     # Get the internal parameters from DESeqDataSet
     counts <- DESeq2::counts(dds)
@@ -34,12 +33,19 @@ deseq_lane_pool <- function(bcbio, dds) {
         # Counts must be integers!
         round
 
+    # Obtain lane pool metadata
+    metadata <- import_metadata(bcbio, lanes = "pooled")
+
+    if (!identical(colnames(pooled_counts), rownames(metadata))) {
+        stop("Count column names don't match the metadata row names.")
+    }
+
     # Run DESeq2 using the pooled counts matrix
-    dds <- DESeq2::DESeqDataSetFromMatrix(
+    dds_pooled <- DESeq2::DESeqDataSetFromMatrix(
         pooled_counts,
         colData = metadata,
         design = design
     ) %>% DESeq2::DESeq(.)
 
-    return(dds)
+    return(dds_pooled)
 }
