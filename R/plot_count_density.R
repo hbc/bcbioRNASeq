@@ -21,12 +21,10 @@ plot_count_density <- function(
     print = TRUE) {
     name <- deparse(substitute(counts))
     melted <- melt_log10(bcbio, counts)
-
     plot <- ggplot2::ggplot(
         melted,
         ggplot2::aes_(x = ~counts,
-                      # Use `~description` instead?
-                      group = ~samplename)
+                      group = ~description)
     ) +
         ggplot2::ggtitle(paste("count density:", name)) +
         ggplot2::geom_density() +
