@@ -15,6 +15,7 @@
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
+#' @param save_tpm Whether to save transcripts per million data frame
 #' @param ... Passthrough to \code{tximport()}
 #'
 #' @return txi \code{tximport} list object
@@ -27,6 +28,7 @@
 import_counts <- function(
     bcbio,
     type = "salmon",
+    save_tpm = TRUE,
     ...) {
     if (!is.list(bcbio)) {
         stop("bcbio run object is required.")
@@ -36,13 +38,7 @@ import_counts <- function(
     }
 
     summary <- import_summary(bcbio)
-
-    # tx2gene
-    if (!file.exists(file.path(bcbio$project_dir, "tx2gene.csv"))) {
-        stop("tx2gene.csv file not found.")
-    }
-    tx2gene <- file.path(bcbio$project_dir, "tx2gene.csv") %>%
-        utils::read.csv(header = FALSE)
+    tx2gene <- import_file(bcbio, file = "tx2gene.csv", col_names = FALSE)
 
     # Parse the bcbio RNA-Seq run
     # bcbio names the final sample folders by `description`
@@ -72,16 +68,20 @@ import_counts <- function(
                               ...)
 
     # Transcripts per million
-    tpm <- txi$abundance
-    assign("tpm", tpm, envir = parent.frame())
-
-    if (dir.exists("data")) {
-        save(tpm, file = "data/tpm.rda")
-        save(txi, file = "data/txi.rda")
+    if (isTRUE(save_tpm)) {
+        tpm <- txi$abundance
+        assign("tpm", tpm, envir = parent.frame())
+        if (dir.exists("data")) {
+            save(tpm, file = "data/tpm.rda")
+        }
+        if (dir.exists("results")) {
+            # `write.csv()` required to write rownames
+            write.csv(tpm, file = "results/tpm.csv")
+        }
     }
 
-    if (dir.exists("results")) {
-        write.csv(tpm, file = "results/tpm.csv")
+    if (dir.exists("data")) {
+        save(txi, file = "data/txi.rda")
     }
 
     return(txi)
