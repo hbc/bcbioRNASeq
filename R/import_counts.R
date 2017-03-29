@@ -53,7 +53,7 @@ import_counts <- function(
         stop(paste(type, "count files do not exist."))
     }
 
-    message(paste("Loading", type, "counts..."))
+    message(paste("loading", type, "counts..."))
     message(paste(sample_dirs, collapse = "\n"))
     # writeLines(sample_dirs)
 
