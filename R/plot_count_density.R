@@ -29,8 +29,8 @@ plot_count_density <- function(
     ) +
         ggplot2::ggtitle(paste("count density:", name)) +
         ggplot2::geom_density() +
-        ggplot2::xlab(expression(log[10]~counts~per~gene)) +
-        ggplot2::ylab("density")
+        ggplot2::labs(x = expression(log[10]~counts~per~gene),
+                      y = "density") +
     if (isTRUE(print)) {
         print(plot)
     } else {

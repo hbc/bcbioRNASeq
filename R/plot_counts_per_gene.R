@@ -33,8 +33,9 @@ plot_counts_per_gene <- function(
         ) +
         ggplot2::ggtitle(paste("counts per gene:", name)) +
         ggplot2::geom_boxplot(outlier.shape = NA) +
-        ggplot2::xlab("sample") +
-        ggplot2::ylab(expression(log[10]~counts~per~gene))
+        ggplot2::labs(x = "sample",
+                      y = expression(log[10]~counts~per~gene),
+                      color = "")
     if (isTRUE(flip)) {
         plot <- plot +
             ggplot2::coord_flip()

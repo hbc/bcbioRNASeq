@@ -4,6 +4,7 @@
 #'
 #' @import DESeq2
 #' @import ggplot2
+#' @import ggrepel
 #'
 #' @param bcbio bcbio list object
 #' @param dt \code{DESeqTransform} object generated from \code{rlog()} or
@@ -39,7 +40,8 @@ plot_deseq_pca <- function(bcbio, dt) {
     data.frame(x = data$PC1,
                y = data$PC2,
                color = data[[color]],
-               shape = data[[shape]]) %>%
+               shape = data[[shape]],
+               label = dt@colData$description) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~x,
                           y = ~y,
@@ -48,10 +50,10 @@ plot_deseq_pca <- function(bcbio, dt) {
         ) +
         ggplot2::ggtitle(paste("pca:", name)) +
         ggplot2::geom_point(size = 3) +
-        ggplot2::xlab(paste0("pc1: ", percent_var[1], "% variance")) +
-        ggplot2::ylab(paste0("pc2: ", percent_var[2], "% variance")) +
         ggplot2::coord_fixed() +
-        ggplot2::labs(color = color, shape = shape)
-
-    # Add `ggrepel` text label support here in the future
+        ggplot2::labs(x = paste0("pc1: ", percent_var[1], "% variance"),
+                      y = paste0("pc2: ", percent_var[2], "% variance"),
+                      color = "color",
+                      shape = "shape") +
+        ggrepel::geom_text_repel(aes_(label = ~label))
 }

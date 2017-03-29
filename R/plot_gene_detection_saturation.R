@@ -18,11 +18,13 @@ plot_gene_detection_saturation <- function(summary, counts) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~mapped_reads / 1e6,
                           y = ~colSums(counts > 0),
-                          color = ~intgroup,
-                          shape = ~intgroup)) +
+                          color = ~qc_color,
+                          shape = ~qc_color)) +
         ggplot2::ggtitle("gene detection saturation") +
         ggplot2::geom_point(size = 3) +
         ggplot2::geom_smooth(method = "lm", se = FALSE) +
-        ggplot2::xlab("mapped reads (million)") +
-        ggplot2::ylab("gene count")
+        ggplot2::labs(x = "mapped reads (million)",
+                      y = "gene count",
+                      color = "",
+                      shape = "")
 }

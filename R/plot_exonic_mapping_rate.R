@@ -18,15 +18,16 @@ plot_exonic_mapping_rate <- function(summary) {
             ggplot2::aes_(x = ~description,
                           # Multiple by 100 here for percentage
                           y = ~exonic_rate * 100,
-                          fill = ~intgroup)
+                          fill = ~qc_color)
         ) +
         ggplot2::ggtitle("exonic mapping rate") +
         ggplot2::geom_bar(stat = "identity") +
         ggplot2::geom_hline(color = "green",
                             size = 2,
                             yintercept = 60) +
-        ggplot2::xlab("sample") +
-        ggplot2::ylab("exonic mapping rate (%)") +
+        ggplot2::labs(x = "sample",
+                      y = "exonic mapping rate (%)",
+                      fill = "") +
         ggplot2::ylim(0, 100) +
         ggplot2::coord_flip()
 }

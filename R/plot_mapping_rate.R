@@ -17,7 +17,7 @@ plot_mapping_rate <- function(summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / total_reads * 100,
-                          fill = ~intgroup)
+                          fill = ~qc_color)
         ) +
         ggplot2::ggtitle("mapping rate") +
         ggplot2::geom_bar(stat = "identity") +
@@ -27,8 +27,9 @@ plot_mapping_rate <- function(summary) {
         ggplot2::geom_hline(color = "green",
                             size = 2,
                             yintercept = 90) +
-        ggplot2::xlab("sample") +
-        ggplot2::ylab("mapping rate (%)") +
+        ggplot2::labs(x = "sample",
+                      y = "mapping rate (%)",
+                      fill = "") +
         ggplot2::ylim(0, 100) +
         ggplot2::coord_flip()
 }

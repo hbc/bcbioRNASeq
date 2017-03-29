@@ -17,7 +17,7 @@ plot_mapped_reads <- function(summary) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / 1e6,
-                          fill = ~intgroup)
+                          fill = ~qc_color)
         ) +
         ggplot2::ggtitle("mapped reads") +
         ggplot2::geom_bar(stat = "identity") +
@@ -27,7 +27,8 @@ plot_mapped_reads <- function(summary) {
         ggplot2::geom_hline(color = "green",
                             size = 2,
                             yintercept = 20) +
-        ggplot2::xlab("sample") +
-        ggplot2::ylab("mapped reads (million)") +
+        ggplot2::labs(x = "sample",
+                      y = "mapped reads (million)",
+                      fill = "") +
         ggplot2::coord_flip()
 }

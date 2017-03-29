@@ -18,14 +18,15 @@ plot_genes_detected <- function(summary, counts) {
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = colSums(counts > 0),
-                          fill = ~intgroup)
+                          fill = ~qc_color)
         ) +
         ggplot2::ggtitle("genes detected") +
         ggplot2::geom_bar(stat = "identity") +
         ggplot2::geom_hline(color = "green",
                             size = 2,
                             yintercept = 20000) +
-        ggplot2::xlab("sample") +
-        ggplot2::ylab("gene count") +
+        ggplot2::labs(x = "sample",
+                      y = "gene count",
+                      fill = "") +
         ggplot2::coord_flip()
 }

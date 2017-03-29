@@ -17,9 +17,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' plot_gender_markers(tpm, "mmusculus")
+#' plot_gender_markers(bcbio, tpm)
 #' }
 plot_gender_markers <- function(bcbio, counts) {
+    name <- deparse(substitute(counts))
     organism <- bcbio$organism
     # Download the CSV file from seqcloud repo
     csv <- file.path("https://raw.githubusercontent.com",
@@ -56,9 +57,9 @@ plot_gender_markers <- function(bcbio, counts) {
                           shape = ~chromosome)
         ) +
         ggplot2::ggtitle("gender markers") +
-        ggplot2::theme(legend.position = "none") +
         ggplot2::geom_jitter(size = 4) +
         ggplot2::expand_limits(y = 0) +
-        ggplot2::xlab("gene") +
-        ggplot2::ylab("tpm")
+        ggplot2::labs(x = "gene",
+                      y = name) +
+        ggplot2::theme(legend.position = "none")
 }
