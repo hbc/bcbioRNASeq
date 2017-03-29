@@ -11,15 +11,15 @@
 #'   \code{vst()} on a \code{DESeqDataSet} object. We prefer to pipe the
 #'   transformed data in to this function because the operation is CPU
 #'   intensive, and is slow when applied to multiple PCA plot operations.
+#' @param label Superimpose sample text labels on the plot
 #'
-#' @return PCA plot
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' plot_deseq_pca(rlog)
 #' }
-plot_deseq_pca <- function(bcbio, dt) {
+plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
     if (class(dt)[1] != "DESeqTransform") {
         stop("This function requires a DESeqTransform object.")
     }
@@ -37,11 +37,11 @@ plot_deseq_pca <- function(bcbio, dt) {
                             intgroup = intgroup,
                             returnData = TRUE)
     percent_var <- round(100 * attr(data, "percentVar"))
-    data.frame(x = data$PC1,
-               y = data$PC2,
-               color = data[[color]],
-               shape = data[[shape]],
-               label = dt@colData$description) %>%
+    plot <- data.frame(x = data$PC1,
+                       y = data$PC2,
+                       color = data[[color]],
+                       shape = data[[shape]],
+                       label = dt@colData$description) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~x,
                           y = ~y,
@@ -54,6 +54,11 @@ plot_deseq_pca <- function(bcbio, dt) {
         ggplot2::labs(x = paste0("pc1: ", percent_var[1], "% variance"),
                       y = paste0("pc2: ", percent_var[2], "% variance"),
                       color = "color",
-                      shape = "shape") +
-        ggrepel::geom_text_repel(aes_(label = ~label))
+                      shape = "shape")
+    if (isTRUE(label)) {
+        plot <- plot +
+            ggrepel::geom_text_repel(aes_(label = ~label))
+    }
+
+    print(plot)
 }

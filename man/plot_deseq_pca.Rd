@@ -4,7 +4,7 @@
 \alias{plot_deseq_pca}
 \title{Quickly plot principal component analysis (PCA)}
 \usage{
-plot_deseq_pca(bcbio, dt)
+plot_deseq_pca(bcbio, dt, label = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
@@ -13,9 +13,8 @@ plot_deseq_pca(bcbio, dt)
 \code{vst()} on a \code{DESeqDataSet} object. We prefer to pipe the
 transformed data in to this function because the operation is CPU
 intensive, and is slow when applied to multiple PCA plot operations.}
-}
-\value{
-PCA plot
+
+\item{label}{Superimpose sample text labels on the plot}
 }
 \description{
 Quickly plot principal component analysis (PCA)
