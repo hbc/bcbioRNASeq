@@ -6,28 +6,20 @@
 #' @import SummarizedExperiment
 #' @importFrom stats cor
 #'
+#' @param bcbio bcbio list object
 #' @param counts RNA-Seq counts
-#' @param metadata Metadata data frame
-#' @param factor Factor(s) to use for clustering color headers
 #' @param method Correlation coefficient (or covariance) to be computed
-#' @param ... Passthrough to \code{pheatmap()}
+#' @param ... Optional passthrough to \code{pheatmap()}
 #'
 #' @return Heatmap
 #' @export
-cor_heatmap <- function(counts,
-                        metadata,
-                        factor = "group",
+cor_heatmap <- function(bcbio,
+                        counts,
                         method = "pearson",
                         ...) {
     name <- deparse(substitute(counts))
+    metadata <- import_metadata(bcbio)
 
-    metadata <- as.data.frame(metadata)
-    if (!is.data.frame(metadata)) {
-        stop("A metadata data frame is required.")
-    }
-    if (!is.character(factor)) {
-        stop("A factor group character vector is required.")
-    }
     if (class(counts)[1] == "DESeqTransform") {
         counts <- SummarizedExperiment::assay(counts)
     }
@@ -40,7 +32,7 @@ cor_heatmap <- function(counts,
         pheatmap::pheatmap(main = paste(method,
                                         "correlation:",
                                         name),
-                           annotation = metadata[, factor],
+                           annotation = metadata[, bcbio$intgroup],
                            show_colnames = FALSE,
                            ...)
 }
