@@ -25,6 +25,7 @@ Imports:
     dplyr,
     edgeR,
     ggplot2,
+    ggrepel,
     grDevices,
     magrittr,
     pheatmap,
