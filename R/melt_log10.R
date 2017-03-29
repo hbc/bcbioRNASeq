@@ -19,25 +19,24 @@ melt_log10 <- function(bcbio, counts) {
             bcbio$intgroup
         )))
 
-    counts <- counts %>%
+    melted <- counts %>%
         as.data.frame %>%
         tibble::rownames_to_column(.) %>%
         reshape2::melt(., id = 1) %>%
-        set_names(c("ensembl_gene_id",
-                    # Change to `description` instead?
-                    "samplename",
+        set_names(c("ensembl_gene_id",  # rownames
+                    "description",  # colnames
                     "counts"))
 
     # Filter zero counts
-    counts <- counts[counts$counts > 0, ]
+    melted <- melted[melted$counts > 0, ]
 
     # log10 transform
-    counts$counts <- log(counts$counts)
+    melted$counts <- log(melted$counts)
 
     # Join metadata
-    counts$samplename <- as.character(counts$samplename)
-    counts <- dplyr::left_join(counts, metadata, by = "samplename")
+    melted$description <- as.character(melted$description)
+    melted <- dplyr::left_join(melted, metadata, by = "description")
+    #str(melted)
 
-    #str(counts)
-    return(counts)
+    return(melted)
 }
