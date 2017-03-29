@@ -7,13 +7,14 @@
 #' @import readr
 #'
 #' @param bcbio bcbio run object
+#' @param save Save data frame
 #'
 #' @export
 #' @examples
 #' \dontrun{
 #' import_summary(bcbio)
 #' }
-import_summary <- function(bcbio) {
+import_summary <- function(bcbio, save = FALSE) {
     summary <- file.path(bcbio$project_dir,
                          "project-summary.csv") %>%
         readr::read_csv(., col_types = readr::cols()) %>%
@@ -36,6 +37,13 @@ import_summary <- function(bcbio) {
         qc_color = "description"
     }
     summary$qc_color <- metadata[rownames(summary), qc_color]
+
+    if (isTRUE(save)) {
+        save(summary, file = "data/summary.rda")
+        write.csv(summary, file = "results/summary.csv")
+        basejump::printTable(summary,
+                             caption = "Quality control summary")
+    }
 
     return(summary)
 }

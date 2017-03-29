@@ -7,9 +7,11 @@
 #' @import readr
 #' @import stringr
 #' @import tidyr
+#' @importFrom basejump printTable
 #'
 #' @param bcbio bcbio run object
 #' @param lane_split Whether samples were split across flow cell lanes
+#' @param save Save data frame
 #'
 #' @return Metadata data frame
 #' @export
@@ -18,7 +20,10 @@
 #' \dontrun{
 #' import_metadata(bcbio)
 #' }
-import_metadata <- function(bcbio, lane_split = NULL) {
+import_metadata <- function(
+    bcbio,
+    lane_split = NULL,
+    save = FALSE) {
     # Automatically detect if lanes are split, from bcbio object
     if (is.null(lane_split)) {
         lane_split <- bcbio$lane_split
@@ -49,6 +54,15 @@ import_metadata <- function(bcbio, lane_split = NULL) {
     metadata <- metadata %>%
         dplyr::arrange_(.dots = "samplename") %>%
         set_rownames("samplename")
+
+    if (isTRUE(save)) {
+        save(metadata, file = "data/metadata.rda")
+        write.csv(metadata, file = "results/metadata.csv")
+        metadata[, c("samplename",
+                     "description",
+                     bcbio$intgroup)] %>%
+            basejump::printTable(., caption = "Sample metadata")
+    }
 
     return(metadata)
 }
