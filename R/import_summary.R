@@ -28,6 +28,20 @@ import_summary <- function(bcbio, save = FALSE) {
         dplyr::arrange_(.dots = "description") %>%
         set_rownames("description")
 
+    metadata <- import_metadata(bcbio)
+
+    if (!identical(rownames(summary), rownames(metadata))) {
+        stop("Summary and metadata rownames don't match.")
+    }
+
+    # Use the first entry in interesting groups to define the QC plot colors. If
+    # empty, defaults to description.
+    color <- bcbio$intgroup[1]
+    if (is.na(color)) {
+        color = "description"
+    }
+    summary$qc_color <- metadata[rownames(summary), color]
+
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")
         write.csv(summary, file = "results/summary.csv")

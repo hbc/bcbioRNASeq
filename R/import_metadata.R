@@ -34,7 +34,6 @@ import_metadata <- function(
                            pattern = ".csv",
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
-        as.data.frame %>%
         basejump::setNamesSnake(.)
 
     # Lane splitting This assumes the YAML descriptions won't match the
@@ -46,19 +45,20 @@ import_metadata <- function(
     # this method in the future and simply combine counts at the server level
     # for all lane split runs.
     if (lanes == "split") {
-        lane_id <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
+        lane <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
         metadata <- metadata %>%
             dplyr::group_by_(.dots = "samplename") %>%
             tidyr::expand_(~lane) %>%
             dplyr::left_join(metadata, by = "samplename") %>%
             dplyr::ungroup()
-        metadata$samplename <- paste(metadata$samplename, lane_id, sep = "_")
+        metadata$samplename <- paste(metadata$samplename, lane, sep = "_")
         metadata$description <- metadata$samplename
     } else if (lanes == "pooled") {
         metadata$description <- metadata$samplename
     }
 
     # Ensure that rownames are set
+    metadata <- as.data.frame(metadata)
     rownames(metadata) <- metadata$description
 
     if (isTRUE(save)) {
