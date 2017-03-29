@@ -4,10 +4,12 @@
 \alias{import_summary}
 \title{Import a bcbio project summary}
 \usage{
-import_summary(bcbio)
+import_summary(bcbio, save = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
+
+\item{save}{Save data frame}
 }
 \description{
 Import a bcbio project summary

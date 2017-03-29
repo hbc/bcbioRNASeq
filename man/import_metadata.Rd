@@ -4,12 +4,14 @@
 \alias{import_metadata}
 \title{Metadata for bcbio run}
 \usage{
-import_metadata(bcbio, lane_split = NULL)
+import_metadata(bcbio, lane_split = NULL, save = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
 \item{lane_split}{Whether samples were split across flow cell lanes}
+
+\item{save}{Save data frame}
 }
 \value{
 Metadata data frame
