@@ -28,6 +28,8 @@ import_metadata <- function(
     if (is.null(lanes)) {
         if (isTRUE(bcbio$lane_split)) {
             lanes <- "split"
+        } else {
+            lanes <- "standard"
         }
     }
 
@@ -58,9 +60,9 @@ import_metadata <- function(
         metadata$description <- metadata$samplename
     }
 
-    # Ensure that rownames are set
-    metadata <- as.data.frame(metadata)
-    rownames(metadata) <- metadata$description
+    metadata <- metadata %>%
+        dplyr::arrange_(.dots = "description") %>%
+        set_rownames("description")
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
