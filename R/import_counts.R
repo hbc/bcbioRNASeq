@@ -10,7 +10,7 @@
 #'
 #' @import readr
 #' @import tximport
-#' @importFrom utils read.csv
+#' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
@@ -36,10 +36,10 @@ import_counts <- function(
     if (!type %in% c("salmon", "sailfish")) {
         stop("Unsupported type.")
     }
-
+    
     summary <- import_summary(bcbio)
     tx2gene <- import_file(bcbio, file = "tx2gene.csv", col_names = FALSE)
-
+    
     # Parse the bcbio RNA-Seq run
     # bcbio names the final sample folders by `description`
     files <- dir(bcbio$final_dir) %>%
@@ -53,9 +53,9 @@ import_counts <- function(
     if (!length(files)) {
         stop(paste(type, "files failed to load."))
     }
-
+    
     names(files) <- sort(summary$description)
-
+    
     # Import the counts
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
@@ -66,7 +66,7 @@ import_counts <- function(
                               reader = readr::read_tsv,
                               countsFromAbundance = "lengthScaledTPM",
                               ...)
-
+    
     # Transcripts per million
     if (isTRUE(save_tpm)) {
         tpm <- txi$abundance
@@ -76,13 +76,13 @@ import_counts <- function(
         }
         if (dir.exists("results")) {
             # `write.csv()` required to write rownames
-            write.csv(tpm, file = "results/tpm.csv")
+            utils::write.csv(tpm, file = "results/tpm.csv")
         }
     }
-
+    
     if (dir.exists("data")) {
         save(txi, file = "data/txi.rda")
     }
-
+    
     return(txi)
 }

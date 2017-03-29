@@ -7,6 +7,7 @@
 #' @import readr
 #' @import stringr
 #' @import tidyr
+#' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
 #' @param save Save data frame
@@ -63,7 +64,7 @@ import_metadata <- function(
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
-        write.csv(metadata, file = "results/metadata.csv")
+        utils::write.csv(metadata, file = "results/metadata.csv")
     }
 
     return(metadata)

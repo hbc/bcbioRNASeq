@@ -5,6 +5,7 @@
 #' @import basejump
 #' @import dplyr
 #' @import readr
+#' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
 #' @param save Save data frame
@@ -44,7 +45,7 @@ import_summary <- function(bcbio, save = FALSE) {
 
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")
-        write.csv(summary, file = "results/summary.csv")
+        utils::write.csv(summary, file = "results/summary.csv")
     }
 
     return(summary)
