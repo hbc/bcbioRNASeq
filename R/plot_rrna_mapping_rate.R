@@ -4,16 +4,16 @@
 #'
 #' @import ggplot2
 #'
-#' @param summary \code{bcbio-rnaseq} summary report
+#' @param bcbio bcbio list object
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_rrna_mapping_rate(summary)
+#' plot_rrna_mapping_rate(bcbio)
 #' }
-plot_rrna_mapping_rate <- function(summary) {
-    summary %>%
+plot_rrna_mapping_rate <- function(bcbio) {
+    import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~rrna_rate * 100,

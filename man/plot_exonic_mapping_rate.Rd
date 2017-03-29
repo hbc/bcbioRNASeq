@@ -4,17 +4,17 @@
 \alias{plot_exonic_mapping_rate}
 \title{Exonic mapping rate plot}
 \usage{
-plot_exonic_mapping_rate(summary)
+plot_exonic_mapping_rate(bcbio)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{bcbio list object}
 }
 \description{
 Exonic mapping rate plot
 }
 \examples{
 \dontrun{
-plot_exonic_mapping_rate(summary)
+plot_exonic_mapping_rate(bcbio)
 }
 }
 \author{

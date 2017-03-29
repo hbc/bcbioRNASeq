@@ -4,16 +4,16 @@
 #'
 #' @import ggplot2
 #'
-#' @param summary \code{bcbio-rnaseq} summary report
+#' @param bcbio bcbio list object
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_exonic_mapping_rate(summary)
+#' plot_exonic_mapping_rate(bcbio)
 #' }
-plot_exonic_mapping_rate <- function(summary) {
-    summary %>%
+plot_exonic_mapping_rate <- function(bcbio) {
+    import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           # Multiple by 100 here for percentage

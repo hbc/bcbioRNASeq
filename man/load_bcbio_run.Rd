@@ -4,7 +4,7 @@
 \alias{load_bcbio_run}
 \title{Load bcbio run}
 \usage{
-load_bcbio_run(template, parent_dir = NULL, config_dir = NULL,
+load_bcbio_run(template, parent_dir = getwd(), config_dir = NULL,
   final_dir = NULL, organism, intgroup = NULL)
 }
 \arguments{

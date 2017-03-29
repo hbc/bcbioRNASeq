@@ -4,16 +4,16 @@
 #'
 #' @import ggplot2
 #'
-#' @param summary \code{bcbio-rnaseq} summary report
+#' @param bcbio list object
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_total_reads(summary)
+#' plot_total_reads(bcbio)
 #' }
-plot_total_reads <- function(summary) {
-    summary %>%
+plot_total_reads <- function(bcbio) {
+    import_summary(bcbio) %>%
         ggplot2::ggplot(aes_(x = ~description,
                              y = ~total_reads / 1e6,
                              fill = ~qc_color)

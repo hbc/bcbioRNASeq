@@ -12,7 +12,7 @@ deseq_lane_pool(bcbio, dds)
 \item{dds}{DESeqDataSet object}
 }
 \value{
-DESeqDataSet object
+DESeqDataSet object using pooled technical replicates
 }
 \description{
 Run DESeq2 with pooled technical replicates

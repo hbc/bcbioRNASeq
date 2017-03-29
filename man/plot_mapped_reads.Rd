@@ -4,17 +4,17 @@
 \alias{plot_mapped_reads}
 \title{Mapped reads plot}
 \usage{
-plot_mapped_reads(summary)
+plot_mapped_reads(bcbio)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{bcbio list object}
 }
 \description{
 Mapped reads plot
 }
 \examples{
 \dontrun{
-plot_mapped_reads(summary)
+plot_mapped_reads(bcbio)
 }
 }
 \author{

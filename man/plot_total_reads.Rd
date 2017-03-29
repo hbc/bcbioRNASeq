@@ -4,17 +4,17 @@
 \alias{plot_total_reads}
 \title{Total reads plot}
 \usage{
-plot_total_reads(summary)
+plot_total_reads(bcbio)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{list object}
 }
 \description{
 Total reads plot
 }
 \examples{
 \dontrun{
-plot_total_reads(summary)
+plot_total_reads(bcbio)
 }
 }
 \author{

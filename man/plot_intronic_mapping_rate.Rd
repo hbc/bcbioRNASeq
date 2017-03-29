@@ -4,17 +4,17 @@
 \alias{plot_intronic_mapping_rate}
 \title{Intronic mapping rate plot}
 \usage{
-plot_intronic_mapping_rate(summary)
+plot_intronic_mapping_rate(bcbio)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{bcbio list object}
 }
 \description{
 Intronic mapping rate plot
 }
 \examples{
 \dontrun{
-plot_intronic_mapping_rate(summary)
+plot_intronic_mapping_rate(bcbio)
 }
 }
 \author{

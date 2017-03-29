@@ -4,16 +4,16 @@
 #'
 #' @import ggplot2
 #'
-#' @param summary \code{bcbio-rnaseq} summary report
+#' @param bcbio bcbio list object
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_mapped_reads(summary)
+#' plot_mapped_reads(bcbio)
 #' }
-plot_mapped_reads <- function(summary) {
-    summary %>%
+plot_mapped_reads <- function(bcbio) {
+    import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / 1e6,

@@ -4,17 +4,17 @@
 \alias{plot_rrna_mapping_rate}
 \title{rRNA contamination mapping rate}
 \usage{
-plot_rrna_mapping_rate(summary)
+plot_rrna_mapping_rate(bcbio)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{bcbio list object}
 }
 \description{
 rRNA contamination mapping rate
 }
 \examples{
 \dontrun{
-plot_rrna_mapping_rate(summary)
+plot_rrna_mapping_rate(bcbio)
 }
 }
 \author{

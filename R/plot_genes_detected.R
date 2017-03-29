@@ -4,17 +4,17 @@
 #'
 #' @import ggplot2
 #'
-#' @param summary \code{bcbio-rnaseq} summary report
+#' @param bcbio bcbio list object
 #' @param counts Raw counts matrix
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' plot_genes_detected(summary, raw_counts)
+#' plot_genes_detected(bcbio, raw_counts)
 #' }
-plot_genes_detected <- function(summary, counts) {
-    summary %>%
+plot_genes_detected <- function(bcbio, counts) {
+    import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = colSums(counts > 0),

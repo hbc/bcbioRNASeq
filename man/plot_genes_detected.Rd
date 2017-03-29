@@ -4,10 +4,10 @@
 \alias{plot_genes_detected}
 \title{Genes detected plot}
 \usage{
-plot_genes_detected(summary, counts)
+plot_genes_detected(bcbio, counts)
 }
 \arguments{
-\item{summary}{\code{bcbio-rnaseq} summary report}
+\item{bcbio}{bcbio list object}
 
 \item{counts}{Raw counts matrix}
 }
@@ -16,7 +16,7 @@ Genes detected plot
 }
 \examples{
 \dontrun{
-plot_genes_detected(summary, raw_counts)
+plot_genes_detected(bcbio, raw_counts)
 }
 }
 \author{
