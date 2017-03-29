@@ -61,7 +61,7 @@ import_counts <- function(
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
     # Use `lengthScaledTPM` for `salmon` and `sailfish`
-    txi <- tximport::tximport(files,
+    txi <- tximport::tximport(files = sample_files,
                               type = type,
                               tx2gene = tx2gene,
                               reader = readr::read_tsv,
