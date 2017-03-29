@@ -9,7 +9,7 @@
 #' @import tidyr
 #'
 #' @param bcbio bcbio run object
-#' @param lane_split Whether samples were split across flow cell lanes.
+#' @param lane_split Whether samples were split across flow cell lanes
 #'
 #' @return Metadata data frame
 #' @export
