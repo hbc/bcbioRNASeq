@@ -88,7 +88,10 @@ load_bcbio_run <-
             project_dir = normalizePath(project_dir),
             organism = organism,
             intgroup = intgroup,
-            lane_split = lane_split
+            # Automatic parameters
+            lane_split = lane_split,
+            date = Sys.Date(),
+            session_info = sessionInfo()
         )
 
         save(bcbio, file = "data/bcbio.rda")
