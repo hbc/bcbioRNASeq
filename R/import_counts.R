@@ -71,6 +71,9 @@ import_counts <- function(
                               reader = readr::read_tsv,
                               countsFromAbundance = "lengthScaledTPM")
 
+    save(bcbio, file = "data/bcbio.rda")
+    save(txi, file = "data/txi.rda")
+
     # Transcripts per million
     if (isTRUE(save_tpm)) {
         tpm <- txi$abundance
@@ -83,9 +86,6 @@ import_counts <- function(
             utils::write.csv(tpm, file = "results/tpm.csv")
         }
     }
-
-    save(bcbio, file = "data/bcbio.rda")
-    save(txi, file = "data/txi.rda")
 
     return(txi)
 }
