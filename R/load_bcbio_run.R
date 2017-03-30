@@ -7,13 +7,13 @@
 #'
 #' @param template Template name (YAML filename, without the extension)
 #'   originally called by \code{bcbio_nextgen.py}
-#' @param parent_dir Parent directory containing the run folder
-#' @param config_dir Set the config output directory, if non-standard
-#' @param final_dir Set the final output directory, if non-standard
 #' @param organism Organism (e.g. \code{hsapiens})
 #' @param intgroup Interesting groups. Defaults to \code{description} if not
 #'   set. First entry is used for plot colors during quality control analysis.
 #'   Entire vector is used for PCA and heatmap QC functions.
+#' @param parent_dir Parent directory containing the run folder
+#' @param config_dir Set the config output directory, if non-standard
+#' @param final_dir Set the final output directory, if non-standard
 #'
 #' @return bcbio list object with directory paths
 #' @export
@@ -24,11 +24,11 @@
 #' }
 load_bcbio_run <-
     function(template,
+             organism,
+             intgroup = NULL,
              parent_dir = getwd(),
              config_dir = NULL,
-             final_dir = NULL,
-             organism,
-             intgroup = NULL) {
+             final_dir = NULL) {
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
@@ -63,6 +63,15 @@ load_bcbio_run <-
             stop("Project directory failed to load.")
         }
 
+        # Sample directories
+        # `project_dir` is nested here, so need to exclude
+        sample_dirs <- dir(bcbio$final_dir, full.names = TRUE) %>%
+            setdiff(., project_dir)
+        names(sample_dirs) <- basename(sample_dirs)
+        if (!length(sample_dirs)) {
+            stop("No sample directories matched the summary report.")
+        }
+
         # Detect lane split samples
         if (any(grepl("_L\\d+$", dir(final_dir)))) {
             lane_split <- TRUE
@@ -80,15 +89,19 @@ load_bcbio_run <-
         dir.create("results", showWarnings = FALSE)
 
         bcbio <- list(
+            # Input required
             template = template,
+            organism = organism,  # can automate by parsing YAML
+            # Input recommended
+            intgroup = intgroup,
             parent_dir = normalizePath(parent_dir),
+            # Automatic for standard runs
             run_dir = normalizePath(run_dir),
             config_dir = normalizePath(config_dir),
             final_dir = normalizePath(final_dir),
             project_dir = normalizePath(project_dir),
-            organism = organism,
-            intgroup = intgroup,
-            # Automatic parameters
+            sample_dirs = sample_dirs,
+            # Fully automatic
             lane_split = lane_split,
             date = Sys.Date(),
             session_info = sessionInfo(),
