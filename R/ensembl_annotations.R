@@ -7,10 +7,10 @@
 #' @import dplyr
 #' @importFrom biomaRt getBM useMart
 #'
+#' @param bcbio bcbio list object
+#' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
 #' @param values Ensembl gene identifier values. Optional but will run faster if
 #'   specified.
-#' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
-#' @param organism Organism identifier
 #'
 #' @return Data frame
 #' @export
@@ -20,12 +20,12 @@
 #' ensembl_annotations("ENSMUSG00000000001", organism = "mmusculus")
 #' }
 ensembl_annotations <- function(
-    values = NULL,
+    bcbio,
     filters = "ensembl_gene_id",
-    organism) {
+    values = NULL) {
     mart <- biomaRt::useMart(
         "ensembl",
-        dataset = paste0(organism, "_gene_ensembl")
+        dataset = paste0(bcbio$organism, "_gene_ensembl")
     )
     # attributes <- biomaRt::listAttributes(mart)
     # filters <- biomaRt::listFilters(mart)
@@ -47,10 +47,6 @@ ensembl_annotations <- function(
                        values = values) %>%
         dplyr::arrange_(.dots = colnames(.)) %>%
         set_rownames("ensembl_gene_id")
-
-    if (dir.exists("data")) {
-        save(annotations, file = "data/annotations.rda")
-    }
 
     return(annotations)
 }
