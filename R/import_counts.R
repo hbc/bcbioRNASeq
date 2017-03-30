@@ -71,13 +71,9 @@ import_counts <- function(
     if (isTRUE(save_tpm)) {
         tpm <- txi$abundance
         assign("tpm", tpm, envir = parent.frame())
-        if (dir.exists("data")) {
-            save(tpm, file = "data/tpm.rda")
-        }
-        if (dir.exists("results")) {
-            # `write.csv()` required to write rownames
-            utils::write.csv(tpm, file = "results/tpm.csv")
-        }
+        save(tpm, file = "data/tpm.rda")
+        # `write.csv()` required to write rownames
+        utils::write.csv(tpm, file = "results/tpm.csv")
     }
 
     # Update bcbio object
