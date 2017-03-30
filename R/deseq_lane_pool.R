@@ -20,6 +20,9 @@ deseq_lane_pool <- function(bcbio, dds) {
 
     # Obtain the unique pooled sample names
     lane_grep <- "_L\\d+$"
+    if (!all(grepl(lane_grep, colnames(counts)))) {
+        stop("Samples aren't lane split, and don't need to be pooled.")
+    }
     stem <- gsub(lane_grep, "", colnames(counts)) %>% unique %>% sort
 
     # Perform `rowSums` on the matching columns per sample
@@ -34,8 +37,7 @@ deseq_lane_pool <- function(bcbio, dds) {
         round
 
     # Obtain lane pool metadata
-    metadata <- import_metadata(bcbio, lanes = "pooled")
-
+    metadata <- import_metadata(bcbio)
     if (!identical(colnames(pooled_counts), rownames(metadata))) {
         stop("Count column names don't match the metadata row names.")
     }
