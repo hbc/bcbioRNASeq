@@ -9,6 +9,7 @@
 #' @author Rory Kirchner
 #'
 #' @import readr
+#' @import stringr
 #' @import tximport
 #' @importFrom stats na.omit
 #' @importFrom utils write.csv
@@ -16,6 +17,8 @@
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
+#' @param pattern Apply pattern matching to sample names. This will override any
+#'   parmeter set in `samples`.
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
 #' @param save_tpm Whether to save transcripts per million data frame
@@ -30,6 +33,7 @@
 import_counts <- function(
     bcbio,
     type = "salmon",
+    pattern = NULL,
     samples = NULL,
     save_tpm = FALSE) {
     if (!is.list(bcbio)) {
@@ -37,6 +41,15 @@ import_counts <- function(
     }
     if (!type %in% c("salmon", "sailfish")) {
         stop("Unsupported type.")
+    }
+
+    # Sample name pattern matching. Run above `samples` to override.
+    if (is.null(pattern)) {
+        samples <- stringr::str_subset(names(bcbio$sample_dirs),
+                                       pattern = pattern)
+        if (!length(samples)) {
+            stop("Pattern didn't match any samples.")
+        }
     }
 
     if (is.null(samples)) {
