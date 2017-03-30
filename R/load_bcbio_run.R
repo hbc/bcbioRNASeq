@@ -84,7 +84,7 @@ load_bcbio_run <-
             intgroup <- "description"
         }
 
-        # Create directories for R project
+        # Create project directory structure
         dir.create("data", showWarnings = FALSE)
         dir.create("results", showWarnings = FALSE)
 

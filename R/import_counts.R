@@ -49,6 +49,10 @@ import_counts <- function(
     if (!all(file.exists(sample_files))) {
         stop(paste(type, "count files do not exist."))
     }
+    bcbio$sample_files <- sample_files
+
+    # Assign sample_files into bcbio object
+    assign("bcbio", bcbio, envir = parent.frame())
 
     # Begin loading of selected counts
     message(paste("loading", type, "counts"))
@@ -80,9 +84,8 @@ import_counts <- function(
         }
     }
 
-    if (dir.exists("data")) {
-        save(txi, file = "data/txi.rda")
-    }
+    save(bcbio, file = "data/bcbio.rda")
+    save(txi, file = "data/txi.rda")
 
     return(txi)
 }
