@@ -10,6 +10,7 @@
 #'
 #' @import readr
 #' @import tximport
+#' @importFrom stats na.omit
 #' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
@@ -40,6 +41,8 @@ import_counts <- function(
 
     if (is.null(samples)) {
         samples <- names(bcbio$sample_dirs)
+    } else {
+        samples <- sort(unique(stats::na.omit(samples)))
     }
 
     # Draft support for salmon and sailfish file structure
