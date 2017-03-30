@@ -64,10 +64,12 @@ load_bcbio_run <-
         }
 
         # Sample directories
-        # `project_dir` is nested here, so need to exclude
-        sample_dirs <- dir(bcbio$final_dir, full.names = TRUE) %>%
-            setdiff(., project_dir)
+        sample_dirs <- dir(bcbio$final_dir, full.names = TRUE)
         names(sample_dirs) <- basename(sample_dirs)
+        # Dated `project_dir` is nested here, need to exclude
+        sample_dirs <-
+            sample_dirs[!grepl("^\\d{4}-\\d{2}-\\d{2}_", names(sample_dirs))]
+
         if (!length(sample_dirs)) {
             stop("No sample directories matched the summary report.")
         }
