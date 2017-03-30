@@ -12,10 +12,10 @@
 #' @import tibble
 #' @importFrom CHBUtils volcano_density_plot
 #'
+#' @param bcbio bcbio list object
 #' @param dds DESeq2 data set
 #' @param alpha Alpha level cutoff for coloring
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
-#' @param organism Organism, used to obtain gene names for text labels
 #' @param text_alpha Alpha level cutoff for text labels
 #' @param text_lfc Log fold change ratio (base 2) cutoff for text labels
 #'
@@ -24,25 +24,27 @@
 #'
 #' @examples
 #' \dontrun{
-#' plot_volcano(dds,
+#' plot_volcano(bcbio,
+#'              dds,
 #'              alpha = 0.05,
 #'              lfc = 1,
-#'              organism = "hsapiens"
 #'              text_alpha = 1e-6,
 #'              text_lfc = 1)
 #' }
-plot_volcano <- function(dds,
+plot_volcano <- function(bcbio,
+                         dds,
                          alpha = 0.05,
                          lfc = 1,
                          text_alpha = 1e-6,
-                         text_lfc = 1,
-                         organism) {
+                         text_lfc = 1) {
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet object is required.")
     }
 
+    # Prepare data frame for `CHBUtils::volcano_density_plot()`. Note that
+    # DESeq2 result table columns must be renamed.
     df <- dds %>%
         DESeq2::results(.) %>%
         as.data.frame %>%
@@ -52,7 +54,6 @@ plot_volcano <- function(dds,
         dplyr::select_(.dots = c("ensembl_gene_id",
                                  "log2FoldChange",
                                  "padj")) %>%
-        # Set up colname consistency with `volcano_density_plot()`
         dplyr::rename_(.dots = c(
             "Adjusted.Pvalue" = "padj",
             "logFC" = "log2FoldChange"
@@ -60,24 +61,21 @@ plot_volcano <- function(dds,
         set_rownames("ensembl_gene_id") %>%
         dplyr::select_(.dots = c("logFC", "Adjusted.Pvalue"))
 
-    # Optimize this step to only download the needed plot_text gene names
-    # df$ensembl_gene_id as input here.
-    annotations <- ensembl_annotations(organism)
-
     plot_text <- df %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
-        dplyr::left_join(annotations, by = "ensembl_gene_id") %>%
-        dplyr::rename_(.dots = c("name" = "external_gene_name")) %>%
-        dplyr::arrange_(.dots = "name") %>%
-        dplyr::select_(.dots = c("ensembl_gene_id",
-                                 "name",
-                                 "logFC",
-                                 "Adjusted.Pvalue")) %>%
         dplyr::filter_(.dots = ~Adjusted.Pvalue < 1e-6) %>%
         dplyr::filter_(.dots = ~logFC < -1 | logFC > 1) %>%
-        set_rownames("ensembl_gene_id") %>%
-        # Must supply in this order
-        dplyr::select_(.dots = c("logFC", "Adjusted.Pvalue", "name"))
+        dplyr::left_join(
+            ensembl_annotations(bcbio, values = .$ensembl_gene_id),
+            by = "ensembl_gene_id"
+        ) %>%
+        dplyr::rename_(.dots = c("name" = "external_gene_name")) %>%
+        dplyr::select_(.dots = c("ensembl_gene_id",
+                                 "logFC",
+                                 "Adjusted.Pvalue",
+                                 "name")) %>%
+            set_rownames("ensembl_gene_id")
+    plot_text$ensembl_gene_id <- NULL
 
     # When there's time, rework this function internally
     CHBUtils::volcano_density_plot(df,
