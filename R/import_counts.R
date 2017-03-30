@@ -49,10 +49,6 @@ import_counts <- function(
     if (!all(file.exists(sample_files))) {
         stop(paste(type, "count files do not exist."))
     }
-    bcbio$sample_files <- sample_files
-
-    # Assign sample_files into bcbio object
-    assign("bcbio", bcbio, envir = parent.frame())
 
     # Begin loading of selected counts
     message(paste("loading", type, "counts"))
@@ -71,9 +67,6 @@ import_counts <- function(
                               reader = readr::read_tsv,
                               countsFromAbundance = "lengthScaledTPM")
 
-    save(bcbio, file = "data/bcbio.rda")
-    save(txi, file = "data/txi.rda")
-
     # Transcripts per million
     if (isTRUE(save_tpm)) {
         tpm <- txi$abundance
@@ -87,5 +80,12 @@ import_counts <- function(
         }
     }
 
+    # Update bcbio object
+    bcbio$sample_files <- sample_files
+    # Assign sample_files into bcbio object
+    assign("bcbio", bcbio, envir = parent.frame())
+    save(bcbio, file = "data/bcbio.rda")
+
+    save(txi, file = "data/txi.rda")
     return(txi)
 }
