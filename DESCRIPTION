@@ -21,6 +21,7 @@ Imports:
     basejump,
     biomaRt,
     CHBUtils,
+    DEGreport,
     DESeq2,
     dplyr,
     edgeR,
@@ -42,5 +43,6 @@ Imports:
     utils
 Remotes:
     hbc/CHBUtils,
+    lpantano/DEGreport,
     steinbaugh/basejump
 RoxygenNote: 6.0.1
