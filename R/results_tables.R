@@ -7,6 +7,7 @@
 #' @import tibble
 #' @importFrom basejump setNamesSnake
 #'
+#' @param bcbio bcbio list object
 #' @param results \code{DESeqResults} or \code{DESeqDataSet} object
 #' @param alpha Alpha cutoff level
 #' @param lfc Log fold change ratio (base 2) cutoff level
@@ -21,13 +22,11 @@
 #' results_tables(res, alpha = 0.05, lfc = 1, organism = "hsapiens")
 #' }
 results_tables <- function(
+    bcbio,
     results,
     alpha = 0.05,
     lfc = 0,
-    organism,
     print = TRUE) {
-    annotations <- ensembl_annotations(organism)
-
     # Add test for alpha as numeric, less than 1
     # Add test for lfc as numeric, non-negative
 
@@ -35,6 +34,17 @@ results_tables <- function(
     if (class(results)[1] == "DESeqDataSet") {
         results <- DESeq2::results(results, alpha = alpha)
     }
+    if (class(results)[1] != "DESeqResults") {
+        stop("results must be a DESeqResults object.")
+    }
+
+    annotations <- ensembl_annotations(
+        bcbio,
+        attributes = c("external_gene_name",
+                       "description",
+                       "gene_biotype"),
+        values = results@rownames
+    )
 
     all <- results %>%
         as.data.frame %>%
@@ -45,7 +55,8 @@ results_tables <- function(
         dplyr::arrange_(.dots = "padj")
     de <- all %>%
         dplyr::filter_(.dots = ~padj < alpha) %>%
-        dplyr::filter_(.dots = ~log2_fold_change < -lfc | log2_fold_change > lfc)
+        dplyr::filter_(.dots = ~log2_fold_change < -lfc |
+                           log2_fold_change > lfc)
     de_down <- de %>%
         dplyr::filter_(.dots = ~log2_fold_change < 0) %>%
         dplyr::arrange_(.dots = "log2_fold_change")
