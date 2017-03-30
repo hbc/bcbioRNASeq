@@ -22,7 +22,7 @@ plot_gene <- function(
     } else {
         lanes <- NULL
     }
-    metadata <- import_metadata(bcbio, lanes = lanes)
+    metadata <- import_metadata(bcbio)
 
     plot <- data.frame(x = names(counts),
                        y = counts,
