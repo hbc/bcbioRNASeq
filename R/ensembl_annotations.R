@@ -8,6 +8,7 @@
 #' @importFrom biomaRt getBM useMart
 #'
 #' @param bcbio bcbio list object
+#' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
 #' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
 #' @param values Ensembl gene identifier values. Optional but will run faster if
 #'   specified.
@@ -21,6 +22,7 @@
 #' }
 ensembl_annotations <- function(
     bcbio,
+    attributes = NULL,
     filters = "ensembl_gene_id",
     values = NULL) {
     mart <- biomaRt::useMart(
@@ -35,10 +37,12 @@ ensembl_annotations <- function(
         values <- ""
     }
 
-    attributes <- c("ensembl_gene_id",
-                    "external_gene_name",
-                    "description",
-                    "gene_biotype")
+    # Defaults to gene name matching
+    if (!is.null(attributes)) {
+        attributes <- c("ensembl_gene_id", attributes) %>% unique
+    } else {
+        attributes <- c("ensembl_gene_id", "external_gene_name")
+    }
 
     annotations <-
         biomaRt::getBM(mart = mart,
