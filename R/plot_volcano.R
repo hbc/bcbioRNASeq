@@ -27,16 +27,14 @@
 #' plot_volcano(bcbio,
 #'              dds,
 #'              alpha = 0.05,
-#'              lfc = 1,
-#'              text_alpha = 1e-6,
-#'              text_lfc = 1)
+#'              lfc = 1)
 #' }
 plot_volcano <- function(bcbio,
                          dds,
                          alpha = 0.05,
                          lfc = 1,
                          text_alpha = 1e-6,
-                         text_lfc = 1) {
+                         text_lfc = 2) {
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
     if (class(dds)[1] != "DESeqDataSet") {
