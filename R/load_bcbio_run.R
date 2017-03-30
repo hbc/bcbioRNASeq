@@ -4,6 +4,8 @@
 #' \code{sshfs}. This requires setting \code{parent_dir} in the function.
 #'
 #' @author Michael Steinbaugh
+#' 
+#' @importFrom utils sessionInfo
 #'
 #' @param template Template name (YAML filename, without the extension)
 #'   originally called by \code{bcbio_nextgen.py}
@@ -106,7 +108,7 @@ load_bcbio_run <-
             # Fully automatic
             lane_split = lane_split,
             date = Sys.Date(),
-            session_info = sessionInfo(),
+            session_info = utils::sessionInfo(),
             wd = getwd()
         )
 
