@@ -4,7 +4,7 @@
 #' \code{sshfs}. This requires setting \code{parent_dir} in the function.
 #'
 #' @author Michael Steinbaugh
-#' 
+#'
 #' @importFrom utils sessionInfo
 #'
 #' @param template Template name (YAML filename, without the extension)
@@ -66,7 +66,7 @@ load_bcbio_run <-
         }
 
         # Sample directories
-        sample_dirs <- dir(bcbio$final_dir, full.names = TRUE)
+        sample_dirs <- dir(final_dir, full.names = TRUE)
         names(sample_dirs) <- basename(sample_dirs)
         # Dated `project_dir` is nested here, need to exclude
         sample_dirs <-
