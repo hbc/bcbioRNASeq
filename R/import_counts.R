@@ -30,7 +30,7 @@ import_counts <- function(
     bcbio,
     type = "salmon",
     samples = NULL,
-    save_tpm = TRUE) {
+    save_tpm = FALSE) {
     if (!is.list(bcbio)) {
         stop("bcbio run object is required.")
     }
