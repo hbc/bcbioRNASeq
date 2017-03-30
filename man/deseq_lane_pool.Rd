@@ -4,12 +4,14 @@
 \alias{deseq_lane_pool}
 \title{Run DESeq2 with pooled technical replicates}
 \usage{
-deseq_lane_pool(bcbio, dds)
+deseq_lane_pool(bcbio, dds, save_counts = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
 
 \item{dds}{DESeqDataSet object}
+
+\item{save_counts}{Whether to save and export counts}
 }
 \value{
 DESeqDataSet object using pooled technical replicates

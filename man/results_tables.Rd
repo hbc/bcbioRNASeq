@@ -4,18 +4,20 @@
 \alias{results_tables}
 \title{Differential gene expression results tables}
 \usage{
-results_tables(results, alpha = 0.05, lfc = 0, organism, print = TRUE)
+results_tables(bcbio, results, alpha = 0.05, lfc = 0, print = TRUE)
 }
 \arguments{
+\item{bcbio}{bcbio list object}
+
 \item{results}{\code{DESeqResults} or \code{DESeqDataSet} object}
 
 \item{alpha}{Alpha cutoff level}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff level}
 
-\item{organism}{Organism}
-
 \item{print}{Print summary}
+
+\item{organism}{Organism}
 }
 \value{
 List of DGE results tables

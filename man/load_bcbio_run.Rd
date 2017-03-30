@@ -4,24 +4,24 @@
 \alias{load_bcbio_run}
 \title{Load bcbio run}
 \usage{
-load_bcbio_run(template, parent_dir = getwd(), config_dir = NULL,
-  final_dir = NULL, organism, intgroup = NULL)
+load_bcbio_run(template, organism, intgroup = NULL, parent_dir = getwd(),
+  config_dir = NULL, final_dir = NULL)
 }
 \arguments{
 \item{template}{Template name (YAML filename, without the extension)
 originally called by \code{bcbio_nextgen.py}}
-
-\item{parent_dir}{Parent directory containing the run folder}
-
-\item{config_dir}{Set the config output directory, if non-standard}
-
-\item{final_dir}{Set the final output directory, if non-standard}
 
 \item{organism}{Organism (e.g. \code{hsapiens})}
 
 \item{intgroup}{Interesting groups. Defaults to \code{description} if not
 set. First entry is used for plot colors during quality control analysis.
 Entire vector is used for PCA and heatmap QC functions.}
+
+\item{parent_dir}{Parent directory containing the run folder}
+
+\item{config_dir}{Set the config output directory, if non-standard}
+
+\item{final_dir}{Set the final output directory, if non-standard}
 }
 \value{
 bcbio list object with directory paths

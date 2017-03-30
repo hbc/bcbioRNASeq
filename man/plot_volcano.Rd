@@ -4,10 +4,12 @@
 \alias{plot_volcano}
 \title{Volcano plot}
 \usage{
-plot_volcano(dds, alpha = 0.05, lfc = 1, text_alpha = 1e-06,
-  text_lfc = 1, organism)
+plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_alpha = 1e-06,
+  text_lfc = 1)
 }
 \arguments{
+\item{bcbio}{bcbio list object}
+
 \item{dds}{DESeq2 data set}
 
 \item{alpha}{Alpha level cutoff for coloring}
@@ -17,8 +19,6 @@ plot_volcano(dds, alpha = 0.05, lfc = 1, text_alpha = 1e-06,
 \item{text_alpha}{Alpha level cutoff for text labels}
 
 \item{text_lfc}{Log fold change ratio (base 2) cutoff for text labels}
-
-\item{organism}{Organism, used to obtain gene names for text labels}
 }
 \value{
 Volcano plot
@@ -28,10 +28,10 @@ Volcano plot
 }
 \examples{
 \dontrun{
-plot_volcano(dds,
+plot_volcano(bcbio,
+             dds,
              alpha = 0.05,
              lfc = 1,
-             organism = "hsapiens"
              text_alpha = 1e-6,
              text_lfc = 1)
 }

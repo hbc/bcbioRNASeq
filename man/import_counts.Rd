@@ -4,13 +4,20 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", save_tpm = TRUE)
+import_counts(bcbio, type = "salmon", pattern = NULL, samples = NULL,
+  save_tpm = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
+
+\item{pattern}{Apply pattern matching to sample names. This will override any
+parmeter set in `samples`.}
+
+\item{samples}{Specify the names of samples in bcbio final directory to
+input. If \code{NULL} (default), all samples will be imported.}
 
 \item{save_tpm}{Whether to save transcripts per million data frame}
 }
