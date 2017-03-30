@@ -2,44 +2,52 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param counts Counts matrix
-#' @param deg Optional data frame of differential expressed genes (DEG) produced
-#'   by DESeq2. If \code{NULL}, will output a heatmap of all genes.
-#' @param metadata Metadata data frame
-#' @param factor Factor list
-gene_heatmap <- function(counts,
-                         deg = NULL,
-                         metadata,
-                         factor = "intgroup") {
-    metadata <- as.data.frame(metadata)
+#' @import DESeq2
+#' @import dplyr
+#' @import pheatmap
+#' @import SummarizedExperiment
+#' @import tibble
+#'
+#' @param bcbio bcbio list object
+#' @param dds \code{DESeqDataSet} object
+#' @param de Plot differentially expressed (DE) genes. If \code{FALSE}, will
+#'   plot a heatmap of all genes.
+#'
+#' @return Gene heatmap
+#' @export
+gene_heatmap <- function(bcbio,
+                         dds,
+                         alpha = 0.1,
+                         lfc = 1,
+                         de = TRUE) {
+    if (class(results)[1] != "DESeqDataSet") {
+        stop("A DESeqDataSet is required.")
+    }
+    name <- deparse(substitute(dds))
+    annotation <- import_metadata(bcbio)
+    annotation <- annotation[, bcbio$intgroup]
 
-    if (!is.data.frame(metadata)) {
-        stop("A metadata data frame is required.")
-    }
-    if (!is.character(factor)) {
-        stop("A factor group character vector is required.")
-    }
-    if (class(counts)[1] == "DESeqTransform") {
-        counts <- SummarizedExperiment::assay(counts)
-    }
-    if (!is.matrix(counts)) {
-        stop("A counts matrix is required.")
+    # Get a list of the DE genes
+    res <- DESeq2::results(dds, alpha = alpha)
+
+    # rlog transform the data
+    rld <- DESeq2::rlog(dds)
+    mat <- SummarizedExperiment::assay(rld)
+
+    # Subset differentially expressed genes
+    if (isTRUE(de)) {
+        res <- res %>%
+            as.data.frame %>%
+            tibble::rownames_to_column("ensembl_gene_id") %>%
+            dplyr::filter_(.dots = ~padj < alpha) %>%
+            dplyr::filter_(.dots = ~log2FoldChange < -lfc |
+                               log2FoldChange > lfc)
+        # Subset the matrix
+        mat <- mat[res$ensembl_gene_id, ]
     }
 
-    if (!is.null(deg)) {
-        if (!is.data.frame(deg)) {
-            stop("DEG must be input as a data frame.")
-        }
-        name <- deparse(substitute(deg))
-        counts <- counts[deg$ensembl_gene_id, ]
-    } else {
-        name <- "all genes"
-        # Error in hclust(d, method = method) :
-        #     NA/NaN/Inf in foreign function call (arg 11)
-    }
-
-    pheatmap::pheatmap(counts,
-                       annotation = metadata[, factor],
+    pheatmap::pheatmap(mat,
+                       annotation = annotation,
                        clustering_distance_cols = "correlation",
                        clustering_method = "ward.D2",
                        main = name,
