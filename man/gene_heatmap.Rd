@@ -4,17 +4,18 @@
 \alias{gene_heatmap}
 \title{Gene heatmap}
 \usage{
-gene_heatmap(counts, deg = NULL, metadata, factor = "intgroup")
+gene_heatmap(bcbio, dds, alpha = 0.1, lfc = 1, de = TRUE)
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{bcbio}{bcbio list object}
 
-\item{deg}{Optional data frame of differential expressed genes (DEG) produced
-by DESeq2. If \code{NULL}, will output a heatmap of all genes.}
+\item{dds}{\code{DESeqDataSet} object}
 
-\item{metadata}{Metadata data frame}
-
-\item{factor}{Factor list}
+\item{de}{Plot differentially expressed (DE) genes. If \code{FALSE}, will
+plot a heatmap of all genes.}
+}
+\value{
+Gene heatmap
 }
 \description{
 Gene heatmap

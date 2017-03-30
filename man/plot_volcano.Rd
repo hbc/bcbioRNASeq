@@ -4,7 +4,7 @@
 \alias{plot_volcano}
 \title{Volcano plot}
 \usage{
-plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_alpha = 1e-06,
+plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_alpha = 1e-08,
   text_lfc = 1)
 }
 \arguments{
@@ -31,9 +31,7 @@ Volcano plot
 plot_volcano(bcbio,
              dds,
              alpha = 0.05,
-             lfc = 1,
-             text_alpha = 1e-6,
-             text_lfc = 1)
+             lfc = 1)
 }
 }
 \author{
