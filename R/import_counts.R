@@ -15,6 +15,8 @@
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
+#' @param samples Specify the names of samples in bcbio final directory to
+#'   input. If \code{NULL} (default), all samples will be imported.
 #' @param save_tpm Whether to save transcripts per million data frame
 #'
 #' @return txi \code{tximport} list object
@@ -27,6 +29,7 @@
 import_counts <- function(
     bcbio,
     type = "salmon",
+    samples = NULL,
     save_tpm = TRUE) {
     if (!is.list(bcbio)) {
         stop("bcbio run object is required.")
@@ -35,27 +38,24 @@ import_counts <- function(
         stop("Unsupported type.")
     }
 
-    summary <- import_summary(bcbio)
-    tx2gene <- import_file(bcbio, file = "tx2gene.csv", col_names = FALSE)
-
-    # Parse the bcbio RNA-Seq run
-    # bcbio names the final sample folders by `description`
-    sample_dirs <- dir(bcbio$final_dir) %>%
-        .[. %in% summary$description] %>% sort %>% unique
-    if (!length(sample_dirs)) {
-        stop("No sample directories matched the summary report.")
+    if (is.null(samples)) {
+        samples <- names(bcbio$sample_dirs)
     }
 
-    sample_files <- file.path(bcbio$final_dir, sample_dirs,
+    # Draft support for salmon and sailfish file structure
+    sample_files <- file.path(bcbio$sample_dirs[samples],
                               type, "quant", "quant.sf")
-    names(sample_files) <- sample_dirs
+    names(sample_files) <- names(bcbio$sample_dirs[samples])
     if (!all(file.exists(sample_files))) {
         stop(paste(type, "count files do not exist."))
     }
 
+    # Begin loading of selected counts
     message(paste("loading", type, "counts"))
-    message(paste(sample_dirs, collapse = "\n"))
-    # writeLines(sample_dirs)
+    message(paste(names(sample_files), collapse = "\n"))
+    # writeLines(sample_files)
+
+    tx2gene <- import_file(bcbio, file = "tx2gene.csv", col_names = FALSE)
 
     # Import the counts
     # https://goo.gl/h6fm15
