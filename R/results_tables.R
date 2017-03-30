@@ -8,10 +8,8 @@
 #' @importFrom basejump setNamesSnake
 #'
 #' @param bcbio bcbio list object
-#' @param results \code{DESeqResults} or \code{DESeqDataSet} object
-#' @param alpha Alpha cutoff level
+#' @param results \code{DESeqResults} object
 #' @param lfc Log fold change ratio (base 2) cutoff level
-#' @param organism Organism
 #' @param print Print summary
 #'
 #' @return List of DGE results tables
@@ -19,25 +17,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' results_tables(res, alpha = 0.05, lfc = 1, organism = "hsapiens")
+#' results_tables(bcbio, res, lfc = 1)
 #' }
 results_tables <- function(
     bcbio,
     results,
-    alpha = 0.05,
     lfc = 0,
     print = TRUE) {
-    # Add test for alpha as numeric, less than 1
-    # Add test for lfc as numeric, non-negative
-
-    # Coerce `DESeqDataSet` to `DESeqResults` if necessary
-    if (class(results)[1] == "DESeqDataSet") {
-        results <- DESeq2::results(results, alpha = alpha)
-    }
     if (class(results)[1] != "DESeqResults") {
         stop("results must be a DESeqResults object.")
     }
-
+    name <- deparse(substitute(results))
+    alpha <- results@metadata$alpha
     annotations <- ensembl_annotations(
         bcbio,
         attributes = c("external_gene_name",
@@ -45,7 +36,6 @@ results_tables <- function(
                        "gene_biotype"),
         values = results@rownames
     )
-
     all <- results %>%
         as.data.frame %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
@@ -81,6 +71,7 @@ results_tables <- function(
         all = all,
         de = de,
         de_down = de_down,
-        de_up = de_up
+        de_up = de_up,
+        dds_name = name
     ))
 }
