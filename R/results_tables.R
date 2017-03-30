@@ -10,7 +10,6 @@
 #' @param bcbio bcbio list object
 #' @param results \code{DESeqResults} object
 #' @param lfc Log fold change ratio (base 2) cutoff level
-#' @param print Print summary
 #'
 #' @return List of DGE results tables
 #' @export
@@ -22,19 +21,18 @@
 results_tables <- function(
     bcbio,
     results,
-    lfc = 0,
-    print = TRUE) {
+    lfc = 0) {
     if (class(results)[1] != "DESeqResults") {
         stop("results must be a DESeqResults object.")
     }
     name <- deparse(substitute(results))
     alpha <- results@metadata$alpha
+    # Running without setting `values = results@rownames` is faster
     annotations <- ensembl_annotations(
         bcbio,
         attributes = c("external_gene_name",
                        "description",
-                       "gene_biotype"),
-        values = results@rownames
+                       "gene_biotype")
     )
     all <- results %>%
         as.data.frame %>%
@@ -56,16 +54,15 @@ results_tables <- function(
         # Adding `quote()` here is more readable.
         dplyr::arrange_(.dots = quote(-log2_fold_change))
 
-    if (isTRUE(print)) {
-        writeLines(c(
-            paste("Alpha (FDR) cutoff:", alpha),
-            paste("LFC (base 2) cutoff:", lfc),
-            # Add non-zero count here?
-            paste("Genes evaluated:", nrow(all)),
-            paste("Genes upregulated:", nrow(de_up)),
-            paste("Genes downregulated:", nrow(de_down))
-        ))
-    }
+    writeLines(c(
+        name,
+        paste("Alpha (FDR) cutoff:", alpha),
+        paste("LFC (base 2) cutoff:", lfc),
+        paste("Genes evaluated:", nrow(all)),
+        # Report non-zero counts?
+        paste("Genes upregulated:", nrow(de_up)),
+        paste("Genes downregulated:", nrow(de_down))
+    ))
 
     return(list(
         all = all,
