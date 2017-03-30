@@ -60,7 +60,7 @@ import_metadata <- function(bcbio, save = FALSE) {
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
-        utils::write.csv(metadata, file = "results/metadata.csv")
+        utils::write.csv(metadata, file = "meta/metadata.csv")
     }
 
     return(metadata)

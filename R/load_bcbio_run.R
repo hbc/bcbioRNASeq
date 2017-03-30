@@ -90,6 +90,7 @@ load_bcbio_run <-
 
         # Create project directory structure
         dir.create("data", showWarnings = FALSE)
+        dir.create("meta", showWarnings = FALSE)
         dir.create("results", showWarnings = FALSE)
 
         bcbio <- list(
