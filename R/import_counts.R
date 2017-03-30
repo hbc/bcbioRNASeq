@@ -44,7 +44,7 @@ import_counts <- function(
     }
 
     # Sample name pattern matching. Run above `samples` to override.
-    if (is.null(pattern)) {
+    if (!is.null(pattern)) {
         samples <- stringr::str_subset(names(bcbio$sample_dirs),
                                        pattern = pattern)
         if (!length(samples)) {
