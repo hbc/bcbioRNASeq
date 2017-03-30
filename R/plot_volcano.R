@@ -33,8 +33,8 @@ plot_volcano <- function(bcbio,
                          dds,
                          alpha = 0.05,
                          lfc = 1,
-                         text_alpha = 1e-6,
-                         text_lfc = 2) {
+                         text_alpha = 1e-8,
+                         text_lfc = 1) {
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
     if (class(dds)[1] != "DESeqDataSet") {
@@ -61,8 +61,8 @@ plot_volcano <- function(bcbio,
 
     plot_text <- df %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
-        dplyr::filter_(.dots = ~Adjusted.Pvalue < 1e-6) %>%
-        dplyr::filter_(.dots = ~logFC < -1 | logFC > 1) %>%
+        dplyr::filter_(.dots = ~Adjusted.Pvalue < text_alpha) %>%
+        dplyr::filter_(.dots = ~logFC < -text_lfc | logFC > text_lfc) %>%
         dplyr::left_join(
             ensembl_annotations(bcbio, values = .$ensembl_gene_id),
             by = "ensembl_gene_id"
@@ -72,7 +72,7 @@ plot_volcano <- function(bcbio,
                                  "logFC",
                                  "Adjusted.Pvalue",
                                  "name")) %>%
-            set_rownames("ensembl_gene_id")
+        set_rownames("ensembl_gene_id")
     plot_text$ensembl_gene_id <- NULL
 
     # When there's time, rework this function internally
