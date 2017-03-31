@@ -26,8 +26,7 @@ de_heatmap <- function(bcbio,
         stop("DESeqDataSet required")
     }
 
-    name <- deparse(substitute(dds)) %>%
-        gsub("_dds$", "", .)
+    name <- deparse(substitute(dds))
     annotation <- import_metadata(bcbio) %>%
         .[, bcbio$intgroup]
 
