@@ -80,21 +80,18 @@
     <p>Import a bcbio project data file</p>
     
 
-    <pre><span class='fu'>import_file</span>(<span class='no'>bcbio</span>, <span class='no'>filename</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='st'>"tsv"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>,
-  <span class='kw'>rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre><span class='fu'>import_file</span>(<span class='no'>bcbio</span>, <span class='no'>file</span>, <span class='kw'>rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>bcbio</dt>
       <dd><p>bcbio run object</p></dd>
-      <dt>filename</dt>
-      <dd><p>Filename</p></dd>
-      <dt>input</dt>
-      <dd><p>Input format</p></dd>
-      <dt>output</dt>
-      <dd><p>Desired output format</p></dd>
+      <dt>file</dt>
+      <dd><p>File name</p></dd>
       <dt>rownames</dt>
       <dd><p>Column identifier to use for rownames</p></dd>
+      <dt>...</dt>
+      <dd><p>Optional pass through to <code>readr</code> package</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -104,8 +101,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># import_file(bcbio, "combined.counts",</span>
-<span class='co'>#             output = "matrix", rownames = "id")</span>
+<span class='co'># import_file(bcbio, file = "tx2gene.csv", rownames = "id")</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

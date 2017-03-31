@@ -80,20 +80,16 @@
     <p>Differential gene expression results tables</p>
     
 
-    <pre><span class='fu'>results_tables</span>(<span class='no'>results</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>organism</span>, <span class='kw'>print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>results_tables</span>(<span class='no'>bcbio</span>, <span class='no'>results</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
+      <dt>bcbio</dt>
+      <dd><p>bcbio list object</p></dd>
       <dt>results</dt>
-      <dd><p><code>DESeqResults</code> or <code>DESeqDataSet</code> object</p></dd>
-      <dt>alpha</dt>
-      <dd><p>Alpha cutoff level</p></dd>
+      <dd><p><code>DESeqResults</code> object</p></dd>
       <dt>lfc</dt>
       <dd><p>Log fold change ratio (base 2) cutoff level</p></dd>
-      <dt>organism</dt>
-      <dd><p>Organism</p></dd>
-      <dt>print</dt>
-      <dd><p>Print summary</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -103,7 +99,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># results_tables(res, alpha = 0.05, lfc = 1, organism = "hsapiens")</span>
+<span class='co'># results_tables(bcbio, res, lfc = 1)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

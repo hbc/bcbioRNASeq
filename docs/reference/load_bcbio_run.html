@@ -81,26 +81,26 @@
 <code>sshfs</code>. This requires setting <code>parent_dir</code> in the function.</p>
     
 
-    <pre><span class='fu'>load_bcbio_run</span>(<span class='no'>template</span>, <span class='kw'>parent_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>final_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>organism</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre><span class='fu'>load_bcbio_run</span>(<span class='no'>template</span>, <span class='no'>organism</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>parent_dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),
+  <span class='kw'>config_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>final_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>template</dt>
       <dd><p>Template name (YAML filename, without the extension)
 originally called by <code>bcbio_nextgen.py</code></p></dd>
-      <dt>parent_dir</dt>
-      <dd><p>Parent directory containing the run folder</p></dd>
-      <dt>config_dir</dt>
-      <dd><p>Set the config output directory, if non-standard</p></dd>
-      <dt>final_dir</dt>
-      <dd><p>Set the final output directory, if non-standard</p></dd>
       <dt>organism</dt>
       <dd><p>Organism (e.g. <code>hsapiens</code>)</p></dd>
       <dt>intgroup</dt>
       <dd><p>Interesting groups. Defaults to <code>description</code> if not
 set. First entry is used for plot colors during quality control analysis.
 Entire vector is used for PCA and heatmap QC functions.</p></dd>
+      <dt>parent_dir</dt>
+      <dd><p>Parent directory containing the run folder</p></dd>
+      <dt>config_dir</dt>
+      <dd><p>Set the config output directory, if non-standard</p></dd>
+      <dt>final_dir</dt>
+      <dd><p>Set the final output directory, if non-standard</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>

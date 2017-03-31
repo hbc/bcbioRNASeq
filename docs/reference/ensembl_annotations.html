@@ -80,17 +80,20 @@
     <p>Get gene annotations from Ensembl</p>
     
 
-    <pre><span class='fu'>ensembl_annotations</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>filters</span> <span class='kw'>=</span> <span class='st'>"ensembl_gene_id"</span>, <span class='no'>organism</span>)</pre>
+    <pre><span class='fu'>ensembl_annotations</span>(<span class='no'>bcbio</span>, <span class='kw'>attributes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>filters</span> <span class='kw'>=</span> <span class='st'>"ensembl_gene_id"</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
+      <dt>bcbio</dt>
+      <dd><p>bcbio list object</p></dd>
+      <dt>attributes</dt>
+      <dd><p>Ensembl attributes. See <code>biomaRt::listAttributes()</code>.</p></dd>
+      <dt>filters</dt>
+      <dd><p>biomaRt filters. See <code>biomaRt::listFilters()</code>.</p></dd>
       <dt>values</dt>
       <dd><p>Ensembl gene identifier values. Optional but will run faster if
 specified.</p></dd>
-      <dt>filters</dt>
-      <dd><p>biomaRt filters. See <code>biomaRt::listFilters()</code>.</p></dd>
-      <dt>organism</dt>
-      <dd><p>Organism identifier</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -100,7 +103,7 @@ specified.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># ensembl_annotations("ENSMUSG00000000001", organism = "mmusculus")</span>
+<span class='co'># ensembl_annotations(bcbio, values = "ENSMUSG00000000001")</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

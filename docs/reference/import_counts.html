@@ -80,7 +80,7 @@
     <p>Import <code>bcbio-rnaseq</code> count data run using <code>tximport</code></p>
     
 
-    <pre><span class='fu'>import_counts</span>(<span class='no'>bcbio</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"salmon"</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>import_counts</span>(<span class='no'>bcbio</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"salmon"</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -89,8 +89,12 @@
       <dt>type</dt>
       <dd><p>The type of software used to generate the abundances. Follows the
 conventions of <code>tximport()</code>.</p></dd>
-      <dt>...</dt>
-      <dd><p>Passthrough to <code>tximport()</code></p></dd>
+      <dt>pattern</dt>
+      <dd><p>Apply pattern matching to sample names. This will override any
+parmeter set in `samples`.</p></dd>
+      <dt>samples</dt>
+      <dd><p>Specify the names of samples in bcbio final directory to
+input. If <code>NULL</code> (default), all samples will be imported.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>

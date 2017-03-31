@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gene heatmap — gene_heatmap • bcbioRnaseq</title>
+<title>Perform integrity checks on a bcbio run object — check_bcbio_object • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,33 +73,24 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gene heatmap</h1>
+    <h1>Perform integrity checks on a bcbio run object</h1>
     </div>
 
     
-    <p>Gene heatmap</p>
+    <p>Perform integrity checks on a bcbio run object</p>
     
 
-    <pre><span class='fu'>gene_heatmap</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>de</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>check_bcbio_object</span>(<span class='no'>bcbio</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>bcbio</dt>
-      <dd><p>bcbio list object</p></dd>
-      <dt>dds</dt>
-      <dd><p><code>DESeqDataSet</code> object</p></dd>
-      <dt>alpha</dt>
-      <dd><p>Alpha level cutoff</p></dd>
-      <dt>lfc</dt>
-      <dd><p>Log fold change ratio (base 2) cutoff</p></dd>
-      <dt>de</dt>
-      <dd><p>Plot differentially expressed (DE) genes. If <code>FALSE</code>, will
-plot a heatmap of all genes.</p></dd>
+      <dd><p>bcbio run object</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Gene heatmap</p>
+    <p>Silent, otherwise stop execution if integrity check fails</p>
     
 
   </div>

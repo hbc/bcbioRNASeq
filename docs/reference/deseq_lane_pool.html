@@ -80,7 +80,7 @@
     <p>Run DESeq2 with pooled technical replicates</p>
     
 
-    <pre><span class='fu'>deseq_lane_pool</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>)</pre>
+    <pre><span class='fu'>deseq_lane_pool</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>, <span class='kw'>save_counts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -88,11 +88,13 @@
       <dd><p>bcbio list object</p></dd>
       <dt>dds</dt>
       <dd><p>DESeqDataSet object</p></dd>
+      <dt>save_counts</dt>
+      <dd><p>Whether to save and export counts</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>DESeqDataSet object</p>
+    <p>DESeqDataSet object using pooled technical replicates</p>
     
 
   </div>

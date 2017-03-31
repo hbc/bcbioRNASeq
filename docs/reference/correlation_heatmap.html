@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gene heatmap — gene_heatmap • bcbioRnaseq</title>
+<title>Correlation matrix heatmap — correlation_heatmap • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,33 +73,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gene heatmap</h1>
+    <h1>Correlation matrix heatmap</h1>
     </div>
 
     
-    <p>Gene heatmap</p>
+    <p>Correlation matrix heatmap</p>
     
 
-    <pre><span class='fu'>gene_heatmap</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>de</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>correlation_heatmap</span>(<span class='no'>bcbio</span>, <span class='no'>counts</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>bcbio</dt>
       <dd><p>bcbio list object</p></dd>
-      <dt>dds</dt>
-      <dd><p><code>DESeqDataSet</code> object</p></dd>
-      <dt>alpha</dt>
-      <dd><p>Alpha level cutoff</p></dd>
-      <dt>lfc</dt>
-      <dd><p>Log fold change ratio (base 2) cutoff</p></dd>
-      <dt>de</dt>
-      <dd><p>Plot differentially expressed (DE) genes. If <code>FALSE</code>, will
-plot a heatmap of all genes.</p></dd>
+      <dt>counts</dt>
+      <dd><p>RNA-Seq counts as <code>DESeqDataSet</code> or <code>DESeqTransform</code>
+object. If input as <code>DESeqDataSet</code>, an <code>rlog</code> transformation will
+be applied.</p></dd>
+      <dt>method</dt>
+      <dd><p>Correlation coefficient (or covariance) to be computed.
+Defaults to <code>pearson</code> but <code>spearman</code> can also be used.</p></dd>
+      <dt>...</dt>
+      <dd><p>Optional passthrough to <code>pheatmap()</code></p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Gene heatmap</p>
+    <p>Heatmap</p>
     
 
   </div>

@@ -80,7 +80,7 @@
     <p>Quickly plot principal component analysis (PCA)</p>
     
 
-    <pre><span class='fu'>plot_deseq_pca</span>(<span class='no'>bcbio</span>, <span class='no'>dt</span>)</pre>
+    <pre><span class='fu'>plot_deseq_pca</span>(<span class='no'>bcbio</span>, <span class='no'>dt</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -91,11 +91,9 @@
 <code>vst()</code> on a <code>DESeqDataSet</code> object. We prefer to pipe the
 transformed data in to this function because the operation is CPU
 intensive, and is slow when applied to multiple PCA plot operations.</p></dd>
+      <dt>label</dt>
+      <dd><p>Superimpose sample text labels on the plot</p></dd>
     </dl>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>PCA plot</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -107,9 +105,7 @@ intensive, and is slow when applied to multiple PCA plot operations.</p></dd>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
