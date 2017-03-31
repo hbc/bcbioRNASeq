@@ -1,3 +1,5 @@
+0.0.4   bcbio object integrity checks
+        Better detection and handling of lane split samples
 0.0.3   Rework functions to utilize bcbio list object
 0.0.2   Add plotting functions
 0.0.1   Initial draft release
