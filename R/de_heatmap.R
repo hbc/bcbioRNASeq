@@ -45,7 +45,7 @@ de_heatmap <- function(bcbio,
     rld <- DESeq2::rlog(dds)
     mat <- rld %>%
         SummarizedExperiment::assay(.) %>%
-        .[.$ensembl_gene_id, ]
+        .[res$ensembl_gene_id, ]
 
     pheatmap::pheatmap(mat,
                        annotation = annotation,
