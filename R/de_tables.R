@@ -1,4 +1,4 @@
-#' Differential gene expression results tables
+#' Differential expression tables
 #'
 #' @author Michael Steinbaugh
 #'
@@ -20,9 +20,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' result_tables(bcbio, res, lfc = 0.25)
+#' de_tables(bcbio, res, lfc = 0.25)
 #' }
-result_tables <- function(
+de_tables <- function(
     bcbio,
     res,
     lfc = 0) {
