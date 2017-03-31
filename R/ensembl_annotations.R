@@ -27,12 +27,18 @@ ensembl_annotations <- function(
     values = NULL) {
     check_bcbio_object(bcbio)
 
-    mart <- biomaRt::useMart(
-        "ensembl",
-        dataset = paste0(bcbio$organism, "_gene_ensembl")
+    # biomaRt::listEnsembl()
+    # biomaRt::listMarts()
+    # Version 88 update is breaking biomaRt...use archive version
+    ensembl <- biomaRt::useEnsembl(
+        biomart = "ensembl",
+        dataset = paste0(bcbio$organism, "_gene_ensembl"),
+        host = "dec2016.archive.ensembl.org"
+        # version = "87"
     )
-    # attributes <- biomaRt::listAttributes(mart)
-    # filters <- biomaRt::listFilters(mart)
+
+    # attributes <- biomaRt::listAttributes(ensembl)
+    # filters <- biomaRt::listFilters(ensembl)
 
     # Set biomaRt input defaults
     if (is.null(values)) {
@@ -48,7 +54,7 @@ ensembl_annotations <- function(
     }
 
     annotations <-
-        biomaRt::getBM(mart = mart,
+        biomaRt::getBM(mart = ensembl,
                        attributes = attributes,
                        filters = filters,
                        values = values) %>%
