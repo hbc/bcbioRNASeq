@@ -1,4 +1,4 @@
-#' Differential expression heatmap
+#' Differentially expressed gene (DEG) heatmap
 #'
 #' @author Michael Steinbaugh
 #'
@@ -16,7 +16,7 @@
 #'
 #' @return Gene heatmap
 #' @export
-de_heatmap <- function(bcbio,
+deg_heatmap <- function(bcbio,
                        dds,
                        contrast,
                        alpha = 0.1,

@@ -1,4 +1,4 @@
-#' Differential expression tables
+#' Differentially expressed gene (DEG) tables
 #'
 #' @author Michael Steinbaugh
 #'
@@ -20,9 +20,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' de_tables(bcbio, res, lfc = 0.25)
+#' deg_tables(bcbio, res, lfc = 0.25)
 #' }
-de_tables <- function(
+deg_tables <- function(
     bcbio,
     res,
     lfc = 0) {
