@@ -22,6 +22,10 @@ correlation_heatmap <- function(bcbio,
                                 method = "pearson",
                                 ...) {
     check_bcbio_object(bcbio)
+    name <- deparse(substitute(counts))
+    metadata <- import_metadata(bcbio)
+    
+    # Transform counts if necessary
     if (class(counts)[1] == "DESeqDataSet") {
         counts <- DESeq2::rlog(counts)
     }
@@ -34,9 +38,6 @@ correlation_heatmap <- function(bcbio,
         stop("invalid correlation regression method.
              must use pearson or spearman.")
     }
-
-    name <- deparse(substitute(counts))
-    metadata <- import_metadata(bcbio)
 
     stats::cor(counts, method = method) %>%
         pheatmap::pheatmap(main = paste(method,
