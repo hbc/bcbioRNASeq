@@ -4,8 +4,7 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", pattern = NULL, samples = NULL,
-  save_tpm = FALSE)
+import_counts(bcbio, type = "salmon", pattern = NULL, samples = NULL)
 }
 \arguments{
 \item{bcbio}{bcbio run object}

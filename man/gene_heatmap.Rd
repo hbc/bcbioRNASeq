@@ -11,6 +11,10 @@ gene_heatmap(bcbio, dds, alpha = 0.1, lfc = 1, de = TRUE)
 
 \item{dds}{\code{DESeqDataSet} object}
 
+\item{alpha}{Alpha level cutoff}
+
+\item{lfc}{Log fold change ratio (base 2) cutoff}
+
 \item{de}{Plot differentially expressed (DE) genes. If \code{FALSE}, will
 plot a heatmap of all genes.}
 }
