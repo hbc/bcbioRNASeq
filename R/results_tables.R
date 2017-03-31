@@ -22,7 +22,7 @@
 #' \dontrun{
 #' results_tables(bcbio, res, lfc = 0.25)
 #' }
-results_results <- function(
+results_tables <- function(
     bcbio,
     res,
     lfc = 0) {
