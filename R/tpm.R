@@ -5,8 +5,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import tibble
-#'
 #' @param txi tximport list object
 #'
 #' @return TPM (transcripts per million) data frame
@@ -22,9 +20,7 @@ tpm <- function(txi) {
         stop("tximport list is required")
     }
 
-    tpm <- txi$abundance %>%
-        as.data.frame %>%
-        tibble::rownames_to_column(.)
+    tpm <- txi$abundance
 
     return(tpm)
 }
