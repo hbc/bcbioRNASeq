@@ -21,7 +21,6 @@
 #'   parmeter set in `samples`.
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
-#' @param save_tpm Whether to save transcripts per million data frame
 #'
 #' @return txi \code{tximport} list object
 #' @export
@@ -83,21 +82,5 @@ import_counts <- function(
                               reader = readr::read_tsv,
                               countsFromAbundance = "lengthScaledTPM")
 
-    # Transcripts per million
-    if (isTRUE(save_tpm)) {
-        tpm <- txi$abundance
-        assign("tpm", tpm, envir = parent.frame())
-        save(tpm, file = "data/tpm.rda")
-        # `write.csv()` required to write rownames
-        utils::write.csv(tpm, file = "results/tpm.csv")
-    }
-
-    # Update bcbio object
-    bcbio$sample_files <- sample_files
-    # Assign sample_files into bcbio object
-    assign("bcbio", bcbio, envir = parent.frame())
-    save(bcbio, file = "data/bcbio.rda")
-
-    save(txi, file = "data/txi.rda")
     return(txi)
 }
