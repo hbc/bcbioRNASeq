@@ -20,7 +20,7 @@ de_heatmap <- function(bcbio,
                        dds,
                        contrast,
                        alpha = 0.1,
-                       lfc = 1) {
+                       lfc = 0) {
     check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("DESeqDataSet required")
