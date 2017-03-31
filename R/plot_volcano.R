@@ -35,6 +35,7 @@ plot_volcano <- function(bcbio,
                          lfc = 1,
                          text_alpha = 1e-8,
                          text_lfc = 1) {
+    check_bcbio_object(bcbio)
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
     if (class(dds)[1] != "DESeqDataSet") {

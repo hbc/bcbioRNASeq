@@ -21,6 +21,7 @@ plot_counts_per_gene <- function(
     counts,
     flip = TRUE,
     print = TRUE) {
+    check_bcbio_object(bcbio)
     color <- bcbio$intgroup[1]
     name <- deparse(substitute(counts))
     melted <- melt_log10(bcbio, counts)

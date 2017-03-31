@@ -20,6 +20,7 @@
 #' plot_gender_markers(bcbio, tpm)
 #' }
 plot_gender_markers <- function(bcbio, counts) {
+    check_bcbio_object(bcbio)
     name <- deparse(substitute(counts))
     organism <- bcbio$organism
     # Download the CSV file from seqcloud repo

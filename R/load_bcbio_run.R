@@ -31,11 +31,19 @@ load_bcbio_run <-
              parent_dir = getwd(),
              config_dir = NULL,
              final_dir = NULL) {
+        # Interesting groups, defaults to description
+        if (is.null(intgroup)) {
+            intgroup <- "description"
+        }
+
+        # `bcbio-nextgen` paths ====
+        # parent_dir
+        # Defaults to working directory if not set
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
 
-        # `bcbio-nextgen` run
+        # run_dir (automatic)
         run_dir <- file.path(parent_dir, template)
         if (!length(dir(run_dir))) {
             stop("Run directory failed to load.")
@@ -57,7 +65,8 @@ load_bcbio_run <-
             stop("Final directory failed to load.")
         }
 
-        # Project naming scheme is `template/final/YYYY-MM-DD_template`
+        # project_dir
+        # Naming scheme is `template/final/YYYY-MM-DD_template`
         project_dir <- file.path(final_dir) %>%
             dir(full.names = TRUE) %>%
             .[grepl(paste0("/\\d{4}-\\d{2}-\\d{2}_[^/]+$"), .)]
@@ -71,21 +80,19 @@ load_bcbio_run <-
         # Dated `project_dir` is nested here, need to exclude
         sample_dirs <-
             sample_dirs[!grepl("^\\d{4}-\\d{2}-\\d{2}_", names(sample_dirs))]
-
         if (!length(sample_dirs)) {
             stop("No sample directories matched the summary report.")
         }
+
+        # Data versions
+        data_versions <- file.path(project_dir, "data_versions.csv") %>%
+            readr::read_csv(., col_types = readr::cols())
 
         # Detect lane split samples
         if (any(grepl("_L\\d+$", dir(final_dir)))) {
             lane_split <- TRUE
         } else {
             lane_split <- FALSE
-        }
-
-        # Interesting groups, defaults to description
-        if (is.null(intgroup)) {
-            intgroup <- "description"
         }
 
         # Create project directory structure
@@ -110,6 +117,7 @@ load_bcbio_run <-
             lane_split = lane_split,
             date = Sys.Date(),
             session_info = utils::sessionInfo(),
+            data_versions = data_versions,
             wd = getwd()
         )
 

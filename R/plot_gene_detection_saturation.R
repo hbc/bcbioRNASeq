@@ -14,6 +14,7 @@
 #' plot_gene_detection_saturation(bcbio, raw_counts)
 #' }
 plot_gene_detection_saturation <- function(bcbio, counts) {
+    check_bcbio_object(bcbio)
     import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~mapped_reads / 1e6,

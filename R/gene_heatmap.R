@@ -20,12 +20,15 @@ gene_heatmap <- function(bcbio,
                          alpha = 0.1,
                          lfc = 1,
                          de = TRUE) {
-    if (class(results)[1] != "DESeqDataSet") {
-        stop("A DESeqDataSet is required.")
+    check_bcbio_object(bcbio)
+    if (class(dds)[1] != "DESeqDataSet") {
+        stop("DESeqDataSet required")
     }
-    name <- deparse(substitute(dds))
-    annotation <- import_metadata(bcbio)
-    annotation <- annotation[, bcbio$intgroup]
+
+    name <- deparse(substitute(dds)) %>%
+        gsub("_dds$", "", .)
+    annotation <- import_metadata(bcbio) %>%
+        .[, bcbio$intgroup]
 
     # Get a list of the DE genes
     res <- DESeq2::results(dds, alpha = alpha)

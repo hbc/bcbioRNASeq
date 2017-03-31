@@ -13,6 +13,7 @@
 #' plot_total_reads(bcbio)
 #' }
 plot_total_reads <- function(bcbio) {
+    check_bcbio_object(bcbio)
     import_summary(bcbio) %>%
         ggplot2::ggplot(aes_(x = ~description,
                              y = ~total_reads / 1e6,

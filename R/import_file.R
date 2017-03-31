@@ -22,9 +22,10 @@ import_file <- function(bcbio,
                         file,
                         rownames = NULL,
                         ...) {
+    check_bcbio_object(bcbio)
     filepath <- file.path(bcbio$project_dir, file)
     if (!file.exists(filepath)) {
-        stop("File could not be found.")
+        stop("file could not be found")
     }
 
     # Detect file extension
@@ -33,7 +34,7 @@ import_file <- function(bcbio,
         # ext <- gsub("^.*\\.([a-z]+)$", "\\1", file)
         ext <- stringr::str_match(file, "\\.([a-z]+)$")[2]
     } else {
-        stop("File does not have an extension.")
+        stop("file does not have an extension")
     }
 
     # File import
@@ -42,7 +43,7 @@ import_file <- function(bcbio,
     } else if (ext == "tsv") {
         data <- readr::read_tsv(filepath, col_types = readr::cols(), ...)
     } else {
-        stop("Unsupported file extension.")
+        stop("unsupported file extension")
     }
 
     # Coerce to data frame. Might want to disable this in a future update as

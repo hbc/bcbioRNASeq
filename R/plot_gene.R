@@ -11,6 +11,7 @@ plot_gene <- function(
     bcbio,
     counts,
     gene) {
+    check_bcbio_object(bcbio)
     color <- bcbio$intgroup[1]
     ylab <- deparse(substitute(counts))
     counts <- as.matrix(counts) %>% .[gene, ]

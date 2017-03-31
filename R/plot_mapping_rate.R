@@ -13,6 +13,7 @@
 #' plot_mapping_rate(bcbio)
 #' }
 plot_mapping_rate <- function(bcbio) {
+    check_bcbio_object(bcbio)
     import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,

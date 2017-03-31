@@ -13,6 +13,7 @@
 #' plot_mapped_reads(bcbio)
 #' }
 plot_mapped_reads <- function(bcbio) {
+    check_bcbio_object(bcbio)
     import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,

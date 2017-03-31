@@ -20,6 +20,7 @@
 #' import_metadata(bcbio)
 #' }
 import_metadata <- function(bcbio, save = FALSE) {
+    check_bcbio_object(bcbio)
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%

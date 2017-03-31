@@ -20,6 +20,7 @@
 #' plot_deseq_pca(rlog)
 #' }
 plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
+    check_bcbio_object(bcbio)
     if (class(dt)[1] != "DESeqTransform") {
         stop("This function requires a DESeqTransform object.")
     }

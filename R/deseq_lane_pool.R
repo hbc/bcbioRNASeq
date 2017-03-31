@@ -11,10 +11,12 @@
 #' @return DESeqDataSet object using pooled technical replicates
 #' @export
 deseq_lane_pool <- function(bcbio, dds, save_counts = TRUE) {
-    name <- deparse(substitute(dds))
+    check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
+
+    name <- deparse(substitute(dds))
 
     # Get the internal parameters from DESeqDataSet
     raw_counts <- DESeq2::counts(dds, normalized = FALSE)

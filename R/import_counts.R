@@ -35,11 +35,9 @@ import_counts <- function(
     pattern = NULL,
     samples = NULL,
     save_tpm = FALSE) {
-    if (!is.list(bcbio)) {
-        stop("bcbio run object is required.")
-    }
+    check_bcbio_object(bcbio)
     if (!type %in% c("salmon", "sailfish")) {
-        stop("Unsupported type.")
+        stop("unsupported counts input format")
     }
 
     # Sample name pattern matching. Run above `samples` to override.
@@ -47,7 +45,7 @@ import_counts <- function(
         samples <- stringr::str_subset(names(bcbio$sample_dirs),
                                        pattern = pattern)
         if (!length(samples)) {
-            stop("Pattern didn't match any samples.")
+            stop("pattern didn't match any samples")
         }
     }
 
@@ -62,7 +60,7 @@ import_counts <- function(
                               type, "quant", "quant.sf")
     names(sample_files) <- names(bcbio$sample_dirs[samples])
     if (!all(file.exists(sample_files))) {
-        stop(paste(type, "count files do not exist."))
+        stop(paste(type, "count files do not exist"))
     }
 
     # Begin loading of selected counts

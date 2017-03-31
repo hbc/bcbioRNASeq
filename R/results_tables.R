@@ -22,6 +22,7 @@ results_tables <- function(
     bcbio,
     results,
     lfc = 0) {
+    check_bcbio_object(bcbio)
     if (class(results)[1] != "DESeqResults") {
         stop("results must be a DESeqResults object.")
     }

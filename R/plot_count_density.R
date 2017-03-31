@@ -19,6 +19,7 @@ plot_count_density <- function(
     bcbio,
     counts,
     print = TRUE) {
+    check_bcbio_object(bcbio)
     name <- deparse(substitute(counts))
     melted <- melt_log10(bcbio, counts)
     plot <- ggplot2::ggplot(

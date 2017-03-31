@@ -18,13 +18,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' ensembl_annotations("ENSMUSG00000000001", organism = "mmusculus")
+#' ensembl_annotations(bcbio, values = "ENSMUSG00000000001")
 #' }
 ensembl_annotations <- function(
     bcbio,
     attributes = NULL,
     filters = "ensembl_gene_id",
     values = NULL) {
+    check_bcbio_object(bcbio)
+
     mart <- biomaRt::useMart(
         "ensembl",
         dataset = paste0(bcbio$organism, "_gene_ensembl")
@@ -32,6 +34,7 @@ ensembl_annotations <- function(
     # attributes <- biomaRt::listAttributes(mart)
     # filters <- biomaRt::listFilters(mart)
 
+    # Set biomaRt input defaults
     if (is.null(values)) {
         filters <- ""
         values <- ""

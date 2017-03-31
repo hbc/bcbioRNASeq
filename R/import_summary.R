@@ -16,6 +16,7 @@
 #' import_summary(bcbio)
 #' }
 import_summary <- function(bcbio, save = FALSE) {
+    check_bcbio_object(bcbio)
     summary <- file.path(bcbio$project_dir,
                          "project-summary.csv") %>%
         readr::read_csv(., col_types = readr::cols()) %>%
@@ -32,7 +33,7 @@ import_summary <- function(bcbio, save = FALSE) {
     metadata <- import_metadata(bcbio)
 
     if (!identical(rownames(summary), rownames(metadata))) {
-        stop("Summary and metadata rownames don't match.")
+        stop("summary and metadata rownames don't match")
     }
 
     # Use the first entry in interesting groups to define the QC plot colors. If
