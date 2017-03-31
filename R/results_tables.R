@@ -33,6 +33,13 @@ results_tables <- function(
     name <- deparse(substitute(res)) %>%
         gsub("^res$", "", .) %>%
         gsub("_res$", "", .)
+    alpha <- res@metadata$alpha
+
+    if (!is.null(name)) {
+        message(name)
+    }
+    message(paste0("alpha = ", res@metadata$alpha))
+    message(paste0("lfc = ", lfc, " (only applied to tables)"))
 
     # Running biomaRt without setting `values = results@rownames` is faster
     annotations <- ensembl_annotations(
@@ -41,12 +48,6 @@ results_tables <- function(
                        "description",
                        "gene_biotype")
     )
-
-    if (!is.null(name)) {
-        message(name)
-    }
-    message(paste0("alpha = ", res@metadata$alpha))
-    message(paste0("lfc = ", lfc, " (only applied to tables)"))
 
     all <- res %>%
         as.data.frame %>%
