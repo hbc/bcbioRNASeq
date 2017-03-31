@@ -103,7 +103,7 @@ de_results <- function(
         all = all,
         deg = deg,
         deg_lfc = deg_lfc,
-        deg_lfc_up = deg_up,
-        deg_lfc_down = deg_down
+        deg_lfc_up = deg_lfc_up,
+        deg_lfc_down = deg_lfc_down
     ))
 }
