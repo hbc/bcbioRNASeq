@@ -33,8 +33,7 @@ import_counts <- function(
     bcbio,
     type = "salmon",
     pattern = NULL,
-    samples = NULL,
-    save_tpm = FALSE) {
+    samples = NULL) {
     check_bcbio_object(bcbio)
     if (!type %in% c("salmon", "sailfish")) {
         stop("unsupported counts input format")

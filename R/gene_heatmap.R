@@ -10,6 +10,8 @@
 #'
 #' @param bcbio bcbio list object
 #' @param dds \code{DESeqDataSet} object
+#' @param alpha Alpha level cutoff
+#' @param lfc Log fold change ratio (base 2) cutoff
 #' @param de Plot differentially expressed (DE) genes. If \code{FALSE}, will
 #'   plot a heatmap of all genes.
 #'
