@@ -25,7 +25,7 @@ Get gene annotations from Ensembl
 }
 \examples{
 \dontrun{
-ensembl_annotations("ENSMUSG00000000001", organism = "mmusculus")
+ensembl_annotations(bcbio, values = "ENSMUSG00000000001")
 }
 }
 \author{

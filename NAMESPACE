@@ -2,6 +2,7 @@
 
 export("%>%")
 export(alpha_summary)
+export(check_bcbio_object)
 export(correlation_heatmap)
 export(deseq_lane_pool)
 export(ensembl_annotations)

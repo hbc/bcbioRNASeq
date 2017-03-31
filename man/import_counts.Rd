@@ -18,8 +18,6 @@ parmeter set in `samples`.}
 
 \item{samples}{Specify the names of samples in bcbio final directory to
 input. If \code{NULL} (default), all samples will be imported.}
-
-\item{save_tpm}{Whether to save transcripts per million data frame}
 }
 \value{
 txi \code{tximport} list object
