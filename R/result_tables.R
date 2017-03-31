@@ -20,9 +20,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' results_tables(bcbio, res, lfc = 0.25)
+#' result_tables(bcbio, res, lfc = 0.25)
 #' }
-results_tables <- function(
+result_tables <- function(
     bcbio,
     res,
     lfc = 0) {
@@ -30,16 +30,8 @@ results_tables <- function(
     if (class(res)[1] != "DESeqResults") {
         stop("DESeqResults required")
     }
-    name <- deparse(substitute(res)) %>%
-        gsub("^res$", "", .) %>%
-        gsub("_res$", "", .)
+    name <- deparse(substitute(res))
     alpha <- res@metadata$alpha
-
-    if (!is.null(name)) {
-        message(name)
-    }
-    message(paste0("alpha = ", res@metadata$alpha))
-    message(paste0("lfc = ", lfc, " (only applied to tables)"))
 
     # Running biomaRt without setting `values = results@rownames` is faster
     annotations <- ensembl_annotations(
@@ -79,15 +71,18 @@ results_tables <- function(
         dplyr::arrange_(.dots = "log2_fold_change") %>%
         set_rownames("ensembl_gene_id")
 
+    base_mean_gt0 <- dplyr::filter_(all, .dots = ~base_mean > 0)
+    base_mean_gt1 <- dplyr::filter_(all, .dots = ~base_mean > 1)
+
     writeLines(c(
         paste(name, "differential expression"),
         paste(nrow(all), "gene annotations"),
         "cutoffs applied",
         paste("  alpha:", alpha),
         paste("  lfc:  ", lfc, "(tables only)"),
-        "counts",
-        paste("  >= 1: ", nrow(nonzero_counts), "genes"),
-        paste("  >= 10:", nrow(ten_counts), "genes"),
+        "base mean",
+        paste("  > 0: ", nrow(base_mean_gt0), "genes (detected)"),
+        paste("  > 1: ", nrow(base_mean_gt1), "genes"),
         "significance",
         paste("  alpha:", nrow(deg), "genes"),
         paste("  up:   ", nrow(deg_lfc_up), "genes (lfc applied)"),
