@@ -17,8 +17,14 @@ check_bcbio_object <- function(bcbio) {
     if (!length(dir(bcbio$run_dir))) {
         stop("could not access run_dir")
     }
+    if (!length(dir(bcbio$config_dir))) {
+        stop("could not access config_dir")
+    }
     if (!length(dir(bcbio$final_dir))) {
         stop("could not access final_dir")
+    }
+    if (!length(sample_dirs)) {
+        stop("no sample directories in run")
     }
     if (!length(dir(bcbio$project_dir))) {
         stop("could not access project_dir")

@@ -36,33 +36,24 @@ load_bcbio_run <-
             intgroup <- "description"
         }
 
-        # `bcbio-nextgen` paths ====
         # parent_dir
         # Defaults to working directory if not set
         if (is.null(parent_dir)) {
             parent_dir <- getwd()
         }
 
-        # run_dir (automatic)
+        # run_dir
+        # Automatic, uses template
         run_dir <- file.path(parent_dir, template)
-        if (!length(dir(run_dir))) {
-            stop("Run directory failed to load.")
-        }
 
         # config_dir
         if (is.null(config_dir)) {
             config_dir <- file.path(run_dir, "config")
         }
-        if (!length(dir(config_dir))) {
-            stop("Config directory failed to load.")
-        }
 
         # final_dir
         if (is.null(final_dir)) {
             final_dir <- file.path(run_dir, "final")
-        }
-        if (!length(dir(final_dir))) {
-            stop("Final directory failed to load.")
         }
 
         # project_dir
@@ -70,9 +61,6 @@ load_bcbio_run <-
         project_dir <- file.path(final_dir) %>%
             dir(full.names = TRUE) %>%
             .[grepl(paste0("/\\d{4}-\\d{2}-\\d{2}_[^/]+$"), .)]
-        if (!length(dir(project_dir))) {
-            stop("Project directory failed to load.")
-        }
 
         # Sample directories
         sample_dirs <- dir(final_dir, full.names = TRUE)
@@ -80,9 +68,6 @@ load_bcbio_run <-
         # Dated `project_dir` is nested here, need to exclude
         sample_dirs <-
             sample_dirs[!grepl("^\\d{4}-\\d{2}-\\d{2}_", names(sample_dirs))]
-        if (!length(sample_dirs)) {
-            stop("No sample directories matched the summary report.")
-        }
 
         # Data versions
         data_versions <- file.path(project_dir, "data_versions.csv") %>%
@@ -94,11 +79,6 @@ load_bcbio_run <-
         } else {
             lane_split <- FALSE
         }
-
-        # Create project directory structure
-        dir.create("data", showWarnings = FALSE)
-        dir.create("meta", showWarnings = FALSE)
-        dir.create("results", showWarnings = FALSE)
 
         bcbio <- list(
             # Input required
@@ -121,6 +101,9 @@ load_bcbio_run <-
             wd = getwd()
         )
 
+        check_bcbio_object(bcbio)
+        create_project()
         save(bcbio, file = "data/bcbio.rda")
+
         return(bcbio)
     }
