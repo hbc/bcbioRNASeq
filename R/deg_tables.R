@@ -14,6 +14,7 @@
 #'   See \code{?DESeq2::results} for additional information about using
 #'   \code{lfcThreshold} and \code{altHypothesis} to set an alternative
 #'   hypothesis based on expected fold changes.
+#' @param write_csv Write CSV files
 #'
 #' @return Results list
 #' @export
@@ -25,7 +26,8 @@
 deg_tables <- function(
     bcbio,
     res,
-    lfc = 0) {
+    lfc = 0,
+    write_csv = TRUE) {
     check_bcbio_object(bcbio)
     if (class(res)[1] != "DESeqResults") {
         stop("DESeqResults required")
@@ -49,26 +51,20 @@ deg_tables <- function(
         dplyr::arrange_(.dots = "ensembl_gene_id") %>%
         set_rownames("ensembl_gene_id")
 
+    # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
         dplyr::filter_(.dots = ~padj < alpha) %>%
         dplyr::arrange_(.dots = "padj") %>%
         set_rownames("ensembl_gene_id")
-
     deg_lfc <- deg %>%
         dplyr::filter_(.dots = ~log2_fold_change < -lfc |
                            log2_fold_change > lfc) %>%
         set_rownames("ensembl_gene_id")
-
     deg_lfc_up <- deg_lfc %>%
         dplyr::filter_(.dots = ~log2_fold_change > 0) %>%
-        # ~-log_fold_change also works.
-        # Adding `quote()` here is more readable.
-        dplyr::arrange_(.dots = quote(-log2_fold_change)) %>%
         set_rownames("ensembl_gene_id")
-
     deg_lfc_down <- deg_lfc %>%
         dplyr::filter_(.dots = ~log2_fold_change < 0) %>%
-        dplyr::arrange_(.dots = "log2_fold_change") %>%
         set_rownames("ensembl_gene_id")
 
     base_mean_gt0 <- dplyr::filter_(all, .dots = ~base_mean > 0)
@@ -89,6 +85,25 @@ deg_tables <- function(
         paste("  down: ", nrow(deg_lfc_down), "genes (lfc applied)"),
         ""
     ))
+
+    # Write the CSV files to results/
+    deg_dir <- file.path("results", "differential_expression")
+    dir.create(deg_dir, recursive = TRUE, showWarnings = FALSE)
+
+    if (isTRUE(write_csv)) {
+        write.csv(all,
+                  file = file.path(deg_dir,
+                                   paste0(name, "_all.csv")))
+        write.csv(deg,
+                  file = file.path(deg_dir,
+                                   paste0(name, "_deg.csv")))
+        write.csv(deg_lfc_up,
+                  file = file.path(deg_dir,
+                                   paste0(name, "_deg_lfc_up.csv")))
+        write.csv(deg_lfc_down,
+                  file = file.path(deg_dir,
+                                   paste0(name, "_deg_lfc_down.csv")))
+    }
 
     return(list(
         name = name,
