@@ -46,6 +46,11 @@ load_bcbio_run <-
         # Automatic, uses template
         run_dir <- file.path(parent_dir, template)
 
+        # Preliminary run check
+        if (!length(dir(run_dir))) {
+            stop("run directory failed to load")
+        }
+
         # config_dir
         if (is.null(config_dir)) {
             config_dir <- file.path(run_dir, "config")
