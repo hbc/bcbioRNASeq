@@ -107,7 +107,7 @@ load_bcbio_run <-
         )
 
         check_bcbio_object(bcbio)
-        create_project()
+        create_local_project()
         save(bcbio, file = "data/bcbio.rda")
 
         return(bcbio)
