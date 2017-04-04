@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transcripts per million — tpm • bcbioRnaseq</title>
+<title>Differentially expressed gene (DEG) tables — deg_tables • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,33 +73,40 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transcripts per million</h1>
+    <h1>Differentially expressed gene (DEG) tables</h1>
     </div>
 
     
-    <p>Save TPM values from a tximport counts object</p>
+    <p>Differentially expressed gene (DEG) tables</p>
     
 
-    <pre><span class='fu'>tpm</span>(<span class='no'>txi</span>)</pre>
+    <pre><span class='fu'>deg_tables</span>(<span class='no'>bcbio</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>write_csv</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>txi</dt>
-      <dd><p>tximport list object</p></dd>
+      <dt>bcbio</dt>
+      <dd><p>bcbio list object</p></dd>
+      <dt>lfc</dt>
+      <dd><p>Log fold change ratio (base 2) cutoff. Does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See <code>?DESeq2::results</code> for additional information about using
+<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative
+hypothesis based on expected fold changes.</p></dd>
+      <dt>write_csv</dt>
+      <dd><p>Write CSV files</p></dd>
+      <dt>dds</dt>
+      <dd><p><code>DESeqDataSet</code> object</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TPM (transcripts per million) matrix</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Links:</p>
-<p>- [tximport vignette](https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html)
-- [salmon getting started guide](https://combine-lab.github.io/salmon/getting_started/)
-- [Bioconductor thread](https://support.bioconductor.org/p/84883/#84929)</p>
+    <p>Results list</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># deg_tables(bcbio, res, lfc = 0.25)</span>
+<span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -107,9 +114,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     

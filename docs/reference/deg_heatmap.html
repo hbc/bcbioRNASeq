@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transcripts per million — tpm • bcbioRnaseq</title>
+<title>Differentially expressed gene (DEG) heatmap — deg_heatmap • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transcripts per million</h1>
+    <h1>Differentially expressed gene (DEG) heatmap</h1>
     </div>
 
     
-    <p>Save TPM values from a tximport counts object</p>
+    <p>Differentially expressed gene (DEG) heatmap</p>
     
 
-    <pre><span class='fu'>tpm</span>(<span class='no'>txi</span>)</pre>
+    <pre><span class='fu'>deg_heatmap</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>, <span class='no'>contrast</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>txi</dt>
-      <dd><p>tximport list object</p></dd>
+      <dt>bcbio</dt>
+      <dd><p>bcbio list object</p></dd>
+      <dt>dds</dt>
+      <dd><p><code>DESeqDataSet</code> object</p></dd>
+      <dt>contrast</dt>
+      <dd><p>Contrast</p></dd>
+      <dt>alpha</dt>
+      <dd><p>Alpha level cutoff</p></dd>
+      <dt>lfc</dt>
+      <dd><p>Log fold change ratio (base 2) cutoff</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TPM (transcripts per million) matrix</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Links:</p>
-<p>- [tximport vignette](https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html)
-- [salmon getting started guide](https://combine-lab.github.io/salmon/getting_started/)
-- [Bioconductor thread](https://support.bioconductor.org/p/84883/#84929)</p>
+    <p>Gene heatmap</p>
     
 
   </div>
@@ -107,8 +108,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
           </ul>
 
     <h2>Author</h2>

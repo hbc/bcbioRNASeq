@@ -4,7 +4,7 @@
 \alias{deg_tables}
 \title{Differentially expressed gene (DEG) tables}
 \usage{
-deg_tables(bcbio, res, lfc = 0)
+deg_tables(bcbio, res, lfc = 0, write_csv = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
@@ -14,6 +14,8 @@ statistical hypothesis testing, only gene filtering in the results tables.
 See \code{?DESeq2::results} for additional information about using
 \code{lfcThreshold} and \code{altHypothesis} to set an alternative
 hypothesis based on expected fold changes.}
+
+\item{write_csv}{Write CSV files}
 
 \item{dds}{\code{DESeqDataSet} object}
 }
