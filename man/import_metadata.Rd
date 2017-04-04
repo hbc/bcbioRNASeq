@@ -4,12 +4,14 @@
 \alias{import_metadata}
 \title{Metadata for bcbio run}
 \usage{
-import_metadata(bcbio, save = FALSE)
+import_metadata(bcbio, save = FALSE, pool = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
 \item{save}{Save data frame}
+
+\item{pool}{Pool lane split samples}
 }
 \value{
 Metadata data frame

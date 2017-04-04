@@ -4,7 +4,7 @@
 \alias{deseq_lane_pool}
 \title{Run DESeq2 with pooled technical replicates}
 \usage{
-deseq_lane_pool(bcbio, dds, save_counts = TRUE)
+deseq_lane_pool(bcbio, dds, save_counts = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}

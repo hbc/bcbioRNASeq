@@ -10,7 +10,10 @@
 #'
 #' @return DESeqDataSet object using pooled technical replicates
 #' @export
-deseq_lane_pool <- function(bcbio, dds, save_counts = TRUE) {
+deseq_lane_pool <- function(
+    bcbio,
+    dds,
+    save_counts = FALSE) {
     check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
@@ -43,7 +46,7 @@ deseq_lane_pool <- function(bcbio, dds, save_counts = TRUE) {
     rm(raw_counts)
 
     # Obtain lane pool metadata
-    metadata <- import_metadata(bcbio)
+    metadata <- import_metadata(bcbio, pool = TRUE)
     if (!identical(colnames(pooled_counts), rownames(metadata))) {
         stop("Count column names don't match the metadata row names.")
     }
@@ -59,11 +62,11 @@ deseq_lane_pool <- function(bcbio, dds, save_counts = TRUE) {
         normalized_counts <- DESeq2::counts(dds_pooled, normalized = TRUE)
         raw_counts <- DESeq2::counts(dds_pooled, normalized = FALSE)
         # normalized_counts
-        assign(paste(name, "normalized_counts", sep = "_"),
+        assign(paste(name, "normalized_counts_pooled", sep = "_"),
                normalized_counts,
                envir = parent.frame())
         # raw_counts
-        assign(paste(name, "raw_counts", sep = "_"),
+        assign(paste(name, "raw_counts_pooled", sep = "_"),
                raw_counts,
                envir = parent.frame())
     }
