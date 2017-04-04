@@ -24,7 +24,7 @@ correlation_heatmap <- function(bcbio,
     check_bcbio_object(bcbio)
     name <- deparse(substitute(counts))
     metadata <- import_metadata(bcbio)
-    
+
     # Transform counts if necessary
     if (class(counts)[1] == "DESeqDataSet") {
         counts <- DESeq2::rlog(counts)
@@ -44,6 +44,7 @@ correlation_heatmap <- function(bcbio,
                                         "correlation:",
                                         name),
                            annotation = metadata[, bcbio$intgroup],
-                           show_colnames = FALSE,
+                           show_colnames = TRUE,
+                           show_rownames = TRUE,
                            ...)
 }
