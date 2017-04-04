@@ -36,6 +36,8 @@ plot_volcano <- function(bcbio,
                          text_alpha = 1e-8,
                          text_lfc = 1) {
     check_bcbio_object(bcbio)
+    name <- deparse(substitute(dds))
+
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
     if (class(dds)[1] != "DESeqDataSet") {
@@ -81,6 +83,7 @@ plot_volcano <- function(bcbio,
                                    lfc.cutoff = lfc,
                                    # This isn't documented...
                                    plot_text = plot_text,
-                                   pval.cutoff = alpha)
+                                   pval.cutoff = alpha,
+                                   title = name)
 
 }
