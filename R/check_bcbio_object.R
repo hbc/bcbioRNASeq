@@ -23,7 +23,7 @@ check_bcbio_object <- function(bcbio) {
     if (!length(dir(bcbio$final_dir))) {
         stop("could not access final_dir")
     }
-    if (!length(sample_dirs)) {
+    if (!length(bcbio$sample_dirs)) {
         stop("no sample directories in run")
     }
     if (!length(dir(bcbio$project_dir))) {
