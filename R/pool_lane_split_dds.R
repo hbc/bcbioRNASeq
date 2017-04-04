@@ -1,4 +1,8 @@
-#' Run DESeq2 with pooled technical replicates
+#' Pool DESeqDataSet counts for technical replicates
+#'
+#' Extract lane split technical replicate counts from a \code{DESeqDataSet}
+#' object, perform \code{rowSums}, and create a new \code{DESeqDataSet} using
+#' \code{DESeqDataSetFromMatrix()}
 #'
 #' @author Michael Steinbaugh
 #'
@@ -6,14 +10,14 @@
 #'
 #' @param bcbio bcbio list object
 #' @param dds DESeqDataSet object
-#' @param save_counts Whether to save and export counts
+#' @param assign_counts Whether to save and export counts
 #'
 #' @return DESeqDataSet object using pooled technical replicates
 #' @export
-deseq_lane_pool <- function(
+pool_lane_split_dds <- function(
     bcbio,
     dds,
-    save_counts = FALSE) {
+    assign_counts = TRUE) {
     check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
@@ -58,15 +62,15 @@ deseq_lane_pool <- function(
         design = design
     ) %>% DESeq2::DESeq(.)
 
-    if (isTRUE(save_counts)) {
-        normalized_counts <- DESeq2::counts(dds_pooled, normalized = TRUE)
-        raw_counts <- DESeq2::counts(dds_pooled, normalized = FALSE)
+    if (isTRUE(assign_counts)) {
         # normalized_counts
-        assign(paste(name, "normalized_counts_pooled", sep = "_"),
+        normalized_counts <- DESeq2::counts(dds_pooled, normalized = TRUE)
+        assign(paste(name, "pooled_normalized_counts", sep = "_"),
                normalized_counts,
                envir = parent.frame())
         # raw_counts
-        assign(paste(name, "raw_counts_pooled", sep = "_"),
+        raw_counts <- DESeq2::counts(dds_pooled, normalized = FALSE)
+        assign(paste(name, "pooled_raw_counts", sep = "_"),
                raw_counts,
                envir = parent.frame())
     }
