@@ -2,7 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import basejump
 #' @import dplyr
 #' @import readr
 #' @importFrom utils write.csv
@@ -20,7 +19,7 @@ import_summary <- function(bcbio, save = FALSE) {
     summary <- file.path(bcbio$project_dir,
                          "project-summary.csv") %>%
         readr::read_csv(., col_types = readr::cols()) %>%
-        basejump::setNamesSnake(.) %>%
+        set_names_snake %>%
         # Remove NA only columns
         .[, colSums(!is.na(.)) > 0] %>%
         # Sort by description

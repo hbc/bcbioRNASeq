@@ -5,10 +5,9 @@
 #' @import DESeq2
 #' @import dplyr
 #' @import tibble
-#' @importFrom basejump setNamesSnake
 #'
 #' @param bcbio bcbio list object
-#' @param dds \code{DESeqDataSet} object
+#' @param res \code{DESeqResults} object
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See \code{?DESeq2::results} for additional information about using
@@ -46,7 +45,7 @@ deg_tables <- function(
     all <- res %>%
         as.data.frame %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
-        basejump::setNamesSnake(.) %>%
+        set_names_snake %>%
         dplyr::left_join(annotations, by = "ensembl_gene_id") %>%
         dplyr::arrange_(.dots = "ensembl_gene_id") %>%
         set_rownames("ensembl_gene_id")

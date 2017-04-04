@@ -2,7 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import basejump
 #' @import dplyr
 #' @import readr
 #' @import stringr
@@ -25,7 +24,7 @@ import_metadata <- function(bcbio, save = FALSE) {
                            pattern = ".csv",
                            full.names = TRUE) %>%
         readr::read_csv(., col_types = readr::cols()) %>%
-        basejump::setNamesSnake(.) %>%
+        set_names_snake %>%
         dplyr::arrange_(.dots = "description")
 
     # Check against the sample_dirs

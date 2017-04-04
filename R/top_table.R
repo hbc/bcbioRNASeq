@@ -2,7 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump printTable
 #' @importFrom utils head
 #'
 #' @param df Data frame
@@ -18,5 +17,5 @@ top_table <- function(df, caption = NULL) {
     df %>%
         .[, setdiff(colnames(.), discard)] %>%
         utils::head(n = 50) %>%
-        basejump::printTable(caption = caption)
+        print_table(caption = caption)
 }

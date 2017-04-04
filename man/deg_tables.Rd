@@ -9,6 +9,8 @@ deg_tables(bcbio, res, lfc = 0, write_csv = TRUE)
 \arguments{
 \item{bcbio}{bcbio list object}
 
+\item{res}{\code{DESeqResults} object}
+
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
 See \code{?DESeq2::results} for additional information about using
@@ -16,8 +18,6 @@ See \code{?DESeq2::results} for additional information about using
 hypothesis based on expected fold changes.}
 
 \item{write_csv}{Write CSV files}
-
-\item{dds}{\code{DESeqDataSet} object}
 }
 \value{
 Results list
