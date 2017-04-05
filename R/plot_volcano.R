@@ -16,8 +16,6 @@
 #' @param dds DESeq2 data set
 #' @param alpha Alpha level cutoff for coloring
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
-#' @param text_alpha Alpha level cutoff for text labels
-#' @param text_lfc Log fold change ratio (base 2) cutoff for text labels
 #'
 #' @return Volcano plot
 #' @export
@@ -33,8 +31,7 @@ plot_volcano <- function(bcbio,
                          dds,
                          alpha = 0.05,
                          lfc = 1,
-                         text_alpha = 1e-8,
-                         text_lfc = 1) {
+                         text_labels = 20) {
     check_bcbio_object(bcbio)
     name <- deparse(substitute(dds))
 
@@ -59,13 +56,13 @@ plot_volcano <- function(bcbio,
             "Adjusted.Pvalue" = "padj",
             "logFC" = "log2FoldChange"
         )) %>%
+        dplyr::arrange_(.dots = "Adjusted.Pvalue") %>%
         set_rownames("ensembl_gene_id") %>%
         dplyr::select_(.dots = c("logFC", "Adjusted.Pvalue"))
 
-    plot_text <- df %>%
+    # Automatically label the top genes
+    plot_text <- df[1:text_labels, ] %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
-        dplyr::filter_(.dots = ~Adjusted.Pvalue < text_alpha) %>%
-        dplyr::filter_(.dots = ~logFC < -text_lfc | logFC > text_lfc) %>%
         dplyr::left_join(
             ensembl_annotations(bcbio, values = .$ensembl_gene_id),
             by = "ensembl_gene_id"
@@ -85,5 +82,4 @@ plot_volcano <- function(bcbio,
                                    plot_text = plot_text,
                                    pval.cutoff = alpha,
                                    title = name)
-
 }

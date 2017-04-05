@@ -4,8 +4,7 @@
 \alias{plot_volcano}
 \title{Volcano plot}
 \usage{
-plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_alpha = 1e-08,
-  text_lfc = 1)
+plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_labels = 20)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
@@ -15,10 +14,6 @@ plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_alpha = 1e-08,
 \item{alpha}{Alpha level cutoff for coloring}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
-
-\item{text_alpha}{Alpha level cutoff for text labels}
-
-\item{text_lfc}{Log fold change ratio (base 2) cutoff for text labels}
 }
 \value{
 Volcano plot

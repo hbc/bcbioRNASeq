@@ -73,15 +73,15 @@ deg_tables <- function(
         paste(name, "differential expression"),
         paste(nrow(all), "gene annotations"),
         "cutoffs applied",
-        paste("  alpha:", alpha),
-        paste("  lfc:  ", lfc, "(tables only)"),
+        paste("    alpha:", alpha),
+        paste("    lfc:  ", lfc, "(tables only)"),
         "base mean",
-        paste("  > 0: ", nrow(base_mean_gt0), "genes (detected)"),
-        paste("  > 1: ", nrow(base_mean_gt1), "genes"),
-        "significance",
-        paste("  alpha:", nrow(deg), "genes"),
-        paste("  up:   ", nrow(deg_lfc_up), "genes (lfc applied)"),
-        paste("  down: ", nrow(deg_lfc_down), "genes (lfc applied)"),
+        paste("    > 0:", nrow(base_mean_gt0), "genes (detected)"),
+        paste("    > 1:", nrow(base_mean_gt1), "genes"),
+        "pass cutoffs",
+        paste("    alpha:     ", nrow(deg), "genes"),
+        paste("    + lfc up:  ", nrow(deg_lfc_up), "genes"),
+        paste("    + lfc down:", nrow(deg_lfc_down), "genes"),
         ""
     ))
 
