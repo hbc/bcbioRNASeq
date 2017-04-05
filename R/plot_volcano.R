@@ -15,6 +15,7 @@
 #' @param bcbio bcbio list object
 #' @param res \code{DESeqResults} object
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
+#' @param text_labels Number of text labels to plot
 #'
 #' @return Volcano plot
 #' @export
@@ -31,7 +32,6 @@ plot_volcano <- function(bcbio,
                          lfc = 1,
                          text_labels = 20) {
     check_bcbio_object(bcbio)
-    name <- deparse(substitute(res))
     alpha <- res@metadata$alpha
 
     # We can modify this function to support other methods in the future.

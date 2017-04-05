@@ -12,6 +12,8 @@ plot_volcano(bcbio, res, lfc = 1, text_labels = 20)
 \item{res}{\code{DESeqResults} object}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
+
+\item{text_labels}{Number of text labels to plot}
 }
 \value{
 Volcano plot
