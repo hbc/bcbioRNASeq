@@ -10,19 +10,18 @@
 #'
 #' @param bcbio bcbio list object
 #' @param dds DESeqDataSet object
-#' @param assign_counts Whether to save and export counts
+#' @param save_counts Whether to save and export counts
 #'
 #' @return DESeqDataSet object using pooled technical replicates
 #' @export
 pool_lane_split_dds <- function(
     bcbio,
     dds,
-    assign_counts = TRUE) {
+    save_counts = TRUE) {
     check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("A DESeqDataSet is required.")
     }
-
     name <- deparse(substitute(dds))
 
     # Get the internal parameters from DESeqDataSet
@@ -62,17 +61,30 @@ pool_lane_split_dds <- function(
         design = design
     ) %>% DESeq2::DESeq(.)
 
-    if (isTRUE(assign_counts)) {
+    if (isTRUE(save_counts)) {
         # normalized_counts
         normalized_counts <- DESeq2::counts(dds_pooled, normalized = TRUE)
         assign(paste(name, "pooled_normalized_counts", sep = "_"),
                normalized_counts,
                envir = parent.frame())
+        write.csv(
+            normalized_counts,
+            file = file.path(
+                "results",
+                paste(name,
+                      "pooled_normalized_counts.csv", sep = "_")))
+
         # raw_counts
         raw_counts <- DESeq2::counts(dds_pooled, normalized = FALSE)
         assign(paste(name, "pooled_raw_counts", sep = "_"),
                raw_counts,
                envir = parent.frame())
+        write.csv(
+            raw_counts,
+            file = file.path(
+                "results",
+                paste(name,
+                      "pooled_raw_counts.csv", sep = "_")))
     }
 
     return(dds_pooled)
