@@ -13,8 +13,7 @@
 #' @importFrom CHBUtils volcano_density_plot
 #'
 #' @param bcbio bcbio list object
-#' @param dds DESeq2 data set
-#' @param alpha Alpha level cutoff for coloring
+#' @param res \code{DESeqResults} object
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
 #'
 #' @return Volcano plot
@@ -23,28 +22,27 @@
 #' @examples
 #' \dontrun{
 #' plot_volcano(bcbio,
-#'              dds,
+#'              res,
 #'              alpha = 0.05,
 #'              lfc = 1)
 #' }
 plot_volcano <- function(bcbio,
-                         dds,
-                         alpha = 0.05,
+                         res,
                          lfc = 1,
                          text_labels = 20) {
     check_bcbio_object(bcbio)
-    name <- deparse(substitute(dds))
+    name <- deparse(substitute(res))
+    alpha <- res@metadata$alpha
 
     # We can modify this function to support other methods in the future.
     # For now, it supports DESeq2 results.
-    if (class(dds)[1] != "DESeqDataSet") {
-        stop("A DESeqDataSet object is required.")
+    if (class(res)[1] != "DESeqResults") {
+        stop("DESeqResults object required")
     }
 
     # Prepare data frame for `CHBUtils::volcano_density_plot()`. Note that
     # DESeq2 result table columns must be renamed.
-    df <- dds %>%
-        DESeq2::results(.) %>%
+    df <- res %>%
         as.data.frame %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
         # Filter zero counts, select columns
@@ -81,5 +79,5 @@ plot_volcano <- function(bcbio,
                                    # This isn't documented...
                                    plot_text = plot_text,
                                    pval.cutoff = alpha,
-                                   title = name)
+                                   title = res_contrast_name(res))
 }
