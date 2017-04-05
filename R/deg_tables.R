@@ -32,6 +32,7 @@ deg_tables <- function(
         stop("DESeqResults required")
     }
     name <- deparse(substitute(res))
+    contrast_name <- res_contrast_name(res) %>% gsub(" ", "_", .)
     alpha <- res@metadata$alpha
 
     # Running biomaRt without setting `values = results@rownames` is faster
@@ -70,7 +71,7 @@ deg_tables <- function(
     base_mean_gt1 <- dplyr::filter_(all, .dots = ~base_mean > 1)
 
     writeLines(c(
-        paste(name, "differential expression"),
+        paste(name, "differential expression tables"),
         paste(nrow(all), "gene annotations"),
         "cutoffs applied",
         paste("    alpha:", alpha),
@@ -92,16 +93,16 @@ deg_tables <- function(
     if (isTRUE(write_csv)) {
         write.csv(all,
                   file = file.path(deg_dir,
-                                   paste0(name, "_all.csv")))
+                                   paste0(contrast_name, "_all_genes.csv")))
         write.csv(deg,
                   file = file.path(deg_dir,
-                                   paste0(name, "_deg.csv")))
+                                   paste0(contrast_name, "_deg.csv")))
         write.csv(deg_lfc_up,
                   file = file.path(deg_dir,
-                                   paste0(name, "_deg_lfc_up.csv")))
+                                   paste0(contrast_name, "_deg_lfc_up.csv")))
         write.csv(deg_lfc_down,
                   file = file.path(deg_dir,
-                                   paste0(name, "_deg_lfc_down.csv")))
+                                   paste0(contrast_name, "_deg_lfc_down.csv")))
     }
 
     return(list(
