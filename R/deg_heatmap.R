@@ -7,6 +7,7 @@
 #' @import pheatmap
 #' @import SummarizedExperiment
 #' @import tibble
+#' @importFrom S4Vectors mcols
 #'
 #' @param bcbio bcbio list object
 #' @param dds \code{DESeqDataSet} object
@@ -16,41 +17,58 @@
 #'
 #' @return Gene heatmap
 #' @export
-deg_heatmap <- function(bcbio,
-                       dds,
-                       contrast,
-                       alpha = 0.1,
-                       lfc = 0) {
+deg_heatmap <- function(
+    bcbio,
+    dds,
+    contrast,
+    alpha = 0.1,
+    lfc = 0) {
     check_bcbio_object(bcbio)
     if (class(dds)[1] != "DESeqDataSet") {
         stop("DESeqDataSet required")
     }
 
-    name <- deparse(substitute(dds))
-    annotation <- import_metadata(bcbio) %>%
+    # rlog transform the counts
+    rld <- DESeq2::rlog(dds)
+
+    # Annotation metadata
+    annotation <- dds %>%
+        SummarizedExperiment::colData(.) %>%
+        as.data.frame %>%
         .[, bcbio$intgroup]
 
-    # Obtain the DE genes
+    # DE genes, used for subsetting the rlog counts matrix
     res <- DESeq2::results(dds,
                            contrast = contrast,
-                           alpha = alpha) %>%
+                           alpha = alpha)
+    res_df <- res %>%
         as.data.frame %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
         dplyr::filter_(.dots = ~padj < alpha) %>%
-        dplyr::filter_(.dots = ~log2FoldChange < -lfc |
-                           log2FoldChange > lfc)
+        dplyr::filter_(.dots = ~log2FoldChange < -lfc | log2FoldChange > lfc)
 
-    # rlog transform the data
-    rld <- DESeq2::rlog(dds)
     mat <- rld %>%
         SummarizedExperiment::assay(.) %>%
-        .[res$ensembl_gene_id, ]
+        .[res_df$ensembl_gene_id, ]
+
+    if (nrow(mat) <= 100) {
+        show_rownames <- TRUE
+        # Change rownames to readable external gene names
+        gene_names <- ensembl_annotations(bcbio, values = rownames(mat))
+        if (identical(rownames(mat), rownames(gene_names))) {
+            rownames(mat) <- gene_names$external_gene_name
+        } else {
+            stop("gene identifier rownames mismatch")
+        }
+    } else {
+        show_rownames <- FALSE
+    }
 
     pheatmap::pheatmap(mat,
                        annotation = annotation,
                        clustering_distance_cols = "correlation",
                        clustering_method = "ward.D2",
-                       main = name,
+                       main = res_contrast_name(res),
                        scale = "row",
-                       show_rownames = FALSE)
+                       show_rownames = show_rownames)
 }
