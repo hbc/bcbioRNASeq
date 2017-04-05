@@ -2,15 +2,35 @@
 % Please edit documentation in R/run_david.R
 \name{run_david}
 \alias{run_david}
-\title{DAVID gene set enrichment analysis}
+\title{Run DAVID analysis}
 \usage{
-run_david(...)
+run_david(foreground, background = NULL, id_type = "ENSEMBL_GENE_ID",
+  write_files = TRUE, write_prefix = NULL, write_dir = "results/david",
+  count = 3, alpha = 0.1)
 }
 \arguments{
-\item{...}{Pass through to \code{basejump::runDavid()}}
+\item{foreground}{Foreground identifiers}
+
+\item{background}{Background identifiers}
+
+\item{id_type}{Identifier type (see DAVID website)}
+
+\item{write_files}{Write files to disk (\code{TRUE/FALSE})}
+
+\item{write_prefix}{Add an optional prefix to the file names}
+
+\item{write_dir}{Directory to write the TSV files}
+
+\item{count}{Minimum hit count}
+
+\item{alpha}{False discovery rate cutoff (alpha)}
+}
+\value{
+List of \code{RDAVIDWebService} report objects
 }
 \description{
-DAVID gene set enrichment analysis
+Wrapper function that performs gene set enrichment analysis (GSEA) with the
+\code{RDAVIDWebService} package, using simplified input options.
 }
 \author{
 Michael Steinbaugh

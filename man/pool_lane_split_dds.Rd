@@ -4,14 +4,14 @@
 \alias{pool_lane_split_dds}
 \title{Pool DESeqDataSet counts for technical replicates}
 \usage{
-pool_lane_split_dds(bcbio, dds, assign_counts = TRUE)
+pool_lane_split_dds(bcbio, dds, save_counts = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
 
 \item{dds}{DESeqDataSet object}
 
-\item{assign_counts}{Whether to save and export counts}
+\item{save_counts}{Whether to save and export counts}
 }
 \value{
 DESeqDataSet object using pooled technical replicates

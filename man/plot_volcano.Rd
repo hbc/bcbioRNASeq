@@ -4,14 +4,12 @@
 \alias{plot_volcano}
 \title{Volcano plot}
 \usage{
-plot_volcano(bcbio, dds, alpha = 0.05, lfc = 1, text_labels = 20)
+plot_volcano(bcbio, res, lfc = 1, text_labels = 20)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
 
-\item{dds}{DESeq2 data set}
-
-\item{alpha}{Alpha level cutoff for coloring}
+\item{res}{\code{DESeqResults} object}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
 }
@@ -24,7 +22,7 @@ Volcano plot
 \examples{
 \dontrun{
 plot_volcano(bcbio,
-             dds,
+             res,
              alpha = 0.05,
              lfc = 1)
 }
