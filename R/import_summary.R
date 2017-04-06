@@ -15,7 +15,7 @@
 #' import_summary(bcbio)
 #' }
 import_summary <- function(bcbio, save = FALSE) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
     summary <- file.path(bcbio$project_dir,
                          "project-summary.csv") %>%
         readr::read_csv(., col_types = readr::cols()) %>%

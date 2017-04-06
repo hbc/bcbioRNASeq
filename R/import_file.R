@@ -22,7 +22,7 @@ import_file <- function(bcbio,
                         file,
                         rownames = NULL,
                         ...) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
     filepath <- file.path(bcbio$project_dir, file)
     if (!file.exists(filepath)) {
         stop("file could not be found")
