@@ -7,50 +7,55 @@
 #'
 #' @import dplyr
 #' @import readr
+#' @import stringr
 #' @importFrom RDAVIDWebService addList DAVIDWebService getAnnotationSummary
 #'   getClusterReport getClusterReportFile getFunctionalAnnotationChart
 #'   getFunctionalAnnotationChartFile getFunctionalAnnotationTable
 #'   getFunctionalAnnotationTableFile getGeneCategoriesReport getGeneListReport
 #'   getGeneListReportFile setTimeOut
 #'
-#' @param foreground Foreground identifiers
-#' @param background Background identifiers
-#' @param id_type Identifier type (see DAVID website)
+#' @param res_tables \code{res_tables()} list object
+#' @param direction Gene direction: up, down, or both
 #' @param write_files Write files to disk (\code{TRUE/FALSE})
-#' @param write_prefix Add an optional prefix to the file names
-#' @param write_dir Directory to write the TSV files
 #' @param count Minimum hit count
-#' @param alpha False discovery rate cutoff (alpha)
 #'
 #' @return List of \code{RDAVIDWebService} report objects
 #' @export
 run_david <- function(
-    foreground,
-    background = NULL,
-    id_type = "ENSEMBL_GENE_ID",
-    write_files = TRUE,
-    write_prefix = NULL,
-    write_dir = "results/david",
+    res_tables,
+    direction = "both",
     count = 3,
-    alpha = 0.1) {
+    write_files = TRUE) {
+    # Email
     if (is.null(getOption("email"))) {
         stop("no email found in options().
              can be saved globally in .Rprofile.")
     }
-    if (is.null(foreground)) {
-        stop("A foreground gene vector is required.")
+
+    # Enrichment direction
+    if (direction == "both") {
+        foreground <- res_tables$deg_lfc$ensembl_gene_id
+    } else if (direction == "up") {
+        foreground <- res_tables$deg_lfc_up$ensembl_gene_id
+    } else if (direction == "down") {
+        foreground <- res_tables$deg_lfc_down$ensembl_gene_id
+    } else {
+        stop("enrichment direction is required")
     }
-    if (is.null(id_type) | length(id_type) != 1) {
-        stop("identifier string is required")
-    }
+
+    # Count threshold
     if (!is.numeric(count) | length(count) != 1 | count < 0) {
         stop("please specify the minimum count cutoff of gene hits per
              annotation as a single non-negative numeric")
     }
-    if (!is.numeric(alpha) | length(alpha) != 1 | alpha < 0 | alpha > 1) {
-        stop("please specify the false discovery rate (FDR) cutoff as a single
-             numeric in the range of 0-1")
-    }
+
+    name <- res_tables$name
+    contrast <- res_tables$contrast
+    contrast_name <- contrast %>% gsub(" ", "_", .)
+
+    background <- res_tables$all$ensembl_gene_id
+    fdr <- res_tables$alpha
+    id_type = "ENSEMBL_GENE_ID"
 
     david <- DAVIDWebService$new(
         email = getOption("email"),
@@ -87,13 +92,12 @@ run_david <- function(
                   "count",
                   "genes",
                   "pvalue",
-                  "alpha")] %>%
-            dplyr::rename_(.dots = c("p" = "pvalue")) %>%
+                  "fdr")] %>%
             # FDR should be presented on 0-1 scale, not as a percentage
             dplyr::mutate_(.dots = set_names(list(~fdr / 100), "fdr")) %>%
             dplyr::arrange_(.dots = c("category", "fdr")) %>%
             .[.$count >= count, ] %>%
-            .[.$fdr < alpha, ]
+            .[.$fdr < fdr, ]
         # Set NULL if everything got filtered
         if (nrow(cutoff_chart) == 0) {
             cutoff_chart <- NULL
@@ -104,45 +108,68 @@ run_david <- function(
 
     # Save the TSV files to disk
     if (isTRUE(write_files)) {
-        dir.create(write_dir,
-                   recursive = TRUE,
-                   showWarnings = FALSE)
-
-        if (!is.null(write_prefix)) {
-            prefix <- paste0(write_prefix, "_")
-        } else {
-            prefix <- ""
-        }
+        write_dir <- "results/david"
+        dir.create(write_dir, recursive = TRUE, showWarnings = FALSE)
 
         getClusterReportFile(
             david,
             fileName = file.path(write_dir,
-                                 paste0(prefix,
-                                        "cluster_report.tsv")))
+                                 paste(name,
+                                       contrast_name,
+                                       direction,
+                                       "cluster_report.tsv",
+                                       sep = "_")))
         getFunctionalAnnotationChartFile(
             david,
             fileName = file.path(write_dir,
-                                 paste0(prefix,
-                                        "functional_annotation_chart.tsv")))
+                                 paste(name,
+                                       contrast_name,
+                                       direction,
+                                       "functional_annotation_chart.tsv",
+                                       sep = "_")))
         getFunctionalAnnotationTableFile(
             david,
             fileName = file.path(write_dir,
-                                 paste0(prefix,
-                                        "functional_annotation_table.tsv")))
+                                 paste(name,
+                                       contrast_name,
+                                       direction,
+                                       "functional_annotation_table.tsv",
+                                       sep = "_")))
         getGeneListReportFile(
             david,
             fileName = file.path(write_dir,
-                                 paste0(prefix,
-                                        "gene_list_report_file.tsv")))
+                                 paste(name,
+                                       contrast_name,
+                                       direction,
+                                       "gene_list_report_file.tsv",
+                                       sep = "_")))
 
         if (!is.null(cutoff_chart)) {
             readr::write_tsv(
                 cutoff_chart,
                 file.path(write_dir,
-                          paste0(prefix, "cutoff_chart.tsv"))
+                          paste(name,
+                                contrast_name,
+                                direction,
+                                "cutoff_chart.tsv",
+                                sep = "_"))
             )
         }
     }
+
+    # Copy the cutoff chart and set up as a simplified table
+    tbl <- cutoff_chart
+    tbl$genes <- NULL
+    tbl$pvalue <- NULL
+    # Truncate the term length to improve PDF rendering
+    tbl$term <- stringr::str_trunc(tbl$term, side = "right", width = 60)
+    # Set the caption and print
+    caption <- paste(name,
+                     contrast,
+                     "DAVID process enrichment",
+                     direction,
+                     sep = " : ")
+    kable(tbl, caption = caption)
 
     # Package DAVID output into a list
     return(list(
