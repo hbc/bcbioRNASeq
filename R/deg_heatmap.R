@@ -23,10 +23,8 @@ deg_heatmap <- function(
     contrast,
     alpha = 0.1,
     lfc = 0) {
-    check_bcbio_object(bcbio)
-    if (class(dds)[1] != "DESeqDataSet") {
-        stop("DESeqDataSet required")
-    }
+    check_bcbio(bcbio)
+    check_dds(dds)
 
     # rlog transform the counts
     rld <- DESeq2::rlog(dds)
@@ -41,12 +39,15 @@ deg_heatmap <- function(
     res <- DESeq2::results(dds,
                            contrast = contrast,
                            alpha = alpha)
+
+    # Output results to dataframe and subset by alpha and lfc cutoffs
     res_df <- res %>%
         as.data.frame %>%
         tibble::rownames_to_column("ensembl_gene_id") %>%
         dplyr::filter_(.dots = ~padj < alpha) %>%
         dplyr::filter_(.dots = ~log2FoldChange < -lfc | log2FoldChange > lfc)
 
+    # Subset the transformed count matrix
     mat <- rld %>%
         SummarizedExperiment::assay(.) %>%
         .[res_df$ensembl_gene_id, ]
@@ -64,11 +65,14 @@ deg_heatmap <- function(
         show_rownames <- FALSE
     }
 
+    name <- deparse(substitute(dds))
+    contrast_name <- res_contrast_name(res)
+
     pheatmap::pheatmap(mat,
                        annotation = annotation,
                        clustering_distance_cols = "correlation",
                        clustering_method = "ward.D2",
-                       main = res_contrast_name(res),
+                       main = paste(name, contrast_name, sep = " : "),
                        scale = "row",
                        show_rownames = show_rownames)
 }
