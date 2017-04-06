@@ -25,7 +25,7 @@ ensembl_annotations <- function(
     attributes = NULL,
     filters = "ensembl_gene_id",
     values = NULL) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
 
     # biomaRt::listEnsembl()
     # biomaRt::listMarts()
