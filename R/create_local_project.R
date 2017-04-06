@@ -5,8 +5,12 @@
 #'
 #' @export
 create_local_project <- function() {
-    dir.create("data", showWarnings = FALSE)
-    dir.create("figures", showWarnings = FALSE)
-    dir.create("meta", showWarnings = FALSE)
-    dir.create("results", showWarnings = FALSE)
+    local_dirs <- c("cache",
+                    "data",
+                    "figures",
+                    "meta",
+                    "results")
+    lapply(seq_along(local_dirs), function(a) {
+        dir.create(local_dirs[a], showWarnings = FALSE)
+    }) %>% invisible
 }
