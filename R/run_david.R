@@ -63,7 +63,7 @@ run_david <- function(
 
     addList(david,
             foreground,
-            id_type = id_type,
+            idType = id_type,
             listName = "Gene",
             listType = "Gene")
 
@@ -72,7 +72,7 @@ run_david <- function(
     if (!is.null(background)) {
         addList(david,
                 background,
-                id_type = id_type,
+                idType = id_type,
                 listName = "Background",
                 listType = "Background")
     }
