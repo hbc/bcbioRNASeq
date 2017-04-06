@@ -13,8 +13,8 @@
 #' plot_exonic_mapping_rate(bcbio)
 #' }
 plot_exonic_mapping_rate <- function(bcbio) {
-    check_bcbio_object(bcbio)
-    import_summary(bcbio) %>%
+    check_bcbio(bcbio)
+    plot <- import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           # Multiple by 100 here for percentage
@@ -31,4 +31,5 @@ plot_exonic_mapping_rate <- function(bcbio) {
                       fill = "") +
         ggplot2::ylim(0, 100) +
         ggplot2::coord_flip()
+    print(plot)
 }

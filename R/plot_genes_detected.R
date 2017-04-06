@@ -14,8 +14,8 @@
 #' plot_genes_detected(bcbio, raw_counts)
 #' }
 plot_genes_detected <- function(bcbio, counts) {
-    check_bcbio_object(bcbio)
-    import_summary(bcbio) %>%
+    check_bcbio(bcbio)
+    plot <- import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = colSums(counts > 0),
@@ -30,4 +30,5 @@ plot_genes_detected <- function(bcbio, counts) {
                       y = "gene count",
                       fill = "") +
         ggplot2::coord_flip()
+    print(plot)
 }

@@ -13,10 +13,15 @@
 #' @return MA plot
 #' @export
 plot_ma <- function(res, ylim = 2) {
-    if (class(res)[1] != "DESeqResults") {
-        stop("DESeqResults required")
-    }
-    DESeq2::plotMA(res,
-                   main = res_contrast_name(res),
-                   ylim = c(-ylim, ylim))
+    check_res(res)
+
+    name <- deparse(substitute(res))
+    contrast_name <- res_contrast_name(res)
+
+    plot <- DESeq2::plotMA(
+        res,
+        main = paste0(name, ": ", contrast_name),
+        ylim = c(-ylim, ylim))
+
+    print(plot)
 }

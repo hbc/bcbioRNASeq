@@ -13,8 +13,8 @@
 #' plot_mapped_reads(bcbio)
 #' }
 plot_mapped_reads <- function(bcbio) {
-    check_bcbio_object(bcbio)
-    import_summary(bcbio) %>%
+    check_bcbio(bcbio)
+    plot <- import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~description,
                           y = ~mapped_reads / 1e6,
@@ -32,4 +32,5 @@ plot_mapped_reads <- function(bcbio) {
                       y = "mapped reads (million)",
                       fill = "") +
         ggplot2::coord_flip()
+    print(plot)
 }

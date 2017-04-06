@@ -31,14 +31,13 @@ plot_volcano <- function(bcbio,
                          res,
                          lfc = 1,
                          text_labels = 20) {
-    check_bcbio_object(bcbio)
-    alpha <- res@metadata$alpha
+    check_bcbio(bcbio)
+    check_res(res)
 
-    # We can modify this function to support other methods in the future.
-    # For now, it supports DESeq2 results.
-    if (class(res)[1] != "DESeqResults") {
-        stop("DESeqResults object required")
-    }
+    name <- deparse(substitute(res))
+    contrast_name <- res_contrast_name(res)
+
+    alpha <- res@metadata$alpha
 
     # Prepare data frame for `CHBUtils::volcano_density_plot()`. Note that
     # DESeq2 result table columns must be renamed.
@@ -73,11 +72,12 @@ plot_volcano <- function(bcbio,
         set_rownames("ensembl_gene_id")
     plot_text$ensembl_gene_id <- NULL
 
-    # When there's time, rework this function internally
-    CHBUtils::volcano_density_plot(df,
-                                   lfc.cutoff = lfc,
-                                   # This isn't documented...
-                                   plot_text = plot_text,
-                                   pval.cutoff = alpha,
-                                   title = res_contrast_name(res))
+    # When there's time, rework this function internally in the package
+    CHBUtils::volcano_density_plot(
+        df,
+        lfc.cutoff = lfc,
+        # This isn't documented...
+        plot_text = plot_text,
+        pval.cutoff = alpha,
+        title = paste0(name, ": ", contrast_name))
 }

@@ -14,8 +14,8 @@
 #' plot_gene_detection_saturation(bcbio, raw_counts)
 #' }
 plot_gene_detection_saturation <- function(bcbio, counts) {
-    check_bcbio_object(bcbio)
-    import_summary(bcbio) %>%
+    check_bcbio(bcbio)
+    plot <- import_summary(bcbio) %>%
         ggplot2::ggplot(
             ggplot2::aes_(x = ~mapped_reads / 1e6,
                           y = ~colSums(counts > 0),
@@ -28,4 +28,5 @@ plot_gene_detection_saturation <- function(bcbio, counts) {
                       y = "gene count",
                       color = "",
                       shape = "")
+    print(plot)
 }

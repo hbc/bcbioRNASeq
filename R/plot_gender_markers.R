@@ -20,9 +20,11 @@
 #' plot_gender_markers(bcbio, tpm)
 #' }
 plot_gender_markers <- function(bcbio, counts) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
+
     name <- deparse(substitute(counts))
     organism <- bcbio$organism
+
     # Download the CSV file from seqcloud repo
     csv <- file.path("https://raw.githubusercontent.com",
                      "steinbaugh",
@@ -38,18 +40,20 @@ plot_gender_markers <- function(bcbio, counts) {
         .[.$include == TRUE, ] %>%
         dplyr::arrange_(.dots = c("chromosome",
                                   "gene_symbol"))
+
     # Ensembl identifiers
     identifier <- csv[, "ensembl_gene"][[1]] %>% sort %>% unique
+
     # Scatterplot
-    counts[identifier, ] %>%
+    plot <- counts[identifier, ] %>%
         as.data.frame %>%
         tibble::rownames_to_column(.) %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
         reshape2::melt(., id = 1) %>%
         set_names(c("ensembl_gene",
-                   "description",
-                   "counts")) %>%
+                    "description",
+                    "counts")) %>%
         dplyr::left_join(csv, by = "ensembl_gene") %>%
         ggplot2::ggplot(
             ggplot2::aes_(~gene_symbol,
@@ -63,4 +67,6 @@ plot_gender_markers <- function(bcbio, counts) {
         ggplot2::labs(x = "gene",
                       y = name) +
         ggplot2::theme(legend.position = "none")
+
+    print(plot)
 }

@@ -13,8 +13,8 @@
 #' plot_total_reads(bcbio)
 #' }
 plot_total_reads <- function(bcbio) {
-    check_bcbio_object(bcbio)
-    import_summary(bcbio) %>%
+    check_bcbio(bcbio)
+    plot <- import_summary(bcbio) %>%
         ggplot2::ggplot(aes_(x = ~description,
                              y = ~total_reads / 1e6,
                              fill = ~qc_color)
@@ -31,4 +31,5 @@ plot_total_reads <- function(bcbio) {
                       y = "total reads (million)",
                       fill = "") +
         ggplot2::coord_flip()
+    print(plot)
 }

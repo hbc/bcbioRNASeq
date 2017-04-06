@@ -11,7 +11,7 @@ plot_gene <- function(
     bcbio,
     counts,
     gene) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
     color <- bcbio$intgroup[1]
     ylab <- deparse(substitute(counts))
     counts <- as.matrix(counts) %>% .[gene, ]
@@ -42,5 +42,6 @@ plot_gene <- function(
                       y = ylab,
                       fill = "") +
         ggplot2::expand_limits(y = 0)
+
     print(plot)
 }
