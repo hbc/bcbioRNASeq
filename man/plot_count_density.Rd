@@ -4,17 +4,12 @@
 \alias{plot_count_density}
 \title{Count density plot}
 \usage{
-plot_count_density(bcbio, counts, print = TRUE)
+plot_count_density(bcbio, counts)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
 
 \item{counts}{Counts matrix}
-
-\item{print}{Print plot}
-}
-\value{
-Density plot
 }
 \description{
 Count density plot

@@ -4,7 +4,7 @@
 \alias{import_counts}
 \title{Import counts}
 \usage{
-import_counts(bcbio, type = "salmon", pattern = NULL, samples = NULL)
+import_counts(bcbio, type = "salmon", grep = NULL, samples = NULL)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
@@ -12,8 +12,8 @@ import_counts(bcbio, type = "salmon", pattern = NULL, samples = NULL)
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
 
-\item{pattern}{Apply pattern matching to sample names. This will override any
-parmeter set in `samples`.}
+\item{grep}{Apply grep pattern matching to sample names. This will override
+any parmeter set in \code{samples}.}
 
 \item{samples}{Specify the names of samples in bcbio final directory to
 input. If \code{NULL} (default), all samples will be imported.}

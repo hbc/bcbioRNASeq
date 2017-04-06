@@ -4,7 +4,7 @@
 \alias{plot_counts_per_gene}
 \title{Counts per gene plot}
 \usage{
-plot_counts_per_gene(bcbio, counts, flip = TRUE, print = TRUE)
+plot_counts_per_gene(bcbio, counts, flip = TRUE)
 }
 \arguments{
 \item{bcbio}{bcbio list object}
@@ -12,8 +12,6 @@ plot_counts_per_gene(bcbio, counts, flip = TRUE, print = TRUE)
 \item{counts}{Counts matrix}
 
 \item{flip}{Flip x and y axes}
-
-\item{print}{Print plot}
 }
 \value{
 Boxplot

@@ -4,26 +4,16 @@
 \alias{run_david}
 \title{Run DAVID analysis}
 \usage{
-run_david(foreground, background = NULL, id_type = "ENSEMBL_GENE_ID",
-  write_files = TRUE, write_prefix = NULL, write_dir = "results/david",
-  count = 3, alpha = 0.1)
+run_david(res_tables, direction = "both", count = 3, write_files = TRUE)
 }
 \arguments{
-\item{foreground}{Foreground identifiers}
+\item{res_tables}{\code{res_tables()} list object}
 
-\item{background}{Background identifiers}
-
-\item{id_type}{Identifier type (see DAVID website)}
-
-\item{write_files}{Write files to disk (\code{TRUE/FALSE})}
-
-\item{write_prefix}{Add an optional prefix to the file names}
-
-\item{write_dir}{Directory to write the TSV files}
+\item{direction}{Gene direction: up, down, or both}
 
 \item{count}{Minimum hit count}
 
-\item{alpha}{False discovery rate cutoff (alpha)}
+\item{write_files}{Write files to disk (\code{TRUE/FALSE})}
 }
 \value{
 List of \code{RDAVIDWebService} report objects

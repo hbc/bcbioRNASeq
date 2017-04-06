@@ -2,22 +2,27 @@
 % Please edit documentation in R/import_metadata.R
 \name{import_metadata}
 \alias{import_metadata}
-\title{Metadata for bcbio run}
+\title{Import metadata from bcbio run}
 \usage{
-import_metadata(bcbio, save = FALSE, pool = FALSE)
+import_metadata(bcbio, grep = NULL, save = FALSE, pool = FALSE,
+  print = FALSE)
 }
 \arguments{
 \item{bcbio}{bcbio run object}
 
+\item{grep}{Apply grep pattern matching to subset by description}
+
 \item{save}{Save data frame}
 
 \item{pool}{Pool lane split samples}
+
+\item{print}{Print table}
 }
 \value{
 Metadata data frame
 }
 \description{
-Metadata for bcbio run
+Import metadata from bcbio run
 }
 \examples{
 \dontrun{
