@@ -42,12 +42,15 @@ import_file <- function(bcbio,
         data <- readr::read_csv(filepath, col_types = readr::cols(), ...)
     } else if (ext == "tsv") {
         data <- readr::read_tsv(filepath, col_types = readr::cols(), ...)
+    } else if (ext == "counts") {
+        data <- readr::read_tsv(filepath, col_types = readr::cols(), ...) %>%
+            as.matrix
     } else {
         stop("unsupported file extension")
     }
 
-    # Coerce to data frame. Might want to disable this in a future update as
-    # tibble becomes more standardized and the rownames issue is sorted out.
+    # Coerce tibble to data frame. Might want to disable this in a future update
+    # as tibble becomes more standardized and the rownames issue is sorted out.
     if (tibble::is_tibble(data)) {
         data <- as.data.frame(data)
     }
