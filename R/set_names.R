@@ -2,5 +2,5 @@
 #' @name set_names
 #' @rdname set_names
 #' @keywords internal
-#' @importFrom purrr set_names
+#' @importFrom magrittr set_names
 NULL

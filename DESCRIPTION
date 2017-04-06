@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Version: 0.0.5
-Date: 2017-04-04
+Version: 0.0.6
+Date: 2017-04-06
 Authors@R: c(
     person("Rory", "Kirchner",
            email = "roryk@alum.mit.edu",
@@ -26,17 +26,13 @@ Imports:
     basejump,
     biomaRt,
     CHBUtils,
-    DEGreport,
     DESeq2,
     dplyr,
     edgeR,
     ggplot2,
     ggrepel,
-    grDevices,
     magrittr,
     pheatmap,
-    purrr,
-    RColorBrewer,
     RDAVIDWebService,
     readr,
     reshape2,
@@ -50,6 +46,5 @@ Imports:
     utils
 Remotes:
     hbc/CHBUtils,
-    lpantano/DEGreport,
     steinbaugh/basejump
 RoxygenNote: 6.0.1
