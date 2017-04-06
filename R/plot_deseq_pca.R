@@ -20,10 +20,8 @@
 #' plot_deseq_pca(rlog)
 #' }
 plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
-    check_bcbio_object(bcbio)
-    if (class(dt)[1] != "DESeqTransform") {
-        stop("This function requires a DESeqTransform object.")
-    }
+    check_bcbio(bcbio)
+    check_dt(dt)
     name <- deparse(substitute(dt))
 
     # Interesting groups define the colors and shapes
@@ -56,6 +54,8 @@ plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
                       y = paste0("pc2: ", percent_var[2], "% variance"),
                       color = "color",
                       shape = "shape")
+
+    # Label with sample description, if desired
     if (isTRUE(label)) {
         plot <- plot +
             ggrepel::geom_text_repel(aes_(label = ~label))
