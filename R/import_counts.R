@@ -17,8 +17,8 @@
 #' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
-#' @param pattern Apply pattern matching to sample names. This will override any
-#'   parmeter set in `samples`.
+#' @param grep Apply grep pattern matching to sample names. This will override
+#'   any parmeter set in \code{samples}.
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
 #'
@@ -32,19 +32,19 @@
 import_counts <- function(
     bcbio,
     type = "salmon",
-    pattern = NULL,
+    grep = NULL,
     samples = NULL) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
     if (!type %in% c("salmon", "sailfish")) {
         stop("unsupported counts input format")
     }
 
-    # Sample name pattern matching. Run above `samples` to override.
-    if (!is.null(pattern)) {
-        samples <- stringr::str_subset(names(bcbio$sample_dirs),
-                                       pattern = pattern)
+    # Sample name grep pattern matching. Run above `samples` to override.
+    if (!is.null(grep)) {
+        samples <- stringr::str_subset(
+            names(bcbio$sample_dirs), pattern = grep)
         if (!length(samples)) {
-            stop("pattern didn't match any samples")
+            stop("grep string didn't match any samples")
         }
     }
 
