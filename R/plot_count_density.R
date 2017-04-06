@@ -6,9 +6,7 @@
 #'
 #' @param bcbio bcbio list object
 #' @param counts Counts matrix
-#' @param print Print plot
 #'
-#' @return Density plot
 #' @export
 #'
 #' @examples
@@ -17,9 +15,8 @@
 #' }
 plot_count_density <- function(
     bcbio,
-    counts,
-    print = TRUE) {
-    check_bcbio_object(bcbio)
+    counts) {
+    check_bcbio(bcbio)
     name <- deparse(substitute(counts))
     melted <- melt_log10(bcbio, counts)
     plot <- ggplot2::ggplot(
@@ -31,10 +28,5 @@ plot_count_density <- function(
         ggplot2::geom_density() +
         ggplot2::labs(x = expression(log[10]~counts~per~gene),
                       y = "density")
-
-    if (isTRUE(print)) {
-        print(plot)
-    } else {
-        return(plot)
-    }
+    print(plot)
 }
