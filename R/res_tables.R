@@ -1,4 +1,4 @@
-#' Differentially expressed gene (DEG) tables
+#' Differential expression results tables
 #'
 #' @author Michael Steinbaugh
 #'
@@ -20,19 +20,21 @@
 #'
 #' @examples
 #' \dontrun{
-#' deg_tables(bcbio, res, lfc = 0.25)
+#' res_tables(bcbio, res, lfc = 0.25)
 #' }
-deg_tables <- function(
+res_tables <- function(
     bcbio,
     res,
     lfc = 0,
     write_csv = TRUE) {
-    check_bcbio_object(bcbio)
+    check_bcbio(bcbio)
     if (class(res)[1] != "DESeqResults") {
         stop("DESeqResults required")
     }
     name <- deparse(substitute(res))
-    contrast_name <- res_contrast_name(res) %>% gsub(" ", "_", .)
+    contrast <- res_contrast_name(res)
+    contrast_name <- contrast %>% gsub(" ", "_", .)
+
     alpha <- res@metadata$alpha
 
     # Running biomaRt without setting `values = results@rownames` is faster
@@ -91,22 +93,38 @@ deg_tables <- function(
     dir.create(deg_dir, recursive = TRUE, showWarnings = FALSE)
 
     if (isTRUE(write_csv)) {
-        write.csv(all,
-                  file = file.path(deg_dir,
-                                   paste0(contrast_name, "_all_genes.csv")))
-        write.csv(deg,
-                  file = file.path(deg_dir,
-                                   paste0(contrast_name, "_deg.csv")))
-        write.csv(deg_lfc_up,
-                  file = file.path(deg_dir,
-                                   paste0(contrast_name, "_deg_lfc_up.csv")))
-        write.csv(deg_lfc_down,
-                  file = file.path(deg_dir,
-                                   paste0(contrast_name, "_deg_lfc_down.csv")))
+        write.csv(
+            all,
+            file = file.path(deg_dir,
+                             paste(name,
+                                   contrast_name, "all_genes.csv",
+                                   sep = "_")))
+        write.csv(
+            deg,
+            file = file.path(deg_dir,
+                             paste(name,
+                                   contrast_name,
+                                   "deg.csv",
+                                   sep = "_")))
+        write.csv(
+            deg_lfc_up,
+            file = file.path(deg_dir,
+                             paste(name,
+                                   contrast_name,
+                                   "deg_lfc_up.csv",
+                                   sep = "_")))
+        write.csv(
+            deg_lfc_down,
+            file = file.path(deg_dir,
+                             paste(name,
+                                   contrast_name,
+                                   "deg_lfc_down.csv",
+                                   sep = "_")))
     }
 
     return(list(
         name = name,
+        contrast = contrast,
         alpha = alpha,
         lfc = lfc,
         all = all,
