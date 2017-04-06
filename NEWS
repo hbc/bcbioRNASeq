@@ -1,3 +1,4 @@
+0.0.6   Rework handling of plots and tables during knits
 0.0.5   Differential expression and gene set enrichment functions
 0.0.4   bcbio object integrity checks
         Better detection and handling of lane split samples

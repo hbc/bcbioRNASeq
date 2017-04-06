@@ -80,23 +80,18 @@
     <p>Volcano plot</p>
     
 
-    <pre><span class='fu'>plot_volcano</span>(<span class='no'>bcbio</span>, <span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>text_alpha</span> <span class='kw'>=</span> <span class='fl'>1e-08</span>,
-  <span class='kw'>text_lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre><span class='fu'>plot_volcano</span>(<span class='no'>bcbio</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>text_labels</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>bcbio</dt>
       <dd><p>bcbio list object</p></dd>
-      <dt>dds</dt>
-      <dd><p>DESeq2 data set</p></dd>
-      <dt>alpha</dt>
-      <dd><p>Alpha level cutoff for coloring</p></dd>
+      <dt>res</dt>
+      <dd><p><code>DESeqResults</code> object</p></dd>
       <dt>lfc</dt>
       <dd><p>Log fold change ratio (base 2) cutoff for coloring</p></dd>
-      <dt>text_alpha</dt>
-      <dd><p>Alpha level cutoff for text labels</p></dd>
-      <dt>text_lfc</dt>
-      <dd><p>Log fold change ratio (base 2) cutoff for text labels</p></dd>
+      <dt>text_labels</dt>
+      <dd><p>Number of text labels to plot</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -107,7 +102,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># plot_volcano(bcbio,</span>
-<span class='co'>#              dds,</span>
+<span class='co'>#              res,</span>
 <span class='co'>#              alpha = 0.05,</span>
 <span class='co'>#              lfc = 1)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>

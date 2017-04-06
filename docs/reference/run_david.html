@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DAVID gene set enrichment analysis — run_david • bcbioRnaseq</title>
+<title>Run DAVID analysis — run_david • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,20 +73,31 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>DAVID gene set enrichment analysis</h1>
+    <h1>Run DAVID analysis</h1>
     </div>
 
     
-    <p>DAVID gene set enrichment analysis</p>
+    <p>Wrapper function that performs gene set enrichment analysis (GSEA) with the
+<code>RDAVIDWebService</code> package, using simplified input options.</p>
     
 
-    <pre><span class='fu'>run_david</span>(<span class='no'>...</span>)</pre>
+    <pre><span class='fu'>run_david</span>(<span class='no'>res_tables</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>write_files</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>...</dt>
-      <dd><p>Pass through to <code>basejump::runDavid()</code></p></dd>
+      <dt>res_tables</dt>
+      <dd><p><code>res_tables()</code> list object</p></dd>
+      <dt>direction</dt>
+      <dd><p>Gene direction: up, down, or both</p></dd>
+      <dt>count</dt>
+      <dd><p>Minimum hit count</p></dd>
+      <dt>write_files</dt>
+      <dd><p>Write files to disk (<code>TRUE/FALSE</code>)</p></dd>
     </dl>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List of <code>RDAVIDWebService</code> report objects</p>
     
 
   </div>
@@ -94,7 +105,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
     <h2>Author</h2>
     

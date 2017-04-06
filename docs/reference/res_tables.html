@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Counts per gene plot — plot_counts_per_gene • bcbioRnaseq</title>
+<title>Differential expression results tables — res_tables • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,33 +73,39 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Counts per gene plot</h1>
+    <h1>Differential expression results tables</h1>
     </div>
 
     
-    <p>Counts per gene plot</p>
+    <p>Differential expression results tables</p>
     
 
-    <pre><span class='fu'>plot_counts_per_gene</span>(<span class='no'>bcbio</span>, <span class='no'>counts</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>res_tables</span>(<span class='no'>bcbio</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>write_csv</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>bcbio</dt>
       <dd><p>bcbio list object</p></dd>
-      <dt>counts</dt>
-      <dd><p>Counts matrix</p></dd>
-      <dt>flip</dt>
-      <dd><p>Flip x and y axes</p></dd>
+      <dt>res</dt>
+      <dd><p><code>DESeqResults</code> object</p></dd>
+      <dt>lfc</dt>
+      <dd><p>Log fold change ratio (base 2) cutoff. Does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See <code>?DESeq2::results</code> for additional information about using
+<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative
+hypothesis based on expected fold changes.</p></dd>
+      <dt>write_csv</dt>
+      <dd><p>Write CSV files</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Boxplot</p>
+    <p>Results list</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># plot_counts_per_gene(bcbio, counts)</span>
+<span class='co'># res_tables(bcbio, res, lfc = 0.25)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
