@@ -7,7 +7,7 @@
 #'
 #' @return Silent, otherwise stop execution if integrity check fails
 #' @export
-check_bcbio_object <- function(bcbio) {
+check_bcbio <- function(bcbio) {
     if (!is.list(bcbio)) {
         stop("bcbio run list object not found")
     }
