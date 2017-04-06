@@ -1,4 +1,4 @@
-#' Metadata for bcbio run
+#' Import metadata from bcbio run
 #'
 #' @author Michael Steinbaugh
 #'
@@ -82,7 +82,7 @@ import_metadata <- function(
 
     if (isTRUE(print)) {
         metadata[, unique(c("description", bcbio$intgroup))] %>%
-            knit_table(caption = "Sample metadata")
+            kable(caption = "Sample metadata")
     }
 
     return(metadata)
