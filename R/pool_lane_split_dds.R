@@ -18,10 +18,8 @@ pool_lane_split_dds <- function(
     bcbio,
     dds,
     save_counts = TRUE) {
-    check_bcbio_object(bcbio)
-    if (class(dds)[1] != "DESeqDataSet") {
-        stop("A DESeqDataSet is required.")
-    }
+    check_bcbio(bcbio)
+    check_dds(dds)
     name <- deparse(substitute(dds))
 
     # Get the internal parameters from DESeqDataSet
@@ -34,7 +32,7 @@ pool_lane_split_dds <- function(
     # Obtain metadata
     metadata <- import_metadata(bcbio, pool = TRUE)
     if (!identical(colnames(pooled_counts), rownames(metadata))) {
-        stop("Count column names don't match the metadata row names.")
+        stop("count colnames don't match metadata rownames")
     }
 
     # Re-generate DESeqDataSet using the pooled counts matrix
