@@ -89,33 +89,33 @@ res_tables <- function(
     ))
 
     # Write the CSV files to results/
-    deg_dir <- file.path("results", "differential_expression")
-    dir.create(deg_dir, recursive = TRUE, showWarnings = FALSE)
+    de_dir <- file.path("results", "de")
+    dir.create(de_dir, recursive = TRUE, showWarnings = FALSE)
 
     if (isTRUE(write_csv)) {
         write.csv(
             all,
-            file = file.path(deg_dir,
+            file = file.path(de_dir,
                              paste(name,
                                    contrast_name, "all_genes.csv",
                                    sep = "_")))
         write.csv(
             deg,
-            file = file.path(deg_dir,
+            file = file.path(de_dir,
                              paste(name,
                                    contrast_name,
                                    "deg.csv",
                                    sep = "_")))
         write.csv(
             deg_lfc_up,
-            file = file.path(deg_dir,
+            file = file.path(de_dir,
                              paste(name,
                                    contrast_name,
                                    "deg_lfc_up.csv",
                                    sep = "_")))
         write.csv(
             deg_lfc_down,
-            file = file.path(deg_dir,
+            file = file.path(de_dir,
                              paste(name,
                                    contrast_name,
                                    "deg_lfc_down.csv",
