@@ -3,7 +3,6 @@
 #'
 #' @import dplyr
 #' @import readr
-#' @import tibble
 #' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
@@ -23,22 +22,21 @@ import_summary <- function(bcbio, save = FALSE) {
         select_(.dots = c("description",
                           setdiff(sort(names(.)),
                                   "description"))) %>%
-        arrange_(.dots = "description") %>%
-        column_to_rownames("description")
+        arrange_(.dots = "description")
 
     metadata <- import_metadata(bcbio)
 
-    if (!identical(rownames(summary), rownames(metadata))) {
-        stop("summary and metadata rownames don't match")
+    if (!identical(summary$description, metadata$description)) {
+        stop("summary and metadata descriptions don't match")
     }
 
     # Use the first entry in interesting groups to define the QC colors. If
     # empty, defaults to description.
     color <- bcbio$intgroup[1]
     if (is.na(color)) {
-        color = "description"
+        color <- "description"
     }
-    summary$qc_color <- metadata[rownames(summary), color]
+    summary$qc_color <- metadata[[color]]
 
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")

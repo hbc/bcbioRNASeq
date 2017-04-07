@@ -29,8 +29,7 @@ import_metadata <- function(
                            pattern = ".csv",
                            full.names = TRUE) %>%
         read_csv(col_types = cols()) %>%
-        set_names_snake %>%
-        arrange_(.dots = "description")
+        set_names_snake
 
     if (isTRUE(bcbio$lane_split) & !isTRUE(pool)) {
         # Lane splitting. This assumes the YAML descriptions won't match the
@@ -68,9 +67,7 @@ import_metadata <- function(
         metadata <- metadata[grepl(grep, metadata$description), ]
     }
 
-    metadata <- metadata %>%
-        arrange_(.dots = "description") %>%
-        column_to_rownames("description")
+    metadata <- metadata %>% arrange_(.dots = "description")
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
