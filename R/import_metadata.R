@@ -1,6 +1,10 @@
-#' Import metadata from bcbio run
+#' Import data from bcbio-nextgen run
 #'
 #' @author Michael Steinbaugh
+#' @author Rory Kirchner
+#'
+#' @rdname import
+#' @description Import metadata
 #'
 #' @import dplyr
 #' @import readr
@@ -8,25 +12,18 @@
 #' @import tidyr
 #' @importFrom utils write.csv
 #'
-#' @param bcbio bcbio run object
+#' @param bcbio \code{bcbio-nextgen} run object
 #' @param grep Apply grep pattern matching to subset by description
 #' @param save Save data frame
 #' @param pool Pool lane split samples
-#' @param print Print table
 #'
 #' @return Metadata data frame
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' import_metadata(bcbio)
-#' }
 import_metadata <- function(
     bcbio,
     grep = NULL,
     save = FALSE,
-    pool = FALSE,
-    print = FALSE) {
+    pool = FALSE) {
     check_bcbio(bcbio)
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
@@ -78,11 +75,6 @@ import_metadata <- function(
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
         write.csv(metadata, file = "meta/metadata.csv")
-    }
-
-    if (isTRUE(print)) {
-        metadata[, unique(c("description", bcbio$intgroup))] %>%
-            kable(caption = "Sample metadata")
     }
 
     return(metadata)
