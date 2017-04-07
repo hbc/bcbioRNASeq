@@ -7,6 +7,9 @@
 #'
 #' @param bcbio bcbio run object
 #' @param save Save data frame
+#'
+#' @return Summary data frame
+#' @export
 import_summary <- function(bcbio, save = FALSE) {
     check_bcbio(bcbio)
     summary <- file.path(bcbio$project_dir,
