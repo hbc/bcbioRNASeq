@@ -1,11 +1,10 @@
-#' Perform integrity checks on a bcbio run object
+#' Perform object integrity checks
 #'
+#' @rdname check
 #' @author Michael Steinbaugh
-#' @keywords internal
 #'
-#' @param bcbio bcbio run object
-#'
-#' @return Silent, otherwise stop execution if integrity check fails
+#' @param bcbio bcbio run list object
+
 #' @export
 check_bcbio <- function(bcbio) {
     if (!is.list(bcbio)) {

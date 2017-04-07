@@ -1,3 +1,7 @@
+#' @rdname check
+#' @param dds DESeqDataSet
+#' @param stop Stop if class doesn't match
+#' @export
 check_dds <- function(dds, stop = TRUE) {
     if (class(dds)[1] == "DESeqDataSet") {
         return(TRUE)
