@@ -1,12 +1,5 @@
-# Modified from bcbio-rnaseq qc-summary template
-# https://goo.gl/cIv3ia
-
-#' Import counts
-#'
-#' Import \code{bcbio-rnaseq} count data run using \code{tximport}
-#'
-#' @author Michael Steinbaugh
-#' @author Rory Kirchner
+#' @rdname import
+#' @description Import RNA-Seq counts using \code{tximport}
 #'
 #' @import readr
 #' @import stringr
@@ -24,11 +17,6 @@
 #'
 #' @return txi \code{tximport} list object
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' import_counts(bcbio, type = "salmon")
-#' }
 import_counts <- function(
     bcbio,
     type = "salmon",
@@ -54,7 +42,7 @@ import_counts <- function(
         samples <- sort(unique(stats::na.omit(samples)))
     }
 
-    # Draft support for salmon and sailfish file structure
+    # Support for salmon and sailfish file structure
     sample_files <- file.path(bcbio$sample_dirs[samples],
                               type, "quant", "quant.sf")
     names(sample_files) <- names(bcbio$sample_dirs[samples])
@@ -73,11 +61,11 @@ import_counts <- function(
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
     # Use `lengthScaledTPM` for `salmon` and `sailfish`
-    txi <- tximport::tximport(files = sample_files,
-                              type = type,
-                              tx2gene = tx2gene,
-                              reader = readr::read_tsv,
-                              countsFromAbundance = "lengthScaledTPM")
+    txi <- tximport(files = sample_files,
+                    type = type,
+                    tx2gene = tx2gene,
+                    reader = read_tsv,
+                    countsFromAbundance = "lengthScaledTPM")
 
     return(txi)
 }
