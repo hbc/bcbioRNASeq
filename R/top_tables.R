@@ -1,4 +1,4 @@
-#' Print top table
+#' Top tables of differential expression results
 #'
 #' @author Michael Steinbaugh
 #'
@@ -9,14 +9,13 @@
 #' @return Data frame or kable, depending on the call
 #' @export
 top_tables <- function(res_tables) {
-    get_top <- function(df) {
+    subset_top <- function(df) {
         discard <- c("description", "lfc_se", "pvalue", "stat")
-        df[, setdiff(colnames(df), discard)] %>%
-            utils::head(n = 50)
+        df[, setdiff(colnames(df), discard)] %>% head(n = 50)
     }
 
-    up <- get_top(res_tables$deg_lfc_up)
-    down <- get_top(res_tables$deg_lfc_down)
+    up <- subset_top(res_tables$deg_lfc_up)
+    down <- subset_top(res_tables$deg_lfc_down)
 
     sep <- " : "
     name_prefix <- paste(res_tables$name,
@@ -24,8 +23,8 @@ top_tables <- function(res_tables) {
                          sep = sep)
 
     list <- list(up = up, down = down)
-    names(list) <- c(paste(name_prefix, "upregulated genes", sep = sep),
-                     paste(name_prefix, "downregulated genes", sep = sep))
+    names(list) <- c(paste(name_prefix, "upregulated", sep = sep),
+                     paste(name_prefix, "downregulated", sep = sep))
 
     return(list)
 }
