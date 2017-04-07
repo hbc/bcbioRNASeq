@@ -70,7 +70,7 @@ import_metadata <- function(
 
     metadata <- metadata %>%
         arrange_(.dots = "description") %>%
-        set_rownames("description")
+        column_to_rownames("description")
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")

@@ -5,7 +5,8 @@
 #' @keywords internal
 #'
 #' @import dplyr
-#' @importFrom biomaRt getBM useMart
+#' @import tibble
+#' @importFrom biomaRt getBM useEnsembl
 #'
 #' @param bcbio bcbio list object
 #' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
@@ -27,18 +28,18 @@ ensembl_annotations <- function(
     values = NULL) {
     check_bcbio(bcbio)
 
-    # biomaRt::listEnsembl()
-    # biomaRt::listMarts()
-    # Version 88 update is breaking biomaRt...use archive version
-    ensembl <- biomaRt::useEnsembl(
+    # listEnsembl()
+    # listMarts()
+
+    ensembl <- useEnsembl(
         biomart = "ensembl",
         dataset = paste0(bcbio$organism, "_gene_ensembl"),
-        host = "dec2016.archive.ensembl.org"
         # version = "87"
+        host = "dec2016.archive.ensembl.org"
     )
 
-    # attributes <- biomaRt::listAttributes(ensembl)
-    # filters <- biomaRt::listFilters(ensembl)
+    # attributes <- listAttributes(ensembl)
+    # filters <- listFilters(ensembl)
 
     # Set biomaRt input defaults
     if (is.null(values)) {
@@ -54,12 +55,12 @@ ensembl_annotations <- function(
     }
 
     annotations <-
-        biomaRt::getBM(mart = ensembl,
-                       attributes = attributes,
-                       filters = filters,
-                       values = values) %>%
-        dplyr::arrange_(.dots = colnames(.)) %>%
-        set_rownames("ensembl_gene_id")
+        getBM(mart = ensembl,
+              attributes = attributes,
+              filters = filters,
+              values = values) %>%
+        arrange_(.dots = colnames(.)) %>%
+        column_to_rownames("ensembl_gene_id")
 
     return(annotations)
 }

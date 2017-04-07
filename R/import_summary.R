@@ -3,6 +3,7 @@
 #'
 #' @import dplyr
 #' @import readr
+#' @import tibble
 #' @importFrom utils write.csv
 #'
 #' @param bcbio bcbio run object
@@ -23,7 +24,7 @@ import_summary <- function(bcbio, save = FALSE) {
                           setdiff(sort(names(.)),
                                   "description"))) %>%
         arrange_(.dots = "description") %>%
-        set_rownames("description")
+        column_to_rownames("description")
 
     metadata <- import_metadata(bcbio)
 

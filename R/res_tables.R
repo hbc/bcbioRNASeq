@@ -51,23 +51,23 @@ res_tables <- function(
         set_names_snake %>%
         dplyr::left_join(annotations, by = "ensembl_gene_id") %>%
         dplyr::arrange_(.dots = "ensembl_gene_id") %>%
-        set_rownames("ensembl_gene_id")
+        column_to_rownames("ensembl_gene_id")
 
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
         dplyr::filter_(.dots = ~padj < alpha) %>%
         dplyr::arrange_(.dots = "padj") %>%
-        set_rownames("ensembl_gene_id")
+        column_to_rownames("ensembl_gene_id")
     deg_lfc <- deg %>%
         dplyr::filter_(.dots = ~log2_fold_change < -lfc |
                            log2_fold_change > lfc) %>%
-        set_rownames("ensembl_gene_id")
+        column_to_rownames("ensembl_gene_id")
     deg_lfc_up <- deg_lfc %>%
         dplyr::filter_(.dots = ~log2_fold_change > 0) %>%
-        set_rownames("ensembl_gene_id")
+        column_to_rownames("ensembl_gene_id")
     deg_lfc_down <- deg_lfc %>%
         dplyr::filter_(.dots = ~log2_fold_change < 0) %>%
-        set_rownames("ensembl_gene_id")
+        column_to_rownames("ensembl_gene_id")
 
     base_mean_gt0 <- dplyr::filter_(all, .dots = ~base_mean > 0)
     base_mean_gt1 <- dplyr::filter_(all, .dots = ~base_mean > 1)
