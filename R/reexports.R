@@ -1,8 +1,10 @@
-# https://github.com/tidyverse/dplyr/blob/master/R/utils.r
+#' @importFrom basejump kable
+#' @export
+basejump::kable
 
-#' @importFrom utils globalVariables
-#' @keywords internal
-globalVariables(".")
+
+
+# https://github.com/tidyverse/dplyr/blob/master/R/utils.r
 
 #' @importFrom magrittr %>%
 #' @export
@@ -19,3 +21,9 @@ magrittr::set_colnames
 #' @importFrom magrittr set_rownames
 #' @export
 magrittr::set_rownames
+
+
+
+#' @importFrom utils globalVariables
+#' @keywords internal
+globalVariables(".")
