@@ -1,6 +1,7 @@
 #' Knit multiple kables in a single chunk
 #'
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @importFrom knitr asis_output
 #'
