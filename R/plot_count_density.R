@@ -1,32 +1,24 @@
-#' Count density plot
-#'
-#' @author Michael Steinbaugh
-#'
-#' @import ggplot2
-#'
-#' @param bcbio bcbio list object
-#' @param counts Counts matrix
-#'
+#' @rdname qc_plots
+#' @description Plot count density
+#' @return Density plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_count_density(bcbio, counts)
-#' }
 plot_count_density <- function(
     bcbio,
     counts) {
     check_bcbio(bcbio)
     name <- deparse(substitute(counts))
+
     melted <- melt_log10(bcbio, counts)
-    plot <- ggplot2::ggplot(
+
+    plot <- ggplot(
         melted,
-        ggplot2::aes_(x = ~counts,
-                      group = ~samplename)
+        aes_(x = ~counts,
+             group = ~samplename)
     ) +
-        ggplot2::ggtitle(paste("count density:", name)) +
-        ggplot2::geom_density() +
-        ggplot2::labs(x = expression(log[10]~counts~per~gene),
-                      y = "density")
-    print(plot)
+        ggtitle(paste("count density:", name)) +
+        geom_density() +
+        labs(x = expression(log[10]~counts~per~gene),
+             y = "density")
+
+    show(plot)
 }

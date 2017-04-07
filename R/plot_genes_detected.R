@@ -1,34 +1,28 @@
-#' Genes detected plot
+#' @rdname qc_plots
+#' @description Genes detected plot
 #'
-#' @author Michael Steinbaugh
+#' @param raw_counts Raw counts matrix. Can be obtained from \code{DESeqDataSet}
+#'   by running \code{counts(normalized = FALSE)}.
 #'
-#' @import ggplot2
-#'
-#' @param bcbio bcbio list object
-#' @param counts Raw counts matrix
-#'
+#' @return Bar plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_genes_detected(bcbio, raw_counts)
-#' }
-plot_genes_detected <- function(bcbio, counts) {
+plot_genes_detected <- function(bcbio, raw_counts) {
     check_bcbio(bcbio)
     plot <- import_summary(bcbio) %>%
-        ggplot2::ggplot(
-            ggplot2::aes_(x = ~description,
-                          y = colSums(counts > 0),
-                          fill = ~qc_color)
+        ggplot(
+            aes_(x = ~description,
+                 y = colSums(raw_counts > 0),
+                 fill = ~qc_color)
         ) +
-        ggplot2::ggtitle("genes detected") +
-        ggplot2::geom_bar(stat = "identity") +
-        ggplot2::geom_hline(color = "green",
-                            size = 2,
-                            yintercept = 20000) +
-        ggplot2::labs(x = "sample",
-                      y = "gene count",
-                      fill = "") +
-        ggplot2::coord_flip()
-    print(plot)
+        ggtitle("genes detected") +
+        geom_bar(stat = "identity") +
+        geom_hline(color = "green",
+                   size = 2,
+                   yintercept = 20000) +
+        labs(x = "sample",
+             y = "gene count",
+             fill = "") +
+        coord_flip()
+
+    show(plot)
 }

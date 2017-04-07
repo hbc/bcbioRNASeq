@@ -1,35 +1,36 @@
-#' Total reads plot
+#' Quality control plots
 #'
 #' @author Michael Steinbaugh
 #'
+#' @rdname qc_plots
+#' @description Plot total reads
+#'
 #' @import ggplot2
 #'
-#' @param bcbio list object
+#' @param bcbio \code{bcbio-nextgen} run object
 #'
+#' @return Bar plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_total_reads(bcbio)
-#' }
 plot_total_reads <- function(bcbio) {
     check_bcbio(bcbio)
+
     plot <- import_summary(bcbio) %>%
-        ggplot2::ggplot(aes_(x = ~description,
-                             y = ~total_reads / 1e6,
-                             fill = ~qc_color)
+        ggplot(aes_(x = ~description,
+                    y = ~total_reads / 1e6,
+                    fill = ~qc_color)
         ) +
-        ggplot2::ggtitle("total reads") +
-        ggplot2::geom_bar(stat = "identity") +
-        ggplot2::geom_hline(color = "orange",
-                            size = 2,
-                            yintercept = 10) +
-        ggplot2::geom_hline(color = "green",
-                            size = 2,
-                            yintercept = 20) +
-        ggplot2::labs(x = "sample",
-                      y = "total reads (million)",
-                      fill = "") +
-        ggplot2::coord_flip()
-    print(plot)
+        ggtitle("total reads") +
+        geom_bar(stat = "identity") +
+        geom_hline(color = "orange",
+                   size = 2,
+                   yintercept = 10) +
+        geom_hline(color = "green",
+                   size = 2,
+                   yintercept = 20) +
+        labs(x = "sample",
+             y = "total reads (million)",
+             fill = "") +
+        coord_flip()
+
+    show(plot)
 }

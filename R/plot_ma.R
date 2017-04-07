@@ -1,9 +1,10 @@
-#' Plot MA
+#' Differential expression plots
 #'
-#' Wrapper function for \code{DESeq2::plotMA()} that enforces a symmetric y-axis
-#' and an automatic title
-#'
+#' @rdname de_plots
 #' @author Michael Steinbaugh
+#'
+#' @description Wrapper for \code{DESeq2::plotMA()} that enforces a symmetric
+#'   y-axis and an automatic title
 #'
 #' @import DESeq2
 #'
@@ -23,5 +24,5 @@ plot_ma <- function(res, ylim = 2) {
         main = paste0(name, ": ", contrast_name),
         ylim = c(-ylim, ylim))
 
-    print(plot)
+    show(plot)
 }

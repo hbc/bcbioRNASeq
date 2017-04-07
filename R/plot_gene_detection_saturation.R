@@ -1,32 +1,23 @@
-#' Genes detection saturation plot
-#'
-#' @author Michael Steinbaugh
-#'
-#' @import ggplot2
-#'
-#' @param bcbio bcbio list object
-#' @param counts Raw counts matrix
-#'
+#' @rdname qc_plots
+#' @description Genes detection saturation plot
+#' @return Smooth plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_gene_detection_saturation(bcbio, raw_counts)
-#' }
-plot_gene_detection_saturation <- function(bcbio, counts) {
+plot_gene_detection_saturation <- function(bcbio, raw_counts) {
     check_bcbio(bcbio)
+
     plot <- import_summary(bcbio) %>%
-        ggplot2::ggplot(
-            ggplot2::aes_(x = ~mapped_reads / 1e6,
-                          y = ~colSums(counts > 0),
-                          color = ~qc_color,
-                          shape = ~qc_color)) +
-        ggplot2::ggtitle("gene detection saturation") +
-        ggplot2::geom_point(size = 3) +
-        ggplot2::geom_smooth(method = "lm", se = FALSE) +
-        ggplot2::labs(x = "mapped reads (million)",
-                      y = "gene count",
-                      color = "",
-                      shape = "")
-    print(plot)
+        ggplot(
+            aes_(x = ~mapped_reads / 1e6,
+                 y = ~colSums(raw_counts > 0),
+                 color = ~qc_color,
+                 shape = ~qc_color)) +
+        ggtitle("gene detection saturation") +
+        geom_point(size = 3) +
+        geom_smooth(method = "lm", se = FALSE) +
+        labs(x = "mapped reads (million)",
+             y = "gene count",
+             color = "",
+             shape = "")
+
+    show(plot)
 }

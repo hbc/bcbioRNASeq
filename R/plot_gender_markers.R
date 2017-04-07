@@ -1,6 +1,5 @@
-#' Graph sexually dimorphic marker genes
-#'
-#' @author Michael Steinbaugh
+#' @rdname qc_plots
+#' @description Plot sexually dimorphic gender marker genes
 #'
 #' @import dplyr
 #' @import ggplot2
@@ -8,21 +7,16 @@
 #' @import reshape2
 #' @import tibble
 #'
-#' @param bcbio bcbio list object
-#' @param counts Counts matrix. Transcripts per million (TPM) or normalized
-#'   counts are preferred.
+#' @param normalized_counts Normalized counts matrix. Can be obtained from
+#'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+#'   Transcripts per million (TPM) are also acceptable.
 #'
-#' @return Scatterplot
+#' @return Scatter plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_gender_markers(bcbio, tpm)
-#' }
-plot_gender_markers <- function(bcbio, counts) {
+plot_gender_markers <- function(bcbio, normalized_counts) {
     check_bcbio(bcbio)
 
-    name <- deparse(substitute(counts))
+    name <- deparse(substitute(normalized_counts))
     organism <- bcbio$organism
 
     # Download the CSV file from seqcloud repo
@@ -34,39 +28,37 @@ plot_gender_markers <- function(bcbio, counts) {
                      "illumina_rnaseq",
                      organism,
                      "gender_markers.csv") %>%
-        readr::read_csv(.,
-                        col_types = readr::cols(),
-                        na = c("", "#N/A")) %>%
+        read_csv(col_types = cols(),
+                 na = c("", "#N/A")) %>%
         .[.$include == TRUE, ] %>%
-        dplyr::arrange_(.dots = c("chromosome",
-                                  "gene_symbol"))
+        arrange_(.dots = c("chromosome", "gene_symbol"))
 
     # Ensembl identifiers
     identifier <- csv[, "ensembl_gene"][[1]] %>% sort %>% unique
 
     # Scatterplot
-    plot <- counts[identifier, ] %>%
+    plot <- normalized_counts[identifier, ] %>%
         as.data.frame %>%
-        tibble::rownames_to_column(.) %>%
+        rownames_to_column %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
-        reshape2::melt(., id = 1) %>%
+        melt(id = 1) %>%
         set_names(c("ensembl_gene",
                     "description",
                     "counts")) %>%
-        dplyr::left_join(csv, by = "ensembl_gene") %>%
-        ggplot2::ggplot(
-            ggplot2::aes_(~gene_symbol,
-                          ~counts,
-                          color = ~description,
-                          shape = ~chromosome)
+        left_join(csv, by = "ensembl_gene") %>%
+        ggplot(
+            aes_(~gene_symbol,
+                 ~counts,
+                 color = ~description,
+                 shape = ~chromosome)
         ) +
-        ggplot2::ggtitle("gender markers") +
-        ggplot2::geom_jitter(size = 4) +
-        ggplot2::expand_limits(y = 0) +
-        ggplot2::labs(x = "gene",
-                      y = name) +
-        ggplot2::theme(legend.position = "none")
+        ggtitle("gender markers") +
+        geom_jitter(size = 4) +
+        expand_limits(y = 0) +
+        labs(x = "gene",
+             y = name) +
+        theme(legend.position = "none")
 
-    print(plot)
+    show(plot)
 }

@@ -28,20 +28,20 @@ plot_gene <- function(
     plot <- data.frame(x = names(counts),
                        y = counts,
                        color = metadata[[color]]) %>%
-        ggplot2::ggplot(
-            ggplot2::aes_(x = ~name,
-                          y = ~counts,
-                          fill = ~color)
+        ggplot(
+            aes_(x = ~name,
+                 y = ~counts,
+                 fill = ~color)
         ) +
-        ggplot2::ggtitle(gene) +
-        ggplot2::geom_dotplot(binaxis = "y") +
-        ggplot2::theme(
-            axis.text.x = ggplot2::element_text(angle = 90)
+        ggtitle(gene) +
+        geom_dotplot(binaxis = "y") +
+        theme(
+            axis.text.x = element_text(angle = 90)
         ) +
-        ggplot2::labs(x = "sample",
-                      y = ylab,
-                      fill = "") +
-        ggplot2::expand_limits(y = 0)
+        labs(x = "sample",
+             y = ylab,
+             fill = "") +
+        expand_limits(y = 0)
 
-    print(plot)
+    show(plot)
 }

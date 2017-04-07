@@ -1,24 +1,19 @@
-#' Quickly plot principal component analysis (PCA)
-#'
-#' @author Michael Steinbaugh
+#' @rdname qc_plots
+#' @description Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample
+#'   coloring and labeling
 #'
 #' @import DESeq2
 #' @import ggplot2
 #' @import ggrepel
 #'
-#' @param bcbio bcbio list object
-#' @param dt \code{DESeqTransform} object generated from \code{rlog()} or
-#'   \code{vst()} on a \code{DESeqDataSet} object. We prefer to pipe the
-#'   transformed data in to this function because the operation is CPU
-#'   intensive, and is slow when applied to multiple PCA plot operations.
+#' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
+#'   on a \code{DESeqDataSet} object. We prefer to pipe the transformed data in
+#'   to this function because the operation is CPU intensive, and is slow when
+#'   applied to multiple PCA plot operations.
 #' @param label Superimpose sample text labels on the plot
 #'
+#' @return PCA plot
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' plot_deseq_pca(rlog)
-#' }
 plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
     check_bcbio(bcbio)
     check_dt(dt)
@@ -41,19 +36,19 @@ plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
                        color = data[[color]],
                        shape = data[[shape]],
                        label = dt@colData$description) %>%
-        ggplot2::ggplot(
-            ggplot2::aes_(x = ~x,
-                          y = ~y,
-                          color = ~color,
-                          shape = ~shape)
+        ggplot(
+            aes_(x = ~x,
+                 y = ~y,
+                 color = ~color,
+                 shape = ~shape)
         ) +
-        ggplot2::ggtitle(paste("pca:", name)) +
-        ggplot2::geom_point(size = 3) +
-        ggplot2::coord_fixed() +
-        ggplot2::labs(x = paste0("pc1: ", percent_var[1], "% variance"),
-                      y = paste0("pc2: ", percent_var[2], "% variance"),
-                      color = "color",
-                      shape = "shape")
+        ggtitle(paste("pca:", name)) +
+        geom_point(size = 3) +
+        coord_fixed() +
+        labs(x = paste0("pc1: ", percent_var[1], "% variance"),
+             y = paste0("pc2: ", percent_var[2], "% variance"),
+             color = "color",
+             shape = "shape")
 
     # Label with sample description, if desired
     if (isTRUE(label)) {
@@ -61,5 +56,5 @@ plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
             ggrepel::geom_text_repel(aes_(label = ~label))
     }
 
-    print(plot)
+    show(plot)
 }
