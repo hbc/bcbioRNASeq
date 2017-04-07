@@ -9,11 +9,6 @@
 #'
 #' @return Printed summary
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' alpha_summary(dds, alpha = 0.05)
-#' }
 alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6)) {
