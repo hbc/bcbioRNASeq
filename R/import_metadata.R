@@ -67,7 +67,10 @@ import_metadata <- function(
         metadata <- metadata[grepl(grep, metadata$description), ]
     }
 
-    metadata <- metadata %>% arrange_(.dots = "description")
+    metadata <- metadata %>%
+        arrange_(.dots = "description") %>%
+        as.data.frame %>%
+        set_rownames(.$description)
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
