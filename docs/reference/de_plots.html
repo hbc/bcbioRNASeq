@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print summary statistics of alpha level cutoffs — alpha_summary • bcbioRnaseq</title>
+<title>Differential expression plots — plot_ma • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,26 +73,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print summary statistics of alpha level cutoffs</h1>
+    <h1>Differential expression plots</h1>
     </div>
 
     
-    <p>Print summary statistics of alpha level cutoffs</p>
+    <p>Wrapper for <code>DESeq2::plotMA()</code> that enforces a symmetric
+  y-axis and an automatic title</p>
+<p>Volcano plot</p>
     
 
-    <pre><span class='fu'>alpha_summary</span>(<span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>, <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>))</pre>
+    <pre><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+
+<span class='fu'>plot_volcano</span>(<span class='no'>bcbio</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>text_labels</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>dds</dt>
-      <dd><p>DESeq2 data set</p></dd>
-      <dt>alpha</dt>
-      <dd><p>alpha Numeric vector of alpha levels to check</p></dd>
+      <dt>res</dt>
+      <dd><p><code>DESeqResults</code> object</p></dd>
+      <dt>ylim</dt>
+      <dd><p>Y-axis maximum (single integer)</p></dd>
+      <dt>lfc</dt>
+      <dd><p>Log fold change ratio (base 2) cutoff for coloring</p></dd>
+      <dt>text_labels</dt>
+      <dd><p>Number of text labels to plot</p></dd>
+      <dt>res</dt>
+      <dd><p>DESeqResults</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Printed summary</p>
+    <p>MA plot</p>
+<p>Volcano plot</p>
     
 
   </div>

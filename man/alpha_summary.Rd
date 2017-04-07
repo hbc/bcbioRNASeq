@@ -17,11 +17,6 @@ Printed summary
 \description{
 Print summary statistics of alpha level cutoffs
 }
-\examples{
-\dontrun{
-alpha_summary(dds, alpha = 0.05)
-}
-}
 \author{
 Michael Steinbaugh
 }

@@ -21,3 +21,4 @@ multiple_kables(list(iris, mtcars))
 \author{
 Michael Steinbaugh
 }
+\keyword{internal}
