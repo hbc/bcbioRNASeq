@@ -16,5 +16,5 @@ multiple_kables <- function(list) {
     tables <- lapply(seq_along(list), function(a) {
         kable(list[a], caption = names(list)[a])
     })
-    return(knitr::asis_output(tables))
+    return(asis_output(tables))
 }
