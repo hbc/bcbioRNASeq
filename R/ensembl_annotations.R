@@ -5,7 +5,6 @@
 #' @keywords internal
 #'
 #' @import dplyr
-#' @import tibble
 #' @importFrom biomaRt getBM useEnsembl
 #'
 #' @param bcbio bcbio list object
@@ -60,7 +59,7 @@ ensembl_annotations <- function(
               filters = filters,
               values = values) %>%
         arrange_(.dots = colnames(.)) %>%
-        column_to_rownames("ensembl_gene_id")
+        set_rownames(.$ensembl_gene_id)
 
     return(annotations)
 }

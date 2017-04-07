@@ -40,7 +40,7 @@ plot_volcano <- function(
             "logFC" = "log2FoldChange"
         )) %>%
         arrange_(.dots = "Adjusted.Pvalue") %>%
-        column_to_rownames("ensembl_gene_id") %>%
+        set_rownames(.$ensembl_gene_id) %>%
         select_(.dots = c("logFC", "Adjusted.Pvalue"))
 
     # Automatically label the top genes
@@ -55,7 +55,7 @@ plot_volcano <- function(
                           "logFC",
                           "Adjusted.Pvalue",
                           "name")) %>%
-        column_to_rownames("ensembl_gene_id")
+        set_rownames(.$ensembl_gene_id)
     plot_text$ensembl_gene_id <- NULL
 
     # When there's time, rework this function internally in the package

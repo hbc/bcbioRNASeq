@@ -4,6 +4,7 @@
 #'
 #' @import DESeq2
 #' @import dplyr
+#' @import readr
 #' @import tibble
 #'
 #' @param bcbio bcbio list object
@@ -13,7 +14,6 @@
 #'   See \code{?DESeq2::results} for additional information about using
 #'   \code{lfcThreshold} and \code{altHypothesis} to set an alternative
 #'   hypothesis based on expected fold changes.
-#' @param write_csv Write CSV files
 #'
 #' @return Results list
 #' @export
@@ -25,12 +25,10 @@
 res_tables <- function(
     bcbio,
     res,
-    lfc = 0,
-    write_csv = TRUE) {
+    lfc = 0) {
     check_bcbio(bcbio)
-    if (class(res)[1] != "DESeqResults") {
-        stop("DESeqResults required")
-    }
+    check_res(res)
+
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)
     contrast_name <- contrast %>% gsub(" ", "_", .)
@@ -47,30 +45,30 @@ res_tables <- function(
 
     all <- res %>%
         as.data.frame %>%
-        tibble::rownames_to_column("ensembl_gene_id") %>%
+        rownames_to_column("ensembl_gene_id") %>%
         set_names_snake %>%
-        dplyr::left_join(annotations, by = "ensembl_gene_id") %>%
-        dplyr::arrange_(.dots = "ensembl_gene_id") %>%
-        column_to_rownames("ensembl_gene_id")
+        left_join(annotations, by = "ensembl_gene_id") %>%
+        arrange_(.dots = "ensembl_gene_id") %>%
+        set_rownames(.$ensembl_gene_id)
 
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
-        dplyr::filter_(.dots = ~padj < alpha) %>%
-        dplyr::arrange_(.dots = "padj") %>%
-        column_to_rownames("ensembl_gene_id")
+        filter_(.dots = ~padj < alpha) %>%
+        arrange_(.dots = "padj") %>%
+        set_rownames(.$ensembl_gene_id)
     deg_lfc <- deg %>%
-        dplyr::filter_(.dots = ~log2_fold_change < -lfc |
-                           log2_fold_change > lfc) %>%
-        column_to_rownames("ensembl_gene_id")
+        filter_(.dots = ~log2_fold_change < -lfc |
+                    log2_fold_change > lfc) %>%
+        set_rownames(.$ensembl_gene_id)
     deg_lfc_up <- deg_lfc %>%
-        dplyr::filter_(.dots = ~log2_fold_change > 0) %>%
-        column_to_rownames("ensembl_gene_id")
+        filter_(.dots = ~log2_fold_change > 0) %>%
+        set_rownames(.$ensembl_gene_id)
     deg_lfc_down <- deg_lfc %>%
-        dplyr::filter_(.dots = ~log2_fold_change < 0) %>%
-        column_to_rownames("ensembl_gene_id")
+        filter_(.dots = ~log2_fold_change < 0) %>%
+        set_rownames(.$ensembl_gene_id)
 
-    base_mean_gt0 <- dplyr::filter_(all, .dots = ~base_mean > 0)
-    base_mean_gt1 <- dplyr::filter_(all, .dots = ~base_mean > 1)
+    base_mean_gt0 <- filter_(all, .dots = ~base_mean > 0)
+    base_mean_gt1 <- filter_(all, .dots = ~base_mean > 1)
 
     writeLines(c(
         paste(name, "differential expression tables"),
@@ -92,35 +90,33 @@ res_tables <- function(
     de_dir <- file.path("results", "de")
     dir.create(de_dir, recursive = TRUE, showWarnings = FALSE)
 
-    if (isTRUE(write_csv)) {
-        write.csv(
-            all,
-            file = file.path(de_dir,
-                             paste(name,
-                                   contrast_name, "all_genes.csv",
-                                   sep = "_")))
-        write.csv(
-            deg,
-            file = file.path(de_dir,
-                             paste(name,
-                                   contrast_name,
-                                   "deg.csv",
-                                   sep = "_")))
-        write.csv(
-            deg_lfc_up,
-            file = file.path(de_dir,
-                             paste(name,
-                                   contrast_name,
-                                   "deg_lfc_up.csv",
-                                   sep = "_")))
-        write.csv(
-            deg_lfc_down,
-            file = file.path(de_dir,
-                             paste(name,
-                                   contrast_name,
-                                   "deg_lfc_down.csv",
-                                   sep = "_")))
-    }
+    write_csv(
+        all,
+        file.path(de_dir,
+                  paste(name,
+                        contrast_name, "all_genes.csv",
+                        sep = "_")))
+    write_csv(
+        deg,
+        file.path(de_dir,
+                  paste(name,
+                        contrast_name,
+                        "deg.csv",
+                        sep = "_")))
+    write_csv(
+        deg_lfc_up,
+        file.path(de_dir,
+                  paste(name,
+                        contrast_name,
+                        "deg_lfc_up.csv",
+                        sep = "_")))
+    write_csv(
+        deg_lfc_down,
+        file.path(de_dir,
+                  paste(name,
+                        contrast_name,
+                        "deg_lfc_down.csv",
+                        sep = "_")))
 
     return(list(
         name = name,
