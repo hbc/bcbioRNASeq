@@ -1,6 +1,5 @@
-#' Import a bcbio project summary
-#'
-#' @author Michael Steinbaugh
+#' @rdname import
+#' @description Import project summary statistics
 #'
 #' @import dplyr
 #' @import readr
@@ -8,12 +7,6 @@
 #'
 #' @param bcbio bcbio run object
 #' @param save Save data frame
-#'
-#' @export
-#' @examples
-#' \dontrun{
-#' import_summary(bcbio)
-#' }
 import_summary <- function(bcbio, save = FALSE) {
     check_bcbio(bcbio)
     summary <- file.path(bcbio$project_dir,
