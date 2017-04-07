@@ -18,15 +18,15 @@ import_summary <- function(bcbio, save = FALSE) {
     check_bcbio(bcbio)
     summary <- file.path(bcbio$project_dir,
                          "project-summary.csv") %>%
-        readr::read_csv(., col_types = readr::cols()) %>%
+        read_csv(col_types = cols()) %>%
         set_names_snake %>%
         # Remove NA only columns
         .[, colSums(!is.na(.)) > 0] %>%
         # Sort by description
-        dplyr::select_(.dots = c("description",
-                                 setdiff(sort(names(.)),
-                                         "description"))) %>%
-        dplyr::arrange_(.dots = "description") %>%
+        select_(.dots = c("description",
+                          setdiff(sort(names(.)),
+                                  "description"))) %>%
+        arrange_(.dots = "description") %>%
         set_rownames("description")
 
     metadata <- import_metadata(bcbio)
@@ -35,7 +35,7 @@ import_summary <- function(bcbio, save = FALSE) {
         stop("summary and metadata rownames don't match")
     }
 
-    # Use the first entry in interesting groups to define the QC plot colors. If
+    # Use the first entry in interesting groups to define the QC colors. If
     # empty, defaults to description.
     color <- bcbio$intgroup[1]
     if (is.na(color)) {
@@ -45,7 +45,7 @@ import_summary <- function(bcbio, save = FALSE) {
 
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")
-        utils::write.csv(summary, file = "results/summary.csv")
+        write.csv(summary, file = "results/summary.csv")
     }
 
     return(summary)

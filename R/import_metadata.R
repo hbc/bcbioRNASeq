@@ -31,9 +31,9 @@ import_metadata <- function(
     metadata <- list.files(bcbio$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%
-        readr::read_csv(., col_types = readr::cols()) %>%
+        read_csv(col_types = cols()) %>%
         set_names_snake %>%
-        dplyr::arrange_(.dots = "description")
+        arrange_(.dots = "description")
 
     if (isTRUE(bcbio$lane_split) & !isTRUE(pool)) {
         # Lane splitting. This assumes the YAML descriptions won't match the
@@ -47,10 +47,10 @@ import_metadata <- function(
         lane <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
 
         metadata <- metadata %>%
-            dplyr::group_by_(.dots = "samplename") %>%
-            tidyr::expand_(~lane) %>%
-            dplyr::left_join(metadata, by = "samplename") %>%
-            dplyr::ungroup()
+            group_by_(.dots = "samplename") %>%
+            expand_(~lane) %>%
+            left_join(metadata, by = "samplename") %>%
+            ungroup
         metadata$samplename <- paste(metadata$samplename, lane, sep = "_")
 
         # Check against the sample_dirs
@@ -72,12 +72,12 @@ import_metadata <- function(
     }
 
     metadata <- metadata %>%
-        dplyr::arrange_(.dots = "description") %>%
+        arrange_(.dots = "description") %>%
         set_rownames("description")
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
-        utils::write.csv(metadata, file = "meta/metadata.csv")
+        write.csv(metadata, file = "meta/metadata.csv")
     }
 
     if (isTRUE(print)) {

@@ -94,8 +94,8 @@ run_david <- function(
                   "pvalue",
                   "fdr")] %>%
             # FDR should be presented on 0-1 scale, not as a percentage
-            dplyr::mutate_(.dots = set_names(list(~fdr / 100), "fdr")) %>%
-            dplyr::arrange_(.dots = c("category", "fdr")) %>%
+            mutate_(.dots = set_names(list(~fdr / 100), "fdr")) %>%
+            arrange_(.dots = c("category", "fdr")) %>%
             .[.$count >= count, ] %>%
             .[.$fdr < fdr, ]
         # Set NULL if everything got filtered
@@ -145,7 +145,7 @@ run_david <- function(
                                        sep = "_")))
 
         if (!is.null(cutoff_chart)) {
-            readr::write_tsv(
+            write_tsv(
                 cutoff_chart,
                 file.path(write_dir,
                           paste(name,
@@ -156,20 +156,6 @@ run_david <- function(
             )
         }
     }
-
-    # Copy the cutoff chart and set up as a simplified table
-    tbl <- cutoff_chart
-    tbl$genes <- NULL
-    tbl$pvalue <- NULL
-    # Truncate the term length to improve PDF rendering
-    tbl$term <- stringr::str_trunc(tbl$term, side = "right", width = 60)
-    # Set the caption and print
-    caption <- paste(name,
-                     contrast,
-                     "DAVID process enrichment",
-                     direction,
-                     sep = " : ")
-    kable(tbl, caption = caption)
 
     # Package DAVID output into a list
     return(list(

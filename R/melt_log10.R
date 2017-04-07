@@ -14,7 +14,7 @@
 melt_log10 <- function(bcbio, counts) {
     check_bcbio(bcbio)
     metadata <- import_metadata(bcbio) %>%
-        dplyr::select_(.dots = unique(c(
+        select_(.dots = unique(c(
             "samplename",
             "description",
             bcbio$intgroup
@@ -26,8 +26,8 @@ melt_log10 <- function(bcbio, counts) {
 
     melted <- counts %>%
         as.data.frame %>%
-        tibble::rownames_to_column(.) %>%
-        reshape2::melt(., id = 1) %>%
+        rownames_to_column %>%
+        melt(id = 1) %>%
         set_names(c("ensembl_gene_id",  # rownames
                     "description",  # colnames
                     "counts"))
