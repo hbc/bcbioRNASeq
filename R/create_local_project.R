@@ -1,12 +1,12 @@
 #' Create project directory structure
 #'
 #' @author Michael Steinbaugh
-#' @keywords internal
 #'
 #' @export
 create_local_project <- function() {
     local_dirs <- c("cache",
                     "data",
+                    "docs",
                     "figures",
                     "meta",
                     "results")
