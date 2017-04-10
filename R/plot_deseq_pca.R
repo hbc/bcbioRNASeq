@@ -56,5 +56,5 @@ plot_deseq_pca <- function(bcbio, dt, label = TRUE) {
             ggrepel::geom_text_repel(aes_(label = ~label))
     }
 
-    show(plot)
+    return(plot)
 }

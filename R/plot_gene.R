@@ -43,5 +43,5 @@ plot_gene <- function(
              fill = "") +
         expand_limits(y = 0)
 
-    show(plot)
+    return(plot)
 }

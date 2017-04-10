@@ -21,5 +21,5 @@ plot_rrna_mapping_rate <- function(bcbio) {
              fill = "") +
         coord_flip()
 
-    show(plot)
+    return(plot)
 }

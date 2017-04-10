@@ -60,5 +60,5 @@ plot_gender_markers <- function(bcbio, normalized_counts) {
              y = name) +
         theme(legend.position = "none")
 
-    show(plot)
+    return(plot)
 }

@@ -19,5 +19,5 @@ plot_gene_detection_saturation <- function(bcbio, raw_counts) {
              color = "",
              shape = "")
 
-    show(plot)
+    return(plot)
 }

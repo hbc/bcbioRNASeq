@@ -20,5 +20,5 @@ plot_count_density <- function(
         labs(x = expression(log[10]~counts~per~gene),
              y = "density")
 
-    show(plot)
+    return(plot)
 }

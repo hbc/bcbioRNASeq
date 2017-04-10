@@ -24,5 +24,5 @@ plot_ma <- function(res, ylim = 2) {
         main = paste0(name, ": ", contrast_name),
         ylim = c(-ylim, ylim))
 
-    show(plot)
+    return(plot)
 }

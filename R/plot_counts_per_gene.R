@@ -25,5 +25,5 @@ plot_counts_per_gene <- function(bcbio, normalized_counts) {
              color = "") +
         coord_flip()
 
-    show(plot)
+    return(plot)
 }

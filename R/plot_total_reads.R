@@ -32,5 +32,5 @@ plot_total_reads <- function(bcbio) {
              fill = "") +
         coord_flip()
 
-    show(plot)
+    return(plot)
 }

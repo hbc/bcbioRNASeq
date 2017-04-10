@@ -24,5 +24,5 @@ plot_genes_detected <- function(bcbio, raw_counts) {
              fill = "") +
         coord_flip()
 
-    show(plot)
+    return(plot)
 }

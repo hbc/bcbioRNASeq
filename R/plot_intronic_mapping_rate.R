@@ -23,5 +23,5 @@ plot_intronic_mapping_rate <- function(bcbio) {
         ylim(0, 100) +
         coord_flip()
 
-    show(plot)
+    return(plot)
 }
