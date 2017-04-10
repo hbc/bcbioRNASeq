@@ -2,15 +2,9 @@
 #'
 #' Save TPM values from a tximport counts object
 #'
-#' Links:
-#'
-#' - [tximport vignette](https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html)
-#' - [salmon getting started guide](https://combine-lab.github.io/salmon/getting_started/)
-#' - [Bioconductor thread](https://support.bioconductor.org/p/84883/#84929)
-#'
 #' @author Michael Steinbaugh
 #'
-#' @param txi tximport list object
+#' @param txi \code{tximport} object
 #'
 #' @return TPM (transcripts per million) matrix
 #' @export
