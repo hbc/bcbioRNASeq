@@ -1,3 +1,37 @@
+#' Differential expression plots
+#'
+#' @rdname de_plots
+#' @author Michael Steinbaugh
+
+
+
+#' @rdname de_plots
+#' @description Wrapper for \code{DESeq2::plotMA} that generates a title
+#'   automatically
+#'
+#' @import DESeq2
+#'
+#' @param res \code{DESeqResults}
+#' @param ylim Y-axis maximum (single integer)
+#'
+#' @return MA plot
+#' @export
+plot_ma <- function(res, ylim = 2) {
+    check_res(res)
+
+    name <- deparse(substitute(res))
+    contrast_name <- res_contrast_name(res)
+
+    plot <- plotMA(
+        res,
+        main = paste0(name, ": ", contrast_name),
+        ylim = c(-ylim, ylim))
+
+    return(plot)
+}
+
+
+
 #' @rdname de_plots
 #' @description Volcano plot
 #'
@@ -6,18 +40,18 @@
 #' @import tibble
 #' @importFrom CHBUtils volcano_density_plot
 #'
-#' @param res DESeqResults
+#' @param run \code{bcbio-nextgen} run
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
 #' @param text_labels Number of text labels to plot
 #'
 #' @return Volcano plot
 #' @export
 plot_volcano <- function(
-    bcbio,
+    run,
     res,
     lfc = 1,
     text_labels = 20) {
-    check_bcbio(bcbio)
+    check_run(run)
     check_res(res)
 
     name <- deparse(substitute(res))
@@ -47,7 +81,7 @@ plot_volcano <- function(
     plot_text <- df[1:text_labels, ] %>%
         rownames_to_column("ensembl_gene_id") %>%
         left_join(
-            ensembl_annotations(bcbio, values = .$ensembl_gene_id),
+            ensembl_annotations(run, values = .$ensembl_gene_id),
             by = "ensembl_gene_id"
         ) %>%
         rename_(.dots = c("name" = "external_gene_name")) %>%
