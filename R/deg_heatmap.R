@@ -7,7 +7,6 @@
 #' @import pheatmap
 #' @import SummarizedExperiment
 #' @import tibble
-#' @importFrom S4Vectors mcols
 #'
 #' @param bcbio bcbio list object
 #' @param dds \code{DESeqDataSet} object
@@ -27,29 +26,29 @@ deg_heatmap <- function(
     check_dds(dds)
 
     # rlog transform the counts
-    rld <- DESeq2::rlog(dds)
+    rld <- rlog(dds)
 
     # Annotation metadata
     annotation <- dds %>%
-        SummarizedExperiment::colData(.) %>%
+        colData %>%
         as.data.frame %>%
         .[, bcbio$intgroup]
 
     # DE genes, used for subsetting the rlog counts matrix
-    res <- DESeq2::results(dds,
-                           contrast = contrast,
-                           alpha = alpha)
+    res <- results(dds,
+                   contrast = contrast,
+                   alpha = alpha)
 
     # Output results to dataframe and subset by alpha and lfc cutoffs
     res_df <- res %>%
         as.data.frame %>%
-        tibble::rownames_to_column("ensembl_gene_id") %>%
-        dplyr::filter_(.dots = ~padj < alpha) %>%
-        dplyr::filter_(.dots = ~log2FoldChange < -lfc | log2FoldChange > lfc)
+        rownames_to_column("ensembl_gene_id") %>%
+        filter_(.dots = ~padj < alpha) %>%
+        filter_(.dots = ~log2FoldChange < -lfc | log2FoldChange > lfc)
 
     # Subset the transformed count matrix
     mat <- rld %>%
-        SummarizedExperiment::assay(.) %>%
+        assay %>%
         .[res_df$ensembl_gene_id, ]
 
     if (nrow(mat) <= 100) {
@@ -68,11 +67,11 @@ deg_heatmap <- function(
     name <- deparse(substitute(dds))
     contrast_name <- res_contrast_name(res)
 
-    pheatmap::pheatmap(mat,
-                       annotation = annotation,
-                       clustering_distance_cols = "correlation",
-                       clustering_method = "ward.D2",
-                       main = paste(name, contrast_name, sep = " : "),
-                       scale = "row",
-                       show_rownames = show_rownames)
+    pheatmap(mat,
+             annotation = annotation,
+             clustering_distance_cols = "correlation",
+             clustering_method = "ward.D2",
+             main = paste(name, contrast_name, sep = " : "),
+             scale = "row",
+             show_rownames = show_rownames)
 }
