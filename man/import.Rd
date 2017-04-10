@@ -17,7 +17,7 @@ import_metadata(run, grep = NULL, save = FALSE, pool = FALSE)
 import_summary(run, save = FALSE)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{\code{bcbio-nextgen} run}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
@@ -36,8 +36,6 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{save}{Save data}
 
 \item{pool}{Pool lane split samples}
-
-\item{run}{\code{bcbio-nextgen} run}
 }
 \value{
 txi \code{tximport} list object
