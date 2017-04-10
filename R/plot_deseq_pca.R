@@ -1,12 +1,13 @@
-#' @rdname qc_plots
-#' @description Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample
-#'   coloring and labeling
+#' Plot PCA
+#'
+#' Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample coloring and
+#' labeling
 #'
 #' @import DESeq2
 #' @import ggplot2
 #' @import ggrepel
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run \code{bcbio-nextgen} run
 #' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 #'   on a \code{DESeqDataSet} object. We prefer to pipe the transformed data in
 #'   to this function because the operation is CPU intensive, and is slow when
