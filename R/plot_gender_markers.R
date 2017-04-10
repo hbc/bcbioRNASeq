@@ -7,17 +7,18 @@
 #' @import reshape2
 #' @import tibble
 #'
+#' @param run \code{bcbio-nextgen} run object
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
 #'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
 #'   Transcripts per million (TPM) are also acceptable.
 #'
 #' @return Scatter plot
 #' @export
-plot_gender_markers <- function(bcbio, normalized_counts) {
-    check_bcbio(bcbio)
+plot_gender_markers <- function(run, normalized_counts) {
+    check_run(run)
 
     name <- deparse(substitute(normalized_counts))
-    organism <- bcbio$organism
+    organism <- run$organism
 
     # Download the CSV file from seqcloud repo
     csv <- file.path("https://raw.githubusercontent.com",

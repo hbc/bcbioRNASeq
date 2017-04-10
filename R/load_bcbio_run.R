@@ -17,7 +17,7 @@
 #' @param config_dir Set the config output directory, if non-standard
 #' @param final_dir Set the final output directory, if non-standard
 #'
-#' @return bcbio list object with directory paths
+#' @return \code{bcbio-nextgen} run object
 #' @export
 #'
 #' @examples
@@ -34,12 +34,6 @@ load_bcbio_run <-
         # Interesting groups, defaults to description
         if (is.null(intgroup)) {
             intgroup <- "description"
-        }
-
-        # parent_dir
-        # Defaults to working directory if not set
-        if (is.null(parent_dir)) {
-            parent_dir <- getwd()
         }
 
         # run_dir
@@ -85,7 +79,7 @@ load_bcbio_run <-
             lane_split <- FALSE
         }
 
-        bcbio <- list(
+        run <- list(
             # Input required
             template = template,
             organism = organism,  # can automate by parsing YAML
@@ -101,14 +95,15 @@ load_bcbio_run <-
             # Fully automatic
             lane_split = lane_split,
             date = Sys.Date(),
-            session_info = utils::sessionInfo(),
+            session_info = sessionInfo(),
             data_versions = data_versions,
             wd = getwd()
         )
 
-        check_bcbio(bcbio)
-        create_local_project()
-        save(bcbio, file = "data/bcbio.rda")
+        check_run(run)
 
-        return(bcbio)
+        create_local_project()
+        save(run, file = "data/run.rda")
+
+        return(run)
     }

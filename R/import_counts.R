@@ -7,22 +7,19 @@
 #' @importFrom stats na.omit
 #' @importFrom utils write.csv
 #'
-#' @param bcbio bcbio run object
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport()}.
-#' @param grep Apply grep pattern matching to sample names. This will override
-#'   any parmeter set in \code{samples}.
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
 #'
 #' @return txi \code{tximport} list object
 #' @export
 import_counts <- function(
-    bcbio,
+    run,
     type = "salmon",
     grep = NULL,
     samples = NULL) {
-    check_bcbio(bcbio)
+    check_run(run)
     if (!type %in% c("salmon", "sailfish")) {
         stop("unsupported counts input format")
     }
@@ -30,22 +27,22 @@ import_counts <- function(
     # Sample name grep pattern matching. Run above `samples` to override.
     if (!is.null(grep)) {
         samples <- stringr::str_subset(
-            names(bcbio$sample_dirs), pattern = grep)
+            names(run$sample_dirs), pattern = grep)
         if (!length(samples)) {
             stop("grep string didn't match any samples")
         }
     }
 
     if (is.null(samples)) {
-        samples <- names(bcbio$sample_dirs)
+        samples <- names(run$sample_dirs)
     } else {
         samples <- sort(unique(stats::na.omit(samples)))
     }
 
     # Support for salmon and sailfish file structure
-    sample_files <- file.path(bcbio$sample_dirs[samples],
+    sample_files <- file.path(run$sample_dirs[samples],
                               type, "quant", "quant.sf")
-    names(sample_files) <- names(bcbio$sample_dirs[samples])
+    names(sample_files) <- names(run$sample_dirs[samples])
     if (!all(file.exists(sample_files))) {
         stop(paste(type, "count files do not exist"))
     }
@@ -55,7 +52,7 @@ import_counts <- function(
     message(paste(names(sample_files), collapse = "\n"))
     # writeLines(sample_files)
 
-    tx2gene <- import_file(bcbio, file = "tx2gene.csv", col_names = FALSE)
+    tx2gene <- import_file(run, file = "tx2gene.csv", col_names = FALSE)
 
     # Import the counts
     # https://goo.gl/h6fm15

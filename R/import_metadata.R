@@ -12,26 +12,26 @@
 #' @import tidyr
 #' @importFrom utils write.csv
 #'
-#' @param bcbio \code{bcbio-nextgen} run object
-#' @param grep Apply grep pattern matching to subset by description
-#' @param save Save data frame
+#' @param run \code{bcbio-nextgen} run
+#' @param grep Apply grep pattern matching to samples
+#' @param save Save data
 #' @param pool Pool lane split samples
 #'
 #' @return Metadata data frame
 #' @export
 import_metadata <- function(
-    bcbio,
+    run,
     grep = NULL,
     save = FALSE,
     pool = FALSE) {
-    check_bcbio(bcbio)
-    metadata <- list.files(bcbio$config_dir,
+    check_run(run)
+    metadata <- list.files(run$config_dir,
                            pattern = ".csv",
                            full.names = TRUE) %>%
         read_csv(col_types = cols()) %>%
         set_names_snake
 
-    if (isTRUE(bcbio$lane_split) & !isTRUE(pool)) {
+    if (isTRUE(run$lane_split) & !isTRUE(pool)) {
         # Lane splitting. This assumes the YAML descriptions won't match the
         # `_L00[1-4]` suffix. Therefore, it renames both the samplename and
         # description columns to match the bcbio server output. This workflow is
@@ -51,9 +51,9 @@ import_metadata <- function(
 
         # Check against the sample_dirs
         description_match <- identical(metadata$description,
-                                       names(bcbio$sample_dirs))
+                                       names(run$sample_dirs))
         samplename_match <- identical(metadata$samplename,
-                                      names(bcbio$sample_dirs))
+                                      names(run$sample_dirs))
 
         # Replace description for lanesplit samples
         if (!isTRUE(description_match) & isTRUE(samplename_match)) {
@@ -74,7 +74,7 @@ import_metadata <- function(
 
     if (isTRUE(save)) {
         save(metadata, file = "data/metadata.rda")
-        write.csv(metadata, file = "meta/metadata.csv")
+        write_csv(metadata, "meta/metadata.csv")
     }
 
     return(metadata)

@@ -5,11 +5,11 @@
 #' @import DESeq2
 #' @import dplyr
 #' @import pheatmap
-#' @import SummarizedExperiment
 #' @import tibble
+#' @importFrom SummarizedExperiment assay colData
 #'
-#' @param bcbio bcbio list object
-#' @param dds \code{DESeqDataSet} object
+#' @param run \code{bcbio-nextgen} run object
+#' @param dds \code{DESeqDataSet}
 #' @param contrast Contrast
 #' @param alpha Alpha level cutoff
 #' @param lfc Log fold change ratio (base 2) cutoff
@@ -17,12 +17,12 @@
 #' @return Gene heatmap
 #' @export
 deg_heatmap <- function(
-    bcbio,
+    run,
     dds,
     contrast,
     alpha = 0.1,
     lfc = 0) {
-    check_bcbio(bcbio)
+    check_run(run)
     check_dds(dds)
 
     # rlog transform the counts
@@ -32,7 +32,7 @@ deg_heatmap <- function(
     annotation <- dds %>%
         colData %>%
         as.data.frame %>%
-        .[, bcbio$intgroup]
+        .[, run$intgroup]
 
     # DE genes, used for subsetting the rlog counts matrix
     res <- results(dds,
@@ -54,7 +54,7 @@ deg_heatmap <- function(
     if (nrow(mat) <= 100) {
         show_rownames <- TRUE
         # Change rownames to readable external gene names
-        gene_names <- ensembl_annotations(bcbio, values = rownames(mat))
+        gene_names <- ensembl_annotations(run, values = rownames(mat))
         if (identical(rownames(mat), rownames(gene_names))) {
             rownames(mat) <- gene_names$external_gene_name
         } else {

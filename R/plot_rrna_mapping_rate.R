@@ -1,11 +1,14 @@
 #' @rdname qc_plots
 #' @description rRNA contamination mapping rate
+#'
+#' @param run \code{bcbio-nextgen} run object
+#'
 #' @return Bar plot
 #' @export
-plot_rrna_mapping_rate <- function(bcbio) {
-    check_bcbio(bcbio)
+plot_rrna_mapping_rate <- function(run) {
+    check_run(run)
 
-    plot <- import_summary(bcbio) %>%
+    plot <- import_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = ~rrna_rate * 100,

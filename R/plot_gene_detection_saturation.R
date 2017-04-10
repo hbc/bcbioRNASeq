@@ -1,11 +1,16 @@
 #' @rdname qc_plots
 #' @description Genes detection saturation plot
+#'
+#' @param run \code{bcbio-nextgen} run object
+#' @param raw_counts Raw counts matrix. Can be obtained from \code{DESeqDataSet}
+#'   by running \code{counts(normalized = FALSE)}.
+#'
 #' @return Smooth plot
 #' @export
-plot_gene_detection_saturation <- function(bcbio, raw_counts) {
-    check_bcbio(bcbio)
+plot_gene_detection_saturation <- function(run, raw_counts) {
+    check_run(run)
 
-    plot <- import_summary(bcbio) %>%
+    plot <- import_summary(run) %>%
         ggplot(
             aes_(x = ~mapped_reads / 1e6,
                  y = ~colSums(raw_counts > 0),

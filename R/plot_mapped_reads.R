@@ -1,11 +1,14 @@
 #' @rdname qc_plots
 #' @description Mapped reads plot
+#'
+#' @param run \code{bcbio-nextgen} run object
+#'
 #' @return Bar plot
 #' @export
-plot_mapped_reads <- function(bcbio) {
-    check_bcbio(bcbio)
+plot_mapped_reads <- function(run) {
+    check_run(run)
 
-    plot <- import_summary(bcbio) %>%
+    plot <- import_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / 1e6,

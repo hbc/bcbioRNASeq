@@ -5,14 +5,11 @@
 #' @import readr
 #' @importFrom utils write.csv
 #'
-#' @param bcbio bcbio run object
-#' @param save Save data frame
-#'
 #' @return Summary data frame
 #' @export
-import_summary <- function(bcbio, save = FALSE) {
-    check_bcbio(bcbio)
-    summary <- file.path(bcbio$project_dir,
+import_summary <- function(run, save = FALSE) {
+    check_run(run)
+    summary <- file.path(run$project_dir,
                          "project-summary.csv") %>%
         read_csv(col_types = cols()) %>%
         set_names_snake %>%
@@ -24,7 +21,7 @@ import_summary <- function(bcbio, save = FALSE) {
                                   "description"))) %>%
         arrange_(.dots = "description")
 
-    metadata <- import_metadata(bcbio)
+    metadata <- import_metadata(run)
 
     if (!identical(summary$description, metadata$description)) {
         stop("summary and metadata descriptions don't match")
@@ -32,7 +29,7 @@ import_summary <- function(bcbio, save = FALSE) {
 
     # Use the first entry in interesting groups to define the QC colors. If
     # empty, defaults to description.
-    color <- bcbio$intgroup[1]
+    color <- run$intgroup[1]
     if (is.na(color)) {
         color <- "description"
     }
@@ -40,7 +37,7 @@ import_summary <- function(bcbio, save = FALSE) {
 
     if (isTRUE(save)) {
         save(summary, file = "data/summary.rda")
-        write.csv(summary, file = "results/summary.csv")
+        write_csv(summary, "results/summary.csv")
     }
 
     return(summary)

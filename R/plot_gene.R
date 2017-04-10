@@ -2,35 +2,31 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param bcbio bcbio list object
-#' @param counts Counts matrix
+#' @param run \code{bcbio-nextgen} run object
+#' @param normalized_counts Normalized counts matrix. Can be obtained from
+#'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+#'   Transcripts per million (TPM) are also acceptable.
 #' @param gene Gene identifier
 #'
 #' @export
 plot_gene <- function(
-    bcbio,
-    counts,
+    run,
+    normalized_counts,
     gene) {
-    check_bcbio(bcbio)
-    color <- bcbio$intgroup[1]
-    ylab <- deparse(substitute(counts))
-    counts <- as.matrix(counts) %>% .[gene, ]
+    check_run(run)
 
-    # Import metadata with automatic lane split detection. This will match the
-    # colnames format of the input counts.
-    if (any(grepl("_L\\d+$", colnames(counts)))) {
-        lanes <- "split"
-    } else {
-        lanes <- NULL
-    }
-    metadata <- import_metadata(bcbio)
+    color <- run$intgroup[1]
+    ylab <- deparse(substitute(normalized_counts))
 
-    plot <- data.frame(x = names(counts),
-                       y = counts,
+    normalized_counts <- as.matrix(normalized_counts) %>% .[gene, ]
+    metadata <- import_metadata(run)
+
+    plot <- data.frame(x = names(normalized_counts),
+                       y = normalized_counts,
                        color = metadata[[color]]) %>%
         ggplot(
-            aes_(x = ~name,
-                 y = ~counts,
+            aes_(x = ~x,
+                 y = ~y,
                  fill = ~color)
         ) +
         ggtitle(gene) +

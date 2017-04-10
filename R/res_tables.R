@@ -7,8 +7,8 @@
 #' @import readr
 #' @import tibble
 #'
-#' @param bcbio bcbio list object
-#' @param res \code{DESeqResults} object
+#' @param run \code{bcbio-nextgen} run object
+#' @param res \code{DESeqResults}
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See \code{?DESeq2::results} for additional information about using
@@ -20,13 +20,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' res_tables(bcbio, res, lfc = 0.25)
+#' res_tables(run, res, lfc = 0.25)
 #' }
 res_tables <- function(
-    bcbio,
+    run,
     res,
     lfc = 0) {
-    check_bcbio(bcbio)
+    check_run(run)
     check_res(res)
 
     name <- deparse(substitute(res))
@@ -37,7 +37,7 @@ res_tables <- function(
 
     # Running biomaRt without setting `values = results@rownames` is faster
     annotations <- ensembl_annotations(
-        bcbio,
+        run,
         attributes = c("external_gene_name",
                        "description",
                        "gene_biotype")

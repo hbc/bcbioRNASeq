@@ -1,11 +1,14 @@
 #' @rdname qc_plots
 #' @description Exonic mapping rate plot
+#'
+#' @param run \code{bcbio-nextgen} run object
+#'
 #' @return Bar plot
 #' @export
-plot_exonic_mapping_rate <- function(bcbio) {
-    check_bcbio(bcbio)
+plot_exonic_mapping_rate <- function(run) {
+    check_run(run)
 
-    plot <- import_summary(bcbio) %>%
+    plot <- import_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  # Multiple by 100 here for percentage

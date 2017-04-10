@@ -5,21 +5,22 @@
 #' @import stringr
 #' @import tibble
 #'
+#' @param run \code{bcbio-nextgen} run object
 #' @param file File name
 #' @param row_names Column identifier to use for row names
 #' @param ... Optional parameters for \code{readr}
 #'
-#' @return bcbio data
+#' @return bcbio run data
 #' @export
 import_file <- function(
-    bcbio,
+    run,
     file,
     row_names = NULL,
     ...) {
-    check_bcbio(bcbio)
+    check_run(run)
 
     # Check that file exists
-    filepath <- file.path(bcbio$project_dir, file)
+    filepath <- file.path(run$project_dir, file)
     if (!file.exists(filepath)) {
         stop("file could not be found")
     }

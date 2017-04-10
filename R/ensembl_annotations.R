@@ -7,7 +7,7 @@
 #' @import dplyr
 #' @importFrom biomaRt getBM useEnsembl
 #'
-#' @param bcbio bcbio list object
+#' @param run \code{bcbio-nextgen} run object
 #' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
 #' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
 #' @param values Ensembl gene identifier values. Optional but will run faster if
@@ -18,27 +18,21 @@
 #'
 #' @examples
 #' \dontrun{
-#' ensembl_annotations(bcbio, values = "ENSMUSG00000000001")
+#' ensembl_annotations(run, values = "ENSMUSG00000000001")
 #' }
 ensembl_annotations <- function(
-    bcbio,
+    run,
     attributes = NULL,
     filters = "ensembl_gene_id",
     values = NULL) {
-    check_bcbio(bcbio)
-
-    # listEnsembl()
-    # listMarts()
+    check_run(run)
 
     ensembl <- useEnsembl(
         biomart = "ensembl",
-        dataset = paste0(bcbio$organism, "_gene_ensembl"),
+        dataset = paste0(run$organism, "_gene_ensembl"),
         # version = "87"
         host = "dec2016.archive.ensembl.org"
     )
-
-    # attributes <- listAttributes(ensembl)
-    # filters <- listFilters(ensembl)
 
     # Set biomaRt input defaults
     if (is.null(values)) {

@@ -4,10 +4,10 @@
 #'
 #' @import DESeq2
 #' @import pheatmap
-#' @import SummarizedExperiment
 #' @importFrom stats cor
+#' @importFrom SummarizedExperiment assay
 #'
-#' @param bcbio bcbio list object
+#' @param run \code{bcbio-nextgen} run object
 #' @param counts RNA-Seq counts as \code{DESeqDataSet} or \code{DESeqTransform}
 #'   object. If input as \code{DESeqDataSet}, an \code{rlog} transformation will
 #'   be applied.
@@ -16,12 +16,12 @@
 #'
 #' @return Heatmap
 #' @export
-correlation_heatmap <- function(bcbio,
+correlation_heatmap <- function(run,
                                 counts,
                                 method = "pearson") {
-    check_bcbio(bcbio)
+    check_run(run)
     name <- deparse(substitute(counts))
-    metadata <- import_metadata(bcbio)
+    metadata <- import_metadata(run)
 
     # Transform DESeqDataSet if necessary
     if (check_dds(counts, stop = FALSE)) {
@@ -30,7 +30,7 @@ correlation_heatmap <- function(bcbio,
 
     # Get counts from DESeqTransform object
     if (check_dt(counts)) {
-        counts <- SummarizedExperiment::assay(counts)
+        counts <- assay(counts)
     }
 
     # Pearson or Spearman correlation methods are supported
@@ -43,7 +43,7 @@ correlation_heatmap <- function(bcbio,
         pheatmap(main = paste(method,
                               "correlation:",
                               name),
-                 annotation = metadata[, bcbio$intgroup],
+                 annotation = metadata[, run$intgroup],
                  show_colnames = TRUE,
                  show_rownames = TRUE)
 }

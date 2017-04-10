@@ -6,18 +6,18 @@
 #' @import reshape2
 #' @import tibble
 #'
-#' @param bcbio bcbio list object
+#' @param run \code{bcbio-nextgen} run object
 #' @param counts Counts matrix
 #'
 #' @return log10 melted data frame
 #' @export
-melt_log10 <- function(bcbio, counts) {
-    check_bcbio(bcbio)
-    metadata <- import_metadata(bcbio) %>%
+melt_log10 <- function(run, counts) {
+    check_run(run)
+    metadata <- import_metadata(run) %>%
         select_(.dots = unique(c(
             "samplename",
             "description",
-            bcbio$intgroup
+            run$intgroup
         )))
 
     if (!identical(colnames(counts), rownames(metadata))) {
@@ -40,7 +40,7 @@ melt_log10 <- function(bcbio, counts) {
 
     # Join metadata
     melted$description <- as.character(melted$description)
-    melted <- dplyr::left_join(melted, metadata, by = "description")
+    melted <- left_join(melted, metadata, by = "description")
     #str(melted)
 
     return(melted)

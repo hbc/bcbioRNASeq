@@ -1,14 +1,18 @@
 #' @rdname qc_plots
 #' @description Plot count density
+#'
+#' @param run \code{bcbio-nextgen} run object
+#' @param normalized_counts Normalized counts matrix
+#'
 #' @return Density plot
 #' @export
 plot_count_density <- function(
-    bcbio,
-    counts) {
-    check_bcbio(bcbio)
-    name <- deparse(substitute(counts))
+    run,
+    normalized_counts) {
+    check_run(run)
 
-    melted <- melt_log10(bcbio, counts)
+    name <- deparse(substitute(normalized_counts))
+    melted <- melt_log10(run, normalized_counts)
 
     plot <- ggplot(
         melted,

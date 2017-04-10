@@ -7,14 +7,14 @@
 #'
 #' @import ggplot2
 #'
-#' @param bcbio \code{bcbio-nextgen} run object
+#' @param run \code{bcbio-nextgen} run object
 #'
 #' @return Bar plot
 #' @export
-plot_total_reads <- function(bcbio) {
-    check_bcbio(bcbio)
+plot_total_reads <- function(run) {
+    check_run(run)
 
-    plot <- import_summary(bcbio) %>%
+    plot <- import_summary(run) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
                     fill = ~qc_color)
