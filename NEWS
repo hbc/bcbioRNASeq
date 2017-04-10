@@ -1,3 +1,5 @@
+0.0.8   Rename internal parameters for better readability
+        Improve documentation and consolidate functions by group
 0.0.7   NAMESPACE simplification
 0.0.6   Rework handling of plots and tables during knits
 0.0.5   Differential expression and gene set enrichment functions
