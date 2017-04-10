@@ -1,11 +1,24 @@
-#' @rdname import
-#' @description Import RNA-Seq counts using \code{tximport}
+#' Import data from bcbio-nextgen run
 #'
+#' @rdname run_import
+#'
+#' @author Michael Steinbaugh
+#' @author Rory Kirchner
+#'
+#' @import dplyr
 #' @import readr
 #' @import stringr
+#'
+#' @param run \code{bcbio-nextgen}
+#' @param save Save data
+
+
+
+#' @rdname run_import
+#' @description Import RNA-Seq counts using \code{tximport}
+#'
 #' @importFrom stats na.omit
 #' @importFrom tximport tximport
-#' @importFrom utils write.csv
 #'
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport}.
@@ -36,7 +49,7 @@ import_counts <- function(
     if (is.null(samples)) {
         samples <- names(run$sample_dirs)
     } else {
-        samples <- sort(unique(stats::na.omit(samples)))
+        samples <- sort(unique(na.omit(samples)))
     }
 
     # Support for salmon and sailfish file structure

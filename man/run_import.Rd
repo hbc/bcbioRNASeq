@@ -17,7 +17,7 @@ import_metadata(run, grep = NULL, save = FALSE, pool = FALSE)
 import_summary(run, save = FALSE)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{\code{bcbio-nextgen}}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport}.}

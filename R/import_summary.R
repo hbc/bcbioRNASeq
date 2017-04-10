@@ -1,10 +1,5 @@
-#' @rdname import
+#' @rdname run_import
 #' @description Import project summary statistics
-#'
-#' @import dplyr
-#' @import readr
-#' @importFrom utils write.csv
-#'
 #' @return Summary data frame
 #' @export
 import_summary <- function(run, save = FALSE) {

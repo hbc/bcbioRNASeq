@@ -1,8 +1,6 @@
-#' @rdname import
+#' @rdname run_import
 #' @description Import a project data file
 #'
-#' @import readr
-#' @import stringr
 #' @importFrom tibble is_tibble
 #'
 #' @param file File name

@@ -1,20 +1,9 @@
-#' Import data from bcbio-nextgen run
-#'
-#' @author Michael Steinbaugh
-#' @author Rory Kirchner
-#'
-#' @rdname import
+#' @rdname run_import
 #' @description Import metadata
 #'
-#' @import dplyr
-#' @import readr
-#' @import stringr
 #' @importFrom tidyr expand_
-#' @importFrom utils write.csv
 #'
-#' @param run \code{bcbio-nextgen} run
 #' @param grep Apply grep pattern matching to samples
-#' @param save Save data
 #' @param pool Pool lane split samples
 #'
 #' @return Metadata data frame
