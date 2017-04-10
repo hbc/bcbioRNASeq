@@ -8,12 +8,12 @@
 #'
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #'
-#' @param counts Counts matrix
+#' @param raw_counts Raw counts matrix
 #'
 #' @export
-tmm_normalize <- function(counts) {
-    counts %>%
-        edgeR::DGEList(.) %>%
-        edgeR::calcNormFactors(.) %>%
-        edgeR::cpm(normalized.lib.sizes = TRUE)
+tmm_normalize <- function(raw_counts) {
+    raw_counts %>%
+        DGEList %>%
+        calcNormFactors %>%
+        cpm(normalized.lib.sizes = TRUE)
 }
