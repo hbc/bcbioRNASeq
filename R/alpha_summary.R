@@ -4,7 +4,7 @@
 #'
 #' @import DESeq2
 #'
-#' @param dds DESeq2 data set
+#' @param dds \code{DESeqDataSet}
 #' @param alpha alpha Numeric vector of alpha levels to check
 #'
 #' @return Printed summary
@@ -16,6 +16,6 @@ alpha_summary <- function(
     message(name)
     lapply(seq_along(alpha), function(a) {
         writeLines(paste0(name, ": alpha = ", alpha[a]))
-        DESeq2::results(dds, alpha = alpha[a]) %>% summary
+        results(dds, alpha = alpha[a]) %>% summary
     }) %>% invisible
 }
