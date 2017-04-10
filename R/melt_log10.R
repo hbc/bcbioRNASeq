@@ -3,10 +3,10 @@
 #' @author Michael Steinbaugh
 #'
 #' @import dplyr
-#' @import reshape2
 #' @import tibble
+#' @importFrom reshape2 melt
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run \code{bcbio-nextgen} run
 #' @param counts Counts matrix
 #'
 #' @return log10 melted data frame
