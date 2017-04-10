@@ -5,7 +5,6 @@
 #' @import stringr
 #' @import tibble
 #'
-#' @param run \code{bcbio-nextgen} run object
 #' @param file File name
 #' @param row_names Column identifier to use for row names
 #' @param ... Optional parameters for \code{readr}
