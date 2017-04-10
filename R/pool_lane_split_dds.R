@@ -7,6 +7,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @import DESeq2
+#' @importFrom utils write.csv
 #'
 #' @param run \code{bcbio-nextgen} run object
 #' @param dds DESeqDataSet object
