@@ -1,11 +1,11 @@
 #' Perform object integrity checks
 #'
-#' @rdname check
+#' @rdname integrity_checks
 #' @author Michael Steinbaugh
 
 
 
-#' @rdname check
+#' @rdname integrity_checks
 #' @description Check \code{bcbio-nextgen} run
 #' @param run \code{bcbio-nextgen} run
 #' @export
@@ -35,7 +35,7 @@ check_run <- function(run) {
 
 
 
-#' @rdname check
+#' @rdname integrity_checks
 #' @description Check \code{DESeqDataSet}
 #' @param dds \code{DESeqDataSet}
 #' @param stop Stop if class doesn't match
@@ -54,7 +54,7 @@ check_dds <- function(dds, stop = TRUE) {
 
 
 
-#' @rdname check
+#' @rdname integrity_checks
 #' @description Check \code{DESeqTransform}
 #' @param dt \code{DESeqTransform}
 #' @export
@@ -72,7 +72,7 @@ check_dt <- function(dt, stop = TRUE) {
 
 
 
-#' @rdname check
+#' @rdname integrity_checks
 #' @description Check \code{DESeqResults}
 #' @param res \code{DESeqResults}
 #' @export
