@@ -4,7 +4,7 @@
 \alias{correlation_heatmap}
 \title{Correlation matrix heatmap}
 \usage{
-correlation_heatmap(bcbio, counts, method = "pearson", ...)
+correlation_heatmap(bcbio, counts, method = "pearson")
 }
 \arguments{
 \item{bcbio}{bcbio list object}
@@ -15,8 +15,6 @@ be applied.}
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used.}
-
-\item{...}{Optional passthrough to \code{pheatmap()}}
 }
 \value{
 Heatmap
