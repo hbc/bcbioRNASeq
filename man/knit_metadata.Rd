@@ -7,7 +7,7 @@
 knit_metadata(run, metadata)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{\code{bcbio-nextgen} run}
 
 \item{metadata}{Metadata data frame}
 }

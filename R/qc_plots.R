@@ -289,8 +289,8 @@ plot_count_density <- function(
 #'
 #' @import dplyr
 #' @import readr
-#' @import tibble
 #' @importFrom reshape2 melt
+#' @importFrom tibble rownames_to_column
 #'
 #' @return Scatter plot
 #' @export

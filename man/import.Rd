@@ -20,7 +20,7 @@ import_summary(run, save = FALSE)
 \item{run}{\code{bcbio-nextgen} run}
 
 \item{type}{The type of software used to generate the abundances. Follows the
-conventions of \code{tximport()}.}
+conventions of \code{tximport}.}
 
 \item{grep}{Apply grep pattern matching to samples}
 
@@ -38,7 +38,7 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{pool}{Pool lane split samples}
 }
 \value{
-txi \code{tximport} list object
+txi \code{tximport} list
 
 bcbio run data
 

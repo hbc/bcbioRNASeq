@@ -9,7 +9,7 @@
 #' @import dplyr
 #' @import readr
 #' @import stringr
-#' @import tidyr
+#' @importFrom tidyr expand_
 #' @importFrom utils write.csv
 #'
 #' @param run \code{bcbio-nextgen} run

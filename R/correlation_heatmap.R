@@ -3,7 +3,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @import DESeq2
-#' @import pheatmap
+#' @importFrom pheatmap pheatmap
 #' @importFrom stats cor
 #' @importFrom SummarizedExperiment assay
 #'

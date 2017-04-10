@@ -37,8 +37,8 @@ plot_ma <- function(res, ylim = 2) {
 #'
 #' @import DESeq2
 #' @import dplyr
-#' @import tibble
 #' @importFrom CHBUtils volcano_density_plot
+#' @importFrom tibble rownames_to_column
 #'
 #' @param run \code{bcbio-nextgen} run
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring

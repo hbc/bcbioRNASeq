@@ -3,16 +3,16 @@
 #'
 #' @import readr
 #' @import stringr
-#' @import tximport
 #' @importFrom stats na.omit
+#' @importFrom tximport tximport
 #' @importFrom utils write.csv
 #'
 #' @param type The type of software used to generate the abundances. Follows the
-#'   conventions of \code{tximport()}.
+#'   conventions of \code{tximport}.
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
 #'
-#' @return txi \code{tximport} list object
+#' @return txi \code{tximport} list
 #' @export
 import_counts <- function(
     run,

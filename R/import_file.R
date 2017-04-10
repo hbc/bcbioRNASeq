@@ -3,7 +3,7 @@
 #'
 #' @import readr
 #' @import stringr
-#' @import tibble
+#' @importFrom tibble is_tibble
 #'
 #' @param file File name
 #' @param row_names Column identifier to use for row names

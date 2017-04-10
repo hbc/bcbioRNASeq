@@ -2,9 +2,9 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import tibble
+#' @importFrom tibble remove_rownames
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run \code{bcbio-nextgen} run
 #' @param metadata Metadata data frame
 #'
 #' @export

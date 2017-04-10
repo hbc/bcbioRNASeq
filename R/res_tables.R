@@ -5,7 +5,7 @@
 #' @import DESeq2
 #' @import dplyr
 #' @import readr
-#' @import tibble
+#' @importFrom tibble rownames_to_column
 #'
 #' @param run \code{bcbio-nextgen} run object
 #' @param res \code{DESeqResults}
