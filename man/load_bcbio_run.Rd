@@ -24,7 +24,7 @@ Entire vector is used for PCA and heatmap QC functions.}
 \item{final_dir}{Set the final output directory, if non-standard}
 }
 \value{
-bcbio list object with directory paths
+\code{bcbio-nextgen} run object
 }
 \description{
 We recommend loading the \code{bcbio-nextgen} run as a remote connection over

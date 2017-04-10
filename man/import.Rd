@@ -8,22 +8,21 @@
 \alias{import_summary}
 \title{Import data from bcbio-nextgen run}
 \usage{
-import_counts(bcbio, type = "salmon", grep = NULL, samples = NULL)
+import_counts(run, type = "salmon", grep = NULL, samples = NULL)
 
-import_file(bcbio, file, row_names = NULL, ...)
+import_file(run, file, row_names = NULL, ...)
 
-import_metadata(bcbio, grep = NULL, save = FALSE, pool = FALSE)
+import_metadata(run, grep = NULL, save = FALSE, pool = FALSE)
 
-import_summary(bcbio, save = FALSE)
+import_summary(run, save = FALSE)
 }
 \arguments{
-\item{bcbio}{bcbio run object}
+\item{run}{\code{bcbio-nextgen} run object}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport()}.}
 
-\item{grep}{Apply grep pattern matching to sample names. This will override
-any parmeter set in \code{samples}.}
+\item{grep}{Apply grep pattern matching to samples}
 
 \item{samples}{Specify the names of samples in bcbio final directory to
 input. If \code{NULL} (default), all samples will be imported.}
@@ -34,22 +33,16 @@ input. If \code{NULL} (default), all samples will be imported.}
 
 \item{...}{Optional parameters for \code{readr}}
 
-\item{save}{Save data frame}
+\item{save}{Save data}
 
 \item{pool}{Pool lane split samples}
 
-\item{bcbio}{\code{bcbio-nextgen} run object}
-
-\item{grep}{Apply grep pattern matching to subset by description}
-
-\item{bcbio}{bcbio run object}
-
-\item{save}{Save data frame}
+\item{run}{\code{bcbio-nextgen} run}
 }
 \value{
 txi \code{tximport} list object
 
-bcbio data
+bcbio run data
 
 Metadata data frame
 

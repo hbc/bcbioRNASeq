@@ -4,10 +4,10 @@
 \alias{correlation_heatmap}
 \title{Correlation matrix heatmap}
 \usage{
-correlation_heatmap(bcbio, counts, method = "pearson")
+correlation_heatmap(run, counts, method = "pearson")
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
 \item{counts}{RNA-Seq counts as \code{DESeqDataSet} or \code{DESeqTransform}
 object. If input as \code{DESeqDataSet}, an \code{rlog} transformation will

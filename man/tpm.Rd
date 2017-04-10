@@ -7,20 +7,13 @@
 tpm(txi)
 }
 \arguments{
-\item{txi}{tximport list object}
+\item{txi}{\code{tximport} object}
 }
 \value{
 TPM (transcripts per million) matrix
 }
 \description{
 Save TPM values from a tximport counts object
-}
-\details{
-Links:
-
-- [tximport vignette](https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html)
-- [salmon getting started guide](https://combine-lab.github.io/salmon/getting_started/)
-- [Bioconductor thread](https://support.bioconductor.org/p/84883/#84929)
 }
 \author{
 Michael Steinbaugh

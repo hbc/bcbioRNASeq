@@ -19,36 +19,34 @@
 \alias{plot_total_reads}
 \title{Quality control plots}
 \usage{
-plot_count_density(bcbio, counts)
+plot_count_density(run, normalized_counts)
 
-plot_counts_per_gene(bcbio, normalized_counts)
+plot_counts_per_gene(run, normalized_counts)
 
-plot_deseq_pca(bcbio, dt, label = TRUE)
+plot_deseq_pca(run, dt, label = TRUE)
 
-plot_exonic_mapping_rate(bcbio)
+plot_exonic_mapping_rate(run)
 
-plot_gender_markers(bcbio, normalized_counts)
+plot_gender_markers(run, normalized_counts)
 
-plot_gene_detection_saturation(bcbio, raw_counts)
+plot_gene_detection_saturation(run, raw_counts)
 
-plot_genes_detected(bcbio, raw_counts)
+plot_genes_detected(run, raw_counts)
 
-plot_intronic_mapping_rate(bcbio)
+plot_intronic_mapping_rate(run)
 
-plot_mapped_reads(bcbio)
+plot_mapped_reads(run)
 
-plot_mapping_rate(bcbio)
+plot_mapping_rate(run)
 
-plot_rrna_mapping_rate(bcbio)
+plot_rrna_mapping_rate(run)
 
-plot_total_reads(bcbio)
+plot_total_reads(run)
 }
 \arguments{
-\item{bcbio}{\code{bcbio-nextgen} run object}
+\item{run}{\code{bcbio-nextgen} run object}
 
-\item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
-Transcripts per million (TPM) are also acceptable.}
+\item{normalized_counts}{Normalized counts matrix}
 
 \item{dt}{\code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 on a \code{DESeqDataSet} object. We prefer to pipe the transformed data in
@@ -59,6 +57,37 @@ applied to multiple PCA plot operations.}
 
 \item{raw_counts}{Raw counts matrix. Can be obtained from \code{DESeqDataSet}
 by running \code{counts(normalized = FALSE)}.}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{normalized_counts}{Normalized counts matrix}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{normalized_counts}{Normalized counts matrix. Can be obtained from
+\code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+Transcripts per million (TPM) are also acceptable.}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{raw_counts}{Raw counts matrix. Can be obtained from \code{DESeqDataSet}
+by running \code{counts(normalized = FALSE)}.}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
+
+\item{run}{\code{bcbio-nextgen} run object}
 }
 \value{
 Density plot

@@ -4,10 +4,10 @@
 \alias{knit_metadata}
 \title{Knit metadata table}
 \usage{
-knit_metadata(bcbio, metadata)
+knit_metadata(run, metadata)
 }
 \arguments{
-\item{bcbio}{\code{bcbio-nextgen} run object}
+\item{run}{\code{bcbio-nextgen} run object}
 
 \item{metadata}{Metadata data frame}
 }

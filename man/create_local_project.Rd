@@ -12,4 +12,3 @@ Create project directory structure
 \author{
 Michael Steinbaugh
 }
-\keyword{internal}

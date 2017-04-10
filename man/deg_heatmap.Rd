@@ -4,12 +4,12 @@
 \alias{deg_heatmap}
 \title{Differentially expressed gene (DEG) heatmap}
 \usage{
-deg_heatmap(bcbio, dds, contrast, alpha = 0.1, lfc = 0)
+deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
-\item{dds}{\code{DESeqDataSet} object}
+\item{dds}{\code{DESeqDataSet}}
 
 \item{contrast}{Contrast}
 

@@ -4,15 +4,15 @@
 \alias{pool_lane_split_counts}
 \title{Pool lane split counts}
 \usage{
-pool_lane_split_counts(counts, lane_grep = "_L\\\\d+$")
+pool_lane_split_counts(raw_counts, lane_grep = "_L\\\\d+$")
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{raw_counts}{Raw counts matrix}
 
 \item{lane_grep}{Grep string to match lane identifiers in file name}
 }
 \value{
-Pooled counts matrix
+Pooled raw counts matrix
 }
 \description{
 Pool lane split counts

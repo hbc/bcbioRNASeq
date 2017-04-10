@@ -4,11 +4,11 @@
 \alias{ensembl_annotations}
 \title{Get gene annotations from Ensembl}
 \usage{
-ensembl_annotations(bcbio, attributes = NULL, filters = "ensembl_gene_id",
+ensembl_annotations(run, attributes = NULL, filters = "ensembl_gene_id",
   values = NULL)
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
 \item{attributes}{Ensembl attributes. See \code{biomaRt::listAttributes()}.}
 
@@ -25,7 +25,7 @@ Get gene annotations from Ensembl
 }
 \examples{
 \dontrun{
-ensembl_annotations(bcbio, values = "ENSMUSG00000000001")
+ensembl_annotations(run, values = "ENSMUSG00000000001")
 }
 }
 \author{

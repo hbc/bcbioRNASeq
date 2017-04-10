@@ -4,10 +4,10 @@
 \alias{tmm_normalize}
 \title{Trimmed mean of M-values (TMM) normalization}
 \usage{
-tmm_normalize(counts)
+tmm_normalize(raw_counts)
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{raw_counts}{Raw counts matrix}
 }
 \description{
 TMM normalization is recommended for RNA-Seq data generally when the majority

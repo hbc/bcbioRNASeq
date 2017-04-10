@@ -4,12 +4,14 @@
 \alias{plot_gene}
 \title{Plot an individual gene}
 \usage{
-plot_gene(bcbio, counts, gene)
+plot_gene(run, normalized_counts, gene)
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
-\item{counts}{Counts matrix}
+\item{normalized_counts}{Normalized counts matrix. Can be obtained from
+\code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+Transcripts per million (TPM) are also acceptable.}
 
 \item{gene}{Gene identifier}
 }

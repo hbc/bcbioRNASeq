@@ -4,10 +4,10 @@
 \alias{melt_log10}
 \title{Melt RNA-Seq count data to long format and log10 transform}
 \usage{
-melt_log10(bcbio, counts)
+melt_log10(run, counts)
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
 \item{counts}{Counts matrix}
 }

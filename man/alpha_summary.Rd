@@ -7,7 +7,7 @@
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
 }
 \arguments{
-\item{dds}{DESeq2 data set}
+\item{dds}{\code{DESeqDataSet}}
 
 \item{alpha}{alpha Numeric vector of alpha levels to check}
 }

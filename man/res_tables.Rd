@@ -4,12 +4,12 @@
 \alias{res_tables}
 \title{Differential expression results tables}
 \usage{
-res_tables(bcbio, res, lfc = 0)
+res_tables(run, res, lfc = 0)
 }
 \arguments{
-\item{bcbio}{bcbio list object}
+\item{run}{\code{bcbio-nextgen} run object}
 
-\item{res}{\code{DESeqResults} object}
+\item{res}{\code{DESeqResults}}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
@@ -25,7 +25,7 @@ Differential expression results tables
 }
 \examples{
 \dontrun{
-res_tables(bcbio, res, lfc = 0.25)
+res_tables(run, res, lfc = 0.25)
 }
 }
 \author{

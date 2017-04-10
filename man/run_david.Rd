@@ -4,7 +4,7 @@
 \alias{run_david}
 \title{Run DAVID analysis}
 \usage{
-run_david(res_tables, direction = "both", count = 3, write_files = TRUE)
+run_david(res_tables, direction = "both", count = 3, save = TRUE)
 }
 \arguments{
 \item{res_tables}{\code{res_tables()} list object}
@@ -13,7 +13,7 @@ run_david(res_tables, direction = "both", count = 3, write_files = TRUE)
 
 \item{count}{Minimum hit count}
 
-\item{write_files}{Write files to disk (\code{TRUE/FALSE})}
+\item{save}{Save files to disk (\code{TRUE/FALSE})}
 }
 \value{
 List of \code{RDAVIDWebService} report objects
