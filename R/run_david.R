@@ -16,7 +16,7 @@
 #'
 #' @param res_tables \code{res_tables()} list object
 #' @param direction Gene direction: up, down, or both
-#' @param write_files Write files to disk (\code{TRUE/FALSE})
+#' @param save Save files to disk (\code{TRUE/FALSE})
 #' @param count Minimum hit count
 #'
 #' @return List of \code{RDAVIDWebService} report objects
@@ -25,7 +25,7 @@ run_david <- function(
     res_tables,
     direction = "both",
     count = 3,
-    write_files = TRUE) {
+    save = TRUE) {
     # Email
     if (is.null(getOption("email"))) {
         stop("no email found in options().
@@ -107,7 +107,7 @@ run_david <- function(
     }
 
     # Save the TSV files to disk
-    if (isTRUE(write_files)) {
+    if (isTRUE(save)) {
         write_dir <- "results/david"
         dir.create(write_dir, recursive = TRUE, showWarnings = FALSE)
 
