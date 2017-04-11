@@ -4,8 +4,7 @@
 #'
 #' @export
 create_local_project <- function() {
-    local_dirs <- c("cache",
-                    "data",
+    local_dirs <- c("data",
                     "docs",
                     "figures",
                     "meta",
