@@ -83,7 +83,9 @@ run_david <- function(
     }
 
     # Generate the annotation chart with cutoffs applied
-    cutoff_chart <- getFunctionalAnnotationChart(david) %>% as.data.frame
+    cutoff_chart <- david %>%
+        getFunctionalAnnotationChart %>%
+        as.data.frame
     if (nrow(cutoff_chart) > 0) {
         cutoff_chart <- cutoff_chart %>%
             set_names_snake %>%
