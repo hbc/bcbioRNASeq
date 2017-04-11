@@ -31,7 +31,6 @@ Imports:
     edgeR,
     ggplot2,
     ggrepel,
-    knitr,
     magrittr,
     pheatmap,
     RDAVIDWebService,

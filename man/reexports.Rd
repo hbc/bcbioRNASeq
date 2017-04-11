@@ -3,8 +3,6 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{kable}
-\alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
 \alias{set_names}
@@ -17,8 +15,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{kable}}}
-
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{set_names}}, \code{\link[magrittr]{set_rownames}}}
 }}
 
