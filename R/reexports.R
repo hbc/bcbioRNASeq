@@ -1,7 +1,3 @@
-#' @importFrom basejump kable
-#' @export
-basejump::kable
-
 #' @importFrom basejump setNamesSnake
 #' @keywords internal
 set_names_snake <- basejump::setNamesSnake
