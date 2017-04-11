@@ -13,9 +13,12 @@ alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6)) {
     name <- deparse(substitute(dds))
-    message(name)
+    print(name)
     lapply(seq_along(alpha), function(a) {
-        writeLines(paste0(name, ": alpha = ", alpha[a]))
+        writeLines(
+            paste(name,
+                  paste("alpha", alpha[a], sep = " = "),
+                  sep = " : "))
         results(dds, alpha = alpha[a]) %>% summary
     }) %>% invisible
 }

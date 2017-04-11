@@ -44,7 +44,7 @@ plot_deseq_pca <- function(run, dt, label = TRUE) {
                  color = ~color,
                  shape = ~shape)
         ) +
-        ggtitle(paste("pca:", name)) +
+        ggtitle(paste("pca", name, sep = " : ")) +
         geom_point(size = 3) +
         coord_fixed() +
         labs(x = paste0("pc1: ", percent_var[1], "% variance"),

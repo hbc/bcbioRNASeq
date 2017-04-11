@@ -22,12 +22,10 @@ plot_ma <- function(res, ylim = 2) {
     name <- deparse(substitute(res))
     contrast_name <- res_contrast_name(res)
 
-    plot <- plotMA(
+    plotMA(
         res,
-        main = paste0(name, ": ", contrast_name),
+        main = paste(name, contrast_name, sep = " : "),
         ylim = c(-ylim, ylim))
-
-    return(plot)
 }
 
 
@@ -59,7 +57,7 @@ plot_volcano <- function(
 
     alpha <- res@metadata$alpha
 
-    # Prepare data frame for `CHBUtils::volcano_density_plot()`. Note that
+    # Prepare data frame for `CHBUtils::volcano_density_plot`. Note that
     # DESeq2 result table columns must be renamed.
     df <- res %>%
         as.data.frame %>%
@@ -102,5 +100,5 @@ plot_volcano <- function(
         # This isn't documented...
         plot_text = plot_text,
         pval.cutoff = alpha,
-        title = paste0(name, ": ", contrast_name))
+        title = paste(name, contrast_name, sep = " : "))
 }

@@ -22,28 +22,28 @@ correlation_heatmap <- function(run,
     check_run(run)
     name <- deparse(substitute(counts))
     metadata <- import_metadata(run)
-
+    
     # Transform DESeqDataSet if necessary
     if (check_dds(counts, stop = FALSE)) {
         counts <- rlog(counts)
     }
-
+    
     # Get counts from DESeqTransform object
     if (check_dt(counts)) {
         counts <- assay(counts)
     }
-
+    
     # Pearson or Spearman correlation methods are supported
     if (!method %in% c("pearson", "spearman")) {
         stop("invalid correlation regression method.
              must use pearson or spearman.")
     }
-
+    
     cor(counts, method = method) %>%
-        pheatmap(main = paste(method,
-                              "correlation:",
-                              name),
-                 annotation = metadata[, run$intgroup],
-                 show_colnames = TRUE,
-                 show_rownames = TRUE)
+        pheatmap(
+            annotation = metadata[, run$intgroup],
+            main = paste(
+                paste(method, "correlation"), name, sep = " : "),
+            show_colnames = TRUE,
+            show_rownames = TRUE)
 }
