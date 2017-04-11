@@ -6,6 +6,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
+#' @importFrom knitr kable
 #' @importFrom tibble remove_rownames
 #'
 #' @param run \code{bcbio-nextgen} run
@@ -14,8 +15,9 @@
 #' @return Data frame containing only the columns of interest
 #' @export
 metadata_table <- function(run, metadata) {
-    metadata[, unique(c("description",
+    df <- metadata[, unique(c("description",
                         "samplename",
                         run$intgroup))] %>%
         remove_rownames
+    return(kable(df, caption = "Sample metadata"))
 }
