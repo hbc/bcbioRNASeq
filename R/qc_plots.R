@@ -249,7 +249,7 @@ plot_counts_per_gene <- function(run, normalized_counts) {
                  y = ~y,
                  color = ~color)
         ) +
-        ggtitle(paste("counts per gene:", name)) +
+        ggtitle(paste("counts per gene", name, sep = " : ")) +
         geom_boxplot(outlier.shape = NA) +
         labs(x = "sample",
              y = expression(log[10]~counts~per~gene),
@@ -275,7 +275,7 @@ plot_count_density <- function(
         aes_(x = ~counts,
              group = ~samplename)
     ) +
-        ggtitle(paste("count density:", name)) +
+        ggtitle(paste("count density", name, sep = " : ")) +
         geom_density() +
         labs(x = expression(log[10]~counts~per~gene),
              y = "density")
