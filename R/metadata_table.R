@@ -1,8 +1,8 @@
-#' Metadata kable
+#' Metadata table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
 #' "interesting group" columns are defined as \code{intgroup} in the
-#' \code{bcbio-nextgen} \code{run} object.
+#' \code{bcbio-nextgen} run object.
 #'
 #' @author Michael Steinbaugh
 #'
@@ -13,8 +13,9 @@
 #'
 #' @return Data frame containing only the columns of interest
 #' @export
-metadata_kable <- function(run, metadata) {
-    metadata[, unique(c("description", run$intgroup))] %>%
-        remove_rownames %>%
-        kable(caption = "Sample metadata")
+metadata_table <- function(run, metadata) {
+    metadata[, unique(c("description",
+                        "samplename",
+                        run$intgroup))] %>%
+        remove_rownames
 }
