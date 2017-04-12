@@ -94,7 +94,7 @@ res_tables <- function(
         all,
         file.path(de_dir,
                   paste(name,
-                        contrast_name, "all_genes.csv",
+                        contrast_name, "all_genes.csv.gz",
                         sep = "_")))
     write_csv(
         deg,
