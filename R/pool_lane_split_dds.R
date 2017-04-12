@@ -6,9 +6,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import DESeq2
-#' @importFrom utils write.csv
-#'
 #' @param run \code{bcbio-nextgen} run object
 #' @param dds DESeqDataSet object
 #' @param save Whether to save and export counts
@@ -49,24 +46,22 @@ pool_lane_split_dds <- function(
         assign(paste(name, "pooled_normalized_counts", sep = "_"),
                normalized_counts,
                envir = parent.frame())
-        write.csv(
-            normalized_counts,
-            file = file.path(
+        normalized_counts %>%
+            rownames_to_column %>%
+            write_csv(path = file.path(
                 "results",
-                paste(name,
-                      "pooled_normalized_counts.csv", sep = "_")))
+                paste(name, "pooled_normalized_counts.csv.gz", sep = "_")))
 
         # raw_counts
         raw_counts <- counts(dds_pooled, normalized = FALSE)
         assign(paste(name, "pooled_raw_counts", sep = "_"),
                raw_counts,
                envir = parent.frame())
-        write.csv(
-            raw_counts,
-            file = file.path(
+        raw_counts %>%
+            rownames_to_column %>%
+            write_csv(path = file.path(
                 "results",
-                paste(name,
-                      "pooled_raw_counts.csv", sep = "_")))
+                paste(name, "pooled_raw_counts.csv.gz", sep = "_")))
     }
 
     return(dds_pooled)
