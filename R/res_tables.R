@@ -39,7 +39,7 @@ res_tables <- function(
     )
 
     all <- res %>%
-        as_tibble %>%
+        as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         set_names_snake %>%
         left_join(annotations, by = "ensembl_gene_id") %>%
