@@ -9,9 +9,10 @@ write_counts <- function(counts) {
     dir.create(file.path("results", "counts"), showWarnings = FALSE)
     name <- deparse(substitute(counts))
     counts %>%
-        rownames_to_column %>%
+        as_tibble %>%
+        rownames_to_column("ensembl_gene_id") %>%
         write_csv(
             path = file.path("results", "counts",
                              paste0(name, ".gz")))
-
+    
 }

@@ -39,28 +39,23 @@ res_tables <- function(
     )
 
     all <- res %>%
-        as.data.frame %>%
+        as_tibble %>%
         rownames_to_column("ensembl_gene_id") %>%
         set_names_snake %>%
         left_join(annotations, by = "ensembl_gene_id") %>%
-        arrange_(.dots = "ensembl_gene_id") %>%
-        set_rownames(.$ensembl_gene_id)
+        arrange_(.dots = "ensembl_gene_id")
 
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
         filter_(.dots = ~padj < alpha) %>%
-        arrange_(.dots = "padj") %>%
-        set_rownames(.$ensembl_gene_id)
+        arrange_(.dots = "padj")
     deg_lfc <- deg %>%
         filter_(.dots = ~log2_fold_change < -lfc |
-                    log2_fold_change > lfc) %>%
-        set_rownames(.$ensembl_gene_id)
+                    log2_fold_change > lfc)
     deg_lfc_up <- deg_lfc %>%
-        filter_(.dots = ~log2_fold_change > 0) %>%
-        set_rownames(.$ensembl_gene_id)
+        filter_(.dots = ~log2_fold_change > 0)
     deg_lfc_down <- deg_lfc %>%
-        filter_(.dots = ~log2_fold_change < 0) %>%
-        set_rownames(.$ensembl_gene_id)
+        filter_(.dots = ~log2_fold_change < 0)
 
     base_mean_gt0 <- filter_(all, .dots = ~base_mean > 0)
     base_mean_gt1 <- filter_(all, .dots = ~base_mean > 1)
