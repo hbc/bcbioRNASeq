@@ -3,7 +3,7 @@
 #' @importFrom knitr kable
 #' @importFrom reshape2 melt
 #' @importFrom stats cor na.omit
-#' @importFrom utils head sessionInfo
+#' @importFrom utils globalVariables head sessionInfo
 NULL
 
 #' @importFrom basejump setNamesSnake
