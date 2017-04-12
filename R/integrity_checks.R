@@ -81,7 +81,7 @@ check_res <- function(res, stop = TRUE) {
         return(TRUE)
     } else {
         if (isTRUE(stop)) {
-            stop("DESeqDataSet required")
+            stop("DESeqResults required")
         } else {
             return(FALSE)
         }
