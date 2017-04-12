@@ -91,21 +91,21 @@ res_tables <- function(
         file.path(de_dir,
                   paste(name,
                         contrast_name,
-                        "deg.csv",
+                        "deg.csv.gz",
                         sep = "_")))
     write_csv(
         deg_lfc_up,
         file.path(de_dir,
                   paste(name,
                         contrast_name,
-                        "deg_lfc_up.csv",
+                        "deg_lfc_up.csv.gz",
                         sep = "_")))
     write_csv(
         deg_lfc_down,
         file.path(de_dir,
                   paste(name,
                         contrast_name,
-                        "deg_lfc_down.csv",
+                        "deg_lfc_down.csv.gz",
                         sep = "_")))
 
     return(list(

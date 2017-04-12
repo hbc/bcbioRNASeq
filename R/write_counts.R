@@ -13,6 +13,6 @@ write_counts <- function(counts) {
         rownames_to_column("ensembl_gene_id") %>%
         write_csv(
             path = file.path("results", "counts",
-                             paste0(name, ".gz")))
+                             paste0(name, ".csv.gz")))
     
 }
