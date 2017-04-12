@@ -2,9 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import readr
-#' @import tibble
-#'
 #' @param counts Counts matrix
 #'
 #' @export

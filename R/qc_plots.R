@@ -3,8 +3,6 @@
 #' @rdname qc_plots
 #' @author Michael Steinbaugh
 #'
-#' @import ggplot2
-#'
 #' @param run \code{bcbio-nextgen} run
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
 #'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
@@ -286,12 +284,6 @@ plot_count_density <- function(
 
 #' @rdname qc_plots
 #' @description Plot sexually dimorphic gender marker genes
-#'
-#' @import dplyr
-#' @import readr
-#' @importFrom reshape2 melt
-#' @importFrom tibble rownames_to_column
-#'
 #' @return Scatter plot
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {

@@ -6,8 +6,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @importFrom edgeR calcNormFactors cpm DGEList
-#'
 #' @param raw_counts Raw counts matrix
 #'
 #' @export
