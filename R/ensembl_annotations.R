@@ -22,10 +22,10 @@ ensembl_annotations <- function(
     values = NULL) {
     check_run(run)
 
+    # version = "87"
     ensembl <- useEnsembl(
         biomart = "ensembl",
         dataset = paste0(run$organism, "_gene_ensembl"),
-        # version = "87"
         host = "dec2016.archive.ensembl.org"
     )
 
