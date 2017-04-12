@@ -5,7 +5,8 @@
 \alias{david_table}
 \title{Query the DAVID website}
 \usage{
-run_david(res_tables, direction = "both", count = 3, save = TRUE)
+run_david(res_tables, direction = "both", alpha = 0.05, count = 3,
+  save = TRUE)
 
 david_table(david)
 }
@@ -13,6 +14,8 @@ david_table(david)
 \item{res_tables}{\code{res_tables()} list object}
 
 \item{direction}{Gene direction: up, down, or both}
+
+\item{alpha}{Alpha level cutoff}
 
 \item{count}{Minimum hit count}
 

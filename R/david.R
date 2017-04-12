@@ -10,14 +10,17 @@
 #'
 #' @param res_tables \code{res_tables()} list object
 #' @param direction Gene direction: up, down, or both
-#' @param save Save files to disk (\code{TRUE/FALSE})
+#' @param alpha Alpha level cutoff
 #' @param count Minimum hit count
+#' @param save Save files to disk (\code{TRUE/FALSE})
+
 #'
 #' @return List of \code{RDAVIDWebService} report objects
 #' @export
 run_david <- function(
     res_tables,
     direction = "both",
+    alpha = 0.05,
     count = 3,
     save = TRUE) {
     # Email
@@ -48,7 +51,6 @@ run_david <- function(
     contrast_name <- contrast %>% gsub(" ", "_", .)
 
     background <- res_tables$all$ensembl_gene_id
-    fdr <- res_tables$alpha
     id_type = "ENSEMBL_GENE_ID"
 
     david <- DAVIDWebService$new(
@@ -93,7 +95,7 @@ run_david <- function(
             mutate_(.dots = set_names(list(~fdr / 100), "fdr")) %>%
             arrange_(.dots = c("category", "fdr")) %>%
             .[.$count >= count, ] %>%
-            .[.$fdr < fdr, ]
+            .[.$fdr < alpha, ]
         # Set NULL if everything got filtered
         if (nrow(cutoff_chart) == 0) {
             cutoff_chart <- NULL
