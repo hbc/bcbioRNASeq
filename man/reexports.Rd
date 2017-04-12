@@ -4,10 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
-\alias{reexports}
-\alias{set_names}
-\alias{reexports}
-\alias{set_rownames}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -15,6 +11,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{set_names}}, \code{\link[magrittr]{set_rownames}}}
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}
 

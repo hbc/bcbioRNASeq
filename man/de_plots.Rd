@@ -7,7 +7,7 @@
 \usage{
 plot_ma(res, ylim = 2)
 
-plot_volcano(run, res, lfc = 1, text_labels = 20)
+plot_volcano(run, res, lfc = 1, text_labels = 30)
 }
 \arguments{
 \item{res}{\code{DESeqResults}}
