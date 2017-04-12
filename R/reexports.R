@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @usage NULL
 #' @export
 magrittr::`%>%`
 
