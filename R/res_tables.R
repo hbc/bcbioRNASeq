@@ -2,11 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import DESeq2
-#' @import dplyr
-#' @import readr
-#' @importFrom tibble rownames_to_column
-#'
 #' @param run \code{bcbio-nextgen} run object
 #' @param res \code{DESeqResults}
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to

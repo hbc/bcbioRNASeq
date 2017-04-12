@@ -5,15 +5,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import dplyr
-#' @import readr
-#' @import stringr
-#' @importFrom RDAVIDWebService addList DAVIDWebService getAnnotationSummary
-#'   getClusterReport getClusterReportFile getFunctionalAnnotationChart
-#'   getFunctionalAnnotationChartFile getFunctionalAnnotationTable
-#'   getFunctionalAnnotationTableFile getGeneCategoriesReport getGeneListReport
-#'   getGeneListReportFile setTimeOut
-#'
 #' @param res_tables \code{res_tables()} list object
 #' @param direction Gene direction: up, down, or both
 #' @param save Save files to disk (\code{TRUE/FALSE})

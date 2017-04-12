@@ -9,8 +9,6 @@
 #' @description Wrapper for \code{DESeq2::plotMA} that generates a title
 #'   automatically
 #'
-#' @import DESeq2
-#'
 #' @param res \code{DESeqResults}
 #' @param ylim Y-axis maximum (single integer)
 #'
@@ -32,11 +30,6 @@ plot_ma <- function(res, ylim = 2) {
 
 #' @rdname de_plots
 #' @description Volcano plot
-#'
-#' @import DESeq2
-#' @import dplyr
-#' @importFrom CHBUtils volcano_density_plot
-#' @importFrom tibble rownames_to_column
 #'
 #' @param run \code{bcbio-nextgen} run
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring

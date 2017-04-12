@@ -6,9 +6,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @importFrom knitr kable
-#' @importFrom tibble remove_rownames
-#'
 #' @param run \code{bcbio-nextgen} run
 #' @param metadata Metadata data frame
 #'

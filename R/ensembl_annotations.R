@@ -2,11 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @keywords internal
-#'
-#' @import dplyr
-#' @importFrom biomaRt getBM useEnsembl
-#'
 #' @param run \code{bcbio-nextgen} run object
 #' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
 #' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.

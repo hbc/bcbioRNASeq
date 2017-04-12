@@ -2,8 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import DESeq2
-#'
 #' @param dds \code{DESeqDataSet}
 #' @param alpha alpha Numeric vector of alpha levels to check
 #'

@@ -2,10 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import dplyr
-#' @importFrom reshape2 melt
-#' @importFrom tibble rownames_to_column
-#'
 #' @param run \code{bcbio-nextgen} run
 #' @param counts Counts matrix
 #'

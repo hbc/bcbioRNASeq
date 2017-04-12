@@ -5,8 +5,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @importFrom utils sessionInfo
-#'
 #' @param template Template name (YAML filename, without the extension)
 #'   originally called by \code{bcbio_nextgen.py}
 #' @param organism Organism (e.g. \code{hsapiens})

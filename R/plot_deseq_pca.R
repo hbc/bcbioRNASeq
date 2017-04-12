@@ -3,10 +3,6 @@
 #' Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample coloring and
 #' labeling
 #'
-#' @import DESeq2
-#' @import ggplot2
-#' @import ggrepel
-#'
 #' @param run \code{bcbio-nextgen} run
 #' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 #'   on a \code{DESeqDataSet} object. We prefer to pipe the transformed data in

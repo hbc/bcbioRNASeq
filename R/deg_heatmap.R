@@ -2,12 +2,6 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @import DESeq2
-#' @import dplyr
-#' @importFrom pheatmap pheatmap
-#' @importFrom SummarizedExperiment assay colData
-#' @importFrom tibble rownames_to_column
-#'
 #' @param run \code{bcbio-nextgen} run object
 #' @param dds \code{DESeqDataSet}
 #' @param contrast Contrast
