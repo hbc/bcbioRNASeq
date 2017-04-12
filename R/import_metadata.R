@@ -1,6 +1,7 @@
 #' @rdname run_import
 #' @description Import metadata
 #'
+#' @import readr
 #' @importFrom tidyr expand_
 #'
 #' @param grep Apply grep pattern matching to samples
@@ -15,7 +16,7 @@ import_metadata <- function(
     pool = FALSE) {
     check_run(run)
     metadata <- list.files(run$config_dir,
-                           pattern = ".csv",
+                           pattern = ".csv$",
                            full.names = TRUE) %>%
         read_csv(col_types = cols()) %>%
         set_names_snake
