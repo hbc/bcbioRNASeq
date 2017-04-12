@@ -1,8 +1,8 @@
 #' @rdname run_import
-#' @description Import project summary statistics
+#' @description Import project quality control summary statistics
 #' @return Summary data frame
 #' @export
-import_summary <- function(run, save = FALSE) {
+import_qc_summary <- function(run, save = FALSE) {
     check_run(run)
     summary <- file.path(run$project_dir,
                          "project-summary.csv") %>%
@@ -31,8 +31,8 @@ import_summary <- function(run, save = FALSE) {
     summary$qc_color <- metadata[[color]]
 
     if (isTRUE(save)) {
-        save(summary, file = "data/summary.rda")
-        write_csv(summary, "results/summary.csv")
+        save(summary, file = "data/qc_summary.rda")
+        write_csv(summary, "results/qc_summary.csv")
     }
 
     return(summary)
