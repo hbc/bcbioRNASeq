@@ -1,10 +1,12 @@
-0.0.8   Rename internal parameters for better readability
-        Improve documentation and consolidate functions by group
-0.0.7   NAMESPACE simplification
-0.0.6   Rework handling of plots and tables during knits
-0.0.5   Differential expression and gene set enrichment functions
-0.0.4   bcbio object integrity checks
-        Better detection and handling of lane split samples
-0.0.3   Rework functions to utilize bcbio list object
-0.0.2   Add plotting functions
-0.0.1   Initial draft release
+0.0.9   Consolidate NAMESPACE imports.
+        Write count matrices with gzip compression.
+0.0.8   Rename internal parameters for better readability.
+        Improve documentation and consolidate functions by group.
+0.0.7   NAMESPACE simplification.
+0.0.6   Rework handling of plots and tables during knits.
+0.0.5   Differential expression and gene set enrichment functions.
+0.0.4   bcbio object integrity checks.
+        Better detection and handling of lane split samples.
+0.0.3   Rework functions to utilize bcbio list object.
+0.0.2   Add plotting functions.
+0.0.1   Initial draft release.
