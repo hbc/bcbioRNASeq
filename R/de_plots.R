@@ -48,7 +48,7 @@ plot_volcano <- function(
     run,
     res,
     lfc = 1,
-    text_labels = 20) {
+    text_labels = 30) {
     check_run(run)
     check_res(res)
 
