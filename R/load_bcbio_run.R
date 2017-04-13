@@ -24,6 +24,13 @@ load_bcbio_run <- function(
     parent_dir = getwd(),
     config_dir = NULL,
     final_dir = NULL) {
+    # Detect whether run is remote or local
+    if (!identical(parent_dir, getwd())) {
+        remote <- TRUE
+    } else {
+        remote <- FALSE
+    }
+
     # Interesting groups, defaults to description
     if (is.null(intgroup)) {
         intgroup <- "description"
@@ -94,13 +101,17 @@ load_bcbio_run <- function(
         date = Sys.Date(),
         session_info = sessionInfo(),
         data_versions = data_versions,
+        remote = remote,
         wd = getwd()
     )
 
     check_run(run)
 
-    create_local_project()
-    save(run, file = "data/run.rda")
+    # Only create new project structure when loading a remote run
+    if (isTRUE(remote)) {
+        create_new_project()
+        save(run, file = "data/run.rda")
+    }
 
     return(run)
 }
