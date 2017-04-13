@@ -1,9 +1,9 @@
-#' Create project directory structure
+#' Create new project directory structure
 #'
 #' @author Michael Steinbaugh
 #'
 #' @export
-create_local_project <- function() {
+create_new_project <- function() {
     local_dirs <- c("data",
                     "docs",
                     "figures",
