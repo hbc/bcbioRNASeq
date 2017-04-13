@@ -50,8 +50,7 @@ plot_volcano <- function(
 
     alpha <- res@metadata$alpha
 
-    # Prepare data frame for `CHBUtils::volcano_density_plot`. Note that
-    # DESeq2 result table columns must be renamed.
+    # Prepare data frame for `volcano_density_plot`
     df <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
@@ -83,15 +82,10 @@ plot_volcano <- function(
         set_rownames(.$ensembl_gene_id)
     plot_text$ensembl_gene_id <- NULL
 
-    # When there's time, rework this function internally in the package
-    # https://github.com/hbc/CHBUtils/blob/master/R/volcanoPlot.R
-    # `volcano_density_plot()` requires a `data.frame` with two columns:
-    # `logFC` and `Adjusted.Pvalue`
     volcano_density_plot(
         df,
-        lfc.cutoff = lfc,
-        # This isn't documented...
+        lfc_cutoff = lfc,
         plot_text = plot_text,
-        pval.cutoff = alpha,
+        pval_cutoff = alpha,
         title = paste(name, contrast_name, sep = " : "))
 }
