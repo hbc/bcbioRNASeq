@@ -5,7 +5,7 @@
 \alias{read_qc_summary}
 \alias{read_counts}
 \alias{read_file}
-\title{Import data from bcbio-nextgen run}
+\title{Read data from bcbio-nextgen run}
 \usage{
 read_metadata(run, grep = NULL, save = FALSE, pool = FALSE)
 
