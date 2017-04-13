@@ -23,14 +23,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    basejump,
     biomaRt,
-    CHBUtils,
     DESeq2,
     dplyr,
     edgeR,
     ggplot2,
     ggrepel,
+    grid,
+    gridExtra,
     knitr,
     magrittr,
     pheatmap,
