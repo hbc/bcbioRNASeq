@@ -1,3 +1,4 @@
+0.0.10  Rename `import_*` functions to `read_*`.
 0.0.9   Consolidate NAMESPACE imports.
         Write count matrices with gzip compression.
 0.0.8   Rename internal parameters for better readability.
