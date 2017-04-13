@@ -17,11 +17,6 @@
 #'
 #' @return \code{bcbio-nextgen} run object
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' load_bcbio_run("illumina_rnaseq")
-#' }
 load_bcbio_run <- function(
     template,
     organism,
@@ -67,8 +62,12 @@ load_bcbio_run <- function(
         sample_dirs[!grepl("^\\d{4}-\\d{2}-\\d{2}_", names(sample_dirs))]
 
     # Data versions
-    data_versions <- file.path(project_dir, "data_versions.csv") %>%
-        readr::read_csv(., col_types = readr::cols())
+    if (file.exists(file.path(project_dir, "data_versions.csv"))) {
+        data_versions <- file.path(project_dir, "data_versions.csv") %>%
+            read_csv(col_types = cols())
+    } else {
+        data_versions <- NULL
+    }
 
     # Detect lane split samples
     if (any(grepl("_L\\d+$", dir(final_dir)))) {
