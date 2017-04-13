@@ -28,7 +28,7 @@ pool_lane_split_dds <- function(
     pooled_counts <- pool_lane_split_counts(raw_counts)
 
     # Obtain metadata
-    metadata <- import_metadata(run, pool = TRUE)
+    metadata <- read_metadata(run, pool = TRUE)
     if (!identical(colnames(pooled_counts), rownames(metadata))) {
         stop("count colnames don't match metadata rownames")
     }
