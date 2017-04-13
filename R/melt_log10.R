@@ -9,7 +9,7 @@
 #' @export
 melt_log10 <- function(run, counts) {
     check_run(run)
-    metadata <- import_metadata(run) %>%
+    metadata <- read_metadata(run) %>%
         select_(.dots = unique(c(
             "samplename",
             "description",

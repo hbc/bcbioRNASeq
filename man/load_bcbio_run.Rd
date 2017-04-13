@@ -30,11 +30,6 @@ Entire vector is used for PCA and heatmap QC functions.}
 We recommend loading the \code{bcbio-nextgen} run as a remote connection over
 \code{sshfs}. This requires setting \code{parent_dir} in the function.
 }
-\examples{
-\dontrun{
-load_bcbio_run("illumina_rnaseq")
-}
-}
 \author{
 Michael Steinbaugh
 }

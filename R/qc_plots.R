@@ -18,7 +18,7 @@
 #' @export
 plot_total_reads <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
                     fill = ~qc_color)
@@ -46,7 +46,7 @@ plot_total_reads <- function(run) {
 #' @export
 plot_mapped_reads <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / 1e6,
@@ -75,7 +75,7 @@ plot_mapped_reads <- function(run) {
 #' @export
 plot_mapping_rate <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / total_reads * 100,
@@ -105,7 +105,7 @@ plot_mapping_rate <- function(run) {
 #' @export
 plot_genes_detected <- function(run, raw_counts) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = colSums(raw_counts > 0),
@@ -131,7 +131,7 @@ plot_genes_detected <- function(run, raw_counts) {
 #' @export
 plot_gene_detection_saturation <- function(run, raw_counts) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~mapped_reads / 1e6,
                  y = ~colSums(raw_counts > 0),
@@ -155,7 +155,7 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 #' @export
 plot_exonic_mapping_rate <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
@@ -183,7 +183,7 @@ plot_exonic_mapping_rate <- function(run) {
 #' @export
 plot_intronic_mapping_rate <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
@@ -211,7 +211,7 @@ plot_intronic_mapping_rate <- function(run) {
 #' @export
 plot_rrna_mapping_rate <- function(run) {
     check_run(run)
-    plot <- import_qc_summary(run) %>%
+    plot <- read_qc_summary(run) %>%
         ggplot(
             aes_(x = ~description,
                  y = ~rrna_rate * 100,

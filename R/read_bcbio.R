@@ -1,6 +1,6 @@
 #' Import data from bcbio-nextgen run
 #'
-#' @rdname run_import
+#' @rdname read_bcbio
 #'
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
@@ -10,7 +10,7 @@
 
 
 
-#' @rdname run_import
+#' @rdname read_bcbio
 #' @description Import metadata
 #'
 #' @param grep Apply grep pattern matching to samples
@@ -18,7 +18,7 @@
 #'
 #' @return Metadata data frame
 #' @export
-import_metadata <- function(
+read_metadata <- function(
     run,
     grep = NULL,
     save = FALSE,
@@ -81,11 +81,11 @@ import_metadata <- function(
 
 
 
-#' @rdname run_import
+#' @rdname read_bcbio
 #' @description Import project quality control summary statistics
 #' @return Summary data frame
 #' @export
-import_qc_summary <- function(run, save = FALSE) {
+read_qc_summary <- function(run, save = FALSE) {
     check_run(run)
     summary <- file.path(run$project_dir,
                          "project-summary.csv") %>%
@@ -99,7 +99,7 @@ import_qc_summary <- function(run, save = FALSE) {
                                   "description"))) %>%
         arrange_(.dots = "description")
 
-    metadata <- import_metadata(run)
+    metadata <- read_metadata(run)
 
     if (!identical(summary$description, metadata$description)) {
         stop("summary and metadata descriptions don't match")
@@ -123,7 +123,7 @@ import_qc_summary <- function(run, save = FALSE) {
 
 
 
-#' @rdname run_import
+#' @rdname read_bcbio
 #' @description Import RNA-Seq counts using \code{tximport}
 #'
 #' @param type The type of software used to generate the abundances. Follows the
@@ -133,7 +133,7 @@ import_qc_summary <- function(run, save = FALSE) {
 #'
 #' @return txi \code{tximport} list
 #' @export
-import_counts <- function(
+read_counts <- function(
     run,
     type = "salmon",
     grep = NULL,
@@ -171,7 +171,7 @@ import_counts <- function(
     message(paste(names(sample_files), collapse = "\n"))
     # writeLines(sample_files)
 
-    tx2gene <- import_file(run, file = "tx2gene.csv", col_names = FALSE)
+    tx2gene <- read_file(run, file = "tx2gene.csv", col_names = FALSE)
 
     # Import the counts
     # https://goo.gl/h6fm15
@@ -188,7 +188,7 @@ import_counts <- function(
 
 
 
-#' @rdname run_import
+#' @rdname read_bcbio
 #' @description Import a project data file
 #'
 #' @param file File name
@@ -197,7 +197,7 @@ import_counts <- function(
 #'
 #' @return bcbio run data
 #' @export
-import_file <- function(
+read_file <- function(
     run,
     file,
     row_names = NULL,
