@@ -1,13 +1,9 @@
 # General ====
-#' @importFrom basejump kables
-#' @importFrom knitr kable
+#' @importFrom knitr asis_output kable opts_knit
 #' @importFrom reshape2 melt
-#' @importFrom stats cor na.omit
+#' @importFrom stats cor density na.omit
 #' @importFrom utils globalVariables head sessionInfo
 NULL
-
-#' @importFrom basejump setNamesSnake
-set_names_snake <- basejump::setNamesSnake
 
 
 
@@ -24,7 +20,8 @@ NULL
 
 # Visualization ====
 #' @import ggrepel
-#' @importFrom CHBUtils volcano_density_plot
+#' @import grid
+#' @importFrom gridExtra arrangeGrob
 #' @importFrom pheatmap pheatmap
 NULL
 
