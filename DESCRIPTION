@@ -9,7 +9,7 @@ Authors@R: c(
     person("Michael", "Steinbaugh",
            email = "mike@steinbaugh.com",
            role = "aut"))
-Description: Functions for processing bcbio-nextgen RNA-Seq results.
+Description: Quality control and differential expression for bcbio-nextgen RNA-seq experiments.
 biocViews:
     DifferentialExpression,
     GeneExpression,
