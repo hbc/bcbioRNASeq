@@ -21,12 +21,12 @@ This is an [R][] package.
 
 ```{r}
 source("https://bioconductor.org/biocLite.R")
-biocLite("roryk/bcbioSinglecell")
+biocLite("roryk/bcbioRnaseq")
 ```
 
 ### [`devtools`][] method
 
 ```{r}
 install.packages("devtools")
-devtools::install_github("roryk/bcbioSinglecell")
+devtools::install_github("roryk/bcbioRnaseq")
 ```
