@@ -27,16 +27,6 @@ NULL
 
 
 
-# GSEA ====
-#' @importFrom RDAVIDWebService addList DAVIDWebService getAnnotationSummary
-#'   getClusterReport getClusterReportFile getFunctionalAnnotationChart
-#'   getFunctionalAnnotationChartFile getFunctionalAnnotationTable
-#'   getFunctionalAnnotationTableFile getGeneCategoriesReport getGeneListReport
-#'   getGeneListReportFile setTimeOut
-NULL
-
-
-
 # tidyverse ====
 # http://tidyverse.org/
 #' @import dplyr

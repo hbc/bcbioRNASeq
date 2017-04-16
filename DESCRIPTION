@@ -34,7 +34,6 @@ Imports:
     knitr,
     magrittr,
     pheatmap,
-    RDAVIDWebService,
     readr,
     reshape2,
     stats,
