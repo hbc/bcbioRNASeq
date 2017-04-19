@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Version: 0.0.10
-Date: 2017-04-13
+Version: 0.0.11
+Date: 2017-04-19
 Authors@R: c(
     person("Rory", "Kirchner",
            email = "roryk@alum.mit.edu",
@@ -9,42 +9,47 @@ Authors@R: c(
     person("Michael", "Steinbaugh",
            email = "mike@steinbaugh.com",
            role = "aut"))
-Description: Quality control and differential expression for bcbio-nextgen RNA-seq experiments.
+Description: Quality control and differential expression for bcbio-nextgen
+    RNA-seq experiments.
 biocViews:
     DifferentialExpression,
     GeneExpression,
+    QualityControl,
     ReportWriting,
     RNASeq,
     Visualization
-URL: https://bcbio-nextgen.readthedocs.io, https://github.com/roryk/bcbioRnaseq
+URL:
+    https://bcbio-nextgen.readthedocs.io,
+    https://github.com/roryk/bcbioRnaseq
 BugReports: https://github.com/roryk/bcbioRnaseq/issues
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.3.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    biomaRt,
-    DESeq2,
-    dplyr,
+    biomaRt (>= 2.30.0),
+    DESeq2 (>= 1.14),
+    dplyr (>= 0.5.0.9000),
     edgeR,
-    ggplot2,
+    ggplot2 (>= 2.2.1),
     ggrepel,
     grid,
     gridExtra,
-    knitr,
-    magrittr,
+    knitr (>= 1.15),
+    magrittr (>= 1.5),
     pheatmap,
-    readr,
+    readr (>= 1.1.0),
     reshape2,
+    rlang (>= 0.0.0.9000),
     stats,
-    stringr,
+    stringr (>= 1.2.0),
     S4Vectors,
     SummarizedExperiment,
-    tibble,
-    tidyr,
-    tximport,
+    tibble (>= 1.3.0),
+    tidyr (>= 0.6.1),
+    tximport (>= 1.2.0),
     utils
 Remotes:
-    hbc/CHBUtils,
-    steinbaugh/basejump
+    hadley/rlang,
+    tidyverse/dplyr
 RoxygenNote: 6.0.1
