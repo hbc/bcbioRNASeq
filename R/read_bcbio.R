@@ -18,7 +18,7 @@
 #'
 #' @return Metadata data frame
 #' @export
-read_metadata <- function(
+read_bcbio_metadata <- function(
     run,
     grep = NULL,
     save = FALSE,
@@ -85,7 +85,7 @@ read_metadata <- function(
 #' @description Import project quality control summary statistics
 #' @return Summary data frame
 #' @export
-read_qc_summary <- function(run, save = FALSE) {
+read_bcbio_qc_summary <- function(run, save = FALSE) {
     check_run(run)
     summary <- file.path(run$project_dir,
                          "project-summary.csv") %>%
@@ -99,7 +99,7 @@ read_qc_summary <- function(run, save = FALSE) {
                                   "description"))) %>%
         arrange_(.dots = "description")
 
-    metadata <- read_metadata(run)
+    metadata <- read_bcbio_metadata(run)
 
     if (!identical(summary$description, metadata$description)) {
         stop("summary and metadata descriptions don't match")
@@ -133,7 +133,7 @@ read_qc_summary <- function(run, save = FALSE) {
 #'
 #' @return txi \code{tximport} list
 #' @export
-read_counts <- function(
+read_bcbio_counts <- function(
     run,
     type = "salmon",
     grep = NULL,
@@ -171,7 +171,7 @@ read_counts <- function(
     message(paste(names(sample_files), collapse = "\n"))
     # writeLines(sample_files)
 
-    tx2gene <- read_file(run, file = "tx2gene.csv", col_names = FALSE)
+    tx2gene <- read_bcbio_file(run, file = "tx2gene.csv", col_names = FALSE)
 
     # Import the counts
     # https://goo.gl/h6fm15
@@ -197,7 +197,7 @@ read_counts <- function(
 #'
 #' @return bcbio run data
 #' @export
-read_file <- function(
+read_bcbio_file <- function(
     run,
     file,
     row_names = NULL,

@@ -21,7 +21,7 @@ NULL
 # Visualization ====
 #' @import ggrepel
 #' @import grid
-#' @importFrom gridExtra arrangeGrob
+#' @importFrom gridExtra arrangeGrob grid.arrange
 #' @importFrom pheatmap pheatmap
 NULL
 
@@ -35,5 +35,6 @@ NULL
 #' @import readr
 #' @import stringr
 #' @import tibble
+#' @importFrom rlang .data UQ
 #' @importFrom tidyr expand_
 NULL

@@ -3,13 +3,13 @@ create_local_project <- function() {
 }
 
 import_file <- function() {
-    .Deprecated("read_file")
+    .Deprecated("read_bcbio_file")
 }
 
 import_metadata <- function() {
-    .Deprecated("read_metadata")
+    .Deprecated("read_bcbio_metadata")
 }
 
 import_summary <- function() {
-    .Deprecated("read_qc_summary")
+    .Deprecated("read_bcbio_qc_summary")
 }

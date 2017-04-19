@@ -16,7 +16,7 @@ correlation_heatmap <- function(run,
                                 method = "pearson") {
     check_run(run)
     name <- deparse(substitute(counts))
-    metadata <- read_metadata(run)
+    metadata <- read_bcbio_metadata(run)
 
     # Transform DESeqDataSet if necessary
     if (check_dds(counts, stop = FALSE)) {

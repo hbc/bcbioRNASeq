@@ -7,7 +7,10 @@
 \usage{
 plot_ma(res, ylim = 2)
 
-plot_volcano(run, res, lfc = 1, text_labels = 30)
+plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
+  title = NULL, shade_color = "green", shade_alpha = 0.25,
+  point_color = "gray", point_alpha = 0.75,
+  point_outline_color = "darkgray")
 }
 \arguments{
 \item{res}{\code{DESeqResults}}
@@ -19,6 +22,20 @@ plot_volcano(run, res, lfc = 1, text_labels = 30)
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
 
 \item{text_labels}{Number of text labels to plot}
+
+\item{direction}{Plot \code{up}, \code{down}, or \code{both} directions}
+
+\item{title}{Title for the figure}
+
+\item{shade_color}{Shading color for bounding box}
+
+\item{shade_alpha}{Shading transparency alpha}
+
+\item{point_color}{Point color}
+
+\item{point_alpha}{Point transparency alpha}
+
+\item{point_outline_color}{Point outline color}
 }
 \value{
 MA plot
