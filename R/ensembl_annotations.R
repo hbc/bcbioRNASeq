@@ -22,11 +22,9 @@ ensembl_annotations <- function(
     values = NULL) {
     check_run(run)
 
-    # version = "87"
     ensembl <- useEnsembl(
         biomart = "ensembl",
-        dataset = paste(run$organism, "gene_ensembl", sep = "_"),
-        host = "dec2016.archive.ensembl.org")
+        dataset = paste(run$organism, "gene_ensembl", sep = "_"))
 
     # Set biomaRt input defaults
     if (is.null(values)) {
