@@ -10,11 +10,7 @@
 melt_log10 <- function(run, counts) {
     check_run(run)
     metadata <- read_bcbio_metadata(run) %>%
-        select_(.dots = unique(c(
-            "samplename",
-            "description",
-            run$intgroup
-        )))
+        .[, unique(c("samplename", "description", run$intgroup))]
 
     if (!identical(colnames(counts), rownames(metadata))) {
         stop("Sample descriptions in counts do not match metadata.")
@@ -24,20 +20,17 @@ melt_log10 <- function(run, counts) {
         as.data.frame %>%
         rownames_to_column %>%
         melt(id = 1) %>%
+        as_tibble %>%
         set_names(c("ensembl_gene_id",  # rownames
                     "description",  # colnames
-                    "counts"))
-
-    # Filter zero counts
-    melted <- melted[melted$counts > 0, ]
-
-    # log10 transform
-    melted$counts <- log(melted$counts)
-
-    # Join metadata
-    melted$description <- as.character(melted$description)
-    melted <- left_join(melted, metadata, by = "description")
-    #str(melted)
+                    "counts")) %>%
+        # Filter zero counts
+        .[.$counts > 0, ] %>%
+        # log10 transform
+        mutate(counts = log10(.data$counts),
+               description = as.character(.data$description)) %>%
+        # Join metadata
+        left_join(metadata, by = "description")
 
     return(melted)
 }
