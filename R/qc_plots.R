@@ -25,10 +25,10 @@ plot_total_reads <- function(run) {
         ) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "orange",
+        geom_hline(color = warn_color,
                    size = 2,
                    yintercept = 10) +
-        geom_hline(color = "green",
+        geom_hline(color = pass_color,
                    size = 2,
                    yintercept = 20) +
         labs(x = "sample",
@@ -54,10 +54,10 @@ plot_mapped_reads <- function(run) {
         ) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "orange",
+        geom_hline(color = warn_color,
                    size = 2,
                    yintercept = 10) +
-        geom_hline(color = "green",
+        geom_hline(color = pass_color,
                    size = 2,
                    yintercept = 20) +
         labs(x = "sample",
@@ -83,10 +83,10 @@ plot_mapping_rate <- function(run) {
         ) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "orange",
+        geom_hline(color = warn_color,
                    size = 2,
                    yintercept = 70) +
-        geom_hline(color = "green",
+        geom_hline(color = pass_color,
                    size = 2,
                    yintercept = 90) +
         labs(x = "sample",
@@ -113,7 +113,7 @@ plot_genes_detected <- function(run, raw_counts) {
         ) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "green",
+        geom_hline(color = pass_color,
                    size = 2,
                    yintercept = 20000) +
         labs(x = "sample",
@@ -164,7 +164,7 @@ plot_exonic_mapping_rate <- function(run) {
         ) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "green",
+        geom_hline(color = pass_color,
                    size = 2,
                    yintercept = 60) +
         labs(x = "sample",
@@ -192,7 +192,7 @@ plot_intronic_mapping_rate <- function(run) {
         ) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "orange",
+        geom_hline(color = warn_color,
                    size = 2,
                    yintercept = 20) +
         labs(x = "sample",
@@ -218,7 +218,7 @@ plot_rrna_mapping_rate <- function(run) {
                  fill = ~qc_color)) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = "orange",
+        geom_hline(color = warn_color,
                    size = 2,
                    yintercept = 10) +
         labs(x = "sample",
@@ -302,7 +302,7 @@ plot_gender_markers <- function(run, normalized_counts) {
         read_csv(col_types = cols(),
                  na = c("", "#N/A")) %>%
         .[.$include == TRUE, ] %>%
-        arrange_(.dots = c("chromosome", "gene_symbol"))
+        .[order(.$chromosome, .$gene_symbol), ]
     # Ensembl identifiers
     identifier <- csv[, "ensembl_gene"][[1]] %>% sort %>% unique
     # Scatterplot
@@ -317,8 +317,8 @@ plot_gender_markers <- function(run, normalized_counts) {
                     "counts")) %>%
         left_join(csv, by = "ensembl_gene") %>%
         ggplot(
-            aes_(~gene_symbol,
-                 ~counts,
+            aes_(x = ~gene_symbol,
+                 y = ~counts,
                  color = ~description,
                  shape = ~chromosome)
         ) +
