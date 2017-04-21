@@ -1,3 +1,6 @@
+0.0.11  Reduce number of depdencies.
+        Initial commit of modified volcano plot from CHBUtils package.
+        Internal code updates for upcoming dplyr 0.6.0/tidyeval update.
 0.0.10  Rename `import_*` functions to `read_*`.
 0.0.9   Consolidate NAMESPACE imports.
         Write count matrices with gzip compression.

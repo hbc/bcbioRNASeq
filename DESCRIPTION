@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
 Version: 0.0.11
-Date: 2017-04-19
+Date: 2017-04-21
 Authors@R: c(
     person("Rory", "Kirchner",
            email = "roryk@alum.mit.edu",
@@ -33,8 +33,6 @@ Imports:
     edgeR,
     ggplot2 (>= 2.2.1),
     ggrepel,
-    grid,
-    gridExtra,
     knitr (>= 1.15),
     magrittr (>= 1.5),
     pheatmap,
