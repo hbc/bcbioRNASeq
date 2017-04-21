@@ -3,7 +3,17 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{!!!}
+\alias{reexports}
+\alias{!!}
+\alias{reexports}
+\alias{sym}
+\alias{reexports}
+\alias{syms}
+\alias{reexports}
 \alias{\%>\%}
+\alias{reexports}
+\alias{kable}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -11,6 +21,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{knitr}{\code{\link[knitr]{kable}}}
+
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{rlang}{\code{\link[rlang]{!!!}}, \code{\link[rlang]{!!}}, \code{\link[rlang]{sym}}, \code{\link[rlang]{syms}}}
 }}
 

@@ -45,18 +45,41 @@ NULL
 # http://tidyverse.org/
 #' @import dplyr
 #' @import ggplot2
-#' @import magrittr
 #' @import readr
+#' @import rlang
 #' @import stringr
-#' @import tibble
-#' @importFrom rlang .data UQ
+#' @importFrom magrittr %>% set_rownames
+#' @importFrom tibble as_tibble is_tibble remove_rownames rownames_to_column
 #' @importFrom tidyr expand_
 NULL
 
 
 
 # Rexports ====
-#' @keywords internal
+# Syntactic sugar ----
+#' @usage NULL
+#' @export
+rlang::`!!!`
+
+#' @usage NULL
+#' @export
+rlang::`!!`
+
+# Quasi-quotation ----
+#' @usage NULL
+#' @export
+rlang::sym
+
+#' @usage NULL
+#' @export
+rlang::syms
+
+# Knit utilities ----
+# Pipe
 #' @usage NULL
 #' @export
 magrittr::`%>%`
+
+#' @usage NULL
+#' @export
+knitr::kable

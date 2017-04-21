@@ -44,7 +44,7 @@ ensembl_annotations <- function(
               attributes = attributes,
               filters = filters,
               values = values) %>%
-        arrange_(.dots = colnames(.)) %>%
+        arrange(!!!syms(colnames(.))) %>%
         set_rownames(.$ensembl_gene_id)
 
     return(annotations)
