@@ -49,7 +49,7 @@ NULL
 #' @import rlang
 #' @import stringr
 #' @importFrom magrittr %>% set_rownames
-#' @importFrom tibble as_tibble is_tibble remove_rownames rownames_to_column
+#' @importFrom tibble as_tibble glimpse is_tibble remove_rownames rownames_to_column
 #' @importFrom tidyr expand_
 NULL
 
