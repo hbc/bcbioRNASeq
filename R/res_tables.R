@@ -35,30 +35,34 @@ res_tables <- function(
         run,
         attributes = c("external_gene_name",
                        "description",
-                       "gene_biotype")
-    )
+                       "gene_biotype"))
 
     all <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
+        as_tibble %>%
         set_names_snake %>%
         left_join(annotations, by = "ensembl_gene_id") %>%
-        arrange_(.dots = "ensembl_gene_id")
+        .[order(.$ensembl_gene_id), ]
 
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
-        filter_(.dots = ~padj < alpha) %>%
-        arrange_(.dots = "padj")
-    deg_lfc <- deg %>%
-        filter_(.dots = ~log2_fold_change < -lfc |
-                    log2_fold_change > lfc)
-    deg_lfc_up <- deg_lfc %>%
-        filter_(.dots = ~log2_fold_change > 0)
-    deg_lfc_down <- deg_lfc %>%
-        filter_(.dots = ~log2_fold_change < 0)
+        .[.$padj < alpha, ] %>%
+        .[order(.$padj), ]
+    glimpse(deg)
 
-    base_mean_gt0 <- filter_(all, .dots = ~base_mean > 0)
-    base_mean_gt1 <- filter_(all, .dots = ~base_mean > 1)
+    deg_lfc <- deg %>%
+        .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
+    deg_lfc_up <- deg_lfc %>%
+        .[.$log2_fold_change > 0, ]
+    deg_lfc_down <- deg_lfc %>%
+        .[.$log2_fold_change < 0, ]
+
+    base_mean_gt0 <- all %>%
+        .[.$base_mean > 0, ] %>%
+        .[order(.$base_mean, decreasing = TRUE), ]
+    base_mean_gt1 <- base_mean_gt0 %>%
+        .[.$base_mean > 1, ]
 
     writeLines(c(
         paste(name, "differential expression tables"),
@@ -76,7 +80,7 @@ res_tables <- function(
         ""
     ))
 
-    # Write the CSV files to results/
+    # Write the CSV files to `results/`
     de_dir <- file.path("results", "de")
     dir.create(de_dir, recursive = TRUE, showWarnings = FALSE)
 
