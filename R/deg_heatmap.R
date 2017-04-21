@@ -33,17 +33,16 @@ deg_heatmap <- function(
                    contrast = contrast,
                    alpha = alpha)
 
-    # Output results to dataframe and subset by alpha and lfc cutoffs
+    # Output results to data frame and subset by alpha and lfc cutoffs
     res_df <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
-        filter_(.dots = ~padj < alpha) %>%
-        filter_(.dots = ~log2FoldChange < -lfc | log2FoldChange > lfc)
+        as_tibble %>%
+        .[.$padj < alpha, ] %>%
+        .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
 
     # Subset the transformed count matrix
-    mat <- rld %>%
-        assay %>%
-        .[res_df$ensembl_gene_id, ]
+    mat <- rld %>% assay %>% .[res_df$ensembl_gene_id, ]
 
     if (nrow(mat) <= 100) {
         show_rownames <- TRUE
@@ -52,7 +51,7 @@ deg_heatmap <- function(
         if (identical(rownames(mat), rownames(gene_names))) {
             rownames(mat) <- gene_names$external_gene_name
         } else {
-            stop("gene identifier rownames mismatch")
+            stop("Gene identifier rownames mismatch")
         }
     } else {
         show_rownames <- FALSE
