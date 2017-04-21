@@ -39,20 +39,22 @@ read_bcbio_metadata <- function(
         # later by pooling the counts with `deseq_lane_pool()`. We may want to
         # deprecate this method in the future and simply combine counts at the
         # server level for all lane split runs.
-        lane <- paste0("L", stringr::str_pad(1:4, 3, pad = "0"))
+        lane <- paste0("L", str_pad(1:4, 3, pad = "0"))
 
         metadata <- metadata %>%
-            group_by_(.dots = "samplename") %>%
+            group_by(.data$samplename) %>%
             expand_(~lane) %>%
             left_join(metadata, by = "samplename") %>%
             ungroup
         metadata$samplename <- paste(metadata$samplename, lane, sep = "_")
 
-        # Check against the sample_dirs
-        description_match <- identical(metadata$description,
-                                       names(run$sample_dirs))
-        samplename_match <- identical(metadata$samplename,
-                                      names(run$sample_dirs))
+        # Check against the sample directories
+        description_match <- identical(
+            metadata$description,
+            names(run$sample_dirs))
+        samplename_match <- identical(
+            metadata$samplename,
+            names(run$sample_dirs))
 
         # Replace description for lanesplit samples
         if (!isTRUE(description_match) & isTRUE(samplename_match)) {
@@ -67,7 +69,7 @@ read_bcbio_metadata <- function(
     }
 
     metadata <- metadata %>%
-        arrange_(.dots = "description") %>%
+        .[order(.$description), ] %>%
         as.data.frame %>%
         set_rownames(.$description)
 
@@ -87,22 +89,19 @@ read_bcbio_metadata <- function(
 #' @export
 read_bcbio_qc_summary <- function(run, save = FALSE) {
     check_run(run)
-    summary <- file.path(run$project_dir,
-                         "project-summary.csv") %>%
+    summary <- file.path(run$project_dir, "project-summary.csv") %>%
         read_csv(col_types = cols()) %>%
         set_names_snake %>%
         # Remove NA only columns
         .[, colSums(!is.na(.)) > 0] %>%
         # Sort by description
-        select_(.dots = c("description",
-                          setdiff(sort(names(.)),
-                                  "description"))) %>%
-        arrange_(.dots = "description")
+        .[, c("description", setdiff(sort(names(.)), "description"))] %>%
+        .[order(.$description), ]
 
     metadata <- read_bcbio_metadata(run)
 
     if (!identical(summary$description, metadata$description)) {
-        stop("summary and metadata descriptions don't match")
+        stop("Summary and metadata descriptions don't match")
     }
 
     # Use the first entry in interesting groups to define the QC colors. If
@@ -114,8 +113,8 @@ read_bcbio_qc_summary <- function(run, save = FALSE) {
     summary$qc_color <- metadata[[color]]
 
     if (isTRUE(save)) {
-        save(summary, file = "data/qc_summary.rda")
-        write_csv(summary, "results/qc_summary.csv")
+        save(summary, file = file.path("data", "qc_summary.rda"))
+        write_csv(summary, file.path("results", "qc_summary.csv"))
     }
 
     return(summary)
@@ -140,13 +139,12 @@ read_bcbio_counts <- function(
     samples = NULL) {
     check_run(run)
     if (!type %in% c("salmon", "sailfish")) {
-        stop("unsupported counts input format")
+        stop("Unsupported counts input format")
     }
 
     # Sample name grep pattern matching. Run above `samples` to override.
     if (!is.null(grep)) {
-        samples <- stringr::str_subset(
-            names(run$sample_dirs), pattern = grep)
+        samples <- str_subset(names(run$sample_dirs), pattern = grep)
         if (!length(samples)) {
             stop("grep string didn't match any samples")
         }
@@ -163,7 +161,7 @@ read_bcbio_counts <- function(
                               type, "quant", "quant.sf")
     names(sample_files) <- names(run$sample_dirs[samples])
     if (!all(file.exists(sample_files))) {
-        stop(paste(type, "count files do not exist"))
+        stop(paste(type, "Count files do not exist"))
     }
 
     # Begin loading of selected counts
@@ -207,7 +205,7 @@ read_bcbio_file <- function(
     # Check that file exists
     filepath <- file.path(run$project_dir, file)
     if (!file.exists(filepath)) {
-        stop("file could not be found")
+        stop("File could not be found")
     }
 
     # Detect file extension
@@ -215,7 +213,7 @@ read_bcbio_file <- function(
         # ext <- gsub("^.*\\.([a-z]+)$", "\\1", file)
         ext <- str_match(file, "\\.([a-z]+)$")[2]
     } else {
-        stop("file does not have an extension")
+        stop("File does not have an extension")
     }
 
     # File import
@@ -226,17 +224,16 @@ read_bcbio_file <- function(
     } else if (ext == "counts") {
         data <- read_tsv(filepath, col_types = cols(), ...) %>% as.matrix
     } else {
-        stop("unsupported file extension")
+        stop("Unsupported file extension")
     }
 
-    # Coerce tibble to data frame. Might want to disable this in a future update
-    # as tibble becomes more standardized and the rownames issue is sorted out.
-    if (is_tibble(data)) {
-        data <- as.data.frame(data)
-    }
-
-    # Set row names
+    # Set row names, if desired
     if (!is.null(row_names)) {
+        # Coerce tibble to data frame. Setting rownames on a tibble is now
+        # deprecated. If rownames are essential, object must be a data frame.
+        if (is_tibble(data)) {
+            data <- as.data.frame(data)
+        }
         rownames(data) <- data[[row_names]]
         data[[row_names]] <- NULL
     }
