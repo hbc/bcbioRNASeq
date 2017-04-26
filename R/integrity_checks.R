@@ -13,17 +13,8 @@ check_run <- function(run) {
     if (!is.list(run)) {
         stop("bcbio run object not found")
     }
-    if (!length(dir(run$parent_dir))) {
-        stop("could not access parent_dir")
-    }
-    if (!length(dir(run$run_dir))) {
-        stop("could not access run_dir")
-    }
-    if (!length(dir(run$config_dir))) {
-        stop("could not access config_dir")
-    }
     if (!length(dir(run$final_dir))) {
-        stop("could not access final_dir")
+        stop("could not access run_dir")
     }
     if (!length(run$sample_dirs)) {
         stop("no sample directories in run")
