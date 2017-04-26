@@ -24,7 +24,7 @@ load_bcbio_run <- function(
         stop("final directory failed to load")
     }
     final_dir <- normalizePath(final_dir)
-    print(dir(final_dir))
+    message(paste(dir(final_dir), collapse = "\n"))
 
     # project_dir
     pattern <- ".*/(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
