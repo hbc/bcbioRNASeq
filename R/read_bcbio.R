@@ -5,7 +5,9 @@
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run \code{bcbio-nextgen}
+#' @param run \code{bcbio-nextgen} run
+#' @param grep Apply grep pattern matching to samples
+#' @param pool Pool lane split samples
 #' @param save Save data
 
 

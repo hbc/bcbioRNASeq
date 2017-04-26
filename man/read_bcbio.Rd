@@ -16,10 +16,12 @@ read_bcbio_metadata(run)
 read_bcbio_qc_summary(run, save = FALSE)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen}}
+\item{run}{\code{bcbio-nextgen} run}
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport}.}
+
+\item{grep}{Apply grep pattern matching to samples}
 
 \item{samples}{Specify the names of samples in bcbio final directory to
 input. If \code{NULL} (default), all samples will be imported.}
@@ -31,6 +33,8 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{...}{Optional parameters for \code{readr}}
 
 \item{save}{Save data}
+
+\item{pool}{Pool lane split samples}
 }
 \value{
 txi \code{tximport} list

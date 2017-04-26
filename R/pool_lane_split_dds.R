@@ -22,13 +22,14 @@ pool_lane_split_dds <- function(
 
     # Get the internal parameters from DESeqDataSet
     raw_counts <- counts(dds, normalized = FALSE)
-    design <- DESeq2::design(dds)
+    # DESeq2::design - namespace collison?
+    design <- design(dds)
 
     # Pool the lane split technical replicates
     pooled_counts <- pool_lane_split_counts(raw_counts)
 
     # Obtain metadata
-    metadata <- read_bcbio_metadata(run, pool = TRUE)
+    metadata <- read_bcbio_metadata(run)
     if (!identical(colnames(pooled_counts), rownames(metadata))) {
         stop("count colnames don't match metadata rownames")
     }
