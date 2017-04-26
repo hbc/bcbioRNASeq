@@ -46,7 +46,8 @@ Imports:
     tibble (>= 1.3.0),
     tidyr (>= 0.6.1),
     tximport (>= 1.4.0),
-    utils
+    utils,
+    yaml
 Remotes:
     hadley/rlang,
     tidyverse/dplyr

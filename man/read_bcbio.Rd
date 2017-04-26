@@ -11,7 +11,7 @@ read_bcbio_counts(run, type = "salmon", grep = NULL, samples = NULL)
 
 read_bcbio_file(run, file, row_names = NULL, ...)
 
-read_bcbio_metadata(run, grep = NULL, save = FALSE, pool = FALSE)
+read_bcbio_metadata(run)
 
 read_bcbio_qc_summary(run, save = FALSE)
 }
@@ -20,8 +20,6 @@ read_bcbio_qc_summary(run, save = FALSE)
 
 \item{type}{The type of software used to generate the abundances. Follows the
 conventions of \code{tximport}.}
-
-\item{grep}{Apply grep pattern matching to samples}
 
 \item{samples}{Specify the names of samples in bcbio final directory to
 input. If \code{NULL} (default), all samples will be imported.}
@@ -33,8 +31,6 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{...}{Optional parameters for \code{readr}}
 
 \item{save}{Save data}
-
-\item{pool}{Pool lane split samples}
 }
 \value{
 txi \code{tximport} list
@@ -46,13 +42,13 @@ Metadata data frame
 Summary data frame
 }
 \description{
-Import RNA-Seq counts using \code{tximport}
+Read RNA-Seq counts using \code{tximport}
 
-Import a project data file
+Read a project data file
 
-Import metadata
+Read YAML metadata
 
-Import project quality control summary statistics
+Read project quality control summary statistics
 }
 \author{
 Michael Steinbaugh

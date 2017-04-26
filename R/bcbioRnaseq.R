@@ -20,14 +20,14 @@ fail_color <- "red"
 
 
 # Imports ====
-# General ----
+## General ----
 #' @importFrom knitr asis_output kable opts_knit
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
 #' @importFrom utils globalVariables head sessionInfo
 NULL
 
-# RNA-Seq ----
+## RNA-Seq ----
 #' @import DESeq2
 #' @importFrom biomaRt getBM useEnsembl
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -36,13 +36,13 @@ NULL
 #' @importFrom tximport tximport
 NULL
 
-# Visualization ----
+## Visualization ----
 #' @import ggrepel
 #' @importFrom pheatmap pheatmap
 NULL
 
-# tidyverse ----
-# http://tidyverse.org/
+## tidyverse ----
+## http://tidyverse.org/
 #' @import dplyr
 #' @import ggplot2
 #' @import readr
@@ -56,7 +56,12 @@ NULL
 
 
 # Rexports ====
-# Syntactic sugar ----
+## RNA-seq ----
+#' @usage NULL
+#' @export
+DESeq2::design
+
+## Syntactic sugar ----
 #' @usage NULL
 #' @export
 rlang::`!!!`
@@ -65,7 +70,7 @@ rlang::`!!!`
 #' @export
 rlang::`!!`
 
-# Quasi-quotation ----
+## Quasi-quotation ----
 #' @usage NULL
 #' @export
 rlang::sym
@@ -74,8 +79,8 @@ rlang::sym
 #' @export
 rlang::syms
 
-# Knit utilities ----
-# Pipe
+## Knit utilities ----
+## Pipe
 #' @usage NULL
 #' @export
 magrittr::`%>%`
