@@ -1,3 +1,5 @@
+# Default naming scheme is `template/final/YYYY-MM-DD_template`
+
 #' Load bcbio run
 #'
 #' We recommend loading the \code{bcbio-nextgen} run as a remote connection over
@@ -5,68 +7,40 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param template Template name (YAML filename, without the extension)
-#'   originally called by \code{bcbio_nextgen.py}
+#' @param final_dir Path to final output directory. This path is set when
+#'   running \code{bcbio_nextgen -w template}.
 #' @param organism Organism (e.g. \code{hsapiens})
-#' @param intgroup Interesting groups. Defaults to \code{description} if not
-#'   set. First entry is used for plot colors during quality control analysis.
-#'   Entire vector is used for PCA and heatmap QC functions.
-#' @param parent_dir Parent directory containing the run folder
-#' @param config_dir Set the config output directory, if non-standard
-#' @param final_dir Set the final output directory, if non-standard
+#' @param intgroup Character vector of interesting groups. First entry is used
+#'   for plot colors during quality control (QC) analysis. Entire vector is used
+#'   for PCA and heatmap QC functions.
 #'
 #' @return \code{bcbio-nextgen} run object
 #' @export
 load_bcbio_run <- function(
-    template,
+    final_dir = "final",
     organism,
-    intgroup = NULL,
-    parent_dir = getwd(),
-    config_dir = NULL,
-    final_dir = NULL) {
-    # Detect whether run is remote or local
-    if (!identical(parent_dir, getwd())) {
-        remote <- TRUE
-    } else {
-        remote <- FALSE
+    intgroup = "description") {
+    if (!length(dir(final_dir))) {
+        stop("final directory failed to load")
     }
-
-    # Interesting groups, defaults to description
-    if (is.null(intgroup)) {
-        intgroup <- "description"
-    }
-
-    # run_dir
-    # Automatic, uses template
-    run_dir <- file.path(parent_dir, template)
-
-    # Preliminary run check
-    if (!length(dir(run_dir))) {
-        stop("run directory failed to load")
-    }
-
-    # config_dir
-    if (is.null(config_dir)) {
-        config_dir <- file.path(run_dir, "config")
-    }
-
-    # final_dir
-    if (is.null(final_dir)) {
-        final_dir <- file.path(run_dir, "final")
-    }
+    final_dir <- normalizePath(final_dir)
+    print(dir(final_dir))
 
     # project_dir
-    # Naming scheme is `template/final/YYYY-MM-DD_template`
-    project_dir <- file.path(final_dir) %>%
-        dir(full.names = TRUE) %>%
-        .[grepl(paste0("/\\d{4}-\\d{2}-\\d{2}_[^/]+$"), .)]
+    pattern <- ".*/(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+    match <- dir(final_dir, full.names = TRUE) %>%
+        str_subset(pattern) %>%
+        str_match(pattern)
+    project_dir <- match[1]
+    run_date <- match[2]
+    template <- match[3]
 
     # Sample directories
     sample_dirs <- dir(final_dir, full.names = TRUE)
     names(sample_dirs) <- basename(sample_dirs)
-    # Dated `project_dir` is nested here, need to exclude
-    sample_dirs <-
-        sample_dirs[!grepl("^\\d{4}-\\d{2}-\\d{2}_", names(sample_dirs))]
+    # Remove the nested `project_dir`
+    sample_dirs <- sample_dirs[!grepl(basename(project_dir),
+                                      names(sample_dirs))]
 
     # Data versions
     if (file.exists(file.path(project_dir, "data_versions.csv"))) {
@@ -76,42 +50,31 @@ load_bcbio_run <- function(
         data_versions <- NULL
     }
 
-    # Detect lane split samples
-    if (any(grepl("_L\\d+$", dir(final_dir)))) {
+    # Detect lane split FASTQ samples
+    if (any(str_detect(dir(final_dir), "_L\\d+$"))) {
         lane_split <- TRUE
     } else {
         lane_split <- FALSE
     }
 
     run <- list(
-        # Input required
+        final_dir = final_dir,
+        project_dir = project_dir,
+        run_date = run_date,
         template = template,
-        organism = organism,  # can automate by parsing YAML
-        # Input recommended
-        intgroup = intgroup,
-        parent_dir = normalizePath(parent_dir),
-        # Automatic for standard runs
-        run_dir = normalizePath(run_dir),
-        config_dir = normalizePath(config_dir),
-        final_dir = normalizePath(final_dir),
-        project_dir = normalizePath(project_dir),
         sample_dirs = sample_dirs,
+        # User input
+        organism = organism,  # Automate by parsing genome in YAML?
+        intgroup = intgroup,
         # Fully automatic
         lane_split = lane_split,
-        date = Sys.Date(),
+        today_date = Sys.Date(),
         session_info = sessionInfo(),
         data_versions = data_versions,
-        remote = remote,
+        hpc = detect_hpc(),
         wd = getwd()
     )
 
     check_run(run)
-
-    # Only create new project structure when loading a remote run
-    if (isTRUE(remote)) {
-        create_new_project()
-        save(run, file = "data/run.rda")
-    }
-
     return(run)
 }
