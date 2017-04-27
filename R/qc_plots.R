@@ -21,7 +21,7 @@ plot_total_reads <- function(run) {
     plot <- read_bcbio_metrics(run) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
-                    fill = ~qc_color)
+                    fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
@@ -50,7 +50,7 @@ plot_mapped_reads <- function(run) {
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / 1e6,
-                 fill = ~qc_color)
+                 fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
@@ -79,7 +79,7 @@ plot_mapping_rate <- function(run) {
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / total_reads * 100,
-                 fill = ~qc_color)
+                 fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
@@ -109,7 +109,7 @@ plot_genes_detected <- function(run, raw_counts) {
         ggplot(
             aes_(x = ~description,
                  y = colSums(raw_counts > 0),
-                 fill = ~qc_color)
+                 fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
@@ -135,8 +135,8 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
         ggplot(
             aes_(x = ~mapped_reads / 1e6,
                  y = ~colSums(raw_counts > 0),
-                 color = ~qc_color,
-                 shape = ~qc_color)) +
+                 color = as.name(run$intgroup[[1]]),
+                 shape = as.name(run$intgroup[[1]]))) +
         ggtitle("gene detection saturation") +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -160,7 +160,7 @@ plot_exonic_mapping_rate <- function(run) {
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
                  y = ~exonic_rate * 100,
-                 fill = ~qc_color)
+                 fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
@@ -188,7 +188,7 @@ plot_intronic_mapping_rate <- function(run) {
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
                  y = ~intronic_rate * 100,
-                 fill = ~qc_color)
+                 fill = as.name(run$intgroup[[1]]))
         ) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
@@ -215,7 +215,7 @@ plot_rrna_mapping_rate <- function(run) {
         ggplot(
             aes_(x = ~description,
                  y = ~rrna_rate * 100,
-                 fill = ~qc_color)) +
+                 fill = as.name(run$intgroup[[1]]))) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
