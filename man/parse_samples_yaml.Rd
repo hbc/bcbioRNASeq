@@ -2,7 +2,7 @@
 % Please edit documentation in R/parse_samples_yaml.R
 \name{parse_samples_yaml}
 \alias{parse_samples_yaml}
-\title{Parse samples YAML saved in run}
+\title{Read sample}
 \usage{
 parse_samples_yaml(run, nested_operators)
 }
@@ -13,7 +13,7 @@ parse_samples_yaml(run, nested_operators)
 recursing a level down for each entry}
 }
 \description{
-Parse samples YAML saved in run
+Read sample
 }
 \author{
 Michael Steinbaugh

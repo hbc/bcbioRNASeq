@@ -5,6 +5,7 @@
 \alias{read_bcbio_file}
 \alias{read_bcbio_metadata}
 \alias{read_bcbio_metrics}
+\alias{read_bcbio_samples_yaml}
 \title{Read data from bcbio-nextgen run}
 \usage{
 read_bcbio_counts(run, type = "salmon", grep = NULL, samples = NULL)
@@ -14,6 +15,8 @@ read_bcbio_file(run, file, row_names = NULL, ...)
 read_bcbio_metadata(run)
 
 read_bcbio_metrics(run)
+
+read_bcbio_samples_yaml(run, keys)
 }
 \arguments{
 \item{run}{\code{bcbio-nextgen} run}
@@ -31,6 +34,9 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{row_names}{Column identifier to use for row names}
 
 \item{...}{Optional parameters for \code{readr}}
+
+\item{keys}{Nested operator keys that should be supplied as an ordered
+character vector, recursing a level down for each entry}
 }
 \value{
 txi \code{tximport} list
@@ -49,9 +55,12 @@ Read a project data file
 Read sample metadata from YAML
 
 Read summary metrics from YAML
+
+Read bcbio sample information from YAML
 }
 \author{
 Michael Steinbaugh
 
 Rory Kirchner
 }
+\keyword{internal}

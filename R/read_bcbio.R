@@ -155,10 +155,10 @@ read_bcbio_metrics <- function(run) {
 #' @rdname read_bcbio
 #' @description Read bcbio sample information from YAML
 #' @keywords internal
-#' 
-#' @param nested_keys Nested operator keys that should be supplied as an ordered
+#'
+#' @param keys Nested operator keys that should be supplied as an ordered
 #'     character vector, recursing a level down for each entry
-#'     
+#'
 #' @export
 read_bcbio_samples_yaml <- function(run, keys) {
     check_run(run)
@@ -173,7 +173,7 @@ read_bcbio_samples_yaml <- function(run, keys) {
     df <- lapply(seq_along(samples), function(a) {
         # Unlist to named character vector
         c(description = samples[[a]]$description,
-          unlist(samples[[a]][[nested_keys]])) %>%
+          unlist(samples[[a]][[keys]])) %>%
             # Replace empty with NA
             gsub("^$", NA, .) %>%
             # Sanitize names in snake_case
