@@ -170,21 +170,32 @@ read_bcbio_samples_yaml <- function(run, keys) {
     if (!length(samples)) {
         stop("No sample information in YAML")
     }
-    df <- lapply(seq_along(samples), function(a) {
-        # Unlist to named character vector
-        c(description = samples[[a]]$description,
-          unlist(samples[[a]][[keys]])) %>%
-            # Replace empty with NA
-            gsub("^$", NA, .) %>%
+    samples <- lapply(seq_along(samples), function(a) {
+        nested <- samples[[a]][[keys]] %>%
             # Sanitize names in snake_case
             set_names_snake
-    }) %>%
-        do.call(rbind, .) %>%
+        nested$description <- samples[[a]]$description
+        # Remove legacy duplicate `name` identifier
+        nested$name <- NULL
+        # Coerce numerics for metrics, if selected
+        if (keys[-1] == "metrics") {
+            char_vec <- c("description",
+                          "quality_format",
+                          "sequence_length")
+            characters <- nested[names(nested) %in% char_vec]
+            numerics <- setdiff(names(nested),
+                                names(characters)) %>%
+                sort %>%
+                nested[.] %>%
+                lapply(as.numeric)
+            nested <- append(characters, numerics)
+        }
+        return(nested)
+    }) %>% bind_rows %>%
         as.data.frame %>%
-        # Order by description
         .[order(.$description), ] %>%
-        # Remove columns with only NAs
-        .[colSums(!is.na(.)) > 0] %>%
+        # Put description first and sort everything else
+        .[, c("description", sort(setdiff(names(.), "description")))] %>%
         set_rownames(.$description)
-    return(df)
+    return(samples)
 }
