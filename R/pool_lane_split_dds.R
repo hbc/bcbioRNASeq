@@ -22,8 +22,7 @@ pool_lane_split_dds <- function(
 
     # Get the internal parameters from DESeqDataSet
     raw_counts <- counts(dds, normalized = FALSE)
-    # DESeq2::design - namespace collison?
-    design <- design(dds)
+    design <- DESeq2::design(dds)
 
     # Pool the lane split technical replicates
     pooled_counts <- pool_lane_split_counts(raw_counts)
