@@ -47,9 +47,9 @@ NULL
 #' @import dplyr
 #' @import ggplot2
 #' @import readr
-#' @import rlang
 #' @import stringr
-#' @importFrom magrittr %>% set_rownames
+#' @importFrom magrittr %>% set_names set_rownames
+#' @importFrom rlang !!! !! .data sym syms UQ
 #' @importFrom tibble as_tibble glimpse is_tibble remove_rownames rownames_to_column
 #' @importFrom tidyr expand_
 NULL
@@ -62,7 +62,7 @@ NULL
 #' @export
 DESeq2::design
 
-## Syntactic sugar ----
+## Quasi-quotation ----
 #' @usage NULL
 #' @export
 rlang::`!!!`
@@ -71,7 +71,6 @@ rlang::`!!!`
 #' @export
 rlang::`!!`
 
-## Quasi-quotation ----
 #' @usage NULL
 #' @export
 rlang::sym

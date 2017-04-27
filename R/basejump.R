@@ -128,7 +128,7 @@ get_objs_from_dots <- function(.dots) {
         stop("Can only save existing named objects", call. = FALSE)
     }
     objs <- vapply(.dots, as.character, character(1))
-    duplicated_objs <- which(setNames(duplicated(objs), objs))
+    duplicated_objs <- which(set_names(duplicated(objs), objs))
     if (length(duplicated_objs) > 0L) {
         objs <- unique(objs)
         warning("Saving duplicates only once: ",
