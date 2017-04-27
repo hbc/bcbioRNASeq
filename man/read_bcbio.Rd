@@ -33,8 +33,6 @@ input. If \code{NULL} (default), all samples will be imported.}
 \item{...}{Optional parameters for \code{readr}}
 
 \item{save}{Save data}
-
-\item{pool}{Pool lane split samples}
 }
 \value{
 txi \code{tximport} list

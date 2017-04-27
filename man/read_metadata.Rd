@@ -4,14 +4,15 @@
 \alias{read_metadata}
 \title{Read metadata}
 \usage{
-read_metadata(csv, grep = NULL, pool = FALSE, save = FALSE)
+read_metadata(csv, pattern = NULL, pattern_col = "description",
+  save = FALSE)
 }
 \arguments{
 \item{csv}{Comma separated values file}
 
-\item{grep}{Apply grep pattern matching to samples}
+\item{pattern}{Apply grep pattern matching to samples}
 
-\item{pool}{Pool lane split samples}
+\item{pattern_col}{Column in data frame used for pattern subsetting}
 
 \item{save}{Save csv and rda files}
 }

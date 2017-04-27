@@ -6,9 +6,6 @@
 #' @author Rory Kirchner
 #'
 #' @param run \code{bcbio-nextgen} run
-#' @param grep Apply grep pattern matching to samples
-#' @param pool Pool lane split samples
-#' @param save Save data
 
 
 
@@ -17,6 +14,7 @@
 #'
 #' @param type The type of software used to generate the abundances. Follows the
 #'   conventions of \code{tximport}.
+#' @param grep Apply grep pattern matching to samples
 #' @param samples Specify the names of samples in bcbio final directory to
 #'   input. If \code{NULL} (default), all samples will be imported.
 #'
@@ -146,6 +144,9 @@ read_bcbio_metadata <- function(run) {
 
 #' @rdname read_bcbio
 #' @description Read project quality control summary statistics
+#'
+#' @param save Save data
+#'
 #' @return Summary data frame
 #' @export
 read_bcbio_qc_summary <- function(run, save = FALSE) {
