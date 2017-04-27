@@ -180,6 +180,16 @@ read_bcbio_samples_yaml <- function(run, keys) {
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
 
+        # Fix empty batch and phenotype
+        if (is.null(nested$batch)) {
+            nested$batch <- NULL
+        }
+        if (length(nested$phenotype)) {
+            if (grepl("^$", nested$phenotype)) {
+                nested$phenotype <- NULL
+            }
+        }
+
         # Coerce numerics for metrics, if selected
         if (rev(keys)[1] == "metrics") {
             char_vec <- c("description",
@@ -193,16 +203,6 @@ read_bcbio_samples_yaml <- function(run, keys) {
                 lapply(as.numeric)
             nested <- append(characters, numerics)
         }
-
-        # Set empty and NULL values as NA
-        empty_as_na <- function(a) {
-            if (is.null(a)) {
-                a <- NA
-            }
-            a <- gsub("^$", NA, a)
-            return(a)
-        }
-        nested <- lapply(nested, empty_as_na)
         return(nested)
     })
 
