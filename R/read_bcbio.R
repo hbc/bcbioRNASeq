@@ -145,9 +145,9 @@ read_bcbio_metadata <- function(run) {
 #' @return Summary statistics data frame
 #' @export
 read_bcbio_metrics <- function(run) {
-    metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
     meta <- read_bcbio_metadata(run)
-    left_join(metrics, meta, by = "description")
+    metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
+    left_join(meta, metrics, by = "description")
 }
 
 
@@ -170,23 +170,15 @@ read_bcbio_samples_yaml <- function(run, keys) {
     if (!length(samples)) {
         stop("No sample information in YAML")
     }
+
     list <- lapply(seq_along(samples), function(a) {
         nested <- samples[[a]][[keys]] %>%
             # Sanitize names in snake_case
             set_names_snake
         # Set the description
         nested$description <- samples[[a]]$description
-
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
-
-        # Fix for empty defaults
-        if (is.null(nested$batch)) {
-            nested$batch <- NULL
-        }
-        if (nested$phenotype == "") {
-            nested$phenotype <- NULL
-        }
 
         # Coerce numerics for metrics, if selected
         if (rev(keys)[1] == "metrics") {
@@ -201,8 +193,19 @@ read_bcbio_samples_yaml <- function(run, keys) {
                 lapply(as.numeric)
             nested <- append(characters, numerics)
         }
+
+        # Set empty and NULL values as NA
+        empty_as_na <- function(a) {
+            if (is.null(a)) {
+                a <- NA
+            }
+            a <- gsub("^$", NA, a)
+            return(a)
+        }
+        nested <- lapply(nested, empty_as_na)
         return(nested)
     })
+
     df <- bind_rows(list) %>%
         as.data.frame %>%
         .[order(.$description), ] %>%
