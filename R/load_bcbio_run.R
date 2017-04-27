@@ -1,4 +1,4 @@
-# Default naming scheme is `template/final/YYYY-MM-DD_template`
+# Default project naming scheme is `template/final/YYYY-MM-DD_template`
 
 #' Load bcbio run
 #'
@@ -9,17 +9,19 @@
 #'
 #' @param final_dir Path to final output directory. This path is set when
 #'   running \code{bcbio_nextgen -w template}.
-#' @param organism Organism (e.g. \code{hsapiens})
 #' @param intgroup Character vector of interesting groups. First entry is used
 #'   for plot colors during quality control (QC) analysis. Entire vector is used
 #'   for PCA and heatmap QC functions.
+#' @param organism Organism name, following Ensembl/Biomart conventions. Must be
+#'   lowercase and one word (e.g. hsapiens). This will be detected automatically
+#'   for common reference genomes.
 #'
 #' @return \code{bcbio-nextgen} run object
 #' @export
 load_bcbio_run <- function(
     final_dir = "final",
-    organism,
-    intgroup = "description") {
+    intgroup = "description",
+    organism = NULL) {
     if (!length(dir(final_dir))) {
         stop("final directory failed to load")
     }
@@ -57,22 +59,37 @@ load_bcbio_run <- function(
         lane_split <- FALSE
     }
 
+    # YAML summary
+    yaml <- read_yaml(file.path(project_dir, "project-summary.yaml"))
+
+    # Detect organism, if not specified
+    if (!is.null(yaml)) {
+        # Use the genome build of the first sample to match
+        organism <- detect_organism(yaml$samples[[1]]$genome_build)
+    }
+    if (is.null(organism)) {
+        stop("Organism is required for metadata queries")
+    }
+
+    programs <- file.path(project_dir, "programs.txt") %>%
+        read_delim(",", col_names = c("program", "version"))
+
     run <- list(
         final_dir = final_dir,
         project_dir = project_dir,
-        run_date = run_date,
+        run_date = as.Date(run_date),
+        today_date = Sys.Date(),
+        wd = getwd(),
+        hpc = detect_hpc(),
         template = template,
         sample_dirs = sample_dirs,
-        # User input
-        organism = organism,  # Automate by parsing genome in YAML?
+        organism = organism,
         intgroup = intgroup,
-        # Fully automatic
         lane_split = lane_split,
-        today_date = Sys.Date(),
-        session_info = sessionInfo(),
+        yaml = yaml,
+        programs = programs,
         data_versions = data_versions,
-        hpc = detect_hpc(),
-        wd = getwd()
+        session_info = sessionInfo()
     )
 
     check_run(run)
