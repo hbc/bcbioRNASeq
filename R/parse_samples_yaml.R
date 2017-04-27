@@ -1,4 +1,4 @@
-#' Parse samples YAML saved in run
+#' Read sample 
 #'
 #' @author Michael Steinbaugh
 #'
