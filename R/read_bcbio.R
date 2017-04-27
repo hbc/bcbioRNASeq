@@ -55,7 +55,6 @@ read_bcbio_counts <- function(
     # Begin loading of selected counts
     message(paste("loading", type, "counts"))
     message(paste(names(sample_files), collapse = "\n"))
-    # writeLines(sample_files)
 
     tx2gene <- read_bcbio_file(run, file = "tx2gene.csv", col_names = FALSE)
 
@@ -127,57 +126,4 @@ read_bcbio_file <- function(
     }
 
     return(data)
-}
-
-
-
-#' @rdname read_bcbio
-#' @description Read YAML metadata
-#' @return Metadata data frame
-#' @export
-read_bcbio_metadata <- function(run) {
-    message("project-summary.yaml")
-    stop("YAML parser still in development")
-}
-
-
-
-#' @rdname read_bcbio
-#' @description Read project quality control summary statistics
-#'
-#' @param save Save data
-#'
-#' @return Summary data frame
-#' @export
-read_bcbio_qc_summary <- function(run, save = FALSE) {
-    check_run(run)
-    summary <- file.path(run$project_dir, "project-summary.csv") %>%
-        read_csv(col_types = cols()) %>%
-        set_names_snake %>%
-        # Remove NA only columns
-        .[, colSums(!is.na(.)) > 0] %>%
-        # Sort by description
-        .[, c("description", setdiff(sort(names(.)), "description"))] %>%
-        .[order(.$description), ]
-
-    metadata <- read_bcbio_metadata(run)
-
-    if (!identical(summary$description, metadata$description)) {
-        stop("Summary and metadata descriptions don't match")
-    }
-
-    # Use the first entry in interesting groups to define the QC colors. If
-    # empty, defaults to description.
-    color <- run$intgroup[1]
-    if (is.na(color)) {
-        color <- "description"
-    }
-    summary$qc_color <- metadata[[color]]
-
-    if (isTRUE(save)) {
-        save(summary, file = file.path("data", "qc_summary.rda"))
-        write_csv(summary, file.path("results", "qc_summary.csv"))
-    }
-
-    return(summary)
 }
