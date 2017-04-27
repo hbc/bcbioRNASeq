@@ -18,8 +18,6 @@ tpm <- function(txi) {
     )) {
         stop("tximport list is required")
     }
-
     tpm <- txi$abundance
-
     return(tpm)
 }
