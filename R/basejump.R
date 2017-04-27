@@ -7,6 +7,7 @@
 
 
 #' @rdname basejump
+#' @keywords internal
 #' @description Handle multiple kables in a single RMarkdown chunk.
 #' Import of \href{https://github.com/steinbaugh/basejump/blob/master/R/kables.R}{kables}.
 #'
@@ -29,6 +30,7 @@ kables <- function(list, captions = NULL) {
 
 
 #' @rdname basejump
+#' @keywords internal
 #' @description Make syntactically valid names out of character vectors.
 #' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.R}{makeNames}.
 #'
@@ -61,6 +63,7 @@ make_names <- function(character) {
 
 
 #' @rdname basejump
+#' @keywords internal
 #' @description Make names in snake_case.
 #' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.R}{makeNamesSnake}.
 #' @export
@@ -71,6 +74,29 @@ make_names_snake <- function(character) {
 
 
 #' @rdname basejump
+#' @keywords internal
+#' @description Quick save to \code{data} directory
+#' @param dir Output directory
+#' @export
+save_data <- function(..., dir = "data") {
+    if (!isString(dir)) {
+        stop("dir must be a string")
+    }
+    if (!dir.exists(dir)) {
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    }
+    names <- as.character(substitute(list(...)))[-1L]
+    objs <- get_objs_from_dots(dots(...))
+    paths <- file.path(dir, paste0(objs, ".rda"))
+    message(paste("Saving", toString(names), "to", dir))
+    mapply(save, list = objs, file = paths)
+    invisible()
+}
+
+
+
+#' @rdname basejump
+#' @keywords internal
 #' @description Set names in snake_case.
 #' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/setNames.R}{setNamesSnake}.
 #'
@@ -79,4 +105,40 @@ make_names_snake <- function(character) {
 #' @export
 set_names_snake <- function(data) {
     set_names(data, make_names_snake(names(data)))
+}
+
+
+
+
+
+
+# Internal utility functions ====
+# https://github.com/hadley/devtools/blob/master/R/utils.r
+dots <- function(...) {
+    eval(substitute(alist(...)))
+}
+
+# https://github.com/hadley/devtools/blob/master/R/infrastructure.R
+get_objs_from_dots <- function(.dots) {
+    if (length(.dots) == 0L) {
+        stop("Nothing to save", call. = FALSE)
+    }
+    is_name <- vapply(.dots, is.symbol, logical(1))
+    if (any(!is_name)) {
+        stop("Can only save existing named objects", call. = FALSE)
+    }
+    objs <- vapply(.dots, as.character, character(1))
+    duplicated_objs <- which(setNames(duplicated(objs), objs))
+    if (length(duplicated_objs) > 0L) {
+        objs <- unique(objs)
+        warning("Saving duplicates only once: ",
+                paste(names(duplicated_objs), collapse = ", "),
+                call. = FALSE)
+    }
+    objs
+}
+
+# https://github.com/steinbaugh/basejump/blob/master/R/isString.R
+isString <- function(object) {
+    is.character(object) & length(object) == 1
 }

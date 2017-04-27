@@ -4,6 +4,7 @@
 \alias{kables}
 \alias{make_names}
 \alias{make_names_snake}
+\alias{save_data}
 \alias{set_names_snake}
 \title{Utility functions imported from basejump package}
 \usage{
@@ -13,6 +14,8 @@ make_names(character)
 
 make_names_snake(character)
 
+save_data(..., dir = "data")
+
 set_names_snake(data)
 }
 \arguments{
@@ -21,6 +24,8 @@ set_names_snake(data)
 \item{captions}{Caption character vector}
 
 \item{character}{Character vector}
+
+\item{dir}{Output directory}
 
 \item{data}{Data type that supports name assignments}
 }
@@ -34,6 +39,8 @@ Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.
 Make names in snake_case.
 Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.R}{makeNamesSnake}.
 
+Quick save to \code{data} directory
+
 Set names in snake_case.
 Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/setNames.R}{setNamesSnake}.
 }
@@ -43,3 +50,4 @@ snake_case variants for function naming consistency
 \author{
 Michael Steinbaugh
 }
+\keyword{internal}
