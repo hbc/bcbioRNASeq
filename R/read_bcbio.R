@@ -135,7 +135,7 @@ read_bcbio_file <- function(
 #' @return Metadata data frame
 #' @export
 read_bcbio_metadata <- function(run) {
-    read_bcbio_samples_yaml(run, "metadata")
+    read_bcbio_samples_yaml(run, keys = "metadata")
 }
 
 
@@ -145,7 +145,7 @@ read_bcbio_metadata <- function(run) {
 #' @return Summary statistics data frame
 #' @export
 read_bcbio_metrics <- function(run) {
-    metrics <- read_bcbio_samples_yaml(run, c("summary", "metrics"))
+    metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
     meta <- read_bcbio_metadata(run)
     left_join(metrics, meta, by = "description")
 }
@@ -178,7 +178,7 @@ read_bcbio_samples_yaml <- function(run, keys) {
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
         # Coerce numerics for metrics, if selected
-        if (keys[-1] == "metrics") {
+        if (rev(keys)[1] == "metrics") {
             char_vec <- c("description",
                           "quality_format",
                           "sequence_length")
