@@ -16,6 +16,8 @@
 \alias{\%>\%}
 \alias{reexports}
 \alias{kable}
+\alias{reexports}
+\alias{set_rownames}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -27,7 +29,7 @@ below to see their documentation.
 
   \item{knitr}{\code{\link[knitr]{kable}}}
 
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{set_rownames}}}
 
   \item{rlang}{\code{\link[rlang]{!!!}}, \code{\link[rlang]{!!}}, \code{\link[rlang]{sym}}, \code{\link[rlang]{syms}}}
 }}

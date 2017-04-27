@@ -127,3 +127,25 @@ read_bcbio_file <- function(
 
     return(data)
 }
+
+
+
+#' @rdname read_bcbio
+#' @description Read sample metadata from YAML
+#' @return Metadata data frame
+#' @export
+read_bcbio_metadata <- function(run) {
+    parse_samples_yaml(run, "metadata")
+}
+
+
+
+#' @rdname read_bcbio
+#' @description Read summary metrics from YAML
+#' @return Summary statistics data frame
+#' @export
+read_bcbio_metrics <- function(run) {
+    metrics <- parse_samples_yaml(run, c("summary", "metrics"))
+    meta <- read_bcbio_metadata(run)
+    left_join(metrics, meta, by = "description")
+}

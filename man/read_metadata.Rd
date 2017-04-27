@@ -4,8 +4,7 @@
 \alias{read_metadata}
 \title{Read metadata}
 \usage{
-read_metadata(csv, pattern = NULL, pattern_col = "description",
-  save = FALSE)
+read_metadata(csv, pattern = NULL, pattern_col = "description")
 }
 \arguments{
 \item{csv}{Comma separated values file}
@@ -13,8 +12,6 @@ read_metadata(csv, pattern = NULL, pattern_col = "description",
 \item{pattern}{Apply grep pattern matching to samples}
 
 \item{pattern_col}{Column in data frame used for pattern subsetting}
-
-\item{save}{Save csv and rda files}
 }
 \value{
 Metadata data frame

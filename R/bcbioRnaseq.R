@@ -81,7 +81,6 @@ rlang::sym
 rlang::syms
 
 ## Knit utilities ----
-## Pipe
 #' @usage NULL
 #' @export
 magrittr::`%>%`
@@ -89,3 +88,7 @@ magrittr::`%>%`
 #' @usage NULL
 #' @export
 knitr::kable
+
+#' @usage NULL
+#' @export
+magrittr::set_rownames

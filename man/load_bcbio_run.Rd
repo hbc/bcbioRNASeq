@@ -4,17 +4,20 @@
 \alias{load_bcbio_run}
 \title{Load bcbio run}
 \usage{
-load_bcbio_run(final_dir = "final", organism, intgroup = "description")
+load_bcbio_run(final_dir = "final", intgroup = "description",
+  organism = NULL)
 }
 \arguments{
 \item{final_dir}{Path to final output directory. This path is set when
 running \code{bcbio_nextgen -w template}.}
 
-\item{organism}{Organism (e.g. \code{hsapiens})}
-
 \item{intgroup}{Character vector of interesting groups. First entry is used
 for plot colors during quality control (QC) analysis. Entire vector is used
 for PCA and heatmap QC functions.}
+
+\item{organism}{Organism name, following Ensembl/Biomart conventions. Must be
+lowercase and one word (e.g. hsapiens). This will be detected automatically
+for common reference genomes.}
 }
 \value{
 \code{bcbio-nextgen} run object

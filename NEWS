@@ -1,3 +1,5 @@
+0.0.12  Rework metadata and summary metrics functions to obtain information
+        from project-summary.yaml saved in the final run directory.
 0.0.11  Reduce number of depdencies.
         Initial commit of modified volcano plot from CHBUtils package.
         Internal code updates for upcoming dplyr 0.6.0/tidyeval update.

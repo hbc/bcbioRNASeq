@@ -11,5 +11,5 @@ import_metadata <- function() {
 }
 
 import_summary <- function() {
-    .Deprecated("read_bcbio_summary")
+    .Deprecated("read_bcbio_metrics")
 }
