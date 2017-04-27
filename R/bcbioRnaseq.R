@@ -25,6 +25,7 @@ fail_color <- "red"
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
 #' @importFrom utils globalVariables head sessionInfo
+#' @importFrom yaml yaml.load_file
 NULL
 
 ## RNA-Seq ----
