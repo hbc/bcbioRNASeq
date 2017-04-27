@@ -271,7 +271,7 @@ plot_count_density <- function(
     plot <- ggplot(
         melted,
         aes_(x = ~counts,
-             group = ~samplename)
+             group = ~description)
     ) +
         ggtitle(paste("count density", name, sep = " : ")) +
         geom_density() +
