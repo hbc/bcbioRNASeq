@@ -170,13 +170,24 @@ read_bcbio_samples_yaml <- function(run, keys) {
     if (!length(samples)) {
         stop("No sample information in YAML")
     }
-    samples <- lapply(seq_along(samples), function(a) {
+    list <- lapply(seq_along(samples), function(a) {
         nested <- samples[[a]][[keys]] %>%
             # Sanitize names in snake_case
             set_names_snake
+        # Set the description
         nested$description <- samples[[a]]$description
+
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
+
+        # Fix for empty defaults
+        if (is.null(nested$batch)) {
+            nested$batch <- NULL
+        }
+        if (nested$phenotype == "") {
+            nested$phenotype <- NULL
+        }
+
         # Coerce numerics for metrics, if selected
         if (rev(keys)[1] == "metrics") {
             char_vec <- c("description",
@@ -191,11 +202,12 @@ read_bcbio_samples_yaml <- function(run, keys) {
             nested <- append(characters, numerics)
         }
         return(nested)
-    }) %>% bind_rows %>%
+    })
+    df <- bind_rows(list) %>%
         as.data.frame %>%
         .[order(.$description), ] %>%
         # Put description first and sort everything else
         .[, c("description", sort(setdiff(names(.), "description")))] %>%
         set_rownames(.$description)
-    return(samples)
+    return(df)
 }
