@@ -11,16 +11,26 @@
 #' @export
 check_run <- function(run) {
     if (!is.list(run)) {
-        stop("bcbio run object not found")
+        stop("Run object is not a list")
     }
     if (!length(dir(run$final_dir))) {
-        stop("could not access run_dir")
+        stop("Could not access run_dir")
     }
     if (!length(run$sample_dirs)) {
-        stop("no sample directories in run")
+        stop("No sample directories in run")
     }
     if (!length(dir(run$project_dir))) {
-        stop("could not access project_dir")
+        stop("Could not access project_dir")
+    }
+    if (is.null(run$metadata)) {
+        stop("Run does not contain metadata, please reload")
+    }
+    if (is.null(run$yaml)) {
+        stop("Run does contain YAML info, please reload")
+    }
+    # Ensure metadata descriptions match the sample folders
+    if (!identical(run$metadata$description, names(run$sample_dirs))) {
+        stop("Metadata descriptions don't match the sample names")
     }
 }
 
