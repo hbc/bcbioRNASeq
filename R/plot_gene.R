@@ -19,7 +19,7 @@ plot_gene <- function(
     ylab <- deparse(substitute(normalized_counts))
 
     normalized_counts <- as.matrix(normalized_counts) %>% .[gene, ]
-    metadata <- read_bcbio_metadata(run)
+    metadata <- run$metadata
 
     plot <- data.frame(x = names(normalized_counts),
                        y = normalized_counts,

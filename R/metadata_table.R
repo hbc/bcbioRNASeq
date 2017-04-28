@@ -7,12 +7,12 @@
 #' @author Michael Steinbaugh
 #'
 #' @param run \code{bcbio-nextgen} run
-#' @param metadata Metadata data frame
 #'
 #' @return Data frame containing only the columns of interest
 #' @export
-metadata_table <- function(run, metadata) {
-    df <- metadata[, unique(c("description", run$intgroup))] %>%
+metadata_table <- function(run) {
+    df <- run$metadata %>%
+        .[, unique(c("description", run$intgroup))] %>%
         remove_rownames
     return(kable(df, caption = "Sample metadata"))
 }

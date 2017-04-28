@@ -9,7 +9,7 @@
 #' @export
 melt_log10 <- function(run, counts) {
     check_run(run)
-    metadata <- read_bcbio_metadata(run)
+    metadata <- run$metadata
     if (!identical(colnames(counts), rownames(metadata))) {
         stop("Sample descriptions in counts do not match metadata.")
     }

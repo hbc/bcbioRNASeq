@@ -145,9 +145,9 @@ read_bcbio_metadata <- function(run) {
 #' @return Summary statistics data frame
 #' @export
 read_bcbio_metrics <- function(run) {
-    meta <- read_bcbio_metadata(run)
+    metadata <- run$metadata
     metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
-    left_join(meta, metrics, by = "description")
+    left_join(metadata, metrics, by = "description")
 }
 
 

@@ -4,12 +4,10 @@
 \alias{metadata_table}
 \title{Metadata table}
 \usage{
-metadata_table(run, metadata)
+metadata_table(run)
 }
 \arguments{
 \item{run}{\code{bcbio-nextgen} run}
-
-\item{metadata}{Metadata data frame}
 }
 \value{
 Data frame containing only the columns of interest
