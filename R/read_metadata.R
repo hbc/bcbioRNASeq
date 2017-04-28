@@ -18,6 +18,9 @@ read_metadata <- function(
     pattern = NULL,
     pattern_col = "description",
     lanes = NULL) {
+    if (!file.exists(file)) {
+        stop("File not found")
+    }
     if (grepl("\\.xlsx$", file)) {
         metadata <- read_excel(file)
     } else {
