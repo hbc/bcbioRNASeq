@@ -5,14 +5,12 @@
 #'
 #' @param run \code{bcbio-nextgen} run
 #' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
-#'   on a \code{DESeqDataSet} object. We prefer to pipe the transformed data in
-#'   to this function because the operation is CPU intensive, and is slow when
-#'   applied to multiple PCA plot operations.
+#'   on a \code{DESeqDataSet} object
 #' @param label Superimpose sample text labels on the plot
 #'
 #' @return PCA plot
 #' @export
-plot_deseq_pca <- function(run, dt, label = TRUE) {
+plot_pca <- function(run, dt, label = TRUE) {
     check_run(run)
     check_dt(dt)
     name <- deparse(substitute(dt))
