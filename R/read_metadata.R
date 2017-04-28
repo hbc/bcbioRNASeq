@@ -33,6 +33,7 @@ read_metadata <- function(
 
     metadata <- metadata %>%
         set_names_snake %>%
+        .[!is.na(.$file_name), ] %>%
         arrange(!!sym("description"))
 
     # Lane split, if desired
