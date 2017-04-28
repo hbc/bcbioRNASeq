@@ -1,3 +1,7 @@
+correlation_heatmap <- function() {
+    .Deprecated("plot_correlation_heatmap")
+}
+
 create_local_project <- function() {
     .Deprecated("create_new_project")
 }
@@ -12,4 +16,8 @@ import_metadata <- function() {
 
 import_summary <- function() {
     .Deprecated("read_bcbio_metrics")
+}
+
+plot_deseq_pca <- function() {
+    .Deprecated("plot_pca")
 }
