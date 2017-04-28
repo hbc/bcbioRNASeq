@@ -15,13 +15,15 @@
 #' @param organism Organism name, following Ensembl/Biomart conventions. Must be
 #'   lowercase and one word (e.g. hsapiens). This will be detected automatically
 #'   for common reference genomes.
+#' @param metadata Optional custom metadata file to import
 #'
 #' @return \code{bcbio-nextgen} run object
 #' @export
 load_bcbio_run <- function(
     final_dir = "final",
     intgroup = "description",
-    organism = NULL) {
+    organism = NULL,
+    metadata = NULL) {
     if (!length(dir(final_dir))) {
         stop("final directory failed to load")
     }
@@ -44,12 +46,9 @@ load_bcbio_run <- function(
     sample_dirs <- sample_dirs[!grepl(basename(project_dir),
                                       names(sample_dirs))]
 
-    # Data versions
-    if (file.exists(file.path(project_dir, "data_versions.csv"))) {
-        data_versions <- file.path(project_dir, "data_versions.csv") %>%
-            read_csv(col_types = cols())
-    } else {
-        data_versions <- NULL
+    # Custom metadata
+    if (!is.null(metadata)) {
+        metadata <- read_metadata(metadata)
     }
 
     # Detect lane split FASTQ samples
@@ -71,8 +70,17 @@ load_bcbio_run <- function(
         stop("Organism is required for metadata queries")
     }
 
+    # Program versions
     programs <- file.path(project_dir, "programs.txt") %>%
         read_delim(",", col_names = c("program", "version"))
+
+    # Data versions
+    if (file.exists(file.path(project_dir, "data_versions.csv"))) {
+        data_versions <- file.path(project_dir, "data_versions.csv") %>%
+            read_csv(col_types = cols())
+    } else {
+        data_versions <- NULL
+    }
 
     run <- list(
         final_dir = final_dir,
@@ -85,6 +93,7 @@ load_bcbio_run <- function(
         sample_dirs = sample_dirs,
         organism = organism,
         intgroup = intgroup,
+        metadata = metadata,
         lane_split = lane_split,
         yaml = yaml,
         programs = programs,
