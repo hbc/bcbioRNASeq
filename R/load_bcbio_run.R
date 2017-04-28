@@ -101,6 +101,12 @@ load_bcbio_run <- function(
         programs = programs,
         data_versions = data_versions,
         session_info = sessionInfo())
+
+    # Save metadata from the YAML automatically, if unset
+    if (is.null(run$metadata)) {
+        run$metadata <- read_bcbio_samples_yaml(run, keys = "metadata")
+    }
+
     check_run(run)
     return(run)
 }

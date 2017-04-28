@@ -135,6 +135,7 @@ read_bcbio_file <- function(
 #' @return Metadata data frame
 #' @export
 read_bcbio_metadata <- function(run) {
+    check_run(run)
     read_bcbio_samples_yaml(run, keys = "metadata")
 }
 
@@ -145,6 +146,7 @@ read_bcbio_metadata <- function(run) {
 #' @return Summary statistics data frame
 #' @export
 read_bcbio_metrics <- function(run) {
+    check_run(run)
     metadata <- run$metadata
     metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
     left_join(metadata, metrics, by = "description")
@@ -161,7 +163,7 @@ read_bcbio_metrics <- function(run) {
 #'
 #' @export
 read_bcbio_samples_yaml <- function(run, keys) {
-    check_run(run)
+    # Don't run integrity checks here, used to save into the run object
     yaml <- run$yaml
     if (is.null(yaml)) {
         stop("Run YAML summary is required")

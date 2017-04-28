@@ -6,7 +6,7 @@
 
 
 #' @rdname integrity_checks
-#' @description Check \code{bcbio-nextgen} run
+#' @description Check \code{bcbio-nextgen} run. Always stops on failure.
 #' @param run \code{bcbio-nextgen} run
 #' @export
 check_run <- function(run) {
@@ -22,15 +22,22 @@ check_run <- function(run) {
     if (!length(dir(run$project_dir))) {
         stop("Could not access project_dir")
     }
-    if (is.null(run$metadata)) {
-        stop("Run does not contain metadata, please reload")
-    }
     if (is.null(run$yaml)) {
-        stop("Run does contain YAML info, please reload")
+        stop("Run does contain YAML info, please resave")
     }
-    # Ensure metadata descriptions match the sample folders
+    if (is.null(run$metadata)) {
+        stop("Run does not contain metadata, please resave")
+    }
+
+    # Metadata format and description name checks
+    if (is_tibble(run$metadata) | !is.data.frame(run$metadata)) {
+        stop("Metadata must be saved as a data frame")
+    }
+    if (!identical(rownames(run$metadata), run$metadata$description)) {
+        stop("Metadata rownames must match the description")
+    }
     if (!identical(run$metadata$description, names(run$sample_dirs))) {
-        stop("Metadata descriptions don't match the sample names")
+        stop("Metadata descriptions don't match the run sample directories")
     }
 }
 

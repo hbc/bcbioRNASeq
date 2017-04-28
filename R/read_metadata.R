@@ -1,6 +1,6 @@
 #' Read metadata
 #'
-#' @param csv Comma separated values file
+#' @param file Metadata file. CSV and XLSX formats are supported.
 #' @param pattern Apply grep pattern matching to samples
 #' @param pattern_col Column in data frame used for pattern subsetting
 #' @param lanes Number of lanes used to split the samples into technical
@@ -14,13 +14,19 @@
 #' @return Metadata data frame
 #' @export
 read_metadata <- function(
-    csv,
+    file,
     pattern = NULL,
     pattern_col = "description",
     lanes = NULL) {
-    metadata <- read_csv(csv, col_types = cols()) %>%
+    if (grepl("\\.xlsx$", file)) {
+        metadata <- read_excel(file)
+    } else {
+        metadata <- read_csv(file)
+    }
+    metadata <- metadata %>%
         set_names_snake %>%
         arrange(!!sym("description"))
+
     # First column must be the FASTQ file name
     names(metadata)[1] <- "file_name"
 
@@ -40,6 +46,11 @@ read_metadata <- function(
     if (!is.null(pattern)) {
         metadata <- metadata[str_detect(metadata[[pattern_col]], pattern), ]
     }
+
+    # Convert to data frame and set rownames
+    metadata <- metadata %>%
+        as.data.frame %>%
+        set_rownames(.$description)
 
     return(metadata)
 }
