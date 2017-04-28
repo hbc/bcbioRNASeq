@@ -5,7 +5,7 @@
 \title{Load bcbio run}
 \usage{
 load_bcbio_run(final_dir = "final", intgroup = "description",
-  organism = NULL)
+  organism = NULL, metadata = NULL)
 }
 \arguments{
 \item{final_dir}{Path to final output directory. This path is set when
@@ -18,6 +18,8 @@ for PCA and heatmap QC functions.}
 \item{organism}{Organism name, following Ensembl/Biomart conventions. Must be
 lowercase and one word (e.g. hsapiens). This will be detected automatically
 for common reference genomes.}
+
+\item{metadata}{Optional custom metadata file to import}
 }
 \value{
 \code{bcbio-nextgen} run object

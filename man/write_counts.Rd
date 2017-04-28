@@ -4,10 +4,12 @@
 \alias{write_counts}
 \title{Write gzipped counts to the results directory}
 \usage{
-write_counts(counts)
+write_counts(..., dir = file.path("results", "counts"))
 }
 \arguments{
-\item{counts}{Counts matrix}
+\item{...}{Count matrices, passed in as dots}
+
+\item{dir}{Output directory}
 }
 \description{
 Write gzipped counts to the results directory
