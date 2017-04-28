@@ -36,6 +36,7 @@ Imports:
     knitr (>= 1.15),
     magrittr (>= 1.5),
     pheatmap (>= 1.0.8),
+    RDAVIDWebService (>= 1.14.0),
     readr (>= 1.1.0),
     reshape2 (>= 1.4.2),
     rlang (>= 0.0.0.9000),
