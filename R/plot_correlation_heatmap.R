@@ -38,9 +38,9 @@ plot_correlation_heatmap <- function(
         pheatmap(
             annotation = annotation,
             main = paste(
-                name,
                 "correlation",
                 method,
+                name,
                 sep = " : "),
             show_colnames = TRUE,
             show_rownames = TRUE)
