@@ -54,9 +54,7 @@ read_metadata <- function(
     }
 
     # Convert to data frame and set rownames
-    metadata <- metadata %>%
-        as.data.frame %>%
-        set_rownames(.$description)
+    metadata <- metadata %>% as.data.frame %>% set_rownames(.$description)
 
     return(metadata)
 }
