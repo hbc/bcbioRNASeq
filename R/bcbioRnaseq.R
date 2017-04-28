@@ -52,6 +52,7 @@ NULL
 #' @import dplyr
 #' @import ggplot2
 #' @import readr
+#' @import readxl
 #' @import stringr
 #' @importFrom magrittr %>% set_names set_rownames
 #' @importFrom rlang !!! !! .data sym syms UQ

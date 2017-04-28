@@ -4,11 +4,11 @@
 \alias{read_metadata}
 \title{Read metadata}
 \usage{
-read_metadata(csv, pattern = NULL, pattern_col = "description",
+read_metadata(file, pattern = NULL, pattern_col = "description",
   lanes = NULL)
 }
 \arguments{
-\item{csv}{Comma separated values file}
+\item{file}{Metadata file. CSV and XLSX formats are supported.}
 
 \item{pattern}{Apply grep pattern matching to samples}
 

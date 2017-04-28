@@ -38,6 +38,7 @@ Imports:
     pheatmap (>= 1.0.8),
     RDAVIDWebService (>= 1.14.0),
     readr (>= 1.1.0),
+    readxl (>= 1.0.0),
     reshape2 (>= 1.4.2),
     rlang (>= 0.0.0.9000),
     stats,

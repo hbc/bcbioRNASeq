@@ -27,7 +27,7 @@ check_res(res, stop = TRUE)
 \item{res}{\code{DESeqResults}}
 }
 \description{
-Check \code{bcbio-nextgen} run
+Check \code{bcbio-nextgen} run. Always stops on failure.
 
 Check \code{DESeqDataSet}
 
