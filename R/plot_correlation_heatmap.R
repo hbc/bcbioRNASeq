@@ -1,0 +1,47 @@
+#' Correlation matrix heatmap
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param run \code{bcbio-nextgen} run object
+#' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
+#'   on a \code{DESeqDataSet} object
+#' @param method Correlation coefficient (or covariance) to be computed.
+#'   Defaults to \code{pearson} but \code{spearman} can also be used.
+#'
+#' @return Heatmap
+#' @export
+plot_correlation_heatmap <- function(
+    run,
+    dt,
+    method = "pearson") {
+    check_run(run)
+    check_dt(dt)
+    if (!method %in% c("pearson", "spearman")) {
+        stop("Support methods: pearson, spearman")
+    }
+    name <- deparse(substitute(dt))
+
+    # Get counts and annotations from DESeqTransform object
+    counts <- assay(dt)
+    annotation <- colData(dt) %>%
+        .[, run$intgroup] %>%
+        as.data.frame
+
+    # Pearson or Spearman correlation methods are supported
+    if (!method %in% c("pearson", "spearman")) {
+        stop("invalid correlation regression method.
+             must use pearson or spearman.")
+    }
+
+    counts %>%
+        cor(method = method) %>%
+        pheatmap(
+            annotation = annotation,
+            main = paste(
+                name,
+                "correlation",
+                method,
+                sep = " : "),
+            show_colnames = TRUE,
+            show_rownames = TRUE)
+}

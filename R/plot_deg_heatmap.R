@@ -10,7 +10,7 @@
 #'
 #' @return Gene heatmap
 #' @export
-deg_heatmap <- function(
+plot_deg_heatmap <- function(
     run,
     dds,
     contrast,
@@ -19,12 +19,8 @@ deg_heatmap <- function(
     check_run(run)
     check_dds(dds)
 
-    # rlog transform the counts
-    rld <- rlog(dds)
-
     # Annotation metadata
-    annotation <- dds %>%
-        colData %>%
+    annotation <- colData(dds) %>%
         as.data.frame %>%
         .[, run$intgroup]
 
@@ -41,15 +37,15 @@ deg_heatmap <- function(
         .[.$padj < alpha, ] %>%
         .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
 
-    # Subset the transformed count matrix
-    mat <- rld %>% assay %>% .[res_df$ensembl_gene_id, ]
+    # rlog transform and subset the counts
+    counts <- dds %>% rlog %>% assay %>% .[res_df$ensembl_gene_id, ]
 
-    if (nrow(mat) <= 100) {
+    if (nrow(counts) <= 100) {
         show_rownames <- TRUE
         # Change rownames to readable external gene names
-        gene_names <- ensembl_annotations(run, values = rownames(mat))
-        if (identical(rownames(mat), rownames(gene_names))) {
-            rownames(mat) <- gene_names$external_gene_name
+        gene_names <- ensembl_annotations(run, values = rownames(counts))
+        if (identical(rownames(counts), rownames(gene_names))) {
+            rownames(counts) <- gene_names$external_gene_name
         } else {
             stop("Gene identifier rownames mismatch")
         }
@@ -60,7 +56,7 @@ deg_heatmap <- function(
     name <- deparse(substitute(dds))
     contrast_name <- res_contrast_name(res)
 
-    pheatmap(mat,
+    pheatmap(counts,
              annotation = annotation,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D2",
