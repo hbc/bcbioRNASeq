@@ -21,17 +21,19 @@ read_metadata <- function(
     if (!file.exists(file)) {
         stop("File not found")
     }
+    
     if (grepl("\\.xlsx$", file)) {
         metadata <- read_excel(file)
     } else {
         metadata <- read_csv(file)
     }
+    
+     # First column must be the FASTQ file name
+    names(metadata)[1] <- "file_name"
+
     metadata <- metadata %>%
         set_names_snake %>%
         arrange(!!sym("description"))
-
-    # First column must be the FASTQ file name
-    names(metadata)[1] <- "file_name"
 
     # Lane split, if desired
     if (is.numeric(lanes)) {
