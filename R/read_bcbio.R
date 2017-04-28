@@ -182,11 +182,11 @@ read_bcbio_samples_yaml <- function(run, keys) {
 
         # Fix empty batch and phenotype
         if (is.null(nested$batch)) {
-            nested$batch <- NULL
+            nested$batch <- NA
         }
         if (length(nested$phenotype)) {
             if (grepl("^$", nested$phenotype)) {
-                nested$phenotype <- NULL
+                nested$phenotype <- NA
             }
         }
 
