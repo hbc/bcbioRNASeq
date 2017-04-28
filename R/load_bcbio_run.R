@@ -46,16 +46,18 @@ load_bcbio_run <- function(
     sample_dirs <- sample_dirs[!grepl(basename(project_dir),
                                       names(sample_dirs))]
 
-    # Custom metadata
-    if (!is.null(metadata)) {
-        metadata <- read_metadata(metadata)
+    # Detect number of sample lanes
+    lane_pattern <- "_L(\\d{3})"
+    if (any(str_detect(sample_dirs, lane_pattern))) {
+        lanes <- str_match(names(sample_dirs), lane_pattern) %>%
+            .[, 2] %>% unique %>% length
+    } else {
+        lanes <- NULL
     }
 
-    # Detect lane split FASTQ samples
-    if (any(str_detect(dir(final_dir), "_L\\d+$"))) {
-        lane_split <- TRUE
-    } else {
-        lane_split <- FALSE
+    # Custom metadata
+    if (!is.null(metadata)) {
+        metadata <- read_metadata(metadata, lanes = lanes)
     }
 
     # YAML summary
@@ -94,13 +96,11 @@ load_bcbio_run <- function(
         organism = organism,
         intgroup = intgroup,
         metadata = metadata,
-        lane_split = lane_split,
+        lanes = lanes,
         yaml = yaml,
         programs = programs,
         data_versions = data_versions,
-        session_info = sessionInfo()
-    )
-
+        session_info = sessionInfo())
     check_run(run)
     return(run)
 }
