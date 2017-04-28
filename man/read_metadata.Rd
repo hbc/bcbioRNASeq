@@ -4,7 +4,8 @@
 \alias{read_metadata}
 \title{Read metadata}
 \usage{
-read_metadata(csv, pattern = NULL, pattern_col = "description")
+read_metadata(csv, pattern = NULL, pattern_col = "description",
+  lanes = NULL)
 }
 \arguments{
 \item{csv}{Comma separated values file}
@@ -12,6 +13,15 @@ read_metadata(csv, pattern = NULL, pattern_col = "description")
 \item{pattern}{Apply grep pattern matching to samples}
 
 \item{pattern_col}{Column in data frame used for pattern subsetting}
+
+\item{lanes}{Number of lanes used to split the samples into technical
+replicates. This assumes the file names don't include `_L001` suffix.
+Therefore, it renames both the file name and description columns to match
+the bcbio YAML. This workflow is commonly used by Harvard Biopolymers
+Facility. We can decide to either combine counts at the server level using
+`cat` in bash, or we can run DESeq2 later by pooling the counts with
+`deseq_lane_pool()`. We may want to deprecate this method in the future and
+simply combine counts at the server level for all lane split runs.}
 }
 \value{
 Metadata data frame
