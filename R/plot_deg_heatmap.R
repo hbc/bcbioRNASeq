@@ -20,9 +20,7 @@ plot_deg_heatmap <- function(
     check_dds(dds)
 
     # Annotation metadata
-    annotation <- colData(dds) %>%
-        as.data.frame %>%
-        .[, run$intgroup]
+    annotation <- colData(dds) %>% as.data.frame %>% .[, run$intgroup]
 
     # DE genes, used for subsetting the rlog counts matrix
     res <- results(dds,
@@ -41,14 +39,9 @@ plot_deg_heatmap <- function(
     counts <- dds %>% rlog %>% assay %>% .[res_df$ensembl_gene_id, ]
 
     if (nrow(counts) <= 100) {
-        show_rownames <- TRUE
         # Change rownames to readable external gene names
-        gene_names <- ensembl_annotations(run, values = rownames(counts))
-        if (identical(rownames(counts), rownames(gene_names))) {
-            rownames(counts) <- gene_names$external_gene_name
-        } else {
-            stop("Gene identifier rownames mismatch")
-        }
+        show_rownames <- TRUE
+        rownames(counts) <- run$ensembl[rownames(counts), "external_gene_name"]
     } else {
         show_rownames <- FALSE
     }

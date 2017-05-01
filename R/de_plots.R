@@ -93,7 +93,8 @@ plot_volcano <- function(
     volcano_text <- stats %>%
         .[1:text_labels, ] %>%
         left_join(
-            ensembl_annotations(run, values = .$ensembl_gene_id),
+            run$ensembl[.$ensembl_gene_id,
+                        c("ensembl_gene_id", "external_gene_name")],
             by = "ensembl_gene_id")
 
     # Get range of LFC and P values to set up plot borders
