@@ -7,18 +7,23 @@
 #'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
 #'   Transcripts per million (TPM) are also acceptable.
 #' @param gene Gene identifier
+#' @param format Ensembl identifier format. Defaults to the gene name (symbol).
 #'
 #' @export
 plot_gene <- function(
     run,
     normalized_counts,
-    gene) {
+    gene,
+    format = "external_gene_name") {
     check_run(run)
 
     color <- run$intgroup[1]
     ylab <- deparse(substitute(normalized_counts))
 
-    normalized_counts <- as.matrix(normalized_counts) %>% .[gene, ]
+    # Convert unique gene identifier to name (gene symbol)
+    annotations <- ensembl_annotations(
+        run, filters = format, values = gene)
+    normalized_counts <- normalized_counts[annotations$ensembl_gene_id, ]
     metadata <- run$metadata
 
     plot <- data.frame(x = names(normalized_counts),

@@ -4,7 +4,7 @@
 \alias{plot_gene}
 \title{Plot an individual gene}
 \usage{
-plot_gene(run, normalized_counts, gene)
+plot_gene(run, normalized_counts, gene, format = "external_gene_name")
 }
 \arguments{
 \item{run}{\code{bcbio-nextgen} run object}
@@ -14,6 +14,8 @@ plot_gene(run, normalized_counts, gene)
 Transcripts per million (TPM) are also acceptable.}
 
 \item{gene}{Gene identifier}
+
+\item{format}{Ensembl identifier format. Defaults to the gene name (symbol).}
 }
 \description{
 Plot an individual gene
