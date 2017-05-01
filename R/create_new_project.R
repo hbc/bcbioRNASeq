@@ -5,7 +5,6 @@
 #' @export
 create_new_project <- function() {
     local_dirs <- c("data",
-                    "docs",
                     "figures",
                     "meta",
                     "results")
