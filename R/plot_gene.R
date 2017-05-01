@@ -23,17 +23,15 @@ plot_gene <- function(
 
     # Match unique gene identifier with name (gene symbol) using the internally
     # stored Ensembl annotations saved in the run object
-    ensembl <- run$ensembl %>%
+    match <- run$ensembl %>%
         .[.[[format]] %in% gene, ] %>%
-        arrange(!!sym("external_gene_name"))
-    normalized_counts <- normalized_counts %>%
-        .[rownames(normalized_counts) %in% ensembl$ensembl_gene_id, ]
+        .[order(.$external_gene_name), ]
 
     # Seq along Ensembl data frame here instead of the gene input vector,
     # which will then output only genes that match Ensembl
-    lapply(1:nrow(normalized_counts), function(a) {
-        gene_id <- ensembl$ensembl_gene_id[[a]]
-        gene_name <- ensembl$external_gene_name[[a]]
+    lapply(1:nrow(match), function(a) {
+        gene_name <- match$external_gene_name[[a]]
+        gene_id <- match$ensembl_gene_id[[a]]
         plot <- data.frame(
             x = colnames(normalized_counts),
             y = normalized_counts[gene_id, ],
@@ -44,7 +42,7 @@ plot_gene <- function(
                      color = ~color,
                      shape = ~color)
             ) +
-            ggtitle(gene_name) +
+            ggtitle(paste(gene_name, gene_id, sep = " : ")) +
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)
