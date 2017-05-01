@@ -108,7 +108,14 @@ load_bcbio_run <- function(
     }
 
     # Save Ensembl annotations for all genes
-    run$ensembl <- ensembl_annotations(run)
+    run$ensembl <- ensembl_annotations(
+        run,
+        attributes = c("external_gene_name",
+                       "description",
+                       "gene_biotype"))
+
+    # Save the Ensembl version for responsible data integrity
+    run$ensembl_version <- listMarts() %>% .[1, 2]
 
     check_run(run)
     return(run)
