@@ -28,6 +28,9 @@ check_run <- function(run) {
     if (is.null(run$metadata)) {
         stop("Run does not contain metadata, please resave")
     }
+    if (is.null(run$ensembl)) {
+        stop("Run does not contain Ensembl annotations, please resave")
+    }
 
     # Metadata format and description name checks
     if (is_tibble(run$metadata) | !is.data.frame(run$metadata)) {

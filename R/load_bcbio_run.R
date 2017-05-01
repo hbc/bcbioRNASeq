@@ -107,6 +107,9 @@ load_bcbio_run <- function(
         run$metadata <- read_bcbio_samples_yaml(run, keys = "metadata")
     }
 
+    # Save Ensembl annotations for all genes
+    run$ensembl <- ensembl_annotations(run)
+
     check_run(run)
     return(run)
 }
