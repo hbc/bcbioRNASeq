@@ -23,22 +23,29 @@ plot_gene <- function(
 
     # Match unique gene identifier with name (gene symbol) using the internally
     # stored Ensembl annotations saved in the run object
-    ensembl <- run$ensembl %>% .[.[[format]] %in% gene, ]
-    normalized_counts <- normalized_counts[ensembl$ensembl_gene_id, ]
+    ensembl <- run$ensembl %>%
+        .[.[[format]] %in% gene, ] %>%
+        arrange(!!sym("external_gene_name"))
+    normalized_counts <- normalized_counts %>%
+        .[rownames(normalized_counts) %in% ensembl$ensembl_gene_id, ]
 
     # Seq along Ensembl data frame here instead of the gene input vector,
     # which will then output only genes that match Ensembl
-    lapply(seq_along(nrow(ensembl)), function(a) {
-        plot <- data.frame(x = colnames(normalized_counts),
-                           y = normalized_counts[a, ],
-                           color = metadata[[color]]) %>%
+    lapply(1:nrow(normalized_counts), function(a) {
+        gene_id <- ensembl$ensembl_gene_id[[a]]
+        gene_name <- ensembl$external_gene_name[[a]]
+        plot <- data.frame(
+            x = colnames(normalized_counts),
+            y = normalized_counts[gene_id, ],
+            color = metadata[[color]]) %>%
             ggplot(
                 aes_(x = ~x,
                      y = ~y,
-                     fill = ~color)
+                     color = ~color,
+                     shape = ~color)
             ) +
-            ggtitle(gene[a]) +
-            geom_dotplot(binaxis = "y") +
+            ggtitle(gene_name) +
+            geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)
             ) +
