@@ -193,8 +193,9 @@ david_table <- function(david) {
         remove_rownames %>%
         .[, c("category", "term", "count", "benjamini")] %>%
         mutate(
-            # Add spacing to tilde character so it doesn't knit as a link
-            term = str_replace(.data$term, "~", " ~ "),
+            # Add spacing to colon and tilde characters so knitr doesn't output
+            # them as links in the report table.
+            term = str_replace_all(.data$term, "(~|\\:)", " \\1 "),
             # Truncate the terms so the table isn't too wide
             term = str_trunc(.data$term, side = "right", width = 60),
             # Display BH P values in scientific notation
