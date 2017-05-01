@@ -182,13 +182,16 @@ read_bcbio_samples_yaml <- function(run, keys) {
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
 
-        # Fix empty batch and phenotype
-        if (is.null(nested$batch)) {
-            nested$batch <- NA
-        }
-        if (length(nested$phenotype)) {
-            if (grepl("^$", nested$phenotype)) {
-                nested$phenotype <- NA
+        # Correct batch and phenotype for metadata, if selected
+        if (rev(keys)[1] == "metadata") {
+            # Fix empty batch and phenotype
+            if (is.null(nested$batch)) {
+                nested$batch <- NA
+            }
+            if (length(nested$phenotype)) {
+                if (grepl("^$", nested$phenotype)) {
+                    nested$phenotype <- NA
+                }
             }
         }
 
