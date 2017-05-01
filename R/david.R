@@ -4,59 +4,59 @@
 #' @author Michael Steinbaugh
 
 
+
 #' @rdname david
 #' @description Wrapper function that runs gene set enrichment analysis (GSEA)
 #'   with the \code{RDAVIDWebService} package, using simplified input options.
 #'
-#' @param res_tables \code{res_tables()} list object
+#' @param res_tbl \code{res_tables()} list object
 #' @param direction Gene direction: up, down, or both
 #' @param alpha Alpha level cutoff
 #' @param count Minimum hit count
-#' @param save Save files to disk (\code{TRUE/FALSE})
-
+#' @param write_results Write results as tab separated values (TSV) files to
+#'   disk
 #'
 #' @return List of \code{RDAVIDWebService} report objects
 #' @export
 run_david <- function(
-    res_tables,
+    res_tbl,
     direction = "both",
     alpha = 0.05,
     count = 3,
-    save = TRUE) {
+    write_results = TRUE) {
     # Email
     if (is.null(getOption("email"))) {
-        stop("no email found in options().
-             can be saved globally in .Rprofile.")
+        stop("No email found in options().
+             Can be saved globally in .Rprofile.")
     }
 
     # Enrichment direction
     if (direction == "both") {
-        foreground <- res_tables$deg_lfc$ensembl_gene_id
+        foreground <- res_tbl$deg_lfc$ensembl_gene_id
     } else if (direction == "up") {
-        foreground <- res_tables$deg_lfc_up$ensembl_gene_id
+        foreground <- res_tbl$deg_lfc_up$ensembl_gene_id
     } else if (direction == "down") {
-        foreground <- res_tables$deg_lfc_down$ensembl_gene_id
+        foreground <- res_tbl$deg_lfc_down$ensembl_gene_id
     } else {
         stop("enrichment direction is required")
     }
 
     # Count threshold
     if (!is.numeric(count) | length(count) != 1 | count < 0) {
-        stop("please specify the minimum count cutoff of gene hits per
+        stop("Please specify the minimum count cutoff of gene hits per
              annotation as a single non-negative numeric")
     }
 
-    name <- res_tables$name
-    contrast <- res_tables$contrast
-    contrast_name <- contrast %>% gsub(" ", "_", .)
+    name <- res_tbl$name
+    contrast <- res_tbl$contrast
+    contrast_name <- contrast %>% str_replace_all(" ", "_")
 
-    background <- res_tables$all$ensembl_gene_id
+    background <- res_tbl$all$ensembl_gene_id
     id_type = "ENSEMBL_GENE_ID"
 
     david <- DAVIDWebService$new(
         email = getOption("email"),
-        url = "https://david.ncifcrf.gov/webservice/services/DAVIDWebService.DAVIDWebServiceHttpSoap12Endpoint/"
-    )
+        url = "https://david.ncifcrf.gov/webservice/services/DAVIDWebService.DAVIDWebServiceHttpSoap12Endpoint/")
 
     # Set a longer timeout (30000 default)
     setTimeOut(david, 200000)
@@ -80,67 +80,72 @@ run_david <- function(
 
     # Generate the annotation chart with cutoffs applied
     cutoff_chart <- david %>%
+        # S4 DAVIDFunctionalAnnotationChart
         getFunctionalAnnotationChart %>%
-        as.data.frame
+        asS3 %>%
+        as_tibble %>%
+        set_names_snake
     if (nrow(cutoff_chart) > 0) {
+        # Filter by gene counts and alpha level
         cutoff_chart <- cutoff_chart %>%
-            set_names_snake %>%
-            .[, c("category",
-                  "term",
-                  "count",
-                  "genes",
-                  "pvalue",
-                  "fdr")] %>%
-            # FDR should be presented on 0-1 scale, not as a percentage
-            mutate_(.dots = set_names(list(~fdr / 100), "fdr")) %>%
-            arrange_(.dots = c("category", "fdr")) %>%
             .[.$count >= count, ] %>%
             .[.$fdr < alpha, ]
-        # Set NULL if everything got filtered
-        if (nrow(cutoff_chart) == 0) {
+        # Set NULL if all processes got filtered
+        if (nrow(cutoff_chart) > 0) {
+            cutoff_chart <- cutoff_chart %>%
+                # FDR should be in 0-1 range, not a percentage!
+                # https://goo.gl/Dmf4Qu
+                # https://goo.gl/yRPZof
+                mutate(fdr = .data$fdr / 100) %>%
+                arrange(!!!syms(c("category", "fdr")))
+        } else {
             cutoff_chart <- NULL
         }
     } else {
         cutoff_chart <- NULL
     }
 
-    # Save the TSV files to disk
-    if (isTRUE(save)) {
+    # Write results as TSV files to disk
+    if (isTRUE(write_results)) {
         write_dir <- "results/david"
         dir.create(write_dir, recursive = TRUE, showWarnings = FALSE)
 
         getClusterReportFile(
             david,
-            fileName = file.path(write_dir,
-                                 paste(name,
-                                       contrast_name,
-                                       direction,
-                                       "cluster_report.tsv",
-                                       sep = "_")))
+            fileName = file.path(
+                write_dir,
+                paste(name,
+                      contrast_name,
+                      direction,
+                      "cluster_report.tsv",
+                      sep = "_")))
         getFunctionalAnnotationChartFile(
             david,
-            fileName = file.path(write_dir,
-                                 paste(name,
-                                       contrast_name,
-                                       direction,
-                                       "functional_annotation_chart.tsv",
-                                       sep = "_")))
+            fileName = file.path(
+                write_dir,
+                paste(name,
+                      contrast_name,
+                      direction,
+                      "functional_annotation_chart.tsv",
+                      sep = "_")))
         getFunctionalAnnotationTableFile(
             david,
-            fileName = file.path(write_dir,
-                                 paste(name,
-                                       contrast_name,
-                                       direction,
-                                       "functional_annotation_table.tsv",
-                                       sep = "_")))
+            fileName = file.path(
+                write_dir,
+                paste(name,
+                      contrast_name,
+                      direction,
+                      "functional_annotation_table.tsv",
+                      sep = "_")))
         getGeneListReportFile(
             david,
-            fileName = file.path(write_dir,
-                                 paste(name,
-                                       contrast_name,
-                                       direction,
-                                       "gene_list_report_file.tsv",
-                                       sep = "_")))
+            fileName = file.path(
+                write_dir,
+                paste(name,
+                      contrast_name,
+                      direction,
+                      "gene_list_report_file.tsv",
+                      sep = "_")))
 
         if (!is.null(cutoff_chart)) {
             write_tsv(
@@ -178,28 +183,26 @@ run_david <- function(
 #' @export
 david_table <- function(david) {
     name <- deparse(substitute(david))
-
     df <- david$cutoff_chart
     if (is.null(df)) {
-        stop("david run had no significant enrichment")
+        stop("DAVID analysis found no significant enrichment")
     }
 
     df <- df %>%
-        as.data.frame %>%
+        as_tibble %>%
         remove_rownames %>%
-        .[, c("category", "term", "count", "fdr")]
-
-    # Truncate the terms so the table isn't too wide
-    df$term <- str_trunc(df$term, side = "right", width = 60)
-
-    # Display FDR in scientific notation
-    df$fdr <- format(df$fdr, digits = 3, scientific = TRUE)
+        .[, c("category", "term", "count", "benjamini")] %>%
+        mutate(
+            # Add spacing to tilde character so it doesn't knit as a link
+            term = str_replace(.data$term, "~", " ~ "),
+            # Truncate the terms so the table isn't too wide
+            term = str_trunc(.data$term, side = "right", width = 60),
+            # Display BH P values in scientific notation
+            # https://goo.gl/Dmf4Qu
+            benjamini = format(.data$benjamini, digits = 3, scientific = TRUE))
 
     # Set the caption
-    caption <- paste(name,
-                     "david",
-                     "functional annotation",
-                     sep = " : ")
+    caption <- paste(name, "david", "functional annotation", sep = " : ")
 
     return(kable(df, caption = caption))
 }
