@@ -27,15 +27,8 @@ res_tables <- function(
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)
     contrast_name <- contrast %>% gsub(" ", "_", .)
-
     alpha <- res@metadata$alpha
-
-    # Running biomaRt without setting `values = results@rownames` is faster
-    annotations <- ensembl_annotations(
-        run,
-        attributes = c("external_gene_name",
-                       "description",
-                       "gene_biotype"))
+    ensembl <- run$ensembl
 
     all <- res %>%
         as.data.frame %>%
