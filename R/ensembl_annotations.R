@@ -20,8 +20,6 @@ ensembl_annotations <- function(
     attributes = NULL,
     filters = "ensembl_gene_id",
     values = NULL) {
-    check_run(run)
-
     ensembl <- useEnsembl(
         biomart = "ensembl",
         dataset = paste(run$organism, "gene_ensembl", sep = "_"))
