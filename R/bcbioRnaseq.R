@@ -92,6 +92,10 @@ magrittr::`%>%`
 
 #' @usage NULL
 #' @export
+tibble::glimpse
+
+#' @usage NULL
+#' @export
 knitr::kable
 
 #' @usage NULL
