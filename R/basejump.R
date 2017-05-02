@@ -3,7 +3,7 @@
 #' @rdname basejump
 #'
 #' @author Michael Steinbaugh
-#' 
+#'
 #' @param dna DNA sequence (ATGC nucleotides)
 #' @param list List of tables (e.g. data frame, matrix)
 #' @param captions Caption character vector
@@ -181,4 +181,10 @@ get_objs_from_dots <- function(.dots) {
                 call. = FALSE)
     }
     return(objs)
+}
+
+
+
+isString <- function(object) {
+    is.character(object) & length(object) == 1
 }
