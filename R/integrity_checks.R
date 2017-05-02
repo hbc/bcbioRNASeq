@@ -14,7 +14,7 @@ check_run <- function(run) {
         stop("Run object is not a list")
     }
     if (!length(dir(run$final_dir))) {
-        stop("Could not access run_dir")
+        stop("Could not access final_dir")
     }
     if (!length(run$sample_dirs)) {
         stop("No sample directories in run")
