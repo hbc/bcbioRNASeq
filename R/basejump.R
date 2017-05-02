@@ -1,19 +1,43 @@
-#' Utility functions imported from basejump package
+#' Utility functions from basejump package
 #'
-#' snake_case variants for function naming consistency
+#' @rdname basejump
 #'
 #' @author Michael Steinbaugh
-
-
-
-#' @rdname basejump
-#' @keywords internal
-#' @description Handle multiple kables in a single RMarkdown chunk.
-#' Import of \href{https://github.com/steinbaugh/basejump/blob/master/R/kables.R}{kables}.
-#'
+#' 
+#' @param dna DNA sequence (ATGC nucleotides)
 #' @param list List of tables (e.g. data frame, matrix)
 #' @param captions Caption character vector
-#'
+#' @param character Character vector
+#' @param dir Output directory
+#' @param data Data type that supports name assignments
+
+
+
+## https://github.com/steinbaugh/basejump/blob/dev/R/dna.R
+#' @rdname basejump
+#' @keywords internal
+#' @description Complement DNA sequence
+#' @export
+comp <- function(dna) {
+    dna <- toupper(dna)
+    comp <- dna %>%
+        # AT base pair swap
+        gsub("A", "A1", .) %>%
+        gsub("T", "A", .) %>%
+        gsub("A1", "T", .) %>%
+        # GC base pair swap
+        gsub("G", "G1", .) %>%
+        gsub("C", "G", .) %>%
+        gsub("G1", "C", .)
+    return(comp)
+}
+
+
+
+## https://github.com/steinbaugh/basejump/blob/dev/R/kables.R
+#' @rdname basejump
+#' @keywords internal
+#' @description Handle multiple kables in a single RMarkdown chunk
 #' @export
 kables <- function(list, captions = NULL) {
     output <- opts_knit$get("rmarkdown.pandoc.to")
@@ -29,13 +53,10 @@ kables <- function(list, captions = NULL) {
 
 
 
+## https://github.com/steinbaugh/basejump/blob/dev/R/makeNames.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Make syntactically valid names out of character vectors.
-#' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.R}{makeNames}.
-#'
-#' @param character Character vector
-#'
+#' @description Make syntactically valid names out of character vectors
 #' @export
 make_names <- function(character) {
     character %>%
@@ -62,10 +83,10 @@ make_names <- function(character) {
 
 
 
+## https://github.com/steinbaugh/basejump/blob/dev/R/makeNames.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Make names in snake_case.
-#' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/makeNames.R}{makeNamesSnake}.
+#' @description Make names in snake_case
 #' @export
 make_names_snake <- function(character) {
     character %>% make_names %>% gsub("\\.", "_", .)
@@ -73,10 +94,26 @@ make_names_snake <- function(character) {
 
 
 
+## https://github.com/steinbaugh/basejump/blob/dev/R/dna.R
+#' @rdname basejump
+#' @keywords internal
+#' @description Reverse complement DNA sequence
+#' @export
+revcomp <- function(dna) {
+    dna <- toupper(dna)
+    comp <- comp(dna)
+    revcomp <- strsplit(comp, "")[[1]] %>%
+        .[order(seq_along(.), decreasing = TRUE)] %>%
+        paste(., sep = "", collapse = "")
+    return(revcomp)
+}
+
+
+
+## https://github.com/steinbaugh/basejump/blob/dev/R/saveData.R
 #' @rdname basejump
 #' @keywords internal
 #' @description Quick save to \code{data} directory
-#' @param dir Output directory
 #' @export
 save_data <- function(..., dir = "data") {
     if (!isString(dir)) {
@@ -96,12 +133,18 @@ save_data <- function(..., dir = "data") {
 
 
 #' @rdname basejump
+#' @description Set names in dot notation
+#' @export
+set_names_dot <- function(data) {
+    set_names(data, make_names(colnames(data)))
+}
+
+
+
+## https://github.com/steinbaugh/basejump/blob/dev/R/setNames.R
+#' @rdname basejump
 #' @keywords internal
-#' @description Set names in snake_case.
-#' Variant of \href{https://github.com/steinbaugh/basejump/blob/master/R/setNames.R}{setNamesSnake}.
-#'
-#' @param data Data type that supports name assignments
-#'
+#' @description Set names in snake_case
 #' @export
 set_names_snake <- function(data) {
     set_names(data, make_names_snake(names(data)))
@@ -112,13 +155,15 @@ set_names_snake <- function(data) {
 
 
 
-# Internal utility functions ====
-# https://github.com/hadley/devtools/blob/master/R/utils.r
+# Unexported functions ====
+# https://github.com/hadley/devtools/blob/dev/R/utils.r
 dots <- function(...) {
     eval(substitute(alist(...)))
 }
 
-# https://github.com/hadley/devtools/blob/master/R/infrastructure.R
+
+
+# https://github.com/hadley/devtools/blob/dev/R/infrastructure.R
 get_objs_from_dots <- function(.dots) {
     if (length(.dots) == 0L) {
         stop("Nothing to save", call. = FALSE)
@@ -135,10 +180,5 @@ get_objs_from_dots <- function(.dots) {
                 paste(names(duplicated_objs), collapse = ", "),
                 call. = FALSE)
     }
-    objs
-}
-
-# https://github.com/steinbaugh/basejump/blob/master/R/isString.R
-isString <- function(object) {
-    is.character(object) & length(object) == 1
+    return(objs)
 }
