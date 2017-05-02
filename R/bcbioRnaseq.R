@@ -13,9 +13,9 @@ NULL
 
 # Globals ====
 globalVariables(".")
+fail_color <- "red"
 pass_color <- "green"
 warn_color <- "orange"
-fail_color <- "red"
 
 
 
