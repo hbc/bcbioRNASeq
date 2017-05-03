@@ -3,7 +3,7 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' See the README on \href{https://github.com/roryk/bcbioRnaseq}{GitHub}.
+#' See the README on \href{https://github.com/hbc/bcbioRnaseq}{GitHub}.
 #'
 #' @docType package
 #' @name bcbioRnaseq
