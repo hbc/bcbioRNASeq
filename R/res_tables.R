@@ -35,7 +35,7 @@ res_tables <- function(
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
         set_names_snake %>%
-        left_join(annotations, by = "ensembl_gene_id") %>%
+        left_join(ensembl, by = "ensembl_gene_id") %>%
         .[order(.$ensembl_gene_id), ]
 
     # All DEG tables sorted by BH adjusted P value
