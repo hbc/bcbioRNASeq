@@ -61,6 +61,5 @@ Suggests:
 Remotes:
     hadley/rlang,
     tidyverse/dplyr
-    Bioconductor-mirror/DEGreport
 License: MIT + file LICENSE
 RoxygenNote: 6.0.1
