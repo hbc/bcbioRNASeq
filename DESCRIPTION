@@ -8,6 +8,9 @@ Authors@R: c(
            role = c("aut", "cre")),
     person("Michael", "Steinbaugh",
            email = "mike@steinbaugh.com",
+           role = "aut"),
+    person("Lorena", "Pantano",
+           email = "lorena.pantano@gmail.com",
            role = "aut"))
 Description: Quality control and differential expression for bcbio-nextgen
     RNA-seq experiments.
@@ -28,6 +31,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     biomaRt (>= 2.32.0),
+    DEGreport,
     DESeq2 (>= 1.16.0),
     dplyr (>= 0.5.0.9000),
     edgeR (>= 3.18.0),
@@ -50,7 +54,13 @@ Imports:
     tximport (>= 1.4.0),
     utils,
     yaml
+Suggests:
+    RUnit,
+    BiocStyle,
+    BiocGenerics
 Remotes:
     hadley/rlang,
     tidyverse/dplyr
+    Bioconductor-mirror/DEGreport
+License: MIT + file LICENSE
 RoxygenNote: 6.0.1

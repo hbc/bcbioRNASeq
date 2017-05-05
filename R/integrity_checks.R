@@ -28,7 +28,7 @@ check_run <- function(run) {
     if (is.null(run$metadata)) {
         stop("Run does not contain metadata, please resave")
     }
-    if (is.null(run$ensembl)) {
+    if (is.null(run$ensembl) & run$srnaseq == FALSE) {
         stop("Run does not contain Ensembl annotations, please resave")
     }
 
