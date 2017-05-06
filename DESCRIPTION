@@ -60,6 +60,7 @@ Suggests:
     BiocGenerics
 Remotes:
     hadley/rlang,
-    tidyverse/dplyr
+    tidyverse/dplyr,
+    lpantano/DEGreport
 License: MIT + file LICENSE
 RoxygenNote: 6.0.1
