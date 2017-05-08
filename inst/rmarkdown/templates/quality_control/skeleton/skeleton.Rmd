@@ -1,0 +1,228 @@
+---
+title: "Quality Control"
+date: "`r BiocStyle::doc_date()`"
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+source("setup.R")
+```
+
+
+
+# Overview
+
+- Primary Investigator: 
+- Researcher: 
+- Experiment: 
+
+```{r metadata_table}
+metadata_table(run)
+```
+
+
+
+* * *
+
+
+
+```{r txi, results="hide"}
+txi <- read_bcbio_counts(run)
+save_data(txi)
+```
+
+```{r dds, results="hide"}
+design <- formula(~ condition)
+dds <- DESeqDataSetFromTximport(
+    txi,
+    colData = run$metadata,
+    design = design) %>%
+    DESeq
+save_data(dds)
+```
+
+```{r check_dds, eval=FALSE, include=FALSE}
+resultsNames(dds)
+sizeFactors(dds)
+```
+
+```{r counts}
+raw_counts <- counts(dds, normalized = FALSE)
+normalized_counts <- counts(dds, normalized = TRUE)
+tpm <- tpm(txi)
+save_data(raw_counts, normalized_counts, tpm)
+write_counts(raw_counts, normalized_counts, tpm)
+```
+
+```{r dt}
+rld <- rlog(dds)
+tmm <- tmm_normalize(raw_counts)
+vsd <- varianceStabilizingTransformation(dds)
+```
+
+
+
+# [DESeq2][] fit modeling
+
+Several quality metrics were first assessed to explore the fit of the model, before differential expression analysis was performed. We observe that the modeling fit is good.
+
+The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
+
+```{r meanSdPlot}
+meanSdPlot(log2(normalized_counts + 1))
+meanSdPlot(assay(vsd))
+meanSdPlot(assay(rld))
+```
+
+
+## Dispersion
+
+The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
+
+```{r plotDispEsts}
+plotDispEsts(dds)
+```
+
+
+
+# Read metrics
+
+## Total reads
+
+```{r plot_total_reads}
+plot_total_reads(run)
+```
+
+
+## Mapped reads
+
+The number of mapped reads should correspond to the number of total reads.
+
+```{r plot_mapped_reads}
+plot_mapped_reads(run)
+```
+
+
+## Mapping rate
+
+The genomic mapping rate represents the percentage of reads mapping to the reference genome. Low mapping rates are indicative of sample contamination, poor sequencing quality or other artifacts.
+
+```{r plot_mapping_rate}
+plot_mapping_rate(run)
+```
+
+
+## Number of genes detected
+
+```{r plot_genes_detected}
+plot_genes_detected(run, raw_counts)
+```
+
+
+## Gene detection saturation
+
+We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
+
+```{r plot_gene_detection_saturation}
+plot_gene_detection_saturation(run, raw_counts)
+```
+
+
+## Exonic mapping rate
+
+Ideally, at least 60% of total reads should map to exons.
+
+```{r plot_exonic_mapping_rate}
+plot_exonic_mapping_rate(run)
+```
+
+
+## Intronic mapping rate
+
+The majority of reads should map to exons and not introns.
+
+```{r plot_intronic_mapping_rate}
+plot_intronic_mapping_rate(run)
+```
+
+
+## rRNA mapping rate
+
+Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
+
+```{r plot_rrna_mapping_rate}
+plot_rrna_mapping_rate(run)
+```
+
+
+## Counts per gene
+
+Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
+
+```{r plot_counts_per_gene}
+plot_counts_per_gene(run, tmm)
+```
+
+
+## Count density
+
+Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
+
+```{r plot_count_density}
+plot_count_density(run, tmm)
+```
+
+
+
+# Sample similarity analysis
+
+Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a transformation (`rlog()`) that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@DESeq2], which we will later use for differential gene expression analysis.
+
+
+## Principal component analysis (PCA)
+
+PCA [@Jolliffe:2002aa] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering. 
+
+```{r plot_pca}
+plot_pca(run, rld)
+```
+
+
+## Hierarchical clustering
+
+Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
+
+```{r cor_heatmap}
+plot_correlation_heatmap(run, rld)
+```
+
+
+
+* * *
+
+
+
+# Methods
+
+RNA-seq counts were generated by [bcbio-nextgen][] and [bcbioRnaseq][] using [salmon][] [@salmon]. Counts were imported into [R][] using [tximport][] [@tximport] and [DESeq2] [@DESeq2]. Gene annotations were obtained from [Ensembl][]. Plots were generated by [ggplot2][] [@ggplot2]. Heatmaps were generated by [pheatmap][] [@pheatmap].
+
+```{r}
+sessionInfo()
+```
+
+
+
+# References
+
+
+
+[bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
+[bcbioRnaseq]: https://github.com/hbc/bcbioRnaseq
+[Bioconductor]: https://bioconductor.org/
+[DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+[Ensembl]: http://useast.ensembl.org/Mus_musculus/Info/Index
+[ggplot2]: http://ggplot2.org/
+[pheatmap]: https://cran.r-project.org/web/packages/pheatmap/index.html
+[R]: https://www.r-project.org/
+[salmon]: https://combine-lab.github.io/salmon/
+[tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
