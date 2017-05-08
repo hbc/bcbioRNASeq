@@ -27,11 +27,6 @@ metadata_table(run)
 
 
 
-```{r txi, results="hide"}
-txi <- read_bcbio_counts(run)
-save_data(txi)
-```
-
 ```{r dds, results="hide"}
 design <- formula(~ condition)
 dds <- DESeqDataSetFromTximport(
