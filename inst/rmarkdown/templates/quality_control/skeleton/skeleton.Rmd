@@ -30,7 +30,7 @@ metadata_table(run)
 ```{r dds, results="hide"}
 design <- formula(~ condition)
 dds <- DESeqDataSetFromTximport(
-    txi,
+    txi = run$txi,
     colData = run$metadata,
     design = design) %>%
     DESeq
