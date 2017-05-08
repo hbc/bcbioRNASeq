@@ -40,25 +40,29 @@ read_bcbio_counts <- function(
     }
 
     # Check for count output format, by using the first sample directory
-    per_sample_output <- list.dirs(run$sample_dirs[1], recursive = FALSE)
-
-    if (any(str_detect(per_sample_output, "salmon"))) {
+    per_sample_dirs <- list.dirs(run$sample_dirs[1], recursive = FALSE)
+    if (any(str_detect(per_sample_dirs, "salmon"))) {
         type <- "salmon"
-        sample_files <- file.path(
-            run$sample_dirs[samples], "salmon", "quant", "quant.sf")
-    } else if (any(str_detect(per_sample_output, "sailfish"))) {
+    } else if (any(str_detect(per_sample_dirs, "sailfish"))) {
         type <- "sailfish"
-        sample_files <- file.path(
-            run$sample_dirs[samples], "sailfish", "quant", "quant.sf")
     } else {
         stop("Unsupported counts output format")
     }
 
-    # Check that count files exist for all samples
-    if (!all(file.exists(sample_files))) {
-        stop(paste(type, "Count files do not exist"))
+    # Locate quant.sf file for salmon or sailfish output
+    if (type %in% c("salmon", "sailfish")) {
+        sample_files <- list.files(
+            file.path(run$sample_dirs[samples], type),
+            pattern = "quant.sf",
+            full.names = TRUE,
+            recursive = TRUE)
+        # Check that count files exist for all samples
+        if (length(sample_files) != length(samples)) {
+            stop(paste(type, "counts not found for all samples"))
+        }
     }
 
+    # Assign descriptions to sample files
     names(sample_files) <- names(run$sample_dirs[samples])
 
     # Begin loading of selected counts
