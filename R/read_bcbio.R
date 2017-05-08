@@ -10,63 +10,80 @@
 
 
 #' @rdname read_bcbio
-#' @description Read RNA-Seq counts using \code{tximport}
+#' @description Read RNA-seq counts using \code{tximport}. Currently supports
+#'   \href{https://combine-lab.github.io/salmon/}{salmon} and
+#'   \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 #'
-#' @param type The type of software used to generate the abundances. Follows the
-#'   conventions of \code{tximport}.
-#' @param grep Apply grep pattern matching to samples
-#' @param samples Specify the names of samples in bcbio final directory to
-#'   input. If \code{NULL} (default), all samples will be imported.
+#' @param samples Character vector of sample names in bcbio final directory to
+#'   include. If \code{NULL} (default), all samples will be imported.
+#' @param grep Use grep pattern to match samples. This will override the
+#'   \code{samples} parameter if set.
 #'
 #' @return txi \code{tximport} list
 #' @export
 read_bcbio_counts <- function(
     run,
-    type = "salmon",
     grep = NULL,
     samples = NULL) {
     check_run(run)
-    if (!type %in% c("salmon", "sailfish")) {
-        stop("Unsupported counts input format")
-    }
-
-    # Sample name grep pattern matching. Run above `samples` to override.
     if (!is.null(grep)) {
+        # grep pattern matching against sample names
         samples <- str_subset(names(run$sample_dirs), pattern = grep)
         if (!length(samples)) {
-            stop("grep string didn't match any samples")
+            stop("grep pattern didn't match any samples")
         }
-    }
-
-    if (is.null(samples)) {
-        samples <- names(run$sample_dirs)
-    } else {
+    } else if (!is.null(samples)) {
         samples <- sort(unique(na.omit(samples)))
+    } else {
+        # Include all samples by default
+        samples <- names(run$sample_dirs)
     }
 
-    # Support for salmon and sailfish file structure
-    sample_files <- file.path(run$sample_dirs[samples],
-                              type, "quant", "quant.sf")
-    names(sample_files) <- names(run$sample_dirs[samples])
+    # Check for count output format, by using the first sample directory
+    per_sample_output <- list.dirs(run$sample_dirs[1], recursive = FALSE)
+
+    if (any(str_detect(per_sample_output, "salmon"))) {
+        type <- "salmon"
+        sample_files <- file.path(
+            run$sample_dirs[samples], "salmon", "quant", "quant.sf")
+    } else if (any(str_detect(per_sample_output, "sailfish"))) {
+        type <- "sailfish"
+        sample_files <- file.path(
+            run$sample_dirs[samples], "sailfish", "quant", "quant.sf")
+    } else {
+        stop("Unsupported counts output format")
+    }
+
+    # Check that count files exist for all samples
     if (!all(file.exists(sample_files))) {
         stop(paste(type, "Count files do not exist"))
     }
 
+    names(sample_files) <- names(run$sample_dirs[samples])
+
     # Begin loading of selected counts
-    message(paste("loading", type, "counts"))
+    message(paste("Reading", type, "counts..."))
     message(paste(names(sample_files), collapse = "\n"))
 
+    # Use the tx2gene file output by `bcbio-nextgen`. Alternatively,
+    # we could handle this directly in R using biomaRt instead.
     tx2gene <- read_bcbio_file(run, file = "tx2gene.csv", col_names = FALSE)
 
     # Import the counts
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
-    # Use `lengthScaledTPM` for `salmon` and `sailfish`
+    if (type %in% c("salmon", "sailfish")) {
+        # Use `lengthScaledTPM` for `salmon` and `sailfish`
+        countsFromAbundance <- "lengthScaledTPM"
+    } else {
+        # default
+        countsFromAbundance <- "no"
+    }
     txi <- tximport(files = sample_files,
                     type = type,
                     tx2gene = tx2gene,
                     importer = read_tsv,
-                    countsFromAbundance = "lengthScaledTPM")
+                    countsFromAbundance = countsFromAbundance)
 
     return(txi)
 }
