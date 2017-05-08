@@ -63,7 +63,7 @@ NULL
 
 
 
-# Rexports ====
+# Re-exports ====
 ## RNA-seq ----
 #' @usage NULL
 #' @export
@@ -98,6 +98,10 @@ tibble::glimpse
 #' @usage NULL
 #' @export
 knitr::kable
+
+#' @usage NULL
+#' @export
+knitr::opts_chunk
 
 #' @usage NULL
 #' @export
