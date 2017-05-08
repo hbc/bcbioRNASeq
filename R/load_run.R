@@ -16,6 +16,8 @@
 #' @param organism Organism name, following Ensembl/Biomart conventions. Must be
 #'   lowercase and one word (e.g. hsapiens). This will be detected automatically
 #'   for common reference genomes and normally does not need to be set.
+#' @param read_counts Automatically read in the count data using
+#'   \code{read_bcbio_counts()}
 #'
 #' @return \code{bcbio-nextgen} run object
 #' @export
@@ -24,7 +26,8 @@ load_run <- function(
     analysis = "rnaseq",
     intgroup = "description",
     metadata_file = NULL,
-    organism = NULL) {
+    organism = NULL,
+    read_counts = TRUE) {
     # Load the YAML summary file
     if (file.exists(yaml_file)) {
         yaml_file <- normalizePath(yaml_file)
@@ -108,14 +111,23 @@ load_run <- function(
     # Subset the sample_dirs by the metadata data frame
     run$sample_dirs <- run$sample_dirs[run$metadata$description]
 
-    # Save Ensembl annotations
     if (analysis == "rnaseq") {
+        # Save Ensembl annotations
         run$ensembl <- ensembl_annotations(
             run,
             attributes = c("external_gene_name",
                            "description",
                            "gene_biotype"))
         run$ensembl_version <- listMarts() %>% .[1, 2]
+
+        # Read counts using `tximport()`
+        if (isTRUE(read_counts)) {
+            run$counts <- read_bcbio_counts(run)
+        }
+    } else if (analysis == "srnaseq") {
+        message("Automatic count import not yet supported for small RNA-seq")
+    } else {
+        stop("Unsupported analysis type")
     }
 
     check_run(run)
