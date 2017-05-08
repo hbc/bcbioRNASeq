@@ -45,7 +45,7 @@ sizeFactors(dds)
 ```{r counts}
 raw_counts <- counts(dds, normalized = FALSE)
 normalized_counts <- counts(dds, normalized = TRUE)
-tpm <- tpm(txi)
+tpm <- tpm(run$txi)
 save_data(raw_counts, normalized_counts, tpm)
 write_counts(raw_counts, normalized_counts, tpm)
 ```
