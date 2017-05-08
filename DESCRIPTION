@@ -53,6 +53,7 @@ Imports:
     tidyr (>= 0.6.1),
     tximport (>= 1.4.0),
     utils,
+    vsn (>= 3.44.0),
     yaml
 Suggests:
     RUnit,

@@ -21,7 +21,7 @@ warn_color <- "orange"
 
 # Imports ====
 ## General ----
-#' @importFrom knitr asis_output kable opts_knit
+#' @importFrom knitr asis_output kable opts_chunk opts_knit
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
 #' @importFrom utils globalVariables head sessionInfo
@@ -41,6 +41,7 @@ NULL
 #' @importFrom SummarizedExperiment assay colData
 #' @importFrom S4Vectors mcols
 #' @importFrom tximport tximport
+#' @importFrom vsn meanSdPlot
 NULL
 
 ## Visualization ----
@@ -68,6 +69,10 @@ NULL
 #' @usage NULL
 #' @export
 DESeq2::design
+
+#' @usage NULL
+#' @export
+vsn::meanSdPlot
 
 ## Quasi-quotation ----
 #' @usage NULL
