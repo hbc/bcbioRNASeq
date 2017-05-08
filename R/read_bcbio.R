@@ -26,6 +26,8 @@ read_bcbio_counts <- function(
     grep = NULL,
     samples = NULL) {
     check_run(run)
+
+    # Select the samples to import
     if (!is.null(grep)) {
         # grep pattern matching against sample names
         samples <- str_subset(names(run$sample_dirs), pattern = grep)
@@ -38,12 +40,16 @@ read_bcbio_counts <- function(
         # Include all samples by default
         samples <- names(run$sample_dirs)
     }
+    # Ensure the sample names are sorted alphabetically
+    samples <- sort(samples)
 
     # Check for count output format, by using the first sample directory
-    per_sample_dirs <- list.dirs(run$sample_dirs[1], recursive = FALSE)
-    if (any(str_detect(per_sample_dirs, "salmon"))) {
+    per_sample_dirs <- list.dirs(run$sample_dirs[1],
+                                 full.names = FALSE,
+                                 recursive = FALSE)
+    if ("salmon" %in% per_sample_dirs) {
         type <- "salmon"
-    } else if (any(str_detect(per_sample_dirs, "sailfish"))) {
+    } else if ("sailfish" %in% per_sample_dirs) {
         type <- "sailfish"
     } else {
         stop("Unsupported counts output format")
