@@ -26,8 +26,7 @@ detect_organism <- function(genome_build) {
     } else if (str_detect(genome_build, "^(MB|MG)\\d+")) {
         organism <- "ecoli"
     } else {
-        message("Unknown genome build")
-        organism <- NULL
+        stop("Failed to detect organism automatically")
     }
     return(organism)
 }
