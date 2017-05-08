@@ -13,23 +13,23 @@ check_run <- function(run) {
     if (!is.list(run)) {
         stop("Run object is not a list")
     }
-    if (!length(dir(run$final_dir))) {
-        stop("Could not access final_dir")
+    if (is.null(run$yaml)) {
+        stop("Run does contain YAML info, please resave")
+    }
+    if (!length(dir(run$upload_dir))) {
+        stop("Could not access upload dir")
+    }
+    if (!length(dir(run$project_dir))) {
+        stop("Could not access project dir")
     }
     if (!length(run$sample_dirs)) {
         stop("No sample directories in run")
     }
-    if (!length(dir(run$project_dir))) {
-        stop("Could not access project_dir")
-    }
-    if (is.null(run$yaml)) {
-        stop("Run does contain YAML info, please resave")
-    }
     if (is.null(run$metadata)) {
         stop("Run does not contain metadata, please resave")
     }
-    if (is.null(run$ensembl) & run$srnaseq == FALSE) {
-        stop("Run does not contain Ensembl annotations, please resave")
+    if (run$analysis == "rnaseq" & is.null(run$ensembl)) {
+        stop("RNA-seq run does not contain Ensembl annotations, please resave")
     }
 
     # Metadata format and description name checks

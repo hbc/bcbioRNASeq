@@ -21,7 +21,7 @@ warn_color <- "orange"
 
 # Imports ====
 ## General ----
-#' @importFrom knitr asis_output kable opts_knit
+#' @importFrom knitr asis_output kable opts_knit opts_chunk
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
 #' @importFrom utils globalVariables head sessionInfo
@@ -64,7 +64,7 @@ NULL
 
 
 
-# Rexports ====
+# Re-exports ====
 ## RNA-seq ----
 #' @usage NULL
 #' @export
@@ -99,6 +99,10 @@ tibble::glimpse
 #' @usage NULL
 #' @export
 knitr::kable
+
+#' @usage NULL
+#' @export
+knitr::opts_chunk
 
 #' @usage NULL
 #' @export

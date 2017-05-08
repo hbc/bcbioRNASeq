@@ -18,6 +18,14 @@ import_summary <- function() {
     .Deprecated("read_bcbio_metrics")
 }
 
+load_bcbio_run <- function() {
+    .Deprecated("load_run")
+}
+
+load_bcbio_run_from_yaml <- function() {
+    .Deprecated("load_run")
+}
+
 plot_deseq_pca <- function() {
     .Deprecated("plot_pca")
 }

@@ -19,6 +19,8 @@
 \alias{reexports}
 \alias{kable}
 \alias{reexports}
+\alias{opts_chunk}
+\alias{reexports}
 \alias{set_rownames}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -29,7 +31,7 @@ below to see their documentation.
 \describe{
   \item{DESeq2}{\code{\link[DESeq2]{design}}}
 
-  \item{knitr}{\code{\link[knitr]{kable}}}
+  \item{knitr}{\code{\link[knitr]{kable}}, \code{\link[knitr]{opts_chunk}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{set_rownames}}}
 
