@@ -2,6 +2,13 @@
 title: "Quality Control"
 date: "`r BiocStyle::doc_date()`"
 bibliography: bibliography.bib
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    highlight: zenburn
+    theme: flatly
 ---
 
 ```{r setup, include=FALSE}
@@ -86,7 +93,7 @@ plotDispEsts(dds)
 
 
 
-# Read metrics
+# Read metrics {.tabset}
 
 ## Total reads
 
