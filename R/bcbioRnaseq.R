@@ -47,6 +47,7 @@ NULL
 ## Visualization ----
 #' @import ggrepel
 #' @importFrom pheatmap pheatmap
+#' @importFrom cowplot ggdraw draw_plot
 NULL
 
 ## tidyverse ----

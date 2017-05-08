@@ -1,3 +1,43 @@
+#' Plot size distribution of small RNAseq data
+#'
+#' @rdname plot_size_distribution
+#' @author Lorena Pantano
+#'
+#' @param run \code{bcbio-nextgen} run
+#' @return ggplot figure
+#' @export
+plot_size_distribution <- function(run){
+
+    fns = file.path(run$sample_dirs,
+                    paste0(names(run$sample_dirs),
+                           "-ready.trimming_stats"))
+    names(fns) = names(run$sample_dirs)
+
+    tab = data.frame()
+    for (sample in rownames(run$metadata)) {
+        d = read.table(fns[sample], sep = "")
+        tab = rbind(tab, d %>% mutate(sample=sample,
+                                      group=run$metadata[sample,
+                                                         run$intgroup]))
+    }
+
+    reads_adapter = tab %>% group_by(sample, group) %>% summarise(total=sum(V2))
+    ggdraw() +
+        draw_plot(
+            ggplot(reads_adapter, aes(x=sample,y=total,fill=group)) +
+                geom_bar(stat="identity", position = "dodge") +
+                ggtitle("total number of reads with adapter") +
+                ylab("# reads") +
+                theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)), 0, 0.5, 1, 0.5) +
+        draw_plot(
+            ggplot(tab, aes(x=V1,y=V2, group=sample)) +
+                geom_bar(stat="identity", position = "dodge") +
+                facet_wrap(~group, ncol=2)+
+                ggtitle("size distribution") +
+                ylab("# reads") + xlab("size") +
+                theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)), 0, 0, 1, 0.5)
+}
+
 #' Quality control plots
 #'
 #' @rdname qc_plots

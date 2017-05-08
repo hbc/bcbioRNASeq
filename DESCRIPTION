@@ -31,6 +31,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     biomaRt (>= 2.32.0),
+    cowplot,
     DEGreport,
     DESeq2 (>= 1.16.0),
     dplyr (>= 0.5.0.9000),
