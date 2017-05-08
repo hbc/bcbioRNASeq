@@ -8,7 +8,7 @@
 \alias{read_bcbio_samples_yaml}
 \title{Read data from bcbio-nextgen run}
 \usage{
-read_bcbio_counts(run, type = "salmon", grep = NULL, samples = NULL)
+read_bcbio_counts(run, grep = NULL, samples = NULL)
 
 read_bcbio_file(run, file, row_names = NULL, ...)
 
@@ -21,13 +21,11 @@ read_bcbio_samples_yaml(run, keys)
 \arguments{
 \item{run}{\code{bcbio-nextgen} run}
 
-\item{type}{The type of software used to generate the abundances. Follows the
-conventions of \code{tximport}.}
+\item{grep}{Use grep pattern to match samples. This will override the
+\code{samples} parameter if set.}
 
-\item{grep}{Apply grep pattern matching to samples}
-
-\item{samples}{Specify the names of samples in bcbio final directory to
-input. If \code{NULL} (default), all samples will be imported.}
+\item{samples}{Character vector of sample names in bcbio final directory to
+include. If \code{NULL} (default), all samples will be imported.}
 
 \item{file}{File name}
 
@@ -48,7 +46,9 @@ Metadata data frame
 Summary statistics data frame
 }
 \description{
-Read RNA-Seq counts using \code{tximport}
+Read RNA-seq counts using \code{tximport}. Currently supports
+  \href{https://combine-lab.github.io/salmon/}{salmon} and
+  \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 
 Read a project data file
 

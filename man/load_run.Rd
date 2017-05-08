@@ -5,7 +5,8 @@
 \title{Load bcbio run}
 \usage{
 load_run(yaml_file = "project-summary.yaml", analysis = "rnaseq",
-  intgroup = "description", metadata_file = NULL, organism = NULL)
+  intgroup = "description", metadata_file = NULL, organism = NULL,
+  read_counts = TRUE)
 }
 \arguments{
 \item{yaml_file}{YAML file saved during final upload from
@@ -23,6 +24,9 @@ sample metadata saved in the YAML file.}
 \item{organism}{Organism name, following Ensembl/Biomart conventions. Must be
 lowercase and one word (e.g. hsapiens). This will be detected automatically
 for common reference genomes and normally does not need to be set.}
+
+\item{read_counts}{Automatically read in the count data using
+\code{read_bcbio_counts()}}
 }
 \value{
 \code{bcbio-nextgen} run object

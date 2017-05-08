@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{design}
 \alias{reexports}
+\alias{meanSdPlot}
+\alias{reexports}
 \alias{!!!}
 \alias{reexports}
 \alias{!!}
@@ -38,5 +40,7 @@ below to see their documentation.
   \item{rlang}{\code{\link[rlang]{!!!}}, \code{\link[rlang]{!!}}, \code{\link[rlang]{sym}}, \code{\link[rlang]{syms}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}}
+
+  \item{vsn}{\code{\link[vsn]{meanSdPlot}}}
 }}
 
