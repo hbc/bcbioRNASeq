@@ -171,7 +171,7 @@ load_bcbio_run_from_yaml <- function(
 
     # Sample directories
     samples_names <- sapply(yaml$samples, function(x){x$description})
-    sample_dirs <- file.path(project_dir, samples_names)
+    sample_dirs <- file.path(final_dir, samples_names)
     names(sample_dirs) <- samples_names
 
     # Detect number of sample lanes
