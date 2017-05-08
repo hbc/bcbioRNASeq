@@ -122,7 +122,7 @@ load_run <- function(
 
         # Read counts using `tximport()`
         if (isTRUE(read_counts)) {
-            run$counts <- read_bcbio_counts(run)
+            run$txi <- read_bcbio_counts(run)
         }
     } else if (analysis == "srnaseq") {
         message("Automatic count import not yet supported for small RNA-seq")
