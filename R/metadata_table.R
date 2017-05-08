@@ -11,8 +11,6 @@
 #' @return Data frame containing only the columns of interest
 #' @export
 metadata_table <- function(run) {
-    df <- run$metadata %>%
-        .[, unique(c("description", run$intgroup))] %>%
-        remove_rownames
+    df <- run$metadata %>% remove_rownames
     return(kable(df, caption = "Sample metadata"))
 }
