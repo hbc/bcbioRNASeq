@@ -27,15 +27,10 @@ metadata_table(run)
 
 
 
-```{r txi, results="hide"}
-txi <- read_bcbio_counts(run)
-save_data(txi)
-```
-
 ```{r dds, results="hide"}
 design <- formula(~ condition)
 dds <- DESeqDataSetFromTximport(
-    txi,
+    txi = run$txi,
     colData = run$metadata,
     design = design) %>%
     DESeq
@@ -50,7 +45,7 @@ sizeFactors(dds)
 ```{r counts}
 raw_counts <- counts(dds, normalized = FALSE)
 normalized_counts <- counts(dds, normalized = TRUE)
-tpm <- tpm(txi)
+tpm <- tpm(run$txi)
 save_data(raw_counts, normalized_counts, tpm)
 write_counts(raw_counts, normalized_counts, tpm)
 ```
