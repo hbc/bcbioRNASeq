@@ -1,9 +1,9 @@
 #' \code{bcbioRnaseq} package
 #'
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
-#' experiments.
-#'
-#' See the README on \href{https://github.com/hbc/bcbioRnaseq}{GitHub}.
+#' experiments. Consult the
+#' \href{http://bioinformatics.sph.harvard.edu/bcbioRnaseq}{package website} for
+#' additional information.
 #'
 #' @docType package
 #' @name bcbioRnaseq
@@ -24,7 +24,7 @@ warn_color <- "orange"
 #' @importFrom knitr asis_output kable opts_chunk opts_knit
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
-#' @importFrom utils globalVariables head sessionInfo
+#' @importFrom utils download.file globalVariables head read.table sessionInfo
 #' @importFrom yaml yaml.load_file
 NULL
 

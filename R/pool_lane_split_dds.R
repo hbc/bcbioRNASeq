@@ -63,14 +63,14 @@ pool_lane_split_dds <- function(
         }
 
         # normalized_counts
-        normalized_counts <- counts(dds_pooled, normalized = TRUE)
+        normalized_counts <- counts(pooled_dds, normalized = TRUE)
         assign("pooled_normalized_counts",
                normalized_counts,
                envir = parent.frame())
         write_pooled_counts(normalized_counts)
 
         # raw_counts
-        raw_counts <- counts(dds_pooled, normalized = FALSE)
+        raw_counts <- counts(pooled_dds, normalized = FALSE)
         assign("pooled_raw_counts",
                raw_counts,
                envir = parent.frame())

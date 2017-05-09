@@ -7,8 +7,7 @@
 \title{\code{bcbioRnaseq} package}
 \description{
 Quality control and differential expression for bcbio-nextgen RNA-seq
-experiments.
-}
-\details{
-See the README on \href{https://github.com/hbc/bcbioRnaseq}{GitHub}.
+experiments. Consult the
+\href{http://bioinformatics.sph.harvard.edu/bcbioRnaseq}{package website} for
+additional information.
 }

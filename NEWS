@@ -1,4 +1,7 @@
 0.0.14  Default to loading run using project summary YAML file.
+        Initial commit of RMarkdown templates (e.g. quality control).
+        Add support for dynamic file downloads from HBC website.
+        Draft build of website using pkgdown::build_site().
 0.0.13  Improve RDAVIDWebService utility functions to work with dplyr 0.6.0.
 0.0.12  Rework metadata and summary metrics functions to obtain information
         from project-summary.yaml saved in the final run directory.

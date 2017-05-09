@@ -1,13 +1,13 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
 Version: 0.0.14
-Date: 2017-05-08
+Date: 2017-05-09
 Authors@R: c(
-    person("Rory", "Kirchner",
-           email = "roryk@alum.mit.edu",
-           role = c("aut", "cre")),
     person("Michael", "Steinbaugh",
            email = "mike@steinbaugh.com",
+           role = c("aut", "cre")),
+    person("Rory", "Kirchner",
+           email = "roryk@alum.mit.edu",
            role = "aut"),
     person("Lorena", "Pantano",
            email = "lorena.pantano@gmail.com",
@@ -22,7 +22,7 @@ biocViews:
     RNASeq,
     Visualization
 URL:
-    https://bcbio-nextgen.readthedocs.io,
+    http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
 Depends: R (>= 3.4.0)
@@ -57,12 +57,11 @@ Imports:
     vsn (>= 3.44.0),
     yaml
 Suggests:
-    RUnit,
+    BiocGenerics,
     BiocStyle,
-    BiocGenerics
+    RUnit
 Remotes:
     hadley/rlang,
-    tidyverse/dplyr,
     lpantano/DEGreport
-License: MIT + file LICENSE
+    tidyverse/dplyr,
 RoxygenNote: 6.0.1
