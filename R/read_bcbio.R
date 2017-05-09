@@ -73,7 +73,7 @@ read_bcbio_counts <- function(
 
     # Begin loading of selected counts
     message(paste("Reading", type, "counts..."))
-    message(paste(names(sample_files), collapse = "\n"))
+    names(sample_files) %>% toString %>% message
 
     # Use the tx2gene file output by `bcbio-nextgen`. Alternatively,
     # we could handle this directly in R using biomaRt instead.
