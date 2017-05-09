@@ -4,13 +4,13 @@
 \alias{load_run}
 \title{Load bcbio-nextgen run}
 \usage{
-load_run(yaml_file = "project-summary.yaml", analysis = "rnaseq",
+load_run(upload_dir = "final", analysis = "rnaseq",
   intgroup = "description", metadata_file = NULL, organism = NULL,
   read_counts = TRUE)
 }
 \arguments{
-\item{yaml_file}{YAML file saved during final upload from
-\code{bcbio-nextgen}}
+\item{upload_dir}{Path to final upload directory. This path is set when
+running \code{bcbio_nextgen -w template}.}
 
 \item{analysis}{Analysis type (e.g. \code{rnaseq} or \code{srnaseq})}
 

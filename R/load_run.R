@@ -8,8 +8,8 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param yaml_file YAML file saved during final upload from
-#'   \code{bcbio-nextgen}
+#' @param upload_dir Path to final upload directory. This path is set when
+#'   running \code{bcbio_nextgen -w template}.
 #' @param analysis Analysis type (e.g. \code{rnaseq} or \code{srnaseq})
 #' @param intgroup Character vector of interesting groups. First entry is used
 #'   for plot colors during quality control (QC) analysis. Entire vector is used
@@ -25,47 +25,30 @@
 #' @return \code{bcbio-nextgen} run object
 #' @export
 load_run <- function(
-    yaml_file = "project-summary.yaml",
+    upload_dir = "final",
     analysis = "rnaseq",
     intgroup = "description",
     metadata_file = NULL,
     organism = NULL,
     read_counts = TRUE) {
-    # Load the YAML summary file
-    if (file.exists(yaml_file)) {
-        yaml_file <- normalizePath(yaml_file)
-        message(paste("YAML:", yaml_file))
-        yaml <- read_yaml(yaml_file)
-    } else {
-        stop("Run YAML file not found")
+    upload_dir <- normalizePath(upload_dir)
+    # Check connection to upload_dir
+    if (!length(dir(upload_dir))) {
+        stop("Final upload directory failed to load")
     }
 
-    # Recursve two levels up from YAML to get final upload directory base
-    project_dir <- yaml_file %>% dirname
-    upload_dir <- yaml_file %>% dirname %>% dirname
-    message(paste(dir(upload_dir), collapse = "\n"))
-
-    # Obtain the samples (and their directories) from the YAML
-    sample_names <- sapply(yaml$samples,
-                            function(x) { x$description }) %>% sort
-    sample_dirs <- file.path(upload_dir, sample_names)
-    names(sample_dirs) <- sample_names
-
-    # Organism class (used with Ensembl)
-    if (is.null(organism)) {
-        # Use the genome build of the first sample to match
-        organism <- detect_organism(yaml$samples[[1]]$genome_build)
+    # Find most recent nested project_dir (normally only 1)
+    pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+    project_dir <- dir(upload_dir,
+                       pattern = pattern,
+                       full.names = FALSE,
+                       recursive = FALSE) %>%
+        sort %>% rev %>% .[[1]]
+    if (!length(project_dir)) {
+        stop("Project directory not found")
     }
-
-    # Detect number of sample lanes, determine if split
-    lane_pattern <- "_L(\\d{3})"
-    if (any(str_detect(sample_dirs, lane_pattern))) {
-        message("Sample lanes detected")
-        lanes <- str_match(names(sample_dirs), lane_pattern) %>%
-            .[, 2] %>% unique %>% length
-    } else {
-        lanes <- NULL
-    }
+    message(project_dir)
+    project_dir <- file.path(upload_dir, project_dir)
 
     # Program versions
     message("Reading program versions...")
@@ -79,6 +62,41 @@ load_run <- function(
             read_csv(col_types = cols())
     } else {
         data_versions <- NULL
+    }
+
+    # Find the summary YAML file automatically
+    yaml_file <- dir(project_dir, pattern = "*.yaml$", full.names = TRUE)
+    if (length(yaml_file) != 1) {
+        stop("Unsure which YAML file to use")
+    }
+
+    # Load the YAML summary file
+    message(paste("YAML:", basename(yaml_file)))
+    yaml <- read_yaml(yaml_file)
+
+    # Obtain the samples (and their directories) from the YAML
+    sample_names <- sapply(yaml$samples,
+                            function(x) { x$description }) %>% sort
+    sample_dirs <- file.path(upload_dir, sample_names)
+    names(sample_dirs) <- sample_names
+
+    # Organism class (used with Ensembl)
+    if (is.null(organism)) {
+        # Use the genome build of the first sample to match
+        genome_build <- yaml$samples[[1]]$genome_build
+        organism <- detect_organism(genome_build)
+    }
+    message(paste("Genome:", genome_build))
+    message(paste("Organism:", organism))
+
+    # Detect number of sample lanes, determine if split
+    lane_pattern <- "_L(\\d{3})"
+    if (any(str_detect(sample_dirs, lane_pattern))) {
+        message("Sample lanes detected")
+        lanes <- str_match(names(sample_dirs), lane_pattern) %>%
+            .[, 2] %>% unique %>% length
+    } else {
+        lanes <- NULL
     }
 
     run <- list(
@@ -114,6 +132,7 @@ load_run <- function(
 
     # Subset the sample_dirs by the metadata data frame
     run$sample_dirs <- run$sample_dirs[run$metadata$description]
+    names(run$sample_dirs) %>% toString %>% message
 
     if (analysis == "rnaseq") {
         # Save Ensembl annotations

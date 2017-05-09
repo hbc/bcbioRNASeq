@@ -19,9 +19,7 @@ if (file.exists("data/run.rda")) {
 } else {
     create_new_project()
     run <- load_run(
-        file.path("upload_dir",
-                  "YYYY-MM-DD_illumina_rnaseq",
-                  "project-summary.yaml"),
+        file.path("upload_dir"),
         intgroup = c("genotype", "treatment"))
     save_data(run)
 }
