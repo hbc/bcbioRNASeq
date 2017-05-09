@@ -38,6 +38,7 @@ Imports:
     edgeR (>= 3.18.0),
     ggplot2 (>= 2.2.1),
     ggrepel (>= 0.6.5),
+    isomiRs,
     knitr (>= 1.15),
     magrittr (>= 1.5),
     pheatmap (>= 1.0.8),
@@ -62,6 +63,6 @@ Suggests:
     RUnit
 Remotes:
     hadley/rlang,
-    lpantano/DEGreport
+    lpantano/DEGreport,
     tidyverse/dplyr,
 RoxygenNote: 6.0.1
