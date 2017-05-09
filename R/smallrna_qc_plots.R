@@ -56,3 +56,13 @@ plot_size_distribution <- function(run) {
                                                vjust = 0.5,
                                                hjust = 1)), 0, 0, 1, 0.5)
 }
+
+#' @rdname smallrna_qc_plots
+#' @description Plot of total miRNA counts
+#' @export
+plot_mirna_counts <- function(run){
+    ggplot( data.frame(sample=colnames(counts(run$srna_counts)),
+                       total=colSums(counts(run$srna_counts)))) +
+        geom_bar(aes(x=sample,y=total), stat='identity')+
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+}

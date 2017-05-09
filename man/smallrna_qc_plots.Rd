@@ -2,9 +2,12 @@
 % Please edit documentation in R/smallrna_qc_plots.R
 \name{plot_size_distribution}
 \alias{plot_size_distribution}
+\alias{plot_mirna_counts}
 \title{Small RNA-seq quality control plots}
 \usage{
 plot_size_distribution(run)
+
+plot_mirna_counts(run)
 }
 \arguments{
 \item{run}{\code{bcbio-nextgen} run}
@@ -14,6 +17,8 @@ ggplot figure
 }
 \description{
 Plot size distribution of small RNA-seq data
+
+Plot of total miRNA counts
 }
 \author{
 Lorena Pantano

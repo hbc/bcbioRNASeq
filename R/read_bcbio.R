@@ -27,6 +27,7 @@ read_bcbio_counts <- function(
     samples = NULL) {
     check_run(run)
 
+    if (run$analysis == "srnaseq"){return(.read_smallrna_counts(run))}
     # Select the samples to import
     if (!is.null(grep)) {
         # grep pattern matching against sample names
@@ -245,4 +246,18 @@ read_bcbio_samples_yaml <- function(run, keys) {
         .[, c("description", sort(setdiff(names(.), "description")))] %>%
         set_rownames(.$description)
     return(df)
+}
+
+# internal function to read small RNA count data
+.read_smallrna_counts <- function(run){
+    fns <- file.path(run$sample_dirs,
+                     paste(names(run$sample_dirs),
+                           "mirbase-ready.counts",
+                           sep = "-"))
+    names(fns) <- names(run$sample_dirs)
+    message("Reading miRNA count files")
+    obj <- IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
+                                  coldata = run$metadata,
+                                  design = ~run$intgroup)
+    return(obj)
 }

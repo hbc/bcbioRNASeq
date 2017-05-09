@@ -44,6 +44,10 @@ NULL
 #' @importFrom vsn meanSdPlot
 NULL
 
+## small RNA-Seq ----
+#' @importFrom isomiRs IsomirDataSeqFromFiles
+
+
 ## Visualization ----
 #' @import ggrepel
 #' @importFrom pheatmap pheatmap
