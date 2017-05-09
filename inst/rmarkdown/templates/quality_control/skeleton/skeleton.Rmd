@@ -22,7 +22,6 @@ if (file.exists("data/run.rda")) {
         file.path("upload_dir",
                   "YYYY-MM-DD_illumina_rnaseq",
                   "project-summary.yaml"),
-        metadata_file = "meta/illumina_rnaseq.xlsx",
         intgroup = c("genotype", "treatment"))
     save_data(run)
 }
