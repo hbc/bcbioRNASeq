@@ -18,51 +18,64 @@ pool_lane_split_dds <- function(
     save = TRUE) {
     check_run(run)
     check_dds(dds)
-    name <- deparse(substitute(dds))
 
     # Get the internal parameters from DESeqDataSet
     raw_counts <- counts(dds, normalized = FALSE)
-    design <- DESeq2::design(dds)
+    design <- design(dds)
 
     # Pool the lane split technical replicates
     pooled_counts <- pool_lane_split_counts(raw_counts)
 
-    # Obtain metadata
-    metadata <- run$metadata
-    if (!identical(colnames(pooled_counts), rownames(metadata))) {
-        stop("count colnames don't match metadata rownames")
+    # Reload metadata without lanes
+    if (is.null(run$metadata_file)) {
+        stop("Custom metadata file required for count pooling")
+    }
+    metadata <- read_metadata(run$metadata_file) %>%
+        .[order(.$file_name), ]
+    if (!identical(colnames(pooled_counts), metadata$file_name)) {
+        stop("Pooled count names don't match original file names")
     }
 
-    # Re-generate DESeqDataSet using the pooled counts matrix
-    dds_pooled <- DESeqDataSetFromMatrix(
-        pooled_counts,
+    # Replace file names in pooled count matrix with description
+    colnames(pooled_counts) <- metadata$description
+
+    # Ensure count matrix colnames matches metadata rownames
+    if (!identical(colnames(pooled_counts), rownames(metadata))) {
+        stop("Description mismatch")
+    }
+
+    pooled_dds <- DESeqDataSetFromMatrix(
+        countData = pooled_counts,
         colData = metadata,
         design = design
     ) %>% DESeq
 
     if (isTRUE(save)) {
+        # Internal rework of `write_counts()` that doesn't use dots
+        write_pooled_counts <- function(counts, dir = "results/counts") {
+            name <- deparse(substitute(counts))
+            counts %>%
+                as.data.frame %>%
+                rownames_to_column("ensembl_gene_id") %>%
+                as_tibble %>%
+                write_csv(path = file.path(dir, paste0(
+                    paste("pooled", name, sep = "_"), ".csv.gz")))
+        }
+
         # normalized_counts
         normalized_counts <- counts(dds_pooled, normalized = TRUE)
-        assign(paste(name, "pooled_normalized_counts", sep = "_"),
+        assign("pooled_normalized_counts",
                normalized_counts,
                envir = parent.frame())
-        normalized_counts %>%
-            rownames_to_column %>%
-            write_csv(path = file.path(
-                "results",
-                paste(name, "pooled_normalized_counts.csv.gz", sep = "_")))
+        write_pooled_counts(normalized_counts)
 
         # raw_counts
         raw_counts <- counts(dds_pooled, normalized = FALSE)
-        assign(paste(name, "pooled_raw_counts", sep = "_"),
+        assign("pooled_raw_counts",
                raw_counts,
                envir = parent.frame())
-        raw_counts %>%
-            rownames_to_column %>%
-            write_csv(path = file.path(
-                "results",
-                paste(name, "pooled_raw_counts.csv.gz", sep = "_")))
+        write_pooled_counts(raw_counts)
     }
 
-    return(dds_pooled)
+    return(pooled_dds)
 }
