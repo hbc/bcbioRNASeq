@@ -31,11 +31,11 @@ load_run <- function(
     metadata_file = NULL,
     organism = NULL,
     read_counts = TRUE) {
-    upload_dir <- normalizePath(upload_dir)
     # Check connection to upload_dir
     if (!length(dir(upload_dir))) {
         stop("Final upload directory failed to load")
     }
+    upload_dir <- normalizePath(upload_dir)
 
     # Find most recent nested project_dir (normally only 1)
     pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
@@ -48,6 +48,9 @@ load_run <- function(
         stop("Project directory not found")
     }
     message(project_dir)
+    match <- str_match(project_dir, pattern)
+    run_date <- match[2]
+    template <- match[3]
     project_dir <- file.path(upload_dir, project_dir)
 
     # Program versions
@@ -107,6 +110,7 @@ load_run <- function(
         project_dir = project_dir,
         run_date = as.Date(yaml$date),
         today_date = Sys.Date(),
+        template = template,
         wd = getwd(),
         hpc = detect_hpc(),
         sample_dirs = sample_dirs,
