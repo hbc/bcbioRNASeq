@@ -48,6 +48,7 @@ opts_chunk$set(
     tidy = TRUE,
     warning = FALSE)
 
+# Workflow ====
 library(DESeq2)
 ```
 
