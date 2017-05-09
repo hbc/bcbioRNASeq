@@ -3,6 +3,8 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{counts}
+\alias{reexports}
 \alias{design}
 \alias{reexports}
 \alias{meanSdPlot}
@@ -31,7 +33,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{DESeq2}{\code{\link[DESeq2]{design}}}
+  \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{design}}}
 
   \item{knitr}{\code{\link[knitr]{kable}}, \code{\link[knitr]{opts_chunk}}}
 

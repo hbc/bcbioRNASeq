@@ -69,6 +69,10 @@ NULL
 ## RNA-seq ----
 #' @usage NULL
 #' @export
+DESeq2::counts
+
+#' @usage NULL
+#' @export
 DESeq2::design
 
 #' @usage NULL

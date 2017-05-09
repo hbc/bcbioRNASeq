@@ -93,6 +93,7 @@ load_run <- function(
         hpc = detect_hpc(),
         sample_dirs = sample_dirs,
         intgroup = intgroup,
+        metadata_file = metadata_file,
         metadata = NULL,
         organism = organism,
         ensembl = NULL,
