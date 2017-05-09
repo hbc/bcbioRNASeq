@@ -94,4 +94,6 @@ Plot sexually dimorphic gender marker genes
 }
 \author{
 Michael Steinbaugh
+
+Rory Kirchner
 }
