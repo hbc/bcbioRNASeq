@@ -16,7 +16,7 @@ check_dt(dt, stop = TRUE)
 check_res(res, stop = TRUE)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{dds}{\code{DESeqDataSet}}
 
@@ -27,7 +27,7 @@ check_res(res, stop = TRUE)
 \item{res}{\code{DESeqResults}}
 }
 \description{
-Check \code{bcbio-nextgen} run. Always stops on failure.
+Check bcbio-nextgen run. Always stops on failure.
 
 Check \code{DESeqDataSet}
 

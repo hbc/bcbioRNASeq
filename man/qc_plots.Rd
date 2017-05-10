@@ -37,7 +37,7 @@ plot_count_density(run, normalized_counts)
 plot_gender_markers(run, normalized_counts)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{raw_counts}{Raw counts matrix. Can be obtained from \code{DESeqDataSet}
 by running \code{counts(normalized = FALSE)}.}

@@ -4,7 +4,7 @@
 \name{bcbioRnaseq}
 \alias{bcbioRnaseq}
 \alias{bcbioRnaseq-package}
-\title{\code{bcbioRnaseq} package}
+\title{bcbioRnaseq}
 \description{
 Quality control and differential expression for bcbio-nextgen RNA-seq
 experiments. Consult the

@@ -7,7 +7,7 @@
 plot_deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{bcbio-nextgen run object}
 
 \item{dds}{\code{DESeqDataSet}}
 

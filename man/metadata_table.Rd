@@ -7,7 +7,7 @@
 metadata_table(run)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 }
 \value{
 Data frame containing only the columns of interest
@@ -15,7 +15,7 @@ Data frame containing only the columns of interest
 \description{
 Returns a subset of metadata columns of interest used for knit reports. These
 "interesting group" columns are defined as \code{intgroup} in the
-\code{bcbio-nextgen} run object.
+bcbio-nextgen run object.
 }
 \author{
 Michael Steinbaugh

@@ -7,7 +7,7 @@
 plot_correlation_heatmap(run, dt, method = "pearson")
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{bcbio-nextgen run object}
 
 \item{dt}{\code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 on a \code{DESeqDataSet} object}

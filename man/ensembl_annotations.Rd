@@ -8,7 +8,7 @@ ensembl_annotations(run, attributes = NULL, filters = "ensembl_gene_id",
   values = NULL)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{bcbio-nextgen run object}
 
 \item{attributes}{Ensembl attributes. See \code{biomaRt::listAttributes()}.}
 

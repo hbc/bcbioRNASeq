@@ -7,7 +7,7 @@
 melt_log10(run, counts)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{counts}{Counts matrix}
 }

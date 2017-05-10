@@ -7,7 +7,7 @@
 plot_pca(run, dt, label = TRUE)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{dt}{\code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 on a \code{DESeqDataSet} object}

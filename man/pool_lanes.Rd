@@ -14,7 +14,7 @@ pool_lane_split_dds(run, dds, save = TRUE)
 
 \item{lane_grep}{Grep string to match lane identifiers in file name}
 
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{bcbio-nextgen run object}
 
 \item{dds}{DESeqDataSet object}
 

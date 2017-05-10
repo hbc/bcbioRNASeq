@@ -7,7 +7,7 @@
 res_tables(run, res, lfc = 0)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run object}
+\item{run}{bcbio-nextgen run object}
 
 \item{res}{\code{DESeqResults}}
 

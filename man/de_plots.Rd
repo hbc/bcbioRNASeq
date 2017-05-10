@@ -17,7 +17,7 @@ plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
 
 \item{ylim}{Y-axis maximum (single integer)}
 
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
 
@@ -43,7 +43,7 @@ MA plot
 Volcano plot
 }
 \description{
-Wrapper for \code{DESeq2::plotMA} that generates a title
+Wrapper for \code{DESeq2::plotMA()} that generates a title
   automatically
 
 Volcano plot

@@ -19,7 +19,7 @@ read_bcbio_metrics(run)
 read_bcbio_samples_yaml(run, keys)
 }
 \arguments{
-\item{run}{\code{bcbio-nextgen} run}
+\item{run}{bcbio-nextgen run}
 
 \item{grep}{Use grep pattern to match samples. This will override the
 \code{samples} parameter if set.}
