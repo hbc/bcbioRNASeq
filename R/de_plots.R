@@ -6,7 +6,7 @@
 
 
 #' @rdname de_plots
-#' @description Wrapper for \code{DESeq2::plotMA} that generates a title
+#' @description Wrapper for \code{DESeq2::plotMA()} that generates a title
 #'   automatically
 #'
 #' @param res \code{DESeqResults}
@@ -34,7 +34,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @rdname de_plots
 #' @description Volcano plot
 #'
-#' @param run \code{bcbio-nextgen} run
+#' @param run bcbio-nextgen run
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring
 #' @param text_labels Number of text labels to plot
 #'

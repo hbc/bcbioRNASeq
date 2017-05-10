@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run bcbio-nextgen run object
 #' @param dds \code{DESeqDataSet}
 #' @param contrast Contrast
 #' @param alpha Alpha level cutoff

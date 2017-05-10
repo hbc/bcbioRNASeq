@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run bcbio-nextgen run object
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
 #'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
 #'   Transcripts per million (TPM) are also acceptable.

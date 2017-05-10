@@ -3,7 +3,7 @@
 #' @rdname smallrna_qc_plots
 #' @author Lorena Pantano
 #'
-#' @param run \code{bcbio-nextgen} run
+#' @param run bcbio-nextgen run
 #'
 #' @return ggplot figure
 

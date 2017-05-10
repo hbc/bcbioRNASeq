@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run bcbio-nextgen run object
 #' @param res \code{DESeqResults}
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.

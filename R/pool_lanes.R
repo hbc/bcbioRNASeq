@@ -42,7 +42,7 @@ pool_lane_split_counts <- function(raw_counts,
 #'   \code{rowSums}, and create a new \code{DESeqDataSet} using
 #'   \code{DESeqDataSetFromMatrix()}
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run bcbio-nextgen run object
 #' @param dds DESeqDataSet object
 #' @param save Whether to save and export counts
 #'

@@ -2,11 +2,11 @@
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
 #' "interesting group" columns are defined as \code{intgroup} in the
-#' \code{bcbio-nextgen} run object.
+#' bcbio-nextgen run object.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run
+#' @param run bcbio-nextgen run
 #'
 #' @return Data frame containing only the columns of interest
 #' @export

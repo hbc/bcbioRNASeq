@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run object
+#' @param run bcbio-nextgen run object
 #' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
 #' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
 #' @param values Ensembl gene identifier values. Optional but will run faster if

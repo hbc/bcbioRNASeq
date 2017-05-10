@@ -3,7 +3,7 @@
 #' Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample coloring and
 #' labeling
 #'
-#' @param run \code{bcbio-nextgen} run
+#' @param run bcbio-nextgen run
 #' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
 #'   on a \code{DESeqDataSet} object
 #' @param label Superimpose sample text labels on the plot

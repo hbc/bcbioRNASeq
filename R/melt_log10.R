@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run \code{bcbio-nextgen} run
+#' @param run bcbio-nextgen run
 #' @param counts Counts matrix
 #'
 #' @return log10 melted data frame

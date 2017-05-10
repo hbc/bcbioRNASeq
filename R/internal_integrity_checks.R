@@ -6,8 +6,8 @@
 
 
 #' @rdname integrity_checks
-#' @description Check \code{bcbio-nextgen} run. Always stops on failure.
-#' @param run \code{bcbio-nextgen} run
+#' @description Check bcbio-nextgen run. Always stops on failure.
+#' @param run bcbio-nextgen run
 #' @export
 check_run <- function(run) {
     if (!is.list(run)) {
