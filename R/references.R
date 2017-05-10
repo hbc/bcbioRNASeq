@@ -1,4 +1,4 @@
-#' Check for BibTex references library
+#' Download BibTex references
 #'
 #' If file isn't present, download latest version from the HBC website
 #'

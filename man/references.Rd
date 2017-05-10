@@ -2,7 +2,7 @@
 % Please edit documentation in R/references.R
 \name{references}
 \alias{references}
-\title{Check for BibTex references library}
+\title{Download BibTex references}
 \usage{
 references(bibtex_file = "bcbioRnaseq.bib")
 }
