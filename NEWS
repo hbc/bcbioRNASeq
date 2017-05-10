@@ -1,3 +1,4 @@
+0.0.15  Clean-up and organize internal functions.
 0.0.14  Default to loading run using project summary YAML file.
         Initial commit of RMarkdown templates (e.g. quality control).
         Add support for dynamic file downloads from HBC website.
