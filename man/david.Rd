@@ -3,7 +3,8 @@
 \name{run_david}
 \alias{run_david}
 \alias{david_table}
-\title{Query the DAVID website}
+\title{Query the \href{https://david.ncifcrf.gov}{DAVID} website API with
+\href{https://www.bioconductor.org/packages/release/bioc/html/RDAVIDWebService.html}{RDAVIDWebService}}
 \usage{
 run_david(res_tbl, direction = "both", alpha = 0.05, count = 3,
   write_results = TRUE)
@@ -31,7 +32,7 @@ Cutoff chart kable
 }
 \description{
 Wrapper function that runs gene set enrichment analysis (GSEA)
-  with the \code{RDAVIDWebService} package, using simplified input options.
+  with RDAVIDWebService package, using simplified input options
 
 Generate a DAVID results table for knit report
 }

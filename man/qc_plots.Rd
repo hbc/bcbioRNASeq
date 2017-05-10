@@ -12,7 +12,7 @@
 \alias{plot_counts_per_gene}
 \alias{plot_count_density}
 \alias{plot_gender_markers}
-\title{Quality control plots}
+\title{Standard RNA-seq quality control plots}
 \usage{
 plot_total_reads(run)
 

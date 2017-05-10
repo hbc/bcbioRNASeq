@@ -1,4 +1,4 @@
-#' Quality control plots
+#' Standard RNA-seq quality control plots
 #'
 #' @rdname qc_plots
 #' @author Michael Steinbaugh

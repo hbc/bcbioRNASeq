@@ -1,4 +1,5 @@
-#' Query the DAVID website
+#' Query the \href{https://david.ncifcrf.gov}{DAVID} website API with
+#' \href{https://www.bioconductor.org/packages/release/bioc/html/RDAVIDWebService.html}{RDAVIDWebService}
 #'
 #' @rdname david
 #' @author Michael Steinbaugh
@@ -7,7 +8,7 @@
 
 #' @rdname david
 #' @description Wrapper function that runs gene set enrichment analysis (GSEA)
-#'   with the \code{RDAVIDWebService} package, using simplified input options.
+#'   with RDAVIDWebService package, using simplified input options
 #'
 #' @param res_tbl \code{res_tables()} list object
 #' @param direction Gene direction: up, down, or both
