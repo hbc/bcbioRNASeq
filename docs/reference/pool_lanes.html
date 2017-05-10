@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Small RNA-seq quality control plots — plot_size_distribution • bcbioRnaseq</title>
+<title>Lane-split FASTQ aggregation functions — pool_lane_split_counts • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,30 +73,50 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Small RNA-seq quality control plots</h1>
+    <h1>Lane-split FASTQ aggregation functions</h1>
     </div>
 
     
-    <p>Plot size distribution of small RNA-seq data</p>
-<p>Plot of total miRNA counts</p>
+    <p>Pool lane split counts</p>
+<p>Pool DESeqDataSet counts for technical replicates. Extract lane
+  split technical replicate counts from a <code>DESeqDataSet</code> object, perform
+  <code>rowSums</code>, and create a new <code>DESeqDataSet</code> using
+  <code>DESeqDataSetFromMatrix()</code></p>
     
 
-    <pre class="usage"><span class='fu'>plot_size_distribution</span>(<span class='no'>run</span>)
+    <pre class="usage"><span class='fu'>pool_lane_split_counts</span>(<span class='no'>raw_counts</span>, <span class='kw'>lane_grep</span> <span class='kw'>=</span> <span class='st'>"_L\\d+$"</span>)
 
-<span class='fu'>plot_mirna_counts</span>(<span class='no'>run</span>)</pre>
+<span class='fu'>pool_lane_split_dds</span>(<span class='no'>run</span>, <span class='no'>dds</span>, <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>raw_counts</th>
+      <td><p>Raw counts matrix</p></td>
+    </tr>
+    <tr>
+      <th>lane_grep</th>
+      <td><p>Grep string to match lane identifiers in file name</p></td>
+    </tr>
+    <tr>
       <th>run</th>
-      <td><p><code>bcbio-nextgen</code> run</p></td>
+      <td><p><code>bcbio-nextgen</code> run object</p></td>
+    </tr>
+    <tr>
+      <th>dds</th>
+      <td><p>DESeqDataSet object</p></td>
+    </tr>
+    <tr>
+      <th>save</th>
+      <td><p>Whether to save and export counts</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot figure</p>
+    <p>Pooled raw counts matrix</p>
+<p>DESeqDataSet object using pooled technical replicates</p>
     
 
   </div>
@@ -110,7 +130,7 @@
 
     <h2>Author</h2>
     
-Lorena Pantano
+Michael Steinbaugh
 
   </div>
 </div>

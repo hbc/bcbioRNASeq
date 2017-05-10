@@ -1,5 +1,8 @@
 #' Detect the organism from the genome build name
 #'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#'
 #' @param genome_build Genome build
 #'
 #' @return Organism string

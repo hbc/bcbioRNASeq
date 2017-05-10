@@ -84,7 +84,7 @@ automatically. When working in RStudio, we recommend connecting to the
 <code>bcbio-nextgen</code> run directory as a remote connection over <code>sshfs</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>load_run</span>(<span class='kw'>yaml_file</span> <span class='kw'>=</span> <span class='st'>"project-summary.yaml"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
+    <pre class="usage"><span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
   <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>read_counts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -92,9 +92,9 @@ automatically. When working in RStudio, we recommend connecting to the
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>yaml_file</th>
-      <td><p>YAML file saved during final upload from
-<code>bcbio-nextgen</code></p></td>
+      <th>upload_dir</th>
+      <td><p>Path to final upload directory. This path is set when
+running <code>bcbio_nextgen -w template</code>.</p></td>
     </tr>
     <tr>
       <th>analysis</th>

@@ -1,4 +1,4 @@
-#' Melt RNA-Seq count data to long format and log10 transform
+#' Melt RNA-seq count data to long format and log10 transform
 #'
 #' @author Michael Steinbaugh
 #'

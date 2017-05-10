@@ -101,13 +101,7 @@
     <tr>
       <th>lanes</th>
       <td><p>Number of lanes used to split the samples into technical
-replicates. This assumes the file names don't include `_L001` suffix.
-Therefore, it renames both the file name and description columns to match
-the bcbio YAML. This workflow is commonly used by Harvard Biopolymers
-Facility. We can decide to either combine counts at the server level using
-`cat` in bash, or we can run DESeq2 later by pooling the counts with
-`deseq_lane_pool()`. We may want to deprecate this method in the future and
-simply combine counts at the server level for all lane split runs.</p></td>
+replicates (<code>_LXXX</code>) suffix.</p></td>
     </tr>
     </table>
     
@@ -124,6 +118,10 @@ simply combine counts at the server level for all lane split runs.</p></td>
       
       <li><a href="#value">Value</a></li>
           </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

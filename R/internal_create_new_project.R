@@ -1,5 +1,8 @@
 #' Create new project directory structure
 #'
+#' Generate the necessary directories for an RMarkdown report in RStudio
+#'
+#' @keywords internal
 #' @author Michael Steinbaugh
 #'
 #' @export

@@ -1,5 +1,8 @@
 #' Read YAML file
 #'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#'
 #' @param yaml_file YAML file
 #'
 #' @return List of parsed YAML data if file found, otherwise \code{NULL}

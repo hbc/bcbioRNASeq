@@ -2,6 +2,7 @@
 #'
 #' Utility function to enable CPU intensive tasks
 #'
+#' @keywords internal
 #' @author Michael Steinbaugh
 #'
 #' @export

@@ -1,16 +1,14 @@
 #' Read metadata
 #'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#'
 #' @param file Metadata file. CSV and XLSX formats are supported.
 #' @param pattern Apply grep pattern matching to samples
 #' @param pattern_col Column in data frame used for pattern subsetting
 #' @param lanes Number of lanes used to split the samples into technical
-#'   replicates. This assumes the file names don't include `_L001` suffix.
-#'   Therefore, it renames both the file name and description columns to match
-#'   the bcbio YAML. This workflow is commonly used by Harvard Biopolymers
-#'   Facility. We can decide to either combine counts at the server level using
-#'   `cat` in bash, or we can run DESeq2 later by pooling the counts with
-#'   `deseq_lane_pool()`. We may want to deprecate this method in the future and
-#'   simply combine counts at the server level for all lane split runs.
+#'   replicates (\code{_LXXX}) suffix.
+#'
 #' @return Metadata data frame
 #' @export
 read_metadata <- function(
@@ -21,13 +19,13 @@ read_metadata <- function(
     if (!file.exists(file)) {
         stop("File not found")
     }
-    
+
     if (grepl("\\.xlsx$", file)) {
         metadata <- read_excel(file)
     } else {
         metadata <- read_csv(file)
     }
-    
+
      # First column must be the FASTQ file name
     names(metadata)[1] <- "file_name"
 
