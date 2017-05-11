@@ -311,7 +311,7 @@ plot_gender_markers <- function(run, normalized_counts) {
         set_names(c("ensembl_gene",
                     "description",
                     "counts")) %>%
-        left_join(csv, by = "ensembl_gene") %>%
+        left_join(gender_markers, by = "ensembl_gene") %>%
         ggplot(
             aes_(x = ~gene_symbol,
                  y = ~counts,
