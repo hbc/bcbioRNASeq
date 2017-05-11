@@ -9,8 +9,8 @@ plot_correlation_heatmap(run, dt, method = "pearson")
 \arguments{
 \item{run}{bcbio-nextgen run object}
 
-\item{dt}{\code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
-on a \code{DESeqDataSet} object}
+\item{dt}{DESeqTransform generated from \code{rlog()} or \code{vst()} on a
+DESeqDataSet object}
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used.}

@@ -1,4 +1,4 @@
-#' bcbioRnaseq
+#' bcbioRnaseq.
 #'
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments. Consult the

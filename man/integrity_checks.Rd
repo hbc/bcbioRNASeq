@@ -18,22 +18,22 @@ check_res(res, stop = TRUE)
 \arguments{
 \item{run}{bcbio-nextgen run}
 
-\item{dds}{\code{DESeqDataSet}}
+\item{dds}{DESeqDataSet}
 
 \item{stop}{Stop if class doesn't match}
 
-\item{dt}{\code{DESeqTransform}}
+\item{dt}{DESeqTransform}
 
-\item{res}{\code{DESeqResults}}
+\item{res}{DESeqResults}
 }
 \description{
-Check bcbio-nextgen run. Always stops on failure.
+Check bcbio-nextgen run. Always stop on failure.
 
-Check \code{DESeqDataSet}
+Check DESeqDataSet
 
-Check \code{DESeqTransform}
+Check DESeqTransform
 
-Check \code{DESeqResults}
+Check DESeqResults
 }
 \author{
 Michael Steinbaugh

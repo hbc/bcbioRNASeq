@@ -3,7 +3,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run object
-#' @param dds \code{DESeqDataSet}
+#' @param dds DESeqDataSet
 #' @param contrast Contrast
 #' @param alpha Alpha level cutoff
 #' @param lfc Log fold change ratio (base 2) cutoff

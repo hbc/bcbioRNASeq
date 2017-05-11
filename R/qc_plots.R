@@ -6,10 +6,10 @@
 #'
 #' @param run bcbio-nextgen run
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
-#'   Transcripts per million (TPM) are also acceptable.
-#' @param raw_counts Raw counts matrix. Can be obtained from \code{DESeqDataSet}
-#'   by running \code{counts(normalized = FALSE)}.
+#'   DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
+#'   million (TPM) are also acceptable.
+#' @param raw_counts Raw counts matrix. Can be obtained from DESeqDataSet by
+#'   running \code{counts(normalized = FALSE)}.
 
 
 

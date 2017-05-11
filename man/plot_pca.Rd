@@ -9,8 +9,8 @@ plot_pca(run, dt, label = TRUE)
 \arguments{
 \item{run}{bcbio-nextgen run}
 
-\item{dt}{\code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
-on a \code{DESeqDataSet} object}
+\item{dt}{DESeqTransform generated from \code{rlog()} or \code{vst()} on a
+DESeqDataSet object}
 
 \item{label}{Superimpose sample text labels on the plot}
 }
@@ -18,6 +18,9 @@ on a \code{DESeqDataSet} object}
 PCA plot
 }
 \description{
-Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample coloring and
+Wrapper for \code{\link[DESeq2]{plotPCA}} that improves PCA sample coloring and
 labeling
+}
+\seealso{
+\code{\link[DESeq2]{plotPCA}}
 }

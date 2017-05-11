@@ -4,8 +4,8 @@
 #'
 #' @param run bcbio-nextgen run object
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   \code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
-#'   Transcripts per million (TPM) are also acceptable.
+#'   DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
+#'   million (TPM) are also acceptable.
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene name (symbol).
 #'

@@ -39,12 +39,12 @@ plot_gender_markers(run, normalized_counts)
 \arguments{
 \item{run}{bcbio-nextgen run}
 
-\item{raw_counts}{Raw counts matrix. Can be obtained from \code{DESeqDataSet}
-by running \code{counts(normalized = FALSE)}.}
+\item{raw_counts}{Raw counts matrix. Can be obtained from DESeqDataSet by
+running \code{counts(normalized = FALSE)}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\code{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
-Transcripts per million (TPM) are also acceptable.}
+DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
+million (TPM) are also acceptable.}
 }
 \value{
 Bar plot

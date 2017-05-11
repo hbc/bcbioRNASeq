@@ -1,22 +1,22 @@
-#' Utility functions from basejump package
+#' Utility functions from basejump package.
 #'
 #' @rdname basejump
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param dna DNA sequence (ATGC nucleotides)
-#' @param list List of tables (e.g. data frame, matrix)
-#' @param captions Caption character vector
-#' @param character Character vector
-#' @param dir Output directory
-#' @param data Data type that supports name assignments
+#' @param dna DNA sequence (ATGC nucleotides).
+#' @param list List of tables (e.g. data frame, matrix).
+#' @param captions Caption character vector.
+#' @param character Character vector.
+#' @param dir Output directory.
+#' @param data Data type that supports name assignments.
 
 
 
 ## https://github.com/steinbaugh/basejump/blob/dev/R/dna.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Complement DNA sequence
+#' @description Complement DNA sequence.
 #' @export
 comp <- function(dna) {
     dna <- toupper(dna)
@@ -37,7 +37,7 @@ comp <- function(dna) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/kables.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Handle multiple kables in a single RMarkdown chunk
+#' @description Handle multiple kables in a single RMarkdown chunk.
 #' @export
 kables <- function(list, captions = NULL) {
     output <- opts_knit$get("rmarkdown.pandoc.to")
@@ -56,7 +56,7 @@ kables <- function(list, captions = NULL) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/makeNames.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Make syntactically valid names out of character vectors
+#' @description Make syntactically valid names out of character vectors.
 #' @export
 make_names <- function(character) {
     character %>%
@@ -86,7 +86,7 @@ make_names <- function(character) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/makeNames.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Make names in snake_case
+#' @description Make names in snake_case.
 #' @export
 make_names_snake <- function(character) {
     character %>% make_names %>% gsub("\\.", "_", .)
@@ -97,7 +97,7 @@ make_names_snake <- function(character) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/dna.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Reverse complement DNA sequence
+#' @description Reverse complement DNA sequence.
 #' @export
 revcomp <- function(dna) {
     dna <- toupper(dna)
@@ -113,7 +113,7 @@ revcomp <- function(dna) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/saveData.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Quick save to \code{data} directory
+#' @description Quick save to \code{data} directory.
 #' @export
 save_data <- function(..., dir = "data") {
     if (!isString(dir)) {
@@ -133,7 +133,7 @@ save_data <- function(..., dir = "data") {
 
 
 #' @rdname basejump
-#' @description Set names in dot notation
+#' @description Set names in dot notation.
 #' @export
 set_names_dot <- function(data) {
     set_names(data, make_names(colnames(data)))
@@ -144,7 +144,7 @@ set_names_dot <- function(data) {
 ## https://github.com/steinbaugh/basejump/blob/dev/R/setNames.R
 #' @rdname basejump
 #' @keywords internal
-#' @description Set names in snake_case
+#' @description Set names in snake_case.
 #' @export
 set_names_snake <- function(data) {
     set_names(data, make_names_snake(names(data)))

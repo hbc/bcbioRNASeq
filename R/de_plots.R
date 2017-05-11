@@ -1,18 +1,21 @@
-#' Differential expression plots
+#' Differential expression plots.
 #'
 #' @rdname de_plots
 #' @author Michael Steinbaugh
+#'
+#' @seealso
+#' \code{\link[DESeq2]{plotMA}}
 
 
 
 #' @rdname de_plots
-#' @description Wrapper for \code{DESeq2::plotMA()} that generates a title
-#'   automatically
+#' @description Wrapper for \code{\link[DESeq2]{plotMA}} that generates a title
+#'   automatically.
 #'
-#' @param res \code{DESeqResults}
-#' @param ylim Y-axis maximum (single integer)
+#' @param res \linkS4class{DESeqResults}.
+#' @param ylim Y-axis maximum (single integer).
 #'
-#' @return MA plot
+#' @return MA plot.
 #' @export
 plot_ma <- function(res, ylim = 2) {
     check_res(res)
@@ -32,21 +35,21 @@ plot_ma <- function(res, ylim = 2) {
 # https://github.com/hbc/CHBUtils/blob/master/R/volcanoPlot.R
 
 #' @rdname de_plots
-#' @description Volcano plot
+#' @description Volcano plot.
 #'
-#' @param run bcbio-nextgen run
-#' @param lfc Log fold change ratio (base 2) cutoff for coloring
-#' @param text_labels Number of text labels to plot
+#' @param run bcbio-nextgen run.
+#' @param lfc Log fold change ratio (base 2) cutoff for coloring.
+#' @param text_labels Number of text labels to plot.
 #'
-#' @param direction Plot \code{up}, \code{down}, or \code{both} directions
-#' @param title Title for the figure
-#' @param shade_color Shading color for bounding box
-#' @param shade_alpha Shading transparency alpha
-#' @param point_color Point color
-#' @param point_alpha Point transparency alpha
-#' @param point_outline_color Point outline color
+#' @param direction Plot \code{up}, \code{down}, or \code{both} directions.
+#' @param title Title for the figure.
+#' @param shade_color Shading color for bounding box.
+#' @param shade_alpha Shading transparency alpha.
+#' @param point_color Point color.
+#' @param point_alpha Point transparency alpha.
+#' @param point_outline_color Point outline color.
 #'
-#' @return Volcano plot
+#' @return Volcano plot.
 #' @export
 plot_volcano <- function(
     run,

@@ -1,11 +1,11 @@
-#' Print summary statistics of alpha level cutoffs
+#' Print summary statistics of alpha level cutoffs.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param dds \code{DESeqDataSet}
-#' @param alpha alpha Numeric vector of alpha levels to check
+#' @param dds DESeqDataSet.
+#' @param alpha alpha Numeric vector of alpha levels to check.
 #'
-#' @return Printed summary
+#' @return Printed summary.
 #' @export
 alpha_summary <- function(
     dds,

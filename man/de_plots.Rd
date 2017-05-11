@@ -3,7 +3,7 @@
 \name{plot_ma}
 \alias{plot_ma}
 \alias{plot_volcano}
-\title{Differential expression plots}
+\title{Differential expression plots.}
 \usage{
 plot_ma(res, ylim = 2)
 
@@ -13,40 +13,43 @@ plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
   point_outline_color = "darkgray")
 }
 \arguments{
-\item{res}{\code{DESeqResults}}
+\item{res}{\linkS4class{DESeqResults}.}
 
-\item{ylim}{Y-axis maximum (single integer)}
+\item{ylim}{Y-axis maximum (single integer).}
 
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff for coloring}
+\item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{text_labels}{Number of text labels to plot}
+\item{text_labels}{Number of text labels to plot.}
 
-\item{direction}{Plot \code{up}, \code{down}, or \code{both} directions}
+\item{direction}{Plot \code{up}, \code{down}, or \code{both} directions.}
 
-\item{title}{Title for the figure}
+\item{title}{Title for the figure.}
 
-\item{shade_color}{Shading color for bounding box}
+\item{shade_color}{Shading color for bounding box.}
 
-\item{shade_alpha}{Shading transparency alpha}
+\item{shade_alpha}{Shading transparency alpha.}
 
-\item{point_color}{Point color}
+\item{point_color}{Point color.}
 
-\item{point_alpha}{Point transparency alpha}
+\item{point_alpha}{Point transparency alpha.}
 
-\item{point_outline_color}{Point outline color}
+\item{point_outline_color}{Point outline color.}
 }
 \value{
-MA plot
+MA plot.
 
-Volcano plot
+Volcano plot.
 }
 \description{
-Wrapper for \code{DESeq2::plotMA()} that generates a title
-  automatically
+Wrapper for \code{\link[DESeq2]{plotMA}} that generates a title
+  automatically.
 
-Volcano plot
+Volcano plot.
+}
+\seealso{
+\code{\link[DESeq2]{plotMA}}
 }
 \author{
 Michael Steinbaugh

@@ -3,8 +3,8 @@
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run object
-#' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
-#'   on a \code{DESeqDataSet} object
+#' @param dt DESeqTransform generated from \code{rlog()} or \code{vst()} on a
+#'   DESeqDataSet object
 #' @param method Correlation coefficient (or covariance) to be computed.
 #'   Defaults to \code{pearson} but \code{spearman} can also be used.
 #'

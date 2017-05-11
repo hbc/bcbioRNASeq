@@ -9,7 +9,7 @@
 \alias{save_data}
 \alias{set_names_dot}
 \alias{set_names_snake}
-\title{Utility functions from basejump package}
+\title{Utility functions from basejump package.}
 \usage{
 comp(dna)
 
@@ -28,34 +28,34 @@ set_names_dot(data)
 set_names_snake(data)
 }
 \arguments{
-\item{dna}{DNA sequence (ATGC nucleotides)}
+\item{dna}{DNA sequence (ATGC nucleotides).}
 
-\item{list}{List of tables (e.g. data frame, matrix)}
+\item{list}{List of tables (e.g. data frame, matrix).}
 
-\item{captions}{Caption character vector}
+\item{captions}{Caption character vector.}
 
-\item{character}{Character vector}
+\item{character}{Character vector.}
 
-\item{dir}{Output directory}
+\item{dir}{Output directory.}
 
-\item{data}{Data type that supports name assignments}
+\item{data}{Data type that supports name assignments.}
 }
 \description{
-Complement DNA sequence
+Complement DNA sequence.
 
-Handle multiple kables in a single RMarkdown chunk
+Handle multiple kables in a single RMarkdown chunk.
 
-Make syntactically valid names out of character vectors
+Make syntactically valid names out of character vectors.
 
-Make names in snake_case
+Make names in snake_case.
 
-Reverse complement DNA sequence
+Reverse complement DNA sequence.
 
-Quick save to \code{data} directory
+Quick save to \code{data} directory.
 
-Set names in dot notation
+Set names in dot notation.
 
-Set names in snake_case
+Set names in snake_case.
 }
 \author{
 Michael Steinbaugh

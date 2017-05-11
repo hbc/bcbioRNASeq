@@ -6,7 +6,7 @@
 
 
 #' @rdname integrity_checks
-#' @description Check bcbio-nextgen run. Always stops on failure.
+#' @description Check bcbio-nextgen run. Always stop on failure.
 #' @param run bcbio-nextgen run
 #' @export
 check_run <- function(run) {
@@ -47,8 +47,8 @@ check_run <- function(run) {
 
 
 #' @rdname integrity_checks
-#' @description Check \code{DESeqDataSet}
-#' @param dds \code{DESeqDataSet}
+#' @description Check DESeqDataSet
+#' @param dds DESeqDataSet
 #' @param stop Stop if class doesn't match
 #' @export
 check_dds <- function(dds, stop = TRUE) {
@@ -66,8 +66,8 @@ check_dds <- function(dds, stop = TRUE) {
 
 
 #' @rdname integrity_checks
-#' @description Check \code{DESeqTransform}
-#' @param dt \code{DESeqTransform}
+#' @description Check DESeqTransform
+#' @param dt DESeqTransform
 #' @export
 check_dt <- function(dt, stop = TRUE) {
     if (class(dt)[1] == "DESeqTransform") {
@@ -84,8 +84,8 @@ check_dt <- function(dt, stop = TRUE) {
 
 
 #' @rdname integrity_checks
-#' @description Check \code{DESeqResults}
-#' @param res \code{DESeqResults}
+#' @description Check DESeqResults
+#' @param res DESeqResults
 #' @export
 check_res <- function(res, stop = TRUE) {
     if (class(res)[1] == "DESeqResults") {

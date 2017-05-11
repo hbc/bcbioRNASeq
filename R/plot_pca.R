@@ -1,15 +1,17 @@
 #' Plot principal component analysis (PCA)
 #'
-#' Wrapper for \code{DESeq2::plotPCA()} that improves PCA sample coloring and
+#' Wrapper for \code{\link[DESeq2]{plotPCA}} that improves PCA sample coloring and
 #' labeling
 #'
 #' @param run bcbio-nextgen run
-#' @param dt \code{DESeqTransform} generated from \code{rlog()} or \code{vst()}
-#'   on a \code{DESeqDataSet} object
+#' @param dt DESeqTransform generated from \code{rlog()} or \code{vst()} on a
+#'   DESeqDataSet object
 #' @param label Superimpose sample text labels on the plot
 #'
 #' @return PCA plot
 #' @export
+#'
+#' @seealso \code{\link[DESeq2]{plotPCA}}
 plot_pca <- function(run, dt, label = TRUE) {
     check_run(run)
     check_dt(dt)
