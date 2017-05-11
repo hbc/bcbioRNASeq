@@ -3,7 +3,7 @@ Title: RNA-Seq Utilities
 Version: 0.0.15
 Date: 2017-05-10
 Authors@R: c(
-    person("Michael", "Steinbaugh",
+    person("Michael J.", "Steinbaugh",
            email = "mike@steinbaugh.com",
            role = c("aut", "cre")),
     person("Rory", "Kirchner",
@@ -11,7 +11,11 @@ Authors@R: c(
            role = "aut"),
     person("Lorena", "Pantano",
            email = "lorena.pantano@gmail.com",
-           role = "aut"))
+           role = "aut"),
+    person("Harvard Chan Bioinformatics Core",
+           email = "bioinformatics@hsph.harvard.edu",
+           role = c("cph", "fnd"))
+    )
 Description: Quality control and differential expression for bcbio-nextgen
     RNA-seq experiments.
 biocViews:
