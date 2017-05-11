@@ -291,21 +291,16 @@ plot_gender_markers <- function(run, normalized_counts) {
     check_run(run)
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
-    # Download the CSV file from seqcloud repo
-    csv <- file.path("https://raw.githubusercontent.com",
-                     "steinbaugh",
-                     "seqcloud",
-                     "master",
-                     "workflows",
-                     "illumina_rnaseq",
-                     organism,
-                     "gender_markers.csv") %>%
-        read_csv(col_types = cols(),
-                 na = c("", "#N/A")) %>%
+    if (organism == "mmusculus") {
+        gender_markers <- gender_markers_mmusculus
+    } else {
+        stop("Unsupported organism")
+    }
+    gender_markers <- gender_markers %>%
         .[.$include == TRUE, ] %>%
         .[order(.$chromosome, .$gene_symbol), ]
     # Ensembl identifiers
-    identifier <- csv[, "ensembl_gene"][[1]] %>% sort %>% unique
+    identifier <- gender_markers$ensembl_gene %>% sort %>% unique
     # Scatterplot
     plot <- normalized_counts[identifier, ] %>%
         as.data.frame %>%

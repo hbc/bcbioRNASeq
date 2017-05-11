@@ -24,6 +24,7 @@ warn_color <- "orange"
 #' @importFrom knitr asis_output kable opts_chunk opts_knit
 #' @importFrom reshape2 melt
 #' @importFrom stats cor density na.omit
+#' @importFrom tools file_path_sans_ext
 #' @importFrom utils download.file globalVariables head read.table sessionInfo
 #' @importFrom yaml yaml.load_file
 NULL
