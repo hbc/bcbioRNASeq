@@ -17,7 +17,7 @@
 #' @description Plot total reads.
 #' @return Bar plot.
 #' @export
-plot_total_reads <- function(run) {
+plot_total_reads <- function(run,pass_limit=20,warn_limit=10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(aes_(x = ~description,
@@ -28,10 +28,10 @@ plot_total_reads <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
                    size = 2,
-                   yintercept = 10) +
+                   yintercept = warn_limit) +
         geom_hline(color = pass_color,
                    size = 2,
-                   yintercept = 20) +
+                   yintercept = pass_limit) +
         labs(x = "sample",
              y = "total reads (million)",
              fill = "") +
@@ -45,7 +45,7 @@ plot_total_reads <- function(run) {
 #' @description Mapped reads plot.
 #' @return Bar plot.
 #' @export
-plot_mapped_reads <- function(run) {
+plot_mapped_reads <- function(run,pass_limit=20,warn_limit=10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -57,10 +57,10 @@ plot_mapped_reads <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
                    size = 2,
-                   yintercept = 10) +
+                   yintercept = warn_limit) +
         geom_hline(color = pass_color,
                    size = 2,
-                   yintercept = 20) +
+                   yintercept = pass_limit) +
         labs(x = "sample",
              y = "mapped reads (million)",
              fill = "") +
@@ -74,7 +74,7 @@ plot_mapped_reads <- function(run) {
 #' @description Mapping rate plot.
 #' @return Bar plot.
 #' @export
-plot_mapping_rate <- function(run) {
+plot_mapping_rate <- function(run,pass_limit=90,warn_limit=70) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -86,10 +86,10 @@ plot_mapping_rate <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
                    size = 2,
-                   yintercept = 70) +
+                   yintercept = warn_limit) +
         geom_hline(color = pass_color,
                    size = 2,
-                   yintercept = 90) +
+                   yintercept = pass_limit) +
         labs(x = "sample",
              y = "mapping rate (%)",
              fill = "") +
@@ -104,7 +104,7 @@ plot_mapping_rate <- function(run) {
 #' @description Genes detected plot.
 #' @return Bar plot.
 #' @export
-plot_genes_detected <- function(run, raw_counts) {
+plot_genes_detected <- function(run, raw_counts,pass_limit=20000) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -116,7 +116,7 @@ plot_genes_detected <- function(run, raw_counts) {
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
                    size = 2,
-                   yintercept = 20000) +
+                   yintercept = pass_limit) +
         labs(x = "sample",
              y = "gene count",
              fill = "") +
@@ -154,7 +154,7 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 #' @description Exonic mapping rate plot.
 #' @return Bar plot.
 #' @export
-plot_exonic_mapping_rate <- function(run) {
+plot_exonic_mapping_rate <- function(run,pass_limit=60) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -167,7 +167,7 @@ plot_exonic_mapping_rate <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
                    size = 2,
-                   yintercept = 60) +
+                   yintercept = pass_limit) +
         labs(x = "sample",
              y = "exonic mapping rate (%)",
              fill = "") +
@@ -182,7 +182,7 @@ plot_exonic_mapping_rate <- function(run) {
 #' @description Intronic mapping rate plot.
 #' @return Bar plot.
 #' @export
-plot_intronic_mapping_rate <- function(run) {
+plot_intronic_mapping_rate <- function(run,warn_limit=20) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -195,7 +195,7 @@ plot_intronic_mapping_rate <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
                    size = 2,
-                   yintercept = 20) +
+                   yintercept = warn_limit) +
         labs(x = "sample",
              y = "intronic mapping rate (%)",
              fill = "") +
@@ -210,7 +210,7 @@ plot_intronic_mapping_rate <- function(run) {
 #' @description rRNA contamination mapping rate.
 #' @return Bar plot.
 #' @export
-plot_rrna_mapping_rate <- function(run) {
+plot_rrna_mapping_rate <- function(run,warn_limit=10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -221,7 +221,7 @@ plot_rrna_mapping_rate <- function(run) {
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
                    size = 2,
-                   yintercept = 10) +
+                   yintercept = warn_limit) +
         labs(x = "sample",
              y = "rRNA mapping rate (%)",
              fill = "") +
