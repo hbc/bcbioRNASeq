@@ -1,10 +1,11 @@
-#' Download BibTex references
+#' Download BibTex references.
 #'
-#' If file isn't present, download latest version from the HBC website
+#' If file isn't present, download latest version from the
+#' \href{http://bioinformatics.sph.harvard.edu}{HBC website}.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param bibtex_file BibTex library file
+#' @param bibtex_file BibTex library file.
 #'
 #' @export
 references <- function(bibtex_file = "bcbioRnaseq.bib") {

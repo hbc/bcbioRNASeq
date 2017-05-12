@@ -12,7 +12,7 @@
 \alias{plot_counts_per_gene}
 \alias{plot_count_density}
 \alias{plot_gender_markers}
-\title{Standard RNA-seq quality control plots}
+\title{Standard RNA-seq quality control plots.}
 \usage{
 plot_total_reads(run)
 
@@ -37,60 +37,60 @@ plot_count_density(run, normalized_counts)
 plot_gender_markers(run, normalized_counts)
 }
 \arguments{
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 
-\item{raw_counts}{Raw counts matrix. Can be obtained from DESeqDataSet by
-running \code{counts(normalized = FALSE)}.}
+\item{raw_counts}{Raw counts matrix. Can be obtained from
+\linkS4class{DESeqDataSet} by running \code{counts(normalized = FALSE)}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
-DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
-million (TPM) are also acceptable.}
+\linkS4class{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+Transcripts per million (TPM) are also acceptable.}
 }
 \value{
-Bar plot
+Bar plot.
 
-Bar plot
+Bar plot.
 
-Bar plot
+Bar plot.
 
-Bar plot
+Bar plot.
 
-Smooth plot
+Smooth plot.
 
-Bar plot
+Bar plot.
 
-Bar plot
+Bar plot.
 
-Bar plot
+Bar plot.
 
-Boxplot
+Box plot.
 
-Density plot
+Density plot.
 
-Scatter plot
+Scatter plot.
 }
 \description{
-Plot total reads
+Plot total reads.
 
-Mapped reads plot
+Mapped reads plot.
 
-Mapping rate plot
+Mapping rate plot.
 
-Genes detected plot
+Genes detected plot.
 
-Genes detection saturation plot
+Genes detection saturation plot.
 
-Exonic mapping rate plot
+Exonic mapping rate plot.
 
-Intronic mapping rate plot
+Intronic mapping rate plot.
 
-rRNA contamination mapping rate
+rRNA contamination mapping rate.
 
-Counts per gene plot
+Counts per gene plot.
 
-Plot count density
+Plot count density.
 
-Plot sexually dimorphic gender marker genes
+Plot sexually dimorphic gender marker genes.
 }
 \author{
 Michael Steinbaugh

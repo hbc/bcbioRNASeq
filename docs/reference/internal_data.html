@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Differential expression results tables. — res_tables • bcbioRnaseq</title>
+<title>M. musculus gender marker genes — gender_markers_mmusculus • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,55 +73,27 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Differential expression results tables.</h1>
+    <h1>M. musculus gender marker genes</h1>
     </div>
 
     
-    <p>Differential expression results tables.</p>
+    <p>M. musculus gender marker genes</p>
     
 
-    <pre class="usage"><span class='fu'>res_tables</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>run</th>
-      <td><p>bcbio-nextgen run.</p></td>
-    </tr>
-    <tr>
-      <th>res</th>
-      <td><p>DESeqResults.</p></td>
-    </tr>
-    <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff. Does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></code> for additional information about using
-<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative
-hypothesis based on expected fold changes.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>gender_markers_mmusculus</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Results list.</p>
+    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 6 rows and 4 columns.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-  <span class='fu'>res_tables</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)
-})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#format">Format</a></li>
+          </ul>
 
     <h2>Author</h2>
     

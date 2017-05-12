@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read data from bcbio-nextgen run — read_bcbio_counts • bcbioRnaseq</title>
+<title>Read data from bcbio-nextgen run. — read_bcbio_counts • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,17 +73,17 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read data from bcbio-nextgen run</h1>
+    <h1>Read data from bcbio-nextgen run.</h1>
     </div>
 
     
-    <p>Read RNA-seq counts using <code>tximport</code>. Currently supports
-  <a href = 'https://combine-lab.github.io/salmon/'>salmon</a> and
+    <p>Read RNA-seq counts using <code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport</a></code>.
+  Currently supports <a href = 'https://combine-lab.github.io/salmon/'>salmon</a> and
   <a href = 'http://www.cs.cmu.edu/~ckingsf/software/sailfish/'>sailfish</a>.</p>
-<p>Read a project data file</p>
-<p>Read sample metadata from YAML</p>
-<p>Read summary metrics from YAML</p>
-<p>Read bcbio sample information from YAML</p>
+<p>Read a project data file.</p>
+<p>Read sample metadata from YAML.</p>
+<p>Read summary metrics from YAML.</p>
+<p>Read bcbio sample information from YAML.</p>
     
 
     <pre class="usage"><span class='fu'>read_bcbio_counts</span>(<span class='no'>run</span>, <span class='kw'>grep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -101,7 +101,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>run</th>
-      <td><p>bcbio-nextgen run</p></td>
+      <td><p>bcbio-nextgen run.</p></td>
     </tr>
     <tr>
       <th>grep</th>
@@ -115,29 +115,34 @@ include. If <code>NULL</code> (default), all samples will be imported.</p></td>
     </tr>
     <tr>
       <th>file</th>
-      <td><p>File name</p></td>
+      <td><p>File name.</p></td>
     </tr>
     <tr>
       <th>row_names</th>
-      <td><p>Column identifier to use for row names</p></td>
+      <td><p>Column identifier to use for row names.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional parameters for <code>readr</code></p></td>
+      <td><p>Passthrough parameters for the <code>readr</code> importers called
+internally (<code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_csv</a></code>, <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code>).</p></td>
     </tr>
     <tr>
       <th>keys</th>
       <td><p>Nested operator keys that should be supplied as an ordered
-character vector, recursing a level down for each entry</p></td>
+character vector, recursing a level down for each entry.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>txi <code>tximport</code> list</p>
-<p>bcbio run data</p>
-<p>Metadata data frame</p>
-<p>Summary statistics data frame</p>
+    <p>txi <code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport</a></code> list.</p>
+<p>bcbio run data.</p>
+<p>Metadata data frame.</p>
+<p>Summary statistics data frame.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_csv</a></code>, <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code>)</p>
     
 
   </div>
@@ -147,6 +152,8 @@ character vector, recursing a level down for each entry</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>

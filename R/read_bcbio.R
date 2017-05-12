@@ -1,17 +1,17 @@
-#' Read data from bcbio-nextgen run
+#' Read data from bcbio-nextgen run.
 #'
 #' @rdname read_bcbio
 #'
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run bcbio-nextgen run
+#' @param run bcbio-nextgen run.
 
 
 
 #' @rdname read_bcbio
-#' @description Read RNA-seq counts using \code{tximport}. Currently supports
-#'   \href{https://combine-lab.github.io/salmon/}{salmon} and
+#' @description Read RNA-seq counts using \code{\link[tximport]{tximport}}.
+#'   Currently supports \href{https://combine-lab.github.io/salmon/}{salmon} and
 #'   \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 #'
 #' @param samples Character vector of sample names in bcbio final directory to
@@ -19,15 +19,18 @@
 #' @param grep Use grep pattern to match samples. This will override the
 #'   \code{samples} parameter if set.
 #'
-#' @return txi \code{tximport} list
+#' @return txi \code{\link[tximport]{tximport}} list.
 #' @export
 read_bcbio_counts <- function(
     run,
     grep = NULL,
     samples = NULL) {
     check_run(run)
+    # Check for small RNA-seq analysis
+    if (run$analysis == "srnaseq") {
+        return(.read_smallrna_counts(run))
+    }
 
-    if (run$analysis == "srnaseq"){return(.read_smallrna_counts(run))}
     # Select the samples to import
     if (!is.null(grep)) {
         # grep pattern matching against sample names
@@ -102,14 +105,18 @@ read_bcbio_counts <- function(
 
 
 #' @rdname read_bcbio
-#' @description Read a project data file
+#' @description Read a project data file.
 #'
-#' @param file File name
-#' @param row_names Column identifier to use for row names
-#' @param ... Optional parameters for \code{readr}
+#' @param file File name.
+#' @param row_names Column identifier to use for row names.
+#' @param ... Passthrough parameters for the \code{readr} importers called
+#'   internally (\code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}}).
 #'
-#' @return bcbio run data
+#' @return bcbio run data.
 #' @export
+#'
+#' @seealso
+#' \code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}})
 read_bcbio_file <- function(
     run,
     file,
@@ -159,8 +166,8 @@ read_bcbio_file <- function(
 
 
 #' @rdname read_bcbio
-#' @description Read sample metadata from YAML
-#' @return Metadata data frame
+#' @description Read sample metadata from YAML.
+#' @return Metadata data frame.
 #' @export
 read_bcbio_metadata <- function(run) {
     check_run(run)
@@ -170,8 +177,8 @@ read_bcbio_metadata <- function(run) {
 
 
 #' @rdname read_bcbio
-#' @description Read summary metrics from YAML
-#' @return Summary statistics data frame
+#' @description Read summary metrics from YAML.
+#' @return Summary statistics data frame.
 #' @export
 read_bcbio_metrics <- function(run) {
     check_run(run)
@@ -183,11 +190,11 @@ read_bcbio_metrics <- function(run) {
 
 
 #' @rdname read_bcbio
-#' @description Read bcbio sample information from YAML
+#' @description Read bcbio sample information from YAML.
 #' @keywords internal
 #'
 #' @param keys Nested operator keys that should be supplied as an ordered
-#'     character vector, recursing a level down for each entry
+#'     character vector, recursing a level down for each entry.
 #'
 #' @export
 read_bcbio_samples_yaml <- function(run, keys) {

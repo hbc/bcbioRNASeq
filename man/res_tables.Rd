@@ -2,26 +2,26 @@
 % Please edit documentation in R/res_tables.R
 \name{res_tables}
 \alias{res_tables}
-\title{Differential expression results tables}
+\title{Differential expression results tables.}
 \usage{
 res_tables(run, res, lfc = 0)
 }
 \arguments{
-\item{run}{bcbio-nextgen run object}
+\item{run}{bcbio-nextgen run.}
 
-\item{res}{\code{DESeqResults}}
+\item{res}{\linkS4class{DESeqResults}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
-See \code{?DESeq2::results} for additional information about using
+See \code{\link[DESeq2]{results}} for additional information about using
 \code{lfcThreshold} and \code{altHypothesis} to set an alternative
 hypothesis based on expected fold changes.}
 }
 \value{
-Results list
+Results list.
 }
 \description{
-Differential expression results tables
+Differential expression results tables.
 }
 \examples{
 \dontrun{

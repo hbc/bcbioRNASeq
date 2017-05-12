@@ -1,21 +1,21 @@
-#' Standard RNA-seq quality control plots
+#' Standard RNA-seq quality control plots.
 #'
 #' @rdname qc_plots
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run bcbio-nextgen run
+#' @param run bcbio-nextgen run.
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
-#'   million (TPM) are also acceptable.
-#' @param raw_counts Raw counts matrix. Can be obtained from DESeqDataSet by
-#'   running \code{counts(normalized = FALSE)}.
+#'   \linkS4class{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+#'   Transcripts per million (TPM) are also acceptable.
+#' @param raw_counts Raw counts matrix. Can be obtained from
+#'   \linkS4class{DESeqDataSet} by running \code{counts(normalized = FALSE)}.
 
 
 
 #' @rdname qc_plots
-#' @description Plot total reads
-#' @return Bar plot
+#' @description Plot total reads.
+#' @return Bar plot.
 #' @export
 plot_total_reads <- function(run) {
     check_run(run)
@@ -42,8 +42,8 @@ plot_total_reads <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description Mapped reads plot
-#' @return Bar plot
+#' @description Mapped reads plot.
+#' @return Bar plot.
 #' @export
 plot_mapped_reads <- function(run) {
     check_run(run)
@@ -71,8 +71,8 @@ plot_mapped_reads <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description Mapping rate plot
-#' @return Bar plot
+#' @description Mapping rate plot.
+#' @return Bar plot.
 #' @export
 plot_mapping_rate <- function(run) {
     check_run(run)
@@ -101,8 +101,8 @@ plot_mapping_rate <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description Genes detected plot
-#' @return Bar plot
+#' @description Genes detected plot.
+#' @return Bar plot.
 #' @export
 plot_genes_detected <- function(run, raw_counts) {
     check_run(run)
@@ -127,8 +127,8 @@ plot_genes_detected <- function(run, raw_counts) {
 
 
 #' @rdname qc_plots
-#' @description Genes detection saturation plot
-#' @return Smooth plot
+#' @description Genes detection saturation plot.
+#' @return Smooth plot.
 #' @export
 plot_gene_detection_saturation <- function(run, raw_counts) {
     check_run(run)
@@ -151,8 +151,8 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 
 
 #' @rdname qc_plots
-#' @description Exonic mapping rate plot
-#' @return Bar plot
+#' @description Exonic mapping rate plot.
+#' @return Bar plot.
 #' @export
 plot_exonic_mapping_rate <- function(run) {
     check_run(run)
@@ -179,8 +179,8 @@ plot_exonic_mapping_rate <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description Intronic mapping rate plot
-#' @return Bar plot
+#' @description Intronic mapping rate plot.
+#' @return Bar plot.
 #' @export
 plot_intronic_mapping_rate <- function(run) {
     check_run(run)
@@ -207,8 +207,8 @@ plot_intronic_mapping_rate <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description rRNA contamination mapping rate
-#' @return Bar plot
+#' @description rRNA contamination mapping rate.
+#' @return Bar plot.
 #' @export
 plot_rrna_mapping_rate <- function(run) {
     check_run(run)
@@ -232,8 +232,8 @@ plot_rrna_mapping_rate <- function(run) {
 
 
 #' @rdname qc_plots
-#' @description Counts per gene plot
-#' @return Boxplot
+#' @description Counts per gene plot.
+#' @return Box plot.
 #' @export
 plot_counts_per_gene <- function(run, normalized_counts) {
     check_run(run)
@@ -260,8 +260,8 @@ plot_counts_per_gene <- function(run, normalized_counts) {
 
 
 #' @rdname qc_plots
-#' @description Plot count density
-#' @return Density plot
+#' @description Plot count density.
+#' @return Density plot.
 #' @export
 plot_count_density <- function(
     run,
@@ -284,8 +284,8 @@ plot_count_density <- function(
 
 
 #' @rdname qc_plots
-#' @description Plot sexually dimorphic gender marker genes
-#' @return Scatter plot
+#' @description Plot sexually dimorphic gender marker genes.
+#' @return Scatter plot.
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {
     check_run(run)

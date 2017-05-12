@@ -6,7 +6,7 @@
 \alias{read_bcbio_metadata}
 \alias{read_bcbio_metrics}
 \alias{read_bcbio_samples_yaml}
-\title{Read data from bcbio-nextgen run}
+\title{Read data from bcbio-nextgen run.}
 \usage{
 read_bcbio_counts(run, grep = NULL, samples = NULL)
 
@@ -19,7 +19,7 @@ read_bcbio_metrics(run)
 read_bcbio_samples_yaml(run, keys)
 }
 \arguments{
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 
 \item{grep}{Use grep pattern to match samples. This will override the
 \code{samples} parameter if set.}
@@ -27,36 +27,40 @@ read_bcbio_samples_yaml(run, keys)
 \item{samples}{Character vector of sample names in bcbio final directory to
 include. If \code{NULL} (default), all samples will be imported.}
 
-\item{file}{File name}
+\item{file}{File name.}
 
-\item{row_names}{Column identifier to use for row names}
+\item{row_names}{Column identifier to use for row names.}
 
-\item{...}{Optional parameters for \code{readr}}
+\item{...}{Passthrough parameters for the \code{readr} importers called
+internally (\code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}}).}
 
 \item{keys}{Nested operator keys that should be supplied as an ordered
-character vector, recursing a level down for each entry}
+character vector, recursing a level down for each entry.}
 }
 \value{
-txi \code{tximport} list
+txi \code{\link[tximport]{tximport}} list.
 
-bcbio run data
+bcbio run data.
 
-Metadata data frame
+Metadata data frame.
 
-Summary statistics data frame
+Summary statistics data frame.
 }
 \description{
-Read RNA-seq counts using \code{tximport}. Currently supports
-  \href{https://combine-lab.github.io/salmon/}{salmon} and
+Read RNA-seq counts using \code{\link[tximport]{tximport}}.
+  Currently supports \href{https://combine-lab.github.io/salmon/}{salmon} and
   \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 
-Read a project data file
+Read a project data file.
 
-Read sample metadata from YAML
+Read sample metadata from YAML.
 
-Read summary metrics from YAML
+Read summary metrics from YAML.
 
-Read bcbio sample information from YAML
+Read bcbio sample information from YAML.
+}
+\seealso{
+\code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}})
 }
 \author{
 Michael Steinbaugh
