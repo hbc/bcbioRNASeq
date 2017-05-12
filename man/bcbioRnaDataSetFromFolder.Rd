@@ -6,7 +6,7 @@
 \usage{
 bcbioRnaDataSetFromFolder(upload_dir = "final", analysis = "rnaseq",
   intgroup = "description", metadata_file = NULL, organism = NULL,
-  read_counts = TRUE)
+  read_counts = TRUE, ...)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when

@@ -7,6 +7,7 @@
 #' bcbio-nextgen run directory as a remote connection over \code{sshfs}.
 #'
 #' @author Michael Steinbaugh
+#' @author Lorena Patano
 #'
 #' @param upload_dir Path to final upload directory. This path is set when
 #'   running \code{bcbio_nextgen -w template}.
@@ -20,7 +21,7 @@
 #'   lowercase and one word (e.g. hsapiens). This will be detected automatically
 #'   for common reference genomes and normally does not need to be set.
 #' @param read_counts Automatically read in the count data using
-#'   \code{read_bcbio_counts()}
+#'   \code{\link{read_bcbio_counts}}.
 #'
 #' @return bcbio-nextgen run list object, containing counts and metadata.
 #' @export
@@ -49,7 +50,7 @@ load_run <- function(
     }
     message(project_dir)
     match <- str_match(project_dir, pattern)
-    run_date <- match[2]
+    # run_date <- match[2]
     template <- match[3]
     project_dir <- file.path(upload_dir, project_dir)
 
