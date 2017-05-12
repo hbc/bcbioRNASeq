@@ -3,13 +3,19 @@
 \docType{methods}
 \name{txi}
 \alias{txi}
+\alias{txi<-}
+\alias{txi}
 \alias{txi.bcbioRnaDataSet}
 \alias{txi,bcbioRnaDataSet-method}
 \alias{txi<-,bcbioRnaDataSet,matrix-method}
 \alias{txi,bcbioRnaDataSet-method}
-\alias{txi}
+\alias{"<-txi"}
 \title{Accessors for the count matrix of a bcbioRnaDataSet object.}
 \usage{
+txi(object, ...)
+
+txi(object, ...) <- value
+
 txi.bcbioRnaDataSet(object)
 
 \S4method{txi}{bcbioRnaDataSet}(object)
@@ -18,6 +24,8 @@ txi.bcbioRnaDataSet(object)
 }
 \arguments{
 \item{object}{a \code{bcbioRnaDataSet} object}
+
+\item{...}{matrix count data}
 
 \item{value}{an integer matrix}
 }
