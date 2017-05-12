@@ -20,7 +20,7 @@ if (file.exists("data/run.rda")) {
     create_new_project()
     run <- load_run(
         file.path("upload_dir"),
-        intgroup = c("genotype", "treatment"))
+        intgroup = c("genotype"))
     save_data(run)
 }
 
@@ -69,7 +69,7 @@ metadata_table(run)
 
 
 ```{r dds, results="hide"}
-design <- formula(~ treatment)
+design <- formula(~ genotype)
 dds <- DESeqDataSetFromTximport(
     txi = run$txi,
     colData = run$metadata,
