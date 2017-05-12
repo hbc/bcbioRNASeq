@@ -27,6 +27,8 @@ for common reference genomes and normally does not need to be set.}
 
 \item{read_counts}{Automatically read in the count data using
 \code{read_bcbio_counts()}}
+
+\item{...}{arguments provided to \code{\link[SummarizedExperiment]{SummarizedExperiment}}}
 }
 \value{
 bcbio-nextgen run object

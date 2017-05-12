@@ -69,6 +69,7 @@ setValidity( "bcbioRnaDataSet", function( object ) {
 #'   for common reference genomes and normally does not need to be set.
 #' @param read_counts Automatically read in the count data using
 #'   \code{read_bcbio_counts()}
+#' @param ... arguments provided to \code{\link[SummarizedExperiment]{SummarizedExperiment}}
 #'
 #' @return bcbio-nextgen run object
 #' @export
