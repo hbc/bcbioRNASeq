@@ -292,7 +292,8 @@ plot_gender_markers <- function(run, normalized_counts) {
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
     if (organism == "mmusculus") {
-        gender_markers <- gender_markers_mmusculus
+        gender_markers <- get("gender_markers_mmusculus",
+                              envir = asNamespace("bcbioRnaseq"))
     } else {
         stop("Unsupported organism")
     }
