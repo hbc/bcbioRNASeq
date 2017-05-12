@@ -2,20 +2,20 @@
 % Please edit documentation in R/melt_log10.R
 \name{melt_log10}
 \alias{melt_log10}
-\title{Melt RNA-seq count data to long format and log10 transform}
+\title{Melt RNA-seq count data to long format and log10 transform.}
 \usage{
 melt_log10(run, counts)
 }
 \arguments{
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 
-\item{counts}{Counts matrix}
+\item{counts}{Counts matrix.}
 }
 \value{
-log10 melted data frame
+log10 melted data frame.
 }
 \description{
-Melt RNA-seq count data to long format and log10 transform
+Melt RNA-seq count data to long format and log10 transform.
 }
 \author{
 Michael Steinbaugh

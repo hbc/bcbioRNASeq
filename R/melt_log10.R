@@ -1,11 +1,11 @@
-#' Melt RNA-seq count data to long format and log10 transform
+#' Melt RNA-seq count data to long format and log10 transform.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run
-#' @param counts Counts matrix
+#' @param run bcbio-nextgen run.
+#' @param counts Counts matrix.
 #'
-#' @return log10 melted data frame
+#' @return log10 melted data frame.
 #' @export
 melt_log10 <- function(run, counts) {
     check_run(run)

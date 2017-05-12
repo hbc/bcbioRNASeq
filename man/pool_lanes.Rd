@@ -3,35 +3,36 @@
 \name{pool_lane_split_counts}
 \alias{pool_lane_split_counts}
 \alias{pool_lane_split_dds}
-\title{Lane-split FASTQ aggregation functions}
+\title{Lane-split FASTQ aggregation functions.}
 \usage{
 pool_lane_split_counts(raw_counts, lane_grep = "_L\\\\d+$")
 
 pool_lane_split_dds(run, dds, save = TRUE)
 }
 \arguments{
-\item{raw_counts}{Raw counts matrix}
+\item{raw_counts}{Raw counts matrix.}
 
-\item{lane_grep}{Grep string to match lane identifiers in file name}
+\item{lane_grep}{Grep string to match lane identifiers in file name.}
 
-\item{run}{bcbio-nextgen run object}
+\item{run}{bcbio-nextgen run.}
 
-\item{dds}{DESeqDataSet object}
+\item{dds}{\linkS4class{DESeqDataSet}.}
 
-\item{save}{Whether to save and export counts}
+\item{save}{Whether to save and export counts.}
 }
 \value{
-Pooled raw counts matrix
+Pooled raw counts matrix.
 
-DESeqDataSet object using pooled technical replicates
+\linkS4class{DESeqDataSet} using pooled technical replicates.
 }
 \description{
-Pool lane split counts
+Pool lane split counts.
 
-Pool DESeqDataSet counts for technical replicates. Extract lane
-  split technical replicate counts from a \code{DESeqDataSet} object, perform
-  \code{rowSums}, and create a new \code{DESeqDataSet} using
-  \code{DESeqDataSetFromMatrix()}
+Pool \linkS4class{DESeqDataSet} counts for technical replicates.
+  Extract lane split technical replicate counts from a
+  \linkS4class{DESeqDataSet}, perform \code{\link{rowSums}}, and create a new
+  \linkS4class{DESeqDataSet} using
+  \code{\link[DESeq2]{DESeqDataSetFromMatrix}}.
 }
 \author{
 Michael Steinbaugh

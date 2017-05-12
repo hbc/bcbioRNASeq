@@ -2,13 +2,13 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run object
-#' @param dds DESeqDataSet
-#' @param contrast Contrast
-#' @param alpha Alpha level cutoff
-#' @param lfc Log fold change ratio (base 2) cutoff
+#' @param run bcbio-nextgen run.
+#' @param dds \linkS4class{DESeqDataSet}.
+#' @param contrast Contrast.
+#' @param alpha Alpha level cutoff.
+#' @param lfc Log fold change ratio (base 2) cutoff.
 #'
-#' @return Gene heatmap
+#' @return Gene heatmap.
 #' @export
 plot_deg_heatmap <- function(
     run,

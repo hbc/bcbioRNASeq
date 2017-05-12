@@ -2,15 +2,15 @@
 % Please edit documentation in R/metadata_table.R
 \name{metadata_table}
 \alias{metadata_table}
-\title{Metadata table}
+\title{Metadata table.}
 \usage{
 metadata_table(run)
 }
 \arguments{
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 }
 \value{
-Data frame containing only the columns of interest
+Data frame containing only the columns of interest.
 }
 \description{
 Returns a subset of metadata columns of interest used for knit reports. These

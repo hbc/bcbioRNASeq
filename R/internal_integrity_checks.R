@@ -1,4 +1,4 @@
-#' Perform object integrity checks
+#' Perform object integrity checks.
 #'
 #' @rdname integrity_checks
 #' @author Michael Steinbaugh
@@ -6,6 +6,7 @@
 
 
 #' @rdname integrity_checks
+#' @keywords internal
 #' @description Check bcbio-nextgen run. Always stop on failure.
 #' @param run bcbio-nextgen run
 #' @export
@@ -47,9 +48,10 @@ check_run <- function(run) {
 
 
 #' @rdname integrity_checks
-#' @description Check DESeqDataSet
-#' @param dds DESeqDataSet
-#' @param stop Stop if class doesn't match
+#' @keywords internal
+#' @description Check \linkS4class{DESeqDataSet}.
+#' @param dds \linkS4class{DESeqDataSet}.
+#' @param stop Stop if class doesn't match.
 #' @export
 check_dds <- function(dds, stop = TRUE) {
     if (class(dds)[1] == "DESeqDataSet") {
@@ -66,8 +68,8 @@ check_dds <- function(dds, stop = TRUE) {
 
 
 #' @rdname integrity_checks
-#' @description Check DESeqTransform
-#' @param dt DESeqTransform
+#' @description Check \linkS4class{DESeqTransform}.
+#' @param dt \linkS4class{DESeqTransform}.
 #' @export
 check_dt <- function(dt, stop = TRUE) {
     if (class(dt)[1] == "DESeqTransform") {
@@ -84,8 +86,8 @@ check_dt <- function(dt, stop = TRUE) {
 
 
 #' @rdname integrity_checks
-#' @description Check DESeqResults
-#' @param res DESeqResults
+#' @description Check \linkS4class{DESeqResults}.
+#' @param res \linkS4class{DESeqResults}.
 #' @export
 check_res <- function(res, stop = TRUE) {
     if (class(res)[1] == "DESeqResults") {

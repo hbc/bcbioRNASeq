@@ -1,20 +1,23 @@
-#' Get gene annotations from Ensembl
+#' Get gene annotations from Ensembl.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run object
-#' @param attributes Ensembl attributes. See \code{biomaRt::listAttributes()}.
-#' @param filters biomaRt filters. See \code{biomaRt::listFilters()}.
+#' @param run bcbio-nextgen run.
+#' @param attributes Ensembl attributes.
+#' @param filters biomaRt filters.
 #' @param values Ensembl gene identifier values. Optional but will run faster if
 #'   specified.
 #'
-#' @return Data frame
+#' @return Data frame.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' ensembl_annotations(run, values = "ENSMUSG00000000001")
 #' }
+#'
+#' @seealso
+#' \code{\link[biomaRt]{listAttributes}}, \code{\link[biomaRt]{listFilters}}.
 ensembl_annotations <- function(
     run,
     attributes = NULL,

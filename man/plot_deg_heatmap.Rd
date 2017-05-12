@@ -7,18 +7,18 @@
 plot_deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
 }
 \arguments{
-\item{run}{bcbio-nextgen run object}
+\item{run}{bcbio-nextgen run.}
 
-\item{dds}{DESeqDataSet}
+\item{dds}{\linkS4class{DESeqDataSet}.}
 
-\item{contrast}{Contrast}
+\item{contrast}{Contrast.}
 
-\item{alpha}{Alpha level cutoff}
+\item{alpha}{Alpha level cutoff.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 }
 \value{
-Gene heatmap
+Gene heatmap.
 }
 \description{
 Differentially expressed gene (DEG) heatmap
