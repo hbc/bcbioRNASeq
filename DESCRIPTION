@@ -45,6 +45,7 @@ Imports:
     isomiRs,
     knitr (>= 1.15),
     magrittr (>= 1.5),
+    methods,
     pheatmap (>= 1.0.8),
     readr (>= 1.1.0),
     readxl (>= 1.0.0),

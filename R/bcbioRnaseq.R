@@ -28,6 +28,7 @@ warn_color <- "orange"
 #' @importFrom tools file_path_sans_ext
 #' @importFrom utils download.file globalVariables head read.table sessionInfo
 #' @importFrom yaml yaml.load_file
+#' @importFrom methods as is new validObject
 NULL
 
 ## RNA-Seq ----
