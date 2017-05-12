@@ -1,11 +1,11 @@
-#' Small RNA-seq quality control plots
+#' Small RNA-seq quality control plots.
 #'
 #' @rdname smallrna_qc_plots
 #' @author Lorena Pantano
 #'
 #' @param run bcbio-nextgen run
 #'
-#' @return ggplot figure
+#' @return ggplot figure.
 
 
 

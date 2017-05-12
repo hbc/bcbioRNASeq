@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param dds DESeqDataSet.
+#' @param dds \linkS4class{DESeqDataSet}.
 #' @param alpha alpha Numeric vector of alpha levels to check.
 #'
 #' @return Printed summary.

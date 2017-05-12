@@ -2,18 +2,19 @@
 % Please edit documentation in R/tpm.R
 \name{tpm}
 \alias{tpm}
-\title{Transcripts per million}
+\title{Transcripts per million.}
 \usage{
 tpm(txi)
 }
 \arguments{
-\item{txi}{\code{tximport} object}
+\item{txi}{\code{\link[tximport]{tximport}} list, containing counts in the
+\code{abundance} slot.}
 }
 \value{
-TPM (transcripts per million) matrix
+TPM (transcripts per million) matrix.
 }
 \description{
-Save TPM values from a tximport counts object
+Save TPM values from a tximport counts object.
 }
 \author{
 Michael Steinbaugh

@@ -2,17 +2,17 @@
 % Please edit documentation in R/write_counts.R
 \name{write_counts}
 \alias{write_counts}
-\title{Write gzipped counts to the results directory}
+\title{Write gzipped counts to the results directory.}
 \usage{
 write_counts(..., dir = file.path("results", "counts"))
 }
 \arguments{
-\item{...}{Count matrices, passed in as dots}
+\item{...}{Count matrices, passed in as dots.}
 
-\item{dir}{Output directory}
+\item{dir}{Output directory.}
 }
 \description{
-Write gzipped counts to the results directory
+Write gzipped counts to the results directory.
 }
 \author{
 Michael Steinbaugh

@@ -3,7 +3,7 @@
 \name{plot_size_distribution}
 \alias{plot_size_distribution}
 \alias{plot_mirna_counts}
-\title{Small RNA-seq quality control plots}
+\title{Small RNA-seq quality control plots.}
 \usage{
 plot_size_distribution(run)
 
@@ -13,7 +13,7 @@ plot_mirna_counts(run)
 \item{run}{bcbio-nextgen run}
 }
 \value{
-ggplot figure
+ggplot figure.
 }
 \description{
 Plot size distribution of small RNA-seq data

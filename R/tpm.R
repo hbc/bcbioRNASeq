@@ -1,12 +1,13 @@
-#' Transcripts per million
+#' Transcripts per million.
 #'
-#' Save TPM values from a tximport counts object
+#' Save TPM values from a tximport counts object.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param txi \code{tximport} object
+#' @param txi \code{\link[tximport]{tximport}} list, containing counts in the
+#'   \code{abundance} slot.
 #'
-#' @return TPM (transcripts per million) matrix
+#' @return TPM (transcripts per million) matrix.
 #' @export
 tpm <- function(txi) {
     if (!identical(

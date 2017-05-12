@@ -34,11 +34,6 @@ NULL
 #' @importFrom biomaRt getBM listMarts useEnsembl
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
-#' @importFrom RDAVIDWebService DAVIDWebService addList getAnnotationSummary
-#'     getClusterReport getClusterReportFile getFunctionalAnnotationChart
-#'     getFunctionalAnnotationChartFile getFunctionalAnnotationTable
-#'     getFunctionalAnnotationTableFile getGeneCategoriesReport
-#'     getGeneListReport getGeneListReportFile setTimeOut
 #' @importFrom SummarizedExperiment assay colData
 #' @importFrom S4Vectors mcols
 #' @importFrom tximport tximport

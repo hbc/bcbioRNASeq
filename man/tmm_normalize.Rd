@@ -2,15 +2,15 @@
 % Please edit documentation in R/tmm_normalize.R
 \name{tmm_normalize}
 \alias{tmm_normalize}
-\title{Trimmed mean of M-values (TMM) normalization}
+\title{Trimmed mean of M-values (TMM) normalization.}
 \usage{
 tmm_normalize(raw_counts)
 }
 \arguments{
-\item{raw_counts}{Raw counts matrix}
+\item{raw_counts}{Raw counts matrix.}
 }
 \description{
-TMM normalization is recommended for RNA-Seq data generally when the majority
+TMM normalization is recommended for RNA-seq data generally when the majority
 of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }

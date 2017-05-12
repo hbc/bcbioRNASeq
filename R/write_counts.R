@@ -1,9 +1,9 @@
-#' Write gzipped counts to the results directory
+#' Write gzipped counts to the results directory.
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param ... Count matrices, passed in as dots
-#' @param dir Output directory
+#' @param ... Count matrices, passed in as dots.
+#' @param dir Output directory.
 #'
 #' @export
 write_counts <- function(..., dir = file.path("results", "counts")) {
