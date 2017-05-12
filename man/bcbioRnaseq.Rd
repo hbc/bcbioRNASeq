@@ -11,3 +11,4 @@ experiments. Consult the
 \href{http://bioinformatics.sph.harvard.edu/bcbioRnaseq}{package website} for
 additional information.
 }
+\keyword{internal}

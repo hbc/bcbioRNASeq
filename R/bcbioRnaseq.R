@@ -6,6 +6,7 @@
 #' additional information.
 #'
 #' @docType package
+#' @keywords internal
 #' @name bcbioRnaseq
 NULL
 
