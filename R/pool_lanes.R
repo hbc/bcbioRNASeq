@@ -1,4 +1,4 @@
-#' Lane-split FASTQ aggregation functions
+#' Lane-split FASTQ aggregation functions.
 #'
 #' @rdname pool_lanes
 #' @author Michael Steinbaugh
@@ -6,12 +6,12 @@
 
 
 #' @rdname pool_lanes
-#' @description Pool lane split counts
+#' @description Pool lane split counts.
 #'
-#' @param raw_counts Raw counts matrix
-#' @param lane_grep Grep string to match lane identifiers in file name
+#' @param raw_counts Raw counts matrix.
+#' @param lane_grep Grep string to match lane identifiers in file name.
 #'
-#' @return Pooled raw counts matrix
+#' @return Pooled raw counts matrix.
 #' @export
 pool_lane_split_counts <- function(raw_counts,
                                    lane_grep = "_L\\d+$") {
@@ -37,16 +37,17 @@ pool_lane_split_counts <- function(raw_counts,
 
 
 #' @rdname pool_lanes
-#' @description Pool DESeqDataSet counts for technical replicates. Extract lane
-#'   split technical replicate counts from a \code{DESeqDataSet} object, perform
-#'   \code{rowSums}, and create a new \code{DESeqDataSet} using
-#'   \code{DESeqDataSetFromMatrix()}
+#' @description Pool \linkS4class{DESeqDataSet} counts for technical replicates.
+#'   Extract lane split technical replicate counts from a
+#'   \linkS4class{DESeqDataSet}, perform \code{\link{rowSums}}, and create a new
+#'   \linkS4class{DESeqDataSet} using
+#'   \code{\link[DESeq2]{DESeqDataSetFromMatrix}}.
 #'
-#' @param run bcbio-nextgen run object
-#' @param dds DESeqDataSet object
-#' @param save Whether to save and export counts
+#' @param run bcbio-nextgen run.
+#' @param dds \linkS4class{DESeqDataSet}.
+#' @param save Whether to save and export counts.
 #'
-#' @return DESeqDataSet object using pooled technical replicates
+#' @return \linkS4class{DESeqDataSet} using pooled technical replicates.
 #' @export
 pool_lane_split_dds <- function(
     run,

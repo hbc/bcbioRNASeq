@@ -2,31 +2,35 @@
 % Please edit documentation in R/ensembl_annotations.R
 \name{ensembl_annotations}
 \alias{ensembl_annotations}
-\title{Get gene annotations from Ensembl}
+\title{Get gene annotations from Ensembl.}
 \usage{
 ensembl_annotations(run, attributes = NULL, filters = "ensembl_gene_id",
   values = NULL)
 }
 \arguments{
-\item{run}{bcbio-nextgen run object}
+\item{run}{bcbio-nextgen run.}
 
-\item{attributes}{Ensembl attributes. See \code{biomaRt::listAttributes()}.}
+\item{attributes}{Ensembl attributes.}
 
-\item{filters}{biomaRt filters. See \code{biomaRt::listFilters()}.}
+\item{filters}{biomaRt filters.}
 
 \item{values}{Ensembl gene identifier values. Optional but will run faster if
 specified.}
 }
 \value{
-Data frame
+Data frame.
 }
 \description{
-Get gene annotations from Ensembl
+Get gene annotations from Ensembl.
 }
 \examples{
 \dontrun{
 ensembl_annotations(run, values = "ENSMUSG00000000001")
 }
+
+}
+\seealso{
+\code{\link[biomaRt]{listAttributes}}, \code{\link[biomaRt]{listFilters}}.
 }
 \author{
 Michael Steinbaugh

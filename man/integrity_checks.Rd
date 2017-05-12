@@ -5,7 +5,7 @@
 \alias{check_dds}
 \alias{check_dt}
 \alias{check_res}
-\title{Perform object integrity checks}
+\title{Perform object integrity checks.}
 \usage{
 check_run(run)
 
@@ -18,23 +18,24 @@ check_res(res, stop = TRUE)
 \arguments{
 \item{run}{bcbio-nextgen run}
 
-\item{dds}{DESeqDataSet}
+\item{dds}{\linkS4class{DESeqDataSet}.}
 
-\item{stop}{Stop if class doesn't match}
+\item{stop}{Stop if class doesn't match.}
 
-\item{dt}{DESeqTransform}
+\item{dt}{\linkS4class{DESeqTransform}.}
 
-\item{res}{DESeqResults}
+\item{res}{\linkS4class{DESeqResults}.}
 }
 \description{
 Check bcbio-nextgen run. Always stop on failure.
 
-Check DESeqDataSet
+Check \linkS4class{DESeqDataSet}.
 
-Check DESeqTransform
+Check \linkS4class{DESeqTransform}.
 
-Check DESeqResults
+Check \linkS4class{DESeqResults}.
 }
 \author{
 Michael Steinbaugh
 }
+\keyword{internal}
