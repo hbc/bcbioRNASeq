@@ -1,120 +1,30 @@
 #' bcbioRnaseq.
 #'
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
-#' experiments. Consult the
-#' \href{http://bioinformatics.sph.harvard.edu/bcbioRnaseq}{package website} for
-#' additional information.
+#' experiments.
 #'
-#' @docType package
-#' @keywords internal
-#' @name bcbioRnaseq
-NULL
-
-
-
-# Globals ====
-globalVariables(".")
-fail_color <- "red"
-pass_color <- "green"
-warn_color <- "orange"
-
-
-
-# Imports ====
-## General ----
-#' @importFrom knitr asis_output kable opts_chunk opts_knit
-#' @importFrom reshape2 melt
-#' @importFrom stats cor density na.omit
-#' @importFrom tools file_path_sans_ext
-#' @importFrom utils download.file globalVariables head read.table sessionInfo
-#' @importFrom yaml yaml.load_file
-#' @importFrom methods as is new validObject
-NULL
-
-## RNA-Seq ----
+#' @import basejump
 #' @import DESeq2
+#' @import ggplot2
 #' @importFrom biomaRt getBM listMarts useEnsembl
+#' @importFrom cowplot ggdraw draw_plot
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom isomiRs IsomirDataSeqFromFiles
+#' @importFrom methods as is new validObject
+#' @importFrom pheatmap pheatmap
 #' @importFrom SummarizedExperiment assay colData
 #' @importFrom S4Vectors mcols
 #' @importFrom tximport tximport
 #' @importFrom vsn meanSdPlot
-NULL
+#' @importFrom yaml yaml.load_file
+"_PACKAGE"
 
-## small RNA-Seq ----
-#' @importFrom isomiRs IsomirDataSeqFromFiles
+globalVariables(basejump::globals,
+                asNamespace("bcbioRnaseq"),
+                add = TRUE)
 
-
-## Visualization ----
-#' @import ggrepel
-#' @importFrom pheatmap pheatmap
-#' @importFrom cowplot ggdraw draw_plot
-NULL
-
-## tidyverse ----
-## http://tidyverse.org/
-#' @import dplyr
-#' @import ggplot2
-#' @import readr
-#' @import readxl
-#' @import stringr
-#' @importFrom magrittr %>% set_names set_rownames
-#' @importFrom rlang !!! !! .data sym syms UQ
-#' @importFrom tibble as_tibble glimpse is_tibble remove_rownames rownames_to_column
-#' @importFrom tidyr expand_
-NULL
-
-
-
-# Re-exports ====
-## RNA-seq ----
-#' @usage NULL
-#' @export
-DESeq2::counts
-
-#' @usage NULL
-#' @export
-DESeq2::design
-
-#' @usage NULL
-#' @export
-vsn::meanSdPlot
-
-## Quasi-quotation ----
-#' @usage NULL
-#' @export
-rlang::`!!!`
-
-#' @usage NULL
-#' @export
-rlang::`!!`
-
-#' @usage NULL
-#' @export
-rlang::sym
-
-#' @usage NULL
-#' @export
-rlang::syms
-
-## Knit utilities ----
-#' @usage NULL
-#' @export
-magrittr::`%>%`
-
-#' @usage NULL
-#' @export
-tibble::glimpse
-
-#' @usage NULL
-#' @export
-knitr::kable
-
-#' @usage NULL
-#' @export
-knitr::opts_chunk
-
-#' @usage NULL
-#' @export
-magrittr::set_rownames
+fail_color <- "red"
+pass_color <- "green"
+warn_color <- "orange"

@@ -1,4 +1,4 @@
-#' Write gzipped counts to the results directory.
+#' Write gzipped counts.
 #'
 #' @author Michael Steinbaugh
 #'
