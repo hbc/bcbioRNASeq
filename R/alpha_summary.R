@@ -1,4 +1,4 @@
-#' Print summary statistics of alpha level cutoffs.
+#' Print summary statistics of alpha level cutoffs
 #'
 #' @author Michael Steinbaugh
 #'

@@ -1,4 +1,4 @@
-#' Top tables of differential expression results.
+#' Top tables of differential expression results
 #'
 #' @author Michael Steinbaugh
 #'

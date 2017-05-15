@@ -2,7 +2,7 @@
 % Please edit documentation in R/alpha_summary.R
 \name{alpha_summary}
 \alias{alpha_summary}
-\title{Print summary statistics of alpha level cutoffs.}
+\title{Print summary statistics of alpha level cutoffs}
 \usage{
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
 }
@@ -15,7 +15,7 @@ alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
 Printed summary.
 }
 \description{
-Print summary statistics of alpha level cutoffs.
+Print summary statistics of alpha level cutoffs
 }
 \author{
 Michael Steinbaugh

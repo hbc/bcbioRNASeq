@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_tables.R
 \name{top_tables}
 \alias{top_tables}
-\title{Top tables of differential expression results.}
+\title{Top tables of differential expression results}
 \usage{
 top_tables(res_tbl)
 }
@@ -13,7 +13,7 @@ top_tables(res_tbl)
 Top tables list.
 }
 \description{
-Top tables of differential expression results.
+Top tables of differential expression results
 }
 \author{
 Michael Steinbaugh

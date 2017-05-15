@@ -1,4 +1,4 @@
-#' Transcripts per million.
+#' Transcripts per million
 #'
 #' Save TPM values from a tximport counts object.
 #'

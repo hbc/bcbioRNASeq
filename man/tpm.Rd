@@ -2,7 +2,7 @@
 % Please edit documentation in R/tpm.R
 \name{tpm}
 \alias{tpm}
-\title{Transcripts per million.}
+\title{Transcripts per million}
 \usage{
 tpm(txi)
 }

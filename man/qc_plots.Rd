@@ -14,21 +14,21 @@
 \alias{plot_gender_markers}
 \title{Standard RNA-seq quality control plots.}
 \usage{
-plot_total_reads(run)
+plot_total_reads(run, pass_limit = 20, warn_limit = 10)
 
-plot_mapped_reads(run)
+plot_mapped_reads(run, pass_limit = 20, warn_limit = 10)
 
-plot_mapping_rate(run)
+plot_mapping_rate(run, pass_limit = 90, warn_limit = 70)
 
-plot_genes_detected(run, raw_counts)
+plot_genes_detected(run, raw_counts, pass_limit = 20000)
 
 plot_gene_detection_saturation(run, raw_counts)
 
-plot_exonic_mapping_rate(run)
+plot_exonic_mapping_rate(run, pass_limit = 60)
 
-plot_intronic_mapping_rate(run)
+plot_intronic_mapping_rate(run, warn_limit = 20)
 
-plot_rrna_mapping_rate(run)
+plot_rrna_mapping_rate(run, warn_limit = 10)
 
 plot_counts_per_gene(run, normalized_counts)
 
@@ -39,61 +39,27 @@ plot_gender_markers(run, normalized_counts)
 \arguments{
 \item{run}{bcbio-nextgen run.}
 
+\item{pass_limit}{Threshold to plot pass color marker.}
+
+\item{warn_limit}{Threshold to plot warning color marker.}
+
 \item{raw_counts}{Raw counts matrix. Can be obtained from
-\linkS4class{DESeqDataSet} by running \code{counts(normalized = FALSE)}.}
+\link{DESeqDataSet} by running \code{counts(normalized = FALSE)}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\linkS4class{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+\link{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
 Transcripts per million (TPM) are also acceptable.}
 }
 \value{
-Bar plot.
-
-Bar plot.
-
-Bar plot.
-
-Bar plot.
-
-Smooth plot.
-
-Bar plot.
-
-Bar plot.
-
-Bar plot.
-
-Box plot.
-
-Density plot.
-
-Scatter plot.
+ggplot2 plot object.
 }
 \description{
-Plot total reads.
-
-Mapped reads plot.
-
-Mapping rate plot.
-
-Genes detected plot.
-
-Genes detection saturation plot.
-
-Exonic mapping rate plot.
-
-Intronic mapping rate plot.
-
-rRNA contamination mapping rate.
-
-Counts per gene plot.
-
-Plot count density.
-
-Plot sexually dimorphic gender marker genes.
+Standard RNA-seq quality control plots.
 }
 \author{
 Michael Steinbaugh
 
 Rory Kirchner
+
+Victor Barrera
 }

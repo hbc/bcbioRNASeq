@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Differentially expressed gene (DEG) heatmap — plot_deg_heatmap • bcbioRnaseq</title>
+<title>Class that contains bcbio run information — SummarizedExperiment-class • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,57 +73,29 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Differentially expressed gene (DEG) heatmap</h1>
+    <h1>Class that contains bcbio run information</h1>
     </div>
 
     
-    <p>Differentially expressed gene (DEG) heatmap</p>
+    <p><code>bcbioRnaDataSet</code> is a subclass of SummarizedExperiment designed to store
+an RNA-seq analysis. This class contains experiment metadata, raw counts,
+normalilzed counts, and summary statistics for each sample analyzed.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>dds</span>, <span class='no'>contrast</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>run</th>
-      <td><p>bcbio-nextgen run.</p></td>
-    </tr>
-    <tr>
-      <th>dds</th>
-      <td><p>DESeqDataSet.</p></td>
-    </tr>
-    <tr>
-      <th>contrast</th>
-      <td><p>Contrast.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff.</p></td>
-    </tr>
-    <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Gene heatmap.</p>
+    <p>Methods for this objects ...
+    <code>metadata</code> contains ...</p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
           </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh
 
   </div>
 </div>

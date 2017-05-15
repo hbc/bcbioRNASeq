@@ -15,10 +15,10 @@
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom pheatmap pheatmap
+#' @importFrom stats density
 #' @importFrom tximport tximport
 #' @importFrom utils read.table
 #' @importFrom vsn meanSdPlot
-#' @importFrom yaml yaml.load_file
 "_PACKAGE"
 
 globalVariables(basejump::globals,

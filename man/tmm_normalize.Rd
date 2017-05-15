@@ -2,7 +2,7 @@
 % Please edit documentation in R/tmm_normalize.R
 \name{tmm_normalize}
 \alias{tmm_normalize}
-\title{Trimmed mean of M-values (TMM) normalization.}
+\title{Trimmed mean of M-values (TMM) normalization}
 \usage{
 tmm_normalize(raw_counts)
 }

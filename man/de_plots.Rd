@@ -3,7 +3,7 @@
 \name{plot_ma}
 \alias{plot_ma}
 \alias{plot_volcano}
-\title{Differential expression plots.}
+\title{Differential expression plots}
 \usage{
 plot_ma(res, ylim = 2)
 

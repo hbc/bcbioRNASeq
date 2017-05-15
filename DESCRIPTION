@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Version: 0.0.15
-Date: 2017-05-10
+Version: 0.0.16
+Date: 2017-05-15
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
            email = "mike@steinbaugh.com",
@@ -11,6 +11,9 @@ Authors@R: c(
            role = "aut"),
     person("Lorena", "Pantano",
            email = "lorena.pantano@gmail.com",
+           role = "aut"),
+    person("Victor", "Barrera",
+           email = "barrera.vic@gmail.com",
            role = "aut"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
@@ -35,20 +38,20 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     basejump (>= 0.0.10),
-    cowplot,
-    DEGreport,
+    cowplot (>= 0.7.0),
+    DEGreport (>= 1.12.0),
     DESeq2 (>= 1.16.0),
     edgeR (>= 3.18.0),
     ggplot2 (>= 2.2.1),
     ggrepel (>= 0.6.5),
-    isomiRs,
+    isomiRs (>= 1.4.0),
     methods,
     pheatmap (>= 1.0.8),
-    S4Vectors,
+    S4Vectors (>= 0.14.1),
+    stats,
     SummarizedExperiment (>= 1.1.6),
     tximport (>= 1.4.0),
-    vsn (>= 3.44.0),
-    yaml
+    vsn (>= 3.44.0)
 Suggests:
     BiocGenerics,
     BiocStyle,

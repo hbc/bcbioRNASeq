@@ -2,7 +2,7 @@
 % Please edit documentation in R/ensembl_annotations.R
 \name{ensembl_annotations}
 \alias{ensembl_annotations}
-\title{Get gene annotations from Ensembl.}
+\title{\href{http://www.ensembl.org/}{Ensembl} annotations}
 \usage{
 ensembl_annotations(run, attributes = NULL, filters = "ensembl_gene_id",
   values = NULL)
@@ -21,7 +21,7 @@ specified.}
 Data frame.
 }
 \description{
-Get gene annotations from Ensembl.
+Download the most recent gene annotations from Ensembl.
 }
 \examples{
 \dontrun{

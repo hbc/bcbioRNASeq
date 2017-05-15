@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Differentially expressed gene (DEG) heatmap — plot_deg_heatmap • bcbioRnaseq</title>
+<title>Accessors for the count matrix of a bcbioRnaDataSet object — txi • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,43 +73,45 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Differentially expressed gene (DEG) heatmap</h1>
+    <h1>Accessors for the count matrix of a bcbioRnaDataSet object</h1>
     </div>
 
     
-    <p>Differentially expressed gene (DEG) heatmap</p>
+    <p>Accessors for the count matrix of a <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object</p>
     
 
-    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>dds</span>, <span class='no'>contrast</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>txi</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='fu'>txi</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='fu'>txi.bcbioRnaDataSet</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for bcbioRnaDataSet</span>
+<span class='fu'>txi</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for bcbioRnaDataSet,matrix</span>
+<span class='fu'>txi</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>run</th>
-      <td><p>bcbio-nextgen run.</p></td>
+      <th>object</th>
+      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object.</p></td>
     </tr>
     <tr>
-      <th>dds</th>
-      <td><p>DESeqDataSet.</p></td>
+      <th>...</th>
+      <td><p>Matrix count data.</p></td>
     </tr>
     <tr>
-      <th>contrast</th>
-      <td><p>Contrast.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff.</p></td>
-    </tr>
-    <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
+      <th>value</th>
+      <td><p>An integer matrix.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Gene heatmap.</p>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/matrix'>base::matrix</a> with raw count data.</p>
     
 
   </div>
@@ -120,10 +122,6 @@
       
       <li><a href="#value">Value</a></li>
           </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh
 
   </div>
 </div>

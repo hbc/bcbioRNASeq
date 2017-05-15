@@ -1,3 +1,5 @@
+0.0.16  Draft migration of bcbio run object into S4 bcbioRnaDataSet.
+        Create a new variant of load_run() that saves to S4 instead of list.
 0.0.15  Clean-up and organize internal functions.
 0.0.14  Default to loading run using project summary YAML file.
         Initial commit of RMarkdown templates (e.g. quality control).

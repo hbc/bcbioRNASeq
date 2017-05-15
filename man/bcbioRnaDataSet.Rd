@@ -4,18 +4,15 @@
 \name{SummarizedExperiment-class}
 \alias{SummarizedExperiment-class}
 \alias{bcbioRnaDataSet-class}
-\title{Class that contains bcbio run information.}
+\title{Class that contains bcbio run information}
 \description{
-bcbioRnaDataSet is a subclass of \link{SummarizedExperiment} used to store the
-raw data, intermediate calculations and results of an miRNA/isomiR analysis.
-This class stores all raw isomiRs data for each sample, processed
-information, summary for each isomiR type, raw counts, normalized counts, and
-table with experimental information for each sample.
+\code{bcbioRnaDataSet} is a subclass of \link{SummarizedExperiment} designed to store
+an RNA-seq analysis. This class contains experiment metadata, raw counts,
+normalilzed counts, and summary statistics for each sample analyzed.
 }
 \details{
-\code{\link[=bcbioRnaDataSetFromFolder]{bcbioRnaDataSetFromFolder()}} creates this object using bcbio output files.
-
 Methods for this objects ...
 
 \code{metadata} contains ...
 }
+\keyword{internal}

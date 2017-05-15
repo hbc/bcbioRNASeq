@@ -3,21 +3,24 @@
 #' @rdname qc_plots
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
+#' @author Victor Barrera
 #'
 #' @param run bcbio-nextgen run.
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   \linkS4class{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+#'   [DESeqDataSet] by running `counts(normalized = TRUE)`.
 #'   Transcripts per million (TPM) are also acceptable.
 #' @param raw_counts Raw counts matrix. Can be obtained from
-#'   \linkS4class{DESeqDataSet} by running \code{counts(normalized = FALSE)}.
+#'   [DESeqDataSet] by running `counts(normalized = FALSE)`.
+#' @param pass_limit Threshold to plot pass color marker.
+#' @param warn_limit Threshold to plot warning color marker.
+#'
+#' @return ggplot2 plot object.
 
 
 
 #' @rdname qc_plots
-#' @description Plot total reads.
-#' @return Bar plot.
 #' @export
-plot_total_reads <- function(run,pass_limit=20,warn_limit=10) {
+plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(aes_(x = ~description,
@@ -42,10 +45,8 @@ plot_total_reads <- function(run,pass_limit=20,warn_limit=10) {
 
 
 #' @rdname qc_plots
-#' @description Mapped reads plot.
-#' @return Bar plot.
 #' @export
-plot_mapped_reads <- function(run,pass_limit=20,warn_limit=10) {
+plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -71,10 +72,8 @@ plot_mapped_reads <- function(run,pass_limit=20,warn_limit=10) {
 
 
 #' @rdname qc_plots
-#' @description Mapping rate plot.
-#' @return Bar plot.
 #' @export
-plot_mapping_rate <- function(run,pass_limit=90,warn_limit=70) {
+plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -101,10 +100,8 @@ plot_mapping_rate <- function(run,pass_limit=90,warn_limit=70) {
 
 
 #' @rdname qc_plots
-#' @description Genes detected plot.
-#' @return Bar plot.
 #' @export
-plot_genes_detected <- function(run, raw_counts,pass_limit=20000) {
+plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -127,8 +124,6 @@ plot_genes_detected <- function(run, raw_counts,pass_limit=20000) {
 
 
 #' @rdname qc_plots
-#' @description Genes detection saturation plot.
-#' @return Smooth plot.
 #' @export
 plot_gene_detection_saturation <- function(run, raw_counts) {
     check_run(run)
@@ -151,10 +146,8 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 
 
 #' @rdname qc_plots
-#' @description Exonic mapping rate plot.
-#' @return Bar plot.
 #' @export
-plot_exonic_mapping_rate <- function(run,pass_limit=60) {
+plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -179,10 +172,8 @@ plot_exonic_mapping_rate <- function(run,pass_limit=60) {
 
 
 #' @rdname qc_plots
-#' @description Intronic mapping rate plot.
-#' @return Bar plot.
 #' @export
-plot_intronic_mapping_rate <- function(run,warn_limit=20) {
+plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -207,10 +198,8 @@ plot_intronic_mapping_rate <- function(run,warn_limit=20) {
 
 
 #' @rdname qc_plots
-#' @description rRNA contamination mapping rate.
-#' @return Bar plot.
 #' @export
-plot_rrna_mapping_rate <- function(run,warn_limit=10) {
+plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
     check_run(run)
     plot <- read_bcbio_metrics(run) %>%
         ggplot(
@@ -232,8 +221,6 @@ plot_rrna_mapping_rate <- function(run,warn_limit=10) {
 
 
 #' @rdname qc_plots
-#' @description Counts per gene plot.
-#' @return Box plot.
 #' @export
 plot_counts_per_gene <- function(run, normalized_counts) {
     check_run(run)
@@ -260,8 +247,6 @@ plot_counts_per_gene <- function(run, normalized_counts) {
 
 
 #' @rdname qc_plots
-#' @description Plot count density.
-#' @return Density plot.
 #' @export
 plot_count_density <- function(
     run,
@@ -284,8 +269,6 @@ plot_count_density <- function(
 
 
 #' @rdname qc_plots
-#' @description Plot sexually dimorphic gender marker genes.
-#' @return Scatter plot.
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {
     check_run(run)

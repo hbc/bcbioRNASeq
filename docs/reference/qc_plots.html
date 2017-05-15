@@ -77,34 +77,24 @@
     </div>
 
     
-    <p>Plot total reads.</p>
-<p>Mapped reads plot.</p>
-<p>Mapping rate plot.</p>
-<p>Genes detected plot.</p>
-<p>Genes detection saturation plot.</p>
-<p>Exonic mapping rate plot.</p>
-<p>Intronic mapping rate plot.</p>
-<p>rRNA contamination mapping rate.</p>
-<p>Counts per gene plot.</p>
-<p>Plot count density.</p>
-<p>Plot sexually dimorphic gender marker genes.</p>
+    <p>Standard RNA-seq quality control plots.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_total_reads</span>(<span class='no'>run</span>)
+    <pre class="usage"><span class='fu'>plot_total_reads</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 
-<span class='fu'>plot_mapped_reads</span>(<span class='no'>run</span>)
+<span class='fu'>plot_mapped_reads</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 
-<span class='fu'>plot_mapping_rate</span>(<span class='no'>run</span>)
+<span class='fu'>plot_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>70</span>)
 
-<span class='fu'>plot_genes_detected</span>(<span class='no'>run</span>, <span class='no'>raw_counts</span>)
+<span class='fu'>plot_genes_detected</span>(<span class='no'>run</span>, <span class='no'>raw_counts</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20000</span>)
 
 <span class='fu'>plot_gene_detection_saturation</span>(<span class='no'>run</span>, <span class='no'>raw_counts</span>)
 
-<span class='fu'>plot_exonic_mapping_rate</span>(<span class='no'>run</span>)
+<span class='fu'>plot_exonic_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>60</span>)
 
-<span class='fu'>plot_intronic_mapping_rate</span>(<span class='no'>run</span>)
+<span class='fu'>plot_intronic_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>)
 
-<span class='fu'>plot_rrna_mapping_rate</span>(<span class='no'>run</span>)
+<span class='fu'>plot_rrna_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 
 <span class='fu'>plot_counts_per_gene</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
 
@@ -118,6 +108,14 @@
     <tr>
       <th>run</th>
       <td><p>bcbio-nextgen run.</p></td>
+    </tr>
+    <tr>
+      <th>pass_limit</th>
+      <td><p>Threshold to plot pass color marker.</p></td>
+    </tr>
+    <tr>
+      <th>warn_limit</th>
+      <td><p>Threshold to plot warning color marker.</p></td>
     </tr>
     <tr>
       <th>raw_counts</th>
@@ -134,17 +132,7 @@ Transcripts per million (TPM) are also acceptable.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Bar plot.</p>
-<p>Bar plot.</p>
-<p>Bar plot.</p>
-<p>Bar plot.</p>
-<p>Smooth plot.</p>
-<p>Bar plot.</p>
-<p>Bar plot.</p>
-<p>Bar plot.</p>
-<p>Box plot.</p>
-<p>Density plot.</p>
-<p>Scatter plot.</p>
+    <p>ggplot2 plot object.</p>
     
 
   </div>
@@ -162,12 +150,14 @@ Michael Steinbaugh
 
 Rory Kirchner
 
+Victor Barrera
+
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

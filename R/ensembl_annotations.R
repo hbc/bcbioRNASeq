@@ -1,4 +1,6 @@
-#' Get gene annotations from Ensembl.
+#' [Ensembl](http://www.ensembl.org/) annotations
+#'
+#' Download the most recent gene annotations from Ensembl.
 #'
 #' @author Michael Steinbaugh
 #'

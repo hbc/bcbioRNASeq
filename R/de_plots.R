@@ -1,4 +1,4 @@
-#' Differential expression plots.
+#' Differential expression plots
 #'
 #' @rdname de_plots
 #' @author Michael Steinbaugh

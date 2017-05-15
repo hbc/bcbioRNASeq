@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_counts.R
 \name{write_counts}
 \alias{write_counts}
-\title{Write gzipped counts.}
+\title{Write gzipped counts}
 \usage{
 write_counts(..., dir = file.path("results", "counts"))
 }
@@ -12,7 +12,7 @@ write_counts(..., dir = file.path("results", "counts"))
 \item{dir}{Output directory.}
 }
 \description{
-Write gzipped counts.
+Write gzipped counts
 }
 \author{
 Michael Steinbaugh

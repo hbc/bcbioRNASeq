@@ -1,24 +1,23 @@
-#' Class that contains bcbio run information.
+#' Class that contains bcbio run information
 #'
-#' bcbioRnaDataSet is a subclass of [SummarizedExperiment] used to store the
-#' raw data, intermediate calculations and results of an miRNA/isomiR analysis.
-#' This class stores all raw isomiRs data for each sample, processed
-#' information, summary for each isomiR type, raw counts, normalized counts, and
-#' table with experimental information for each sample.
-#'
-#' [bcbioRnaDataSetFromFolder()] creates this object using bcbio output files.
+#' `bcbioRnaDataSet` is a subclass of [SummarizedExperiment] designed to store
+#' an RNA-seq analysis. This class contains experiment metadata, raw counts,
+#' normalilzed counts, and summary statistics for each sample analyzed.
 #'
 #' Methods for this objects ...
 #'
 #' `metadata` contains ...
 #'
-#' @aliases bcbioRnaDataSet-class
 #' @rdname bcbioRnaDataSet
+#' @keywords internal
+#' @aliases bcbioRnaDataSet-class
 #' @export
 setClass("SummarizedExperiment")
 bcbioRnaDataSet <- setClass("bcbioRnaDataSet",
                             contains = "SummarizedExperiment")
 setValidity("bcbioRnaDataSet", function(object) { TRUE })
+
+
 
 # Constructor
 .bcbioRnaDataSet <- function(se, run) {
@@ -41,40 +40,19 @@ setValidity("bcbioRnaDataSet", function(object) { TRUE })
 
 
 
-#' [bcbioRnaDataSetFromFolder()] loads bcbio-nextgen output.
-#'
-#' This function parses output of bcbio-nextgen tool to allow (small) RNAseq
-#' analysis of samples in different groups such as characterization,
-#' differential expression and clustering. It creates an
-#' [bcbioRnaDataSetFromFolder()] object.
-#'
-#' @author Michael Steinbaugh
-#' @author Lorena Pantano
-#'
-#' @param upload_dir Path to final upload directory. This path is set when
-#'   running \code{bcbio_nextgen -w template}.
-#' @param analysis Analysis type (e.g. \code{rnaseq} or \code{srnaseq})
-#' @param intgroup Character vector of interesting groups. First entry is used
-#'   for plot colors during quality control (QC) analysis. Entire vector is used
-#'   for PCA and heatmap QC functions.
-#' @param metadata_file Custom metadata file to import. Otherwise defaults to
-#'   sample metadata saved in the YAML file.
-#' @param organism Organism name, following Ensembl/Biomart conventions. Must be
-#'   lowercase and one word (e.g. hsapiens). This will be detected automatically
-#'   for common reference genomes and normally does not need to be set.
-#' @param read_counts Automatically read in the count data using
-#'   \code{read_bcbio_counts()}
-#' @param ... arguments provided to \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'
-#' @return bcbio-nextgen run object
+#' @rdname load_run
+#' @keywords internal
+#' @param ... Arguments provided to [SummarizedExperiment]. Remove this once
+#' we migrate the S4 loading variant over as main method.
 #' @export
-bcbioRnaDataSetFromFolder <- function(
+load_run_S4 <- function(
     upload_dir = "final",
     analysis = "rnaseq",
     intgroup = "description",
     metadata_file = NULL,
     organism = NULL,
-    read_counts = TRUE, ...) {
+    read_counts = TRUE,
+    ...) {
     run <- load_run(
         upload_dir,
         analysis,

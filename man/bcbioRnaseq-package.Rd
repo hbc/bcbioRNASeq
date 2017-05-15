@@ -25,6 +25,7 @@ Authors:
 \itemize{
   \item Rory Kirchner \email{roryk@alum.mit.edu}
   \item Lorena Pantano \email{lorena.pantano@gmail.com}
+  \item Victor Barrera \email{barrera.vic@gmail.com}
 }
 
 Other contributors:

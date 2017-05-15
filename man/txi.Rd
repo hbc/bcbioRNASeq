@@ -3,14 +3,13 @@
 \docType{methods}
 \name{txi}
 \alias{txi}
-\alias{txi<-}
-\alias{txi}
-\alias{txi.bcbioRnaDataSet}
 \alias{txi,bcbioRnaDataSet-method}
 \alias{txi<-,bcbioRnaDataSet,matrix-method}
+\alias{txi<-}
+\alias{txi.bcbioRnaDataSet}
 \alias{txi,bcbioRnaDataSet-method}
 \alias{"<-txi"}
-\title{Accessors for the count matrix of a bcbioRnaDataSet object.}
+\title{Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object}
 \usage{
 txi(object, ...)
 
@@ -23,18 +22,16 @@ txi.bcbioRnaDataSet(object)
 \S4method{txi}{bcbioRnaDataSet,matrix}(object) <- value
 }
 \arguments{
-\item{object}{a \code{bcbioRnaDataSet} object}
+\item{object}{\linkS4class{bcbioRnaDataSet} object.}
 
-\item{...}{matrix count data}
+\item{...}{Matrix count data.}
 
-\item{value}{an integer matrix}
+\item{value}{An integer matrix.}
 }
 \value{
-\code{\link[base]{matrix}} with raw count data.
+\link[base:matrix]{base::matrix} with raw count data.
 }
 \description{
-Accessors for the count matrix of a bcbioRnaDataSet object.
+Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object
 }
-\author{
-Lorena Pantano
-}
+\keyword{internal}
