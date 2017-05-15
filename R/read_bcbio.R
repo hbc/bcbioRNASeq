@@ -140,11 +140,11 @@ read_bcbio_file <- function(
 
     # File import
     if (ext == "csv") {
-        data <- read_csv(filepath, col_types = cols(), ...)
+        data <- read_csv(filepath, ...)
     } else if (ext == "tsv") {
-        data <- read_tsv(filepath, col_types = cols(), ...)
+        data <- read_tsv(filepath, ...)
     } else if (ext == "counts") {
-        data <- read_tsv(filepath, col_types = cols(), ...) %>% as.matrix
+        data <- read_tsv(filepath, ...) %>% as.matrix
     } else {
         stop("Unsupported file extension")
     }

@@ -3,6 +3,7 @@
 ## Exported functions
 
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
+bcbioRnaDataSetFromFolder(upload_dir = "final", analysis = "rnaseq", intgroup = "description", metadata_file = NULL, organism = NULL, read_counts = TRUE, ...)
 check_dds(dds, stop = TRUE)
 check_dt(dt, stop = TRUE)
 check_res(res, stop = TRUE)
@@ -48,4 +49,13 @@ res_tables(run, res, lfc = 0)
 tmm_normalize(raw_counts)
 top_tables(res_tbl)
 tpm(txi)
+txi(object, ...)
+txi.bcbioRnaDataSet(object)
+txi<-(object, ..., value)
 write_counts(..., dir = file.path("results", "counts"))
+
+## Exported data
+
+.__C__SummarizedExperiment: classRepresentation (S4[1])
+.__T__txi:bcbioRnaseq: environment (environment[1])
+.__T__txi<-:bcbioRnaseq: environment (environment[1])

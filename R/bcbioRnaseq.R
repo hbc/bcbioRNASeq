@@ -6,16 +6,17 @@
 #' @import basejump
 #' @import DESeq2
 #' @import ggplot2
+#' @import methods
 #' @import SummarizedExperiment
+#' @import S4Vectors
 #' @importFrom cowplot ggdraw draw_plot
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
-#' @importFrom methods as is new validObject
 #' @importFrom pheatmap pheatmap
-#' @importFrom S4Vectors mcols
 #' @importFrom tximport tximport
+#' @importFrom utils read.table
 #' @importFrom vsn meanSdPlot
 #' @importFrom yaml yaml.load_file
 "_PACKAGE"

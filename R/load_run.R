@@ -62,8 +62,7 @@ load_run <- function(
     # Data versions
     if (file.exists(file.path(project_dir, "data_versions.csv"))) {
         message("Reading data versions...")
-        data_versions <- file.path(project_dir, "data_versions.csv") %>%
-            read_csv(col_types = cols())
+        data_versions <- read_csv(file.path(project_dir, "data_versions.csv"))
     } else {
         data_versions <- NULL
     }

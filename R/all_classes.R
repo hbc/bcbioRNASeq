@@ -1,6 +1,6 @@
 #' Class that contains bcbio run information.
 #'
-#' [bcbioRnaDataSet] is a subclass of [SummarizedExperiment] used to store the
+#' bcbioRnaDataSet is a subclass of [SummarizedExperiment] used to store the
 #' raw data, intermediate calculations and results of an miRNA/isomiR analysis.
 #' This class stores all raw isomiRs data for each sample, processed
 #' information, summary for each isomiR type, raw counts, normalized counts, and
@@ -15,19 +15,20 @@
 #' @aliases bcbioRnaDataSet-class
 #' @rdname bcbioRnaDataSet
 #' @export
+setClass("SummarizedExperiment")
 bcbioRnaDataSet <- setClass("bcbioRnaDataSet",
                             contains = "SummarizedExperiment")
 setValidity("bcbioRnaDataSet", function(object) { TRUE })
 
 # Constructor
-.bcbioRnaDataSet <- function(se, run){
+.bcbioRnaDataSet <- function(se, run) {
     if (!is(se, "SummarizedExperiment")) {
         if (is(se, "SummarizedExperiment0")) {
             se <- as(se, "SummarizedExperiment")
         } else if (is(se, "SummarizedExperiment")) {
-            # only to help transition from SummarizedExperiment to new
-            # RangedSummarizedExperiment objects,
-            # remove once transition is complete
+            # Only to help transition from SummarizedExperiment to new
+            # RangedSummarizedExperiment objects, remove once transition is
+            # complete
             se <- as(se, "SummarizedExperiment")
         } else {
             stop("'se' must be a SummarizedExperiment object")
@@ -37,6 +38,7 @@ setValidity("bcbioRnaDataSet", function(object) { TRUE })
     metadata(ids) <- run
     ids
 }
+
 
 
 #' [bcbioRnaDataSetFromFolder()] loads bcbio-nextgen output.
@@ -73,7 +75,6 @@ bcbioRnaDataSetFromFolder <- function(
     metadata_file = NULL,
     organism = NULL,
     read_counts = TRUE, ...) {
-
     run <- load_run(
         upload_dir,
         analysis,
