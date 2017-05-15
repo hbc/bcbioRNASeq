@@ -1,12 +1,12 @@
 #' @rdname txi
 #' @export
 setGeneric("txi", function(object, ...) standardGeneric("txi"))
+
 #' @rdname txi
 #' @export
 setGeneric("txi<-", function(object, ..., value) standardGeneric("txi<-"))
 
 #' Accessors for the count matrix of a bcbioRnaDataSet object.
-#'
 #'
 #' @docType methods
 #' @name txi
@@ -26,15 +26,18 @@ txi.bcbioRnaDataSet <- function(object) {
 
 #' @rdname txi
 #' @export
-setMethod("txi", signature(object="bcbioRnaDataSet"), txi.bcbioRnaDataSet)
+setMethod("txi",
+          signature(object = "bcbioRnaDataSet"),
+          txi.bcbioRnaDataSet)
 
 #' @name "<-txi"
 #' @rdname txi
 #' @exportMethod "txi<-"
-setReplaceMethod("txi", signature(object="bcbioRnaDataSet", value="matrix"),
-                 function(object, value){
-                     assays(object)[["counts"]] <- value
-                     validObject(object)
-                     object
-                 }
-)
+setReplaceMethod(
+    "txi", signature(object = "bcbioRnaDataSet",
+                     value = "matrix"),
+    function(object, value) {
+        assays(object)[["counts"]] <- value
+        validObject(object)
+        object
+    })

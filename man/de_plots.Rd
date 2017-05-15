@@ -44,7 +44,7 @@ Volcano plot.
 }
 \description{
 Wrapper for \code{\link[DESeq2]{plotMA}} that generates a title
-  automatically.
+automatically.
 
 Volcano plot.
 }

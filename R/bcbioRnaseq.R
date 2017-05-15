@@ -1,4 +1,4 @@
-#' bcbioRnaseq.
+#' bcbioRnaseq
 #'
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
@@ -6,7 +6,7 @@
 #' @import basejump
 #' @import DESeq2
 #' @import ggplot2
-#' @importFrom biomaRt getBM listMarts useEnsembl
+#' @import SummarizedExperiment
 #' @importFrom cowplot ggdraw draw_plot
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
@@ -14,7 +14,6 @@
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new validObject
 #' @importFrom pheatmap pheatmap
-#' @importFrom SummarizedExperiment assay colData
 #' @importFrom S4Vectors mcols
 #' @importFrom tximport tximport
 #' @importFrom vsn meanSdPlot
@@ -28,3 +27,5 @@ globalVariables(basejump::globals,
 fail_color <- "red"
 pass_color <- "green"
 warn_color <- "orange"
+
+importClassesFrom(SummmarizedExperiment, SummarizedExperiment)

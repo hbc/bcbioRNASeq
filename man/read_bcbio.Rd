@@ -48,8 +48,8 @@ Summary statistics data frame.
 }
 \description{
 Read RNA-seq counts using \code{\link[tximport]{tximport}}.
-  Currently supports \href{https://combine-lab.github.io/salmon/}{salmon} and
-  \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
+Currently supports \href{https://combine-lab.github.io/salmon/}{salmon} and
+\href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 
 Read a project data file.
 
