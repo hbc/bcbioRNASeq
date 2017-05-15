@@ -14,17 +14,17 @@ check_run <- function(run) {
     if (!is.list(run)) {
         stop("Run object is not a list")
     }
-    if (is.null(run$yaml)) {
-        stop("Run does contain YAML info, please resave")
+    if (!dir.exists(run$upload_dir)) {
+        stop("Upload dir missing")
     }
-    if (!length(dir(run$upload_dir))) {
-        stop("Could not access upload dir")
-    }
-    if (!length(dir(run$project_dir))) {
-        stop("Could not access project dir")
+    if (!dir.exists(run$project_dir)) {
+        stop("Project directory (YYYY-MM-DD_template) missing")
     }
     if (!length(run$sample_dirs)) {
         stop("No sample directories in run")
+    }
+    if (is.null(run$yaml)) {
+        stop("Run does contain YAML info, please resave")
     }
     if (is.null(run$metadata)) {
         stop("Run does not contain metadata, please resave")

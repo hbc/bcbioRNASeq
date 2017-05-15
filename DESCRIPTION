@@ -26,7 +26,7 @@ biocViews:
     RNASeq,
     Visualization
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
+    http://bioinformatics.sph.harvard.edu/bcbioRnaseq/,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
 Depends: R (>= 3.4.0)
@@ -34,32 +34,19 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    biomaRt (>= 2.32.0),
+    basejump (>= 0.0.10),
     cowplot,
     DEGreport,
     DESeq2 (>= 1.16.0),
-    dplyr (>= 0.5.0.9000),
     edgeR (>= 3.18.0),
     ggplot2 (>= 2.2.1),
     ggrepel (>= 0.6.5),
     isomiRs,
-    knitr (>= 1.15),
-    magrittr (>= 1.5),
     methods,
     pheatmap (>= 1.0.8),
-    readr (>= 1.1.0),
-    readxl (>= 1.0.0),
-    reshape2 (>= 1.4.2),
-    rlang (>= 0.0.0.9000),
-    stats,
-    stringr (>= 1.2.0),
     S4Vectors,
     SummarizedExperiment (>= 1.1.6),
-    tibble (>= 1.3.0),
-    tidyr (>= 0.6.1),
-    tools,
     tximport (>= 1.4.0),
-    utils,
     vsn (>= 3.44.0),
     yaml
 Suggests:
@@ -67,7 +54,11 @@ Suggests:
     BiocStyle,
     RUnit
 Remotes:
-    hadley/rlang,
     lpantano/DEGreport,
-    tidyverse/dplyr,
-RoxygenNote: 6.0.1
+    steinbaugh/basejump
+Roxygen: list(markdown = TRUE,
+              roclets = c("collate",
+                          "namespace",
+                          "rd",
+                          "pkgapi::api_roclet"))
+RoxygenNote: 6.0.1.9000

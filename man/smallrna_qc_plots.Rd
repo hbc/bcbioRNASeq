@@ -10,7 +10,7 @@ plot_size_distribution(run)
 plot_mirna_counts(run)
 }
 \arguments{
-\item{run}{bcbio-nextgen run}
+\item{run}{bcbio-nextgen run.}
 }
 \value{
 ggplot figure.

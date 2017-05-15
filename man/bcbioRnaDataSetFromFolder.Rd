@@ -2,7 +2,7 @@
 % Please edit documentation in R/all_classes.R
 \name{bcbioRnaDataSetFromFolder}
 \alias{bcbioRnaDataSetFromFolder}
-\title{\code{bcbioRnaDataSetFromFolder} loads bcbio-nextgen output}
+\title{\code{\link[=bcbioRnaDataSetFromFolder]{bcbioRnaDataSetFromFolder()}} loads bcbio-nextgen output.}
 \usage{
 bcbioRnaDataSetFromFolder(upload_dir = "final", analysis = "rnaseq",
   intgroup = "description", metadata_file = NULL, organism = NULL,
@@ -34,11 +34,10 @@ for common reference genomes and normally does not need to be set.}
 bcbio-nextgen run object
 }
 \description{
-This function parses
-output of bcbio-nextgen tool to allow (small) RNAseq analysis of samples
-in different groups such as
-characterization, differential expression and clustering. It creates an
-\code{\link[bcbioRnaseq]{bcbioRnaDataSetFromFolder}} object.
+This function parses output of bcbio-nextgen tool to allow (small) RNAseq
+analysis of samples in different groups such as characterization,
+differential expression and clustering. It creates an
+\code{\link[=bcbioRnaDataSetFromFolder]{bcbioRnaDataSetFromFolder()}} object.
 }
 \author{
 Michael Steinbaugh

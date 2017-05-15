@@ -1,39 +1,34 @@
-#' Class that contains bcbio run information
+#' Class that contains bcbio run information.
 #'
-#' The \code{\link{bcbioRnaDataSet}} is a subclass of
-#' \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#' used to store the raw data, intermediate calculations and results of an
-#' miRNA/isomiR analysis. This class stores all raw isomiRs
-#' data for each sample, processed information,
-#' summary for each isomiR type,
-#' raw counts, normalized counts, and table with
-#' experimental information for each sample.
+#' bcbioRnaDataSet is a subclass of [SummarizedExperiment] used to store the
+#' raw data, intermediate calculations and results of an miRNA/isomiR analysis.
+#' This class stores all raw isomiRs data for each sample, processed
+#' information, summary for each isomiR type, raw counts, normalized counts, and
+#' table with experimental information for each sample.
 #'
-#' \code{\link{bcbioRnaDataSetFromFolder}} creates this object using bcbio output files.
+#' [bcbioRnaDataSetFromFolder()] creates this object using bcbio output files.
 #'
 #' Methods for this objects ...
 #'
-#' \code{metadata} contains ...
+#' `metadata` contains ...
 #'
 #' @aliases bcbioRnaDataSet-class
 #' @rdname bcbioRnaDataSet
 #' @export
+setClass("SummarizedExperiment")
 bcbioRnaDataSet <- setClass("bcbioRnaDataSet",
-                          contains = "SummarizedExperiment")
-
-setValidity( "bcbioRnaDataSet", function( object ) {
-    TRUE
-} )
+                            contains = "SummarizedExperiment")
+setValidity("bcbioRnaDataSet", function(object) { TRUE })
 
 # Constructor
-.bcbioRnaDataSet <- function(se, run){
+.bcbioRnaDataSet <- function(se, run) {
     if (!is(se, "SummarizedExperiment")) {
         if (is(se, "SummarizedExperiment0")) {
             se <- as(se, "SummarizedExperiment")
         } else if (is(se, "SummarizedExperiment")) {
-            # only to help transition from SummarizedExperiment to new
-            # RangedSummarizedExperiment objects,
-            # remove once transition is complete
+            # Only to help transition from SummarizedExperiment to new
+            # RangedSummarizedExperiment objects, remove once transition is
+            # complete
             se <- as(se, "SummarizedExperiment")
         } else {
             stop("'se' must be a SummarizedExperiment object")
@@ -45,13 +40,13 @@ setValidity( "bcbioRnaDataSet", function( object ) {
 }
 
 
-#' \code{bcbioRnaDataSetFromFolder} loads bcbio-nextgen output
+
+#' [bcbioRnaDataSetFromFolder()] loads bcbio-nextgen output.
 #'
-#' This function parses
-#' output of bcbio-nextgen tool to allow (small) RNAseq analysis of samples
-#' in different groups such as
-#' characterization, differential expression and clustering. It creates an
-#' \code{\link[bcbioRnaseq]{bcbioRnaDataSetFromFolder}} object.
+#' This function parses output of bcbio-nextgen tool to allow (small) RNAseq
+#' analysis of samples in different groups such as characterization,
+#' differential expression and clustering. It creates an
+#' [bcbioRnaDataSetFromFolder()] object.
 #'
 #' @author Michael Steinbaugh
 #' @author Lorena Pantano
@@ -80,10 +75,15 @@ bcbioRnaDataSetFromFolder <- function(
     metadata_file = NULL,
     organism = NULL,
     read_counts = TRUE, ...) {
-
-    run <- load_run(upload_dir, analysis, intgroup, metadata_file, organism, read_counts)
-    se <- SummarizedExperiment(assays = SimpleList(counts=run$txi),
-                               colData = DataFrame(run$metadata), ...)
+    run <- load_run(
+        upload_dir,
+        analysis,
+        intgroup,
+        metadata_file,
+        organism, read_counts)
+    se <- SummarizedExperiment(
+        assays = SimpleList(counts = run$txi),
+        colData = DataFrame(run$metadata), ...)
     run$txi = NULL
     ids <- .bcbioRnaDataSet(se, run)
     return(ids)

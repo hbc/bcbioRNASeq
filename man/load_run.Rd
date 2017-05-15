@@ -26,7 +26,7 @@ lowercase and one word (e.g. hsapiens). This will be detected automatically
 for common reference genomes and normally does not need to be set.}
 
 \item{read_counts}{Automatically read in the count data using
-\code{read_bcbio_counts()}.}
+\code{\link{read_bcbio_counts}}.}
 }
 \value{
 bcbio-nextgen run list object, containing counts and metadata.

@@ -29,10 +29,10 @@ Pooled raw counts matrix.
 Pool lane split counts.
 
 Pool \linkS4class{DESeqDataSet} counts for technical replicates.
-  Extract lane split technical replicate counts from a
-  \linkS4class{DESeqDataSet}, perform \code{\link{rowSums}}, and create a new
-  \linkS4class{DESeqDataSet} using
-  \code{\link[DESeq2]{DESeqDataSetFromMatrix}}.
+Extract lane split technical replicate counts from a
+\linkS4class{DESeqDataSet}, perform \code{\link{rowSums}}, and create a new
+\linkS4class{DESeqDataSet} using
+\code{\link[DESeq2]{DESeqDataSetFromMatrix}}.
 }
 \author{
 Michael Steinbaugh
