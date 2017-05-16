@@ -155,8 +155,7 @@ load_run <- function(
             run$txi <- read_bcbio_counts(run)
         }
     } else if (analysis == "srnaseq") {
-        run$txi <- .read_smallrna_counts(run)
-        message("Automatic count import not yet supported for small RNA-seq")
+        run$txi <- read_bcbio_counts(run)
     } else {
         stop("Unsupported analysis type")
     }

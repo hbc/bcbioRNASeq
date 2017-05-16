@@ -9,7 +9,7 @@
 #' @import methods
 #' @import SummarizedExperiment
 #' @import S4Vectors
-#' @importFrom cowplot ggdraw draw_plot
+#' @importFrom cowplot ggdraw draw_plot plot_grid
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
 #' @importFrom ggrepel geom_text_repel

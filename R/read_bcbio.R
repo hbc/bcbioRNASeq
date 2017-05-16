@@ -28,7 +28,7 @@ read_bcbio_counts <- function(
     check_run(run)
     # Check for small RNA-seq analysis
     if (run$analysis == "srnaseq") {
-        return(.read_smallrna_counts(run))
+        return(as.matrix(read_bcbio_file(run, "counts_mirna.tsv", "mirna")))
     }
 
     # Select the samples to import
@@ -255,8 +255,19 @@ read_bcbio_samples_yaml <- function(run, keys) {
     return(df)
 }
 
-# internal function to read small RNA count data
-.read_smallrna_counts <- function(run){
+#' Create isomiRs object from bcbio output
+#'
+#' Read bcbio output to create isomiRs object
+#'
+#' @rdname read_smallrna_counts
+#' @description Read bcbio sample information from YAML to get
+#' isomiR object
+#'
+#' @param bcbiods bcbioRnaDataSet object
+#'
+#' @export
+read_smallrna_counts <- function(bcbiods){
+    run <- metadata(bcbiods)
     fns <- file.path(run$sample_dirs,
                      paste(names(run$sample_dirs),
                            "mirbase-ready.counts",

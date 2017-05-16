@@ -13,6 +13,7 @@
 #' @description Plot size distribution of small RNA-seq data
 #' @export
 plot_size_distribution <- function(run) {
+    run <- metadata(run)
     import_tidy_verbs()
     fns <- file.path(run$sample_dirs,
                      paste(names(run$sample_dirs),
@@ -24,8 +25,8 @@ plot_size_distribution <- function(run) {
         d <- read.table(fns[sample], sep = "")
         tab <- rbind(
             tab, d %>%
-                mutate(sample = .data$sample,
-                       group = run$metadata[.data$sample, run$intgroup]))
+                mutate(sample = sample,
+                       group = run$metadata[sample, run$intgroup]))
     }
 
     reads_adapter <- tab %>%
@@ -59,9 +60,23 @@ plot_size_distribution <- function(run) {
 #' @description Plot of total miRNA counts
 #' @export
 plot_mirna_counts <- function(run) {
-    data.frame(sample = colnames(counts(run$srna_counts)),
-               total = colSums(counts(run$srna_counts))) %>%
-    ggplot +
-        geom_bar(aes_(x = ~sample, y = ~total), stat = "identity") +
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+    .t <- data.frame(sample = colnames(txi(run)),
+               total = colSums(txi(run)))
+    cs <- as.data.frame(apply(txi(run),2,function(x){cumsum(sort(x, decreasing = T))}))
+    cs$pos <- 1:nrow(cs)
+
+    plot_grid(ggplot(.t) +
+                  geom_bar(aes_(x = ~sample, y = ~total), stat = "identity") +
+                  theme_minimal() +
+                  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)),
+              ggplot(melt(txi(run))) +
+                  geom_boxplot(aes(x=X2,y=value)) +
+                  xlab("") + ylab("Expression") +
+                  scale_y_log10()+ theme_minimal() +
+                  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)),
+              ggplot((melt(cs,id.vars = "pos"))) +
+                  geom_line(aes(x=pos,y=value,color=variable)) +
+                  xlim(0, 50) + scale_y_log10() + theme_minimal()
+    )
+
 }
