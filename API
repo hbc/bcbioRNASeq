@@ -40,6 +40,7 @@ read_bcbio_metadata(run)
 read_bcbio_metrics(run)
 read_bcbio_samples_yaml(run, keys)
 read_metadata(file, pattern = NULL, pattern_col = "description", lanes = NULL)
+read_smallrna_counts(bcbiods)
 references(bibtex_file = "bcbioRnaseq.bib")
 res_tables(run, res, lfc = 0)
 tmm_normalize(raw_counts)
@@ -52,6 +53,6 @@ write_counts(..., dir = file.path("results", "counts"))
 
 ## Exported data
 
-.__C__SummarizedExperiment: classRepresentation (S4[1])
+.__C__bcbioRnaDataSet: classRepresentation (S4[1])
 .__T__txi:bcbioRnaseq: environment (environment[1])
 .__T__txi<-:bcbioRnaseq: environment (environment[1])

@@ -12,7 +12,7 @@
 #' @keywords internal
 #' @aliases bcbioRnaDataSet-class
 #' @export
-setClass("SummarizedExperiment")
+setClass("bcbioRnaDataSet")
 bcbioRnaDataSet <- setClass("bcbioRnaDataSet",
                             contains = "SummarizedExperiment")
 setValidity("bcbioRnaDataSet", function(object) { TRUE })
