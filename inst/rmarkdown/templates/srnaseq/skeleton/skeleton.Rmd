@@ -1,0 +1,58 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    highlight: zenburn
+    theme: flatly
+---
+
+The most recent update of this html document occurred: `r date()`
+
+
+```{r setup, message=FALSE}
+library(knitr)
+library(bcbioRnaseq)
+
+knitr::opts_chunk$set(tidy=TRUE, highlight=TRUE, dev="png", fig.width=6,fig.heigh=9,
+               cache=TRUE, highlight=TRUE, autodep=TRUE, 
+               warning=FALSE, error=FALSE,
+               message=FALSE, prompt=TRUE, comment='', fig.cap='', bootstrap.show.code=FALSE)
+```
+
+```{r load-bcbio}
+run = load_run_S4("bcbio_yaml_file_in_final_folder", intgroup = "group", analysis="srnaseq")
+
+final_path = run$final_dir
+res_folder = file.path(final_path, "client")
+dir.create(res_folder, showWarnings = FALSE)
+
+metadata = colData(run)
+formula = ~ group # modify this to get your own formula, it should be a column in your metadata
+isde=FALSE # turn this true to make DE ananlysis
+```
+
+
+# Exploratory analysis
+
+In this section we will see descriptive figures about quality of the data, 
+reads with adapter, reads mapped to miRNAs, reads mapped to other small RNAs. 
+
+## size distribution
+
+After adapter removal, we can plot the size distribution of the small RNAs.
+
+```{r adapter}
+plot_size_distribution(run)
+```
+
+
+## miRNA
+
+### total miRNA expression annotated with mirbase
+
+```{r mirna-mirbase}
+plot_mirna_counts(run)
+```
+
