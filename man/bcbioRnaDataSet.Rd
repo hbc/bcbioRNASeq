@@ -3,6 +3,7 @@
 \docType{class}
 \name{bcbioRnaDataSet-class}
 \alias{bcbioRnaDataSet-class}
+\alias{bcbioRnaDataSet}
 \title{Class that contains bcbio run information}
 \description{
 \code{bcbioRnaDataSet} is a subclass of \link{SummarizedExperiment} designed to store
