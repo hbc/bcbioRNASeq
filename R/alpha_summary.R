@@ -3,6 +3,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @param dds \linkS4class{DESeqDataSet}.
+#' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param ... Passthrough parameters to [DESeq2::results()].
 #'
 #' @return Printed summary.
