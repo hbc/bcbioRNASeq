@@ -6,13 +6,6 @@
 #' @param genome_build Genome build
 #'
 #' @return Organism string
-#' @export
-#'
-#' @examples
-#' detect_organism("hg19")
-#' detect_organism("mm10")
-#' detect_organism("WBcel235")
-#' detect_organism("BDGP6")
 detect_organism <- function(genome_build) {
     if (str_detect(genome_build, "^(hg|GRCh)\\d+")) {
         "hsapiens"
@@ -35,6 +28,60 @@ detect_organism <- function(genome_build) {
 
 
 
+#' Query Ensembl
+#'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#' @author Rory Kirchner
+#'
+#' @param run bcbio run.
+#'
+#' @return Tibble grouped by `ensembl_gene_id` with nested
+#'   `ensembl_transcript_id`.
+query_ensembl <- function(run) {
+    import_tidy_verbs()
+    # Broad class definitions
+    coding <- c("protein_coding")
+    decaying <- c("non_stop_decay", "nonsense_mediated_decay")
+    noncoding <- c("known_ncrna", "lincRNA", "non_coding")
+    srna <- c("miRNA", "misc_RNA", "ribozyme", "rRNA", "scaRNA", "scRNA",
+              "snoRNA", "snRNA", "sRNA")
+    ensembl <- useEnsembl(
+        biomart = "ensembl",
+        dataset = paste(run$organism, "gene_ensembl", sep = "_"))
+    nested_tx2gene <- getBM(
+        mart = ensembl,
+        attributes = c("ensembl_gene_id",
+                       "ensembl_transcript_id")) %>%
+        as_tibble %>%
+        group_by(!!sym("ensembl_gene_id")) %>%
+        arrange(!!sym("ensembl_transcript_id"), .by_group = TRUE) %>%
+        nest_(key_col = "ensembl_transcript_id",
+              nest_cols = "ensembl_transcript_id")
+    gene_level <- getBM(
+        mart = ensembl,
+        attributes = c("ensembl_gene_id",
+                       "external_gene_name",
+                       "description",
+                       "gene_biotype",
+                       "chromosome_name"))
+    left_join(nested_tx2gene, gene_level, by = "ensembl_gene_id") %>%
+        mutate(broad_class = case_when(
+            tolower(.data$chromosome_name) == "mt" ~ "mito",
+            # Fix to match Drosophila genome (non-standard)
+            grepl("mito", .data$chromosome_name) ~ "mito",
+            grepl("pseudo", .data$gene_biotype) ~ "pseudo",
+            grepl("TR_", .data$gene_biotype) ~ "TCR",
+            grepl("IG_", .data$gene_biotype) ~ "IG",
+            .data$gene_biotype %in% srna ~ "small",
+            .data$gene_biotype %in% decaying ~ "decaying",
+            .data$gene_biotype %in% noncoding ~ "noncoding",
+            .data$gene_biotype %in% coding ~ "coding",
+            TRUE ~ "other"))
+}
+
+
+
 #' Read metadata
 #'
 #' @keywords internal
@@ -44,10 +91,9 @@ detect_organism <- function(genome_build) {
 #' @param pattern Apply grep pattern matching to samples
 #' @param pattern_col Column in data frame used for pattern subsetting
 #' @param lanes Number of lanes used to split the samples into technical
-#'   replicates (\code{_LXXX}) suffix.
+#'   replicates (`_LXXX`) suffix.
 #'
-#' @return Metadata data frame
-#' @export
+#' @return Metadata data frame.
 read_metadata <- function(
     file,
     pattern = NULL,
@@ -67,7 +113,7 @@ read_metadata <- function(
     names(metadata)[1] <- "file_name"
 
     metadata <- metadata %>%
-        set_names_snake %>%
+        snake %>%
         .[!is.na(.$description), ] %>%
         .[order(.$description), ]
 
@@ -99,22 +145,4 @@ read_metadata <- function(
 res_contrast_name <- function(res) {
     mcols(res)[2, 2] %>%
         str_replace("^.*:\\s", "")
-}
-
-
-
-tx2gene <- function(run) {
-    run$ensembl %>%
-        as.data.frame %>%
-        .[, c("ensembl_transcript_id", "ensembl_gene_id")] %>%
-        set_rownames(.$ensembl_transcript_id)
-}
-
-
-
-tx2gene_annotations <- function(run) {
-    run$ensembl %>%
-        ungroup %>%
-        mutate(ensembl_transcript_id = NULL) %>%
-        distinct
 }
