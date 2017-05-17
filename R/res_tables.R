@@ -39,6 +39,13 @@ res_tables <- function(
         left_join(annotations, by = "ensembl_gene_id") %>%
         arrange(!!sym("ensembl_gene_id"))
 
+    # Check for overall gene expression with base mean
+    base_mean_gt0 <- all %>%
+        arrange(desc(!!sym("base_mean"))) %>%
+        filter(.data$base_mean > 0)
+    base_mean_gt1 <- base_mean_gt0 %>%
+        filter(.data$base_mean > 1)
+
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
         filter(.data$padj < alpha) %>%
@@ -51,12 +58,6 @@ res_tables <- function(
         filter(.data$log2_fold_change > 0)
     deg_lfc_down <- deg_lfc %>%
         filter(.data$log2_fold_change < 0)
-
-    base_mean_gt0 <- all %>%
-        arrange(desc(!!sym("base_mean")))
-        filter(.data$base_mean > 0)
-    base_mean_gt1 <- base_mean_gt0 %>%
-        filter(.data$base_mean > 1)
 
     writeLines(c(
         paste(name, "differential expression tables"),
