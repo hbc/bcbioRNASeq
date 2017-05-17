@@ -3,13 +3,14 @@
 #' @author Michael Steinbaugh
 #'
 #' @param dds \linkS4class{DESeqDataSet}.
-#' @param alpha alpha Numeric vector of alpha levels to check.
+#' @param ... Passthrough parameters to [DESeq2::results()].
 #'
 #' @return Printed summary.
 #' @export
 alpha_summary <- function(
     dds,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6)) {
+    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+    ...) {
     name <- deparse(substitute(dds))
     print(name)
     lapply(seq_along(alpha), function(a) {
@@ -17,6 +18,6 @@ alpha_summary <- function(
             paste(name,
                   paste("alpha", alpha[a], sep = " = "),
                   sep = " : "))
-        results(dds, alpha = alpha[a]) %>% summary
+        results(dds, alpha = alpha[a], ...) %>% summary
     }) %>% invisible
 }

@@ -2,7 +2,7 @@
 
 ## Exported functions
 
-alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
+alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06), ...)
 check_dds(dds, stop = TRUE)
 check_dt(dt, stop = TRUE)
 check_res(res, stop = TRUE)

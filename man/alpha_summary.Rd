@@ -4,12 +4,12 @@
 \alias{alpha_summary}
 \title{Print summary statistics of alpha level cutoffs}
 \usage{
-alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
+alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06), ...)
 }
 \arguments{
 \item{dds}{\linkS4class{DESeqDataSet}.}
 
-\item{alpha}{alpha Numeric vector of alpha levels to check.}
+\item{...}{Passthrough parameters to \code{\link[DESeq2:results]{DESeq2::results()}}.}
 }
 \value{
 Printed summary.
