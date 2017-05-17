@@ -147,6 +147,7 @@ load_run <- function(
 
     if (analysis == "rnaseq") {
         # Save Ensembl annotations
+        message("Download Ensembl annotations...")
         run$ensembl <- query_ensembl(run)
         run$ensembl_version <- listMarts() %>% .[1, 2]
 

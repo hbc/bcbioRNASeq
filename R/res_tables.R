@@ -46,12 +46,10 @@ res_tables <- function(
     base_mean_gt1 <- base_mean_gt0 %>%
         filter(.data$base_mean > 1)
 
-    # All DEG tables sorted by BH adjusted P value
+    # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
         filter(.data$padj < alpha) %>%
         arrange(!!sym("padj"))
-    glimpse(deg)
-
     deg_lfc <- deg %>%
         .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
     deg_lfc_up <- deg_lfc %>%
