@@ -15,12 +15,6 @@ Organism string
 \description{
 Detect the organism from the genome build name
 }
-\examples{
-detect_organism("hg19")
-detect_organism("mm10")
-detect_organism("WBcel235")
-detect_organism("BDGP6")
-}
 \author{
 Michael Steinbaugh
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read metadata — read_metadata • bcbioRnaseq</title>
+<title>Ensembl annotations — gene_level_annotations • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,41 +73,40 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read metadata</h1>
+    <h1>Ensembl annotations</h1>
     </div>
 
     
-    <p>Read metadata</p>
+    <p>Gene-level annotations with <code>description</code> and <code>gene_biotype</code>,
+and <code>broad_class</code>.</p>
+<p>Transcript-to-gene annotations, to be used with <code>tximport()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>read_metadata</span>(<span class='no'>file</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pattern_col</span> <span class='kw'>=</span> <span class='st'>"description"</span>,
-  <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gene_level_annotations</span>(<span class='no'>run</span>)
+
+<span class='fu'>tx2gene</span>(<span class='no'>run</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>Metadata file. CSV and XLSX formats are supported.</p></td>
-    </tr>
-    <tr>
-      <th>pattern</th>
-      <td><p>Apply grep pattern matching to samples</p></td>
-    </tr>
-    <tr>
-      <th>pattern_col</th>
-      <td><p>Column in data frame used for pattern subsetting</p></td>
-    </tr>
-    <tr>
-      <th>lanes</th>
-      <td><p>Number of lanes used to split the samples into technical
-replicates (<code>_LXXX</code>) suffix.</p></td>
+      <th>run</th>
+      <td><p>bcbio-nextgen run.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Metadata data frame.</p>
+    <p>Tibble arranged by <code>ensembl_gene_id</code>.</p>
+<p>Tibble with <code>ensembl_transcript_id</code> and <code>ensembl_gene_id</code>.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Transcript-level annotations are downloaded from
+<a href = 'http://www.ensembl.org/'>Ensembl</a> and saved as a tibbled grouped by
+<code>ensembl_gene_id</code> with nested <code>ensembl_transcript_id</code> in the bcbio run
+object. We also define broad classes, which are used in quality control
+analysis.</p>
     
 
   </div>
@@ -117,6 +116,8 @@ replicates (<code>_LXXX</code>) suffix.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
     <h2>Author</h2>

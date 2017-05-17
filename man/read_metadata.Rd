@@ -18,7 +18,7 @@ read_metadata(file, pattern = NULL, pattern_col = "description",
 replicates (\code{_LXXX}) suffix.}
 }
 \value{
-Metadata data frame
+Metadata data frame.
 }
 \description{
 Read metadata

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_deg_heatmap.R
 \name{plot_deg_heatmap}
 \alias{plot_deg_heatmap}
-\title{Differentially expressed gene (DEG) heatmap}
+\title{Differentially expressed gene heatmap}
 \usage{
 plot_deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
 }
@@ -15,13 +15,13 @@ plot_deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
 
 \item{alpha}{Alpha level cutoff.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfc}{Log2 fold change ratio cutoff.}
 }
 \value{
 Gene heatmap.
 }
 \description{
-Differentially expressed gene (DEG) heatmap
+Differentially expressed gene heatmap
 }
 \author{
 Michael Steinbaugh

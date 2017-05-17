@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read metadata — read_metadata • bcbioRnaseq</title>
+<title>Query Ensembl — query_ensembl • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,41 +73,28 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read metadata</h1>
+    <h1>Query Ensembl</h1>
     </div>
 
     
-    <p>Read metadata</p>
+    <p>Query Ensembl</p>
     
 
-    <pre class="usage"><span class='fu'>read_metadata</span>(<span class='no'>file</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pattern_col</span> <span class='kw'>=</span> <span class='st'>"description"</span>,
-  <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>query_ensembl</span>(<span class='no'>run</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>Metadata file. CSV and XLSX formats are supported.</p></td>
-    </tr>
-    <tr>
-      <th>pattern</th>
-      <td><p>Apply grep pattern matching to samples</p></td>
-    </tr>
-    <tr>
-      <th>pattern_col</th>
-      <td><p>Column in data frame used for pattern subsetting</p></td>
-    </tr>
-    <tr>
-      <th>lanes</th>
-      <td><p>Number of lanes used to split the samples into technical
-replicates (<code>_LXXX</code>) suffix.</p></td>
+      <th>run</th>
+      <td><p>bcbio run.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Metadata data frame.</p>
+    <p>Tibble grouped by <code>ensembl_gene_id</code> with nested
+<code>ensembl_transcript_id</code>.</p>
     
 
   </div>
@@ -122,6 +109,8 @@ replicates (<code>_LXXX</code>) suffix.</p></td>
     <h2>Author</h2>
     
 Michael Steinbaugh
+
+Rory Kirchner
 
   </div>
 </div>
