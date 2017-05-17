@@ -1,4 +1,4 @@
-#' M. musculus gender marker genes
+#' *M. musculus* gender marker genes
 #'
 #' @rdname internal_data
 #' @keywords internal

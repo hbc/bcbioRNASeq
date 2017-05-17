@@ -1,12 +1,12 @@
-#' Correlation matrix heatmap.
+#' Correlation matrix heatmap
 #'
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run.
-#' @param dt DESeqTransform generated from \code{\link[DESeq2]{rlog}} or
-#'   \code{\link[DESeq2]{vst}} on a \linkS4class{DESeqDataSet}.
+#' @param dt \linkS4class{DESeqTransform} generated from [DESeq2::rlog()] or
+#'   [DESeq2::vst()] on a \linkS4class{DESeqDataSet}.
 #' @param method Correlation coefficient (or covariance) to be computed.
-#'   Defaults to \code{pearson} but \code{spearman} can also be used.
+#'   Defaults to `pearson` but `spearman` can also be used.
 #'
 #' @return Correlation heatmap.
 #' @export

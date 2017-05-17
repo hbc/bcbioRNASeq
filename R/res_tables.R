@@ -1,4 +1,4 @@
-#' Differential expression results tables.
+#' Differential expression results tables
 #'
 #' @author Michael Steinbaugh
 #'
@@ -6,9 +6,9 @@
 #' @param res \linkS4class{DESeqResults}.
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
-#'   See \code{\link[DESeq2]{results}} for additional information about using
-#'   \code{lfcThreshold} and \code{altHypothesis} to set an alternative
-#'   hypothesis based on expected fold changes.
+#'   See [DESeq2::results()] for additional information about using
+#'   `lfcThreshold` and `altHypothesis` to set an alternative hypothesis based
+#'   on expected fold changes.
 #'
 #' @return Results list.
 #' @export

@@ -3,13 +3,12 @@
 #' @rdname de_plots
 #' @author Michael Steinbaugh
 #'
-#' @seealso
-#' \code{\link[DESeq2]{plotMA}}
+#' @seealso [DESeq2::plotMA()].
 
 
 
 #' @rdname de_plots
-#' @description Wrapper for \code{\link[DESeq2]{plotMA}} that generates a title
+#' @description Wrapper for [DESeq2::plotMA()] that generates a title
 #'   automatically.
 #'
 #' @param res \linkS4class{DESeqResults}.
@@ -41,7 +40,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
 #'
-#' @param direction Plot \code{up}, \code{down}, or \code{both} directions.
+#' @param direction Plot `up`, `down`, or `both` directions.
 #' @param title Title for the figure.
 #' @param shade_color Shading color for bounding box.
 #' @param shade_alpha Shading transparency alpha.

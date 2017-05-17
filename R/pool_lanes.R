@@ -1,4 +1,4 @@
-#' Lane-split FASTQ aggregation functions.
+#' Lane-split FASTQ aggregation functions
 #'
 #' @rdname pool_lanes
 #' @author Michael Steinbaugh

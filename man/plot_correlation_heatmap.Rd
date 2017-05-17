@@ -2,15 +2,15 @@
 % Please edit documentation in R/plot_correlation_heatmap.R
 \name{plot_correlation_heatmap}
 \alias{plot_correlation_heatmap}
-\title{Correlation matrix heatmap.}
+\title{Correlation matrix heatmap}
 \usage{
 plot_correlation_heatmap(run, dt, method = "pearson")
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
 
-\item{dt}{DESeqTransform generated from \code{\link[DESeq2]{rlog}} or
-\code{\link[DESeq2]{vst}} on a \linkS4class{DESeqDataSet}.}
+\item{dt}{\linkS4class{DESeqTransform} generated from \code{\link[DESeq2:rlog]{DESeq2::rlog()}} or
+\code{\link[DESeq2:vst]{DESeq2::vst()}} on a \linkS4class{DESeqDataSet}.}
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used.}
@@ -19,7 +19,7 @@ Defaults to \code{pearson} but \code{spearman} can also be used.}
 Correlation heatmap.
 }
 \description{
-Correlation matrix heatmap.
+Correlation matrix heatmap
 }
 \author{
 Michael Steinbaugh

@@ -1,4 +1,4 @@
-#' Standard RNA-seq quality control plots.
+#' Standard RNA-seq quality control plots
 #'
 #' @rdname qc_plots
 #' @author Michael Steinbaugh
@@ -14,7 +14,7 @@
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
 #'
-#' @return ggplot2 plot object.
+#' @return ggplot object.
 
 
 

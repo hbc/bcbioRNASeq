@@ -43,13 +43,13 @@ MA plot.
 Volcano plot.
 }
 \description{
-Wrapper for \code{\link[DESeq2]{plotMA}} that generates a title
+Wrapper for \code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} that generates a title
 automatically.
 
 Volcano plot.
 }
 \seealso{
-\code{\link[DESeq2]{plotMA}}
+\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
 }
 \author{
 Michael Steinbaugh

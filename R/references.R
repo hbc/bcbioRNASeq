@@ -1,7 +1,7 @@
-#' Download BibTex references.
+#' Download BibTex references
 #'
-#' If file isn't present, download latest version from the
-#' \href{http://bioinformatics.sph.harvard.edu}{HBC website}.
+#' If file isn't present, download latest version from the [HBC
+#' website](http://bioinformatics.sph.harvard.edu/).
 #'
 #' @author Michael Steinbaugh
 #'

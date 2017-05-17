@@ -1,4 +1,4 @@
-#' Read data from bcbio-nextgen run.
+#' Read data from bcbio-nextgen run
 #'
 #' @rdname read_bcbio
 #'

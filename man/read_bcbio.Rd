@@ -6,7 +6,7 @@
 \alias{read_bcbio_metadata}
 \alias{read_bcbio_metrics}
 \alias{read_bcbio_samples_yaml}
-\title{Read data from bcbio-nextgen run.}
+\title{Read data from bcbio-nextgen run}
 \usage{
 read_bcbio_counts(run, grep = NULL, samples = NULL)
 

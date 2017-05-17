@@ -12,7 +12,7 @@
 \alias{plot_counts_per_gene}
 \alias{plot_count_density}
 \alias{plot_gender_markers}
-\title{Standard RNA-seq quality control plots.}
+\title{Standard RNA-seq quality control plots}
 \usage{
 plot_total_reads(run, pass_limit = 20, warn_limit = 10)
 
@@ -51,10 +51,10 @@ plot_gender_markers(run, normalized_counts)
 Transcripts per million (TPM) are also acceptable.}
 }
 \value{
-ggplot2 plot object.
+ggplot object.
 }
 \description{
-Standard RNA-seq quality control plots.
+Standard RNA-seq quality control plots
 }
 \author{
 Michael Steinbaugh

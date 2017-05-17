@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_gene.R
 \name{plot_gene}
 \alias{plot_gene}
-\title{Plot an individual gene.}
+\title{Plot an individual gene}
 \usage{
 plot_gene(run, normalized_counts, gene, format = "external_gene_name")
 }
@@ -18,7 +18,7 @@ million (TPM) are also acceptable.}
 \item{format}{Ensembl identifier format. Defaults to the gene name (symbol).}
 }
 \description{
-Plot an individual gene.
+Plot an individual gene
 }
 \author{
 Michael Steinbaugh

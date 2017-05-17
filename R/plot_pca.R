@@ -1,4 +1,4 @@
-#' Plot principal component analysis (PCA).
+#' Plot principal component analysis (PCA)
 #'
 #' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
 #' labeling.

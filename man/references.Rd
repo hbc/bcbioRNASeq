@@ -2,7 +2,7 @@
 % Please edit documentation in R/references.R
 \name{references}
 \alias{references}
-\title{Download BibTex references.}
+\title{Download BibTex references}
 \usage{
 references(bibtex_file = "bcbioRnaseq.bib")
 }
@@ -10,8 +10,7 @@ references(bibtex_file = "bcbioRnaseq.bib")
 \item{bibtex_file}{BibTex library file.}
 }
 \description{
-If file isn't present, download latest version from the
-\href{http://bioinformatics.sph.harvard.edu}{HBC website}.
+If file isn't present, download latest version from the \href{http://bioinformatics.sph.harvard.edu/}{HBCwebsite}.
 }
 \author{
 Michael Steinbaugh

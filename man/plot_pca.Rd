@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_pca.R
 \name{plot_pca}
 \alias{plot_pca}
-\title{Plot principal component analysis (PCA).}
+\title{Plot principal component analysis (PCA)}
 \usage{
 plot_pca(run, dt, label = TRUE)
 }

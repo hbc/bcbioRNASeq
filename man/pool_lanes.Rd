@@ -3,7 +3,7 @@
 \name{pool_lane_split_counts}
 \alias{pool_lane_split_counts}
 \alias{pool_lane_split_dds}
-\title{Lane-split FASTQ aggregation functions.}
+\title{Lane-split FASTQ aggregation functions}
 \usage{
 pool_lane_split_counts(raw_counts, lane_grep = "_L\\\\d+$")
 

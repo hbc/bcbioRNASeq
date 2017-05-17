@@ -2,7 +2,7 @@
 % Please edit documentation in R/metadata_table.R
 \name{metadata_table}
 \alias{metadata_table}
-\title{Metadata table.}
+\title{Metadata table}
 \usage{
 metadata_table(run)
 }
@@ -14,8 +14,8 @@ Data frame containing only the columns of interest.
 }
 \description{
 Returns a subset of metadata columns of interest used for knit reports. These
-"interesting group" columns are defined as \code{intgroup} in the
-bcbio-nextgen run object.
+"interesting group" columns are defined as \code{intgroup} in the bcbio-nextgen
+run object.
 }
 \author{
 Michael Steinbaugh

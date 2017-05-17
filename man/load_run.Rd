@@ -3,7 +3,7 @@
 \name{load_run_S4}
 \alias{load_run_S4}
 \alias{load_run}
-\title{Load bcbio-nextgen run.}
+\title{Load bcbio-nextgen run}
 \usage{
 load_run_S4(upload_dir = "final", analysis = "rnaseq",
   intgroup = "description", metadata_file = NULL, organism = NULL, ...)
@@ -36,9 +36,9 @@ bcbio-nextgen run object (as list), containing counts and metadata.
 }
 \description{
 Simply point to the final upload directory output by
-\href{https://bcbio-nextgen.readthedocs.io}{bcbio-nextgen}, and this function will
-take care of the rest. It automatically imports RNA-seq counts, metadata, and
-program versions used.
+\href{https://bcbio-nextgen.readthedocs.io/}{bcbio-nextgen}, and this function
+will take care of the rest. It automatically imports RNA-seq counts,
+metadata, and program versions used.
 }
 \details{
 When working in RStudio, we recommend connecting to the bcbio-nextgen run

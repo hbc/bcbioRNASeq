@@ -1,9 +1,9 @@
-#' Load bcbio-nextgen run.
+#' Load bcbio-nextgen run
 #'
 #' Simply point to the final upload directory output by
-#' [bcbio-nextgen](https://bcbio-nextgen.readthedocs.io), and this function will
-#' take care of the rest. It automatically imports RNA-seq counts, metadata, and
-#' program versions used.
+#' [bcbio-nextgen](https://bcbio-nextgen.readthedocs.io/), and this function
+#' will take care of the rest. It automatically imports RNA-seq counts,
+#' metadata, and program versions used.
 #'
 #' When working in RStudio, we recommend connecting to the bcbio-nextgen run
 #' directory as a remote connection over

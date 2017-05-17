@@ -1,10 +1,10 @@
-#' Plot an individual gene.
+#' Plot an individual gene
 #'
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run.
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
+#'   DESeqDataSet by running `counts(normalized = TRUE)`. Transcripts per
 #'   million (TPM) are also acceptable.
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene name (symbol).
