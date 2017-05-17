@@ -29,14 +29,14 @@ res_tables <- function(
     contrast <- res_contrast_name(res)
     contrast_name <- contrast %>% gsub(" ", "_", .)
     alpha <- res@metadata$alpha
-    ensembl <- run$ensembl
+    annotations <- gene_level_annotations(run)
 
     all <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
         snake %>%
-        left_join(ensembl, by = "ensembl_gene_id") %>%
+        left_join(annotations, by = "ensembl_gene_id") %>%
         arrange(!!sym("ensembl_gene_id"))
 
     # All DEG tables sorted by BH adjusted P value
