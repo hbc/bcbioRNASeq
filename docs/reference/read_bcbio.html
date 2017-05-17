@@ -94,7 +94,7 @@ Currently supports <a href = 'https://combine-lab.github.io/salmon/'>salmon</a> 
 
 <span class='fu'>read_bcbio_metrics</span>(<span class='no'>run</span>)
 
-<span class='fu'>read_bcbio_samples_yaml</span>(<span class='no'>run</span>, <span class='no'>keys</span>)</pre>
+<span class='fu'>read_bcbio_samples_yaml</span>(<span class='no'>run</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -127,9 +127,8 @@ include. If <code>NULL</code> (default), all samples will be imported.</p></td>
 internally (<code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_csv</a></code>, <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code>).</p></td>
     </tr>
     <tr>
-      <th>keys</th>
-      <td><p>Nested operator keys that should be supplied as an ordered
-character vector, recursing a level down for each entry.</p></td>
+      <th>...</th>
+      <td><p>Nested operator keys supplied as dot objects.</p></td>
     </tr>
     </table>
     

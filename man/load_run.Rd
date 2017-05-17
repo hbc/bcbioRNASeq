@@ -6,12 +6,10 @@
 \title{Load bcbio-nextgen run.}
 \usage{
 load_run_S4(upload_dir = "final", analysis = "rnaseq",
-  intgroup = "description", metadata_file = NULL, organism = NULL,
-  read_counts = TRUE, ...)
+  intgroup = "description", metadata_file = NULL, organism = NULL, ...)
 
 load_run(upload_dir = "final", analysis = "rnaseq",
-  intgroup = "description", metadata_file = NULL, organism = NULL,
-  read_counts = TRUE)
+  intgroup = "description", metadata_file = NULL, organism = NULL)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
@@ -29,9 +27,6 @@ sample metadata saved in the YAML file.}
 \item{organism}{Organism name, following Ensembl/Biomart conventions. Must be
 lowercase and one word (e.g. hsapiens). This will be detected automatically
 for common reference genomes and normally does not need to be set.}
-
-\item{read_counts}{Automatically read in the count data using
-\code{\link[=read_bcbio_counts]{read_bcbio_counts()}}.}
 
 \item{...}{Arguments provided to \link{SummarizedExperiment}. Remove this once
 we migrate the S4 loading variant over as main method.}

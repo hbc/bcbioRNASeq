@@ -84,12 +84,10 @@ program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>load_run_S4</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
-  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>read_counts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
-  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>read_counts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -119,11 +117,6 @@ sample metadata saved in the YAML file.</p></td>
       <td><p>Organism name, following Ensembl/Biomart conventions. Must be
 lowercase and one word (e.g. hsapiens). This will be detected automatically
 for common reference genomes and normally does not need to be set.</p></td>
-    </tr>
-    <tr>
-      <th>read_counts</th>
-      <td><p>Automatically read in the count data using
-<code><a href='read_bcbio.html'>read_bcbio_counts()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>

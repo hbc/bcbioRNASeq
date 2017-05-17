@@ -2,36 +2,23 @@
 % Please edit documentation in R/ensembl_annotations.R
 \name{ensembl_annotations}
 \alias{ensembl_annotations}
-\title{\href{http://www.ensembl.org/}{Ensembl} annotations}
+\title{Ensembl annotations}
 \usage{
-ensembl_annotations(run, attributes = NULL, filters = "ensembl_gene_id",
-  values = NULL)
+ensembl_annotations(run)
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
-
-\item{attributes}{Ensembl attributes.}
-
-\item{filters}{biomaRt filters.}
-
-\item{values}{Ensembl gene identifier values. Optional but will run faster if
-specified.}
 }
 \value{
 Data frame.
 }
 \description{
-Download the most recent gene annotations from Ensembl.
-}
-\examples{
-\dontrun{
-ensembl_annotations(run, values = "ENSMUSG00000000001")
-}
-
-}
-\seealso{
-\code{\link[biomaRt]{listAttributes}}, \code{\link[biomaRt]{listFilters}}.
+Download transcript-to-gene annotations from
+\href{http://www.ensembl.org/}{Ensembl}. This function also defines broad classes,
+which are used in quality control analysis.
 }
 \author{
+Rory Kirchner
+
 Michael Steinbaugh
 }

@@ -16,7 +16,7 @@ read_bcbio_metadata(run)
 
 read_bcbio_metrics(run)
 
-read_bcbio_samples_yaml(run, keys)
+read_bcbio_samples_yaml(run, ...)
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
@@ -34,8 +34,7 @@ include. If \code{NULL} (default), all samples will be imported.}
 \item{...}{Passthrough parameters for the \code{readr} importers called
 internally (\code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}}).}
 
-\item{keys}{Nested operator keys that should be supplied as an ordered
-character vector, recursing a level down for each entry.}
+\item{...}{Nested operator keys supplied as dot objects.}
 }
 \value{
 txi \code{\link[tximport]{tximport}} list.
