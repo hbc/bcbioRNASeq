@@ -53,7 +53,7 @@ res_tables <- function(
         filter(.data$log2_fold_change < 0)
 
     base_mean_gt0 <- all %>%
-        arrange(desc(.data$base_mean))
+        arrange(desc(!!sym("base_mean")))
         filter(.data$base_mean > 0)
     base_mean_gt1 <- base_mean_gt0 %>%
         filter(.data$base_mean > 1)
