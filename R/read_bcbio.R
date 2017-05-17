@@ -25,10 +25,9 @@ read_bcbio_counts <- function(
     run,
     grep = NULL,
     samples = NULL) {
-    check_run(run)
     # Check for small RNA-seq analysis
     if (run$analysis == "srnaseq") {
-        return(as.matrix(read_bcbio_file(run, "counts_mirna.tsv", "mirna")))
+        read_bcbio_file(run, "counts_mirna.tsv", "mirna") %>% as.matrix
     }
 
     # Select the samples to import
@@ -79,27 +78,21 @@ read_bcbio_counts <- function(
     message(paste("Reading", type, "counts..."))
     names(sample_files) %>% toString %>% message
 
-    # Use the tx2gene file output by `bcbio-nextgen`. Alternatively,
-    # we could handle this directly in R using biomaRt instead.
-    tx2gene <- read_bcbio_file(run, file = "tx2gene.csv", col_names = FALSE)
-
     # Import the counts
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
     if (type %in% c("salmon", "sailfish")) {
-        # Use `lengthScaledTPM` for `salmon` and `sailfish`
+        # Use `lengthScaledTPM` for salmon and sailfish
         countsFromAbundance <- "lengthScaledTPM"
     } else {
-        # default
         countsFromAbundance <- "no"
     }
-    txi <- tximport(files = sample_files,
-                    type = type,
-                    tx2gene = tx2gene,
-                    importer = read_tsv,
-                    countsFromAbundance = countsFromAbundance)
 
-    return(txi)
+    tximport(files = sample_files,
+             type = type,
+             tx2gene = run$tx2gene,
+             importer = read_tsv,
+             countsFromAbundance = countsFromAbundance)
 }
 
 
@@ -122,12 +115,10 @@ read_bcbio_file <- function(
     file,
     row_names = NULL,
     ...) {
-    check_run(run)
-
     # Check that file exists
     filepath <- file.path(run$project_dir, file)
     if (!file.exists(filepath)) {
-        stop("File could not be found")
+        return(NULL)
     }
 
     # Detect file extension
@@ -160,7 +151,7 @@ read_bcbio_file <- function(
         data[[row_names]] <- NULL
     }
 
-    return(data)
+    data
 }
 
 
@@ -170,8 +161,7 @@ read_bcbio_file <- function(
 #' @return Metadata data frame.
 #' @export
 read_bcbio_metadata <- function(run) {
-    check_run(run)
-    read_bcbio_samples_yaml(run, keys = "metadata")
+    read_bcbio_samples_yaml(run, metadata)
 }
 
 
@@ -181,9 +171,11 @@ read_bcbio_metadata <- function(run) {
 #' @return Summary statistics data frame.
 #' @export
 read_bcbio_metrics <- function(run) {
-    check_run(run)
     metadata <- run$metadata
-    metrics <- read_bcbio_samples_yaml(run, keys = c("summary", "metrics"))
+    # These statistics are only generated for a standard RNA-seq run with
+    # aligned counts. Fast RNA-seq mode with lightweight counts (pseudocounts)
+    # doesn't output the same metrics into the YAML.
+    metrics <- read_bcbio_samples_yaml(run, summary, metrics)
     left_join(metadata, metrics, by = "description")
 }
 
@@ -193,12 +185,11 @@ read_bcbio_metrics <- function(run) {
 #' @description Read bcbio sample information from YAML.
 #' @keywords internal
 #'
-#' @param keys Nested operator keys that should be supplied as an ordered
-#'     character vector, recursing a level down for each entry.
+#' @param ... Nested operator keys supplied as dot objects.
 #'
 #' @export
-read_bcbio_samples_yaml <- function(run, keys) {
-    # Don't run integrity checks here, used to save into the run object
+read_bcbio_samples_yaml <- function(run, ...) {
+    keys <- as.character(substitute(list(...)))[-1L]
     yaml <- run$yaml
     if (is.null(yaml)) {
         stop("Run YAML summary is required")
@@ -206,6 +197,17 @@ read_bcbio_samples_yaml <- function(run, keys) {
     samples <- yaml$samples
     if (!length(samples)) {
         stop("No sample information in YAML")
+    }
+
+    # Check presence of nested keys, otherwise return NULL
+    # [fix] Improve the recursion method using sapply in a future update
+    if (!keys[1] %in% names(samples[[1]])) {
+        return(NULL)
+    }
+    if (length(keys) > 1) {
+        if (!keys[2] %in% names(samples[[1]][[keys[1]]])) {
+            return(NULL)
+        }
     }
 
     list <- lapply(seq_along(samples), function(a) {
@@ -216,8 +218,7 @@ read_bcbio_samples_yaml <- function(run, keys) {
         nested$description <- samples[[a]]$description
         # Remove legacy duplicate `name` identifier
         nested$name <- NULL
-
-        # Correct batch and phenotype for metadata, if selected
+        # Correct batch and phenotype YAML
         if (rev(keys)[1] == "metadata") {
             # Fix empty batch and phenotype
             if (is.null(nested$batch)) {
@@ -229,31 +230,22 @@ read_bcbio_samples_yaml <- function(run, keys) {
                 }
             }
         }
-
-        # Coerce numerics for metrics, if selected
-        if (rev(keys)[1] == "metrics") {
-            char_vec <- c("description",
-                          "quality_format",
-                          "sequence_length")
-            characters <- nested[names(nested) %in% char_vec]
-            numerics <- setdiff(names(nested),
-                                names(characters)) %>%
-                sort %>%
-                nested[.] %>%
-                lapply(as.numeric)
-            nested <- append(characters, numerics)
-        }
-        return(nested)
+        nested
     })
 
-    df <- bind_rows(list) %>%
+    # [data.table::rbindlist()] coerces integers better than
+    # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to throw
+    # "Column `appy_severity` can't be converted from integer to character"
+    # errors on numeric data.
+    rbindlist(list) %>%
         as.data.frame %>%
+        # Put description first and sort other colnames alphabetically
         .[order(.$description), ] %>%
-        # Put description first and sort everything else
         .[, c("description", sort(setdiff(names(.), "description")))] %>%
         set_rownames(.$description)
-    return(df)
 }
+
+
 
 #' Create isomiRs object from bcbio output
 #'
@@ -273,9 +265,8 @@ read_smallrna_counts <- function(bcbiods){
                            "mirbase-ready.counts",
                            sep = "-"))
     names(fns) <- names(run$sample_dirs)
-    message("Reading miRNA count files")
-    obj <- IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
-                                  coldata = run$metadata,
-                                  design = ~run$intgroup)
-    return(obj)
+    message("Reading miRNA count files...")
+    IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
+                           coldata = run$metadata,
+                           design = ~run$intgroup)
 }
