@@ -9,12 +9,14 @@
 #' @export
 melt_log10 <- function(run, counts) {
     check_run(run)
+    import_tidy_verbs()
+
     metadata <- run$metadata
     if (!identical(colnames(counts), rownames(metadata))) {
         stop("Sample descriptions in counts do not match metadata.")
     }
 
-    melted <- counts %>%
+    counts %>%
         as.data.frame %>%
         rownames_to_column %>%
         melt(id = 1) %>%
@@ -23,12 +25,10 @@ melt_log10 <- function(run, counts) {
                     "description",  # colnames
                     "counts")) %>%
         # Filter zero counts
-        .[.$counts > 0, ] %>%
+        filter(.data$counts > 0) %>%
         # log10 transform
         mutate(counts = log10(.data$counts),
                description = as.character(.data$description)) %>%
         # Join metadata
         left_join(metadata, by = "description")
-
-    return(melted)
 }
