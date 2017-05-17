@@ -105,16 +105,14 @@ res_tables <- function(
                         "deg_lfc_down.csv.gz",
                         sep = "_")))
 
-    return(list(
-        name = name,
-        contrast = contrast,
-        alpha = alpha,
-        lfc = lfc,
-        all = all,
-        deg = deg,
-        deg_lfc = deg_lfc,
-        deg_lfc_up = deg_lfc_up,
-        deg_lfc_down = deg_lfc_down,
-        res = res
-    ))
+    list(name = name,
+         contrast = contrast,
+         alpha = alpha,
+         lfc = lfc,
+         all = all,
+         deg = deg,
+         deg_lfc = deg_lfc,
+         deg_lfc_up = deg_lfc_up,
+         deg_lfc_down = deg_lfc_down,
+         res = res)
 }

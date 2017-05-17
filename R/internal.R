@@ -15,23 +15,22 @@
 #' detect_organism("BDGP6")
 detect_organism <- function(genome_build) {
     if (str_detect(genome_build, "^(hg|GRCh)\\d+")) {
-        organism <- "hsapiens"
+        "hsapiens"
     } else if (str_detect(genome_build, "^mm\\d+")) {
-        organism <- "mmusculus"
+        "mmusculus"
     } else if (str_detect(genome_build, "^WBcel\\d+")) {
-        organism <- "celegans"
+        "celegans"
     } else if (str_detect(genome_build, "^BDGP\\d+")) {
-        organism <- "dmelanogaster"
+        "dmelanogaster"
     } else if (str_detect(genome_build, "^Zv\\d+")) {
-        organism <- "drerio"
+        "drerio"
     } else if (str_detect(genome_build, "^ASM\\d+")) {
-        organism <- "spombe"
+        "spombe"
     } else if (str_detect(genome_build, "^(MB|MG)\\d+")) {
-        organism <- "ecoli"
+        "ecoli"
     } else {
-        stop("Failed to detect organism automatically")
+        stop("Failed to detect organism")
     }
-    return(organism)
 }
 
 
@@ -90,9 +89,9 @@ read_metadata <- function(
     }
 
     # Convert to data frame and set rownames
-    metadata <- metadata %>% as.data.frame %>% set_rownames(.$description)
-
-    return(metadata)
+    metadata %>%
+        as.data.frame %>%
+        set_rownames(.$description)
 }
 
 
@@ -100,4 +99,22 @@ read_metadata <- function(
 res_contrast_name <- function(res) {
     mcols(res)[2, 2] %>%
         str_replace("^.*:\\s", "")
+}
+
+
+
+tx2gene <- function(run) {
+    run$ensembl %>%
+        as.data.frame %>%
+        .[, c("ensembl_transcript_id", "ensembl_gene_id")] %>%
+        set_rownames(.$ensembl_transcript_id)
+}
+
+
+
+tx2gene_annotations <- function(run) {
+    run$ensembl %>%
+        ungroup %>%
+        mutate(ensembl_transcript_id = NULL) %>%
+        distinct
 }

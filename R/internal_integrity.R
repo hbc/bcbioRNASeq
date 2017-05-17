@@ -15,15 +15,6 @@ check_run <- function(run) {
     if (!is.list(run)) {
         stop("Run object is not a list")
     }
-    if (!dir.exists(run$upload_dir)) {
-        stop("Upload dir missing")
-    }
-    if (!dir.exists(run$project_dir)) {
-        stop("Project directory (YYYY-MM-DD_template) missing")
-    }
-    if (!length(run$sample_dirs)) {
-        stop("No sample directories in run")
-    }
     if (is.null(run$yaml)) {
         stop("Run does contain YAML info, please resave")
     }
@@ -53,12 +44,12 @@ check_run <- function(run) {
 #' @export
 check_dds <- function(dds, stop = TRUE) {
     if (class(dds)[1] == "DESeqDataSet") {
-        return(TRUE)
+        TRUE
     } else {
         if (isTRUE(stop)) {
             stop("DESeqDataSet required")
         } else {
-            return(FALSE)
+            FALSE
         }
     }
 }
@@ -70,12 +61,12 @@ check_dds <- function(dds, stop = TRUE) {
 #' @export
 check_dt <- function(dt, stop = TRUE) {
     if (class(dt)[1] == "DESeqTransform") {
-        return(TRUE)
+        TRUE
     } else {
         if (isTRUE(stop)) {
             stop("DESeqDataSet required")
         } else {
-            return(FALSE)
+            FALSE
         }
     }
 }
@@ -87,12 +78,12 @@ check_dt <- function(dt, stop = TRUE) {
 #' @export
 check_res <- function(res, stop = TRUE) {
     if (class(res)[1] == "DESeqResults") {
-        return(TRUE)
+        TRUE
     } else {
         if (isTRUE(stop)) {
             stop("DESeqResults required")
         } else {
-            return(FALSE)
+            FALSE
         }
     }
 }

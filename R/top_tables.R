@@ -12,13 +12,11 @@ top_tables <- function(res_tbl) {
         df <- df[, setdiff(colnames(df), discard)] %>%
             remove_rownames %>%
             head(n = 50)
-
         # Handle digits
         df$base_mean <- round(df$base_mean)
         df$log2_fold_change <- format(df$log2_fold_change, digits = 3)
         df$padj <- format(df$padj, digits = 3, scientific = TRUE)
-
-        return(df)
+        df
     }
 
     up <- subset_top(res_tbl$deg_lfc_up)

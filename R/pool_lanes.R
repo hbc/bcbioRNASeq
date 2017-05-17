@@ -22,7 +22,7 @@ pool_lane_split_counts <- function(raw_counts,
     }
     stem <- gsub(lane_grep, "", colnames(raw_counts)) %>% unique %>% sort
     # Perform `rowSums()` on the matching columns per sample
-    pooled_counts <- lapply(seq_along(stem), function(a) {
+    lapply(seq_along(stem), function(a) {
         raw_counts %>%
             .[, grepl(paste0("^", stem[a], lane_grep), colnames(.))] %>%
             rowSums
@@ -30,8 +30,6 @@ pool_lane_split_counts <- function(raw_counts,
         set_names(stem) %>%
         do.call(cbind, .) %>%
         round
-
-    return(pooled_counts)
 }
 
 
@@ -39,9 +37,8 @@ pool_lane_split_counts <- function(raw_counts,
 #' @rdname pool_lanes
 #' @description Pool \linkS4class{DESeqDataSet} counts for technical replicates.
 #'   Extract lane split technical replicate counts from a
-#'   \linkS4class{DESeqDataSet}, perform \code{\link{rowSums}}, and create a new
-#'   \linkS4class{DESeqDataSet} using
-#'   \code{\link[DESeq2]{DESeqDataSetFromMatrix}}.
+#'   \linkS4class{DESeqDataSet}, perform [rowSums()], and create a new
+#'   \linkS4class{DESeqDataSet} using [DESeq2::DESeqDataSetFromMatrix()].
 #'
 #' @param run bcbio-nextgen run.
 #' @param dds \linkS4class{DESeqDataSet}.
@@ -114,5 +111,5 @@ pool_lane_split_dds <- function(
         write_pooled_counts(raw_counts)
     }
 
-    return(pooled_dds)
+    pooled_dds
 }
