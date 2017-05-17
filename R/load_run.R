@@ -147,7 +147,7 @@ load_run <- function(
 
     if (analysis == "rnaseq") {
         # Save Ensembl annotations
-        run$ensembl <- ensembl_annotations(run)
+        run$ensembl <- query_ensembl(run)
         run$ensembl_version <- listMarts() %>% .[1, 2]
 
         # Use the tx2gene file output by `bcbio-nextgen`. Alternatively,

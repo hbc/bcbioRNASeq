@@ -211,9 +211,7 @@ read_bcbio_samples_yaml <- function(run, ...) {
     }
 
     list <- lapply(seq_along(samples), function(a) {
-        nested <- samples[[a]][[keys]] %>%
-            # Sanitize names in snake_case
-            set_names_snake
+        nested <- samples[[a]][[keys]] %>% snake
         # Set the description
         nested$description <- samples[[a]]$description
         # Remove legacy duplicate `name` identifier
