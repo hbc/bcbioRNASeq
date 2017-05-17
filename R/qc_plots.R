@@ -21,8 +21,11 @@
 #' @rdname qc_plots
 #' @export
 plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
+        read_bcbio_metrics %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
                     fill = as.name(run$intgroup[[1]]))
@@ -39,7 +42,6 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
              y = "total reads (million)",
              fill = "") +
         coord_flip()
-    return(plot)
 }
 
 
@@ -47,8 +49,10 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
 #' @rdname qc_plots
 #' @export
 plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / 1e6,
@@ -66,7 +70,6 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
              y = "mapped reads (million)",
              fill = "") +
         coord_flip()
-    return(plot)
 }
 
 
@@ -74,8 +77,10 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
 #' @rdname qc_plots
 #' @export
 plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  y = ~mapped_reads / total_reads * 100,
@@ -94,7 +99,6 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
              fill = "") +
         ylim(0, 100) +
         coord_flip()
-    return(plot)
 }
 
 
@@ -102,8 +106,10 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
 #' @rdname qc_plots
 #' @export
 plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  y = colSums(raw_counts > 0),
@@ -118,7 +124,6 @@ plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
              y = "gene count",
              fill = "") +
         coord_flip()
-    return(plot)
 }
 
 
@@ -126,8 +131,10 @@ plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
 #' @rdname qc_plots
 #' @export
 plot_gene_detection_saturation <- function(run, raw_counts) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~mapped_reads / 1e6,
                  y = ~colSums(raw_counts > 0),
@@ -140,7 +147,6 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
              y = "gene count",
              color = "",
              shape = "")
-    return(plot)
 }
 
 
@@ -148,8 +154,10 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 #' @rdname qc_plots
 #' @export
 plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
@@ -166,7 +174,6 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
              fill = "") +
         ylim(0, 100) +
         coord_flip()
-    return(plot)
 }
 
 
@@ -174,8 +181,10 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
 #' @rdname qc_plots
 #' @export
 plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  # Multiple by 100 here for percentage
@@ -192,7 +201,6 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
              fill = "") +
         ylim(0, 100) +
         coord_flip()
-    return(plot)
 }
 
 
@@ -200,8 +208,10 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
 #' @rdname qc_plots
 #' @export
 plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
-    check_run(run)
-    plot <- read_bcbio_metrics(run) %>%
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    run$metrics %>%
         ggplot(
             aes_(x = ~description,
                  y = ~rrna_rate * 100,
@@ -215,7 +225,6 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
              y = "rRNA mapping rate (%)",
              fill = "") +
         coord_flip()
-    return(plot)
 }
 
 
@@ -223,13 +232,12 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
 #' @rdname qc_plots
 #' @export
 plot_counts_per_gene <- function(run, normalized_counts) {
-    check_run(run)
     color <- run$intgroup[1]
     name <- deparse(substitute(normalized_counts))
     melted <- melt_log10(run, normalized_counts)
-    plot <- data.frame(x = melted$description,
-                       y = melted$counts,
-                       color = melted[[color]]) %>%
+    data.frame(x = melted$description,
+               y = melted$counts,
+               color = melted[[color]]) %>%
         ggplot(
             aes_(x = ~x,
                  y = ~y,
@@ -241,7 +249,6 @@ plot_counts_per_gene <- function(run, normalized_counts) {
              y = expression(log[10]~counts~per~gene),
              color = "") +
         coord_flip()
-    return(plot)
 }
 
 
@@ -251,19 +258,16 @@ plot_counts_per_gene <- function(run, normalized_counts) {
 plot_count_density <- function(
     run,
     normalized_counts) {
-    check_run(run)
     name <- deparse(substitute(normalized_counts))
-    melted <- melt_log10(run, normalized_counts)
-    plot <- ggplot(
-        melted,
-        aes_(x = ~counts,
-             group = ~description)
-    ) +
+    melt_log10(run, normalized_counts) %>%
+        ggplot(
+            aes_(x = ~counts,
+                 group = ~description)
+        ) +
         ggtitle(paste("count density", name, sep = " : ")) +
         geom_density() +
         labs(x = expression(log[10]~counts~per~gene),
              y = "density")
-    return(plot)
 }
 
 
@@ -271,7 +275,6 @@ plot_count_density <- function(
 #' @rdname qc_plots
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {
-    check_run(run)
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
     if (organism == "mmusculus") {
@@ -286,7 +289,7 @@ plot_gender_markers <- function(run, normalized_counts) {
     # Ensembl identifiers
     identifier <- gender_markers$ensembl_gene %>% sort %>% unique
     # Scatterplot
-    plot <- normalized_counts[identifier, ] %>%
+    normalized_counts[identifier, ] %>%
         as.data.frame %>%
         rownames_to_column %>%
         # Can also declare `measure.vars` here
@@ -308,5 +311,4 @@ plot_gender_markers <- function(run, normalized_counts) {
         labs(x = "gene",
              y = name) +
         theme(legend.position = "none")
-    return(plot)
 }
