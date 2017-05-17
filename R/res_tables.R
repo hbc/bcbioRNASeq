@@ -46,9 +46,7 @@ res_tables <- function(
     glimpse(deg)
 
     deg_lfc <- deg %>%
-        # .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
-        filter(which(.data$log2_fold_change > lfc |
-                         .data$log2_fold_change < -lfc))
+        .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
     deg_lfc_up <- deg_lfc %>%
         filter(.data$log2_fold_change > 0)
     deg_lfc_down <- deg_lfc %>%
