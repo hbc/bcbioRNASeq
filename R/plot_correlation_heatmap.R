@@ -24,8 +24,8 @@ plot_correlation_heatmap <- function(
     # Get counts and annotations from DESeqTransform object
     counts <- assay(dt)
     annotation <- colData(dt) %>%
-        .[, run$intgroup] %>%
-        as.data.frame
+        as.data.frame %>%
+        .[, run$intgroup]
 
     # Pearson or Spearman correlation methods are supported
     if (!method %in% c("pearson", "spearman")) {

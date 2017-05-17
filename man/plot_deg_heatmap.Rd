@@ -4,16 +4,15 @@
 \alias{plot_deg_heatmap}
 \title{Differentially expressed gene heatmap}
 \usage{
-plot_deg_heatmap(run, dds, contrast, alpha = 0.1, lfc = 0)
+plot_deg_heatmap(run, res, dt, lfc = 0)
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
 
-\item{dds}{\linkS4class{DESeqDataSet}.}
+\item{res}{\linkS4class{DESeqResults}.}
 
-\item{contrast}{Contrast.}
-
-\item{alpha}{Alpha level cutoff.}
+\item{dt}{\linkS4class{DESeqTransform}. We recommend passing in \code{\link[=rlog]{rlog()}}
+counts in as the transform object by default.}
 
 \item{lfc}{Log2 fold change ratio cutoff.}
 }

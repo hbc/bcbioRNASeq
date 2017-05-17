@@ -3,28 +3,25 @@
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run.
-#' @param dds \linkS4class{DESeqDataSet}.
-#' @param contrast Contrast.
-#' @param alpha Alpha level cutoff.
+#' @param res \linkS4class{DESeqResults}.
+#' @param dt \linkS4class{DESeqTransform}. We recommend passing in [rlog()]
+#'   counts in as the transform object by default.
 #' @param lfc Log2 fold change ratio cutoff.
 #'
 #' @return Gene heatmap.
 #' @export
 plot_deg_heatmap <- function(
     run,
-    dds,
-    contrast,
-    alpha = 0.1,
+    res,
+    dt,
     lfc = 0) {
     check_run(run)
-    check_dds(dds)
+    check_res(res)
+    check_dt(dt)
     import_tidy_verbs()
 
-    # Annotation metadata
-    annotation <- colData(dds) %>% as.data.frame %>% .[, run$intgroup]
-
-    # DE genes, used for subsetting the rlog counts matrix
-    res <- results(dds, contrast = contrast, alpha = alpha)
+    alpha <- res@metadata$alpha
+    metadata <- intgroup_as_factor(run)
 
     # Output results to data frame and subset by alpha and lfc cutoffs
     res_df <- res %>%
@@ -35,24 +32,29 @@ plot_deg_heatmap <- function(
         .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
 
     # rlog transform and subset the counts
-    counts <- dds %>% rlog %>% assay %>% .[res_df$ensembl_gene_id, ]
+    counts <- dt %>% assay %>% .[res_df$ensembl_gene_id, ]
 
     if (nrow(counts) <= 100) {
         # Change rownames to readable external gene names
         show_rownames <- TRUE
-        rownames(counts) <- run$ensembl[rownames(counts), "external_gene_name"]
+        gene_names <- gene_level_annotations(run) %>%
+            select(!!!syms(c("ensembl_gene_id", "external_gene_name"))) %>%
+            as.data.frame %>%
+            set_rownames(.$ensembl_gene_id)
+        rownames(counts) <- gene_names[rownames(counts), "external_gene_name"]
     } else {
         show_rownames <- FALSE
     }
 
-    name <- deparse(substitute(dds))
+    res_name <- deparse(substitute(res))
     contrast_name <- res_contrast_name(res)
+    dt_name <- deparse(substitute(dt))
 
     pheatmap(counts,
-             annotation = annotation,
+             annotation = metadata,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D2",
-             main = paste(name, contrast_name, sep = " : "),
+             main = paste(res_name, contrast_name, dt_name, sep = " : "),
              scale = "row",
              show_rownames = show_rownames)
 }

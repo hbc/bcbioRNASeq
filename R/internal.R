@@ -28,6 +28,26 @@ detect_organism <- function(genome_build) {
 
 
 
+#' Return metadata intgroups as factor
+#'
+#' @author Michael Steinbaugh
+#' @keywords internal
+#'
+#' @param run bcbio-nextgen run.
+#'
+#' @export
+intgroup_as_factor <- function(run) {
+    import_tidy_verbs()
+    run$metadata %>%
+        select(!!!syms(c("description", run$intgroup))) %>%
+        mutate_all(factor) %>%
+        as.data.frame %>%
+        set_rownames(.$description) %>%
+        .[, run$intgroup]
+}
+
+
+
 #' Query Ensembl
 #'
 #' @keywords internal
