@@ -50,18 +50,16 @@ load_run_S4 <- function(
     intgroup = "description",
     metadata_file = NULL,
     organism = NULL,
-    read_counts = TRUE,
     ...) {
     run <- load_run(
         upload_dir,
         analysis,
         intgroup,
         metadata_file,
-        organism, read_counts)
+        organism)
     se <- SummarizedExperiment(
         assays = SimpleList(counts = run$txi),
         colData = DataFrame(run$metadata), ...)
     run$txi = NULL
-    ids <- .bcbioRnaDataSet(se, run)
-    return(ids)
+    .bcbioRnaDataSet(se, run)
 }

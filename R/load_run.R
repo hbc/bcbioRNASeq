@@ -23,8 +23,6 @@
 #' @param organism Organism name, following Ensembl/Biomart conventions. Must be
 #'   lowercase and one word (e.g. hsapiens). This will be detected automatically
 #'   for common reference genomes and normally does not need to be set.
-#' @param read_counts Automatically read in the count data using
-#'   [read_bcbio_counts()].
 #'
 #' @return bcbio-nextgen run object (as list), containing counts and metadata.
 #' @export
@@ -33,13 +31,17 @@ load_run <- function(
     analysis = "rnaseq",
     intgroup = "description",
     metadata_file = NULL,
-    organism = NULL,
-    read_counts = TRUE) {
+    organism = NULL) {
     # Check connection to upload_dir
     if (!length(dir(upload_dir))) {
         stop("Final upload directory failed to load")
     }
     upload_dir <- normalizePath(upload_dir)
+
+    # Check analysis type
+    if (!analysis %in% c("rnaseq", "srnaseq")) {
+        stop("Unsupported analysis type")
+    }
 
     # Find most recent nested project_dir (normally only 1)
     pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
@@ -80,12 +82,6 @@ load_run <- function(
     message(paste("YAML:", basename(yaml_file)))
     yaml <- read_yaml(yaml_file)
 
-    # Obtain the samples (and their directories) from the YAML
-    sample_names <- sapply(yaml$samples,
-                            function(x) { x$description }) %>% sort
-    sample_dirs <- file.path(upload_dir, sample_names)
-    names(sample_dirs) <- sample_names
-
     # Organism class (used with Ensembl)
     if (is.null(organism)) {
         # Use the genome build of the first sample to match
@@ -95,12 +91,20 @@ load_run <- function(
     message(paste("Genome:", genome_build))
     message(paste("Organism:", organism))
 
+    # Obtain the samples (and their directories) from the YAML
+    sample_names <- sapply(
+        yaml$samples, function(x) { x$description }) %>% sort
+    sample_dirs <- file.path(upload_dir, sample_names)
+    names(sample_dirs) <- sample_names
+    message(paste(length(sample_dirs), "samples detected in run"))
+
     # Detect number of sample lanes, determine if split
     lane_pattern <- "_L(\\d{3})"
     if (any(str_detect(sample_dirs, lane_pattern))) {
-        message("Sample lanes detected")
+        # [fix] message("Sample lanes detected")
         lanes <- str_match(names(sample_dirs), lane_pattern) %>%
             .[, 2] %>% unique %>% length
+        message(paste(lanes, "lane replicates per sample detected"))
     } else {
         lanes <- NULL
     }
@@ -139,27 +143,32 @@ load_run <- function(
 
     # Subset the sample_dirs by the metadata data frame
     run$sample_dirs <- run$sample_dirs[run$metadata$description]
-    names(run$sample_dirs) %>% toString %>% message
+    message(paste(length(run$sample_dirs), "samples matched by metadata"))
 
     if (analysis == "rnaseq") {
         # Save Ensembl annotations
-        run$ensembl <- ensembl_annotations(
-            run,
-            attributes = c("external_gene_name",
-                           "description",
-                           "gene_biotype"))
+        run$ensembl <- ensembl_annotations(run)
         run$ensembl_version <- listMarts() %>% .[1, 2]
 
-        # Read counts using `tximport()`
-        if (isTRUE(read_counts)) {
-            run$txi <- read_bcbio_counts(run)
+        # Use the tx2gene file output by `bcbio-nextgen`. Alternatively,
+        # we can handle this directly in R using the Ensembl annotations
+        # obtained with biomaRt instead, if the file doesn't exist. This
+        # is currently the case with the fast RNA-seq pipeline, for example.
+        run$tx2gene <- read_bcbio_file(
+            run, file = "tx2gene.csv", col_names = FALSE)
+        if (is.null(run$tx2gene)) {
+            run$tx2gene <- tx2gene(run)
         }
-    } else if (analysis == "srnaseq") {
+    }
+
+    if (analysis %in% c("rnaseq", "srnaseq")) {
+        # Read counts using [tximport()]
         run$txi <- read_bcbio_counts(run)
     } else {
-        stop("Unsupported analysis type")
+        # Placeholder for future workflows
     }
 
     check_run(run)
-    return(run)
+    create_project_dirs()
+    run
 }
