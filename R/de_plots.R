@@ -94,12 +94,11 @@ plot_volcano <- function(
         mutate(neg_log_padj = -log10(.data$padj + 1e-10))
 
     # Automatically label the top genes
+    annotations <- gene_level_annotations(run) %>%
+        select(!!!syms(c("ensembl_gene_id", "external_gene_name")))
     volcano_text <- stats %>%
         .[1:text_labels, ] %>%
-        left_join(
-            run$ensembl[.$ensembl_gene_id, c("ensembl_gene_id",
-                                             "external_gene_name")],
-            by = "ensembl_gene_id")
+        left_join(annotations, by = "ensembl_gene_id")
 
     # Get range of LFC and P values to set up plot borders
     range_lfc <-
