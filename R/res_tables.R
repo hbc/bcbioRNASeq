@@ -23,6 +23,7 @@ res_tables <- function(
     lfc = 0) {
     check_run(run)
     check_res(res)
+    import_tidy_verbs()
 
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)
@@ -34,28 +35,30 @@ res_tables <- function(
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
-        set_names_snake %>%
+        snake %>%
         left_join(ensembl, by = "ensembl_gene_id") %>%
-        .[order(.$ensembl_gene_id), ]
+        arrange(!!sym("ensembl_gene_id"))
 
     # All DEG tables sorted by BH adjusted P value
     deg <- all %>%
-        .[.$padj < alpha, ] %>%
-        .[order(.$padj), ]
+        filter(.data$padj < alpha) %>%
+        arrange(!!sym("padj"))
     glimpse(deg)
 
     deg_lfc <- deg %>%
-        .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
+        # .[which(.$log2_fold_change > lfc | .$log2_fold_change < -lfc), ]
+        filter(which(.data$log2_fold_change > lfc |
+                         .data$log2_fold_change < -lfc))
     deg_lfc_up <- deg_lfc %>%
-        .[.$log2_fold_change > 0, ]
+        filter(.data$log2_fold_change > 0)
     deg_lfc_down <- deg_lfc %>%
-        .[.$log2_fold_change < 0, ]
+        filter(.data$log2_fold_change < 0)
 
     base_mean_gt0 <- all %>%
-        .[.$base_mean > 0, ] %>%
-        .[order(.$base_mean, decreasing = TRUE), ]
+        arrange(desc(.data$base_mean))
+        filter(.data$base_mean > 0)
     base_mean_gt1 <- base_mean_gt0 %>%
-        .[.$base_mean > 1, ]
+        filter(.data$base_mean > 1)
 
     writeLines(c(
         paste(name, "differential expression tables"),

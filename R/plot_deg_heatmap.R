@@ -1,4 +1,4 @@
-#' Differentially expressed gene (DEG) heatmap
+#' Differentially expressed gene heatmap
 #'
 #' @author Michael Steinbaugh
 #'
@@ -6,7 +6,7 @@
 #' @param dds \linkS4class{DESeqDataSet}.
 #' @param contrast Contrast.
 #' @param alpha Alpha level cutoff.
-#' @param lfc Log fold change ratio (base 2) cutoff.
+#' @param lfc Log2 fold change ratio cutoff.
 #'
 #' @return Gene heatmap.
 #' @export
@@ -18,22 +18,22 @@ plot_deg_heatmap <- function(
     lfc = 0) {
     check_run(run)
     check_dds(dds)
+    import_tidy_verbs()
 
     # Annotation metadata
     annotation <- colData(dds) %>% as.data.frame %>% .[, run$intgroup]
 
     # DE genes, used for subsetting the rlog counts matrix
-    res <- results(dds,
-                   contrast = contrast,
-                   alpha = alpha)
+    res <- results(dds, contrast = contrast, alpha = alpha)
 
     # Output results to data frame and subset by alpha and lfc cutoffs
     res_df <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
-        .[.$padj < alpha, ] %>%
-        .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
+        filter(.data$padj < alpha) %>%
+        filter(which(.data$log2FoldChange > lfc |
+                         .data$log2FoldChange < -lfc))
 
     # rlog transform and subset the counts
     counts <- dds %>% rlog %>% assay %>% .[res_df$ensembl_gene_id, ]

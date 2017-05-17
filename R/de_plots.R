@@ -64,6 +64,8 @@ plot_volcano <- function(
     point_outline_color = "darkgray") {
     check_run(run)
     check_res(res)
+    import_tidy_verbs()
+
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
         stop("direction must be both, up, or down")
@@ -83,20 +85,20 @@ plot_volcano <- function(
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
-        set_names_snake %>%
-        .[, c("ensembl_gene_id", "log2_fold_change", "padj")] %>%
+        snake %>%
+        select(!!!syms(c("ensembl_gene_id", "log2_fold_change", "padj"))) %>%
         # Filter zero counts for quicker plotting
-        .[!is.na(.$log2_fold_change), ] %>%
+        filter(!is.na(.data$log2_fold_change)) %>%
         # Arrange by P value
-        .[order(.$padj), ] %>%
+        arrange(!!sym("padj")) %>%
         mutate(neg_log_padj = -log10(.data$padj + 1e-10))
 
     # Automatically label the top genes
     volcano_text <- stats %>%
         .[1:text_labels, ] %>%
         left_join(
-            run$ensembl[.$ensembl_gene_id,
-                        c("ensembl_gene_id", "external_gene_name")],
+            run$ensembl[.$ensembl_gene_id, c("ensembl_gene_id",
+                                             "external_gene_name")],
             by = "ensembl_gene_id")
 
     # Get range of LFC and P values to set up plot borders
