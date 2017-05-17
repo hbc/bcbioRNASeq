@@ -1,11 +1,12 @@
-#' Small RNA-seq quality control plots.
+#' Small RNA-seq quality control plots
 #'
 #' @rdname smallrna_qc_plots
 #' @author Lorena Pantano
+#' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run.
 #'
-#' @return ggplot figure.
+#' @return ggplot object.
 
 
 
@@ -42,7 +43,8 @@ plot_size_distribution <- function(run) {
                 ylab("# reads") +
                 theme(
                     axis.text.x = element_text(
-                        angle = 90, vjust = 0.5, hjust = 1)), 0, 0.5, 1, 0.5) +
+                        angle = 90, vjust = 0.5, hjust = 1)),
+            0, 0.5, 1, 0.5) +
         draw_plot(
             ggplot(tab, aes_(x = ~V1, y = ~V2, group = ~sample)) +
                 geom_bar(stat = "identity", position = "dodge") +
@@ -51,7 +53,8 @@ plot_size_distribution <- function(run) {
                 ylab("# reads") + xlab("size") +
                 theme(
                     axis.text.x = element_text(
-                        angle = 90, vjust = 0.5, hjust = 1)), 0, 0, 1, 0.5)
+                        angle = 90, vjust = 0.5, hjust = 1)),
+            0, 0, 1, 0.5)
 }
 
 
@@ -61,22 +64,30 @@ plot_size_distribution <- function(run) {
 #' @export
 plot_mirna_counts <- function(run) {
     .t <- data.frame(sample = colnames(txi(run)),
-               total = colSums(txi(run)))
-    cs <- as.data.frame(apply(txi(run),2,function(x){cumsum(sort(x, decreasing = T))}))
+                     total = colSums(txi(run)))
+    cs <- apply(txi(run), 2, function(x) {
+        cumsum(sort(x, decreasing = TRUE))
+    }) %>% as.data.frame
     cs$pos <- 1:nrow(cs)
-
-    plot_grid(ggplot(.t) +
-                  geom_bar(aes_(x = ~sample, y = ~total), stat = "identity") +
-                  theme_minimal() +
-                  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)),
-              ggplot(melt(txi(run))) +
-                  geom_boxplot(aes(x=X2,y=value)) +
-                  xlab("") + ylab("Expression") +
-                  scale_y_log10()+ theme_minimal() +
-                  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)),
-              ggplot((melt(cs,id.vars = "pos"))) +
-                  geom_line(aes(x=pos,y=value,color=variable)) +
-                  xlim(0, 50) + scale_y_log10() + theme_minimal()
+    plot_grid(
+        ggplot(.t) +
+            geom_bar(aes_(x = ~sample,
+                          y = ~total),
+                     stat = "identity") +
+            theme(axis.text.x = element_text(
+                angle = 90, hjust = 1, vjust = 0.5)),
+        ggplot(melt(txi(run))) +
+            geom_boxplot(aes_(x = ~X2, y = ~value)) +
+            xlab("") +
+            ylab("expression") +
+            scale_y_log10() +
+            theme(axis.text.x = element_text(
+                angle = 90, hjust = 1, vjust = 0.5)),
+        ggplot((melt(cs, id.vars = "pos"))) +
+            geom_line(aes_(x = ~pos,
+                           y = ~value,
+                           color = ~variable)) +
+            xlim(0, 50) +
+            scale_y_log10()
     )
-
 }
