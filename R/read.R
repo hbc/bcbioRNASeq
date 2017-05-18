@@ -53,6 +53,7 @@ read_metadata <- function(
 
     # Convert to data frame, coerce to factors, and set rownames
     metadata %>%
+        remove_na %>%
         mutate_all(factor) %>%
         as.data.frame %>%
         set_rownames(.$description)
@@ -206,18 +207,18 @@ read_bcbio_file <- function(
         stop("Unsupported file extension")
     }
 
+    # Coerce tibble to data frame
+    if (is_tibble(data)) {
+        data <- as.data.frame(data)
+    }
+
     # Set row names, if desired
     if (!is.null(row_names)) {
-        # Coerce tibble to data frame. Setting rownames on a tibble is now
-        # deprecated. If rownames are essential, object must be a data frame.
-        if (is_tibble(data)) {
-            data <- as.data.frame(data)
-        }
         rownames(data) <- data[[row_names]]
         data[[row_names]] <- NULL
     }
 
-    data
+    data %>% remove_na
 }
 
 
@@ -227,6 +228,7 @@ read_bcbio_file <- function(
 #' @return Metadata data frame.
 read_bcbio_metadata <- function(run) {
     read_bcbio_samples_yaml(run, metadata) %>%
+        remove_na %>%
         mutate_all(factor) %>%
         as.data.frame %>%
         set_rownames(.$description)
@@ -243,7 +245,7 @@ read_bcbio_metrics <- function(run) {
     # aligned counts. Fast RNA-seq mode with lightweight counts (pseudocounts)
     # doesn't output the same metrics into the YAML.
     metrics <- read_bcbio_samples_yaml(run, summary, metrics)
-    left_join(metadata, metrics, by = "description")
+    left_join(metadata, metrics, by = "description") %>% remove_na
 }
 
 
@@ -301,6 +303,7 @@ read_bcbio_samples_yaml <- function(run, ...) {
     # numeric data.
     rbindlist(list) %>%
         as.data.frame %>%
+        remove_na %>%
         # Put description first and sort other colnames alphabetically
         .[order(.$description), ] %>%
         .[, c("description", sort(setdiff(names(.), "description")))] %>%
