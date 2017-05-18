@@ -48,7 +48,11 @@ plot_size_distribution(run)
 
 ### total miRNA expression annotated with mirbase
 
-```{r mirna-mirbase}
+```{r mirna-mirbase, fig.height=9}
 plot_mirna_counts(run)
+```
+
+```{r mirna-cluster}
+plot_srna_clusters(run)
 ```
 

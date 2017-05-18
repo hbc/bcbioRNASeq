@@ -3,11 +3,14 @@
 \name{plot_size_distribution}
 \alias{plot_size_distribution}
 \alias{plot_mirna_counts}
+\alias{plot_srna_clusters}
 \title{Small RNA-seq quality control plots}
 \usage{
 plot_size_distribution(run)
 
 plot_mirna_counts(run)
+
+plot_srna_clusters(run)
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
@@ -19,6 +22,8 @@ ggplot object.
 Plot size distribution of small RNA-seq data
 
 Plot of total miRNA counts
+
+Clustering small RNA samples
 }
 \author{
 Lorena Pantano

@@ -5,7 +5,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @param run bcbio-nextgen run.
-#'
 #' @return ggplot object.
 
 
@@ -88,6 +87,25 @@ plot_mirna_counts <- function(run) {
                            y = ~value,
                            color = ~variable)) +
             xlim(0, 50) +
-            scale_y_log10()
+            scale_y_log10(),
+        nrow=3
     )
+}
+
+
+#' @rdname smallrna_qc_plots
+#' @description Clustering small RNA samples
+#' @export
+plot_srna_clusters <- function(run){
+    counts <- txi(run)
+    design <- metadata(run)$metadata
+    dds = DESeqDataSetFromMatrix(counts[rowSums(counts>0)>3,],
+                                 colData=design, design=~1)
+    vst = rlog(dds)
+
+    pheatmap(assay(vst), annotation_col = design[,metadata(run)$intgroup, drop=F],
+             show_rownames = F,
+             clustering_distance_cols = "correlation",
+             clustering_method = "ward.D", scale='row')
+    plot_pca(metadata(run), vst)
 }
