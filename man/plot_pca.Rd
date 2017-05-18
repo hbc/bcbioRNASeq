@@ -4,7 +4,7 @@
 \alias{plot_pca}
 \title{Plot principal component analysis (PCA)}
 \usage{
-plot_pca(run, dt, label = TRUE)
+plot_pca(run, dt, label = TRUE, ntop = 500)
 }
 \arguments{
 \item{run}{bcbio-nextgen run.}
@@ -13,6 +13,9 @@ plot_pca(run, dt, label = TRUE)
 \code{\link[DESeq2:vst]{DESeq2::vst()}} on a \linkS4class{DESeqDataSet}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
+
+\item{ntop}{number of genes to use for PCA.
+To plot all gene variation, use \code{ntop = nrow(.)}}
 }
 \value{
 ggplot2 object.

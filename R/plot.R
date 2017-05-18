@@ -66,12 +66,13 @@ plot_gene <- function(
 #' @param dt \linkS4class{DESeqTransform} generated from [DESeq2::rlog()] or
 #'   [DESeq2::vst()] on a \linkS4class{DESeqDataSet}.
 #' @param label Superimpose sample text labels on the plot.
-#'
+#' @param ntop number of genes to use for PCA.
+#' To plot all gene variation, use `ntop = nrow(.)`
 #' @return ggplot2 object.
 #' @export
 #'
 #' @seealso \code{\link[DESeq2]{plotPCA}}
-plot_pca <- function(run, dt, label = TRUE) {
+plot_pca <- function(run, dt, label = TRUE, ntop=500) {
     check_run(run)
     check_dt(dt)
     name <- deparse(substitute(dt))
@@ -86,7 +87,7 @@ plot_pca <- function(run, dt, label = TRUE) {
     # To plot all gene variation, use `ntop = nrow(.)`
     data <- plotPCA(dt,
                     intgroup = intgroup,
-                    returnData = TRUE)
+                    returnData = TRUE, ntop=ntop)
     percent_var <- round(100 * attr(data, "percentVar"))
     plot <- data.frame(x = data$PC1,
                        y = data$PC2,
