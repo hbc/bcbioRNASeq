@@ -136,7 +136,7 @@ load_run <- function(
     if (!is.null(metadata_file)) {
         metadata <- read_metadata(metadata_file, lanes = lanes)
     } else {
-        metadata <- read_bcbio_samples_yaml(run, keys = "metadata")
+        metadata <- read_bcbio_metadata(run)
     }
 
     # Subset the sample_dirs by the metadata data frame
