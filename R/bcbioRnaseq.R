@@ -3,6 +3,7 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
+#' @import readr
 #' @import basejump
 #' @import DESeq2
 #' @import ggplot2

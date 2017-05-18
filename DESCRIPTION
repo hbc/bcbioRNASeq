@@ -37,6 +37,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+    readr,
     basejump (>= 0.0.10),
     cowplot (>= 0.7.0),
     data.table (>= 1.10),
