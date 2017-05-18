@@ -1,11 +1,12 @@
 #' File downloads
 #'
-#' If file isn't present, download latest version from the [HBC
-#' website](http://bioinformatics.sph.harvard.edu/).
+#' If file isn't present, download latest version from the
+#' [HBC website](http://bioinformatics.sph.harvard.edu/).
 #'
 #' File download utility functions for RMarkdown knit reports.
 #'
 #' @rdname downloads
+#' @keywords internal
 #' @author Michael Steinbaugh
 #'
 #' @param file File name.

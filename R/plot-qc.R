@@ -1,4 +1,4 @@
-#' Standard RNA-seq quality control plots
+#' Gene-level quality control plots
 #'
 #' @rdname qc_plots
 #' @author Michael Steinbaugh
@@ -15,10 +15,6 @@
 #' @param warn_limit Threshold to plot warning color marker.
 #'
 #' @return ggplot object.
-
-
-
-#' @rdname qc_plots
 #' @export
 plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
@@ -245,9 +241,11 @@ plot_counts_per_gene <- function(run, normalized_counts) {
         ) +
         ggtitle(paste("counts per gene", name, sep = " : ")) +
         geom_boxplot(outlier.shape = NA) +
+        # optional way to make log10 subscript:
+        # expression(log[10]~counts~per~gene)
         labs(x = "sample",
-             y = expression(log[10]~counts~per~gene),
-             color = "") +
+             y = "log10 counts per gene",
+             color = color) +
         coord_flip()
 }
 
@@ -266,8 +264,52 @@ plot_count_density <- function(
         ) +
         ggtitle(paste("count density", name, sep = " : ")) +
         geom_density() +
-        labs(x = expression(log[10]~counts~per~gene),
+        labs(x = "log10 counts per gene",
              y = "density")
+}
+
+
+
+#' Correlation matrix heatmap
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param run bcbio-nextgen run.
+#' @param dt \linkS4class{DESeqTransform} generated from [DESeq2::rlog()] or
+#'   [DESeq2::vst()] on a \linkS4class{DESeqDataSet}.
+#' @param method Correlation coefficient (or covariance) to be computed.
+#'   Defaults to `pearson` but `spearman` can also be used.
+#'
+#' @return Correlation heatmap.
+#' @export
+plot_correlation_heatmap <- function(
+    run,
+    dt,
+    method = "pearson") {
+    check_run(run)
+    check_dt(dt)
+    if (!method %in% c("pearson", "spearman")) {
+        stop("Support methods: pearson, spearman")
+    }
+    name <- deparse(substitute(dt))
+
+    # Get counts and annotations from DESeqTransform object
+    counts <- assay(dt)
+    annotation <- colData(dt) %>% as.data.frame %>% .[, run$intgroup]
+
+    # Pearson or Spearman correlation methods are supported
+    if (!method %in% c("pearson", "spearman")) {
+        stop("invalid correlation regression method.
+             must use pearson or spearman.")
+    }
+
+    counts %>%
+        cor(method = method) %>%
+        pheatmap(
+            annotation = annotation,
+            main = paste("correlation", method, name, sep = " : "),
+            show_colnames = TRUE,
+            show_rownames = TRUE)
 }
 
 
@@ -275,8 +317,11 @@ plot_count_density <- function(
 #' @rdname qc_plots
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {
+    import_tidy_verbs()
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
+
+    # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
         gender_markers <- get("gender_markers_mmusculus",
                               envir = asNamespace("bcbioRnaseq"))
@@ -284,11 +329,12 @@ plot_gender_markers <- function(run, normalized_counts) {
         stop("Unsupported organism")
     }
     gender_markers <- gender_markers %>%
-        .[.$include == TRUE, ] %>%
-        .[order(.$chromosome, .$gene_symbol), ]
+        select(.data$include == TRUE) %>%
+        arrange(!!!syms(c("chromosome", "gene_symbol")))
+
     # Ensembl identifiers
     identifier <- gender_markers$ensembl_gene %>% sort %>% unique
-    # Scatterplot
+
     normalized_counts[identifier, ] %>%
         as.data.frame %>%
         rownames_to_column %>%

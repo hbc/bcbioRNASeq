@@ -80,7 +80,7 @@
     <p>Differentially expressed gene heatmap</p>
     
 
-    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>dds</span>, <span class='no'>contrast</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='no'>dt</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -90,16 +90,13 @@
       <td><p>bcbio-nextgen run.</p></td>
     </tr>
     <tr>
-      <th>dds</th>
-      <td><p>DESeqDataSet.</p></td>
+      <th>res</th>
+      <td><p>DESeqResults.</p></td>
     </tr>
     <tr>
-      <th>contrast</th>
-      <td><p>Contrast.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff.</p></td>
+      <th>dt</th>
+      <td><p>DESeqTransform. We recommend passing in <code>rlog()</code>
+counts in as the transform object by default.</p></td>
     </tr>
     <tr>
       <th>lfc</th>

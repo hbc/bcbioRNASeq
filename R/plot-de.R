@@ -108,7 +108,8 @@ plot_volcano <- function(
         c(floor(min(na.omit(stats$neg_log_padj))),
           ceiling(max(na.omit(stats$neg_log_padj))))
 
-    # LFC density histogram
+
+    # LFC density histogram ====
     lfc_density <- density(na.omit(stats$log2_fold_change))
     lfc_density_df <- data.frame(x = lfc_density$x,
                                  y = lfc_density$y)
@@ -117,7 +118,7 @@ plot_volcano <- function(
         geom_density() +
         scale_x_continuous(limits = range_lfc) +
         labs(title = "log2 fold change density plot",
-             x = "")
+             x = "log2 fold change")
     if (direction == "both" | direction == "up") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
@@ -140,11 +141,33 @@ plot_volcano <- function(
     }
     show(lfc_hist)
 
-    # Volcano plot
+
+    # Density plot of adjusted P values ====
+    padj_density <- density(na.omit(stats$neg_log_padj))
+    padj_density_df <- data.frame(x = padj_density$x,
+                                  y = padj_density$y)
+    padj_hist <- stats %>%
+        ggplot(aes_(x = ~-log10(padj + 1e-10))) +
+        geom_density() +
+        # filter(lfc_density_df, .data$x < -lfc),
+        geom_ribbon(data = filter(padj_density_df,
+                                  .data$x > -log10(UQ(alpha) + 1e-10)),
+                    aes_(x = ~x, ymax = ~y),
+                    ymin = 0,
+                    fill = shade_color,
+                    alpha = shade_alpha) +
+        coord_flip() +
+        labs(title = "p value density plot",
+             y = "density")
+    show(padj_hist)
+
+
+    # Volcano plot ====
     volcano <- stats %>%
         ggplot(aes_(x = ~log2_fold_change,
                     y = ~-log10(padj + 1e-10))) +
-        ggtitle("volcano plot") +
+        labs(title = "volcano plot",
+             x = "log2 fold change") +
         geom_point(
             alpha = point_alpha,
             color = point_outline_color,
@@ -197,23 +220,67 @@ plot_volcano <- function(
                 alpha = shade_alpha)
     }
     show(volcano)
+}
 
-    # Density plot of adjusted pvalues
-    padj_density <- density(na.omit(stats$neg_log_padj))
-    padj_density_df <- data.frame(x = padj_density$x,
-                                  y = padj_density$y)
-    padj_hist <- stats %>%
-        ggplot(aes_(x = ~-log10(padj + 1e-10))) +
-        geom_density() +
-        # filter(lfc_density_df, .data$x < -lfc),
-        geom_ribbon(data = filter(padj_density_df,
-                                  .data$x > -log10(UQ(alpha) + 1e-10)),
-                    aes_(x = ~x, ymax = ~y),
-                    ymin = 0,
-                    fill = shade_color,
-                    alpha = shade_alpha) +
-        coord_flip() +
-        labs(title = "p value density plot",
-             y = "density")
-    show(padj_hist)
+
+
+#' Differentially expressed gene heatmap
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param run bcbio-nextgen run.
+#' @param res \linkS4class{DESeqResults}.
+#' @param dt \linkS4class{DESeqTransform}. We recommend passing in [rlog()]
+#'   counts in as the transform object by default.
+#' @param lfc Log2 fold change ratio cutoff.
+#'
+#' @return Gene heatmap.
+#' @export
+plot_deg_heatmap <- function(
+    run,
+    res,
+    dt,
+    lfc = 0) {
+    check_run(run)
+    check_res(res)
+    check_dt(dt)
+    import_tidy_verbs()
+
+    alpha <- res@metadata$alpha
+    metadata <- intgroup_as_factor(run)
+
+    # Output results to data frame and subset by alpha and lfc cutoffs
+    res_df <- res %>%
+        as.data.frame %>%
+        rownames_to_column("ensembl_gene_id") %>%
+        as_tibble %>%
+        filter(.data$padj < alpha) %>%
+        .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
+
+    # rlog transform and subset the counts
+    counts <- dt %>% assay %>% .[res_df$ensembl_gene_id, ]
+
+    if (nrow(counts) <= 100) {
+        # Change rownames to readable external gene names
+        show_rownames <- TRUE
+        gene_names <- gene_level_annotations(run) %>%
+            select(!!!syms(c("ensembl_gene_id", "external_gene_name"))) %>%
+            as.data.frame %>%
+            set_rownames(.$ensembl_gene_id)
+        rownames(counts) <- gene_names[rownames(counts), "external_gene_name"]
+    } else {
+        show_rownames <- FALSE
+    }
+
+    res_name <- deparse(substitute(res))
+    contrast_name <- res_contrast_name(res)
+    dt_name <- deparse(substitute(dt))
+
+    pheatmap(counts,
+             annotation = metadata,
+             clustering_distance_cols = "correlation",
+             clustering_method = "ward.D2",
+             main = paste(res_name, contrast_name, dt_name, sep = " : "),
+             scale = "row",
+             show_rownames = show_rownames)
 }

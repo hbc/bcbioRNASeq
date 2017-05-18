@@ -1,3 +1,4 @@
+# General ====
 #' Detect the organism from the genome build name
 #'
 #' @keywords internal
@@ -28,37 +29,134 @@ detect_organism <- function(genome_build) {
 
 
 
-#' Return metadata intgroups as factor
+#' Get contrast name from \linkS4class{DESeqResults}
 #'
-#' @author Michael Steinbaugh
 #' @keywords internal
-#'
-#' @param run bcbio-nextgen run.
-#'
-#' @export
-intgroup_as_factor <- function(run) {
-    import_tidy_verbs()
-    run$metadata %>%
-        select(!!!syms(c("description", run$intgroup))) %>%
-        mutate_all(factor) %>%
-        as.data.frame %>%
-        set_rownames(.$description) %>%
-        .[, run$intgroup]
+#' @author Michael Steinbaugh
+res_contrast_name <- function(res) {
+    mcols(res)[2, 2] %>%
+        str_replace("^.*:\\s", "")
 }
 
 
 
-#' Query Ensembl
+
+
+
+# Integrity checks ====
+#' Perform object integrity checks
 #'
+#' @rdname integrity_checks
 #' @keywords internal
+#' @author Michael Steinbaugh
+#'
+#' @param run bcbio-nextgen run.
+#' @param stop Stop upon check failure.
+#'
+#' @export
+check_run <- function(run) {
+    if (!is.list(run)) {
+        stop("Run object is not a list")
+    }
+    if (is.null(run$yaml)) {
+        stop("Run does contain YAML info, please resave")
+    }
+    if (is.null(run$metadata)) {
+        stop("Run does not contain metadata, please resave")
+    }
+    if (run$analysis == "rnaseq" & is.null(run$ensembl)) {
+        stop("RNA-seq run does not contain Ensembl annotations, please resave")
+    }
+
+    # Metadata format and description name checks
+    if (is_tibble(run$metadata) | !is.data.frame(run$metadata)) {
+        stop("Metadata must be saved as a data frame")
+    }
+    if (!identical(rownames(run$metadata), run$metadata$description)) {
+        stop("Metadata rownames must match the description")
+    }
+    if (!identical(run$metadata$description, names(run$sample_dirs))) {
+        stop("Metadata descriptions don't match the run sample directories")
+    }
+    if (all(sapply(run$metadata, is.factor))) {
+        stop("Metadata not saved as factors")
+    }
+}
+
+
+
+#' @rdname integrity_checks
+#' @param dds [DESeqDataSet].
+check_dds <- function(dds, stop = TRUE) {
+    if (class(dds)[1] == "DESeqDataSet") {
+        TRUE
+    } else {
+        if (isTRUE(stop)) {
+            stop("DESeqDataSet required")
+        } else {
+            FALSE
+        }
+    }
+}
+
+
+
+#' @rdname integrity_checks
+#' @param dt [DESeqTransform].
+check_dt <- function(dt, stop = TRUE) {
+    if (class(dt)[1] == "DESeqTransform") {
+        TRUE
+    } else {
+        if (isTRUE(stop)) {
+            stop("DESeqDataSet required")
+        } else {
+            FALSE
+        }
+    }
+}
+
+
+
+#' @rdname integrity_checks
+#' @param res [DESeqResults].
+check_res <- function(res, stop = TRUE) {
+    if (class(res)[1] == "DESeqResults") {
+        TRUE
+    } else {
+        if (isTRUE(stop)) {
+            stop("DESeqResults required")
+        } else {
+            FALSE
+        }
+    }
+}
+
+
+
+
+
+
+
+# Ensembl ====
+#' Ensembl annotations
+#'
+#' Transcript-level annotations are downloaded from
+#' [Ensembl](http://www.ensembl.org/) and saved as a tibbled grouped by
+#' `ensembl_gene_id` with nested `ensembl_transcript_id` in the bcbio run
+#' object. We also define broad classes, which are used in quality control
+#' analysis.
+#'
+#' @rdname ensembl
+#' @keywords internal
+#'
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run bcbio run.
+#' @param run bcbio-nextgen run.
 #'
 #' @return Tibble grouped by `ensembl_gene_id` with nested
 #'   `ensembl_transcript_id`.
-query_ensembl <- function(run) {
+ensembl <- function(run) {
     import_tidy_verbs()
     # Broad class definitions
     coding <- c("protein_coding")
@@ -102,67 +200,31 @@ query_ensembl <- function(run) {
 
 
 
-#' Read metadata
-#'
-#' @keywords internal
-#' @author Michael Steinbaugh
-#'
-#' @param file Metadata file. CSV and XLSX formats are supported.
-#' @param pattern Apply grep pattern matching to samples
-#' @param pattern_col Column in data frame used for pattern subsetting
-#' @param lanes Number of lanes used to split the samples into technical
-#'   replicates (`_LXXX`) suffix.
-#'
-#' @return Metadata data frame.
-read_metadata <- function(
-    file,
-    pattern = NULL,
-    pattern_col = "description",
-    lanes = NULL) {
-    if (!file.exists(file)) {
-        stop("File not found")
-    }
-
-    if (grepl("\\.xlsx$", file)) {
-        metadata <- read_excel(file)
-    } else {
-        metadata <- read_csv(file)
-    }
-
-    # First column must be the FASTQ file name
-    names(metadata)[1] <- "file_name"
-
-    metadata <- metadata %>%
-        snake %>%
-        .[!is.na(.$description), ] %>%
-        .[order(.$description), ]
-
-    # Lane split, if desired
-    if (is.numeric(lanes)) {
-        lane <- paste0("L", str_pad(1:lanes, 3, pad = "0"))
-        metadata <- metadata %>%
-            group_by(!!sym("file_name")) %>%
-            expand_(~lane) %>%
-            left_join(metadata, by = "file_name") %>%
-            ungroup %>%
-            mutate(file_name = paste(.data$file_name, .data$lane, sep = "_"),
-                   description = .data$file_name)
-    }
-
-    # Subset by pattern, if desired
-    if (!is.null(pattern)) {
-        metadata <- metadata[str_detect(metadata[[pattern_col]], pattern), ]
-    }
-
-    # Convert to data frame and set rownames
-    metadata %>%
-        as.data.frame %>%
-        set_rownames(.$description)
+#' @rdname ensembl
+#' @description Gene-level annotations with `description` and `gene_biotype`,
+#'   and `broad_class`.
+#' @return Tibble arranged by `ensembl_gene_id`.
+#' @export
+gene_level_annotations <- function(run) {
+    import_tidy_verbs()
+    run$ensembl %>%
+        mutate(ensembl_transcript_id = NULL) %>%
+        ungroup %>%
+        distinct %>%
+        arrange(!!sym("ensembl_gene_id"))
 }
 
 
 
-res_contrast_name <- function(res) {
-    mcols(res)[2, 2] %>%
-        str_replace("^.*:\\s", "")
+#' @rdname ensembl
+#' @description Transcript-to-gene annotations, to be used with [tximport()].
+#' @return Tibble with `ensembl_transcript_id` and `ensembl_gene_id`.
+#' @export
+tx2gene <- function(run) {
+    import_tidy_verbs()
+    run$ensembl %>%
+        unnest_("ensembl_transcript_id") %>%
+        select(!!!syms(c("ensembl_transcript_id", "ensembl_gene_id"))) %>%
+        ungroup %>%
+        arrange(!!sym("ensembl_transcript_id"))
 }

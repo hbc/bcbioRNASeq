@@ -1,23 +1,16 @@
 ---
-title: "Quality Control"
+title: "Quality control"
 date: "`r BiocStyle::doc_date()`"
 bibliography: bcbioRnaseq.bib
-output:
-  html_document:
-    code_folding: hide
-    highlight: zenburn
-    theme: flatly
-    toc: true
-    toc_float: true
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 # bcbioRnaseq ====
 library(bcbioRnaseq)
 if (file.exists("data/run.rda")) {
     data(run)
+    check_run(run)
 } else {
-    create_new_project()
     run <- load_run(
         file.path("upload_dir"),
         intgroup = c("genotype"))
@@ -34,7 +27,7 @@ opts_chunk$set(
     autodep = TRUE,
     cache = TRUE,
     cache.lazy = TRUE,
-    error = FALSE,
+    error = TRUE,
     fig.align = "center",
     fig.height = 8,
     fig.keep = "all",
@@ -48,6 +41,26 @@ opts_chunk$set(
 
 # Workflow ====
 library(DESeq2)
+
+# Set intgroup factors for colData metadata
+colData <- run$metadata %>%
+    mutate(genotype = factor(genotype))
+
+# Design formula
+design <- formula(~ genotype)
+
+# Contrast. See also [DESeq2::results()].
+# 1. Design matrix parameter.
+# 2. Numerator for LFC (expt).
+# 3. Denominator for LFC (control).
+contrast <- c("genotype", "mutant", "wildtype")
+
+# tximport counts from bcbio run
+txi <- run$txi
+
+# Significance cutoffs
+alpha <- 0.05
+lfc <- 1
 ```
 
 
@@ -69,10 +82,9 @@ metadata_table(run)
 
 
 ```{r dds, results="hide"}
-design <- formula(~ genotype)
 dds <- DESeqDataSetFromTximport(
-    txi = run$txi,
-    colData = run$metadata,
+    txi = txi,
+    colData = colData,
     design = design) %>%
     DESeq
 save_data(dds)
@@ -86,7 +98,7 @@ sizeFactors(dds)
 ```{r counts}
 raw_counts <- counts(dds, normalized = FALSE)
 normalized_counts <- counts(dds, normalized = TRUE)
-tpm <- tpm(run$txi)
+tpm <- tpm(txi)
 save_data(raw_counts, normalized_counts, tpm)
 write_counts(raw_counts, normalized_counts, tpm)
 ```
@@ -250,12 +262,6 @@ sessionInfo()
 
 
 # References
-
-```{r}
-references()
-```
-
-
 
 [bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
 [bcbioRnaseq]: https://github.com/hbc/bcbioRnaseq

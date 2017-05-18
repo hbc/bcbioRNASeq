@@ -1,4 +1,4 @@
 name: Differential Expression
 description: >
-  Template for RNA-seq differential expression analysis.
+  Template for RNA-seq differential gene expression analysis.
 create_dir: false

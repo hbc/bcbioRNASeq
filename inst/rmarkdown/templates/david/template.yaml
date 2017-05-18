@@ -1,0 +1,4 @@
+name: DAVID Functional Annotation Analysis
+description: >
+  Template for RNA-seq differential expression analysis.
+create_dir: false

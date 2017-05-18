@@ -1,14 +1,7 @@
 ---
-title: "Differential Expression"
+title: "Differential expression"
 date: "`r BiocStyle::doc_date()`"
 bibliography: bcbioRnaseq.bib
-output:
-  html_document:
-    code_folding: hide
-    highlight: zenburn
-    theme: flatly
-    toc: true
-    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -48,6 +41,8 @@ opts_chunk$set(
 
 # Workflow ====
 library(DESeq2)
+colData <- run$metadata
+design <- formula(~ treatment)
 ```
 
 
@@ -69,10 +64,9 @@ metadata_table(run)
 
 
 ```{r dds, results="hide"}
-design <- formula(~ treatment)
 dds <- DESeqDataSetFromTximport(
     txi = run$txi,
-    colData = run$metadata,
+    colData = colData,
     design = design) %>%
     DESeq
 save_data(dds)
@@ -250,12 +244,6 @@ sessionInfo()
 
 
 # References
-
-```{r}
-references()
-```
-
-
 
 [bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
 [bcbioRnaseq]: https://github.com/hbc/bcbioRnaseq

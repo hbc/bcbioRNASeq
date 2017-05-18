@@ -77,8 +77,8 @@
     </div>
 
     
-    <p>Read RNA-seq counts using <code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport</a></code>.
-Currently supports <a href = 'https://combine-lab.github.io/salmon/'>salmon</a> and
+    <p>Read RNA-seq counts using <code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code>. Currently supports
+<a href = 'https://combine-lab.github.io/salmon/'>salmon</a> (preferred) and
 <a href = 'http://www.cs.cmu.edu/~ckingsf/software/sailfish/'>sailfish</a>.</p>
 <p>Read a project data file.</p>
 <p>Read sample metadata from YAML.</p>
@@ -123,8 +123,8 @@ include. If <code>NULL</code> (default), all samples will be imported.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough parameters for the <code>readr</code> importers called
-internally (<code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_csv</a></code>, <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code>).</p></td>
+      <td><p>Passthrough parameters for readr importers (<code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_csv()</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_tsv()</a></code>).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -134,14 +134,21 @@ internally (<code><a href='http://www.rdocumentation.org/packages/readr/topics/r
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>txi <code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport</a></code> list.</p>
-<p>bcbio run data.</p>
+    <p>Counts saved in txi list object.</p>
+<p>Miscellaneous data frame.</p>
 <p>Metadata data frame.</p>
 <p>Summary statistics data frame.</p>
+<p>Sample information data frame.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_csv</a></code>, <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code>)</p>
+    <ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code>.</p></li>
+</ul>
+    <ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_csv()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_tsv()</a></code>.</p></li>
+</ul>
     
 
   </div>

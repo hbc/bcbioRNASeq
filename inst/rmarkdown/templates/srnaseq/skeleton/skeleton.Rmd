@@ -1,11 +1,7 @@
 ---
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    code_folding: hide
-    highlight: zenburn
-    theme: flatly
+title: "Small RNA-seq quality control"
+date: "`r BiocStyle::doc_date()`"
+bibliography: bcbioRnaseq.bib
 ---
 
 The most recent update of this html document occurred: `r date()`

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ensembl annotations — gene_level_annotations • bcbioRnaseq</title>
+<title>Ensembl annotations — ensembl • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,12 +77,19 @@
     </div>
 
     
-    <p>Gene-level annotations with <code>description</code> and <code>gene_biotype</code>,
+    <p>Transcript-level annotations are downloaded from
+<a href = 'http://www.ensembl.org/'>Ensembl</a> and saved as a tibbled grouped by
+<code>ensembl_gene_id</code> with nested <code>ensembl_transcript_id</code> in the bcbio run
+object. We also define broad classes, which are used in quality control
+analysis.</p>
+<p>Gene-level annotations with <code>description</code> and <code>gene_biotype</code>,
 and <code>broad_class</code>.</p>
 <p>Transcript-to-gene annotations, to be used with <code>tximport()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>gene_level_annotations</span>(<span class='no'>run</span>)
+    <pre class="usage"><span class='fu'>ensembl</span>(<span class='no'>run</span>)
+
+<span class='fu'>gene_level_annotations</span>(<span class='no'>run</span>)
 
 <span class='fu'>tx2gene</span>(<span class='no'>run</span>)</pre>
     
@@ -97,16 +104,10 @@ and <code>broad_class</code>.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Tibble arranged by <code>ensembl_gene_id</code>.</p>
+    <p>Tibble grouped by <code>ensembl_gene_id</code> with nested
+<code>ensembl_transcript_id</code>.</p>
+<p>Tibble arranged by <code>ensembl_gene_id</code>.</p>
 <p>Tibble with <code>ensembl_transcript_id</code> and <code>ensembl_gene_id</code>.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Transcript-level annotations are downloaded from
-<a href = 'http://www.ensembl.org/'>Ensembl</a> and saved as a tibbled grouped by
-<code>ensembl_gene_id</code> with nested <code>ensembl_transcript_id</code> in the bcbio run
-object. We also define broad classes, which are used in quality control
-analysis.</p>
     
 
   </div>
@@ -116,13 +117,13 @@ analysis.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
           </ul>
 
     <h2>Author</h2>
     
 Michael Steinbaugh
+
+Rory Kirchner
 
   </div>
 </div>

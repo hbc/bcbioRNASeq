@@ -1,26 +1,91 @@
+# Internal read functions ====
+#' Read metadata
+#'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#'
+#' @param file Metadata file. CSV and XLSX formats are supported.
+#' @param pattern Apply grep pattern matching to samples
+#' @param pattern_col Column in data frame used for pattern subsetting
+#' @param lanes Number of lanes used to split the samples into technical
+#'   replicates (`_LXXX`) suffix.
+#'
+#' @return Metadata data frame.
+read_metadata <- function(
+    file,
+    pattern = NULL,
+    pattern_col = "description",
+    lanes = NULL) {
+    if (!file.exists(file)) {
+        stop("File not found")
+    }
+
+    if (grepl("\\.xlsx$", file)) {
+        metadata <- read_excel(file)
+    } else {
+        metadata <- read_csv(file)
+    }
+
+    # First column must be the FASTQ file name
+    names(metadata)[1] <- "file_name"
+
+    metadata <- metadata %>%
+        snake %>%
+        .[!is.na(.$description), ] %>%
+        .[order(.$description), ]
+
+    # Lane split, if desired
+    if (is.numeric(lanes)) {
+        lane <- paste0("L", str_pad(1:lanes, 3, pad = "0"))
+        metadata <- metadata %>%
+            group_by(!!sym("file_name")) %>%
+            expand_(~lane) %>%
+            left_join(metadata, by = "file_name") %>%
+            ungroup %>%
+            mutate(file_name = paste(.data$file_name, .data$lane, sep = "_"),
+                   description = .data$file_name)
+    }
+
+    # Subset by pattern, if desired
+    if (!is.null(pattern)) {
+        metadata <- metadata[str_detect(metadata[[pattern_col]], pattern), ]
+    }
+
+    # Convert to data frame and set rownames
+    metadata %>%
+        as.data.frame %>%
+        set_rownames(.$description)
+}
+
+
+
+
+
+
+# Read bcbio-nextgen run output ====
 #' Read data from bcbio-nextgen run
 #'
+#' Read RNA-seq counts using [tximport::tximport()]. Currently supports
+#' [salmon](https://combine-lab.github.io/salmon/) (preferred) and
+#' [sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/).
+#'
 #' @rdname read_bcbio
+#' @keywords internal
 #'
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
 #' @param run bcbio-nextgen run.
-
-
-
-#' @rdname read_bcbio
-#' @description Read RNA-seq counts using \code{\link[tximport]{tximport}}.
-#'   Currently supports \href{https://combine-lab.github.io/salmon/}{salmon} and
-#'   \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
-#'
 #' @param samples Character vector of sample names in bcbio final directory to
-#'   include. If \code{NULL} (default), all samples will be imported.
+#'   include. If `NULL` (default), all samples will be imported.
 #' @param grep Use grep pattern to match samples. This will override the
-#'   \code{samples} parameter if set.
+#'   `samples` parameter if set.
 #'
-#' @return txi \code{\link[tximport]{tximport}} list.
+#' @return Counts saved in txi list object.
 #' @export
+#'
+#' @seealso
+#' - [tximport::tximport()].
 read_bcbio_counts <- function(
     run,
     grep = NULL,
@@ -102,14 +167,14 @@ read_bcbio_counts <- function(
 #'
 #' @param file File name.
 #' @param row_names Column identifier to use for row names.
-#' @param ... Passthrough parameters for the \code{readr} importers called
-#'   internally (\code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}}).
+#' @param ... Passthrough parameters for [readr] importers ([readr::read_csv()],
+#'   [readr::read_tsv()]).
 #'
-#' @return bcbio run data.
-#' @export
+#' @return Miscellaneous data frame.
 #'
 #' @seealso
-#' \code{\link[readr]{read_csv}}, \code{\link[readr]{read_tsv}})
+#' - [readr::read_csv()].
+#' - [readr::read_tsv()].
 read_bcbio_file <- function(
     run,
     file,
@@ -159,7 +224,6 @@ read_bcbio_file <- function(
 #' @rdname read_bcbio
 #' @description Read sample metadata from YAML.
 #' @return Metadata data frame.
-#' @export
 read_bcbio_metadata <- function(run) {
     read_bcbio_samples_yaml(run, metadata)
 }
@@ -169,7 +233,6 @@ read_bcbio_metadata <- function(run) {
 #' @rdname read_bcbio
 #' @description Read summary metrics from YAML.
 #' @return Summary statistics data frame.
-#' @export
 read_bcbio_metrics <- function(run) {
     metadata <- run$metadata
     # These statistics are only generated for a standard RNA-seq run with
@@ -183,11 +246,8 @@ read_bcbio_metrics <- function(run) {
 
 #' @rdname read_bcbio
 #' @description Read bcbio sample information from YAML.
-#' @keywords internal
-#'
 #' @param ... Nested operator keys supplied as dot objects.
-#'
-#' @export
+#' @return Sample information data frame.
 read_bcbio_samples_yaml <- function(run, ...) {
     keys <- as.character(substitute(list(...)))[-1L]
     yaml <- run$yaml
@@ -233,8 +293,8 @@ read_bcbio_samples_yaml <- function(run, ...) {
 
     # [data.table::rbindlist()] coerces integers better than
     # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to throw
-    # "Column `appy_severity` can't be converted from integer to character"
-    # errors on numeric data.
+    # "Column `XXX` can't be converted from integer to character" errors on
+    # numeric data.
     rbindlist(list) %>%
         as.data.frame %>%
         # Put description first and sort other colnames alphabetically
@@ -245,18 +305,20 @@ read_bcbio_samples_yaml <- function(run, ...) {
 
 
 
+
+
+
+# Small RNA-seq read functions ====
 #' Create isomiRs object from bcbio output
 #'
-#' Read bcbio output to create isomiRs object
+#' Read bcbio sample information from YAML to get isomiR object.
 #'
-#' @rdname read_smallrna_counts
-#' @description Read bcbio sample information from YAML to get
-#' isomiR object
+#' @rdname read_smallrna
+#' @keywords internal
+#' @author Lorena Patano
 #'
 #' @param bcbiods bcbioRnaDataSet object
-#'
-#' @export
-read_smallrna_counts <- function(bcbiods){
+read_smallrna_counts <- function(bcbiods) {
     run <- metadata(bcbiods)
     fns <- file.path(run$sample_dirs,
                      paste(names(run$sample_dirs),
