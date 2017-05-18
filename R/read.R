@@ -51,8 +51,9 @@ read_metadata <- function(
         metadata <- metadata[str_detect(metadata[[pattern_col]], pattern), ]
     }
 
-    # Convert to data frame and set rownames
+    # Convert to data frame, coerce to factors, and set rownames
     metadata %>%
+        mutate_all(factor) %>%
         as.data.frame %>%
         set_rownames(.$description)
 }
@@ -225,7 +226,10 @@ read_bcbio_file <- function(
 #' @description Read sample metadata from YAML.
 #' @return Metadata data frame.
 read_bcbio_metadata <- function(run) {
-    read_bcbio_samples_yaml(run, metadata)
+    read_bcbio_samples_yaml(run, metadata) %>%
+        mutate_all(factor) %>%
+        as.data.frame %>%
+        set_rownames(.$description)
 }
 
 

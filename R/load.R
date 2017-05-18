@@ -33,7 +33,7 @@ load_run <- function(
     metadata_file = NULL,
     organism = NULL) {
     # Check connection to upload_dir
-    if (!length(dir(upload_dir))) {
+    if (!dir.exists(upload_dir)) {
         stop("Final upload directory failed to load")
     }
     upload_dir <- normalizePath(upload_dir)
@@ -138,10 +138,6 @@ load_run <- function(
     } else {
         metadata <- read_bcbio_samples_yaml(run, keys = "metadata")
     }
-    # Enforce that all metadata columns are factors
-    run$metadata <- metadata %>% mutate_all(factor)
-    # [fix] Exempt numeric columns from factor coercion?
-    # !sapply(run$metadata, is.numeric)
 
     # Subset the sample_dirs by the metadata data frame
     run$sample_dirs <- run$sample_dirs[run$metadata$description]
@@ -149,7 +145,7 @@ load_run <- function(
 
     if (analysis == "rnaseq") {
         # Save Ensembl annotations
-        message("Download Ensembl annotations...")
+        message("Downloading Ensembl annotations...")
         run$ensembl <- ensembl(run)
         run$ensembl_version <- listMarts() %>% .[1, 2]
 
