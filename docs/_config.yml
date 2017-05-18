@@ -1,0 +1,2 @@
+# Fix for RMarkdown output YAML file
+include: downloads/_output.yaml
