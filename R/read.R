@@ -74,8 +74,8 @@ read_metadata <- function(
 # Read bcbio-nextgen run output ====
 #' Read data from bcbio-nextgen run
 #'
-#' Read RNA-seq counts using [tximport::tximport()]. Currently supports
-#' [salmon](https://combine-lab.github.io/salmon/) (preferred) and
+#' Read RNA-seq counts using [tximport()]. Currently supports
+#' [salmon](https://combine-lab.github.io/salmon/) (**recommended**) and
 #' [sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/).
 #'
 #' @rdname read_bcbio
@@ -84,13 +84,13 @@ read_metadata <- function(
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #' @param samples Character vector of sample names in bcbio final directory to
 #'   include. If `NULL` (default), all samples will be imported.
 #' @param grep Use grep pattern to match samples. This will override the
 #'   `samples` parameter if set.
 #'
-#' @return Counts saved in txi list object.
+#' @return Counts saved in [tximport] list object.
 #' @export
 #'
 #' @seealso
@@ -175,14 +175,9 @@ read_bcbio_counts <- function(
 #'
 #' @param file File name.
 #' @param row_names Column identifier to use for row names.
-#' @param ... Passthrough parameters for [readr] importers ([readr::read_csv()],
-#'   [readr::read_tsv()]).
+#' @param ... Passthrough parameters for [read_csv()] or [read_tsv()].
 #'
 #' @return Miscellaneous data frame.
-#'
-#' @seealso
-#' - [readr::read_csv()].
-#' - [readr::read_tsv()].
 read_bcbio_file <- function(
     run,
     file,
@@ -317,10 +312,10 @@ read_bcbio_samples_yaml <- function(run, ...) {
         nested
     })
 
-    # [data.table::rbindlist()] coerces integers better than
+    # List can be coerced to data frame using [data.table::rbindlist()] or
     # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to throw
-    # "Column `XXX` can't be converted from integer to character" errors on
-    # numeric data.
+    # `Column XXX can't be converted from integer to character` errors on
+    # numeric data, whereas this doesn't happen with [rbindlist()].
     rbindlist(list) %>%
         as.data.frame %>%
         remove_na %>%
@@ -344,7 +339,7 @@ read_bcbio_samples_yaml <- function(run, ...) {
 #' @keywords internal
 #' @author Lorena Patano
 #'
-#' @param bcbiods bcbioRnaDataSet object
+#' @param bcbiods [bcbioRnaDataSet].
 read_smallrna_counts <- function(bcbiods) {
     run <- metadata(bcbiods)
     fns <- file.path(run$sample_dirs,

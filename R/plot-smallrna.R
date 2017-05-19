@@ -4,13 +4,13 @@
 #' @author Lorena Pantano
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run.
-#' @return ggplot object.
+#' @param run [bcbioRnaDataSet].
+#' @return [ggplot].
 
 
 
 #' @rdname smallrna_qc_plots
-#' @description Plot size distribution of small RNA-seq data
+#' @description Plot size distribution of small RNA-seq data.
 #' @export
 plot_size_distribution <- function(run) {
     run <- metadata(run)
@@ -59,7 +59,7 @@ plot_size_distribution <- function(run) {
 
 
 #' @rdname smallrna_qc_plots
-#' @description Plot of total miRNA counts
+#' @description Plot of total miRNA counts.
 #' @export
 plot_mirna_counts <- function(run) {
     .t <- data.frame(sample = colnames(txi(run)),
@@ -88,24 +88,27 @@ plot_mirna_counts <- function(run) {
                            color = ~variable)) +
             xlim(0, 50) +
             scale_y_log10(),
-        nrow=3
+        nrow = 3
     )
 }
 
 
 #' @rdname smallrna_qc_plots
-#' @description Clustering small RNA samples
+#' @description Clustering small RNA samples.
 #' @export
-plot_srna_clusters <- function(run){
+plot_srna_clusters <- function(run) {
     counts <- txi(run)
     design <- metadata(run)$metadata
-    dds = DESeqDataSetFromMatrix(counts[rowSums(counts>0)>3,],
-                                 colData=design, design=~1)
+    dds = DESeqDataSetFromMatrix(
+        counts[rowSums(counts > 0) > 3, ],
+        colData = design,
+        design = ~1)
     vst = rlog(dds)
-
-    pheatmap(assay(vst), annotation_col = design[,metadata(run)$intgroup, drop=F],
-             show_rownames = F,
+    pheatmap(assay(vst),
+             annotation_col = design[, metadata(run)$intgroup, drop = FALSE],
              clustering_distance_cols = "correlation",
-             clustering_method = "ward.D", scale='row')
+             clustering_method = "ward.D",
+             scale = "row",
+             show_rownames = FALSE)
     plot_pca(metadata(run), vst)
 }

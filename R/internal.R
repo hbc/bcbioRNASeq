@@ -29,7 +29,7 @@ detect_organism <- function(genome_build) {
 
 
 
-#' Get contrast name from \linkS4class{DESeqResults}
+#' Get contrast name from [DESeqResults]
 #'
 #' @keywords internal
 #' @author Michael Steinbaugh
@@ -50,7 +50,7 @@ res_contrast_name <- function(res) {
 #' @keywords internal
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #' @param stop Stop upon check failure.
 #'
 #' @export
@@ -152,7 +152,7 @@ check_res <- function(res, stop = TRUE) {
 #' @author Michael Steinbaugh
 #' @author Rory Kirchner
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #'
 #' @return Tibble grouped by `ensembl_gene_id` with nested
 #'   `ensembl_transcript_id`.

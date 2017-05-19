@@ -3,7 +3,7 @@
 #' @keywords internal
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #' @param counts Counts matrix.
 #'
 #' @return log10 melted data frame.
@@ -53,7 +53,7 @@ pool_lane_split_counts <- function(raw_counts,
         stop("samples don't appear to be lane split")
     }
     stem <- gsub(lane_grep, "", colnames(raw_counts)) %>% unique %>% sort
-    # Perform `rowSums()` on the matching columns per sample
+    # Perform [rowSums()] on the matching columns per sample
     lapply(seq_along(stem), function(a) {
         raw_counts %>%
             .[, grepl(paste0("^", stem[a], lane_grep), colnames(.))] %>%
@@ -67,16 +67,16 @@ pool_lane_split_counts <- function(raw_counts,
 
 
 #' @rdname pool_lanes
-#' @description Pool \linkS4class{DESeqDataSet} counts for technical replicates.
-#'   Extract lane split technical replicate counts from a
-#'   \linkS4class{DESeqDataSet}, perform [rowSums()], and create a new
-#'   \linkS4class{DESeqDataSet} using [DESeq2::DESeqDataSetFromMatrix()].
+#' @description Pool [DESeqDataSet] counts for technical replicates. Extract
+#'   lane split technical replicate counts from a [DESeqDataSet], perform
+#'   [rowSums()], and create a new [DESeqDataSet] using
+#'   [DESeqDataSetFromMatrix()].
 #'
-#' @param run bcbio-nextgen run.
-#' @param dds \linkS4class{DESeqDataSet}.
+#' @param run [bcbioRnaDataSet].
+#' @param dds [DESeqDataSet].
 #' @param save Whether to save and export counts.
 #'
-#' @return \linkS4class{DESeqDataSet} using pooled technical replicates.
+#' @return [DESeqDataSet] using pooled technical replicates.
 #' @export
 pool_lane_split_dds <- function(
     run,
@@ -85,7 +85,7 @@ pool_lane_split_dds <- function(
     check_run(run)
     check_dds(dds)
 
-    # Get the internal parameters from DESeqDataSet
+    # Get the internal parameters from [DESeqDataSet]
     raw_counts <- counts(dds, normalized = FALSE)
     design <- design(dds)
 
@@ -128,14 +128,14 @@ pool_lane_split_dds <- function(
                     paste("pooled", name, sep = "_"), ".csv.gz")))
         }
 
-        # normalized_counts
+        # Normalized counts
         normalized_counts <- counts(pooled_dds, normalized = TRUE)
         assign("pooled_normalized_counts",
                normalized_counts,
                envir = parent.frame())
         write_pooled_counts(normalized_counts)
 
-        # raw_counts
+        # Raw counts
         raw_counts <- counts(pooled_dds, normalized = FALSE)
         assign("pooled_raw_counts",
                raw_counts,
@@ -174,8 +174,8 @@ tmm_normalize <- function(raw_counts) {
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param txi \code{\link[tximport]{tximport}} list, containing counts in the
-#'   \code{abundance} slot.
+#' @param txi [tximport] list, containing counts in the `abundance`
+#'   slot.
 #'
 #' @return TPM (transcripts per million) matrix.
 #' @export

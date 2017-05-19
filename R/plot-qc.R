@@ -5,16 +5,16 @@
 #' @author Rory Kirchner
 #' @author Victor Barrera
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   [DESeqDataSet] by running `counts(normalized = TRUE)`.
+#'   [DESeqDataSet] using [counts()] with `normalized = TRUE`.
 #'   Transcripts per million (TPM) are also acceptable.
 #' @param raw_counts Raw counts matrix. Can be obtained from
-#'   [DESeqDataSet] by running `counts(normalized = FALSE)`.
+#'   [DESeqDataSet] using [counts()] with `normalized = FALSE`.
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
 #'
-#' @return ggplot object.
+#' @return [ggplot].
 #' @export
 plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
@@ -269,9 +269,9 @@ plot_count_density <- function(
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run.
-#' @param dt \linkS4class{DESeqTransform} generated from [DESeq2::rlog()] or
-#'   [DESeq2::vst()] on a \linkS4class{DESeqDataSet}.
+#' @param run [bcbioRnaDataSet].
+#' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
+#'   [vst()] on a [DESeqDataSet].
 #' @param method Correlation coefficient (or covariance) to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used.
 #'
@@ -292,7 +292,7 @@ plot_correlation_heatmap <- function(
     counts <- assay(dt)
     annotation <- colData(dt) %>% as.data.frame %>% .[, run$intgroup]
 
-    # Pearson or Spearman correlation methods are supported
+    # Supported correlation methods
     if (!method %in% c("pearson", "spearman")) {
         stop("invalid correlation regression method.
              must use pearson or spearman.")

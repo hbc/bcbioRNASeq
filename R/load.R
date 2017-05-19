@@ -24,7 +24,7 @@
 #'   lowercase and one word (e.g. hsapiens). This will be detected automatically
 #'   for common reference genomes and normally does not need to be set.
 #'
-#' @return bcbio-nextgen run object (as list), containing counts and metadata.
+#' @return [bcbioRnaDataSet] containing counts and metadata.
 #' @export
 load_run <- function(
     upload_dir = "final",

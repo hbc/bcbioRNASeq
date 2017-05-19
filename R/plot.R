@@ -2,9 +2,9 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run bcbio-nextgen run.
+#' @param run [bcbioRnaDataSet].
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   DESeqDataSet by running `counts(normalized = TRUE)`. Transcripts per
+#'   [DESeqDataSet] using [counts()] with `normalized = TRUE)`. Transcripts per
 #'   million (TPM) are also acceptable.
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene name (symbol).
@@ -62,14 +62,14 @@ plot_gene <- function(
 #' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
 #' labeling.
 #'
-#' @param run bcbio-nextgen run.
-#' @param dt [DESeqTransform] generated from [DESeq2::rlog()] or
-#'   [DESeq2::vst()] on a [DESeqDataSet].
+#' @param run [bcbioRnaDataSet].
+#' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
+#'   [vst()] on a [DESeqDataSet].
 #' @param label Superimpose sample text labels on the plot.
 #' @param ntop Number of genes to use for PCA. To plot all gene variation, use
-#'   `ntop = nrow(.)`. Note that using all genes for PCA is generally not
-#'   recommended.
-#' @return ggplot2 object.
+#'   `ntop = nrow(.)`. Note that using all genes for PCA is generally *not
+#'   recommended*.
+#' @return [ggplot].
 #' @export
 #'
 #' @seealso
