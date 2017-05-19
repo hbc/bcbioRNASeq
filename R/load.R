@@ -134,9 +134,9 @@ load_run <- function(
 
     # Store metadata
     if (!is.null(metadata_file)) {
-        metadata <- read_metadata(metadata_file, lanes = lanes)
+        run$metadata <- read_metadata(metadata_file, lanes = lanes)
     } else {
-        metadata <- read_bcbio_metadata(run)
+        run$metadata <- read_bcbio_metadata(run)
     }
 
     # Subset the sample_dirs by the metadata data frame

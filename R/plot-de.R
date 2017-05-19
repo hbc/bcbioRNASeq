@@ -247,7 +247,7 @@ plot_deg_heatmap <- function(
     import_tidy_verbs()
 
     alpha <- res@metadata$alpha
-    metadata <- intgroup_as_factor(run)
+    metadata <- run$metadata
 
     # Output results to data frame and subset by alpha and lfc cutoffs
     res_df <- res %>%

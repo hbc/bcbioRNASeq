@@ -16,6 +16,7 @@ read_metadata <- function(
     pattern = NULL,
     pattern_col = "description",
     lanes = NULL) {
+    import_tidy_verbs()
     if (!file.exists(file)) {
         stop("File not found")
     }
@@ -30,9 +31,13 @@ read_metadata <- function(
     names(metadata)[1] <- "file_name"
 
     metadata <- metadata %>%
+        as_tibble %>%
+        # Strip all NA rows and columns
+        remove_na %>%
+        # Make names snake_case
         snake %>%
-        .[!is.na(.$description), ] %>%
-        .[order(.$description), ]
+        # Remove rows with no description
+        filter(!is.na(.data$description))
 
     # Lane split, if desired
     if (is.numeric(lanes)) {
@@ -53,7 +58,6 @@ read_metadata <- function(
 
     # Convert to data frame, coerce to factors, and set rownames
     metadata %>%
-        remove_na %>%
         mutate_all(factor) %>%
         as.data.frame %>%
         set_rownames(.$description)
