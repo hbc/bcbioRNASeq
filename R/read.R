@@ -247,14 +247,22 @@ read_bcbio_metadata <- function(run) {
 
 
 #' @rdname read_bcbio
-#' @description Read summary metrics from YAML.
+#' @description Read summary metrics from YAML. These statistics are only
+#'   generated for a standard RNA-seq run with aligned counts. Fast RNA-seq mode
+#'   with lightweight counts (pseudocounts) doesn't output the same metrics into
+#'   the YAML.
 #' @return Summary statistics data frame.
 read_bcbio_metrics <- function(run) {
+    import_tidy_verbs()
+    yaml <- read_bcbio_samples_yaml(run, summary, metrics)
+    character_data <- yaml[, c("description",
+                               "quality_format",
+                               "sequence_length")]
+    numeric_data <- yaml[, setdiff(colnames(yaml),
+                                   colnames(character_data))] %>%
+        mutate_all(as.numeric)
+    metrics <- bind_cols(character_data, numeric_data)
     metadata <- run$metadata
-    # These statistics are only generated for a standard RNA-seq run with
-    # aligned counts. Fast RNA-seq mode with lightweight counts (pseudocounts)
-    # doesn't output the same metrics into the YAML.
-    metrics <- read_bcbio_samples_yaml(run, summary, metrics)
     left_join(metadata, metrics, by = "description") %>% remove_na
 }
 
