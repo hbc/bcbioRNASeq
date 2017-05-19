@@ -1,7 +1,3 @@
-setClass("SummarizedExperiment")
-
-
-
 #' Class that contains bcbio run information
 #'
 #' `bcbioRnaDataSet` is a subclass of [SummarizedExperiment] designed to store
