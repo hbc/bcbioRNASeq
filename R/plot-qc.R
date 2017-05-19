@@ -20,11 +20,12 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
+        mutate(total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
-                    fill = as.name(run$intgroup[[1]]))
-        ) +
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -47,12 +48,12 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
-                 y = ~mapped_reads / 1e6,
-                 fill = as.name(run$intgroup[[1]]))
-        ) +
+        mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
+        ggplot(aes_(x = ~description / 1e6,
+                    y = ~mapped_reads,
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -75,12 +76,13 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
+        mutate(mapped_reads = as.numeric(.data$mapped_reads),
+               total_reads = as.numeric(.data$total_reads)) %>%
+        ggplot(aes_(x = ~description,
                  y = ~mapped_reads / total_reads * 100,
-                 fill = as.name(run$intgroup[[1]]))
-        ) +
+                 fill = as.name(run$intgroup[[1]]))) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -105,11 +107,9 @@ plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
         return(NULL)
     }
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
-                 y = colSums(raw_counts > 0),
-                 fill = as.name(run$intgroup[[1]]))
-        ) +
+        ggplot(aes_(x = ~description,
+                    y = colSums(raw_counts > 0),
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -129,12 +129,13 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~mapped_reads / 1e6,
-                 y = ~colSums(raw_counts > 0),
-                 color = as.name(run$intgroup[[1]]),
-                 shape = as.name(run$intgroup[[1]]))) +
+        mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
+        ggplot(aes_(x = ~mapped_reads / 1e6,
+                    y = ~colSums(raw_counts > 0),
+                    color = as.name(run$intgroup[[1]]),
+                    shape = as.name(run$intgroup[[1]]))) +
         ggtitle("gene detection saturation") +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -152,13 +153,12 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
-                 # Multiple by 100 here for percentage
-                 y = ~exonic_rate * 100,
-                 fill = as.name(run$intgroup[[1]]))
-        ) +
+        mutate(exonic_rate = as.numeric(.data$exonic_rate)) %>%
+        ggplot(aes_(x = ~description,
+                    y = ~exonic_rate * 100,
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -179,13 +179,12 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
-                 # Multiple by 100 here for percentage
-                 y = ~intronic_rate * 100,
-                 fill = as.name(run$intgroup[[1]]))
-        ) +
+        mutate(intronic_rate = as.numeric(.data$intronic_rate)) %>%
+        ggplot(aes_(x = ~description,
+                    y = ~intronic_rate * 100,
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -206,11 +205,12 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
+    import_tidy_verbs()
     run$metrics %>%
-        ggplot(
-            aes_(x = ~description,
-                 y = ~rrna_rate * 100,
-                 fill = as.name(run$intgroup[[1]]))) +
+        mutate(rrna_rate = as.numeric(.data$rrna_rate) * 100) %>%
+        ggplot(aes_(x = ~description,
+                    y = ~rrna_rate,
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -233,11 +233,9 @@ plot_counts_per_gene <- function(run, normalized_counts) {
     data.frame(x = melted$description,
                y = melted$counts,
                color = melted[[color]]) %>%
-        ggplot(
-            aes_(x = ~x,
-                 y = ~y,
-                 color = ~color)
-        ) +
+        ggplot(aes_(x = ~x,
+                    y = ~y,
+                    color = ~color)) +
         ggtitle(paste("counts per gene", name, sep = " : ")) +
         geom_boxplot(outlier.shape = NA) +
         # optional way to make log10 subscript:
@@ -257,10 +255,8 @@ plot_count_density <- function(
     normalized_counts) {
     name <- deparse(substitute(normalized_counts))
     melt_log10(run, normalized_counts) %>%
-        ggplot(
-            aes_(x = ~counts,
-                 group = ~description)
-        ) +
+        ggplot(aes_(x = ~counts,
+                    group = ~description)) +
         ggtitle(paste("count density", name, sep = " : ")) +
         geom_density() +
         labs(x = "log10 counts per gene",
