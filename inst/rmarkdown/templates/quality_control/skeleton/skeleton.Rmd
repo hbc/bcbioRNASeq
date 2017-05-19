@@ -5,42 +5,17 @@ bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
-# bcbioRnaseq ====
-library(bcbioRnaseq)
+source("setup.R")
+library(DESeq2)
+
 if (file.exists("data/run.rda")) {
     data(run)
-    check_run(run)
 } else {
     run <- load_run(
         file.path("upload_dir"),
         intgroup = c("genotype"))
     save_data(run)
 }
-
-# ggplot2 ====
-library(ggplot2)
-theme_set(theme_light(base_size = 14))
-
-# knitr ====
-library(knitr)
-opts_chunk$set(
-    autodep = TRUE,
-    cache = TRUE,
-    cache.lazy = TRUE,
-    error = TRUE,
-    fig.align = "center",
-    fig.height = 8,
-    fig.keep = "all",
-    fig.path = "figures/",
-    fig.width = 8,
-    highlight = TRUE,
-    message = FALSE,
-    prompt = TRUE,
-    tidy = TRUE,
-    warning = FALSE)
-
-# Workflow ====
-library(DESeq2)
 
 # Set intgroup factors for colData metadata
 colData <- run$metadata %>%
