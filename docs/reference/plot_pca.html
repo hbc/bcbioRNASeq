@@ -81,7 +81,7 @@
 labeling.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -98,6 +98,11 @@ labeling.</p>
     <tr>
       <th>label</th>
       <td><p>Superimpose sample text labels on the plot.</p></td>
+    </tr>
+    <tr>
+      <th>ntop</th>
+      <td><p>number of genes to use for PCA.
+To plot all gene variation, use <code>ntop = nrow(.)</code></p></td>
     </tr>
     </table>
     
