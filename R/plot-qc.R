@@ -329,7 +329,7 @@ plot_gender_markers <- function(run, normalized_counts) {
         stop("Unsupported organism")
     }
     gender_markers <- gender_markers %>%
-        select(.data$include == TRUE) %>%
+        filter(.data$include == TRUE) %>%
         arrange(!!!syms(c("chromosome", "gene_symbol")))
 
     # Ensembl identifiers
