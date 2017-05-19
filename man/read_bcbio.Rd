@@ -56,7 +56,10 @@ Read a project data file.
 
 Read sample metadata from YAML.
 
-Read summary metrics from YAML.
+Read summary metrics from YAML. These statistics are only
+generated for a standard RNA-seq run with aligned counts. Fast RNA-seq mode
+with lightweight counts (pseudocounts) doesn't output the same metrics into
+the YAML.
 
 Read bcbio sample information from YAML.
 }

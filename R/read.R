@@ -60,7 +60,7 @@ read_metadata <- function(
     metadata %>%
         mutate_all(factor) %>%
         mutate(file_name = as.character(.data$file_name),
-               description = as.character(.data$file_name)) %>%
+               description = as.character(.data$description)) %>%
         arrange(!!sym("description")) %>%
         as.data.frame %>%
         set_rownames(.$description)
@@ -121,9 +121,8 @@ read_bcbio_counts <- function(
     samples <- sort(samples)
 
     # Check for count output format, by using the first sample directory
-    per_sample_dirs <- list.dirs(run$sample_dirs[1],
-                                 full.names = FALSE,
-                                 recursive = FALSE)
+    per_sample_dirs <- list.dirs(
+        run$sample_dirs[1], full.names = FALSE, recursive = FALSE)
     if ("salmon" %in% per_sample_dirs) {
         type <- "salmon"
     } else if ("sailfish" %in% per_sample_dirs) {
@@ -234,11 +233,11 @@ read_bcbio_file <- function(
 #' @description Read sample metadata from YAML.
 #' @return Metadata data frame.
 read_bcbio_metadata <- function(run) {
+    import_tidy_verbs()
     read_bcbio_samples_yaml(run, metadata) %>%
         remove_na %>%
         mutate_all(factor) %>%
-        mutate(file_name = as.character(.data$file_name),
-               description = as.character(.data$file_name)) %>%
+        mutate(description = as.character(.data$description)) %>%
         arrange(!!sym("description")) %>%
         as.data.frame %>%
         set_rownames(.$description)
