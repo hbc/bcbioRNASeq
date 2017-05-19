@@ -4,7 +4,7 @@
 \alias{plot_deg_heatmap}
 \title{Differentially expressed gene heatmap}
 \usage{
-plot_deg_heatmap(run, res, dt, lfc = 0)
+plot_deg_heatmap(run, res, dt, lfc = 0, intgroup = NULL)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
@@ -15,6 +15,9 @@ plot_deg_heatmap(run, res, dt, lfc = 0)
 (\strong{recommended}) or \code{\link[=vst]{vst()}} are supported.}
 
 \item{lfc}{Log2 fold change ratio cutoff.}
+
+\item{intgroup}{Interesting groups to label with bars above heatmap. If
+\code{NULL}, defaults to \code{intgroup} defined in \link{bcbioRnaDataSet}.}
 }
 \value{
 Gene heatmap.

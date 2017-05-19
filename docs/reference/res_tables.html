@@ -80,7 +80,8 @@
     <p>Differential expression results tables</p>
     
 
-    <pre class="usage"><span class='fu'>res_tables</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>res_tables</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"results/de"</span>,
+  <span class='kw'>print</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -100,6 +101,18 @@ statistical hypothesis testing, only gene filtering in the results tables.
 See <code><a href='reexports.html'>results()</a></code> for additional information about using <code>lfcThreshold</code> and
 <code>altHypothesis</code> to set an alternative hypothesis based on expected fold
 changes.</p></td>
+    </tr>
+    <tr>
+      <th>write</th>
+      <td><p>Write CSV files to disk.</p></td>
+    </tr>
+    <tr>
+      <th>dir</th>
+      <td><p>Directory path where to write files.</p></td>
+    </tr>
+    <tr>
+      <th>print</th>
+      <td><p>Print summary statistics and links to files.</p></td>
     </tr>
     </table>
     

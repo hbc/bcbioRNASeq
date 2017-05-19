@@ -80,7 +80,7 @@
     <p>Differentially expressed gene heatmap</p>
     
 
-    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='no'>dt</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>res</span>, <span class='no'>dt</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -101,6 +101,11 @@
     <tr>
       <th>lfc</th>
       <td><p>Log2 fold change ratio cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>intgroup</th>
+      <td><p>Interesting groups to label with bars above heatmap. If
+<code>NULL</code>, defaults to <code>intgroup</code> defined in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
     </tr>
     </table>
     

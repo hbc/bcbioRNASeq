@@ -4,7 +4,8 @@
 \alias{res_tables}
 \title{Differential expression results tables}
 \usage{
-res_tables(run, res, lfc = 0)
+res_tables(run, res, lfc = 0, write = TRUE, dir = "results/de",
+  print = TRUE)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
@@ -16,6 +17,12 @@ statistical hypothesis testing, only gene filtering in the results tables.
 See \code{\link[=results]{results()}} for additional information about using \code{lfcThreshold} and
 \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.}
+
+\item{write}{Write CSV files to disk.}
+
+\item{dir}{Directory path where to write files.}
+
+\item{print}{Print summary statistics and links to files.}
 }
 \value{
 Results list.
