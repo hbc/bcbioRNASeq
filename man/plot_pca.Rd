@@ -9,13 +9,14 @@ plot_pca(run, dt, label = TRUE, ntop = 500)
 \arguments{
 \item{run}{bcbio-nextgen run.}
 
-\item{dt}{\linkS4class{DESeqTransform} generated from \code{\link[DESeq2:rlog]{DESeq2::rlog()}} or
-\code{\link[DESeq2:vst]{DESeq2::vst()}} on a \linkS4class{DESeqDataSet}.}
+\item{dt}{\link{DESeqTransform} generated from \code{\link[DESeq2:rlog]{DESeq2::rlog()}} or
+\code{\link[DESeq2:vst]{DESeq2::vst()}} on a \link{DESeqDataSet}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 
-\item{ntop}{number of genes to use for PCA.
-To plot all gene variation, use \code{ntop = nrow(.)}}
+\item{ntop}{Number of genes to use for PCA. To plot all gene variation, use
+\code{ntop = nrow(.)}. Note that using all genes for PCA is generally not
+recommended.}
 }
 \value{
 ggplot2 object.
@@ -25,5 +26,8 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves PCA sa
 labeling.
 }
 \seealso{
-\code{\link[DESeq2]{plotPCA}}
+\itemize{
+\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\item \href{https://support.bioconductor.org/p/51270/}{Bioconductor thread on ntop usage}.
+}
 }

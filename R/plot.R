@@ -63,16 +63,19 @@ plot_gene <- function(
 #' labeling.
 #'
 #' @param run bcbio-nextgen run.
-#' @param dt \linkS4class{DESeqTransform} generated from [DESeq2::rlog()] or
-#'   [DESeq2::vst()] on a \linkS4class{DESeqDataSet}.
+#' @param dt [DESeqTransform] generated from [DESeq2::rlog()] or
+#'   [DESeq2::vst()] on a [DESeqDataSet].
 #' @param label Superimpose sample text labels on the plot.
-#' @param ntop number of genes to use for PCA.
-#' To plot all gene variation, use `ntop = nrow(.)`
+#' @param ntop Number of genes to use for PCA. To plot all gene variation, use
+#'   `ntop = nrow(.)`. Note that using all genes for PCA is generally not
+#'   recommended.
 #' @return ggplot2 object.
 #' @export
 #'
-#' @seealso \code{\link[DESeq2]{plotPCA}}
-plot_pca <- function(run, dt, label = TRUE, ntop=500) {
+#' @seealso
+#' - [DESeq2::plotPCA()].
+#' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
+plot_pca <- function(run, dt, label = TRUE, ntop = 500) {
     check_run(run)
     check_dt(dt)
     name <- deparse(substitute(dt))
@@ -83,12 +86,10 @@ plot_pca <- function(run, dt, label = TRUE, ntop=500) {
     color <- "group"
     shape <- intgroup[1]
 
-    # `plotPCA()` uses `ntop = 500` by default
-    # To plot all gene variation, use `ntop = nrow(.)`
-    data <- plotPCA(dt,
-                    intgroup = intgroup,
-                    returnData = TRUE, ntop=ntop)
+    data <- plotPCA(dt, intgroup = intgroup,
+                    returnData = TRUE, ntop = ntop)
     percent_var <- round(100 * attr(data, "percentVar"))
+
     plot <- data.frame(x = data$PC1,
                        y = data$PC2,
                        color = data[[color]],
