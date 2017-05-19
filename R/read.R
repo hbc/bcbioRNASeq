@@ -266,7 +266,7 @@ read_bcbio_metrics <- function(run) {
         mutate_all(as.numeric)
     metrics <- bind_cols(character_data, numeric_data)
     metadata <- run$metadata
-    left_join(metadata, metrics, by = "description") %>% remove_na
+    left_join(metadata, metrics, by = "description")
 }
 
 
