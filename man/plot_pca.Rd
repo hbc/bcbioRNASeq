@@ -7,19 +7,19 @@
 plot_pca(run, dt, label = TRUE, ntop = 500)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
-\item{dt}{\link{DESeqTransform} generated from \code{\link[DESeq2:rlog]{DESeq2::rlog()}} or
-\code{\link[DESeq2:vst]{DESeq2::vst()}} on a \link{DESeqDataSet}.}
+\item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
+\code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 
 \item{ntop}{Number of genes to use for PCA. To plot all gene variation, use
-\code{ntop = nrow(.)}. Note that using all genes for PCA is generally not
-recommended.}
+\code{ntop = nrow(.)}. Note that using all genes for PCA is generally \emph{not
+recommended}.}
 }
 \value{
-ggplot2 object.
+\link{ggplot}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves PCA sample coloring and

@@ -7,8 +7,8 @@
 tpm(txi)
 }
 \arguments{
-\item{txi}{\code{\link[tximport]{tximport}} list, containing counts in the
-\code{abundance} slot.}
+\item{txi}{\link{tximport} list, containing counts in the \code{abundance}
+slot.}
 }
 \value{
 TPM (transcripts per million) matrix.

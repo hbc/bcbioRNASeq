@@ -7,10 +7,10 @@
 plot_gene(run, normalized_counts, gene, format = "external_gene_name")
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
-DESeqDataSet by running \code{counts(normalized = TRUE)}. Transcripts per
+\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE)}. Transcripts per
 million (TPM) are also acceptable.}
 
 \item{gene}{Gene identifier. Can input multiple genes as a character vector.}

@@ -13,11 +13,11 @@ plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
   point_outline_color = "darkgray")
 }
 \arguments{
-\item{res}{\linkS4class{DESeqResults}.}
+\item{res}{\link{DESeqResults}.}
 
 \item{ylim}{Y-axis maximum (single integer).}
 
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
@@ -47,9 +47,6 @@ Wrapper for \code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} that generates a title
 automatically.
 
 Volcano plot.
-}
-\seealso{
-\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
 }
 \author{
 Michael Steinbaugh

@@ -7,10 +7,10 @@
 plot_correlation_heatmap(run, dt, method = "pearson")
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
-\item{dt}{\linkS4class{DESeqTransform} generated from \code{\link[DESeq2:rlog]{DESeq2::rlog()}} or
-\code{\link[DESeq2:vst]{DESeq2::vst()}} on a \linkS4class{DESeqDataSet}.}
+\item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
+\code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used.}

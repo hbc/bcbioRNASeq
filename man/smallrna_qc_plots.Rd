@@ -13,17 +13,17 @@ plot_mirna_counts(run)
 plot_srna_clusters(run)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 }
 \value{
-ggplot object.
+\link{ggplot}.
 }
 \description{
-Plot size distribution of small RNA-seq data
+Plot size distribution of small RNA-seq data.
 
-Plot of total miRNA counts
+Plot of total miRNA counts.
 
-Clustering small RNA samples
+Clustering small RNA samples.
 }
 \author{
 Lorena Pantano

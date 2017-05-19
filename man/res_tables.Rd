@@ -7,15 +7,15 @@
 res_tables(run, res, lfc = 0)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
-\item{res}{\linkS4class{DESeqResults}.}
+\item{res}{\link{DESeqResults}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
-See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using
-\code{lfcThreshold} and \code{altHypothesis} to set an alternative hypothesis based
-on expected fold changes.}
+See \code{\link[=results]{results()}} for additional information about using \code{lfcThreshold} and
+\code{altHypothesis} to set an alternative hypothesis based on expected fold
+changes.}
 }
 \value{
 Results list.

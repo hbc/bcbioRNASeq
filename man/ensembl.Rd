@@ -13,7 +13,7 @@ gene_level_annotations(run)
 tx2gene(run)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 }
 \value{
 Tibble grouped by \code{ensembl_gene_id} with nested

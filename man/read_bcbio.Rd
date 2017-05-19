@@ -19,7 +19,7 @@ read_bcbio_metrics(run)
 read_bcbio_samples_yaml(run, ...)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{grep}{Use grep pattern to match samples. This will override the
 \code{samples} parameter if set.}
@@ -31,13 +31,12 @@ include. If \code{NULL} (default), all samples will be imported.}
 
 \item{row_names}{Column identifier to use for row names.}
 
-\item{...}{Passthrough parameters for \link{readr} importers (\code{\link[readr:read_csv]{readr::read_csv()}},
-\code{\link[readr:read_tsv]{readr::read_tsv()}}).}
+\item{...}{Passthrough parameters for \code{\link[=read_csv]{read_csv()}} or \code{\link[=read_tsv]{read_tsv()}}.}
 
 \item{...}{Nested operator keys supplied as dot objects.}
 }
 \value{
-Counts saved in txi list object.
+Counts saved in \link{tximport} list object.
 
 Miscellaneous data frame.
 
@@ -48,8 +47,8 @@ Summary statistics data frame.
 Sample information data frame.
 }
 \description{
-Read RNA-seq counts using \code{\link[tximport:tximport]{tximport::tximport()}}. Currently supports
-\href{https://combine-lab.github.io/salmon/}{salmon} (preferred) and
+Read RNA-seq counts using \code{\link[=tximport]{tximport()}}. Currently supports
+\href{https://combine-lab.github.io/salmon/}{salmon} (\strong{recommended}) and
 \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{sailfish}.
 
 Read a project data file.
@@ -66,11 +65,6 @@ Read bcbio sample information from YAML.
 \seealso{
 \itemize{
 \item \code{\link[tximport:tximport]{tximport::tximport()}}.
-}
-
-\itemize{
-\item \code{\link[readr:read_csv]{readr::read_csv()}}.
-\item \code{\link[readr:read_tsv]{readr::read_tsv()}}.
 }
 }
 \author{

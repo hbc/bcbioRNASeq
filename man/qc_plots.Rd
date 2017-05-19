@@ -37,21 +37,21 @@ plot_count_density(run, normalized_counts)
 plot_gender_markers(run, normalized_counts)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{pass_limit}{Threshold to plot pass color marker.}
 
 \item{warn_limit}{Threshold to plot warning color marker.}
 
 \item{raw_counts}{Raw counts matrix. Can be obtained from
-\link{DESeqDataSet} by running \code{counts(normalized = FALSE)}.}
+\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = FALSE}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\link{DESeqDataSet} by running \code{counts(normalized = TRUE)}.
+\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE}.
 Transcripts per million (TPM) are also acceptable.}
 }
 \value{
-ggplot object.
+\link{ggplot}.
 }
 \description{
 Gene-level quality control plots

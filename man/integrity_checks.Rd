@@ -16,7 +16,7 @@ check_dt(dt, stop = TRUE)
 check_res(res, stop = TRUE)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{dds}{\link{DESeqDataSet}.}
 

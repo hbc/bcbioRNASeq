@@ -2,12 +2,12 @@
 % Please edit documentation in R/internal.R
 \name{res_contrast_name}
 \alias{res_contrast_name}
-\title{Get contrast name from \linkS4class{DESeqResults}}
+\title{Get contrast name from \link{DESeqResults}}
 \usage{
 res_contrast_name(res)
 }
 \description{
-Get contrast name from \linkS4class{DESeqResults}
+Get contrast name from \link{DESeqResults}
 }
 \author{
 Michael Steinbaugh

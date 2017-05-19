@@ -7,7 +7,7 @@
 melt_log10(run, counts)
 }
 \arguments{
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
 \item{counts}{Counts matrix.}
 }

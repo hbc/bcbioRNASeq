@@ -5,7 +5,29 @@
 \alias{reexports}
 \alias{counts}
 \alias{reexports}
+\alias{DESeq}
+\alias{reexports}
 \alias{design}
+\alias{reexports}
+\alias{DESeqDataSet}
+\alias{reexports}
+\alias{DESeqDataSetFromMatrix}
+\alias{reexports}
+\alias{DESeqResults}
+\alias{reexports}
+\alias{DESeqTransform}
+\alias{reexports}
+\alias{results}
+\alias{reexports}
+\alias{rlog}
+\alias{reexports}
+\alias{vst}
+\alias{reexports}
+\alias{ggplot}
+\alias{reexports}
+\alias{metadata}
+\alias{reexports}
+\alias{tximport}
 \alias{reexports}
 \alias{meanSdPlot}
 \title{Objects exported from other packages}
@@ -15,7 +37,13 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{design}}}
+  \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{design}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
+
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
+
+  \item{tximport}{\code{\link[tximport]{tximport}}}
 
   \item{vsn}{\code{\link[vsn]{meanSdPlot}}}
 }}

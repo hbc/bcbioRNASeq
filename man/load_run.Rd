@@ -32,7 +32,7 @@ for common reference genomes and normally does not need to be set.}
 we migrate the S4 loading variant over as main method.}
 }
 \value{
-bcbio-nextgen run object (as list), containing counts and metadata.
+\link{bcbioRnaDataSet} containing counts and metadata.
 }
 \description{
 Simply point to the final upload directory output by

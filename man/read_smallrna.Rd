@@ -7,7 +7,7 @@
 read_smallrna_counts(bcbiods)
 }
 \arguments{
-\item{bcbiods}{bcbioRnaDataSet object}
+\item{bcbiods}{\link{bcbioRnaDataSet}.}
 }
 \description{
 Read bcbio sample information from YAML to get isomiR object.

@@ -14,24 +14,24 @@ pool_lane_split_dds(run, dds, save = TRUE)
 
 \item{lane_grep}{Grep string to match lane identifiers in file name.}
 
-\item{run}{bcbio-nextgen run.}
+\item{run}{\link{bcbioRnaDataSet}.}
 
-\item{dds}{\linkS4class{DESeqDataSet}.}
+\item{dds}{\link{DESeqDataSet}.}
 
 \item{save}{Whether to save and export counts.}
 }
 \value{
 Pooled raw counts matrix.
 
-\linkS4class{DESeqDataSet} using pooled technical replicates.
+\link{DESeqDataSet} using pooled technical replicates.
 }
 \description{
 Pool lane split counts.
 
-Pool \linkS4class{DESeqDataSet} counts for technical replicates.
-Extract lane split technical replicate counts from a
-\linkS4class{DESeqDataSet}, perform \code{\link[=rowSums]{rowSums()}}, and create a new
-\linkS4class{DESeqDataSet} using \code{\link[DESeq2:DESeqDataSetFromMatrix]{DESeq2::DESeqDataSetFromMatrix()}}.
+Pool \link{DESeqDataSet} counts for technical replicates. Extract
+lane split technical replicate counts from a \link{DESeqDataSet}, perform
+\code{\link[=rowSums]{rowSums()}}, and create a new \link{DESeqDataSet} using
+\code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
 }
 \author{
 Michael Steinbaugh

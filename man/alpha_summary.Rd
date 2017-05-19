@@ -7,11 +7,11 @@
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06), ...)
 }
 \arguments{
-\item{dds}{\linkS4class{DESeqDataSet}.}
+\item{dds}{\link{DESeqDataSet}.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{...}{Passthrough parameters to \code{\link[DESeq2:results]{DESeq2::results()}}.}
+\item{...}{Passthrough parameters to \code{\link[=results]{results()}}.}
 }
 \value{
 Printed summary.
