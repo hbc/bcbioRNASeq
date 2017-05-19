@@ -255,6 +255,9 @@ read_bcbio_metadata <- function(run) {
 read_bcbio_metrics <- function(run) {
     import_tidy_verbs()
     yaml <- read_bcbio_samples_yaml(run, summary, metrics)
+    if (is.null(yaml)) {
+        return(NULL)
+    }
     character_data <- yaml[, c("description",
                                "quality_format",
                                "sequence_length")]
