@@ -4,13 +4,19 @@
 \alias{plot_pca}
 \title{Plot principal component analysis (PCA)}
 \usage{
-plot_pca(run, dt, label = TRUE, ntop = 500)
+plot_pca(run, dt, intgroup = NULL, shape = FALSE, label = TRUE,
+  ntop = 500)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
 
 \item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
 \code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
+
+\item{intgroup}{Interesting groups to use for point appearance. If \code{NULL},
+color defaults to all \code{intgroup} parameters set in \link{bcbioRnaDataSet}.}
+
+\item{shape}{Make points easier to inspect with differing shapes.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 
