@@ -56,6 +56,9 @@ metadata_table <- function(run) {
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
+#' @param write Write CSV files to disk.
+#' @param dir Directory path where to write files.
+#' @param print Print summary statistics and links to files.
 #'
 #' @return Results list.
 #' @export
@@ -67,14 +70,20 @@ metadata_table <- function(run) {
 res_tables <- function(
     run,
     res,
-    lfc = 0) {
+    lfc = 0,
+    write = TRUE,
+    dir = "results/de",
+    print = TRUE) {
     check_run(run)
     check_res(res)
     import_tidy_verbs()
 
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)
-    contrast_name <- contrast %>% gsub(" ", "_", .)
+    file_stem <- paste(name,
+                       str_replace_all(contrast, " ", "_"),
+                       sep = "_")
+
     alpha <- res@metadata$alpha
     annotations <- gene_level_annotations(run)
 
@@ -104,64 +113,66 @@ res_tables <- function(
     deg_lfc_down <- deg_lfc %>%
         filter(.data$log2_fold_change < 0)
 
-    writeLines(c(
-        paste(name, "differential expression tables"),
-        paste(nrow(all), "gene annotations"),
-        "cutoffs applied",
-        paste("    alpha:", alpha),
-        paste("    lfc:  ", lfc, "(tables only)"),
-        "base mean",
-        paste("    > 0:", nrow(base_mean_gt0), "genes (detected)"),
-        paste("    > 1:", nrow(base_mean_gt1), "genes"),
-        "pass cutoffs",
-        paste("    alpha:     ", nrow(deg), "genes"),
-        paste("    + lfc up:  ", nrow(deg_lfc_up), "genes"),
-        paste("    + lfc down:", nrow(deg_lfc_down), "genes"),
-        ""
-    ))
-
     # Write the CSV files to `results/`
-    de_dir <- file.path("results", "de")
-    dir.create(de_dir, recursive = TRUE, showWarnings = FALSE)
+    if (isTRUE(write)) {
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
 
-    write_csv(
-        all,
-        file.path(de_dir,
-                  paste(name,
-                        contrast_name, "all_genes.csv.gz",
-                        sep = "_")))
-    write_csv(
-        deg,
-        file.path(de_dir,
-                  paste(name,
-                        contrast_name,
-                        "deg.csv.gz",
-                        sep = "_")))
-    write_csv(
-        deg_lfc_up,
-        file.path(de_dir,
-                  paste(name,
-                        contrast_name,
-                        "deg_lfc_up.csv.gz",
-                        sep = "_")))
-    write_csv(
-        deg_lfc_down,
-        file.path(de_dir,
-                  paste(name,
-                        contrast_name,
-                        "deg_lfc_down.csv.gz",
-                        sep = "_")))
+        all_file <- paste(file_stem, "all_genes.csv.gz", sep = "_")
+        write_csv(all, file.path(dir, all_file))
 
-    list(name = name,
-         contrast = contrast,
-         alpha = alpha,
-         lfc = lfc,
-         all = all,
-         deg = deg,
-         deg_lfc = deg_lfc,
-         deg_lfc_up = deg_lfc_up,
-         deg_lfc_down = deg_lfc_down,
-         res = res)
+        deg_file <- paste(file_stem, "deg.csv.gz", sep = "_")
+        write_csv(deg, file.path(dir, deg_file))
+
+        deg_lfc_up_file <- paste(file_stem, "deg_lfc_up.csv.gz", sep = "_")
+        write_csv(deg_lfc_up, file.path(dir, deg_lfc_up_file))
+
+        deg_lfc_down_file <- paste(file_stem, "deg_lfc_down.csv.gz", sep = "_")
+        write_csv(deg_lfc_down, file.path(dir, deg_lfc_down_file))
+    }
+
+    res_tbl <- list(
+        res = res,
+        name = name,
+        contrast = contrast,
+        # Cutoffs
+        alpha = alpha,
+        lfc = lfc,
+        # Tibbles
+        all = all,
+        deg = deg,
+        deg_lfc = deg_lfc,
+        deg_lfc_up = deg_lfc_up,
+        deg_lfc_down = deg_lfc_down,
+        # File output
+        dir = dir,
+        file_stem = file_stem,
+        all_file = all_file,
+        deg_file = deg_file,
+        deg_lfc_up_file = deg_lfc_up_file,
+        deg_lfc_down_file = deg_lfc_down_file)
+
+    # Print summary statistics and file paths
+    if (isTRUE(print)) {
+        writeLines(c(
+            paste(name, "differential expression tables"),
+            "",
+            paste("-", nrow(all), "gene annotations"),
+            "- cutoffs applied:",
+            paste("    - alpha:", alpha),
+            paste("    - lfc:  ", lfc, "(tables only)"),
+            "- base mean:",
+            paste("    - > 0:", nrow(base_mean_gt0), "genes (detected)"),
+            paste("    - > 1:", nrow(base_mean_gt1), "genes"),
+            "- pass cutoffs:",
+            paste("    - alpha:   ", nrow(deg), "genes"),
+            paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
+            paste("    - lfc down:", nrow(deg_lfc_down), "genes"),
+            ""
+        ))
+        md_res_tables(res_tbl)
+    }
+
+    res_tbl
 }
 
 
@@ -172,20 +183,37 @@ res_tables <- function(
 #'
 #' @param res_tbl Results tables generated by [res_tables()].
 #' @param n Number genes to report.
+#' @param coding Whether to only return coding genes.
 #'
 #' @return Top tables list.
 #' @export
-top_tables <- function(res_tbl, n = 50) {
+top_tables <- function(
+    res_tbl,
+    n = 50,
+    coding = FALSE) {
+    import_tidy_verbs()
     subset_top <- function(df) {
-        discard <- c("description", "lfc_se", "pvalue", "stat")
-        df <- df[, setdiff(colnames(df), discard)] %>%
-            remove_rownames %>%
-            # [top_n()] defaults using last column in tbl
-            top_n(n = 50)
-        # Handle digits
-        df$base_mean <- round(df$base_mean)
-        df$log2_fold_change <- format(df$log2_fold_change, digits = 3)
-        df$padj <- format(df$padj, digits = 3, scientific = TRUE)
+        # Filter for coding genes only, if desired
+        if (isTRUE(coding)) {
+            df <- filter(df, .data$broad_class == "coding")
+        }
+
+        df <- df %>%
+            # [top_n()] defaults to last column. `wt` overrides. Here we want
+            # to rank by BH adjusted P value (`padj`).
+            top_n(n = n, wt = !!sym("padj")) %>%
+            mutate(
+                base_mean = round(.data$base_mean),
+                log2_fold_change = format(.data$log2_fold_change, digits = 3),
+                padj = format(.data$padj, digits = 3, scientific = TRUE)) %>%
+            select(!!!syms(c("ensembl_gene_id",
+                             "base_mean",
+                             "log2_fold_change",
+                             "padj",
+                             "external_gene_name",
+                             "broad_class"))) %>%
+            remove_rownames
+
         df
     }
 
