@@ -158,8 +158,12 @@ load_run <- function(
         if (is.null(run$tx2gene)) {
             run$tx2gene <- tx2gene(run)
         }
+
+        message("Reading metrics...")
+        run$metrics <- read_bcbio_metrics(run)
     }
 
+    # Read the counts
     if (analysis %in% c("rnaseq", "srnaseq")) {
         # Read counts using [tximport()]
         run$txi <- read_bcbio_counts(run)
