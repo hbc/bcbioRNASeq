@@ -1,3 +1,7 @@
+setClass("SummarizedExperiment")
+
+
+
 #' Class that contains bcbio run information
 #'
 #' `bcbioRnaDataSet` is a subclass of [SummarizedExperiment] designed to store
@@ -12,8 +16,8 @@
 #' @keywords internal
 #' @aliases bcbioRnaDataSet-class
 #' @export
-bcbioRnaDataSet <- setClass("bcbioRnaDataSet",
-                            contains = "SummarizedExperiment")
+bcbioRnaDataSet <- setClass(
+    "bcbioRnaDataSet", contains = "SummarizedExperiment")
 setValidity("bcbioRnaDataSet", function(object) { TRUE })
 
 

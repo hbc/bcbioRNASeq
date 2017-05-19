@@ -3,24 +3,20 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' @import readr
 #' @import basejump
-#' @import DESeq2
 #' @import ggplot2
-#' @import methods
 #' @import SummarizedExperiment
 #' @import S4Vectors
-#' @importFrom cowplot ggdraw draw_plot plot_grid
+#' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
+#' @importFrom DESeq2 plotMA plotPCA
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
+#' @importFrom methods as is new validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats density
-#' @importFrom tximport tximport
-#' @importFrom utils read.table
-#' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
 globalVariables(basejump::globals,

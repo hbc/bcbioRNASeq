@@ -1,11 +1,59 @@
-#' @usage NULL
+# DESeq2 ====
+#' @importFrom DESeq2 counts design DESeq DESeqDataSet DESeqDataSetFromMatrix
+#'   DESeqResults DESeqTransform results rlog vst
 #' @export
 DESeq2::counts
 
-#' @usage NULL
+#' @export
+DESeq2::DESeq
+
 #' @export
 DESeq2::design
 
-#' @usage NULL
+#' @export
+DESeq2::DESeqDataSet
+
+#' @export
+DESeq2::DESeqDataSetFromMatrix
+
+#' @export
+DESeq2::DESeqResults
+
+#' @export
+DESeq2::DESeqTransform
+
+#' @export
+DESeq2::results
+
+#' @export
+DESeq2::rlog
+
+#' @export
+DESeq2::vst
+
+
+
+# ggplot2 ====
+#' @export
+ggplot2::ggplot
+
+
+
+# S4Vectors ====
+#' @importFrom S4Vectors metadata
+#' @export
+S4Vectors::metadata
+
+
+
+# tximport ====
+#' @importFrom tximport tximport
+#' @export
+tximport::tximport
+
+
+
+# vsn ====
+#' @importFrom vsn meanSdPlot
 #' @export
 vsn::meanSdPlot
