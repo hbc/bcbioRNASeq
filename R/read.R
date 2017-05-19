@@ -59,6 +59,7 @@ read_metadata <- function(
     # Convert to data frame, coerce to factors, and set rownames
     metadata %>%
         mutate_all(factor) %>%
+        arrange(!!sym("description")) %>%
         as.data.frame %>%
         set_rownames(.$description)
 }
@@ -234,6 +235,7 @@ read_bcbio_metadata <- function(run) {
     read_bcbio_samples_yaml(run, metadata) %>%
         remove_na %>%
         mutate_all(factor) %>%
+        arrange(!!sym("description")) %>%
         as.data.frame %>%
         set_rownames(.$description)
 }

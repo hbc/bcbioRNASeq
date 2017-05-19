@@ -65,21 +65,23 @@ check_run <- function(run) {
         stop("Run does not contain metadata, please resave")
     }
     if (run$analysis == "rnaseq" & is.null(run$ensembl)) {
-        stop("RNA-seq run does not contain Ensembl annotations, please resave")
+        stop("Run does not contain Ensembl annotations")
     }
 
     # Metadata format and description name checks
     if (is_tibble(run$metadata) | !is.data.frame(run$metadata)) {
-        stop("Metadata must be saved as a data frame")
+        stop("Run metadata not saved as a data frame")
     }
-    if (!identical(rownames(run$metadata), run$metadata$description)) {
-        stop("Metadata rownames must match the description")
+    if (!identical(rownames(run$metadata),
+                   as.character(run$metadata$description))) {
+        stop("Run metadata rownames must match the description")
     }
-    if (!identical(run$metadata$description, names(run$sample_dirs))) {
-        stop("Metadata descriptions don't match the run sample directories")
+    if (!identical(names(run$sample_dirs),
+                   as.character(run$metadata$description))) {
+        stop("Run metadata descriptions don't match sample directories")
     }
-    if (all(sapply(run$metadata, is.factor))) {
-        stop("Metadata not saved as factors")
+    if (!all(sapply(run$metadata, is.factor))) {
+        stop("Run metadata not saved as factors")
     }
 }
 
