@@ -21,7 +21,6 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
         return(NULL)
     }
     run$metrics %>%
-        read_bcbio_metrics %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
                     fill = as.name(run$intgroup[[1]]))
