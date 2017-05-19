@@ -254,8 +254,8 @@ plot_deg_heatmap <- function(
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         as_tibble %>%
-        filter(.data$padj < alpha) %>%
-        .[which(.$log2FoldChange > lfc | .$log2FoldChange < -lfc), ]
+        filter(.data$padj < alpha,
+               .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc)
 
     # rlog transform and subset the counts
     counts <- dt %>% assay %>% .[res_df$ensembl_gene_id, ]
