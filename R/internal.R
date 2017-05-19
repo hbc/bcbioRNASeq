@@ -72,16 +72,14 @@ check_run <- function(run) {
     if (is_tibble(run$metadata) | !is.data.frame(run$metadata)) {
         stop("Run metadata not saved as a data frame")
     }
-    if (!identical(rownames(run$metadata),
-                   as.character(run$metadata$description))) {
+    if (!identical(rownames(run$metadata), run$metadata$description)) {
         stop("Run metadata rownames must match the description")
     }
-    if (!identical(names(run$sample_dirs),
-                   as.character(run$metadata$description))) {
+    if (!identical(names(run$sample_dirs), run$metadata$description)) {
         stop("Run metadata descriptions don't match sample directories")
     }
-    if (!all(sapply(run$metadata, is.factor))) {
-        stop("Run metadata not saved as factors")
+    if (!any(sapply(run$metadata, is.factor))) {
+        stop("Run metadata does not contain factors")
     }
 }
 
