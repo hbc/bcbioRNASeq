@@ -56,3 +56,7 @@ plot_mirna_counts(run)
 plot_srna_clusters(run)
 ```
 
+```{r sessioninfo}
+sessionInfo()
+```
+
