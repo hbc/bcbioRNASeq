@@ -1,3 +1,4 @@
+0.0.18  Simplify count pooling functions.
 0.0.17  Reduce number of exports and improve documentation.
 0.0.16  Draft migration of bcbio run object into S4 bcbioRnaDataSet.
         Create a new variant of load_run() that saves to S4 instead of list.

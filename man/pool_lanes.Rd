@@ -16,20 +16,16 @@ pool_dds(dds, pattern = "_L\\\\d+", save = FALSE)
 
 \item{dds}{\link{DESeqDataSet}.}
 
-\item{save}{Whether to save and export counts.}
+\item{save}{Whether to assign into environment and write CSV files.}
 }
 \value{
-Pooled counts matrix.
-
-\link{DESeqDataSet} using pooled technical replicates.
+Object of same class, with pooled technical replicates.
 }
 \description{
-Pool lane split counts.
-
-Pool \link{DESeqDataSet} counts for technical replicates. Extract
-lane split technical replicate counts from a \link{DESeqDataSet}, perform
-\code{\link[=rowSums]{rowSums()}}, and create a new \link{DESeqDataSet} using
-\code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
+Pool lane-split counts matrix or \link{DESeqDataSet} using \code{\link[=rowSums]{rowSums()}}.
+}
+\seealso{
+A new \link{DESeqDataSet} is returned from \code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
 }
 \author{
 Michael Steinbaugh

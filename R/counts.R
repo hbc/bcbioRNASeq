@@ -35,15 +35,15 @@ melt_log10 <- function(run, counts) {
 
 #' Lane-split FASTQ aggregation functions
 #'
+#' Pool lane-split counts matrix or [DESeqDataSet] using [rowSums()].
+#'
 #' @rdname pool_lanes
 #' @author Michael Steinbaugh
-#'
-#' @description Pool lane split counts.
 #'
 #' @param counts Raw counts matrix.
 #' @param pattern Grep pattern to match lane identifiers in file name.
 #'
-#' @return Pooled counts matrix.
+#' @return Object of same class, with pooled technical replicates.
 #' @export
 pool_counts <- function(counts, pattern = "_L\\d+") {
     # Ensure that counts are input as matrix
@@ -68,20 +68,16 @@ pool_counts <- function(counts, pattern = "_L\\d+") {
 
 
 #' @rdname pool_lanes
-#' @description Pool [DESeqDataSet] counts for technical replicates. Extract
-#'   lane split technical replicate counts from a [DESeqDataSet], perform
-#'   [rowSums()], and create a new [DESeqDataSet] using
-#'   [DESeqDataSetFromMatrix()].
-#'
 #' @param dds [DESeqDataSet].
-#' @param save Whether to save and export counts.
-#'
-#' @return [DESeqDataSet] using pooled technical replicates.
+#' @param save Whether to assign into environment and write CSV files.
 #' @export
+#' @seealso A new [DESeqDataSet] is returned from [DESeqDataSetFromMatrix()].
 pool_dds <- function(dds, pattern = "_L\\d+", save = FALSE) {
-    envir <- parent.frame()
-    import_tidy_verbs()
     check_dds(dds)
+    import_tidy_verbs()
+    envir <- parent.frame()
+
+    # Get the stored design formula
     design <- design(dds)
 
     # Pool the lane split technical replicates
@@ -110,6 +106,7 @@ pool_dds <- function(dds, pattern = "_L\\d+", save = FALSE) {
         stop("Description mismatch in colData and countData")
     }
 
+    # Pipe back into DESeq
     pooled_dds <- DESeqDataSetFromMatrix(
         countData = countData,
         colData = colData,
