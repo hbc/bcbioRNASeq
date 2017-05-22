@@ -29,3 +29,11 @@ load_bcbio_run_from_yaml <- function() {
 plot_deseq_pca <- function() {
     .Deprecated("plot_pca")
 }
+
+pool_lane_split_counts <- function() {
+    .Deprecated("pool_counts")
+}
+
+pool_lane_split_dds <- function() {
+    .Deprecated("pool_dds")
+}
