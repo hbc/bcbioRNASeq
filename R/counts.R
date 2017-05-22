@@ -176,13 +176,11 @@ tmm_normalize <- function(raw_counts) {
 #' @export
 tpm <- function(txi) {
     if (!identical(
-        names(txi),
-        c("abundance",
-          "counts",
-          "length",
-          "countsFromAbundance")
-    )) {
-        stop("tximport list is required")
+        names(txi), c("abundance",
+                      "counts",
+                      "length",
+                      "countsFromAbundance"))) {
+        stop("tximport list missing")
     }
     txi$abundance
 }
