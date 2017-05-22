@@ -37,7 +37,7 @@ melt_log10 <- function(run, counts) {
 #'
 #' Pool lane-split counts matrix or [DESeqDataSet] using [rowSums()].
 #'
-#' @rdname pool_lanes
+#' @rdname pool
 #' @author Michael Steinbaugh
 #'
 #' @param counts Raw counts matrix.
@@ -67,7 +67,7 @@ pool_counts <- function(counts, pattern = "_L\\d+") {
 
 
 
-#' @rdname pool_lanes
+#' @rdname pool
 #' @param dds [DESeqDataSet].
 #' @param save Whether to assign into environment and write CSV files.
 #' @export
