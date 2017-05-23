@@ -173,6 +173,6 @@ load_run <- function(
 
     check_run(run)
     create_project_dirs()
-    download_rmarkdown_files()
+    downloads()
     run
 }

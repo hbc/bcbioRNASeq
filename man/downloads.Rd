@@ -2,12 +2,12 @@
 % Please edit documentation in R/downloads.R
 \name{hbc_download}
 \alias{hbc_download}
-\alias{download_rmarkdown_files}
+\alias{downloads}
 \title{File downloads}
 \usage{
 hbc_download(file)
 
-download_rmarkdown_files()
+downloads()
 }
 \arguments{
 \item{file}{File name.}
