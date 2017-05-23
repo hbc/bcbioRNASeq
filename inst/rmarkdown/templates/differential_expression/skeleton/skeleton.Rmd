@@ -1,48 +1,24 @@
 ---
 title: "Differential expression"
+author: ""
 date: "`r BiocStyle::doc_date()`"
 bibliography: bcbioRnaseq.bib
 ---
 
-```{r setup, include=FALSE}
-# bcbioRnaseq ====
-library(bcbioRnaseq)
-if (file.exists("data/run.rda")) {
-    data(run)
-} else {
-    create_new_project()
-    run <- load_run(
-        file.path("upload_dir"),
-        intgroup = c("genotype"))
-    save_data(run)
-}
-
-# ggplot2 ====
-library(ggplot2)
-theme_set(theme_light(base_size = 14))
-
-# knitr ====
-library(knitr)
-opts_chunk$set(
-    autodep = TRUE,
-    cache = TRUE,
-    cache.lazy = TRUE,
-    error = FALSE,
-    fig.align = "center",
-    fig.height = 8,
-    fig.keep = "all",
-    fig.path = "figures/",
-    fig.width = 8,
-    highlight = TRUE,
-    message = FALSE,
-    prompt = TRUE,
-    tidy = TRUE,
-    warning = FALSE)
-
-# Workflow ====
+```{r setup, message=FALSE}
+source("setup.R")
 library(DESeq2)
-colData <- run$metadata
-design <- formula(~ treatment)
+
+# Contrast
+# 1. Design matrix parameter.
+# 2. Numerator for LFC (expt).
+# 3. Denominator for LFC (control).
+# @seealso [DESeq2::results()]
+contrast <- c("genotype", "mutant", "wildtype")
+
+# Significance cutoffs
+alpha <- 0.05
+lfc <- 1
 ```
 
 
