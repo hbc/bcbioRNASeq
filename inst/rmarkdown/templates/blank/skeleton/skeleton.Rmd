@@ -1,0 +1,23 @@
+---
+title: ""
+author: ""
+date: "`r BiocStyle::doc_date()`"
+bibliography: bcbioRnaseq.bib
+---
+
+```{r setup, message=FALSE}
+source("setup.R")
+```
+
+```{r header, child="header.Rmd"}
+```
+
+
+
+```{r}
+```
+
+
+
+```{r footer, child="footer.Rmd"}
+```
