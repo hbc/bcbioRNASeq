@@ -4,7 +4,3 @@ rmarkdown::html_document:
     highlight: pygments
     number_sections: false
     toc: true
-BiocStyle::pdf_document:
-    number_sections: false
-    toc: true
-    toc_depth: 1
