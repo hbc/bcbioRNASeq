@@ -25,3 +25,11 @@ opts_chunk$set(
 
 # bcbioRnaseq ====
 library(bcbioRnaseq)
+if (file.exists("data/run.rda")) {
+    data(run)
+} else {
+    run <- load_run(
+        file.path("upload_dir"),
+        intgroup = c("genotype"))
+    save_data(run)
+}

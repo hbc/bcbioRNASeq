@@ -1,33 +1,38 @@
 ---
 title: "Small RNA-seq quality control"
+author: ""
 date: "`r BiocStyle::doc_date()`"
 bibliography: bcbioRnaseq.bib
 ---
 
-The most recent update of this html document occurred: `r date()`
-
-
 ```{r setup, message=FALSE}
-library(knitr)
 library(bcbioRnaseq)
+run <- load_run_S4(
+    "bcbio_yaml_file_in_final_folder",
+    intgroup = "group",
+    analysis = "srnaseq")
 
-knitr::opts_chunk$set(tidy=TRUE, highlight=TRUE, dev="png", fig.width=6,fig.heigh=9,
-               cache=TRUE, highlight=TRUE, autodep=TRUE, 
-               warning=FALSE, error=FALSE,
-               message=FALSE, prompt=TRUE, comment='', fig.cap='', bootstrap.show.code=FALSE)
+# [load_run()] automatically downloads knit defaults to `setup.R`.
+# Source this file in each setup chunk to maintain report consistency.
+source("setup.R")
+
+final_path <- run$final_dir
+res_folder <- file.path(final_path, "client")
+dir.create(res_folder, recursive = TRUE, showWarnings = FALSE)
+
+# colData metadata
+metadata <- colData(run)
+
+# Modify this to get your own formula, it should be a column in your metadata
+formula <- formula(~ group)
+
+# Turn this true to make DE ananlysis
+isde <- FALSE
 ```
 
-```{r load-bcbio}
-run = load_run_S4("bcbio_yaml_file_in_final_folder", intgroup = "group", analysis="srnaseq")
-
-final_path = run$final_dir
-res_folder = file.path(final_path, "client")
-dir.create(res_folder, showWarnings = FALSE)
-
-metadata = colData(run)
-formula = ~ group # modify this to get your own formula, it should be a column in your metadata
-isde=FALSE # turn this true to make DE ananlysis
+```{r header, child="header.Rmd"}
 ```
+
 
 
 # Exploratory analysis
@@ -35,7 +40,8 @@ isde=FALSE # turn this true to make DE ananlysis
 In this section we will see descriptive figures about quality of the data, 
 reads with adapter, reads mapped to miRNAs, reads mapped to other small RNAs. 
 
-## size distribution
+
+## Size distribution
 
 After adapter removal, we can plot the size distribution of the small RNAs.
 
@@ -46,17 +52,17 @@ plot_size_distribution(run)
 
 ## miRNA
 
-### total miRNA expression annotated with mirbase
+### Total miRNA expression annotated with mirbase
 
-```{r mirna-mirbase, fig.height=9}
+```{r plot_mirna_counts, fig.height=9}
 plot_mirna_counts(run)
 ```
 
-```{r mirna-cluster}
+```{r plot_srna_clusters}
 plot_srna_clusters(run)
 ```
 
-```{r sessioninfo}
-sessionInfo()
-```
 
+
+```{r footer, child="footer.Rmd"}
+```

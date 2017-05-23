@@ -1,4 +1,4 @@
-name: Small RNAseq
+name: Small RNA-seq
 description: >
   Template for small RNA-seq quality control report.
 create_dir: false

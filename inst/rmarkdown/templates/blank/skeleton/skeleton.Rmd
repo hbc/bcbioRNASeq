@@ -6,6 +6,7 @@ bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
+bcbioRnaseq::downloads()
 source("setup.R")
 ```
 
