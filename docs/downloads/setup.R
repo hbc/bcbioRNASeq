@@ -9,7 +9,7 @@ opts_chunk$set(
     bootstrap.show.code = FALSE,
     cache = TRUE,
     cache.lazy = TRUE,
-    dev = "png",
+    dev = c("png", "pdf", "svg"),
     error = TRUE,
     fig.height = 7,
     fig.keep = "all",
