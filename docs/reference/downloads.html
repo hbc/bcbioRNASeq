@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>File downloads — hbc_download • bcbioRnaseq</title>
+<title>File downloads — downloads • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,16 +81,15 @@
 <a href = 'http://bioinformatics.sph.harvard.edu/'>HBC website</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>hbc_download</span>(<span class='no'>file</span>)
-
-<span class='fu'>downloads</span>()</pre>
+    <pre class="usage"><span class='fu'>downloads</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>File name.</p></td>
+      <td><p>File name. If <code>NULL</code> (default), download the default dependency
+files for a consult.</p></td>
     </tr>
     </table>
     
