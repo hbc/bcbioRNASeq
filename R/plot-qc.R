@@ -51,8 +51,8 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     import_tidy_verbs()
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
-        ggplot(aes_(x = ~description / 1e6,
-                    y = ~mapped_reads,
+        ggplot(aes_(x = ~description,
+                    y = ~mapped_reads / 1e6,
                     fill = as.name(run$intgroup[[1]]))) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
@@ -207,9 +207,9 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
     }
     import_tidy_verbs()
     run$metrics %>%
-        mutate(rrna_rate = as.numeric(.data$rrna_rate) * 100) %>%
+        mutate(r_rna_rate = as.numeric(.data$r_rna_rate) * 100) %>%
         ggplot(aes_(x = ~description,
-                    y = ~rrna_rate,
+                    y = ~r_rna_rate,
                     fill = as.name(run$intgroup[[1]]))) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
