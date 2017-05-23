@@ -6,8 +6,10 @@ theme_set(theme_light(base_size = 14))
 library(knitr)
 opts_chunk$set(
     autodep = TRUE,
+    bootstrap.show.code = FALSE,
     cache = TRUE,
     cache.lazy = TRUE,
+    dev = "png",
     error = TRUE,
     fig.align = "center",
     fig.height = 8,
