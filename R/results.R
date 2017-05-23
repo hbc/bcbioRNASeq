@@ -168,8 +168,7 @@ res_tables <- function(
             paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
             paste("    - lfc down:", nrow(deg_lfc_down), "genes"),
             "",
-            ""
-        ))
+            ""))
         md_res_tables(res_tbl)
     }
 
