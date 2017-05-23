@@ -283,6 +283,6 @@ plot_deg_heatmap <- function(
              clustering_method = "ward.D2",
              main = paste(res_name, contrast_name, dt_name, sep = " : "),
              scale = "row",
-             show_colnames = FALSE,
+             show_colnames = TRUE,
              show_rownames = show_rownames)
 }
