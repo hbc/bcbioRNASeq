@@ -28,9 +28,11 @@ hbc_download <- function(file) {
 
 
 #' @rdname downloads
-download_rmarkdown_files <- function() {
+downloads <- function() {
     hbc_download(
         c("_output.yaml",
           "bcbioRnaseq.bib",
+          "footer.Rmd",
+          "header.Rmd",
           "setup.R"))
 }
