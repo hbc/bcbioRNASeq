@@ -3,6 +3,9 @@
 ## Exported functions
 
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06), ...)
+bcbio(object, ...)
+bcbio.bcbioRnaDataSet(object, type = "counts")
+bcbio<-(object, ..., value)
 check_run(run)
 downloads(file = NULL)
 gene_level_annotations(run)
@@ -47,5 +50,7 @@ write_counts(..., dir = file.path("results", "counts"))
 ## Exported data
 
 .__C__bcbioRnaDataSet: classRepresentation (S4[1])
+.__T__bcbio:bcbioRnaseq: environment (environment[1])
+.__T__bcbio<-:bcbioRnaseq: environment (environment[1])
 .__T__txi:bcbioRnaseq: environment (environment[1])
 .__T__txi<-:bcbioRnaseq: environment (environment[1])

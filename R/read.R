@@ -101,7 +101,7 @@ read_bcbio_counts <- function(
     samples = NULL) {
     # Check for small RNA-seq analysis
     if (run$analysis == "srnaseq") {
-        read_bcbio_file(run, "counts_mirna.tsv", "mirna") %>% as.matrix
+        return(read_bcbio_file(run, "counts_mirna.tsv", "mirna") %>% as.matrix)
     }
 
     # Select the samples to import

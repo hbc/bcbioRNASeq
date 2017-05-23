@@ -122,6 +122,7 @@ load_run <- function(
         wd = getwd(),
         hpc = detect_hpc(),
         intgroup = intgroup,
+        alt_counts = SimpleList(),
         metadata_file = metadata_file,
         metadata = NULL,
         organism = organism,
