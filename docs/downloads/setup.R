@@ -12,8 +12,6 @@ opts_chunk$set(
     dev = c("png", "pdf", "svg"),
     error = TRUE,
     fig.height = 7,
-    fig.keep = "all",
-    fig.path = "figures/",
     fig.retina = 2,
     fig.width = 7,
     highlight = TRUE,
