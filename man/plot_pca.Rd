@@ -4,8 +4,8 @@
 \alias{plot_pca}
 \title{Plot principal component analysis (PCA)}
 \usage{
-plot_pca(run, dt, intgroup = NULL, shape = FALSE, label = TRUE,
-  ntop = 500)
+plot_pca(run, dt, genes = NULL, intgroup = NULL, shape = FALSE,
+  label = TRUE)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
@@ -13,16 +13,14 @@ plot_pca(run, dt, intgroup = NULL, shape = FALSE, label = TRUE,
 \item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
 \code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
 
+\item{genes}{Character vector of gene identifiers to use.}
+
 \item{intgroup}{Interesting groups to use for point appearance. If \code{NULL},
 color defaults to all \code{intgroup} parameters set in \link{bcbioRnaDataSet}.}
 
 \item{shape}{Make points easier to inspect with differing shapes.}
 
 \item{label}{Superimpose sample text labels on the plot.}
-
-\item{ntop}{Number of genes to use for PCA. To plot all gene variation, use
-\code{ntop = nrow(.)}. Note that using all genes for PCA is generally \emph{not
-recommended}.}
 }
 \value{
 \link{ggplot}.

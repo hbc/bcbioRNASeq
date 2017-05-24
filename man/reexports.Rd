@@ -39,9 +39,9 @@ below to see their documentation.
 \describe{
   \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{design}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
-  \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
-
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 

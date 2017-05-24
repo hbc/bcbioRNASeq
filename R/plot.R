@@ -66,13 +66,11 @@ plot_gene <- function(
 #' @param run [bcbioRnaDataSet].
 #' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
 #'   [vst()] on a [DESeqDataSet].
+#' @param genes Character vector of gene identifiers to use.
 #' @param intgroup Interesting groups to use for point appearance. If `NULL`,
 #'   color defaults to all `intgroup` parameters set in [bcbioRnaDataSet].
 #' @param shape Make points easier to inspect with differing shapes.
 #' @param label Superimpose sample text labels on the plot.
-#' @param ntop Number of genes to use for PCA. To plot all gene variation, use
-#'   `ntop = nrow(.)`. Note that using all genes for PCA is generally *not
-#'   recommended*.
 #' @return [ggplot].
 #' @export
 #'
@@ -82,13 +80,21 @@ plot_gene <- function(
 plot_pca <- function(
     run,
     dt,
+    genes = NULL,
     intgroup = NULL,
     shape = FALSE,
-    label = TRUE,
-    ntop = 500) {
+    label = TRUE) {
     check_run(run)
     check_dt(dt)
     name <- deparse(substitute(dt))
+    if (!is.null(genes)) {
+        dt <- dt[genes, ]
+        # Set ntop to the number of genes requested
+        ntop <- length(genes)
+    } else {
+        # Recommended DESeq default
+        ntop <- 500
+    }
     if (is.null(intgroup)) {
         intgroup <- run$intgroup
     }

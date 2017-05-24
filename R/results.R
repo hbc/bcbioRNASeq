@@ -197,15 +197,15 @@ top_tables <- function(
         if (isTRUE(coding)) {
             df <- filter(df, .data$broad_class == "coding")
         }
-
-        df <- df %>%
-            # [top_n()] defaults to last column. `wt` overrides. Here we want
-            # to rank by BH adjusted P value (`padj`).
-            top_n(n = n, wt = !!sym("padj")) %>%
+        df %>%
+            head(n = n) %>%
             mutate(
                 base_mean = round(.data$base_mean),
-                log2_fold_change = format(.data$log2_fold_change, digits = 3),
-                padj = format(.data$padj, digits = 3, scientific = TRUE)) %>%
+                log2_fold_change = format(.data$log2_fold_change,
+                                          digits = 3),
+                padj = format(.data$padj,
+                              digits = 3,
+                              scientific = TRUE)) %>%
             select(!!!syms(c("ensembl_gene_id",
                              "base_mean",
                              "log2_fold_change",
@@ -213,8 +213,6 @@ top_tables <- function(
                              "external_gene_name",
                              "broad_class"))) %>%
             remove_rownames
-
-        df
     }
 
     up <- subset_top(res_tbl$deg_lfc_up)

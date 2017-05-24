@@ -52,6 +52,7 @@ Imports:
     S4Vectors (>= 0.14.1),
     SummarizedExperiment (>= 1.1.6),
     tximport (>= 1.4.0),
+    utils,
     vsn (>= 3.44.0)
 Suggests:
     BiocGenerics,
