@@ -86,8 +86,9 @@ metadata, and program versions used.</p>
     <pre class="usage"><span class='fu'>load_run_S4</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
   <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
-  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -122,6 +123,14 @@ for common reference genomes and normally does not need to be set.</p></td>
       <th>...</th>
       <td><p>Arguments provided to SummarizedExperiment. Remove this once
 we migrate the S4 loading variant over as main method.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>Alpha (false discovery rate) cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>lfc</th>
+      <td><p>Log2 fold change ratio cutoff.</p></td>
     </tr>
     </table>
     

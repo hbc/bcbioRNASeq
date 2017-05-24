@@ -80,7 +80,8 @@
     <p>Correlation matrix heatmap</p>
     
 
-    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -100,9 +101,18 @@
 Defaults to <code>pearson</code> but <code>spearman</code> can also be used.</p></td>
     </tr>
     <tr>
+      <th>genes</th>
+      <td><p>Optional character vector of gene identifiers. If <code>NULL</code>,
+defaults to performing correlation analysis using all genes.</p></td>
+    </tr>
+    <tr>
       <th>annotation</th>
-      <td><p>alternative annotation to use. Useful when plotting
-more than one column.</p></td>
+      <td><p>Optional alternative annotation to use. Useful when
+plotting more than one column.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Passthrough parameters to <code>pheatmap()</code>.</p></td>
     </tr>
     </table>
     

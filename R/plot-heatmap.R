@@ -1,5 +1,31 @@
 #' Heatmaps
 #'
+#' These functions are wrappers to [pheatmap()] that have been optimized to work
+#' with a [bcbioRnaDataSet] run object. They also depend on a [DESeqTransform]
+#' object containing transformed counts, which are ideal for heatmap plots.
+#'
+#' `plot_correlation_heatmap()` calculates a correlation matrix based on gene
+#' expression per sample. By default, this function processes all gene counts
+#' per sample to calculate the corrlation matrix. This behavior can be overrided
+#' with the input of `gene` identifier vector. In this case, only the expression
+#' of the desired genes will be used to calculate the correlation matrix.
+#'
+#' `plot_gene_heatmap()` facilities heatmap plotting of a specified set of
+#' genes. The function by default performs row- and column-wise hierarhical
+#' clustering using the Ward method, but this behavior can be overrided by
+#' setting `cluster_rows` or `cluster_cols` to `FALSE`. When column clustering
+#' is disabled, the function sorts columns by the interesting groups
+#' (`intgroup`) specified in the [bcbioRnaDataSet] and then the sample names.
+#'
+#' `plot_deg_heatmap()` is a simplified version of `plot_gene_heatmap()` that is
+#' optimized for handling a [DESeqResults] object rather a gene vector. All of
+#' the optional parameters for `plot_gene_heatmap()` are also available to this
+#' function.
+#'
+#' @seealso
+#' - [cor()].
+#' - [pheatmap()].
+#'
 #' @rdname heatmaps
 #' @author Michael Steinbaugh
 #'
@@ -159,33 +185,13 @@ plot_gene_heatmap <- function(
 
 
 #' @rdname heatmaps
-#' @param res [DESeqResults]. If declared, this will override the optional genes
-#'   parameter.
+#' @param res [DESeqResults].
 #' @export
-plot_deg_heatmap <- function(
-    run,
-    dt,
-    res,
-    intgroup = NULL,
-    annotation = NULL,
-    title = NULL,
-    clustering_method = "ward.D2",
-    scale = "row",
-    ...) {
+plot_deg_heatmap <- function(run, dt, res, ...) {
     check_run(run)
     check_dt(dt)
     check_res(res)
     import_tidy_verbs()
-
-    # Override the default `intgroup` set in run, if desired
-    if (is.null(intgroup)) {
-        intgroup <- run$intgroup
-    }
-
-    # Obtain the metadata annotations, unless specified
-    if (is.null(annotation)) {
-        annotation <- select_intgroup_coldata(dt, intgroup)
-    }
 
     # Set the default title
     if (is.null(title)) {
@@ -200,6 +206,7 @@ plot_deg_heatmap <- function(
     # [fix] alpha <- run$alpha
     alpha <- res@metadata$alpha
     lfc <- run$lfc
+
     genes <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
@@ -207,14 +214,5 @@ plot_deg_heatmap <- function(
                .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc) %>%
         select(!!sym("ensembl_gene_id")) %>% .[[1]]
 
-    plot_gene_heatmap(
-        run,
-        dt,
-        genes = genes,
-        intgroup = intgroup,
-        annotation = annotation,
-        title = title,
-        clustering_method = clustering_method,
-        scale = scale,
-        ...)
+    plot_gene_heatmap(run, dt, genes = genes, ...)
 }

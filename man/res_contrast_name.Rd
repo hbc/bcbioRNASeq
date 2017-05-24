@@ -6,6 +6,12 @@
 \usage{
 res_contrast_name(res)
 }
+\arguments{
+\item{res}{\link{DESeqResults}.}
+}
+\value{
+Contrast name string.
+}
 \description{
 Get contrast name from \link{DESeqResults}
 }

@@ -27,6 +27,14 @@
 \alias{reexports}
 \alias{vst}
 \alias{reexports}
+\alias{ggplot}
+\alias{reexports}
+\alias{pheatmap}
+\alias{reexports}
+\alias{assay}
+\alias{reexports}
+\alias{colData}
+\alias{reexports}
 \alias{metadata}
 \alias{reexports}
 \alias{tximport}
@@ -43,7 +51,13 @@ below to see their documentation.
 
   \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{design}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{pheatmap}{\code{\link[pheatmap]{pheatmap}}}
+
   \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
+
+  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{colData}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 

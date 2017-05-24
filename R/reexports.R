@@ -52,6 +52,15 @@ pheatmap::pheatmap
 
 
 
+# SummarizedExperiment ====
+#' @export
+SummarizedExperiment::assay
+
+#' @export
+SummarizedExperiment::colData
+
+
+
 # S4Vectors ====
 #' @export
 S4Vectors::metadata

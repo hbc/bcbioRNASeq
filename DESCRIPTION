@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Version: 0.0.18
-Date: 2017-05-22
+Version: 0.0.19
+Date: 2017-05-24
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
            email = "mike@steinbaugh.com",
