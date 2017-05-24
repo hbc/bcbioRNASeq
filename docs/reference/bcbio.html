@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot principal component analysis (PCA) — plot_pca • bcbioRnaseq</title>
+<title>Accessors for the count matrix of a bcbioRnaDataSet object — bcbio • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,58 +73,50 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot principal component analysis (PCA)</h1>
+    <h1>Accessors for the count matrix of a bcbioRnaDataSet object</h1>
     </div>
 
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves PCA sample coloring and
-labeling.</p>
+    <p>This method will be used to access all different count matrix from
+the object. Gene expression, transcript expression, miRNA expression...</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='fu'>bcbio.bcbioRnaDataSet</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>)
+
+<span class='co'># S4 method for bcbioRnaDataSet</span>
+<span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>)
+
+<span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for bcbioRnaDataSet,matrix</span>
+<span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>run</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <th>object</th>
+      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object.</p></td>
     </tr>
     <tr>
-      <th>dt</th>
-      <td><p><a href='reexports.html'>DESeqTransform</a> generated from <code><a href='reexports.html'>rlog()</a></code> (<strong>recommended</strong>) or
-<code><a href='reexports.html'>vst()</a></code> on a <a href='reexports.html'>DESeqDataSet</a>.</p></td>
+      <th>...</th>
+      <td><p>Matrix count data.</p></td>
     </tr>
     <tr>
-      <th>genes</th>
-      <td><p>Character vector of gene identifiers to use.</p></td>
+      <th>type</th>
+      <td><p>type of count data to retrieve</p></td>
     </tr>
     <tr>
-      <th>intgroup</th>
-      <td><p>Interesting groups to use for point appearance. If <code>NULL</code>,
-color defaults to all <code>intgroup</code> parameters set in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
-    </tr>
-    <tr>
-      <th>shape</th>
-      <td><p>Make points easier to inspect with differing shapes.</p></td>
-    </tr>
-    <tr>
-      <th>label</th>
-      <td><p>Superimpose sample text labels on the plot.</p></td>
+      <th>value</th>
+      <td><p>An integer matrix.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='reexports.html'>ggplot</a>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p></li>
-<li><p><a href = 'https://support.bioconductor.org/p/51270/'>Bioconductor thread on ntop usage</a>.</p></li>
-</ul>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/matrix'>base::matrix</a> with raw count data.</p>
     
 
   </div>
@@ -134,8 +126,6 @@ color defaults to all <code>intgroup</code> parameters set in <a href='bcbioRnaD
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

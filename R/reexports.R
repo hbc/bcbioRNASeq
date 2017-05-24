@@ -1,6 +1,15 @@
+# basejump ====
+#' @import basejump
+#' @export
+basejump::`%>%`
+
+#' @export
+basejump::save_data
+
+
+
 # DESeq2 ====
-#' @importFrom DESeq2 counts design DESeq DESeqDataSet DESeqDataSetFromMatrix
-#'   DESeqResults DESeqTransform results rlog vst
+#' @import DESeq2
 #' @export
 DESeq2::counts
 
