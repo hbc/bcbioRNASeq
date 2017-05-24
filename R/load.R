@@ -15,6 +15,8 @@
 #' @param upload_dir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param analysis Analysis type (e.g. `rnaseq` or `srnaseq`).
+#' @param alpha Alpha (false discovery rate) cutoff.
+#' @param lfc Log2 fold change ratio cutoff.
 #' @param intgroup Character vector of interesting groups. First entry is used
 #'   for plot colors during quality control (QC) analysis. Entire vector is used
 #'   for PCA and heatmap QC functions.
@@ -29,6 +31,8 @@
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
+    alpha = 0.05,
+    lfc = 1,
     intgroup = "description",
     metadata_file = NULL,
     organism = NULL) {
@@ -121,6 +125,8 @@ load_run <- function(
         template = template,
         wd = getwd(),
         hpc = detect_hpc(),
+        alpha = alpha,
+        lfc = lfc,
         intgroup = intgroup,
         alt_counts = SimpleList(),
         metadata_file = metadata_file,
