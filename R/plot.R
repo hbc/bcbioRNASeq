@@ -43,7 +43,7 @@ plot_gene <- function(
                      color = ~color,
                      shape = ~color)
             ) +
-            ggtitle(paste(gene_name, gene_id, sep = " : ")) +
+            ggtitle(paste(gene_name, gene_id, sep = label_sep)) +
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)
@@ -127,7 +127,7 @@ plot_pca <- function(
     ) +
         geom_point(size = 3) +
         coord_fixed() +
-        labs(title = paste("pca", name, sep = " : "),
+        labs(title = paste("pca", name, sep = label_sep),
              x = paste0("pc1: ", percent_var[1], "% variance"),
              y = paste0("pc2: ", percent_var[2], "% variance"),
              color = intgroup_name,

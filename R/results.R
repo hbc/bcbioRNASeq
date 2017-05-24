@@ -18,7 +18,7 @@ alpha_summary <- function(
         writeLines(
             paste(name,
                   paste("alpha", alpha[a], sep = " = "),
-                  sep = " : "))
+                  sep = label_sep))
         results(dds, alpha = alpha[a], ...) %>% summary
     }) %>% invisible
 }
@@ -221,9 +221,12 @@ top_tables <- function(
     # Captions
     name <- res_tbl$name
     contrast <- res_tbl$contrast
-    sep <- " : "
-    name_prefix <- paste(name, contrast, sep = sep)
+    name_prefix <- paste(name, contrast, sep = label_sep)
 
-    show(kable(up, caption = paste(name_prefix, "upregulated", sep = sep)))
-    show(kable(down, caption = paste(name_prefix, "downregulated", sep = sep)))
+    show(kable(
+        up,
+        caption = paste(name_prefix, "upregulated", sep = label_sep)))
+    show(kable(
+        down,
+        caption = paste(name_prefix, "downregulated", sep = label_sep)))
 }
