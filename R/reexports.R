@@ -42,12 +42,6 @@ DESeq2::vst
 
 
 
-# ggplot2 ====
-#' @export
-ggplot2::ggplot
-
-
-
 # S4Vectors ====
 #' @importFrom S4Vectors metadata
 #' @export
