@@ -6,6 +6,7 @@
 #' @keywords internal
 #'
 #' @import basejump
+#' @import Biobase
 #' @import DESeq2
 #' @import ggplot2
 #' @import SummarizedExperiment
