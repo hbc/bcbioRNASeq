@@ -4,7 +4,7 @@
 \alias{plot_correlation_heatmap}
 \title{Correlation matrix heatmap}
 \usage{
-plot_correlation_heatmap(run, dt, method = "pearson")
+plot_correlation_heatmap(run, dt, method = "pearson", annotation = NULL)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
@@ -14,6 +14,9 @@ plot_correlation_heatmap(run, dt, method = "pearson")
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used.}
+
+\item{annotation}{alternative annotation to use. Useful when plotting
+more than one column.}
 }
 \value{
 Correlation heatmap.

@@ -274,13 +274,16 @@ plot_count_density <- function(
 #'   [vst()] on a [DESeqDataSet].
 #' @param method Correlation coefficient (or covariance) to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used.
+#' @param annotation alternative annotation to use. Useful when plotting
+#'   more than one column.
 #'
 #' @return Correlation heatmap.
 #' @export
 plot_correlation_heatmap <- function(
     run,
     dt,
-    method = "pearson") {
+    method = "pearson",
+    annotation=NULL) {
     check_run(run)
     check_dt(dt)
     if (!method %in% c("pearson", "spearman")) {
@@ -290,7 +293,8 @@ plot_correlation_heatmap <- function(
 
     # Get counts and annotations from DESeqTransform object
     counts <- assay(dt)
-    annotation <- colData(dt) %>% as.data.frame %>% .[, run$intgroup]
+    if (is.null(annotation))
+        annotation <- colData(dt) %>% as.data.frame %>% .[, run$intgroup]
 
     # Supported correlation methods
     if (!method %in% c("pearson", "spearman")) {
@@ -304,7 +308,8 @@ plot_correlation_heatmap <- function(
             annotation = annotation,
             main = paste("correlation", method, name, sep = " : "),
             show_colnames = FALSE,
-            show_rownames = TRUE)
+            show_rownames = TRUE,
+            clustering_method = "ward.D2")
 }
 
 
