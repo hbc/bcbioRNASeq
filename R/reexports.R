@@ -1,5 +1,4 @@
 # basejump ====
-#' @import basejump
 #' @export
 basejump::`%>%`
 
@@ -9,7 +8,6 @@ basejump::save_data
 
 
 # DESeq2 ====
-#' @import DESeq2
 #' @export
 DESeq2::counts
 
@@ -42,8 +40,19 @@ DESeq2::vst
 
 
 
+# ggplot2 ====
+#' @export
+ggplot2::ggplot
+
+
+
+# pheatmap ====
+#' @export
+pheatmap::pheatmap
+
+
+
 # S4Vectors ====
-#' @importFrom S4Vectors metadata
 #' @export
 S4Vectors::metadata
 
