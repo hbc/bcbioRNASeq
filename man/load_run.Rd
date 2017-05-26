@@ -8,8 +8,9 @@
 load_run_S4(upload_dir = "final", analysis = "rnaseq",
   intgroup = "description", metadata_file = NULL, organism = NULL, ...)
 
-load_run(upload_dir = "final", analysis = "rnaseq",
-  intgroup = "description", metadata_file = NULL, organism = NULL)
+load_run(upload_dir = "final", analysis = "rnaseq", alpha = 0.05,
+  lfc = 1, intgroup = "description", metadata_file = NULL,
+  organism = NULL)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
@@ -30,6 +31,10 @@ for common reference genomes and normally does not need to be set.}
 
 \item{...}{Arguments provided to \link{SummarizedExperiment}. Remove this once
 we migrate the S4 loading variant over as main method.}
+
+\item{alpha}{Alpha (false discovery rate) cutoff.}
+
+\item{lfc}{Log2 fold change ratio cutoff.}
 }
 \value{
 \link{bcbioRnaDataSet} containing counts and metadata.

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • bcbioRnaseq</title>
+<title>DESeq colData — select_intgroup_coldata • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,37 +73,45 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>DESeq colData</h1>
     </div>
 
     
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p><dl class='dl-horizontal'>
-  <dt>basejump</dt><dd><p><code>%&gt;%</code>, <code><a href='http://www.rdocumentation.org/packages/basejump/topics/aliases'>save_data</a></code></p></dd>
-
-    <dt>DESeq2</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/counts'>counts</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/design'>design</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromMatrix</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a></code></p></dd>
-
-    <dt>ggplot2</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></code></p></dd>
-
-    <dt>pheatmap</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap</a></code></p></dd>
-
-    <dt>S4Vectors</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Annotated-class'>metadata</a></code></p></dd>
-
-    <dt>SummarizedExperiment</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/SummarizedExperiment/topics/SummarizedExperiment-class'>assay</a></code>, <code><a href='http://www.rdocumentation.org/packages/SummarizedExperiment/topics/SummarizedExperiment-class'>colData</a></code></p></dd>
-
-    <dt>tximport</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport</a></code></p></dd>
-
-    <dt>vsn</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>meanSdPlot</a></code></p></dd>
-</dl>
+    <p>Selects <code>intgroup</code>-defined interesting groups automatically.</p>
     
 
-        
+    <pre class="usage"><span class='fu'>select_intgroup_coldata</span>(<span class='no'>dds</span>, <span class='no'>intgroup</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dds</th>
+      <td><p><a href='reexports.html'>DESeqDataSet</a> or <a href='reexports.html'>DESeqTransform</a>.</p></td>
+    </tr>
+    <tr>
+      <th>intgroup</th>
+      <td><p>Interesting groups.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code><a href='reexports.html'>colData()</a></code> data frame.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

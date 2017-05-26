@@ -3,13 +3,16 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
+#' @keywords internal
+#'
 #' @import basejump
+#' @import Biobase
+#' @import DESeq2
 #' @import ggplot2
 #' @import SummarizedExperiment
 #' @import S4Vectors
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
-#' @importFrom DESeq2 plotMA plotPCA
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC
 #' @importFrom ggrepel geom_text_repel
@@ -26,3 +29,5 @@ globalVariables(basejump::globals,
 fail_color <- "red"
 pass_color <- "green"
 warn_color <- "orange"
+
+label_sep <- " : "

@@ -1,6 +1,13 @@
+# basejump ====
+#' @export
+basejump::`%>%`
+
+#' @export
+basejump::save_data
+
+
+
 # DESeq2 ====
-#' @importFrom DESeq2 counts design DESeq DESeqDataSet DESeqDataSetFromMatrix
-#'   DESeqResults DESeqTransform results rlog vst
 #' @export
 DESeq2::counts
 
@@ -39,8 +46,22 @@ ggplot2::ggplot
 
 
 
+# pheatmap ====
+#' @export
+pheatmap::pheatmap
+
+
+
+# SummarizedExperiment ====
+#' @export
+SummarizedExperiment::assay
+
+#' @export
+SummarizedExperiment::colData
+
+
+
 # S4Vectors ====
-#' @importFrom S4Vectors metadata
 #' @export
 S4Vectors::metadata
 

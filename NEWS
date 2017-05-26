@@ -1,3 +1,5 @@
+0.0.19  bcbioRnaDataSet S4 definition updates.
+        Updates to plot_pca and gene-level heatmaps.
 0.0.18  Simplify count pooling functions.
 0.0.17  Reduce number of exports and improve documentation.
 0.0.16  Draft migration of bcbio run object into S4 bcbioRnaDataSet.

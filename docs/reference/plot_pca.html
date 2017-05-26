@@ -81,8 +81,8 @@
 labeling.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,6 +97,10 @@ labeling.</p>
 <code><a href='reexports.html'>vst()</a></code> on a <a href='reexports.html'>DESeqDataSet</a>.</p></td>
     </tr>
     <tr>
+      <th>genes</th>
+      <td><p>Character vector of gene identifiers to use.</p></td>
+    </tr>
+    <tr>
       <th>intgroup</th>
       <td><p>Interesting groups to use for point appearance. If <code>NULL</code>,
 color defaults to all <code>intgroup</code> parameters set in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
@@ -108,12 +112,6 @@ color defaults to all <code>intgroup</code> parameters set in <a href='bcbioRnaD
     <tr>
       <th>label</th>
       <td><p>Superimpose sample text labels on the plot.</p></td>
-    </tr>
-    <tr>
-      <th>ntop</th>
-      <td><p>Number of genes to use for PCA. To plot all gene variation, use
-<code>ntop = nrow(.)</code>. Note that using all genes for PCA is generally <em>not
-recommended</em>.</p></td>
     </tr>
     </table>
     

@@ -236,7 +236,7 @@ plot_counts_per_gene <- function(run, normalized_counts) {
         ggplot(aes_(x = ~x,
                     y = ~y,
                     color = ~color)) +
-        ggtitle(paste("counts per gene", name, sep = " : ")) +
+        ggtitle(paste("counts per gene", name, sep = label_sep)) +
         geom_boxplot(outlier.shape = NA) +
         # optional way to make log10 subscript:
         # expression(log[10]~counts~per~gene)
@@ -257,59 +257,10 @@ plot_count_density <- function(
     melt_log10(run, normalized_counts) %>%
         ggplot(aes_(x = ~counts,
                     group = ~description)) +
-        ggtitle(paste("count density", name, sep = " : ")) +
+        ggtitle(paste("count density", name, sep = label_sep)) +
         geom_density() +
         labs(x = "log10 counts per gene",
              y = "density")
-}
-
-
-
-#' Correlation matrix heatmap
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param run [bcbioRnaDataSet].
-#' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
-#'   [vst()] on a [DESeqDataSet].
-#' @param method Correlation coefficient (or covariance) to be computed.
-#'   Defaults to `pearson` but `spearman` can also be used.
-#' @param annotation alternative annotation to use. Useful when plotting
-#'   more than one column.
-#'
-#' @return Correlation heatmap.
-#' @export
-plot_correlation_heatmap <- function(
-    run,
-    dt,
-    method = "pearson",
-    annotation=NULL) {
-    check_run(run)
-    check_dt(dt)
-    if (!method %in% c("pearson", "spearman")) {
-        stop("Support methods: pearson, spearman")
-    }
-    name <- deparse(substitute(dt))
-
-    # Get counts and annotations from DESeqTransform object
-    counts <- assay(dt)
-    if (is.null(annotation))
-        annotation <- colData(dt) %>% as.data.frame %>% .[, run$intgroup]
-
-    # Supported correlation methods
-    if (!method %in% c("pearson", "spearman")) {
-        stop("invalid correlation regression method.
-             must use pearson or spearman.")
-    }
-
-    counts %>%
-        cor(method = method) %>%
-        pheatmap(
-            annotation = annotation,
-            main = paste("correlation", method, name, sep = " : "),
-            show_colnames = FALSE,
-            show_rownames = TRUE,
-            clustering_method = "ward.D2")
 }
 
 
@@ -328,6 +279,8 @@ plot_gender_markers <- function(run, normalized_counts) {
     } else {
         stop("Unsupported organism")
     }
+
+    # Prepare the source gender markers data frame
     gender_markers <- gender_markers %>%
         filter(.data$include == TRUE) %>%
         arrange(!!!syms(c("chromosome", "gene_symbol")))

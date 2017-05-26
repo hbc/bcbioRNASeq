@@ -33,9 +33,32 @@ detect_organism <- function(genome_build) {
 #'
 #' @keywords internal
 #' @author Michael Steinbaugh
+#'
+#' @param res [DESeqResults].
+#'
+#' @return Contrast name string.
 res_contrast_name <- function(res) {
     mcols(res)[2, 2] %>%
         str_replace("^.*:\\s", "")
+}
+
+
+
+#' [DESeq] [colData]
+#'
+#' Selects `intgroup`-defined interesting groups automatically.
+#'
+#' @keywords internal
+#' @author Michael Steinbaugh
+#'
+#' @param dds [DESeqDataSet] or [DESeqTransform].
+#' @param intgroup Interesting groups.
+#'
+#' @return [colData()] data frame.
+select_intgroup_coldata <- function(dds, intgroup) {
+    colData(dds) %>%
+        as.data.frame %>%
+        select(!!quo(intgroup))
 }
 
 
