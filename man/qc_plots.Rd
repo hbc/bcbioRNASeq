@@ -12,6 +12,7 @@
 \alias{plot_counts_per_gene}
 \alias{plot_count_density}
 \alias{plot_gender_markers}
+\alias{plot_pca_covariates}
 \title{Gene-level quality control plots}
 \usage{
 plot_total_reads(run, pass_limit = 20, warn_limit = 10)
@@ -35,6 +36,8 @@ plot_counts_per_gene(run, normalized_counts)
 plot_count_density(run, normalized_counts)
 
 plot_gender_markers(run, normalized_counts)
+
+plot_pca_covariates(run, rld)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}

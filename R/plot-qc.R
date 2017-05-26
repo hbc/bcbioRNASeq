@@ -311,3 +311,19 @@ plot_gender_markers <- function(run, normalized_counts) {
              y = name) +
         theme(legend.position = "none")
 }
+
+#' @rdname qc_plots
+#' @export
+plot_pca_covariates <- function(run, rld){
+    keep_metrics = unlist(lapply(colnames(run$metrics), function(c){
+        if (length(unique(run$metrics[,c]))>1){return(c)}
+    }))
+
+    keep_metrics = keep_metrics[!is.null(keep_metrics)]
+    metrics = run$metrics[,keep_metrics]
+    row.names(metrics) = metrics$description
+    metrics = metrics[,setdiff(colnames(metrics), "description")]
+    res = degCovariates(assay(rld), metrics, fdr=0.05, correlation="spearman")
+    res$plot = res$plot + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+    res
+}

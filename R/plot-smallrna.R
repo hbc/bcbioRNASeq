@@ -103,7 +103,7 @@ plot_srna_clusters <- function(run) {
         counts[rowSums(counts > 0) > 3, ],
         colData = design,
         design = ~1)
-    vst = rlog(dds)
+    vst = rlog(dds, betaPriorVar = FALSE)
     pheatmap(assay(vst),
              annotation_col = design[, metadata(run)$intgroup, drop = FALSE],
              clustering_distance_cols = "correlation",

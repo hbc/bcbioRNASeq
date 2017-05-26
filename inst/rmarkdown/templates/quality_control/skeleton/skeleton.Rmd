@@ -180,6 +180,13 @@ PCA [@Jolliffe:2002aa] is a multivariate technique that allows us to summarize t
 plot_pca(run, rld)
 ```
 
+## Covariates correlation with PCs
+
+```{r plot_degcov}
+res = plot_pca_covariates(run, rld)
+res$plot
+```
+
 
 ## Hierarchical clustering
 
