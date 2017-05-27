@@ -100,7 +100,9 @@
 
 <span class='fu'>plot_count_density</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
 
-<span class='fu'>plot_gender_markers</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)</pre>
+<span class='fu'>plot_gender_markers</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
+
+<span class='fu'>plot_pca_covariates</span>(<span class='no'>run</span>, <span class='no'>rld</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -127,6 +129,10 @@
       <td><p>Normalized counts matrix. Can be obtained from
 <a href='reexports.html'>DESeqDataSet</a> using <code><a href='reexports.html'>counts()</a></code> with <code>normalized = TRUE</code>.
 Transcripts per million (TPM) are also acceptable.</p></td>
+    </tr>
+    <tr>
+      <th>rld</th>
+      <td><p><code><a href='reexports.html'>rlog()</a></code>-transformed counts.</p></td>
     </tr>
     </table>
     

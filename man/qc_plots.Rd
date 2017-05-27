@@ -52,6 +52,8 @@ plot_pca_covariates(run, rld)
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
 \link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE}.
 Transcripts per million (TPM) are also acceptable.}
+
+\item{rld}{\code{\link[=rlog]{rlog()}}-transformed counts.}
 }
 \value{
 \link{ggplot}.

@@ -41,7 +41,7 @@ Imports:
     Biobase,
     cowplot,
     data.table (>= 1.10),
-    DEGreport (>= 1.12.0),
+    DEGreport (>= 1.13.4),
     DESeq2 (>= 1.16.0),
     edgeR (>= 3.18.0),
     ggplot2 (>= 2.2.1),
