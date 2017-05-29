@@ -18,10 +18,9 @@ plot_ma <- function(res, ylim = 2) {
     check_res(res)
     name <- deparse(substitute(res))
     contrast_name <- res_contrast_name(res)
-    plotMA(
-        res,
-        main = paste(name, contrast_name, sep = label_sep),
-        ylim = c(-ylim, ylim))
+    plotMA(res,
+           main = paste(name, contrast_name, sep = label_sep),
+           ylim = c(-ylim, ylim))
 }
 
 
@@ -58,7 +57,6 @@ plot_volcano <- function(
     point_outline_color = "darkgray") {
     check_run(run)
     check_res(res)
-    import_tidy_verbs()
 
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
@@ -78,9 +76,8 @@ plot_volcano <- function(
     stats <- res %>%
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
-        as_tibble %>%
         snake %>%
-        select(!!!syms(c("ensembl_gene_id", "log2_fold_change", "padj"))) %>%
+        tidy_select(!!!syms(c("ensembl_gene_id", "log2_fold_change", "padj"))) %>%
         # Filter zero counts for quicker plotting
         filter(!is.na(.data$log2_fold_change)) %>%
         # Arrange by P value
@@ -89,7 +86,7 @@ plot_volcano <- function(
 
     # Automatically label the top genes
     annotations <- gene_level_annotations(run) %>%
-        select(!!!syms(c("ensembl_gene_id", "external_gene_name")))
+        tidy_select(!!!syms(c("ensembl_gene_id", "external_gene_name")))
     volcano_text <- stats %>%
         .[1:text_labels, ] %>%
         left_join(annotations, by = "ensembl_gene_id")

@@ -126,7 +126,6 @@ plot_gene_heatmap <- function(
     ...) {
     check_run(run)
     check_dt(dt)
-    import_tidy_verbs()
 
     # Override the default `intgroup` set in run, if desired
     if (is.null(intgroup)) {
@@ -154,7 +153,7 @@ plot_gene_heatmap <- function(
         sorted_cols <- colData(dt) %>%
             as.data.frame %>%
             arrange(!!!syms(c(intgroup, "description"))) %>%
-            select(!!sym("description")) %>% .[[1]]
+            tidy_select(!!sym("description")) %>% .[[1]]
         counts <- counts[, sorted_cols]
     }
 
@@ -162,8 +161,7 @@ plot_gene_heatmap <- function(
     if (nrow(counts) <= 100) {
         show_rownames <- TRUE
         gene_names <- gene_level_annotations(run) %>%
-            select(!!!syms(c("ensembl_gene_id", "external_gene_name"))) %>%
-            as.data.frame %>%
+            tidy_select(!!!syms(c("ensembl_gene_id", "external_gene_name"))) %>%
             set_rownames(.$ensembl_gene_id)
         rownames(counts) <- gene_names[rownames(counts), "external_gene_name"]
     } else {
@@ -191,7 +189,6 @@ plot_deg_heatmap <- function(run, dt, res, ...) {
     check_run(run)
     check_dt(dt)
     check_res(res)
-    import_tidy_verbs()
 
     # Set the default title
     if (is.null(title)) {
@@ -212,7 +209,7 @@ plot_deg_heatmap <- function(run, dt, res, ...) {
         rownames_to_column("ensembl_gene_id") %>%
         filter(.data$padj < alpha,
                .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc) %>%
-        select(!!sym("ensembl_gene_id")) %>% .[[1]]
+        tidy_select(!!sym("ensembl_gene_id")) %>% .[[1]]
 
     plot_gene_heatmap(run, dt, genes = genes, ...)
 }

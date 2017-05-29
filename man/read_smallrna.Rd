@@ -4,10 +4,10 @@
 \alias{read_smallrna_counts}
 \title{Create isomiRs object from bcbio output}
 \usage{
-read_smallrna_counts(bcbiods)
+read_smallrna_counts(rna)
 }
 \arguments{
-\item{bcbiods}{\link{bcbioRnaDataSet}.}
+\item{rna}{\link{bcbioRnaDataSet}.}
 }
 \description{
 Read bcbio sample information from YAML to get isomiR object.

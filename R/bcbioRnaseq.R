@@ -20,11 +20,11 @@
 #' @importFrom methods as is new validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats density
+#' @importFrom utils read.table
+#' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
-globalVariables(basejump::globals,
-                asNamespace("bcbioRnaseq"),
-                add = TRUE)
+globalVariables(basejump::globals, asNamespace("bcbioRnaseq"), add = TRUE)
 
 fail_color <- "red"
 pass_color <- "green"

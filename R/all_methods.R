@@ -1,4 +1,4 @@
-#' Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object
+#' Accessors for the count matrix of a [bcbioRnaDataSet] object
 #'
 #' @rdname txi
 #' @keywords internal
@@ -6,7 +6,7 @@
 #' @name txi
 #' @aliases txi txi,bcbioRnaDataSet-method txi<-,bcbioRnaDataSet,matrix-method
 #'
-#' @param object \linkS4class{bcbioRnaDataSet} object.
+#' @param object [bcbioRnaDataSet] object.
 #' @param value An integer matrix.
 #' @param ... Matrix count data.
 #'
@@ -45,7 +45,7 @@ setReplaceMethod(
     })
 
 
-#' Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object
+#' Accessors for the count matrix of a [bcbioRnaDataSet] object
 #'
 #' This method will be used to access all different count matrix from
 #' the object. Gene expression, transcript expression, miRNA expression...
@@ -55,12 +55,12 @@ setReplaceMethod(
 #' @name bcbio
 #' @aliases bcbio bcbio,bcbioRnaDataSet-method bcbio<-,bcbioRnaDataSet,matrix-method
 #'
-#' @param object \linkS4class{bcbioRnaDataSet} object.
+#' @param object [bcbioRnaDataSet] object.
 #' @param value An integer matrix.
 #' @param type type of count data to retrieve
 #' @param ... Matrix count data.
 #'
-#' @return [base::matrix] with raw count data.
+#' @return Matrix containing raw count data.
 
 #' @rdname bcbio
 #' @export

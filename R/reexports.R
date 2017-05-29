@@ -7,6 +7,12 @@ basejump::save_data
 
 
 
+# DEGreport ====
+#' @export
+DEGreport::degCovariates
+
+
+
 # DESeq2 ====
 #' @export
 DESeq2::counts
@@ -71,10 +77,3 @@ S4Vectors::metadata
 #' @importFrom tximport tximport
 #' @export
 tximport::tximport
-
-
-
-# vsn ====
-#' @importFrom vsn meanSdPlot
-#' @export
-vsn::meanSdPlot

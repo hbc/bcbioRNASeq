@@ -9,7 +9,7 @@
 \alias{bcbio,bcbioRnaDataSet-method}
 \alias{bcbio<-}
 \alias{"<-bcbio"}
-\title{Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object}
+\title{Accessors for the count matrix of a \link{bcbioRnaDataSet} object}
 \usage{
 bcbio(object, ...)
 
@@ -22,7 +22,7 @@ bcbio(object, ...) <- value
 \S4method{bcbio}{bcbioRnaDataSet,matrix}(object, type = "counts") <- value
 }
 \arguments{
-\item{object}{\linkS4class{bcbioRnaDataSet} object.}
+\item{object}{\link{bcbioRnaDataSet} object.}
 
 \item{...}{Matrix count data.}
 
@@ -31,7 +31,7 @@ bcbio(object, ...) <- value
 \item{value}{An integer matrix.}
 }
 \value{
-\link[base:matrix]{base::matrix} with raw count data.
+Matrix containing raw count data.
 }
 \description{
 This method will be used to access all different count matrix from

@@ -58,7 +58,7 @@ res_contrast_name <- function(res) {
 select_intgroup_coldata <- function(dds, intgroup) {
     colData(dds) %>%
         as.data.frame %>%
-        select(!!quo(intgroup))
+        tidy_select(!!quo(intgroup))
 }
 
 
@@ -180,7 +180,6 @@ check_res <- function(res, stop = TRUE) {
 #' @return Tibble grouped by `ensembl_gene_id` with nested
 #'   `ensembl_transcript_id`.
 ensembl <- function(run) {
-    import_tidy_verbs()
     # Broad class definitions
     coding <- c("protein_coding")
     decaying <- c("non_stop_decay", "nonsense_mediated_decay")
@@ -229,12 +228,13 @@ ensembl <- function(run) {
 #' @return Tibble arranged by `ensembl_gene_id`.
 #' @export
 gene_level_annotations <- function(run) {
-    import_tidy_verbs()
     run$ensembl %>%
         mutate(ensembl_transcript_id = NULL) %>%
         ungroup %>%
         distinct %>%
-        arrange(!!sym("ensembl_gene_id"))
+        arrange(!!sym("ensembl_gene_id")) %>%
+        as.data.frame %>%
+        set_rownames(.$ensembl_gene_id)
 }
 
 
@@ -244,10 +244,11 @@ gene_level_annotations <- function(run) {
 #' @return Tibble with `ensembl_transcript_id` and `ensembl_gene_id`.
 #' @export
 tx2gene <- function(run) {
-    import_tidy_verbs()
     run$ensembl %>%
         unnest_("ensembl_transcript_id") %>%
-        select(!!!syms(c("ensembl_transcript_id", "ensembl_gene_id"))) %>%
+        tidy_select(!!!syms(c("ensembl_transcript_id", "ensembl_gene_id"))) %>%
         ungroup %>%
-        arrange(!!sym("ensembl_transcript_id"))
+        arrange(!!sym("ensembl_transcript_id")) %>%
+        as.data.frame %>%
+        set_rownames(.$ensembl_transcript_id)
 }

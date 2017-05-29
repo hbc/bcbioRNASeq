@@ -76,7 +76,6 @@ res_tables <- function(
     print = TRUE) {
     check_run(run)
     check_res(res)
-    import_tidy_verbs()
 
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)
@@ -191,7 +190,6 @@ top_tables <- function(
     res_tbl,
     n = 50,
     coding = FALSE) {
-    import_tidy_verbs()
     subset_top <- function(df) {
         # Filter for coding genes only, if desired
         if (isTRUE(coding)) {
@@ -206,12 +204,13 @@ top_tables <- function(
                 padj = format(.data$padj,
                               digits = 3,
                               scientific = TRUE)) %>%
-            select(!!!syms(c("ensembl_gene_id",
-                             "base_mean",
-                             "log2_fold_change",
-                             "padj",
-                             "external_gene_name",
-                             "broad_class"))) %>%
+            tidy_select(!!!syms(c(
+                "ensembl_gene_id",
+                "base_mean",
+                "log2_fold_change",
+                "padj",
+                "external_gene_name",
+                "broad_class"))) %>%
             remove_rownames
     }
 

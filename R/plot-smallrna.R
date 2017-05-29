@@ -14,7 +14,6 @@
 #' @export
 plot_size_distribution <- function(run) {
     run <- metadata(run)
-    import_tidy_verbs()
     fns <- file.path(run$sample_dirs,
                      paste(names(run$sample_dirs),
                            "ready.trimming_stats",

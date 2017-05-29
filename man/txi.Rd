@@ -9,7 +9,7 @@
 \alias{txi.bcbioRnaDataSet}
 \alias{txi,bcbioRnaDataSet-method}
 \alias{"<-txi"}
-\title{Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object}
+\title{Accessors for the count matrix of a \link{bcbioRnaDataSet} object}
 \usage{
 txi(object, ...)
 
@@ -22,7 +22,7 @@ txi.bcbioRnaDataSet(object)
 \S4method{txi}{bcbioRnaDataSet,matrix}(object) <- value
 }
 \arguments{
-\item{object}{\linkS4class{bcbioRnaDataSet} object.}
+\item{object}{\link{bcbioRnaDataSet} object.}
 
 \item{...}{Matrix count data.}
 
@@ -32,6 +32,6 @@ txi.bcbioRnaDataSet(object)
 \link[base:matrix]{base::matrix} with raw count data.
 }
 \description{
-Accessors for the count matrix of a \linkS4class{bcbioRnaDataSet} object
+Accessors for the count matrix of a \link{bcbioRnaDataSet} object
 }
 \keyword{internal}

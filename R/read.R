@@ -16,7 +16,6 @@ read_metadata <- function(
     pattern = NULL,
     pattern_col = "description",
     lanes = NULL) {
-    import_tidy_verbs()
     if (!file.exists(file)) {
         stop("File not found")
     }
@@ -228,9 +227,7 @@ read_bcbio_file <- function(
 #' @description Read sample metadata from YAML.
 #' @return Metadata data frame.
 read_bcbio_metadata <- function(run) {
-    import_tidy_verbs()
     read_bcbio_samples_yaml(run, metadata) %>%
-        remove_na %>%
         mutate_all(factor) %>%
         mutate(description = as.character(.data$description)) %>%
         arrange(!!sym("description")) %>%
@@ -247,20 +244,22 @@ read_bcbio_metadata <- function(run) {
 #'   the YAML.
 #' @return Summary statistics data frame.
 read_bcbio_metrics <- function(run) {
-    import_tidy_verbs()
+    # [fix] Return without metadata join? May work better downstream?
     yaml <- read_bcbio_samples_yaml(run, summary, metrics)
     if (is.null(yaml)) {
         return(NULL)
     }
-    character_data <- yaml[, c("description",
-                               "quality_format",
-                               "sequence_length")]
-    numeric_data <- yaml[, setdiff(colnames(yaml),
-                                   colnames(character_data))] %>%
+
+    characters <- yaml[, c("description", "quality_format", "sequence_length")]
+    numerics <- yaml[, setdiff(colnames(yaml), colnames(characters))] %>%
         mutate_all(as.numeric)
-    metrics <- bind_cols(character_data, numeric_data)
-    metadata <- run$metadata
-    left_join(metadata, metrics, by = "description")
+    metrics <- bind_cols(characters, numerics)
+
+    # Return with metadata joined
+    if (is.null(run$metadata)) {
+        stop("Metadata missing")
+    }
+    left_join(run$metadata, metrics, by = "description")
 }
 
 
@@ -319,9 +318,8 @@ read_bcbio_samples_yaml <- function(run, ...) {
     rbindlist(list) %>%
         as.data.frame %>%
         remove_na %>%
-        # Put description first and sort other colnames alphabetically
-        .[order(.$description), ] %>%
-        .[, c("description", sort(setdiff(names(.), "description")))] %>%
+        tidy_select(!!sym("description"), everything()) %>%
+        arrange(!!sym("description")) %>%
         set_rownames(.$description)
 }
 
@@ -339,9 +337,10 @@ read_bcbio_samples_yaml <- function(run, ...) {
 #' @keywords internal
 #' @author Lorena Patano
 #'
-#' @param bcbiods [bcbioRnaDataSet].
-read_smallrna_counts <- function(bcbiods) {
-    run <- metadata(bcbiods)
+#' @param rna [bcbioRnaDataSet].
+read_smallrna_counts <- function(rna) {
+    # [fix] Better way to handle sample_dirs than by piping in via metadata?
+    run <- metadata(rna)
     fns <- file.path(run$sample_dirs,
                      paste(names(run$sample_dirs),
                            "mirbase-ready.counts",

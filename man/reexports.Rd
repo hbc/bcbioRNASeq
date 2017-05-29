@@ -7,6 +7,8 @@
 \alias{reexports}
 \alias{save_data}
 \alias{reexports}
+\alias{degCovariates}
+\alias{reexports}
 \alias{counts}
 \alias{reexports}
 \alias{DESeq}
@@ -38,8 +40,6 @@
 \alias{metadata}
 \alias{reexports}
 \alias{tximport}
-\alias{reexports}
-\alias{meanSdPlot}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -48,6 +48,8 @@ below to see their documentation.
 
 \describe{
   \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{save_data}}}
+
+  \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 
   \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{design}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
@@ -60,7 +62,5 @@ below to see their documentation.
   \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{colData}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
-
-  \item{vsn}{\code{\link[vsn]{meanSdPlot}}}
 }}
 

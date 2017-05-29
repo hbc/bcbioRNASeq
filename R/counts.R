@@ -9,7 +9,6 @@
 #' @return log10 melted data frame.
 #' @export
 melt_log10 <- function(run, counts) {
-    import_tidy_verbs()
     metadata <- run$metadata
     if (!identical(colnames(counts), rownames(metadata))) {
         stop("Sample descriptions in counts do not match metadata.")
@@ -74,7 +73,6 @@ pool_counts <- function(counts, pattern = "_L\\d+") {
 #' @seealso A new [DESeqDataSet] is returned from [DESeqDataSetFromMatrix()].
 pool_dds <- function(dds, pattern = "_L\\d+", save = FALSE) {
     check_dds(dds)
-    import_tidy_verbs()
     envir <- parent.frame()
 
     # Get the stored design formula

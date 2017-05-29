@@ -1,3 +1,8 @@
+# [fix] Fast RNA-seq pipeline isn't outputting metrics. Does MultiQC 1.0 add
+# support for lightweight/pseudoaligned counts?
+
+
+
 #' Gene-level quality control plots
 #'
 #' @rdname qc_plots
@@ -20,7 +25,6 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
@@ -48,7 +52,6 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~description,
@@ -76,13 +79,12 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads),
                total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
-                 y = ~mapped_reads / total_reads * 100,
-                 fill = as.name(run$intgroup[[1]]))) +
+                    y = ~mapped_reads / total_reads * 100,
+                    fill = as.name(run$intgroup[[1]]))) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -129,7 +131,6 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~mapped_reads / 1e6,
@@ -153,7 +154,6 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(exonic_rate = as.numeric(.data$exonic_rate)) %>%
         ggplot(aes_(x = ~description,
@@ -179,7 +179,6 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(intronic_rate = as.numeric(.data$intronic_rate)) %>%
         ggplot(aes_(x = ~description,
@@ -205,7 +204,6 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    import_tidy_verbs()
     run$metrics %>%
         mutate(r_rna_rate = as.numeric(.data$r_rna_rate) * 100) %>%
         ggplot(aes_(x = ~description,
@@ -268,7 +266,6 @@ plot_count_density <- function(
 #' @rdname qc_plots
 #' @export
 plot_gender_markers <- function(run, normalized_counts) {
-    import_tidy_verbs()
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
 
@@ -314,20 +311,30 @@ plot_gender_markers <- function(run, normalized_counts) {
 
 
 
-#' @rdname qc_plots
-#' @param rld [rlog()]-transformed counts.
+#' Find correlation between PCs and covariates
+#'
+#' @author Lorena Pantano
+#'
+#' @param run [bcbioRnaDataSet].
+#' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
+#' @param ... Passthrough parmeters to [DEGreport::degCovariates()].
+#'
 #' @export
-plot_pca_covariates <- function(run, rld) {
-    keep_metrics <- unlist(lapply(colnames(run$metrics), function(c) {
-        if (length(unique(run$metrics[, c])) > 1) { return(c) }
-    }))
-    keep_metrics <- keep_metrics[!is.null(keep_metrics)]
-    metrics <- run$metrics[, keep_metrics]
-    rownames(metrics) <- metrics$description
-    metrics <- metrics[, setdiff(colnames(metrics), "description")]
-    res <- degCovariates(assay(rld), metrics,
-                         fdr = 0.05, correlation = "spearman")
-    res$plot <- res$plot +
+plot_pca_covariates <- function(run, dt, ...) {
+    # [fix] Not working for some consults?
+    if (is.null(run$metrics)) {
+        return(NULL)
+    }
+    keep_metrics <- lapply(colnames(run$metrics), function(a) {
+        if (length(unique(run$metrics[, a])) > 1) { a }
+    }) %>% unlist %>% .[!is.null(.)]
+    metrics <- run$metrics %>%
+        as.data.frame %>%
+        set_rownames(.$description) %>%
+        .[, setdiff(keep_metrics, c("description", "file_name"))]
+    dt %>%
+        assay %>%
+        degCovariates(metadata = metrics, ...) %>%
+        .$plot +
         theme(axis.text.x = element_text(angle = 60, hjust = 1))
-    res
 }

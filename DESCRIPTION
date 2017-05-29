@@ -37,7 +37,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    basejump (>= 0.0.12),
+    basejump (>= 0.0.13),
     Biobase,
     cowplot,
     data.table (>= 1.10),
