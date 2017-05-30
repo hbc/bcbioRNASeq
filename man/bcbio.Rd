@@ -19,7 +19,7 @@ bcbio.bcbioRnaDataSet(object, type = "counts")
 
 bcbio(object, ...) <- value
 
-\S4method{bcbio}{bcbioRnaDataSet,matrix}(object, type = "counts") <- value
+\S4method{bcbio}{bcbioRnaDataSet}(object, type = "counts") <- value
 }
 \arguments{
 \item{object}{\link{bcbioRnaDataSet} object.}

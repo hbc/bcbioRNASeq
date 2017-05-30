@@ -32,9 +32,12 @@ setValidity("bcbioRnaDataSet", function(object) { TRUE })
             stop("'se' must be a SummarizedExperiment object")
         }
     }
-    ids <- new("bcbioRnaDataSet", se)
-    metadata(ids) <- run
-    ids
+    bcb <- new("bcbioRnaDataSet", se)
+    metadata(bcb) <- run
+    if (run$analysis == "srnaseq"){
+        bcb <- read_smallrna_counts(bcb)
+    }
+    bcb
 }
 
 

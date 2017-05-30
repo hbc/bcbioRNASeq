@@ -3,6 +3,7 @@
 ## Exported functions
 
 alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06), ...)
+bcbcols(object)
 bcbio(object, ...)
 bcbio.bcbioRnaDataSet(object, type = "counts")
 bcbio<-(object, ..., value)
@@ -40,6 +41,7 @@ plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both", title = NU
 pool_counts(counts, pattern = "_L\\d+")
 pool_dds(dds, pattern = "_L\\d+", save = FALSE)
 read_bcbio_counts(run, grep = NULL, samples = NULL)
+read_smallrna_counts(rna)
 res_tables(run, res, lfc = 0, write = TRUE, dir = "results/de", print = TRUE)
 tmm_normalize(raw_counts)
 top_tables(res_tbl, n = 50, coding = FALSE)
@@ -53,6 +55,7 @@ write_counts(..., dir = file.path("results", "counts"))
 ## Exported data
 
 .__C__bcbioRnaDataSet: classRepresentation (S4[1])
+.__T__bcbcols:bcbioRnaseq: environment (environment[1])
 .__T__bcbio:bcbioRnaseq: environment (environment[1])
 .__T__bcbio<-:bcbioRnaseq: environment (environment[1])
 .__T__txi:bcbioRnaseq: environment (environment[1])

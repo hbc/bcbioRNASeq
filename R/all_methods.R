@@ -71,8 +71,8 @@ setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
 bcbio.bcbioRnaDataSet <- function(object, type="counts") {
     if (type == "counts")
         return(assays(object)[["counts"]])
-    if (type %in% names(metadata(object)[["alt_names"]]))
-        return(metadata(object)[["alt_names"]][[type]])
+    if (type %in% names(metadata(object)[["alt_counts"]]))
+        return(metadata(object)[["alt_counts"]][[type]])
     message(type, " not found.")
 }
 
@@ -91,13 +91,37 @@ setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 #' @exportMethod "bcbio<-"
 setReplaceMethod(
     "bcbio", signature(object = "bcbioRnaDataSet",
-                      value = "matrix"),
+                      value = "ANY"),
     function(object, type="counts", value) {
         if (type == "counts"){
             assays(object)[["counts"]] <- value
             validObject(object)
         }else{
-            metadata(object)[["alt_names"]][[type]] <- value
+            metadata(object)[["alt_counts"]][[type]] <- value
         }
         object
     })
+
+
+bcbio.samples <- function(object){
+    metadata(object)[["sample_dirs"]]
+}
+#' Accessors samples dir of a [bcbioRnaDataSet] object
+#'
+#' This method will be used to access folders where
+#' sample information is kept
+#'
+#' @rdname bcbcols
+#' @docType methods
+#' @name bcbcols
+#' @aliases bcbcols bcbcols,bcbioRnaDataSet
+#'
+#' @param object [bcbioRnaDataSet] object.
+#'
+#' @return folders where samples are kept
+setGeneric("bcbcols", function(object) standardGeneric("bcbcols"))
+#' @rdname bcbcols
+#' @export
+setMethod("bcbcols",
+          signature(object = "bcbioRnaDataSet"),
+          bcbio.samples)

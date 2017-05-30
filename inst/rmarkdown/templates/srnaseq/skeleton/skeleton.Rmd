@@ -7,6 +7,7 @@ bibliography: bcbioRnaseq.bib
 
 ```{r setup, message=FALSE}
 library(bcbioRnaseq)
+library(isomiRs)
 run <- load_run_S4(
     "bcbio_yaml_file_in_final_folder",
     intgroup = "group",
@@ -62,7 +63,12 @@ plot_mirna_counts(run)
 plot_srna_clusters(run)
 ```
 
+### isomiRs
 
+```{r isomiRs, eval=ismirbase}
+ids <- bcbio(run, "isomirs")
+isoPlot(ids, type = "all", column = "group")
+```
 
 ```{r footer, child="footer.Rmd"}
 ```

@@ -334,8 +334,8 @@ read_bcbio_samples_yaml <- function(run, ...) {
 #' Read bcbio sample information from YAML to get isomiR object.
 #'
 #' @rdname read_smallrna
-#' @keywords internal
 #' @author Lorena Patano
+#' @keywords internal
 #'
 #' @param rna [bcbioRnaDataSet].
 read_smallrna_counts <- function(rna) {
@@ -347,7 +347,8 @@ read_smallrna_counts <- function(rna) {
                            sep = "-"))
     names(fns) <- names(run$sample_dirs)
     message("Reading miRNA count files...")
-    IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
+    bcbio(rna, type="isomirs") <- IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
                            coldata = run$metadata,
                            design = ~run$intgroup)
+    rna
 }
