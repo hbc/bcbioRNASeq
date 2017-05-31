@@ -8,7 +8,7 @@
 \alias{bcbio.bcbioRnaDataSet}
 \alias{bcbio,bcbioRnaDataSet-method}
 \alias{bcbio<-}
-\alias{"<-bcbio"}
+\alias{bcbio<-,bcbioRnaDataSet-method}
 \title{Accessors for the count matrix of a \link{bcbioRnaDataSet} object}
 \usage{
 bcbio(object, ...)

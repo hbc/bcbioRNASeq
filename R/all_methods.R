@@ -56,11 +56,11 @@ setReplaceMethod(
 #' @aliases bcbio bcbio,bcbioRnaDataSet-method bcbio<-,bcbioRnaDataSet,matrix-method
 #'
 #' @param object [bcbioRnaDataSet] object.
-#' @param value An integer matrix.
+#' @param value An integer matrix or other object.
 #' @param type type of count data to retrieve
 #' @param ... Matrix count data.
 #'
-#' @return Matrix containing raw count data.
+#' @return Matrix/Object containing count data.
 
 #' @rdname bcbio
 #' @export
@@ -87,7 +87,6 @@ setMethod("bcbio",
 setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 
 #' @rdname bcbio
-#' @name "<-bcbio"
 #' @exportMethod "bcbio<-"
 setReplaceMethod(
     "bcbio", signature(object = "bcbioRnaDataSet",
