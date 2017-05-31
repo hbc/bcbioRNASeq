@@ -317,15 +317,24 @@ plot_gender_markers <- function(run, normalized_counts) {
 #'
 #' @param run [bcbioRnaDataSet].
 #' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
+#' @param use character vector. List of columns to use in degCovariates
 #' @param ... Passthrough parmeters to [DEGreport::degCovariates()].
 #'
 #' @export
-plot_pca_covariates <- function(run, dt, ...) {
+plot_pca_covariates <- function(run, dt, use=NULL, ...) {
     # [fix] Not working for some consults?
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    keep_metrics <- lapply(colnames(run$metrics), function(a) {
+    if (is.null(use)){
+        use <- colnames(run$metrics)
+    }else{
+        use <- intersect(use, colnames(run$metrics))
+    }
+    if (length(use) == 0)
+        stop("Not columns matched between use and metadata")
+
+    keep_metrics <- lapply(use, function(a) {
         if (length(unique(run$metrics[, a])) > 1) { a }
     }) %>% unlist %>% .[!is.null(.)]
     metrics <- run$metrics %>%

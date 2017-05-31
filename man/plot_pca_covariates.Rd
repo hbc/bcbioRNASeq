@@ -4,12 +4,14 @@
 \alias{plot_pca_covariates}
 \title{Find correlation between PCs and covariates}
 \usage{
-plot_pca_covariates(run, dt, ...)
+plot_pca_covariates(run, dt, use = NULL, ...)
 }
 \arguments{
 \item{run}{\link{bcbioRnaDataSet}.}
 
 \item{dt}{\link{DESeqTransform}. \code{\link[=rlog]{rlog()}}-transformed counts are recommended.}
+
+\item{use}{character vector. List of columns to use in degCovariates}
 
 \item{...}{Passthrough parmeters to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
 }
