@@ -169,7 +169,7 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 
 ## Principal component analysis (PCA)
 
-PCA [@Jolliffe:2002aa] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering. 
+PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering. 
 
 ```{r plot_pca}
 plot_pca(run, rld)
