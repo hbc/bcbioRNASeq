@@ -254,7 +254,6 @@ plot_counts_per_gene <- function(run, normalized_counts,intgroup=NULL) {
     melted <- melt_log10(run, normalized_counts)
 
     if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
         melted$color=melted[[intgroup]]
     }else{
         melted$color="ALL"
