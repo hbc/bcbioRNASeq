@@ -18,18 +18,22 @@
 #'   [DESeqDataSet] using [counts()] with `normalized = FALSE`.
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
+#' @param intgroup Category to use to group samples (color and shape). Default: `NULL`
 #'
 #' @return [ggplot].
 #' @export
-plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
+plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -48,15 +52,18 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10) {
 
 #' @rdname qc_plots
 #' @export
-plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
+plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~mapped_reads / 1e6,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -75,16 +82,19 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10) {
 
 #' @rdname qc_plots
 #' @export
-plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
+plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads),
                total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~mapped_reads / total_reads * 100,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -104,14 +114,17 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70) {
 
 #' @rdname qc_plots
 #' @export
-plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
+plot_genes_detected <- function(run, raw_counts, pass_limit = 20000,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         ggplot(aes_(x = ~description,
                     y = colSums(raw_counts > 0),
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -127,16 +140,19 @@ plot_genes_detected <- function(run, raw_counts, pass_limit = 20000) {
 
 #' @rdname qc_plots
 #' @export
-plot_gene_detection_saturation <- function(run, raw_counts) {
+plot_gene_detection_saturation <- function(run, raw_counts,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~mapped_reads / 1e6,
                     y = ~colSums(raw_counts > 0),
-                    color = as.name(run$intgroup[[1]]),
-                    shape = as.name(run$intgroup[[1]]))) +
+                    color = intgroup,
+                    shape = intgroup)) +
         ggtitle("gene detection saturation") +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -150,15 +166,18 @@ plot_gene_detection_saturation <- function(run, raw_counts) {
 
 #' @rdname qc_plots
 #' @export
-plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
+plot_exonic_mapping_rate <- function(run, pass_limit = 60,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(exonic_rate = as.numeric(.data$exonic_rate)) %>%
         ggplot(aes_(x = ~description,
                     y = ~exonic_rate * 100,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -175,15 +194,18 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60) {
 
 #' @rdname qc_plots
 #' @export
-plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
+plot_intronic_mapping_rate <- function(run, warn_limit = 20,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(intronic_rate = as.numeric(.data$intronic_rate)) %>%
         ggplot(aes_(x = ~description,
                     y = ~intronic_rate * 100,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -200,15 +222,18 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20) {
 
 #' @rdname qc_plots
 #' @export
-plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
+plot_rrna_mapping_rate <- function(run, warn_limit = 10,intgroup=NULL) {
     if (is.null(run$metrics)) {
         return(NULL)
+    }
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
     }
     run$metrics %>%
         mutate(r_rna_rate = as.numeric(.data$r_rna_rate) * 100) %>%
         ggplot(aes_(x = ~description,
                     y = ~r_rna_rate,
-                    fill = as.name(run$intgroup[[1]]))) +
+                    fill = intgroup)) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -224,13 +249,20 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10) {
 
 #' @rdname qc_plots
 #' @export
-plot_counts_per_gene <- function(run, normalized_counts) {
-    color <- run$intgroup[1]
+plot_counts_per_gene <- function(run, normalized_counts,intgroup=NULL) {
     name <- deparse(substitute(normalized_counts))
     melted <- melt_log10(run, normalized_counts)
+
+    if(!is.null(intgroup)){
+        intgroup=as.name(intgroup)
+        melted$color=melted[[intgroup]]
+    }else{
+        melted$color="ALL"
+    }
+
     data.frame(x = melted$description,
                y = melted$counts,
-               color = melted[[color]]) %>%
+               color = melted$color) %>%
         ggplot(aes_(x = ~x,
                     y = ~y,
                     color = ~color)) +
@@ -240,10 +272,9 @@ plot_counts_per_gene <- function(run, normalized_counts) {
         # expression(log[10]~counts~per~gene)
         labs(x = "sample",
              y = "log10 counts per gene",
-             color = color) +
+             color = intgroup) +
         coord_flip()
 }
-
 
 
 #' @rdname qc_plots
