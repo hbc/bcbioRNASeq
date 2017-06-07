@@ -17,7 +17,7 @@ txi <- run$txi
 colData <- run$metadata
 
 # Design formula
-design <- formula(~ genotype)
+design <- formula(~ 1)
 ```
 
 ```{r header, child="header.Rmd"}
