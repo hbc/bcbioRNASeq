@@ -76,6 +76,7 @@ plot_gene <- function(
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
+#' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R).
 #' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
 plot_pca <- function(
     run,
