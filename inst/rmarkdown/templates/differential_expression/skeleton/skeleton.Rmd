@@ -9,6 +9,7 @@ bibliography: bcbioRnaseq.bib
 bcbioRnaseq::downloads()
 source("setup.R")
 library(DESeq2)
+data(dds)
 
 # Contrast
 # 1. Design matrix parameter.
