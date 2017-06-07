@@ -8,13 +8,12 @@ bibliography: bcbioRnaseq.bib
 ```{r setup, message=FALSE}
 library(DESeq2)
 library(bcbioRnaseq)
+# [fix] New method:
+# setup(upload_dir = "final")
 
 downloads()
 # This will error out upon inital run...improve
 source("setup.R")
-
-# [fix] New method:
-# setup(upload_dir = "final")
 
 # Get [tximport()]-generated counts from run
 txi <- run$txi
