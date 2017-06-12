@@ -5,7 +5,7 @@
 - Experiment: 
 
 ```{r metadata_table}
-metadata_table(run)
+metadata_table(bcb)
 ```
 
 

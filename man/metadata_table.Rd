@@ -4,10 +4,10 @@
 \alias{metadata_table}
 \title{Metadata table}
 \usage{
-metadata_table(run)
+metadata_table(bcb)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 }
 \value{
 Data frame containing only the columns of interest.

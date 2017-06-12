@@ -33,12 +33,13 @@ alpha_summary <- function(
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #'
 #' @return Data frame containing only the columns of interest.
 #' @export
-metadata_table <- function(run) {
-    run$metadata %>%
+metadata_table <- function(bcb) {
+    colData(bcb) %>%
+        as.data.frame %>%
         remove_rownames %>%
         kable(caption = "Sample metadata")
 }
