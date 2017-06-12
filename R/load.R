@@ -179,7 +179,9 @@ load_run <- function(
     }
 
     check_run(run)
-    create_project_dirs()
-    downloads()
+    # [! QUESTION] This doens't allow to have other place as output
+    # create_project_dirs()
+    # [! QUESTION] don't think we need this here
+    # downloads()
     run
 }

@@ -4,11 +4,11 @@
 \alias{plot_pca}
 \title{Plot principal component analysis (PCA)}
 \usage{
-plot_pca(run, dt, genes = NULL, intgroup = NULL, shape = FALSE,
+plot_pca(bcb, dt, genes = NULL, intgroup = NULL, shape = FALSE,
   label = TRUE)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 
 \item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
 \code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}

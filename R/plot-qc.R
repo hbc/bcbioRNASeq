@@ -10,7 +10,7 @@
 #' @author Rory Kirchner
 #' @author Victor Barrera
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
 #'   [DESeqDataSet] using [counts()] with `normalized = TRUE`.
 #'   Transcripts per million (TPM) are also acceptable.
@@ -22,7 +22,8 @@
 #'
 #' @return [ggplot].
 #' @export
-plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+plot_total_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -52,7 +53,8 @@ plot_total_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NULL
 
 #' @rdname qc_plots
 #' @export
-plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+plot_mapped_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -82,7 +84,8 @@ plot_mapped_reads <- function(run, pass_limit = 20, warn_limit = 10,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70,intgroup=NULL) {
+plot_mapping_rate <- function(bcb, pass_limit = 90, warn_limit = 70,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -114,7 +117,8 @@ plot_mapping_rate <- function(run, pass_limit = 90, warn_limit = 70,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_genes_detected <- function(run, raw_counts, pass_limit = 20000,intgroup=NULL) {
+plot_genes_detected <- function(bcb, raw_counts, pass_limit = 20000,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -140,7 +144,8 @@ plot_genes_detected <- function(run, raw_counts, pass_limit = 20000,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_gene_detection_saturation <- function(run, raw_counts,intgroup=NULL) {
+plot_gene_detection_saturation <- function(bcb, raw_counts,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -166,7 +171,8 @@ plot_gene_detection_saturation <- function(run, raw_counts,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_exonic_mapping_rate <- function(run, pass_limit = 60,intgroup=NULL) {
+plot_exonic_mapping_rate <- function(bcb, pass_limit = 60,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -194,7 +200,8 @@ plot_exonic_mapping_rate <- function(run, pass_limit = 60,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_intronic_mapping_rate <- function(run, warn_limit = 20,intgroup=NULL) {
+plot_intronic_mapping_rate <- function(bcb, warn_limit = 20,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -222,7 +229,8 @@ plot_intronic_mapping_rate <- function(run, warn_limit = 20,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_rrna_mapping_rate <- function(run, warn_limit = 10,intgroup=NULL) {
+plot_rrna_mapping_rate <- function(bcb, warn_limit = 10,intgroup=NULL) {
+    run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
@@ -249,7 +257,8 @@ plot_rrna_mapping_rate <- function(run, warn_limit = 10,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_counts_per_gene <- function(run, normalized_counts,intgroup=NULL) {
+plot_counts_per_gene <- function(bcb, normalized_counts,intgroup=NULL) {
+    run <- metadata(bcb)
     name <- deparse(substitute(normalized_counts))
     melted <- melt_log10(run, normalized_counts)
 
@@ -279,8 +288,9 @@ plot_counts_per_gene <- function(run, normalized_counts,intgroup=NULL) {
 #' @rdname qc_plots
 #' @export
 plot_count_density <- function(
-    run,
+    bcb,
     normalized_counts) {
+    run <- metadata(bcb)
     name <- deparse(substitute(normalized_counts))
     melt_log10(run, normalized_counts) %>%
         ggplot(aes_(x = ~counts,
@@ -295,7 +305,8 @@ plot_count_density <- function(
 
 #' @rdname qc_plots
 #' @export
-plot_gender_markers <- function(run, normalized_counts) {
+plot_gender_markers <- function(bcb, normalized_counts) {
+    run <- metadata(bcb)
     name <- deparse(substitute(normalized_counts))
     organism <- run$organism
 
@@ -345,13 +356,14 @@ plot_gender_markers <- function(run, normalized_counts) {
 #'
 #' @author Lorena Pantano
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
 #' @param use character vector. List of columns to use in degCovariates
 #' @param ... Passthrough parmeters to [DEGreport::degCovariates()].
 #'
 #' @export
-plot_pca_covariates <- function(run, dt, use=NULL, ...) {
+plot_pca_covariates <- function(bcb, dt, use=NULL, ...) {
+    run <- metadata(bcb)
     # [fix] Not working for some consults?
     if (is.null(run$metrics)) {
         return(NULL)

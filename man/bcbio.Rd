@@ -28,10 +28,10 @@ bcbio(object, ...) <- value
 
 \item{type}{type of count data to retrieve}
 
-\item{value}{An integer matrix.}
+\item{value}{An integer matrix or other object.}
 }
 \value{
-Matrix containing raw count data.
+Matrix/Object containing count data.
 }
 \description{
 This method will be used to access all different count matrix from

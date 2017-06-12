@@ -8,18 +8,16 @@ bibliography: bcbioRnaseq.bib
 ```{r setup, message=FALSE}
 library(DESeq2)
 library(bcbioRnaseq)
-# [fix] New method:
-# setup(upload_dir = "final")
 
 downloads()
 # This will error out upon inital run...improve
 source("setup.R")
 
 # Get [tximport()]-generated counts from run
-txi <- run$txi
+txi <- bcbio(bcb, "tximport")
 
 # colData metadata
-colData <- run$metadata
+colData <- colData(bcb)
 
 # Design formula
 design <- formula(~ 1)
@@ -30,13 +28,13 @@ design <- formula(~ 1)
 
 
 
-```{r dds, results="hide"}
+```{r dds, results="hide", eval=sum(ls() == "ddsde")==0}
 dds <- DESeqDataSetFromTximport(
     txi = txi,
     colData = colData,
     design = design) %>%
     DESeq
-save_data(dds)
+save_data(dds, dir=data_out)
 resultsNames(dds)
 sizeFactors(dds)
 ```
@@ -45,8 +43,8 @@ sizeFactors(dds)
 raw_counts <- counts(dds, normalized = FALSE)
 normalized_counts <- counts(dds, normalized = TRUE)
 tpm <- tpm(txi)
-save_data(raw_counts, normalized_counts, tpm)
-write_counts(raw_counts, normalized_counts, tpm)
+save_data(raw_counts, normalized_counts, tpm, dir=data_out)
+write_counts(raw_counts, normalized_counts, tpm, dir=count_out)
 ```
 
 ```{r dt}
@@ -83,7 +81,7 @@ plotDispEsts(dds)
 ## Total reads
 
 ```{r plot_total_reads}
-plot_total_reads(run)
+plot_total_reads(bcb)
 ```
 
 
@@ -92,7 +90,7 @@ plot_total_reads(run)
 The number of mapped reads should correspond to the number of total reads.
 
 ```{r plot_mapped_reads}
-plot_mapped_reads(run)
+plot_mapped_reads(bcb)
 ```
 
 
@@ -101,14 +99,14 @@ plot_mapped_reads(run)
 The genomic mapping rate represents the percentage of reads mapping to the reference genome. Low mapping rates are indicative of sample contamination, poor sequencing quality or other artifacts.
 
 ```{r plot_mapping_rate}
-plot_mapping_rate(run)
+plot_mapping_rate(bcb)
 ```
 
 
 ## Number of genes detected
 
 ```{r plot_genes_detected}
-plot_genes_detected(run, raw_counts)
+plot_genes_detected(bcb, raw_counts)
 ```
 
 
@@ -117,7 +115,7 @@ plot_genes_detected(run, raw_counts)
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
 ```{r plot_gene_detection_saturation}
-plot_gene_detection_saturation(run, raw_counts)
+plot_gene_detection_saturation(bcb, raw_counts)
 ```
 
 
@@ -126,7 +124,7 @@ plot_gene_detection_saturation(run, raw_counts)
 Ideally, at least 60% of total reads should map to exons.
 
 ```{r plot_exonic_mapping_rate}
-plot_exonic_mapping_rate(run)
+plot_exonic_mapping_rate(bcb)
 ```
 
 
@@ -135,7 +133,7 @@ plot_exonic_mapping_rate(run)
 The majority of reads should map to exons and not introns.
 
 ```{r plot_intronic_mapping_rate}
-plot_intronic_mapping_rate(run)
+plot_intronic_mapping_rate(bcb)
 ```
 
 
@@ -144,7 +142,7 @@ plot_intronic_mapping_rate(run)
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
 ```{r plot_rrna_mapping_rate}
-plot_rrna_mapping_rate(run)
+plot_rrna_mapping_rate(bcb)
 ```
 
 
@@ -153,7 +151,7 @@ plot_rrna_mapping_rate(run)
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-plot_counts_per_gene(run, tmm)
+plot_counts_per_gene(bcb, tmm)
 ```
 
 
@@ -162,7 +160,7 @@ plot_counts_per_gene(run, tmm)
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
 ```{r plot_count_density}
-plot_count_density(run, tmm)
+plot_count_density(bcb, tmm)
 ```
 
 
@@ -177,14 +175,14 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering. 
 
 ```{r plot_pca}
-plot_pca(run, rld)
+plot_pca(bcb, rld)
 ```
 
 
 ## Covariates correlation with PCs
 
 ```{r plot_pca_covariates}
-plot_pca_covariates(run, rld)
+plot_pca_covariates(bcb, rld)
 ```
 
 
@@ -193,7 +191,7 @@ plot_pca_covariates(run, rld)
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-plot_correlation_heatmap(run, rld)
+plot_correlation_heatmap(bcb, rld)
 ```
 
 

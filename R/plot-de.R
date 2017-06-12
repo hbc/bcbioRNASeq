@@ -29,7 +29,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @rdname de_plots
 #' @description Volcano plot.
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
 #'
@@ -44,7 +44,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @return Volcano plot.
 #' @export
 plot_volcano <- function(
-    run,
+    bcb,
     res,
     lfc = 1,
     text_labels = 30,
@@ -55,6 +55,7 @@ plot_volcano <- function(
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray") {
+    run <- metadata(bcb)
     check_run(run)
     check_res(res)
 
