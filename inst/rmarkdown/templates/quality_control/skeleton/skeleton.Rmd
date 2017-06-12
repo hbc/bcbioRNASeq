@@ -10,8 +10,8 @@ library(DESeq2)
 library(bcbioRnaseq)
 
 downloads()
-# This will error out upon inital run...improve
-source("setup.R")
+
+source("setup.R")  # modify parameters before exec this line
 
 # Get [tximport()]-generated counts from run
 txi <- bcbio(bcb, "tximport")

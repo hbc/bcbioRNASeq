@@ -11,7 +11,7 @@ library(bcbioRnaseq)
 
 downloads()
 
-source("setup.R")
+source("setup.R") # modify parameters before exec this line
 # Contrast
 # 1. Design matrix parameter.
 # 2. Numerator for LFC (expt).
