@@ -5,3 +5,6 @@ r:
   - bioc-release
   - bioc-devel
 warnings_are_errors: false
+after_success:
+  - cd ..
+  - git clone --depth=50 --branch=master https://github.com/bcbio/bcbio_rnaseq_output_example.git

@@ -17,10 +17,10 @@
 #' @importFrom DEGreport degQC degCovariates
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
-#' @importFrom methods as is new validObject
+#' @importFrom methods as is new validObject slot slot<-
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats density
-#' @importFrom utils read.table
+#' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
