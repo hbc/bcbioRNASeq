@@ -14,3 +14,4 @@ after_success:
   - cp ../bcbio_rnaseq_output_example/setup.R .
   - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd .
   - Rscript -e 'rmarkdown::render("skeleton.Rmd")'
+  - ls
