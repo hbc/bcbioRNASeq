@@ -4,10 +4,10 @@
 \alias{plot_pca_covariates}
 \title{Find correlation between PCs and covariates}
 \usage{
-plot_pca_covariates(run, dt, use = NULL, ...)
+plot_pca_covariates(bcb, dt, use = NULL, ...)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 
 \item{dt}{\link{DESeqTransform}. \code{\link[=rlog]{rlog()}}-transformed counts are recommended.}
 

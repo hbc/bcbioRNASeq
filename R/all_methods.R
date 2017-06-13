@@ -1,52 +1,5 @@
 #' Accessors for the count matrix of a [bcbioRnaDataSet] object
 #'
-#' @rdname txi
-#' @keywords internal
-#' @docType methods
-#' @name txi
-#' @aliases txi txi,bcbioRnaDataSet-method txi<-,bcbioRnaDataSet,matrix-method
-#'
-#' @param object [bcbioRnaDataSet] object.
-#' @param value An integer matrix.
-#' @param ... Matrix count data.
-#'
-#' @return [base::matrix] with raw count data.
-
-#' @rdname txi
-#' @export
-setGeneric("txi", function(object, ...) standardGeneric("txi"))
-
-#' @rdname txi
-#' @export
-setGeneric("txi<-", function(object, ..., value) standardGeneric("txi<-"))
-
-#' @rdname txi
-#' @export
-txi.bcbioRnaDataSet <- function(object) {
-    assays(object)[["counts"]]
-}
-
-#' @rdname txi
-#' @export
-setMethod("txi",
-          signature(object = "bcbioRnaDataSet"),
-          txi.bcbioRnaDataSet)
-
-#' @rdname txi
-#' @name "<-txi"
-#' @exportMethod "txi<-"
-setReplaceMethod(
-    "txi", signature(object = "bcbioRnaDataSet",
-                     value = "matrix"),
-    function(object, value) {
-        assays(object)[["counts"]] <- value
-        validObject(object)
-        object
-    })
-
-
-#' Accessors for the count matrix of a [bcbioRnaDataSet] object
-#'
 #' This method will be used to access all different count matrix from
 #' the object. Gene expression, transcript expression, miRNA expression...
 #'
@@ -71,8 +24,8 @@ setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
 bcbio.bcbioRnaDataSet <- function(object, type="counts") {
     if (type == "counts")
         return(assays(object)[["counts"]])
-    if (type %in% names(metadata(object)[["alt_counts"]]))
-        return(metadata(object)[["alt_counts"]][[type]])
+    if (type %in% names(slot(object, "callers")))
+        return(slot(object, "callers")[[type]])
     message(type, " not found.")
 }
 
@@ -96,7 +49,7 @@ setReplaceMethod(
             assays(object)[["counts"]] <- value
             validObject(object)
         }else{
-            metadata(object)[["alt_counts"]][[type]] <- value
+            slot(object, "callers")[[type]] <- value
         }
         object
     })

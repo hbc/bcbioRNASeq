@@ -7,7 +7,7 @@
 \usage{
 plot_ma(res, ylim = 2)
 
-plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
+plot_volcano(bcb, res, lfc = 1, text_labels = 30, direction = "both",
   title = NULL, shade_color = "green", shade_alpha = 0.25,
   point_color = "gray", point_alpha = 0.75,
   point_outline_color = "darkgray")
@@ -17,7 +17,7 @@ plot_volcano(run, res, lfc = 1, text_labels = 30, direction = "both",
 
 \item{ylim}{Y-axis maximum (single integer).}
 
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 

@@ -4,10 +4,10 @@
 \alias{plot_gene}
 \title{Plot an individual gene}
 \usage{
-plot_gene(run, normalized_counts, gene, format = "external_gene_name")
+plot_gene(bcb, normalized_counts, gene, format = "external_gene_name")
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 
 \item{normalized_counts}{Normalized counts matrix. Can be obtained from
 \link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE)}. Transcripts per

@@ -3,7 +3,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param normalized_counts Normalized counts matrix. Can be obtained from
 #'   [DESeqDataSet] using [counts()] with `normalized = TRUE)`. Transcripts per
 #'   million (TPM) are also acceptable.
@@ -12,10 +12,11 @@
 #'
 #' @export
 plot_gene <- function(
-    run,
+    bcb,
     normalized_counts,
     gene,
     format = "external_gene_name") {
+    run <- metadata(bcb)
     check_run(run)
 
     color <- run$intgroup[1]
@@ -63,7 +64,7 @@ plot_gene <- function(
 #' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
 #' labeling.
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
 #'   [vst()] on a [DESeqDataSet].
 #' @param genes Character vector of gene identifiers to use.
@@ -79,12 +80,13 @@ plot_gene <- function(
 #' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R).
 #' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
 plot_pca <- function(
-    run,
+    bcb,
     dt,
     genes = NULL,
     intgroup = NULL,
     shape = FALSE,
     label = TRUE) {
+    run <- metadata(bcb)
     check_run(run)
     check_dt(dt)
     name <- deparse(substitute(dt))

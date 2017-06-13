@@ -33,12 +33,13 @@ alpha_summary <- function(
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #'
 #' @return Data frame containing only the columns of interest.
 #' @export
-metadata_table <- function(run) {
-    run$metadata %>%
+metadata_table <- function(bcb) {
+    colData(bcb) %>%
+        as.data.frame %>%
         remove_rownames %>%
         kable(caption = "Sample metadata")
 }
@@ -49,7 +50,7 @@ metadata_table <- function(run) {
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -68,12 +69,13 @@ metadata_table <- function(run) {
 #' res_tables(run, res, lfc = 0.25)
 #' }
 res_tables <- function(
-    run,
+    bcb,
     res,
     lfc = 0,
     write = TRUE,
     dir = "results/de",
     print = TRUE) {
+    run <- metadata(bcb)
     check_run(run)
     check_res(res)
 

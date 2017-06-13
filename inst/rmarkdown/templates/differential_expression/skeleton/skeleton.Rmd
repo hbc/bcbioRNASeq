@@ -6,16 +6,21 @@ bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
-bcbioRnaseq::downloads()
-source("setup.R")
 library(DESeq2)
+library(bcbioRnaseq)
 
+downloads()
+
+source("setup.R") # modify parameters before exec this line
 # Contrast
 # 1. Design matrix parameter.
 # 2. Numerator for LFC (expt).
 # 3. Denominator for LFC (control).
 # @seealso [DESeq2::results()]
 contrast <- c("genotype", "mutant", "wildtype")
+
+# Design formula
+design <- formula(~ genotype) # change to desire column
 
 # Significance cutoffs
 alpha <- 0.05
@@ -26,13 +31,23 @@ lfc <- 1
 ```
 
 
+```{r dds-de, results="hide", eval=sum(ls() == "ddsde")==0}
+ddsde <- DESeqDataSetFromTximport(
+    txi = txi,
+    colData = colData,
+    design = design) %>%
+    DESeq
+save_data(ddsde, dir=data_out)
+resultsNames(ddsde)
+sizeFactors(ddsde)
+```
 
 # Alpha level (FDR) cutoffs
 
 Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
 ```{r alpha_summary}
-alpha_summary(dds, contrast = contrast)
+alpha_summary(ddsde, contrast = contrast)
 ```
 
 
@@ -41,20 +56,20 @@ alpha_summary(dds, contrast = contrast)
 
 ```{r res}
 res_unshrunken <- results(
-    dds,
+    ddsde,
     contrast = contrast,
     alpha = alpha)
 
 # DESeqResults with shrunken log2 fold changes (LFC).
 # Still being prototyped, see `?lfcShrink` (DESeq 1.16).
 res_shrunken <- lfcShrink(
-    dds = dds,
+    dds = ddsde,
     contrast = contrast,
     res = res_unshrunken)
 
 # Compare these two results and pick which one to report
 res <- res_shrunken
-save_data(res, res_unshrunken, res_shrunken)
+save_data(res, res_unshrunken, res_shrunken, dir=data_out)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
@@ -77,7 +92,7 @@ plot_ma(res, ylim = 3)
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
-plot_volcano(run, res = res, lfc = lfc)
+plot_volcano(bcb, res = res, lfc = lfc)
 ```
 
 
@@ -86,7 +101,7 @@ plot_volcano(run, res = res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
-plot_deg_heatmap(run, res = res, dt = rld, lfc = lfc)
+plot_deg_heatmap(bcb, res = res, dt = rld, lfc = lfc)
 ```
 
 
@@ -125,8 +140,8 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
 ```{r res_tbl, results="asis"}
-res_tbl <- res_tables(run, res = res, lfc = lfc)
-save_data(res_tbl)
+res_tbl <- res_tables(bcb, res = res, lfc = lfc, dir=res_out)
+save_data(res_tbl, dir=data_out)
 ```
 
 

@@ -4,11 +4,11 @@
 \alias{res_tables}
 \title{Differential expression results tables}
 \usage{
-res_tables(run, res, lfc = 0, write = TRUE, dir = "results/de",
+res_tables(bcb, res, lfc = 0, write = TRUE, dir = "results/de",
   print = TRUE)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 
 \item{res}{\link{DESeqResults}.}
 

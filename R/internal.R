@@ -88,7 +88,7 @@ check_run <- function(run) {
         stop("Run does not contain metadata, please resave")
     }
     if (run$analysis == "rnaseq" & is.null(run$ensembl)) {
-        stop("Run does not contain Ensembl annotations")
+        message("Run does not contain Ensembl annotations")
     }
 
     # Metadata format and description name checks

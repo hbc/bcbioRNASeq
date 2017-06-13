@@ -20,13 +20,26 @@ opts_chunk$set(
     tidy = TRUE,
     warning = FALSE)
 
+# parameters =====
+upload_dir <- "" # bcbio_path_final_folder
+genotype <- "" # variable in metadata you want to use, example group
+out_path <- "." # where to save all output
 # bcbioRnaseq ====
-library(bcbioRnaseq)
-if (file.exists("data/run.rda")) {
-    data(run)
+data_out <- file.path(out_path, "data")
+count_out <- file.path(out_path, "results", "counts")
+res_out <- file.path(out_path, "results", "de")
+
+if (file.exists(file.path(data_out, "bcb.rda"))) {
+    load(file.path(data_out, "bcb.rda"))
 } else {
-    run <- load_run(
-        file.path("upload_dir"),
-        intgroup = c("genotype"))
-    save_data(run)
+    bcb <- load_run_S4(
+        file.path(upload_dir),
+        intgroup = c(genotype))
+    save_data(bcb, dir=data_out)
 }
+
+if (file.exists(file.path(data_out, "dds.rda")))
+    load(file.path(data_out, "dds.rda"))
+
+if (file.exists(file.path(data_out, "ddsde.rda")))
+    load(file.path(data_out, "ddsde.rda"))

@@ -13,7 +13,8 @@
 #' @aliases bcbioRnaDataSet-class
 #' @export
 bcbioRnaDataSet <- setClass(
-    "bcbioRnaDataSet", contains = "SummarizedExperiment")
+    "bcbioRnaDataSet", contains = "SummarizedExperiment",
+    representation = representation(callers="SimpleList"))
 setValidity("bcbioRnaDataSet", function(object) { TRUE })
 
 
@@ -33,7 +34,10 @@ setValidity("bcbioRnaDataSet", function(object) { TRUE })
         }
     }
     bcb <- new("bcbioRnaDataSet", se)
-    metadata(bcb) <- run
+    bcbio(bcb, "tximport") <- run$txi
+    metadata(bcb)[["txi"]] <- NULL
+    # [! Fix] copy real data to new pointer so we can remove it from here
+    # run$txi <- NULL
     if (run$analysis == "srnaseq"){
         bcb <- read_smallrna_counts(bcb)
     }
@@ -57,12 +61,11 @@ load_run_S4 <- function(
     run <- load_run(
         upload_dir,
         analysis,
-        intgroup,
-        metadata_file,
-        organism)
+        intgroup = intgroup,
+        metadata_file = metadata_file,
+        organism = organism)
     se <- SummarizedExperiment(
-        assays = SimpleList(counts = run$txi),
-        colData = DataFrame(run$metadata), ...)
-    run$txi = NULL
+        assays = SimpleList(counts = run$txi$counts),
+        colData = DataFrame(run$metadata), metadata=run, ...)
     .bcbioRnaDataSet(se, run)
 }
