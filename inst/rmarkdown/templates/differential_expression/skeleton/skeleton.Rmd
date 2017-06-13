@@ -32,6 +32,9 @@ lfc <- 1
 
 
 ```{r dds-de, results="hide", eval=sum(ls() == "ddsde")==0}
+txi <- bcbio(bcb, "tximport")
+colData <- colData(bcb)
+
 ddsde <- DESeqDataSetFromTximport(
     txi = txi,
     colData = colData,

@@ -52,4 +52,6 @@ Volcano plot.
 }
 \author{
 Michael Steinbaugh
+
+Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's work)
 }

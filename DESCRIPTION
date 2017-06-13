@@ -20,13 +20,14 @@ Authors@R: c(
            role = c("cph", "fnd"))
     )
 Description: Quality control and differential expression for bcbio-nextgen
-    RNA-seq experiments.
+    RNA-seq  and small RNA-seq experiments.
 biocViews:
     DifferentialExpression,
     GeneExpression,
     QualityControl,
     ReportWriting,
     RNASeq,
+    miRNA,
     Visualization
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRnaseq/,

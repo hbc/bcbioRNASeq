@@ -41,6 +41,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
 #'
+#' @author Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's work)
 #' @return Volcano plot.
 #' @export
 plot_volcano <- function(
