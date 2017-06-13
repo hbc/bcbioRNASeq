@@ -6,8 +6,9 @@ bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
-bcbioRnaseq::downloads()
-source("setup.R")
+library(bcbioRnaseq)
+downloads()
+source("setup.R")  # modify parameters before exec this line
 ```
 
 ```{r header, child="header.Rmd"}
