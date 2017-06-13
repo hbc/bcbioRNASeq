@@ -78,16 +78,19 @@ plot_volcano <- function(
         as.data.frame %>%
         rownames_to_column("ensembl_gene_id") %>%
         snake %>%
-        tidy_select(!!!syms(c("ensembl_gene_id", "log2_fold_change", "padj"))) %>%
+        tidy_select(c("ensembl_gene_id", "log2_fold_change", "padj")) %>%
         # Filter zero counts for quicker plotting
         filter(!is.na(.data$log2_fold_change)) %>%
         # Arrange by P value
         arrange(!!sym("padj")) %>%
+        # [fix] Do we want to keep `1e-10` here? Standard volcano plot
+        # is simply -log10 using the unadjusted P values.
+        # http://www.gettinggeneticsdone.com/2014/05/r-volcano-plots-to-visualize-rnaseq-microarray.html
         mutate(neg_log_padj = -log10(.data$padj + 1e-10))
 
     # Automatically label the top genes
     annotations <- gene_level_annotations(run) %>%
-        tidy_select(!!!syms(c("ensembl_gene_id", "external_gene_name")))
+        tidy_select(c("ensembl_gene_id", "external_gene_name"))
     volcano_text <- stats %>%
         .[1:text_labels, ] %>%
         left_join(annotations, by = "ensembl_gene_id")
@@ -212,4 +215,8 @@ plot_volcano <- function(
                 alpha = shade_alpha)
     }
     show(volcano)
+
+    # [fix] Rework code here using a grid layout
+    # [fix] Add in plotly support?
+    # https://plot.ly/ggplot2/user-guide/
 }

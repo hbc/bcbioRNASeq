@@ -246,7 +246,7 @@ gene_level_annotations <- function(run) {
 tx2gene <- function(run) {
     run$ensembl %>%
         unnest_("ensembl_transcript_id") %>%
-        tidy_select(!!!syms(c("ensembl_transcript_id", "ensembl_gene_id"))) %>%
+        tidy_select(c("ensembl_transcript_id", "ensembl_gene_id")) %>%
         ungroup %>%
         arrange(!!sym("ensembl_transcript_id")) %>%
         as.data.frame %>%

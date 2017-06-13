@@ -155,7 +155,7 @@ plot_gene_heatmap <- function(
         sorted_cols <- colData(dt) %>%
             as.data.frame %>%
             arrange(!!!syms(c(intgroup, "description"))) %>%
-            tidy_select(!!sym("description")) %>% .[[1]]
+            pull("description")
         counts <- counts[, sorted_cols]
     }
 
@@ -171,7 +171,7 @@ plot_gene_heatmap <- function(
     }
 
     pheatmap(counts,
-             annotation = annotation[colnames(counts),,drop=FALSE],
+             annotation = annotation[colnames(counts), drop = FALSE],
              cluster_cols = cluster_cols,
              cluster_rows = cluster_rows,
              clustering_method = clustering_method,
@@ -212,7 +212,7 @@ plot_deg_heatmap <- function(bcb, dt, res, ...) {
         rownames_to_column("ensembl_gene_id") %>%
         filter(.data$padj < alpha,
                .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc) %>%
-        tidy_select(!!sym("ensembl_gene_id")) %>% .[[1]]
+        pull("ensembl_gene_id")
 
     plot_gene_heatmap(bcb, dt, genes = genes, ...)
 }

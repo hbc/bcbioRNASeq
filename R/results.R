@@ -206,13 +206,13 @@ top_tables <- function(
                 padj = format(.data$padj,
                               digits = 3,
                               scientific = TRUE)) %>%
-            tidy_select(!!!syms(c(
+            tidy_select(c(
                 "ensembl_gene_id",
                 "base_mean",
                 "log2_fold_change",
                 "padj",
                 "external_gene_name",
-                "broad_class"))) %>%
+                "broad_class")) %>%
             remove_rownames
     }
 

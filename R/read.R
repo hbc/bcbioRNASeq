@@ -318,7 +318,7 @@ read_bcbio_samples_yaml <- function(run, ...) {
     rbindlist(list) %>%
         as.data.frame %>%
         remove_na %>%
-        tidy_select(!!sym("description"), everything()) %>%
+        tidy_select("description", everything()) %>%
         arrange(!!sym("description")) %>%
         set_rownames(.$description)
 }
