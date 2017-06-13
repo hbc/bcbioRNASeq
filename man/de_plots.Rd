@@ -7,9 +7,9 @@
 \usage{
 plot_ma(res, ylim = 2)
 
-plot_volcano(bcb, res, lfc = 1, text_labels = 30, direction = "both",
-  title = NULL, shade_color = "green", shade_alpha = 0.25,
-  point_color = "gray", point_alpha = 0.75,
+plot_volcano(bcb, res, lfc = 1, text_labels = 30, merge = TRUE,
+  direction = "both", title = NULL, shade_color = "orange",
+  shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
   point_outline_color = "darkgray")
 }
 \arguments{
@@ -22,6 +22,8 @@ plot_volcano(bcb, res, lfc = 1, text_labels = 30, direction = "both",
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
 \item{text_labels}{Number of text labels to plot.}
+
+\item{merge}{merge all plots into one.}
 
 \item{direction}{Plot \code{up}, \code{down}, or \code{both} directions.}
 

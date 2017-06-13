@@ -32,7 +32,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @param bcb [bcbioRnaDataSet].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
-#'
+#' @param merge merge all plots into one.
 #' @param direction Plot `up`, `down`, or `both` directions.
 #' @param title Title for the figure.
 #' @param shade_color Shading color for bounding box.
@@ -48,9 +48,10 @@ plot_volcano <- function(
     res,
     lfc = 1,
     text_labels = 30,
+    merge = TRUE,
     direction = "both",
     title = NULL,
-    shade_color = "green",
+    shade_color = "orange",
     shade_alpha = 0.25,
     point_color = "gray",
     point_alpha = 0.75,
@@ -64,7 +65,7 @@ plot_volcano <- function(
         stop("direction must be both, up, or down")
     }
 
-    alpha <- res@metadata$alpha
+    alpha <- metadata(res)$alpha
     contrast_name <- res_contrast_name(res)
 
     # Generate automatic title, if necessary
@@ -131,7 +132,7 @@ plot_volcano <- function(
                 fill = shade_color,
                 alpha = shade_alpha)
     }
-    show(lfc_hist)
+    # show(lfc_hist)
 
 
     # Density plot of adjusted P values ====
@@ -149,9 +150,9 @@ plot_volcano <- function(
                     fill = shade_color,
                     alpha = shade_alpha) +
         coord_flip() +
-        labs(title = "p value density plot",
+        labs(title = "p-value density plot",
              y = "density")
-    show(padj_hist)
+    # show(padj_hist)
 
 
     # Volcano plot ====
@@ -211,5 +212,22 @@ plot_volcano <- function(
                 fill = shade_color,
                 alpha = shade_alpha)
     }
-    show(volcano)
+    if (merge){
+        p<- ggdraw() +
+            draw_plot(lfc_hist + theme(axis.title.x=element_blank(),
+                                       axis.text.x=element_blank(),
+                                       axis.ticks.x=element_blank()),
+                      x=0, y=0.7, width=1, height=0.3) +
+            draw_plot(padj_hist + theme(axis.title.y=element_blank(),
+                                     axis.text.y=element_blank(),
+                                     axis.ticks.y=element_blank()),
+                      x=0.7, y=0, width=0.3, height=0.7) +
+            draw_plot(volcano, x=0, y=0, width=0.7, height=0.7)
+        return(p)
+    }else{
+        show(lfc_hist)
+        show(padj_hist)
+        show(volcano)
+    }
+
 }
