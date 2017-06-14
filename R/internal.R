@@ -29,6 +29,111 @@ detect_organism <- function(genome_build) {
 
 
 
+load_run_as_list <- function(
+    upload_dir,
+    analysis,
+    intgroup,
+    organism = NULL) {
+    # Check connection to upload_dir
+    if (!dir.exists(upload_dir)) {
+        stop("Final upload directory failed to load")
+    }
+    upload_dir <- normalizePath(upload_dir)
+
+    # Check analysis type
+    if (!analysis %in% c("rnaseq", "srnaseq")) {
+        stop("Unsupported analysis type")
+    }
+
+    # Find most recent nested project_dir (normally only 1)
+    pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+    project_dir <- dir(upload_dir,
+                       pattern = pattern,
+                       full.names = FALSE,
+                       recursive = FALSE) %>%
+        sort %>% rev %>% .[[1]]
+    if (!length(project_dir)) {
+        stop("Project directory not found")
+    }
+    message(project_dir)
+    match <- str_match(project_dir, pattern)
+    # run_date <- match[2]
+    template <- match[3]
+    project_dir <- file.path(upload_dir, project_dir)
+
+    # Program versions
+    message("Reading program versions...")
+    programs <- file.path(project_dir, "programs.txt") %>%
+        read_delim(",", col_names = c("program", "version"))
+
+    # Data versions
+    if (file.exists(file.path(project_dir, "data_versions.csv"))) {
+        message("Reading data versions...")
+        data_versions <- read_csv(file.path(project_dir, "data_versions.csv"))
+    } else {
+        data_versions <- NULL
+    }
+
+    # Find the summary YAML file automatically
+    yaml_file <- dir(project_dir, pattern = "*.yaml$", full.names = TRUE)
+    if (length(yaml_file) != 1) {
+        stop("Unsure which YAML file to use")
+    }
+
+    # Load the YAML summary file
+    message(paste("YAML:", basename(yaml_file)))
+    yaml <- read_yaml(yaml_file)
+
+    # Organism class (used with Ensembl)
+    if (is.null(organism)) {
+        # Use the genome build of the first sample to match
+        genome_build <- yaml$samples[[1]]$genome_build
+        organism <- detect_organism(genome_build)
+    }
+    message(paste("Genome:", genome_build))
+    message(paste("Organism:", organism))
+
+    # Obtain the samples (and their directories) from the YAML
+    sample_names <- sapply(
+        yaml$samples, function(x) { x$description }) %>% sort
+    sample_dirs <- file.path(upload_dir, sample_names)
+    names(sample_dirs) <- sample_names
+    message(paste(length(sample_dirs), "samples detected in run"))
+
+    # Detect number of sample lanes, determine if split
+    lane_pattern <- "_L(\\d{3})"
+    if (any(str_detect(sample_dirs, lane_pattern))) {
+        # [fix] message("Sample lanes detected")
+        lanes <- str_match(names(sample_dirs), lane_pattern) %>%
+            .[, 2] %>% unique %>% length
+        message(paste(lanes, "lane replicates per sample detected"))
+    } else {
+        lanes <- NULL
+    }
+
+    list(
+        yaml_file = yaml_file,
+        yaml = yaml,
+        analysis = analysis,
+        upload_dir = upload_dir,
+        project_dir = project_dir,
+        sample_dirs = sample_dirs,
+        run_date = as.Date(yaml$date),
+        today_date = Sys.Date(),
+        template = template,
+        wd = getwd(),
+        hpc = detect_hpc(),
+        intgroup = intgroup,
+        alt_counts = SimpleList(),
+        organism = organism,
+        lanes = lanes,
+        programs = programs,
+        data_versions = data_versions,
+        session_info = sessionInfo())
+}
+
+
+
 #' Get contrast name from [DESeqResults]
 #'
 #' @keywords internal
