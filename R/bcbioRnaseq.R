@@ -17,14 +17,14 @@
 #' @importFrom DEGreport degQC degCovariates
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
-#' @importFrom methods as is new validObject
+#' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats density
 #' @importFrom utils read.table
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
-globalVariables(basejump::globals, asNamespace("bcbioRnaseq"), add = TRUE)
+globalVariables(".")
 
 fail_color <- "red"
 pass_color <- "green"
