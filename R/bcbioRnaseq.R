@@ -11,6 +11,7 @@
 #' @import ggplot2
 #' @import SummarizedExperiment
 #' @import S4Vectors
+#' @import rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
