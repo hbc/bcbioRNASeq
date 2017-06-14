@@ -4,7 +4,6 @@ sudo: false
 r:
   - bioc-release
   - bioc-devel
-warnings_are_errors: false
 after_success:
   - pwd
   - cd ..
