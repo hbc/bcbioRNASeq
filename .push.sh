@@ -14,7 +14,7 @@ commit_website_files() {
 
 upload_files() {
   git remote add origin-pages https://${GITHUB_TOKE}@github.com/bcbio/bcbio_rnaseq_output_example.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin-pages gh-pages 
+  git push --force --quiet --set-upstream origin-pages gh-pages 
 }
 
 setup_git
