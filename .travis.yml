@@ -15,13 +15,6 @@ after_success:
   - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd .
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
   - Rscript -e 'rmarkdown::render("skeleton.Rmd")'
-  - cp skeleton.html ../bcbio_rnaseq_output_example/docs
   - ls
-deploy:
-  provider: pages
-  local_dir: ~/hbc/bcbio_rnaseq_output_example
-  repo: bcbio/bcbio_rnaseq_output_example
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
+  - cd ../bcbio_rnaseq_output_example
+  - .push.sh
