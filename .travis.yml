@@ -16,3 +16,4 @@ after_success:
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
   - Rscript -e 'rmarkdown::render("skeleton.Rmd")'
   - ls
+  - env
