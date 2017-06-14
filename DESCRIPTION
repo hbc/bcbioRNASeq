@@ -39,7 +39,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     annotables,
-    basejump (>= 0.0.13),
+    basejump (>= 0.0.14),
     Biobase,
     cowplot,
     data.table (>= 1.10),
@@ -66,9 +66,5 @@ Remotes:
     lpantano/DEGreport,
     steinbaugh/basejump,
     stephenturner/annotables
-Roxygen: list(markdown = TRUE,
-              roclets = c("collate",
-                          "namespace",
-                          "rd",
-                          "pkgapi::api_roclet"))
-RoxygenNote: 6.0.1.9000
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
