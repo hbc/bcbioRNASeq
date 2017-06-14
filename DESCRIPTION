@@ -63,7 +63,8 @@ Suggests:
     RUnit
 Remotes:
     lpantano/DEGreport,
-    steinbaugh/basejump
+    steinbaugh/basejump,
+    stephenturner/annotables
 Roxygen: list(markdown = TRUE,
               roclets = c("collate",
                           "namespace",

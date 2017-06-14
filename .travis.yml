@@ -19,4 +19,4 @@ after_success:
   - cd ../bcbio_rnaseq_output_example
   - cp ../bcbioRnaseq/.push.sh push.sh
   - chmod +x push.sh
-  - push.sh
+  - ./push.sh

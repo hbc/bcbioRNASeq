@@ -181,11 +181,8 @@ check_res <- function(res, stop = TRUE) {
 #'   `ensembl_transcript_id`.
 ensembl <- function(run) {
     # Broad class definitions
-    coding <- c("protein_coding")
-    decaying <- c("non_stop_decay", "nonsense_mediated_decay")
-    noncoding <- c("known_ncrna", "lincRNA", "non_coding")
-    srna <- c("miRNA", "misc_RNA", "ribozyme", "rRNA", "scaRNA", "scRNA",
-              "snoRNA", "snRNA", "sRNA")
+    if ( run$genome_build %in% c("GRCh37", "hg19", "hg38", "mm10"))
+        return(.annotable(run$genome_build))
     ensembl <- useEnsembl(
         biomart = "ensembl",
         dataset = paste(run$organism, "gene_ensembl", sep = "_"))
@@ -205,6 +202,47 @@ ensembl <- function(run) {
                        "description",
                        "gene_biotype",
                        "chromosome_name"))
+    .merge_annotation(nested_tx2gene, gene_level)
+}
+
+
+.annotable <- function(build){
+    if (build %in% c("GRCh37", "hg19")){
+        gene_table <- annotables::grch37 %>% distinct(ensgene,.keep_all = TRUE)
+        tx_table <- annotables::grch37_tx2gene
+    }else if (build == "hg38"){
+        gene_table <- annotables::grch38 %>% distinct(ensgene,.keep_all = TRUE)
+        tx_table <- annotables::grch38_tx2gene
+    }else if (build == "mm10"){
+        gene_table <- annotables::grcm38 %>% distinct(ensgene,.keep_all = TRUE)
+        tx_table <- annotables::grcm38_tx2gene
+    }else{
+        stop("annotation not supported")
+    }
+    names(tx_table) <- c("ensembl_transcript_id", "ensembl_gene_id")
+    tx_table <- tx_table %>% as_tibble %>%
+        group_by(!!sym("ensembl_gene_id")) %>%
+        arrange(!!sym("ensembl_transcript_id"), .by_group = TRUE) %>%
+        nest_(key_col = "ensembl_transcript_id",
+              nest_cols = "ensembl_transcript_id")
+    names(gene_table) <- c("ensembl_gene_id",
+                           "entrez_id",
+                           "external_gene_name",
+                           "chromosome_name",
+                           "start", "end", "strand",
+                           "gene_biotype",
+                           "description")
+    .merge_annotation(tx_table, gene_table)
+}
+
+# support ensembl
+.merge_annotation <- function(nested_tx2gene, gene_level){
+    coding <- c("protein_coding")
+    decaying <- c("non_stop_decay", "nonsense_mediated_decay")
+    noncoding <- c("known_ncrna", "lincRNA", "non_coding")
+    srna <- c("miRNA", "misc_RNA", "ribozyme", "rRNA", "scaRNA", "scRNA",
+              "snoRNA", "snRNA", "sRNA")
+
     left_join(nested_tx2gene, gene_level, by = "ensembl_gene_id") %>%
         mutate(broad_class = case_when(
             tolower(.data$chromosome_name) == "mt" ~ "mito",
@@ -219,7 +257,6 @@ ensembl <- function(run) {
             .data$gene_biotype %in% coding ~ "coding",
             TRUE ~ "other"))
 }
-
 
 
 #' @rdname ensembl

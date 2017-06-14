@@ -131,6 +131,7 @@ load_run <- function(
         alt_counts = SimpleList(),
         metadata_file = metadata_file,
         metadata = NULL,
+        genome_build = genome_build,
         organism = organism,
         ensembl = NULL,
         ensembl_version = NULL,
