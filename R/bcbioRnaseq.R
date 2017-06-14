@@ -11,6 +11,7 @@
 #' @import ggplot2
 #' @import SummarizedExperiment
 #' @import S4Vectors
+#' @import rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -20,7 +21,7 @@
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats density
-#' @importFrom utils read.table
+#' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
 

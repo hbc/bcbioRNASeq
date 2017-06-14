@@ -15,7 +15,7 @@ run <- load_run_S4(
 
 # [load_run()] automatically downloads knit defaults to `setup.R`.
 # Source this file in each setup chunk to maintain report consistency.
-source("setup.R")
+source("setup.R")  # modify parameters before this line
 
 final_path <- run$final_dir
 res_folder <- file.path(final_path, "client")

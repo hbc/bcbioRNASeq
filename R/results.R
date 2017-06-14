@@ -12,15 +12,19 @@ alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     ...) {
-    name <- deparse(substitute(dds))
-    print(name)
-    lapply(seq_along(alpha), function(a) {
-        writeLines(
-            paste(name,
-                  paste("alpha", alpha[a], sep = " = "),
-                  sep = label_sep))
-        results(dds, alpha = alpha[a], ...) %>% summary
-    }) %>% invisible
+    # name <- deparse(substitute(dds))
+    # print(name) [! Fix] no print func inside functions
+    df <- lapply(seq_along(alpha), function(a) {
+        .info <- capture.output(results(dds, alpha = alpha[a], ...) %>% summary)[4:8]
+        .parse <- sapply(.info, function(i) {unlist(strsplit(i, split = ":"))[2]})[1:4]
+        .parse <- c(.parse, .info[5])
+        data.frame(alpha=as.vector(.parse))
+    }) %>% bind_cols
+    colnames(df) <- alpha
+    rownames(df) <- c("LFC > 0 (up)", "LFC < 0 (down)",
+                      "outliers", "low_counts",
+                      "cutoff")
+    df
 }
 
 

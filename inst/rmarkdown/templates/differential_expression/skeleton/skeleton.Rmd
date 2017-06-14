@@ -32,11 +32,15 @@ lfc <- 1
 
 
 ```{r dds-de, results="hide", eval=sum(ls() == "ddsde")==0}
+txi <- bcbio(bcb, "tximport")
+colData <- colData(bcb)
+
 ddsde <- DESeqDataSetFromTximport(
     txi = txi,
     colData = colData,
     design = design) %>%
     DESeq
+rld <- rlog(ddsde)
 save_data(ddsde, dir=data_out)
 resultsNames(ddsde)
 sizeFactors(ddsde)
@@ -75,7 +79,6 @@ save_data(res, res_unshrunken, res_shrunken, dir=data_out)
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
 
 
-
 # Plots
 
 ## Mean average (MA)
@@ -103,7 +106,6 @@ This plot shows only differentially expressed genes on a per-sample basis. We ha
 ```{r plot_deg_heatmap}
 plot_deg_heatmap(bcb, res = res, dt = rld, lfc = lfc)
 ```
-
 
 
 # File downloads
