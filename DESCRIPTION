@@ -50,6 +50,7 @@ Imports:
     isomiRs,
     methods,
     pheatmap,
+    rjson,
     stats,
     S4Vectors,
     SummarizedExperiment,
