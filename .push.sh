@@ -6,7 +6,9 @@ setup_git() {
 }
 
 commit_website_files() {
-  git checkout -b gh-pages
+  git fetch origin gh-pages
+  git checkout gh-pages
+  git pull
   cp ../template/skeleton.html qc.html
   git add qc.html
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
