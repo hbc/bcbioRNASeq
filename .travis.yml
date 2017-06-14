@@ -17,4 +17,4 @@ after_success:
   - Rscript -e 'rmarkdown::render("skeleton.Rmd")'
   - ls
   - cd ../bcbio_rnaseq_output_example
-  - .push.sh
+  - ./.push.sh
