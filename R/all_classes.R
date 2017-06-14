@@ -48,10 +48,8 @@ setValidity("bcbioRnaDataSet", function(object) TRUE)
 
 #' @rdname load_run
 #' @keywords internal
-#' @param ... Arguments provided to [SummarizedExperiment]. Remove this once
-#' we migrate the S4 loading variant over as main method.
 #' @export
-load_run_S4 <- function(
+load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
     intgroup = "description",
@@ -66,6 +64,7 @@ load_run_S4 <- function(
         organism = organism)
     se <- SummarizedExperiment(
         assays = SimpleList(counts = run$txi$counts),
-        colData = DataFrame(run$metadata), metadata=run, ...)
+        colData = DataFrame(run$metadata),
+        metadata = run)
     .bcbioRnaDataSet(se, run)
 }
