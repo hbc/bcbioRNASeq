@@ -26,6 +26,11 @@ load_bcbio_run_from_yaml <- function() {
     .Deprecated("load_run")
 }
 
+load_run_S4 <- function(...) {
+    .Deprecated("load_run")
+    load_run(...)
+}
+
 plot_deseq_pca <- function() {
     .Deprecated("plot_pca")
 }
