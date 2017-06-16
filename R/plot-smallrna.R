@@ -61,9 +61,9 @@ plot_size_distribution <- function(run) {
 #' @description Plot of total miRNA counts.
 #' @export
 plot_mirna_counts <- function(run) {
-    .t <- data.frame(sample = colnames(txi(run)),
-                     total = colSums(txi(run)))
-    cs <- apply(txi(run), 2, function(x) {
+    .t <- data.frame(sample = colnames(bcbio(run)),
+                     total = colSums(bcbio(run)))
+    cs <- apply(bcbio(run), 2, function(x) {
         cumsum(sort(x, decreasing = TRUE))
     }) %>% as.data.frame
     cs$pos <- 1:nrow(cs)
@@ -74,7 +74,7 @@ plot_mirna_counts <- function(run) {
                      stat = "identity") +
             theme(axis.text.x = element_text(
                 angle = 90, hjust = 1, vjust = 0.5)),
-        ggplot(melt(txi(run))) +
+        ggplot(melt(bcbio(run))) +
             geom_boxplot(aes_(x = ~X2, y = ~value)) +
             xlab("") +
             ylab("expression") +
@@ -96,7 +96,7 @@ plot_mirna_counts <- function(run) {
 #' @description Clustering small RNA samples.
 #' @export
 plot_srna_clusters <- function(run) {
-    counts <- txi(run)
+    counts <- bcbio(run)
     design <- metadata(run)$metadata
     dds = DESeqDataSetFromMatrix(
         counts[rowSums(counts > 0) > 3, ],

@@ -29,6 +29,10 @@
 \alias{reexports}
 \alias{vst}
 \alias{reexports}
+\alias{rowData}
+\alias{reexports}
+\alias{assays}
+\alias{reexports}
 \alias{ggplot}
 \alias{reexports}
 \alias{pheatmap}
@@ -59,7 +63,7 @@ below to see their documentation.
 
   \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
 
-  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{colData}}}
+  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{rowData}}, \code{\link[SummarizedExperiment]{assays}}, \code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{colData}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 }}

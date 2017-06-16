@@ -44,6 +44,11 @@ DESeq2::rlog
 #' @export
 DESeq2::vst
 
+#' @export
+SummarizedExperiment::rowData
+
+#' @export
+SummarizedExperiment::assays
 
 
 # ggplot2 ====
