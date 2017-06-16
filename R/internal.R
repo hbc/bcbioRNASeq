@@ -312,6 +312,7 @@ ensembl <- function(run) {
 
 
 .annotable <- function(build){
+    # [! Fix] use string version for distinct
     if (build %in% c("GRCh37", "hg19")){
         gene_table <- annotables::grch37 %>% distinct(ensgene,.keep_all = TRUE)
         tx_table <- annotables::grch37_tx2gene
