@@ -14,7 +14,7 @@ Data frame containing only the columns of interest.
 }
 \description{
 Returns a subset of metadata columns of interest used for knit reports. These
-"interesting group" columns are defined as \code{intgroup} in the
+"interesting group" columns are defined as \code{groups_of_interest} in the
 \link{bcbioRnaDataSet} object.
 }
 \author{

@@ -5,7 +5,8 @@
 \title{Load bcbio-nextgen run}
 \usage{
 load_run(upload_dir = "final", analysis = "rnaseq",
-  intgroup = "description", metadata_file = NULL, organism = NULL, ...)
+  groups_of_interest = "description", metadata_file = NULL,
+  organism = NULL, ...)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
@@ -13,9 +14,9 @@ running \code{bcbio_nextgen -w template}.}
 
 \item{analysis}{Analysis type (e.g. \code{rnaseq} or \code{srnaseq}).}
 
-\item{intgroup}{Character vector of interesting groups. First entry is used
-for plot colors during quality control (QC) analysis. Entire vector is used
-for PCA and heatmap QC functions.}
+\item{groups_of_interest}{Character vector of interesting groups. First entry
+is used for plot colors during quality control (QC) analysis. Entire vector
+is used for PCA and heatmap QC functions.}
 
 \item{metadata_file}{Custom metadata file to import. Otherwise defaults to
 sample metadata saved in the YAML file.}

@@ -63,9 +63,9 @@ setValidity("bcbioRnaDataSet", function(object) TRUE)
 #' @param upload_dir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param analysis Analysis type (e.g. `rnaseq` or `srnaseq`).
-#' @param intgroup Character vector of interesting groups. First entry is used
-#'   for plot colors during quality control (QC) analysis. Entire vector is used
-#'   for PCA and heatmap QC functions.
+#' @param groups_of_interest Character vector of interesting groups. First entry
+#'   is used for plot colors during quality control (QC) analysis. Entire vector
+#'   is used for PCA and heatmap QC functions.
 #' @param metadata_file Custom metadata file to import. Otherwise defaults to
 #'   sample metadata saved in the YAML file.
 #' @param organism Organism name, following Ensembl/Biomart conventions. Must be
@@ -78,14 +78,14 @@ setValidity("bcbioRnaDataSet", function(object) TRUE)
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
-    intgroup = "description",
+    groups_of_interest = "description",
     metadata_file = NULL,
     organism = NULL,
     ...) {
     run <- load_run_as_list(
         upload_dir,
         analysis = analysis,
-        intgroup = intgroup,
+        groups_of_interest = groups_of_interest,
         organism = organism)
 
     # colData

@@ -18,23 +18,27 @@
 #'   [DESeqDataSet] using [counts()] with `normalized = FALSE`.
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
-#' @param intgroup Category to use to group samples (color and shape). Default: `NULL`
+#' @param groups_of_interest Category to use to group samples (color and shape). Default: `NULL`
 #'
 #' @return [ggplot].
 #' @export
-plot_total_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+plot_total_reads <- function(
+    bcb,
+    pass_limit = 20,
+    warn_limit = 10,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~total_reads / 1e6,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -53,19 +57,23 @@ plot_total_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NULL
 
 #' @rdname qc_plots
 #' @export
-plot_mapped_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NULL) {
+plot_mapped_reads <- function(
+    bcb,
+    pass_limit = 20,
+    warn_limit = 10,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~mapped_reads / 1e6,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -84,20 +92,24 @@ plot_mapped_reads <- function(bcb, pass_limit = 20, warn_limit = 10,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_mapping_rate <- function(bcb, pass_limit = 90, warn_limit = 70,intgroup=NULL) {
+plot_mapping_rate <- function(
+    bcb,
+    pass_limit = 90,
+    warn_limit = 70,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads),
                total_reads = as.numeric(.data$total_reads)) %>%
         ggplot(aes_(x = ~description,
                     y = ~mapped_reads / total_reads * 100,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -117,18 +129,22 @@ plot_mapping_rate <- function(bcb, pass_limit = 90, warn_limit = 70,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_genes_detected <- function(bcb, raw_counts, pass_limit = 20000,intgroup=NULL) {
+plot_genes_detected <- function(
+    bcb,
+    raw_counts,
+    pass_limit = 20000,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         ggplot(aes_(x = ~description,
                     y = colSums(raw_counts > 0),
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -144,20 +160,23 @@ plot_genes_detected <- function(bcb, raw_counts, pass_limit = 20000,intgroup=NUL
 
 #' @rdname qc_plots
 #' @export
-plot_gene_detection_saturation <- function(bcb, raw_counts,intgroup=NULL) {
+plot_gene_detection_saturation <- function(
+    bcb,
+    raw_counts,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(mapped_reads = as.numeric(.data$mapped_reads)) %>%
         ggplot(aes_(x = ~mapped_reads / 1e6,
                     y = ~colSums(raw_counts > 0),
-                    color = intgroup,
-                    shape = intgroup)) +
+                    color = groups_of_interest,
+                    shape = groups_of_interest)) +
         ggtitle("gene detection saturation") +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -171,19 +190,22 @@ plot_gene_detection_saturation <- function(bcb, raw_counts,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_exonic_mapping_rate <- function(bcb, pass_limit = 60,intgroup=NULL) {
+plot_exonic_mapping_rate <- function(
+    bcb,
+    pass_limit = 60,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(exonic_rate = as.numeric(.data$exonic_rate)) %>%
         ggplot(aes_(x = ~description,
                     y = ~exonic_rate * 100,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -200,19 +222,22 @@ plot_exonic_mapping_rate <- function(bcb, pass_limit = 60,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_intronic_mapping_rate <- function(bcb, warn_limit = 20,intgroup=NULL) {
+plot_intronic_mapping_rate <- function(
+    bcb,
+    warn_limit = 20,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(intronic_rate = as.numeric(.data$intronic_rate)) %>%
         ggplot(aes_(x = ~description,
                     y = ~intronic_rate * 100,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -229,19 +254,22 @@ plot_intronic_mapping_rate <- function(bcb, warn_limit = 20,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_rrna_mapping_rate <- function(bcb, warn_limit = 10,intgroup=NULL) {
+plot_rrna_mapping_rate <- function(
+    bcb,
+    warn_limit = 10,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     if (is.null(run$metrics)) {
         return(NULL)
     }
-    if(!is.null(intgroup)){
-        intgroup=as.name(intgroup)
+    if(!is.null(groups_of_interest)){
+        groups_of_interest=as.name(groups_of_interest)
     }
     run$metrics %>%
         mutate(r_rna_rate = as.numeric(.data$r_rna_rate) * 100) %>%
         ggplot(aes_(x = ~description,
                     y = ~r_rna_rate,
-                    fill = intgroup)) +
+                    fill = groups_of_interest)) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -257,13 +285,16 @@ plot_rrna_mapping_rate <- function(bcb, warn_limit = 10,intgroup=NULL) {
 
 #' @rdname qc_plots
 #' @export
-plot_counts_per_gene <- function(bcb, normalized_counts,intgroup=NULL) {
+plot_counts_per_gene <- function(
+    bcb,
+    normalized_counts,
+    groups_of_interest = NULL) {
     run <- metadata(bcb)
     name <- deparse(substitute(normalized_counts))
     melted <- melt_log10(run, normalized_counts)
 
-    if(!is.null(intgroup)){
-        melted$color=melted[[intgroup]]
+    if(!is.null(groups_of_interest)){
+        melted$color=melted[[groups_of_interest]]
     }else{
         melted$color="ALL"
     }
@@ -280,7 +311,7 @@ plot_counts_per_gene <- function(bcb, normalized_counts,intgroup=NULL) {
         # expression(log[10]~counts~per~gene)
         labs(x = "sample",
              y = "log10 counts per gene",
-             color = intgroup) +
+             color = groups_of_interest) +
         coord_flip()
 }
 
@@ -370,7 +401,7 @@ plot_pca_covariates <- function(bcb, dt, use=NULL, ...) {
     }
     if (is.null(use)){
         use <- colnames(run$metrics)
-    }else{
+    } else {
         use <- intersect(use, colnames(run$metrics))
     }
     if (length(use) == 0)

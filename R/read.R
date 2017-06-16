@@ -347,8 +347,9 @@ read_smallrna_counts <- function(rna) {
                            sep = "-"))
     names(fns) <- names(run$sample_dirs)
     message("Reading miRNA count files...")
-    bcbio(rna, type="isomirs") <- IsomirDataSeqFromFiles(files = fns[rownames(run$metadata)],
-                           coldata = run$metadata,
-                           design = ~run$intgroup)
+    bcbio(rna, type = "isomirs") <- IsomirDataSeqFromFiles(
+        files = fns[rownames(run$metadata)],
+        coldata = run$metadata,
+        design = ~run$groups_of_interest)
     rna
 }

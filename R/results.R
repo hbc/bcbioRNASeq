@@ -18,7 +18,7 @@ alpha_summary <- function(
         .info <- capture.output(results(dds, alpha = alpha[a], ...) %>% summary)[4:8]
         .parse <- sapply(.info, function(i) {unlist(strsplit(i, split = ":"))[2]})[1:4]
         .parse <- c(.parse, .info[5])
-        data.frame(alpha=as.vector(.parse))
+        data.frame(alpha = as.vector(.parse))
     }) %>% bind_cols
     colnames(df) <- alpha
     rownames(df) <- c("LFC > 0 (up)", "LFC < 0 (down)",
@@ -32,7 +32,7 @@ alpha_summary <- function(
 #' Metadata table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
-#' "interesting group" columns are defined as `intgroup` in the
+#' "interesting group" columns are defined as `groups_of_interest` in the
 #' [bcbioRnaDataSet] object.
 #'
 #' @author Michael Steinbaugh

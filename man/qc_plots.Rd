@@ -15,23 +15,27 @@
 \alias{plot_mean_sd}
 \title{Gene-level quality control plots}
 \usage{
-plot_total_reads(bcb, pass_limit = 20, warn_limit = 10, intgroup = NULL)
+plot_total_reads(bcb, pass_limit = 20, warn_limit = 10,
+  groups_of_interest = NULL)
 
-plot_mapped_reads(bcb, pass_limit = 20, warn_limit = 10, intgroup = NULL)
+plot_mapped_reads(bcb, pass_limit = 20, warn_limit = 10,
+  groups_of_interest = NULL)
 
-plot_mapping_rate(bcb, pass_limit = 90, warn_limit = 70, intgroup = NULL)
+plot_mapping_rate(bcb, pass_limit = 90, warn_limit = 70,
+  groups_of_interest = NULL)
 
-plot_genes_detected(bcb, raw_counts, pass_limit = 20000, intgroup = NULL)
+plot_genes_detected(bcb, raw_counts, pass_limit = 20000,
+  groups_of_interest = NULL)
 
-plot_gene_detection_saturation(bcb, raw_counts, intgroup = NULL)
+plot_gene_detection_saturation(bcb, raw_counts, groups_of_interest = NULL)
 
-plot_exonic_mapping_rate(bcb, pass_limit = 60, intgroup = NULL)
+plot_exonic_mapping_rate(bcb, pass_limit = 60, groups_of_interest = NULL)
 
-plot_intronic_mapping_rate(bcb, warn_limit = 20, intgroup = NULL)
+plot_intronic_mapping_rate(bcb, warn_limit = 20, groups_of_interest = NULL)
 
-plot_rrna_mapping_rate(bcb, warn_limit = 10, intgroup = NULL)
+plot_rrna_mapping_rate(bcb, warn_limit = 10, groups_of_interest = NULL)
 
-plot_counts_per_gene(bcb, normalized_counts, intgroup = NULL)
+plot_counts_per_gene(bcb, normalized_counts, groups_of_interest = NULL)
 
 plot_count_density(bcb, normalized_counts)
 
@@ -46,7 +50,7 @@ plot_mean_sd(dds, rld = NULL, vsd = NULL)
 
 \item{warn_limit}{Threshold to plot warning color marker.}
 
-\item{intgroup}{Category to use to group samples (color and shape). Default: \code{NULL}}
+\item{groups_of_interest}{Category to use to group samples (color and shape). Default: \code{NULL}}
 
 \item{raw_counts}{Raw counts matrix. Can be obtained from
 \link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = FALSE}.}

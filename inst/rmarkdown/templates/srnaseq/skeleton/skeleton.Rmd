@@ -8,9 +8,9 @@ bibliography: bcbioRnaseq.bib
 ```{r setup, message=FALSE}
 library(bcbioRnaseq)
 library(isomiRs)
-run <- load_run_S4(
+run <- load_run(
     "bcbio_yaml_file_in_final_folder",
-    intgroup = "group",
+    groups_of_interest = c("genotype", "treatment"),
     analysis = "srnaseq")
 
 # [load_run()] automatically downloads knit defaults to `setup.R`.
@@ -69,6 +69,8 @@ plot_srna_clusters(run)
 ids <- bcbio(run, "isomirs")
 isoPlot(ids, type = "all", column = "group")
 ```
+
+
 
 ```{r footer, child="footer.Rmd"}
 ```

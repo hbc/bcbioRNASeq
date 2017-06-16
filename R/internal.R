@@ -32,7 +32,7 @@ detect_organism <- function(genome_build) {
 load_run_as_list <- function(
     upload_dir,
     analysis,
-    intgroup,
+    groups_of_interest,
     organism = NULL) {
     # Check connection to upload_dir
     if (!dir.exists(upload_dir)) {
@@ -123,7 +123,7 @@ load_run_as_list <- function(
         template = template,
         wd = getwd(),
         hpc = detect_hpc(),
-        intgroup = intgroup,
+        groups_of_interest = groups_of_interest,
         alt_counts = SimpleList(),
         organism = organism,
         lanes = lanes,
@@ -151,19 +151,19 @@ res_contrast_name <- function(res) {
 
 #' [DESeq] [colData]
 #'
-#' Selects `intgroup`-defined interesting groups automatically.
+#' Selects `groups_of_interest`-defined interesting groups automatically.
 #'
 #' @keywords internal
 #' @author Michael Steinbaugh
 #'
 #' @param dds [DESeqDataSet] or [DESeqTransform].
-#' @param intgroup Interesting groups.
+#' @param groups_of_interest Groups of interest.
 #'
 #' @return [colData()] data frame.
-select_intgroup_coldata <- function(dds, intgroup) {
+select_groups_of_interest_coldata <- function(dds, groups_of_interest) {
     colData(dds) %>%
         as.data.frame %>%
-        tidy_select(!!quo(intgroup))
+        tidy_select(!!quo(groups_of_interest))
 }
 
 
