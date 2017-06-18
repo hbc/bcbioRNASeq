@@ -1,7 +1,6 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
 Version: 0.0.21
-Date: 2017-06-12
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
            email = "mike@steinbaugh.com",
@@ -61,7 +60,8 @@ Imports:
 Suggests:
     BiocGenerics,
     BiocStyle,
-    RUnit
+    RUnit,
+    testthat
 Remotes:
     lpantano/DEGreport,
     steinbaugh/basejump,

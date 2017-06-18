@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -78,37 +79,43 @@
 
     
     <p>Gene-level quality control plots</p>
+<p>Modified wrapper function of <code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code> that plots <code>log2()</code>,
+<code><a href='reexports.html'>rlog()</a></code>, and <code>varianceStabilizingTransformation()</code> count data.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_total_reads</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+    <pre class="usage"><span class='fu'>plot_total_reads</span>(<span class='no'>bcb</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_mapped_reads</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='fu'>plot_mapped_reads</span>(<span class='no'>bcb</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>70</span>)
+<span class='fu'>plot_mapping_rate</span>(<span class='no'>bcb</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_genes_detected</span>(<span class='no'>run</span>, <span class='no'>raw_counts</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20000</span>)
+<span class='fu'>plot_genes_detected</span>(<span class='no'>bcb</span>, <span class='no'>raw_counts</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>20000</span>,
+  <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_gene_detection_saturation</span>(<span class='no'>run</span>, <span class='no'>raw_counts</span>)
+<span class='fu'>plot_gene_detection_saturation</span>(<span class='no'>bcb</span>, <span class='no'>raw_counts</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_exonic_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>60</span>)
+<span class='fu'>plot_exonic_mapping_rate</span>(<span class='no'>bcb</span>, <span class='kw'>pass_limit</span> <span class='kw'>=</span> <span class='fl'>60</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_intronic_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>)
+<span class='fu'>plot_intronic_mapping_rate</span>(<span class='no'>bcb</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_rrna_mapping_rate</span>(<span class='no'>run</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+<span class='fu'>plot_rrna_mapping_rate</span>(<span class='no'>bcb</span>, <span class='kw'>warn_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_counts_per_gene</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
+<span class='fu'>plot_counts_per_gene</span>(<span class='no'>bcb</span>, <span class='no'>normalized_counts</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>plot_count_density</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
+<span class='fu'>plot_count_density</span>(<span class='no'>bcb</span>, <span class='no'>normalized_counts</span>)
 
-<span class='fu'>plot_gender_markers</span>(<span class='no'>run</span>, <span class='no'>normalized_counts</span>)
+<span class='fu'>plot_gender_markers</span>(<span class='no'>bcb</span>, <span class='no'>normalized_counts</span>)
 
-<span class='fu'>plot_pca_covariates</span>(<span class='no'>run</span>, <span class='no'>rld</span>)</pre>
+<span class='fu'>plot_mean_sd</span>(<span class='no'>dds</span>, <span class='kw'>rld</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vsd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>run</th>
+      <th>bcb</th>
       <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
     </tr>
     <tr>
@@ -118,6 +125,10 @@
     <tr>
       <th>warn_limit</th>
       <td><p>Threshold to plot warning color marker.</p></td>
+    </tr>
+    <tr>
+      <th>groups_of_interest</th>
+      <td><p>Category to use to group samples (color and shape). Default: <code>NULL</code></p></td>
     </tr>
     <tr>
       <th>raw_counts</th>
@@ -131,8 +142,18 @@
 Transcripts per million (TPM) are also acceptable.</p></td>
     </tr>
     <tr>
+      <th>dds</th>
+      <td><p><a href='reexports.html'>DESeqDataSet</a>.</p></td>
+    </tr>
+    <tr>
       <th>rld</th>
-      <td><p><code><a href='reexports.html'>rlog()</a></code>-transformed counts.</p></td>
+      <td><p><a href='reexports.html'>DESeqTransform</a> resulting from <code><a href='reexports.html'>rlog()</a></code> applied to
+<a href='reexports.html'>DESeqDataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>vsd</th>
+      <td><p><a href='reexports.html'>DESeqTransform</a> resulting from
+<code>varianceStabilizingTransformation()</code> applied to <a href='reexports.html'>DESeqDataSet</a>.</p></td>
     </tr>
     </table>
     

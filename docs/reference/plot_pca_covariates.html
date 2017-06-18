@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Differential expression plots — plot_ma • bcbioRnaseq</title>
+<title>Find correlation between PCs and covariates — plot_pca_covariates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -74,83 +74,35 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Differential expression plots</h1>
+    <h1>Find correlation between PCs and covariates</h1>
     </div>
 
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA()</a></code> that generates a title
-automatically.</p>
-<p>Volcano plot.</p>
+    <p>Find correlation between PCs and covariates</p>
     
 
-    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-
-<span class='fu'>plot_volcano</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>text_labels</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>merge</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shade_color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>,
-  <span class='kw'>shade_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>point_outline_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>res</th>
-      <td><p><a href='reexports.html'>DESeqResults</a>.</p></td>
-    </tr>
-    <tr>
-      <th>ylim</th>
-      <td><p>Y-axis maximum (single integer).</p></td>
-    </tr>
-    <tr>
       <th>bcb</th>
       <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff for coloring.</p></td>
+      <th>dt</th>
+      <td><p><a href='reexports.html'>DESeqTransform</a>. <code><a href='reexports.html'>rlog()</a></code>-transformed counts are recommended.</p></td>
     </tr>
     <tr>
-      <th>text_labels</th>
-      <td><p>Number of text labels to plot.</p></td>
+      <th>use</th>
+      <td><p>character vector. List of columns to use in degCovariates</p></td>
     </tr>
     <tr>
-      <th>merge</th>
-      <td><p>merge all plots into one.</p></td>
-    </tr>
-    <tr>
-      <th>direction</th>
-      <td><p>Plot <code>up</code>, <code>down</code>, or <code>both</code> directions.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title for the figure.</p></td>
-    </tr>
-    <tr>
-      <th>shade_color</th>
-      <td><p>Shading color for bounding box.</p></td>
-    </tr>
-    <tr>
-      <th>shade_alpha</th>
-      <td><p>Shading transparency alpha.</p></td>
-    </tr>
-    <tr>
-      <th>point_color</th>
-      <td><p>Point color.</p></td>
-    </tr>
-    <tr>
-      <th>point_alpha</th>
-      <td><p>Point transparency alpha.</p></td>
-    </tr>
-    <tr>
-      <th>point_outline_color</th>
-      <td><p>Point outline color.</p></td>
+      <th>...</th>
+      <td><p>Passthrough parmeters to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>MA plot.</p>
-<p>Volcano plot.</p>
     
 
   </div>
@@ -158,15 +110,11 @@ automatically.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
     <h2>Author</h2>
     
-Michael Steinbaugh
-
-Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's work)
+Lorena Pantano
 
   </div>
 </div>
