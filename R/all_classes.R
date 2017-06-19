@@ -65,12 +65,14 @@ load_run_S4 <- function(
         intgroup = intgroup,
         metadata_file = metadata_file,
         organism = organism)
-    genes <- as.data.frame(run$txi$counts) %>% rownames_to_column("ensembl_gene_id") %>%
+    genes <- as.data.frame(run$txi$counts) %>%
+        rownames_to_column("ensembl_gene_id") %>%
         left_join(run$ensembl)
     row.names(genes) <- row.names(run$txi$counts)
     se <- SummarizedExperiment(
         assays = SimpleList(counts = run$txi$counts),
-        rowData= DataFrame(genes),
-        colData = DataFrame(run$metadata), metadata=run, ...)
+        rowData = DataFrame(genes),
+        colData = DataFrame(run$metadata),
+        metadata = run, ...)
     .bcbioRnaDataSet(se, run)
 }

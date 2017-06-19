@@ -16,7 +16,7 @@
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
-#' @importFrom DEGreport degQC degCovariates
+#' @importFrom DEGreport degQC degCovariates degPatterns
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new validObject slot slot<-

@@ -232,3 +232,25 @@ plot_volcano <- function(
     }
 
 }
+
+
+#' Wrap degPatter function around bcbio object
+#'
+#' It runs [DEGreport::degPatterns] function from a bcbio object
+#'
+#' @param bcb [bcbioRnaseq] object
+#' @param res table with padj as column and gene names as row.names
+#' @param fdr float cutoff to consider genes significant
+#' @param n integer maximum number of genes to consider
+#' @param ... extra parameters for degPatterns function
+#' @author Lorena Pantano
+#' @export
+plot_pattern <- function(bcb, res, fdr=0.1, n=NULL, ...){
+    res <- as.data.frame(res)
+    .order <- res[order(res$padj),]
+    sign <- row.names(.order)[!is.na(.order$padj)]
+    if (!is.null(n))
+        sign <- sign[1:n]
+    degPatterns(bcbio(bcb, "rld")[sign,], colData(bcb), ...)
+}
+

@@ -16,30 +16,33 @@ plot_mean_sd <- function(dds, rld = NULL, vsd = NULL) {
     nonzero <- dds %>% counts %>% rowSums %>% `>`(0)
 
     # log2
-    dds %>%
+    gglog2 <- dds %>%
         counts(normalized = TRUE) %>%
         .[nonzero, ] %>%
         `+`(1) %>%
         log2 %>%
-        meanSdPlot
+        meanSdPlot(plot=FALSE)
 
     # rlog transformation
     # `rld` = RLog Data
     if (is.null(rld)) {
         rld <- rlog(dds)
     }
-    rld %>%
+    ggrlog <- rld %>%
         assay %>%
         .[nonzero, ] %>%
-        meanSdPlot
+        meanSdPlot(plot=FALSE)
 
     # Variance stabilizing transformation (VST)
     # `vsd` = VSt Data
     if (is.null(vsd)) {
         vsd <- varianceStabilizingTransformation(dds)
     }
-    vsd %>%
+    ggvsd <- vsd %>%
         assay %>%
         .[nonzero, ] %>%
-        meanSdPlot
+        meanSdPlot(plot=FALSE)
+    plot_grid(gglog2$gg  + theme(legend.position="none"),
+              ggrlog$gg + theme(legend.position="none"),
+              ggvsd$gg + theme(legend.position="none"), nrow=1)
 }
