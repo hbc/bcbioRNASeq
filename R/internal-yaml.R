@@ -65,14 +65,13 @@
 
 #' @rdname yaml
 .yaml_metadata <- function(yaml) {
-    message("Reading metadata")
+    # message("Reading metadata")
     .yaml(yaml, metadata) %>%
         as.data.frame %>%
         mutate_all(factor) %>%
         mutate(description = as.character(.data[["description"]])) %>%
         as.data.frame %>%
-        column_to_rownames("description") %>%
-        DataFrame
+        column_to_rownames("description")
 }
 
 
@@ -83,7 +82,7 @@
     if (is.null(metrics)) {
         return(NULL)
     }
-    message("Reading metrics")
+    # message("Reading metrics")
     characters <- metrics[, c("description",
                               "quality_format",
                               "sequence_length")]
@@ -92,7 +91,6 @@
         mutate_all(as.numeric)
     bind_cols(characters, numerics) %>%
         as.data.frame %>%
-        .[, sort(colnames(.))] %>%
         column_to_rownames("description") %>%
-        DataFrame
+        .[, sort(colnames(.))]
 }
