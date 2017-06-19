@@ -1,3 +1,4 @@
+# Count matrix accessors =======================================================
 #' Accessors for the count matrix of a [bcbioRnaDataSet] object
 #'
 #' This method will be used to access all different count matrix from
@@ -6,7 +7,8 @@
 #' @rdname bcbio
 #' @docType methods
 #' @name bcbio
-#' @aliases bcbio bcbio,bcbioRnaDataSet-method bcbio<-,bcbioRnaDataSet,matrix-method
+#' @aliases bcbio bcbio,bcbioRnaDataSet-method
+#'   bcbio<-,bcbioRnaDataSet,matrix-method
 #'
 #' @param object [bcbioRnaDataSet] object.
 #' @param value An integer matrix or other object.
@@ -14,14 +16,13 @@
 #' @param ... Matrix count data.
 #'
 #' @return Matrix/Object containing count data.
+NULL
+
+
 
 #' @rdname bcbio
 #' @export
-setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
-
-#' @rdname bcbio
-#' @export
-bcbio.bcbioRnaDataSet <- function(object, type="counts") {
+bcbio.bcbioRnaDataSet <- function(object, type="counts") {  # nolint
     if (type == "counts")
         return(assays(object)[["counts"]])
     if (type %in% names(slot(object, "callers")))
@@ -36,16 +37,11 @@ setMethod("bcbio",
           bcbio.bcbioRnaDataSet)
 
 #' @rdname bcbio
-#' @export
-setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
-
-#' @rdname bcbio
 #' @exportMethod "bcbio<-"
 setReplaceMethod(
-    "bcbio", signature(object = "bcbioRnaDataSet",
-                      value = "ANY"),
+    "bcbio", signature(object = "bcbioRnaDataSet", value = "ANY"),
     function(object, type="counts", value) {
-        if (type == "counts"){
+        if (type == "counts") {
             assays(object)[["counts"]] <- value
             validObject(object)
         }else{
@@ -55,13 +51,20 @@ setReplaceMethod(
     })
 
 
-bcbio.samples <- function(object){
+
+
+
+
+# Sample accessors =============================================================
+bcbio.samples <- function(object){  # nolint
     metadata(object)[["sample_dirs"]]
 }
-#' Accessors samples dir of a [bcbioRnaDataSet] object
+
+
+
+#' Accessors samples dir of a [bcbioRnaDataSet] object.
 #'
-#' This method will be used to access folders where
-#' sample information is kept
+#' This method will be used to access folders where sample information is kept.
 #'
 #' @rdname bcbcols
 #' @docType methods
@@ -70,10 +73,6 @@ bcbio.samples <- function(object){
 #'
 #' @param object [bcbioRnaDataSet] object.
 #'
-#' @return folders where samples are kept
-setGeneric("bcbcols", function(object) standardGeneric("bcbcols"))
-#' @rdname bcbcols
+#' @return Folders where samples are kept.
 #' @export
-setMethod("bcbcols",
-          signature(object = "bcbioRnaDataSet"),
-          bcbio.samples)
+setMethod("bcbcols", signature(object = "bcbioRnaDataSet"), bcbio.samples)
