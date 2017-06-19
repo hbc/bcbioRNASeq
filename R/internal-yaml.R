@@ -71,7 +71,8 @@
         mutate_all(factor) %>%
         mutate(description = as.character(.data[["description"]])) %>%
         as.data.frame %>%
-        column_to_rownames("description")
+        column_to_rownames("description") %>%
+        DataFrame
 }
 
 
@@ -92,5 +93,6 @@
     bind_cols(characters, numerics) %>%
         as.data.frame %>%
         column_to_rownames("description") %>%
-        .[, sort(colnames(.))]
+        .[, sort(colnames(.))] %>%
+        DataFrame
 }
