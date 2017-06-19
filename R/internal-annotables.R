@@ -16,6 +16,19 @@
 #'
 #' @return Tibble grouped by `ensembl_gene_id` with nested
 #'   `ensembl_transcript_id`.
+#' @rdname ensembl
+.annotables <- function(genome_build) {
+    envir <- as.environment("package:annotables")
+
+    gene <- get(genome_build, envir = envir)
+    tx2gene <- paste(genome_build, "tx2gene", sep = "_") %>%
+        get(envir = envir)
+
+    list(gene = gene, tx2gene = tx2gene)
+}
+
+
+
 .ensembl <- function(genome_build) {
     message("Using annotables for Ensembl gene annotations")
 
@@ -42,19 +55,4 @@
         as.data.frame
 
     list
-}
-
-
-
-#' @rdname ensembl
-.annotables <- function(genome_build) {
-    # http://r-pkgs.had.co.nz/namespace.html
-    require("annotables", quietly = TRUE)
-    envir <- as.environment("package:annotables")
-
-    gene <- get(genome_build, envir = envir)
-    tx2gene <- paste(genome_build, "tx2gene", sep = "_") %>%
-        get(envir = envir)
-
-    list(gene = gene, tx2gene = tx2gene)
 }
