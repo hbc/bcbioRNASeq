@@ -15,3 +15,7 @@ Organism string.
 \description{
 Detect the organism from the genome build name
 }
+\author{
+Michael Steinbaugh
+}
+\keyword{internal}

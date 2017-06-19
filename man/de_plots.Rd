@@ -7,7 +7,7 @@
 \usage{
 plot_ma(res, ylim = 2)
 
-plot_volcano(bcb, res, lfc = 1, text_labels = 30, merge = TRUE,
+plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge = TRUE,
   direction = "both", title = NULL, shade_color = "orange",
   shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
   point_outline_color = "darkgray")
@@ -50,8 +50,13 @@ automatically.
 
 Volcano plot.
 }
+\seealso{
+This function is a modified version of
+\code{CHBUtils::volcano_density_plot()}.
+}
 \author{
 Michael Steinbaugh
 
-Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's work)
+Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's
+work)
 }

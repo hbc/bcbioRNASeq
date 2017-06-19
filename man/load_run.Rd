@@ -37,9 +37,9 @@ Simply point to the final upload directory output by
 will take care of the rest. It automatically imports RNA-seq counts,
 metadata, and program versions used.
 }
-\details{
-When working in RStudio, we recommend connecting to the bcbio-nextgen run
-directory as a remote connection over
+\note{
+When working in RStudio, we recommend connecting to the bcbio-nextgen
+run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \author{
