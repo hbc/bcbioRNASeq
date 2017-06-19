@@ -1,5 +1,5 @@
 # Register S3 classes for use in S4 slots
-setOldClass("sessionInfo")
+# setOldClass("sessionInfo")
 
 
 
@@ -25,25 +25,8 @@ bcbioRnaDataSet <- setClass(  # nolint
     contains = "SummarizedExperiment",
     representation = representation(
         callers = "SimpleList",
-        analysis = "character",
-        groups_of_interest = "character",
+        ensembl = "SimpleList",
         design = "formula",
         contrast = "character",
-        upload_dir = "character",
-        project_dir = "character",
-        sample_dirs = "character",
-        run_date = "Date",
-        load_date = "Date",
-        template = "character",
-        organism = "character",
-        genome_build = "character",
-        yaml_file = "character",
-        yaml = "SimpleList",
-        custom_metadata_file = "character",
-        lanes = "numeric",  # [TODO] integer?
-        data_versions = "DataFrame",
-        program_versions = "DataFrame",
-        wd = "character",
-        hpc = "logical",
-        session_info = "sessionInfo"))
+        groups_of_interest = "character"))
 setValidity("bcbioRnaDataSet", function(object) TRUE)

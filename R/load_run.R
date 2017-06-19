@@ -110,44 +110,48 @@ load_run <- function(
     }
 
 
+    # Metadata ----
+    # [TODO] Add custom metadata file support
+    metadata <- SimpleList(
+        analysis = analysis,
+        template = template,
+        run_date = run_date,
+        load_date = Sys.Date(),
+        wd = getwd(),
+        hpc = detect_hpc(),
+        upload_dir = upload_dir,
+        project_dir = project_dir,
+        sample_dirs = sample_dirs,
+        organism = organism,
+        genome_build = genome_build,
+        lanes = lanes,
+        yaml_file = yaml_file,
+        yaml = yaml,
+        custom_metadata_file = custom_metadata_file,
+        data_versions = .data_versions(project_dir),
+        program_versions = .program_versions(project_dir),
+        session_info = sessionInfo())
+
+
     # SummarizedExperiment ----
     # [TODO] Add custom metadata support
     # custom_metadata <- SimpleList()
     se <- .SummarizedExperiment(
         txi = .tximport(sample_dirs, tx2gene = ensembl[["tx2gene"]]),
         colData = .yaml_metadata(yaml),
-        rowData = ensembl[["gene"]])
+        rowData = ensembl[["gene"]],
+        metadata = metadata)
 
 
     # bcbioRnaDataSet ----
-    bcb <- new(
-        "bcbioRnaDataSet", se,
-        analysis = analysis,
-        groups_of_interest = groups_of_interest,
-        upload_dir = upload_dir,
-        project_dir = project_dir,
-        sample_dirs = sample_dirs,
-        run_date = run_date,
-        load_date = Sys.Date(),
-        template = template,
-        organism = organism,
-        genome_build = genome_build,
-        yaml_file = yaml_file,
-        yaml = SimpleList(yaml),
-        lanes = lanes,
-        data_versions = .data_versions(project_dir),
-        program_versions = .program_versions(project_dir),
-        wd = getwd(),
-        hpc = detect_hpc(),
-        session_info = sessionInfo())
+    bcb <- new("bcbioRnaDataSet", se,
+               ensembl = ensembl,
+               groups_of_interest = groups_of_interest)
 
 
     # Optional slots ----
     if (!is.null(contrast)) {
         bcb@contrast <- contrast
-    }
-    if (!is.null(custom_metadata_file)) {
-        bcb@custom_metadata_file <- custom_metadata_file
     }
     if (!is.null(design)) {
         bcb@design <- design

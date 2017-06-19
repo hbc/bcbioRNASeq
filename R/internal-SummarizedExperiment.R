@@ -26,8 +26,8 @@
     # Metadata ----
     if (is.null(metadata)) {
         metadata <- SimpleList()
-    } else {
-        metadata <- SimpleList(metadata)
+    } else if (class(metadata) != "SimpleList") {
+        metadata <- as(metadata, "SimpleList")
     }
     metadata[["counts_from_abundance"]] <- counts_from_abundance
 
