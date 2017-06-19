@@ -114,6 +114,9 @@ load_run <- function(
     # [TODO] Add custom metadata file support
     metadata <- SimpleList(
         analysis = analysis,
+        groups_of_interest = groups_of_interest,
+        design = design,
+        contrast = contrast,
         template = template,
         run_date = run_date,
         load_date = Sys.Date(),
@@ -144,18 +147,5 @@ load_run <- function(
 
 
     # bcbioRnaDataSet ----
-    bcb <- new("bcbioRnaDataSet", se,
-               ensembl = ensembl,
-               groups_of_interest = groups_of_interest)
-
-
-    # Optional slots ----
-    if (!is.null(contrast)) {
-        bcb@contrast <- contrast
-    }
-    if (!is.null(design)) {
-        bcb@design <- design
-    }
-
-    bcb
+    new("bcbioRnaDataSet", se, ensembl = ensembl)
 }

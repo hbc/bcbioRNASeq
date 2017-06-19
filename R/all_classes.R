@@ -25,8 +25,5 @@ bcbioRnaDataSet <- setClass(  # nolint
     contains = "SummarizedExperiment",
     representation = representation(
         callers = "SimpleList",
-        ensembl = "SimpleList",
-        design = "formula",
-        contrast = "character",
-        groups_of_interest = "character"))
+        ensembl = "SimpleList"))
 setValidity("bcbioRnaDataSet", function(object) TRUE)
