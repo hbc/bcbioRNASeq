@@ -17,6 +17,8 @@
 #' @return Tibble grouped by `ensembl_gene_id` with nested
 #'   `ensembl_transcript_id`.
 .ensembl <- function(genome_build) {
+    message("Using annotables for Ensembl gene annotations")
+
     # Remap genome build versions to annotables
     if (genome_build == "hg19") {
         genome_build <- "grch37"
@@ -34,8 +36,7 @@
         distinct %>%
         arrange(!!sym("ensgene")) %>%
         as.data.frame %>%
-        column_to_rownames("ensgene") %>%
-        DataFrame
+        column_to_rownames("ensgene")
     list[["tx2gene"]] <- annotables[["tx2gene"]] %>%
         arrange(!!sym("enstxp")) %>%
         as.data.frame

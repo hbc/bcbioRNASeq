@@ -37,7 +37,7 @@ bcbioRnaDataSet <- setClass(  # nolint
         template = "character",
         organism = "character",
         genome_build = "character",
-        yaml_flie = "character",
+        yaml_file = "character",
         yaml = "SimpleList",
         custom_metadata_file = "character",
         lanes = "numeric",  # [TODO] integer?

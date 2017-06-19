@@ -42,7 +42,6 @@
 
     # Begin loading of selected counts
     message(paste("Reading", type, "counts"))
-    names(sample_files) %>% toString %>% message
 
     # Coerce tx2gene to data frame
     tx2gene <- as.data.frame(tx2gene)

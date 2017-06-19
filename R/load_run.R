@@ -18,6 +18,10 @@
 #' @param groups_of_interest Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
+#' @param design (*Optional*). Design formula for DESeq2.See
+#'   [DESeq2::design()] for more information.
+#' @param contrast (*Optional*). Contrast vector for DESeq2. See
+#'   [DESeq2::results()] for more information.
 #' @param custom_metadata_file (*Optional*). Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
@@ -28,6 +32,8 @@ load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
     groups_of_interest = "description",
+    design = NULL,
+    contrast = NULL,
     custom_metadata_file = NULL) {
     # Directory paths ----
     # Check connection to final upload directory
@@ -96,7 +102,8 @@ load_run <- function(
     if (any(str_detect(sample_dirs, lane_pattern))) {
         lanes <- str_match(names(sample_dirs), lane_pattern) %>%
             .[, 2L] %>% unique %>% length
-        message(paste(lanes, "lane replicates per sample detected"))
+        message(paste(
+            lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
         # [TODO] Check that downstream functions don't use NULL
         lanes <- 1L
@@ -104,13 +111,12 @@ load_run <- function(
 
 
     # SummarizedExperiment ----
-    # [TODO] Pass in custom metadata
-    custom_metadata <- DataFrame()
+    # [TODO] Add custom metadata support
+    # custom_metadata <- SimpleList()
     se <- .SummarizedExperiment(
         txi = .tximport(sample_dirs, tx2gene = ensembl[["tx2gene"]]),
         colData = .yaml_metadata(yaml),
-        rowData = ensembl[["gene"]],
-        metadata = custom_metadata)
+        rowData = ensembl[["gene"]])
 
 
     # bcbioRnaDataSet ----
@@ -118,8 +124,6 @@ load_run <- function(
         "bcbioRnaDataSet", se,
         analysis = analysis,
         groups_of_interest = groups_of_interest,
-        # design
-        # contrast
         upload_dir = upload_dir,
         project_dir = project_dir,
         sample_dirs = sample_dirs,
@@ -129,9 +133,8 @@ load_run <- function(
         organism = organism,
         genome_build = genome_build,
         yaml_file = yaml_file,
-        yaml = yaml,
-        custom_metadata_file = custom_metadata_file,
-        lanes = lanes,  # [TODO] Set lanes to 1 instead of null
+        yaml = SimpleList(yaml),
+        lanes = lanes,
         data_versions = .data_versions(project_dir),
         program_versions = .program_versions(project_dir),
         wd = getwd(),
@@ -140,13 +143,15 @@ load_run <- function(
 
 
     # Optional slots ----
-    if (!is.null(alt_counts)) {
-        # [TODO] Update to slot alt_counts
-        # bcb@alt_counts <- alt_counts
-    } else if (!is.null(custom_metadata_file)) {
-        bcb@custom_metadata_file <- custom_metadata_file
-        # [TODO] Add workflow to process custom metadata
-        custom_metadata <- DataFrame()
-        bcb@custom_metadata <- custom_metadata
+    if (!is.null(contrast)) {
+        bcb@contrast <- contrast
     }
+    if (!is.null(custom_metadata_file)) {
+        bcb@custom_metadata_file <- custom_metadata_file
+    }
+    if (!is.null(design)) {
+        bcb@design <- design
+    }
+
+    bcb
 }
