@@ -63,7 +63,7 @@ plot_size_distribution <- function(run) {
 plot_mirna_counts <- function(run) {
     .t <- data.frame(sample = colnames(txi(run)),
                      total = colSums(txi(run)))
-    cs <- apply(txi(run), 2, function(x) {
+    cs <- apply(txi(run), 2L, function(x) {
         cumsum(sort(x, decreasing = TRUE))
     }) %>% as.data.frame
     cs$pos <- 1:nrow(cs)
@@ -73,22 +73,21 @@ plot_mirna_counts <- function(run) {
                           y = ~total),
                      stat = "identity") +
             theme(axis.text.x = element_text(
-                angle = 90, hjust = 1, vjust = 0.5)),
+                angle = 90L, hjust = 1L, vjust = 0.5)),
         ggplot(melt(txi(run))) +
             geom_boxplot(aes_(x = ~X2, y = ~value)) +
             xlab("") +
             ylab("expression") +
             scale_y_log10() +
             theme(axis.text.x = element_text(
-                angle = 90, hjust = 1, vjust = 0.5)),
+                angle = 90L, hjust = 1L, vjust = 0.5)),
         ggplot((melt(cs, id.vars = "pos"))) +
             geom_line(aes_(x = ~pos,
                            y = ~value,
                            color = ~variable)) +
-            xlim(0, 50) +
+            xlim(0L, 50L) +
             scale_y_log10(),
-        nrow = 3
-    )
+        nrow = 3L)
 }
 
 
@@ -98,13 +97,15 @@ plot_mirna_counts <- function(run) {
 plot_srna_clusters <- function(run) {
     counts <- txi(run)
     design <- metadata(run)$metadata
-    dds = DESeqDataSetFromMatrix(
-        counts[rowSums(counts > 0) > 3, ],
+    dds <- DESeqDataSetFromMatrix(
+        counts[rowSums(counts > 0L) > 3L, ],
         colData = design,
         design = ~1)
-    vst = rlog(dds, betaPriorVar = FALSE)
+    vst <- rlog(dds, betaPriorVar = FALSE)
+    annotation_col <- design %>%
+        .[, metadata(run)[["groups_of_interest"]], drop = FALSE]
     pheatmap(assay(vst),
-             annotation_col = design[, metadata(run)$groups_of_interest, drop = FALSE],
+             annotation_col = annotation_col,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D",
              scale = "row",
