@@ -1,11 +1,25 @@
-correlation_heatmap <- function() {
+#' Deprecated functions
+#'
+#' @rdname deprecated
+#' @name deprecated
+#' @keywords internal
+#'
+#' @param ... Passthrough parameters.
+
+
+#' @rdname deprecated
+#' @export
+correlation_heatmap <- function(...) {
     .Deprecated("plot_correlation_heatmap")
+    plot_correlation_heatmap(...)
 }
 
-create_local_project <- function() {
+.create_local_project <- function() {
     .Deprecated("create_new_project")
 }
 
+#' @rdname deprecated
+#' @export
 import_file <- function() {
     .Deprecated("read_bcbio_file")
 }
@@ -41,4 +55,8 @@ pool_lane_split_counts <- function() {
 
 pool_lane_split_dds <- function() {
     .Deprecated("pool_dds")
+}
+
+read_metadata <- function() {
+    .Deprecated(".metadata")
 }
