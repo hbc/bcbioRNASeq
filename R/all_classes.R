@@ -23,12 +23,13 @@ setOldClass("sessionInfo")
 bcbioRnaDataSet <- setClass(  # nolint
     "bcbioRnaDataSet",
     slots = c(
-        raw_data = "SummarizedExperiment",
         analysis = "character",
-        tximport = "SimpleList",
-        groups_of_interest = "character",
+        date = "Date",
+        counts = "SummarizedExperiment",
         alt_counts = "SimpleList",
-        today_date = "Date",
+        groups_of_interest = "character",
+        custom_metadata_file = "character",
+        custom_metadata = "DataFrame",
         wd = "character",
         hpc = "logical",
         session_info = "sessionInfo"))
