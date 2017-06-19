@@ -18,7 +18,7 @@ after_success:
   - cp ../bcbio_rnaseq_output_example/_output.yaml .
   - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd .
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
-  - Rscript -e 'rmarkdown::render("skeleton.Rmd")'
+  - Rscript -e 'bcbioRnaseq::downloads();rmarkdown::render("skeleton.Rmd")'
   - ls
   - cd ../bcbio_rnaseq_output_example
   - cp ../bcbioRnaseq/.push.sh push.sh

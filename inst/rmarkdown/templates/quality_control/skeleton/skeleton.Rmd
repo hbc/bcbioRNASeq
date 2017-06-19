@@ -151,6 +151,7 @@ plot_rrna_mapping_rate(bcb)
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
+# Add intgroup option to change colors
 plot_counts_per_gene(bcb, tmm)
 ```
 

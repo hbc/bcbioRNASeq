@@ -12,6 +12,9 @@
 
 Quality control and differential expression for [bcbio-nextgen][] RNA-seq experiments.
 
+## Example
+
+Last [report](http://bcb.io/bcbio_rnaseq_output_example) rendered with development code
 
 ## Installation
 
