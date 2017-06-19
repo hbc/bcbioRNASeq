@@ -1,5 +1,10 @@
 #' Read data versions
-#' @rdname internal-data_versions
+#'
+#' @rdname data_versions
+#' @keywords internal
+#'
+#' @author Michael Steinbaugh
+#'
 #' @param project_dir Project directory.
 .data_versions <- function(project_dir) {
     file <- file.path(project_dir, "data_versions.csv")
@@ -10,13 +15,19 @@
     read_csv(file,
              # c = character
              # T = date time
-             col_types = "ccT") %>% DataFrame
+             col_types = "ccT") %>%
+        DataFrame
 }
 
 
 
 #' Read program versions
-#' @rdname internal-program_versions
+#'
+#' @rdname program_versions
+#' @keywords internal
+#'
+#' @author Michael Steinbaugh
+#'
 #' @param project_dir Project directory.
 .program_versions <- function(project_dir) {
     file <- file.path(project_dir, "programs.txt")
@@ -28,5 +39,6 @@
                delim = ",",
                col_names = c("program", "version"),
                # c = character
-               col_types = "cc") %>% DataFrame
+               col_types = "cc") %>%
+        DataFrame
 }

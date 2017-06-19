@@ -25,7 +25,6 @@ plot_ma <- function(res, ylim = 2) {
 
 
 
-# Modified version of [CHBUtils::volcano_density_plot()]
 #' @rdname de_plots
 #' @description Volcano plot.
 #'
@@ -41,14 +40,18 @@ plot_ma <- function(res, ylim = 2) {
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
 #'
-#' @author Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's work)
+#' @author Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's
+#'   work)
 #' @return Volcano plot.
 #' @export
+#'
+#' @seealso This function is a modified version of
+#'   `CHBUtils::volcano_density_plot()`.
 plot_volcano <- function(
     bcb,
     res,
-    lfc = 1,
-    text_labels = 30,
+    lfc = 1L,
+    text_labels = 30L,
     merge = TRUE,
     direction = "both",
     title = NULL,
@@ -57,9 +60,10 @@ plot_volcano <- function(
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray") {
-    run <- metadata(bcb)
-    check_run(run)
-    check_res(res)
+    .check_res(res)
+
+    # [TODO] Add support for option of plotting unadjusted P values without
+    # `+ 1e-10` transformation.
 
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
@@ -225,7 +229,7 @@ plot_volcano <- function(
                       x=0.7, y=0, width=0.3, height=0.7) +
             draw_plot(volcano, x=0, y=0, width=0.7, height=0.7)
         return(p)
-    }else{
+    } else {
         show(lfc_hist)
         show(padj_hist)
         show(volcano)
