@@ -22,7 +22,7 @@ NULL
 
 #' @rdname bcbio
 #' @export
-bcbio.bcbioRnaDataSet <- function(object, type="counts") {  # nolint
+bcbio.bcbioRnaDataSet <- function(object, type = "counts") {  # nolint
     if (type == "counts")
         return(assays(object)[["counts"]])
     if (type %in% names(slot(object, "callers")))
@@ -32,19 +32,17 @@ bcbio.bcbioRnaDataSet <- function(object, type="counts") {  # nolint
 
 #' @rdname bcbio
 #' @export
-setMethod("bcbio",
-          signature(object = "bcbioRnaDataSet"),
-          bcbio.bcbioRnaDataSet)
+setMethod("bcbio", signature(object = "bcbioRnaDataSet"), bcbio.bcbioRnaDataSet)
 
 #' @rdname bcbio
 #' @exportMethod "bcbio<-"
 setReplaceMethod(
     "bcbio", signature(object = "bcbioRnaDataSet", value = "ANY"),
-    function(object, type="counts", value) {
+    function(object, type = "counts", value) {
         if (type == "counts") {
             assays(object)[["counts"]] <- value
             validObject(object)
-        }else{
+        } else {
             slot(object, "callers")[[type]] <- value
         }
         object

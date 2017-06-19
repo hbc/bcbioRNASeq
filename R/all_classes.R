@@ -22,15 +22,27 @@ setOldClass("sessionInfo")
 #' @export
 bcbioRnaDataSet <- setClass(  # nolint
     "bcbioRnaDataSet",
-    slots = c(
+    contains = "SummarizedExperiment",
+    representation = representation(
+        callers = "SimpleList",
         analysis = "character",
-        date = "Date",
-        counts = "SummarizedExperiment",
-        alt_counts = "SimpleList",
-        metrics = "DataFrame",
         groups_of_interest = "character",
+        design = "formula",
+        contrast = "character",
+        upload_dir = "character",
+        project_dir = "character",
+        sample_dirs = "character",
+        run_date = "Date",
+        load_date = "Date",
+        template = "character",
+        organism = "character",
+        genome_build = "character",
+        yaml_flie = "character",
+        yaml = "SimpleList",
         custom_metadata_file = "character",
-        custom_metadata = "DataFrame",
+        lanes = "numeric",  # [TODO] integer?
+        data_versions = "DataFrame",
+        program_versions = "DataFrame",
         wd = "character",
         hpc = "logical",
         session_info = "sessionInfo"))

@@ -29,18 +29,12 @@ load_run <- function(
     analysis = "rnaseq",
     groups_of_interest = "description",
     custom_metadata_file = NULL) {
+    # Directory paths ----
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
         stop("Final upload directory failed to load")
     }
     upload_dir <- normalizePath(upload_dir)
-
-    # Check analysis type
-    supported_analyses <- c("rnaseq", "srnaseq")
-    if (!analysis %in% supported_analyses) {
-        stop(paste("Supported analyses:", toString(supported_analyses)))
-    }
-
     # Find most recent nested project_dir (normally only 1)
     upload_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
     project_dir <- dir(upload_dir,
@@ -53,12 +47,17 @@ load_run <- function(
     }
     message(project_dir)
     match <- str_match(project_dir, upload_dir_pattern)
-    # run_date <- match[2]
+    run_date <- match[2] %>% as.Date
     template <- match[3]
     project_dir <- file.path(upload_dir, project_dir)
 
-    data_versions <- .data_versions(project_dir)
-    program_versions <- .program_versions(project_dir)
+
+    # Analysis ----
+    supported_analyses <- c("rnaseq", "srnaseq")
+    if (!analysis %in% supported_analyses) {
+        stop(paste("Supported analyses:", toString(supported_analyses)))
+    }
+
 
     # Project summary YAML ----
     yaml_file <- file.path(project_dir, "project-summary.yaml")
@@ -68,12 +67,8 @@ load_run <- function(
     message("Reading project summary YAML")
     yaml <- read_yaml(yaml_file)
 
-    # Organism ----
-    # Use the genome build of the first sample to match
-    genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
-    organism <- .detect_organism(genome_build)
-    message(paste("Genome:", organism, genome_build))
 
+    # Sample names ----
     # Obtain the samples (and their directories) from the YAML
     sample_names <- vapply(
         yaml[["samples"]],
@@ -84,50 +79,74 @@ load_run <- function(
     if (!identical(basename(sample_dirs), sample_names)) {
         stop("Sample name assignment mismatch")
     }
-    message(paste(length(sample_dirs), "samples detected in run"))
+    message(paste(length(sample_dirs), "samples detected"))
 
-    # Detect sample lanes
+
+    # Genome ----
+    # Use the genome build of the first sample to match
+    genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
+    organism <- .detect_organism(genome_build)
+    message(paste("Genome:", organism, genome_build))
+    # Ensembl annotations from annotables
+    ensembl <- .ensembl(genome_build)
+
+
+    # Sequencing lanes ----
     lane_pattern <- "_L(\\d{3})"
     if (any(str_detect(sample_dirs, lane_pattern))) {
         lanes <- str_match(names(sample_dirs), lane_pattern) %>%
             .[, 2L] %>% unique %>% length
         message(paste(lanes, "lane replicates per sample detected"))
     } else {
-        lanes <- NULL
+        # [TODO] Check that downstream functions don't use NULL
+        lanes <- 1L
     }
 
-    # Include these as a slot for easier downstream filtering
-    sample_dirs = sample_dirs
 
-    # Ensembl annotations from annotables
-    ensembl <- .ensembl(genome_build)
-
-    # Load counts as SummarizedExperiment object
-    # [TODO] Fix Ensembl object mismatch here...
-    counts <- .SummarizedExperiment(
+    # SummarizedExperiment ----
+    # [TODO] Pass in custom metadata
+    custom_metadata <- DataFrame()
+    se <- .SummarizedExperiment(
         txi = .tximport(sample_dirs, tx2gene = ensembl[["tx2gene"]]),
         colData = .yaml_metadata(yaml),
         rowData = ensembl[["gene"]],
-        metadata = list(
-            upload_dir = upload_dir,
-            project_dir = project_dir,
-            run_date = as.Date(yaml[["date"]]),
-            template = template,
-            organism = organism,
-            genome_build = genome_build,
-            yaml_file = yaml_file,
-            yaml = yaml,
-            lanes = lanes,
-            data_versions = data_versions,
-            program_versions = program_versions))
+        metadata = custom_metadata)
 
-    # [TODO] Add workflow for alt_counts (small RNA)
-    alt_counts <- NULL
 
-    .bcbioRnaDataSet(
+    # bcbioRnaDataSet ----
+    bcb <- new(
+        "bcbioRnaDataSet", se,
         analysis = analysis,
-        counts = counts,
-        alt_counts = alt_counts,
         groups_of_interest = groups_of_interest,
-        custom_metadata_file)
+        # design
+        # contrast
+        upload_dir = upload_dir,
+        project_dir = project_dir,
+        sample_dirs = sample_dirs,
+        run_date = run_date,
+        load_date = Sys.Date(),
+        template = template,
+        organism = organism,
+        genome_build = genome_build,
+        yaml_file = yaml_file,
+        yaml = yaml,
+        custom_metadata_file = custom_metadata_file,
+        lanes = lanes,  # [TODO] Set lanes to 1 instead of null
+        data_versions = .data_versions(project_dir),
+        program_versions = .program_versions(project_dir),
+        wd = getwd(),
+        hpc = detect_hpc(),
+        session_info = sessionInfo())
+
+
+    # Optional slots ----
+    if (!is.null(alt_counts)) {
+        # [TODO] Update to slot alt_counts
+        # bcb@alt_counts <- alt_counts
+    } else if (!is.null(custom_metadata_file)) {
+        bcb@custom_metadata_file <- custom_metadata_file
+        # [TODO] Add workflow to process custom metadata
+        custom_metadata <- DataFrame()
+        bcb@custom_metadata <- custom_metadata
+    }
 }

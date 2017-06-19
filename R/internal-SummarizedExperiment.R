@@ -11,21 +11,14 @@
 #' @param txi tximport list.
 #' @param colData Sample metadata.
 #' @param rowData Ensembl gene annotations.
-#' @param metadata Optional list of arbitrary content.
 #'
 #' @return [SummarizedExperiment].
-.SummarizedExperiment <- function(txi, colData, rowData, metadata) {
-    # tximport list
+.SummarizedExperiment <- function(txi, colData, rowData) {
+    # tximport
     abundance <- txi[["abundance"]]
     counts <- txi[["counts"]]
     length <- txi[["length"]]
     counts_from_abundance <- txi[["countsFromAbundance"]]
-
-    # Subset the Ensembl rowData by genes present in counts matrix
-    rowData <- rowData[rownames(counts), ]
-
-    # Metadata
-    metadata[["counts_from_abundance"]] <- counts_from_abundance
 
     SummarizedExperiment(
         assays = SimpleList(
@@ -33,6 +26,7 @@
             counts = counts,
             length = length),
         colData = colData,
-        rowData = rowData,
-        metadata = metadata)
+        rowData = rowData[rownames(counts), ],
+        metadata = SimpleList(
+            counts_from_abundance = counts_from_abundance))
 }

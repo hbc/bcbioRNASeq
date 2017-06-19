@@ -4,7 +4,7 @@
 \alias{.SummarizedExperiment}
 \title{RNA-Seq SummarizedExperiment}
 \usage{
-.SummarizedExperiment(txi, colData, rowData, metadata)
+.SummarizedExperiment(txi, colData, rowData)
 }
 \arguments{
 \item{txi}{tximport list.}
@@ -12,8 +12,6 @@
 \item{colData}{Sample metadata.}
 
 \item{rowData}{Ensembl gene annotations.}
-
-\item{metadata}{Optional list of arbitrary content.}
 }
 \value{
 \link{SummarizedExperiment}.
