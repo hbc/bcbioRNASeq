@@ -5,9 +5,9 @@
 #' will take care of the rest. It automatically imports RNA-seq counts,
 #' metadata, and program versions used.
 #'
-#' When working in RStudio, we recommend connecting to the bcbio-nextgen run
-#' directory as a remote connection over
-#' [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
+#' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
+#'   run directory as a remote connection over
+#'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
 #' @author Michael Steinbaugh
 #' @author Lorena Patano
@@ -111,7 +111,8 @@ load_run <- function(
 
 
     # Metadata ----
-    # [TODO] Add custom metadata file support
+    # [TODO] Add custom metadata file support.
+    # [TODO] Add metrics into metadata.
     metadata <- SimpleList(
         analysis = analysis,
         groups_of_interest = groups_of_interest,
