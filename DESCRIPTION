@@ -39,7 +39,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     annotables,
-    basejump (>= 0.0.14),
+    basejump (>= 0.0.15),
     Biobase,
     cowplot,
     data.table (>= 1.10),
@@ -67,4 +67,4 @@ Remotes:
     steinbaugh/basejump,
     hbc/annotables
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.0.1
