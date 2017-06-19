@@ -50,8 +50,10 @@
     # http://r-pkgs.had.co.nz/namespace.html
     require("annotables", quietly = TRUE)
     envir <- as.environment("package:annotables")
+
     gene <- get(genome_build, envir = envir)
     tx2gene <- paste(genome_build, "tx2gene", sep = "_") %>%
         get(envir = envir)
+
     list(gene = gene, tx2gene = tx2gene)
 }
