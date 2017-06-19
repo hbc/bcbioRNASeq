@@ -27,6 +27,7 @@ bcbioRnaDataSet <- setClass(  # nolint
         date = "Date",
         counts = "SummarizedExperiment",
         alt_counts = "SimpleList",
+        metrics = "DataFrame",
         groups_of_interest = "character",
         custom_metadata_file = "character",
         custom_metadata = "DataFrame",
