@@ -35,6 +35,8 @@
 \alias{reexports}
 \alias{assay}
 \alias{reexports}
+\alias{assays}
+\alias{reexports}
 \alias{colData}
 \alias{reexports}
 \alias{rowData}
@@ -61,7 +63,7 @@ below to see their documentation.
 
   \item{S4Vectors}{\code{\link[S4Vectors]{metadata}}}
 
-  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{colData}}, \code{\link[SummarizedExperiment]{rowData}}}
+  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{assays}}, \code{\link[SummarizedExperiment]{colData}}, \code{\link[SummarizedExperiment]{rowData}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 }}
