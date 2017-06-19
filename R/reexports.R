@@ -65,6 +65,9 @@ SummarizedExperiment::assay
 #' @export
 SummarizedExperiment::colData
 
+#' @export
+SummarizedExperiment::rowData
+
 
 
 # S4Vectors ====

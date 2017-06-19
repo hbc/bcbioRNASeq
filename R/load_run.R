@@ -147,5 +147,5 @@ load_run <- function(
 
 
     # bcbioRnaDataSet ----
-    new("bcbioRnaDataSet", se, ensembl = ensembl)
+    new("bcbioRnaDataSet", se)
 }
