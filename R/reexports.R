@@ -63,6 +63,9 @@ pheatmap::pheatmap
 SummarizedExperiment::assay
 
 #' @export
+SummarizedExperiment::assays
+
+#' @export
 SummarizedExperiment::colData
 
 #' @export

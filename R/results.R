@@ -24,7 +24,7 @@ alpha_summary <- function(
     rownames(df) <- c("LFC > 0 (up)", "LFC < 0 (down)",
                       "outliers", "low_counts",
                       "cutoff")
-    df
+    show(kable(df))
 }
 
 
