@@ -6,7 +6,7 @@
 #' @rdname bcbio
 #' @docType methods
 #' @name bcbio
-#' @aliases bcbio bcbio,bcbioRnaDataSet-method bcbio<-,bcbioRnaDataSet,matrix-method
+#' @aliases bcbio bcbio,bcbioRnaDataSet-method bcbio<-,bcbioRnaDataSet, bcbioNames
 #'
 #' @param object [bcbioRnaDataSet] object.
 #' @param value An integer matrix or other object.
@@ -14,6 +14,10 @@
 #' @param ... Matrix count data.
 #'
 #' @return Matrix/Object containing count data.
+
+#' @rdname bcbio
+#' @export
+setGeneric("bcbioNames", function(object, ...) standardGeneric("bcbioNames"))
 
 #' @rdname bcbio
 #' @export
@@ -29,11 +33,21 @@ bcbio.bcbioRnaDataSet <- function(object, type="counts") {
     message(type, " not found.")
 }
 
+bcbio.names <- function(object){
+    names(slot(object, "callers"))
+}
+
 #' @rdname bcbio
 #' @export
 setMethod("bcbio",
           signature(object = "bcbioRnaDataSet"),
           bcbio.bcbioRnaDataSet)
+
+#' @rdname bcbio
+#' @export
+setMethod("bcbioNames",
+          signature(object = "bcbioRnaDataSet"),
+          bcbio.names)
 
 #' @rdname bcbio
 #' @export

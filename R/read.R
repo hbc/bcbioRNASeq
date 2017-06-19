@@ -202,7 +202,8 @@ read_bcbio_file <- function(
     } else if (ext == "tsv") {
         data <- read_tsv(filepath, ...)
     } else if (ext == "counts") {
-        data <- read_tsv(filepath, ...) %>% as.matrix
+        #[ hint: counts should be a matrix and first column the rownames]
+        data <- read.table(filepath, sep="\t", row.names = 1, header=TRUE) %>%  as.matrix
     } else {
         stop("Unsupported file extension")
     }

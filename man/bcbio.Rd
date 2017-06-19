@@ -4,18 +4,25 @@
 \name{bcbio}
 \alias{bcbio}
 \alias{bcbio,bcbioRnaDataSet-method}
-\alias{bcbio<-,bcbioRnaDataSet,matrix-method}
+\alias{bcbio<-,bcbioRnaDataSet,}
+\alias{bcbioNames}
+\alias{bcbio}
 \alias{bcbio.bcbioRnaDataSet}
 \alias{bcbio,bcbioRnaDataSet-method}
+\alias{bcbioNames,bcbioRnaDataSet-method}
 \alias{bcbio<-}
 \alias{bcbio<-,bcbioRnaDataSet-method}
 \title{Accessors for the count matrix of a \link{bcbioRnaDataSet} object}
 \usage{
+bcbioNames(object, ...)
+
 bcbio(object, ...)
 
 bcbio.bcbioRnaDataSet(object, type = "counts")
 
 \S4method{bcbio}{bcbioRnaDataSet}(object, type = "counts")
+
+\S4method{bcbioNames}{bcbioRnaDataSet}(object)
 
 bcbio(object, ...) <- value
 

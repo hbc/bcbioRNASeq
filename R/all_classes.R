@@ -38,6 +38,7 @@ setValidity("bcbioRnaDataSet", function(object) { TRUE })
     metadata(bcb)[["txi"]] <- NULL
     # [! Fix] copy real data to new pointer so we can remove it from here
     # run$txi <- NULL
+    bcbio(bcb, "featureCounts") <- read_bcbio_file(metadata(bcb), "combined.counts")
     if (run$analysis == "srnaseq"){
         bcb <- read_smallrna_counts(bcb)
     }
