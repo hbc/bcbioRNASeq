@@ -1,11 +1,8 @@
-# Class constructor ====
-# [TODO] This needs a complete rework...
-# No longer pulling data from run list object
-#' @rdname internal
 #' Get contrast name from [DESeqResults]
 #'
 #' @rdname res_contrast_name
 #' @keywords internal
+#'
 #' @author Michael Steinbaugh
 #'
 #' @param res [DESeqResults].
@@ -34,5 +31,6 @@
 .select_groups_of_interest <- function(dds, groups_of_interest) {
     colData(dds) %>%
         as.data.frame %>%
-        tidy_select(!!quo(groups_of_interest))
+        tidy_select(!!quo(groups_of_interest)) %>%
+        DataFrame
 }
