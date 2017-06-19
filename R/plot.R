@@ -17,7 +17,6 @@ plot_gene <- function(
     gene,
     format = "external_gene_name") {
     run <- metadata(bcb)
-    check_run(run)
 
     color <- run$groups_of_interest[1]
     ylab <- deparse(substitute(normalized_counts))
@@ -87,9 +86,9 @@ plot_pca <- function(
     shape = FALSE,
     label = TRUE) {
     run <- metadata(bcb)
-    check_run(run)
-    check_dt(dt)
+    .check_dt(dt)
     name <- deparse(substitute(dt))
+
     if (!is.null(genes)) {
         dt <- dt[genes, ]
         # Set ntop to the number of genes requested
@@ -119,6 +118,7 @@ plot_pca <- function(
         data$shape <- "default"
     }
 
+    # [TODO] Don't use `@` slot accessor
     data$label <- dt@colData$description
 
     plot <- ggplot(

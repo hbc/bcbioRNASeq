@@ -80,8 +80,7 @@ res_tables <- function(
     dir = "results/de",
     print = TRUE) {
     run <- metadata(bcb)
-    check_run(run)
-    check_res(res)
+    .check_res(res)
 
     name <- deparse(substitute(res))
     contrast <- res_contrast_name(res)

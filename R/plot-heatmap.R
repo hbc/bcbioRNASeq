@@ -57,8 +57,7 @@ plot_correlation_heatmap <- function(
     clustering_method = "ward.D2",
     ...) {
     run <- metadata(bcb)
-    check_run(run)
-    check_dt(dt)
+    .check_dt(dt)
 
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
@@ -126,8 +125,7 @@ plot_gene_heatmap <- function(
     scale = "row",
     ...) {
     run <- metadata(bcb)
-    check_run(run)
-    check_dt(dt)
+    .check_dt(dt)
 
     # Override the default `groups_of_interest` set in run, if desired
     if (is.null(groups_of_interest)) {
@@ -189,9 +187,8 @@ plot_gene_heatmap <- function(
 #' @export
 plot_deg_heatmap <- function(bcb, dt, res, ...) {
     run <- metadata(bcb)
-    check_run(run)
-    check_dt(dt)
-    check_res(res)
+    .check_dt(dt)
+    .check_res(res)
 
     # Set the default title
     if (is.null(title)) {
