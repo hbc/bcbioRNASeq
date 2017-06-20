@@ -2,7 +2,7 @@
 
 export("%>%")
 export("bcbio<-")
-export(.file)
+export(.read_file)
 export(DESeq)
 export(DESeqDataSet)
 export(DESeqDataSetFromMatrix)
