@@ -3,8 +3,9 @@
 #' @rdname deprecated
 #' @name deprecated
 #' @keywords internal
-#'
-#' @param ... Passthrough parameters.
+#' @usage NULL
+NULL
+
 
 
 #' @rdname deprecated
@@ -14,49 +15,129 @@ correlation_heatmap <- function(...) {
     plot_correlation_heatmap(...)
 }
 
-.create_local_project <- function() {
-    .Deprecated("create_new_project")
+
+
+#' @rdname deprecated
+#' @export
+create_local_project <- function() {
+    .Deprecated()
 }
+
+
+
+#' @rdname deprecated
+#' @export
+create_new_project <- function() {
+    .Deprecated()
+}
+
+
 
 #' @rdname deprecated
 #' @export
 import_file <- function() {
-    .Deprecated("read_bcbio_file")
+    .Deprecated()
 }
 
+
+
+#' @rdname deprecated
+#' @export
 import_metadata <- function() {
-    .Deprecated("read_bcbio_metadata")
+    .Deprecated()
 }
 
+
+
+#' @rdname deprecated
+#' @export
 import_summary <- function() {
-    .Deprecated("read_bcbio_metrics")
+    .Deprecated()
 }
 
-load_bcbio_run <- function() {
+
+
+#' @rdname deprecated
+#' @export
+load_bcbio_run <- function(...) {
     .Deprecated("load_run")
+    load_run(...)
 }
 
+
+
+#' @rdname deprecated
+#' @export
 load_bcbio_run_from_yaml <- function() {
     .Deprecated("load_run")
 }
 
+
+
+#' @rdname deprecated
+#' @export
 load_run_S4 <- function(...) {
     .Deprecated("load_run")
     load_run(...)
 }
 
-plot_deseq_pca <- function() {
+
+
+#' @rdname deprecated
+#' @export
+pool_counts <- function(...) {
+    .Deprecated("aggregate_replicates")
+    aggregate_replicates(...)
+}
+
+
+
+#' @rdname deprecated
+#' @export
+pool_dds <- function(...) {
+    .Deprecated("aggregate_replicates")
+    aggregate_replicates(...)
+}
+
+
+
+#' @rdname deprecated
+#' @export
+plot_deseq_pca <- function(...) {
     .Deprecated("plot_pca")
+    plot_pca(...)
 }
 
-pool_lane_split_counts <- function() {
+
+
+#' @rdname deprecated
+#' @export
+pool_lane_split_counts <- function(...) {
     .Deprecated("pool_counts")
+    pool_replicates(...)
 }
 
-pool_lane_split_dds <- function() {
-    .Deprecated("pool_dds")
+
+
+#' @rdname deprecated
+#' @export
+pool_lane_split_dds <- function(...) {
+    .Deprecated("pool_replicates")
+    pool_dds(...)
 }
 
+
+
+#' @rdname deprecated
+#' @export
 read_metadata <- function() {
-    .Deprecated(".metadata")
+    .Deprecated("metadata")
+}
+
+
+
+#' @rdname deprecated
+#' @export
+tmm_normalize <- function() {
+    .Deprecated("tmm")
 }
