@@ -51,19 +51,3 @@
         DataFrame %>%
         set_rownames(.[[1L]])
 }
-
-
-
-#' @rdname annotables
-#' @param ensgene Ensembl gene identifiers.
-#' @return [DataFrame] with unique gene rows and simplified annotations.
-.annotable_to_rowdata <- function(genome_build, ensgene) {
-    .annotable(genome_build) %>%
-        tidy_select(c("ensgene", "symbol", "chr", "biotype", "description")) %>%
-        distinct %>%
-        arrange(!!sym("ensgene")) %>%
-        as.data.frame %>%
-        set_rownames(.$ensgene) %>%
-        DataFrame %>%
-        .[ensgene, ]
-}

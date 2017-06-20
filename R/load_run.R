@@ -110,6 +110,22 @@ load_run <- function(
     }
 
 
+    # User-defined custom metadata ----
+    custom_metadata <- .custom_metadata(custom_metadata_file)
+
+
+    # Sample metrics ----
+    # Note that sample metrics used for QC plots are not currently generated
+    # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
+    # counts generated with STAR.
+    metrics <- .yaml_metrics(yaml)
+
+
+    # bcbio-nextgen versions ----
+    data_versions <- .data_versions(project_dir)
+    programs <- .programs(project_dir)
+
+
     # Metadata ----
     metadata <- SimpleList(
         analysis = analysis,
@@ -119,8 +135,6 @@ load_run <- function(
         template = template,
         run_date = run_date,
         load_date = Sys.Date(),
-        wd = getwd(),
-        hpc = detect_hpc(),
         upload_dir = upload_dir,
         project_dir = project_dir,
         sample_dirs = sample_dirs,
@@ -132,20 +146,26 @@ load_run <- function(
         lanes = lanes,
         yaml_file = yaml_file,
         yaml = yaml,
-        metrics = .yaml_metrics(yaml),
+        metrics = metrics,
         custom_metadata_file = custom_metadata_file,
-        custom_metadata = .custom_metadata(custom_metadata_file),
-        data_versions = .data_versions(project_dir),
-        programs = .programs(project_dir),
+        custom_metadata = custom_metadata,
+        data_versions = data_versions,
+        programs = programs,
+        wd = getwd(),
+        hpc = detect_hpc(),
         session_info = sessionInfo())
 
 
     # SummarizedExperiment ----
-    # [TODO] Add custom metadata support
-    # custom_metadata <- SimpleList()
+    # colData
+    if (!is.null(custom_metadata)) {
+        colData <- custom_metadata
+    } else {
+        colData <- .yaml_metadata(yaml)
+    }
     se <- .SummarizedExperiment(
         txi = .tximport(sample_dirs, tx2gene = tx2gene),
-        colData = .yaml_metadata(yaml),
+        colData = colData,
         rowData = annotable,
         metadata = metadata)
 

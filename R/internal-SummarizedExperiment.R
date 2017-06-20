@@ -24,12 +24,25 @@
     counts_from_abundance <- txi[["countsFromAbundance"]]
 
     # Metadata ----
-    if (is.null(metadata)) {
-        metadata <- SimpleList()
-    } else if (class(metadata) != "SimpleList") {
-        metadata <- as(metadata, "SimpleList")
+    if (is.null(meta)) {
+        meta <- SimpleList()
+    } else if (class(meta) != "SimpleList") {
+        meta <- as(meta, "SimpleList")
     }
-    metadata[["counts_from_abundance"]] <- counts_from_abundance
+    meta[["counts_from_abundance"]] <- counts_from_abundance
+
+    # Prepare colData and rowData ----
+    colData <- colData[colnames(counts), ]
+    rownames(colData) <- colnames(counts)
+
+    rowData <- rowData[rownames(counts), ]
+    rownames(rowData) <- rownames(counts)
+    # [TODO] How to handle deprecated Ensembl identifiers?
+    # Examples: ENSMUSG00000029333, ENSMUSG00000035349, ENSMUSG00000042402
+
+    if (!identical(rownames(rowData), rownames(counts))) {
+        stop("Gene identifier mismatch")
+    }
 
     # SummarizedExperiment ----
     SummarizedExperiment(
@@ -38,6 +51,6 @@
             counts = counts,
             length = length),
         colData = colData,
-        rowData = rowData[rownames(counts), ],
-        metadata = metadata)
+        rowData = rowData,
+        metadata = meta)
 }
