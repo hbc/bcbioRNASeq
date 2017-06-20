@@ -61,7 +61,6 @@ plot_volcano <- function(
     point_alpha = 0.75,
     point_outline_color = "darkgray") {
     .check_res(res)
-
     # [TODO] Add support for option of plotting unadjusted P values without
     # `+ 1e-10` transformation.
 
@@ -110,7 +109,7 @@ plot_volcano <- function(
           ceiling(max(na.omit(stats$neg_log_padj))))
 
 
-    # LFC density histogram ====
+    # LFC density histogram ----
     lfc_density <- density(na.omit(stats$log2_fold_change))
     lfc_density_df <- data.frame(x = lfc_density$x,
                                  y = lfc_density$y)
@@ -143,7 +142,7 @@ plot_volcano <- function(
     # show(lfc_hist)
 
 
-    # Density plot of adjusted P values ====
+    # Density plot of adjusted P values ----
     padj_density <- density(na.omit(stats$neg_log_padj))
     padj_density_df <- data.frame(x = padj_density$x,
                                   y = padj_density$y)
@@ -163,7 +162,7 @@ plot_volcano <- function(
     # show(padj_hist)
 
 
-    # Volcano plot ====
+    # Volcano plot ----
     volcano <- stats %>%
         ggplot(aes_(x = ~log2_fold_change,
                     y = ~-log10(padj + 1e-10))) +
@@ -220,6 +219,9 @@ plot_volcano <- function(
                 fill = shade_color,
                 alpha = shade_alpha)
     }
+
+
+    # Grid layout ----
     if (merge) {
         ggdraw() +
             draw_plot(
