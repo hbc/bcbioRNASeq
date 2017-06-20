@@ -15,15 +15,21 @@
 #' @return [DataFrame].
 #' @export
 .read_file <- function(file, column_to_rownames = NULL, ...) {
+    if (is.null(file)) {
+        return(NULL)
+    }
     if (!is.character(file)) {
         stop("File path must be a string")
     }
+
     file_path <- normalizePath(file)
     file_name <- basename(file_path)
+
     if (!file.exists(file_path)) {
         warning(paste(file_name, "not found"))
         return(NULL)
     }
+
     message(paste("Reading", file_name))
 
     # Detect file extension
