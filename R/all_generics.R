@@ -27,6 +27,16 @@ setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 
 
 
+# metrics ====
+#' Sample metrics
+#'
+#' @rdname metrics
+#' @name metrics
+#' @export
+setGeneric("metrics", function(object) standardGeneric("metrics"))
+
+
+
 # raw_counts ====
 #' Raw counts
 #'

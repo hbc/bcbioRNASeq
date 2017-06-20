@@ -26,6 +26,17 @@ setReplaceMethod(
 
 
 
+# metrics ====
+#' @rdname metrics
+#' @export
+setMethod("metrics", "bcbioRnaDataSet", function(object) {
+    metrics <- metadata(bcb)[["metrics"]]
+    if (is.null(metrics)) return(NULL)
+    cbind(colData(bcb), metrics) %>% as.data.frame
+})
+
+
+
 # raw_counts ====
 #' @rdname raw_counts
 #' @export
