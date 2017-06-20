@@ -1,6 +1,7 @@
 #' Print summary statistics of alpha level cutoffs
 #'
 #' @author Michael Steinbaugh
+#' @author Lorena Patano
 #'
 #' @param dds [DESeqDataSet].
 #' @param alpha Numeric vector of desired alpha cutoffs.
@@ -12,40 +13,26 @@ alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     ...) {
-    # name <- deparse(substitute(dds))
-    # print(name) [! Fix] no print func inside functions
-    df <- lapply(seq_along(alpha), function(a) {
-        .info <- capture.output(results(dds, alpha = alpha[a], ...) %>% summary)[4:8]
-        .parse <- sapply(.info, function(i) {unlist(strsplit(i, split = ":"))[2]})[1:4]
-        .parse <- c(.parse, .info[5])
+    .check_dds(dds)
+    lapply(seq_along(alpha), function(a) {
+        .info <- capture.output(
+            results(dds, alpha = alpha[a], ...) %>%
+                summary)[4L:8L]
+        .parse <- sapply(
+            .info, function(i) {
+                unlist(strsplit(i, split = ":"))[2L]
+            })[1L:4L]
+        .parse <- c(.parse, .info[5L])
         data.frame(alpha = as.vector(.parse))
-    }) %>% bind_cols
-    colnames(df) <- alpha
-    rownames(df) <- c("LFC > 0 (up)", "LFC < 0 (down)",
-                      "outliers", "low_counts",
-                      "cutoff")
-    show(kable(df))
-}
-
-
-
-#' Metadata table
-#'
-#' Returns a subset of metadata columns of interest used for knit reports. These
-#' "interesting group" columns are defined as `groups_of_interest` in the
-#' [bcbioRnaDataSet] object.
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param bcb [bcbioRnaDataSet].
-#'
-#' @return Data frame containing only the columns of interest.
-#' @export
-metadata_table <- function(bcb) {
-    colData(bcb) %>%
-        as.data.frame %>%
-        remove_rownames %>%
-        kable(caption = "Sample metadata")
+    }
+    ) %>% bind_cols %>%
+        set_colnames(alpha) %>%
+        set_rownames(c("LFC > 0 (up)",
+                       "LFC < 0 (down)",
+                       "outliers",
+                       "low counts",
+                       "cutoff")) %>%
+        kable %>% show
 }
 
 
