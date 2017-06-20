@@ -26,8 +26,7 @@
     file_name <- basename(file_path)
 
     if (!file.exists(file_path)) {
-        warning(paste(file_name, "not found"))
-        return(NULL)
+        stop(paste(file_name, "not found"))
     }
 
     message(paste("Reading", file_name))
