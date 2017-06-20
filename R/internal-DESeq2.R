@@ -17,20 +17,20 @@
 
 #' [DESeq] [colData]
 #'
-#' Selects `groups_of_interest`-defined interesting groups automatically.
+#' Selects `interesting_groups`-defined interesting groups automatically.
 #'
-#' @rdname select_groups_of_interest
+#' @rdname select_interesting_groups
 #' @keywords internal
 #'
 #' @author Michael Steinbaugh
 #'
 #' @param dds [DESeqDataSet] or [DESeqTransform].
-#' @param groups_of_interest Groups of interest.
+#' @param interesting_groups Groups of interest.
 #'
 #' @return [colData()] data frame.
-.select_groups_of_interest <- function(dds, groups_of_interest) {
+.select_interesting_groups <- function(dds, interesting_groups) {
     colData(dds) %>%
         as.data.frame %>%
-        tidy_select(!!quo(groups_of_interest)) %>%
+        tidy_select(!!quo(interesting_groups)) %>%
         DataFrame
 }
