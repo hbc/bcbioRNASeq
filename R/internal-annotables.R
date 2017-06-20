@@ -1,38 +1,31 @@
-#' Ensembl annotations
+#' [Ensembl](http://www.ensembl.org/) annotations from [annotables]
 #'
-#' Transcript-level annotations are downloaded from
-#' [Ensembl](http://www.ensembl.org/) and saved as a tibbled grouped by
-#' `ensembl_gene_id` with nested `ensembl_transcript_id` in the bcbio run
-#' object. We also define broad classes, which are used in quality control
-#' analysis.
+#' Quickly access gene annotations and transcript-to-gene (tx2gene) mappings
+#' pre-compiled from [Ensembl](http://www.ensembl.org/) with the
+#' [biomaRt](http://bioconductor.org/packages/release/bioc/html/biomaRt.html)
+#' package. For gene annotables, the Entrez identifier is removed, to allow
+#' for unique Ensembl gene identifiers.
 #'
-#' @rdname ensembl
+#' @rdname annotables
 #' @keywords internal
 #'
 #' @author Michael Steinbaugh
-#' @author Rory Kirchner
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param genome_build Genome build. Consult the [annotables] documentation
+#'   for a list of currently supported genomes.
+#' @param format Desired table format, either `gene` or `tx2gene`.
 #'
-#' @return Tibble grouped by `ensembl_gene_id` with nested
-#'   `ensembl_transcript_id`.
-#' @rdname ensembl
-.annotables <- function(genome_build) {
+#' @return Modified annotable with unique rows (.
+.annotable <- function(genome_build, format = "gene") {
+    if (!is.character(genome_build)) {
+        stop("Genome build must be a character vector")
+    }
+    if (!format %in% c("gene", "tx2gene")) {
+        stop("Unsupported table format")
+    }
     envir <- as.environment("package:annotables")
 
-    gene <- get(genome_build, envir = envir)
-    tx2gene <- paste(genome_build, "tx2gene", sep = "_") %>%
-        get(envir = envir)
-
-    list(gene = gene, tx2gene = tx2gene)
-}
-
-
-
-.ensembl <- function(genome_build) {
-    message("Using annotables for Ensembl gene annotations")
-
-    # Remap genome build versions to annotables
+    # Remap genome build aliases
     if (genome_build == "hg19") {
         genome_build <- "grch37"
     } else if (genome_build == "hg38") {
@@ -41,18 +34,36 @@
         genome_build <- "grcm38"
     }
 
-    annotables <- .annotables(genome_build)
+    message(paste("Converting prebuilt", genome_build, format, "annotable"))
 
-    list <- SimpleList()
-    list[["gene"]] <- annotables[["gene"]] %>%
+    if (format == "gene") {
+        annotable <- get(genome_build, envir = envir) %>%
+            mutate(entrez = NULL) %>%
+            distinct %>%
+            arrange(!!sym("ensgene"))
+    } else if (format == "tx2gene") {
+        annotable <- paste(genome_build, "tx2gene", sep = "_") %>%
+            get(envir = envir) %>%
+            arrange(!!sym("enstxp"))
+    }
+
+    annotable %>%
+        DataFrame %>%
+        set_rownames(.[[1L]])
+}
+
+
+
+#' @rdname annotables
+#' @param ensgene Ensembl gene identifiers.
+#' @return [DataFrame] with unique gene rows and simplified annotations.
+.annotable_to_rowdata <- function(genome_build, ensgene) {
+    .annotable(genome_build) %>%
         tidy_select(c("ensgene", "symbol", "chr", "biotype", "description")) %>%
         distinct %>%
         arrange(!!sym("ensgene")) %>%
         as.data.frame %>%
-        column_to_rownames("ensgene")
-    list[["tx2gene"]] <- annotables[["tx2gene"]] %>%
-        arrange(!!sym("enstxp")) %>%
-        as.data.frame
-
-    list
+        set_rownames(.$ensgene) %>%
+        DataFrame %>%
+        .[ensgene, ]
 }
