@@ -24,7 +24,7 @@ plot_total_reads <- function(
     pass_limit = 20L,
     warn_limit = 10L,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -58,7 +58,7 @@ plot_mapped_reads <- function(
     pass_limit = 20L,
     warn_limit = 10L,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -91,7 +91,7 @@ plot_mapping_rate <- function(
     pass_limit = 90,
     warn_limit = 70,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -124,7 +124,7 @@ plot_genes_detected <- function(
     bcb,
     pass_limit = 20000,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     counts <- assay(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
@@ -153,8 +153,8 @@ plot_genes_detected <- function(
 plot_gene_detection_saturation <- function(
     bcb,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
-    counts <- assay(bcb)
+    metrics <- metrics(bcb)
+    counts <- raw_counts(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -182,7 +182,7 @@ plot_exonic_mapping_rate <- function(
     bcb,
     pass_limit = 60L,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -212,7 +212,7 @@ plot_intronic_mapping_rate <- function(
     bcb,
     warn_limit = 20L,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -243,7 +243,7 @@ plot_rrna_mapping_rate <- function(
     bcb,
     warn_limit = 10L,
     groups_of_interest = NULL) {
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
     if (is.null(groups_of_interest)) {
         groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
@@ -274,8 +274,7 @@ plot_counts_per_gene <- function(
     normalized_counts = NULL,
     groups_of_interest = NULL) {
     if (is.null(normalized_counts)) {
-        # [TODO] Use tpm accessor
-        normalized_counts <- assays(bcb)[["abundance"]]
+        normalized_counts <- tpm(bcb)
         name <- "tpm"
     } else {
         name <- deparse(substitute(normalized_counts))
@@ -307,8 +306,7 @@ plot_count_density <- function(
     bcb,
     normalized_counts = NULL) {
     if (is.null(normalized_counts)) {
-        # [TODO] Use tpm accessor
-        normalized_counts <- assays(bcb)[["abundance"]]
+        normalized_counts <- tpm(bcb)
         name <- "tpm"
     } else {
         name <- deparse(substitute(normalized_counts))
@@ -355,8 +353,7 @@ plot_gender_markers <- function(bcb, normalized_counts = NULL) {
 
     # Normalized counts ----
     if (is.null(normalized_counts)) {
-        # [TODO] Use tpm accessor
-        normalized_counts <- assays(bcb)[["abundance"]]
+        normalized_counts <- tpm(bcb)
         name <- "transcripts per million (tpm)"
     } else {
         name <- deparse(substitute(normalized_counts))
@@ -399,8 +396,7 @@ plot_gender_markers <- function(bcb, normalized_counts = NULL) {
 #'
 #' @export
 plot_pca_covariates <- function(bcb, dt, use = NULL, ...) {
-    # [TODO] Switch to S4 `metrics()` accessor
-    metrics <- .metrics(bcb)
+    metrics <- metrics(bcb)
     if (is.null(metrics)) {
         return(NULL)
     }
