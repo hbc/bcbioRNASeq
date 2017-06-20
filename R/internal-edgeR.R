@@ -10,6 +10,7 @@
 #'
 #' @param counts Counts matrix.
 .tmm <- function(counts) {
+    message("Performing TMM normalization with edgeR")
     counts %>%
         DGEList %>%
         calcNormFactors %>%
