@@ -93,8 +93,8 @@ load_run <- function(
     genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
     organism <- .detect_organism(genome_build)
     message(paste("Genome:", organism, genome_build))
-    # Ensembl annotations from annotables
-    ensembl <- .ensembl(genome_build)
+    annotable <- .annotable(genome_build)
+    tx2gene <- .tx2gene(project_dir, genome_build)
 
 
     # Sequencing lanes ----
@@ -111,8 +111,6 @@ load_run <- function(
 
 
     # Metadata ----
-    # [TODO] Add custom metadata file support.
-    # [TODO] Add metrics into metadata.
     metadata <- SimpleList(
         analysis = analysis,
         groups_of_interest = groups_of_interest,
@@ -128,12 +126,17 @@ load_run <- function(
         sample_dirs = sample_dirs,
         organism = organism,
         genome_build = genome_build,
+        ensembl_version = ensembl_version,
+        annotable = annotable,
+        tx2gene = tx2gene,
         lanes = lanes,
         yaml_file = yaml_file,
         yaml = yaml,
+        metrics = .yaml_metrics(yaml),
         custom_metadata_file = custom_metadata_file,
+        custom_metadata = .custom_metadata(custom_metadata_file),
         data_versions = .data_versions(project_dir),
-        program_versions = .program_versions(project_dir),
+        programs = .programs(project_dir),
         session_info = sessionInfo())
 
 
@@ -141,9 +144,9 @@ load_run <- function(
     # [TODO] Add custom metadata support
     # custom_metadata <- SimpleList()
     se <- .SummarizedExperiment(
-        txi = .tximport(sample_dirs, tx2gene = ensembl[["tx2gene"]]),
+        txi = .tximport(sample_dirs, tx2gene = tx2gene),
         colData = .yaml_metadata(yaml),
-        rowData = ensembl[["gene"]],
+        rowData = annotable,
         metadata = metadata)
 
 
