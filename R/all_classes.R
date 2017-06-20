@@ -21,8 +21,5 @@
 #' @aliases bcbioRnaDataSet-class
 #' @export
 bcbioRnaDataSet <- setClass(  # nolint
-    "bcbioRnaDataSet",
-    contains = "SummarizedExperiment",
-    representation = representation(
-        callers = "SimpleList"))
+    "bcbioRnaDataSet", contains = "SummarizedExperiment")
 setValidity("bcbioRnaDataSet", function(object) TRUE)
