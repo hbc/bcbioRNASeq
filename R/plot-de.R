@@ -17,7 +17,7 @@
 plot_ma <- function(res, ylim = 2) {
     check_res(res)
     name <- deparse(substitute(res))
-    contrast_name <- res_contrast_name(res)
+    contrast_name <- .res_contrast_name(res)
     plotMA(res,
            main = paste(name, contrast_name, sep = label_sep),
            ylim = c(-ylim, ylim))
@@ -71,7 +71,7 @@ plot_volcano <- function(
     }
 
     alpha <- metadata(res)$alpha
-    contrast_name <- res_contrast_name(res)
+    contrast_name <- .res_contrast_name(res)
 
     # Generate automatic title, if necessary
     if (is.null(title)) {
@@ -89,13 +89,16 @@ plot_volcano <- function(
         filter(!is.na(.data$log2_fold_change)) %>%
         # Arrange by P value
         arrange(!!sym("padj")) %>%
+        # Convert adjusted P value to -log10
         mutate(neg_log_padj = -log10(.data$padj + 1e-10))
 
     # Automatically label the top genes
-    annotations <- gene_level_annotations(run) %>%
-        tidy_select(!!!syms(c("ensembl_gene_id", "external_gene_name")))
-    volcano_text <- stats %>%
-        .[1:text_labels, ] %>%
+    # [TODO] Make annotable interconversion to Ensembl names a function...
+    annotations <- rowData(bcb)[, c("ensgene", "symbol")] %>%
+        as.data.frame %>%
+        set_colnames(c("ensembl_gene_id", "external_gene_name"))
+
+    volcano_text <- stats[1:text_labels, ] %>%
         left_join(annotations, by = "ensembl_gene_id")
 
     # Get range of LFC and P values to set up plot borders
@@ -217,24 +220,27 @@ plot_volcano <- function(
                 fill = shade_color,
                 alpha = shade_alpha)
     }
-    if (merge){
-        p<- ggdraw() +
-            draw_plot(lfc_hist + theme(axis.title.x=element_blank(),
-                                       axis.text.x=element_blank(),
-                                       axis.ticks.x=element_blank()),
-                      x=0, y=0.7, width=1, height=0.3) +
-            draw_plot(padj_hist + theme(axis.title.y=element_blank(),
-                                        axis.text.y=element_blank(),
-                                        axis.ticks.y=element_blank()),
-                      x=0.7, y=0, width=0.3, height=0.7) +
-            draw_plot(volcano, x=0, y=0, width=0.7, height=0.7)
-        return(p)
+    if (merge) {
+        ggdraw() +
+            draw_plot(
+                lfc_hist +
+                    theme(axis.title.x = element_blank(),
+                          axis.text.x = element_blank(),
+                          axis.ticks.x = element_blank()),
+                x = 0L, y = 0.7, width = 1L, height = 0.3) +
+            draw_plot(
+                padj_hist +
+                    theme(axis.title.y = element_blank(),
+                          axis.text.y = element_blank(),
+                          axis.ticks.y = element_blank()),
+                x = 0.7, y = 0L, width = 0.3, height = 0.7) +
+            draw_plot(
+                volcano, x = 0L, y = 0L, width = 0.7, height = 0.7)
     } else {
         show(lfc_hist)
         show(padj_hist)
         show(volcano)
     }
-
 }
 
 
@@ -249,12 +255,12 @@ plot_volcano <- function(
 #' @param ... extra parameters for degPatterns function
 #' @author Lorena Pantano
 #' @export
-plot_pattern <- function(bcb, res, fdr=0.1, n=NULL, ...){
+plot_pattern <- function(bcb, res, fdr = 0.1, n = NULL, ...){
     res <- as.data.frame(res)
-    .order <- res[order(res$padj),]
+    .order <- res[order(res$padj), ]
     sign <- row.names(.order)[!is.na(.order$padj)]
     if (!is.null(n))
         sign <- sign[1:n]
-    degPatterns(bcbio(bcb, "rld")[sign,], colData(bcb), ...)
+    degPatterns(bcbio(bcb, "rld")[sign, ], colData(bcb), ...)
 }
 
