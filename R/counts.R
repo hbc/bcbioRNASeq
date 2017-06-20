@@ -8,8 +8,11 @@
 #'
 #' @return log10 melted data frame.
 #' @export
-melt_log10 <- function(run, counts) {
-    metadata <- run$metadata
+melt_log10 <- function(bcb, counts = NULL) {
+    metadata <- colData(bcb) %>% as.data.frame
+    if (is.null(counts)) {
+        counts <- assay(bcb)
+    }
     if (!identical(colnames(counts), rownames(metadata))) {
         stop("Sample descriptions in counts do not match metadata.")
     }
@@ -22,10 +25,10 @@ melt_log10 <- function(run, counts) {
                     "description",  # colnames
                     "counts")) %>%
         # Filter zero counts
-        filter(.data$counts > 0) %>%
+        filter(.data[["counts"]] > 0) %>%
         # log10 transform
-        mutate(counts = log10(.data$counts),
-               description = as.character(.data$description)) %>%
+        mutate(counts = log10(.data[["counts"]]),
+               description = as.character(.data[["description"]])) %>%
         # Join metadata
         left_join(metadata, by = "description")
 }
@@ -82,31 +85,6 @@ tmm_normalize <- function(raw_counts) {
         DGEList %>%
         calcNormFactors %>%
         cpm(normalized.lib.sizes = TRUE)
-}
-
-
-
-# [TODO] Rework to access S4 object
-#' Transcripts per million
-#'
-#' Save TPM values from a tximport counts object.
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param txi [tximport] list, containing counts in the `abundance`
-#'   slot.
-#'
-#' @return TPM (transcripts per million) matrix.
-#' @export
-tpm <- function(txi) {
-    if (!identical(
-        names(txi), c("abundance",
-                      "counts",
-                      "length",
-                      "countsFromAbundance"))) {
-        stop("tximport list missing")
-    }
-    txi$abundance
 }
 
 
