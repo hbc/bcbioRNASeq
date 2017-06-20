@@ -11,8 +11,8 @@
 
 \item{column_to_rownames}{Column identifier to use for row names.}
 
-\item{...}{Passthrough parameters to \link{readr} package. Consult the
-\code{\link[=read_csv]{read_csv()}} documentation for more information.}
+\item{...}{Passthrough parameters to \href{http://readr.tidyverse.org}{readr}
+package. Consult the \code{\link[=read_csv]{read_csv()}} documentation for more information.}
 }
 \value{
 \link{DataFrame}.

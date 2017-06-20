@@ -9,8 +9,8 @@
 #'
 #' @param file File path.
 #' @param column_to_rownames Column identifier to use for row names.
-#' @param ... Passthrough parameters to [readr] package. Consult the
-#'   [read_csv()] documentation for more information.
+#' @param ... Passthrough parameters to [readr](http://readr.tidyverse.org)
+#'   package. Consult the [read_csv()] documentation for more information.
 #'
 #' @return [DataFrame].
 #' @export
