@@ -23,6 +23,9 @@
     length <- txi[["length"]]
     counts_from_abundance <- txi[["countsFromAbundance"]]
 
+    # TMM normalization ----
+    tmm <- .tmm(counts)
+
     # Metadata ----
     if (is.null(metadata)) {
         metadata <- SimpleList()
@@ -49,7 +52,8 @@
         assays = SimpleList(
             counts = counts,
             abundance = abundance,
-            length = length),
+            length = length,
+            tmm = tmm),
         colData = colData,
         rowData = rowData,
         metadata = metadata)
