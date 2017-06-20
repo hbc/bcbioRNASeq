@@ -24,12 +24,12 @@
     counts_from_abundance <- txi[["countsFromAbundance"]]
 
     # Metadata ----
-    if (is.null(meta)) {
-        meta <- SimpleList()
-    } else if (class(meta) != "SimpleList") {
-        meta <- as(meta, "SimpleList")
+    if (is.null(metadata)) {
+        metadata <- SimpleList()
+    } else if (class(metadata) != "SimpleList") {
+        metadata <- as(metadata, "SimpleList")
     }
-    meta[["counts_from_abundance"]] <- counts_from_abundance
+    metadata[["counts_from_abundance"]] <- counts_from_abundance
 
     # Prepare colData and rowData ----
     colData <- colData[colnames(counts), ]
@@ -52,5 +52,5 @@
             length = length),
         colData = colData,
         rowData = rowData,
-        metadata = meta)
+        metadata = metadata)
 }
