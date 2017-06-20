@@ -1,6 +1,25 @@
+#' aggregate_replicates ====
+#' Aggregate lane-split technical replicates
+#'
+#' Frequently RNA-seq experiments are performed with technical replicates
+#' split across flow cell lanes. This generic facilitates quick aggregation
+#' of counts across the flow cells.
+#'
+#' @rdname aggregate_replicates
+#' @name aggregate_replicates
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param object Object.
+#' @param ... Passthrough.
+setGeneric("aggregate_replicates", function(object, ...) {
+    standardGeneric("aggregate_replicates")
+})
+
+
+
 # bcbio ====
-# [TODO] Too vague
-#' Accessors for the count matrix of a [bcbioRnaDataSet] object
+#' [bcbioRnaDataSet] count matrix accessors
 #'
 #' This method will be used to access all different count matrix from
 #' the object. Gene expression, transcript expression, miRNA expression...
@@ -17,7 +36,7 @@
 #' @param type type of count data to retrieve
 #' @param ... Matrix count data.
 #'
-#' @return Matrix/Object containing count data.
+#' @return Count matrix.
 setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
 
 #' @rdname bcbio
@@ -27,11 +46,52 @@ setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 
 
 
+# melt_log10 ====
+#' Melt count matrix to long format and log10 transform
+#'
+#' @rdname melt_log10
+#' @name melt_log10
+#' @docType methods
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param object Object containing counts matrix.
+#' @param ... Optional parameters.
+#'
+#' @return log10 melted data frame.
+#' @export
+setGeneric("melt_log10", function(object, ...) standardGeneric("melt_log10"))
+
+
+
+# metadata_table ====
+#' Metadata table
+#'
+#' Returns a subset of metadata columns of interest used for knit reports. These
+#' "interesting group" columns are defined as `interesting_groups` in the
+#' [bcbioRnaDataSet] object.
+#'
+#' @rdname metadata_table
+#' @name metadata_table
+#' @docType methods
+#'
+#' @param ... [kable()] passthrough parameters.
+#'
+#' @return Data frame containing only the columns of interest.
+setGeneric("metadata_table", function(object, ...) {
+    standardGeneric("metadata_table")
+})
+
+
 # metrics ====
 #' Sample metrics
 #'
 #' @rdname metrics
 #' @name metrics
+#' @docType methods
+#'
+#' @param object [bcbioRnaDataSet] object.
+#'
 #' @export
 setGeneric("metrics", function(object) standardGeneric("metrics"))
 
@@ -42,6 +102,10 @@ setGeneric("metrics", function(object) standardGeneric("metrics"))
 #'
 #' @rdname raw_counts
 #' @name raw_counts
+#' @docType methods
+#'
+#' @param object [bcbioRnaDataSet] object.
+#'
 #' @export
 setGeneric("raw_counts", function(object) standardGeneric("raw_counts"))
 
@@ -53,16 +117,12 @@ setGeneric("raw_counts", function(object) standardGeneric("raw_counts"))
 #' This method will be used to access folders where sample information is kept.
 #'
 #' @rdname sample_dirs
+#' @name sample_dirs
 #' @docType methods
-#' @name bcbcols
-#' @aliases bcbcols bcbcols,bcbioRnaDataSet
 #'
 #' @param object [bcbioRnaDataSet] object.
 #'
 #' @return Folders where samples are kept.
-#' @export
-#' @rdname sample_dirs
-#' @name sample_dirs
 #' @export
 setGeneric("sample_dirs", function(object) standardGeneric("sample_dirs"))
 
@@ -73,5 +133,9 @@ setGeneric("sample_dirs", function(object) standardGeneric("sample_dirs"))
 #'
 #' @rdname tpm
 #' @name tpm
+#' @docType methods
+#'
+#' @param object [bcbioRnaDataSet] object.
+#'
 #' @export
 setGeneric("tpm", function(object) standardGeneric("tpm"))
