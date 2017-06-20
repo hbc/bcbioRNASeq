@@ -84,14 +84,12 @@ the object. Gene expression, transcript expression, miRNA expression...</p>
 
     <pre class="usage"><span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='fu'>bcbio.bcbioRnaDataSet</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>)
+<span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
 <span class='co'># S4 method for bcbioRnaDataSet</span>
 <span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>)
 
-<span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
-
-<span class='co'># S4 method for bcbioRnaDataSet</span>
+<span class='co'># S4 method for bcbioRnaDataSet,matrix</span>
 <span class='fu'>bcbio</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"counts"</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -106,12 +104,12 @@ the object. Gene expression, transcript expression, miRNA expression...</p>
       <td><p>Matrix count data.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>type of count data to retrieve</p></td>
-    </tr>
-    <tr>
       <th>value</th>
       <td><p>An integer matrix or other object.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>type of count data to retrieve</p></td>
     </tr>
     </table>
     

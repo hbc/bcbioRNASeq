@@ -4,12 +4,12 @@
 \alias{melt_log10}
 \title{Melt RNA-seq count data to long format and log10 transform}
 \usage{
-melt_log10(run, counts)
+melt_log10(bcb, counts = NULL)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
-
 \item{counts}{Counts matrix.}
+
+\item{run}{\link{bcbioRnaDataSet}.}
 }
 \value{
 log10 melted data frame.
