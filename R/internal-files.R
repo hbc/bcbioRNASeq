@@ -1,6 +1,6 @@
 #' Read file with [readr] package automatically
 #'
-#' Supports automatic loading of `.csv`, `.tsv`, and `.counts` files.
+#' Supports automatic loading of `.csv`, `.tsv`, `.xlsx`, and `.counts` files.
 #'
 #' @rdname read_file
 #' @keywords internal
