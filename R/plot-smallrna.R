@@ -25,7 +25,7 @@ plot_size_distribution <- function(run) {
         tab <- rbind(
             tab, d %>%
                 mutate(sample = sample,
-                       group = run$metadata[sample, run$groups_of_interest]))
+                       group = run$metadata[sample, run$interesting_groups]))
     }
 
     reads_adapter <- tab %>%
@@ -103,7 +103,7 @@ plot_srna_clusters <- function(run) {
         design = ~1)
     vst <- rlog(dds, betaPriorVar = FALSE)
     annotation_col <- design %>%
-        .[, metadata(run)[["groups_of_interest"]], drop = FALSE]
+        .[, metadata(run)[["interesting_groups"]], drop = FALSE]
     pheatmap(assay(vst),
              annotation_col = annotation_col,
              clustering_distance_cols = "correlation",

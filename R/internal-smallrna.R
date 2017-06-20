@@ -20,6 +20,6 @@
     bcbio(rna, type = "isomirs") <- IsomirDataSeqFromFiles(
         files = fns[rownames(run$metadata)],
         coldata = run$metadata,
-        design = ~run$groups_of_interest)
+        design = ~run$interesting_groups)
     rna
 }
