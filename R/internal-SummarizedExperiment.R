@@ -18,8 +18,8 @@
     message("Packaging counts into SummarizedExperiment")
 
     # tximport ----
-    abundance <- txi[["abundance"]]
     counts <- txi[["counts"]]
+    abundance <- txi[["abundance"]]  # tpm
     length <- txi[["length"]]
     counts_from_abundance <- txi[["countsFromAbundance"]]
 
@@ -47,8 +47,8 @@
     # SummarizedExperiment ----
     SummarizedExperiment(
         assays = SimpleList(
-            abundance = abundance,
             counts = counts,
+            abundance = abundance,
             length = length),
         colData = colData,
         rowData = rowData,
