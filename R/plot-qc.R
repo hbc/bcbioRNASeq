@@ -6,14 +6,10 @@
 #' @author Victor Barrera
 #'
 #' @param bcb [bcbioRnaDataSet].
-#' @param normalized_counts Normalized counts matrix. Can be obtained from
-#'   [DESeqDataSet] using [counts()] with `normalized = TRUE`.
-#'   Transcripts per million (TPM) are also acceptable.
-#' @param raw_counts Raw counts matrix. Can be obtained from
-#'   [DESeqDataSet] using [counts()] with `normalized = FALSE`.
+#' @param normalized Apply normalization to counts.
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
-#' @param groups_of_interest (*Optional*). Category to use to group samples
+#' @param interesting_groups (*Optional*). Category to use to group samples
 #'   (color and shape). If unset, this is automatically determined by
 #'   the metadata set inside the [bcbioRnaDataSet].
 #'
@@ -23,18 +19,18 @@ plot_total_reads <- function(
     bcb,
     pass_limit = 20L,
     warn_limit = 10L,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
     ggplot(
         metrics,
         aes_(x = ~description,
              y = ~total_reads / 1e6,
-             fill = groups_of_interest)) +
+             fill = interesting_groups)) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -57,17 +53,17 @@ plot_mapped_reads <- function(
     bcb,
     pass_limit = 20L,
     warn_limit = 10L,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
     ggplot(
         metrics,
         aes_(x = ~description,
              y = ~mapped_reads / 1e6,
-             fill = groups_of_interest)) +
+             fill = interesting_groups)) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -90,17 +86,17 @@ plot_mapping_rate <- function(
     bcb,
     pass_limit = 90,
     warn_limit = 70,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
     ggplot(
         metrics,
         aes_(x = ~description,
              y = ~mapped_reads / total_reads * 100L,
-             fill = groups_of_interest)) +
+             fill = interesting_groups)) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -123,18 +119,18 @@ plot_mapping_rate <- function(
 plot_genes_detected <- function(
     bcb,
     pass_limit = 20000,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     counts <- assay(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
     ggplot(metrics,
            aes_(x = ~description,
                 y = colSums(counts > 0L),
-                fill = groups_of_interest)) +
+                fill = interesting_groups)) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -152,19 +148,19 @@ plot_genes_detected <- function(
 #' @export
 plot_gene_detection_saturation <- function(
     bcb,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
-    counts <- raw_counts(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
+    counts <- counts(bcb)
     ggplot(
         metrics,
         aes_(x = ~mapped_reads / 1e6,
              y = colSums(counts > 0L),
-             color = groups_of_interest)) +
+             color = interesting_groups)) +
         ggtitle("gene detection saturation") +
         geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -181,17 +177,17 @@ plot_gene_detection_saturation <- function(
 plot_exonic_mapping_rate <- function(
     bcb,
     pass_limit = 60L,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
     ggplot(metrics,
            aes_(x = ~description,
                 y = ~exonic_rate * 100L,
-                fill = groups_of_interest)) +
+                fill = interesting_groups)) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = pass_color,
@@ -211,18 +207,18 @@ plot_exonic_mapping_rate <- function(
 plot_intronic_mapping_rate <- function(
     bcb,
     warn_limit = 20L,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
     ggplot(
         metrics,
         aes_(x = ~description,
              y = ~intronic_rate * 100L,
-             fill = groups_of_interest)) +
+             fill = interesting_groups)) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -242,18 +238,18 @@ plot_intronic_mapping_rate <- function(
 plot_rrna_mapping_rate <- function(
     bcb,
     warn_limit = 10L,
-    groups_of_interest = NULL) {
+    interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    groups_of_interest <- as.name(groups_of_interest)
+    interesting_groups <- as.name(interesting_groups)
     ggplot(
         metrics,
         aes_(x = ~description,
              y = ~r_rna_rate * 100L,
-             fill = groups_of_interest)) +
+             fill = interesting_groups)) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
         geom_hline(color = warn_color,
@@ -271,57 +267,48 @@ plot_rrna_mapping_rate <- function(
 #' @export
 plot_counts_per_gene <- function(
     bcb,
-    normalized_counts = NULL,
-    groups_of_interest = NULL) {
-    if (is.null(normalized_counts)) {
-        normalized_counts <- tpm(bcb)
-        name <- "tpm"
+    counts = "tmm",
+    interesting_groups = NULL) {
+    if (counts == "tmm") {
+        title <- "counts per gene (tmm normalized)"
     } else {
-        name <- deparse(substitute(normalized_counts))
+        title <- "counts per gene"
     }
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
+
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-    melted <- melt_log10(bcb, normalized_counts)
+
     ggplot(
-        melted,
+        melt_log10(bcb, counts),
         aes_(x = ~description,
              y = ~counts,
-             color = as.name(groups_of_interest))) +
-        ggtitle(paste("counts per gene", name, sep = label_sep)) +
+             color = as.name(interesting_groups))) +
+        ggtitle(title) +
         geom_boxplot(outlier.shape = NA) +
         # optional way to make log10 subscript:
         # expression(log[10]~counts~per~gene)
         labs(x = "sample",
-             # [TODO] Fix axis label?
              y = "log10 counts per gene",
-             color = groups_of_interest) +
+             color = interesting_groups) +
         coord_flip()
 }
 
 
 #' @rdname qc_plots
 #' @export
-plot_count_density <- function(
-    bcb,
-    normalized_counts = NULL) {
-    if (is.null(normalized_counts)) {
-        normalized_counts <- tpm(bcb)
-        name <- "tpm"
+plot_count_density <- function(bcb, counts = "tmm") {
+    if (counts == "tmm") {
+        title <- "counts per gene (tmm-normalized)"
     } else {
-        name <- deparse(substitute(normalized_counts))
+        title <- "counts per gene"
     }
-    if (is.null(groups_of_interest)) {
-        groups_of_interest <- metadata(bcb)[["groups_of_interest"]]
-    }
-    melted <- melt_log10(bcb, normalized_counts)
     ggplot(
-        melted,
+        melt_log10(bcb, counts),
         aes_(x = ~counts,
              group = ~description)) +
-        ggtitle(paste("count density", name, sep = label_sep)) +
+        ggtitle(title) +
         geom_density() +
-        # [TODO] Fix axis label?
         labs(x = "log10 counts per gene",
              y = "density")
 }
@@ -348,7 +335,8 @@ plot_gender_markers <- function(bcb, normalized_counts = NULL) {
         arrange(!!!syms(c("chromosome", "gene_symbol")))
 
     # Ensembl identifiers
-    identifier <- gender_markers$ensembl_gene %>% sort %>% unique
+    identifier <- gender_markers[["ensembl_gene"]] %>%
+        sort %>% unique
 
 
     # Normalized counts ----
@@ -367,10 +355,10 @@ plot_gender_markers <- function(bcb, normalized_counts = NULL) {
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
         melt(id = 1) %>%
-        set_names(c("ensembl_gene",
+        set_names(c("ensgene",
                     "description",
                     "counts")) %>%
-        left_join(gender_markers, by = "ensembl_gene") %>%
+        left_join(gender_markers, by = "ensgene") %>%
         ggplot(
             aes_(x = ~gene_symbol,
                  y = ~counts,
