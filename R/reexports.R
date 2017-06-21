@@ -15,13 +15,13 @@ DEGreport::degCovariates
 
 # DESeq2 ====
 #' @export
-DESeq2::counts
+DESeq2::counts  # BiocGenerics
 
 #' @export
 DESeq2::DESeq
 
 #' @export
-DESeq2::design
+DESeq2::design  # BiocGenerics
 
 #' @export
 DESeq2::DESeqDataSet
