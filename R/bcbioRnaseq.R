@@ -5,8 +5,8 @@
 #'
 #' @keywords internal
 #'
-#' @import Biobase BiocGenerics S4Vectors SummarizedExperiment DESeq2 annotables
-#'   basejump
+#' @import annotables basejump Biobase BiocGenerics DESeq2 SummarizedExperiment
+#'   S4Vectors
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -20,7 +20,6 @@
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
-# @importFrom rjson
 #' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
