@@ -58,14 +58,14 @@ load_run <- function(
     project_dir <- file.path(upload_dir, project_dir)
 
 
-    # Analysis ----
+    # Analysis ====
     supported_analyses <- c("rnaseq", "srnaseq")
     if (!analysis %in% supported_analyses) {
         stop(paste("Supported analyses:", toString(supported_analyses)))
     }
 
 
-    # Project summary YAML ----
+    # Project summary YAML ====
     yaml_file <- file.path(project_dir, "project-summary.yaml")
     if (!file.exists(yaml_file)) {
         stop("YAML project summary missing")
@@ -74,7 +74,7 @@ load_run <- function(
     yaml <- read_yaml(yaml_file)
 
 
-    # Sample names ----
+    # Sample names ====
     # Obtain the samples (and their directories) from the YAML
     sample_names <- vapply(
         yaml[["samples"]],
@@ -88,7 +88,7 @@ load_run <- function(
     message(paste(length(sample_dirs), "samples detected"))
 
 
-    # Genome ----
+    # Genome ====
     # Use the genome build of the first sample to match
     genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
     organism <- .detect_organism(genome_build)
@@ -97,7 +97,7 @@ load_run <- function(
     tx2gene <- .tx2gene(project_dir, genome_build)
 
 
-    # Sequencing lanes ----
+    # Sequencing lanes ====
     lane_pattern <- "_L(\\d{3})"
     if (any(str_detect(sample_dirs, lane_pattern))) {
         lanes <- str_match(names(sample_dirs), lane_pattern) %>%
@@ -110,23 +110,23 @@ load_run <- function(
     }
 
 
-    # User-defined custom metadata ----
+    # User-defined custom metadata ====
     custom_metadata <- .custom_metadata(metadata_file)
 
 
-    # Sample metrics ----
+    # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
     metrics <- .yaml_metrics(yaml)
 
 
-    # bcbio-nextgen versions ----
+    # bcbio-nextgen versions ====
     data_versions <- .data_versions(project_dir)
     programs <- .programs(project_dir)
 
 
-    # Metadata ----
+    # Metadata ====
     metadata <- SimpleList(
         analysis = analysis,
         interesting_groups = interesting_groups,
@@ -156,7 +156,11 @@ load_run <- function(
         session_info = sessionInfo())
 
 
-    # SummarizedExperiment ----
+    # tximport ====
+    tximport <- .tximport(sample_dirs, tx2gene = tx2gene)
+
+
+    # SummarizedExperiment ====
     # colData
     if (!is.null(custom_metadata)) {
         colData <- custom_metadata
@@ -164,12 +168,15 @@ load_run <- function(
         colData <- .yaml_metadata(yaml)
     }
     se <- .SummarizedExperiment(
-        txi = .tximport(sample_dirs, tx2gene = tx2gene),
+        tximport = tximport,
         colData = colData,
         rowData = annotable,
         metadata = metadata)
 
 
-    # bcbioRnaDataSet ----
-    new("bcbioRnaDataSet", se)
+    # bcbioRnaDataSet ====
+    bcb <- new("bcbioRnaDataSet", se)
+    # [TODO] Simpler way to define in [new()]?
+    bcbio(bcb, "tximport") <- tximport
+    bcb
 }
