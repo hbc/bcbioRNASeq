@@ -43,7 +43,8 @@ plot_gene <- function(
                      color = ~color,
                      shape = ~color)
             ) +
-            ggtitle(paste(gene_name, gene_id, sep = label_sep)) +
+            ggtitle(paste(gene_name,
+                          paste0("(", gene_id, ")"))) +
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)
@@ -58,7 +59,10 @@ plot_gene <- function(
 
 
 
-#' @rdname qc_plots
+#' Plot sexually dimorphic gender markers
+#'
+#' @param bcb [bcbioRnaDataSet].
+#'
 #' @export
 plot_gender_markers <- function(bcb) {
     # Organism-specific dimorphic markers ----

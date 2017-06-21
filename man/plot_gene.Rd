@@ -4,18 +4,15 @@
 \alias{plot_gene}
 \title{Plot an individual gene}
 \usage{
-plot_gene(bcb, normalized_counts, gene, format = "external_gene_name")
+plot_gene(bcb, gene, format = "symbol")
 }
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}
 
-\item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE)}. Transcripts per
-million (TPM) are also acceptable.}
-
 \item{gene}{Gene identifier. Can input multiple genes as a character vector.}
 
-\item{format}{Ensembl identifier format. Defaults to the gene name (symbol).}
+\item{format}{Ensembl identifier format. Defaults to the gene symbol (a.k.a.
+\code{external_gene_name}).}
 }
 \description{
 Plot an individual gene
