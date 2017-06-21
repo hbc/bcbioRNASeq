@@ -32,9 +32,9 @@ plot_intronic_mapping_rate(bcb, warn_limit = 20L, interesting_groups = NULL)
 
 plot_rrna_mapping_rate(bcb, warn_limit = 10L, interesting_groups = NULL)
 
-plot_counts_per_gene(bcb, counts = "tmm", interesting_groups = NULL)
+plot_counts_per_gene(bcb, normalized = "tmm", interesting_groups = NULL)
 
-plot_count_density(bcb, counts = "tmm")
+plot_count_density(bcb, normalized = "tmm")
 }
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}
@@ -47,8 +47,8 @@ plot_count_density(bcb, counts = "tmm")
 (color and shape). If unset, this is automatically determined by
 the metadata set inside the \link{bcbioRnaDataSet}.}
 
-\item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
-or specifically request TMM-normalized counts (\code{tmm}).}
+\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
+for more information.}
 }
 \value{
 \link{ggplot}.

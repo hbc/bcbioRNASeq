@@ -6,14 +6,14 @@
 \alias{plot_srna_clusters}
 \title{Small RNA-seq quality control plots}
 \usage{
-plot_size_distribution(run)
+plot_size_distribution(bcb)
 
-plot_mirna_counts(run)
+plot_mirna_counts(bcb)
 
-plot_srna_clusters(run)
+plot_srna_clusters(bcb)
 }
 \arguments{
-\item{run}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRnaDataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -26,7 +26,5 @@ Plot of total miRNA counts.
 Clustering small RNA samples.
 }
 \author{
-Lorena Pantano
-
-Michael Steinbaugh
+Lorena Pantano, Michael Steinbaugh
 }

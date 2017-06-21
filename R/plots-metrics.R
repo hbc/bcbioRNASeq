@@ -6,13 +6,13 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @param bcb [bcbioRnaDataSet].
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts (`tmm`).
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
 #' @param interesting_groups (*Optional*). Category to use to group samples
 #'   (color and shape). If unset, this is automatically determined by
 #'   the metadata set inside the [bcbioRnaDataSet].
+#' @param normalized Count normalization method. See [counts()] documentation
+#'   for more information.
 #'
 #' @return [ggplot].
 #' @export
@@ -268,24 +268,19 @@ plot_rrna_mapping_rate <- function(
 #' @export
 plot_counts_per_gene <- function(
     bcb,
-    counts = "tmm",
+    normalized = "tmm",
     interesting_groups = NULL) {
-    if (counts == "tmm") {
-        title <- "counts per gene (tmm normalized)"
-    } else {
-        title <- "counts per gene"
-    }
-
     if (is.null(interesting_groups)) {
         interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
-
     ggplot(
-        melt_log10(bcb, counts),
+        melt_log10(bcb,
+                   normalized = normalized,
+                   interesting_groups = interesting_groups),
         aes_(x = ~description,
              y = ~counts,
              color = as.name(interesting_groups))) +
-        ggtitle(title) +
+        ggtitle("counts per gene") +
         geom_boxplot(outlier.shape = NA) +
         # optional way to make log10 subscript:
         # expression(log[10]~counts~per~gene)
@@ -298,17 +293,12 @@ plot_counts_per_gene <- function(
 
 #' @rdname plots-metrics
 #' @export
-plot_count_density <- function(bcb, counts = "tmm") {
-    if (counts == "tmm") {
-        title <- "counts per gene (tmm-normalized)"
-    } else {
-        title <- "counts per gene"
-    }
+plot_count_density <- function(bcb, normalized = "tmm") {
     ggplot(
-        melt_log10(bcb, counts),
+        melt_log10(bcb, normalized = normalized),
         aes_(x = ~counts,
              group = ~description)) +
-        ggtitle(title) +
+        ggtitle("count density") +
         geom_density() +
         labs(x = "log10 counts per gene",
              y = "density")

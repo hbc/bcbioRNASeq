@@ -70,8 +70,7 @@ plot_gender_markers <- function(bcb) {
 
     # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
-        gender_markers <- get("gender_markers_mmusculus",
-                              envir = asNamespace("bcbioRnaseq"))
+        gender_markers <- gender_markers_mmusculus
     } else {
         stop("Unsupported organism")
     }

@@ -25,6 +25,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'
 #' @param bcb [bcbioRnaDataSet].
+#' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
 #' @param merge_plots Merge all plots into one.

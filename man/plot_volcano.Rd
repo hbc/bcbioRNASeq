@@ -12,6 +12,8 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}
 
+\item{res}{\link{DESeqResults}.}
+
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
 \item{text_labels}{Number of text labels to plot.}
@@ -33,7 +35,7 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
 \item{point_outline_color}{Point outline color.}
 }
 \value{
-Volcano plot arranged as \link{ggrid} (\code{merge_plots = TRUE}), or \code{\link[=show]{show()}}
+Volcano plot arranged as \code{ggrid} (\code{merge_plots = TRUE}), or \code{\link[=show]{show()}}
 individual \link{ggplot}s (\code{merge_plots = FALSE}).
 }
 \description{

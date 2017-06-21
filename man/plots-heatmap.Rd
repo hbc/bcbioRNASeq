@@ -14,7 +14,7 @@ plot_gene_heatmap(bcb, dt, genes, interesting_groups = NULL,
   annotation = NULL, title = NULL, clustering_method = "ward.D2",
   cluster_rows = TRUE, cluster_cols = TRUE, scale = "row", ...)
 
-plot_deg_heatmap(bcb, dt, res, ...)
+plot_deg_heatmap(bcb, dt, res, lfc = 1, title = NULL, ...)
 }
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}
@@ -33,7 +33,8 @@ plotting more than one column.}
 \item{title}{Optional text to include in plot title.}
 
 \item{method}{Correlation coefficient (or covariance) to be computed.
-Defaults to \code{pearson} but \code{spearman} can also be used.}
+Defaults to \code{pearson} but \code{spearman} can also be used. Consult the \code{\link[=cor]{cor()}}
+documentation for more information.}
 
 \item{clustering_method}{Clustering method. Accepts the same values as
 \code{\link[=hclust]{hclust()}}.}
@@ -48,6 +49,8 @@ Defaults to \code{pearson} but \code{spearman} can also be used.}
 in either the \code{row} direction, \code{column} direction, or \code{none}.}
 
 \item{res}{\link{DESeqResults}.}
+
+\item{lfc}{\link{log2} fold change ratio.}
 }
 \value{
 \code{\link[=pheatmap]{pheatmap()}} object.

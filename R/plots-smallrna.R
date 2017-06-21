@@ -1,31 +1,27 @@
 #' Small RNA-seq quality control plots
 #'
 #' @rdname plots-smallrna
-#' @author Lorena Pantano
-#' @author Michael Steinbaugh
+#' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param run [bcbioRnaDataSet].
+#' @param bcb [bcbioRnaDataSet].
 #' @return [ggplot].
-
-
-
-#' @rdname plots-smallrna
+#'
 #' @description Plot size distribution of small RNA-seq data.
 #' @export
-plot_size_distribution <- function(run) {
-    run <- metadata(run)
-    fns <- file.path(run$sample_dirs,
-                     paste(names(run$sample_dirs),
+plot_size_distribution <- function(bcb) {
+    meta <- metadata(bcb)
+    fns <- file.path(meta$sample_dirs,
+                     paste(names(meta$sample_dirs),
                            "ready.trimming_stats",
                            sep = "-"))
-    names(fns) <- names(run$sample_dirs)
+    names(fns) <- names(meta$sample_dirs)
     tab <- data.frame()
-    for (sample in rownames(run$metadata)) {
+    for (sample in rownames(meta$metadata)) {
         d <- read.table(fns[sample], sep = "")
         tab <- rbind(
             tab, d %>%
                 mutate(sample = sample,
-                       group = run$metadata[sample, run$interesting_groups]))
+                       group = meta$metadata[sample, meta$interesting_groups]))
     }
 
     reads_adapter <- tab %>%
@@ -60,11 +56,10 @@ plot_size_distribution <- function(run) {
 #' @rdname plots-smallrna
 #' @description Plot of total miRNA counts.
 #' @export
-plot_mirna_counts <- function(run) {
-    # [TODO] `txi()` accessor doesn't exist
-    .t <- data.frame(sample = colnames(txi(run)),
-                     total = colSums(txi(run)))
-    cs <- apply(txi(run), 2L, function(x) {
+plot_mirna_counts <- function(bcb) {
+    .t <- data.frame(sample = colnames(bcbio(bcb)),
+                     total = colSums(bcbio(bcb)))
+    cs <- apply(bcbio(bcb), 2L, function(x) {
         cumsum(sort(x, decreasing = TRUE))
     }) %>% as.data.frame
     cs$pos <- 1:nrow(cs)
@@ -75,7 +70,7 @@ plot_mirna_counts <- function(run) {
                      stat = "identity") +
             theme(axis.text.x = element_text(
                 angle = 90L, hjust = 1L, vjust = 0.5)),
-        ggplot(melt(txi(run))) +
+        ggplot(melt(bcbio(bcb))) +
             geom_boxplot(aes_(x = ~X2, y = ~value)) +
             xlab("") +
             ylab("expression") +
@@ -95,21 +90,21 @@ plot_mirna_counts <- function(run) {
 #' @rdname plots-smallrna
 #' @description Clustering small RNA samples.
 #' @export
-plot_srna_clusters <- function(run) {
-    counts <- bcbio(run)
-    design <- metadata(run)$metadata
+plot_srna_clusters <- function(bcb) {
+    counts <- bcbio(bcb)
+    design <- metadata(bcb)$metadata
     dds <- DESeqDataSetFromMatrix(
         counts[rowSums(counts > 0L) > 3L, ],
         colData = design,
         design = ~1)
     vst <- rlog(dds, betaPriorVar = FALSE)
     annotation_col <- design %>%
-        .[, metadata(run)[["interesting_groups"]], drop = FALSE]
+        .[, metadata(bcb)[["interesting_groups"]], drop = FALSE]
     pheatmap(assay(vst),
              annotation_col = annotation_col,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D",
              scale = "row",
              show_rownames = FALSE)
-    plot_pca(metadata(run), vst)
+    plot_pca(metadata(bcb), vst)
 }

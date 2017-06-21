@@ -50,34 +50,30 @@ alpha_summary <- function(
 #'   changes.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
-#' @param print Print summary statistics and links to files.
 #'
 #' @return Results list.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' res_tables(run, res, lfc = 0.25)
+#' res_tables(bcb, res, lfc = 0.25)
 #' }
 res_tables <- function(
     bcb,
     res,
     lfc = 0,
     write = TRUE,
-    dir = "results/de",
-    print = TRUE) {
-    run <- metadata(bcb)
-    .check_res(res)
-
+    dir = "results/de") {
     name <- deparse(substitute(res))
     contrast <- .res_contrast_name(res)
     file_stem <- paste(name,
                        str_replace_all(contrast, " ", "_"),
                        sep = "_")
 
-    alpha <- res@metadata$alpha
-    # [TODO] Migrate to annotables
-    annotations <- gene_level_annotations(run)
+    # Alpha level, from [DESeqResults]
+    alpha <- metadata(res)[["alpha"]]
+    annotations <- rowData(bcb) %>% as.data.frame %>%
+        rename(ensembl_gene_id = .data[["ensgene"]])
 
     all <- res %>%
         as.data.frame %>%
@@ -105,8 +101,36 @@ res_tables <- function(
     deg_lfc_down <- deg_lfc %>%
         filter(.data$log2_fold_change < 0)
 
-    # Write the CSV files to `results/`
+    res_tbl <- list(
+        res = res,
+        name = name,
+        contrast = contrast,
+        # Cutoffs
+        alpha = alpha,
+        lfc = lfc,
+        # Tibbles
+        all = all,
+        deg = deg,
+        deg_lfc = deg_lfc,
+        deg_lfc_up = deg_lfc_up,
+        deg_lfc_down = deg_lfc_down)
+
+    writeLines(c(
+        paste(name, "differential expression tables"),
+        paste("-", nrow(all), "gene annotations"),
+        "- cutoffs applied:",
+        paste("    - alpha:", alpha),
+        paste("    - lfc:  ", lfc, "(tables only)"),
+        "- gene detection:",
+        paste("    - base mean > 0:", nrow(base_mean_gt0), "genes"),
+        paste("    - base mean > 1:", nrow(base_mean_gt1), "genes"),
+        "- pass cutoffs:",
+        paste("    - alpha:   ", nrow(deg), "genes"),
+        paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
+        paste("    - lfc down:", nrow(deg_lfc_down), "genes")))
+
     if (isTRUE(write)) {
+        # Write the CSV files
         dir.create(dir, recursive = TRUE, showWarnings = FALSE)
 
         all_file <- paste(file_stem, "all_genes.csv.gz", sep = "_")
@@ -120,48 +144,9 @@ res_tables <- function(
 
         deg_lfc_down_file <- paste(file_stem, "deg_lfc_down.csv.gz", sep = "_")
         write_csv(deg_lfc_down, file.path(dir, deg_lfc_down_file))
-    }
 
-    res_tbl <- list(
-        res = res,
-        name = name,
-        contrast = contrast,
-        # Cutoffs
-        alpha = alpha,
-        lfc = lfc,
-        # Tibbles
-        all = all,
-        deg = deg,
-        deg_lfc = deg_lfc,
-        deg_lfc_up = deg_lfc_up,
-        deg_lfc_down = deg_lfc_down,
-        # File output
-        dir = dir,
-        file_stem = file_stem,
-        all_file = all_file,
-        deg_file = deg_file,
-        deg_lfc_up_file = deg_lfc_up_file,
-        deg_lfc_down_file = deg_lfc_down_file)
-
-    # Print summary statistics and file paths
-    if (isTRUE(print)) {
-        writeLines(c(
-            paste(name, "differential expression tables"),
-            "",
-            paste("-", nrow(all), "gene annotations"),
-            "- cutoffs applied:",
-            paste("    - alpha:", alpha),
-            paste("    - lfc:  ", lfc, "(tables only)"),
-            "- gene detection:",
-            paste("    - base mean > 0:", nrow(base_mean_gt0), "genes"),
-            paste("    - base mean > 1:", nrow(base_mean_gt1), "genes"),
-            "- pass cutoffs:",
-            paste("    - alpha:   ", nrow(deg), "genes"),
-            paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
-            paste("    - lfc down:", nrow(deg_lfc_down), "genes"),
-            "",
-            ""))
-        .md_res_tables(res_tbl)
+        # Output file information in Markdown format
+        .md_res_tables(res_tbl, dir)
     }
 
     res_tbl
