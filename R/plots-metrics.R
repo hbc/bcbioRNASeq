@@ -1,12 +1,13 @@
-#' Gene-level quality control plots
+#' Quality control metrics plots
 #'
-#' @rdname qc_plots
-#' @author Michael Steinbaugh
-#' @author Rory Kirchner
-#' @author Victor Barrera
+#' These functions are a collection of gene-level quality control plots.
+#'
+#' @rdname plots-metrics
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @param bcb [bcbioRnaDataSet].
-#' @param normalized Apply normalization to counts.
+#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
+#' or specifically request TMM-normalized counts (`tmm`).
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
 #' @param interesting_groups (*Optional*). Category to use to group samples
@@ -47,7 +48,7 @@ plot_total_reads <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_mapped_reads <- function(
     bcb,
@@ -80,7 +81,7 @@ plot_mapped_reads <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_mapping_rate <- function(
     bcb,
@@ -114,7 +115,7 @@ plot_mapping_rate <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_genes_detected <- function(
     bcb,
@@ -144,7 +145,7 @@ plot_genes_detected <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_gene_detection_saturation <- function(
     bcb,
@@ -172,7 +173,7 @@ plot_gene_detection_saturation <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_exonic_mapping_rate <- function(
     bcb,
@@ -202,7 +203,7 @@ plot_exonic_mapping_rate <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_intronic_mapping_rate <- function(
     bcb,
@@ -233,7 +234,7 @@ plot_intronic_mapping_rate <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_rrna_mapping_rate <- function(
     bcb,
@@ -263,7 +264,7 @@ plot_rrna_mapping_rate <- function(
 
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_counts_per_gene <- function(
     bcb,
@@ -295,7 +296,7 @@ plot_counts_per_gene <- function(
 }
 
 
-#' @rdname qc_plots
+#' @rdname plots-metrics
 #' @export
 plot_count_density <- function(bcb, counts = "tmm") {
     if (counts == "tmm") {

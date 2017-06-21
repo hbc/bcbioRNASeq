@@ -11,7 +11,7 @@
 \alias{plot_rrna_mapping_rate}
 \alias{plot_counts_per_gene}
 \alias{plot_count_density}
-\title{Gene-level quality control plots}
+\title{Quality control metrics plots}
 \usage{
 plot_total_reads(bcb, pass_limit = 20L, warn_limit = 10L,
   interesting_groups = NULL)
@@ -47,18 +47,15 @@ plot_count_density(bcb, counts = "tmm")
 (color and shape). If unset, this is automatically determined by
 the metadata set inside the \link{bcbioRnaDataSet}.}
 
-\item{normalized}{Apply normalization to counts.}
+\item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
+or specifically request TMM-normalized counts (\code{tmm}).}
 }
 \value{
 \link{ggplot}.
 }
 \description{
-Gene-level quality control plots
+These functions are a collection of gene-level quality control plots.
 }
 \author{
-Michael Steinbaugh
-
-Rory Kirchner
-
-Victor Barrera
+Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }

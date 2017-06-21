@@ -1,18 +1,13 @@
-#' Differential expression plots
+#' [DESeq2::plotMA()] wrapper
 #'
-#' @rdname de_plots
+#' This wrapper function generates a title automatically.
+#'
 #' @author Michael Steinbaugh
-
-
-
-#' @rdname de_plots
-#' @description Wrapper for [DESeq2::plotMA()] that generates a title
-#'   automatically.
 #'
 #' @param res [DESeqResults].
 #' @param ylim Y-axis maximum (single integer).
 #'
-#' @return MA plot.
+#' @return Mean average (MA) [ggplot].
 #' @export
 plot_ma <- function(res, ylim = 2) {
     .check_res(res)
@@ -25,34 +20,34 @@ plot_ma <- function(res, ylim = 2) {
 
 
 
-#' @rdname de_plots
-#' @description Volcano plot.
+#' Volcano plot.
+#'
+#' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'
 #' @param bcb [bcbioRnaDataSet].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
-#' @param merge merge all plots into one.
+#' @param merge_plots Merge all plots into one.
 #' @param direction Plot `up`, `down`, or `both` directions.
-#' @param title Title for the figure.
+#' @param title (*Optional*). Custom title.
 #' @param shade_color Shading color for bounding box.
 #' @param shade_alpha Shading transparency alpha.
 #' @param point_color Point color.
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
 #'
-#' @author Michael Steinbaugh and Lorena Pantano (based on John Hutchinson's
-#'   work)
-#' @return Volcano plot.
+#' @return Volcano plot arranged as [ggrid] (`merge_plots = TRUE`), or [show()]
+#'   individual [ggplot]s (`merge_plots = FALSE`).
 #' @export
 #'
-#' @seealso This function is a modified version of
+#' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
 plot_volcano <- function(
     bcb,
     res,
     lfc = 1L,
     text_labels = 30L,
-    merge = TRUE,
+    merge_plots = TRUE,
     direction = "both",
     title = NULL,
     shade_color = "orange",
@@ -60,7 +55,6 @@ plot_volcano <- function(
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray") {
-    .check_res(res)
     # [TODO] Add support for option of plotting unadjusted P values without
     # `+ 1e-10` transformation.
 
@@ -81,9 +75,9 @@ plot_volcano <- function(
 
     stats <- res %>%
         as.data.frame %>%
-        rownames_to_column("ensembl_gene_id") %>%
+        rownames_to_column("ensgene") %>%
         snake %>%
-        tidy_select(!!!syms(c("ensembl_gene_id", "log2_fold_change", "padj"))) %>%
+        tidy_select(!!!syms(c("ensgene", "log2_fold_change", "padj"))) %>%
         # Filter zero counts for quicker plotting
         filter(!is.na(.data$log2_fold_change)) %>%
         # Arrange by P value
@@ -92,13 +86,8 @@ plot_volcano <- function(
         mutate(neg_log_padj = -log10(.data$padj + 1e-10))
 
     # Automatically label the top genes
-    # [TODO] Make annotable interconversion to Ensembl names a function...
-    annotations <- rowData(bcb)[, c("ensgene", "symbol")] %>%
-        as.data.frame %>%
-        set_colnames(c("ensembl_gene_id", "external_gene_name"))
-
     volcano_text <- stats[1:text_labels, ] %>%
-        left_join(annotations, by = "ensembl_gene_id")
+        left_join(gene2symbol(bcb), by = "ensgene")
 
     # Get range of LFC and P values to set up plot borders
     range_lfc <-
@@ -117,7 +106,7 @@ plot_volcano <- function(
         ggplot(aes_(x = ~log2_fold_change)) +
         geom_density() +
         scale_x_continuous(limits = range_lfc) +
-        labs(title = "log2 fold change density plot",
+        labs(title = "log2 fold change density",
              x = "log2 fold change")
     if (direction == "both" | direction == "up") {
         lfc_hist <- lfc_hist +
@@ -139,7 +128,6 @@ plot_volcano <- function(
                 fill = shade_color,
                 alpha = shade_alpha)
     }
-    # show(lfc_hist)
 
 
     # Density plot of adjusted P values ----
@@ -157,7 +145,7 @@ plot_volcano <- function(
                     fill = shade_color,
                     alpha = shade_alpha) +
         coord_flip() +
-        labs(title = "p-value density plot",
+        labs(title = "padj density",
              y = "density")
     # show(padj_hist)
 
@@ -166,7 +154,7 @@ plot_volcano <- function(
     volcano <- stats %>%
         ggplot(aes_(x = ~log2_fold_change,
                     y = ~-log10(padj + 1e-10))) +
-        labs(title = "volcano plot",
+        labs(title = "volcano",
              x = "log2 fold change") +
         geom_point(
             alpha = point_alpha,
@@ -179,7 +167,7 @@ plot_volcano <- function(
             data = volcano_text,
             aes_(x = ~log2_fold_change,
                  y = ~neg_log_padj,
-                 label = ~external_gene_name),
+                 label = ~symbol),
             size = 3)
     if (direction == "both" | direction == "up") {
         volcano_poly_up <- with(stats, data.frame(
@@ -222,7 +210,7 @@ plot_volcano <- function(
 
 
     # Grid layout ----
-    if (merge) {
+    if (isTRUE(merge_plots)) {
         ggdraw() +
             draw_plot(
                 lfc_hist +
@@ -246,23 +234,27 @@ plot_volcano <- function(
 }
 
 
-#' Wrap degPatter function around bcbio object
+
+#' [DEGreport::degPatterns()] wrapper
 #'
-#' It runs [DEGreport::degPatterns] function from a bcbio object
+#' Adds support for a [bcbioRnaDataSet] object.
 #'
-#' @param bcb [bcbioRnaseq] object
-#' @param res table with padj as column and gene names as row.names
-#' @param fdr float cutoff to consider genes significant
-#' @param n integer maximum number of genes to consider
-#' @param ... extra parameters for degPatterns function
 #' @author Lorena Pantano
+#'
+#' @param bcb [bcbioRnaDataSet] object.
+#' @param res Table with padj as column and gene names as [rownames].
+#' @param fdr Float cutoff to consider genes significant.
+#' @param n Integer maximum number of genes to consider.
+#' @param ... Additional parameters.
+
 #' @export
-plot_pattern <- function(bcb, res, fdr = 0.1, n = NULL, ...){
+plot_pattern <- function(bcb, res, fdr = 0.1, n = NULL, ...) {
     res <- as.data.frame(res)
     .order <- res[order(res$padj), ]
     sign <- row.names(.order)[!is.na(.order$padj)]
-    if (!is.null(n))
+    if (!is.null(n)) {
         sign <- sign[1:n]
+    }
+    # [TODO] Improve `rld` slot error if unset
     degPatterns(bcbio(bcb, "rld")[sign, ], colData(bcb), ...)
 }
-

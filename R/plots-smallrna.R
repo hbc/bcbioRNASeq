@@ -1,6 +1,6 @@
 #' Small RNA-seq quality control plots
 #'
-#' @rdname smallrna_qc_plots
+#' @rdname plots-smallrna
 #' @author Lorena Pantano
 #' @author Michael Steinbaugh
 #'
@@ -9,7 +9,7 @@
 
 
 
-#' @rdname smallrna_qc_plots
+#' @rdname plots-smallrna
 #' @description Plot size distribution of small RNA-seq data.
 #' @export
 plot_size_distribution <- function(run) {
@@ -57,7 +57,7 @@ plot_size_distribution <- function(run) {
 
 
 
-#' @rdname smallrna_qc_plots
+#' @rdname plots-smallrna
 #' @description Plot of total miRNA counts.
 #' @export
 plot_mirna_counts <- function(run) {
@@ -92,7 +92,7 @@ plot_mirna_counts <- function(run) {
 }
 
 
-#' @rdname smallrna_qc_plots
+#' @rdname plots-smallrna
 #' @description Clustering small RNA samples.
 #' @export
 plot_srna_clusters <- function(run) {

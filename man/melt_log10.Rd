@@ -24,7 +24,7 @@ melt_log10(object, ...)
 \item{...}{Optional parameters.}
 
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
-or specifically request TMM-normalized counts used for QC functions (\code{tmm}).}
+or specifically request TMM-normalized counts (\code{tmm}).}
 
 \item{interesting_groups}{Interesting groups.}
 }

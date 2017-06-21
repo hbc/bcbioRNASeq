@@ -32,7 +32,7 @@
 #'
 #' @param object Object containing counts matrix.
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts used for QC functions (`tmm`).
+#' or specifically request TMM-normalized counts (`tmm`).
 #' @param interesting_groups Interesting groups.
 #' @param ... Optional parameters.
 #'

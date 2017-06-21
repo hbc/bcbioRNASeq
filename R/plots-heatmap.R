@@ -26,7 +26,7 @@
 #' - [cor()].
 #' - [pheatmap()].
 #'
-#' @rdname heatmaps
+#' @rdname plots-heatmap
 #' @author Michael Steinbaugh
 #'
 #' @param bcb [bcbioRnaDataSet].
@@ -56,9 +56,7 @@ plot_correlation_heatmap <- function(
     method = "pearson",
     clustering_method = "ward.D2",
     ...) {
-    run <- metadata(bcb)
-    .check_dt(dt)
-
+    # [TODO] Add object validity testing
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
     }
@@ -107,7 +105,7 @@ plot_correlation_heatmap <- function(
 
 
 
-#' @rdname heatmaps
+#' @rdname plots-heatmap
 #' @param cluster_rows Whether rows should be clustered using [hclust()].
 #' @param cluster_cols Whether columns should be clustered using [hclust()].
 #' @param scale Character indicating if the values should be centered and scaled
@@ -184,7 +182,7 @@ plot_gene_heatmap <- function(
 
 
 
-#' @rdname heatmaps
+#' @rdname plots-heatmap
 #' @param res [DESeqResults].
 #' @export
 plot_deg_heatmap <- function(bcb, dt, res, ...) {
