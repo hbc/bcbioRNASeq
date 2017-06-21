@@ -5,6 +5,7 @@
 \alias{correlation_heatmap}
 \alias{create_local_project}
 \alias{create_new_project}
+\alias{gene_level_annotations}
 \alias{import_file}
 \alias{import_metadata}
 \alias{import_summary}
@@ -25,6 +26,8 @@ correlation_heatmap(...)
 create_local_project()
 
 create_new_project()
+
+gene_level_annotations()
 
 import_file()
 

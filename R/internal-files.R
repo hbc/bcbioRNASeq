@@ -1,4 +1,4 @@
-#' Read file with [readr] package automatically
+#' Read file
 #'
 #' Supports automatic loading of `.csv`, `.tsv`, `.xlsx`, and `.counts` files.
 #'
@@ -9,11 +9,14 @@
 #'
 #' @param file File path.
 #' @param column_to_rownames Column identifier to use for row names.
-#' @param ... Passthrough parameters to [readr](http://readr.tidyverse.org)
-#'   package. Consult the [read_csv()] documentation for more information.
+#' @param ... Additional parameters.
 #'
 #' @return [DataFrame].
 #' @export
+#'
+#' @seealso
+#' - [readr](http://readr.tidyverse.org)
+#' - [readxl](http://readxl.tidyverse.org)
 .read_file <- function(file, column_to_rownames = NULL, ...) {
     if (is.null(file)) {
         return(NULL)

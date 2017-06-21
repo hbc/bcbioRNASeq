@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-files.R
 \name{.read_file}
 \alias{.read_file}
-\title{Read file with \link{readr} package automatically}
+\title{Read file}
 \usage{
 .read_file(file, column_to_rownames = NULL, ...)
 }
@@ -11,14 +11,19 @@
 
 \item{column_to_rownames}{Column identifier to use for row names.}
 
-\item{...}{Passthrough parameters to \href{http://readr.tidyverse.org}{readr}
-package. Consult the \code{\link[=read_csv]{read_csv()}} documentation for more information.}
+\item{...}{Additional parameters.}
 }
 \value{
 \link{DataFrame}.
 }
 \description{
 Supports automatic loading of \code{.csv}, \code{.tsv}, \code{.xlsx}, and \code{.counts} files.
+}
+\seealso{
+\itemize{
+\item \href{http://readr.tidyverse.org}{readr}
+\item \href{http://readxl.tidyverse.org}{readxl}
+}
 }
 \author{
 Michael Steinbaugh

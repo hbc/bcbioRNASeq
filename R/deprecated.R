@@ -35,6 +35,13 @@ create_new_project <- function() {
 
 #' @rdname deprecated
 #' @export
+gene_level_annotations <- function() {
+}
+
+
+
+#' @rdname deprecated
+#' @export
 import_file <- function() {
     .Deprecated()
 }
@@ -113,8 +120,8 @@ plot_deseq_pca <- function(...) {
 #' @rdname deprecated
 #' @export
 pool_lane_split_counts <- function(...) {
-    .Deprecated("pool_counts")
-    pool_replicates(...)
+    .Deprecated("aggregate_replicates")
+    aggregate_replicates(...)
 }
 
 
@@ -122,8 +129,8 @@ pool_lane_split_counts <- function(...) {
 #' @rdname deprecated
 #' @export
 pool_lane_split_dds <- function(...) {
-    .Deprecated("pool_replicates")
-    pool_dds(...)
+    .Deprecated("aggregate_replicates")
+    aggregate_replicates(...)
 }
 
 
@@ -132,6 +139,12 @@ pool_lane_split_dds <- function(...) {
 #' @export
 read_metadata <- function() {
     .Deprecated("metadata")
+}
+
+
+
+select_interesting_groups_coldata <- function() {
+    .Deprecated()
 }
 
 

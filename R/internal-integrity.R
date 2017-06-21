@@ -67,7 +67,4 @@
     if (is.null(names(sample_dirs))) {
         stop("sample_dirs must have assigned sample names")
     }
-    if (!identical(basename(sample_dirs), sample_names)) {
-        stop("Sample name assignment mismatch")
-    }
 }

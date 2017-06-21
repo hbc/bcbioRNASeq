@@ -17,8 +17,8 @@
 #' - R local environment information, including [sessionInfo()].
 #'
 #' @rdname bcbioRnaDataSet
-#' @keywords internal
 #' @aliases bcbioRnaDataSet-class
+#' @keywords internal
 #' @export
 bcbioRnaDataSet <- setClass(  # nolint
     "bcbioRnaDataSet", contains = "SummarizedExperiment")

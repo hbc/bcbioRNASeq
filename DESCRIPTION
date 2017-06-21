@@ -1,5 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
+Description: Quality control and differential expression for bcbio-nextgen
+    RNA-seq and small RNA-seq experiments.
 Version: 0.0.22
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
@@ -16,10 +18,7 @@ Authors@R: c(
            role = "aut"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
-           role = c("cph", "fnd"))
-    )
-Description: Quality control and differential expression for bcbio-nextgen
-    RNA-seq and small RNA-seq experiments.
+           role = c("cph", "fnd")))
 biocViews:
     DifferentialExpression,
     GeneExpression,
@@ -40,6 +39,7 @@ Imports:
     annotables (>= 0.1.3),
     basejump (>= 0.0.15),
     Biobase (>= 2.36.2),
+    BiocGenerics,
     cowplot,
     data.table (>= 1.10),
     DEGreport (>= 1.13.4),
@@ -50,7 +50,6 @@ Imports:
     isomiRs,
     methods,
     pheatmap,
-    rjson,
     stats,
     S4Vectors,
     SummarizedExperiment,
@@ -58,7 +57,6 @@ Imports:
     utils,
     vsn
 Suggests:
-    BiocGenerics,
     BiocStyle,
     lintr (>= 1.0.0.9001),
     RUnit,
