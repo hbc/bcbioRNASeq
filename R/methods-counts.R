@@ -1,5 +1,9 @@
 #' Count matrix accessors
 #'
+#' By default, [counts()] returns the raw counts. This method will return
+#' transcripts per million (TPM) by default when `normalized = TRUE`. This can
+#' be overriden by requesting the normalization method directly.
+#'
 #' @rdname counts
 #' @docType methods
 #'
@@ -24,14 +28,20 @@
 #' counts(bcb, normalized = "tmm")
 #' }
 setMethod("counts", "bcbioRnaDataSet", function(object, normalized = FALSE) {
-    if (normalized == "tmm") {
-        message("TMM-normalized counts")
-        tmm(object)
+    if (normalized == FALSE) {
+        assay(object)
     } else if (isTRUE(normalized) | normalized == "tpm") {
         message("Transcripts per million (TPM)")
         tpm(object)
-    } else {
-        message("Raw counts")
-        assay(object)
+    } else if  (normalized == "tmm") {
+        message("Trimmed mean of M-values normalization")
+        tmm(object)
+    }  else {
+        counts <- assays(object)[[normalized]]
+        if (is.null(counts)) {
+            stop("Assay missing in SummarizedExperiment")
+        }
+        message(paste(normalized, "normalization"))
+        counts
     }
 })

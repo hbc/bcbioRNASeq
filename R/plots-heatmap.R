@@ -56,9 +56,15 @@ plot_correlation_heatmap <- function(
     method = "pearson",
     clustering_method = "ward.D2",
     ...) {
+    # [TODO] Function is broken
     # [TODO] Add object validity testing
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
+    }
+
+    # Interesting groups
+    if (is.null(interesting_groups)) {
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
 
     # Override the default `interesting_groups` set in run, if desired
@@ -123,31 +129,28 @@ plot_gene_heatmap <- function(
     cluster_cols = TRUE,
     scale = "row",
     ...) {
-    run <- metadata(bcb)
-    .check_dt(dt)
-
-    # Override the default `interesting_groups` set in run, if desired
+    # Interesting groups
     if (is.null(interesting_groups)) {
-        interesting_groups <- run$interesting_groups
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
 
-    # Obtain the metadata annotations, unless specified
+    # Per sample annotations of interest
     if (is.null(annotation)) {
-        annotation <- select_interesting_groups_coldata(dt, interesting_groups)
+        annotation <- colData(bcb)[, interesting_groups] %>% as.data.frame
     }
 
-    # Set heatmap title (`main` parameter)
+    # Heatmap title (`main` parameter)
     if (!is.null(title)) {
         main <- title
     } else {
         main <- deparse(substitute(dt))
     }
 
-    # Subset the DESeqTransform (e.g. rlog counts)
+    # Subset the DESeqTransform matrix (e.g. rlog counts)
     counts <- dt %>% assay %>% .[genes, ]
 
-    # [fix] Add an option to override this behavior?
-    # If `cluster_cols = FALSE`, sort by `interesting_groups` then `description`
+    # `cluster_cols = FALSE`: Turn off sample hierarchical clustering and sort
+    # by interesting groups then sample name, if preferred
     if (!isTRUE(cluster_cols)) {
         sorted_cols <- colData(dt) %>%
             as.data.frame %>%
@@ -159,11 +162,8 @@ plot_gene_heatmap <- function(
     # Change rownames to readable external gene names
     if (nrow(counts) <= 100) {
         show_rownames <- TRUE
-        # [TODO] Migrate to annotables
-        gene_names <- gene_level_annotations(run) %>%
-            tidy_select(!!!syms(c("ensembl_gene_id", "external_gene_name"))) %>%
-            set_rownames(.$ensembl_gene_id)
-        rownames(counts) <- gene_names[rownames(counts), "external_gene_name"]
+        gene2symbol <- gene2symbol(bcb)
+        rownames(counts) <- gene_names[rownames(counts), "symbol"]
     } else {
         show_rownames <- FALSE
     }
@@ -186,9 +186,7 @@ plot_gene_heatmap <- function(
 #' @param res [DESeqResults].
 #' @export
 plot_deg_heatmap <- function(bcb, dt, res, ...) {
-    run <- metadata(bcb)
-    .check_dt(dt)
-    .check_res(res)
+    # [TODO] Remove run
 
     # Set the default title
     if (is.null(title)) {

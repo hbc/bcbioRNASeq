@@ -14,7 +14,9 @@
 or specifically request TMM-normalized counts used for QC functions (\code{tmm}).}
 }
 \description{
-Count matrix accessors
+By default, \code{\link[=counts]{counts()}} returns the raw counts. This method will return
+transcripts per million (TPM) by default when \code{normalized = TRUE}. This can
+be overriden by requesting the normalization method directly.
 }
 \examples{
 \dontrun{
