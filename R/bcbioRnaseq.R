@@ -5,23 +5,22 @@
 #'
 #' @keywords internal
 #'
-#' @import annotables
-#' @import basejump
-#' @import Biobase
-#' @import DESeq2
-#' @import ggplot2
-#' @import SummarizedExperiment
-#' @import S4Vectors
-#' @import rjson
+#' @import Biobase BiocGenerics S4Vectors SummarizedExperiment DESeq2 annotables
+#'   basejump
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom DEGreport degQC degCovariates degPatterns
+#' @importFrom ggplot2 aes_ coord_fixed coord_flip element_blank element_text
+#'   expand_limits facet_wrap geom_bar geom_boxplot geom_density geom_hline
+#'   geom_jitter geom_line geom_point geom_polygon geom_ribbon geom_smooth
+#'   ggplot ggtitle guides labs scale_x_continuous scale_y_log10 theme xlab xlim
+#'   ylab ylim
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
-#' @importFrom stats density
+# @importFrom rjson
 #' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
