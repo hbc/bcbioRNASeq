@@ -15,14 +15,14 @@
 #' @param upload_dir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param analysis Analysis type (e.g. `rnaseq` or `srnaseq`).
-#' @param groups_of_interest Character vector of interesting groups. First entry
+#' @param interesting_groups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
 #' @param design (*Optional*). Design formula for DESeq2.See
 #'   [DESeq2::design()] for more information.
 #' @param contrast (*Optional*). Contrast vector for DESeq2. See
 #'   [DESeq2::results()] for more information.
-#' @param custom_metadata_file (*Optional*). Custom metadata file containing
+#' @param metadata_file (*Optional*). Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
 #'
@@ -31,10 +31,10 @@
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
-    groups_of_interest = "description",
+    interesting_groups = "description",
     design = NULL,
     contrast = NULL,
-    custom_metadata_file = NULL) {
+    metadata_file = NULL) {
     # Directory paths ----
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
@@ -111,7 +111,7 @@ load_run <- function(
 
 
     # User-defined custom metadata ----
-    custom_metadata <- .custom_metadata(custom_metadata_file)
+    custom_metadata <- .custom_metadata(metadata_file)
 
 
     # Sample metrics ----
@@ -129,7 +129,7 @@ load_run <- function(
     # Metadata ----
     metadata <- SimpleList(
         analysis = analysis,
-        groups_of_interest = groups_of_interest,
+        interesting_groups = interesting_groups,
         design = design,
         contrast = contrast,
         template = template,
@@ -147,7 +147,7 @@ load_run <- function(
         yaml_file = yaml_file,
         yaml = yaml,
         metrics = metrics,
-        custom_metadata_file = custom_metadata_file,
+        metadata_file = metadata_file,
         custom_metadata = custom_metadata,
         data_versions = data_versions,
         programs = programs,
