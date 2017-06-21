@@ -34,6 +34,3 @@ warn_color <- "orange"
 
 # Plot label separator
 label_sep <- " : "
-
-# Count matrices accessible with [assays()]
-count_slots <- c("counts", "abundance", "length", "tmm", "alt_counts")
