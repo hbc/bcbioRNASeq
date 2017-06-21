@@ -30,7 +30,7 @@ plot_gene <- function(
 
     # Seq along Ensembl data frame here instead of the gene input vector,
     # which will then output only genes that match Ensembl
-    lapply(1:nrow(match), function(a) {
+    lapply(1L:nrow(match), function(a) {
         gene_name <- match[["symbol"]][[a]]
         gene_id <- match[["ensgene"]][[a]]
         plot <- data.frame(
@@ -45,14 +45,14 @@ plot_gene <- function(
             ) +
             ggtitle(paste(gene_name,
                           paste0("(", gene_id, ")"))) +
-            geom_point(size = 4) +
+            geom_point(size = 4L) +
             theme(
-                axis.text.x = element_text(angle = 90)
+                axis.text.x = element_text(angle = 90L)
             ) +
             labs(x = "sample",
                  y = "transcripts per million (tpm)",
                  fill = "") +
-            expand_limits(y = 0)
+            expand_limits(y = 0L)
         show(plot)
     }) %>% invisible
 }
@@ -81,7 +81,9 @@ plot_gender_markers <- function(bcb) {
 
     # Ensembl identifiers
     ensgene <- gender_markers %>%
-        pull("ensgene") %>% sort %>% unique
+        pull("ensgene") %>%
+        sort %>%
+        unique
 
 
     # ggplot ----
@@ -91,7 +93,7 @@ plot_gender_markers <- function(bcb) {
         rownames_to_column %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         set_names(c("ensgene",
                     "description",
                     "counts")) %>%
@@ -102,8 +104,8 @@ plot_gender_markers <- function(bcb) {
                  color = ~description,
                  shape = ~chromosome)) +
         ggtitle("gender markers") +
-        geom_jitter(size = 4) +
-        expand_limits(y = 0) +
+        geom_jitter(size = 4L) +
+        expand_limits(y = 0L) +
         labs(x = "gene",
              y = "transcripts per million (tpm)")
 }

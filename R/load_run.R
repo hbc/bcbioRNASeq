@@ -47,14 +47,16 @@ load_run <- function(
                        pattern = upload_dir_pattern,
                        full.names = FALSE,
                        recursive = FALSE) %>%
-        sort %>% rev %>% .[[1]]
+        sort %>%
+        rev %>%
+        .[[1L]]
     if (!length(project_dir)) {
         stop("Project directory missing")
     }
     message(project_dir)
     match <- str_match(project_dir, upload_dir_pattern)
-    run_date <- match[2] %>% as.Date
-    template <- match[3]
+    run_date <- match[[2L]] %>% as.Date
+    template <- match[[3L]]
     project_dir <- file.path(upload_dir, project_dir)
 
 
@@ -101,7 +103,9 @@ load_run <- function(
     lane_pattern <- "_L(\\d{3})"
     if (any(str_detect(sample_dirs, lane_pattern))) {
         lanes <- str_match(names(sample_dirs), lane_pattern) %>%
-            .[, 2L] %>% unique %>% length
+            .[, 2L] %>%
+            unique %>%
+            length
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
@@ -163,13 +167,13 @@ load_run <- function(
     # SummarizedExperiment ====
     # colData
     if (!is.null(custom_metadata)) {
-        colData <- custom_metadata
+        col_data <- custom_metadata
     } else {
-        colData <- .yaml_metadata(yaml)
+        col_data <- .yaml_metadata(yaml)
     }
-    se <- .SummarizedExperiment(
+    se <- .summarized_experiment(
         tximport = tximport,
-        colData = colData,
+        colData = col_data,
         rowData = annotable,
         metadata = metadata)
 

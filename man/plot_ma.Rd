@@ -4,7 +4,7 @@
 \alias{plot_ma}
 \title{\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} wrapper}
 \usage{
-plot_ma(res, ylim = 2)
+plot_ma(res, ylim = 2L)
 }
 \arguments{
 \item{res}{\link{DESeqResults}.}

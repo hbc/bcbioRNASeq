@@ -9,7 +9,7 @@
 #'
 #' @return Mean average (MA) [ggplot].
 #' @export
-plot_ma <- function(res, ylim = 2) {
+plot_ma <- function(res, ylim = 2L) {
     .check_res(res)
     name <- deparse(substitute(res))
     contrast_name <- .res_contrast_name(res)
@@ -60,11 +60,11 @@ plot_volcano <- function(
     # `+ 1e-10` transformation.
 
     if (!any(direction %in% c("both", "down", "up")) |
-        length(direction) > 1) {
+        length(direction) > 1L) {
         stop("direction must be both, up, or down")
     }
 
-    alpha <- metadata(res)$alpha
+    alpha <- metadata(res)[["alpha"]]
     contrast_name <- .res_contrast_name(res)
 
     # Generate automatic title, if necessary
@@ -80,29 +80,29 @@ plot_volcano <- function(
         snake %>%
         tidy_select(!!!syms(c("ensgene", "log2_fold_change", "padj"))) %>%
         # Filter zero counts for quicker plotting
-        filter(!is.na(.data$log2_fold_change)) %>%
+        filter(!is.na(.data[["log2_fold_change"]])) %>%
         # Arrange by P value
         arrange(!!sym("padj")) %>%
         # Convert adjusted P value to -log10
-        mutate(neg_log_padj = -log10(.data$padj + 1e-10))
+        mutate(neg_log_padj = -log10(.data[["padj"]] + 1e-10))
 
     # Automatically label the top genes
-    volcano_text <- stats[1:text_labels, ] %>%
+    volcano_text <- stats[1L:text_labels, ] %>%
         left_join(gene2symbol(bcb), by = "ensgene")
 
     # Get range of LFC and P values to set up plot borders
     range_lfc <-
-        c(floor(min(na.omit(stats$log2_fold_change))),
-          ceiling(max(na.omit(stats$log2_fold_change))))
+        c(floor(min(na.omit(stats[["log2_fold_change"]]))),
+          ceiling(max(na.omit(stats[["log2_fold_change"]]))))
     range_neg_log_padj <-
-        c(floor(min(na.omit(stats$neg_log_padj))),
-          ceiling(max(na.omit(stats$neg_log_padj))))
+        c(floor(min(na.omit(stats[["neg_log_padj"]]))),
+          ceiling(max(na.omit(stats[["neg_log_padj"]]))))
 
 
     # LFC density histogram ----
-    lfc_density <- density(na.omit(stats$log2_fold_change))
-    lfc_density_df <- data.frame(x = lfc_density$x,
-                                 y = lfc_density$y)
+    lfc_density <- density(na.omit(stats[["log2_fold_change"]]))
+    lfc_density_df <- data.frame(x = lfc_density[["x"]],
+                                 y = lfc_density[["y"]])
     lfc_hist <- stats %>%
         ggplot(aes_(x = ~log2_fold_change)) +
         geom_density() +
@@ -113,9 +113,9 @@ plot_volcano <- function(
         lfc_hist <- lfc_hist +
             geom_ribbon(
                 # [fix] check UQ syntax
-                data = filter(lfc_density_df, .data$x > UQ(lfc)),
+                data = filter(lfc_density_df, .data[["x"]] > UQ(lfc)),
                 aes_(x = ~x, ymax = ~y),
-                ymin = 0,
+                ymin = 0L,
                 fill = shade_color,
                 alpha = shade_alpha)
     }
@@ -123,32 +123,31 @@ plot_volcano <- function(
         lfc_hist <- lfc_hist +
             geom_ribbon(
                 # [fix] check UQ syntax
-                data = filter(lfc_density_df, .data$x < -UQ(lfc)),
+                data = filter(lfc_density_df, .data[["x"]] < -UQ(lfc)),
                 aes_(x = ~x, ymax = ~y),
-                ymin = 0,
+                ymin = 0L,
                 fill = shade_color,
                 alpha = shade_alpha)
     }
 
 
     # Density plot of adjusted P values ----
-    padj_density <- density(na.omit(stats$neg_log_padj))
-    padj_density_df <- data.frame(x = padj_density$x,
-                                  y = padj_density$y)
+    padj_density <- density(na.omit(stats[["neg_log_padj"]]))
+    padj_density_df <- data.frame(x = padj_density[["x"]],
+                                  y = padj_density[["y"]])
     padj_hist <- stats %>%
         ggplot(aes_(x = ~-log10(padj + 1e-10))) +
         geom_density() +
         # [fix] check that `UQ` is best approach here
         geom_ribbon(data = filter(padj_density_df,
-                                  .data$x > -log10(UQ(alpha) + 1e-10)),
+                                  .data[["x"]] > -log10(UQ(alpha) + 1e-10)),
                     aes_(x = ~x, ymax = ~y),
-                    ymin = 0,
+                    ymin = 0L,
                     fill = shade_color,
                     alpha = shade_alpha) +
         coord_flip() +
         labs(title = "padj density",
              y = "density")
-    # show(padj_hist)
 
 
     # Volcano plot ----
@@ -161,7 +160,7 @@ plot_volcano <- function(
             alpha = point_alpha,
             color = point_outline_color,
             fill = point_color,
-            pch = 21) +
+            pch = 21L) +
         theme(legend.position = "none") +
         scale_x_continuous(limits = range_lfc) +
         geom_text_repel(
@@ -169,7 +168,7 @@ plot_volcano <- function(
             aes_(x = ~log2_fold_change,
                  y = ~neg_log_padj,
                  label = ~symbol),
-            size = 3)
+            size = 3L)
     if (direction == "both" | direction == "up") {
         volcano_poly_up <- with(stats, data.frame(
             x = as.numeric(c(
@@ -252,10 +251,10 @@ plot_volcano <- function(
 #' @export
 plot_pattern <- function(bcb, res, fdr = 0.1, n = NULL, ...) {
     res <- as.data.frame(res)
-    .order <- res[order(res$padj), ]
-    sign <- row.names(.order)[!is.na(.order$padj)]
+    .order <- res[order(res[["padj"]]), ]
+    sign <- row.names(.order)[!is.na(.order[["padj"]])]
     if (!is.null(n)) {
-        sign <- sign[1:n]
+        sign <- sign[1L:n]
     }
     # [TODO] Improve `rld` slot error if unset
     degPatterns(bcbio(bcb, "rld")[sign, ], colData(bcb), ...)

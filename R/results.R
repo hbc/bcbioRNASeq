@@ -20,12 +20,13 @@ alpha_summary <- function(
                 summary)[4L:8L]
         .parse <- sapply(
             .info, function(i) {
-                unlist(strsplit(i, split = ":"))[2L]
+                unlist(strsplit(i, split = ":"))[[2L]]
             })[1L:4L]
-        .parse <- c(.parse, .info[5L])
+        .parse <- c(.parse, .info[[5L]])
         data.frame(alpha = as.vector(.parse))
     }
-    ) %>% bind_cols %>%
+    ) %>%
+        bind_cols %>%
         set_colnames(alpha) %>%
         set_rownames(c("LFC > 0 (up)",
                        "LFC < 0 (down)",
@@ -61,7 +62,7 @@ alpha_summary <- function(
 res_tables <- function(
     bcb,
     res,
-    lfc = 0,
+    lfc = 0L,
     write = TRUE,
     dir = "results/de") {
     name <- deparse(substitute(res))
@@ -72,7 +73,8 @@ res_tables <- function(
 
     # Alpha level, from [DESeqResults]
     alpha <- metadata(res)[["alpha"]]
-    annotations <- rowData(bcb) %>% as.data.frame %>%
+    annotations <- rowData(bcb) %>%
+        as.data.frame %>%
         rename(ensembl_gene_id = .data[["ensgene"]])
 
     all <- res %>%
@@ -86,20 +88,21 @@ res_tables <- function(
     # Check for overall gene expression with base mean
     base_mean_gt0 <- all %>%
         arrange(desc(!!sym("base_mean"))) %>%
-        filter(.data$base_mean > 0)
+        filter(.data[["base_mean"]] > 0L)
     base_mean_gt1 <- base_mean_gt0 %>%
-        filter(.data$base_mean > 1)
+        filter(.data[["base_mean"]] > 1L)
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
-        filter(.data$padj < alpha) %>%
+        filter(.data[["padj"]] < alpha) %>%
         arrange(!!sym("padj"))
     deg_lfc <- deg %>%
-        filter(.data$log2_fold_change > lfc | .data$log2_fold_change < -lfc)
+        filter(.data[["log2_fold_change"]] > lfc |
+                   .data[["log2_fold_change"]] < -lfc)
     deg_lfc_up <- deg_lfc %>%
-        filter(.data$log2_fold_change > 0)
+        filter(.data[["log2_fold_change"]] > 0L)
     deg_lfc_down <- deg_lfc %>%
-        filter(.data$log2_fold_change < 0)
+        filter(.data[["log2_fold_change"]] < 0L)
 
     res_tbl <- list(
         res = res,
@@ -166,21 +169,21 @@ res_tables <- function(
 #' @export
 top_tables <- function(
     res_tbl,
-    n = 50,
+    n = 50L,
     coding = FALSE) {
     subset_top <- function(df) {
         # Filter for coding genes only, if desired
         if (isTRUE(coding)) {
-            df <- filter(df, .data$broad_class == "coding")
+            df <- filter(df, .data[["broad_class"]] == "coding")
         }
         df %>%
             head(n = n) %>%
             mutate(
-                base_mean = round(.data$base_mean),
-                log2_fold_change = format(.data$log2_fold_change,
-                                          digits = 3),
-                padj = format(.data$padj,
-                              digits = 3,
+                base_mean = round(.data[["base_mean"]]),
+                log2_fold_change = format(.data[["log2_fold_change"]],
+                                          digits = 3L),
+                padj = format(.data[["padj"]],
+                              digits = 3L,
                               scientific = TRUE)) %>%
             tidy_select(c(
                 "ensembl_gene_id",
@@ -192,12 +195,12 @@ top_tables <- function(
             remove_rownames
     }
 
-    up <- subset_top(res_tbl$deg_lfc_up)
-    down <- subset_top(res_tbl$deg_lfc_down)
+    up <- subset_top(res_tbl[["deg_lfc_up"]])
+    down <- subset_top(res_tbl[["deg_lfc_down"]])
 
     # Captions
-    name <- res_tbl$name
-    contrast <- res_tbl$contrast
+    name <- res_tbl[["name"]]
+    contrast <- res_tbl[["contrast"]]
     name_prefix <- paste(name, contrast, sep = label_sep)
 
     show(kable(

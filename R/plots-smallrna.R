@@ -10,23 +10,23 @@
 #' @export
 plot_size_distribution <- function(bcb) {
     meta <- metadata(bcb)
-    fns <- file.path(meta$sample_dirs,
-                     paste(names(meta$sample_dirs),
+    fns <- file.path(meta[["sample_dirs"]],
+                     paste(names(meta[["sample_dirs"]]),
                            "ready.trimming_stats",
                            sep = "-"))
-    names(fns) <- names(meta$sample_dirs)
+    names(fns) <- names(meta[["sample_dirs"]])
     tab <- data.frame()
-    for (sample in rownames(meta$metadata)) {
+    for (sample in rownames(meta[["metadata"]])) {
         d <- read.table(fns[sample], sep = "")
         tab <- rbind(
             tab, d %>%
                 mutate(sample = sample,
-                       group = meta$metadata[sample, meta$interesting_groups]))
+                       group = meta[["metadata"]][sample, meta[["interesting_groups"]]]))
     }
 
     reads_adapter <- tab %>%
         group_by(!!!syms(c("sample", "group"))) %>%
-        summarise(total = sum(.data$V2))
+        summarise(total = sum(.data[["V2"]]))
 
     ggdraw() +
         draw_plot(
@@ -37,18 +37,18 @@ plot_size_distribution <- function(bcb) {
                 ylab("# reads") +
                 theme(
                     axis.text.x = element_text(
-                        angle = 90, vjust = 0.5, hjust = 1)),
-            0, 0.5, 1, 0.5) +
+                        angle = 90L, vjust = 0.5, hjust = 1L)),
+            0L, 0.5, 1L, 0.5) +
         draw_plot(
             ggplot(tab, aes_(x = ~V1, y = ~V2, group = ~sample)) +
                 geom_bar(stat = "identity", position = "dodge") +
-                facet_wrap(~group, ncol = 2) +
+                facet_wrap(~group, ncol = 2L) +
                 ggtitle("size distribution") +
                 ylab("# reads") + xlab("size") +
                 theme(
                     axis.text.x = element_text(
-                        angle = 90, vjust = 0.5, hjust = 1)),
-            0, 0, 1, 0.5)
+                        angle = 90L, vjust = 0.5, hjust = 1L)),
+            0L, 0L, 1L, 0.5)
 }
 
 
@@ -62,7 +62,7 @@ plot_mirna_counts <- function(bcb) {
     cs <- apply(bcbio(bcb), 2L, function(x) {
         cumsum(sort(x, decreasing = TRUE))
     }) %>% as.data.frame
-    cs$pos <- 1:nrow(cs)
+    cs[["pos"]] <- 1L:nrow(cs)
     plot_grid(
         ggplot(.t) +
             geom_bar(aes_(x = ~sample,
@@ -77,7 +77,7 @@ plot_mirna_counts <- function(bcb) {
             scale_y_log10() +
             theme(axis.text.x = element_text(
                 angle = 90L, hjust = 1L, vjust = 0.5)),
-        ggplot((melt(cs, id.vars = "pos"))) +
+        ggplot(melt(cs, id.vars = "pos")) +
             geom_line(aes_(x = ~pos,
                            y = ~value,
                            color = ~variable)) +
@@ -92,11 +92,11 @@ plot_mirna_counts <- function(bcb) {
 #' @export
 plot_srna_clusters <- function(bcb) {
     counts <- bcbio(bcb)
-    design <- metadata(bcb)$metadata
+    design <- metadata(bcb)[["metadata"]]
     dds <- DESeqDataSetFromMatrix(
         counts[rowSums(counts > 0L) > 3L, ],
         colData = design,
-        design = ~1)
+        design = ~1L)
     vst <- rlog(dds, betaPriorVar = FALSE)
     annotation_col <- design %>%
         .[, metadata(bcb)[["interesting_groups"]], drop = FALSE]

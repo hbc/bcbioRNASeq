@@ -22,7 +22,9 @@ setMethod("aggregate_replicates", "matrix", function(
     if (!all(grepl(pattern, colnames(object)))) {
         stop("Lane pattern didn't match all samples")
     }
-    stem <- str_replace(colnames(object), pattern, "") %>% unique %>% sort
+    stem <- str_replace(colnames(object), pattern, "") %>%
+        unique %>%
+        sort
     # Perform [rowSums()] on the matching columns per sample
     lapply(seq_along(stem), function(a) {
         object %>%
@@ -45,37 +47,34 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
     design <- design(object)
 
     # Pool the lane split technical replicates
-    # `countData` is defined in [DESeqDataSetFromMatrix()]
     message("Aggregating raw counts slotted in DESeqDataSet")
-    countData <- counts(object, normalized = FALSE) %>%
+    count_data <- counts(object, normalized = FALSE) %>%
         aggregate_replicates
 
     # Mutate the colData metadata to pooled samples
-    colData <- colData(object) %>%
+    col_data <- colData(object) %>%
         as.data.frame %>%
-        mutate(file_name = str_replace(.data$file_name, pattern, ""),
-               description = str_replace(.data$description, pattern, ""),
+        mutate(file_name = str_replace(.data[["file_name"]], pattern, ""),
+               description = str_replace(.data[["description"]], pattern, ""),
                lane = NULL,
-               # [DESeq()]-generated columns
-               # replaceable = NULL,
                sizeFactor = NULL) %>%
         distinct %>%
-        set_rownames(.$description)
+        set_rownames(.[["description"]])
 
-    # Check that the new colData matches the counts matrix
-    if (!identical(colData$file_name, colnames(countData))) {
-        stop("File name mismatch in colData and countData")
+    # Check that the new col_data matches the counts matrix
+    if (!identical(col_data[["file_name"]], colnames(count_data))) {
+        stop("File name mismatch in col_data and count_data")
     }
 
     # Replace file names in pooled count matrix with description
-    colnames(countData) <- colData$description
-    if (!identical(rownames(colData), colnames(countData))) {
-        stop("Description mismatch in colData and countData")
+    colnames(count_data) <- col_data[["description"]]
+    if (!identical(rownames(col_data), colnames(count_data))) {
+        stop("Description mismatch in col_data and count_data")
     }
 
     message("Reloading DESeqDataSet using DESeqDataSetFromMatrix")
     DESeqDataSetFromMatrix(
-        countData = countData,
-        colData = colData,
+        countData = count_data,
+        colData = col_data,
         design = design) %>% DESeq
 })

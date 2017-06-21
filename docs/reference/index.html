@@ -98,6 +98,12 @@
         <tr>
           <!--  -->
           <td>
+            <p><code><a href="aggregate_replicates.html">aggregate_replicates</a></code> </p>
+          </td>
+          <td><p>Aggregate lane-split technical replicates</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
             <p><code><a href="alpha_summary.html">alpha_summary</a></code> </p>
           </td>
           <td><p>Print summary statistics of alpha level cutoffs</p></td>
@@ -106,13 +112,19 @@
           <td>
             <p><code><a href="bcbio.html">bcbio</a></code> <code><a href="bcbio.html">bcbio<-</a></code> </p>
           </td>
-          <td><p>Accessors for the count matrix of a bcbioRnaDataSet object</p></td>
+          <td><p><a href='reference/bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object accessors</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="de_plots.html">plot_ma</a></code> <code><a href="de_plots.html">plot_volcano</a></code> </p>
+            <p></p>
           </td>
-          <td><p>Differential expression plots</p></td>
+          <td><p>bcbioRnaDataSet</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="counts.html">counts</a></code> </p>
+          </td>
+          <td><p>Count matrix accessors</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -122,15 +134,21 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="heatmaps.html">plot_correlation_heatmap</a></code> <code><a href="heatmaps.html">plot_gene_heatmap</a></code> <code><a href="heatmaps.html">plot_deg_heatmap</a></code> </p>
+            <p><code><a href="gene2symbol.html">gene2symbol</a></code> </p>
           </td>
-          <td><p>Heatmaps</p></td>
+          <td><p>Gene identifier to symbol conversion</p></td>
         </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="load_run.html">load_run</a></code> </p>
           </td>
           <td><p>Load bcbio-nextgen run</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="melt_log10.html">melt_log10</a></code> </p>
+          </td>
+          <td><p>Melt count matrix to long format and log10 transform</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -146,15 +164,33 @@
         </tr><tr>
           <!--  -->
           <td>
+            <p><code><a href="plot_gender_markers.html">plot_gender_markers</a></code> </p>
+          </td>
+          <td><p>Plot sexually dimorphic gender markers</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
             <p><code><a href="plot_gene.html">plot_gene</a></code> </p>
           </td>
           <td><p>Plot an individual gene</p></td>
         </tr><tr>
           <!--  -->
           <td>
+            <p><code><a href="plot_ma.html">plot_ma</a></code> </p>
+          </td>
+          <td><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA()</a></code> wrapper</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plot_mean_sd.html">plot_mean_sd</a></code> </p>
+          </td>
+          <td><p>Plot row standard deviations versus row means</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
             <p><code><a href="plot_pattern.html">plot_pattern</a></code> </p>
           </td>
-          <td><p>Wrap degPatter function around bcbio object</p></td>
+          <td><p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degPatterns'>DEGreport::degPatterns()</a></code> wrapper</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -170,21 +206,27 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="pool.html">pool_dds</a></code> <code><a href="pool.html">pool_counts</a></code> </p>
+            <p><code><a href="plot_volcano.html">plot_volcano</a></code> </p>
           </td>
-          <td><p>Lane-split FASTQ aggregation functions</p></td>
+          <td><p>Volcano plot.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="qc_plots.html">plot_total_reads</a></code> <code><a href="qc_plots.html">plot_mapped_reads</a></code> <code><a href="qc_plots.html">plot_mapping_rate</a></code> <code><a href="qc_plots.html">plot_genes_detected</a></code> <code><a href="qc_plots.html">plot_gene_detection_saturation</a></code> <code><a href="qc_plots.html">plot_exonic_mapping_rate</a></code> <code><a href="qc_plots.html">plot_intronic_mapping_rate</a></code> <code><a href="qc_plots.html">plot_rrna_mapping_rate</a></code> <code><a href="qc_plots.html">plot_counts_per_gene</a></code> <code><a href="qc_plots.html">plot_count_density</a></code> <code><a href="qc_plots.html">plot_gender_markers</a></code> <code><a href="qc_plots.html">plot_mean_sd</a></code> </p>
+            <p><code><a href="plots-heatmap.html">plot_correlation_heatmap</a></code> <code><a href="plots-heatmap.html">plot_gene_heatmap</a></code> <code><a href="plots-heatmap.html">plot_deg_heatmap</a></code> </p>
           </td>
-          <td><p>Gene-level quality control plots</p></td>
+          <td><p>Heatmaps</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="raw_counts.html">raw_counts</a></code> </p>
+            <p><code><a href="plots-metrics.html">plot_total_reads</a></code> <code><a href="plots-metrics.html">plot_mapped_reads</a></code> <code><a href="plots-metrics.html">plot_mapping_rate</a></code> <code><a href="plots-metrics.html">plot_genes_detected</a></code> <code><a href="plots-metrics.html">plot_gene_detection_saturation</a></code> <code><a href="plots-metrics.html">plot_exonic_mapping_rate</a></code> <code><a href="plots-metrics.html">plot_intronic_mapping_rate</a></code> <code><a href="plots-metrics.html">plot_rrna_mapping_rate</a></code> <code><a href="plots-metrics.html">plot_counts_per_gene</a></code> <code><a href="plots-metrics.html">plot_count_density</a></code> </p>
           </td>
-          <td><p>Raw counts</p></td>
+          <td><p>Quality control metrics plots</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="plots-smallrna.html">plot_size_distribution</a></code> <code><a href="plots-smallrna.html">plot_mirna_counts</a></code> <code><a href="plots-smallrna.html">plot_srna_clusters</a></code> </p>
+          </td>
+          <td><p>Small RNA-seq quality control plots</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -196,17 +238,11 @@
           <td>
             <p><code><a href="sample_dirs.html">sample_dirs</a></code> </p>
           </td>
-          <td><p>Sample directories of bcbioRnaDataSet object.</p></td>
+          <td><p>Sample directories of <a href='reference/bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="smallrna_qc_plots.html">plot_size_distribution</a></code> <code><a href="smallrna_qc_plots.html">plot_mirna_counts</a></code> <code><a href="smallrna_qc_plots.html">plot_srna_clusters</a></code> </p>
-          </td>
-          <td><p>Small RNA-seq quality control plots</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tmm_normalize.html">tmm_normalize</a></code> </p>
+            <p><code><a href="tmm.html">tmm</a></code> <code><a href="tmm.html">.tmm</a></code> </p>
           </td>
           <td><p>Trimmed mean of M-values (TMM) normalization</p></td>
         </tr><tr>

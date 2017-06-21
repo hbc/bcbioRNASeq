@@ -133,7 +133,9 @@ plot_gene_heatmap <- function(
     }
 
     # Subset the DESeqTransform matrix (e.g. rlog counts)
-    counts <- dt %>% assay %>% .[genes, ]
+    counts <- dt %>%
+        assay %>%
+        .[genes, ]
 
     # `cluster_cols = FALSE`: Turn off sample hierarchical clustering and sort
     # by interesting groups then sample name, if preferred
@@ -146,7 +148,7 @@ plot_gene_heatmap <- function(
     }
 
     # Change rownames to readable external gene names
-    if (nrow(counts) <= 100) {
+    if (nrow(counts) <= 100L) {
         show_rownames <- TRUE
         gene2symbol <- gene2symbol(bcb)
         rownames(counts) <- gene2symbol[rownames(counts), "symbol"]
@@ -180,7 +182,7 @@ plot_gene_heatmap <- function(
 #' @param res [DESeqResults].
 #' @param lfc [log2] fold change ratio.
 #' @export
-plot_deg_heatmap <- function(bcb, dt, res, lfc = 1, title = NULL, ...) {
+plot_deg_heatmap <- function(bcb, dt, res, lfc = 1L, title = NULL, ...) {
     if (is.null(title)) {
         title <- "differentially expressed genes"
     }
@@ -189,8 +191,8 @@ plot_deg_heatmap <- function(bcb, dt, res, lfc = 1, title = NULL, ...) {
     genes <- res %>%
         as.data.frame %>%
         rownames_to_column("ensgene") %>%
-        filter(.data$padj < alpha,
-               .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc) %>%
+        filter(.data[["padj"]] < alpha,
+               .data[["log2FoldChange"]] > lfc | .data[["log2FoldChange"]] < -lfc) %>%
         pull("ensgene") %>% sort
     plot_gene_heatmap(bcb, dt, genes = genes, title = title, ...)
 }

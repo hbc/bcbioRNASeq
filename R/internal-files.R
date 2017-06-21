@@ -35,8 +35,7 @@
 
     # Detect file extension
     if (grepl("\\.[a-z]+$", file_name)) {
-        # ext <- gsub("^.*\\.([a-z]+)$", "\\1", file_name)
-        ext <- str_match(file_name, "\\.([a-z]+)$")[2]
+        ext <- str_match(file_name, "\\.([a-z]+)$")[[2L]]
     } else {
         stop("File extension missing")
     }
@@ -68,7 +67,9 @@
     }
 
     # Finally, strip all NA columns and rows, then set as S4 DataFrame
-    data %>% remove_na %>% DataFrame
+    data %>%
+        remove_na %>%
+        DataFrame
 }
 
 
@@ -101,7 +102,7 @@
     meta <- as.data.frame(meta)
 
     # First column must be the FASTQ file name
-    names(meta)[1L] <- "file_name"
+    names(meta)[[1L]] <- "file_name"
 
     meta <- meta %>%
         # Strip all NA rows and columns
@@ -109,14 +110,14 @@
         # Make names snake_case
         snake %>%
         # Remove rows with no description
-        filter(!is.na(.data$description))
+        filter(!is.na(.data[["description"]]))
 
     # Lane split, if desired
     if (is.numeric(lanes)) {
         meta <- meta %>%
             group_by(!!sym("file_name")) %>%
             # Expand by lane (e.g. "L001")
-            expand_(~paste0("L", str_pad(1:lanes, 3, pad = "0"))) %>%
+            expand_(~paste0("L", str_pad(1L:lanes, 3L, pad = "0"))) %>%
             left_join(meta, by = "file_name") %>%
             ungroup %>%
             mutate(file_name = paste(.data[["file_name"]],
@@ -133,11 +134,11 @@
     # Convert to data frame, coerce to factors, and set rownames
     meta %>%
         mutate_all(factor) %>%
-        mutate(file_name = as.character(.data$file_name),
-               description = as.character(.data$description)) %>%
+        mutate(file_name = as.character(.data[["file_name"]]),
+               description = as.character(.data[["description"]])) %>%
         arrange(!!sym("description")) %>%
         DataFrame %>%
-        set_rownames(.$description)
+        set_rownames(.[["description"]])
 }
 
 

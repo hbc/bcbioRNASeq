@@ -4,7 +4,7 @@
 \alias{res_tables}
 \title{Differential expression results tables}
 \usage{
-res_tables(bcb, res, lfc = 0, write = TRUE, dir = "results/de")
+res_tables(bcb, res, lfc = 0L, write = TRUE, dir = "results/de")
 }
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}

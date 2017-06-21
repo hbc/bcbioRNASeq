@@ -11,13 +11,16 @@
 #'
 #' @export
 plot_mean_sd <- function(dds, rld = NULL, vsd = NULL) {
-    nonzero <- dds %>% counts %>% rowSums %>% `>`(0)
+    nonzero <- dds %>%
+        counts %>%
+        rowSums %>%
+        `>`(0L)
 
     # log2 ----
     gglog2 <- dds %>%
         counts(normalized = TRUE) %>%
         .[nonzero, ] %>%
-        `+`(1) %>%
+        `+`(1L) %>%
         log2 %>%
         meanSdPlot(plot = FALSE)
 
@@ -40,7 +43,7 @@ plot_mean_sd <- function(dds, rld = NULL, vsd = NULL) {
         assay %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
-    plot_grid(gglog2$gg  + theme(legend.position = "none"),
-              ggrlog$gg + theme(legend.position = "none"),
-              ggvsd$gg + theme(legend.position = "none"), nrow = 1)
+    plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
+              ggrlog[["gg"]] + theme(legend.position = "none"),
+              ggvsd[["gg"]] + theme(legend.position = "none"), nrow = 1L)
 }

@@ -6,7 +6,7 @@ linters: with_defaults(
     extraction_operator_linter,
     implicit_integer_linter,
     infix_spaces_linter,
-    line_length_linter(80),
+    line_length_linter(100),
     nonportable_path_linter,
     no_tab_linter,
     object_length_linter(30),

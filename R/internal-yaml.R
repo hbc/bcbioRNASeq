@@ -21,11 +21,11 @@
     # Check for nested keys, otherwise return NULL
     # [TODO] Improve the recursion method using sapply in a future update
     keys <- get_objs_from_dots(dots(...))
-    if (!keys[1L] %in% names(samples[[1L]])) {
+    if (!keys[[1L]] %in% names(samples[[1L]])) {
         return(NULL)
     }
     if (length(keys) > 1L) {
-        if (!keys[2L] %in% names(samples[[1L]][[keys[1L]]])) {
+        if (!keys[[2L]] %in% names(samples[[1L]][[keys[[1L]]]])) {
             return(NULL)
         }
     }
@@ -38,7 +38,7 @@
         nested[["name"]] <- NULL
         # Correct batch and phenotype YAML
         # [TODO] Better detection method than using [rev()]?
-        if (rev(keys)[1L] == "metadata") {
+        if (rev(keys)[[1L]] == "metadata") {
             # Fix empty batch and phenotype
             if (is.null(nested[["batch"]])) {
                 nested[["batch"]] <- NA
@@ -51,7 +51,8 @@
         }
         nested
     }
-    ) %>% rbindlist %>%
+    ) %>%
+        rbindlist %>%
         # List can be coerced to data frame using [data.table::rbindlist()] or
         # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to
         # throw `Column XXX can't be converted from integer to character` errors
@@ -65,7 +66,6 @@
 
 #' @rdname yaml
 .yaml_metadata <- function(yaml) {
-    # message("Reading metadata")
     .yaml(yaml, metadata) %>%
         as.data.frame %>%
         mutate_all(factor) %>%
@@ -83,7 +83,6 @@
     if (is.null(metrics)) {
         return(NULL)
     }
-    # message("Reading metrics")
     characters <- metrics[, c("description",
                               "quality_format",
                               "sequence_length")]

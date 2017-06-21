@@ -19,10 +19,10 @@ plot_total_reads(bcb, pass_limit = 20L, warn_limit = 10L,
 plot_mapped_reads(bcb, pass_limit = 20L, warn_limit = 10L,
   interesting_groups = NULL)
 
-plot_mapping_rate(bcb, pass_limit = 90, warn_limit = 70,
+plot_mapping_rate(bcb, pass_limit = 90L, warn_limit = 70L,
   interesting_groups = NULL)
 
-plot_genes_detected(bcb, pass_limit = 20000, interesting_groups = NULL)
+plot_genes_detected(bcb, pass_limit = 20000L, interesting_groups = NULL)
 
 plot_gene_detection_saturation(bcb, interesting_groups = NULL)
 

@@ -30,7 +30,7 @@ plot_total_reads <- function(
     ggplot(
         metrics,
         aes_(x = ~description,
-             y = ~total_reads / 1e6,
+             y = ~total_reads / 1e6L,
              fill = interesting_groups)) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
@@ -63,7 +63,7 @@ plot_mapped_reads <- function(
     ggplot(
         metrics,
         aes_(x = ~description,
-             y = ~mapped_reads / 1e6,
+             y = ~mapped_reads / 1e6L,
              fill = interesting_groups)) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
@@ -85,8 +85,8 @@ plot_mapped_reads <- function(
 #' @export
 plot_mapping_rate <- function(
     bcb,
-    pass_limit = 90,
-    warn_limit = 70,
+    pass_limit = 90L,
+    warn_limit = 70L,
     interesting_groups = NULL) {
     metrics <- metrics(bcb)
     if (is.null(metrics)) return(NULL)
@@ -119,7 +119,7 @@ plot_mapping_rate <- function(
 #' @export
 plot_genes_detected <- function(
     bcb,
-    pass_limit = 20000,
+    pass_limit = 20000L,
     interesting_groups = NULL) {
     metrics <- metrics(bcb)
     counts <- assay(bcb)
@@ -159,7 +159,7 @@ plot_gene_detection_saturation <- function(
     counts <- counts(bcb)
     ggplot(
         metrics,
-        aes_(x = ~mapped_reads / 1e6,
+        aes_(x = ~mapped_reads / 1e6L,
              y = colSums(counts > 0L),
              color = interesting_groups)) +
         ggtitle("gene detection saturation") +
@@ -282,8 +282,6 @@ plot_counts_per_gene <- function(
              color = as.name(interesting_groups))) +
         ggtitle("counts per gene") +
         geom_boxplot(outlier.shape = NA) +
-        # optional way to make log10 subscript:
-        # expression(log[10]~counts~per~gene)
         labs(x = "sample",
              y = "log10 counts per gene",
              color = interesting_groups) +

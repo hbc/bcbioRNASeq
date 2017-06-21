@@ -25,5 +25,7 @@ setMethod("tmm", "matrix", function(object) {
 #' @rdname tmm
 #' @export
 setMethod("tmm", "DESeqDataSet", function(object) {
-    object %>% counts %>% .tmm
+    object %>%
+        counts %>%
+        .tmm
 })

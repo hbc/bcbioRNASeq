@@ -2,12 +2,12 @@
     counts %>%
         as.data.frame %>%
         rownames_to_column %>%
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         set_names(c("rowname",  # ensembl_gene_id
                     "colname",  # description
                     "counts")) %>%
         # Filter zero counts
-        filter(.data[["counts"]] > 0) %>%
+        filter(.data[["counts"]] > 0L) %>%
         # log10 transform
         mutate(counts = log10(.data[["counts"]]),
                # [melt()] sets colnames as factor

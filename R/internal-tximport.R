@@ -19,7 +19,9 @@
 #' - [tximport::tximport()].
 .tximport <- function(sample_dirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sample_dirs[1], full.names = FALSE, recursive = FALSE)
+    subdirs <- list.dirs(sample_dirs[[1L]],
+                         full.names = FALSE,
+                         recursive = FALSE)
     if ("salmon" %in% subdirs) {
         type <- "salmon"
     } else if ("sailfish" %in% subdirs) {
@@ -43,20 +45,18 @@
     # Begin loading of selected counts
     message(paste("Reading", type, "counts"))
 
-    # Import the counts
-    # https://goo.gl/h6fm15
-    # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
+    # Import the counts (https://goo.gl/h6fm15)
     if (type %in% c("salmon", "sailfish")) {
-        countsFromAbundance <- "lengthScaledTPM"
+        counts_from_abundance <- "lengthScaledTPM"
     } else {
-        countsFromAbundance <- "no"
+        counts_from_abundance <- "no"
     }
 
     tximport(files = sample_files,
              type = type,
              tx2gene = as.data.frame(tx2gene),
              importer = read_tsv,
-             countsFromAbundance = countsFromAbundance)
+             countsFromAbundance = counts_from_abundance)
 }
 
 

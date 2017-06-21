@@ -32,7 +32,7 @@ labeling.
 \seealso{
 \itemize{
 \item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
-\item \href{https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R}{plotPCA source code}.
+\item \href{https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R}{plotPCA source code}.
 \item \href{https://support.bioconductor.org/p/51270/}{Bioconductor thread on ntop usage}.
 }
 }

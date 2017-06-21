@@ -60,7 +60,7 @@ load_bcbio_run_from_yaml <- function() {
 
 #' @rdname deprecated
 #' @export
-load_run_S4 <- function(...) {
+load_run_S4 <- function(...) {  # nolint
     .Deprecated("load_run")
     load_run(...)
 }
@@ -116,12 +116,6 @@ pool_lane_split_dds <- function(...) {
 #' @export
 read_metadata <- function() {
     .Deprecated("metadata")
-}
-
-
-
-select_interesting_groups_coldata <- function() {
-    .Deprecated()
 }
 
 

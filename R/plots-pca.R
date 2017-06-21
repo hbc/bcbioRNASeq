@@ -16,7 +16,7 @@
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
-#' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R).
+#' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R).
 #' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
 plot_pca <- function(
     bcb,
@@ -25,20 +25,21 @@ plot_pca <- function(
     interesting_groups = NULL,
     shape = FALSE,
     label = TRUE) {
-    run <- metadata(bcb)
-    .check_dt(dt)
     name <- deparse(substitute(dt))
 
+    # Subset genes, if desired
     if (!is.null(genes)) {
         dt <- dt[genes, ]
         # Set ntop to the number of genes requested
         ntop <- length(genes)
     } else {
         # Recommended DESeq default
-        ntop <- 500
+        ntop <- 500L
     }
+
+    # Interesting groups
     if (is.null(interesting_groups)) {
-        interesting_groups <- run$interesting_groups
+        interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
     interesting_groups_name <- paste(interesting_groups, collapse = " :\n")
 
@@ -47,19 +48,18 @@ plot_pca <- function(
                     interesting_groups = interesting_groups,
                     returnData = TRUE,
                     ntop = ntop) %>% snake
-    percent_var <- round(100 * attr(data, "percentVar"))
+    percent_var <- round(100L * attr(data, "percentVar"))
 
     # Always define color by `interesting_groups`
-    data$color <- data$group
+    data[["color"]] <- data[["group"]]
 
     if (isTRUE(shape)) {
-        data$shape <- data$group
+        data[["shape"]] <- data[["group"]]
     } else {
-        data$shape <- "default"
+        data[["shape"]] <- "default"
     }
 
-    # [TODO] Don't use `@` slot accessor
-    data$label <- dt@colData$description
+    data[["label"]] <- colData(dt)[["description"]]
 
     plot <- ggplot(
         data,
@@ -68,11 +68,11 @@ plot_pca <- function(
              color = ~color,
              shape = ~shape)
     ) +
-        geom_point(size = 3) +
+        geom_point(size = 3L) +
         coord_fixed() +
         labs(title = paste("pca", name, sep = label_sep),
-             x = paste0("pc1: ", percent_var[1], "% variance"),
-             y = paste0("pc2: ", percent_var[2], "% variance"),
+             x = paste0("pc1: ", percent_var[[1L]], "% variance"),
+             y = paste0("pc2: ", percent_var[[2L]], "% variance"),
              color = interesting_groups_name,
              shape = interesting_groups_name)
 
@@ -119,11 +119,13 @@ plot_pca_covariates <- function(bcb, dt, use = NULL, ...) {
 
     keep_metrics <- lapply(use, function(a) {
         if (length(unique(metrics[, a])) > 1L) a
-    }) %>% unlist %>% .[!is.null(.)]
+    }) %>%
+        unlist %>%
+        .[!is.null(.)]
 
     metrics <- metrics %>%
         as.data.frame %>%
-        set_rownames(.$description) %>%
+        set_rownames(.[["description"]]) %>%
         .[, setdiff(keep_metrics, c("description", "file_name"))]
 
     dt %>%

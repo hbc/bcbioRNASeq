@@ -12,7 +12,7 @@
 #' @rdname integrity
 #' @param dds [DESeqDataSet].
 .check_dds <- function(dds, stop = TRUE) {
-    if (class(dds)[1] == "DESeqDataSet") {
+    if (class(dds)[[1L]] == "DESeqDataSet") {
         TRUE
     } else {
         if (isTRUE(stop)) {
@@ -28,7 +28,7 @@
 #' @rdname integrity
 #' @param dt [DESeqTransform].
 .check_dt <- function(dt, stop = TRUE) {
-    if (class(dt)[1] == "DESeqTransform") {
+    if (class(dt)[[1L]] == "DESeqTransform") {
         TRUE
     } else {
         if (isTRUE(stop)) {
@@ -44,7 +44,7 @@
 #' @rdname integrity
 #' @param res [DESeqResults].
 .check_res <- function(res, stop = TRUE) {
-    if (class(res)[1] == "DESeqResults") {
+    if (class(res)[[1L]] == "DESeqResults") {
         TRUE
     } else {
         if (isTRUE(stop)) {
