@@ -8,29 +8,34 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param txi [tximport] list.
+#' @param tximport [tximport] list.
 #' @param colData Sample metadata.
 #' @param rowData [Ensembl](http://www.ensembl.org/) gene annotations.
 #' @param metadata Custom metadata.
 #'
 #' @return [SummarizedExperiment].
-.SummarizedExperiment <- function(txi, colData, rowData, metadata = NULL) {
+.SummarizedExperiment <- function(
+    tximport,
+    colData,
+    rowData,
+    metadata = NULL) {
     message("Packaging SummarizedExperiment")
 
-    # tximport ----
-    counts <- txi[["counts"]]
-    tpm <- txi[["abundance"]]  # [TODO] Add check for `lengthScaledTPM`
+    # tximport ====
+    counts <- tximport[["counts"]]
+    # [TODO] Add check for `lengthScaledTPM`, otherwise return NULL?
+    tpm <- tximport[["abundance"]]
 
-    # TMM normalization (edgeR) ----
+    # TMM normalization (edgeR) ====
     tmm <- .tmm(counts)
 
-    # Metadata ----
+    # Metadata ====
     # Coerce to [SimpleList], if necessary
     if (!is.null(metadata) & class(metadata) != "SimpleList") {
         metadata <- as(metadata, "SimpleList")
     }
 
-    # Prepare colData and rowData ----
+    # Prepare [colData] and [rowData] ====
     colData <- colData[colnames(counts), ]
     rownames(colData) <- colnames(counts)
 
@@ -40,14 +45,14 @@
     # This is due to mismatches between genome build and annotables build.
     # Examples: ENSMUSG00000029333, ENSMUSG00000035349, ENSMUSG00000042402
 
-    if (!identical(rownames(rowData), rownames(counts))) {
-        stop("Gene identifier mismatch")
+    if (!identical(rownames(counts), rownames(rowData))) {
+        stop("Gene identifier mismatch in counts and rowData")
     }
 
-    # SummarizedExperiment ----
+    # Return [SummarizedExperiment] ====
     SummarizedExperiment(
         assays = SimpleList(
-            counts = counts,
+            counts = counts,  # raw counts first
             tpm = tpm,
             tmm = tmm),
         colData = colData,
