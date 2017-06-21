@@ -12,6 +12,10 @@ setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
 #' @export
 setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 
+#' @rdname gene2symbol
+#' @export
+setGeneric("gene2symbol", function(object) standardGeneric("gene2symbol"))
+
 #' @rdname melt_log10
 #' @export
 setGeneric("melt_log10", function(object, ...) standardGeneric("melt_log10"))
