@@ -9,18 +9,3 @@ r_github_packages:
   - jimhester/lintr
 after_success:
   - Rscript -e 'covr::codecov()'
-  - pwd
-  - cd ..
-  - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-  - mkdir template
-  - cd template
-  - cp ../bcbio_rnaseq_output_example/setup.R .
-  - cp ../bcbio_rnaseq_output_example/_output.yaml .
-  - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd .
-  - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
-  - Rscript -e 'bcbioRnaseq::downloads();rmarkdown::render("skeleton.Rmd")'
-  - ls
-  - cd ../bcbio_rnaseq_output_example
-  - cp ../bcbioRnaseq/.push.sh push.sh
-  - chmod +x push.sh
-  - ./push.sh
