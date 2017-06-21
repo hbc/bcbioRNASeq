@@ -80,13 +80,13 @@ plot_gender_markers <- function(bcb) {
         filter(.data[["include"]] == TRUE)
 
     # Ensembl identifiers
-    identifier <- gender_markers %>%
+    ensgene <- gender_markers %>%
         pull("ensgene") %>% sort %>% unique
 
 
     # ggplot ----
     tpm(bcb) %>%
-        .[identifier, ] %>%
+        .[ensgene, ] %>%
         as.data.frame %>%
         rownames_to_column %>%
         # Can also declare `measure.vars` here
