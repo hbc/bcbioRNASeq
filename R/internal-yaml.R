@@ -19,7 +19,7 @@
     }
 
     # Check for nested keys, otherwise return NULL
-    # [TODO] Improve the recursion method using sapply in a future update
+    # TODO Improve the recursion method using sapply in a future update
     keys <- get_objs_from_dots(dots(...))
     if (!keys[[1L]] %in% names(samples[[1L]])) {
         return(NULL)
@@ -36,10 +36,7 @@
         nested[["description"]] <- samples[[a]][["description"]]
         # Remove legacy duplicate `name` identifier
         nested[["name"]] <- NULL
-        # Correct batch and phenotype YAML
-        # [TODO] Better detection method than using [rev()]?
         if (rev(keys)[[1L]] == "metadata") {
-            # Fix empty batch and phenotype
             if (is.null(nested[["batch"]])) {
                 nested[["batch"]] <- NA
             }

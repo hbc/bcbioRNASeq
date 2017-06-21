@@ -23,7 +23,7 @@
 
     # tximport ====
     counts <- tximport[["counts"]]
-    # [TODO] Add check for `lengthScaledTPM`, otherwise return NULL?
+    # TODO Add check for `lengthScaledTPM`, otherwise return NULL?
     tpm <- tximport[["abundance"]]
 
     # TMM normalization (edgeR) ====
@@ -35,13 +35,13 @@
         metadata <- as(metadata, "SimpleList")
     }
 
-    # Prepare [colData] and [rowData] ====
+    # col_data ====
     col_data <- colData[colnames(counts), ]
     rownames(col_data) <- colnames(counts)
 
     row_data <- rowData[rownames(counts), ]
     rownames(row_data) <- rownames(counts)
-    # [TODO] How to handle deprecated Ensembl identifiers?
+    # TODO How to handle deprecated Ensembl identifiers?
     # This is due to mismatches between genome build and annotables build.
     # Examples: ENSMUSG00000029333, ENSMUSG00000035349, ENSMUSG00000042402
 

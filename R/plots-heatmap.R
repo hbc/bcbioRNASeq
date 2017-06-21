@@ -177,7 +177,7 @@ plot_gene_heatmap <- function(
 
 
 
-# [TODO] Add option to slot lfc into [bcbioRnaDataSet]
+# TODO Add option to slot lfc into [bcbioRnaDataSet]
 #' @rdname plots-heatmap
 #' @param res [DESeqResults].
 #' @param lfc [log2] fold change ratio.

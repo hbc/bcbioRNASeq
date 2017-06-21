@@ -75,7 +75,7 @@
         # Read bcbio-nextgene tx2gene file
         .read_file(file_path, col_names = c("enstxp", "ensgene")) %>%
             as.data.frame %>%
-            # [TODO] Add S4 DataFrame method support for arrange in basejump
+            # TODO Add S4 DataFrame method support for arrange in basejump
             arrange(!!sym("enstxp")) %>%
             DataFrame %>%
             set_rownames(.[["enstxp"]])

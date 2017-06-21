@@ -1,5 +1,5 @@
-# [TODO] Look at incorporating [plotCounts()] into this function.
-# [TODO] Function needs rework for annotables
+# TODO Look at incorporating [plotCounts()] into this function.
+# TODO Function needs rework for annotables
 #' Plot an individual gene
 #'
 #' @author Michael Steinbaugh
@@ -70,7 +70,8 @@ plot_gender_markers <- function(bcb) {
 
     # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
-        delayedAssign("gender_markers", gender_markers_mmusculus)
+        gender_markers <- get("gender_markers_musculus",
+                              envir = as.environment("package:bcbioRnaseq"))
     } else {
         stop("Unsupported organism")
     }

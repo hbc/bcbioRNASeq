@@ -109,7 +109,7 @@ load_run <- function(
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
-        # [TODO] Check that downstream functions don't use NULL
+        # TODO Check that downstream functions don't use NULL
         lanes <- 1L
     }
 
@@ -165,7 +165,6 @@ load_run <- function(
 
 
     # SummarizedExperiment ====
-    # colData
     if (!is.null(custom_metadata)) {
         col_data <- custom_metadata
     } else {
@@ -173,14 +172,14 @@ load_run <- function(
     }
     se <- .summarized_experiment(
         tximport = tximport,
-        colData = col_data,
-        rowData = annotable,
+        col_data = col_data,
+        row_data = annotable,
         metadata = metadata)
 
 
     # bcbioRnaDataSet ====
     bcb <- new("bcbioRnaDataSet", se)
-    # [TODO] Simpler way to define in [new()]?
+    # TODO Simpler way to define in [new()]?
     bcbio(bcb, "tximport") <- tximport
     bcb
 }

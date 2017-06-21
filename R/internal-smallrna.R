@@ -9,7 +9,7 @@
 #'
 #' @param rna [bcbioRnaDataSet].
 .read_smallrna_counts <- function(rna) {
-    # [TODO] Better way to handle sample_dirs than by piping in via metadata?
+    # TODO Better way to handle sample_dirs than by piping in via metadata?
     meta <- metadata(rna)
     fns <- file.path(meta[["sample_dirs"]],
                      paste(names(meta[["sample_dirs"]]),

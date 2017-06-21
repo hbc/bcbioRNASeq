@@ -56,7 +56,7 @@ plot_volcano <- function(
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray") {
-    # [TODO] Add support for option of plotting unadjusted P values without
+    # TODO Add support for option of plotting unadjusted P values without
     # `+ 1e-10` transformation.
 
     if (!any(direction %in% c("both", "down", "up")) |
@@ -112,7 +112,7 @@ plot_volcano <- function(
     if (direction == "both" | direction == "up") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
-                # [fix] check UQ syntax
+                # FIXME check UQ syntax
                 data = filter(lfc_density_df, .data[["x"]] > UQ(lfc)),
                 aes_(x = ~x, ymax = ~y),
                 ymin = 0L,
@@ -122,7 +122,7 @@ plot_volcano <- function(
     if (direction == "both" | direction == "down") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
-                # [fix] check UQ syntax
+                # FIXME check UQ syntax
                 data = filter(lfc_density_df, .data[["x"]] < -UQ(lfc)),
                 aes_(x = ~x, ymax = ~y),
                 ymin = 0L,
@@ -138,7 +138,7 @@ plot_volcano <- function(
     padj_hist <- stats %>%
         ggplot(aes_(x = ~-log10(padj + 1e-10))) +
         geom_density() +
-        # [fix] check that `UQ` is best approach here
+        # FIXME check that `UQ` is best approach here
         geom_ribbon(data = filter(padj_density_df,
                                   .data[["x"]] > -log10(UQ(alpha) + 1e-10)),
                     aes_(x = ~x, ymax = ~y),
@@ -210,7 +210,7 @@ plot_volcano <- function(
 
 
     # Grid layout ----
-    # [TODO] Add a ggdraw title?
+    # TODO Add a ggdraw title?
     if (isTRUE(merge_plots)) {
         ggdraw() +
             draw_plot(
@@ -256,6 +256,6 @@ plot_pattern <- function(bcb, res, fdr = 0.1, n = NULL, ...) {
     if (!is.null(n)) {
         sign <- sign[1L:n]
     }
-    # [TODO] Improve `rld` slot error if unset
+    # TODO Improve `rld` slot error if unset
     degPatterns(bcbio(bcb, "rld")[sign, ], colData(bcb), ...)
 }
