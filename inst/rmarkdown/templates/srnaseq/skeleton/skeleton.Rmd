@@ -1,7 +1,7 @@
 ---
 title: "Small RNA-seq quality control"
 author: ""
-date: "`r BiocStyle::doc_date()`"
+date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 ---
 
@@ -10,7 +10,7 @@ library(bcbioRnaseq)
 library(isomiRs)
 run <- load_run(
     "bcbio_yaml_file_in_final_folder",
-    groups_of_interest = c("genotype", "treatment"),
+    interesting_groups = c("genotype", "treatment"),
     analysis = "srnaseq")
 
 # [load_run()] automatically downloads knit defaults to `setup.R`.

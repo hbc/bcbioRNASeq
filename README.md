@@ -13,9 +13,6 @@
 
 Quality control and differential expression for [bcbio-nextgen][] RNA-seq experiments.
 
-## Example
-
-Last [report](http://bcb.io/bcbio_rnaseq_output_example) rendered with development code
 
 ## Installation
 
@@ -34,3 +31,10 @@ biocLite("hbc/bcbioRnaseq")
 install.packages("devtools")
 devtools::install_github("hbc/bcbioRnaseq")
 ```
+
+
+
+## Examples
+
+[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the
+default RMarkdown templates included in the package.

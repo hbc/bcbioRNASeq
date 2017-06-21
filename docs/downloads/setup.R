@@ -26,11 +26,12 @@ theme_set(theme_light(base_size = 14))
 
 # bcbioRnaseq ====
 library(bcbioRnaseq)
+
 # Upload directory: location of the bcbio-nextgen final output
 upload_dir <- "final"
 
 # Columns in the colData in metadata you want to use
-groups_of_interest <- c("genotype", "treatment")
+interesting_groups <- c("genotype", "treatment")
 
 # Output directory paths
 out_path <- getwd()
@@ -44,7 +45,7 @@ if (file.exists(file.path(data_out, "bcb.rda"))) {
 } else {
     bcb <- load_run(
         upload_dir = file.path(upload_dir),
-        groups_of_interest = groups_of_interest)
+        interesting_groups = interesting_groups)
     save_data(bcb, dir = data_out)
 }
 
