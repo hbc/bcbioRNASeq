@@ -1,0 +1,106 @@
+# [TODO] Look at incorporating [plotCounts()] into this function.
+# [TODO] Function needs rework for annotables
+#' Plot an individual gene
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param bcb [bcbioRnaDataSet].
+#' @param gene Gene identifier. Can input multiple genes as a character vector.
+#' @param format Ensembl identifier format. Defaults to the gene symbol (a.k.a.
+#'   `external_gene_name`).
+#'
+#' @export
+plot_gene <- function(
+    bcb,
+    gene,
+    format = "symbol") {
+    if (!format %in% c("ensgene", "symbol")) {
+        stop("Unsupported gene identifier format")
+    }
+    counts <- tpm(bcb)
+    metadata <- colData(bcb)
+    color <- metadata(bcb)[["interesting_groups"]][[1L]]
+
+    # Match unique gene identifier with name (gene symbol) using the internally
+    # stored Ensembl annotations saved in the run object
+    match <- metadata(bcb)[["annotable"]] %>%
+        as.data.frame %>%
+        filter(.data[[format]] %in% gene) %>%
+        arrange(!!sym("symbol"))
+
+    # Seq along Ensembl data frame here instead of the gene input vector,
+    # which will then output only genes that match Ensembl
+    lapply(1:nrow(match), function(a) {
+        gene_name <- match[["symbol"]][[a]]
+        gene_id <- match[["ensgene"]][[a]]
+        plot <- data.frame(
+            x = colnames(counts),
+            y = counts[gene_id, ],
+            color = metadata[[color]]) %>%
+            ggplot(
+                aes_(x = ~x,
+                     y = ~y,
+                     color = ~color,
+                     shape = ~color)
+            ) +
+            ggtitle(paste(gene_name, gene_id, sep = label_sep)) +
+            geom_point(size = 4) +
+            theme(
+                axis.text.x = element_text(angle = 90)
+            ) +
+            labs(x = "sample",
+                 y = "transcripts per million (tpm)",
+                 fill = "") +
+            expand_limits(y = 0)
+        show(plot)
+    }) %>% invisible
+}
+
+
+
+#' @rdname qc_plots
+#' @export
+plot_gender_markers <- function(bcb) {
+    # Organism-specific dimorphic markers ----
+    organism <- metadata(bcb)[["organism"]]
+
+    # Load the relevant internal gender markers data
+    if (organism == "mmusculus") {
+        gender_markers <- get("gender_markers_mmusculus",
+                              envir = asNamespace("bcbioRnaseq"))
+    } else {
+        stop("Unsupported organism")
+    }
+
+    # Prepare the source gender markers data frame
+    gender_markers <- gender_markers %>%
+        filter(.data[["include"]] == TRUE)
+
+    # Ensembl identifiers
+    identifier <- gender_markers %>%
+        pull("ensgene") %>% sort %>% unique
+
+
+    # ggplot ----
+    tpm(bcb) %>%
+        .[identifier, ] %>%
+        as.data.frame %>%
+        rownames_to_column %>%
+        # Can also declare `measure.vars` here
+        # If you don't set `id`, function will output a message
+        melt(id = 1) %>%
+        set_names(c("ensgene",
+                    "description",
+                    "counts")) %>%
+        left_join(gender_markers, by = "ensgene") %>%
+        ggplot(
+            aes_(x = ~symbol,
+                 y = ~counts,
+                 color = ~description,
+                 shape = ~chromosome)) +
+        ggtitle("gender markers") +
+        geom_jitter(size = 4) +
+        expand_limits(y = 0) +
+        labs(x = "gene",
+             y = "transcripts per million (tpm)")
+}
