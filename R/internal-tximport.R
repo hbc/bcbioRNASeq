@@ -47,7 +47,6 @@
     # https://goo.gl/h6fm15
     # countsFromAbundance = c("no", "scaledTPM", "lengthScaledTPM")
     if (type %in% c("salmon", "sailfish")) {
-        # Use `lengthScaledTPM` for salmon and sailfish
         countsFromAbundance <- "lengthScaledTPM"
     } else {
         countsFromAbundance <- "no"
