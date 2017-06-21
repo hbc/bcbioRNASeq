@@ -125,16 +125,11 @@ plot_gene_heatmap <- function(
         interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
 
-    # Per sample annotations of interest
-    if (is.null(annotation)) {
-        annotation <- colData(bcb)[, interesting_groups] %>% as.data.frame
-    }
-
     # Heatmap title (`main` parameter)
     if (!is.null(title)) {
         main <- title
     } else {
-        main <- deparse(substitute(dt))
+        main <- "gene heatmap"
     }
 
     # Subset the DESeqTransform matrix (e.g. rlog counts)
@@ -154,13 +149,20 @@ plot_gene_heatmap <- function(
     if (nrow(counts) <= 100) {
         show_rownames <- TRUE
         gene2symbol <- gene2symbol(bcb)
-        rownames(counts) <- gene_names[rownames(counts), "symbol"]
+        rownames(counts) <- gene2symbol[rownames(counts), "symbol"]
     } else {
         show_rownames <- FALSE
     }
 
+    # Per sample annotations of interest
+    if (is.null(annotation)) {
+        annotation <- colData(bcb) %>%
+            as.data.frame %>%
+            .[colnames(counts), interesting_groups]
+    }
+
     pheatmap(counts,
-             annotation = annotation[colnames(counts), drop = FALSE],
+             annotation = annotation,
              cluster_cols = cluster_cols,
              cluster_rows = cluster_rows,
              clustering_method = clustering_method,
@@ -173,32 +175,22 @@ plot_gene_heatmap <- function(
 
 
 
+# [TODO] Add option to slot lfc into [bcbioRnaDataSet]
 #' @rdname plots-heatmap
 #' @param res [DESeqResults].
+#' @param lfc [log2] fold change ratio.
 #' @export
-plot_deg_heatmap <- function(bcb, dt, res, ...) {
-    # [TODO] Remove run
-
-    # Set the default title
+plot_deg_heatmap <- function(bcb, dt, res, lfc = 1, title = NULL, ...) {
     if (is.null(title)) {
-        title <- paste(
-            deparse(substitute(dt)),
-            deparse(substitute(res)),
-            .res_contrast_name(res),
-            sep = label_sep)
+        title <- "differentially expressed genes"
     }
-
     # Filter gene IDs by alpha and LFC from [DESeqResults]
-    # [fix] alpha <- run$alpha
-    alpha <- run$alpha
-    lfc <- run$lfc
-
+    alpha <- metadata(res)[["alpha"]]
     genes <- res %>%
         as.data.frame %>%
-        rownames_to_column("ensembl_gene_id") %>%
+        rownames_to_column("ensgene") %>%
         filter(.data$padj < alpha,
                .data$log2FoldChange > lfc | .data$log2FoldChange < -lfc) %>%
-        pull("ensembl_gene_id")
-
-    plot_gene_heatmap(bcb, dt, genes = genes, ...)
+        pull("ensgene") %>% sort
+    plot_gene_heatmap(bcb, dt, genes = genes, title = title, ...)
 }
