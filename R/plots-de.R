@@ -210,6 +210,7 @@ plot_volcano <- function(
 
 
     # Grid layout ----
+    # [TODO] Add a ggdraw title?
     if (isTRUE(merge_plots)) {
         ggdraw() +
             draw_plot(
