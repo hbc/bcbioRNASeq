@@ -26,8 +26,6 @@ setMethod("aggregate_replicates", "matrix", function(
         round
 })
 
-
-
 #' @rdname aggregate_replicates
 #' @export
 #' @seealso A new [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
@@ -76,10 +74,11 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
 
 
 # bcbio ====
+# [TODO] Migrate to [counts()]?
 #' @rdname bcbio
 #' @export
 setMethod("bcbio", "bcbioRnaDataSet", function(object, type = "counts") {
-    if (!type %in% c("counts", "abundance", "length", "alt_counts")) {
+    if (!type %in% count_slots) {
         stop("Unsupported type")
     }
     assays(object)[[type]]
@@ -101,6 +100,41 @@ setReplaceMethod(
 
 
 
+# counts ====
+#' Count matrix accessors
+#'
+#' @rdname counts
+#' @name counts
+#' @docType methods
+#'
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @examples
+#' # Raw counts
+#' counts(bcb, normalized = FALSE)
+#'
+#' # TPM
+#' counts(bcb, normalized = TRUE)
+#' counts(bcb, normalized = "tpm")
+#'
+#' # TMM
+#' counts(bcb, normalized = "tmm")
+setMethod("counts", "bcbioRnaDataSet", function(object, normalized = FALSE) {
+    if (normalized == "tmm") {
+        message("TMM-normalized counts")
+        tmm(object)
+    } else if (isTRUE(normalized) | normalized == "tpm") {
+        message("Transcripts per million (TPM)")
+        tpm(object)
+    } else {
+        message("Raw counts")
+        assay(object)
+    }
+})
+
+
+
 # melt_log10 ====
 .melt_log10 <- function(counts) {
     counts %>%
@@ -118,18 +152,22 @@ setReplaceMethod(
                colname = as.character(.data[["colname"]]))
 }
 
-# [TODO] Add TMM count matrix support
+.join_melt <- function(counts, metadata) {
+    if (!identical(colnames(counts), metadata[["colname"]])) {
+        stop("Sample description mismatch between counts and metadata")
+    }
+    .melt_log10(counts) %>%
+        left_join(metadata, by = "colname") %>%
+        rename(description = .data[["colname"]])
+}
+
 #' @rdname melt_log10
 #' @export
 setMethod("melt_log10", "bcbioRnaDataSet", function(
     object,
-    normalized = FALSE,
+    normalized = TRUE,
     interesting_groups = NULL) {
-    if (isTRUE(normalized)) {
-        counts <- tpm(object)
-    } else {
-        counts <- raw_counts(object)
-    }
+    counts <- counts(object, normalized = normalized)
 
     if (is.null(interesting_groups)) {
         interesting_groups <- metadata(object)[["interesting_groups"]]
@@ -137,20 +175,11 @@ setMethod("melt_log10", "bcbioRnaDataSet", function(
 
     metadata <- colData(object) %>%
         as.data.frame %>%
-        # Use "colname" here, corresponding to colData above
         rownames_to_column("colname") %>%
         tidy_select(!!!syms(c("colname", interesting_groups)))
 
-    if (!identical(colnames(counts), metadata[["colname"]])) {
-        stop("Sample description mismatch between counts and metadata")
-    }
-
-    .melt_log10(counts) %>%
-        left_join(metadata, by = "colname") %>%
-        rename(ensgene = .data[["rowname"]],
-               description = .data[["colname"]])
+    .join_melt(counts, metadata)
 })
-
 
 #' @rdname melt_log10
 #' @export
@@ -158,34 +187,67 @@ setMethod("melt_log10", "DESeqDataSet", function(
     object,
     normalized = FALSE,
     interesting_groups = NULL) {
-    if (isTRUE(normalized)) {
-        counts <- DESeq2::counts(object, normalized = TRUE)
-    } else {
-        counts <- DESeq2::counts(object, normalized = FALSE)
-    }
+    counts <- counts(object, normalized = normalized)
 
-    metadata <- colData(dds)
+    metadata <- colData(object) %>%
+        as.data.frame %>%
+        rownames_to_column("colname")
+
     if (!is.null(interesting_groups)) {
+        metadata <- metadata %>%
+            tidy_select(!!!syms(c("colname", interesting_groups)))
     }
 
+    .join_melt(counts, metadata)
 })
-# DESeqDataSet(normalized = TRUE)
-# DESeqTransform
+
+#' @rdname melt_log10
+#' @export
+setMethod("melt_log10", "DESeqTransform", function(
+    object,
+    interesting_groups = NULL) {
+    counts <- assay(object)
+
+    metadata <- colData(object) %>%
+        as.data.frame %>%
+        rownames_to_column("colname")
+
+    if (!is.null(interesting_groups)) {
+        metadata <- metadata %>%
+            tidy_select(!!!syms(c("colname", interesting_groups)))
+    }
+
+    .join_melt(counts, metadata)
+})
 
 
 
 # metadata_table ====
-#' @rdname metadata_table
-#' @export
-setMethod("metadata_table", "bcbioRnaDataSet", function(object, ...) {
+.metadata_table <- function(object, ...) {
     object %>%
         colData %>%
         as.data.frame %>%
         remove_rownames %>%
         kable(caption = "Sample metadata", ...)
+}
+
+#' @rdname metadata_table
+#' @export
+setMethod("metadata_table", "bcbioRnaDataSet", function(object, ...) {
+    .metadata_table(object)
 })
 
-# DESeqDataSet
+#' @rdname metadata_table
+#' @export
+setMethod("metadata_table", "DESeqDataSet", function(object, ...) {
+    .metadata_table(object)
+})
+
+#' @rdname metadata_table
+#' @export
+setMethod("metadata_table", "DESeqTransform", function(object, ...) {
+    .metadata_table(object)
+})
 
 
 
@@ -200,23 +262,30 @@ setMethod("metrics", "bcbioRnaDataSet", function(object) {
 
 
 
-# raw_counts ====
-#' @rdname raw_counts
-#' @export
-setMethod("raw_counts", "bcbioRnaDataSet", function(object) {
-    assays(object)[["counts"]]
-})
-
-# DESeqDataSet
-
-
-
 # sample_dirs ====
 #' @rdname sample_dirs
 #' @export
 setMethod("sample_dirs", "bcbioRnaDataSet", function(object) {
     metadata(object)[["sample_dirs"]]
 })
+
+
+
+# tmm ====
+#' @rdname tmm
+#' @export
+setMethod("tmm", "bcbioRnaDataSet", function(object) {
+    assays(object)[["tmm"]]
+})
+
+#' @rdname tmm
+#' @export
+setMethod("tmm", "matrix", function(object) {
+    .tmm(object)
+})
+
+# [TODO] DESeqDataSet
+# [TODO] DESeqDataTransform
 
 
 
