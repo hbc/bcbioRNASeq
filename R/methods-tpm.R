@@ -7,5 +7,5 @@
 #'
 #' @export
 setMethod("tpm", "bcbioRnaDataSet", function(object) {
-    assays(object)[["abundance"]]
+    assays(object)[["tpm"]]
 })
