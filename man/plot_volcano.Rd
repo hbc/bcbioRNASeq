@@ -40,7 +40,7 @@ individual \link{ggplot}s (\code{merge_plots = FALSE}).
 Volcano plot.
 }
 \seealso{
-This function is a modified version of
+This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
 }
 \author{
