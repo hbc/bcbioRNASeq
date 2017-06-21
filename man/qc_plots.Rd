@@ -16,28 +16,27 @@
 \title{Gene-level quality control plots}
 \usage{
 plot_total_reads(bcb, pass_limit = 20L, warn_limit = 10L,
-  groups_of_interest = NULL)
+  interesting_groups = NULL)
 
 plot_mapped_reads(bcb, pass_limit = 20L, warn_limit = 10L,
-  groups_of_interest = NULL)
+  interesting_groups = NULL)
 
 plot_mapping_rate(bcb, pass_limit = 90, warn_limit = 70,
-  groups_of_interest = NULL)
+  interesting_groups = NULL)
 
-plot_genes_detected(bcb, pass_limit = 20000, groups_of_interest = NULL)
+plot_genes_detected(bcb, pass_limit = 20000, interesting_groups = NULL)
 
-plot_gene_detection_saturation(bcb, groups_of_interest = NULL)
+plot_gene_detection_saturation(bcb, interesting_groups = NULL)
 
-plot_exonic_mapping_rate(bcb, pass_limit = 60L, groups_of_interest = NULL)
+plot_exonic_mapping_rate(bcb, pass_limit = 60L, interesting_groups = NULL)
 
-plot_intronic_mapping_rate(bcb, warn_limit = 20L, groups_of_interest = NULL)
+plot_intronic_mapping_rate(bcb, warn_limit = 20L, interesting_groups = NULL)
 
-plot_rrna_mapping_rate(bcb, warn_limit = 10L, groups_of_interest = NULL)
+plot_rrna_mapping_rate(bcb, warn_limit = 10L, interesting_groups = NULL)
 
-plot_counts_per_gene(bcb, normalized_counts = NULL,
-  groups_of_interest = NULL)
+plot_counts_per_gene(bcb, counts = "tmm", interesting_groups = NULL)
 
-plot_count_density(bcb, normalized_counts = NULL)
+plot_count_density(bcb, counts = "tmm")
 
 plot_gender_markers(bcb, normalized_counts = NULL)
 
@@ -50,13 +49,9 @@ plot_mean_sd(dds, rld = NULL, vsd = NULL)
 
 \item{warn_limit}{Threshold to plot warning color marker.}
 
-\item{groups_of_interest}{(\emph{Optional}). Category to use to group samples
+\item{interesting_groups}{(\emph{Optional}). Category to use to group samples
 (color and shape). If unset, this is automatically determined by
 the metadata set inside the \link{bcbioRnaDataSet}.}
-
-\item{normalized_counts}{Normalized counts matrix. Can be obtained from
-\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = TRUE}.
-Transcripts per million (TPM) are also acceptable.}
 
 \item{dds}{\link{DESeqDataSet}.}
 
@@ -66,8 +61,7 @@ Transcripts per million (TPM) are also acceptable.}
 \item{vsd}{\link{DESeqTransform} resulting from
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} applied to \link{DESeqDataSet}.}
 
-\item{raw_counts}{Raw counts matrix. Can be obtained from
-\link{DESeqDataSet} using \code{\link[=counts]{counts()}} with \code{normalized = FALSE}.}
+\item{normalized}{Apply normalization to counts.}
 }
 \value{
 \link{ggplot}.

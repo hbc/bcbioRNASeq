@@ -6,11 +6,11 @@
 \alias{plot_deg_heatmap}
 \title{Heatmaps}
 \usage{
-plot_correlation_heatmap(bcb, dt, genes = NULL, groups_of_interest = NULL,
+plot_correlation_heatmap(bcb, dt, genes = NULL, interesting_groups = NULL,
   annotation = NULL, title = NULL, method = "pearson",
   clustering_method = "ward.D2", ...)
 
-plot_gene_heatmap(bcb, dt, genes, groups_of_interest = NULL,
+plot_gene_heatmap(bcb, dt, genes, interesting_groups = NULL,
   annotation = NULL, title = NULL, clustering_method = "ward.D2",
   cluster_rows = TRUE, cluster_cols = TRUE, scale = "row", ...)
 
@@ -24,8 +24,8 @@ plot_deg_heatmap(bcb, dt, res, ...)
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
-\item{groups_of_interest}{Interesting groups to label with bars above heatmap. If
-\code{NULL}, defaults to \code{groups_of_interest} defined in \link{bcbioRnaDataSet}.}
+\item{interesting_groups}{Interesting groups to label with bars above heatmap. If
+\code{NULL}, defaults to \code{interesting_groups} defined in \link{bcbioRnaDataSet}.}
 
 \item{annotation}{Optional alternative annotation to use. Useful when
 plotting more than one column.}
@@ -69,7 +69,7 @@ genes. The function by default performs row- and column-wise hierarhical
 clustering using the Ward method, but this behavior can be overrided by
 setting \code{cluster_rows} or \code{cluster_cols} to \code{FALSE}. When column clustering
 is disabled, the function sorts columns by the interesting groups
-(\code{groups_of_interest}) specified in the \link{bcbioRnaDataSet} and then the sample names.
+(\code{interesting_groups}) specified in the \link{bcbioRnaDataSet} and then the sample names.
 
 \code{plot_deg_heatmap()} is a simplified version of \code{plot_gene_heatmap()} that is
 optimized for handling a \link{DESeqResults} object rather a gene vector. All of

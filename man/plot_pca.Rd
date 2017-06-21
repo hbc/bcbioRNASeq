@@ -4,7 +4,7 @@
 \alias{plot_pca}
 \title{Plot principal component analysis (PCA)}
 \usage{
-plot_pca(bcb, dt, genes = NULL, groups_of_interest = NULL, shape = FALSE,
+plot_pca(bcb, dt, genes = NULL, interesting_groups = NULL, shape = FALSE,
   label = TRUE)
 }
 \arguments{
@@ -15,8 +15,8 @@ plot_pca(bcb, dt, genes = NULL, groups_of_interest = NULL, shape = FALSE,
 
 \item{genes}{Character vector of gene identifiers to use.}
 
-\item{groups_of_interest}{Interesting groups to use for point appearance. If \code{NULL},
-color defaults to all \code{groups_of_interest} parameters set in \link{bcbioRnaDataSet}.}
+\item{interesting_groups}{Interesting groups to use for point appearance. If \code{NULL},
+color defaults to all \code{interesting_groups} parameters set in \link{bcbioRnaDataSet}.}
 
 \item{shape}{Make points easier to inspect with differing shapes.}
 

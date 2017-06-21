@@ -10,6 +10,9 @@ metrics(object)
 
 \S4method{metrics}{bcbioRnaDataSet}(object)
 }
+\arguments{
+\item{object}{\link{bcbioRnaDataSet} object.}
+}
 \description{
 Sample metrics
 }

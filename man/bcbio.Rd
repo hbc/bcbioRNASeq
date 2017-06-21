@@ -8,7 +8,7 @@
 \alias{"bcbio<-"}
 \alias{bcbio,bcbioRnaDataSet-method}
 \alias{bcbio<-,bcbioRnaDataSet,matrix-method}
-\title{Accessors for the count matrix of a \link{bcbioRnaDataSet} object}
+\title{\link{bcbioRnaDataSet} count matrix accessors}
 \usage{
 bcbio(object, ...)
 
@@ -28,7 +28,7 @@ bcbio(object, ...) <- value
 \item{type}{type of count data to retrieve}
 }
 \value{
-Matrix/Object containing count data.
+Count matrix.
 }
 \description{
 This method will be used to access all different count matrix from

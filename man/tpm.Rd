@@ -10,6 +10,9 @@ tpm(object)
 
 \S4method{tpm}{bcbioRnaDataSet}(object)
 }
+\arguments{
+\item{object}{\link{bcbioRnaDataSet} object.}
+}
 \description{
 Transcripts per million (TPM)
 }

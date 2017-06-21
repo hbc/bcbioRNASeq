@@ -3,15 +3,54 @@
 \name{deprecated}
 \alias{deprecated}
 \alias{correlation_heatmap}
+\alias{create_local_project}
+\alias{create_new_project}
 \alias{import_file}
+\alias{import_metadata}
+\alias{import_summary}
+\alias{load_bcbio_run}
+\alias{load_bcbio_run_from_yaml}
+\alias{load_run_S4}
+\alias{pool_counts}
+\alias{pool_dds}
+\alias{plot_deseq_pca}
+\alias{pool_lane_split_counts}
+\alias{pool_lane_split_dds}
+\alias{read_metadata}
+\alias{tmm_normalize}
 \title{Deprecated functions}
 \usage{
 correlation_heatmap(...)
 
+create_local_project()
+
+create_new_project()
+
 import_file()
-}
-\arguments{
-\item{...}{Passthrough parameters.}
+
+import_metadata()
+
+import_summary()
+
+load_bcbio_run(...)
+
+load_bcbio_run_from_yaml()
+
+load_run_S4(...)
+
+pool_counts(...)
+
+pool_dds(...)
+
+plot_deseq_pca(...)
+
+pool_lane_split_counts(...)
+
+pool_lane_split_dds(...)
+
+read_metadata()
+
+tmm_normalize()
 }
 \description{
 Deprecated functions
