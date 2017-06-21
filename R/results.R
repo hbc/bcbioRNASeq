@@ -70,12 +70,13 @@ res_tables <- function(
     .check_res(res)
 
     name <- deparse(substitute(res))
-    contrast <- res_contrast_name(res)
+    contrast <- .res_contrast_name(res)
     file_stem <- paste(name,
                        str_replace_all(contrast, " ", "_"),
                        sep = "_")
 
     alpha <- res@metadata$alpha
+    # [TODO] Migrate to annotables
     annotations <- gene_level_annotations(run)
 
     all <- res %>%
@@ -160,7 +161,7 @@ res_tables <- function(
             paste("    - lfc down:", nrow(deg_lfc_down), "genes"),
             "",
             ""))
-        md_res_tables(res_tbl)
+        .md_res_tables(res_tbl)
     }
 
     res_tbl
