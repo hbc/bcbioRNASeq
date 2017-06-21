@@ -39,7 +39,8 @@
 #'   plotting more than one column.
 #' @param title Optional text to include in plot title.
 #' @param method Correlation coefficient (or covariance) to be computed.
-#'   Defaults to `pearson` but `spearman` can also be used.
+#'   Defaults to `pearson` but `spearman` can also be used. Consult the [cor()]
+#'   documentation for more information.
 #' @param clustering_method Clustering method. Accepts the same values as
 #'   [hclust()].
 #' @param ... Passthrough parameters to [pheatmap()].
@@ -56,8 +57,7 @@ plot_correlation_heatmap <- function(
     method = "pearson",
     clustering_method = "ward.D2",
     ...) {
-    # [TODO] Function is broken
-    # [TODO] Add object validity testing
+    # Check for supported correlation method
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
     }
@@ -67,25 +67,16 @@ plot_correlation_heatmap <- function(
         interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
 
-    # Override the default `interesting_groups` set in run, if desired
-    if (is.null(interesting_groups)) {
-        interesting_groups <- run$interesting_groups
-    }
-
-    # Obtain the metadata annotations, if not specified
+    # Per sample annotations of interest
     if (is.null(annotation)) {
-        # [TODO] Fix the annotation method...
-        annotation <- select_interesting_groups_coldata(dt, interesting_groups)
+        annotation <- colData(bcb)[, interesting_groups] %>% as.data.frame
     }
 
     # Set heatmap title (`main` parameter)
     if (!is.null(title)) {
         main <- title
     } else {
-        main <- paste("correlation",
-                      method,
-                      deparse(substitute(dt)),
-                      sep = label_sep)
+        main <- paste(method, "correlation")
     }
 
     # Get counts and annotations from [DESeqTransform]

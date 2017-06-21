@@ -36,7 +36,7 @@ plot_ma <- function(res, ylim = 2) {
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
 #'
-#' @return Volcano plot arranged as [ggrid] (`merge_plots = TRUE`), or [show()]
+#' @return Volcano plot arranged as `ggrid` (`merge_plots = TRUE`), or [show()]
 #'   individual [ggplot]s (`merge_plots = FALSE`).
 #' @export
 #'
