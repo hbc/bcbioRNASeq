@@ -19,29 +19,6 @@ correlation_heatmap <- function(...) {
 
 #' @rdname deprecated
 #' @export
-create_local_project <- function() {
-    .Deprecated()
-}
-
-
-
-#' @rdname deprecated
-#' @export
-create_new_project <- function() {
-    .Deprecated()
-}
-
-
-
-#' @rdname deprecated
-#' @export
-gene_level_annotations <- function() {
-}
-
-
-
-#' @rdname deprecated
-#' @export
 import_file <- function() {
     .Deprecated()
 }

@@ -70,7 +70,7 @@ plot_gender_markers <- function(bcb) {
 
     # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
-        gender_markers <- gender_markers_mmusculus
+        delayedAssign("gender_markers", gender_markers_mmusculus)
     } else {
         stop("Unsupported organism")
     }

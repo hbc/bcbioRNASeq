@@ -12,7 +12,6 @@
 #' @param ... Additional parameters.
 #'
 #' @return [DataFrame].
-#' @export
 #'
 #' @seealso
 #' - [readr](http://readr.tidyverse.org)
