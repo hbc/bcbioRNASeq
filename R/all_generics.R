@@ -78,6 +78,7 @@ setGeneric("melt_log10", function(object, ...) standardGeneric("melt_log10"))
 #' @param ... [kable()] passthrough parameters.
 #'
 #' @return Data frame containing only the columns of interest.
+#' @export
 setGeneric("metadata_table", function(object, ...) {
     standardGeneric("metadata_table")
 })
@@ -97,20 +98,6 @@ setGeneric("metrics", function(object) standardGeneric("metrics"))
 
 
 
-# raw_counts ====
-#' Raw counts
-#'
-#' @rdname raw_counts
-#' @name raw_counts
-#' @docType methods
-#'
-#' @param object [bcbioRnaDataSet] object.
-#'
-#' @export
-setGeneric("raw_counts", function(object) standardGeneric("raw_counts"))
-
-
-
 # sample_dirs ====
 #' Sample directories of [bcbioRnaDataSet] object.
 #'
@@ -125,6 +112,22 @@ setGeneric("raw_counts", function(object) standardGeneric("raw_counts"))
 #' @return Folders where samples are kept.
 #' @export
 setGeneric("sample_dirs", function(object) standardGeneric("sample_dirs"))
+
+
+
+# tmm ===
+#' Trimmed mean of M-values (TMM) normalization
+#'
+#' TMM normalization is recommended for RNA-seq data generally when the majority
+#' of genes are not differentially expressed. We use this as a quality control
+#' tool when plotting counts per gene.
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param object Object containing counts.
+#'
+#' @export
+setGeneric("tmm", function(object) standardGeneric("tmm"))
 
 
 

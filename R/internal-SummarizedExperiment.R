@@ -15,7 +15,7 @@
 #'
 #' @return [SummarizedExperiment].
 .SummarizedExperiment <- function(txi, colData, rowData, metadata = NULL) {
-    message("Packaging counts into SummarizedExperiment")
+    message("Packaging SummarizedExperiment")
 
     # tximport ----
     counts <- txi[["counts"]]
