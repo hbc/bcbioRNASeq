@@ -15,13 +15,13 @@ DEGreport::degCovariates
 
 # DESeq2 ====
 #' @export
-DESeq2::counts
+DESeq2::counts  # BiocGenerics
 
 #' @export
 DESeq2::DESeq
 
 #' @export
-DESeq2::design
+DESeq2::design  # BiocGenerics
 
 #' @export
 DESeq2::DESeqDataSet
@@ -44,11 +44,6 @@ DESeq2::rlog
 #' @export
 DESeq2::vst
 
-#' @export
-SummarizedExperiment::rowData
-
-#' @export
-SummarizedExperiment::assays
 
 
 # ggplot2 ====
@@ -68,7 +63,13 @@ pheatmap::pheatmap
 SummarizedExperiment::assay
 
 #' @export
+SummarizedExperiment::assays
+
+#' @export
 SummarizedExperiment::colData
+
+#' @export
+SummarizedExperiment::rowData
 
 
 

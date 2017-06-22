@@ -1,7 +1,3 @@
-# ggplot2 ====
-library(ggplot2)
-theme_set(theme_light(base_size = 14))
-
 # knitr ====
 library(knitr)
 opts_chunk$set(
@@ -20,26 +16,41 @@ opts_chunk$set(
     tidy = TRUE,
     warning = FALSE)
 
-# parameters =====
-upload_dir <- "" # bcbio_path_final_folder
-genotype <- "" # variable in metadata you want to use, example group
-out_path <- "." # where to save all output
+
+
+# ggplot2 ====
+library(ggplot2)
+theme_set(theme_light(base_size = 14))
+
+
+
 # bcbioRnaseq ====
+library(bcbioRnaseq)
+
+# Upload directory: location of the bcbio-nextgen final output
+upload_dir <- "final"
+
+# Columns in the colData in metadata you want to use
+interesting_groups <- c("genotype", "treatment")
+
+# Output directory paths
+out_path <- getwd()
 data_out <- file.path(out_path, "data")
 count_out <- file.path(out_path, "results", "counts")
 res_out <- file.path(out_path, "results", "de")
 
+# bcbioRnaDataSet
 if (file.exists(file.path(data_out, "bcb.rda"))) {
     load(file.path(data_out, "bcb.rda"))
 } else {
-    bcb <- load_run_S4(
-        file.path(upload_dir),
-        intgroup = c(genotype))
-    save_data(bcb, dir=data_out)
+    bcb <- load_run(
+        upload_dir = file.path(upload_dir),
+        interesting_groups = interesting_groups)
+    save_data(bcb, dir = data_out)
 }
 
+# DESeqDataSet
 if (file.exists(file.path(data_out, "dds.rda")))
     load(file.path(data_out, "dds.rda"))
-
 if (file.exists(file.path(data_out, "ddsde.rda")))
     load(file.path(data_out, "ddsde.rda"))

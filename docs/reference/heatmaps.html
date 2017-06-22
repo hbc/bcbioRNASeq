@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -82,21 +83,21 @@ with a <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> run object. They also 
 object containing transformed counts, which are ideal for heatmap plots.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>,
   <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='no'>...</span>)
 
-<span class='fu'>plot_gene_heatmap</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='no'>genes</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='no'>...</span>)
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='no'>genes</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>,
+  <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='no'>...</span>)
 
-<span class='fu'>plot_deg_heatmap</span>(<span class='no'>run</span>, <span class='no'>dt</span>, <span class='no'>res</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot_deg_heatmap</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='no'>res</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>run</th>
+      <th>bcb</th>
       <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
     </tr>
     <tr>
@@ -109,9 +110,9 @@ object containing transformed counts, which are ideal for heatmap plots.</p>
       <td><p>Character vector of specific gene identifiers to plot.</p></td>
     </tr>
     <tr>
-      <th>intgroup</th>
+      <th>groups_of_interest</th>
       <td><p>Interesting groups to label with bars above heatmap. If
-<code>NULL</code>, defaults to <code>intgroup</code> defined in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+<code>NULL</code>, defaults to <code>groups_of_interest</code> defined in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
     </tr>
     <tr>
       <th>annotation</th>
@@ -171,7 +172,7 @@ genes. The function by default performs row- and column-wise hierarhical
 clustering using the Ward method, but this behavior can be overrided by
 setting <code>cluster_rows</code> or <code>cluster_cols</code> to <code>FALSE</code>. When column clustering
 is disabled, the function sorts columns by the interesting groups
-(<code>intgroup</code>) specified in the <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> and then the sample names.
+(<code>groups_of_interest</code>) specified in the <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> and then the sample names.
     <code>plot_deg_heatmap()</code> is a simplified version of <code>plot_gene_heatmap()</code> that is
 optimized for handling a <a href='reexports.html'>DESeqResults</a> object rather a gene vector. All of
 the optional parameters for <code>plot_gene_heatmap()</code> are also available to this

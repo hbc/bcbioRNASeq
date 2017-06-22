@@ -1,6 +1,7 @@
 #' Print summary statistics of alpha level cutoffs
 #'
 #' @author Michael Steinbaugh
+#' @author Lorena Patano
 #'
 #' @param dds [DESeqDataSet].
 #' @param alpha Numeric vector of desired alpha cutoffs.
@@ -12,40 +13,27 @@ alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     ...) {
-    # name <- deparse(substitute(dds))
-    # print(name) [! Fix] no print func inside functions
-    df <- lapply(seq_along(alpha), function(a) {
-        .info <- capture.output(results(dds, alpha = alpha[a], ...) %>% summary)[4:8]
-        .parse <- sapply(.info, function(i) {unlist(strsplit(i, split = ":"))[2]})[1:4]
-        .parse <- c(.parse, .info[5])
-        data.frame(alpha=as.vector(.parse))
-    }) %>% bind_cols
-    colnames(df) <- alpha
-    rownames(df) <- c("LFC > 0 (up)", "LFC < 0 (down)",
-                      "outliers", "low_counts",
-                      "cutoff")
-    show(kable(df))
-}
-
-
-
-#' Metadata table
-#'
-#' Returns a subset of metadata columns of interest used for knit reports. These
-#' "interesting group" columns are defined as `intgroup` in the
-#' [bcbioRnaDataSet] object.
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param bcb [bcbioRnaDataSet].
-#'
-#' @return Data frame containing only the columns of interest.
-#' @export
-metadata_table <- function(bcb) {
-    colData(bcb) %>%
-        as.data.frame %>%
-        remove_rownames %>%
-        kable(caption = "Sample metadata")
+    .check_dds(dds)
+    lapply(seq_along(alpha), function(a) {
+        .info <- capture.output(
+            results(dds, alpha = alpha[a], ...) %>%
+                summary)[4L:8L]
+        .parse <- sapply(
+            .info, function(i) {
+                unlist(strsplit(i, split = ":"))[[2L]]
+            })[1L:4L]
+        .parse <- c(.parse, .info[[5L]])
+        data.frame(alpha = as.vector(.parse))
+    }
+    ) %>%
+        bind_cols %>%
+        set_colnames(alpha) %>%
+        set_rownames(c("LFC > 0 (up)",
+                       "LFC < 0 (down)",
+                       "outliers",
+                       "low counts",
+                       "cutoff")) %>%
+        kable %>% show
 }
 
 
@@ -63,34 +51,31 @@ metadata_table <- function(bcb) {
 #'   changes.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
-#' @param print Print summary statistics and links to files.
 #'
 #' @return Results list.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' res_tables(run, res, lfc = 0.25)
+#' res_tables(bcb, res, lfc = 0.25)
 #' }
 res_tables <- function(
     bcb,
     res,
-    lfc = 0,
+    lfc = 0L,
     write = TRUE,
-    dir = "results/de",
-    print = TRUE) {
-    run <- metadata(bcb)
-    check_run(run)
-    check_res(res)
-
+    dir = "results/de") {
     name <- deparse(substitute(res))
-    contrast <- res_contrast_name(res)
+    contrast <- .res_contrast_name(res)
     file_stem <- paste(name,
                        str_replace_all(contrast, " ", "_"),
                        sep = "_")
 
-    alpha <- res@metadata$alpha
-    annotations <- gene_level_annotations(run)
+    # Alpha level, from [DESeqResults]
+    alpha <- metadata(res)[["alpha"]]
+    annotations <- rowData(bcb) %>%
+        as.data.frame %>%
+        rename(ensembl_gene_id = .data[["ensgene"]])
 
     all <- res %>%
         as.data.frame %>%
@@ -103,37 +88,21 @@ res_tables <- function(
     # Check for overall gene expression with base mean
     base_mean_gt0 <- all %>%
         arrange(desc(!!sym("base_mean"))) %>%
-        filter(.data$base_mean > 0)
+        filter(.data[["base_mean"]] > 0L)
     base_mean_gt1 <- base_mean_gt0 %>%
-        filter(.data$base_mean > 1)
+        filter(.data[["base_mean"]] > 1L)
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
-        filter(.data$padj < alpha) %>%
+        filter(.data[["padj"]] < alpha) %>%
         arrange(!!sym("padj"))
     deg_lfc <- deg %>%
-        filter(.data$log2_fold_change > lfc | .data$log2_fold_change < -lfc)
+        filter(.data[["log2_fold_change"]] > lfc |
+                   .data[["log2_fold_change"]] < -lfc)
     deg_lfc_up <- deg_lfc %>%
-        filter(.data$log2_fold_change > 0)
+        filter(.data[["log2_fold_change"]] > 0L)
     deg_lfc_down <- deg_lfc %>%
-        filter(.data$log2_fold_change < 0)
-
-    # Write the CSV files to `results/`
-    if (isTRUE(write)) {
-        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-
-        all_file <- paste(file_stem, "all_genes.csv.gz", sep = "_")
-        write_csv(all, file.path(dir, all_file))
-
-        deg_file <- paste(file_stem, "deg.csv.gz", sep = "_")
-        write_csv(deg, file.path(dir, deg_file))
-
-        deg_lfc_up_file <- paste(file_stem, "deg_lfc_up.csv.gz", sep = "_")
-        write_csv(deg_lfc_up, file.path(dir, deg_lfc_up_file))
-
-        deg_lfc_down_file <- paste(file_stem, "deg_lfc_down.csv.gz", sep = "_")
-        write_csv(deg_lfc_down, file.path(dir, deg_lfc_down_file))
-    }
+        filter(.data[["log2_fold_change"]] < 0L)
 
     res_tbl <- list(
         res = res,
@@ -147,34 +116,40 @@ res_tables <- function(
         deg = deg,
         deg_lfc = deg_lfc,
         deg_lfc_up = deg_lfc_up,
-        deg_lfc_down = deg_lfc_down,
-        # File output
-        dir = dir,
-        file_stem = file_stem,
-        all_file = all_file,
-        deg_file = deg_file,
-        deg_lfc_up_file = deg_lfc_up_file,
-        deg_lfc_down_file = deg_lfc_down_file)
+        deg_lfc_down = deg_lfc_down)
 
-    # Print summary statistics and file paths
-    if (isTRUE(print)) {
-        writeLines(c(
-            paste(name, "differential expression tables"),
-            "",
-            paste("-", nrow(all), "gene annotations"),
-            "- cutoffs applied:",
-            paste("    - alpha:", alpha),
-            paste("    - lfc:  ", lfc, "(tables only)"),
-            "- gene detection:",
-            paste("    - base mean > 0:", nrow(base_mean_gt0), "genes"),
-            paste("    - base mean > 1:", nrow(base_mean_gt1), "genes"),
-            "- pass cutoffs:",
-            paste("    - alpha:   ", nrow(deg), "genes"),
-            paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
-            paste("    - lfc down:", nrow(deg_lfc_down), "genes"),
-            "",
-            ""))
-        md_res_tables(res_tbl)
+    writeLines(c(
+        paste(name, "differential expression tables"),
+        paste("-", nrow(all), "gene annotations"),
+        "- cutoffs applied:",
+        paste("    - alpha:", alpha),
+        paste("    - lfc:  ", lfc, "(tables only)"),
+        "- gene detection:",
+        paste("    - base mean > 0:", nrow(base_mean_gt0), "genes"),
+        paste("    - base mean > 1:", nrow(base_mean_gt1), "genes"),
+        "- pass cutoffs:",
+        paste("    - alpha:   ", nrow(deg), "genes"),
+        paste("    - lfc up:  ", nrow(deg_lfc_up), "genes"),
+        paste("    - lfc down:", nrow(deg_lfc_down), "genes")))
+
+    if (isTRUE(write)) {
+        # Write the CSV files
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+
+        all_file <- paste(file_stem, "all_genes.csv.gz", sep = "_")
+        write_csv(all, file.path(dir, all_file))
+
+        deg_file <- paste(file_stem, "deg.csv.gz", sep = "_")
+        write_csv(deg, file.path(dir, deg_file))
+
+        deg_lfc_up_file <- paste(file_stem, "deg_lfc_up.csv.gz", sep = "_")
+        write_csv(deg_lfc_up, file.path(dir, deg_lfc_up_file))
+
+        deg_lfc_down_file <- paste(file_stem, "deg_lfc_down.csv.gz", sep = "_")
+        write_csv(deg_lfc_down, file.path(dir, deg_lfc_down_file))
+
+        # Output file information in Markdown format
+        .md_res_tables(res_tbl, dir)
     }
 
     res_tbl
@@ -194,38 +169,38 @@ res_tables <- function(
 #' @export
 top_tables <- function(
     res_tbl,
-    n = 50,
+    n = 50L,
     coding = FALSE) {
     subset_top <- function(df) {
         # Filter for coding genes only, if desired
         if (isTRUE(coding)) {
-            df <- filter(df, .data$broad_class == "coding")
+            df <- filter(df, .data[["broad_class"]] == "coding")
         }
         df %>%
             head(n = n) %>%
             mutate(
-                base_mean = round(.data$base_mean),
-                log2_fold_change = format(.data$log2_fold_change,
-                                          digits = 3),
-                padj = format(.data$padj,
-                              digits = 3,
+                base_mean = round(.data[["base_mean"]]),
+                log2_fold_change = format(.data[["log2_fold_change"]],
+                                          digits = 3L),
+                padj = format(.data[["padj"]],
+                              digits = 3L,
                               scientific = TRUE)) %>%
-            tidy_select(!!!syms(c(
+            tidy_select(c(
                 "ensembl_gene_id",
                 "base_mean",
                 "log2_fold_change",
                 "padj",
                 "external_gene_name",
-                "broad_class"))) %>%
+                "broad_class")) %>%
             remove_rownames
     }
 
-    up <- subset_top(res_tbl$deg_lfc_up)
-    down <- subset_top(res_tbl$deg_lfc_down)
+    up <- subset_top(res_tbl[["deg_lfc_up"]])
+    down <- subset_top(res_tbl[["deg_lfc_down"]])
 
     # Captions
-    name <- res_tbl$name
-    contrast <- res_tbl$contrast
+    name <- res_tbl[["name"]]
+    contrast <- res_tbl[["contrast"]]
     name_prefix <- paste(name, contrast, sep = label_sep)
 
     show(kable(

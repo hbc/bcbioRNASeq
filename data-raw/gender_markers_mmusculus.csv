@@ -1,4 +1,4 @@
-ensembl_gene,gene_symbol,chromosome,include
+ensgene,symbol,chromosome,include
 ENSMUSG00000067194,EIF1AX,X,FALSE
 ENSMUSG00000086503,XIST,X,TRUE
 ENSMUSG00000069045,DDX3Y,Y,TRUE

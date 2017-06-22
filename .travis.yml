@@ -4,7 +4,11 @@ sudo: false
 r:
   - bioc-release
   - bioc-devel
+r_github_packages:
+  - jimhester/covr,
+  - jimhester/lintr
 after_success:
+  - Rscript -e 'covr::codecov()'
   - pwd
   - cd ..
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git

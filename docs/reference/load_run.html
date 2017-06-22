@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load bcbio-nextgen run — load_run_S4 • bcbioRnaseq</title>
+<title>Load bcbio-nextgen run — load_run • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -83,12 +84,9 @@ will take care of the rest. It automatically imports RNA-seq counts,
 metadata, and program versions used.</p>
     
 
-    <pre class="usage"><span class='fu'>load_run_S4</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
-  <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>intgroup</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
+  <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>custom_metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -103,45 +101,37 @@ running <code>bcbio_nextgen -w template</code>.</p></td>
       <td><p>Analysis type (e.g. <code>rnaseq</code> or <code>srnaseq</code>).</p></td>
     </tr>
     <tr>
-      <th>intgroup</th>
-      <td><p>Character vector of interesting groups. First entry is used
-for plot colors during quality control (QC) analysis. Entire vector is used
-for PCA and heatmap QC functions.</p></td>
+      <th>groups_of_interest</th>
+      <td><p>Character vector of interesting groups. First entry
+is used for plot colors during quality control (QC) analysis. Entire vector
+is used for PCA and heatmap QC functions.</p></td>
     </tr>
     <tr>
-      <th>metadata_file</th>
-      <td><p>Custom metadata file to import. Otherwise defaults to
-sample metadata saved in the YAML file.</p></td>
+      <th>design</th>
+      <td><p>(<em>Optional</em>). Design formula for DESeq2.See
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/design'>DESeq2::design()</a></code> for more information.</p></td>
     </tr>
     <tr>
-      <th>organism</th>
-      <td><p>Organism name, following Ensembl/Biomart conventions. Must be
-lowercase and one word (e.g. hsapiens). This will be detected automatically
-for common reference genomes and normally does not need to be set.</p></td>
+      <th>contrast</th>
+      <td><p>(<em>Optional</em>). Contrast vector for DESeq2. See
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for more information.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments provided to SummarizedExperiment. Remove this once
-we migrate the S4 loading variant over as main method.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha (false discovery rate) cutoff.</p></td>
-    </tr>
-    <tr>
-      <th>lfc</th>
-      <td><p>Log2 fold change ratio cutoff.</p></td>
+      <th>custom_metadata_file</th>
+      <td><p>(<em>Optional</em>). Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> containing counts and metadata.</p>
+    <p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>When working in RStudio, we recommend connecting to the bcbio-nextgen run
-directory as a remote connection over
+    <p>When working in RStudio, we recommend connecting to the bcbio-nextgen
+run directory as a remote connection over
 <a href = 'https://github.com/osxfuse/osxfuse/wiki/SSHFS'>sshfs</a>.</p>
     
 
@@ -153,7 +143,7 @@ directory as a remote connection over
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#details">Details</a></li>
+      <li><a href="#note">Note</a></li>
           </ul>
 
     <h2>Author</h2>
