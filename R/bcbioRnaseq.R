@@ -3,8 +3,6 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' @keywords internal
-#'
 #' @import annotables basejump Biobase BiocGenerics DESeq2 SummarizedExperiment
 #'   S4Vectors
 #' @importFrom cowplot draw_plot ggdraw plot_grid
