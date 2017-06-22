@@ -106,7 +106,7 @@ plot_mapping_rate(bcb)
 ## Number of genes detected
 
 ```{r plot_genes_detected}
-plot_genes_detected(bcb, raw_counts)
+plot_genes_detected(bcb)
 ```
 
 
@@ -115,7 +115,7 @@ plot_genes_detected(bcb, raw_counts)
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
 ```{r plot_gene_detection_saturation}
-plot_gene_detection_saturation(bcb, raw_counts)
+plot_gene_detection_saturation(bcb)
 ```
 
 
@@ -152,7 +152,7 @@ Generally, we expect similar count spreads for all genes between samples unless 
 
 ```{r plot_counts_per_gene}
 # Add intgroup option to change colors
-plot_counts_per_gene(bcb, tmm)
+plot_counts_per_gene(bcb)
 ```
 
 
@@ -161,7 +161,7 @@ plot_counts_per_gene(bcb, tmm)
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
 ```{r plot_count_density}
-plot_count_density(bcb, tmm)
+plot_count_density(bcb)
 ```
 
 
