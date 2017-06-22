@@ -27,10 +27,10 @@
 #'
 #' @param object [bcbioRnaDataSet] object.
 #' @param type Type of count data to retrieve.
-#' @param value An integer [matrix] or other object.
+#' @param value An integer matrix or other object.
 #' @param ... Additional arguments.
 #'
-#' @return Count [matrix].
+#' @return Count matrix.
 #' @export
 setMethod("bcbio", "bcbioRnaDataSet", function(object, type = "counts") {
     if (type == "counts") {
@@ -43,9 +43,9 @@ setMethod("bcbio", "bcbioRnaDataSet", function(object, type = "counts") {
 })
 
 #' @rdname bcbio
-#' @exportMethod "bcbio<-"
-setReplaceMethod(
-    "bcbio",
+#' @export
+setMethod(
+    "bcbio<-",
     signature(object = "bcbioRnaDataSet", value = "ANY"),
     function(object, type = "counts", value) {
         if (type == "counts") {
