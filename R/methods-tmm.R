@@ -1,3 +1,12 @@
+.tmm <- function(object) {
+    message("Generating TMM-normalized counts with edgeR")
+    object %>%
+        as.matrix %>%
+        DGEList %>%
+        calcNormFactors %>%
+        cpm(normalized.lib.sizes = TRUE)
+}
+
 #' Trimmed mean of M-values (TMM) normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
