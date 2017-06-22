@@ -90,5 +90,6 @@
         as.data.frame %>%
         column_to_rownames("description") %>%
         .[, sort(colnames(.))] %>%
+        bind_cols(., characters[, "description", drop = FALSE]) %>%
         DataFrame
 }

@@ -69,7 +69,7 @@ plot_correlation_heatmap <- function(
 
     # Per sample annotations of interest
     if (is.null(annotation)) {
-        annotation <- colData(bcb)[, interesting_groups] %>% as.data.frame
+        annotation <- colData(bcb)[, interesting_groups, drop = FALSE] %>% as.data.frame
     }
 
     # Set heatmap title (`main` parameter)
