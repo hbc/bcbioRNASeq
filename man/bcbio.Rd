@@ -21,12 +21,12 @@ bcbio(object, ...) <- value
 
 \item{...}{Additional arguments.}
 
-\item{value}{An integer \link{matrix} or other object.}
+\item{value}{An integer matrix or other object.}
 
 \item{type}{Type of count data to retrieve.}
 }
 \value{
-Count \link{matrix}.
+Count matrix.
 }
 \description{
 This method is used to access count matrices with differing dimensions from
