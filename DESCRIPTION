@@ -1,7 +1,8 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Version: 0.0.21
-Date: 2017-06-12
+Description: Quality control and differential expression for bcbio-nextgen
+    RNA-seq and small RNA-seq experiments.
+Version: 0.0.22
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
            email = "mike@steinbaugh.com",
@@ -17,10 +18,7 @@ Authors@R: c(
            role = "aut"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
-           role = c("cph", "fnd"))
-    )
-Description: Quality control and differential expression for bcbio-nextgen
-    RNA-seq  and small RNA-seq experiments.
+           role = c("cph", "fnd")))
 biocViews:
     DifferentialExpression,
     GeneExpression,
@@ -38,9 +36,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    annotables,
+    annotables (>= 0.1.3),
     basejump (>= 0.0.15),
     Biobase,
+    BiocGenerics,
     cowplot,
     data.table (>= 1.10),
     DEGreport (>= 1.13.4),
@@ -51,20 +50,20 @@ Imports:
     isomiRs,
     methods,
     pheatmap,
-    rjson,
-    stats,
     S4Vectors,
     SummarizedExperiment,
     tximport (>= 1.4.0),
     utils,
     vsn
 Suggests:
-    BiocGenerics,
     BiocStyle,
-    RUnit
+    lintr (>= 1.0.0.9001),
+    RUnit,
+    testthat
 Remotes:
+    hbc/annotables,
+    jimhester/lintr,
     lpantano/DEGreport,
     steinbaugh/basejump,
-    hbc/annotables
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

@@ -4,8 +4,7 @@
 \alias{res_tables}
 \title{Differential expression results tables}
 \usage{
-res_tables(bcb, res, lfc = 0, write = TRUE, dir = "results/de",
-  print = TRUE)
+res_tables(bcb, res, lfc = 0L, write = TRUE, dir = "results/de")
 }
 \arguments{
 \item{bcb}{\link{bcbioRnaDataSet}.}
@@ -21,8 +20,6 @@ changes.}
 \item{write}{Write CSV files to disk.}
 
 \item{dir}{Directory path where to write files.}
-
-\item{print}{Print summary statistics and links to files.}
 }
 \value{
 Results list.
@@ -32,7 +29,7 @@ Differential expression results tables
 }
 \examples{
 \dontrun{
-res_tables(run, res, lfc = 0.25)
+res_tables(bcb, res, lfc = 0.25)
 }
 }
 \author{

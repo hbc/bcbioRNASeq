@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lane-split FASTQ aggregation functions — pool_counts • bcbioRnaseq</title>
+<title>Lane-split FASTQ aggregation functions — pool_dds • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,28 +81,28 @@
     <p>Pool lane-split counts matrix or <a href='reexports.html'>DESeqDataSet</a> using <code>rowSums()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>pool_counts</span>(<span class='no'>counts</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>)
+    <pre class="usage"><span class='fu'>pool_dds</span>(<span class='no'>dds</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>, <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>pool_dds</span>(<span class='no'>dds</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>, <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>pool_counts</span>(<span class='no'>counts</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>counts</th>
-      <td><p>Raw counts matrix.</p></td>
+      <th>dds</th>
+      <td><p><a href='reexports.html'>DESeqDataSet</a>.</p></td>
     </tr>
     <tr>
       <th>pattern</th>
       <td><p>Grep pattern to match lane identifiers in file name.</p></td>
     </tr>
     <tr>
-      <th>dds</th>
-      <td><p><a href='reexports.html'>DESeqDataSet</a>.</p></td>
-    </tr>
-    <tr>
       <th>save</th>
       <td><p>Whether to assign into environment and write CSV files.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>Raw counts matrix.</p></td>
     </tr>
     </table>
     

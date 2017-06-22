@@ -1,3 +1,7 @@
+0.0.22  Added testthat checking with lintr.
+        Initial setup of code coverage using covr.
+0.0.21  Prepare draft of F1000 workflow document.
+0.0.20  Add Travis CI support for automatic rendering of quality control report.
 0.0.19  bcbioRnaDataSet S4 definition updates.
         Updates to plot_pca and gene-level heatmaps.
 0.0.18  Simplify count pooling functions.
