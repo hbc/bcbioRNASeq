@@ -42,14 +42,14 @@ sizeFactors(dds)
 ```{r counts}
 raw_counts <- counts(dds, normalized = FALSE)
 normalized_counts <- counts(dds, normalized = TRUE)
-tpm <- tpm(txi)
+tpm <- tpm(bcb)
 save_data(raw_counts, normalized_counts, tpm, dir=data_out)
 write_counts(raw_counts, normalized_counts, tpm, dir=count_out)
 ```
 
 ```{r dt}
 rld <- rlog(dds)
-tmm <- tmm_normalize(raw_counts)
+tmm <- tmm(raw_counts)
 vsd <- varianceStabilizingTransformation(dds)
 ```
 
