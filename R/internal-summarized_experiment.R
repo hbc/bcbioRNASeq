@@ -36,10 +36,10 @@
     }
 
     # col_data ====
-    col_data <- colData[colnames(counts), ]
+    col_data <- col_data[colnames(counts), , drop = FALSE]
     rownames(col_data) <- colnames(counts)
 
-    row_data <- rowData[rownames(counts), ]
+    row_data <- row_data[rownames(counts), , drop = FALSE]
     rownames(row_data) <- rownames(counts)
     # TODO How to handle deprecated Ensembl identifiers?
     # This is due to mismatches between genome build and annotables build.
