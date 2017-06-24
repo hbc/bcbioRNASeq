@@ -15,7 +15,7 @@
 #'   for a list of currently supported genomes.
 #' @param format Desired table format, either `gene` or `tx2gene`.
 #'
-#' @return Modified annotable with unique rows (.
+#' @return Modified annotable with unique rows.
 .annotable <- function(genome_build, format = "gene") {
     if (!is.character(genome_build)) {
         stop("Genome build must be a character vector")

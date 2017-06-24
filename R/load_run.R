@@ -125,9 +125,16 @@ load_run <- function(
     metrics <- .yaml_metrics(yaml)
 
 
-    # bcbio-nextgen versions ====
+    # Data versions and programs ====
     data_versions <- .data_versions(project_dir)
     programs <- .programs(project_dir)
+
+
+    # Log files ====
+    bcbio_nextgen <- read_lines(
+        file.path(project_dir, "bcbio-nextgen.log"))
+    bcbio_nextgen_commands <- read_lines(
+        file.path(project_dir, "bcbio-nextgen-commands.log"))
 
 
     # Metadata ====
@@ -155,6 +162,8 @@ load_run <- function(
         custom_metadata = custom_metadata,
         data_versions = data_versions,
         programs = programs,
+        bcbio_nextgen = bcbio_nextgen,
+        bcbio_nextgen_commands = bcbio_nextgen_commands,
         wd = getwd(),
         hpc = detect_hpc(),
         session_info = sessionInfo())
