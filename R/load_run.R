@@ -42,9 +42,9 @@ load_run <- function(
     }
     upload_dir <- normalizePath(upload_dir)
     # Find most recent nested project_dir (normally only 1)
-    upload_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+    project_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
     project_dir <- dir(upload_dir,
-                       pattern = upload_dir_pattern,
+                       pattern = project_dir_pattern,
                        full.names = FALSE,
                        recursive = FALSE) %>%
         sort %>%
@@ -54,7 +54,7 @@ load_run <- function(
         stop("Project directory missing")
     }
     message(project_dir)
-    match <- str_match(project_dir, upload_dir_pattern)
+    match <- str_match(project_dir, project_dir_pattern)
     run_date <- match[[2L]] %>% as.Date
     template <- match[[3L]]
     project_dir <- file.path(upload_dir, project_dir)
@@ -82,11 +82,11 @@ load_run <- function(
         yaml[["samples"]],
         function(x) x[["description"]],
         character(1L)) %>% sort
-    sample_dirs <- file.path(upload_dir, sample_names) %>%
-        set_names(sample_names)
     if (!identical(basename(sample_dirs), sample_names)) {
         stop("Sample name assignment mismatch")
     }
+    sample_dirs <- file.path(upload_dir, sample_names) %>%
+        set_names(sample_names)
     message(paste(length(sample_dirs), "samples detected"))
 
 
