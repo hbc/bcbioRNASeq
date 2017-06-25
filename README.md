@@ -32,9 +32,13 @@ install.packages("devtools")
 devtools::install_github("hbc/bcbioRnaseq")
 ```
 
-
-
 ## Examples
 
 [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the
 default RMarkdown templates included in the package.
+
+## Contribute
+
+* For major changes, create a new branch and a pull request that will be revised
+* For small changes, commit directly to master
+* For fixes in releases, commit to releases branches
