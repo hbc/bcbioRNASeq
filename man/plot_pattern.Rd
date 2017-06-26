@@ -7,7 +7,7 @@
 plot_pattern(bcb, res, fdr = 0.1, n = NULL, ...)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet} object.}
+\item{bcb}{\link{bcbioRNADataSet} object.}
 
 \item{res}{Table with padj as column and gene names as \link{rownames}.}
 
@@ -18,7 +18,7 @@ plot_pattern(bcb, res, fdr = 0.1, n = NULL, ...)
 \item{...}{Additional parameters.}
 }
 \description{
-Adds support for a \link{bcbioRnaDataSet} object.
+Adds support for a \link{bcbioRNADataSet} object.
 }
 \author{
 Lorena Pantano

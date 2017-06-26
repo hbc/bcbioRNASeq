@@ -13,7 +13,7 @@ plot_mirna_counts(bcb)
 plot_srna_clusters(bcb)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

@@ -3,14 +3,14 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
-\alias{tmm,bcbioRnaDataSet-method}
+\alias{tmm,bcbioRNADataSet-method}
 \alias{tmm,matrix-method}
 \alias{tmm,DESeqDataSet-method}
 \title{Trimmed mean of M-values (TMM) normalization}
 \usage{
 tmm(object)
 
-\S4method{tmm}{bcbioRnaDataSet}(object)
+\S4method{tmm}{bcbioRNADataSet}(object)
 
 \S4method{tmm}{matrix}(object)
 

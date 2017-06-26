@@ -4,20 +4,20 @@
 \name{bcbio}
 \alias{bcbio}
 \alias{bcbio<-}
-\alias{bcbio,bcbioRnaDataSet-method}
-\alias{bcbio<-,bcbioRnaDataSet-method}
-\title{\link{bcbioRnaDataSet} object accessors}
+\alias{bcbio,bcbioRNADataSet-method}
+\alias{bcbio<-,bcbioRNADataSet-method}
+\title{\link{bcbioRNADataSet} object accessors}
 \usage{
 bcbio(object, ...)
 
 bcbio(object, ...) <- value
 
-\S4method{bcbio}{bcbioRnaDataSet}(object, type = "counts")
+\S4method{bcbio}{bcbioRNADataSet}(object, type = "counts")
 
-\S4method{bcbio}{bcbioRnaDataSet}(object, type = "counts") <- value
+\S4method{bcbio}{bcbioRNADataSet}(object, type = "counts") <- value
 }
 \arguments{
-\item{object}{\link{bcbioRnaDataSet} object.}
+\item{object}{\link{bcbioRNADataSet} object.}
 
 \item{...}{Additional arguments.}
 

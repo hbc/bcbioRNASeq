@@ -7,7 +7,7 @@
 plot_gene(bcb, gene, format = "symbol")
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{gene}{Gene identifier. Can input multiple genes as a character vector.}
 

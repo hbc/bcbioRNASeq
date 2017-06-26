@@ -8,7 +8,7 @@ plot_pca(bcb, dt, genes = NULL, interesting_groups = NULL, shape = FALSE,
   label = TRUE)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
 \code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
@@ -16,7 +16,7 @@ plot_pca(bcb, dt, genes = NULL, interesting_groups = NULL, shape = FALSE,
 \item{genes}{Character vector of gene identifiers to use.}
 
 \item{interesting_groups}{Interesting groups to use for point appearance. If \code{NULL},
-color defaults to all \code{interesting_groups} parameters set in \link{bcbioRnaDataSet}.}
+color defaults to all \code{interesting_groups} parameters set in \link{bcbioRNADataSet}.}
 
 \item{shape}{Make points easier to inspect with differing shapes.}
 
