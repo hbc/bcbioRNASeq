@@ -5,12 +5,12 @@
 #' @rdname plots-metrics
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
 #' @param interesting_groups (*Optional*). Category to use to group samples
 #'   (color and shape). If unset, this is automatically determined by
-#'   the metadata set inside the [bcbioRnaDataSet].
+#'   the metadata set inside the [bcbioRNADataSet].
 #' @param normalized Count normalization method. See [counts()] documentation
 #'   for more information.
 #'

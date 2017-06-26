@@ -1,4 +1,4 @@
-#' [bcbioRnaDataSet] object accessors
+#' [bcbioRNADataSet] object accessors
 #'
 #' This method is used to access count matrices with differing dimensions from
 #' the object. By default, we store quasi-aligned (a.k.a. lightweight) gene
@@ -25,14 +25,14 @@
 #' @rdname bcbio
 #' @docType methods
 #'
-#' @param object [bcbioRnaDataSet] object.
+#' @param object [bcbioRNADataSet] object.
 #' @param type Type of count data to retrieve.
 #' @param value An integer matrix or other object.
 #' @param ... Additional arguments.
 #'
 #' @return Count matrix.
 #' @export
-setMethod("bcbio", "bcbioRnaDataSet", function(object, type = "counts") {
+setMethod("bcbio", "bcbioRNADataSet", function(object, type = "counts") {
     if (type == "counts") {
         assays(object)[["counts"]]
     } else if (type %in% names(slot(object, "callers"))) {
@@ -46,7 +46,7 @@ setMethod("bcbio", "bcbioRnaDataSet", function(object, type = "counts") {
 #' @export
 setMethod(
     "bcbio<-",
-    signature(object = "bcbioRnaDataSet", value = "ANY"),
+    signature(object = "bcbioRNADataSet", value = "ANY"),
     function(object, type = "counts", value) {
         if (type == "counts") {
             assays(object)[["counts"]] <- value

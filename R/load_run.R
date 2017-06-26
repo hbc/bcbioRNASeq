@@ -26,7 +26,7 @@
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
 #'
-#' @return [bcbioRnaDataSet].
+#' @return [bcbioRNADataSet].
 #' @export
 load_run <- function(
     upload_dir = "final",
@@ -183,8 +183,8 @@ load_run <- function(
         metadata = metadata)
 
 
-    # bcbioRnaDataSet ====
-    bcb <- new("bcbioRnaDataSet", se)
+    # bcbioRNADataSet ====
+    bcb <- new("bcbioRNADataSet", se)
     # TODO Simpler way to define in [new()]?
     bcbio(bcb, "tximport") <- tximport
     bcb

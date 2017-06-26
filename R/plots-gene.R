@@ -4,7 +4,7 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene symbol (a.k.a.
 #'   `external_gene_name`).
@@ -61,7 +61,7 @@ plot_gene <- function(
 
 #' Plot sexually dimorphic gender markers
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #'
 #' @export
 plot_gender_markers <- function(bcb) {

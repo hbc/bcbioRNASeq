@@ -7,7 +7,7 @@
 #'
 #' @author Lorena Patano
 #'
-#' @param rna [bcbioRnaDataSet].
+#' @param rna [bcbioRNADataSet].
 .read_smallrna_counts <- function(rna) {
     # TODO Better way to handle sample_dirs than by piping in via metadata?
     meta <- metadata(rna)

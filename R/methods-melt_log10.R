@@ -40,7 +40,7 @@
 #' @export
 #'
 #' @seealso [reshape2::melt()].
-setMethod("melt_log10", "bcbioRnaDataSet", function(
+setMethod("melt_log10", "bcbioRNADataSet", function(
     object,
     normalized = TRUE,
     interesting_groups = NULL) {

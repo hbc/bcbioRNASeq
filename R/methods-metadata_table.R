@@ -10,7 +10,7 @@
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
 #' "interesting group" columns are defined as `interesting_groups` in the
-#' [bcbioRnaDataSet] object.
+#' [bcbioRNADataSet] object.
 #'
 #' @rdname metadata_table
 #' @docType methods
@@ -20,7 +20,7 @@
 #'
 #' @return Data frame containing only the columns of interest.
 #' @export
-setMethod("metadata_table", "bcbioRnaDataSet", function(object, ...) {
+setMethod("metadata_table", "bcbioRNADataSet", function(object, ...) {
     .metadata_table(object)
 })
 
