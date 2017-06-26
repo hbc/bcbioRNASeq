@@ -7,13 +7,13 @@
 \alias{reexports}
 \alias{save_data}
 \alias{reexports}
-\alias{degCovariates}
-\alias{reexports}
 \alias{counts}
 \alias{reexports}
-\alias{DESeq}
-\alias{reexports}
 \alias{design}
+\alias{reexports}
+\alias{degCovariates}
+\alias{reexports}
+\alias{DESeq}
 \alias{reexports}
 \alias{DESeqDataSet}
 \alias{reexports}
@@ -53,9 +53,11 @@ below to see their documentation.
 \describe{
   \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{save_data}}}
 
+  \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{design}}}
+
   \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 
-  \item{DESeq2}{\code{\link[DESeq2]{counts}}, \code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{design}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
+  \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
 
