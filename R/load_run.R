@@ -46,12 +46,9 @@ load_run <- function(
     project_dir <- dir(upload_dir,
                        pattern = project_dir_pattern,
                        full.names = FALSE,
-                       recursive = FALSE) %>%
-        sort %>%
-        rev %>%
-        .[[1L]]
-    if (!length(project_dir)) {
-        stop("Project directory missing")
+                       recursive = FALSE)
+    if (length(project_dir) != 1) {
+        stop("Uncertain about project directory location")
     }
     message(project_dir)
     match <- str_match(project_dir, project_dir_pattern)
