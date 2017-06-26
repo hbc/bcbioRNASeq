@@ -60,6 +60,7 @@ plot_mapped_reads <- function(
     if (is.null(interesting_groups)) {
         interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
+    interesting_groups <- as.name(interesting_groups)
     ggplot(
         metrics,
         aes_(x = ~description,
@@ -93,6 +94,7 @@ plot_mapping_rate <- function(
     if (is.null(interesting_groups)) {
         interesting_groups <- metadata(bcb)[["interesting_groups"]]
     }
+    interesting_groups <- as.name(interesting_groups)
     ggplot(
         metrics,
         aes_(x = ~description,
