@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -79,18 +85,31 @@
 
     
     <p>Returns a subset of metadata columns of interest used for knit reports. These
-"interesting group" columns are defined as <code>groups_of_interest</code> in the
-<a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object.</p>
+"interesting group" columns are defined as <code>interesting_groups</code> in the
+<a href='bcbioRNADataSet.html'>bcbioRNADataSet</a> object.</p>
     
 
-    <pre class="usage"><span class='fu'>metadata_table</span>(<span class='no'>bcb</span>)</pre>
+    <pre class="usage"><span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqTransform</span>
+<span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bcb</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters passed to <code>kable()</code>.</p></td>
     </tr>
     </table>
     
@@ -107,10 +126,6 @@
       
       <li><a href="#value">Value</a></li>
           </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh
 
   </div>
 </div>

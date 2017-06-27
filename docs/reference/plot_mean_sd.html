@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><em>M. musculus</em> gender marker genes — gender_markers_mmusculus • bcbioRnaseq</title>
+<title>Plot row standard deviations versus row means — plot_mean_sd • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,31 +80,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><em>M. musculus</em> gender marker genes</h1>
+    <h1>Plot row standard deviations versus row means</h1>
     </div>
 
     
-    <p><em>M. musculus</em> gender marker genes</p>
+    <p>Modified wrapper function of <code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code> that plots <code>log2()</code>,
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog()</a></code>, and <code>varianceStabilizingTransformation()</code> count data.</p>
     
 
-    <pre class="usage"><span class='no'>gender_markers_mmusculus</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 6 rows and 4 columns.</p>
+    <pre class="usage"><span class='fu'>plot_mean_sd</span>(<span class='no'>dds</span>, <span class='kw'>rld</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>vsd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dds</th>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>rld</th>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> resulting from <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog()</a></code> applied to
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>vsd</th>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> resulting from
+<code>varianceStabilizingTransformation()</code> applied to <a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a>.</p></td>
+    </tr>
+    </table>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
 
   </div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read transcript to gene (tx2gene) annotation file — .tx2gene • bcbioRnaseq</title>
+<title>Volcano plot. — plot_volcano • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,23 +80,80 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read transcript to gene (tx2gene) annotation file</h1>
+    <h1>Volcano plot.</h1>
     </div>
 
     
-    <p>Read transcript to gene (tx2gene) annotation file</p>
+    <p>Volcano plot.</p>
     
 
-    <pre class="usage"><span class='fu'>.tx2gene</span>(<span class='no'>project_dir</span>, <span class='kw'>genome_build</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_volcano</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>text_labels</span> <span class='kw'>=</span> <span class='fl'>30L</span>, <span class='kw'>merge_plots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shade_color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>,
+  <span class='kw'>shade_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>point_outline_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>project_dir</th>
-      <td><p>Project directory.</p></td>
+      <th>bcb</th>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
+    </tr>
+    <tr>
+      <th>lfc</th>
+      <td><p>Log fold change ratio (base 2) cutoff for coloring.</p></td>
+    </tr>
+    <tr>
+      <th>text_labels</th>
+      <td><p>Number of text labels to plot.</p></td>
+    </tr>
+    <tr>
+      <th>merge_plots</th>
+      <td><p>Merge all plots into one.</p></td>
+    </tr>
+    <tr>
+      <th>direction</th>
+      <td><p>Plot <code>up</code>, <code>down</code>, or <code>both</code> directions.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>(<em>Optional</em>). Custom title.</p></td>
+    </tr>
+    <tr>
+      <th>shade_color</th>
+      <td><p>Shading color for bounding box.</p></td>
+    </tr>
+    <tr>
+      <th>shade_alpha</th>
+      <td><p>Shading transparency alpha.</p></td>
+    </tr>
+    <tr>
+      <th>point_color</th>
+      <td><p>Point color.</p></td>
+    </tr>
+    <tr>
+      <th>point_alpha</th>
+      <td><p>Point transparency alpha.</p></td>
+    </tr>
+    <tr>
+      <th>point_outline_color</th>
+      <td><p>Point outline color.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Volcano plot arranged as <code>ggrid</code> (<code>merge_plots = TRUE</code>), or <code>show()</code>
+individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>s (<code>merge_plots = FALSE</code>).</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>This function is an updated variant of
+<code>CHBUtils::volcano_density_plot()</code>.</p>
     
 
   </div>
@@ -104,11 +161,15 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
     <h2>Author</h2>
     
-Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 
   </div>
 </div>

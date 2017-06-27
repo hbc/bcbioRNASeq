@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -82,7 +88,7 @@
 labeling.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -90,21 +96,21 @@ labeling.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bcb</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>dt</th>
-      <td><p><a href='reexports.html'>DESeqTransform</a> generated from <code><a href='reexports.html'>rlog()</a></code> (<strong>recommended</strong>) or
-<code><a href='reexports.html'>vst()</a></code> on a <a href='reexports.html'>DESeqDataSet</a>.</p></td>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> generated from <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog()</a></code> (<strong>recommended</strong>) or
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst()</a></code> on a <a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a>.</p></td>
     </tr>
     <tr>
       <th>genes</th>
       <td><p>Character vector of gene identifiers to use.</p></td>
     </tr>
     <tr>
-      <th>groups_of_interest</th>
+      <th>interesting_groups</th>
       <td><p>Interesting groups to use for point appearance. If <code>NULL</code>,
-color defaults to all <code>groups_of_interest</code> parameters set in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+color defaults to all <code>interesting_groups</code> parameters set in <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>shape</th>
@@ -118,14 +124,14 @@ color defaults to all <code>groups_of_interest</code> parameters set in <a href=
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='reexports.html'>ggplot</a>.</p>
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <ul>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p></li>
-<li><p><a href = 'https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R'>plotPCA source code</a>.</p></li>
-<li><p><a href = 'https://support.bioconductor.org/p/51270/'>Bioconductor thread on ntop usage</a>.</p></li>
+<li><p><a href='https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R'>plotPCA source code</a>.</p></li>
+<li><p><a href='https://support.bioconductor.org/p/51270/'>Bioconductor thread on ntop usage</a>.</p></li>
 </ul>
     
 
