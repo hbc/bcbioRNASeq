@@ -47,7 +47,7 @@ load_run <- function(
                        pattern = project_dir_pattern,
                        full.names = FALSE,
                        recursive = FALSE)
-    if (length(project_dir) != 1) {
+    if (length(project_dir) != 1L) {
         stop("Uncertain about project directory location")
     }
     message(project_dir)

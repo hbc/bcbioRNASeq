@@ -15,6 +15,11 @@ counts(object, ...)
 
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts used for QC functions (\code{tmm}).}
+
+\item{...}{Additional parameters.}
+}
+\value{
+Counts matrix
 }
 \description{
 By default, \code{\link[=counts]{counts()}} returns the raw counts. This method will return

@@ -10,9 +10,11 @@
 #' @author Michael Steinbaugh
 #'
 #' @param object Object.
+#' @param ... Additional parameters.
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts used for QC functions (`tmm`).
 #'
+#' @return Counts matrix
 #' @export
 #'
 #' @examples
