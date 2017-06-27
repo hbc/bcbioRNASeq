@@ -59,7 +59,7 @@ plot_pca <- function(
         data[["shape"]] <- "default"
     }
 
-    data[["label"]] <- colData(dt)[["description"]]
+    data[["label"]] <- rownames(colData(dt))
 
     plot <- ggplot(
         data,
