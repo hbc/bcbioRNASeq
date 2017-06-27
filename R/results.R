@@ -20,7 +20,7 @@ alpha_summary <- function(
                 summary)[4L:8L]
         .parse <- sapply(
             .info, function(i) {
-                (strsplit(i, split = ":") %>% unlist)[2L]
+                (strsplit(i, split = ":") %>% unlist)[2L:2L]
             })[1L:4L]
         .parse <- c(.parse, .info[[5L]])
         data.frame(alpha = as.vector(.parse))
