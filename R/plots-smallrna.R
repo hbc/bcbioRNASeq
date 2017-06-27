@@ -3,7 +3,7 @@
 #' @rdname plots-smallrna
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @return [ggplot].
 #'
 #' @description Plot size distribution of small RNA-seq data.

@@ -21,7 +21,7 @@
 #' @param object Object containing counts.
 #'
 #' @export
-setMethod("tmm", "bcbioRnaDataSet", function(object) {
+setMethod("tmm", "bcbioRNADataSet", function(object) {
     assays(object)[["tmm"]]
 })
 

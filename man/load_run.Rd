@@ -29,7 +29,7 @@ sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 }
 \value{
-\link{bcbioRnaDataSet}.
+\link{bcbioRNADataSet}.
 }
 \description{
 Simply point to the final upload directory output by

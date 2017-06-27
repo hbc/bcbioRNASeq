@@ -7,7 +7,7 @@
 plot_pca_covariates(bcb, dt, use = NULL, ...)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{dt}{\link{DESeqTransform}. \code{\link[=rlog]{rlog()}}-transformed counts are recommended.}
 

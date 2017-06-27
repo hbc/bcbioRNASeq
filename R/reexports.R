@@ -6,6 +6,14 @@ basejump::`%>%`
 basejump::save_data
 
 
+# BiocGenerics ====
+#' @export
+BiocGenerics::counts
+
+#' @export
+BiocGenerics::design
+
+
 
 # DEGreport ====
 #' @export
@@ -15,13 +23,7 @@ DEGreport::degCovariates
 
 # DESeq2 ====
 #' @export
-DESeq2::counts  # BiocGenerics
-
-#' @export
 DESeq2::DESeq
-
-#' @export
-DESeq2::design  # BiocGenerics
 
 #' @export
 DESeq2::DESeqDataSet

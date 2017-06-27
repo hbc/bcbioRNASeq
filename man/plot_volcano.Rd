@@ -10,7 +10,7 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
   point_outline_color = "darkgray")
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{res}{\link{DESeqResults}.}
 

@@ -13,7 +13,7 @@ for a list of currently supported genomes.}
 \item{format}{Desired table format, either \code{gene} or \code{tx2gene}.}
 }
 \value{
-Modified annotable with unique rows (.
+Modified annotable with unique rows.
 }
 \description{
 Quickly access gene annotations and transcript-to-gene (tx2gene) mappings

@@ -3,15 +3,15 @@
 \docType{methods}
 \name{sample_dirs}
 \alias{sample_dirs}
-\alias{sample_dirs,bcbioRnaDataSet-method}
-\title{Sample directories of \link{bcbioRnaDataSet} object.}
+\alias{sample_dirs,bcbioRNADataSet-method}
+\title{Sample directories of \link{bcbioRNADataSet} object.}
 \usage{
 sample_dirs(object)
 
-\S4method{sample_dirs}{bcbioRnaDataSet}(object)
+\S4method{sample_dirs}{bcbioRNADataSet}(object)
 }
 \arguments{
-\item{object}{\link{bcbioRnaDataSet} object.}
+\item{object}{\link{bcbioRNADataSet} object.}
 }
 \value{
 Folders where samples are kept.

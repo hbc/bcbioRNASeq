@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • bcbioRnaseq</title>
+<title>Aggregate lane-split technical replicates — aggregate_replicates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
 
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
   
   
 <!-- mathjax -->
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,18 +47,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">bcbioRnaseq</a>
+      <a class="navbar-brand" href="../index.html">bcbioRnaseq</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="/index.html">
+  <a href="..//index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       
@@ -78,38 +78,68 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Aggregate lane-split technical replicates</h1>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Michael J. Steinbaugh</strong>. Author, maintainer.
-        </p>
-      </li>
-      <li>
-        <p><strong>Rory Kirchner</strong>. Author.
-        </p>
-      </li>
-      <li>
-        <p><strong>Lorena Pantano</strong>. Author.
-        </p>
-      </li>
-      <li>
-        <p><strong>Victor Barrera</strong>. Author.
-        </p>
-      </li>
-      <li>
-        <p><strong>Harvard Chan Bioinformatics Core</strong>. Copyright&nbsp;holder, funder.
-        </p>
-      </li>
-    </ul>
+    
+    <p>Frequently RNA-seq experiments are performed with technical replicates
+split across flow cell lanes. This generic facilitates quick aggregation
+of counts across the flow cells.</p>
+    
+
+    <pre class="usage"><span class='fu'>aggregate_replicates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for matrix</span>
+<span class='fu'>aggregate_replicates</span>(<span class='no'>object</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>aggregate_replicates</span>(<span class='no'>object</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>Grep pattern to match lane identifiers in file name.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Object of same class, with pooled technical replicates.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a> is returned using <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromMatrix()</a></code>.</p>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
 
+      <li><a href="#note">Note</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
+
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">

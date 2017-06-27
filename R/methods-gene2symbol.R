@@ -9,7 +9,7 @@
 #'
 #' @return [data.frame].
 #' @export
-setMethod("gene2symbol", "bcbioRnaDataSet", function(object) {
+setMethod("gene2symbol", "bcbioRNADataSet", function(object) {
     rowData(object)[, c("ensgene", "symbol")] %>%
         as.data.frame %>%
         remove_na %>%

@@ -3,12 +3,12 @@
 #' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
 #' labeling.
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
 #'   [vst()] on a [DESeqDataSet].
 #' @param genes Character vector of gene identifiers to use.
 #' @param interesting_groups Interesting groups to use for point appearance. If `NULL`,
-#'   color defaults to all `interesting_groups` parameters set in [bcbioRnaDataSet].
+#'   color defaults to all `interesting_groups` parameters set in [bcbioRNADataSet].
 #' @param shape Make points easier to inspect with differing shapes.
 #' @param label Superimpose sample text labels on the plot.
 #' @return [ggplot].
@@ -95,7 +95,7 @@ plot_pca <- function(
 #'
 #' @author Lorena Pantano
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
 #' @param use Character vector. List of columns to use in degCovariates.
 #' @param ... Passthrough parmeters to [DEGreport::degCovariates()].

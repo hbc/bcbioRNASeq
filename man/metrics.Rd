@@ -3,15 +3,15 @@
 \docType{methods}
 \name{metrics}
 \alias{metrics}
-\alias{metrics,bcbioRnaDataSet-method}
+\alias{metrics,bcbioRNADataSet-method}
 \title{Sample metrics}
 \usage{
 metrics(object)
 
-\S4method{metrics}{bcbioRnaDataSet}(object)
+\S4method{metrics}{bcbioRNADataSet}(object)
 }
 \arguments{
-\item{object}{\link{bcbioRnaDataSet} object.}
+\item{object}{\link{bcbioRNADataSet} object.}
 }
 \description{
 Sample metrics

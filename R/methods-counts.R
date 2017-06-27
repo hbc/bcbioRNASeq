@@ -27,7 +27,7 @@
 #' # TMM
 #' counts(bcb, normalized = "tmm")
 #' }
-setMethod("counts", "bcbioRnaDataSet", function(object, normalized = FALSE) {
+setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
         assay(object)
     } else if (isTRUE(normalized) | normalized == "tpm") {

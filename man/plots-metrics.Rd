@@ -37,7 +37,7 @@ plot_counts_per_gene(bcb, normalized = "tmm", interesting_groups = NULL)
 plot_count_density(bcb, normalized = "tmm")
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{pass_limit}{Threshold to plot pass color marker.}
 
@@ -45,7 +45,7 @@ plot_count_density(bcb, normalized = "tmm")
 
 \item{interesting_groups}{(\emph{Optional}). Category to use to group samples
 (color and shape). If unset, this is automatically determined by
-the metadata set inside the \link{bcbioRnaDataSet}.}
+the metadata set inside the \link{bcbioRNADataSet}.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}

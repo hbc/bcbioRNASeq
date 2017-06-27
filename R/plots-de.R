@@ -24,7 +24,7 @@ plot_ma <- function(res, ylim = 2L) {
 #'
 #' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
@@ -238,11 +238,11 @@ plot_volcano <- function(
 
 #' [DEGreport::degPatterns()] wrapper
 #'
-#' Adds support for a [bcbioRnaDataSet] object.
+#' Adds support for a [bcbioRNADataSet] object.
 #'
 #' @author Lorena Pantano
 #'
-#' @param bcb [bcbioRnaDataSet] object.
+#' @param bcb [bcbioRNADataSet] object.
 #' @param res Table with padj as column and gene names as [rownames].
 #' @param fdr Float cutoff to consider genes significant.
 #' @param n Integer maximum number of genes to consider.

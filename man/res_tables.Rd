@@ -7,7 +7,7 @@
 res_tables(bcb, res, lfc = 0L, write = TRUE, dir = "results/de")
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
 \item{res}{\link{DESeqResults}.}
 
