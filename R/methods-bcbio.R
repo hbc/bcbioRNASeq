@@ -42,6 +42,8 @@ setMethod("bcbio", "bcbioRNADataSet", function(object, type = "counts") {
     }
 })
 
+
+
 #' @rdname bcbio
 #' @export
 setMethod(

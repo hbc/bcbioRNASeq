@@ -14,6 +14,8 @@
                colname = as.character(.data[["colname"]]))
 }
 
+
+
 .join_melt <- function(counts, metadata) {
     if (!identical(colnames(counts), metadata[["colname"]])) {
         stop("Sample description mismatch between counts and metadata")
@@ -22,6 +24,8 @@
         left_join(metadata, by = "colname") %>%
         rename(description = .data[["colname"]])
 }
+
+
 
 #' Melt count matrix to long format and log10 transform
 #'
@@ -77,6 +81,8 @@ setMethod("melt_log10", "DESeqDataSet", function(
 
     .join_melt(counts, metadata)
 })
+
+
 
 #' @rdname melt_log10
 #' @export

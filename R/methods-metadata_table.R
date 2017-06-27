@@ -6,6 +6,8 @@
         kable(caption = "Sample metadata", ...)
 }
 
+
+
 #' Metadata table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
@@ -24,11 +26,15 @@ setMethod("metadata_table", "bcbioRNADataSet", function(object, ...) {
     .metadata_table(object)
 })
 
+
+
 #' @rdname metadata_table
 #' @export
 setMethod("metadata_table", "DESeqDataSet", function(object, ...) {
     .metadata_table(object)
 })
+
+
 
 #' @rdname metadata_table
 #' @export

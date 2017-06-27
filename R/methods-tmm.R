@@ -7,6 +7,8 @@
         cpm(normalized.lib.sizes = TRUE)
 }
 
+
+
 #' Trimmed mean of M-values (TMM) normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
@@ -25,11 +27,15 @@ setMethod("tmm", "bcbioRNADataSet", function(object) {
     assays(object)[["tmm"]]
 })
 
+
+
 #' @rdname tmm
 #' @export
 setMethod("tmm", "matrix", function(object) {
     .tmm(object)
 })
+
+
 
 #' @rdname tmm
 #' @export
