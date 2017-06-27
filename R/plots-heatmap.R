@@ -160,7 +160,7 @@ plot_gene_heatmap <- function(
     if (is.null(annotation)) {
         annotation <- colData(bcb) %>%
             as.data.frame %>%
-            .[colnames(counts), interesting_groups, drop=FALSE]
+            .[colnames(counts), interesting_groups, drop = FALSE]
     }
 
     pheatmap(counts,
