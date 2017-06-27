@@ -32,6 +32,15 @@ upload_dir <- "final"
 
 # Columns in the colData in metadata you want to use
 interesting_groups <- c("genotype", "treatment")
+# Contrast
+# 1. Design matrix parameter.
+# 2. Numerator for LFC (expt).
+# 3. Denominator for LFC (control).
+# @seealso [DESeq2::results()]
+contrast <- c("genotype", "mutant", "wildtype")
+
+# Design formula
+design <- formula(~genotype) # change to desire column
 
 # Output directory paths
 out_path <- getwd()

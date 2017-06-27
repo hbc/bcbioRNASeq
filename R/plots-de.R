@@ -218,7 +218,7 @@ plot_volcano <- function(
                     theme(axis.title.x = element_blank(),
                           axis.text.x = element_blank(),
                           axis.ticks.x = element_blank()),
-                x = 0L, y = 0.7, width = 1L, height = 0.3) +
+                x = 0L, y = 0.7, width = 0.7, height = 0.3) +
             draw_plot(
                 padj_hist +
                     theme(axis.title.y = element_blank(),

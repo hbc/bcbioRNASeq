@@ -12,15 +12,6 @@ library(bcbioRnaseq)
 downloads()
 
 source("setup.R") # modify parameters before exec this line
-# Contrast
-# 1. Design matrix parameter.
-# 2. Numerator for LFC (expt).
-# 3. Denominator for LFC (control).
-# @seealso [DESeq2::results()]
-contrast <- c("genotype", "mutant", "wildtype")
-
-# Design formula
-design <- formula(~ genotype) # change to desire column
 
 # Significance cutoffs
 alpha <- 0.05
@@ -50,7 +41,7 @@ sizeFactors(ddsde)
 
 Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
-```{r alpha_summary}
+```{r alpha_summary, results='asis'}
 alpha_summary(ddsde, contrast = contrast)
 ```
 
