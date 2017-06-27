@@ -13,6 +13,7 @@
 #'   the metadata set inside the [bcbioRnaDataSet].
 #' @param normalized Count normalization method. See [counts()] documentation
 #'   for more information.
+#' @param filter_value Numeric value for filtering the counts matrix before plotting. Default 0.
 #'
 #' @return [ggplot].
 #' @export
@@ -122,7 +123,8 @@ plot_mapping_rate <- function(
 plot_genes_detected <- function(
     bcb,
     pass_limit = 20000L,
-    interesting_groups = NULL) {
+    interesting_groups = NULL,
+    filter_value = 0L) {
     metrics <- metrics(bcb)
     counts <- assay(bcb)
     if (is.null(metrics)) return(NULL)
@@ -132,7 +134,7 @@ plot_genes_detected <- function(
     interesting_groups <- as.name(interesting_groups)
     ggplot(metrics,
            aes_(x = ~description,
-                y = colSums(counts > 0L),
+                y = colSums(counts > filter_value),
                 fill = interesting_groups)) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +

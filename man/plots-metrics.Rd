@@ -22,7 +22,8 @@ plot_mapped_reads(bcb, pass_limit = 20L, warn_limit = 10L,
 plot_mapping_rate(bcb, pass_limit = 90L, warn_limit = 70L,
   interesting_groups = NULL)
 
-plot_genes_detected(bcb, pass_limit = 20000L, interesting_groups = NULL)
+plot_genes_detected(bcb, pass_limit = 20000L, interesting_groups = NULL,
+  filter_value = 0L)
 
 plot_gene_detection_saturation(bcb, interesting_groups = NULL)
 
@@ -46,6 +47,8 @@ plot_count_density(bcb, normalized = "tmm")
 \item{interesting_groups}{(\emph{Optional}). Category to use to group samples
 (color and shape). If unset, this is automatically determined by
 the metadata set inside the \link{bcbioRnaDataSet}.}
+
+\item{filter_value}{Numeric value for filtering the counts matrix before plotting. Default 0.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
