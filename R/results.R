@@ -16,11 +16,11 @@ alpha_summary <- function(
     .check_dds(dds)
     lapply(seq_along(alpha), function(a) {
         .info <- capture.output(
-            results(dds, alpha = alpha[a], ...) %>%
+            results(dds, alpha = alpha[a]) %>%
                 summary)[4L:8L]
         .parse <- sapply(
             .info, function(i) {
-                unlist(strsplit(i, split = ":"))[[2L]]
+                gsub(".*:", "", i)
             })[1L:4L]
         .parse <- c(.parse, .info[[5L]])
         data.frame(alpha = as.vector(.parse))
@@ -190,8 +190,8 @@ top_tables <- function(
                 "base_mean",
                 "log2_fold_change",
                 "padj",
-                "external_gene_name",
-                "broad_class")) %>%
+                "symbol",
+                "biotype")) %>%
             remove_rownames
     }
 
