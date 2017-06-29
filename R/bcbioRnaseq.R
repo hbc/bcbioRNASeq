@@ -3,7 +3,7 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' @import annotables basejump Biobase BiocGenerics DESeq2 SummarizedExperiment
+#' @import annotables basejump BiocGenerics DESeq2 SummarizedExperiment
 #'   S4Vectors
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
@@ -18,6 +18,7 @@
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
+#' @importFrom tximport tximport
 #' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"

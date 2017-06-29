@@ -6,8 +6,6 @@
 \alias{gene2symbol,bcbioRNADataSet-method}
 \title{Gene identifier to symbol conversion}
 \usage{
-gene2symbol(object)
-
 \S4method{gene2symbol}{bcbioRNADataSet}(object)
 }
 \arguments{

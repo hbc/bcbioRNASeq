@@ -8,8 +8,6 @@
 \alias{melt_log10,DESeqTransform-method}
 \title{Melt count matrix to long format and log10 transform}
 \usage{
-melt_log10(object, ...)
-
 \S4method{melt_log10}{bcbioRNADataSet}(object, normalized = TRUE,
   interesting_groups = NULL)
 

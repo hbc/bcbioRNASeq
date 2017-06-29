@@ -20,7 +20,7 @@ plot_ma <- function(res, ylim = 2L) {
 
 
 
-#' Volcano plot.
+#' Volcano plot
 #'
 #' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'

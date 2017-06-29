@@ -6,8 +6,6 @@
 \alias{sample_dirs,bcbioRNADataSet-method}
 \title{Sample directories of \link{bcbioRNADataSet} object.}
 \usage{
-sample_dirs(object)
-
 \S4method{sample_dirs}{bcbioRNADataSet}(object)
 }
 \arguments{

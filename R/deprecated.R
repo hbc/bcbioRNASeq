@@ -1,10 +1,9 @@
 #' Deprecated functions
 #'
 #' @rdname deprecated
-#' @name deprecated
 #' @keywords internal
-#' @usage NULL
-NULL
+#'
+#' @param ... Additional parameters.
 
 
 

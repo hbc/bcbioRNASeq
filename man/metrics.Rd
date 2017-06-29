@@ -6,8 +6,6 @@
 \alias{metrics,bcbioRNADataSet-method}
 \title{Sample metrics}
 \usage{
-metrics(object)
-
 \S4method{metrics}{bcbioRNADataSet}(object)
 }
 \arguments{

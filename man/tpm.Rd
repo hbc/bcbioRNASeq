@@ -6,8 +6,6 @@
 \alias{tpm,bcbioRNADataSet-method}
 \title{Transcripts per million (TPM)}
 \usage{
-tpm(object)
-
 \S4method{tpm}{bcbioRNADataSet}(object)
 }
 \arguments{

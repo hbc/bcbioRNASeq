@@ -8,8 +8,6 @@
 \alias{tmm,DESeqDataSet-method}
 \title{Trimmed mean of M-values (TMM) normalization}
 \usage{
-tmm(object)
-
 \S4method{tmm}{bcbioRNADataSet}(object)
 
 \S4method{tmm}{matrix}(object)

@@ -8,8 +8,6 @@
 \alias{metadata_table,DESeqTransform-method}
 \title{Metadata table}
 \usage{
-metadata_table(object, ...)
-
 \S4method{metadata_table}{bcbioRNADataSet}(object, ...)
 
 \S4method{metadata_table}{DESeqDataSet}(object, ...)

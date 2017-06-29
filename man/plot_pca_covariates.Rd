@@ -13,7 +13,7 @@ plot_pca_covariates(bcb, dt, use = NULL, ...)
 
 \item{use}{Character vector. List of columns to use in degCovariates.}
 
-\item{...}{Passthrough parmeters to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+\item{...}{Passthrough arguments to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
 }
 \description{
 Find correlation between PCs and covariates

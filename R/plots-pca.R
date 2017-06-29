@@ -98,7 +98,7 @@ plot_pca <- function(
 #' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
 #' @param use Character vector. List of columns to use in degCovariates.
-#' @param ... Passthrough parmeters to [DEGreport::degCovariates()].
+#' @param ... Passthrough arguments to [DEGreport::degCovariates()].
 #'
 #' @export
 plot_pca_covariates <- function(bcb, dt, use = NULL, ...) {

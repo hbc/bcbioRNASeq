@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots-de.R
 \name{plot_volcano}
 \alias{plot_volcano}
-\title{Volcano plot.}
+\title{Volcano plot}
 \usage{
 plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
   direction = "both", title = NULL, shade_color = "orange",
@@ -39,7 +39,7 @@ Volcano plot arranged as \code{ggrid} (\code{merge_plots = TRUE}), or \code{\lin
 individual \link{ggplot}s (\code{merge_plots = FALSE}).
 }
 \description{
-Volcano plot.
+Volcano plot
 }
 \seealso{
 This function is an updated variant of

@@ -1,21 +1,3 @@
-# basejump ====
-#' @export
-basejump::`%>%`
-
-#' @export
-basejump::save_data
-
-
-# BiocGenerics ====
-#' @rdname counts
-#' @export
-BiocGenerics::counts -> counts
-
-#' @export
-BiocGenerics::design
-
-
-
 # DEGreport ====
 #' @export
 DEGreport::degCovariates
@@ -49,40 +31,6 @@ DESeq2::vst
 
 
 
-# ggplot2 ====
-#' @export
-ggplot2::ggplot
-
-
-
-# pheatmap ====
-#' @export
-pheatmap::pheatmap
-
-
-
-# SummarizedExperiment ====
-#' @export
-SummarizedExperiment::assay
-
-#' @export
-SummarizedExperiment::assays
-
-#' @export
-SummarizedExperiment::colData
-
-#' @export
-SummarizedExperiment::rowData
-
-
-
-# S4Vectors ====
-#' @export
-S4Vectors::metadata
-
-
-
 # tximport ====
-#' @importFrom tximport tximport
 #' @export
 tximport::tximport
