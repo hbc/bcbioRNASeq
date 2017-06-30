@@ -19,7 +19,7 @@ basejump::counts -> counts
 basejump::design
 
 #' @export
-basejump::hclust
+basejump::metadata
 
 #' @export
 basejump::rowData

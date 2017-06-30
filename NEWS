@@ -1,3 +1,6 @@
+0.0.23  Documentation fixes and website updates.
+        Renamed S4 class to bcbioRNADataSet.
+        Adjusted the number of exported functions.
 0.0.22  Added testthat checking with lintr.
         Initial setup of code coverage using covr.
 0.0.21  Prepare draft of F1000 workflow document.

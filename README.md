@@ -39,6 +39,6 @@ default RMarkdown templates included in the package.
 
 ## Contribute
 
-* For major changes, create a new branch and a pull request that will be revised.
-* For small changes, commit directly to master.
-* For fixes in releases, commit to releases branches.
+- For major changes, create a new branch and a pull request that will be revised.
+- For small changes, commit directly to master.
+- For fixes in releases, commit to releases branches.

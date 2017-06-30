@@ -13,7 +13,7 @@
 \alias{reexports}
 \alias{design}
 \alias{reexports}
-\alias{hclust}
+\alias{metadata}
 \alias{reexports}
 \alias{rowData}
 \alias{reexports}
@@ -45,7 +45,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{hclust}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}}
+  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{metadata}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}}
 
   \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 
