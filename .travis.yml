@@ -1,6 +1,7 @@
 language: r
 cache: packages
 sudo: false
+dist: trusty
 r:
   - bioc-release
   - bioc-devel
