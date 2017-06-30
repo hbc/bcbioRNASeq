@@ -9,22 +9,22 @@
 #'   run directory as a remote connection over
 #'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
-#' @author Michael Steinbaugh
-#' @author Lorena Patano
+#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param upload_dir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
-#' @param analysis Analysis type (e.g. `rnaseq` or `srnaseq`).
+#' @param analysis Analysis type. Supports RNA-seq (`rnaseq`; **default**) or
+#'   small RNA-seq (`srnaseq`).
 #' @param interesting_groups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
-#' @param design (*Optional*). Design formula for DESeq2.See
-#'   [DESeq2::design()] for more information.
-#' @param contrast (*Optional*). Contrast vector for DESeq2. See
-#'   [DESeq2::results()] for more information.
-#' @param metadata_file (*Optional*). Custom metadata file containing
+#' @param sample_metadata_file (*Optional*). Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
+#' @param experiment_name Experiment name.
+#' @param principal_investigator Principal investigator.
+#' @param researcher Researcher who performed the experiment.
+#' @param email Email for follow-up correspondence.
 #'
 #' @return [bcbioRNADataSet].
 #' @export
@@ -34,7 +34,7 @@ load_run <- function(
     interesting_groups = "description",
     design = NULL,
     contrast = NULL,
-    metadata_file = NULL) {
+    sample_metadata_file = NULL) {
     # Directory paths ----
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
@@ -112,7 +112,7 @@ load_run <- function(
 
 
     # User-defined custom metadata ====
-    custom_metadata <- .custom_metadata(metadata_file)
+    sample_metadata <- .sample_metadata_file(sample_metadata_file)
 
 
     # Sample metrics ====
@@ -137,15 +137,12 @@ load_run <- function(
     # Metadata ====
     metadata <- SimpleList(
         analysis = analysis,
-        interesting_groups = interesting_groups,
-        design = design,
-        contrast = contrast,
+        upload_dir = upload_dir,
+        sample_dirs = sample_dirs,
+        project_dir = project_dir,
         template = template,
         run_date = run_date,
-        load_date = Sys.Date(),
-        upload_dir = upload_dir,
-        project_dir = project_dir,
-        sample_dirs = sample_dirs,
+        interesting_groups = interesting_groups,
         organism = organism,
         genome_build = genome_build,
         ensembl_version = ensembl_version,
@@ -155,15 +152,16 @@ load_run <- function(
         yaml_file = yaml_file,
         yaml = yaml,
         metrics = metrics,
-        metadata_file = metadata_file,
-        custom_metadata = custom_metadata,
+        sample_metadata_file = sample_metadata_file,
+        sample_metadata = sample_metadata,
         data_versions = data_versions,
         programs = programs,
         bcbio_nextgen = bcbio_nextgen,
         bcbio_nextgen_commands = bcbio_nextgen_commands,
-        wd = getwd(),
-        hpc = detect_hpc(),
-        session_info = sessionInfo())
+        experiment_name = experiment_name,
+        principal_investigator = principal_investigator,
+        researcher = researcher,
+        email = email)
 
 
     # tximport ====
@@ -171,8 +169,8 @@ load_run <- function(
 
 
     # SummarizedExperiment ====
-    if (!is.null(custom_metadata)) {
-        col_data <- custom_metadata
+    if (!is.null(sample_metadata)) {
+        col_data <- sample_metadata
     } else {
         col_data <- .yaml_metadata(yaml)
     }
@@ -185,7 +183,6 @@ load_run <- function(
 
     # bcbioRNADataSet ====
     bcb <- new("bcbioRNADataSet", se)
-    # TODO Simpler way to define in [new()]?
     bcbio(bcb, "tximport") <- tximport
     bcb
 }
