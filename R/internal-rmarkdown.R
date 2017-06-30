@@ -14,23 +14,18 @@
     if (!dir.exists(dir)) {
         stop("DE results directory missing")
     }
-
     all <- res_tbl[["all_file"]]
     deg <- res_tbl[["deg_file"]]
     deg_lfc_up <- res_tbl[["deg_lfc_up_file"]]
     deg_lfc_down <- res_tbl[["deg_lfc_down_file"]]
-
+    # FIXME Use knit asis_output instead?
     writeLines(c(
-        paste0("- [", all, "](", file.path(dir, all), "):"),
+        str_c("- [", all, "](", file.path(dir, all), "):"),
         "    All genes, sorted by [Ensembl][] identifier.",
-
-        paste0("- [", deg, "](", file.path(dir, deg), "):"),
+        str_c("- [", deg, "](", file.path(dir, deg), "):"),
         "    Genes that pass the alpha (FDR) cutoff.",
-
-        paste0("- [", deg_lfc_up, "](", file.path(dir, deg_lfc_up), "):"),
+        str_c("- [", deg_lfc_up, "](", file.path(dir, deg_lfc_up), "):"),
         "    Upregulated DEG; positive log2 fold change.",
-
-        paste0("- [", deg_lfc_down, "](", file.path(dir, deg_lfc_down), "):"),
-        "    Downregulated DEG; negative log2 fold change."
-    ))
+        str_c("- [", deg_lfc_down, "](", file.path(dir, deg_lfc_down), "):"),
+        "    Downregulated DEG; negative log2 fold change."))
 }
