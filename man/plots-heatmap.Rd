@@ -45,7 +45,8 @@ plotting more than one column.}
 
 \item{cluster_rows}{Whether rows should be clustered using \code{\link[stats:hclust]{stats::hclust()}}.}
 
-\item{cluster_cols}{Whether columns should be clustered using \code{\link[stats:hclust]{stats::hclust()}}.}
+\item{cluster_cols}{Whether columns should be clustered using
+\code{\link[stats:hclust]{stats::hclust()}}.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the \code{row} direction, \code{column} direction, or \code{none}.}
@@ -55,7 +56,7 @@ in either the \code{row} direction, \code{column} direction, or \code{none}.}
 \item{lfc}{log2 fold change ratio.}
 }
 \value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
 }
 \description{
 These functions are wrappers to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} that have been
@@ -84,10 +85,7 @@ the optional parameters for \code{\link[=plot_gene_heatmap]{plot_gene_heatmap()}
 function.
 }
 \seealso{
-\itemize{
-\item \code{\link[S4Vectors:cor]{S4Vectors::cor()}}.
-\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
-}
+\code{\link[stats:cor]{stats::cor()}}, \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
 }
 \author{
 Michael Steinbaugh

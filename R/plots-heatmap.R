@@ -24,10 +24,6 @@
 #' the optional parameters for [plot_gene_heatmap()] are also available to this
 #' function.
 #'
-#' @seealso
-#' - [S4Vectors::cor()].
-#' - [pheatmap::pheatmap()].
-#'
 #' @rdname plots-heatmap
 #' @author Michael Steinbaugh
 #'
@@ -49,7 +45,9 @@
 #' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional parameters, passed to [pheatmap::pheatmap()].
 #'
-#' @return [pheatmap::pheatmap()] return.
+#' @seealso [stats::cor()], [pheatmap::pheatmap()].
+#'
+#' @return [pheatmap::pheatmap()].
 #' @export
 plot_correlation_heatmap <- function(
     bcb,
@@ -108,7 +106,8 @@ plot_correlation_heatmap <- function(
 
 #' @rdname plots-heatmap
 #' @param cluster_rows Whether rows should be clustered using [stats::hclust()].
-#' @param cluster_cols Whether columns should be clustered using [stats::hclust()].
+#' @param cluster_cols Whether columns should be clustered using
+#'   [stats::hclust()].
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
 #' @export
@@ -181,7 +180,6 @@ plot_gene_heatmap <- function(
 
 
 
-# TODO Add option to slot lfc into [bcbioRNADataSet]
 #' @rdname plots-heatmap
 #' @param res [DESeqResults].
 #' @param lfc log2 fold change ratio.
