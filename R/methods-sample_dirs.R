@@ -1,11 +1,11 @@
-#' Sample directories of [bcbioRNADataSet] object.
+#' Sample directories.
 #'
 #' This method will be used to access folders where sample information is kept.
 #'
 #' @rdname sample_dirs
 #' @docType methods
 #'
-#' @param object [bcbioRNADataSet] object.
+#' @param object Primary object.
 #'
 #' @return Folders where samples are kept.
 #' @export

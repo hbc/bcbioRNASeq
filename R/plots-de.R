@@ -1,6 +1,6 @@
-#' [DESeq2::plotMA()] wrapper
+#' MA-plot from base means and log fold changes
 #'
-#' This wrapper function generates a title automatically.
+#' [DESeq2::plotMA()] wrapper that generates a title automatically.
 #'
 #' @author Michael Steinbaugh
 #'
@@ -30,7 +30,7 @@ plot_ma <- function(res, ylim = 2L) {
 #' @param text_labels Number of text labels to plot.
 #' @param merge_plots Merge all plots into one.
 #' @param direction Plot `up`, `down`, or `both` directions.
-#' @param title (*Optional*). Custom title.
+#' @param title *Optional*. Custom plot title.
 #' @param shade_color Shading color for bounding box.
 #' @param shade_alpha Shading transparency alpha.
 #' @param point_color Point color.
@@ -236,9 +236,10 @@ plot_volcano <- function(
 
 
 
-#' [DEGreport::degPatterns()] wrapper
+#' Make groups of genes using expression profile
 #'
-#' Adds support for a [bcbioRNADataSet] object.
+#' [DEGreport::degPatterns()] wrapper that adds support for a [bcbioRNADataSet]
+#' object.
 #'
 #' @author Lorena Pantano
 #'

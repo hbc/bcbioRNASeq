@@ -1,4 +1,4 @@
-#' [bcbioRNADataSet] object accessors
+#' bcbioRNADataSet object accessors
 #'
 #' This method is used to access count matrices with differing dimensions from
 #' the object. By default, we store quasi-aligned (a.k.a. lightweight) gene
@@ -25,7 +25,7 @@
 #' @rdname bcbio
 #' @docType methods
 #'
-#' @param object [bcbioRNADataSet] object.
+#' @param object Object.
 #' @param type Type of count data to retrieve.
 #' @param value An integer matrix or other object.
 #' @param ... Additional arguments.

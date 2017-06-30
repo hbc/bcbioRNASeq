@@ -31,13 +31,12 @@
 #'
 #' @rdname melt_log10
 #' @docType methods
-#'
 #' @author Michael Steinbaugh
 #'
 #' @param object Object containing counts matrix.
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
-#' @param interesting_groups Interesting groups.
+#' @param interesting_groups *Optional*. Interesting groups.
 #' @param ... Optional parameters.
 #'
 #' @return log10 melted [data.frame].
