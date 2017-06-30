@@ -3,7 +3,9 @@
 #' @rdname tpm
 #' @docType methods
 #'
-#' @param object [bcbioRNADataSet] object.
+#' @author Michael Steinbaugh
+#'
+#' @param object Object.
 #'
 #' @export
 setMethod("tpm", "bcbioRNADataSet", function(object) {
