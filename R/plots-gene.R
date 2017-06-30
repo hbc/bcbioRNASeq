@@ -1,5 +1,6 @@
 # TODO Look at incorporating [plotCounts()] into this function.
 # TODO Function needs rework for annotables
+
 #' Plot an individual gene
 #'
 #' @author Michael Steinbaugh
@@ -65,7 +66,7 @@ plot_gene <- function(
 #'
 #' @export
 plot_gender_markers <- function(bcb) {
-    # Organism-specific dimorphic markers ----
+    # Organism-specific dimorphic markers ====
     organism <- metadata(bcb)[["organism"]]
 
     # Load the relevant internal gender markers data
@@ -87,7 +88,7 @@ plot_gender_markers <- function(bcb) {
         unique
 
 
-    # ggplot ----
+    # ggplot ====
     tpm(bcb) %>%
         .[ensgene, ] %>%
         as.data.frame %>%

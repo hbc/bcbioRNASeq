@@ -1,7 +1,7 @@
-#' Plot principal component analysis (PCA)
+#' Sample PCA plot for transformed data
 #'
-#' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
-#' labeling.
+#' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
+#' (PCA) sample coloring and labeling.
 #'
 #' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
@@ -90,7 +90,9 @@ plot_pca <- function(
 
 
 
-#' Find correlation between PCs and covariates
+#' Find correlation between principal components (PCs) and covariates.
+#'
+#' Wrapper for [DEGreport::degCovariates()] supporting a [bcbioRNADataSet].
 #'
 #' @author Lorena Pantano
 #'
