@@ -19,6 +19,7 @@
 #' - R local environment information, including [sessionInfo()].
 #'
 #' @rdname bcbioRNADataSet
+#' @author Lorena Patano, Michael Steinbaugh
 #' @export
 bcbioRNADataSet <- setClass(  # nolint
     "bcbioRNADataSet",
