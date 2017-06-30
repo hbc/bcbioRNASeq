@@ -1,13 +1,3 @@
-.metadata_table <- function(object, ...) {
-    object %>%
-        colData %>%
-        as.data.frame %>%
-        remove_rownames %>%
-        kable(caption = "Sample metadata", ...)
-}
-
-
-
 #' Metadata table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
@@ -21,6 +11,22 @@
 #' @param ... Additional parameters passed to [kable()].
 #'
 #' @return Data frame containing only the columns of interest.
+
+
+
+#' @rdname metadata_table
+#' @usage NULL
+.metadata_table <- function(object, ...) {
+    object %>%
+        colData %>%
+        as.data.frame %>%
+        remove_rownames %>%
+        kable(caption = "Sample metadata", ...)
+}
+
+
+
+#' @rdname metadata_table
 #' @export
 setMethod("metadata_table", "bcbioRNADataSet", function(object, ...) {
     .metadata_table(object)
