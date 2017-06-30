@@ -1,6 +1,6 @@
 #' *M. musculus* gender marker genes
 #'
-#' @rdname internal_data
+#' @rdname gender_markers_mmusculus
 #' @keywords internal
 #' @author Michael Steinbaugh
 "gender_markers_mmusculus"
