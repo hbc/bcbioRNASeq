@@ -6,18 +6,17 @@
 #' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
 #'   [vst()] on a [DESeqDataSet].
-#' @param genes Character vector of gene identifiers to use.
-#' @param interesting_groups Interesting groups to use for point appearance. If `NULL`,
-#'   color defaults to all `interesting_groups` parameters set in [bcbioRNADataSet].
-#' @param shape Make points easier to inspect with differing shapes.
-#' @param label Superimpose sample text labels on the plot.
+#' @param genes *Optional*. Character vector of gene identifiers to use.
+#' @param interesting_groups *Optional*. Interesting groups to use for point
+#'   appearance. If `NULL`, color defaults to all `interesting_groups`
+#'   parameters set in [bcbioRNADataSet].
+#' @param shape *Optional*. Make points easier to inspect with differing shapes.
+#' @param label *Optional*. Superimpose sample text labels on the plot.
+#'
 #' @return [ggplot].
 #' @export
 #'
-#' @seealso
-#' - [DESeq2::plotPCA()].
-#' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R).
-#' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
+#' @seealso [DESeq2::plotPCA()].
 plot_pca <- function(
     bcb,
     dt,
@@ -97,7 +96,7 @@ plot_pca <- function(
 #'
 #' @param bcb [bcbioRNADataSet].
 #' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
-#' @param use Character vector. List of columns to use in degCovariates.
+#' @param use *Optional*. Character vector of columns to use.
 #' @param ... Passthrough arguments to [DEGreport::degCovariates()].
 #'
 #' @export

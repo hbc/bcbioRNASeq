@@ -1,7 +1,6 @@
 #' Print summary statistics of alpha level cutoffs
 #'
-#' @author Michael Steinbaugh
-#' @author Lorena Patano
+#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param dds [DESeqDataSet].
 #' @param alpha Numeric vector of desired alpha cutoffs.

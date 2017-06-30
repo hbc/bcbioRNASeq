@@ -8,12 +8,13 @@
 #' @param bcb [bcbioRNADataSet].
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
-#' @param interesting_groups (*Optional*). Category to use to group samples
-#'   (color and shape). If unset, this is automatically determined by
-#'   the metadata set inside the [bcbioRNADataSet].
+#' @param interesting_groups *Optional*. Category to use to group samples (color
+#'   and shape). If unset, this is automatically determined by the metadata set
+#'   inside the [bcbioRNADataSet].
 #' @param normalized Count normalization method. See [counts()] documentation
 #'   for more information.
-#' @param filter_value Numeric value for filtering the counts matrix before plotting. Default 0.
+#' @param filter_value Numeric value for filtering the counts matrix before
+#'   plotting.
 #'
 #' @return [ggplot].
 #' @export

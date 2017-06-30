@@ -20,8 +20,10 @@ plot_size_distribution <- function(bcb) {
         d <- read.table(fns[sample], sep = "")
         tab <- rbind(
             tab, d %>%
-                mutate(sample = sample,
-                       group = meta[["metadata"]][sample, meta[["interesting_groups"]]]))
+                mutate(
+                    sample = sample,
+                    group = meta[["metadata"]][sample,
+                                               meta[["interesting_groups"]]]))
     }
 
     reads_adapter <- tab %>%

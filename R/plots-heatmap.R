@@ -71,7 +71,9 @@ plot_correlation_heatmap <- function(
 
     # Per sample annotations of interest
     if (is.null(annotation)) {
-        annotation <- colData(bcb)[, interesting_groups, drop = FALSE] %>% as.data.frame
+        annotation <- colData(bcb) %>%
+            .[, interesting_groups, drop = FALSE] %>%
+            as.data.frame
     }
 
     # Set heatmap title (`main` parameter)
@@ -194,7 +196,9 @@ plot_deg_heatmap <- function(bcb, dt, res, lfc = 1L, title = NULL, ...) {
         as.data.frame %>%
         rownames_to_column("ensgene") %>%
         filter(.data[["padj"]] < alpha,
-               .data[["log2FoldChange"]] > lfc | .data[["log2FoldChange"]] < -lfc) %>%
-        pull("ensgene") %>% sort
+               .data[["log2FoldChange"]] > lfc |
+                   .data[["log2FoldChange"]] < -lfc) %>%
+        pull("ensgene") %>%
+        sort
     plot_gene_heatmap(bcb, dt, genes = genes, title = title, ...)
 }
