@@ -6,14 +6,14 @@
 \alias{bcbio<-}
 \alias{bcbio,bcbioRNADataSet-method}
 \alias{bcbio<-,bcbioRNADataSet-method}
-\title{\link{bcbioRNADataSet} object accessors}
+\title{bcbioRNADataSet object accessors}
 \usage{
 \S4method{bcbio}{bcbioRNADataSet}(object, type = "counts")
 
 \S4method{bcbio}{bcbioRNADataSet}(object, type = "counts") <- value
 }
 \arguments{
-\item{object}{\link{bcbioRNADataSet} object.}
+\item{object}{Object.}
 
 \item{...}{Additional arguments.}
 

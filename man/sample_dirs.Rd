@@ -4,12 +4,12 @@
 \name{sample_dirs}
 \alias{sample_dirs}
 \alias{sample_dirs,bcbioRNADataSet-method}
-\title{Sample directories of \link{bcbioRNADataSet} object.}
+\title{Sample directories}
 \usage{
 \S4method{sample_dirs}{bcbioRNADataSet}(object)
 }
 \arguments{
-\item{object}{\link{bcbioRNADataSet} object.}
+\item{object}{Primary object.}
 }
 \value{
 Folders where samples are kept.

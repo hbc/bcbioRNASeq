@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots-de.R
 \name{plot_ma}
 \alias{plot_ma}
-\title{\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} wrapper}
+\title{MA-plot from base means and log fold changes}
 \usage{
 plot_ma(res, ylim = 2L)
 }
@@ -15,7 +15,7 @@ plot_ma(res, ylim = 2L)
 Mean average (MA) \link{ggplot}.
 }
 \description{
-This wrapper function generates a title automatically.
+\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} wrapper that generates a title automatically.
 }
 \author{
 Michael Steinbaugh

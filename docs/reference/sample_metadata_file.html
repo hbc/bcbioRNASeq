@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a> contrast name — .res_contrast_name • bcbioRnaseq</title>
+<title>Read custom metadata file — .sample_metadata_file • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,27 +80,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a> contrast name</h1>
+    <h1>Read custom metadata file</h1>
     </div>
 
     
-    <p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a> contrast name</p>
+    <p>Read custom metadata file</p>
     
 
-    <pre class="usage"><span class='fu'>.res_contrast_name</span>(<span class='no'>res</span>)</pre>
+    <pre class="usage"><span class='fu'>.sample_metadata_file</span>(<span class='no'>file</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pattern_col</span> <span class='kw'>=</span> <span class='st'>"description"</span>,
+  <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>res</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
+      <th>file</th>
+      <td><p>Metadata file. CSV and XLSX formats are supported.</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p><em>Optional</em>. Grep pattern to match against sample names.</p></td>
+    </tr>
+    <tr>
+      <th>pattern_col</th>
+      <td><p><em>Optional</em>. Column in data frame used for pattern
+subsetting.</p></td>
+    </tr>
+    <tr>
+      <th>lanes</th>
+      <td><p><em>Optional</em>. Number of lanes used to split the samples into
+technical replicates (<code>_LXXX</code>) suffix.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Contrast name string.</p>
+    <p>data.frame with <code>description</code> as rowname.</p>
     
 
   </div>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots-pca.R
 \name{plot_pca}
 \alias{plot_pca}
-\title{Plot principal component analysis (PCA)}
+\title{Sample PCA plot for transformed data}
 \usage{
 plot_pca(bcb, dt, genes = NULL, interesting_groups = NULL, shape = FALSE,
   label = TRUE)
@@ -13,26 +13,23 @@ plot_pca(bcb, dt, genes = NULL, interesting_groups = NULL, shape = FALSE,
 \item{dt}{\link{DESeqTransform} generated from \code{\link[=rlog]{rlog()}} (\strong{recommended}) or
 \code{\link[=vst]{vst()}} on a \link{DESeqDataSet}.}
 
-\item{genes}{Character vector of gene identifiers to use.}
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
 
-\item{interesting_groups}{Interesting groups to use for point appearance. If \code{NULL},
-color defaults to all \code{interesting_groups} parameters set in \link{bcbioRNADataSet}.}
+\item{interesting_groups}{\emph{Optional}. Interesting groups to use for point
+appearance. If \code{NULL}, color defaults to all \code{interesting_groups}
+parameters set in \link{bcbioRNADataSet}.}
 
-\item{shape}{Make points easier to inspect with differing shapes.}
+\item{shape}{\emph{Optional}. Make points easier to inspect with differing shapes.}
 
-\item{label}{Superimpose sample text labels on the plot.}
+\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
 }
 \value{
 \link{ggplot}.
 }
 \description{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves PCA sample coloring and
-labeling.
+Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
+(PCA) sample coloring and labeling.
 }
 \seealso{
-\itemize{
-\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
-\item \href{https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R}{plotPCA source code}.
-\item \href{https://support.bioconductor.org/p/51270/}{Bioconductor thread on ntop usage}.
-}
+\code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
 }

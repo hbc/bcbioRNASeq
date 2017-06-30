@@ -92,7 +92,7 @@ metadata, and program versions used.</p>
 
     <pre class="usage"><span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
   <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>sample_metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -104,7 +104,8 @@ running <code>bcbio_nextgen -w template</code>.</p></td>
     </tr>
     <tr>
       <th>analysis</th>
-      <td><p>Analysis type (e.g. <code>rnaseq</code> or <code>srnaseq</code>).</p></td>
+      <td><p>Analysis type. Supports RNA-seq (<code>rnaseq</code>; <strong>default</strong>) or
+small RNA-seq (<code>srnaseq</code>).</p></td>
     </tr>
     <tr>
       <th>interesting_groups</th>
@@ -113,20 +114,26 @@ is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.</p></td>
     </tr>
     <tr>
-      <th>design</th>
-      <td><p>(<em>Optional</em>). Design formula for DESeq2.See
-<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/design'>DESeq2::design()</a></code> for more information.</p></td>
-    </tr>
-    <tr>
-      <th>contrast</th>
-      <td><p>(<em>Optional</em>). Contrast vector for DESeq2. See
-<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for more information.</p></td>
-    </tr>
-    <tr>
-      <th>metadata_file</th>
+      <th>sample_metadata_file</th>
       <td><p>(<em>Optional</em>). Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.</p></td>
+    </tr>
+    <tr>
+      <th>experiment_name</th>
+      <td><p>Experiment name.</p></td>
+    </tr>
+    <tr>
+      <th>principal_investigator</th>
+      <td><p>Principal investigator.</p></td>
+    </tr>
+    <tr>
+      <th>researcher</th>
+      <td><p>Researcher who performed the experiment.</p></td>
+    </tr>
+    <tr>
+      <th>email</th>
+      <td><p>Email for follow-up correspondence.</p></td>
     </tr>
     </table>
     
@@ -154,16 +161,14 @@ run directory as a remote connection over
 
     <h2>Author</h2>
     
-Michael Steinbaugh
-
-Lorena Patano
+Michael Steinbaugh, Lorena Patano
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

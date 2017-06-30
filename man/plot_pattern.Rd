@@ -2,7 +2,7 @@
 % Please edit documentation in R/plots-de.R
 \name{plot_pattern}
 \alias{plot_pattern}
-\title{\code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}} wrapper}
+\title{Make groups of genes using expression profile}
 \usage{
 plot_pattern(bcb, res, fdr = 0.1, n = NULL, ...)
 }
@@ -18,7 +18,8 @@ plot_pattern(bcb, res, fdr = 0.1, n = NULL, ...)
 \item{...}{Additional parameters.}
 }
 \description{
-Adds support for a \link{bcbioRNADataSet} object.
+\code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}} wrapper that adds support for a \link{bcbioRNADataSet}
+object.
 }
 \author{
 Lorena Pantano

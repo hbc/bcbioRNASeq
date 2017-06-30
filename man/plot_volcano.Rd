@@ -22,7 +22,7 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
 
 \item{direction}{Plot \code{up}, \code{down}, or \code{both} directions.}
 
-\item{title}{(\emph{Optional}). Custom title.}
+\item{title}{\emph{Optional}. Custom plot title.}
 
 \item{shade_color}{Shading color for bounding box.}
 

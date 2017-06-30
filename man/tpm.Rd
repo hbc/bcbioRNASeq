@@ -9,8 +9,11 @@
 \S4method{tpm}{bcbioRNADataSet}(object)
 }
 \arguments{
-\item{object}{\link{bcbioRNADataSet} object.}
+\item{object}{Object.}
 }
 \description{
 Transcripts per million (TPM)
+}
+\author{
+Michael Steinbaugh
 }

@@ -23,3 +23,6 @@ The \code{metadata} accessor contains:
 \item R local environment information, including \code{\link[=sessionInfo]{sessionInfo()}}.
 }
 }
+\author{
+Lorena Patano, Michael Steinbaugh
+}

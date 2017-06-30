@@ -84,10 +84,12 @@
     </div>
 
     
-    <p>Supports automatic loading of <code>.csv</code>, <code>.tsv</code>, <code>.xlsx</code>, and <code>.counts</code> files.</p>
+    <p>Supports automatic loading of standard <code>.csv</code>, <code>.tsv</code>, and <code>.xlsx</code>
+files. Also supports bcbio-nextgen pipeline-specific <code>.counts</code>, <code>.colnames</code>,
+and <code>.rownames</code> files.</p>
     
 
-    <pre class="usage"><span class='fu'>.read_file</span>(<span class='no'>file</span>, <span class='kw'>column_to_rownames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>.read_file</span>(<span class='no'>file</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,10 +99,6 @@
       <td><p>File path.</p></td>
     </tr>
     <tr>
-      <th>column_to_rownames</th>
-      <td><p>Column identifier to use for row names.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>Additional parameters.</p></td>
     </tr>
@@ -108,14 +106,12 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>DataFrame.</p>
+    <p>tibble.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <ul>
-<li><p><a href='http://readr.tidyverse.org'>readr</a></p></li>
-<li><p><a href='http://readxl.tidyverse.org'>readxl</a></p></li>
-</ul>
+    <p><a href='http://readr.tidyverse.org'>readr</a>,
+<a href='http://readxl.tidyverse.org'>readxl</a>.</p>
     
 
   </div>
@@ -138,7 +134,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

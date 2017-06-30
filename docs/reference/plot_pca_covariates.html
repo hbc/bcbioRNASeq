@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find correlation between PCs and covariates — plot_pca_covariates • bcbioRnaseq</title>
+<title>Find correlation between principal components (PCs) and covariates. — plot_pca_covariates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,11 +80,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find correlation between PCs and covariates</h1>
+    <h1>Find correlation between principal components (PCs) and covariates.</h1>
     </div>
 
     
-    <p>Find correlation between PCs and covariates</p>
+    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
     
 
     <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
@@ -102,7 +102,7 @@
     </tr>
     <tr>
       <th>use</th>
-      <td><p>Character vector. List of columns to use in degCovariates.</p></td>
+      <td><p><em>Optional</em>. Character vector of columns to use.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -127,7 +127,7 @@ Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

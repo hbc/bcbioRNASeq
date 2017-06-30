@@ -20,7 +20,5 @@ Printed summary.
 Print summary statistics of alpha level cutoffs
 }
 \author{
-Michael Steinbaugh
-
-Lorena Patano
+Michael Steinbaugh, Lorena Patano
 }

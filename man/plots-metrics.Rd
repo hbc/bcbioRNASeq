@@ -44,11 +44,12 @@ plot_count_density(bcb, normalized = "tmm")
 
 \item{warn_limit}{Threshold to plot warning color marker.}
 
-\item{interesting_groups}{(\emph{Optional}). Category to use to group samples
-(color and shape). If unset, this is automatically determined by
-the metadata set inside the \link{bcbioRNADataSet}.}
+\item{interesting_groups}{\emph{Optional}. Category to use to group samples (color
+and shape). If unset, this is automatically determined by the metadata set
+inside the \link{bcbioRNADataSet}.}
 
-\item{filter_value}{Numeric value for filtering the counts matrix before plotting. Default 0.}
+\item{filter_value}{Numeric value for filtering the counts matrix before
+plotting.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}

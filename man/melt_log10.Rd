@@ -24,7 +24,7 @@
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts (\code{tmm}).}
 
-\item{interesting_groups}{Interesting groups.}
+\item{interesting_groups}{\emph{Optional}. Interesting groups.}
 }
 \value{
 log10 melted \link{data.frame}.
