@@ -1,4 +1,4 @@
-#' Get contrast name from [DESeqResults]
+#' [DESeqResults] contrast name
 #'
 #' @rdname res_contrast_name
 #' @keywords internal
