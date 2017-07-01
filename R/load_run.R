@@ -35,7 +35,7 @@ load_run <- function(
     design = NULL,
     contrast = NULL,
     sample_metadata_file = NULL) {
-    # Directory paths ----
+    # Directory paths ====
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
         stop("Final upload directory failed to load")
@@ -79,11 +79,11 @@ load_run <- function(
         yaml[["samples"]],
         function(x) x[["description"]],
         character(1L)) %>% sort
+    sample_dirs <- file.path(upload_dir, sample_names) %>%
+        set_names(sample_names)
     if (!identical(basename(sample_dirs), sample_names)) {
         stop("Sample name assignment mismatch")
     }
-    sample_dirs <- file.path(upload_dir, sample_names) %>%
-        set_names(sample_names)
     message(paste(length(sample_dirs), "samples detected"))
 
 
@@ -145,9 +145,9 @@ load_run <- function(
         interesting_groups = interesting_groups,
         organism = organism,
         genome_build = genome_build,
-        ensembl_version = ensembl_version,
         annotable = annotable,
         tx2gene = tx2gene,
+        ensembl_version = annotables::ensembl_version,
         lanes = lanes,
         yaml_file = yaml_file,
         yaml = yaml,

@@ -69,3 +69,10 @@ setGeneric("tmm", function(object) standardGeneric("tmm"))
 #' @usage NULL
 #' @export
 setGeneric("tpm", function(object) standardGeneric("tpm"))
+
+
+
+#' @rdname txi
+#' @usage NULL
+#' @export
+setGeneric("txi", function(object) standardGeneric("txi"))

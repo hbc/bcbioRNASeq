@@ -26,3 +26,6 @@ basejump::rowData
 
 #' @export
 basejump::save_data
+
+#' @export
+basejump::write_counts
