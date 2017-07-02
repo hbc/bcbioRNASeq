@@ -12,7 +12,10 @@
 #' @param object Object.
 #' @param ... Additional parameters.
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts used for QC functions (`tmm`).
+#' or specifically request additional normalization methods:
+#'
+#' - `tpm`: Transcripts per million.
+#' - `tmm`: Trimmed mean of M-values.
 #'
 #' @return Counts matrix
 #' @export
@@ -22,8 +25,10 @@
 #' # Raw counts
 #' counts(bcb, normalized = FALSE)
 #'
-#' # TPM
+#' # Normalized counts
 #' counts(bcb, normalized = TRUE)
+#'
+#' # TPM
 #' counts(bcb, normalized = "tpm")
 #'
 #' # TMM
@@ -31,19 +36,16 @@
 #' }
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
-        assay(object)
-    } else if (isTRUE(normalized) | normalized == "tpm") {
-        message("Transcripts per million (TPM)")
-        tpm(object)
-    } else if  (normalized == "tmm") {
-        message("Trimmed mean of M-values normalization")
-        tmm(object)
-    }  else {
-        counts <- assays(object)[[normalized]]
-        if (is.null(counts)) {
-            stop("Assay missing in SummarizedExperiment")
-        }
-        message(paste(normalized, "normalization"))
-        counts
+        slot <- "raw_counts"
+    } else if (normalized == TRUE) {
+        slot <- "normalized_counts"
+    } else {
+        slot <- normalized
     }
+
+    # Check for slot presence
+    if (!slot %in% names(assays(object))) {
+    }
+
+    assays(object)[[slot]]
 })
