@@ -48,7 +48,7 @@
 
 
     # Metadata ====
-    if (!is.null(metadata)) {
+    if (is.null(metadata)) {
         metadata <- SimpleList()
     } else {
         metadata <- as(metadata, "SimpleList")
