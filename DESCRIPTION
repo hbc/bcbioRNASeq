@@ -50,6 +50,7 @@ Imports:
     methods,
     pheatmap,
     S4Vectors,
+    stats,
     SummarizedExperiment,
     tximport (>= 1.4.0),
     utils,

@@ -8,6 +8,9 @@
 \usage{
 \S4method{txi}{bcbioRNADataSet}(object)
 }
+\arguments{
+\item{object}{Object.}
+}
 \value{
 \code{\link[tximport:tximport]{tximport::tximport()}} list.
 }
@@ -17,5 +20,3 @@ Access tximport data in bcbioRNADataSet
 \author{
 Michael Steinbaugh
 }
-\keyword{Object.}
-\keyword{object}

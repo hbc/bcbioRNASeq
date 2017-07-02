@@ -18,6 +18,7 @@
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
+#' @importFrom stats formula
 #' @importFrom tximport tximport
 #' @importFrom utils read.table capture.output
 #' @importFrom vsn meanSdPlot

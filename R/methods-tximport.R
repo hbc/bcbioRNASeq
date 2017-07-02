@@ -3,7 +3,7 @@
 #' @rdname txi
 #' @author Michael Steinbaugh
 #'
-#' @keywords object Object.
+#' @param object Object.
 #'
 #' @return [tximport::tximport()] list.
 #' @export
