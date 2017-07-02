@@ -40,7 +40,7 @@ Imports:
     basejump (>= 0.0.17),
     BiocGenerics,
     cowplot,
-    data.table (>= 1.10),
+    data.table,
     DEGreport (>= 1.13.4),
     DESeq2 (>= 1.16.0),
     edgeR (>= 3.18.0),
