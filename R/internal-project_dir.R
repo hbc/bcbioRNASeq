@@ -6,7 +6,7 @@
 #'
 #' @param project_dir Project directory.
 .data_versions <- function(project_dir) {
-    file.path(project_dir, "data_versions.csv") %>% .read_file
+    file.path(project_dir, "data_versions.csv") %>% read_csv
 }
 
 
@@ -20,5 +20,6 @@
 #' @param project_dir Project directory.
 .programs <- function(project_dir) {
     file.path(project_dir, "programs.txt") %>%
-        .read_file(col_names = c("program", "version"), delim = ",")
+        read_delim(col_names = c("program", "version"),
+                   delim = ",")
 }
