@@ -8,5 +8,5 @@
 #' @return [tximport::tximport()] list.
 #' @export
 setMethod("txi", "bcbioRNADataSet", function(object) {
-    object@tximport
+    bcbio(object, type = "tximport")
 })
