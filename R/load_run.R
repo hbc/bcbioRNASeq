@@ -157,7 +157,7 @@ load_run <- function(
 
     # Add user-defined custom metadata, if specified
     dots <- list(...)
-    if (length(dots) > 0) {
+    if (length(dots) > 0L) {
         metadata <- c(metadata, dots)
     }
 

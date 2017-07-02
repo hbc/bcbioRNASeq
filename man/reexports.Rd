@@ -19,6 +19,8 @@
 \alias{reexports}
 \alias{save_data}
 \alias{reexports}
+\alias{write_counts}
+\alias{reexports}
 \alias{degCovariates}
 \alias{reexports}
 \alias{DESeq}
@@ -45,7 +47,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{metadata}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}}
+  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{metadata}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}, \code{\link[basejump]{write_counts}}}
 
   \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 

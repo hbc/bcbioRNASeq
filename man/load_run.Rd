@@ -5,8 +5,7 @@
 \title{Load bcbio-nextgen run}
 \usage{
 load_run(upload_dir = "final", analysis = "rnaseq",
-  interesting_groups = "description", design = NULL, contrast = NULL,
-  sample_metadata_file = NULL)
+  interesting_groups = "description", sample_metadata_file = NULL, ...)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
@@ -23,13 +22,7 @@ is used for PCA and heatmap QC functions.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 
-\item{experiment_name}{Experiment name.}
-
-\item{principal_investigator}{Principal investigator.}
-
-\item{researcher}{Researcher who performed the experiment.}
-
-\item{email}{Email for follow-up correspondence.}
+\item{...}{Additional arguments, saved as metadata in the object.}
 }
 \value{
 \link{bcbioRNADataSet}.
