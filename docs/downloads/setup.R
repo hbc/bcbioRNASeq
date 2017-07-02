@@ -1,3 +1,10 @@
+# bcbioRnaseq ====
+library(bcbioRnaseq)
+out_path <- getwd()
+data_out <- file.path(out_path, "data")
+count_out <- file.path(out_path, "results", "counts")
+res_out <- file.path(out_path, "results", "de")
+
 # knitr ====
 library(knitr)
 opts_chunk$set(
@@ -16,50 +23,6 @@ opts_chunk$set(
     tidy = TRUE,
     warning = FALSE)
 
-
-
 # ggplot2 ====
 library(ggplot2)
 theme_set(theme_light(base_size = 14))
-
-
-
-# bcbioRnaseq ====
-library(bcbioRnaseq)
-
-# Upload directory: location of the bcbio-nextgen final output
-upload_dir <- "final"
-
-# Columns in the colData in metadata you want to use
-interesting_groups <- c("genotype", "treatment")
-# Contrast
-# 1. Design matrix parameter.
-# 2. Numerator for LFC (expt).
-# 3. Denominator for LFC (control).
-# @seealso [DESeq2::results()]
-contrast <- c("genotype", "mutant", "wildtype")
-
-# Design formula
-design <- formula(~genotype) # change to desire column
-
-# Output directory paths
-out_path <- getwd()
-data_out <- file.path(out_path, "data")
-count_out <- file.path(out_path, "results", "counts")
-res_out <- file.path(out_path, "results", "de")
-
-# bcbioRnaDataSet
-if (file.exists(file.path(data_out, "bcb.rda"))) {
-    load(file.path(data_out, "bcb.rda"))
-} else {
-    bcb <- load_run(
-        upload_dir = file.path(upload_dir),
-        interesting_groups = interesting_groups)
-    save_data(bcb, dir = data_out)
-}
-
-# DESeqDataSet
-if (file.exists(file.path(data_out, "dds.rda")))
-    load(file.path(data_out, "dds.rda"))
-if (file.exists(file.path(data_out, "ddsde.rda")))
-    load(file.path(data_out, "ddsde.rda"))
