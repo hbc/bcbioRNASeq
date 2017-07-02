@@ -163,7 +163,7 @@ load_run <- function(
 
 
     # tximport ====
-    tximport <- .tximport(sample_dirs, tx2gene = tx2gene)
+    txi <- .tximport(sample_dirs, tx2gene = tx2gene)
 
 
     # SummarizedExperiment ====
@@ -173,7 +173,7 @@ load_run <- function(
         col_data <- .yaml_metadata(yaml)
     }
     se <- .summarized_experiment(
-        tximport = tximport,
+        txi = txi,
         col_data = col_data,
         row_data = annotable,
         metadata = metadata)
@@ -181,6 +181,6 @@ load_run <- function(
 
     # bcbioRNADataSet ====
     bcb <- new("bcbioRNADataSet", se)
-    bcbio(bcb, "tximport") <- tximport
+    bcbio(bcb, "tximport") <- txi
     bcb
 }

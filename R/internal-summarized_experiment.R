@@ -8,14 +8,14 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param tximport [tximport] list.
+#' @param txi [tximport] list.
 #' @param col_data Sample metadata.
 #' @param row_data [Ensembl](http://www.ensembl.org/) gene annotations.
 #' @param metadata Custom metadata.
 #'
 #' @return [SummarizedExperiment].
 .summarized_experiment <- function(
-    tximport,
+    txi,
     col_data,
     row_data,
     metadata = NULL) {
@@ -23,26 +23,28 @@
 
 
     # tximport ====
-    counts <- tximport[["counts"]]
-    # TODO Add check for `lengthScaledTPM`, otherwise return NULL?
-    tpm <- tximport[["abundance"]]
-
-
-    # TMM normalization (edgeR) ====
-    tmm <- .tmm(counts)
+    counts <- txi[["counts"]]
 
 
     # colData ====
-    col_data <- col_data[colnames(counts), , drop = FALSE]
+    col_data <- col_data[colnames(counts), drop = FALSE]
     rownames(col_data) <- colnames(counts)
 
 
     # rowData ====
-    row_data <- row_data[rownames(counts), , drop = FALSE]
+    row_data <- row_data[rownames(counts), drop = FALSE]
     rownames(row_data) <- rownames(counts)
     if (!identical(rownames(counts), rownames(row_data))) {
         stop("Gene identifier mismatch")
     }
+
+
+    # DESeqDataSet ====
+    dds <- DESeqDataSetFromTximport(
+        txi = txi,
+        colData = col_data,
+        design = formula(~ 1L)) %>%
+        DESeq
 
 
     # Metadata ====
@@ -62,7 +64,6 @@
     # annotable build is used than the genome build. If present, store these
     # identifiers in the metadata.
     if (any(is.na(row_data[["ensgene"]]))) {
-        warning("Ensembl identifier degradation detected")
         metadata[["retired_ensgene"]] <- row_data %>%
             as_tibble %>%
             filter(is.na(.data[["ensgene"]])) %>%
@@ -75,8 +76,11 @@
     SummarizedExperiment(
         assays = SimpleList(
             counts = counts,
-            tpm = tpm,
-            tmm = tmm),
+            normalized_counts = counts(dds, normalized = TRUE),
+            tpm = txi[["abundance"]],
+            tmm = .tmm(counts),
+            rld = rlog(dds),
+            vst = varianceStabilizingTransformation(dds)),
         colData = col_data,
         rowData = row_data,
         metadata = metadata)
