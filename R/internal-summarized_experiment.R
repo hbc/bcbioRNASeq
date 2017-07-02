@@ -27,12 +27,12 @@
 
 
     # colData ====
-    col_data <- col_data[colnames(counts), drop = FALSE]
+    col_data <- col_data[colnames(counts), , drop = FALSE]
     rownames(col_data) <- colnames(counts)
 
 
     # rowData ====
-    row_data <- row_data[rownames(counts), drop = FALSE]
+    row_data <- row_data[rownames(counts), , drop = FALSE]
     rownames(row_data) <- rownames(counts)
     if (!identical(rownames(counts), rownames(row_data))) {
         stop("Gene identifier mismatch")

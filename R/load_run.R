@@ -53,7 +53,7 @@ load_run <- function(
     project_dir <- file.path(upload_dir, project_dir)
 
 
-    # Analysis ====
+    # Analysis type ====
     supported_analyses <- c("rnaseq", "srnaseq")
     if (!analysis %in% supported_analyses) {
         stop(paste("Supported analyses:", toString(supported_analyses)))
@@ -118,12 +118,10 @@ load_run <- function(
     metrics <- .yaml_metrics(yaml)
 
 
-    # Data versions and programs ====
+    # bcbio-nextgen run information ====
+    message("Reading bcbio run information")
     data_versions <- .data_versions(project_dir)
     programs <- .programs(project_dir)
-
-
-    # Log files ====
     bcbio_nextgen <- read_lines(
         file.path(project_dir, "bcbio-nextgen.log"))
     bcbio_nextgen_commands <- read_lines(
