@@ -23,18 +23,18 @@
 
 
     # tximport ====
-    counts <- txi[["counts"]]
+    raw_counts <- txi[["counts"]]
 
 
     # colData ====
-    col_data <- col_data[colnames(counts), , drop = FALSE]
-    rownames(col_data) <- colnames(counts)
+    col_data <- col_data[colnames(raw_counts), , drop = FALSE]
+    rownames(col_data) <- colnames(raw_counts)
 
 
     # rowData ====
-    row_data <- row_data[rownames(counts), , drop = FALSE]
-    rownames(row_data) <- rownames(counts)
-    if (!identical(rownames(counts), rownames(row_data))) {
+    row_data <- row_data[rownames(raw_counts), , drop = FALSE]
+    rownames(row_data) <- rownames(raw_counts)
+    if (!identical(rownames(raw_counts), rownames(row_data))) {
         stop("Gene identifier mismatch")
     }
 
@@ -75,7 +75,7 @@
     # Return  ====
     SummarizedExperiment(
         assays = SimpleList(
-            counts = counts,
+            raw_counts = raw_counts,
             normalized_counts = counts(dds, normalized = TRUE),
             tpm = txi[["abundance"]],
             tmm = .tmm(counts),
