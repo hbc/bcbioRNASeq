@@ -34,7 +34,7 @@
 #' @export
 setMethod("bcbio", "bcbioRNADataSet", function(object, type = "counts") {
     if (type == "counts") {
-        assays(object)[["counts"]]
+        assays(object)[["raw_counts"]]
     } else if (type %in% names(slot(object, "callers"))) {
         slot(object, "callers")[[type]]
     } else {
@@ -51,8 +51,9 @@ setMethod(
     signature(object = "bcbioRNADataSet", value = "ANY"),
     function(object, type = "counts", value) {
         if (type == "counts") {
-            assays(object)[["counts"]] <- value
+            assays(object)[["raw_counts"]] <- value
             validObject(object)
+            # FIXME If reslotting, need to re-run normalizations
         } else {
             slot(object, "callers")[[type]] <- value
         }
