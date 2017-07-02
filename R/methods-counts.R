@@ -11,11 +11,14 @@
 #'
 #' @param object Object.
 #' @param ... Additional parameters.
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request additional normalization methods:
+#' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
+#'   (`TRUE`), or additional normalization methods:
 #'
 #' - `tpm`: Transcripts per million.
-#' - `tmm`: Trimmed mean of M-values.
+#' - `tmm`: Trimmed mean of M-values (edgeR).
+#' - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
+#' - `vst`: Variance stabilizing transformation
+#'   ([DESeq2::varianceStabilizingTransformation()]).
 #'
 #' @return Counts matrix
 #' @export
@@ -25,7 +28,7 @@
 #' # Raw counts
 #' counts(bcb, normalized = FALSE)
 #'
-#' # Normalized counts
+#' # DESeq2 normalized counts
 #' counts(bcb, normalized = TRUE)
 #'
 #' # TPM
@@ -33,6 +36,12 @@
 #'
 #' # TMM
 #' counts(bcb, normalized = "tmm")
+#'
+#' # rlog
+#' counts(bcb, normalized = "rlog")
+#'
+#' # VST
+#' counts(bcb, normalized = "vst")
 #' }
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
@@ -45,6 +54,7 @@ setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
 
     # Check for slot presence
     if (!slot %in% names(assays(object))) {
+        stop("Unsupported normalization method")
     }
 
     assays(object)[[slot]]

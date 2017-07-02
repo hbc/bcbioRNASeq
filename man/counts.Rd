@@ -13,8 +13,15 @@
 
 \item{...}{Additional parameters.}
 
-\item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
-or specifically request TMM-normalized counts used for QC functions (\code{tmm}).}
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
 }
 \value{
 Counts matrix
@@ -29,12 +36,20 @@ be overriden by requesting the normalization method directly.
 # Raw counts
 counts(bcb, normalized = FALSE)
 
-# TPM
+# DESeq2 normalized counts
 counts(bcb, normalized = TRUE)
+
+# TPM
 counts(bcb, normalized = "tpm")
 
 # TMM
 counts(bcb, normalized = "tmm")
+
+# rlog
+counts(bcb, normalized = "rlog")
+
+# VST
+counts(bcb, normalized = "vst")
 }
 }
 \author{

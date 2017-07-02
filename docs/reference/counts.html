@@ -105,8 +105,14 @@ be overriden by requesting the normalization method directly.</p>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Select normalized counts (<code>TRUE</code>), raw counts (<code>FALSE</code>),
-or specifically request TMM-normalized counts used for QC functions (<code>tmm</code>).</p></td>
+      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
+(<code>TRUE</code>), or additional normalization methods:</p><ul>
+<li><p><code>tpm</code>: Transcripts per million.</p></li>
+<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
+<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
+<li><p><code>vst</code>: Variance stabilizing transformation
+(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+</ul></td>
     </tr>
     </table>
     
@@ -120,12 +126,20 @@ or specifically request TMM-normalized counts used for QC functions (<code>tmm</
 <span class='co'># Raw counts</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># TPM</span>
+<span class='co'># DESeq2 normalized counts</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># TPM</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>)
 
 <span class='co'># TMM</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>)
+
+<span class='co'># rlog</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>)
+
+<span class='co'># VST</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
