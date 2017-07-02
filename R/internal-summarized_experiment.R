@@ -79,7 +79,7 @@
             normalized_counts = counts(dds, normalized = TRUE),
             tpm = txi[["abundance"]],
             tmm = .tmm(counts),
-            rld = rlog(dds),
+            rlog = rlog(dds),
             vst = varianceStabilizingTransformation(dds)),
         colData = col_data,
         rowData = row_data,
