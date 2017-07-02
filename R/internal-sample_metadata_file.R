@@ -17,7 +17,7 @@
     pattern = NULL,
     pattern_col = "description",
     lanes = NULL) {
-    meta <- .read_file(file) %>% as.data.frame
+    meta <- read_file_by_extension(file)
     # First column must be the FASTQ file name
     names(meta)[[1L]] <- "file_name"
     meta <- meta %>%
