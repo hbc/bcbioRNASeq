@@ -46,9 +46,10 @@
 
 
     # Metadata ====
-    # Coerce to [SimpleList], if necessary
     if (!is.null(metadata)) {
         metadata <- SimpleList()
+    } else {
+        metadata <- as(metadata, "SimpleList")
     }
 
     # Update automatic metadata slots

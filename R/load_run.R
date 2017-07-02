@@ -21,10 +21,7 @@
 #' @param sample_metadata_file (*Optional*). Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
-#' @param experiment_name Experiment name.
-#' @param principal_investigator Principal investigator.
-#' @param researcher Researcher who performed the experiment.
-#' @param email Email for follow-up correspondence.
+#' @param ... Additional arguments, saved as metadata in the object.
 #'
 #' @return [bcbioRNADataSet].
 #' @export
@@ -32,9 +29,8 @@ load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
     interesting_groups = "description",
-    design = NULL,
-    contrast = NULL,
-    sample_metadata_file = NULL) {
+    sample_metadata_file = NULL,
+    ...) {
     # Directory paths ====
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
@@ -92,7 +88,7 @@ load_run <- function(
     genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
     organism <- .detect_organism(genome_build)
     message(paste("Genome:", organism, genome_build))
-    annotable <- .annotable(genome_build)
+    annotable <- annotable(genome_build)
     tx2gene <- .tx2gene(project_dir, genome_build)
 
 
@@ -135,7 +131,7 @@ load_run <- function(
 
 
     # Metadata ====
-    metadata <- SimpleList(
+    metadata <- list(
         analysis = analysis,
         upload_dir = upload_dir,
         sample_dirs = sample_dirs,
@@ -145,9 +141,9 @@ load_run <- function(
         interesting_groups = interesting_groups,
         organism = organism,
         genome_build = genome_build,
+        ensembl_version = annotables::ensembl_version,
         annotable = annotable,
         tx2gene = tx2gene,
-        ensembl_version = annotables::ensembl_version,
         lanes = lanes,
         yaml_file = yaml_file,
         yaml = yaml,
@@ -157,11 +153,13 @@ load_run <- function(
         data_versions = data_versions,
         programs = programs,
         bcbio_nextgen = bcbio_nextgen,
-        bcbio_nextgen_commands = bcbio_nextgen_commands,
-        experiment_name = experiment_name,
-        principal_investigator = principal_investigator,
-        researcher = researcher,
-        email = email)
+        bcbio_nextgen_commands = bcbio_nextgen_commands)
+
+    # Add user-defined custom metadata, if specified
+    dots <- list(...)
+    if (length(dots) > 0) {
+        metadata <- c(metadata, dots)
+    }
 
 
     # tximport ====
