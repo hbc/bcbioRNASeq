@@ -128,6 +128,14 @@ load_run <- function(
         file.path(project_dir, "bcbio-nextgen-commands.log"))
 
 
+    # colData ====
+    if (!is.null(sample_metadata)) {
+        col_data <- sample_metadata
+    } else {
+        col_data <- .yaml_metadata(yaml)
+    }
+
+
     # Metadata ====
     metadata <- list(
         analysis = analysis,
@@ -162,16 +170,27 @@ load_run <- function(
 
     # tximport ====
     txi <- .tximport(sample_dirs, tx2gene = tx2gene)
+    raw_counts <- txi[["counts"]]
+    tpm <- txi[["abundance"]]
+
+
+    # DESeqDataSet ====
+    dds <- DESeqDataSetFromTximport(
+        txi = txi,
+        colData = col_data,
+        design = formula(~1L)) %>%
+        DESeq
 
 
     # SummarizedExperiment ====
-    if (!is.null(sample_metadata)) {
-        col_data <- sample_metadata
-    } else {
-        col_data <- .yaml_metadata(yaml)
-    }
     se <- .summarized_experiment(
-        txi = txi,
+        assays = SimpleList(
+            raw_counts = raw_counts,
+            tpm = tpm,
+            normalized_counts = counts(dds, normalized = TRUE),
+            tmm = .tmm(raw_counts),
+            rlog = rlog(dds),
+            vst = varianceStabilizingTransformation(dds)),
         col_data = col_data,
         row_data = annotable,
         metadata = metadata)
