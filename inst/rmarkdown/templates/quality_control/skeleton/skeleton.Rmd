@@ -31,7 +31,7 @@ write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 
 
 
-# [DESeq2][] fit modeling
+# Fit modeling
 
 Several quality metrics were first assessed to explore the fit of the model, before differential expression analysis was performed. We observe that the modeling fit is good.
 
@@ -46,7 +46,7 @@ plot_mean_sd(bcb)
 
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
-```{r plotDispEsts}
+```{r plot_dispersion}
 plot_dispersion(bcb)
 ```
 
@@ -127,7 +127,6 @@ plot_rrna_mapping_rate(bcb)
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-# Add intgroup option to change colors
 plot_counts_per_gene(bcb)
 ```
 

@@ -32,15 +32,13 @@ lfc <- 0
 
 
 ```{r dds, results="hide"}
-txi <- bcbio(bcb, "tximport")
-colData <- colData(bcb)
 dds <- DESeqDataSetFromTximport(
-    txi = txi,
-    colData = colData,
+    txi = txi(bcb),
+    colData = colData(bcb),
     design = design) %>%
     DESeq
 rld <- rlog(dds)
-save_data(dds, dir = data_dir)
+save_data(dds, rld, dir = data_dir)
 ```
 
 
@@ -107,6 +105,7 @@ plot_deg_heatmap(bcb, res = res, lfc = lfc)
 ```
 
 
+
 # File downloads
 
 The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
@@ -140,7 +139,7 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `description`: [Ensembl][] description.
 - `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
-```{r res_tbl, results="asis"}
+```{r results_tables, results="asis"}
 res_tbl <- results_tables(bcb, res = res, lfc = lfc, dir = de_dir)
 save_data(res_tbl, dir = data_dir)
 ```
