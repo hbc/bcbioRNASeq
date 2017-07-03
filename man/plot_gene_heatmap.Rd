@@ -9,7 +9,7 @@ plot_gene_heatmap(bcb, dt = NULL, genes, clustering_method = "ward.D2",
   cluster_rows = TRUE, cluster_cols = TRUE, scale = "row",
   interesting_groups = NULL, annotation = NULL, title = NULL, ...)
 
-plot_deg_heatmap(bcb, dt, res, lfc, title = NULL, ...)
+plot_deg_heatmap(bcb, dt = NULL, res, lfc, title = NULL, ...)
 }
 \arguments{
 \item{bcb}{\link{bcbioRNADataSet}.}

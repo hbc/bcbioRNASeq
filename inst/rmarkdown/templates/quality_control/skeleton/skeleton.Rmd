@@ -9,10 +9,10 @@ bibliography: bcbioRnaseq.bib
 # Run [bcbioRnaseq::downloads()] to download `setup.R`
 source("setup.R")
 
-# bcbioRnaDataSet
-bcb <- load_run(
-    upload_dir = file.path("data", "final"),
-    interesting_groups = c("genotype", "treatment"))
+# bcbioRnaDataSet. Uncomment with correct values.
+# bcb <- load_run(
+#    upload_dir = file.path("data", "final"),
+#    interesting_groups = c("genotype", "treatment"))
 save_data(bcb, dir = data_dir)
 ```
 
@@ -31,14 +31,14 @@ write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 
 
 
-# [DESeq2][] fit modeling
+# Fit modeling
 
 Several quality metrics were first assessed to explore the fit of the model, before differential expression analysis was performed. We observe that the modeling fit is good.
 
 The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
 
 ```{r plot_mean_sd}
-plot_mean_sd(dds, rld, vsd)
+plot_mean_sd(bcb)
 ```
 
 
@@ -46,8 +46,8 @@ plot_mean_sd(dds, rld, vsd)
 
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
-```{r plotDispEsts}
-plotDispEsts(dds)
+```{r plot_dispersion}
+plot_dispersion(bcb)
 ```
 
 
@@ -127,7 +127,6 @@ plot_rrna_mapping_rate(bcb)
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-# Add intgroup option to change colors
 plot_counts_per_gene(bcb)
 ```
 
@@ -152,14 +151,14 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering. 
 
 ```{r plot_pca}
-plot_pca(bcb, rld)
+plot_pca(bcb)
 ```
 
 
 ## Covariates correlation with PCs
 
 ```{r plot_pca_covariates}
-plot_pca_covariates(bcb, rld)
+plot_pca_covariates(bcb)
 ```
 
 
@@ -168,7 +167,7 @@ plot_pca_covariates(bcb, rld)
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-plot_correlation_heatmap(bcb, rld)
+plot_correlation_heatmap(bcb)
 ```
 
 

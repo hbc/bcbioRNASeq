@@ -4,12 +4,15 @@
 \alias{alpha_summary}
 \title{Print summary statistics of alpha level cutoffs}
 \usage{
-alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06))
+alpha_summary(dds, alpha = c(0.1, 0.05, 0.01, 0.001, 1e-06),
+  contrast = NULL)
 }
 \arguments{
 \item{dds}{\link{DESeqDataSet}.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
+
+\item{contrast}{Character vector to use with \link{results} function.}
 }
 \value{
 \link{kable}.

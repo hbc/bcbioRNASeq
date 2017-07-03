@@ -49,6 +49,7 @@ Imports:
     isomiRs,
     methods,
     pheatmap,
+    rjson,
     S4Vectors,
     stats,
     SummarizedExperiment,
@@ -66,4 +67,4 @@ Remotes:
     lpantano/DEGreport,
     steinbaugh/basejump,
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

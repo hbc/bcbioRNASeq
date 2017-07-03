@@ -9,17 +9,17 @@ bibliography: bcbioRnaseq.bib
 # Run quality control template first to generate [bcbioRNADataSet]
 source("setup.R")
 library(DESeq2)
-data(bcb)
+data(bcb) # only works if rda saved in .data
 
-# Design formula
-design <- formula(~genotype)
+# Design formula. Uncomment with correct values
+# design <- formula(~genotype)
 
-# Contrast
+# Contrast. . Uncomment with correct values
 # 1. Design matrix parameter.
 # 2. Numerator for LFC (expt).
 # 3. Denominator for LFC (control).
 # @seealso [DESeq2::results()]
-contrast <- c("genotype", "mutant", "wildtype")
+# contrast <- c("genotype", "mutant", "wildtype")
 
 # Significance cutoffs
 alpha <- 0.05
@@ -32,15 +32,13 @@ lfc <- 0
 
 
 ```{r dds, results="hide"}
-txi <- bcbio(bcb, "tximport")
-colData <- colData(bcb)
 dds <- DESeqDataSetFromTximport(
-    txi = txi,
-    colData = colData,
+    txi = txi(bcb),
+    colData = colData(bcb),
     design = design) %>%
     DESeq
 rld <- rlog(dds)
-save_data(dds, dir = data_dir)
+save_data(dds, rld, dir = data_dir)
 ```
 
 
@@ -50,7 +48,7 @@ save_data(dds, dir = data_dir)
 Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
 ```{r alpha_summary, results="asis"}
-alpha_summary(dds, contrast = contrast)
+alpha_summary(dds)
 ```
 
 
@@ -103,8 +101,9 @@ plot_volcano(bcb, res = res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
-plot_deg_heatmap(bcb, res = res, dt = rld, lfc = lfc)
+plot_deg_heatmap(bcb, res = res, lfc = lfc)
 ```
+
 
 
 # File downloads
@@ -140,8 +139,8 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `description`: [Ensembl][] description.
 - `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
-```{r res_tbl, results="asis"}
-res_tbl <- res_tables(bcb, res = res, lfc = lfc, dir = de_dir)
+```{r results_tables, results="asis"}
+res_tbl <- results_tables(bcb, res = res, lfc = lfc, dir = de_dir)
 save_data(res_tbl, dir = data_dir)
 ```
 

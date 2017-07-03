@@ -207,7 +207,7 @@ plot_gene_heatmap <- function(
 #' @export
 plot_deg_heatmap <- function(
     bcb,
-    dt,
+    dt = NULL,
     res,
     lfc,
     title = NULL,
@@ -225,5 +225,6 @@ plot_deg_heatmap <- function(
                    .data[["log2FoldChange"]] < -lfc) %>%
         pull("ensgene") %>%
         sort
+
     plot_gene_heatmap(bcb, dt = dt, genes = genes, title = title, ...)
 }

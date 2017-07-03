@@ -4,16 +4,22 @@
 #'
 #' @param dds [DESeqDataSet].
 #' @param alpha Numeric vector of desired alpha cutoffs.
-#'
+#' @param contrast Character vector to use with [results] function.
 #' @return [kable].
 #' @export
 alpha_summary <- function(
     dds,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6)) {
+    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+    contrast = NULL) {
     .check_dds(dds)
+    if (is.null(contrast))
+        contrast <- strsplit(resultsNames(dds)[[2L]], "_") %>%
+            unlist %>%
+            .[c(1L, 2L, 4L)]
+
     lapply(seq_along(alpha), function(a) {
         .info <- capture.output(
-            results(dds, alpha = alpha[a]) %>%
+            results(dds, contrast = contrast, alpha = alpha[a]) %>%
                 summary)[4L:8L]
         .parse <- sapply(
             .info, function(i) {
