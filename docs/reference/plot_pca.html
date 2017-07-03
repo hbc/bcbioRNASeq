@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot principal component analysis (PCA) — plot_pca • bcbioRnaseq</title>
+<title>Sample PCA plot for transformed data — plot_pca • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -74,59 +80,56 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot principal component analysis (PCA)</h1>
+    <h1>Sample PCA plot for transformed data</h1>
     </div>
 
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves PCA sample coloring and
-labeling.</p>
+    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
+(PCA) sample coloring and labeling.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>groups_of_interest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bcb</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>dt</th>
-      <td><p><a href='reexports.html'>DESeqTransform</a> generated from <code><a href='reexports.html'>rlog()</a></code> (<strong>recommended</strong>) or
-<code><a href='reexports.html'>vst()</a></code> on a <a href='reexports.html'>DESeqDataSet</a>.</p></td>
+      <th>transform</th>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Character vector of gene identifiers to use.</p></td>
+      <td><p><em>Optional</em>. Character vector of gene identifiers to use.</p></td>
     </tr>
     <tr>
-      <th>groups_of_interest</th>
-      <td><p>Interesting groups to use for point appearance. If <code>NULL</code>,
-color defaults to all <code>groups_of_interest</code> parameters set in <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <th>interesting_groups</th>
+      <td><p><em>Optional</em>. Interesting groups to use for point
+appearance. If <code>NULL</code>, color defaults to all <code>interesting_groups</code>
+parameters set in <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>shape</th>
-      <td><p>Make points easier to inspect with differing shapes.</p></td>
+      <td><p><em>Optional</em>. Make points easier to inspect with differing shapes.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p>Superimpose sample text labels on the plot.</p></td>
+      <td><p><em>Optional</em>. Superimpose sample text labels on the plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='reexports.html'>ggplot</a>.</p>
+    <p>ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p></li>
-<li><p><a href = 'https://github.com/Bioconductor-mirror/DESeq2/blob/f48fab3aa01d6f3297eab76b5d59e191eed006fb/R/plots.R'>plotPCA source code</a>.</p></li>
-<li><p><a href = 'https://support.bioconductor.org/p/51270/'>Bioconductor thread on ntop usage</a>.</p></li>
-</ul>
+    <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p>
     
 
   </div>
@@ -145,7 +148,7 @@ color defaults to all <code>groups_of_interest</code> parameters set in <a href=
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

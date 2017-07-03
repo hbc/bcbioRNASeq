@@ -8,8 +8,6 @@
 \alias{aggregate_replicates,DESeqDataSet-method}
 \title{Aggregate lane-split technical replicates}
 \usage{
-aggregate_replicates(object, ...)
-
 \S4method{aggregate_replicates}{matrix}(object, pattern = "_L\\\\d+")
 
 \S4method{aggregate_replicates}{DESeqDataSet}(object, pattern = "_L\\\\d+")

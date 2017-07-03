@@ -1,14 +1,12 @@
-#' File downloads
+#' File downloads for RMarkdown templates
 #'
-#' If file isn't present, download latest version from the
-#' [HBC website](http://bioinformatics.sph.harvard.edu/).
-#'
-#' File download utility functions for RMarkdown knit reports.
+#' If the required dependency file isn't present, download latest version from
+#' the [HBC website](http://bioinformatics.sph.harvard.edu/).
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param file File name. If `NULL` (default), download the default dependency
-#'   files for a consult.
+#' @param file *Optional*. File name. If `NULL` (default), download the default
+#'   dependency files for a new experiment.
 #'
 #' @export
 downloads <- function(file = NULL) {

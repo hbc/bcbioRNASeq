@@ -1,31 +1,34 @@
-#' Plot principal component analysis (PCA)
+#' Sample PCA plot for transformed data
 #'
-#' Wrapper for [DESeq2::plotPCA()] that improves PCA sample coloring and
-#' labeling.
+#' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
+#' (PCA) sample coloring and labeling.
 #'
-#' @param bcb [bcbioRnaDataSet].
-#' @param dt [DESeqTransform] generated from [rlog()] (**recommended**) or
-#'   [vst()] on a [DESeqDataSet].
-#' @param genes Character vector of gene identifiers to use.
-#' @param interesting_groups Interesting groups to use for point appearance. If `NULL`,
-#'   color defaults to all `interesting_groups` parameters set in [bcbioRnaDataSet].
-#' @param shape Make points easier to inspect with differing shapes.
-#' @param label Superimpose sample text labels on the plot.
+#' @param bcb [bcbioRNADataSet].
+#' @param transform String specifying [rlog] (**recommended**) or [vst]
+#'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
+#' @param genes *Optional*. Character vector of gene identifiers to use.
+#' @param interesting_groups *Optional*. Interesting groups to use for point
+#'   appearance. If `NULL`, color defaults to all `interesting_groups`
+#'   parameters set in [bcbioRNADataSet].
+#' @param shape *Optional*. Make points easier to inspect with differing shapes.
+#' @param label *Optional*. Superimpose sample text labels on the plot.
+#'
 #' @return [ggplot].
 #' @export
 #'
-#' @seealso
-#' - [DESeq2::plotPCA()].
-#' - [plotPCA source code](https://github.com/Bioconductor-mirror/DESeq2/blob/master/R/plots.R).
-#' - [Bioconductor thread on `ntop` usage](https://support.bioconductor.org/p/51270/).
+#' @seealso [DESeq2::plotPCA()].
 plot_pca <- function(
     bcb,
-    dt,
+    transform = "rlog",
     genes = NULL,
     interesting_groups = NULL,
     shape = FALSE,
     label = TRUE) {
+    if (!transform %in% c("rlog", "vst")) {
+        stop("DESeqTransform must be rlog or vst")
+    }
     name <- deparse(substitute(dt))
+    dt <- assays(bcb)[[transform]]
 
     # Subset genes, if desired
     if (!is.null(genes)) {
@@ -66,8 +69,7 @@ plot_pca <- function(
         aes_(x = ~pc1,
              y = ~pc2,
              color = ~color,
-             shape = ~shape)
-    ) +
+             shape = ~shape)) +
         geom_point(size = 3L) +
         coord_fixed() +
         labs(title = paste("pca", name, sep = label_sep),
@@ -91,28 +93,30 @@ plot_pca <- function(
 
 
 
-#' Find correlation between PCs and covariates
+#' Find correlation between principal components (PCs) and covariates.
+#'
+#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @author Lorena Pantano
 #'
-#' @param bcb [bcbioRnaDataSet].
-#' @param dt [DESeqTransform]. [rlog()]-transformed counts are recommended.
-#' @param use Character vector. List of columns to use in degCovariates.
-#' @param ... Passthrough parmeters to [DEGreport::degCovariates()].
+#' @param bcb [bcbioRNADataSet].
+#' @param transform String specifying [rlog] (**recommended**) or [vst]
+#'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
+#' @param use *Optional*. Character vector of columns to use.
+#' @param ... Passthrough arguments to [DEGreport::degCovariates()].
 #'
+#' @return [ggplot].
 #' @export
-plot_pca_covariates <- function(bcb, dt, use = NULL, ...) {
+plot_pca_covariates <- function(bcb, transform = "rlog", use = NULL, ...) {
     metrics <- metrics(bcb)
-    if (is.null(metrics)) {
-        return(NULL)
-    }
+    if (is.null(metrics)) return(NULL)
 
+    # Get the columns of interest
     if (is.null(use)) {
         use <- colnames(metrics)
     } else {
         use <- intersect(use, colnames(metrics))
     }
-
     if (length(use) == 0L) {
         stop("Not columns matched between use and metadata")
     }
@@ -125,10 +129,15 @@ plot_pca_covariates <- function(bcb, dt, use = NULL, ...) {
 
     metrics <- metrics %>%
         as.data.frame %>%
-        set_rownames(.[["description"]]) %>%
-        .[, setdiff(keep_metrics, c("description", "file_name"))]
+        .[, setdiff(keep_metrics, c("description", "file_name"))] %>%
+        set_rownames(.[["description"]])
 
-    dt %>%
+    # Pass internal [DESeqTransform] to [degCovariates()]
+    if (!transform %in% c("rlog", "vst")) {
+        stop("DESeqTransform must be rlog or vst")
+    }
+    assays(bcb)[[transform]] %>%
+        # Assay needed here to get the matrix from [DESeqTransform]
         assay %>%
         degCovariates(metadata = metrics, ...) %>%
         .[["plot"]] +

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find correlation between PCs and covariates — plot_pca_covariates • bcbioRnaseq</title>
+<title>Find correlation between principal components (PCs) and covariates. — plot_pca_covariates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -74,35 +80,40 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find correlation between PCs and covariates</h1>
+    <h1>Find correlation between principal components (PCs) and covariates.</h1>
     </div>
 
     
-    <p>Find correlation between PCs and covariates</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bcb</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>dt</th>
-      <td><p><a href='reexports.html'>DESeqTransform</a>. <code><a href='reexports.html'>rlog()</a></code>-transformed counts are recommended.</p></td>
+      <th>transform</th>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>use</th>
-      <td><p>Character vector. List of columns to use in degCovariates.</p></td>
+      <td><p><em>Optional</em>. Character vector of columns to use.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough parmeters to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
+      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>ggplot.</p>
     
 
   </div>
@@ -110,7 +121,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
     <h2>Author</h2>
     
@@ -121,7 +134,7 @@ Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

@@ -1,26 +1,19 @@
 ---
 title: "Quality control"
-author: ""
+author: "`r getOption('author')` (`r getOption('email')`)"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
-library(DESeq2)
-library(bcbioRnaseq)
+# Run [bcbioRnaseq::downloads()] to download `setup.R`
+source("setup.R")
 
-downloads()
-
-source("setup.R")  # modify parameters before exec this line
-
-# Get [tximport()]-generated counts from run
-txi <- bcbio(bcb, "tximport")
-
-# colData metadata
-colData <- colData(bcb)
-
-# Design formula
-design <- formula(~ 1)
+# bcbioRnaDataSet
+bcb <- load_run(
+    upload_dir = file.path("data", "final"),
+    interesting_groups = c("genotype", "treatment"))
+save_data(bcb, dir = data_dir)
 ```
 
 ```{r header, child="header.Rmd"}
@@ -28,29 +21,12 @@ design <- formula(~ 1)
 
 
 
-```{r dds, results="hide", eval=sum(ls() == "ddsde")==0}
-dds <- DESeqDataSetFromTximport(
-    txi = txi,
-    colData = colData,
-    design = design) %>%
-    DESeq
-save_data(dds, dir=data_out)
-resultsNames(dds)
-sizeFactors(dds)
-```
-
 ```{r counts}
-raw_counts <- counts(dds, normalized = FALSE)
-normalized_counts <- counts(dds, normalized = TRUE)
+raw_counts <- counts(bcb, normalized = FALSE)
+normalized_counts <- counts(bcb, normalized = TRUE)
 tpm <- tpm(bcb)
-save_data(raw_counts, normalized_counts, tpm, dir=data_out)
-write_counts(raw_counts, normalized_counts, tpm, dir=count_out)
-```
-
-```{r dt}
-rld <- rlog(dds)
-tmm <- tmm(raw_counts)
-vsd <- varianceStabilizingTransformation(dds)
+save_data(raw_counts, normalized_counts, tpm, dir = data_dir)
+write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 ```
 
 

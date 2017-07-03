@@ -2,20 +2,17 @@
 % Please edit documentation in R/downloads.R
 \name{downloads}
 \alias{downloads}
-\title{File downloads}
+\title{File downloads for RMarkdown templates}
 \usage{
 downloads(file = NULL)
 }
 \arguments{
-\item{file}{File name. If \code{NULL} (default), download the default dependency
-files for a consult.}
+\item{file}{\emph{Optional}. File name. If \code{NULL} (default), download the default
+dependency files for a new experiment.}
 }
 \description{
-If file isn't present, download latest version from the
-\href{http://bioinformatics.sph.harvard.edu/}{HBC website}.
-}
-\details{
-File download utility functions for RMarkdown knit reports.
+If the required dependency file isn't present, download latest version from
+the \href{http://bioinformatics.sph.harvard.edu/}{HBC website}.
 }
 \author{
 Michael Steinbaugh

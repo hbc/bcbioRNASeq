@@ -3,16 +3,17 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
-\alias{tpm,bcbioRnaDataSet-method}
+\alias{tpm,bcbioRNADataSet-method}
 \title{Transcripts per million (TPM)}
 \usage{
-tpm(object)
-
-\S4method{tpm}{bcbioRnaDataSet}(object)
+\S4method{tpm}{bcbioRNADataSet}(object)
 }
 \arguments{
-\item{object}{\link{bcbioRnaDataSet} object.}
+\item{object}{Object.}
 }
 \description{
 Transcripts per million (TPM)
+}
+\author{
+Michael Steinbaugh
 }

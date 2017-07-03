@@ -3,9 +3,11 @@
 #' @rdname tpm
 #' @docType methods
 #'
-#' @param object [bcbioRnaDataSet] object.
+#' @author Michael Steinbaugh
+#'
+#' @param object Object.
 #'
 #' @export
-setMethod("tpm", "bcbioRnaDataSet", function(object) {
+setMethod("tpm", "bcbioRNADataSet", function(object) {
     assays(object)[["tpm"]]
 })

@@ -7,7 +7,7 @@
 plot_gender_markers(bcb)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 }
 \description{
 Plot sexually dimorphic gender markers

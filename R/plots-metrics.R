@@ -5,15 +5,16 @@
 #' @rdname plots-metrics
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param pass_limit Threshold to plot pass color marker.
 #' @param warn_limit Threshold to plot warning color marker.
-#' @param interesting_groups (*Optional*). Category to use to group samples
-#'   (color and shape). If unset, this is automatically determined by
-#'   the metadata set inside the [bcbioRnaDataSet].
+#' @param interesting_groups *Optional*. Category to use to group samples (color
+#'   and shape). If unset, this is automatically determined by the metadata set
+#'   inside the [bcbioRNADataSet].
 #' @param normalized Count normalization method. See [counts()] documentation
 #'   for more information.
-#' @param filter_value Numeric value for filtering the counts matrix before plotting. Default 0.
+#' @param filter_value Numeric value for filtering the counts matrix before
+#'   plotting.
 #'
 #' @return [ggplot].
 #' @export
@@ -35,10 +36,12 @@ plot_total_reads <- function(
              fill = interesting_groups)) +
         ggtitle("total reads") +
         geom_bar(stat = "identity") +
-        geom_hline(color = warn_color,
+        geom_hline(alpha = 0.75,
+                   color = warn_color,
                    size = 2L,
                    yintercept = warn_limit) +
-        geom_hline(color = pass_color,
+        geom_hline(alpha = 0.75,
+                   color = pass_color,
                    size = 2L,
                    yintercept = pass_limit) +
         labs(x = "sample",
@@ -69,10 +72,12 @@ plot_mapped_reads <- function(
              fill = interesting_groups)) +
         ggtitle("mapped reads") +
         geom_bar(stat = "identity") +
-        geom_hline(color = warn_color,
+        geom_hline(alpha = 0.75,
+                   color = warn_color,
                    size = 2L,
                    yintercept = warn_limit) +
-        geom_hline(color = pass_color,
+        geom_hline(alpha = 0.75,
+                   color = pass_color,
                    size = 2L,
                    yintercept = pass_limit) +
         labs(x = "sample",
@@ -103,10 +108,12 @@ plot_mapping_rate <- function(
              fill = interesting_groups)) +
         ggtitle("mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = warn_color,
+        geom_hline(alpha = 0.75,
+                   color = warn_color,
                    size = 2L,
                    yintercept = warn_limit) +
-        geom_hline(color = pass_color,
+        geom_hline(alpha = 0.75,
+                   color = pass_color,
                    size = 2L,
                    yintercept = pass_limit) +
         labs(x = "sample",
@@ -138,7 +145,8 @@ plot_genes_detected <- function(
                 fill = interesting_groups)) +
         ggtitle("genes detected") +
         geom_bar(stat = "identity") +
-        geom_hline(color = pass_color,
+        geom_hline(alpha = 0.75,
+                   color = pass_color,
                    size = 2L,
                    yintercept = pass_limit) +
         labs(x = "sample",
@@ -195,7 +203,8 @@ plot_exonic_mapping_rate <- function(
                 fill = interesting_groups)) +
         ggtitle("exonic mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = pass_color,
+        geom_hline(alpha = 0.75,
+                   color = pass_color,
                    size = 2L,
                    yintercept = pass_limit) +
         labs(x = "sample",
@@ -226,7 +235,8 @@ plot_intronic_mapping_rate <- function(
              fill = interesting_groups)) +
         ggtitle("intronic mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = warn_color,
+        geom_hline(alpha = 0.75,
+                   color = warn_color,
                    size = 2L,
                    yintercept = warn_limit) +
         labs(x = "sample",
@@ -257,7 +267,8 @@ plot_rrna_mapping_rate <- function(
              fill = interesting_groups)) +
         ggtitle("rRNA mapping rate") +
         geom_bar(stat = "identity") +
-        geom_hline(color = warn_color,
+        geom_hline(alpha = 0.75,
+                   color = warn_color,
                    size = 2L,
                    yintercept = warn_limit) +
         labs(x = "sample",

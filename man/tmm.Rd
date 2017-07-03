@@ -3,18 +3,17 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
-\alias{tmm,bcbioRnaDataSet-method}
-\alias{tmm,matrix-method}
+\alias{tmm,bcbioRNADataSet-method}
+\alias{.tmm}
 \alias{tmm,DESeqDataSet-method}
+\alias{tmm,matrix-method}
 \title{Trimmed mean of M-values (TMM) normalization}
 \usage{
-tmm(object)
-
-\S4method{tmm}{bcbioRnaDataSet}(object)
-
-\S4method{tmm}{matrix}(object)
+\S4method{tmm}{bcbioRNADataSet}(object)
 
 \S4method{tmm}{DESeqDataSet}(object)
+
+\S4method{tmm}{matrix}(object)
 }
 \arguments{
 \item{object}{Object containing counts.}

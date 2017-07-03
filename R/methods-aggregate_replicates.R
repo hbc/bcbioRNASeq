@@ -37,6 +37,8 @@ setMethod("aggregate_replicates", "matrix", function(
         round
 })
 
+
+
 #' @rdname aggregate_replicates
 #' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
 #' @export

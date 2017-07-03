@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -81,20 +87,14 @@
     <p>Plot an individual gene</p>
     
 
-    <pre class="usage"><span class='fu'>plot_gene</span>(<span class='no'>bcb</span>, <span class='no'>normalized_counts</span>, <span class='no'>gene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"external_gene_name"</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_gene</span>(<span class='no'>bcb</span>, <span class='no'>gene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bcb</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
-    </tr>
-    <tr>
-      <th>normalized_counts</th>
-      <td><p>Normalized counts matrix. Can be obtained from
-<a href='reexports.html'>DESeqDataSet</a> using <code><a href='reexports.html'>counts()</a></code> with <code>normalized = TRUE)</code>. Transcripts per
-million (TPM) are also acceptable.</p></td>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>gene</th>
@@ -102,7 +102,8 @@ million (TPM) are also acceptable.</p></td>
     </tr>
     <tr>
       <th>format</th>
-      <td><p>Ensembl identifier format. Defaults to the gene name (symbol).</p></td>
+      <td><p>Ensembl identifier format. Defaults to the gene symbol (a.k.a.
+<code>external_gene_name</code>).</p></td>
     </tr>
     </table>
     
@@ -123,7 +124,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

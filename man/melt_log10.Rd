@@ -3,17 +3,17 @@
 \docType{methods}
 \name{melt_log10}
 \alias{melt_log10}
-\alias{melt_log10,bcbioRnaDataSet-method}
+\alias{.melt_log10}
+\alias{.join_melt}
+\alias{melt_log10,bcbioRNADataSet-method}
 \alias{melt_log10,DESeqDataSet-method}
 \alias{melt_log10,DESeqTransform-method}
 \title{Melt count matrix to long format and log10 transform}
 \usage{
-melt_log10(object, ...)
-
-\S4method{melt_log10}{bcbioRnaDataSet}(object, normalized = TRUE,
+\S4method{melt_log10}{bcbioRNADataSet}(object, normalized = TRUE,
   interesting_groups = NULL)
 
-\S4method{melt_log10}{DESeqDataSet}(object, normalized = FALSE,
+\S4method{melt_log10}{DESeqDataSet}(object, normalized = TRUE,
   interesting_groups = NULL)
 
 \S4method{melt_log10}{DESeqTransform}(object, interesting_groups = NULL)
@@ -26,7 +26,7 @@ melt_log10(object, ...)
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts (\code{tmm}).}
 
-\item{interesting_groups}{Interesting groups.}
+\item{interesting_groups}{\emph{Optional}. Interesting groups.}
 }
 \value{
 log10 melted \link{data.frame}.

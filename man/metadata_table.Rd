@@ -3,14 +3,13 @@
 \docType{methods}
 \name{metadata_table}
 \alias{metadata_table}
-\alias{metadata_table,bcbioRnaDataSet-method}
+\alias{.metadata_table}
+\alias{metadata_table,bcbioRNADataSet-method}
 \alias{metadata_table,DESeqDataSet-method}
 \alias{metadata_table,DESeqTransform-method}
 \title{Metadata table}
 \usage{
-metadata_table(object, ...)
-
-\S4method{metadata_table}{bcbioRnaDataSet}(object, ...)
+\S4method{metadata_table}{bcbioRNADataSet}(object, ...)
 
 \S4method{metadata_table}{DESeqDataSet}(object, ...)
 
@@ -27,5 +26,5 @@ Data frame containing only the columns of interest.
 \description{
 Returns a subset of metadata columns of interest used for knit reports. These
 "interesting group" columns are defined as \code{interesting_groups} in the
-\link{bcbioRnaDataSet} object.
+\link{bcbioRNADataSet} object.
 }

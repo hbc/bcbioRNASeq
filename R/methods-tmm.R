@@ -1,12 +1,3 @@
-.tmm <- function(object) {
-    message("Generating TMM-normalized counts with edgeR")
-    object %>%
-        as.matrix %>%
-        DGEList %>%
-        calcNormFactors %>%
-        cpm(normalized.lib.sizes = TRUE)
-}
-
 #' Trimmed mean of M-values (TMM) normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
@@ -21,15 +12,24 @@
 #' @param object Object containing counts.
 #'
 #' @export
-setMethod("tmm", "bcbioRnaDataSet", function(object) {
+setMethod("tmm", "bcbioRNADataSet", function(object) {
     assays(object)[["tmm"]]
 })
 
+
+
 #' @rdname tmm
-#' @export
-setMethod("tmm", "matrix", function(object) {
-    .tmm(object)
-})
+#' @usage NULL
+.tmm <- function(object) {
+    message("Generating TMM-normalized counts with edgeR")
+    object %>%
+        as.matrix %>%
+        DGEList %>%
+        calcNormFactors %>%
+        cpm(normalized.lib.sizes = TRUE)
+}
+
+
 
 #' @rdname tmm
 #' @export
@@ -38,3 +38,9 @@ setMethod("tmm", "DESeqDataSet", function(object) {
         counts %>%
         .tmm
 })
+
+
+
+#' @rdname tmm
+#' @export
+setMethod("tmm", "matrix", .tmm)

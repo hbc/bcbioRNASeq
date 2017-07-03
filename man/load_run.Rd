@@ -5,31 +5,27 @@
 \title{Load bcbio-nextgen run}
 \usage{
 load_run(upload_dir = "final", analysis = "rnaseq",
-  interesting_groups = "description", design = NULL, contrast = NULL,
-  metadata_file = NULL)
+  interesting_groups = "description", sample_metadata_file = NULL, ...)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
 running \code{bcbio_nextgen -w template}.}
 
-\item{analysis}{Analysis type (e.g. \code{rnaseq} or \code{srnaseq}).}
+\item{analysis}{Analysis type. Supports RNA-seq (\code{rnaseq}; \strong{default}) or
+small RNA-seq (\code{srnaseq}).}
 
 \item{interesting_groups}{Character vector of interesting groups. First entry
 is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.}
 
-\item{design}{(\emph{Optional}). Design formula for DESeq2.See
-\code{\link[DESeq2:design]{DESeq2::design()}} for more information.}
-
-\item{contrast}{(\emph{Optional}). Contrast vector for DESeq2. See
-\code{\link[DESeq2:results]{DESeq2::results()}} for more information.}
-
-\item{metadata_file}{(\emph{Optional}). Custom metadata file containing
+\item{sample_metadata_file}{\emph{Optional}. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
+
+\item{...}{Additional arguments, saved as metadata.}
 }
 \value{
-\link{bcbioRnaDataSet}.
+\link{bcbioRNADataSet}.
 }
 \description{
 Simply point to the final upload directory output by
@@ -43,7 +39,5 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \author{
-Michael Steinbaugh
-
-Lorena Patano
+Michael Steinbaugh, Lorena Patano
 }

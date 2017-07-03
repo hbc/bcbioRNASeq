@@ -8,53 +8,57 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param tximport [tximport] list.
+#' @param assays assays.
 #' @param col_data Sample metadata.
 #' @param row_data [Ensembl](http://www.ensembl.org/) gene annotations.
 #' @param metadata Custom metadata.
 #'
 #' @return [SummarizedExperiment].
 .summarized_experiment <- function(
-    tximport,
+    assays,
     col_data,
     row_data,
     metadata = NULL) {
     message("Packaging SummarizedExperiment")
+    assays <- as(assays, "SimpleList")
+    counts <- assays[[1L]]
 
-    # tximport ====
-    counts <- tximport[["counts"]]
-    # TODO Add check for `lengthScaledTPM`, otherwise return NULL?
-    tpm <- tximport[["abundance"]]
-
-    # TMM normalization (edgeR) ====
-    tmm <- .tmm(counts)
-
-    # Metadata ====
-    # Coerce to [SimpleList], if necessary
-    if (!is.null(metadata) & class(metadata) != "SimpleList") {
-        metadata <- as(metadata, "SimpleList")
-    }
-
-    # col_data ====
-    col_data <- col_data[colnames(counts), , drop = FALSE]
+    # colData
+    col_data <- as(col_data, "DataFrame") %>%
+        .[colnames(counts), , drop = FALSE]
     rownames(col_data) <- colnames(counts)
 
-    row_data <- row_data[rownames(counts), , drop = FALSE]
+    # rowData
+    row_data <- as(row_data, "DataFrame") %>%
+        .[rownames(counts), , drop = FALSE]
     rownames(row_data) <- rownames(counts)
-    # TODO How to handle deprecated Ensembl identifiers?
-    # This is due to mismatches between genome build and annotables build.
-    # Examples: ENSMUSG00000029333, ENSMUSG00000035349, ENSMUSG00000042402
-
     if (!identical(rownames(counts), rownames(row_data))) {
         stop("Gene identifier mismatch")
     }
 
-    # Return [SummarizedExperiment] ====
+    # Metadata
+    if (is.null(metadata)) {
+        metadata <- SimpleList()
+    } else {
+        metadata <- as(metadata, "SimpleList")
+    }
+    metadata[["date"]] <- Sys.Date()
+    metadata[["wd"]] <- getwd()
+    metadata[["hpc"]] <- detect_hpc()
+    metadata[["session_info"]] <- sessionInfo()
+    # Check for retired Ensembl identifiers, which can happen when a more recent
+    # annotable build is used than the genome build. If present, store these
+    # identifiers in the metadata.
+    if (any(is.na(row_data[["ensgene"]]))) {
+        metadata[["retired_ensgene"]] <- row_data %>%
+            as_tibble %>%
+            filter(is.na(.data[["ensgene"]])) %>%
+            pull("rowname") %>%
+            sort
+    }
+
     SummarizedExperiment(
-        assays = SimpleList(
-            counts = counts,  # raw counts first
-            tpm = tpm,
-            tmm = tmm),
+        assays,
         colData = col_data,
         rowData = row_data,
         metadata = metadata)

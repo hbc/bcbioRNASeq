@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Accessors for the count matrix of a bcbioRnaDataSet object — txi • bcbioRnaseq</title>
+<title>tximport list accessor — txi • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -73,45 +80,28 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Accessors for the count matrix of a bcbioRnaDataSet object</h1>
+    <h1>tximport list accessor</h1>
     </div>
 
     
-    <p>Accessors for the count matrix of a <a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object</p>
+    <p>tximport list accessor</p>
     
 
-    <pre class="usage"><span class='fu'>txi</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>txi</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
-
-<span class='fu'>txi.bcbioRnaDataSet</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for bcbioRnaDataSet</span>
-<span class='fu'>txi</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for bcbioRnaDataSet,matrix</span>
-<span class='fu'>txi</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>txi</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a> object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Matrix count data.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>An integer matrix.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/base/topics/matrix'>base::matrix</a> with raw count data.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code> list.</p>
     
 
   </div>
@@ -123,12 +113,16 @@
       <li><a href="#value">Value</a></li>
           </ul>
 
+    <h2>Author</h2>
+    
+Michael Steinbaugh
+
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

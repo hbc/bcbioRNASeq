@@ -1,8 +1,8 @@
 #' Count matrix accessors
 #'
-#' By default, [counts()] returns the raw counts. This method will return
-#' transcripts per million (TPM) by default when `normalized = TRUE`. This can
-#' be overriden by requesting the normalization method directly.
+#' By default, [counts()] returns the raw counts. Normalized counts, including
+#' transcripts per million (TPM) can be accessed using the `normalized`
+#' argument.
 #'
 #' @rdname counts
 #' @docType methods
@@ -10,9 +10,17 @@
 #' @author Michael Steinbaugh
 #'
 #' @param object Object.
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts used for QC functions (`tmm`).
+#' @param ... Additional parameters.
+#' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
+#'   (`TRUE`), or additional normalization methods:
 #'
+#' - `tpm`: Transcripts per million.
+#' - `tmm`: Trimmed mean of M-values (edgeR).
+#' - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
+#' - `vst`: Variance stabilizing transformation
+#'   ([DESeq2::varianceStabilizingTransformation()]).
+#'
+#' @return Counts matrix
 #' @export
 #'
 #' @examples
@@ -20,28 +28,41 @@
 #' # Raw counts
 #' counts(bcb, normalized = FALSE)
 #'
-#' # TPM
+#' # DESeq2 normalized counts
 #' counts(bcb, normalized = TRUE)
+#'
+#' # TPM
 #' counts(bcb, normalized = "tpm")
 #'
 #' # TMM
 #' counts(bcb, normalized = "tmm")
+#'
+#' # rlog
+#' counts(bcb, normalized = "rlog")
+#'
+#' # VST
+#' counts(bcb, normalized = "vst")
 #' }
-setMethod("counts", "bcbioRnaDataSet", function(object, normalized = FALSE) {
+setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
-        assay(object)
-    } else if (isTRUE(normalized) | normalized == "tpm") {
-        message("Transcripts per million (TPM)")
-        tpm(object)
-    } else if  (normalized == "tmm") {
-        message("Trimmed mean of M-values normalization")
-        tmm(object)
-    }  else {
-        counts <- assays(object)[[normalized]]
-        if (is.null(counts)) {
-            stop("Assay missing in SummarizedExperiment")
-        }
-        message(paste(normalized, "normalization"))
-        counts
+        slot <- "raw_counts"
+    } else if (normalized == TRUE) {
+        slot <- "normalized_counts"
+    } else {
+        slot <- normalized
     }
+
+    # Check for slot presence
+    if (!slot %in% names(assays(object))) {
+        stop("Unsupported normalization method")
+    }
+
+    counts <- assays(object)[[slot]]
+
+    # Return matrix from [DESeqTransform]
+    if (slot %in% c("rlog", "vst")) {
+        counts <- assay(counts)
+    }
+
+    counts
 })

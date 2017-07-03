@@ -2,21 +2,25 @@
 % Please edit documentation in R/plots-pca.R
 \name{plot_pca_covariates}
 \alias{plot_pca_covariates}
-\title{Find correlation between PCs and covariates}
+\title{Find correlation between principal components (PCs) and covariates.}
 \usage{
-plot_pca_covariates(bcb, dt, use = NULL, ...)
+plot_pca_covariates(bcb, transform = "rlog", use = NULL, ...)
 }
 \arguments{
-\item{bcb}{\link{bcbioRnaDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
 
-\item{dt}{\link{DESeqTransform}. \code{\link[=rlog]{rlog()}}-transformed counts are recommended.}
+\item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
+\link{DESeqTransform} slotted inside the \link{bcbioRNADataSet}.}
 
-\item{use}{Character vector. List of columns to use in degCovariates.}
+\item{use}{\emph{Optional}. Character vector of columns to use.}
 
-\item{...}{Passthrough parmeters to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+\item{...}{Passthrough arguments to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+}
+\value{
+\link{ggplot}.
 }
 \description{
-Find correlation between PCs and covariates
+\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \author{
 Lorena Pantano

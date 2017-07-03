@@ -58,32 +58,3 @@
              importer = read_tsv,
              countsFromAbundance = counts_from_abundance)
 }
-
-
-
-#' Read transcript to gene (tx2gene) annotation file
-#'
-#' @rdname tx2gene
-#' @keywords internal
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param project_dir Project directory.
-.tx2gene <- function(project_dir, genome_build = NULL) {
-    file_path <- file.path(project_dir, "tx2gene.csv")
-    if (file.exists(file_path)) {
-        # Read bcbio-nextgene tx2gene file
-        .read_file(file_path, col_names = c("enstxp", "ensgene")) %>%
-            as.data.frame %>%
-            # TODO Add S4 DataFrame method support for arrange in basejump
-            arrange(!!sym("enstxp")) %>%
-            DataFrame %>%
-            set_rownames(.[["enstxp"]])
-    } else {
-        # Load prebuilt annotables tx2gene table
-        if (is.null(genome_build)) {
-            stop("Genome build required for annotable tx2gene")
-        }
-        .annotable(genome_build, format = "tx2gene")
-    }
-}

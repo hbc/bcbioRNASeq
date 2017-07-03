@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Melt RNA-seq count data to long format and log10 transform — melt_log10 • bcbioRnaseq</title>
+<title>Melt count matrix to long format and log10 transform — melt_log10 • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -52,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -74,31 +80,53 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Melt RNA-seq count data to long format and log10 transform</h1>
+    <h1>Melt count matrix to long format and log10 transform</h1>
     </div>
 
     
-    <p>Melt RNA-seq count data to long format and log10 transform</p>
+    <p>Melt count matrix to long format and log10 transform</p>
     
 
-    <pre class="usage"><span class='fu'>melt_log10</span>(<span class='no'>bcb</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>melt_log10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>melt_log10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='co'># S4 method for DESeqTransform</span>
+<span class='fu'>melt_log10</span>(<span class='no'>object</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>counts</th>
-      <td><p>Counts matrix.</p></td>
+      <th>object</th>
+      <td><p>Object containing counts matrix.</p></td>
     </tr>
     <tr>
-      <th>run</th>
-      <td><p><a href='bcbioRnaDataSet.html'>bcbioRnaDataSet</a>.</p></td>
+      <th>...</th>
+      <td><p>Optional parameters.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p>Select normalized counts (<code>TRUE</code>), raw counts (<code>FALSE</code>),
+or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
+    </tr>
+    <tr>
+      <th>interesting_groups</th>
+      <td><p><em>Optional</em>. Interesting groups.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>log10 melted data frame.</p>
+    <p>log10 melted data.frame.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/reshape2/topics/melt'>reshape2::melt()</a></code>.</p>
     
 
   </div>
@@ -108,6 +136,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>
@@ -119,7 +149,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

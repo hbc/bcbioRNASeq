@@ -29,6 +29,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
+  <a href="/index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
@@ -55,11 +61,6 @@
 <a href="#bcbiornaseq" class="anchor"></a>bcbioRnaseq</h1></div>
 
 <p>Quality control and differential expression for <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio-nextgen</a> RNA-seq experiments.</p>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>Last <a href="http://bcb.io/bcbio_rnaseq_output_example">report</a> rendered with development code</p>
-</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -77,6 +78,24 @@
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"hbc/bcbioRnaseq"</span>)</code></pre></div>
 </div>
 </div>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
+<p><a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default RMarkdown templates included in the package.</p>
+<ul>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc.html">QC example</a></li>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de.html">DE example</a></li>
+</ul>
+</div>
+<div id="contribute" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contribute" class="anchor"></a>Contribute</h2>
+<ul>
+<li>For major changes, create a new branch and a pull request that will be revised.</li>
+<li>For small changes, commit directly to master.</li>
+<li>For fixes in releases, commit to releases branches.</li>
+</ul>
+</div>
 </div>
   </div>
 
@@ -93,8 +112,8 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Michael J. Steinbaugh <br><small class="roles"> Author, maintainer </small> </li>
-<li>Rory Kirchner <br><small class="roles"> Author </small> </li>
 <li>Lorena Pantano <br><small class="roles"> Author </small> </li>
+<li>Rory Kirchner <br><small class="roles"> Author </small> </li>
 <li>Victor Barrera <br><small class="roles"> Author </small> </li>
 <li>Harvard Chan Bioinformatics Core <br><small class="roles"> Copyright holder, funder </small> </li>
 </ul>
@@ -102,13 +121,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/hbc/bcbioRnaseq"><img src="https://travis-ci.org/hbc/bcbioRnaseq.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
+<li><a href="https://codecov.io/gh/hbc/bcbioRnaseq"><img src="https://codecov.io/gh/hbc/bcbioRnaseq/branch/master/graph/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Rory Kirchner, Lorena Pantano, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

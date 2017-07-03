@@ -1,10 +1,11 @@
 # TODO Look at incorporating [plotCounts()] into this function.
 # TODO Function needs rework for annotables
+
 #' Plot an individual gene
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene symbol (a.k.a.
 #'   `external_gene_name`).
@@ -61,16 +62,16 @@ plot_gene <- function(
 
 #' Plot sexually dimorphic gender markers
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #'
 #' @export
 plot_gender_markers <- function(bcb) {
-    # Organism-specific dimorphic markers ----
+    # Organism-specific dimorphic markers ====
     organism <- metadata(bcb)[["organism"]]
 
     # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
-        gender_markers <- get("gender_markers_musculus",
+        gender_markers <- get("gender_markers_mmusculus",
                               envir = as.environment("package:bcbioRnaseq"))
     } else {
         stop("Unsupported organism")
@@ -87,7 +88,7 @@ plot_gender_markers <- function(bcb) {
         unique
 
 
-    # ggplot ----
+    # ggplot ====
     tpm(bcb) %>%
         .[ensgene, ] %>%
         as.data.frame %>%

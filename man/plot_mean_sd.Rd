@@ -4,18 +4,18 @@
 \alias{plot_mean_sd}
 \title{Plot row standard deviations versus row means}
 \usage{
-plot_mean_sd(dds, rld = NULL, vsd = NULL)
+plot_mean_sd(bcb)
 }
 \arguments{
-\item{dds}{\link{DESeqDataSet}.}
-
-\item{rld}{\link{DESeqTransform} resulting from \code{\link[=rlog]{rlog()}} applied to
-\link{DESeqDataSet}.}
-
-\item{vsd}{\link{DESeqTransform} resulting from
-\code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} applied to \link{DESeqDataSet}.}
+\item{bcb}{\link{bcbioRNADataSet}.}
+}
+\value{
+ggplot grid.
 }
 \description{
-Modified wrapper function of \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} that plots \code{\link[=log2]{log2()}},
-\code{\link[=rlog]{rlog()}}, and \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} count data.
+\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots \code{\link[=log2]{log2()}}, \code{\link[=rlog]{rlog()}}, and
+\code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
+}
+\author{
+Michael Steinbaugh, Lorena Patano
 }

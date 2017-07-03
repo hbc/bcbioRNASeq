@@ -1,41 +1,44 @@
-#' [DESeq2::plotMA()] wrapper
+#' MA-plot from base means and log fold changes
 #'
-#' This wrapper function generates a title automatically.
+#' [DESeq2::plotMA()] wrapper that generates a title from the contrast
+#' automatically.
 #'
 #' @author Michael Steinbaugh
 #'
 #' @param res [DESeqResults].
 #' @param ylim Y-axis maximum (single integer).
+#' @param title *Optional*. Plot title.
 #'
 #' @return Mean average (MA) [ggplot].
 #' @export
-plot_ma <- function(res, ylim = 2L) {
+plot_ma <- function(res, ylim = 2L, title = NULL) {
     .check_res(res)
-    name <- deparse(substitute(res))
-    contrast_name <- .res_contrast_name(res)
+    if (is.null(title)) {
+        title <- .res_contrast_name(res)
+    }
     plotMA(res,
-           main = paste(name, contrast_name, sep = label_sep),
+           main = title,
            ylim = c(-ylim, ylim))
 }
 
 
 
-#' Volcano plot.
+#' Volcano plot
 #'
 #' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'
-#' @param bcb [bcbioRnaDataSet].
+#' @param bcb [bcbioRNADataSet].
 #' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param text_labels Number of text labels to plot.
 #' @param merge_plots Merge all plots into one.
 #' @param direction Plot `up`, `down`, or `both` directions.
-#' @param title (*Optional*). Custom title.
 #' @param shade_color Shading color for bounding box.
 #' @param shade_alpha Shading transparency alpha.
 #' @param point_color Point color.
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
+#' @param title *Optional*. Custom plot title.
 #'
 #' @return Volcano plot arranged as `ggrid` (`merge_plots = TRUE`), or [show()]
 #'   individual [ggplot]s (`merge_plots = FALSE`).
@@ -50,12 +53,12 @@ plot_volcano <- function(
     text_labels = 30L,
     merge_plots = TRUE,
     direction = "both",
-    title = NULL,
     shade_color = "orange",
     shade_alpha = 0.25,
     point_color = "gray",
     point_alpha = 0.75,
-    point_outline_color = "darkgray") {
+    point_outline_color = "darkgray",
+    title = NULL) {
     # TODO Add support for option of plotting unadjusted P values without
     # `+ 1e-10` transformation.
 
@@ -99,7 +102,7 @@ plot_volcano <- function(
           ceiling(max(na.omit(stats[["neg_log_padj"]]))))
 
 
-    # LFC density histogram ----
+    # LFC density histogram ====
     lfc_density <- density(na.omit(stats[["log2_fold_change"]]))
     lfc_density_df <- data.frame(x = lfc_density[["x"]],
                                  y = lfc_density[["y"]])
@@ -131,7 +134,7 @@ plot_volcano <- function(
     }
 
 
-    # Density plot of adjusted P values ----
+    # Density plot of adjusted P values ====
     padj_density <- density(na.omit(stats[["neg_log_padj"]]))
     padj_density_df <- data.frame(x = padj_density[["x"]],
                                   y = padj_density[["y"]])
@@ -150,7 +153,8 @@ plot_volcano <- function(
              y = "density")
 
 
-    # Volcano plot ----
+    # Volcano plot ====
+    # FIXME Need to improve y-axis ceiling when using ggrepel labels
     volcano <- stats %>%
         ggplot(aes_(x = ~log2_fold_change,
                     y = ~-log10(padj + 1e-10))) +
@@ -209,7 +213,7 @@ plot_volcano <- function(
     }
 
 
-    # Grid layout ----
+    # Grid layout ====
     # TODO Add a ggdraw title?
     if (isTRUE(merge_plots)) {
         ggdraw() +
@@ -236,13 +240,13 @@ plot_volcano <- function(
 
 
 
-#' [DEGreport::degPatterns()] wrapper
+#' Make groups of genes using expression profile
 #'
-#' Adds support for a [bcbioRnaDataSet] object.
+#' [DEGreport::degPatterns()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @author Lorena Pantano
 #'
-#' @param bcb [bcbioRnaDataSet] object.
+#' @param bcb [bcbioRNADataSet] object.
 #' @param res Table with padj as column and gene names as [rownames].
 #' @param fdr Float cutoff to consider genes significant.
 #' @param n Integer maximum number of genes to consider.
