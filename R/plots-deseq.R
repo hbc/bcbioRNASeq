@@ -1,46 +1,27 @@
 #' Plot row standard deviations versus row means
 #'
-#' Modified wrapper function of [vsn::meanSdPlot()] that plots [log2()],
-#' [rlog()], and [varianceStabilizingTransformation()] count data.
+#' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
+#' [varianceStabilizingTransformation()] normalized counts.
 #'
-#' @param dds [DESeqDataSet].
-#' @param rld [DESeqTransform] resulting from [rlog()] applied to
-#'   [DESeqDataSet].
-#' @param vsd [DESeqTransform] resulting from
-#'   [varianceStabilizingTransformation()] applied to [DESeqDataSet].
+#' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @param bcb [bcbioRNADataSet].
+#'
+#' @return ggplot grid.
 #' @export
-plot_mean_sd <- function(dds, rld = NULL, vsd = NULL) {
-    nonzero <- dds %>%
-        counts %>%
+plot_mean_sd <- function(bcb) {
+    nonzero <- counts(bcb, normalized = FALSE) %>%
         rowSums %>%
         `>`(0L)
-
-    # log2 ----
-    gglog2 <- dds %>%
-        counts(normalized = TRUE) %>%
+    gglog2 <- counts(bcb, normalized = TRUE) %>%
         .[nonzero, ] %>%
         `+`(1L) %>%
         log2 %>%
         meanSdPlot(plot = FALSE)
-
-    # rlog transformation ----
-    # `rld` = RLog Data
-    if (is.null(rld)) {
-        rld <- rlog(dds)
-    }
-    ggrlog <- rld %>%
-        assay %>%
+    ggrlog <- counts(bcb, normalized = "rlog") %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
-
-    # Variance stabilizing transformation (VST) ----
-    # `vsd` = VSt Data
-    if (is.null(vsd)) {
-        vsd <- varianceStabilizingTransformation(dds)
-    }
-    ggvsd <- vsd %>%
-        assay %>%
+    ggvsd <- counts(bcb, normalized = "vst") %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
     plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
