@@ -9,8 +9,7 @@
 #' @return [ggplot].
 #' @export
 plot_dispersion <- function(bcb) {
-    bcbio("DESeqDataSet") %>%
-        plotDispEsts
+    bcbio(bcb, "DESeqDataSet") %>% plotDispEsts
 }
 
 
