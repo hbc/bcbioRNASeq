@@ -57,5 +57,12 @@ setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
         stop("Unsupported normalization method")
     }
 
-    assays(object)[[slot]]
+    counts <- assays(object)[[slot]]
+
+    # Return matrix from [DESeqTransform]
+    if (slot %in% c("rlog", "vst")) {
+        counts <- assay(counts)
+    }
+
+    counts
 })
