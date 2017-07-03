@@ -4,7 +4,7 @@
 #' experiments.
 #'
 #' @import annotables basejump BiocGenerics DESeq2 SummarizedExperiment
-#'   S4Vectors
+#'   S4Vectors rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList

@@ -47,11 +47,11 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{metadata}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}, \code{\link[basejump]{write_counts}}}
-
   \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 
   \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
+
+  \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{assay}}, \code{\link[basejump]{assays}}, \code{\link[basejump]{colData}}, \code{\link[basejump]{design}}, \code{\link[basejump]{metadata}}, \code{\link[basejump]{rowData}}, \code{\link[basejump]{save_data}}, \code{\link[basejump]{write_counts}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 }}
