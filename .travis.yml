@@ -16,10 +16,11 @@ after_success:
   - mkdir template
   - cd template
   - cp ../bcbio_rnaseq_output_example/setup.R .
-  - cp ../bcbio_rnaseq_output_example/_output.yaml .
-  - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd .
+  - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd qc.Rmd
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
-  - Rscript -e 'bcbioRnaseq::downloads();rmarkdown::render("skeleton.Rmd")'
+  - Rscript -e 'bcbioRnaseq::downloads();rmarkdown::render("qc.Rmd")'
+  - cp ../bcbioRnaseq/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd de.Rmd
+  - Rscript -e 'rmarkdown::render("de.Rmd")'
   - ls
   - cd ../bcbio_rnaseq_output_example
   - cp ../bcbioRnaseq/.push.sh push.sh
