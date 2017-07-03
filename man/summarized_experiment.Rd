@@ -4,10 +4,10 @@
 \alias{.summarized_experiment}
 \title{Package RNA-Seq counts into \link{SummarizedExperiment}}
 \usage{
-.summarized_experiment(txi, col_data, row_data, metadata = NULL)
+.summarized_experiment(assays, col_data, row_data, metadata = NULL)
 }
 \arguments{
-\item{txi}{\link{tximport} list.}
+\item{assays}{assays.}
 
 \item{col_data}{Sample metadata.}
 
