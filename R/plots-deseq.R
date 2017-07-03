@@ -43,5 +43,6 @@ plot_mean_sd <- function(bcb) {
         meanSdPlot(plot = FALSE)
     plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
               ggrlog[["gg"]] + theme(legend.position = "none"),
-              ggvsd[["gg"]] + theme(legend.position = "none"), nrow = 1L)
+              ggvsd[["gg"]] + theme(legend.position = "none"),
+              nrow = 1L)
 }
