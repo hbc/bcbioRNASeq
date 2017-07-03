@@ -46,3 +46,4 @@ default RMarkdown templates included in the package.
 - For major changes, create a new branch and a pull request that will be revised.
 - For small changes, commit directly to master.
 - For fixes in releases, commit to releases branches.
+- Open discussion for changes affecting `bcbioRNADataSet` object or `setup.R`
