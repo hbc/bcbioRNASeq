@@ -8,58 +8,44 @@
 #'
 #' @author Michael Steinbaugh
 #'
-#' @param txi [tximport] list.
+#' @param assays assays.
 #' @param col_data Sample metadata.
 #' @param row_data [Ensembl](http://www.ensembl.org/) gene annotations.
 #' @param metadata Custom metadata.
 #'
 #' @return [SummarizedExperiment].
 .summarized_experiment <- function(
-    txi,
+    assays,
     col_data,
     row_data,
     metadata = NULL) {
     message("Packaging SummarizedExperiment")
+    assays <- as(assays, "SimpleList")
+    counts <- assays[[1]]
 
+    # colData
+    col_data <- as(col_data, "DataFrame") %>%
+        .[colnames(counts), , drop = FALSE]
+    rownames(col_data) <- colnames(counts)
 
-    # tximport ====
-    raw_counts <- txi[["counts"]]
-
-
-    # colData ====
-    col_data <- col_data[colnames(raw_counts), , drop = FALSE]
-    rownames(col_data) <- colnames(raw_counts)
-
-
-    # rowData ====
-    row_data <- row_data[rownames(raw_counts), , drop = FALSE]
-    rownames(row_data) <- rownames(raw_counts)
-    if (!identical(rownames(raw_counts), rownames(row_data))) {
+    # rowData
+    row_data <- as(row_data, "DataFrame") %>%
+        .[rownames(counts), , drop = FALSE]
+    rownames(row_data) <- rownames(counts)
+    if (!identical(rownames(counts), rownames(row_data))) {
         stop("Gene identifier mismatch")
     }
 
-
-    # DESeqDataSet ====
-    dds <- DESeqDataSetFromTximport(
-        txi = txi,
-        colData = col_data,
-        design = formula(~ 1L)) %>%
-        DESeq
-
-
-    # Metadata ====
+    # Metadata
     if (is.null(metadata)) {
         metadata <- SimpleList()
     } else {
         metadata <- as(metadata, "SimpleList")
     }
-
-    # Update automatic metadata slots
     metadata[["date"]] <- Sys.Date()
     metadata[["wd"]] <- getwd()
     metadata[["hpc"]] <- detect_hpc()
     metadata[["session_info"]] <- sessionInfo()
-
     # Check for retired Ensembl identifiers, which can happen when a more recent
     # annotable build is used than the genome build. If present, store these
     # identifiers in the metadata.
@@ -71,16 +57,8 @@
             sort
     }
 
-
-    # Return  ====
     SummarizedExperiment(
-        assays = SimpleList(
-            raw_counts = raw_counts,
-            normalized_counts = counts(dds, normalized = TRUE),
-            tpm = txi[["abundance"]],
-            tmm = .tmm(raw_counts),
-            rlog = rlog(dds),
-            vst = varianceStabilizingTransformation(dds)),
+        assays,
         colData = col_data,
         rowData = row_data,
         metadata = metadata)
