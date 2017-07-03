@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MA-plot from base means and log fold changes — plot_ma • bcbioRnaseq</title>
+<title>Correlation heatmap — plot_correlation_heatmap • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,36 +80,77 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MA-plot from base means and log fold changes</h1>
+    <h1>Correlation heatmap</h1>
     </div>
 
     
-    <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA()</a></code> wrapper that generates a title from the contrast
-automatically.</p>
+    <p>This function calculates a correlation matrix based on gene expression per
+sample. By default, this function processes all gene counts per sample to
+calculate the corrlation matrix. This behavior can be overrided with the
+input of <code>gene</code> identifier vector. In this case, only the expression of the
+desired genes will be used to calculate the correlation matrix.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>,
+  <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>res</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
+      <th>bcb</th>
+      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>ylim</th>
-      <td><p>Y-axis maximum (single integer).</p></td>
+      <th>transform</th>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Correlation coefficient (or covariance) to be computed.
+Defaults to <code>pearson</code> but <code>spearman</code> can also be used. Consult the
+<code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code> documentation for more information.</p></td>
+    </tr>
+    <tr>
+      <th>clustering_method</th>
+      <td><p>Hierarchical clustering method. Accepts the same
+values as <code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>genes</th>
+      <td><p><em>Optional</em>. Character vector of specific gene identifiers to
+plot.</p></td>
+    </tr>
+    <tr>
+      <th>interesting_groups</th>
+      <td><p><em>Optional</em>. Interesting groups to label with bars
+above heatmap. If <code>NULL</code>, defaults to <code>interesting_groups</code> defined in the
+<a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>annotation</th>
+      <td><p><em>Optional</em>. Alternative annotation to use. Useful when
+plotting more than one column.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><em>Optional</em>. Plot title.</p></td>
+      <td><p><em>Optional</em>. Text to include in plot title.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, passed to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Mean average (MA) ggplot.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code></p>
     
 
   </div>
@@ -119,6 +160,8 @@ automatically.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>

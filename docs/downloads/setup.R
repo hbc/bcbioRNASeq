@@ -1,9 +1,8 @@
 # bcbioRnaseq ====
 library(bcbioRnaseq)
-out_path <- getwd()
-data_out <- file.path(out_path, "data")
-count_out <- file.path(out_path, "results", "counts")
-res_out <- file.path(out_path, "results", "de")
+data_dir <- file.path("data")
+counts_dir <- file.path("results", "counts")
+de_dir <- file.path("results", "de")
 
 # knitr ====
 library(knitr)

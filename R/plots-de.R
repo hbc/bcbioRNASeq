@@ -1,20 +1,23 @@
 #' MA-plot from base means and log fold changes
 #'
-#' [DESeq2::plotMA()] wrapper that generates a title automatically.
+#' [DESeq2::plotMA()] wrapper that generates a title from the contrast
+#' automatically.
 #'
 #' @author Michael Steinbaugh
 #'
 #' @param res [DESeqResults].
 #' @param ylim Y-axis maximum (single integer).
+#' @param title *Optional*. Plot title.
 #'
 #' @return Mean average (MA) [ggplot].
 #' @export
-plot_ma <- function(res, ylim = 2L) {
+plot_ma <- function(res, ylim = 2L, title = NULL) {
     .check_res(res)
-    name <- deparse(substitute(res))
-    contrast_name <- .res_contrast_name(res)
+    if (is.null(title)) {
+        title <- .res_contrast_name(res)
+    }
     plotMA(res,
-           main = paste(name, contrast_name, sep = label_sep),
+           main = title,
            ylim = c(-ylim, ylim))
 }
 

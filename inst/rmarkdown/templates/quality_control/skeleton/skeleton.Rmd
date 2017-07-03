@@ -13,7 +13,7 @@ source("setup.R")
 bcb <- load_run(
     upload_dir = file.path("data", "final"),
     interesting_groups = c("genotype", "treatment"))
-save_data(bcb, dir = data_out)
+save_data(bcb, dir = data_dir)
 ```
 
 ```{r header, child="header.Rmd"}
@@ -25,8 +25,8 @@ save_data(bcb, dir = data_out)
 raw_counts <- counts(bcb, normalized = FALSE)
 normalized_counts <- counts(bcb, normalized = TRUE)
 tpm <- tpm(bcb)
-save_data(raw_counts, normalized_counts, tpm, dir = data_out)
-write_counts(raw_counts, normalized_counts, tpm, dir = count_out)
+save_data(raw_counts, normalized_counts, tpm, dir = data_dir)
+write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 ```
 
 
