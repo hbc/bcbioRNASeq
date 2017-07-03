@@ -14,4 +14,4 @@ gender_markers_mmusculus
 \author{
 Michael Steinbaugh
 }
-\keyword{internal}
+\keyword{datasets}
