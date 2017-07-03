@@ -78,7 +78,7 @@
             raw_counts = raw_counts,
             normalized_counts = counts(dds, normalized = TRUE),
             tpm = txi[["abundance"]],
-            tmm = .tmm(counts),
+            tmm = .tmm(raw_counts),
             rlog = rlog(dds),
             vst = varianceStabilizingTransformation(dds)),
         colData = col_data,
