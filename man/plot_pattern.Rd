@@ -18,8 +18,7 @@ plot_pattern(bcb, res, fdr = 0.1, n = NULL, ...)
 \item{...}{Additional parameters.}
 }
 \description{
-\code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}} wrapper that adds support for a \link{bcbioRNADataSet}
-object.
+\code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \author{
 Lorena Pantano

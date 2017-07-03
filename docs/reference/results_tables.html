@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample PCA plot for transformed data — plot_pca • bcbioRnaseq</title>
+<title>Differential expression results tables — results_tables • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,16 +80,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample PCA plot for transformed data</h1>
+    <h1>Differential expression results tables</h1>
     </div>
 
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
-(PCA) sample coloring and labeling.</p>
+    <p>Differential expression results tables</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>results_tables</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"results"</span>, <span class='st'>"de"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -99,39 +98,36 @@
       <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>transform</th>
-      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
-<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+      <th>res</th>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
     </tr>
     <tr>
-      <th>genes</th>
-      <td><p><em>Optional</em>. Character vector of gene identifiers to use.</p></td>
+      <th>lfc</th>
+      <td><p>Log fold change ratio (base 2) cutoff. Does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results()</a></code> for additional information about using <code>lfcThreshold</code> and
+<code>altHypothesis</code> to set an alternative hypothesis based on expected fold
+changes.</p></td>
     </tr>
     <tr>
-      <th>interesting_groups</th>
-      <td><p><em>Optional</em>. Interesting groups to use for point
-appearance. If <code>NULL</code>, color defaults to all <code>interesting_groups</code>
-parameters set in <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+      <th>write</th>
+      <td><p>Write CSV files to disk.</p></td>
     </tr>
     <tr>
-      <th>shape</th>
-      <td><p><em>Optional</em>. Make points easier to inspect with differing shapes.</p></td>
-    </tr>
-    <tr>
-      <th>label</th>
-      <td><p><em>Optional</em>. Superimpose sample text labels on the plot.</p></td>
+      <th>dir</th>
+      <td><p>Directory path where to write files.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p>
+    <p>Results list.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>results_tables</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -139,9 +135,13 @@ parameters set in <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

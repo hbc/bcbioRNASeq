@@ -3,6 +3,8 @@
 \docType{methods}
 \name{melt_log10}
 \alias{melt_log10}
+\alias{.melt_log10}
+\alias{.join_melt}
 \alias{melt_log10,bcbioRNADataSet-method}
 \alias{melt_log10,DESeqDataSet-method}
 \alias{melt_log10,DESeqTransform-method}
@@ -11,7 +13,7 @@
 \S4method{melt_log10}{bcbioRNADataSet}(object, normalized = TRUE,
   interesting_groups = NULL)
 
-\S4method{melt_log10}{DESeqDataSet}(object, normalized = FALSE,
+\S4method{melt_log10}{DESeqDataSet}(object, normalized = TRUE,
   interesting_groups = NULL)
 
 \S4method{melt_log10}{DESeqTransform}(object, interesting_groups = NULL)

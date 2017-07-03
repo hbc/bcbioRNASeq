@@ -27,9 +27,9 @@
 Counts matrix
 }
 \description{
-By default, \code{\link[=counts]{counts()}} returns the raw counts. This method will return
-transcripts per million (TPM) by default when \code{normalized = TRUE}. This can
-be overriden by requesting the normalization method directly.
+By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
+transcripts per million (TPM) can be accessed using the \code{normalized}
+argument.
 }
 \examples{
 \dontrun{

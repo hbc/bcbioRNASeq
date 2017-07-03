@@ -1,6 +1,6 @@
 #' Plot dispersion estimates
 #'
-#' [DESeq2::plotDispEsts()] wrapper that supports a [bcbioRNADataSet].
+#' [DESeq2::plotDispEsts()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @author Michael Steinbaugh
 #'

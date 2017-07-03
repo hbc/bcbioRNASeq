@@ -1,4 +1,4 @@
-#' Access tximport data in bcbioRNADataSet
+#' tximport list accessor
 #'
 #' @rdname txi
 #' @author Michael Steinbaugh

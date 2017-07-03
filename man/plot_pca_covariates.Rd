@@ -4,19 +4,23 @@
 \alias{plot_pca_covariates}
 \title{Find correlation between principal components (PCs) and covariates.}
 \usage{
-plot_pca_covariates(bcb, dt, use = NULL, ...)
+plot_pca_covariates(bcb, transform = "rlog", use = NULL, ...)
 }
 \arguments{
 \item{bcb}{\link{bcbioRNADataSet}.}
 
-\item{dt}{\link{DESeqTransform}. \code{\link[=rlog]{rlog()}}-transformed counts are recommended.}
+\item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
+\link{DESeqTransform} slotted inside the \link{bcbioRNADataSet}.}
 
 \item{use}{\emph{Optional}. Character vector of columns to use.}
 
 \item{...}{Passthrough arguments to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
 }
+\value{
+\link{ggplot}.
+}
 \description{
-Wrapper for \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} supporting a \link{bcbioRNADataSet}.
+\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \author{
 Lorena Pantano

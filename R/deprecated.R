@@ -51,8 +51,9 @@ load_bcbio_run <- function(...) {
 
 #' @rdname deprecated
 #' @export
-load_bcbio_run_from_yaml <- function() {
+load_bcbio_run_from_yaml <- function(...) {
     .Deprecated("load_run")
+    load_run(...)
 }
 
 
@@ -113,14 +114,16 @@ pool_lane_split_dds <- function(...) {
 
 #' @rdname deprecated
 #' @export
-read_metadata <- function() {
-    .Deprecated("metadata")
+res_tables <- function(...) {
+    .Deprecated("results_tables")
+    results_tables(...)
 }
 
 
 
 #' @rdname deprecated
 #' @export
-tmm_normalize <- function() {
+tmm_normalize <- function(...) {
     .Deprecated("tmm")
+    tmm(...)
 }

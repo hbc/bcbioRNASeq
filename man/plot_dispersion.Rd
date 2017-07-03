@@ -13,7 +13,7 @@ plot_dispersion(bcb)
 \link{ggplot}.
 }
 \description{
-\code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} wrapper that supports a \link{bcbioRNADataSet}.
+\code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \author{
 Michael Steinbaugh

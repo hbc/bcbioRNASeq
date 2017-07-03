@@ -18,10 +18,10 @@
 #' @param interesting_groups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
-#' @param sample_metadata_file (*Optional*). Custom metadata file containing
+#' @param sample_metadata_file *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
-#' @param ... Additional arguments, saved as metadata in the object.
+#' @param ... Additional arguments, saved as metadata.
 #'
 #' @return [bcbioRNADataSet].
 #' @export

@@ -84,10 +84,10 @@
     </div>
 
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='no'>dt</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -97,8 +97,9 @@
       <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>dt</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a>. <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog()</a></code>-transformed counts are recommended.</p></td>
+      <th>transform</th>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>use</th>
@@ -110,13 +111,19 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>ggplot.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
     <h2>Author</h2>
     

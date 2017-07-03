@@ -5,9 +5,9 @@
 \title{Volcano plot}
 \usage{
 plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
-  direction = "both", title = NULL, shade_color = "orange",
-  shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
-  point_outline_color = "darkgray")
+  direction = "both", shade_color = "orange", shade_alpha = 0.25,
+  point_color = "gray", point_alpha = 0.75,
+  point_outline_color = "darkgray", title = NULL)
 }
 \arguments{
 \item{bcb}{\link{bcbioRNADataSet}.}
@@ -22,8 +22,6 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
 
 \item{direction}{Plot \code{up}, \code{down}, or \code{both} directions.}
 
-\item{title}{\emph{Optional}. Custom plot title.}
-
 \item{shade_color}{Shading color for bounding box.}
 
 \item{shade_alpha}{Shading transparency alpha.}
@@ -33,6 +31,8 @@ plot_volcano(bcb, res, lfc = 1L, text_labels = 30L, merge_plots = TRUE,
 \item{point_alpha}{Point transparency alpha.}
 
 \item{point_outline_color}{Point outline color.}
+
+\item{title}{\emph{Optional}. Custom plot title.}
 }
 \value{
 Volcano plot arranged as \code{ggrid} (\code{merge_plots = TRUE}), or \code{\link[=show]{show()}}

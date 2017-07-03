@@ -1,3 +1,23 @@
+#' Melt count matrix to long format and log10 transform
+#'
+#' @rdname melt_log10
+#' @docType methods
+#' @author Michael Steinbaugh
+#'
+#' @param object Object containing counts matrix.
+#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
+#' or specifically request TMM-normalized counts (`tmm`).
+#' @param interesting_groups *Optional*. Interesting groups.
+#' @param ... Optional parameters.
+#'
+#' @return log10 melted [data.frame].
+#'
+#' @seealso [reshape2::melt()].
+
+
+
+#' @rdname melt_log10
+#' @usage NULL
 .melt_log10 <- function(counts) {
     counts %>%
         as.data.frame %>%
@@ -16,6 +36,8 @@
 
 
 
+#' @rdname melt_log10
+#' @usage NULL
 .join_melt <- function(counts, metadata) {
     if (!identical(colnames(counts), metadata[["colname"]])) {
         stop("Sample description mismatch between counts and metadata")
@@ -27,22 +49,8 @@
 
 
 
-#' Melt count matrix to long format and log10 transform
-#'
 #' @rdname melt_log10
-#' @docType methods
-#' @author Michael Steinbaugh
-#'
-#' @param object Object containing counts matrix.
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts (`tmm`).
-#' @param interesting_groups *Optional*. Interesting groups.
-#' @param ... Optional parameters.
-#'
-#' @return log10 melted [data.frame].
 #' @export
-#'
-#' @seealso [reshape2::melt()].
 setMethod("melt_log10", "bcbioRNADataSet", function(
     object,
     normalized = TRUE,
@@ -61,11 +69,13 @@ setMethod("melt_log10", "bcbioRNADataSet", function(
     .join_melt(counts, metadata)
 })
 
+
+
 #' @rdname melt_log10
 #' @export
 setMethod("melt_log10", "DESeqDataSet", function(
     object,
-    normalized = FALSE,
+    normalized = TRUE,
     interesting_groups = NULL) {
     counts <- counts(object, normalized = normalized)
 

@@ -18,11 +18,11 @@ small RNA-seq (\code{srnaseq}).}
 is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.}
 
-\item{sample_metadata_file}{(\emph{Optional}). Custom metadata file containing
+\item{sample_metadata_file}{\emph{Optional}. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 
-\item{...}{Additional arguments, saved as metadata in the object.}
+\item{...}{Additional arguments, saved as metadata.}
 }
 \value{
 \link{bcbioRNADataSet}.

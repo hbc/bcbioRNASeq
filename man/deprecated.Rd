@@ -13,7 +13,7 @@
 \alias{plot_deseq_pca}
 \alias{pool_lane_split_counts}
 \alias{pool_lane_split_dds}
-\alias{read_metadata}
+\alias{res_tables}
 \alias{tmm_normalize}
 \title{Deprecated functions}
 \usage{
@@ -27,7 +27,7 @@ import_summary()
 
 load_bcbio_run(...)
 
-load_bcbio_run_from_yaml()
+load_bcbio_run_from_yaml(...)
 
 load_run_S4(...)
 
@@ -41,9 +41,9 @@ pool_lane_split_counts(...)
 
 pool_lane_split_dds(...)
 
-read_metadata()
+res_tables(...)
 
-tmm_normalize()
+tmm_normalize(...)
 }
 \arguments{
 \item{...}{Additional parameters.}

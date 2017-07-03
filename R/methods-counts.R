@@ -1,8 +1,8 @@
 #' Count matrix accessors
 #'
-#' By default, [counts()] returns the raw counts. This method will return
-#' transcripts per million (TPM) by default when `normalized = TRUE`. This can
-#' be overriden by requesting the normalization method directly.
+#' By default, [counts()] returns the raw counts. Normalized counts, including
+#' transcripts per million (TPM) can be accessed using the `normalized`
+#' argument.
 #'
 #' @rdname counts
 #' @docType methods

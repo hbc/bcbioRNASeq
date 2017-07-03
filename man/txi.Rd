@@ -4,7 +4,7 @@
 \name{txi}
 \alias{txi}
 \alias{txi,bcbioRNADataSet-method}
-\title{Access tximport data in bcbioRNADataSet}
+\title{tximport list accessor}
 \usage{
 \S4method{txi}{bcbioRNADataSet}(object)
 }
@@ -15,7 +15,7 @@
 \code{\link[tximport:tximport]{tximport::tximport()}} list.
 }
 \description{
-Access tximport data in bcbioRNADataSet
+tximport list accessor
 }
 \author{
 Michael Steinbaugh
