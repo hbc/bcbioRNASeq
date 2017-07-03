@@ -180,5 +180,6 @@ load_run <- function(
     # bcbioRNADataSet ====
     bcb <- new("bcbioRNADataSet", se)
     bcbio(bcb, "tximport") <- txi
+    bcbio(bcb, "DESeqDataSet") <- dds
     bcb
 }
