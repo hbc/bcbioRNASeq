@@ -21,7 +21,7 @@
     metadata = NULL) {
     message("Packaging SummarizedExperiment")
     assays <- as(assays, "SimpleList")
-    counts <- assays[[1]]
+    counts <- assays[[1L]]
 
     # colData
     col_data <- as(col_data, "DataFrame") %>%
