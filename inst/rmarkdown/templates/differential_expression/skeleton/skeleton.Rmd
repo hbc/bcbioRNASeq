@@ -32,15 +32,13 @@ lfc <- 0
 
 
 ```{r dds, results="hide"}
-txi <- bcbio(bcb, "tximport")
-colData <- colData(bcb)
 dds <- DESeqDataSetFromTximport(
-    txi = txi,
-    colData = colData,
+    txi = txi(bcb),
+    colData = colData(bcb),
     design = design) %>%
     DESeq
 rld <- rlog(dds)
-save_data(dds, dir = data_dir)
+save_data(dds, rld, dir = data_dir)
 ```
 
 
@@ -103,8 +101,9 @@ plot_volcano(bcb, res = res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
-plot_deg_heatmap(bcb, res = res, dt = rld, lfc = lfc)
+plot_deg_heatmap(bcb, dt = rld, res = res, lfc = lfc)
 ```
+
 
 
 # File downloads
@@ -140,8 +139,8 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `description`: [Ensembl][] description.
 - `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
-```{r res_tbl, results="asis"}
-res_tbl <- res_tables(bcb, res = res, lfc = lfc, dir = de_dir)
+```{r results_tables, results="asis"}
+res_tbl <- results_tables(bcb, res = res, lfc = lfc, dir = de_dir)
 save_data(res_tbl, dir = data_dir)
 ```
 
