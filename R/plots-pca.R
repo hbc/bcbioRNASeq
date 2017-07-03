@@ -129,13 +129,14 @@ plot_pca_covariates <- function(bcb, transform = "rlog", use = NULL, ...) {
 
     metrics <- metrics %>%
         as.data.frame %>%
-        .[, setdiff(keep_metrics, c("description", "file_name"))] %>%
-        set_rownames(.[["description"]])
+        set_rownames(.[["description"]]) %>%
+        .[, setdiff(keep_metrics, c("description", "file_name")), drop = FALSE]
 
     # Pass internal [DESeqTransform] to [degCovariates()]
     if (!transform %in% c("rlog", "vst")) {
         stop("DESeqTransform must be rlog or vst")
     }
+
     assays(bcb)[[transform]] %>%
         # Assay needed here to get the matrix from [DESeqTransform]
         assay %>%

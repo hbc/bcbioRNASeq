@@ -1,8 +1,9 @@
 # bcbioRnaseq ====
 library(bcbioRnaseq)
-data_dir <- file.path("data")
-counts_dir <- file.path("results", "counts")
-de_dir <- file.path("results", "de")
+out_path <- "." # where to save all output
+data_out <- file.path(out_path, "data")
+count_out <- file.path(out_path, "results", "counts")
+res_out <- file.path(out_path, "results", "de")
 
 # knitr ====
 library(knitr)

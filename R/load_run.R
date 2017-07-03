@@ -91,7 +91,6 @@ load_run <- function(
     annotable <- annotable(genome_build)
     tx2gene <- .tx2gene(project_dir, genome_build)
 
-
     # Sequencing lanes ====
     lane_pattern <- "_L(\\d{3})"
     if (any(str_detect(sample_dirs, lane_pattern))) {
