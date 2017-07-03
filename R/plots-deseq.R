@@ -1,3 +1,20 @@
+#' Plot dispersion estimates
+#'
+#' [DESeq2::plotDispEsts()] wrapper that supports a [bcbioRNADataSet].
+#'
+#' @author Michael Steinbaugh
+#'
+#' @param bcb [bcbioRNADataSet].
+#'
+#' @return [ggplot].
+#' @export
+plot_dispersion <- function(bcb) {
+    bcbio("DESeqDataSet") %>%
+        plotDispEsts
+}
+
+
+
 #' Plot row standard deviations versus row means
 #'
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
