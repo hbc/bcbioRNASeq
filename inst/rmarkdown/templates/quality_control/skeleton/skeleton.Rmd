@@ -9,10 +9,10 @@ bibliography: bcbioRnaseq.bib
 # Run [bcbioRnaseq::downloads()] to download `setup.R`
 source("setup.R")
 
-# bcbioRnaDataSet
-bcb <- load_run(
-    upload_dir = file.path("data", "final"),
-    interesting_groups = c("genotype", "treatment"))
+# bcbioRnaDataSet. Uncomment with correct values.
+# bcb <- load_run(
+#    upload_dir = file.path("data", "final"),
+#    interesting_groups = c("genotype", "treatment"))
 save_data(bcb, dir = data_dir)
 ```
 

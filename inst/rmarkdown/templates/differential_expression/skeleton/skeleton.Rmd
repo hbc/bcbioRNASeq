@@ -9,7 +9,7 @@ bibliography: bcbioRnaseq.bib
 # Run quality control template first to generate [bcbioRNADataSet]
 source("setup.R")
 library(DESeq2)
-data(bcb)
+data(bcb) # only works if rda saved in .data
 
 # Design formula. Uncomment with correct values
 # design <- formula(~genotype)
