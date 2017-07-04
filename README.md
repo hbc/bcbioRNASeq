@@ -1,10 +1,3 @@
-[Bioconductor]: https://bioconductor.org
-[bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
-[devtools]: https://cran.r-project.org/package=devtools
-[R]: https://www.r-project.org
-
-
-
 # bcbioRnaseq
 
 [![Build Status](https://travis-ci.org/hbc/bcbioRnaseq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRnaseq)
@@ -32,13 +25,14 @@ install.packages("devtools")
 devtools::install_github("hbc/bcbioRnaseq")
 ```
 
+
 ## Examples
 
 [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the
 default RMarkdown templates included in the package.
 
-* [QC example](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
-* [DE example](http://bcb.io/bcbio_rnaseq_output_example/de.html)
+- [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
+- [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de.html)
 
 
 ## Contribute
@@ -46,4 +40,10 @@ default RMarkdown templates included in the package.
 - For major changes, create a new branch and a pull request that will be revised.
 - For small changes, commit directly to master.
 - For fixes in releases, commit to releases branches.
-- Open discussion for changes affecting `bcbioRNADataSet` object or `setup.R`
+- Open discussion for changes affecting `bcbioRNADataSet` class or `setup.R`.
+
+
+[Bioconductor]: https://bioconductor.org
+[bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
+[devtools]: https://cran.r-project.org/package=devtools
+[R]: https://www.r-project.org
