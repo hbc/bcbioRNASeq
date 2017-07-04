@@ -1,42 +1,153 @@
-0.0.23  Slotted DESeqDataSet using `design = formula(~1)` for quality control.
-        This enables automatic generation of `rlog` and `vst` transformed
-        counts.
-        Documentation fixes and website updates.
-        Renamed S4 class to bcbioRNADataSet.
-        Adjusted the number of exported functions.
-0.0.22  Added testthat checking with lintr.
-        Initial setup of code coverage using covr.
-0.0.21  Prepare draft of F1000 workflow document.
-0.0.20  Add Travis CI support for automatic rendering of quality control report.
-0.0.19  bcbioRnaDataSet S4 definition updates.
-        Updates to plot_pca and gene-level heatmaps.
-0.0.18  Simplify count pooling functions.
-0.0.17  Reduce number of exports and improve documentation.
-0.0.16  Draft migration of bcbio run object into S4 bcbioRnaDataSet.
-        Create a new variant of load_run() that saves to S4 instead of list.
-0.0.15  Clean-up and organize internal functions.
-0.0.14  Default to loading run using project summary YAML file.
-        Initial commit of RMarkdown templates (e.g. quality control).
-        Add support for dynamic file downloads from HBC website.
-        Draft build of website using pkgdown::build_site().
-0.0.13  Improve RDAVIDWebService utility functions to work with dplyr 0.6.0.
-0.0.12  Rework metadata and summary metrics functions to obtain information
-        from project-summary.yaml saved in the final run directory.
-0.0.11  Reduce number of depdencies.
-        Initial commit of modified volcano plot from CHBUtils package.
-        Internal code updates for upcoming dplyr 0.6.0/tidyeval update.
-        Updated Ensembl biomaRt annotations to use live site, currently Ensembl
-        Release 88.
-0.0.10  Rename `import_*` functions to `read_*`.
-0.0.9   Consolidate NAMESPACE imports.
-        Write count matrices with gzip compression.
-0.0.8   Rename internal parameters for better readability.
-        Improve documentation and consolidate functions by group.
-0.0.7   NAMESPACE simplification.
-0.0.6   Rework handling of plots and tables during knits.
-0.0.5   Differential expression and gene set enrichment functions.
-0.0.4   bcbio object integrity checks.
-        Better detection and handling of lane split samples.
-0.0.3   Rework functions to utilize bcbio list object.
-0.0.2   Add plotting functions.
-0.0.1   Initial draft release.
+# 0.0.23 
+
+- Slotted DESeqDataSet using `design = formula(~1)` for quality control.
+  This enables automatic generation of `rlog` and `vst` transformed counts.
+- Documentation fixes and website updates.
+- Renamed S4 class to bcbioRNADataSet.
+- Adjusted the number of exported functions.
+
+
+
+# 0.0.22
+
+- Added testthat checking with lintr.
+- Initial setup of code coverage using covr.
+
+
+
+# 0.0.21
+
+- Prepared draft of F1000 workflow document.
+
+
+
+# 0.0.20
+
+- Added Travis CI support for automatic rendering of quality control report.
+
+
+
+# 0.0.19
+
+- bcbioRnaDataSet S4 definition updates.
+- Updates to plot_pca and gene-level heatmaps.
+
+
+
+# 0.0.18
+
+- Simplified count pooling functions.
+
+
+
+# 0.0.17
+
+- Reduced number of exports and improved documentation.
+
+
+
+# 0.0.16
+
+- Draft migration of bcbio run object into S4 bcbioRnaDataSet.
+- Created a new variant of `load_run()` that saves to S4 object instead of list.
+
+
+
+# 0.0.15
+
+- Reworked and re-organized internal functions.
+
+
+
+# 0.0.14
+
+- Defaulted to loading run using project summary YAML file.
+- Initial commit of RMarkdown templates (e.g. quality control).
+- Added support for dynamic file downloads from HBC website.
+- Draft build of website using `pkgdown::build_site()`.
+
+
+
+# 0.0.13
+
+- Improved RDAVIDWebService utility functions to work with dplyr 0.6.0.
+
+
+
+# 0.0.12
+
+- Reworked metadata and summary metrics functions to obtain information
+  from project-summary.yaml saved in the final run directory.
+
+
+
+# 0.0.11
+
+- Reduced number of depdencies.
+- Initial commit of modified volcano plot from CHBUtils package.
+- Internal code updates for upcoming dplyr 0.6.0/tidyeval update.
+- Updated Ensembl biomaRt annotations to use live site, currently Ensembl
+  Release 88.
+
+
+
+# 0.0.10
+
+- Renamed `import_*` functions to `read_*`.
+
+
+
+# 0.0.9
+
+- Consolidated NAMESPACE imports.
+- Defaulted to writing count matrices with gzip compression, to save disk space.
+
+
+
+# 0.0.8
+
+- Renamed internal parameters for better readability.
+- Improved documentation and consolidate functions by group.
+
+
+
+# 0.0.7
+
+- NAMESPACE simplification using basejump package.
+
+
+
+# 0.0.6
+
+- Reworked handling of plots and tables during knits.
+
+
+
+# 0.0.5
+
+- Initial commit of differential expression and gene set enrichment functions.
+
+
+
+# 0.0.4
+
+- Added bcbio object integrity checks.
+- Improved detection and handling of lane split samples.
+
+
+
+# 0.0.3
+
+-Reworked functions to utilize bcbio list object.
+
+
+
+# 0.0.2
+
+- Added plotting functions.
+
+
+
+# 0.0.1
+
+- Initial draft release supporting automatic loading of bcbio run data.
