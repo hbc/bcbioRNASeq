@@ -1,7 +1,6 @@
-# 0.0.23 
+# 0.0.23
 
-- Slotted DESeqDataSet using `design = formula(~1)` for quality control.
-  This enables automatic generation of `rlog` and `vst` transformed counts.
+- Slotted DESeqDataSet using `design = formula(~1)` for quality control. This enables automatic generation of `rlog` and `vst` transformed counts.
 - Documentation fixes and website updates.
 - Renamed S4 class to bcbioRNADataSet.
 - Adjusted the number of exported functions.
@@ -76,8 +75,7 @@
 
 # 0.0.12
 
-- Reworked metadata and summary metrics functions to obtain information
-  from project-summary.yaml saved in the final run directory.
+- Reworked metadata and summary metrics functions to obtain information from `project-summary.yaml` saved in the final run directory.
 
 
 
@@ -86,8 +84,7 @@
 - Reduced number of depdencies.
 - Initial commit of modified volcano plot from CHBUtils package.
 - Internal code updates for upcoming dplyr 0.6.0/tidyeval update.
-- Updated Ensembl biomaRt annotations to use live site, currently Ensembl
-  Release 88.
+- Updated Ensembl biomaRt annotations to use live site, currently Ensembl Release 88.
 
 
 
@@ -138,7 +135,7 @@
 
 # 0.0.3
 
--Reworked functions to utilize bcbio list object.
+- Reworked functions to utilize bcbio list object.
 
 
 
