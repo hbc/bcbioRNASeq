@@ -1,3 +1,11 @@
+# 0.0.24
+
+- Reworked RMarkdown templates to improve YAML defaults and add more comments.
+- Modified default path variables in `setup.R` to use `*_dir` instead of `*_out`.
+- Updated NEWS file to use Markdown syntax.
+
+
+
 # 0.0.23
 
 - Slotted DESeqDataSet using `design = formula(~1)` for quality control. This enables automatic generation of `rlog` and `vst` transformed counts.
