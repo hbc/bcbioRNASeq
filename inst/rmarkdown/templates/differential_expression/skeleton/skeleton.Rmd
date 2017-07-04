@@ -17,9 +17,9 @@ load(file.path(data_dir, "bcb.rda"))
 
 # Contrast. Uncomment with correct values.
 # help("results", "DESeq2")
-#     1. Design matrix parameter.
-#     2. Numerator for LFC (expt).
-#     3. Denominator for LFC (control).
+#   1. Design matrix parameter.
+#   2. Numerator for LFC (expt).
+#   3. Denominator for LFC (control).
 # contrast <- c("genotype", "mutant", "wildtype")
 
 # Significance cutoffs
@@ -69,7 +69,7 @@ res_shrunken <- lfcShrink(
     contrast = contrast,
     res = res_unshrunken)
 
-# Compare these two results and pick which one to report
+# Use shrunken LFC values by default
 res <- res_shrunken
 save_data(res, res_unshrunken, res_shrunken, dir = data_dir)
 ```
