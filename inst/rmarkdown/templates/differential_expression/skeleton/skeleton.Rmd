@@ -6,19 +6,20 @@ bibliography: bcbioRnaseq.bib
 ---
 
 ```{r setup, message=FALSE}
-# Run quality control template first to generate [bcbioRNADataSet]
+# Render quality control template first to save bcb (bcbioRNADataSet)
 source("setup.R")
 library(DESeq2)
-data(bcb) # only works if rda saved in .data
+load(file.path(data_dir, "bcb.rda"))
 
-# Design formula. Uncomment with correct values
+# Design formula. Uncomment with correct values.
+# help("design", "DESeq2")
 # design <- formula(~genotype)
 
-# Contrast. . Uncomment with correct values
-# 1. Design matrix parameter.
-# 2. Numerator for LFC (expt).
-# 3. Denominator for LFC (control).
-# @seealso [DESeq2::results()]
+# Contrast. Uncomment with correct values.
+# help("results", "DESeq2")
+#     1. Design matrix parameter.
+#     2. Numerator for LFC (expt).
+#     3. Denominator for LFC (control).
 # contrast <- c("genotype", "mutant", "wildtype")
 
 # Significance cutoffs
@@ -61,8 +62,8 @@ res_unshrunken <- results(
     contrast = contrast,
     alpha = alpha)
 
-# DESeqResults with shrunken log2 fold changes (LFC).
-# Still being prototyped, see `?lfcShrink` (DESeq 1.16).
+# DESeqResults with shrunken log2 fold changes (LFC)
+# help("lfcShrink", "DESeq2")
 res_shrunken <- lfcShrink(
     dds = dds,
     contrast = contrast,
@@ -74,6 +75,7 @@ save_data(res, res_unshrunken, res_shrunken, dir = data_dir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
+
 
 
 # Plots
