@@ -1,6 +1,6 @@
 ---
 title: "Small RNA-seq quality control"
-author: "`r getOption('author')` (`r getOption('email')`)"
+author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 ---
@@ -15,7 +15,7 @@ bcb <- load_run(
     upload_dir = file.path("data", "final"),
     interesting_groups = c("genotype", "treatment"),
     analysis = "srnaseq")
-save_data(bcb, dir = data_out)
+save_data(bcb, dir = data_dir)
 ```
 
 ```{r header, child="header.Rmd"}

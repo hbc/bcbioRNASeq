@@ -70,6 +70,7 @@ load_run <- function(
 
 
     # Sample names ====
+    # FIXME add `all_samples` flag into metadata, like bcbioSinglecell
     # Obtain the samples (and their directories) from the YAML
     sample_names <- vapply(
         yaml[["samples"]],
