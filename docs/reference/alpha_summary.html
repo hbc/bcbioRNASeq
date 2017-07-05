@@ -87,7 +87,8 @@
     <p>Print summary statistics of alpha level cutoffs</p>
     
 
-    <pre class="usage"><span class='fu'>alpha_summary</span>(<span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>, <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>))</pre>
+    <pre class="usage"><span class='fu'>alpha_summary</span>(<span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>, <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>),
+  <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -99,6 +100,10 @@
     <tr>
       <th>alpha</th>
       <td><p>Numeric vector of desired alpha cutoffs.</p></td>
+    </tr>
+    <tr>
+      <th>contrast</th>
+      <td><p>Character vector to use with <a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a> function.</p></td>
     </tr>
     </table>
     

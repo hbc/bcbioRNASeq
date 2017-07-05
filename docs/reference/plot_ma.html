@@ -84,32 +84,35 @@
     </div>
 
     
-    <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA()</a></code> wrapper that generates a title from the contrast
-automatically.</p>
+    <p>MA-plot</p>
     
 
-    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_column</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>res</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
-    </tr>
-    <tr>
-      <th>ylim</th>
-      <td><p>Y-axis maximum (single integer).</p></td>
+      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a> or a data frame of DESeqResults.</p></td>
     </tr>
     <tr>
       <th>title</th>
       <td><p><em>Optional</em>. Plot title.</p></td>
     </tr>
+    <tr>
+      <th>label_points</th>
+      <td><p>Optionally label these particular points</p></td>
+    </tr>
+    <tr>
+      <th>label_column</th>
+      <td><p>Match label_points to this column in the results</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Mean average (MA) ggplot.</p>
+    <p>MA-plot ggplot.</p>
     
 
   </div>
@@ -124,6 +127,8 @@ automatically.</p>
     <h2>Author</h2>
     
 Michael Steinbaugh
+
+Rory Kirchner
 
   </div>
 </div>

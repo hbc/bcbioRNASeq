@@ -51,6 +51,7 @@ Imports:
     pheatmap,
     rjson,
     S4Vectors,
+    scales,
     stats,
     SummarizedExperiment,
     tximport (>= 1.4.0),
