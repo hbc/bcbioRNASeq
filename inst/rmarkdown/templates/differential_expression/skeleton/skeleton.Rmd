@@ -11,10 +11,10 @@ source("setup.R")
 library(DESeq2)
 data(bcb) # only works if rda saved in .data
 
-# Design formula. Uncomment with correct values
+# Design formula. Uncomment with correct values.
 # design <- formula(~genotype)
 
-# Contrast. . Uncomment with correct values
+# Contrast. Uncomment with correct values.
 # 1. Design matrix parameter.
 # 2. Numerator for LFC (expt).
 # 3. Denominator for LFC (control).
