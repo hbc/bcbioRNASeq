@@ -9,7 +9,6 @@
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene symbol (a.k.a.
 #'   `external_gene_name`).
-#'
 #' @export
 plot_gene <- function(
     bcb,

@@ -60,6 +60,18 @@ for more information.}
 \description{
 These functions are a collection of gene-level quality control plots.
 }
+\examples{
+data(dummy)
+plot_total_reads(bcb)
+plot_mapped_reads(bcb)
+plot_mapping_rate(bcb)
+plot_gene_detection_saturation(bcb)
+plot_exonic_mapping_rate(bcb)
+plot_intronic_mapping_rate(bcb)
+plot_rrna_mapping_rate(bcb)
+plot_counts_per_gene(bcb)
+plot_count_density(bcb)
+}
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
