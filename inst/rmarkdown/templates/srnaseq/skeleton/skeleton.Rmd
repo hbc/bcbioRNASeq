@@ -1,6 +1,6 @@
 ---
 title: "Small RNA-seq quality control"
-author: "`r getOption('author')` (`r getOption('email')`)"
+author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 ---
