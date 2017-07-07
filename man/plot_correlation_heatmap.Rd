@@ -36,7 +36,7 @@ plotting more than one column.}
 \item{...}{Additional arguments, passed to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 }
 \value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+Heatmap plot \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
 }
 \description{
 This function calculates a correlation matrix based on gene expression per
@@ -44,6 +44,10 @@ sample. By default, this function processes all gene counts per sample to
 calculate the corrlation matrix. This behavior can be overrided with the
 input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
+}
+\examples{
+data(dummy)
+plot_correlation_heatmap(bcb)
 }
 \seealso{
 \code{\link[stats:cor]{stats::cor()}}

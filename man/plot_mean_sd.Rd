@@ -16,6 +16,10 @@ ggplot grid.
 \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots \code{\link[=log2]{log2()}}, \code{\link[=rlog]{rlog()}}, and
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
+\examples{
+data(dummy)
+plot_mean_sd(bcb)
+}
 \author{
 Michael Steinbaugh, Lorena Patano
 }

@@ -32,25 +32,24 @@ transcripts per million (TPM) can be accessed using the \code{normalized}
 argument.
 }
 \examples{
-\dontrun{
+data(dummy)
 # Raw counts
-counts(bcb, normalized = FALSE)
+ma <- counts(bcb, normalized = FALSE)
 
 # DESeq2 normalized counts
-counts(bcb, normalized = TRUE)
+ma <- counts(bcb, normalized = TRUE)
 
 # TPM
-counts(bcb, normalized = "tpm")
+ma <- counts(bcb, normalized = "tpm")
 
 # TMM
-counts(bcb, normalized = "tmm")
+ma <- counts(bcb, normalized = "tmm")
 
 # rlog
-counts(bcb, normalized = "rlog")
+ma <- counts(bcb, normalized = "rlog")
 
 # VST
-counts(bcb, normalized = "vst")
-}
+ma <- counts(bcb, normalized = "vst")
 }
 \author{
 Michael Steinbaugh

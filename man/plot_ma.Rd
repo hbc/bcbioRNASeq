@@ -21,6 +21,15 @@ MA-plot \link{ggplot}.
 \description{
 MA-plot
 }
+\examples{
+data(dummy)
+library(DESeq2)
+dds = DESeqDataSetFromTximport(bcbio(bcb, "tximport"),
+colData(bcb),design=~group)
+dds=DESeq(dds)
+res = results(dds)
+plot_ma(res)
+}
 \author{
 Michael Steinbaugh
 

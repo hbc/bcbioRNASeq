@@ -13,7 +13,11 @@
 #' @param shape *Optional*. Make points easier to inspect with differing shapes.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
 #'
-#' @return [ggplot].
+#' @return PCA plot [ggplot].
+#' @examples
+#' data(dummy)
+#' plot_pca(bcb)
+#'
 #' @export
 #'
 #' @seealso [DESeq2::plotPCA()].

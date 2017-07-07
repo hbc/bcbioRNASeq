@@ -24,11 +24,16 @@ parameters set in \link{bcbioRNADataSet}.}
 \item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
 }
 \value{
-\link{ggplot}.
+PCA plot \link{ggplot}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
 (PCA) sample coloring and labeling.
+}
+\examples{
+data(dummy)
+plot_pca(bcb)
+
 }
 \seealso{
 \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.

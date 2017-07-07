@@ -11,6 +11,14 @@
 #' @param label_column Match label_points to this column in the results
 #'
 #' @return MA-plot [ggplot].
+#' @examples
+#' data(dummy)
+#' library(DESeq2)
+#' dds = DESeqDataSetFromTximport(bcbio(bcb, "tximport"),
+#' colData(bcb),design=~group)
+#' dds=DESeq(dds)
+#' res = results(dds)
+#' plot_ma(res)
 #' @export
 plot_ma <- function(res,
                     title = NULL,
@@ -61,7 +69,14 @@ plot_ma <- function(res,
 #' @return Volcano plot arranged as `ggrid` (`merge_plots = TRUE`), or [show()]
 #'   individual [ggplot]s (`merge_plots = FALSE`).
 #' @export
-#'
+#' @examples
+#' data(dummy)
+#' library(DESeq2)
+#' dds = DESeqDataSetFromTximport(bcbio(bcb, "tximport"),
+#' colData(bcb),design=~group)
+#' dds=DESeq(dds)
+#' res = results(dds)
+#' plot_volcano(bcb, res)
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
 plot_volcano <- function(
