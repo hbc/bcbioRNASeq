@@ -23,6 +23,10 @@ The \code{metadata} accessor contains:
 \item R local environment information, including \code{\link[=sessionInfo]{sessionInfo()}}.
 }
 }
+\examples{
+path <- system.file("extra", package="bcbioRnaseq")
+bcb <- load_run(file.path(path, "bcbio"))
+}
 \author{
 Lorena Patano, Michael Steinbaugh
 }

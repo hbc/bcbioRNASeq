@@ -18,8 +18,11 @@
 #' - Server run paths.
 #' - R local environment information, including [sessionInfo()].
 #'
-#' @rdname bcbioRNADataSet
 #' @author Lorena Patano, Michael Steinbaugh
+#' @rdname bcbioRNADataSet
+#' @examples
+#' path <- system.file("extra", package="bcbioRnaseq")
+#' bcb <- load_run(file.path(path, "bcbio"))
 #' @export
 bcbioRNADataSet <- setClass(  # nolint
     "bcbioRNADataSet",
