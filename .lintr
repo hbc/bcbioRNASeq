@@ -17,7 +17,7 @@ linters: with_defaults(
     single_quotes_linter,
     spaces_inside_linter,
     spaces_left_parentheses_linter,
-    todo_comment_linter,
+    todo_comment_linter(),
     trailing_blank_lines_linter,
     trailing_whitespace_linter,
     T_and_F_symbol_linter,
