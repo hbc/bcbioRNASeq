@@ -21,6 +21,10 @@
 #' @rdname bcbioRNADataSet
 #' @author Lorena Patano, Michael Steinbaugh
 #' @export
+#'
+#' @examples
+#' path <- system.file("extra", package = "bcbioRnaseq")
+#' bcb <- load_run(file.path(path, "bcbio"))
 bcbioRNADataSet <- setClass(  # nolint
     "bcbioRNADataSet",
     contains = "SummarizedExperiment",

@@ -5,8 +5,10 @@
 #' @author Michael Steinbaugh
 #'
 #' @param bcb [bcbioRNADataSet].
-#'
-#' @return [ggplot].
+#' @examples
+#' data(dummy)
+#' plot_dispersion(bcb)
+#' @return Dispersion plot [ggplot].
 #' @export
 plot_dispersion <- function(bcb) {
     bcbio(bcb, "DESeqDataSet") %>% plotDispEsts
@@ -22,7 +24,9 @@ plot_dispersion <- function(bcb) {
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param bcb [bcbioRNADataSet].
-#'
+#' @examples
+#' data(dummy)
+#' plot_mean_sd(bcb)
 #' @return ggplot grid.
 #' @export
 plot_mean_sd <- function(bcb) {

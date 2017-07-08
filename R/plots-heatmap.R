@@ -26,7 +26,10 @@
 #' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional arguments, passed to [pheatmap::pheatmap()].
 #'
-#' @return [pheatmap::pheatmap()].
+#' @return Heatmap plot [pheatmap::pheatmap()].
+#' @examples
+#' data(dummy)
+#' plot_correlation_heatmap(bcb)
 #' @export
 #'
 #' @seealso [stats::cor()]

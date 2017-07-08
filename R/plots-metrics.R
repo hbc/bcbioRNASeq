@@ -17,6 +17,17 @@
 #'   plotting.
 #'
 #' @return [ggplot].
+#' @examples
+#' data(dummy)
+#' plot_total_reads(bcb)
+#' plot_mapped_reads(bcb)
+#' plot_mapping_rate(bcb)
+#' plot_gene_detection_saturation(bcb)
+#' plot_exonic_mapping_rate(bcb)
+#' plot_intronic_mapping_rate(bcb)
+#' plot_rrna_mapping_rate(bcb)
+#' plot_counts_per_gene(bcb)
+#' plot_count_density(bcb)
 #' @export
 plot_total_reads <- function(
     bcb,

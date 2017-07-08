@@ -13,11 +13,13 @@
 #'   expand_limits facet_wrap geom_bar geom_boxplot geom_density geom_hline
 #'   geom_jitter geom_line geom_point geom_polygon geom_ribbon geom_smooth
 #'   ggplot ggtitle guides labs scale_x_continuous scale_y_log10 theme xlab xlim
-#'   ylab ylim
+#'   ylab ylim scale_x_log10 scale_color_manual geom_text aes_string
+#'   scale_x_log10 annotation_logticks
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
+#' @importFrom scales math_format trans_breaks trans_format
 #' @importFrom stats formula
 #' @importFrom tximport tximport
 #' @importFrom utils read.table capture.output
