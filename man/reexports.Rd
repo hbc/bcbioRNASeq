@@ -29,6 +29,8 @@
 \alias{reexports}
 \alias{DESeqDataSetFromMatrix}
 \alias{reexports}
+\alias{DESeqDataSetFromTximport}
+\alias{reexports}
 \alias{DESeqResults}
 \alias{reexports}
 \alias{DESeqTransform}
@@ -38,6 +40,10 @@
 \alias{rlog}
 \alias{reexports}
 \alias{vst}
+\alias{reexports}
+\alias{ggplot}
+\alias{reexports}
+\alias{colData}
 \alias{reexports}
 \alias{tximport}
 \title{Objects exported from other packages}
@@ -51,7 +57,11 @@ below to see their documentation.
 
   \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
 
-  \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
+  \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqDataSetFromTximport}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
+
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{colData}}}
 
   \item{tximport}{\code{\link[tximport]{tximport}}}
 }}

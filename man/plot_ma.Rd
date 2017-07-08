@@ -22,6 +22,16 @@ plot_ma(res, title = NULL, label_points = NULL, label_column = "symbol")
 \description{
 MA-plot from base means and log fold changes
 }
+\examples{
+data(dummy)
+dds <- DESeqDataSetFromTximport(
+    bcbio(bcb, "tximport"),
+    colData(bcb),
+    design = ~group)
+dds <- DESeq(dds)
+res <- results(dds)
+plot_ma(res)
+}
 \author{
 Michael Steinbaugh, Rory Kirchner
 }

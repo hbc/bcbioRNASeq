@@ -41,6 +41,16 @@ individual \link{ggplot}s (\code{merge_plots = FALSE}).
 \description{
 Volcano plot
 }
+\examples{
+data(dummy)
+dds <- DESeqDataSetFromTximport(
+    bcbio(bcb, "tximport"),
+    colData(bcb),
+    design = ~group)
+dds <- DESeq(dds)
+res <- results(dds)
+plot_volcano(bcb, res)
+}
 \seealso{
 This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
