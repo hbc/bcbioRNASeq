@@ -103,13 +103,63 @@ analysis. This class contains raw read counts and transcripts per million
 </ul>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extra"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRnaseq"</span>)
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='load_run.html'>load_run</a></span>(<span class='fu'>file.path</span>(<span class='no'>path</span>, <span class='st'>"bcbio"</span>))</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>Reading project summary YAML</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Genome: mmusculus mm10</span></div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene annotable</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  enstxp = col_character(),</span>
+#&gt; <span class='message'>  ensgene = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  genome = col_character(),</span>
+#&gt; <span class='message'>  resource = col_character(),</span>
+#&gt; <span class='message'>  version = col_datetime(format = "")</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  program = col_character(),</span>
+#&gt; <span class='message'>  version = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR/featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  .default = col_integer(),</span>
+#&gt; <span class='message'>  id = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='message'>Packaging SummarizedExperiment</span></div><div class='output co'>#&gt; <span class='message'>Generating TMM-normalized counts with edgeR</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#details">Details</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
