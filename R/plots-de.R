@@ -1,24 +1,42 @@
 #' MA-plot from base means and log fold changes
 #'
-#' [DESeq2::plotMA()] wrapper that generates a title from the contrast
-#' automatically.
+#' @author Michael Steinbaugh, Rory Kirchner
 #'
-#' @author Michael Steinbaugh
-#'
-#' @param res [DESeqResults].
-#' @param ylim Y-axis maximum (single integer).
+#' @param res [DESeqResults] or a modified [data.frame] derived from
+#'   [DESeqResults].
 #' @param title *Optional*. Plot title.
+#' @param label_points *Optional*. Label these particular points.
+#' @param label_column Match label_points to this column in the results.
 #'
-#' @return Mean average (MA) [ggplot].
+#' @return [ggplot].
 #' @export
-plot_ma <- function(res, ylim = 2L, title = NULL) {
-    .check_res(res)
-    if (is.null(title)) {
-        title <- .res_contrast_name(res)
+plot_ma <- function(
+    res,
+    title = NULL,
+    label_points = NULL,
+    label_column = "symbol") {
+    res <- as.data.frame(res)
+    res <- res %>% filter(!is.na(.data[["padj"]]))
+    p <- ggplot(res, aes_(~baseMean, ~log2FoldChange, color = ~padj < 0.05)) +
+        geom_point(size = 0.8) +
+        scale_x_log10(
+            breaks = trans_breaks("log10", function(x) 10L ^ x),
+            labels = trans_format("log10", math_format(10L ^ .x))) +  # nolint
+        annotation_logticks(sides = "b") +
+        xlab("mean expression across all samples") +
+        ylab(expression(log[2]*" fold change")) +  # nolint
+        scale_color_manual(values = c("black", "red", "green")) +
+        guides(color = FALSE)
+    if (!is.null(title)) {
+        p <- p + ggtitle(title)
     }
-    plotMA(res,
-           main = title,
-           ylim = c(-ylim, ylim))
+    if (!is.null(label_points)) {
+        labels <- res[res[[label_column]] %in% label_points, ]
+        p <- p + geom_text(data = labels,
+                           aes_string("baseMean", "log2FoldChange",
+                                      label = label_column), size = 3L)
+    }
+    p
 }
 
 
