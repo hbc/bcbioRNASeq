@@ -4,22 +4,24 @@
 \alias{plot_ma}
 \title{MA-plot from base means and log fold changes}
 \usage{
-plot_ma(res, ylim = 2L, title = NULL)
+plot_ma(res, title = NULL, label_points = NULL, label_column = "symbol")
 }
 \arguments{
-\item{res}{\link{DESeqResults}.}
-
-\item{ylim}{Y-axis maximum (single integer).}
+\item{res}{\link{DESeqResults} or a modified \link{data.frame} derived from
+\link{DESeqResults}.}
 
 \item{title}{\emph{Optional}. Plot title.}
+
+\item{label_points}{\emph{Optional}. Label these particular points.}
+
+\item{label_column}{Match label_points to this column in the results.}
 }
 \value{
-Mean average (MA) \link{ggplot}.
+\link{ggplot}.
 }
 \description{
-\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}} wrapper that generates a title from the contrast
-automatically.
+MA-plot from base means and log fold changes
 }
 \author{
-Michael Steinbaugh
+Michael Steinbaugh, Rory Kirchner
 }

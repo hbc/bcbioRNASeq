@@ -10,10 +10,14 @@ plot_dispersion(bcb)
 \item{bcb}{\link{bcbioRNADataSet}.}
 }
 \value{
-\link{ggplot}.
+Dispersion plot \link{ggplot}.
 }
 \description{
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} wrapper supporting a \link{bcbioRNADataSet}.
+}
+\examples{
+data(dummy)
+plot_dispersion(bcb)
 }
 \author{
 Michael Steinbaugh
