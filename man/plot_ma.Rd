@@ -25,9 +25,9 @@ MA-plot from base means and log fold changes
 \examples{
 data(dummy)
 dds <- DESeqDataSetFromTximport(
-    bcbio(bcb, "tximport"),
-    colData(bcb),
-    design = ~group)
+    txi = txi(bcb),
+    colData = colData(bcb),
+    design = formula(~group))
 dds <- DESeq(dds)
 res <- results(dds)
 plot_ma(res)
