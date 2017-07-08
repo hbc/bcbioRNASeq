@@ -7,8 +7,12 @@ basejump::assay
 #' @export
 basejump::assays
 
+#' colData
+#' @rdname colData
+#' @keywords internal
+#' @usage NULL
 #' @export
-basejump::colData
+basejump::colData -> colData
 
 #' @rdname counts
 #' @usage NULL

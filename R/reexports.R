@@ -40,12 +40,6 @@ ggplot2::ggplot
 
 
 
-# SummarizedExperiment ====
-#' @export
-SummarizedExperiment::colData
-
-
-
 # tximport ====
 #' @export
 tximport::tximport
