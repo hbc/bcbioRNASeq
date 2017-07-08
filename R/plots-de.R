@@ -10,6 +10,16 @@
 #'
 #' @return [ggplot].
 #' @export
+#'
+#' @examples
+#' data(dummy)
+#' dds <- DESeqDataSetFromTximport(
+#'     bcbio(bcb, "tximport"),
+#'     colData(bcb),
+#'     design = ~group)
+#' dds <- DESeq(dds)
+#' res <- results(dds)
+#' plot_ma(res)
 plot_ma <- function(
     res,
     title = NULL,
@@ -58,12 +68,22 @@ plot_ma <- function(
 #' @param point_outline_color Point outline color.
 #' @param title *Optional*. Custom plot title.
 #'
+#' @seealso This function is an updated variant of
+#'   `CHBUtils::volcano_density_plot()`.
+#'
 #' @return Volcano plot arranged as `ggrid` (`merge_plots = TRUE`), or [show()]
 #'   individual [ggplot]s (`merge_plots = FALSE`).
 #' @export
 #'
-#' @seealso This function is an updated variant of
-#'   `CHBUtils::volcano_density_plot()`.
+#' @examples
+#' data(dummy)
+#' dds <- DESeqDataSetFromTximport(
+#'     bcbio(bcb, "tximport"),
+#'     colData(bcb),
+#'     design = ~group)
+#' dds <- DESeq(dds)
+#' res <- results(dds)
+#' plot_volcano(bcb, res)
 plot_volcano <- function(
     bcb,
     res,

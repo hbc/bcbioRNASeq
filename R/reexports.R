@@ -15,6 +15,9 @@ DESeq2::DESeqDataSet
 DESeq2::DESeqDataSetFromMatrix
 
 #' @export
+DESeq2::DESeqDataSetFromTximport
+
+#' @export
 DESeq2::DESeqResults
 
 #' @export
@@ -28,6 +31,18 @@ DESeq2::rlog
 
 #' @export
 DESeq2::vst
+
+
+
+# ggplot2 ====
+#' @export
+ggplot2::ggplot
+
+
+
+# SummarizedExperiment ====
+#' @export
+SummarizedExperiment::colData
 
 
 
