@@ -1,3 +1,10 @@
+#' S4 generics
+#'
+#' @rdname all_generics
+#' @keywords internal
+
+
+
 #' @rdname aggregate_replicates
 #' @usage NULL
 #' @export

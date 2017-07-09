@@ -153,7 +153,7 @@ results_tables <- function(
         write_csv(deg_lfc_down, file.path(dir, deg_lfc_down_file))
 
         # Output file information in Markdown format
-        .md_res_tables(res_tbl, dir)
+        .md_results_tables(res_tbl, dir)
     }
 
     res_tbl

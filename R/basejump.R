@@ -1,32 +1,35 @@
 #' @export
 basejump::`%>%`
 
+#' @rdname all_generics
 #' @export
-basejump::assay
+basejump::assay -> assay
 
+#' @rdname all_generics
 #' @export
-basejump::assays
+basejump::assays -> assays
 
 #' colData
-#' @rdname colData
-#' @keywords internal
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-basejump::colData -> colData
+basejump::colData -> colData  # nolint
 
 #' @rdname counts
 #' @usage NULL
 #' @export
 basejump::counts -> counts
 
+#' @rdname all_generics
 #' @export
-basejump::design
+basejump::design -> design
 
+#' @rdname all_generics
 #' @export
-basejump::metadata
+basejump::metadata -> metadata
 
+#' @rdname all_generics
 #' @export
-basejump::rowData
+basejump::rowData -> rowData  # nolint
 
 #' @export
 basejump::save_data

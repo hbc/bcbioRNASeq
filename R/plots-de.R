@@ -16,8 +16,8 @@
 #' dds <- DESeqDataSetFromTximport(
 #'     txi = txi(bcb),
 #'     colData = colData(bcb),
-#'     design = formula(~group))
-#' dds <- DESeq(dds)
+#'     design = formula(~group)) %>%
+#'     DESeq
 #' res <- results(dds)
 #' plot_ma(res)
 plot_ma <- function(
@@ -80,8 +80,8 @@ plot_ma <- function(
 #' dds <- DESeqDataSetFromTximport(
 #'     txi = txi(bcb),
 #'     colData = colData(bcb),
-#'     design = formula(~group))
-#' dds <- DESeq(dds)
+#'     design = formula(~group)) %>%
+#'     DESeq
 #' res <- results(dds)
 #' plot_volcano(bcb, res)
 plot_volcano <- function(
