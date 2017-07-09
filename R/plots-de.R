@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' dds <- DESeqDataSetFromTximport(
 #'     txi = txi(bcb),
 #'     colData = colData(bcb),
@@ -76,7 +76,7 @@ plot_ma <- function(
 #' @export
 #'
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' dds <- DESeqDataSetFromTximport(
 #'     txi = txi(bcb),
 #'     colData = colData(bcb),

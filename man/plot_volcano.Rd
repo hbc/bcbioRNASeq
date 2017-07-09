@@ -42,7 +42,7 @@ individual \link{ggplot}s (\code{merge_plots = FALSE}).
 Volcano plot
 }
 \examples{
-data(dummy)
+data(bcb)
 dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),

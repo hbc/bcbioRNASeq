@@ -23,7 +23,7 @@ plot_ma(res, title = NULL, label_points = NULL, label_column = "symbol")
 MA-plot from base means and log fold changes
 }
 \examples{
-data(dummy)
+data(bcb)
 dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
