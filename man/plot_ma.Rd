@@ -27,8 +27,8 @@ data(bcb)
 dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
-    design = formula(~group))
-dds <- DESeq(dds)
+    design = formula(~group)) \%>\%
+    DESeq
 res <- results(dds)
 plot_ma(res)
 }
