@@ -191,6 +191,9 @@ plot_pca(bcb)
 
 ## Covariates correlation with PCs
 
+When multiple factors may influence the results of a given experiment, it is useful to assess which of them is responsible for the most variance as determined by PCA. We adapted the method described by Daily et al. where they integrated a method to correlate covariates with principal components values to determine the importance of each factor.
+
+
 ```{r plot_pca_covariates}
 plot_pca_covariates(bcb)
 ```
