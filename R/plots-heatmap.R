@@ -83,8 +83,8 @@ plot_correlation_heatmap <- function(
 
     # Subset count matrix by input samples, if desired
     if (!is.null(samples)) {
-        counts <- counts[,samples]
-        annotation <- annotation[samples,]
+        counts <- counts[, samples]
+        annotation <- annotation[samples, ]
     }
 
     counts %>%
