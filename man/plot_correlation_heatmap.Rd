@@ -5,8 +5,8 @@
 \title{Correlation heatmap}
 \usage{
 plot_correlation_heatmap(bcb, transform = "rlog", method = "pearson",
-  clustering_method = "ward.D2", genes = NULL, interesting_groups = NULL,
-  annotation = NULL, title = NULL, ...)
+  clustering_method = "ward.D2", genes = NULL, samples = NULL,
+  interesting_groups = NULL, annotation = NULL, title = NULL, ...)
 }
 \arguments{
 \item{bcb}{\link{bcbioRNADataSet}.}
@@ -23,6 +23,8 @@ values as \code{\link[stats:hclust]{stats::hclust()}}.}
 
 \item{genes}{\emph{Optional}. Character vector of specific gene identifiers to
 plot.}
+
+\item{samples}{\emph{Optional}. Character vector of specific samples.}
 
 \item{interesting_groups}{\emph{Optional}. Interesting groups to label with bars
 above heatmap. If \code{NULL}, defaults to \code{interesting_groups} defined in the

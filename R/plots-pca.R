@@ -141,10 +141,12 @@ plot_pca_covariates <- function(bcb, transform = "rlog", use = NULL, ...) {
         stop("DESeqTransform must be rlog or vst")
     }
 
-    assays(bcb)[[transform]] %>%
+    res <- assays(bcb)[[transform]] %>%
         # Assay needed here to get the matrix from [DESeqTransform]
         assay %>%
-        degCovariates(metadata = metrics, ...) %>%
+        degCovariates(metadata = metrics, ...)
+    res %>%
         .[["plot"]] +
         theme(axis.text.x = element_text(angle = 60L, hjust = 1L))
+    invisible(res)
 }

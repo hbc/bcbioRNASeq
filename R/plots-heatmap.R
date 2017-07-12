@@ -16,6 +16,7 @@
 #'   [stats::cor()] documentation for more information.
 #' @param clustering_method Hierarchical clustering method. Accepts the same
 #'   values as [stats::hclust()].
+#' @param samples *Optional*. Character vector of specific samples.
 #' @param genes *Optional*. Character vector of specific gene identifiers to
 #'   plot.
 #' @param interesting_groups *Optional*. Interesting groups to label with bars
@@ -39,6 +40,7 @@ plot_correlation_heatmap <- function(
     method = "pearson",
     clustering_method = "ward.D2",
     genes = NULL,
+    samples = NULL,
     interesting_groups = NULL,
     annotation = NULL,
     title = NULL,
@@ -77,6 +79,12 @@ plot_correlation_heatmap <- function(
     # Subset counts matrix by input genes, if desired
     if (!is.null(genes)) {
         counts <- counts[genes, ]
+    }
+
+    # Subset count matrix by input samples, if desired
+    if (!is.null(samples)) {
+        counts <- counts[,samples]
+        annotation <- annotation[samples,]
     }
 
     counts %>%
