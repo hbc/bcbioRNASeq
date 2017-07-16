@@ -1,12 +1,14 @@
 #' S4 generics
 #'
 #' @rdname all_generics
-#' @keywords internal
+#'
+#' @param object Primary object.
+#' @param value Value to assign.
+#' @param ... Additional arguments.
 
 
 
-#' @rdname aggregate_replicates
-#' @usage NULL
+#' @rdname all_generics
 #' @export
 setGeneric("aggregate_replicates", function(object, ...) {
     standardGeneric("aggregate_replicates")
@@ -14,36 +16,31 @@ setGeneric("aggregate_replicates", function(object, ...) {
 
 
 
-#' @rdname bcbio
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("bcbio", function(object, ...) standardGeneric("bcbio"))
+setGeneric("bcbio", function(object, ...) {
+    standardGeneric("bcbio")
+})
 
 
 
-#' @rdname bcbio
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
+setGeneric("bcbio<-", function(object, ..., value) {
+    standardGeneric("bcbio<-")
+})
 
 
 
-#' @rdname gene2symbol
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("gene2symbol", function(object) standardGeneric("gene2symbol"))
+setGeneric("melt_log10", function(object, ...) {
+    standardGeneric("melt_log10")
+})
 
 
 
-#' @rdname melt_log10
-#' @usage NULL
-#' @export
-setGeneric("melt_log10", function(object, ...) standardGeneric("melt_log10"))
-
-
-
-#' @rdname metadata_table
-#' @usage NULL
+#' @rdname all_generics
 #' @export
 setGeneric("metadata_table", function(object, ...) {
     standardGeneric("metadata_table")
@@ -51,35 +48,56 @@ setGeneric("metadata_table", function(object, ...) {
 
 
 
-#' @rdname metrics
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("metrics", function(object) standardGeneric("metrics"))
+setGeneric("metrics", function(object) {
+    standardGeneric("metrics")
+})
 
 
 
-#' @rdname sample_dirs
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("sample_dirs", function(object) standardGeneric("sample_dirs"))
+setGeneric("plot_ma", function(object, ...) {
+    standardGeneric("plot_ma")
+})
 
 
 
-#' @rdname tmm
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("tmm", function(object) standardGeneric("tmm"))
+setGeneric("plot_volcano", function(object, ...) {
+    standardGeneric("plot_volcano")
+})
 
 
 
-#' @rdname tpm
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("tpm", function(object) standardGeneric("tpm"))
+setGeneric("sample_dirs", function(object) {
+    standardGeneric("sample_dirs")
+})
 
 
 
-#' @rdname txi
-#' @usage NULL
+#' @rdname all_generics
 #' @export
-setGeneric("txi", function(object) standardGeneric("txi"))
+setGeneric("tmm", function(object) {
+    standardGeneric("tmm")
+})
+
+
+
+#' @rdname all_generics
+#' @export
+setGeneric("tpm", function(object) {
+    standardGeneric("tpm")
+})
+
+
+
+#' @rdname all_generics
+#' @export
+setGeneric("txi", function(object) {
+    standardGeneric("txi")
+})
