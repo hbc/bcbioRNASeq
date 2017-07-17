@@ -34,4 +34,6 @@ pass_color <- "green"
 warn_color <- "orange"
 
 # Plot label separator
-label_sep <- " : "
+label_sep <- ": "
+
+meta_priority_cols <- c("sample_name", "description")
