@@ -25,13 +25,3 @@ output_dir <- getwd()
 data_dir <- file.path(output_dir, "data")
 counts_dir <- file.path(output_dir, "results", "counts")
 results_dir <- file.path(output_dir, "results", "de")
-
-# bcbioRnaDataSet
-if (file.exists(file.path(data_dir, "bcb.rda"))) {
-    load(file.path(data_dir, "bcb.rda"))
-} else {
-    bcb <- load_run(
-        upload_dir = file.path("data", "final"),
-        interesting_groups = c("genotype", "treatment"))
-    save_data(bcb, dir = data_dir)
-}
