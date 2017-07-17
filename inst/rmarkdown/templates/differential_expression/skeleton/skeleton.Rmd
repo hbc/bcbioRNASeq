@@ -3,28 +3,39 @@ title: "Differential expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
+params:
+    design: !r formula(~genotype)
+    contrast: !r c("genotype", "mutant", "wildtype")
+    alpha: 0.05
+    lfc: 0
+    output_dir: "."
 ---
 
-```{r setup, message=FALSE}
-# Render quality control template first to save bcb (bcbioRNADataSet)
+```{r setup, include=FALSE}
+# Run [bcbioRnaseq::downloads()] to download `setup.R`
 source("setup.R")
 library(DESeq2)
-load(file.path(data_dir, "bcb.rda"))
 
-# Design formula. Uncomment with correct values.
+# Design formula
 # help("design", "DESeq2")
-# design <- formula(~genotype)
+design <- params$design
 
-# Contrast. Uncomment with correct values.
+# Contrast
 # help("results", "DESeq2")
 #   1. Design matrix parameter.
 #   2. Numerator for LFC (expt).
 #   3. Denominator for LFC (control).
-# contrast <- c("genotype", "mutant", "wildtype")
+contrast <- params$contrast
 
 # Significance cutoffs
-alpha <- 0.05
-lfc <- 0
+alpha <- params$alpha
+lfc <- params$lfc
+
+# Directory paths
+output_dir <- params$output_dir
+data_dir <- file.path(output_dir, "data")
+counts_dir <- file.path(output_dir, "results", "counts")
+de_dir <- file.path(output_dir, "results", "differential_expression")
 ```
 
 ```{r header, child="header.Rmd"}
@@ -46,9 +57,7 @@ save_data(dds, rld, dir = data_dir)
 
 # Alpha level (FDR) cutoffs
 
-Let's take a look at the number of genes we get with different false discovery
-rate (FDR) cutoffs. These tests subset *P* values that have been multiple test
-corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
+Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
 ```{r alpha_summary, results="asis"}
 alpha_summary(dds)
@@ -76,8 +85,7 @@ res <- res_shrunken
 save_data(res, res_unshrunken, res_shrunken, dir = data_dir)
 ```
 
-We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and
-a log fold-change (LFC) ratio cutoff of `r lfc`.
+We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
 
 
 
@@ -85,8 +93,7 @@ a log fold-change (LFC) ratio cutoff of `r lfc`.
 
 ## Mean average (MA)
 
-An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average)
-scales [@Yang:2002ty].
+An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
 ```{r plot_ma}
 plot_ma(res, ylim = 3)
@@ -95,9 +102,7 @@ plot_ma(res, ylim = 3)
 
 ## Volcano
 
-A volcano plot compares significance (BH-adjusted *P* value) against fold change
-(log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have
-an adjusted *P* value are likely to be the top candidate genes of interest.
+A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
 plot_volcano(bcb, res = res, lfc = lfc)
@@ -106,9 +111,7 @@ plot_volcano(bcb, res = res, lfc = lfc)
 
 ## Heatmap
 
-This plot shows only differentially expressed genes on a per-sample basis. We
-have scaled the data by row and used the `ward.D2` method for clustering
-[@WardJr:1963eu].
+This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
 plot_deg_heatmap(bcb, res = res, lfc = lfc)
@@ -118,23 +121,14 @@ plot_deg_heatmap(bcb, res = res, lfc = lfc)
 
 # File downloads
 
-The results are saved as gzip-compressed comma separated values (CSV). Gzip
-compression is natively supported on [macOS][] and Linux-based operating
-systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files
-can be opened in [Excel][] or [RStudio][].
+The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
 
 
 ## Count matrices
 
-- [`normalized_counts.csv.gz`](results/normalized_counts.csv.gz):
-    Use to evaluate individual genes and/or generate plots. These counts are
-    normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](results/tpm.csv.gz):
-    Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](results/raw_counts.csv.gz):
-    Only use to perform a new differential expression analysis. These counts
-    will vary across samples due to differences in sequencing depth, and have
-    not been normalized. Do not use this file for plotting genes.
+- [`normalized_counts.csv.gz`](`r file.path(counts_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`tpm.csv.gz`](`r file.path(counts_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`raw_counts.csv.gz`](`r file.path(counts_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 ## Differentially expressed genes (DEG)
@@ -147,8 +141,7 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `lfc_se`: log2 standard error.
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
-- `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons;
-    aka FDR).
+- `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
 - `external_gene_name`: [Ensembl][] name (a.k.a. symbol).
 - `description`: [Ensembl][] description.
 - `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
@@ -162,8 +155,7 @@ save_data(res_tbl, dir = data_dir)
 
 # Top tables
 
-Only the top up- and down-regulated genes (arranged by log2 fold change) are
-shown.
+Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
 ```{r top_tables, results="asis"}
 top_tables(res_tbl)
