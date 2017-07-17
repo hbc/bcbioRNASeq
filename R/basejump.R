@@ -25,6 +25,10 @@ basejump::design -> design
 
 #' @rdname all_generics
 #' @export
+basejump::gene2symbol -> gene2symbol
+
+#' @rdname all_generics
+#' @export
 basejump::metadata -> metadata
 
 #' @rdname all_generics
