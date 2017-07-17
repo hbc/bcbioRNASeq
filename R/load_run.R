@@ -5,10 +5,6 @@
 #' will take care of the rest. It automatically imports RNA-seq counts,
 #' metadata, and program versions used.
 #'
-#' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
-#'   run directory as a remote connection over
-#'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
-#'
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param upload_dir Path to final upload directory. This path is set when
@@ -23,8 +19,16 @@
 #'   file.
 #' @param ... Additional arguments, saved as metadata.
 #'
+#' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
+#'   run directory as a remote connection over
+#'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
+#'
 #' @return [bcbioRNADataSet].
 #' @export
+#'
+#' @examples
+#' path <- system.file("extra", package = "bcbioRnaseq")
+#' bcb <- load_run(file.path(path, "bcbio"))
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
@@ -115,7 +119,7 @@ load_run <- function(
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    metrics <- .yaml_metrics(yaml)
+    metrics <- .sample_yaml_metrics(yaml)
 
 
     # bcbio-nextgen run information ====
@@ -128,11 +132,11 @@ load_run <- function(
         file.path(project_dir, "bcbio-nextgen-commands.log"))
 
 
-    # colData ====
+    # Column data (colData) ====
     if (!is.null(sample_metadata)) {
         col_data <- sample_metadata
     } else {
-        col_data <- .yaml_metadata(yaml)
+        col_data <- .sample_yaml_metadata(yaml)
     }
 
 
@@ -197,8 +201,8 @@ load_run <- function(
     }
 
 
-    # SummarizedExperiment ====
-    se <- .summarized_experiment(
+    # Package SummarizedExperiment ====
+    se <- packageSE(
         assays = SimpleList(
             raw_counts = raw_counts,
             tpm = tpm,
@@ -206,13 +210,14 @@ load_run <- function(
             tmm = .tmm(raw_counts),
             rlog = rlog(dds),
             vst = varianceStabilizingTransformation(dds)),
-        col_data = col_data,
-        row_data = annotable,
+        colData = col_data,
+        rowData = annotable,
         metadata = metadata)
 
 
     # bcbioRNADataSet ====
     bcb <- new("bcbioRNADataSet", se)
+    # Slot additional callers
     bcbio(bcb, "tximport") <- txi
     bcbio(bcb, "DESeqDataSet") <- dds
     if (is.matrix(fc)) {
