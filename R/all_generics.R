@@ -66,6 +66,14 @@ setGeneric("plot_ma", function(object, ...) {
 
 #' @rdname all_generics
 #' @export
+setGeneric("plot_total_reads", function(object, ...) {
+    standardGeneric("plot_total_reads")
+})
+
+
+
+#' @rdname all_generics
+#' @export
 setGeneric("plot_volcano", function(object, ...) {
     standardGeneric("plot_volcano")
 })
