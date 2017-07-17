@@ -11,7 +11,7 @@
 #' @param lanes *Optional*. Number of lanes used to split the samples into
 #'   technical replicates (`_LXXX`) suffix.
 #'
-#' @return [data.frame] with `description` as rowname.
+#' @return [tibble] grouped by description.
 .sample_metadata_file <- function(
     file,
     pattern = NULL,
@@ -21,9 +21,11 @@
     if (is.null(file))
         return(NULL)
 
-    meta <- read_file_by_extension(file)
-    # First column must be the FASTQ file name
-    names(meta)[[1L]] <- "file_name"
+    meta <- read_file_by_extension(file) %>% as("tibble")
+    # First column must be the `sample_name`, which points to the FASTQ.
+    # bcbio labels this `samplename` by default. Rename to `sample_name`
+    # here to ensure consistent snake_case naming syntax.
+    names(meta)[[1L]] <- "sample_name"
     meta <- meta %>%
         # Strip all NA rows and columns
         remove_na %>%
@@ -36,15 +38,15 @@
     # Lane split, if desired
     if (is.numeric(lanes)) {
         meta <- meta %>%
-            group_by(!!sym("file_name")) %>%
+            group_by(!!sym("sample_name")) %>%
             # Expand by lane (e.g. "L001")
             expand_(~paste0("L", str_pad(1L:lanes, 3L, pad = "0"))) %>%
-            left_join(meta, by = "file_name") %>%
+            left_join(meta, by = "sample_name") %>%
             ungroup %>%
-            mutate(file_name = paste(.data[["file_name"]],
+            mutate(sample_name = paste(.data[["sample_name"]],
                                      .data[["lane"]],
                                      sep = "_"),
-                   description = .data[["file_name"]])
+                   description = .data[["sample_name"]])
     }
 
     # Subset by pattern, if desired
@@ -56,9 +58,8 @@
     # Convert to data frame, coerce to factors, and set rownames
     meta %>%
         mutate_all(factor) %>%
-        mutate(file_name = as.character(.data[["file_name"]]),
+        mutate(sample_name = as.character(.data[["sample_name"]]),
                description = as.character(.data[["description"]])) %>%
-        arrange(!!sym("description")) %>%
-        as.data.frame %>%
-        set_rownames(.[["description"]])
+        arrange(!!!syms(meta_priority_cols)) %>%
+        group_by(!!sym("description"))
 }
