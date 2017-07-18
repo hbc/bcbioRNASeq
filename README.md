@@ -28,8 +28,7 @@ devtools::install_github("hbc/bcbioRnaseq")
 
 ## Examples
 
-[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the
-default RMarkdown templates included in the package.
+[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default RMarkdown templates included in the package.
 
 - [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
 - [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de.html)
@@ -37,12 +36,10 @@ default RMarkdown templates included in the package.
 
 ## Contribute
 
-- Only current release branch will be maintened 
-- For major changes, create a new branch and a pull request that will be revised.
-- For small changes, commit directly to master.
-- For fixes in releases, commit to releases branches.
-- Open issues or make pull request for changes affecting `bcbioRNADataSet` object or `setup.R` [RMarkdown][] dependency file.
-
+- For all changes, fork or create a new branch, then issue a pull request that will be reviewed.
+- Do not commit changes directly to master branch.
+- Open issues for any changes affecting `bcbioRNADataSet` class or `setup.R` [RMarkdown][] dependency file.
+- Support can only provided for current release version.
 
 
 [Bioconductor]: https://bioconductor.org
