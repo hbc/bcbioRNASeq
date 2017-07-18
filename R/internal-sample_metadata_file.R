@@ -11,11 +11,11 @@
 #' @param lanes *Optional*. Number of lanes used to split the samples into
 #'   technical replicates (`_LXXX`) suffix.
 #'
-#' @return [tibble] grouped by description.
+#' @return [tibble] grouped by `sample_name`.
 .sample_metadata_file <- function(
     file,
     pattern = NULL,
-    pattern_col = "description",
+    pattern_col = "sample_name",
     lanes = NULL) {
 
     if (is.null(file))
@@ -25,15 +25,15 @@
     # First column must be the `sample_name`, which points to the FASTQ.
     # bcbio labels this `samplename` by default. Rename to `sample_name`
     # here to ensure consistent snake_case naming syntax.
-    names(meta)[[1L]] <- "sample_name"
+    names(meta)[[1L]] <- "sample_id"
     meta <- meta %>%
         # Strip all NA rows and columns
         remove_na %>%
-        # Make names snake_case
+        # Make colnames snake_case
         snake %>%
         # Remove rows with no description. Sometimes Excel files will add
         # empty rows, so this helps correct that problem as well.
-        filter(!is.na(.data[["description"]]))
+        filter(!is.na(.data[["sample_name"]]))
 
     # Lane split, if desired
     if (is.numeric(lanes)) {
@@ -55,11 +55,11 @@
             filter(str_detect(.data[[pattern_col]], pattern))
     }
 
-    # Convert to data frame, coerce to factors, and set rownames
+    # Return tibble
     meta %>%
         mutate_all(factor) %>%
-        mutate(sample_name = as.character(.data[["sample_name"]]),
-               description = as.character(.data[["description"]])) %>%
-        arrange(!!!syms(meta_priority_cols)) %>%
-        group_by(!!sym("description"))
+        # Sanitize `sample_id` into snake_case
+        mutate(sample_id = snake(as.character(.data[["sample_id"]])),
+               sample_name = as.character(.data[["sample_name"]])) %>%
+        arrange(!!!syms(meta_priority_cols))
 }
