@@ -6,7 +6,7 @@
 #'
 #' @param bcb [bcbioRNADataSet].
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' plot_dispersion(bcb)
 #' @return Dispersion plot [ggplot].
 #' @export
@@ -25,7 +25,7 @@ plot_dispersion <- function(bcb) {
 #'
 #' @param bcb [bcbioRNADataSet].
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' plot_mean_sd(bcb)
 #' @return ggplot grid.
 #' @export

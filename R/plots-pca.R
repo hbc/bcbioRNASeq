@@ -15,7 +15,7 @@
 #'
 #' @return PCA plot [ggplot].
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' plot_pca(bcb)
 #'
 #' @export
