@@ -6,8 +6,8 @@
 \alias{plot_deg_heatmap,DESeqResults,DESeqTransform-method}
 \title{Differentially expressed gene heatmap}
 \usage{
-\S4method{plot_deg_heatmap}{bcbioRNAResults,missingOrNULL}(object, counts, res,
-  lfc, title = NULL, ...)
+\S4method{plot_deg_heatmap}{bcbioRNAResults,missingOrNULL}(object, counts, lfc,
+  title = NULL, ...)
 
 \S4method{plot_deg_heatmap}{DESeqResults,DESeqTransform}(object, counts)
 }

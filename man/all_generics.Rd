@@ -55,9 +55,9 @@ plot_dispersion(object)
 
 plot_gender_markers(object, ...)
 
-plot_gene(object, keys, ...)
+plot_gene(object, ...)
 
-plot_gene_heatmap(object, counts, ...)
+plot_gene_heatmap(object, ...)
 
 plot_ma(object, ...)
 
