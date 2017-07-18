@@ -1,8 +1,3 @@
-# FIXME Can we extract the file name from the YAML metadata? Use this to
-# definize a snake_case sanitized unique sample identifier
-#
-# FIXME We need to define the file_name from YAML metadata!!!
-
 #' Sample YAML metadata utilities
 #'
 #' @rdname yaml
@@ -44,8 +39,6 @@
         nested <- samples[[a]][[keys]] %>% snake
         # Set the description
         nested[["description"]] <- samples[[a]][["description"]]
-        # Remove legacy duplicate `name` identifier
-        nested[["name"]] <- NA
         if (rev(keys)[[1L]] == "metadata") {
             if (is.null(nested[["batch"]])) {
                 nested[["batch"]] <- NA
@@ -67,10 +60,9 @@
         remove_na %>%
         # Rename `description` to `sample_name`
         rename(sample_name = .data[["description"]]) %>%
-        # Sanitize `sample_id` as snake_case from `sample_name`
-        mutate(sample_id = snake(.data[["sample_name"]])) %>%
-        tidy_select(!!!syms(meta_priority_cols), everything()) %>%
-        arrange(!!!syms(meta_priority_cols))
+        # Set `sample_id` from `sample_name` %>%
+        mutate(sample_id = .data[["sample_name"]]) %>%
+        .meta_priority_cols
 }
 
 
@@ -78,9 +70,7 @@
 #' @rdname yaml
 #' @usage NULL
 .sample_yaml_metadata <- function(yaml) {
-    .sample_yaml(yaml, metadata) %>%
-        # Mutate column to factor if not in `meta_priority_cols`
-        mutate_if(!colnames(.) %in% meta_priority_cols, factor)
+    .sample_yaml(yaml, metadata) %>% .meta_factors
 }
 
 
@@ -92,7 +82,10 @@
         return(NULL)
     }
     chr <- metrics %>%
-        tidy_select(c(meta_priority_cols, "quality_format", "sequence_length"))
+        tidy_select(c(meta_priority_cols,
+                      "name",
+                      "quality_format",
+                      "sequence_length"))
     num <- metrics %>%
         tidy_select(setdiff(colnames(metrics), colnames(chr))) %>%
         mutate_if(is.character, as.numeric)
