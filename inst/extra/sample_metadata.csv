@@ -1,0 +1,5 @@
+sample_id,sample_name,group
+group1_1,group1_1,ctrl
+group1_2,group1_2,ctrl
+group2_1,group2_1,ko
+group2_2,group2_2,ko
