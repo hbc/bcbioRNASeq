@@ -39,7 +39,7 @@
             recursive = TRUE)
     }
 
-    # Assign descriptions to sample files
+    # Assign names to sample files
     names(sample_files) <- names(sample_dirs)
 
     # Begin loading of selected counts

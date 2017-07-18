@@ -6,11 +6,10 @@
 #'
 #' @rdname aggregate_replicates
 #' @docType methods
-#'
 #' @author Michael Steinbaugh
 #'
 #' @param object Object.
-#' @param pattern Grep pattern to match lane identifiers in file name.
+#' @param pattern Grep pattern to match lane identifiers in sample name.
 #' @param ... Additional arguments.
 #'
 #' @return Object of same class, with pooled technical replicates.
@@ -56,7 +55,7 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
     # Mutate the colData metadata to pooled samples
     col_data <- colData(object) %>%
         as.data.frame %>%
-        mutate(file_name = str_replace(.data[["file_name"]], pattern, ""),
+        mutate(sample_name = str_replace(.data[["sample_name"]], pattern, ""),
                description = str_replace(.data[["description"]], pattern, ""),
                lane = NULL,
                sizeFactor = NULL) %>%
@@ -64,11 +63,11 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
         set_rownames(.[["description"]])
 
     # Check that the new col_data matches the counts matrix
-    if (!identical(col_data[["file_name"]], colnames(count_data))) {
-        stop("File name mismatch in col_data and count_data")
+    if (!identical(col_data[["sample_name"]], colnames(count_data))) {
+        stop("Sample name mismatch in col_data and count_data")
     }
 
-    # Replace file names in pooled count matrix with description
+    # Replace sample names in pooled count matrix with description
     colnames(count_data) <- col_data[["description"]]
     if (!identical(rownames(col_data), colnames(count_data))) {
         stop("Description mismatch in col_data and count_data")

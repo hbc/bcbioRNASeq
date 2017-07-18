@@ -24,7 +24,7 @@
 #' @export
 #'
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' # Raw counts
 #' ma <- counts(bcb, normalized = FALSE)
 #'
