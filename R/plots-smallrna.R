@@ -93,7 +93,7 @@ plot_mirna_counts <- function(bcb) {
 #' @description Clustering small RNA samples.
 #' @export
 plot_srna_clusters <- function(bcb) {
-    counts <- bcbio(bcb)
+    counts <- counts(bcb)
     design <- metadata(bcb)[["metadata"]]
     dds <- DESeqDataSetFromMatrix(
         counts[rowSums(counts > 0L) > 3L, ],
