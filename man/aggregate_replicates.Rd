@@ -13,7 +13,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{pattern}{Grep pattern to match lane identifiers in file name.}
+\item{pattern}{Grep pattern to match lane identifiers in sample name.}
 
 \item{...}{Additional arguments.}
 }

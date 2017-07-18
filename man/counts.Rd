@@ -32,7 +32,7 @@ transcripts per million (TPM) can be accessed using the \code{normalized}
 argument.
 }
 \examples{
-data(dummy)
+data(bcb)
 # Raw counts
 ma <- counts(bcb, normalized = FALSE)
 

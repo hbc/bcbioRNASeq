@@ -2,14 +2,89 @@
 % Please edit documentation in R/all_generics.R, R/basejump.R
 \name{aggregate_replicates}
 \alias{aggregate_replicates}
+\alias{bcbio}
+\alias{bcbio<-}
+\alias{melt_log10}
+\alias{metadata_table}
+\alias{metrics}
+\alias{plot_correlation_heatmap}
+\alias{plot_deg_heatmap}
+\alias{plot_dispersion}
+\alias{plot_gender_markers}
+\alias{plot_gene}
+\alias{plot_gene_heatmap}
+\alias{plot_ma}
+\alias{plot_mean_sd}
+\alias{plot_mirna_counts}
+\alias{plot_pattern}
+\alias{plot_pca}
+\alias{plot_pca_covariates}
+\alias{plot_size_distribution}
+\alias{plot_total_reads}
+\alias{plot_volcano}
+\alias{sample_dirs}
+\alias{tmm}
+\alias{tpm}
+\alias{txi}
 \alias{assay}
 \alias{assays}
 \alias{colData}
 \alias{design}
+\alias{gene2symbol}
 \alias{metadata}
 \alias{rowData}
 \title{S4 generics}
 \usage{
+aggregate_replicates(object, ...)
+
+bcbio(object, ...)
+
+bcbio(object, ...) <- value
+
+melt_log10(object, ...)
+
+metadata_table(object, ...)
+
+metrics(object)
+
+plot_correlation_heatmap(object, ...)
+
+plot_deg_heatmap(object, counts, ...)
+
+plot_dispersion(object)
+
+plot_gender_markers(object, ...)
+
+plot_gene(object, keys, ...)
+
+plot_gene_heatmap(object, counts, ...)
+
+plot_ma(object, ...)
+
+plot_mean_sd(object, ...)
+
+plot_mirna_counts(object, ...)
+
+plot_pattern(object, ...)
+
+plot_pca(object, ...)
+
+plot_pca_covariates(object, ...)
+
+plot_size_distribution(object, ...)
+
+plot_total_reads(object, ...)
+
+plot_volcano(object, ...)
+
+sample_dirs(object)
+
+tmm(object)
+
+tpm(object)
+
+txi(object)
+
 assay(x, i, ...)
 
 assays(x, ..., withDimnames = TRUE)
@@ -18,13 +93,21 @@ colData(x, ...)
 
 design(object, ...)
 
+gene2symbol(object)
+
 metadata(x, ...)
 
 rowData(x, ...)
+}
+\arguments{
+\item{object}{Primary object.}
+
+\item{...}{Additional arguments.}
+
+\item{value}{Value to assign.}
 }
 \description{
 S4 generics
 
 colData
 }
-\keyword{internal}

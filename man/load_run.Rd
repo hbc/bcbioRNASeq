@@ -5,7 +5,7 @@
 \title{Load bcbio-nextgen run}
 \usage{
 load_run(upload_dir = "final", analysis = "rnaseq",
-  interesting_groups = "description", sample_metadata_file = NULL, ...)
+  interesting_groups = "sample_name", sample_metadata_file = NULL, ...)
 }
 \arguments{
 \item{upload_dir}{Path to final upload directory. This path is set when
@@ -22,7 +22,7 @@ is used for PCA and heatmap QC functions.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 
-\item{...}{Additional arguments, saved as metadata.}
+\item{...}{Additional arguments, slotted into \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
 \link{bcbioRNADataSet}.
@@ -37,6 +37,13 @@ metadata, and program versions used.
 When working in RStudio, we recommend connecting to the bcbio-nextgen
 run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
+}
+\examples{
+extra_dir <- system.file("extra", package = "bcbioRnaseq")
+upload_dir <- file.path(extra_dir, "bcbio")
+sample_metadata_file <- file.path(extra_dir, "sample_metadata.csv")
+bcb <- load_run(upload_dir,
+                sample_metadata_file = sample_metadata_file)
 }
 \author{
 Michael Steinbaugh, Lorena Patano
