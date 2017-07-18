@@ -1,7 +1,7 @@
-## Welcome to GitHub Pages
+## Example data
 
-This repo contains example output data (2 vs 2) from a bcbio RNAseq analysis. It's being used to test [bcbioRnaseq](https://github.com/hbc/bcbioRnaseq) R package to continue with the analysis and it keeps a copy of the last report that it generates.
+This data repository contains example output (2 vs. 2 samples) from a [bcbio](https://bcbio-nextgen.readthedocs.io) RNA-seq analysis. It is used to test the code integrity of our [bcbioRnaseq](https://github.com/hbc/bcbioRnaseq) R package. Example RMarkdown knit reports in HTML format are generated each time a new build of the package passes integrity checks.
 
 ### Support or Contact
 
-[contact support](https://github.com/hbc/bcbioRnaseq) and we’ll help you sort it out.
+[Post an issue](https://github.com/hbc/bcbioRnaseq/issues) and we’ll help fix the problem.
