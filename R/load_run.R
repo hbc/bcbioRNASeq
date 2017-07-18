@@ -52,7 +52,6 @@ load_run <- function(
     }
     upload_dir <- normalizePath(upload_dir)
     # Find most recent nested project_dir (normally only 1)
-    project_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
     project_dir <- dir(upload_dir,
                        pattern = project_dir_pattern,
                        full.names = FALSE,
