@@ -65,7 +65,10 @@
         rbindlist %>%
         as("tibble") %>%
         remove_na %>%
-        mutate(sample_name = snake(.data[["description"]])) %>%
+        # Rename `description` to `sample_name`
+        rename(sample_name = .data[["description"]]) %>%
+        # Sanitize `sample_id` as snake_case from `sample_name`
+        mutate(sample_id = snake(.data[["sample_name"]])) %>%
         tidy_select(!!!syms(meta_priority_cols), everything()) %>%
         arrange(!!!syms(meta_priority_cols))
 }
