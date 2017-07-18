@@ -1,51 +1,37 @@
-#' Plot dispersion estimates
-#'
-#' [DESeq2::plotDispEsts()] wrapper supporting a [bcbioRNADataSet].
-#'
-#' @author Michael Steinbaugh
-#'
-#' @param bcb [bcbioRNADataSet].
-#' @examples
-#' data(bcb)
-#' plot_dispersion(bcb)
-#' @return Dispersion plot [ggplot].
-#' @export
-plot_dispersion <- function(bcb) {
-    bcbio(bcb, "DESeqDataSet") %>% plotDispEsts
-}
-
-
-
 #' Plot row standard deviations versus row means
 #'
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
+#' @rdname plot_mean_sd
+#' @family DESeq2 utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @param bcb [bcbioRNADataSet].
+#' @param object Object.
+#'
+#' @return [ggplot] grid.
+#' @export
+#'
 #' @examples
 #' data(bcb)
 #' plot_mean_sd(bcb)
-#' @return ggplot grid.
-#' @export
-plot_mean_sd <- function(bcb) {
-    nonzero <- counts(bcb, normalized = FALSE) %>%
+setMethod("plot_mean_sd", "bcbioRNADataSet", function(object) {
+    nonzero <- counts(object, normalized = FALSE) %>%
         rowSums %>%
         `>`(0L)
-    gglog2 <- counts(bcb, normalized = TRUE) %>%
+    gglog2 <- counts(object, normalized = TRUE) %>%
         .[nonzero, ] %>%
         `+`(1L) %>%
         log2 %>%
         meanSdPlot(plot = FALSE)
-    ggrlog <- counts(bcb, normalized = "rlog") %>%
+    ggrlog <- counts(object, normalized = "rlog") %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
-    ggvsd <- counts(bcb, normalized = "vst") %>%
+    ggvsd <- counts(object, normalized = "vst") %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
     plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
               ggrlog[["gg"]] + theme(legend.position = "none"),
               ggvsd[["gg"]] + theme(legend.position = "none"),
               nrow = 1L)
-}
+})

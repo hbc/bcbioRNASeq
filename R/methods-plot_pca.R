@@ -3,7 +3,10 @@
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
 #' (PCA) sample coloring and labeling.
 #'
-#' @param bcb [bcbioRNADataSet].
+#' @rdname plot_pca
+#' @author Michael Steinbaugh
+#'
+#' @param object Object.
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
 #'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
 #' @param genes *Optional*. Character vector of gene identifiers to use.
@@ -13,16 +16,16 @@
 #' @param shape *Optional*. Make points easier to inspect with differing shapes.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
 #'
-#' @return PCA plot [ggplot].
+#' @seealso [DESeq2::plotPCA()].
+#'
+#' @return [ggplot].
+#' @export
+#'
 #' @examples
 #' data(bcb)
 #' plot_pca(bcb)
-#'
-#' @export
-#'
-#' @seealso [DESeq2::plotPCA()].
-plot_pca <- function(
-    bcb,
+setMethod("plot_pca", "bcbioRNADataSet", function(
+    object,
     transform = "rlog",
     genes = NULL,
     interesting_groups = NULL,
@@ -32,7 +35,7 @@ plot_pca <- function(
         stop("DESeqTransform must be rlog or vst")
     }
     name <- deparse(substitute(dt))
-    dt <- assays(bcb)[[transform]]
+    dt <- assays(object)[[transform]]
 
     # Subset genes, if desired
     if (!is.null(genes)) {
@@ -46,7 +49,7 @@ plot_pca <- function(
 
     # Interesting groups
     if (is.null(interesting_groups)) {
-        interesting_groups <- metadata(bcb)[["interesting_groups"]]
+        interesting_groups <- metadata(object)[["interesting_groups"]]
     }
     interesting_groups_name <- paste(interesting_groups, collapse = " :\n")
 
@@ -93,60 +96,4 @@ plot_pca <- function(
     }
 
     plot
-}
-
-
-
-#' Find correlation between principal components (PCs) and covariates.
-#'
-#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
-#'
-#' @author Lorena Pantano
-#'
-#' @param bcb [bcbioRNADataSet].
-#' @param transform String specifying [rlog] (**recommended**) or [vst]
-#'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
-#' @param use *Optional*. Character vector of columns to use.
-#' @param ... Passthrough arguments to [DEGreport::degCovariates()].
-#'
-#' @return [ggplot].
-#' @export
-plot_pca_covariates <- function(bcb, transform = "rlog", use = NULL, ...) {
-    metrics <- metrics(bcb)
-    if (is.null(metrics)) return(NULL)
-
-    # Get the columns of interest
-    if (is.null(use)) {
-        use <- colnames(metrics)
-    } else {
-        use <- intersect(use, colnames(metrics))
-    }
-    if (length(use) == 0L) {
-        stop("Not columns matched between use and metadata")
-    }
-
-    keep_metrics <- lapply(use, function(a) {
-        if (length(unique(metrics[, a])) > 1L) a
-    }) %>%
-        unlist %>%
-        .[!is.null(.)]
-
-    metrics <- metrics %>%
-        as.data.frame %>%
-        set_rownames(.[["description"]]) %>%
-        .[, setdiff(keep_metrics, c("description", "file_name")), drop = FALSE]
-
-    # Pass internal [DESeqTransform] to [degCovariates()]
-    if (!transform %in% c("rlog", "vst")) {
-        stop("DESeqTransform must be rlog or vst")
-    }
-
-    res <- assays(bcb)[[transform]] %>%
-        # Assay needed here to get the matrix from [DESeqTransform]
-        assay %>%
-        degCovariates(metadata = metrics, ...)
-    res %>%
-        .[["plot"]] +
-        theme(axis.text.x = element_text(angle = 60L, hjust = 1L))
-    invisible(res)
-}
+})
