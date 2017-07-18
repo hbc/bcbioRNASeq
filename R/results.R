@@ -27,8 +27,7 @@ alpha_summary <- function(
             })[1L:4L]
         .parse <- c(.parse, .info[[5L]])
         data.frame(alpha = as.vector(.parse))
-    }
-    ) %>%
+    }) %>%
         bind_cols %>%
         set_colnames(alpha) %>%
         set_rownames(c("LFC > 0 (up)",
