@@ -21,13 +21,13 @@ setMethod("plot_deg_heatmap",
           function(
     object,
     counts,
-    res,
     lfc,
     title = NULL,
     ...) {
     if (is.null(title)) {
         title <- "differentially expressed genes"
     }
+    # FIXME Need to get the res from the bcbioRNAResults
     alpha <- metadata(res)[["alpha"]]
     genes <- res %>%
         as.data.frame %>%
@@ -37,7 +37,7 @@ setMethod("plot_deg_heatmap",
                    .data[["log2FoldChange"]] < -lfc) %>%
         pull("ensgene") %>%
         sort
-    plot_gene_heatmap(x, dt = dt, genes = genes, title = title, ...)
+    plot_gene_heatmap(counts, genes = genes, title = title, ...)
 })
 
 
