@@ -37,3 +37,4 @@ warn_color <- "orange"
 label_sep <- ": "
 
 meta_priority_cols <- c("sample_id", "sample_name")
+per_sample_dirs <- c("sailfish", "salmon")
