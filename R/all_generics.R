@@ -90,7 +90,7 @@ setGeneric("plot_gender_markers", function(object, ...) {
 
 #' @rdname all_generics
 #' @export
-setGeneric("plot_gene", function(object, keys, ...) {
+setGeneric("plot_gene", function(object, ...) {
     standardGeneric("plot_gene")
 })
 
@@ -98,7 +98,7 @@ setGeneric("plot_gene", function(object, keys, ...) {
 
 #' @rdname all_generics
 #' @export
-setGeneric("plot_gene_heatmap", function(object, counts, ...) {
+setGeneric("plot_gene_heatmap", function(object, ...) {
     standardGeneric("plot_gene_heatmap")
 })
 
