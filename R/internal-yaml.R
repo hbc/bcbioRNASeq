@@ -1,4 +1,9 @@
-#' YAML utilities
+# FIXME Can we extract the file name from the YAML metadata? Use this to
+# definize a snake_case sanitized unique sample identifier
+#
+# FIXME We need to define the file_name from YAML metadata!!!
+
+#' Sample YAML metadata utilities
 #'
 #' @rdname yaml
 #' @keywords internal
@@ -11,15 +16,20 @@
 #'   counts. Fast RNA-seq mode with lightweight counts (pseudocounts) doesn't
 #'   output the same metrics into the YAML.
 #'
-#' @return [DataFrame].
-.yaml <- function(yaml, ...) {
+#' @return [tibble].
+
+
+
+#' @rdname yaml
+#' @usage NULL
+.sample_yaml <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
         stop("No sample information in YAML")
     }
 
     # Check for nested keys, otherwise return NULL
-    # TODO Improve the recursion method using sapply in a future update
+    # Improve recursion method in a future update (lower priority)
     keys <- get_objs_from_dots(dots(...))
     if (!keys[[1L]] %in% names(samples[[1L]])) {
         return(NULL)
@@ -35,7 +45,7 @@
         # Set the description
         nested[["description"]] <- samples[[a]][["description"]]
         # Remove legacy duplicate `name` identifier
-        nested[["name"]] <- NULL
+        nested[["name"]] <- NA
         if (rev(keys)[[1L]] == "metadata") {
             if (is.null(nested[["batch"]])) {
                 nested[["batch"]] <- NA
@@ -47,49 +57,42 @@
             }
         }
         nested
-    }
-    ) %>%
-        rbindlist %>%
+    }) %>%
         # List can be coerced to data frame using [data.table::rbindlist()] or
         # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to
         # throw `Column XXX can't be converted from integer to character` errors
         # on numeric data, whereas this doesn't happen with [rbindlist()].
-        as.data.frame %>%
+        rbindlist %>%
+        as("tibble") %>%
         remove_na %>%
-        arrange(!!sym("description"))
+        mutate(sample_name = snake(.data[["description"]])) %>%
+        tidy_select(!!!syms(meta_priority_cols), everything()) %>%
+        arrange(!!!syms(meta_priority_cols))
 }
 
 
 
 #' @rdname yaml
-.yaml_metadata <- function(yaml) {
-    .yaml(yaml, metadata) %>%
-        as.data.frame %>%
-        mutate_all(factor) %>%
-        mutate(description = as.character(.data[["description"]])) %>%
-        as.data.frame %>%
-        column_to_rownames("description") %>%
-        DataFrame
+#' @usage NULL
+.sample_yaml_metadata <- function(yaml) {
+    .sample_yaml(yaml, metadata) %>%
+        # Mutate column to factor if not in `meta_priority_cols`
+        mutate_if(!colnames(.) %in% meta_priority_cols, factor)
 }
 
 
 
 #' @rdname yaml
-.yaml_metrics <- function(yaml) {
-    metrics <- .yaml(yaml, summary, metrics)
+.sample_yaml_metrics <- function(yaml) {
+    metrics <- .sample_yaml(yaml, summary, metrics)
     if (is.null(metrics)) {
         return(NULL)
     }
-    characters <- metrics[, c("description",
-                              "quality_format",
-                              "sequence_length")]
-    numerics <- metrics[, setdiff(colnames(metrics), colnames(characters))] %>%
-        as.data.frame %>%
-        mutate_all(as.numeric)
-    bind_cols(characters, numerics) %>%
-        as.data.frame %>%
-        column_to_rownames("description") %>%
-        .[, sort(colnames(.))] %>%
-        bind_cols(., characters[, "description", drop = FALSE]) %>%
-        DataFrame
+    chr <- metrics %>%
+        tidy_select(c(meta_priority_cols, "quality_format", "sequence_length"))
+    num <- metrics %>%
+        tidy_select(setdiff(colnames(metrics), colnames(chr))) %>%
+        mutate_if(is.character, as.numeric)
+    bind_cols(chr, num) %>%
+        tidy_select(unique(c(meta_priority_cols, sort(colnames(.)))))
 }
