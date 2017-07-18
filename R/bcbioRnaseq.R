@@ -3,8 +3,7 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' @import annotables basejump BiocGenerics DESeq2 SummarizedExperiment
-#'   S4Vectors rjson
+#' @import basejump BiocGenerics DESeq2 SummarizedExperiment S4Vectors rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -36,5 +35,6 @@ warn_color <- "orange"
 # Plot label separator
 label_sep <- ": "
 
+project_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 meta_priority_cols <- c("sample_id", "sample_name")
 per_sample_dirs <- c("sailfish", "salmon")
