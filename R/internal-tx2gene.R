@@ -19,6 +19,6 @@
         if (is.null(genome_build)) {
             stop("Genome build required for annotable tx2gene")
         }
-        annotable(genome_build, format = "tx2gene")
+        tx2gene(genome_build)
     }
 }
