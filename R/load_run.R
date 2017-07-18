@@ -17,7 +17,7 @@
 #' @param sample_metadata_file *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
-#' @param ... Additional arguments, saved as metadata.
+#' @param ... Additional arguments, slotted into [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
 #'   run directory as a remote connection over
@@ -27,14 +27,24 @@
 #' @export
 #'
 #' @examples
-#' path <- system.file("extra", package = "bcbioRnaseq")
-#' bcb <- load_run(file.path(path, "bcbio"))
+#' extra_dir <- system.file("extra", package = "bcbioRnaseq")
+#' upload_dir <- file.path(extra_dir, "bcbio")
+#' sample_metadata_file <- file.path(extra_dir, "sample_metadata.csv")
+#' bcb <- load_run(upload_dir,
+#'                 sample_metadata_file = sample_metadata_file)
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
-    interesting_groups = "description",
+    interesting_groups = "sample_name",
     sample_metadata_file = NULL,
     ...) {
+    # Analysis type ====
+    supported_analyses <- c("rnaseq", "srnaseq")
+    if (!analysis %in% supported_analyses) {
+        stop(paste("Supported analyses:", toString(supported_analyses)))
+    }
+
+
     # Directory paths ====
     # Check connection to final upload directory
     if (!dir.exists(upload_dir)) {
@@ -57,44 +67,17 @@ load_run <- function(
     project_dir <- file.path(upload_dir, project_dir)
 
 
-    # Analysis type ====
-    supported_analyses <- c("rnaseq", "srnaseq")
-    if (!analysis %in% supported_analyses) {
-        stop(paste("Supported analyses:", toString(supported_analyses)))
-    }
-
-
     # Project summary YAML ====
     yaml_file <- file.path(project_dir, "project-summary.yaml")
     if (!file.exists(yaml_file)) {
         stop("YAML project summary missing")
     }
-    message("Reading project summary YAML")
     yaml <- read_yaml(yaml_file)
 
 
-    # Sample names ====
-    # FIXME add `all_samples` flag into metadata, like bcbioSinglecell
-    # Obtain the samples (and their directories) from the YAML
-    sample_names <- vapply(
-        yaml[["samples"]],
-        function(x) x[["description"]],
-        character(1L)) %>% sort
-    sample_dirs <- file.path(upload_dir, sample_names) %>%
-        set_names(sample_names)
-    if (!identical(basename(sample_dirs), sample_names)) {
-        stop("Sample name assignment mismatch")
-    }
-    message(paste(length(sample_dirs), "samples detected"))
+    # Sample directories ====
+    sample_dirs <- .sample_dirs(upload_dir)
 
-
-    # Genome ====
-    # Use the genome build of the first sample to match
-    genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
-    organism <- .detect_organism(genome_build)
-    message(paste("Genome:", organism, genome_build))
-    annotable <- annotable(genome_build)
-    tx2gene <- .tx2gene(project_dir, genome_build)
 
     # Sequencing lanes ====
     lane_pattern <- "_L(\\d{3})"
@@ -106,13 +89,39 @@ load_run <- function(
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
-        # TODO Check that downstream functions don't use NULL
         lanes <- 1L
     }
 
 
-    # User-defined custom metadata ====
-    sample_metadata <- .sample_metadata_file(sample_metadata_file)
+    # Sample metadata (colData) ====
+    sample_metadata <-
+        .sample_metadata_file(sample_metadata_file, lanes = lanes)
+    if (is.null(sample_metadata)) {
+        sample_metadata <- .sample_yaml_metadata(yaml)
+    }
+
+
+    # Subset sample directories by metadata ====
+    # Check to see if a subset of samples is requested via the metadata file.
+    # This matches by the reverse complement sequence of the index barcode.
+    if (length(sample_metadata[["sample_id"]]) < length(sample_dirs)) {
+        message("Loading a subset of samples, defined by the metadata file")
+        all_samples <- FALSE
+        sample_dirs <- sample_dirs %>%
+            .[names(sample_dirs) %in% sample_metadata[["sample_id"]]]
+        message(paste(length(sample_dirs), "samples matched by metadata"))
+    } else {
+        all_samples <- TRUE
+    }
+
+
+    # Genome ====
+    # Use the genome build of the first sample to match
+    genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
+    organism <- .detect_organism(genome_build)
+    message(paste("Genome:", organism, genome_build))
+    annotable <- annotable(genome_build)
+    tx2gene <- .tx2gene(project_dir, genome_build)
 
 
     # Sample metrics ====
@@ -130,14 +139,6 @@ load_run <- function(
         file.path(project_dir, "bcbio-nextgen.log"))
     bcbio_nextgen_commands <- read_lines(
         file.path(project_dir, "bcbio-nextgen-commands.log"))
-
-
-    # Column data (colData) ====
-    if (!is.null(sample_metadata)) {
-        col_data <- sample_metadata
-    } else {
-        col_data <- .sample_yaml_metadata(yaml)
-    }
 
 
     # Metadata ====
@@ -159,11 +160,11 @@ load_run <- function(
         yaml = yaml,
         metrics = metrics,
         sample_metadata_file = sample_metadata_file,
-        sample_metadata = sample_metadata,
         data_versions = data_versions,
         programs = programs,
         bcbio_nextgen = bcbio_nextgen,
-        bcbio_nextgen_commands = bcbio_nextgen_commands)
+        bcbio_nextgen_commands = bcbio_nextgen_commands,
+        all_samples = all_samples)
 
     # Add user-defined custom metadata, if specified
     dots <- list(...)
@@ -181,7 +182,7 @@ load_run <- function(
     # DESeqDataSet ====
     dds <- DESeqDataSetFromTximport(
         txi = txi,
-        colData = col_data,
+        colData = sample_metadata,
         design = formula(~1L)) %>%
         DESeq
 
@@ -195,7 +196,15 @@ load_run <- function(
         fc <- read_tsv(fc_file) %>%
             as.data.frame %>%
             column_to_rownames("id") %>%
-            as.matrix
+            as.matrix %>%
+            # Subset columns by matching STAR sample name in metrics
+            .[, pull(metrics, "name")] %>%
+            # Ensure column names match tximport
+            set_colnames(pull(metrics, "sample_name"))
+        # Check column name consistency
+        if (!identical(colnames(raw_counts), colnames(fc))) {
+            stop("Column name mismatch between tximport and featureCounts")
+        }
     } else {
         fc <- NULL
     }
@@ -210,7 +219,7 @@ load_run <- function(
             tmm = .tmm(raw_counts),
             rlog = rlog(dds),
             vst = varianceStabilizingTransformation(dds)),
-        colData = col_data,
+        colData = sample_metadata,
         rowData = annotable,
         metadata = metadata)
 
