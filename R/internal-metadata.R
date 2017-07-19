@@ -60,7 +60,7 @@
         filter(!is.na(.data[["sample_name"]]))
 
     # Lane split, if desired
-    if (lanes > 1) {
+    if (lanes > 1L) {
         meta <- meta %>%
             group_by(!!sym("sample_name")) %>%
             # Expand by lane (e.g. "L001")
@@ -82,5 +82,7 @@
             filter(str_detect(.data[[pattern_col]], pattern))
     }
 
-    meta %>% .meta_priority_cols %>% .meta_factors
+    meta %>%
+        .meta_priority_cols %>%
+        .meta_factors
 }
