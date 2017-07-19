@@ -1,15 +1,13 @@
-#' *M. musculus* gender marker genes
+#' *M. musculus* Gender Marker Genes
 #'
-#' @docType data
-#' @keywords datasets internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 "gender_markers_mmusculus"
 
 
 
-#' *M. musculus* dummy data
+#' Example [bcbioRNADataSet]
 #'
-#' @docType data
-#' @keywords datasets internal
 #' @author Lorena Pantano
+#' @keywords internal
 "bcb"

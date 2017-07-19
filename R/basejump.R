@@ -23,7 +23,8 @@ basejump::counts -> counts
 #' @export
 basejump::design -> design
 
-#' @rdname all_generics
+#' @rdname gene2symbol
+#' @inherit all_generics
 #' @export
 basejump::gene2symbol -> gene2symbol
 
