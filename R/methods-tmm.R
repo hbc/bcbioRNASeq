@@ -1,17 +1,18 @@
-#' Trimmed mean of M-values (TMM) normalization
+#' Trimmed Mean of M-Values (TMM) Normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
 #' of genes are not differentially expressed. We use this as a quality control
 #' tool when plotting counts per gene.
 #'
 #' @rdname tmm
-#' @docType methods
-#'
 #' @author Michael Steinbaugh
 #'
-#' @param object Object containing counts.
-#'
+#' @return [matrix].
 #' @export
+#'
+#' @examples
+#' data(bcb)
+#' tmm(bcb) %>% head
 setMethod("tmm", "bcbioRNADataSet", function(object) {
     assays(object)[["tmm"]]
 })
