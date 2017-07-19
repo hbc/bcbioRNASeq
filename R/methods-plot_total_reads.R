@@ -1,9 +1,9 @@
 #' Plot Total Reads
 #'
 #' @rdname plot_total_reads
-#' @family Quality Control Metrics Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit plot_metrics
+#' @family Quality Control Plots
+#' @inherit qc_plots
 #'
 #' @examples
 #' data(bcb)
@@ -14,15 +14,16 @@
     pass_limit = 20L,
     warn_limit = 10L,
     flip = TRUE) {
+    if (is.null(metrics)) return(NULL)
     p <- ggplot(metrics,
                 aes_(x = ~sample_name,
                      y = ~total_reads / 1e6L,
                      fill = as.name(interesting_group))) +
+        geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
              y = "total reads (million)",
-             fill = "") +
-        geom_bar(stat = "identity")
+             fill = "")
     if (!is.null(pass_limit)) {
         p <- p +
             geom_hline(alpha = 0.75,
