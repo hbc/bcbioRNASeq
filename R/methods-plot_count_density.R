@@ -1,9 +1,9 @@
 #' Plot Count Density
 #'
 #' @rdname plot_count_density
-#' @family Quality Control Metrics Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit plot_metrics
+#' @family Quality Control Plots
+#' @inherit qc_plots
 #'
 #' @examples
 #' data(bcb)
