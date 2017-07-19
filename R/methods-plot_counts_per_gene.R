@@ -1,7 +1,9 @@
-#' @rdname plot_metrics
-#' @family Quality Control Metrics Plots
+#' Plot Counts Per Gene
+#'
+#' @rdname plot_counts_per_gene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit plot_metrics
+#' @family Quality Control Plots
+#' @inherit qc_plots
 #'
 #' @examples
 #' data(bcb)
