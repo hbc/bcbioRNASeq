@@ -46,9 +46,9 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
 
 
 #' @rdname plot_volcano
-## @param res_df [DESeqResults] coerced to a [data.frame]. By inputting a
-##   [data.frame], we allow for increased flexibility, since a user may want to
-##   subset the results prior to plotting.
+#' @param res_df [DESeqResults] coerced to a [data.frame]. By inputting a
+#'   [data.frame], we allow for increased flexibility, since a user may want to
+#'   subset the results prior to plotting.
 .plot_volcano <- function(
     res_df,
     alpha = 0.05,
