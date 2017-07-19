@@ -21,6 +21,10 @@ plot_volcano(object, ...)
 
 \item{...}{Additional arguments.}
 
+\item{res_df}{\link{DESeqResults} coerced to a \link{data.frame}. By inputting a
+\link{data.frame}, we allow for increased flexibility, since a user may want to
+subset the results prior to plotting.}
+
 \item{padj}{Use P values adjusted for multiple comparisions.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
