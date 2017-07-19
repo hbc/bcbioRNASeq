@@ -17,7 +17,6 @@
 
 
 #' @rdname melt_log10
-#' @usage NULL
 .melt_log10 <- function(counts) {
     counts %>%
         as.data.frame %>%
@@ -53,19 +52,13 @@
 #' @export
 setMethod("melt_log10", "bcbioRNADataSet", function(
     object,
-    normalized = TRUE,
-    interesting_groups = NULL) {
+    normalized = TRUE) {
     counts <- counts(object, normalized = normalized)
-
-    if (is.null(interesting_groups)) {
-        interesting_groups <- metadata(object)[["interesting_groups"]]
-    }
-
+    interesting_groups <- metadata(object)[["interesting_groups"]]
     metadata <- colData(object) %>%
         as.data.frame %>%
         rownames_to_column("colname") %>%
         tidy_select(!!!syms(c("colname", interesting_groups)))
-
     .join_melt(counts, metadata)
 })
 
@@ -78,16 +71,13 @@ setMethod("melt_log10", "DESeqDataSet", function(
     normalized = TRUE,
     interesting_groups = NULL) {
     counts <- counts(object, normalized = normalized)
-
     metadata <- colData(object) %>%
         as.data.frame %>%
         rownames_to_column("colname")
-
     if (!is.null(interesting_groups)) {
         metadata <- metadata %>%
             tidy_select(!!!syms(c("colname", interesting_groups)))
     }
-
     .join_melt(counts, metadata)
 })
 
@@ -99,15 +89,12 @@ setMethod("melt_log10", "DESeqTransform", function(
     object,
     interesting_groups = NULL) {
     counts <- assay(object)
-
     metadata <- colData(object) %>%
         as.data.frame %>%
         rownames_to_column("colname")
-
     if (!is.null(interesting_groups)) {
         metadata <- metadata %>%
             tidy_select(!!!syms(c("colname", interesting_groups)))
     }
-
     .join_melt(counts, metadata)
 })
