@@ -4,10 +4,8 @@
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
 #' @rdname plot_mean_sd
-#' @family DESeq2 utilities
 #' @author Michael Steinbaugh, Lorena Patano
-#'
-#' @param object Object.
+#' @family DESeq2 Utilities
 #'
 #' @return [ggplot] grid.
 #' @export
@@ -33,5 +31,5 @@ setMethod("plot_mean_sd", "bcbioRNADataSet", function(object) {
     plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
               ggrlog[["gg"]] + theme(legend.position = "none"),
               ggvsd[["gg"]] + theme(legend.position = "none"),
-              nrow = 1L)
+              nrow = 3L)
 })
