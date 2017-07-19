@@ -28,9 +28,7 @@ plot_ma <- function(res,
   res <- res %>% filter(!is.na(.data[["padj"]]))
   p <- ggplot(res, aes_(~baseMean, ~log2FoldChange, color = ~padj < 0.05)) +
     geom_point(size = 0.8) +
-    scale_x_log10(
-      breaks = scales::trans_breaks("log10", function(x) 10L ^ x),
-      labels = scales::trans_format("log10", scales::math_format(10L ^ .x))) + # nolint
+    scale_x_log10() +
     annotation_logticks(sides = "b") +
     xlab("mean expression across all samples") +
     ylab(expression(log[2]*" fold change")) + # nolint

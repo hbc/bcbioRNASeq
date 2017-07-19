@@ -3,8 +3,7 @@
 #' Quality control and differential expression for bcbio-nextgen RNA-seq
 #' experiments.
 #'
-#' @import annotables basejump BiocGenerics DESeq2 SummarizedExperiment
-#'   S4Vectors rjson
+#' @import basejump BiocGenerics DESeq2 SummarizedExperiment S4Vectors rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList

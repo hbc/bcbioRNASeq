@@ -146,7 +146,7 @@ load_run <- function(
         interesting_groups = interesting_groups,
         organism = organism,
         genome_build = genome_build,
-        ensembl_version = annotables::ensembl_version,
+        ensembl_version = ensembl_version(),
         annotable = annotable,
         tx2gene = tx2gene,
         lanes = lanes,

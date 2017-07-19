@@ -28,16 +28,17 @@ biocViews:
     miRNA,
     Visualization
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRnaseq/,
+    http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
-Depends: R (>= 3.4.0)
+Depends:
+    R (>= 3.3.1),
+    SummarizedExperiment
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    annotables (>= 0.1.3),
-    basejump (>= 0.0.17),
+    basejump (>= 0.0.18),
     BiocGenerics,
     cowplot,
     data.table,
@@ -51,21 +52,17 @@ Imports:
     pheatmap,
     rjson,
     S4Vectors,
-    scales,
     stats,
-    SummarizedExperiment,
     tximport (>= 1.4.0),
     utils,
     vsn
 Suggests:
     BiocStyle,
-    lintr (>= 1.0.0.9001),
+    lintr,
     RUnit,
     testthat
 Remotes:
-    hbc/annotables,
-    jimhester/lintr,
     lpantano/DEGreport,
     steinbaugh/basejump,
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.0.1

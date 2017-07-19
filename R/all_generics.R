@@ -21,13 +21,6 @@ setGeneric("bcbio<-", function(object, ..., value) standardGeneric("bcbio<-"))
 
 
 
-#' @rdname gene2symbol
-#' @usage NULL
-#' @export
-setGeneric("gene2symbol", function(object) standardGeneric("gene2symbol"))
-
-
-
 #' @rdname melt_log10
 #' @usage NULL
 #' @export
