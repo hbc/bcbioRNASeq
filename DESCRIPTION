@@ -28,7 +28,7 @@ biocViews:
     miRNA,
     Visualization
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRnaseq/,
+    http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
 Depends:
@@ -52,7 +52,6 @@ Imports:
     pheatmap,
     rjson,
     S4Vectors,
-    scales,
     stats,
     tximport (>= 1.4.0),
     utils,

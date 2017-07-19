@@ -12,7 +12,7 @@ experiments.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://bioinformatics.sph.harvard.edu/bcbioRnaseq/}
+  \item \url{http://bioinformatics.sph.harvard.edu/bcbioRnaseq}
   \item \url{https://github.com/hbc/bcbioRnaseq}
   \item Report bugs at \url{https://github.com/hbc/bcbioRnaseq/issues}
 }
