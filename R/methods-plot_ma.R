@@ -25,29 +25,37 @@
 
 #' @rdname plot_ma
 #' @usage NULL
-.plot_ma <- function(res_df, title, label_points, label_column) {
-    res_df <- filter(res_df, !is.na(.data[["padj"]]))
-    p <- ggplot(res_df,
-                aes_(x = ~baseMean,
-                     y = ~log2FoldChange,
-                     color = ~padj < 0.05)) +
+.plot_ma <- function(
+    res_df,
+    alpha = 0.05,
+    label_points = NULL,
+    label_column = "rowname") {
+    res_tbl <- res_df %>%
+        as("tibble") %>%
+        snake %>%
+        filter(!is.na(.data[["padj"]]))
+    p <- ggplot(res_tbl,
+                aes_(x = ~base_mean,
+                     y = ~log2_fold_change,
+                     color = ~padj < !!alpha)) +
         geom_point(size = 0.8) +
-        scale_x_log10(
-            breaks = trans_breaks("log10", function(x) 10L ^ x),
-            labels = trans_format("log10", math_format(10L ^ .x))) +  # nolint
+        scale_x_log10() +
         annotation_logticks(sides = "b") +
-        xlab("mean expression across all samples") +
-        ylab(expression(log[2]*" fold change")) +  # nolint
         scale_color_manual(values = c("black", "red", "green")) +
-        guides(color = FALSE)
-    if (!is.null(title)) {
-        p <- p + ggtitle(title)
-    }
+        guides(color = FALSE) +
+        labs(title = "mean average",
+             x = "mean expression across all samples",
+             y = "log2 fold change")
     if (!is.null(label_points)) {
-        labels <- res_df[res_df[[label_column]] %in% label_points, ]
-        p <- p + geom_text(data = labels,
-                           aes_string("baseMean", "log2FoldChange",
-                                      label = label_column), size = 3L)
+        labels <- res_tbl %>%
+            .[.[[label_column]] %in% label_points, ]
+        p <- p +
+            geom_text_repel(
+                data = labels,
+                aes_string("base_mean",
+                           "log2_fold_change",
+                           label = label_column),
+                size = 3L)
     }
     p
 }
@@ -59,14 +67,12 @@
 setMethod(
     "plot_ma",
     "DESeqResults",
-    function(object,
-             title = NULL,
-             label_points = NULL,
-             label_column = "symbol") {
+    function(object, label_points = NULL) {
         res %>%
             as.data.frame %>%
-            .plot_ma(title = title,
-                     label_points = label_points,
+            # FIXME Add left_join for `label_column` = symbol here
+            # Automatically label the top 30 if TRUE?
+            .plot_ma(label_points = label_points,
                      label_column = label_column)
     })
 
