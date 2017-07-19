@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-deseq.R
 \name{.res_contrast_name}
 \alias{.res_contrast_name}
-\title{\link{DESeqResults} contrast name}
+\title{\code{DESeqResults} Contrast Name}
 \usage{
 .res_contrast_name(res)
 }
@@ -13,7 +13,7 @@
 Contrast name string.
 }
 \description{
-\link{DESeqResults} contrast name
+\code{DESeqResults} Contrast Name
 }
 \author{
 Michael Steinbaugh

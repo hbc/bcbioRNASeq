@@ -3,16 +3,15 @@
 \docType{data}
 \name{gender_markers_mmusculus}
 \alias{gender_markers_mmusculus}
-\title{\emph{M. musculus} gender marker genes}
+\title{\emph{M. musculus} Gender Marker Genes}
 \format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 4 columns.}
 \usage{
 gender_markers_mmusculus
 }
 \description{
-\emph{M. musculus} gender marker genes
+\emph{M. musculus} Gender Marker Genes
 }
 \author{
 Michael Steinbaugh
 }
-\keyword{datasets}
 \keyword{internal}

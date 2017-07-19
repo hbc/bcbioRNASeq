@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-project_dir.R
 \name{.programs}
 \alias{.programs}
-\title{Read program versions}
+\title{Read Program Versions}
 \usage{
 .programs(project_dir)
 }
@@ -10,7 +10,7 @@
 \item{project_dir}{Project directory.}
 }
 \description{
-Read program versions
+Read Program Versions
 }
 \author{
 Michael Steinbaugh

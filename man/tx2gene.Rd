@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-tx2gene.R
 \name{.tx2gene}
 \alias{.tx2gene}
-\title{Read transcript to gene (tx2gene) annotation file}
+\title{Transcript to Gene Annotations}
 \usage{
 .tx2gene(project_dir, genome_build)
 }
@@ -11,8 +11,11 @@
 
 \item{genome_build}{Genome build.}
 }
+\value{
+\link{data.frame} with unique rownames.
+}
 \description{
-Read transcript to gene (tx2gene) annotation file
+Transcript to Gene Annotations
 }
 \author{
 Michael Steinbaugh

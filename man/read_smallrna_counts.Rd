@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-smallrna.R
 \name{.read_smallrna_counts}
 \alias{.read_smallrna_counts}
-\title{Create isomiRs object from bcbio output}
+\title{Create \code{isomiRs} Object from \code{bcbio} Output}
 \usage{
 .read_smallrna_counts(rna)
 }
@@ -10,7 +10,7 @@
 \item{rna}{\link{bcbioRNADataSet}.}
 }
 \description{
-Read bcbio sample information from YAML to get isomiR object.
+Read \code{bcbio} sample information from YAML to get \link{isomiR} object.
 }
 \author{
 Lorena Patano

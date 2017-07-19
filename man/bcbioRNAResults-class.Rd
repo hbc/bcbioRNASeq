@@ -4,7 +4,7 @@
 \name{bcbioRNAResults-class}
 \alias{bcbioRNAResults-class}
 \alias{bcbioRNAResults}
-\title{bcbioRNAResults}
+\title{\code{bcbioRNAResults}}
 \description{
 S4 class containing contrast-level results of a differential expression
 analysis.

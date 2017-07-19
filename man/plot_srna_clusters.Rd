@@ -2,7 +2,7 @@
 % Please edit documentation in R/methods-plot_srna_clusters.R
 \name{plot_srna_clusters}
 \alias{plot_srna_clusters}
-\title{Cluster small RNA samples}
+\title{Cluster Small RNA samples}
 \usage{
 plot_srna_clusters(object)
 }
@@ -13,11 +13,11 @@ plot_srna_clusters(object)
 \link{ggplot}.
 }
 \description{
-Cluster small RNA samples
+Cluster Small RNA samples
 }
 \seealso{
-Other Small RNA-seq utilities: \code{\link{plot_size_distribution,bcbioRNADataSet-method}}
+Other Small RNA-Seq Utilities: \code{\link{plot_size_distribution}}
 }
 \author{
-Lorena Pantano
+Lorena Pantano, Michael Steinbaugh
 }

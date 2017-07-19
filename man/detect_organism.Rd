@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-detect.R
 \name{.detect_organism}
 \alias{.detect_organism}
-\title{Detect the organism from the genome build name}
+\title{Detect the Organism from the Genome Build Name}
 \usage{
 .detect_organism(genome_build)
 }
@@ -10,10 +10,10 @@
 \item{genome_build}{Genome build.}
 }
 \value{
-Organism string.
+Organism \link{string}.
 }
 \description{
-Detect the organism from the genome build name
+Detect the Organism from the Genome Build Name
 }
 \author{
 Michael Steinbaugh

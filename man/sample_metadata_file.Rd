@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-metadata.R
 \name{.sample_metadata_file}
 \alias{.sample_metadata_file}
-\title{Read custom metadata file}
+\title{Read Custom Metadata File}
 \usage{
 .sample_metadata_file(file, pattern = NULL, pattern_col = "sample_name",
   lanes = 1L)
@@ -22,7 +22,7 @@ technical replicates (\code{_LXXX}) suffix.}
 \link{tibble} grouped by \code{sample_name}.
 }
 \description{
-Read custom metadata file
+Read Custom Metadata File
 }
 \author{
 Michael Steinbaugh

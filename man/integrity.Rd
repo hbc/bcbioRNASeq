@@ -5,7 +5,7 @@
 \alias{.check_dt}
 \alias{.check_res}
 \alias{.check_sample_dirs}
-\title{Object integrity checks}
+\title{Object Integrity Checks}
 \usage{
 .check_dds(dds, stop = TRUE)
 
@@ -27,7 +27,7 @@
 \item{sample_dirs}{Named character vector of sample directory paths.}
 }
 \description{
-Object integrity checks
+Object Integrity Checks
 }
 \author{
 Michael Steinbaugh

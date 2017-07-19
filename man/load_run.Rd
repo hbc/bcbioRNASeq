@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_run.R
 \name{load_run}
 \alias{load_run}
-\title{Load bcbio-nextgen run}
+\title{Load \code{bcbio} Run Data}
 \usage{
 load_run(upload_dir = "final", analysis = "rnaseq",
   interesting_groups = "sample_name", sample_metadata_file = NULL, ...)
@@ -22,16 +22,16 @@ is used for PCA and heatmap QC functions.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 
-\item{...}{Additional arguments, slotted into \code{\link[=metadata]{metadata()}} accessor.}
+\item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
 \link{bcbioRNADataSet}.
 }
 \description{
 Simply point to the final upload directory output by
-\href{https://bcbio-nextgen.readthedocs.io/}{bcbio-nextgen}, and this function
-will take care of the rest. It automatically imports RNA-seq counts,
-metadata, and program versions used.
+\href{https://bcbio-nextgen.readthedocs.io/}{bcbio}, and this function will take
+care of the rest. It automatically imports RNA-seq counts, metadata, and
+program versions used.
 }
 \note{
 When working in RStudio, we recommend connecting to the bcbio-nextgen

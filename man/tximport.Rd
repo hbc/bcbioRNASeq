@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-tximport.R
 \name{.tximport}
 \alias{.tximport}
-\title{Import RNA-seq counts}
+\title{Import RNA-Seq Counts}
 \usage{
 .tximport(sample_dirs, tx2gene)
 }
@@ -25,8 +25,6 @@ Import RNA-seq counts using \code{\link[=tximport]{tximport()}}. Currently suppo
 }
 }
 \author{
-Michael Steinbaugh
-
-Rory Kirchner
+Michael Steinbaugh, Rory Kirchner
 }
 \keyword{internal}

@@ -4,8 +4,12 @@
 \alias{.sample_yaml}
 \alias{.sample_yaml_metadata}
 \alias{.sample_yaml_metrics}
-\title{Sample YAML metadata utilities}
+\title{Sample YAML Metadata Ytilities}
 \usage{
+.sample_yaml(yaml, ...)
+
+.sample_yaml_metadata(yaml)
+
 .sample_yaml_metrics(yaml)
 }
 \arguments{
@@ -17,7 +21,7 @@
 \link{tibble}.
 }
 \description{
-Sample YAML metadata utilities
+Sample YAML Metadata Ytilities
 }
 \note{
 Metrics are only generated for a standard RNA-seq run with aligned

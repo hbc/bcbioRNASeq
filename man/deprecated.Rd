@@ -15,7 +15,7 @@
 \alias{pool_lane_split_dds}
 \alias{res_tables}
 \alias{tmm_normalize}
-\title{Deprecated functions}
+\title{Deprecated Functions}
 \usage{
 correlation_heatmap(...)
 
@@ -49,6 +49,6 @@ tmm_normalize(...)
 \item{...}{Additional parameters.}
 }
 \description{
-Deprecated functions
+Deprecated Functions
 }
 \keyword{internal}

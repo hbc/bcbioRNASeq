@@ -6,8 +6,8 @@
 \alias{bcbioRnaseq-package}
 \title{bcbioRnaseq}
 \description{
-Quality control and differential expression for bcbio-nextgen RNA-seq
-experiments.
+Quality control and differential expression for
+\href{http://bcbio-nextgen.readthedocs.io}{bcbio} RNA-seq experiments.
 }
 \seealso{
 Useful links:
@@ -26,6 +26,7 @@ Authors:
   \item Lorena Pantano \email{lorena.pantano@gmail.com}
   \item Rory Kirchner \email{roryk@alum.mit.edu}
   \item Victor Barrera \email{barrera.vic@gmail.com}
+  \item John Hutchinson \email{jnhutchinson@gmail.com}
 }
 
 Other contributors:

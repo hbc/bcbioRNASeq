@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-project_dir.R
 \name{.data_versions}
 \alias{.data_versions}
-\title{Read data versions}
+\title{Read Data Versions}
 \usage{
 .data_versions(project_dir)
 }
@@ -10,7 +10,7 @@
 \item{project_dir}{Project directory.}
 }
 \description{
-Read data versions
+Read Data Versions
 }
 \author{
 Michael Steinbaugh

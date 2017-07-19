@@ -2,7 +2,7 @@
 % Please edit documentation in R/internal-rmarkdown.R
 \name{.md_results_tables}
 \alias{.md_results_tables}
-\title{Markdown list of results files}
+\title{Markdown List of Results Files}
 \usage{
 .md_results_tables(res_tbl, dir)
 }
@@ -12,7 +12,7 @@
 \item{dir}{Output directory.}
 }
 \value{
-Unordered Markdown list text.
+\code{\link[=writeLines]{writeLines()}}.
 }
 \description{
 Enables looping of results contrast file links for RMarkdown.
