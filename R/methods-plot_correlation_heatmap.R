@@ -10,9 +10,9 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
-#' @param transform String specifying [rlog] (**recommended**) or [vst]
-#'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
+#' @param transform String specifying `rlog` (**recommended**) or `vst`
+#'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
+#'   inside the [bcbioRNADataSet].
 #' @param method Correlation coefficient (or covariance) to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
@@ -29,13 +29,17 @@
 #' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional arguments, passed to [pheatmap::pheatmap()].
 #'
-#' @return Heatmap plot [pheatmap::pheatmap()].
+#' @seealso
+#' - [stats::cor()].
+#' - [stats::hclust()].
+#' - [pheatmap::pheatmap()].
+#'
+#' @return [pheatmap()].
+#' @export
+#'
 #' @examples
 #' data(bcb)
 #' plot_correlation_heatmap(bcb)
-#' @export
-#'
-#' @seealso [stats::cor()]
 setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     object,
     transform = "rlog",
