@@ -1,3 +1,12 @@
+.interesting_group <- function(object) {
+    metadata(object) %>%
+        .[["interesting_groups"]] %>%
+        .[[1L]] %>%
+        as.name
+}
+
+
+
 .meta_priority_cols <- function(meta) {
     meta %>%
         as("tibble") %>%
@@ -6,6 +15,8 @@
         tidy_select(unique(c(meta_priority_cols, sort(colnames(.))))) %>%
         arrange(!!!syms(meta_priority_cols))
 }
+
+
 
 .meta_factors <- function(meta) {
     meta %>%
