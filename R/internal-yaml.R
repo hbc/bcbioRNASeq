@@ -1,8 +1,8 @@
-#' Sample YAML metadata utilities
+#' Sample YAML Metadata Ytilities
 #'
 #' @rdname yaml
-#' @keywords internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param yaml Project summary YAML.
 #' @param ... Nested operator keys supplied as dot objects.
@@ -16,7 +16,6 @@
 
 
 #' @rdname yaml
-#' @usage NULL
 .sample_yaml <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
@@ -68,7 +67,6 @@
 
 
 #' @rdname yaml
-#' @usage NULL
 .sample_yaml_metadata <- function(yaml) {
     .sample_yaml(yaml, metadata) %>% .meta_factors
 }

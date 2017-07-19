@@ -17,7 +17,7 @@
 #' @param sample_metadata_file *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
-#' @param ... Additional arguments, slotted into [metadata()] accessor.
+#' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
 #'   run directory as a remote connection over

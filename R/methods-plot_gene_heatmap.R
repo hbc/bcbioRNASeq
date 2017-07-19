@@ -1,4 +1,4 @@
-#' Gene heatmap
+#' Gene Heatmap
 #'
 #' These functions facilitate heatmap plotting of a specified set of genes. By
 #' default, row- and column-wise hierarchical clustering is performed using the
@@ -8,10 +8,9 @@
 #' [bcbioRNADataSet] and then the sample names.
 #'
 #' @rdname plot_gene_heatmap
-#' @family Heatmaps
 #' @author Michael Steinbaugh
+#' @family Heatmaps
 #'
-#' @param object Object.
 #' @param genes Character vector of specific gene identifiers to plot.
 #' @param clustering_method Hierarchical clustering method. Accepts the same
 #'   values as [stats::hclust()].
@@ -31,6 +30,10 @@
 #'
 #' @return Graphical output only.
 #' @export
+#'
+#' @examples
+#' data(bcb)
+#' plot_gene_heatmap(bcb)
 setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
     object,
     genes,

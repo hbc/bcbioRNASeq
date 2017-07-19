@@ -1,4 +1,4 @@
-#' Plot mapping rate
+#' Plot Mapping Rate
 #'
 #' @rdname plot_mapping_rate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

@@ -1,11 +1,10 @@
-#' Object integrity checks
+#' Object Integrity Checks
 #'
 #' @rdname integrity
+#' @author Michael Steinbaugh
 #' @keywords internal
 #'
 #' @param stop Stop upon check failure.
-#'
-#' @author Michael Steinbaugh
 
 
 

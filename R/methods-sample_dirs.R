@@ -1,4 +1,4 @@
-#' Sample directories
+#' Sample Directories
 #'
 #' This method will be used to access folders where sample information is kept.
 #'

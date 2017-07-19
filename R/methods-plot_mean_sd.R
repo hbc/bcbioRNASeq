@@ -1,4 +1,4 @@
-#' Plot row standard deviations versus row means
+#' Plot Row Standard Deviations vs. Row Means
 #'
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
 #' [varianceStabilizingTransformation()] normalized counts.

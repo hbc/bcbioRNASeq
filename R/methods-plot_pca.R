@@ -1,4 +1,4 @@
-#' Sample PCA plot for transformed data
+#' Sample PCA Plot for Transformed Data
 #'
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
 #' (PCA) sample coloring and labeling.
@@ -6,7 +6,6 @@
 #' @rdname plot_pca
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
 #'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
 #' @param genes *Optional*. Character vector of gene identifiers to use.
@@ -34,7 +33,6 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
     if (!transform %in% c("rlog", "vst")) {
         stop("DESeqTransform must be rlog or vst")
     }
-    name <- deparse(substitute(dt))
     dt <- assays(object)[[transform]]
 
     # Subset genes, if desired
@@ -79,7 +77,7 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
              shape = ~shape)) +
         geom_point(size = 3L) +
         coord_fixed() +
-        labs(title = paste("pca", name, sep = label_sep),
+        labs(title = "pca",
              x = paste0("pc1: ", percent_var[[1L]], "% variance"),
              y = paste0("pc2: ", percent_var[[2L]], "% variance"),
              color = interesting_groups_name,

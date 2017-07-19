@@ -1,16 +1,13 @@
-#' Aggregate lane-split technical replicates
+#' Aggregate Lane-Split Technical Replicates
 #'
 #' Frequently RNA-seq experiments are performed with technical replicates
 #' split across flow cell lanes. This generic facilitates quick aggregation
 #' of counts across the flow cells.
 #'
 #' @rdname aggregate_replicates
-#' @docType methods
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param pattern Grep pattern to match lane identifiers in sample name.
-#' @param ... Additional arguments.
 #'
 #' @return Object of same class, with pooled technical replicates.
 #' @export

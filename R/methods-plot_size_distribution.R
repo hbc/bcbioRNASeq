@@ -1,10 +1,8 @@
-#' Plot size distribution of small RNA-seq data
+#' Plot Size Distribution of Small RNA-Seq Data
 #'
 #' @rdname plot_size_distribution
-#' @family Small RNA-seq utilities
 #' @author Lorena Pantano, Michael Steinbaugh
-#'
-#' @param object Object.
+#' @family Small RNA-Seq Utilities
 #'
 #' @return [ggplot].
 #' @export

@@ -1,15 +1,16 @@
-#' Find correlation between principal components (PCs) and covariates.
+#' Find Correlation Between Principal Components (PCs) and Covariates
 #'
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @rdname plot_pca_covariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
 #'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
 #' @param use *Optional*. Character vector of columns to use.
 #' @param ... Passthrough arguments to [DEGreport::degCovariates()].
+#'
+#' @seealso [DEGreport::degCovariates()].
 #'
 #' @return [ggplot].
 #' @export

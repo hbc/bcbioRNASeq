@@ -12,12 +12,12 @@
     metrics,
     counts,
     interesting_group,
-    min_counts = 1L) {
+    min_counts = 0L) {
     if (is.null(metrics)) return(NULL)
     ggplot(
         metrics,
         aes_(x = ~mapped_reads / 1e6L,
-             y = colSums(counts >= min_counts),
+             y = colSums(counts > min_counts),
              color = as.name(interesting_group))) +
         geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +

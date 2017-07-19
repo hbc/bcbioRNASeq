@@ -1,4 +1,4 @@
-#' Transcripts per million (TPM)
+#' Transcripts Per Million (TPM)
 #'
 #' @rdname tpm
 #' @author Michael Steinbaugh

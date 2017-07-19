@@ -1,4 +1,4 @@
-#' Correlation heatmap
+#' Plot Correlation Heatmap
 #'
 #' This function calculates a correlation matrix based on gene expression per
 #' sample. By default, this function processes all gene counts per sample to
@@ -7,8 +7,8 @@
 #' desired genes will be used to calculate the correlation matrix.
 #'
 #' @rdname plot_correlation_heatmap
-#' @family Heatmaps
 #' @author Michael Steinbaugh
+#' @family Heatmaps
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted

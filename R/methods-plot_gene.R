@@ -1,9 +1,8 @@
-#' Plot an individual gene
+#' Plot Individual Genes
 #'
 #' @rdname plot_gene
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param format Ensembl identifier format. Defaults to the gene symbol (a.k.a.
 #'   `external_gene_name`).
@@ -16,8 +15,10 @@ setMethod("plot_gene", "bcbioRNADataSet", function(
     if (!format %in% c("ensgene", "symbol")) {
         stop("Unsupported gene identifier format")
     }
+    # FIXME Defined but not used
     counts <- tpm(object)
     metadata <- colData(object)
+    # FIXME Defined but not used
     color <- metadata(object)[["interesting_groups"]][[1L]]
 
     # Match unique gene identifier with name (gene symbol) using the

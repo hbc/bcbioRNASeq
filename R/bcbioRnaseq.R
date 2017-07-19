@@ -1,7 +1,7 @@
 #' bcbioRnaseq
 #'
-#' Quality control and differential expression for bcbio-nextgen RNA-seq
-#' experiments.
+#' Quality control and differential expression for
+#' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @import basejump BiocGenerics DESeq2 SummarizedExperiment S4Vectors rjson
 #' @importFrom cowplot draw_plot ggdraw plot_grid

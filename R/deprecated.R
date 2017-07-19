@@ -1,4 +1,4 @@
-#' Deprecated functions
+#' Deprecated Functions
 #'
 #' @rdname deprecated
 #' @keywords internal

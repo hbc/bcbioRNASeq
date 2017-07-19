@@ -1,11 +1,7 @@
-#' Gene identifier to symbol conversion
-#'
-#' @author Michael Steinbaugh
+#' Gene Identifier to Symbol Conversion
 #'
 #' @rdname gene2symbol
-#' @docType methods
-#'
-#' @param object Object.
+#' @author Michael Steinbaugh
 #'
 #' @return [data.frame].
 #' @export

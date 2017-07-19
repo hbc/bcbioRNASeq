@@ -1,47 +1,42 @@
-#' Count matrix accessors
+#' Count Matrix Accessors
 #'
 #' By default, [counts()] returns the raw counts. Normalized counts, including
 #' transcripts per million (TPM) can be accessed using the `normalized`
 #' argument.
 #'
 #' @rdname counts
-#' @docType methods
-#'
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
-#' @param ... Additional parameters.
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
+#'   - `tpm`: Transcripts per million.
+#'   - `tmm`: Trimmed mean of M-values (edgeR).
+#'   - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
+#'   - `vst`: Variance stabilizing transformation
+#'     ([DESeq2::varianceStabilizingTransformation()]).
 #'
-#' - `tpm`: Transcripts per million.
-#' - `tmm`: Trimmed mean of M-values (edgeR).
-#' - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
-#' - `vst`: Variance stabilizing transformation
-#'   ([DESeq2::varianceStabilizingTransformation()]).
-#'
-#' @return Counts matrix
+#' @return [matrix].
 #' @export
 #'
 #' @examples
 #' data(bcb)
 #' # Raw counts
-#' ma <- counts(bcb, normalized = FALSE)
+#' mat <- counts(bcb, normalized = FALSE)
 #'
 #' # DESeq2 normalized counts
-#' ma <- counts(bcb, normalized = TRUE)
+#' mat <- counts(bcb, normalized = TRUE)
 #'
 #' # TPM
-#' ma <- counts(bcb, normalized = "tpm")
+#' mat <- counts(bcb, normalized = "tpm")
 #'
 #' # TMM
-#' ma <- counts(bcb, normalized = "tmm")
+#' mat <- counts(bcb, normalized = "tmm")
 #'
 #' # rlog
-#' ma <- counts(bcb, normalized = "rlog")
+#' mat <- counts(bcb, normalized = "rlog")
 #'
 #' # VST
-#' ma <- counts(bcb, normalized = "vst")
+#' mat <- counts(bcb, normalized = "vst")
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
         slot <- "raw_counts"

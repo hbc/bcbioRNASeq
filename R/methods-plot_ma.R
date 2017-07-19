@@ -1,7 +1,8 @@
-#' MA-plot from base means and log fold changes
+#' Plot Mean Average
 #'
 #' @rdname plot_ma
 #' @author Michael Steinbaugh, Rory Kirchner
+#' @family Differential Expression Plots
 #'
 #' @param object Object.
 #' @param title *Optional*. Plot title.

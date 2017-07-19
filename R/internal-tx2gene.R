@@ -1,11 +1,13 @@
-#' Read transcript to gene (tx2gene) annotation file
+#' Transcript to Gene Annotations
 #'
 #' @rdname tx2gene
-#' @keywords internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param project_dir Project directory.
 #' @param genome_build Genome build.
+#'
+#' @return [data.frame] with unique rownames.
 .tx2gene <- function(project_dir, genome_build) {
     file_path <- file.path(project_dir, "tx2gene.csv")
     if (file.exists(file_path)) {

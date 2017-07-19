@@ -1,9 +1,8 @@
-#' [DESeqResults] contrast name
+#' `DESeqResults` Contrast Name
 #'
 #' @rdname res_contrast_name
-#' @keywords internal
-#'
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param res [DESeqResults].
 #'

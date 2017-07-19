@@ -1,14 +1,12 @@
-#' Import RNA-seq counts
+#' Import RNA-Seq Counts
 #'
 #' Import RNA-seq counts using [tximport()]. Currently supports
 #' [salmon](https://combine-lab.github.io/salmon/) (**recommended**) and
 #' [sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/).
 #'
 #' @rdname tximport
+#' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
-#'
-#' @author Michael Steinbaugh
-#' @author Rory Kirchner
 #'
 #' @param sample_dirs Sample directories to import.
 #' @param tx2gene Transcript to gene annotations.

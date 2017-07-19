@@ -1,16 +1,15 @@
-#' Metadata table
+#' Metadata Table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
 #' "interesting group" columns are defined as `interesting_groups` in the
 #' [bcbioRNADataSet] object.
 #'
 #' @rdname metadata_table
-#' @docType methods
+#' @author Michael Steinbaugh
 #'
-#' @param object Object.
-#' @param ... Additional parameters passed to [kable()].
+#' @param ... Additional parameters, passed to [kable()].
 #'
-#' @return Data frame containing only the columns of interest.
+#' @return [data.frame] containing only the columns of interest.
 
 
 

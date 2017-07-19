@@ -1,8 +1,8 @@
-#' Read data versions
+#' Read Data Versions
 #'
 #' @rdname data_versions
-#' @keywords internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param project_dir Project directory.
 .data_versions <- function(project_dir) {
@@ -11,11 +11,11 @@
 
 
 
-#' Read program versions
+#' Read Program Versions
 #'
 #' @rdname program_versions
-#' @keywords internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param project_dir Project directory.
 .programs <- function(project_dir) {

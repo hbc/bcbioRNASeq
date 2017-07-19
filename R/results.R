@@ -1,16 +1,18 @@
-#' Print summary statistics of alpha level cutoffs
+#' Print Summary Statistics of Alpha Level Cutoffs
 #'
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param dds [DESeqDataSet].
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param contrast Character vector to use with [results] function.
+#'
 #' @return [kable].
 #' @export
 alpha_summary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     contrast = NULL) {
+    # FIXME Upgrade to S4 method
     .check_dds(dds)
     if (is.null(contrast))
         contrast <- strsplit(resultsNames(dds)[[2L]], "_") %>%

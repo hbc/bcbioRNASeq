@@ -1,15 +1,16 @@
-#' Make groups of genes using expression profile
+#' Make Groups of Genes Using Expression Profile
 #'
 #' [DEGreport::degPatterns()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @rdname plot_pattern
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param res Table with padj as column and gene names as [rownames].
 #' @param fdr Float cutoff to consider genes significant.
 #' @param n Integer maximum number of genes to consider.
 #' @param ... Additional parameters, passed to [DEGreport::degPatterns()].
+#'
+#' @seealso [DEGreport::degPatterns()].
 #'
 #' @return [ggplot].
 #' @export

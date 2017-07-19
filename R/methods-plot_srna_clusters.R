@@ -1,14 +1,15 @@
-#' Cluster small RNA samples
+#' Cluster Small RNA samples
 #'
 #' @rdname plot_srna_clusters
-#' @family Small RNA-seq utilities
-#' @author Lorena Pantano
+#' @author Lorena Pantano, Michael Steinbaugh
+#' @family Small RNA-Seq Utilities
 #'
 #' @param object Object.
 #'
 #' @return [ggplot].
 #' @export
 plot_srna_clusters <- function(object) {
+    # FIXME Upgrade to S4 method
     counts <- counts(object)
     design <- metadata(object)[["metadata"]]
     dds <- DESeqDataSetFromMatrix(

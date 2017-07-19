@@ -1,13 +1,14 @@
-#' Sample metrics
+#' Sample Metrics
 #'
 #' @rdname metrics
-#' @docType methods
-#'
-#' @param object [bcbioRNADataSet] object.
+#' @author Michael Steinbaugh
 #'
 #' @return [tibble].
-#'
 #' @export
+#'
+#' @examples
+#' data(bcb)
+#' metrics(bcb)
 setMethod("metrics", "bcbioRNADataSet", function(object) {
     metrics <- metadata(object)[["metrics"]]
     if (is.null(metrics)) return(NULL)

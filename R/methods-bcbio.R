@@ -1,16 +1,12 @@
-#' bcbioRNADataSet caller slot accessor
+#' `bcbioRNADataSet` Caller Slot Accessor
 #'
 #' This method is used to access alternative count matrices with differing
 #' dimensions from the primary counts stored as a [SummarizedExperiment].
 #'
 #' @rdname bcbio
-#' @docType methods
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param object Object.
 #' @param type Type of count data to retrieve.
-#' @param value An integer [matrix] or other object.
-#' @param ... Additional arguments.
 #'
 #' @details
 #' Additional count matrices of interest include:

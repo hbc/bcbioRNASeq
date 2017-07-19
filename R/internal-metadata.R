@@ -25,11 +25,11 @@
 
 
 
-#' Read custom metadata file
+#' Read Custom Metadata File
 #'
 #' @rdname sample_metadata_file
-#' @keywords internal
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param file Metadata file. CSV and XLSX formats are supported.
 #' @param pattern *Optional*. Grep pattern to match against sample names.

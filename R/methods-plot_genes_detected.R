@@ -13,12 +13,12 @@
     counts,
     interesting_group,
     pass_limit = 20000L,
-    min_counts = 1L,
+    min_counts = 0L,
     flip = TRUE) {
     if (is.null(metrics)) return(NULL)
     p <- ggplot(metrics,
                 aes_(x = ~sample_name,
-                     y = colSums(counts >= min_counts),
+                     y = colSums(counts > min_counts),
                      fill = as.name(interesting_group))) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",

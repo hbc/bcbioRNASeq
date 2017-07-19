@@ -1,11 +1,10 @@
-#' Create isomiRs object from bcbio output
+#' Create `isomiRs` Object from `bcbio` Output
 #'
-#' Read bcbio sample information from YAML to get isomiR object.
+#' Read `bcbio` sample information from YAML to get [isomiR] object.
 #'
 #' @rdname read_smallrna_counts
-#' @keywords internal
-#'
 #' @author Lorena Patano
+#' @keywords internal
 #'
 #' @param rna [bcbioRNADataSet].
 .read_smallrna_counts <- function(rna) {

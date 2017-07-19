@@ -8,6 +8,22 @@
 #' @examples
 #' data(bcb)
 #' plot_exonic_mapping_rate(bcb)
+
+
+
+#' @rdname plot_exonic_mapping_rate
+#' @export
+setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(
+    object, ...) {
+    .plot_exonic_mapping_rate(
+        metrics = metrics(object),
+        interesting_group = .interesting_group(object),
+        ...)
+})
+
+
+
+#' @rdname plot_exonic_mapping_rate
 .plot_exonic_mapping_rate <- function(
     metrics,
     interesting_group,
@@ -36,15 +52,3 @@
     }
     p
 }
-
-
-
-#' @rdname plot_exonic_mapping_rate
-#' @export
-setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(
-    object, ...) {
-    .plot_exonic_mapping_rate(
-        metrics = metrics(object),
-        interesting_group = .interesting_group(object),
-        ...)
-})

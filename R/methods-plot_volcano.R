@@ -1,7 +1,8 @@
 #' Plot Volcano
 #'
 #' @rdname plot_volcano
-#' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
+#' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
+#' @family Differential Expression Plots
 #'
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
@@ -29,7 +30,18 @@
 #'     design = formula(~group)) %>%
 #'     DESeq
 #' res <- results(dds)
-#' plot_volcano(bcb, res)
+#' plot_volcano(res)
+
+
+
+#' @rdname plot_volcano
+#' @export
+setMethod("plot_volcano", "DESeqResults", function(object, ...) {
+    .plot_volcano(
+        as.data.frame(object),
+        alpha = metadata(object)[["alpha"]],
+        ...)
+})
 
 
 
@@ -39,23 +51,21 @@
 ##   subset the results prior to plotting.
 .plot_volcano <- function(
     res_df,
+    alpha = 0.05,
     padj = TRUE,
     lfc = 1L,
-    text_labels = 30L,
+    text_labels = 10L,
     direction = "both",
     shade_color = "orange",
     shade_alpha = 0.25,
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray",
-    ggdraw = TRUE,
-    title = NULL) {
-
+    ggdraw = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
-        stop("direction must be both, up, or down")
+        stop("Direction must be both, up, or down")
     }
-
     if (padj == FALSE) {
         # TODO Add support for option of plotting unadjusted P values without
         # `+ 1e-10` transformation.
@@ -197,7 +207,6 @@
 
 
     # Grid layout ====
-    # TODO Add a ggdraw title?
     if (isTRUE(ggdraw)) {
         ggdraw() +
             draw_plot(
@@ -220,39 +229,3 @@
         show(volcano)
     }
 }
-
-
-
-#' @rdname plot_volcano
-#'
-#' @param bcb [bcbioRNADataSet].
-#' @param res [DESeqResults].
-#'
-#' @export
-setMethod("plot_volcano", "DESeqResults", function(
-    object,
-    lfc = 1L,
-    text_labels = 30L,
-    ggdraw = TRUE,
-    direction = "both",
-    shade_color = "orange",
-    shade_alpha = 0.25,
-    point_color = "gray",
-    point_alpha = 0.75,
-    point_outline_color = "darkgray",
-    title = NULL) {
-    # FIXME alpha isn't used
-    alpha <- metadata(res)[["alpha"]]
-    contrast_name <- .res_contrast_name(res)
-
-    # Generate automatic title, if necessary
-    if (is.null(title)) {
-        title <- paste(deparse(substitute(res)),
-                       contrast_name,
-                       sep = label_sep)
-    }
-
-    object %>%
-        as.data.frame %>%
-    .plot_volcano(title = title)
-})

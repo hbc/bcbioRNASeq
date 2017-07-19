@@ -1,4 +1,4 @@
-#' File downloads for RMarkdown templates
+#' File Downloads
 #'
 #' If the required dependency file isn't present, download latest version from
 #' the [HBC website](http://bioinformatics.sph.harvard.edu/).
@@ -8,6 +8,7 @@
 #' @param file *Optional*. File name. If `NULL` (default), download the default
 #'   dependency files for a new experiment.
 #'
+#' @return No return.
 #' @export
 downloads <- function(file = NULL) {
     dl <- function(file) {

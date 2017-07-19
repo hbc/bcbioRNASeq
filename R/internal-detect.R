@@ -1,13 +1,12 @@
-#' Detect the organism from the genome build name
+#' Detect the Organism from the Genome Build Name
 #'
 #' @rdname detect_organism
-#' @keywords internal
-#'
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param genome_build Genome build.
 #'
-#' @return Organism string.
+#' @return Organism [string].
 .detect_organism <- function(genome_build) {
     if (str_detect(genome_build, "^(hg|GRCh)\\d+")) {
         "hsapiens"

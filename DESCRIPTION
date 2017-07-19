@@ -16,6 +16,9 @@ Authors@R: c(
     person("Victor", "Barrera",
            email = "barrera.vic@gmail.com",
            role = "aut"),
+    person("John", "Hutchinson",
+           email = "jnhutchinson@gmail.com",
+           role = "aut"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
            role = c("cph", "fnd")))

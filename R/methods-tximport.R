@@ -1,9 +1,7 @@
-#' tximport list accessor
+#' `tximport` Accessor Shortcut
 #'
 #' @rdname txi
 #' @author Michael Steinbaugh
-#'
-#' @param object Object.
 #'
 #' @return [tximport::tximport()] list.
 #' @export

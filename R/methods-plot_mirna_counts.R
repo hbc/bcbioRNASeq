@@ -1,7 +1,7 @@
-#' Plot of total miRNA counts
+#' Plot of Total miRNA Counts
 #'
 #' @rdname plot_mirna_counts
-#' @author Lorena Pantano
+#' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @return [ggplot].
 #' @export

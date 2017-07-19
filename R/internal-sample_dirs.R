@@ -1,14 +1,13 @@
-#' Detect sample directories
+#' Detect Sample Directories
 #'
 #' @rdname sample_dirs
-#' @keywords internal
-#'
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @param upload_dir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
-#'   will [stop] if no complete sample directories match.
+#'   will [stop()] if no complete sample directories match.
 .sample_dirs <- function(upload_dir) {
     subdirs <- list.dirs(upload_dir, full.names = TRUE, recursive = FALSE)
     subdir_pattern <- str_c(per_sample_dirs, collapse = "|") %>%
