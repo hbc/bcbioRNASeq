@@ -1,11 +1,14 @@
-#' Plot sexually dimorphic gender markers
+#' Plot Sexually Dimorphic Gender Markers
 #'
 #' @rdname plot_gender_markers
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
-#'
+#' @return [ggplot].
 #' @export
+#'
+#' @examples
+#' data(bcb)
+#' plot_gender_markers(bcb)
 setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
     # Organism-specific dimorphic markers ====
     organism <- metadata(object)[["organism"]]
@@ -29,27 +32,29 @@ setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
         sort %>%
         unique
 
+    # Subset TPM
+    tpm <- tpm(object)
+    if (!all(ensgene %in% rownames(tpm))) {
+        warning("Missing dimorphic genes in counts matrix")
+        return(NULL)
+    }
+    tpm <- tpm[ensgene, ]
 
     # ggplot ====
-    tpm(object) %>%
-        .[ensgene, ] %>%
-        as.data.frame %>%
-        rownames_to_column %>%
+    tpm %>%
+        as("tibble") %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
         melt(id = 1L) %>%
-        set_names(c("ensgene",
-                    "description",
-                    "counts")) %>%
+        set_names(c("ensgene", "description", "counts")) %>%
         left_join(gender_markers, by = "ensgene") %>%
-        ggplot(
-            aes_(x = ~symbol,
-                 y = ~counts,
-                 color = ~description,
-                 shape = ~chromosome)) +
-        ggtitle("gender markers") +
+        ggplot(aes_(x = ~symbol,
+                    y = ~counts,
+                    color = ~description,
+                    shape = ~chromosome)) +
         geom_jitter(size = 4L) +
         expand_limits(y = 0L) +
-        labs(x = "gene",
+        labs(title = "gender markers",
+             x = "gene",
              y = "transcripts per million (tpm)")
 })
