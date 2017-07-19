@@ -1,10 +1,8 @@
-#' Volcano plot
+#' Plot Volcano
 #'
 #' @rdname plot_volcano
-#' @docType methods
 #' @author Michael Steinbaugh, Lorena Pantano (based on John Hutchinson's work)
 #'
-#' @param object Object.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param ntop Number of top genes to label.
@@ -243,6 +241,7 @@ setMethod("plot_volcano", "DESeqResults", function(
     point_alpha = 0.75,
     point_outline_color = "darkgray",
     title = NULL) {
+    # FIXME alpha isn't used
     alpha <- metadata(res)[["alpha"]]
     contrast_name <- .res_contrast_name(res)
 
