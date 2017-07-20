@@ -13,7 +13,7 @@
 #' @param point_color Point color.
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
-#' @param ggdraw Merge all plots using [ggdraw()].
+#' @param grid Arrange plots into grid.
 #' @param title *Optional*. Plot title.
 #'
 #' @seealso This function is an updated variant of
@@ -31,17 +31,8 @@
 #'     DESeq
 #' res <- results(dds)
 #' plot_volcano(res)
-
-
-
-#' @rdname plot_volcano
-#' @export
-setMethod("plot_volcano", "DESeqResults", function(object, ...) {
-    .plot_volcano(
-        as.data.frame(object),
-        alpha = metadata(object)[["alpha"]],
-        ...)
-})
+#' plot_volcano(res, padj = FALSE, lfc = 2L)
+#' plot_volcano(res, text_labels = 10L)
 
 
 
@@ -51,61 +42,81 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
 #'   subset the results prior to plotting.
 .plot_volcano <- function(
     res_df,
-    alpha = 0.05,
     padj = TRUE,
+    alpha = 0.05,
     lfc = 1L,
-    text_labels = 10L,
+    text_labels = 0L,
     direction = "both",
-    shade_color = "orange",
+    shade_color = "green",
     shade_alpha = 0.25,
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray",
-    ggdraw = TRUE) {
+    grid = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
         stop("Direction must be both, up, or down")
     }
-    if (padj == FALSE) {
-        # TODO Add support for option of plotting unadjusted P values without
-        # `+ 1e-10` transformation.
-        stop("Draft function")
-    }
 
+
+    # Generate stats tibble ====
     stats <- res_df %>%
         rownames_to_column("ensgene") %>%
+        as("tibble") %>%
         snake %>%
-        tidy_select(!!!syms(c("ensgene", "log2_fold_change", "padj"))) %>%
+        tidy_select(!!!syms(c("ensgene",
+                              "log2_fold_change",
+                              "pvalue",
+                              "padj"))) %>%
         # Filter zero counts for quicker plotting
         filter(!is.na(.data[["log2_fold_change"]])) %>%
-        # Arrange by P value
-        arrange(!!sym("padj")) %>%
-        # Convert adjusted P value to -log10
-        mutate(neg_log_padj = -log10(.data[["padj"]] + 1e-10))
-
-    # Automatically label the top genes
-    volcano_text <- stats[1L:text_labels, ] %>%
+        # Join the gene symbols
         left_join(gene2symbol(bcb), by = "ensgene")
 
+    # Negative log10 transform the P values
+    # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
+    if (isTRUE(padj)) {
+        stats <- stats %>%
+            mutate(neg_log10_pvalue = -log10(.data[["padj"]] + 1e-10))
+        p_title <- "padj value"
+    } else {
+        stats <- stats %>%
+            mutate(neg_log10_pvalue = -log10(.data[["pvalue"]] + 1e-10))
+        p_title <- "p value"
+    }
+
+    stats <- stats %>%
+        # Arrange transformed P values (high to low)
+        arrange(desc(!!sym("neg_log10_pvalue")))
+
+
+    # Text labels ====
+    if (text_labels > 0L) {
+        volcano_text <- stats[1L:text_labels, ]
+    } else {
+        volcano_text <- NULL
+    }
+
+
+    # Plot ranges ====
     # Get range of LFC and P values to set up plot borders
     range_lfc <-
         c(floor(min(na.omit(stats[["log2_fold_change"]]))),
           ceiling(max(na.omit(stats[["log2_fold_change"]]))))
-    range_neg_log_padj <-
-        c(floor(min(na.omit(stats[["neg_log_padj"]]))),
-          ceiling(max(na.omit(stats[["neg_log_padj"]]))))
+    range_neg_log10_pvalue <-
+        c(floor(min(na.omit(stats[["neg_log10_pvalue"]]))),
+          ceiling(max(na.omit(stats[["neg_log10_pvalue"]]))))
 
 
     # LFC density histogram ====
-    lfc_density <- density(na.omit(stats[["log2_fold_change"]]))
+    lfc_density <- stats[["log2_fold_change"]] %>% na.omit %>% density
     lfc_density_df <- data.frame(x = lfc_density[["x"]],
                                  y = lfc_density[["y"]])
     lfc_hist <- stats %>%
         ggplot(aes_(x = ~log2_fold_change)) +
         geom_density() +
         scale_x_continuous(limits = range_lfc) +
-        labs(title = "log2 fold change density",
-             x = "log2 fold change")
+        labs(x = "log2 fold change")
     if (direction == "both" | direction == "up") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
@@ -118,7 +129,6 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
     if (direction == "both" | direction == "down") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
-                # FIXME check UQ syntax
                 data = filter(lfc_density_df, .data[["x"]] < -UQ(lfc)),
                 aes_(x = ~x, ymax = ~y),
                 ymin = 0L,
@@ -127,45 +137,45 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
     }
 
 
-    # Density plot of adjusted P values ====
-    padj_density <- density(na.omit(stats[["neg_log_padj"]]))
-    padj_density_df <- data.frame(x = padj_density[["x"]],
-                                  y = padj_density[["y"]])
-    padj_hist <- stats %>%
-        ggplot(aes_(x = ~-log10(padj + 1e-10))) +
+    # P value density plot ====
+    pvalue_density <- stats[["neg_log10_pvalue"]] %>% na.omit %>% density
+    pvalue_density_df <-
+        data.frame(x = pvalue_density[["x"]],
+                   y = pvalue_density[["y"]])
+    pvalue_hist <- stats %>%
+        ggplot(aes_(x = ~neg_log10_pvalue)) +
         geom_density() +
-        # FIXME check that `UQ` is best approach here
-        geom_ribbon(data = filter(padj_density_df,
+        geom_ribbon(data = filter(pvalue_density_df,
                                   .data[["x"]] > -log10(UQ(alpha) + 1e-10)),
                     aes_(x = ~x, ymax = ~y),
                     ymin = 0L,
                     fill = shade_color,
                     alpha = shade_alpha) +
-        coord_flip() +
-        labs(title = "padj density",
-             y = "density")
+        labs(x = paste("-log10", p_title))
 
 
     # Volcano plot ====
-    # FIXME Need to improve y-axis ceiling when using ggrepel labels
     volcano <- stats %>%
         ggplot(aes_(x = ~log2_fold_change,
-                    y = ~-log10(padj + 1e-10))) +
-        labs(title = "volcano",
-             x = "log2 fold change") +
+                    y = ~neg_log10_pvalue)) +
+        labs(x = "log2 fold change",
+             y = paste("-log10", p_title)) +
         geom_point(
             alpha = point_alpha,
             color = point_outline_color,
             fill = point_color,
             pch = 21L) +
         theme(legend.position = "none") +
-        scale_x_continuous(limits = range_lfc) +
-        geom_text_repel(
-            data = volcano_text,
-            aes_(x = ~log2_fold_change,
-                 y = ~neg_log_padj,
-                 label = ~symbol),
-            size = 3L)
+        scale_x_continuous(limits = range_lfc)
+    if (!is.null(volcano_text)) {
+        volcano <- volcano +
+            geom_text_repel(
+                data = volcano_text,
+                aes_(x = ~log2_fold_change,
+                     y = ~neg_log10_pvalue,
+                     label = ~symbol),
+                size = 3L)
+    }
     if (direction == "both" | direction == "up") {
         volcano_poly_up <- with(stats, data.frame(
             x = as.numeric(c(
@@ -175,8 +185,8 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
                 max(range_lfc))),
             y = as.numeric(c(
                 -log10(alpha + 1e-10),
-                max(range_neg_log_padj),
-                max(range_neg_log_padj),
+                max(range_neg_log10_pvalue),
+                max(range_neg_log10_pvalue),
                 -log10(alpha + 1e-10)))))
         volcano <- volcano +
             geom_polygon(
@@ -194,8 +204,8 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
                 min(range_lfc))),
             y = as.numeric(c(
                 -log10(alpha + 1e-10),
-                max(range_neg_log_padj),
-                max(range_neg_log_padj),
+                max(range_neg_log10_pvalue),
+                max(range_neg_log10_pvalue),
                 -log10(alpha + 1e-10)))))
         volcano <- volcano +
             geom_polygon(
@@ -207,25 +217,31 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
 
 
     # Grid layout ====
-    if (isTRUE(ggdraw)) {
+    if (isTRUE(grid)) {
         ggdraw() +
+            # Coordinates are relative to lower left corner
             draw_plot(
-                lfc_hist +
-                    theme(axis.title.x = element_blank(),
-                          axis.text.x = element_blank(),
-                          axis.ticks.x = element_blank()),
-                x = 0L, y = 0.7, width = 0.7, height = 0.3) +
+                lfc_hist,
+                x = 0L, y = 0.7, width = 0.5, height = 0.3) +
             draw_plot(
-                padj_hist +
-                    theme(axis.title.y = element_blank(),
-                          axis.text.y = element_blank(),
-                          axis.ticks.y = element_blank()),
-                x = 0.7, y = 0L, width = 0.3, height = 0.7) +
+                pvalue_hist,
+                x = 0.5, y = 0.7, width = 0.5, height = 0.3) +
             draw_plot(
-                volcano, x = 0L, y = 0L, width = 0.7, height = 0.7)
+                volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
     } else {
         show(lfc_hist)
-        show(padj_hist)
+        show(pvalue_hist)
         show(volcano)
     }
 }
+
+
+
+#' @rdname plot_volcano
+#' @export
+setMethod("plot_volcano", "DESeqResults", function(object, ...) {
+    .plot_volcano(
+        as.data.frame(object),
+        alpha = metadata(object)[["alpha"]],
+        ...)
+})
