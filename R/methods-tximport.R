@@ -5,6 +5,9 @@
 #'
 #' @return [tximport::tximport()] list.
 #' @export
+#'
+#' @examples
+#' txi(bcb) %>% names
 setMethod("txi", "bcbioRNADataSet", function(object) {
     bcbio(object, type = "tximport")
 })
