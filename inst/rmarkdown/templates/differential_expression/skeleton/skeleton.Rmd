@@ -49,9 +49,9 @@ alpha <- params$alpha
 lfc <- params$lfc
 
 # Directory paths
-data_dir <- normalizePath(params$data_dir)
-counts_dir <- normalizePath(params$counts_dir)
-de_dir <- normalizePath(params$de_dir)
+data_dir <- params$data_dir
+counts_dir <- params$counts_dir
+de_dir <- params$de_dir
 ```
 
 ```{r header, child="header.Rmd"}
