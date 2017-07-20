@@ -25,10 +25,11 @@ downloads <- function(file = NULL) {
         dl(file)
     } else {
         # HBC project defaults
-        dl(c("_output.yaml",
+        dl(c("_footer.Rmd",
+             "_header.Rmd",
+             "_output.yaml",
              "bcbioRnaseq.bib",
-             "footer.Rmd",
-             "header.Rmd",
+             "load_run.R",
              "setup.R"))
     }
 }
