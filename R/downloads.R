@@ -1,4 +1,4 @@
-#' File Downloads
+#' File downloads for RMarkdown templates
 #'
 #' If the required dependency file isn't present, download latest version from
 #' the [HBC website](http://bioinformatics.sph.harvard.edu/).
@@ -8,7 +8,6 @@
 #' @param file *Optional*. File name. If `NULL` (default), download the default
 #'   dependency files for a new experiment.
 #'
-#' @return No return.
 #' @export
 downloads <- function(file = NULL) {
     dl <- function(file) {
@@ -26,10 +25,11 @@ downloads <- function(file = NULL) {
         dl(file)
     } else {
         # HBC project defaults
-        dl(c("_output.yaml",
+        dl(c("_footer.Rmd",
+             "_header.Rmd",
+             "_output.yaml",
              "bcbioRnaseq.bib",
-             "footer.Rmd",
-             "header.Rmd",
+             "load_run.R",
              "setup.R"))
     }
 }
