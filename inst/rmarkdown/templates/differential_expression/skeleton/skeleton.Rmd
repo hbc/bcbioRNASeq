@@ -4,21 +4,38 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
+    bcb: "data/bcb.rda"
     design: !r formula(~genotype)
-    contrast: !r c("genotype", "mutant", "wildtype")
+    contrast: !r genotype = c("genotype", "mutant", "wildtype")
     alpha: 0.05
     lfc: 0
-    output_dir: "."
+    data_dir: "data"
+    counts_dir: "results/counts"
+    de_dir: "results/differential_expression"
 ---
 
 ```{r setup, include=FALSE}
-# Run [bcbioRnaseq::downloads()] to download `setup.R`
+bcbioRnaseq::downloads()
 source("setup.R")
 library(DESeq2)
+
+# bcbioRNADataSet
+# Need to save bcb using `load_run()` prior to knit!
+bcb_name <- load(params$bcb)
+assign("bcb", get(bcb_name))
+if (is.null(bcb)) stop("bcbRNADataSet missing")
 
 # Design formula
 # help("design", "DESeq2")
 design <- params$design
+
+# Generate DESeqDataSet
+dds <- DESeqDataSetFromTximport(
+    txi = txi(bcb),
+    colData = colData(bcb),
+    design = design) %>%
+    DESeq
+save_data(dds, dir = data_dir)
 
 # Contrast
 # help("results", "DESeq2")
@@ -32,25 +49,12 @@ alpha <- params$alpha
 lfc <- params$lfc
 
 # Directory paths
-output_dir <- params$output_dir
-data_dir <- file.path(output_dir, "data")
-counts_dir <- file.path(output_dir, "results", "counts")
-de_dir <- file.path(output_dir, "results", "differential_expression")
+data_dir <- normalizePath(params$data_dir)
+counts_dir <- normalizePath(params$counts_dir)
+de_dir <- normalizePath(params$de_dir)
 ```
 
 ```{r header, child="header.Rmd"}
-```
-
-
-
-```{r dds, results="hide"}
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = design) %>%
-    DESeq
-rld <- rlog(dds)
-save_data(dds, rld, dir = data_dir)
 ```
 
 

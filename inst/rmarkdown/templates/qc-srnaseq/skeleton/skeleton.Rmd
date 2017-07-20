@@ -5,7 +5,8 @@ date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
     bcb: "data/bcb.rda"
-    output_dir: "."
+    data_dir: "data"
+    counts_dir: "results/counts"
 ---
 
 ```{r setup, include=FALSE}
@@ -20,9 +21,8 @@ assign("bcb", get(bcb_name))
 if (is.null(bcb)) stop("bcbRNADataSet missing")
 
 # Directory paths
-output_dir <- params$output_dir
-data_dir <- file.path(output_dir, "data")
-counts_dir <- file.path(output_dir, "results", "counts")
+data_dir <- normalizePath(params$data_dir)
+counts_dir <- normalizePath(params$counts_dir)
 ```
 
 ```{r header, child="header.Rmd"}
