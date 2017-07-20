@@ -16,7 +16,7 @@ source("setup.R")
 save_data(bcb, dir = data_dir)
 ```
 
-```{r header, child="header.Rmd"}
+```{r header, child="_header.Rmd"}
 ```
 
 
@@ -175,5 +175,5 @@ plot_correlation_heatmap(bcb)
 
 
 
-```{r footer, child="footer.Rmd"}
+```{r footer, child="_footer.Rmd"}
 ```
