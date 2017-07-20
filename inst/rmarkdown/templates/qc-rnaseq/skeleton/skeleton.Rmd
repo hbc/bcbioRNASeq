@@ -4,14 +4,18 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
-    upload_dir: "data/final"
-    interesting_groups: !r c("genotype", "treatment")
+    bcb: "data/bcb.rda"
     output_dir: "."
 ---
 
 ```{r setup, include=FALSE}
-# Run [bcbioRnaseq::downloads()] to download `setup.R`
+bcbioRnaseq::downloads()
 source("setup.R")
+
+# bcbioRNADataSet
+# Need to save bcb using `load_run()` prior to knit!
+bcb_name <- load(params$bcb)
+assign("bcb", get(bcb_name))
 
 # Directory paths
 output_dir <- params$output_dir
@@ -23,18 +27,6 @@ counts_dir <- file.path(output_dir, "results", "counts")
 ```
 
 
-
-```{r bcb}
-# bcbioRnaDataSet
-if (file.exists(file.path(data_dir, "bcb.rda"))) {
-    load(file.path(data_dir, "bcb.rda"))
-} else {
-    bcb <- load_run(
-        upload_dir = params$upload_dir,
-        interesting_groups = params$interesting_groups)
-    save_data(bcb, dir = data_dir)
-}
-```
 
 ```{r counts}
 raw_counts <- counts(bcb, normalized = FALSE)
