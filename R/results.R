@@ -1,47 +1,4 @@
-#' Print Summary Statistics of Alpha Level Cutoffs
-#'
-#' @author Michael Steinbaugh, Lorena Patano
-#'
-#' @param dds [DESeqDataSet].
-#' @param alpha Numeric vector of desired alpha cutoffs.
-#' @param contrast Character vector to use with [results] function.
-#'
-#' @return [kable].
-#' @export
-alpha_summary <- function(
-    dds,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    contrast = NULL) {
-    # FIXME Upgrade to S4 method
-    .check_dds(dds)
-    if (is.null(contrast))
-        contrast <- strsplit(resultsNames(dds)[[2L]], "_") %>%
-            unlist %>%
-            .[c(1L, 2L, 4L)]
-
-    lapply(seq_along(alpha), function(a) {
-        .info <- capture.output(
-            results(dds, contrast = contrast, alpha = alpha[a]) %>%
-                summary)[4L:8L]
-        .parse <- sapply(
-            .info, function(i) {
-                gsub(".*:", "", i)
-            })[1L:4L]
-        .parse <- c(.parse, .info[[5L]])
-        data.frame(alpha = as.vector(.parse))
-    }) %>%
-        bind_cols %>%
-        set_colnames(alpha) %>%
-        set_rownames(c("LFC > 0 (up)",
-                       "LFC < 0 (down)",
-                       "outliers",
-                       "low counts",
-                       "cutoff")) %>%
-        kable %>%
-        show
-}
-
-
+# FIXME Need to migrate these to bcbioRNAResults S4 methods
 
 #' Differential expression results tables
 #'
