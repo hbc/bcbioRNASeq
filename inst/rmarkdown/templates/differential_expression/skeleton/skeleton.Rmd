@@ -26,7 +26,7 @@ alpha <- 0.05
 lfc <- 0
 ```
 
-```{r header, child="header.Rmd"}
+```{r header, child="_header.Rmd"}
 ```
 
 
@@ -156,5 +156,5 @@ top_tables(res_tbl)
 
 
 
-```{r footer, child="footer.Rmd"}
+```{r footer, child="_footer.Rmd"}
 ```
