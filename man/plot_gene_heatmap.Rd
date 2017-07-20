@@ -3,25 +3,29 @@
 \docType{methods}
 \name{plot_gene_heatmap}
 \alias{plot_gene_heatmap}
+\alias{.plot_gene_heatmap}
 \alias{plot_gene_heatmap,bcbioRNADataSet-method}
+\alias{plot_gene_heatmap,DESeqDataSet-method}
+\alias{plot_gene_heatmap,DESeqTransform-method}
 \title{Gene Heatmap}
 \usage{
 plot_gene_heatmap(object, ...)
 
-\S4method{plot_gene_heatmap}{bcbioRNADataSet}(object, genes,
-  clustering_method = "ward.D2", cluster_rows = TRUE, cluster_cols = TRUE,
-  scale = "row", interesting_groups = NULL, annotation = NULL,
-  title = NULL, ...)
+.plot_gene_heatmap(counts, genes = NULL, cluster_rows = TRUE,
+  cluster_cols = TRUE, scale = "row", annotation = NULL, ...)
+
+\S4method{plot_gene_heatmap}{bcbioRNADataSet}(object, ..., symbol = FALSE)
+
+\S4method{plot_gene_heatmap}{DESeqDataSet}(object, ...)
+
+\S4method{plot_gene_heatmap}{DESeqTransform}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
-
-\item{clustering_method}{Hierarchical clustering method. Accepts the same
-values as \code{\link[stats:hclust]{stats::hclust()}}.}
 
 \item{cluster_rows}{Use hierarchical clustering to arrange rows.}
 
@@ -30,12 +34,15 @@ values as \code{\link[stats:hclust]{stats::hclust()}}.}
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the \code{row} direction, \code{column} direction, or \code{none}.}
 
+\item{annotation}{\emph{Optional}. Alternative annotation to use. Useful when
+plotting more than one column.}
+
+\item{clustering_method}{Hierarchical clustering method. Accepts the same
+values as \code{\link[stats:hclust]{stats::hclust()}}.}
+
 \item{interesting_groups}{\emph{Optional}. Interesting groups to label with bars
 above heatmap. If \code{NULL}, defaults to \code{interesting_groups} defined in the
 \link{bcbioRNADataSet}.}
-
-\item{annotation}{\emph{Optional}. Alternative annotation to use. Useful when
-plotting more than one column.}
 
 \item{title}{\emph{Optional}. Text to include in plot title.}
 }
@@ -52,7 +59,23 @@ are sorted by the interesting groups (\code{interesting_groups}) specified in th
 }
 \examples{
 data(bcb)
+genes <- counts(bcb) \%>\% rownames \%>\% .[1L:50L]
+
+# bcbioRNADataSet
 plot_gene_heatmap(bcb)
+plot_gene_heatmap(bcb, genes, symbol = FALSE)
+
+# DESeqDataSet
+dds <- DESeqDataSetFromTximport(
+    txi = txi(bcb),
+    colData = colData(bcb),
+    design = formula(~group)) \%>\%
+    DESeq
+plot_gene_heatmap(dds)
+
+# DESeqTransform
+rld <- rlog(dds)
+plot_gene_heatmap(rld)
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.

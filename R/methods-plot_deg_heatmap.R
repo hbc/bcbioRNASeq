@@ -14,35 +14,40 @@
 #' @param lfc [log2] fold change ratio cutoff.
 #'
 #' @return Graphical output only.
-#' @export
 #'
 #' @examples
-#' data(res)
-#' plot_deg_heatmap(res)
-setMethod(
-    "plot_deg_heatmap",
-    signature(object = "bcbioRNAResults",
-              counts = "missingOrNULL"),
-    function(object,
-             counts,
-             lfc,
-             title = NULL,
-             ...) {
-        if (is.null(title)) {
-            title <- "differentially expressed genes"
-        }
-        # FIXME Need to get the res from the bcbioRNAResults
-        alpha <- metadata(res)[["alpha"]]
-        genes <- res %>%
-            as.data.frame %>%
-            rownames_to_column("ensgene") %>%
-            filter(.data[["padj"]] < alpha,
-                   .data[["log2FoldChange"]] > lfc |
-                       .data[["log2FoldChange"]] < -lfc) %>%
-            pull("ensgene") %>%
-            sort
-        plot_gene_heatmap(counts, genes = genes, title = title, ...)
-    })
+#' data(bcb)
+#' dds <- DESeqDataSetFromTximport(
+#'     txi = txi(bcb),
+#'     colData = colData(bcb),
+#'     design = formula(~group)) %>%
+#'     DESeq
+#' res <- results(dds)
+#' rld <- rlog(dds)
+#' plot_deg_heatmap(res, rld)
+
+
+
+# FIXME Draft support...needs update
+#' @rdname plot_deg_heatmap
+.plot_deg_heatmap <- function(
+    object,
+    counts,
+    alpha = 0.05,
+    lfc = 0L,
+    ...) {
+    alpha <- metadata(object)[["alpha"]]
+    genes <- object %>%
+        as.data.frame %>%
+        rownames_to_column("ensgene") %>%
+        snake %>%
+        filter(.data[["padj"]] < !!alpha,
+               .data[["log2_fold_change"]] > !!lfc |
+                   .data[["log2_fold_change"]] < -UQ(lfc)) %>%
+        pull("ensgene") %>%
+        sort
+    plot_gene_heatmap(counts, genes = genes, ...)
+}
 
 
 
@@ -50,12 +55,11 @@ setMethod(
 #' @export
 setMethod(
     "plot_deg_heatmap",
-    signature(object = "DESeqResults", counts = "DESeqTransform"),
+    signature(object = "DESeqResults",
+              counts = "DESeqTransform"),
     function(
         object,
         counts) {
-        # FIXME Draft function
-        # DESeqResults and DESeqTransform required
         print(class(object))
         print(class(counts))
     })

@@ -10,7 +10,7 @@
 \item{genome_build}{Genome build.}
 }
 \value{
-Organism \link{string}.
+Organism string.
 }
 \description{
 Detect the Organism from the Genome Build Name

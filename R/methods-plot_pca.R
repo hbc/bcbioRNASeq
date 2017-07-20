@@ -87,7 +87,7 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
         plot <- plot + guides(shape = FALSE)
     }
 
-    # Label with sample description, if desired
+    # Label with sample name, if desired
     if (isTRUE(label)) {
         plot <- plot +
             geom_text_repel(aes_(label = ~label), show.legend = FALSE)

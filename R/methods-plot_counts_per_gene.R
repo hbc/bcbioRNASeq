@@ -8,9 +8,13 @@
 #' @examples
 #' data(bcb)
 #' plot_counts_per_gene(bcb)
+
+
+
+#' @rdname plot_counts_per_gene
 .plot_counts_per_gene <- function(
     melted,
-    interesting_group,
+    interesting_group = "sample_name",
     flip = TRUE) {
     p <- ggplot(melted,
                 aes_(x = ~sample_name,
@@ -19,8 +23,7 @@
         geom_boxplot(outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene",
-             color = as.name(interesting_group))
+             y = "log10 counts per gene")
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }

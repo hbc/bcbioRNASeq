@@ -9,8 +9,8 @@
 #' @param label_points *Optional*. Label these particular points.
 #' @param label_column Match `label_points` argument to this column in the
 #'   results.
-#' @param point_color_scale Point color scale. See [ggplot2::color_manual] for
-#'   more information.
+#' @param point_color_scale Point color scale. See
+#'   [ggplot2::scale_color_manual()] for more information.
 #' @param label_color Text label color.
 #'
 #' @return [ggplot].
@@ -85,7 +85,7 @@
 #' @rdname plot_ma
 #' @export
 setMethod("plot_ma", "DESeqResults", function(object, ...) {
-    res %>% as.data.frame %>% .plot_ma(...)
+    .plot_ma(as.data.frame(object), ...)
 })
 
 

@@ -10,7 +10,7 @@
 \item{rna}{\link{bcbioRNADataSet}.}
 }
 \description{
-Read \code{bcbio} sample information from YAML to get \link{isomiR} object.
+Read \code{bcbio} sample information from YAML to get \code{isomiR} object.
 }
 \author{
 Lorena Patano

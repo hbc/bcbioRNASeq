@@ -20,7 +20,7 @@
 #' @rdname plot_total_reads
 .plot_total_reads <- function(
     metrics,
-    interesting_group,
+    interesting_group = "sample_name",
     pass_limit = 20L,
     warn_limit = 10L,
     flip = TRUE) {
@@ -68,7 +68,6 @@ setMethod("plot_total_reads", "bcbioRNADataSet", function(object, ...) {
 
 #' @rdname plot_total_reads
 #' @export
-setMethod("plot_total_reads", "data.frame", function(
-    object, interesting_group = "sample_name", ...) {
-    .plot_total_reads(object, interesting_group, ...)
+setMethod("plot_total_reads", "data.frame", function(object, ...) {
+    .plot_total_reads(object, ...)
 })

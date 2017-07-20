@@ -8,24 +8,25 @@
 #' @examples
 #' data(bcb)
 #' plot_gene_detection_saturation(bcb)
+
+
+
+#' @rdname plot_gene_detection_saturation
 .plot_gene_detection_saturation <- function(
     metrics,
     counts,
-    interesting_group,
+    interesting_group = "sample_name",
     min_counts = 0L) {
     if (is.null(metrics)) return(NULL)
-    ggplot(
-        metrics,
-        aes_(x = ~mapped_reads / 1e6L,
-             y = colSums(counts > min_counts),
-             color = as.name(interesting_group))) +
+    ggplot(metrics,
+           aes_(x = ~mapped_reads / 1e6L,
+                y = colSums(counts > min_counts),
+                color = as.name(interesting_group))) +
         geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene detection saturation",
              x = "mapped reads (million)",
-             y = "gene count",
-             color = "",
-             shape = "")
+             y = "gene count")
 }
 
 

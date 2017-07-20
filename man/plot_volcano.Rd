@@ -9,9 +9,9 @@
 \usage{
 plot_volcano(object, ...)
 
-.plot_volcano(res_df, padj = TRUE, alpha = 0.05, lfc = 1L,
-  text_labels = 0L, direction = "both", shade_color = "green",
-  shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
+.plot_volcano(res_df, padj = TRUE, alpha = 0.05, lfc = 1L, ntop = 0L,
+  direction = "both", shade_color = "green", shade_alpha = 0.25,
+  point_color = "gray", point_alpha = 0.75,
   point_outline_color = "darkgray", grid = TRUE)
 
 \S4method{plot_volcano}{DESeqResults}(object, ...)
@@ -27,7 +27,11 @@ subset the results prior to plotting.}
 
 \item{padj}{Use P values adjusted for multiple comparisions.}
 
+\item{alpha}{Alpha level cutoff used for coloring.}
+
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
+
+\item{ntop}{Number of top genes to label.}
 
 \item{direction}{Plot \code{up}, \code{down}, or \code{both} (\strong{default}) directions.}
 
@@ -42,10 +46,6 @@ subset the results prior to plotting.}
 \item{point_outline_color}{Point outline color.}
 
 \item{grid}{Arrange plots into grid.}
-
-\item{ntop}{Number of top genes to label.}
-
-\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
 Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
@@ -64,7 +64,7 @@ dds <- DESeqDataSetFromTximport(
 res <- results(dds)
 plot_volcano(res)
 plot_volcano(res, padj = FALSE, lfc = 2L)
-plot_volcano(res, text_labels = 10L)
+plot_volcano(res, ntop = 10L)
 }
 \seealso{
 This function is an updated variant of

@@ -24,80 +24,107 @@
 #' @param annotation *Optional*. Alternative annotation to use. Useful when
 #'   plotting more than one column.
 #' @param title *Optional*. Text to include in plot title.
-#' @param ... Additional arguments.
+#' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
 #'
 #' @return Graphical output only.
-#' @export
 #'
 #' @examples
 #' data(bcb)
+#' genes <- counts(bcb) %>% rownames %>% .[1L:50L]
+#'
+#' # bcbioRNADataSet
 #' plot_gene_heatmap(bcb)
-setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
-    object,
-    genes,
-    clustering_method = "ward.D2",
+#' plot_gene_heatmap(bcb, genes, symbol = FALSE)
+#'
+#' # DESeqDataSet
+#' dds <- DESeqDataSetFromTximport(
+#'     txi = txi(bcb),
+#'     colData = colData(bcb),
+#'     design = formula(~group)) %>%
+#'     DESeq
+#' plot_gene_heatmap(dds)
+#'
+#' # DESeqTransform
+#' rld <- rlog(dds)
+#' plot_gene_heatmap(rld)
+
+
+
+#' @rdname plot_gene_heatmap
+.plot_gene_heatmap <- function(
+    counts,
+    genes = NULL,
     cluster_rows = TRUE,
     cluster_cols = TRUE,
     scale = "row",
-    interesting_groups = NULL,
     annotation = NULL,
-    title = NULL,
     ...) {
-    # Interesting groups
-    if (is.null(interesting_groups)) {
-        interesting_groups <- metadata(object)[["interesting_groups"]]
+    counts <- counts %>%
+        as.matrix %>%
+        # Subset zero counts
+        .[rowSums(.) > 0, ]
+    if (!is.null(genes)) {
+        counts <- counts %>%
+            .[rownames(.) %in% genes, ]
     }
-
-    # Heatmap title (`main` parameter)
-    if (!is.null(title)) {
-        main <- title
-    } else {
-        main <- "gene heatmap"
+    if (!is.matrix(counts) |
+        nrow(counts) < 2L) {
+        stop("Need at least 2 genes to cluster")
     }
-
-    # Transformed counts
-    if (is.null(dt)) {
-        # If NULL, use rlog counts from bcbioRNADataSet
-        dt <- assays(object)[["rlog"]]
-    }
-    counts <- assay(dt) %>% .[genes, ]
-
-    # `cluster_cols = FALSE`: Turn off sample hierarchical clustering and sort
-    # by interesting groups then sample name, if preferred
-    if (!isTRUE(cluster_cols)) {
-        sorted_cols <- colData(object) %>%
-            as.data.frame %>%
-            arrange(!!!syms(c(interesting_groups, "description"))) %>%
-            pull("description")
-        counts <- counts[, sorted_cols]
-    }
-
-    # Change rownames to readable external gene names
+    if (length(counts) == 0) return(NULL)
     if (nrow(counts) <= 100L) {
         show_rownames <- TRUE
-        gene2symbol <- gene2symbol(object)
-        rownames(counts) <- gene2symbol[rownames(counts), "symbol"]
     } else {
         show_rownames <- FALSE
     }
-
-    # Per sample annotations of interest
-    if (is.null(annotation)) {
-        annotation <- colData(object) %>%
-            as.data.frame %>%
-            .[colnames(counts), interesting_groups, drop = FALSE]
-    }
-
     pheatmap(counts,
              annotation = annotation,
              cluster_cols = cluster_cols,
              cluster_rows = cluster_rows,
-             clustering_method = clustering_method,
-             main = main,
              scale = scale,
              show_colnames = TRUE,
              show_rownames = show_rownames,
              ...)
+}
+
+
+
+#' @rdname plot_gene_heatmap
+#' @export
+setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
+    object, ..., symbol = FALSE) {
+    counts <- counts(object, normalized = "rlog")
+    if (isTRUE(symbol)) {
+        # Convert Ensembl gene identifiers to symbols
+        rownames(counts) <- gene2symbol(object) %>%
+            .[rownames(counts), "symbol"]
+    }
+    annotation <- colData(object) %>%
+        as("tibble") %>%
+        tidy_select(c("rowname", metadata(object)[["interesting_groups"]])) %>%
+        as.data.frame %>%
+        column_to_rownames
+    .plot_gene_heatmap(counts, annotation = annotation, ...)
+})
+
+
+
+#' @rdname plot_gene_heatmap
+#' @export
+setMethod("plot_gene_heatmap", "DESeqDataSet", function(object, ...) {
+    counts <- counts(object, normalized = TRUE)
+    # FIXME Add annotation support based on colData
+    .plot_gene_heatmap(counts, ...)
+})
+
+
+
+#' @rdname plot_gene_heatmap
+#' @export
+setMethod("plot_gene_heatmap", "DESeqTransform", function(object, ...) {
+    counts <- assay(object)
+    # FIXME Add annotation support based on colData
+    .plot_gene_heatmap(counts, ...)
 })

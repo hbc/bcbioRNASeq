@@ -5,6 +5,7 @@
 #' @family Differential Expression Plots
 #'
 #' @param padj Use P values adjusted for multiple comparisions.
+#' @param alpha Alpha level cutoff used for coloring.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
@@ -14,7 +15,6 @@
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
 #' @param grid Arrange plots into grid.
-#' @param title *Optional*. Plot title.
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
@@ -32,7 +32,7 @@
 #' res <- results(dds)
 #' plot_volcano(res)
 #' plot_volcano(res, padj = FALSE, lfc = 2L)
-#' plot_volcano(res, text_labels = 10L)
+#' plot_volcano(res, ntop = 10L)
 
 
 
@@ -45,7 +45,7 @@
     padj = TRUE,
     alpha = 0.05,
     lfc = 1L,
-    text_labels = 0L,
+    ntop = 0L,
     direction = "both",
     shade_color = "green",
     shade_alpha = 0.25,
@@ -69,9 +69,7 @@
                               "pvalue",
                               "padj"))) %>%
         # Filter zero counts for quicker plotting
-        filter(!is.na(.data[["log2_fold_change"]])) %>%
-        # Join the gene symbols
-        left_join(gene2symbol(bcb), by = "ensgene")
+        filter(!is.na(.data[["log2_fold_change"]]))
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -91,8 +89,8 @@
 
 
     # Text labels ====
-    if (text_labels > 0L) {
-        volcano_text <- stats[1L:text_labels, ]
+    if (ntop > 0L) {
+        volcano_text <- stats[1L:ntop, ]
     } else {
         volcano_text <- NULL
     }
@@ -173,7 +171,8 @@
                 data = volcano_text,
                 aes_(x = ~log2_fold_change,
                      y = ~neg_log10_pvalue,
-                     label = ~symbol),
+                     # FIXME Add symbol support back
+                     label = ~ensgene),
                 size = 3L)
     }
     if (direction == "both" | direction == "up") {
@@ -245,3 +244,9 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
         alpha = metadata(object)[["alpha"]],
         ...)
 })
+
+
+
+# FIXME Need to add back gene2symbol support using S4 methods
+# Join the gene symbols
+# left_join(gene2symbol(bcb), by = "ensgene")

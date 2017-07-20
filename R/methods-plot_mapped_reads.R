@@ -20,7 +20,7 @@
 #' @rdname plot_mapped_reads
 .plot_mapped_reads <- function(
     metrics,
-    interesting_group,
+    interesting_group = "sample_name",
     pass_limit = 20L,
     warn_limit = 10L,
     flip = TRUE) {
@@ -35,16 +35,16 @@
              y = "mapped reads (million)")
     if (!is.null(pass_limit)) {
         p <- p +
-            geom_hline(alpha = 0.75,
-                       color = pass_color,
-                       size = 2L,
+            geom_hline(alpha = qc_line_alpha,
+                       color = qc_pass_color,
+                       size = qc_line_size,
                        yintercept = pass_limit)
     }
     if (is.null(warn_limit)) {
         p <- p +
-            geom_hline(alpha = 0.75,
-                       color = warn_color,
-                       size = 2L,
+            geom_hline(alpha = qc_line_alpha,
+                       color = qc_warn_color,
+                       size = qc_line_size,
                        yintercept = warn_limit)
     }
     if (isTRUE(flip)) {

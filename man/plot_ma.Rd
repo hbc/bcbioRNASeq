@@ -24,8 +24,8 @@ plot_ma(object, ...)
 \item{label_column}{Match \code{label_points} argument to this column in the
 results.}
 
-\item{point_color_scale}{Point color scale. See \link[ggplot2:color_manual]{ggplot2::color_manual} for
-more information.}
+\item{point_color_scale}{Point color scale. See
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}} for more information.}
 
 \item{label_color}{Text label color.}
 

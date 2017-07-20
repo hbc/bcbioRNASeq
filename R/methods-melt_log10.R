@@ -70,11 +70,11 @@ setMethod("melt_log10", "DESeqTransform", function(
 #' @usage NULL
 .join_melt <- function(counts, metadata) {
     if (!identical(colnames(counts), metadata[["colname"]])) {
-        stop("Sample description mismatch between counts and metadata")
+        stop("Sample name mismatch between counts and metadata")
     }
     .melt_log10(counts) %>%
         left_join(metadata, by = "colname") %>%
-        rename(description = .data[["colname"]])
+        rename(sample_name = .data[["colname"]])
 }
 
 
@@ -87,7 +87,7 @@ setMethod("melt_log10", "DESeqTransform", function(
         rownames_to_column %>%
         melt(id = 1L) %>%
         set_names(c("rowname",  # ensembl_gene_id
-                    "colname",  # description
+                    "colname",  # sample_name
                     "counts")) %>%
         # Filter zero counts
         filter(.data[["counts"]] > 0L) %>%

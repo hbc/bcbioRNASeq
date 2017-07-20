@@ -8,10 +8,18 @@
 #'
 #' @return [ggplot].
 #' @export
-plot_srna_clusters <- function(object) {
-    # FIXME Upgrade to S4 method
+#'
+#' @examples
+#' data(bcb)
+#' plot_srna_clusters(bcb)
+setMethod("plot_srna_clusters", "bcbioRNADataSet", function(object) {
     counts <- counts(object)
+    # FIXME This slot is broken
     design <- metadata(object)[["metadata"]]
+    if (is.null(design)) {
+        warning("Broken code")
+        return(NULL)
+    }
     dds <- DESeqDataSetFromMatrix(
         counts[rowSums(counts > 0L) > 3L, ],
         colData = design,
@@ -26,4 +34,4 @@ plot_srna_clusters <- function(object) {
              scale = "row",
              show_rownames = FALSE)
     plot_pca(metadata(object), vst)
-}
+})

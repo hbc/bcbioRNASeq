@@ -6,7 +6,7 @@
 #'
 #' @param genome_build Genome build.
 #'
-#' @return Organism [string].
+#' @return Organism string.
 .detect_organism <- function(genome_build) {
     if (str_detect(genome_build, "^(hg|GRCh)\\d+")) {
         "hsapiens"

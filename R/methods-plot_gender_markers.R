@@ -40,17 +40,17 @@ setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
     }
     tpm <- tpm[ensgene, ]
 
-    # ggplot ====
+    # Return ggplot
     tpm %>%
         as("tibble") %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
         melt(id = 1L) %>%
-        set_names(c("ensgene", "description", "counts")) %>%
+        set_names(c("ensgene", "sample_name", "counts")) %>%
         left_join(gender_markers, by = "ensgene") %>%
         ggplot(aes_(x = ~symbol,
                     y = ~counts,
-                    color = ~description,
+                    color = ~sample_name,
                     shape = ~chromosome)) +
         geom_jitter(size = 4L) +
         expand_limits(y = 0L) +

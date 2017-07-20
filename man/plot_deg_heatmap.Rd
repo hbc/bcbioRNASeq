@@ -3,14 +3,13 @@
 \docType{methods}
 \name{plot_deg_heatmap}
 \alias{plot_deg_heatmap}
-\alias{plot_deg_heatmap,bcbioRNAResults,missingOrNULL-method}
+\alias{.plot_deg_heatmap}
 \alias{plot_deg_heatmap,DESeqResults,DESeqTransform-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plot_deg_heatmap(object, counts, ...)
 
-\S4method{plot_deg_heatmap}{bcbioRNAResults,missingOrNULL}(object, counts, lfc,
-  title = NULL, ...)
+.plot_deg_heatmap(object, counts, alpha = 0.05, lfc = 0L, ...)
 
 \S4method{plot_deg_heatmap}{DESeqResults,DESeqTransform}(object, counts)
 }
@@ -21,9 +20,9 @@ plot_deg_heatmap(object, counts, ...)
 
 \item{...}{Additional arguments.}
 
-\item{lfc}{\link{log2} fold change ratio cutoff.}
-
 \item{alpha}{Alpha level cutoff.}
+
+\item{lfc}{\link{log2} fold change ratio cutoff.}
 }
 \value{
 Graphical output only.
@@ -35,8 +34,15 @@ the optional parameters for \code{\link[=plot_gene_heatmap]{plot_gene_heatmap()}
 function.
 }
 \examples{
-data(res)
-plot_deg_heatmap(res)
+data(bcb)
+dds <- DESeqDataSetFromTximport(
+    txi = txi(bcb),
+    colData = colData(bcb),
+    design = formula(~group)) \%>\%
+    DESeq
+res <- results(dds)
+rld <- rlog(dds)
+plot_deg_heatmap(res, rld)
 }
 \seealso{
 Other Heatmaps: \code{\link{plot_correlation_heatmap}},

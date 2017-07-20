@@ -37,8 +37,8 @@ setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
 
     metrics <- metrics %>%
         as.data.frame %>%
-        set_rownames(.[["description"]]) %>%
-        .[, setdiff(keep_metrics, c("description", "file_name")), drop = FALSE]
+        set_rownames(.[["sample_name"]]) %>%
+        .[, setdiff(keep_metrics, c("sample_name", "file_name")), drop = FALSE]
 
     # Pass internal [DESeqTransform] to [degCovariates()]
     if (!transform %in% c("rlog", "vst")) {

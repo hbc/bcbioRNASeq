@@ -6,7 +6,8 @@
 #' @rdname bcbio
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @param type Type of count data to retrieve.
+#' @param type Type of data to retrieve.
+#' @param value Value to assign.
 #'
 #' @details
 #' Additional count matrices of interest include:

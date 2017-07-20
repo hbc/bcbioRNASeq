@@ -1,6 +1,6 @@
 #' Create `isomiRs` Object from `bcbio` Output
 #'
-#' Read `bcbio` sample information from YAML to get [isomiR] object.
+#' Read `bcbio` sample information from YAML to get `isomiR` object.
 #'
 #' @rdname read_smallrna_counts
 #' @author Lorena Patano

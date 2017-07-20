@@ -55,7 +55,7 @@
         remove_na %>%
         # Make colnames snake_case
         snake %>%
-        # Remove rows with no description. Sometimes Excel files will add
+        # Remove rows with no sample name. Sometimes Excel files will add
         # empty rows, so this helps correct that problem as well.
         filter(!is.na(.data[["sample_name"]]))
 

@@ -52,12 +52,12 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
     # Mutate the colData metadata to pooled samples
     col_data <- colData(object) %>%
         as.data.frame %>%
-        mutate(sample_name = str_replace(.data[["sample_name"]], pattern, ""),
-               description = str_replace(.data[["description"]], pattern, ""),
+        mutate(sample_id = str_replace(.data[["sample_id"]], pattern, ""),
+               sample_name = str_replace(.data[["sample_name"]], pattern, ""),
                lane = NULL,
                sizeFactor = NULL) %>%
         distinct %>%
-        set_rownames(.[["description"]])
+        set_rownames(.[["sample_id"]])
 
     # Check that the new col_data matches the counts matrix
     if (!identical(col_data[["sample_name"]], colnames(count_data))) {

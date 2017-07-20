@@ -23,7 +23,7 @@ bcbio(object, ...) <- value
 
 \item{value}{Value to assign.}
 
-\item{type}{Type of count data to retrieve.}
+\item{type}{Type of data to retrieve.}
 }
 \value{
 \link{slot} object.

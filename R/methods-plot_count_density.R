@@ -8,14 +8,19 @@
 #' @examples
 #' data(bcb)
 #' plot_count_density(bcb)
-.plot_count_density <- function(melted, interesting_group) {
+
+
+
+#' @rdname plot_count_density
+.plot_count_density <- function(
+    melted,
+    interesting_group = "sample_name") {
     ggplot(melted,
         aes_(x = ~counts,
              group = ~sample_name)) +
         geom_density() +
         labs(title = "count density",
-             x = "log10 counts per gene",
-             y = "density")
+             x = "log10 counts per gene")
 }
 
 

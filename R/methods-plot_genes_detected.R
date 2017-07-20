@@ -8,10 +8,14 @@
 #' @examples
 #' data(bcb)
 #' plot_genes_detected(bcb, pass_limit = NULL)
+
+
+
+#' @rdname plot_genes_detected
 .plot_genes_detected <- function(
     metrics,
     counts,
-    interesting_group,
+    interesting_group = "sample_name",
     pass_limit = 20000L,
     min_counts = 0L,
     flip = TRUE) {
@@ -23,12 +27,11 @@
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
-             y = "gene count",
-             fill = "")
+             y = "gene count")
     if (!is.null(pass_limit)) {
-        p <- p + geom_hline(alpha = 0.75,
-                            color = pass_color,
-                            size = 2L,
+        p <- p + geom_hline(alpha = qc_line_alpha,
+                            color = qc_pass_color,
+                            size = qc_line_size,
                             yintercept = pass_limit)
     }
     if (isTRUE(flip)) {

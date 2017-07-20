@@ -7,7 +7,7 @@ test_that("Plots: MA plot", {
 
     # Check plot labels
     expect_identical(p[["labels"]][["y"]],
-                     expression(log[2] * " fold change"))  # nolint
+                     "log2 fold change")
     expect_identical(p[["labels"]][["x"]],
                      "mean expression across all samples")
 })

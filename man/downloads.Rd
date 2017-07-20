@@ -2,16 +2,13 @@
 % Please edit documentation in R/downloads.R
 \name{downloads}
 \alias{downloads}
-\title{File Downloads}
+\title{File downloads for RMarkdown templates}
 \usage{
 downloads(file = NULL)
 }
 \arguments{
 \item{file}{\emph{Optional}. File name. If \code{NULL} (default), download the default
 dependency files for a new experiment.}
-}
-\value{
-No return.
 }
 \description{
 If the required dependency file isn't present, download latest version from

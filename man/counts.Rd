@@ -6,9 +6,15 @@
 \alias{counts,bcbioRNADataSet-method}
 \title{Count Matrix Accessors}
 \usage{
+counts(object, ...)
+
 \S4method{counts}{bcbioRNADataSet}(object, normalized = FALSE)
 }
 \arguments{
+\item{object}{Object.}
+
+\item{...}{Additional arguments.}
+
 \item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
 (\code{TRUE}), or additional normalization methods:
 \itemize{

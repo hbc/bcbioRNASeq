@@ -12,21 +12,9 @@
 
 
 #' @rdname plot_exonic_mapping_rate
-#' @export
-setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(
-    object, ...) {
-    .plot_exonic_mapping_rate(
-        metrics = metrics(object),
-        interesting_group = .interesting_group(object),
-        ...)
-})
-
-
-
-#' @rdname plot_exonic_mapping_rate
 .plot_exonic_mapping_rate <- function(
     metrics,
-    interesting_group,
+    interesting_group = "sample_name",
     pass_limit = 60L,
     flip = TRUE) {
     if (is.null(metrics)) return(NULL)
@@ -37,14 +25,13 @@ setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
-             y = "exonic mapping rate (%)",
-             fill = "") +
+             y = "exonic mapping rate (%)") +
         ylim(0L, 100L)
     if (!is.null(pass_limit)) {
         p <- p +
-            geom_hline(alpha = 0.75,
-                       color = pass_color,
-                       size = 2L,
+            geom_hline(alpha = qc_line_alpha,
+                       color = qc_pass_color,
+                       size = qc_line_size,
                        yintercept = pass_limit)
     }
     if (isTRUE(flip)) {
@@ -52,3 +39,22 @@ setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(
     }
     p
 }
+
+
+
+#' @rdname plot_exonic_mapping_rate
+#' @export
+setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(object, ...) {
+    .plot_exonic_mapping_rate(
+        metrics = metrics(object),
+        interesting_group = .interesting_group(object),
+        ...)
+})
+
+
+
+#' @rdname plot_exonic_mapping_rate
+#' @export
+setMethod("plot_exonic_mapping_rate", "data.frame", function(object, ...) {
+    .plot_exonic_mapping_rate(object, ...)
+})

@@ -23,14 +23,20 @@ metadata(x, ...)
 rowData(x, ...)
 }
 \arguments{
+\item{x}{Object.}
+
+\item{i}{An integer or numeric scalar.}
+
 \item{...}{Additional arguments.}
 
-\item{object}{Object.}
+\item{withDimnames}{A \code{logical}, indicating whether dimnames should be
+applied to extracted assay elements.}
 
-\item{value}{Value to assign.}
+\item{object}{Object.}
 }
 \description{
 S4 Generics
 
 colData
 }
+\keyword{internal}
