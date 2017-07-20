@@ -13,7 +13,6 @@
 #'
 #' # data.frame
 #' metrics <- metrics(bcb)
-#' interesting_group <- "group")
 #' plot_total_reads(metrics)
 
 
