@@ -4,15 +4,20 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
-    upload_dir: "data/final"
-    interesting_groups: !r c("genotype", "treatment")
+    bcb: "data/bcb.rda"
     output_dir: "."
 ---
 
 ```{r setup, include=FALSE}
-# Run [bcbioRnaseq::downloads()] to download `setup.R`
+bcbioRnaseq::downloads()
 source("setup.R")
 library(isomiRs)
+
+# bcbioRNADataSet
+# Need to save bcb using `load_run()` prior to knit!
+bcb_name <- load(params$bcb)
+assign("bcb", get(bcb_name))
+if (is.null(bcb)) stop("bcbRNADataSet missing")
 
 # Directory paths
 output_dir <- params$output_dir
