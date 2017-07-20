@@ -31,5 +31,6 @@ setMethod("plot_mean_sd", "bcbioRNADataSet", function(object) {
     plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
               ggrlog[["gg"]] + theme(legend.position = "none"),
               ggvsd[["gg"]] + theme(legend.position = "none"),
+              labels = "auto",
               nrow = 3L)
 })
