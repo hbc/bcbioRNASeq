@@ -30,8 +30,10 @@
 #' extra_dir <- system.file("extra", package = "bcbioRnaseq")
 #' upload_dir <- file.path(extra_dir, "bcbio")
 #' sample_metadata_file <- file.path(extra_dir, "sample_metadata.csv")
-#' bcb <- load_run(upload_dir,
-#'                 sample_metadata_file = sample_metadata_file)
+#' bcb <- load_run(
+#'     upload_dir,
+#'     interesting_groups = "group",
+#'     sample_metadata_file = sample_metadata_file)
 load_run <- function(
     upload_dir = "final",
     analysis = "rnaseq",
