@@ -39,6 +39,15 @@ setGeneric("aggregate_replicates", function(object, ...) {
 
 
 
+#' @rdname alpha_summary
+#' @inherit all_generics
+#' @export
+setGeneric("alpha_summary", function(object, ...) {
+    standardGeneric("alpha_summary")
+})
+
+
+
 #' @rdname bcbio
 #' @inherit all_generics
 #' @export
