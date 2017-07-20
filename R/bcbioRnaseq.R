@@ -27,9 +27,11 @@
 globalVariables(".")
 
 # Quality control plot colors
-fail_color <- "red"
-pass_color <- "green"
-warn_color <- "orange"
+qc_fail_color <- "red"
+qc_pass_color <- "green"
+qc_warn_color <- "orange"
+qc_line_alpha <- 0.75
+qc_line_size <- 2L
 
 # Plot label separator
 label_sep <- ": "
