@@ -41,7 +41,7 @@
     names(sample_files) <- names(sample_dirs)
 
     # Begin loading of selected counts
-    message(paste("Reading", type, "counts"))
+    message(paste("Reading", type, "counts using tximport"))
 
     # Import the counts (https://goo.gl/h6fm15)
     if (type %in% c("salmon", "sailfish")) {

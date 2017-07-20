@@ -181,6 +181,7 @@ load_run <- function(
 
 
     # DESeqDataSet ====
+    message("Generating internal DESeqDataSet for quality control")
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = sample_metadata,
@@ -196,15 +197,19 @@ load_run <- function(
         message("Reading STAR/featureCounts aligned counts")
         fc <- read_tsv(fc_file) %>%
             as.data.frame %>%
+            snake(rownames = FALSE) %>%
             column_to_rownames("id") %>%
-            as.matrix %>%
-            # Subset columns by matching STAR sample name in metrics
-            .[, pull(metrics, "name")] %>%
-            # Ensure column names match tximport
-            set_colnames(pull(metrics, "sample_name"))
-        # Check column name consistency
+            as.matrix
+        # Look for column name mismatch and attempt fix.
+        # This is an error fix for the current bcb example dataset.
+        # Safe to remove in a future update.
         if (!identical(colnames(raw_counts), colnames(fc))) {
-            stop("Column name mismatch between tximport and featureCounts")
+            warning("Counts matrix column name mismatch")
+            # Subset columns by matching STAR sample name in metrics
+            fc <- fc %>%
+                .[, snake(pull(metrics, "name"))] %>%
+                # Ensure column names match tximport
+                set_colnames(pull(metrics, "sample_name"))
         }
     } else {
         fc <- NULL

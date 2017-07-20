@@ -22,7 +22,6 @@ setMethod("tmm", "bcbioRNADataSet", function(object) {
 #' @rdname tmm
 #' @usage NULL
 .tmm <- function(object) {
-    message("Generating TMM-normalized counts with edgeR")
     object %>%
         as.matrix %>%
         DGEList %>%
