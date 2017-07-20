@@ -19,8 +19,8 @@
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
 #'
-#' @return Volcano plot arranged as `ggrid` (`ggdraw = TRUE`), or [show()]
-#'   individual [ggplot] (`ggdraw = FALSE`).
+#' @return Volcano plot arranged as grid (`grid = TRUE`), or [show()]
+#'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
 #' data(bcb)
