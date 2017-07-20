@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transcripts per million (TPM) — tpm • bcbioRnaseq</title>
+<title>Transcripts Per Million (TPM) — tpm • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,14 +80,16 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transcripts per million (TPM)</h1>
+    <h1>Transcripts Per Million (TPM)</h1>
     </div>
 
     
-    <p>Transcripts per million (TPM)</p>
+    <p>Transcripts Per Million (TPM)</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
+    <pre class="usage"><span class='fu'>tpm</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>tpm</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -99,13 +101,30 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>matrix.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='fu'>tpm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>head</span></div><div class='output co'>#&gt;                     group1_1 group1_2  group2_1  group2_2
+#&gt; ENSMUSG00000002459 0.3395880 0.096536 0.4342604 0.2195625
+#&gt; ENSMUSG00000004768 5.7355548 4.231738 4.8662113 2.8844117
+#&gt; ENSMUSG00000005886 8.6836434 7.501673 9.9260131 5.4510495
+#&gt; ENSMUSG00000016918 7.0050353 5.479443 3.9638329 2.4328215
+#&gt; ENSMUSG00000025774 0.0391648 0.000000 0.0000000 0.0000000
+#&gt; ENSMUSG00000025776 0.5503408 0.278789 0.3147271 0.3949477</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
@@ -116,7 +135,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

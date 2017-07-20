@@ -5,6 +5,7 @@
 \alias{plot_mapped_reads}
 \alias{.plot_mapped_reads}
 \alias{plot_mapped_reads,bcbioRNADataSet-method}
+\alias{plot_mapped_reads,data.frame-method}
 \title{Plot Mapped Reads}
 \usage{
 plot_mapped_reads(object, ...)
@@ -13,6 +14,9 @@ plot_mapped_reads(object, ...)
   warn_limit = 10L, flip = TRUE)
 
 \S4method{plot_mapped_reads}{bcbioRNADataSet}(object, ...)
+
+\S4method{plot_mapped_reads}{data.frame}(object,
+  interesting_group = "sample_name", ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -35,7 +39,13 @@ Plot Mapped Reads
 }
 \examples{
 data(bcb)
+
+# bcbioRNADataSet
 plot_mapped_reads(bcb)
+
+# data.frame
+metrics <- metrics(bcb)
+plot_mapped_reads(metrics)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot_count_density}},

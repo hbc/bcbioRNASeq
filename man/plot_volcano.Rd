@@ -3,18 +3,18 @@
 \docType{methods}
 \name{plot_volcano}
 \alias{plot_volcano}
-\alias{plot_volcano,DESeqResults-method}
 \alias{.plot_volcano}
+\alias{plot_volcano,DESeqResults-method}
 \title{Plot Volcano}
 \usage{
 plot_volcano(object, ...)
 
-\S4method{plot_volcano}{DESeqResults}(object, ...)
-
-.plot_volcano(res_df, alpha = 0.05, padj = TRUE, lfc = 1L,
-  text_labels = 10L, direction = "both", shade_color = "orange",
+.plot_volcano(res_df, padj = TRUE, alpha = 0.05, lfc = 1L,
+  text_labels = 0L, direction = "both", shade_color = "green",
   shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
-  point_outline_color = "darkgray", ggdraw = TRUE)
+  point_outline_color = "darkgray", grid = TRUE)
+
+\S4method{plot_volcano}{DESeqResults}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -41,15 +41,15 @@ subset the results prior to plotting.}
 
 \item{point_outline_color}{Point outline color.}
 
-\item{ggdraw}{Merge all plots using \code{\link[=ggdraw]{ggdraw()}}.}
+\item{grid}{Arrange plots into grid.}
 
 \item{ntop}{Number of top genes to label.}
 
 \item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-Volcano plot arranged as \code{ggrid} (\code{ggdraw = TRUE}), or \code{\link[=show]{show()}}
-individual \link{ggplot} (\code{ggdraw = FALSE}).
+Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
+individual \link{ggplot} (\code{grid = FALSE}).
 }
 \description{
 Plot Volcano
@@ -63,6 +63,8 @@ dds <- DESeqDataSetFromTximport(
     DESeq
 res <- results(dds)
 plot_volcano(res)
+plot_volcano(res, padj = FALSE, lfc = 2L)
+plot_volcano(res, text_labels = 10L)
 }
 \seealso{
 This function is an updated variant of

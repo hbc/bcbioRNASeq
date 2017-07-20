@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Metadata table — metadata_table • bcbioRnaseq</title>
+<title>Metadata Table — metadata_table • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,16 +80,18 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Metadata table</h1>
+    <h1>Metadata Table</h1>
     </div>
 
     
     <p>Returns a subset of metadata columns of interest used for knit reports. These
 "interesting group" columns are defined as <code>interesting_groups</code> in the
-<a href='bcbioRNADataSet.html'>bcbioRNADataSet</a> object.</p>
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a> object.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
+    <pre class="usage"><span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>metadata_table</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
@@ -107,13 +109,13 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional parameters passed to <code>kable()</code>.</p></td>
+      <td><p>Additional parameters, passed to <code>kable()</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data frame containing only the columns of interest.</p>
+    <p>data.frame containing only the columns of interest.</p>
     
 
   </div>
@@ -125,12 +127,16 @@
       <li><a href="#value">Value</a></li>
           </ul>
 
+    <h2>Author</h2>
+    
+Michael Steinbaugh
+
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

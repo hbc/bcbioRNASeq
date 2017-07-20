@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find correlation between principal components (PCs) and covariates. — plot_pca_covariates • bcbioRnaseq</title>
+<title>Find Correlation Between Principal Components (PCs) and Covariates — plot_pca_covariates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,40 +80,48 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find correlation between principal components (PCs) and covariates.</h1>
+    <h1>Find Correlation Between Principal Components (PCs) and Covariates</h1>
     </div>
 
     
-    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pca_covariates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>plot_pca_covariates</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
+  <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bcb</th>
-      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
-    </tr>
-    <tr>
-      <th>transform</th>
-      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
-<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
-    </tr>
-    <tr>
-      <th>use</th>
-      <td><p><em>Optional</em>. Character vector of columns to use.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>transform</th>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
+<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
+      <th>use</th>
+      <td><p><em>Optional</em>. Character vector of columns to use.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p>
     
 
   </div>
@@ -123,18 +131,20 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>
     
-Lorena Pantano
+Lorena Pantano, Michael Steinbaugh
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

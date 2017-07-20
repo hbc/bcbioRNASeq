@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load bcbio-nextgen run — load_run • bcbioRnaseq</title>
+<title>Load <code>bcbio</code> Run Data — load_run • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,18 +80,18 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Load bcbio-nextgen run</h1>
+    <h1>Load <code>bcbio</code> Run Data</h1>
     </div>
 
     
     <p>Simply point to the final upload directory output by
-<a href='https://bcbio-nextgen.readthedocs.io/'>bcbio-nextgen</a>, and this function
-will take care of the rest. It automatically imports RNA-seq counts,
-metadata, and program versions used.</p>
+<a href='https://bcbio-nextgen.readthedocs.io/'>bcbio</a>, and this function will take
+care of the rest. It automatically imports RNA-seq counts, metadata, and
+program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>load_run</span>(<span class='kw'>upload_dir</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>analysis</span> <span class='kw'>=</span> <span class='st'>"rnaseq"</span>,
-  <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='st'>"description"</span>, <span class='kw'>sample_metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='st'>"sample_name"</span>, <span class='kw'>sample_metadata_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -120,13 +120,13 @@ file.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, saved as metadata.</p></td>
+      <td><p>Additional arguments, slotted into the <code><a href='all_generics.html'>metadata()</a></code> accessor.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
+    <p><a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -135,6 +135,64 @@ run directory as a remote connection over
 <a href='https://github.com/osxfuse/osxfuse/wiki/SSHFS'>sshfs</a>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>extra_dir</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extra"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRnaseq"</span>)
+<span class='no'>upload_dir</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='no'>extra_dir</span>, <span class='st'>"bcbio"</span>)
+<span class='no'>sample_metadata_file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='no'>extra_dir</span>, <span class='st'>"sample_metadata.csv"</span>)
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>load_run</span>(
+    <span class='no'>upload_dir</span>,
+    <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='st'>"group"</span>,
+    <span class='kw'>sample_metadata_file</span> <span class='kw'>=</span> <span class='no'>sample_metadata_file</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading sample_metadata.csv</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  sample_id = col_character(),</span>
+#&gt; <span class='message'>  sample_name = col_character(),</span>
+#&gt; <span class='message'>  group = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Genome: mmusculus mm10</span></div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene annotable</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  enstxp = col_character(),</span>
+#&gt; <span class='message'>  ensgene = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  genome = col_character(),</span>
+#&gt; <span class='message'>  resource = col_character(),</span>
+#&gt; <span class='message'>  version = col_datetime(format = "")</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  program = col_character(),</span>
+#&gt; <span class='message'>  version = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  Name = col_character(),</span>
+#&gt; <span class='message'>  Length = col_integer(),</span>
+#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
+#&gt; <span class='message'>  TPM = col_double(),</span>
+#&gt; <span class='message'>  NumReads = col_double()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR/featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  .default = col_integer(),</span>
+#&gt; <span class='message'>  id = col_character()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='message'>Packaging SummarizedExperiment</span></div><div class='output co'>#&gt; <span class='message'>Generating TMM-normalized counts with edgeR</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -144,7 +202,9 @@ run directory as a remote connection over
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
@@ -155,7 +215,7 @@ Michael Steinbaugh, Lorena Patano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

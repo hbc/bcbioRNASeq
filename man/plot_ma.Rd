@@ -10,10 +10,9 @@
 \usage{
 plot_ma(object, ...)
 
-\S4method{plot_ma}{DESeqResults}(object, label_points = NULL)
+\S4method{plot_ma}{DESeqResults}(object, ...)
 
-\S4method{plot_ma}{data.frame}(object, title = NULL, label_points = NULL,
-  label_column = "symbol")
+\S4method{plot_ma}{data.frame}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,6 +23,11 @@ plot_ma(object, ...)
 
 \item{label_column}{Match \code{label_points} argument to this column in the
 results.}
+
+\item{point_color_scale}{Point color scale. See \link[ggplot2:color_manual]{ggplot2::color_manual} for
+more information.}
+
+\item{label_color}{Text label color.}
 
 \item{title}{\emph{Optional}. Plot title.}
 }
@@ -41,7 +45,15 @@ dds <- DESeqDataSetFromTximport(
     design = formula(~group)) \%>\%
     DESeq
 res <- results(dds)
-plot_ma(res)
+
+genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
+
+# DESeqResults
+plot_ma(res, label_points = genes)
+
+# data.frame
+res_df <- as.data.frame(res)
+plot_ma(res_df, label_points = genes)
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plot_volcano}}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MA-plot from base means and log fold changes — plot_ma • bcbioRnaseq</title>
+<title>Plot Mean Average — plot_ma • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,26 +80,31 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MA-plot from base means and log fold changes</h1>
+    <h1>Plot Mean Average</h1>
     </div>
 
     
-    <p>MA-plot from base means and log fold changes</p>
+    <p>Plot Mean Average</p>
     
 
-    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_column</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>plot_ma</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for data.frame</span>
+<span class='fu'>plot_ma</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>res</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a> or a modified data.frame derived from
-<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqResults'>DESeqResults</a>.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p><em>Optional</em>. Plot title.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>label_points</th>
@@ -107,7 +112,21 @@
     </tr>
     <tr>
       <th>label_column</th>
-      <td><p>Match label_points to this column in the results.</p></td>
+      <td><p>Match <code>label_points</code> argument to this column in the
+results.</p></td>
+    </tr>
+    <tr>
+      <th>point_color_scale</th>
+      <td><p>Point color scale. See ggplot2::color_manual for
+more information.</p></td>
+    </tr>
+    <tr>
+      <th>label_color</th>
+      <td><p>Text label color.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p><em>Optional</em>. Plot title.</p></td>
     </tr>
     </table>
     
@@ -115,14 +134,26 @@
 
     <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other Differential Expression Plots: <code><a href='plot_volcano.html'>plot_volcano</a></code></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>dummy</span>)
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromTximport</a></span>(
     <span class='kw'>txi</span> <span class='kw'>=</span> <span class='fu'><a href='txi.html'>txi</a></span>(<span class='no'>bcb</span>),
-    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='colData.html'>colData</a></span>(<span class='no'>bcb</span>),
-    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>))</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='input'><span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq</a></span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds</span>)
-<span class='fu'>plot_ma</span>(<span class='no'>res</span>)</div><div class='img'><img src='plot_ma-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='all_generics.html'>colData</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
+    <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds</span>)
+
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"ENSMUSG00000104523"</span>, <span class='st'>"ENSMUSG00000016918"</span>)
+
+<span class='co'># DESeqResults</span>
+<span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'res' not found</span></div><div class='input'>
+<span class='co'># data.frame</span>
+<span class='no'>res_df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
+<span class='fu'>plot_ma</span>(<span class='no'>res_df</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plot_ma-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -130,6 +161,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -143,7 +176,7 @@ Michael Steinbaugh, Rory Kirchner
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make groups of genes using expression profile — plot_pattern • bcbioRnaseq</title>
+<title>Make Groups of Genes Using Expression Profile — plot_pattern • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,21 +80,29 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make groups of genes using expression profile</h1>
+    <h1>Make Groups of Genes Using Expression Profile</h1>
     </div>
 
     
-    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degPatterns'>DEGreport::degPatterns()</a></code> wrapper supporting a <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degPatterns'>DEGreport::degPatterns()</a></code> wrapper supporting a <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_pattern</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>fdr</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_pattern</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>plot_pattern</span>(<span class='no'>object</span>, <span class='no'>res</span>, <span class='kw'>fdr</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bcb</th>
-      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a> object.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters, passed to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degPatterns'>DEGreport::degPatterns()</a></code>.</p></td>
     </tr>
     <tr>
       <th>res</th>
@@ -108,11 +116,15 @@
       <th>n</th>
       <td><p>Integer maximum number of genes to consider.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional parameters.</p></td>
-    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degPatterns'>DEGreport::degPatterns()</a></code>.</p>
     
 
   </div>
@@ -120,18 +132,22 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
     <h2>Author</h2>
     
-Lorena Pantano
+Lorena Pantano, Michael Steinbaugh
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

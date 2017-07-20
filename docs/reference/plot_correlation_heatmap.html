@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Correlation heatmap — plot_correlation_heatmap • bcbioRnaseq</title>
+<title>Plot Correlation Heatmap — plot_correlation_heatmap • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,7 +80,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Correlation heatmap</h1>
+    <h1>Plot Correlation Heatmap</h1>
     </div>
 
     
@@ -91,21 +91,30 @@ input of <code>gene</code> identifier vector. In this case, only the expression 
 desired genes will be used to calculate the correlation matrix.</p>
     
 
-    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>bcb</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>,
-  <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>plot_correlation_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='fu'>plot_correlation_heatmap</span>(<span class='no'>object</span>,
+  <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bcb</th>
-      <td><p><a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, passed to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></td>
     </tr>
     <tr>
       <th>transform</th>
-      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
-<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+      <td><p>String specifying <code>rlog</code> (<strong>recommended</strong>) or <code>vst</code>
+(<code>varianceStabilizingTransformation</code>) <a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> object slotted
+inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -124,10 +133,14 @@ values as <code><a href='http://www.rdocumentation.org/packages/stats/topics/hcl
 plot.</p></td>
     </tr>
     <tr>
+      <th>samples</th>
+      <td><p><em>Optional</em>. Character vector of specific samples.</p></td>
+    </tr>
+    <tr>
       <th>interesting_groups</th>
       <td><p><em>Optional</em>. Interesting groups to label with bars
 above heatmap. If <code>NULL</code>, defaults to <code>interesting_groups</code> defined in the
-<a href='bcbioRNADataSet.html'>bcbioRNADataSet</a>.</p></td>
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
       <th>annotation</th>
@@ -138,24 +151,26 @@ plotting more than one column.</p></td>
       <th>title</th>
       <td><p><em>Optional</em>. Text to include in plot title.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments, passed to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Heatmap plot <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p>
+    <p><code>pheatmap()</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code></p>
+    <ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></li>
+</ul>
+    <p>Other Heatmaps: <code><a href='plot_deg_heatmap.html'>plot_deg_heatmap</a></code>,
+  <code><a href='plot_gene_heatmap.html'>plot_gene_heatmap</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>dummy</span>)
-<span class='fu'>plot_correlation_heatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plot_correlation_heatmap-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='fu'>plot_correlation_heatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plot_correlation_heatmap-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -178,7 +193,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

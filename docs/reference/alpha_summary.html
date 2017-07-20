@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print summary statistics of alpha level cutoffs — alpha_summary • bcbioRnaseq</title>
+<title>Print Summary Statistics of Alpha Level Cutoffs — alpha_summary • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,22 +80,29 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print summary statistics of alpha level cutoffs</h1>
+    <h1>Print Summary Statistics of Alpha Level Cutoffs</h1>
     </div>
 
     
-    <p>Print summary statistics of alpha level cutoffs</p>
+    <p>Print Summary Statistics of Alpha Level Cutoffs</p>
     
 
-    <pre class="usage"><span class='fu'>alpha_summary</span>(<span class='no'>dds</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>, <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>),
-  <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>alpha_summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>alpha_summary</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>,
+  <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>), <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dds</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSet</a>.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -112,6 +119,21 @@
     <p>kable.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromTximport</a></span>(
+    <span class='kw'>txi</span> <span class='kw'>=</span> <span class='fu'><a href='txi.html'>txi</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='all_generics.html'>colData</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
+    <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>alpha_summary</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; 
+#&gt; 
+#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
+#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
+#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -119,7 +141,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
@@ -130,7 +154,7 @@ Michael Steinbaugh, Lorena Patano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

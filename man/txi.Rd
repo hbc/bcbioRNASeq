@@ -19,6 +19,9 @@ txi(object)
 \description{
 \code{tximport} Accessor Shortcut
 }
+\examples{
+txi(bcb) \%>\% names
+}
 \author{
 Michael Steinbaugh
 }

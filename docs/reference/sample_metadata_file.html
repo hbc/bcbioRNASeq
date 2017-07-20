@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read custom metadata file — .sample_metadata_file • bcbioRnaseq</title>
+<title>Read Custom Metadata File — .sample_metadata_file • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,15 +80,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read custom metadata file</h1>
+    <h1>Read Custom Metadata File</h1>
     </div>
 
     
-    <p>Read custom metadata file</p>
+    <p>Read Custom Metadata File</p>
     
 
-    <pre class="usage"><span class='fu'>.sample_metadata_file</span>(<span class='no'>file</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pattern_col</span> <span class='kw'>=</span> <span class='st'>"description"</span>,
-  <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>.sample_metadata_file</span>(<span class='no'>file</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pattern_col</span> <span class='kw'>=</span> <span class='st'>"sample_name"</span>,
+  <span class='kw'>lanes</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,7 +115,7 @@ technical replicates (<code>_LXXX</code>) suffix.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame with <code>description</code> as rowname.</p>
+    <p>tibble grouped by <code>sample_name</code>.</p>
     
 
   </div>
@@ -136,7 +136,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">

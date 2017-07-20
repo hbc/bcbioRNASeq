@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aggregate lane-split technical replicates — aggregate_replicates • bcbioRnaseq</title>
+<title>Aggregate Lane-Split Technical Replicates — aggregate_replicates • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,7 +80,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Aggregate lane-split technical replicates</h1>
+    <h1>Aggregate Lane-Split Technical Replicates</h1>
     </div>
 
     
@@ -89,7 +89,9 @@ split across flow cell lanes. This generic facilitates quick aggregation
 of counts across the flow cells.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for matrix</span>
+    <pre class="usage"><span class='fu'>aggregate_replicates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for matrix</span>
 <span class='fu'>aggregate_replicates</span>(<span class='no'>object</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"_L\\d+"</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
@@ -108,7 +110,7 @@ of counts across the flow cells.</p>
     </tr>
     <tr>
       <th>pattern</th>
-      <td><p>Grep pattern to match lane identifiers in file name.</p></td>
+      <td><p>Grep pattern to match lane identifiers in sample name.</p></td>
     </tr>
     </table>
     
@@ -141,7 +143,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
 </div>
 
 <div class="pkgdown">
