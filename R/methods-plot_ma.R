@@ -9,6 +9,9 @@
 #' @param label_points *Optional*. Label these particular points.
 #' @param label_column Match `label_points` argument to this column in the
 #'   results.
+#' @param point_color_scale Point color scale. See [ggplot2::color_manual] for
+#'   more information.
+#' @param label_color Text label color.
 #'
 #' @return [ggplot].
 #'
@@ -20,7 +23,15 @@
 #'     design = formula(~group)) %>%
 #'     DESeq
 #' res <- results(dds)
-#' plot_ma(res)
+#'
+#' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
+#'
+#' # DESeqResults
+#' plot_ma(res, label_points = genes)
+#'
+#' # data.frame
+#' res_df <- as.data.frame(res)
+#' plot_ma(res_df, label_points = genes)
 
 
 
@@ -30,7 +41,10 @@
     res_df,
     alpha = 0.05,
     label_points = NULL,
-    label_column = "rowname") {
+    label_column = "rowname",
+    point_color_scale = c("darkgrey", "red", "green"),
+    label_color = "black",
+    title = TRUE) {
     res_tbl <- res_df %>%
         as("tibble") %>%
         snake %>%
@@ -38,25 +52,30 @@
     p <- ggplot(res_tbl,
                 aes_(x = ~base_mean,
                      y = ~log2_fold_change,
-                     color = ~padj < !!alpha)) +
+                     color = ~padj < alpha)) +
         geom_point(size = 0.8) +
         scale_x_log10() +
         annotation_logticks(sides = "b") +
-        scale_color_manual(values = c("black", "red", "green")) +
+        scale_color_manual(values = point_color_scale) +
         guides(color = FALSE) +
-        labs(title = "mean average",
-             x = "mean expression across all samples",
+        labs(x = "mean expression across all samples",
              y = "log2 fold change")
+    if (isTRUE(title)) {
+        p <- p + ggtitle("mean average")
+    } else if (is.character(title)) {
+        p <- p + ggtitle(title)
+    }
     if (!is.null(label_points)) {
         labels <- res_tbl %>%
-            .[.[[label_column]] %in% label_points, ]
+            filter(.data[[label_column]] %in% !!syms(label_points))
         p <- p +
             geom_text_repel(
                 data = labels,
-                aes_string("base_mean",
-                           "log2_fold_change",
-                           label = label_column),
-                size = 3L)
+                aes_(x = ~base_mean,
+                     y = ~log2_fold_change,
+                     label = as.name(label_column)),
+                color = label_color,
+                size = 4L)
     }
     p
 }
@@ -65,28 +84,14 @@
 
 #' @rdname plot_ma
 #' @export
-setMethod(
-    "plot_ma",
-    "DESeqResults",
-    function(object, label_points = NULL) {
-        res %>%
-            as.data.frame %>%
-            # FIXME Add left_join for `label_column` = symbol here
-            # Automatically label the top 30 if TRUE?
-            .plot_ma(label_points = label_points,
-                     label_column = label_column)
-    })
+setMethod("plot_ma", "DESeqResults", function(object, ...) {
+    res %>% as.data.frame %>% .plot_ma(...)
+})
 
 
 
 #' @rdname plot_ma
 #' @export
-setMethod(
-    "plot_ma",
-    "data.frame",
-    function(object,
-             title = NULL,
-             label_points = NULL,
-             label_column = "symbol") {
-        .plot_ma
-    })
+setMethod("plot_ma", "data.frame", function(object, ...) {
+    .plot_ma(object, ...)
+})
