@@ -75,7 +75,7 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
              y = ~pc2,
              color = ~color,
              shape = ~shape)) +
-        geom_point(size = 5L) +
+        geom_point(size = 4L) +
         coord_fixed() +
         labs(title = "pca",
              x = paste0("pc1: ", percent_var[[1L]], "% variance"),
@@ -92,7 +92,24 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
         unlabeled <- p +
             theme(legend.position = "none")
         labeled <- p +
-            geom_text_repel(aes_(label = ~label), show.legend = FALSE) +
+            geom_text_repel(
+                # Color the labels to match the points
+                aes_(label = ~label),
+                color = "black",
+                fontface = "bold",
+                # Add extra padding around each text label
+                box.padding = unit(0.5, "lines"),
+                # Add extra padding around each data point
+                point.padding = unit(1.5, "lines"),
+                # Color of the line segments
+                segment.color = "gray",
+                # Width of the line segments
+                segment.size = 0.5,
+                # Draw an arrow from the label to the data point
+                arrow = arrow(length = unit(0.01, "npc")),
+                # Strength of the repulsion force
+                force = 1L,
+                show.legend = FALSE) +
             labs(title = "", x = "", y = "") +
             theme(axis.text.x = element_blank(),
                   axis.text.y = element_blank(),
