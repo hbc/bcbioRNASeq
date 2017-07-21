@@ -37,10 +37,10 @@ setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
         metadata <- metadata[, use]
     }
 
-    assays(object)[[transform]] %>%
+    counts <- assays(object) %>%
+        .[[transform]] %>%
         # Assay needed here to get the matrix from the slotted [DESeqTransform]
-        assay %>%
-        degCovariates(metadata = metadata) %>%
-        .[["plot"]] +
-        theme(axis.text.x = element_text(angle = 60L, hjust = 1L))
+        assay
+
+    degCovariates(counts, metadata)
 })
