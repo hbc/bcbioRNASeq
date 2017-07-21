@@ -1,9 +1,3 @@
-# DEGreport ====
-#' @export
-DEGreport::degCovariates
-
-
-
 # DESeq2 ====
 #' @export
 DESeq2::DESeq
@@ -37,9 +31,3 @@ DESeq2::vst
 # ggplot2 ====
 #' @export
 ggplot2::ggplot
-
-
-
-# tximport ====
-#' @export
-tximport::tximport
