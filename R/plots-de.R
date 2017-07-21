@@ -121,8 +121,12 @@ plot_volcano <- function(
         mutate(neg_log_padj = -log10(.data[["padj"]] + 1e-10))
 
     # Automatically label the top genes
-    volcano_text <- stats[1L:text_labels, ] %>%
-        left_join(gene2symbol(bcb), by = "ensgene")
+    if (text_labels > 0L) {
+        volcano_text <- stats[1L:text_labels, ] %>%
+            left_join(gene2symbol(bcb), by = "ensgene")
+    } else {
+        volcano_text <- NULL
+    }
 
     # Get range of LFC and P values to set up plot borders
     range_lfc <-
@@ -197,13 +201,16 @@ plot_volcano <- function(
             fill = point_color,
             pch = 21L) +
         theme(legend.position = "none") +
-        scale_x_continuous(limits = range_lfc) +
-        geom_text_repel(
-            data = volcano_text,
-            aes_(x = ~log2_fold_change,
-                 y = ~neg_log_padj,
-                 label = ~symbol),
-            size = 3L)
+        scale_x_continuous(limits = range_lfc)
+    if (!is.null(volcano_text)) {
+        volcano <- volcano +
+            geom_text_repel(
+                data = volcano_text,
+                aes_(x = ~log2_fold_change,
+                     y = ~neg_log_padj,
+                     label = ~symbol),
+                size = 3L)
+    }
     if (direction == "both" | direction == "up") {
         volcano_poly_up <- with(stats, data.frame(
             x = as.numeric(c(
