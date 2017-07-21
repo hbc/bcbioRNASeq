@@ -3,7 +3,7 @@
 #' @rdname metrics
 #' @author Michael Steinbaugh
 #'
-#' @return [tibble].
+#' @return [data.frame].
 #' @export
 #'
 #' @examples
@@ -13,5 +13,7 @@ setMethod("metrics", "bcbioRNADataSet", function(object) {
     metrics <- metadata(object)[["metrics"]]
     if (is.null(metrics)) return(NULL)
     col_data <- colData(object) %>% as("tibble")
-    left_join(col_data, metrics, by = meta_priority_cols)
+    left_join(col_data, metrics, by = meta_priority_cols) %>%
+        as.data.frame %>%
+        column_to_rownames
 })
