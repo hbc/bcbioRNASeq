@@ -75,7 +75,7 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
              y = ~pc2,
              color = ~color,
              shape = ~shape)) +
-        geom_point(size = 3L) +
+        geom_point(size = 5L) +
         coord_fixed() +
         labs(title = "pca",
              x = paste0("pc1: ", percent_var[[1L]], "% variance"),
