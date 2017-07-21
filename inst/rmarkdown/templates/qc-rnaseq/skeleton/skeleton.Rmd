@@ -168,32 +168,20 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 
 PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
-Here we're seeing the nuclei samples vary the most relative to the others.
-
 ```{r plot_pca, fig.height=12, fig.width=10}
 plot_pca(bcb)
 ```
 
-Let's take a look at how the other samples are clustering with the nuclei samples removed. Now we can see that the samples are clustering by treatment, with the D9 samples strongly separated on PC1 from the D17 samples. This is good to observe. Note that there may be something distinct about the e_d17_enuclate replicate, which seems to differ from the other biological replicates (green). Was there something different in how this sample was prepared?
-
-```{r plot_pca_censor}
-plot_pca(bcb,
-         interesting_groups = "treatment",
-         censor_samples = c("c_d17_nuclei",
-                            "d_d17_nuclei",
-                            "e_d17_nuclei"))
-```
 
 
 ## Covariates correlation with PCs
 
 When multiple factors may influence the results of a given experiment, it is useful to assess which of them is responsible for the most variance as determined by PCA. We adapted the method described by Daily et al. where they integrated a method to correlate covariates with principal components values to determine the importance of each factor.
 
-Here we are showing the correlational analysis of the rlog transformed count data's principal components with the metadata covariates of interest. Significant correlations (FDR < 0.1) are shaded from blue (anti-correlated) to orange (correlated), with non-significant correlations shaded in gray. 
-
+Here we are showing the correlational analysis of the rlog transformed count data's principal components with the metadata covariates of interest. Significant correlations (FDR < 0.1) are shaded from blue (anti-correlated) to orange (correlated), with non-significant correlations shaded in gray.
 
 ```{r plot_pca_covariates}
-plot_pca_covariates(bcb, metrics = FALSE)
+plot_pca_covariates(bcb)
 ```
 
 
