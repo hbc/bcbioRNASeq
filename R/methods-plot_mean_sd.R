@@ -28,9 +28,16 @@ setMethod("plot_mean_sd", "bcbioRNADataSet", function(object) {
     ggvsd <- counts(object, normalized = "vst") %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
-    plot_grid(gglog2[["gg"]]  + theme(legend.position = "none"),
-              ggrlog[["gg"]] + theme(legend.position = "none"),
-              ggvsd[["gg"]] + theme(legend.position = "none"),
-              labels = "auto",
-              nrow = 3L)
+    plot_grid(
+        gglog2[["gg"]]  +
+            ggtitle("log2") +
+            theme(legend.position = "none"),
+        ggrlog[["gg"]] +
+            ggtitle("rlog") +
+            theme(legend.position = "none"),
+        ggvsd[["gg"]] +
+            ggtitle("variance stabilizing transformation") +
+            theme(legend.position = "none"),
+        labels = "auto",
+        nrow = 3L)
 })
