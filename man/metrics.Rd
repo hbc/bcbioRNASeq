@@ -14,7 +14,7 @@ metrics(object)
 \item{object}{Object.}
 }
 \value{
-\link{tibble}.
+\link{data.frame}.
 }
 \description{
 Sample Metrics

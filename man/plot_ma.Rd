@@ -23,6 +23,10 @@ plot_ma(object, ...)
 
 \item{...}{Additional arguments.}
 
+\item{res_df}{\code{\link[=results]{results()}} \link{data.frame}.}
+
+\item{alpha}{Alpha level cutoff (Adjusted P value).}
+
 \item{label_points}{\emph{Optional}. Label these particular points.}
 
 \item{label_column}{Match \code{label_points} argument to this column in the
@@ -33,7 +37,7 @@ results.}
 
 \item{label_color}{Text label color.}
 
-\item{title}{\emph{Optional}. Plot title.}
+\item{title}{Plot title.}
 }
 \value{
 \link{ggplot}.

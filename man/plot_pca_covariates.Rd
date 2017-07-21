@@ -14,10 +14,14 @@ plot_pca_covariates(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+\item{...}{Additional arguments, passed to \code{\link[=degCovariates]{degCovariates()}}.}
 
-\item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
-\link{DESeqTransform} slotted inside the \link{bcbioRNADataSet}.}
+\item{transform}{String specifying \link{DESeqTransform} slotted inside the
+\link{bcbioRNADataSet}:
+\itemize{
+\item \code{rlog} (\strong{recommended}).
+\item \code{vst}: variance stabilizing transformation.
+}}
 
 \item{use}{\emph{Optional}. Character vector of columns to use.}
 }
@@ -28,7 +32,11 @@ plot_pca_covariates(object, ...)
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \seealso{
-\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.
+\itemize{
+\item \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

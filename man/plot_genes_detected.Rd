@@ -10,7 +10,8 @@
 plot_genes_detected(object, ...)
 
 .plot_genes_detected(metrics, counts, interesting_group = "sample_name",
-  pass_limit = 20000L, min_counts = 0L, flip = TRUE)
+  pass_limit = 20000L, warn_limit = 15000L, min_counts = 0L,
+  flip = TRUE)
 
 \S4method{plot_genes_detected}{bcbioRNADataSet}(object, ...)
 }
@@ -28,6 +29,8 @@ and shape). If unset, this is automatically determined by the metadata set
 inside the \link{bcbioRNADataSet}.}
 
 \item{pass_limit}{Threshold to plot pass color marker.}
+
+\item{warn_limit}{Threshold to plot warning color marker.}
 
 \item{min_counts}{Numeric value for filtering the counts matrix before
 plotting.}
