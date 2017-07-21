@@ -9,7 +9,7 @@
 plot_pca_covariates(object, ...)
 
 \S4method{plot_pca_covariates}{bcbioRNADataSet}(object, transform = "rlog",
-  use = NULL, ...)
+  metrics = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -23,7 +23,7 @@ plot_pca_covariates(object, ...)
 \item \code{vst}: variance stabilizing transformation.
 }}
 
-\item{use}{\emph{Optional}. Character vector of columns to use.}
+\item{metrics}{Includesample summary metrics as covariates.}
 }
 \value{
 \link{ggplot}.

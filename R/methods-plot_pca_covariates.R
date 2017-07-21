@@ -9,7 +9,7 @@
 #'   [bcbioRNADataSet]:
 #'   - `rlog` (**recommended**).
 #'   - `vst`: variance stabilizing transformation.
-#' @param use *Optional*. Character vector of columns to use.
+#' @param metrics Includesample summary metrics as covariates.
 #' @param ... Additional arguments, passed to [degCovariates()].
 #'
 #' @seealso
@@ -24,23 +24,26 @@
 #' data(bcb)
 #' plot_pca_covariates(bcb)
 setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
-    object, transform = "rlog", use = NULL, ...) {
+    object, transform = "rlog", metrics = TRUE, ...) {
     # Check for valid `transform` argument
     transform_args <- c("rlog", "vst")
     if (!transform %in% transform_args) {
         stop(paste("Valid transforms:", toString(transform_args)))
     }
-    metadata <- metrics(object)
-    metadata[["sample_name"]] <- NULL
-    if (!is.null(use)) {
-        if (length(use) < 2) {
-            stop("`use` argument requires >= 2 column names")
-        }
-        metadata <- metadata[, use, drop = FALSE]
+
+    # Metadata
+    if (isTRUE(metrics)) {
+        metadata <- metrics(object)
+    } else {
+        metadata <- .interesting_col_data(object)
     }
+    metadata[["sample_name"]] <- NULL
+
+    # Counts
     counts <- assays(object) %>%
         .[[transform]] %>%
         # Assay needed here to get the matrix from the slotted [DESeqTransform]
         assay
+
     degCovariates(counts, metadata)
 })
