@@ -39,30 +39,6 @@ write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 
 
 
-# Fit modeling
-
-Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
-
-
-## Variance stabilization
-
-The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
-
-```{r plot_mean_sd, fig.height=18, fig.width=6}
-plot_mean_sd(bcb)
-```
-
-
-## Dispersion
-
-The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
-
-```{r plot_dispersion, fig.height=8, fig.width=8}
-plot_dispersion(bcb)
-```
-
-
-
 # Read metrics {.tabset}
 
 ## Total reads
@@ -155,6 +131,30 @@ Generally, we expect similar count spreads for all genes between samples unless 
 
 ```{r plot_count_density}
 plot_count_density(bcb)
+```
+
+
+
+# Fit modeling
+
+Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
+
+
+## Variance stabilization
+
+The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
+
+```{r plot_mean_sd, fig.height=18, fig.width=6}
+plot_mean_sd(bcb)
+```
+
+
+## Dispersion
+
+The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
+
+```{r plot_dispersion, fig.height=8, fig.width=8}
+plot_dispersion(bcb)
 ```
 
 

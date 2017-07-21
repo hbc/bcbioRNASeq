@@ -175,7 +175,6 @@
                 data = volcano_text,
                 aes_(x = ~log2_fold_change,
                      y = ~neg_log10_pvalue,
-                     # FIXME Add symbol support back
                      label = ~ensgene),
                 size = 3L)
     }
@@ -243,8 +242,10 @@
 #' @rdname plot_volcano
 #' @export
 setMethod("plot_volcano", "DESeqResults", function(object, ...) {
-    .plot_volcano(
-        as.data.frame(object),
-        alpha = metadata(object)[["alpha"]],
-        ...)
+    detect_organism(object)
+    res_df <- as.data.frame(object)
+
+    gene2symbol <-
+    alpha <- metadata(object)[["alpha"]]
+    .plot_volcano(res_df, alpha = alpha, ...)
 })
