@@ -9,8 +9,6 @@
 \alias{reexports}
 \alias{write_counts}
 \alias{reexports}
-\alias{degCovariates}
-\alias{reexports}
 \alias{DESeq}
 \alias{reexports}
 \alias{DESeqDataSet}
@@ -30,8 +28,6 @@
 \alias{vst}
 \alias{reexports}
 \alias{ggplot}
-\alias{reexports}
-\alias{tximport}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -41,12 +37,8 @@ below to see their documentation.
 \describe{
   \item{basejump}{\code{\link[basejump]{\%>\%}}, \code{\link[basejump]{save_data}}, \code{\link[basejump]{write_counts}}}
 
-  \item{DEGreport}{\code{\link[DEGreport]{degCovariates}}}
-
   \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqDataSetFromTximport}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
-
-  \item{tximport}{\code{\link[tximport]{tximport}}}
 }}
 
