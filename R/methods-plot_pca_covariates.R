@@ -30,18 +30,13 @@ setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
     if (!transform %in% transform_args) {
         stop(paste("Valid transforms:", toString(transform_args)))
     }
-
-    # Subset the metadata with the `use` column, if desired
-    metadata <- metrics(object) %>%
-        .[, setdiff(colnames(.), meta_priority_cols), drop = FALSE]
+    metadata <- metrics(object)
     if (!is.null(use)) {
         metadata <- metadata[, use]
     }
-
     counts <- assays(object) %>%
         .[[transform]] %>%
         # Assay needed here to get the matrix from the slotted [DESeqTransform]
         assay
-
     degCovariates(counts, metadata)
 })

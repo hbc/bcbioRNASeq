@@ -177,6 +177,8 @@ plot_pca(bcb)
 
 When multiple factors may influence the results of a given experiment, it is useful to assess which of them is responsible for the most variance as determined by PCA. We adapted the method described by Daily et al. where they integrated a method to correlate covariates with principal components values to determine the importance of each factor.
 
+Here we are showing the correlational analysis of the rlog transformed count data's principal components with the metadata covariates of interest. Significant correlations (FDR < 0.1) are shaded from blue (anti-correlated) to orange (correlated), with non-significant correlations shaded in gray. Here, only the sample group
+
 
 ```{r plot_pca_covariates}
 plot_pca_covariates(bcb)
