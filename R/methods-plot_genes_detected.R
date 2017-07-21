@@ -17,6 +17,7 @@
     counts,
     interesting_group = "sample_name",
     pass_limit = 20000L,
+    warn_limit = 15000L,
     min_counts = 0L,
     flip = TRUE) {
     if (is.null(metrics)) return(NULL)
@@ -33,6 +34,12 @@
                             color = qc_pass_color,
                             size = qc_line_size,
                             yintercept = pass_limit)
+    }
+    if (!is.null(warn_limit)) {
+        p <- p + geom_hline(alpha = qc_line_alpha,
+                            color = qc_warn_color,
+                            size = qc_line_size,
+                            yintercept = warn_limit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
