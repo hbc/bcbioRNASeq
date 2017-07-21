@@ -17,7 +17,8 @@
     interesting_group = "sample_name") {
     ggplot(melted,
         aes_(x = ~counts,
-             group = ~sample_name)) +
+             group = ~sample_name,
+             color = ~sample_name)) +
         geom_density() +
         labs(title = "count density",
              x = "log10 counts per gene")
