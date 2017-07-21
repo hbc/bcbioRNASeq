@@ -119,7 +119,7 @@ load_run <- function(
     # Genome ====
     # Use the genome build of the first sample to match
     genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
-    organism <- .detect_organism(genome_build)
+    organism <- detect_organism(genome_build)
     message(paste("Genome:", organism, genome_build))
     annotable <- annotable(genome_build)
     tx2gene <- .tx2gene(project_dir, genome_build)
@@ -151,8 +151,8 @@ load_run <- function(
         template = template,
         run_date = run_date,
         interesting_groups = interesting_groups,
-        organism = organism,
         genome_build = genome_build,
+        organism = organism,
         ensembl_version = ensembl_version(),
         annotable = annotable,
         tx2gene = tx2gene,
