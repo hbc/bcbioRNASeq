@@ -40,7 +40,7 @@
                        size = qc_line_size,
                        yintercept = pass_limit)
     }
-    if (is.null(warn_limit)) {
+    if (!is.null(warn_limit)) {
         p <- p +
             geom_hline(alpha = qc_line_alpha,
                        color = qc_warn_color,

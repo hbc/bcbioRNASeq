@@ -23,9 +23,8 @@
         ylim(0L, 100L) +
         labs(title = "mapping rate",
              x = "sample",
-             y = "mapping rate (%)",
-             fill = "")
-    if (is.null(pass_limit)) {
+             y = "mapping rate (%)")
+    if (!is.null(pass_limit)) {
         p <- p +
             geom_hline(alpha = qc_line_alpha,
                        color = qc_pass_color,

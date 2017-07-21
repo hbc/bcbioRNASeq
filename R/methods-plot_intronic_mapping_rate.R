@@ -32,7 +32,7 @@
              x = "sample",
              y = "intronic mapping rate (%)") +
         ylim(0L, 100L)
-    if (is.null(warn_limit)) {
+    if (!is.null(warn_limit)) {
         p <- p +
             geom_hline(alpha = qc_line_alpha,
                        color = qc_warn_color,
