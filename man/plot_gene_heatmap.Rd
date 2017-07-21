@@ -25,6 +25,8 @@ plot_gene_heatmap(object, ...)
 
 \item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
 
+\item{counts}{Counts matrix.}
+
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
 \item{cluster_rows}{Use hierarchical clustering to arrange rows.}
@@ -37,14 +39,7 @@ in either the \code{row} direction, \code{column} direction, or \code{none}.}
 \item{annotation}{\emph{Optional}. Alternative annotation to use. Useful when
 plotting more than one column.}
 
-\item{clustering_method}{Hierarchical clustering method. Accepts the same
-values as \code{\link[stats:hclust]{stats::hclust()}}.}
-
-\item{interesting_groups}{\emph{Optional}. Interesting groups to label with bars
-above heatmap. If \code{NULL}, defaults to \code{interesting_groups} defined in the
-\link{bcbioRNADataSet}.}
-
-\item{title}{\emph{Optional}. Text to include in plot title.}
+\item{symbol}{Match against Ensembl gene symbols.}
 }
 \value{
 Graphical output only.

@@ -11,19 +11,15 @@
 #' @author Michael Steinbaugh
 #' @family Heatmaps
 #'
+#' @param counts Counts matrix.
 #' @param genes Character vector of specific gene identifiers to plot.
-#' @param clustering_method Hierarchical clustering method. Accepts the same
-#'   values as [stats::hclust()].
+#' @param symbol Match against Ensembl gene symbols.
 #' @param cluster_rows Use hierarchical clustering to arrange rows.
 #' @param cluster_cols Use hierarchical clustering to arrange columns.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
-#' @param interesting_groups *Optional*. Interesting groups to label with bars
-#'   above heatmap. If `NULL`, defaults to `interesting_groups` defined in the
-#'   [bcbioRNADataSet].
 #' @param annotation *Optional*. Alternative annotation to use. Useful when
 #'   plotting more than one column.
-#' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].

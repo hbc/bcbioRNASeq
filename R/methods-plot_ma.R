@@ -36,7 +36,6 @@
 
 
 #' @rdname plot_ma
-#' @usage NULL
 .plot_ma <- function(
     res_df,
     alpha = 0.05,

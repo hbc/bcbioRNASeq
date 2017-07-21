@@ -10,6 +10,10 @@
 \usage{
 plot_ma(object, ...)
 
+.plot_ma(res_df, alpha = 0.05, label_points = NULL,
+  label_column = "rowname", point_color_scale = c("darkgrey", "red",
+  "green"), label_color = "black", title = TRUE)
+
 \S4method{plot_ma}{DESeqResults}(object, ...)
 
 \S4method{plot_ma}{data.frame}(object, ...)
