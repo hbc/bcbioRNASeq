@@ -39,8 +39,19 @@
 
 
 
-.metrics <- function(object) {
-    metadata(object)[["metrics"]]
+.unique_metrics <- function(object) {
+    drop_cols <- c(meta_priority_cols, "name")
+    metrics <- metadata(object)[["metrics"]] %>%
+        as.data.frame %>%
+        set_rownames(.[["sample_id"]]) %>%
+        .[, setdiff(colnames(.), drop_cols), drop = FALSE]
+    # Find metrics columns with unique values
+    keep_cols <- lapply(colnames(metrics), function(a) {
+        if (length(unique(metrics[, a])) > 1L) a
+    }) %>%
+        unlist %>%
+        .[!is.null(.)]
+    metrics[, keep_cols, drop = FALSE]
 }
 
 

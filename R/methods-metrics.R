@@ -10,10 +10,8 @@
 #' data(bcb)
 #' metrics(bcb)
 setMethod("metrics", "bcbioRNADataSet", function(object) {
-    metrics <- metadata(object)[["metrics"]]
+    metrics <- .unique_metrics(object)
     if (is.null(metrics)) return(NULL)
-    col_data <- colData(object) %>% as("tibble")
-    left_join(col_data, metrics, by = meta_priority_cols) %>%
-        as.data.frame %>%
-        column_to_rownames
+    meta <- .interesting_col_data(object)
+    cbind(meta, metrics)
 })

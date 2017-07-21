@@ -32,7 +32,8 @@ setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
     }
 
     # Subset the metadata with the `use` column, if desired
-    metadata <- .interesting_col_data(object)
+    metadata <- metrics(object) %>%
+        .[, setdiff(colnames(.), meta_priority_cols), drop = FALSE]
     if (!is.null(use)) {
         metadata <- metadata[, use]
     }
