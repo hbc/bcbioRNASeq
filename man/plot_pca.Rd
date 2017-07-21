@@ -9,7 +9,8 @@
 plot_pca(object, ...)
 
 \S4method{plot_pca}{bcbioRNADataSet}(object, transform = "rlog",
-  genes = NULL, interesting_groups = NULL, shape = FALSE, label = TRUE)
+  genes = NULL, censor_samples = NULL, interesting_groups = NULL,
+  shape = FALSE, label = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,6 +21,8 @@ plot_pca(object, ...)
 \link{DESeqTransform} slotted inside the \link{bcbioRNADataSet}.}
 
 \item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
+
+\item{censor_samples}{\emph{Optional}. Censors to exclude from PCA plot.}
 
 \item{interesting_groups}{\emph{Optional}. Interesting groups to use for point
 appearance. If \code{NULL}, color defaults to all \code{interesting_groups}

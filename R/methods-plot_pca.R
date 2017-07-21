@@ -9,6 +9,7 @@
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
 #'   [DESeqTransform] slotted inside the [bcbioRNADataSet].
 #' @param genes *Optional*. Character vector of gene identifiers to use.
+#' @param censor_samples *Optional*. Censors to exclude from PCA plot.
 #' @param interesting_groups *Optional*. Interesting groups to use for point
 #'   appearance. If `NULL`, color defaults to all `interesting_groups`
 #'   parameters set in [bcbioRNADataSet].
@@ -27,6 +28,7 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
     object,
     transform = "rlog",
     genes = NULL,
+    censor_samples = NULL,
     interesting_groups = NULL,
     shape = FALSE,
     label = TRUE) {
@@ -43,6 +45,12 @@ setMethod("plot_pca", "bcbioRNADataSet", function(
     } else {
         # Recommended DESeq default
         ntop <- 500L
+    }
+
+    # Censor samples, if desired
+    if (!is.null(censor_samples)) {
+        dt <- dt %>%
+            .[, setdiff(colnames(.), censor_samples), drop = FALSE]
     }
 
     # Interesting groups
