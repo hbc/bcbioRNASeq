@@ -15,6 +15,7 @@
 #'   ylab ylim scale_x_log10 scale_color_manual geom_text aes_string
 #'   scale_x_log10 annotation_logticks
 #' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
 #' @importFrom isomiRs IsomirDataSeqFromFiles
 #' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
