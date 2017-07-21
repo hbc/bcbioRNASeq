@@ -1,8 +1,22 @@
+.interesting_col_data <- function(object) {
+    colData(object) %>%
+        as.data.frame %>%
+        .[, .interesting_groups(object), drop = FALSE]
+}
+
+
+
 .interesting_group <- function(object) {
     metadata(object) %>%
         .[["interesting_groups"]] %>%
         .[[1L]] %>%
         as.name
+}
+
+
+
+.interesting_groups <- function(object) {
+    metadata(object)[["interesting_groups"]]
 }
 
 
@@ -21,6 +35,12 @@
 .meta_factors <- function(meta) {
     meta %>%
         mutate_if(!colnames(.) %in% meta_priority_cols, factor)
+}
+
+
+
+.metrics <- function(object) {
+    metadata(object)[["metrics"]]
 }
 
 
