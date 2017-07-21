@@ -5,13 +5,15 @@
 #' @family Differential Expression Plots
 #'
 #' @param object Object.
-#' @param title *Optional*. Plot title.
+#' @param res_df [results()] [data.frame].
+#' @param alpha Alpha level cutoff (Adjusted P value).
 #' @param label_points *Optional*. Label these particular points.
 #' @param label_column Match `label_points` argument to this column in the
 #'   results.
 #' @param point_color_scale Point color scale. See
 #'   [ggplot2::scale_color_manual()] for more information.
 #' @param label_color Text label color.
+#' @param title Plot title.
 #'
 #' @return [ggplot].
 #'
