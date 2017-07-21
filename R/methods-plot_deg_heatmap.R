@@ -28,7 +28,6 @@
 
 
 
-# FIXME Draft support...needs update
 #' @rdname plot_deg_heatmap
 .plot_deg_heatmap <- function(
     object,

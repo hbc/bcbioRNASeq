@@ -17,8 +17,9 @@ setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
     if (organism == "mmusculus") {
         gender_markers <- get("gender_markers_mmusculus",
                               envir = as.environment("package:bcbioRnaseq"))
+    } else if (organism == "hsapiens") {
+        stop("Draft support coming soon")
     } else {
-        # FIXME Need to add support for human markers
         stop("Unsupported organism")
     }
 

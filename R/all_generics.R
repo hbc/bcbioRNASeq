@@ -282,7 +282,7 @@ setGeneric("plot_pca_covariates", function(object, ...) {
 
 
 
-#' @rdname plot_pca_covariates
+#' @rdname plot_rrna_mapping_rate
 #' @inherit all_generics
 #' @export
 setGeneric("plot_rrna_mapping_rate", function(object, ...) {

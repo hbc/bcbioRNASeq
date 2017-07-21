@@ -60,7 +60,7 @@
     counts <- counts %>%
         as.matrix %>%
         # Subset zero counts
-        .[rowSums(.) > 0, ]
+        .[rowSums(.) > 0L, ]
     if (!is.null(genes)) {
         counts <- counts %>%
             .[rownames(.) %in% genes, ]
@@ -69,7 +69,7 @@
         nrow(counts) < 2L) {
         stop("Need at least 2 genes to cluster")
     }
-    if (length(counts) == 0) return(NULL)
+    if (length(counts) == 0L) return(NULL)
     if (nrow(counts) <= 100L) {
         show_rownames <- TRUE
     } else {
@@ -111,7 +111,6 @@ setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
 #' @export
 setMethod("plot_gene_heatmap", "DESeqDataSet", function(object, ...) {
     counts <- counts(object, normalized = TRUE)
-    # FIXME Add annotation support based on colData
     .plot_gene_heatmap(counts, ...)
 })
 
@@ -121,6 +120,5 @@ setMethod("plot_gene_heatmap", "DESeqDataSet", function(object, ...) {
 #' @export
 setMethod("plot_gene_heatmap", "DESeqTransform", function(object, ...) {
     counts <- assay(object)
-    # FIXME Add annotation support based on colData
     .plot_gene_heatmap(counts, ...)
 })

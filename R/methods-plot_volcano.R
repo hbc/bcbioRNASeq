@@ -107,7 +107,9 @@
 
 
     # LFC density histogram ====
-    lfc_density <- stats[["log2_fold_change"]] %>% na.omit %>% density
+    lfc_density <- stats[["log2_fold_change"]] %>%
+        na.omit %>%
+        density
     lfc_density_df <- data.frame(x = lfc_density[["x"]],
                                  y = lfc_density[["y"]])
     lfc_hist <- stats %>%
@@ -136,7 +138,9 @@
 
 
     # P value density plot ====
-    pvalue_density <- stats[["neg_log10_pvalue"]] %>% na.omit %>% density
+    pvalue_density <- stats[["neg_log10_pvalue"]] %>%
+        na.omit %>%
+        density
     pvalue_density_df <-
         data.frame(x = pvalue_density[["x"]],
                    y = pvalue_density[["y"]])
@@ -244,9 +248,3 @@ setMethod("plot_volcano", "DESeqResults", function(object, ...) {
         alpha = metadata(object)[["alpha"]],
         ...)
 })
-
-
-
-# FIXME Need to add back gene2symbol support using S4 methods
-# Join the gene symbols
-# left_join(gene2symbol(bcb), by = "ensgene")
