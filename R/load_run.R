@@ -136,10 +136,10 @@ load_run <- function(
     message("Reading bcbio run information")
     data_versions <- .data_versions(project_dir)
     programs <- .programs(project_dir)
-    bcbio_nextgen <- read_lines(
-        file.path(project_dir, "bcbio-nextgen.log"))
-    bcbio_nextgen_commands <- read_lines(
-        file.path(project_dir, "bcbio-nextgen-commands.log"))
+    bcbio_nextgen <-
+        .log_file(file.path(project_dir, "bcbio-nextgen.log"))
+    bcbio_nextgen_commands <-
+        .log_file(file.path(project_dir, "bcbio-nextgen-commands.log"))
 
 
     # Metadata ====
@@ -200,12 +200,11 @@ load_run <- function(
             snake(rownames = FALSE) %>%
             column_to_rownames("id") %>%
             as.matrix
-        # Look for column name mismatch and attempt fix.
-        # This is an error fix for the current bcb example dataset.
-        # Safe to remove in a future update.
         if (!identical(colnames(raw_counts), colnames(fc))) {
-            warning("Counts matrix column name mismatch")
-            # Subset columns by matching STAR sample name in metrics
+            # Look for column name mismatch and attempt fix.
+            # This is an error fix for the current bcb example dataset.
+            # Safe to remove in a future update.
+            # Subset columns by matching STAR sample name in metrics.
             fc <- fc %>%
                 .[, snake(pull(metrics, "name"))] %>%
                 # Ensure column names match tximport
