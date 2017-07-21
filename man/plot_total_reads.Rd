@@ -51,15 +51,15 @@ metrics <- metrics(bcb)
 plot_total_reads(metrics)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{.plot_rrna_mapping_rate}},
-  \code{\link{plot_count_density}},
+Other Quality Control Plots: \code{\link{plot_count_density}},
   \code{\link{plot_counts_per_gene}},
   \code{\link{plot_exonic_mapping_rate}},
   \code{\link{plot_gene_detection_saturation}},
   \code{\link{plot_genes_detected}},
   \code{\link{plot_intronic_mapping_rate}},
   \code{\link{plot_mapped_reads}},
-  \code{\link{plot_mapping_rate}}
+  \code{\link{plot_mapping_rate}},
+  \code{\link{plot_rrna_mapping_rate}}
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

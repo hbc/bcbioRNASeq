@@ -3,13 +3,10 @@
 \docType{methods}
 \name{plot_pca_covariates}
 \alias{plot_pca_covariates}
-\alias{plot_rrna_mapping_rate}
 \alias{plot_pca_covariates,bcbioRNADataSet-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
 plot_pca_covariates(object, ...)
-
-plot_rrna_mapping_rate(object, ...)
 
 \S4method{plot_pca_covariates}{bcbioRNADataSet}(object, transform = "rlog",
   use = NULL, ...)

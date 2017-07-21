@@ -38,14 +38,14 @@ data(bcb)
 plot_count_density(bcb)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{.plot_rrna_mapping_rate}},
-  \code{\link{plot_counts_per_gene}},
+Other Quality Control Plots: \code{\link{plot_counts_per_gene}},
   \code{\link{plot_exonic_mapping_rate}},
   \code{\link{plot_gene_detection_saturation}},
   \code{\link{plot_genes_detected}},
   \code{\link{plot_intronic_mapping_rate}},
   \code{\link{plot_mapped_reads}},
   \code{\link{plot_mapping_rate}},
+  \code{\link{plot_rrna_mapping_rate}},
   \code{\link{plot_total_reads}}
 }
 \author{
