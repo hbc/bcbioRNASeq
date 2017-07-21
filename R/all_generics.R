@@ -327,6 +327,15 @@ setGeneric("plot_volcano", function(object, ...) {
 
 
 
+#' @rdname plot_5_3_bias
+#' @inherit all_generics
+#' @export
+setGeneric("plot_5_3_bias", function(object, ...) {
+    standardGeneric("plot_5_3_bias")
+})
+
+
+
 #' @rdname sample_dirs
 #' @inherit all_generics
 #' @export

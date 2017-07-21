@@ -48,7 +48,8 @@ data(bcb)
 plot_genes_detected(bcb, pass_limit = NULL)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot_count_density}},
+Other Quality Control Plots: \code{\link{plot_5_3_bias}},
+  \code{\link{plot_count_density}},
   \code{\link{plot_counts_per_gene}},
   \code{\link{plot_exonic_mapping_rate}},
   \code{\link{plot_gene_detection_saturation}},
