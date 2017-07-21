@@ -31,6 +31,10 @@ plot_pca_covariates(object, ...)
 \description{
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
+\examples{
+data(bcb)
+plot_pca_covariates(bcb)
+}
 \seealso{
 \itemize{
 \item \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.
