@@ -89,12 +89,22 @@ transcripts per million (TPM) can be accessed using the <code>normalized</code>
 argument.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
+    <pre class="usage"><span class='fu'>counts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>counts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
     <tr>
       <th>normalized</th>
       <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts

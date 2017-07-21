@@ -102,12 +102,15 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
+      <td><p>Additional arguments, passed to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>degCovariates()</a></code>.</p></td>
     </tr>
     <tr>
       <th>transform</th>
-      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a> (<strong>recommended</strong>) or <a href='http://www.rdocumentation.org/packages/DESeq2/topics/vst'>vst</a>
-<a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>:</p><ul>
+<li><p><code>rlog</code> (<strong>recommended</strong>).</p></li>
+<li><p><code>vst</code>: variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>use</th>
@@ -121,7 +124,11 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p>
+    <ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
+</ul>
     
 
   </div>

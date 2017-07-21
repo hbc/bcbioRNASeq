@@ -92,9 +92,7 @@ function.</p>
 
     <pre class="usage"><span class='fu'>plot_deg_heatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNAResults,missingOrNULL</span>
-<span class='fu'>plot_deg_heatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>lfc</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>.plot_deg_heatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plot_deg_heatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>)</pre>
@@ -115,12 +113,12 @@ function.</p>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>lfc</th>
-      <td><p>log2 fold change ratio cutoff.</p></td>
-    </tr>
-    <tr>
       <th>alpha</th>
       <td><p>Alpha level cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>lfc</th>
+      <td><p>log2 fold change ratio cutoff.</p></td>
     </tr>
     </table>
     
@@ -135,7 +133,19 @@ function.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: data set ‘res’ not found</span></div><div class='input'><span class='fu'>plot_deg_heatmap</span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_deg_heatmap(res): object 'res' not found</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromTximport</a></span>(
+    <span class='kw'>txi</span> <span class='kw'>=</span> <span class='fu'><a href='txi.html'>txi</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='all_generics.html'>colData</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
+    <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds</span>)
+<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a></span>(<span class='no'>dds</span>)
+<span class='fu'>plot_deg_heatmap</span>(<span class='no'>res</span>, <span class='no'>rld</span>)</div><div class='output co'>#&gt; [1] "DESeqResults"
+#&gt; attr(,"package")
+#&gt; [1] "DESeq2"
+#&gt; [1] "DESeqTransform"
+#&gt; attr(,"package")
+#&gt; [1] "DESeq2"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

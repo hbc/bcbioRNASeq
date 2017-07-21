@@ -89,6 +89,10 @@
 
     <pre class="usage"><span class='fu'>plot_ma</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
+<span class='fu'>.plot_ma</span>(<span class='no'>res_df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label_column</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>point_color_scale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgrey"</span>, <span class='st'>"red"</span>,
+  <span class='st'>"green"</span>), <span class='kw'>label_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 <span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>plot_ma</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -107,6 +111,14 @@
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
+      <th>res_df</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results()</a></code> data.frame.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>Alpha level cutoff (Adjusted P value).</p></td>
+    </tr>
+    <tr>
       <th>label_points</th>
       <td><p><em>Optional</em>. Label these particular points.</p></td>
     </tr>
@@ -117,8 +129,8 @@ results.</p></td>
     </tr>
     <tr>
       <th>point_color_scale</th>
-      <td><p>Point color scale. See ggplot2::color_manual for
-more information.</p></td>
+      <td><p>Point color scale. See
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>label_color</th>
@@ -126,7 +138,7 @@ more information.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><em>Optional</em>. Plot title.</p></td>
+      <td><p>Plot title.</p></td>
     </tr>
     </table>
     
@@ -150,10 +162,10 @@ more information.</p></td>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"ENSMUSG00000104523"</span>, <span class='st'>"ENSMUSG00000016918"</span>)
 
 <span class='co'># DESeqResults</span>
-<span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'res' not found</span></div><div class='input'>
+<span class='fu'>plot_ma</span>(<span class='no'>res</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plot_ma-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame</span>
 <span class='no'>res_df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
-<span class='fu'>plot_ma</span>(<span class='no'>res_df</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plot_ma-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot_ma</span>(<span class='no'>res_df</span>, <span class='kw'>label_points</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plot_ma-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

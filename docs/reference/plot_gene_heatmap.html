@@ -94,11 +94,17 @@ are sorted by the interesting groups (<code>interesting_groups</code>) specified
 
     <pre class="usage"><span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
+<span class='fu'>.plot_gene_heatmap</span>(<span class='no'>counts</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
 <span class='co'># S4 method for bcbioRNADataSet</span>
-<span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>genes</span>,
-  <span class='kw'>clustering_method</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>interesting_groups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqTransform</span>
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,16 +115,15 @@ are sorted by the interesting groups (<code>interesting_groups</code>) specified
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Additional arguments, passed to <code>pheatmap()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>Counts matrix.</p></td>
     </tr>
     <tr>
       <th>genes</th>
       <td><p>Character vector of specific gene identifiers to plot.</p></td>
-    </tr>
-    <tr>
-      <th>clustering_method</th>
-      <td><p>Hierarchical clustering method. Accepts the same
-values as <code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></td>
     </tr>
     <tr>
       <th>cluster_rows</th>
@@ -134,19 +139,13 @@ values as <code><a href='http://www.rdocumentation.org/packages/stats/topics/hcl
 in either the <code>row</code> direction, <code>column</code> direction, or <code>none</code>.</p></td>
     </tr>
     <tr>
-      <th>interesting_groups</th>
-      <td><p><em>Optional</em>. Interesting groups to label with bars
-above heatmap. If <code>NULL</code>, defaults to <code>interesting_groups</code> defined in the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
-    </tr>
-    <tr>
       <th>annotation</th>
       <td><p><em>Optional</em>. Alternative annotation to use. Useful when
 plotting more than one column.</p></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p><em>Optional</em>. Text to include in plot title.</p></td>
+      <th>symbol</th>
+      <td><p>Match against Ensembl gene symbols.</p></td>
     </tr>
     </table>
     
@@ -163,7 +162,19 @@ plotting more than one column.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>plot_gene_heatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("function", structure("missing", package = "methods")),     structure(function (x, i, ...)     standardGeneric("assay"), generic = structure("assay", package = "SummarizedExperiment"), package = "SummarizedExperiment", group = list(), valueClass = character(0), signature = c("x",     "i"), default = `\001NULL\001`, skeleton = (function (x,         i, ...)     stop("invalid call in method dispatch to 'assay' (no default method)",         domain = NA))(x, i, ...), class = structure("standardGeneric", package = "methods")),     &lt;environment&gt;): unable to find an inherited method for function ‘assay’ for signature ‘"function", "missing"’</span></div></pre>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>rownames</span> <span class='kw'>%&gt;%</span> <span class='no'>.</span>[<span class='fl'>1L</span>:<span class='fl'>50L</span>]
+
+<span class='co'># bcbioRNADataSet</span>
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plot_gene_heatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_gene_heatmap</span>(<span class='no'>bcb</span>, <span class='no'>genes</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_gene_heatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqDataSet</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeqDataSetFromTximport</a></span>(
+    <span class='kw'>txi</span> <span class='kw'>=</span> <span class='fu'><a href='txi.html'>txi</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='all_generics.html'>colData</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
+    <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>plot_gene_heatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plot_gene_heatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqTransform</span>
+<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>rlog</a></span>(<span class='no'>dds</span>)
+<span class='fu'>plot_gene_heatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plot_gene_heatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
