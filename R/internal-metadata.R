@@ -1,7 +1,7 @@
 .interesting_col_data <- function(object) {
     colData(object) %>%
         as.data.frame %>%
-        .[, .interesting_groups(object), drop = FALSE]
+        .[, c("sample_name", .interesting_groups(object)), drop = FALSE]
 }
 
 

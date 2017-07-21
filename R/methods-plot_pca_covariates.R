@@ -31,8 +31,12 @@ setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
         stop(paste("Valid transforms:", toString(transform_args)))
     }
     metadata <- metrics(object)
+    metadata[["sample_name"]] <- NULL
     if (!is.null(use)) {
-        metadata <- metadata[, use]
+        if (length(use) < 2) {
+            stop("`use` argument requires >= 2 column names")
+        }
+        metadata <- metadata[, use, drop = FALSE]
     }
     counts <- assays(object) %>%
         .[[transform]] %>%
