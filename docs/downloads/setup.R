@@ -19,6 +19,7 @@ opts_chunk$set(
     warning = FALSE)
 
 theme_set(theme_light(base_size = 14))
+theme_update(legend.position = "bottom")
 
 output_dir <- getwd()
 data_dir <- file.path(output_dir, "data")
