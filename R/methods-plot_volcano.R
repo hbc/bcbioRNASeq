@@ -7,6 +7,7 @@
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
+#' @param genes Character vector of gene symbols to label.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
 #' @param shade_color Shading color for bounding box.
@@ -32,8 +33,9 @@
 #' res <- results(dds)
 #'
 #' plot_volcano(res)
+#' plot_volcano(res, genes = "Sulf1")
 #' plot_volcano(res, ntop = 5L)
-#' plot_volcano(res, padj = FALSE, lfc = 2L)
+#' plot_volcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
 
 
 
@@ -47,6 +49,7 @@
     alpha = 0.1,
     padj = TRUE,
     lfc = 1L,
+    genes = NULL,
     ntop = 0L,
     direction = "both",
     shade_color = "green",
@@ -96,7 +99,10 @@
 
 
     # Text labels ====
-    if (ntop > 0L) {
+    if (!is.null(genes)) {
+        volcano_text <- stats %>%
+            filter(.data[["symbol"]] %in% !!genes)
+    } else if (ntop > 0L) {
         volcano_text <- stats[1L:ntop, ]
     } else {
         volcano_text <- NULL
@@ -257,8 +263,10 @@
 
 #' @rdname plot_volcano
 #' @export
-setMethod("plot_volcano", "DESeqResults", function(object, ...) {
+setMethod("plot_volcano", "DESeqResults", function(object, alpha = NULL, ...) {
     res_df <- as.data.frame(object)
-    alpha <- metadata(object)[["alpha"]]
+    if (is.null(alpha)) {
+        alpha <- metadata(object)[["alpha"]]
+    }
     .plot_volcano(res_df, alpha = alpha, ...)
 })
