@@ -129,7 +129,11 @@
         ggplot(aes_(x = ~log2_fold_change)) +
         geom_density() +
         scale_x_continuous(limits = range_lfc) +
-        labs(x = "log2 fold change")
+        labs(x = "log2 fold change",
+             y = "") +
+        # Don't label density y-axis
+        theme(axis.text.y = element_blank(),
+              axis.ticks.y = element_blank())
     if (direction == "both" | direction == "up") {
         lfc_hist <- lfc_hist +
             geom_ribbon(
@@ -166,7 +170,11 @@
                     ymin = 0L,
                     fill = shade_color,
                     alpha = shade_alpha) +
-        labs(x = paste("-log10", p_title))
+        labs(x = paste("-log10", p_title),
+             y = "") +
+        # Don't label density y-axis
+        theme(axis.text.y = element_blank(),
+              axis.ticks.y = element_blank())
 
 
     # Volcano plot ====
