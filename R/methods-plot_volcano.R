@@ -15,7 +15,7 @@
 #' @param point_color Point color.
 #' @param point_alpha Point transparency alpha.
 #' @param point_outline_color Point outline color.
-#' @param grid Arrange plots into grid.
+#' @param histograms Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
@@ -36,6 +36,7 @@
 #' plot_volcano(res, genes = "Sulf1")
 #' plot_volcano(res, ntop = 5L)
 #' plot_volcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
+#' plot_volcano(res, histograms = FALSE)
 
 
 
@@ -57,7 +58,7 @@
     point_color = "gray",
     point_alpha = 0.75,
     point_outline_color = "darkgray",
-    grid = TRUE) {
+    histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
         stop("Direction must be both, up, or down")
@@ -249,7 +250,7 @@
 
 
     # Grid layout ====
-    if (isTRUE(grid)) {
+    if (isTRUE(histograms)) {
         ggdraw() +
             # Coordinates are relative to lower left corner
             draw_plot(
@@ -261,9 +262,7 @@
             draw_plot(
                 volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
     } else {
-        show(lfc_hist)
-        show(pvalue_hist)
-        show(volcano)
+        volcano
     }
 }
 

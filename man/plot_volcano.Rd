@@ -12,7 +12,7 @@ plot_volcano(object, ...)
 .plot_volcano(res_df, alpha = 0.1, padj = TRUE, lfc = 1L, genes = NULL,
   ntop = 0L, direction = "both", shade_color = "green",
   shade_alpha = 0.25, point_color = "gray", point_alpha = 0.75,
-  point_outline_color = "darkgray", grid = TRUE)
+  point_outline_color = "darkgray", histograms = TRUE)
 
 \S4method{plot_volcano}{DESeqResults}(object, alpha = NULL, ...)
 }
@@ -47,7 +47,7 @@ subset the results prior to plotting.}
 
 \item{point_outline_color}{Point outline color.}
 
-\item{grid}{Arrange plots into grid.}
+\item{histograms}{Show LFC and P value histograms.}
 }
 \value{
 Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
