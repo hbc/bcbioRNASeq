@@ -262,7 +262,7 @@
             draw_plot(
                 volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
     } else {
-        volcano
+        volcano + ggtitle("volcano")
     }
 }
 
