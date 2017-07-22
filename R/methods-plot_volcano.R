@@ -4,8 +4,8 @@
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #' @family Differential Expression Plots
 #'
-#' @param padj Use P values adjusted for multiple comparisions.
 #' @param alpha Alpha level cutoff used for coloring.
+#' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
@@ -30,9 +30,11 @@
 #'     design = formula(~group)) %>%
 #'     DESeq
 #' res <- results(dds)
+#'
 #' plot_volcano(res)
+#' plot_volcano(res, ntop = 5L)
 #' plot_volcano(res, padj = FALSE, lfc = 2L)
-#' plot_volcano(res, ntop = 10L)
+
 
 
 
@@ -42,8 +44,8 @@
 #'   subset the results prior to plotting.
 .plot_volcano <- function(
     res_df,
+    alpha = 0.1,
     padj = TRUE,
-    alpha = 0.05,
     lfc = 1L,
     ntop = 0L,
     direction = "both",
@@ -70,6 +72,9 @@
                               "padj"))) %>%
         # Filter zero counts for quicker plotting
         filter(!is.na(.data[["log2_fold_change"]]))
+    g2s <- detectOrganism(stats[["ensgene"]][[1L]]) %>%
+        gene2symbol
+    stats <- left_join(stats, g2s, by = "ensgene")
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -84,8 +89,10 @@
     }
 
     stats <- stats %>%
-        # Arrange transformed P values (high to low)
-        arrange(desc(!!sym("neg_log10_pvalue")))
+        # Calculate rank score
+        mutate(rank_score = .data[["neg_log10_pvalue"]] *
+                   abs(.data[["log2_fold_change"]])) %>%
+        arrange(desc(!!sym("rank_score")))
 
 
     # Text labels ====
@@ -175,8 +182,17 @@
                 data = volcano_text,
                 aes_(x = ~log2_fold_change,
                      y = ~neg_log10_pvalue,
-                     label = ~ensgene),
-                size = 3L)
+                     label = ~symbol),
+                arrow = arrow(length = unit(0.01, "npc")),
+                box.padding = unit(0.5, "lines"),
+                color = "black",
+                fontface = "bold",
+                force = 1L,
+                point.padding = unit(0.75, "lines"),
+                segment.color = "gray",
+                segment.size = 0.5,
+                show.legend = FALSE,
+                size = 4L)
     }
     if (direction == "both" | direction == "up") {
         volcano_poly_up <- with(stats, data.frame(
@@ -242,10 +258,7 @@
 #' @rdname plot_volcano
 #' @export
 setMethod("plot_volcano", "DESeqResults", function(object, ...) {
-    detect_organism(object)
     res_df <- as.data.frame(object)
-
-    gene2symbol <-
     alpha <- metadata(object)[["alpha"]]
     .plot_volcano(res_df, alpha = alpha, ...)
 })

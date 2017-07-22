@@ -9,7 +9,7 @@
 \usage{
 plot_volcano(object, ...)
 
-.plot_volcano(res_df, padj = TRUE, alpha = 0.05, lfc = 1L, ntop = 0L,
+.plot_volcano(res_df, alpha = 0.1, padj = TRUE, lfc = 1L, ntop = 0L,
   direction = "both", shade_color = "green", shade_alpha = 0.25,
   point_color = "gray", point_alpha = 0.75,
   point_outline_color = "darkgray", grid = TRUE)
@@ -25,9 +25,9 @@ plot_volcano(object, ...)
 \link{data.frame}, we allow for increased flexibility, since a user may want to
 subset the results prior to plotting.}
 
-\item{padj}{Use P values adjusted for multiple comparisions.}
-
 \item{alpha}{Alpha level cutoff used for coloring.}
+
+\item{padj}{Use P values adjusted for multiple comparisions.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
@@ -62,9 +62,10 @@ dds <- DESeqDataSetFromTximport(
     design = formula(~group)) \%>\%
     DESeq
 res <- results(dds)
+
 plot_volcano(res)
+plot_volcano(res, ntop = 5L)
 plot_volcano(res, padj = FALSE, lfc = 2L)
-plot_volcano(res, ntop = 10L)
 }
 \seealso{
 This function is an updated variant of
