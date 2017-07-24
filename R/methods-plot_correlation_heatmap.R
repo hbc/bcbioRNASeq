@@ -24,7 +24,7 @@
 #' @param interesting_groups *Optional*. Interesting groups to label with bars
 #'   above heatmap. If `NULL`, defaults to `interesting_groups` defined in the
 #'   [bcbioRNADataSet].
-#' @param annotation *Optional*. Alternative annotation to use. Useful when
+#' @param annotation_col *Optional*. Alternative annotation to use. Useful when
 #'   plotting more than one column.
 #' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional arguments, passed to [pheatmap::pheatmap()].
@@ -48,7 +48,7 @@ setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     genes = NULL,
     samples = NULL,
     interesting_groups = NULL,
-    annotation = NULL,
+    annotation_col = NULL,
     title = NULL,
     ...) {
     # Check for supported correlation method
@@ -62,8 +62,8 @@ setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     }
 
     # Per sample annotations of interest
-    if (is.null(annotation)) {
-        annotation <- colData(object) %>%
+    if (is.null(annotation_col)) {
+        annotation_col <- colData(object) %>%
             .[, interesting_groups, drop = FALSE] %>%
             as.data.frame
     }
@@ -90,13 +90,13 @@ setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     # Subset count matrix by input samples, if desired
     if (!is.null(samples)) {
         counts <- counts[, samples]
-        annotation <- annotation[samples, ]
+        annotation_col <- annotation_col[samples, ]
     }
 
     counts %>%
         cor(method = method) %>%
         pheatmap(
-            annotation = annotation,
+            annotation_col = annotation_col,
             clustering_method = clustering_method,
             clustering_distance_rows = "correlation",
             clustering_distance_cols = "correlation",
