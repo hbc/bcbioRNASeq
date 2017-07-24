@@ -23,7 +23,7 @@ library(DESeq2)
 # Need to save bcb using `load_run()` prior to knit!
 bcb_name <- load(params$bcb)
 assign("bcb", get(bcb_name))
-if (is.null(bcb)) stop("bcbRNADataSet missing")
+if (is.null(bcb)) stop("bcbioRNADataSet missing")
 
 # Design formula
 # help("design", "DESeq2")
