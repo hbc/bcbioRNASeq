@@ -69,6 +69,7 @@ plot_volcano(res)
 plot_volcano(res, genes = "Sulf1")
 plot_volcano(res, ntop = 5L)
 plot_volcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
+plot_volcano(res, histograms = FALSE)
 }
 \seealso{
 This function is an updated variant of

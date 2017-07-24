@@ -4,7 +4,7 @@
 \name{plot_srna_clusters}
 \alias{plot_srna_clusters}
 \alias{plot_srna_clusters,bcbioRNADataSet-method}
-\title{Cluster Small RNA samples}
+\title{Cluster Small RNA Samples}
 \usage{
 plot_srna_clusters(object, ...)
 
@@ -19,7 +19,7 @@ plot_srna_clusters(object, ...)
 \link{ggplot}.
 }
 \description{
-Cluster Small RNA samples
+Cluster Small RNA Samples
 }
 \examples{
 data(bcb)

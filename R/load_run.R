@@ -197,7 +197,7 @@ load_run <- function(
         message("Reading STAR/featureCounts aligned counts")
         fc <- read_tsv(fc_file) %>%
             as.data.frame %>%
-            snake(rownames = FALSE) %>%
+            snake %>%
             column_to_rownames("id") %>%
             as.matrix
         if (!identical(colnames(raw_counts), colnames(fc))) {
