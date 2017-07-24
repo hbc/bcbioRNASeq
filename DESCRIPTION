@@ -53,7 +53,7 @@ Imports:
     grid,
     isomiRs,
     methods,
-    pheatmap,
+    pheatmap (>= 1.0.8),
     rjson,
     S4Vectors,
     stats,
