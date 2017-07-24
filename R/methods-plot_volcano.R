@@ -40,7 +40,6 @@
 
 
 
-
 #' @rdname plot_volcano
 #' @param res_df [DESeqResults] coerced to a [data.frame]. By inputting a
 #'   [data.frame], we allow for increased flexibility, since a user may want to

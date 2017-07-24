@@ -12,7 +12,7 @@ plot_correlation_heatmap(object, ...)
 \S4method{plot_correlation_heatmap}{bcbioRNADataSet}(object,
   transform = "rlog", method = "pearson", clustering_method = "ward.D2",
   genes = NULL, samples = NULL, interesting_groups = NULL,
-  annotation = NULL, title = NULL, ...)
+  annotation_col = NULL, title = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -39,7 +39,7 @@ plot.}
 above heatmap. If \code{NULL}, defaults to \code{interesting_groups} defined in the
 \link{bcbioRNADataSet}.}
 
-\item{annotation}{\emph{Optional}. Alternative annotation to use. Useful when
+\item{annotation_col}{\emph{Optional}. Alternative annotation to use. Useful when
 plotting more than one column.}
 
 \item{title}{\emph{Optional}. Text to include in plot title.}

@@ -12,7 +12,7 @@
 plot_gene_heatmap(object, ...)
 
 .plot_gene_heatmap(counts, genes = NULL, cluster_rows = TRUE,
-  cluster_cols = TRUE, scale = "row", annotation = NULL, ...)
+  cluster_cols = TRUE, scale = "row", annotation_col = NULL, ...)
 
 \S4method{plot_gene_heatmap}{bcbioRNADataSet}(object, ..., symbol = FALSE)
 
@@ -36,7 +36,7 @@ plot_gene_heatmap(object, ...)
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the \code{row} direction, \code{column} direction, or \code{none}.}
 
-\item{annotation}{\emph{Optional}. Alternative annotation to use. Useful when
+\item{annotation_col}{\emph{Optional}. Alternative annotation to use. Useful when
 plotting more than one column.}
 
 \item{symbol}{Match against Ensembl gene symbols.}
