@@ -45,7 +45,7 @@ Imports:
     BiocGenerics,
     cowplot,
     data.table,
-    DEGreport (>= 1.12.0),
+    DEGreport (>= 1.13.7),
     DESeq2 (>= 1.16.1),
     edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
