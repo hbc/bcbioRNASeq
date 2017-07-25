@@ -60,9 +60,6 @@ dds <- DESeqDataSetFromTximport(
 save_data(dds, dir = data_dir)
 ```
 
-```{r header, child="header.Rmd"}
-```
-
 
 
 # Alpha level (FDR) cutoffs
