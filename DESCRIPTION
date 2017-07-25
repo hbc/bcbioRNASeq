@@ -66,6 +66,7 @@ Suggests:
     RUnit,
     testthat
 Remotes:
+    lpantano/DEGreport,
     steinbaugh/basejump,
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
