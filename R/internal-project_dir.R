@@ -8,7 +8,7 @@
 .data_versions <- function(project_dir) {
     file <- file.path(project_dir, "data_versions.csv")
     if (!file.exists(file)) {
-        warning("Data versions file missing")
+        warning(paste(basename(file), "missing"))
         return(NULL)
     }
     read_csv(file)
@@ -24,7 +24,10 @@
 #'
 #' @param file Log file.
 .log_file <- function(file) {
-    if (!file.exists(file)) return(NULL)
+    if (!file.exists(file)) {
+        warning(paste(basename(file), "missing"))
+        return(NULL)
+    }
     read_lines(file)
 }
 
@@ -40,7 +43,7 @@
 .programs <- function(project_dir) {
     file <- file.path(project_dir, "programs.txt")
     if (!file.exists(file)) {
-        warning("Program version file missing")
+        warning(paste(basename(file), "missing"))
         return(NULL)
     }
     read_delim(file, col_names = c("program", "version"), delim = ",")
