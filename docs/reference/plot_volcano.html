@@ -89,13 +89,13 @@
 
     <pre class="usage"><span class='fu'>plot_volcano</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='fu'>.plot_volcano</span>(<span class='no'>res_df</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>shade_color</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shade_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>point_outline_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>.plot_volcano</span>(<span class='no'>res_df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>shade_color</span> <span class='kw'>=</span> <span class='st'>"green"</span>,
+  <span class='kw'>shade_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>point_outline_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plot_volcano</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot_volcano</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,16 +115,20 @@ data.frame, we allow for increased flexibility, since a user may want to
 subset the results prior to plotting.</p></td>
     </tr>
     <tr>
-      <th>padj</th>
-      <td><p>Use P values adjusted for multiple comparisions.</p></td>
-    </tr>
-    <tr>
       <th>alpha</th>
       <td><p>Alpha level cutoff used for coloring.</p></td>
     </tr>
     <tr>
+      <th>padj</th>
+      <td><p>Use P values adjusted for multiple comparisions.</p></td>
+    </tr>
+    <tr>
       <th>lfc</th>
       <td><p>Log fold change ratio (base 2) cutoff for coloring.</p></td>
+    </tr>
+    <tr>
+      <th>genes</th>
+      <td><p>Character vector of gene symbols to label.</p></td>
     </tr>
     <tr>
       <th>ntop</th>
@@ -155,8 +159,8 @@ subset the results prior to plotting.</p></td>
       <td><p>Point outline color.</p></td>
     </tr>
     <tr>
-      <th>grid</th>
-      <td><p>Arrange plots into grid.</p></td>
+      <th>histograms</th>
+      <td><p>Show LFC and P value histograms.</p></td>
     </tr>
     </table>
     
@@ -179,7 +183,8 @@ individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot
     <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'><a href='all_generics.html'>colData</a></span>(<span class='no'>bcb</span>),
     <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
     <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>results</a></span>(<span class='no'>dds</span>)
-<span class='fu'>plot_volcano</span>(<span class='no'>res</span>)</div><div class='img'><img src='plot_volcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>2L</span>)</div><div class='img'><img src='plot_volcano-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>10L</span>)</div><div class='img'><img src='plot_volcano-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+
+<span class='fu'>plot_volcano</span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene2symbol annotable</span></div><div class='img'><img src='plot_volcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene2symbol annotable</span></div><div class='img'><img src='plot_volcano-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene2symbol annotable</span></div><div class='img'><img src='plot_volcano-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>4L</span>)</div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene2symbol annotable</span></div><div class='img'><img src='plot_volcano-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plot_volcano</span>(<span class='no'>res</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using grcm38 gene2symbol annotable</span></div><div class='img'><img src='plot_volcano-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

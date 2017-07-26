@@ -8,20 +8,34 @@
 \usage{
 plot_gene(object, ...)
 
-\S4method{plot_gene}{bcbioRNADataSet}(object, gene, format = "symbol")
+\S4method{plot_gene}{bcbioRNADataSet}(object, normalized = "tpm", gene,
+  format = "symbol")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
+
 \item{gene}{Gene identifier. Can input multiple genes as a character vector.}
 
-\item{format}{Ensembl identifier format. Defaults to the gene symbol (a.k.a.
-\code{external_gene_name}).}
+\item{format}{Ensembl identifier format. Supports \code{symbol} (\strong{default}) or
+\code{ensgene}.}
+}
+\value{
+\link{ggplot}.
 }
 \description{
 Plot Individual Genes
+}
+\examples{
+data(bcb)
+plot_gene(bcb, gene = c("Sulf1", "Phf3"))
+}
+\seealso{
+\code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
 }
 \author{
 Michael Steinbaugh

@@ -1,4 +1,4 @@
-#' Cluster Small RNA samples
+#' Cluster Small RNA Samples
 #'
 #' @rdname plot_srna_clusters
 #' @author Lorena Pantano, Michael Steinbaugh
@@ -13,25 +13,24 @@
 #' data(bcb)
 #' plot_srna_clusters(bcb)
 setMethod("plot_srna_clusters", "bcbioRNADataSet", function(object) {
-    counts <- counts(object)
-    # FIXME This slot is broken
-    design <- metadata(object)[["metadata"]]
-    if (is.null(design)) {
-        warning("Broken code")
-        return(NULL)
-    }
+    counts <- assay(object) %>%
+        # Require at least 3 counts
+        .[rowSums(. > 0L) > 3L, ] %>%
+        # DESeq requires integers
+        round
     dds <- DESeqDataSetFromMatrix(
-        counts[rowSums(counts > 0L) > 3L, ],
-        colData = design,
+        countData = counts,
+        colData = colData(object),
         design = ~1L)
-    vst <- rlog(dds, betaPriorVar = FALSE)
-    annotation_col <- design %>%
+    vst_counts <- rlog(dds) %>% assay
+    annotation_col <- colData(object) %>%
+        as.data.frame %>%
         .[, metadata(object)[["interesting_groups"]], drop = FALSE]
-    pheatmap(assay(vst),
+    pheatmap(vst_counts,
              annotation_col = annotation_col,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D",
              scale = "row",
              show_rownames = FALSE)
-    plot_pca(metadata(object), vst)
+    plot_pca(object)
 })

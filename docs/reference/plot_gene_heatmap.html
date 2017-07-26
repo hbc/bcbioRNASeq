@@ -95,7 +95,7 @@ are sorted by the interesting groups (<code>interesting_groups</code>) specified
     <pre class="usage"><span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='fu'>.plot_gene_heatmap</span>(<span class='no'>counts</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cluster_rows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>annotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+  <span class='kw'>cluster_cols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>annotation_col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>plot_gene_heatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -139,7 +139,7 @@ are sorted by the interesting groups (<code>interesting_groups</code>) specified
 in either the <code>row</code> direction, <code>column</code> direction, or <code>none</code>.</p></td>
     </tr>
     <tr>
-      <th>annotation</th>
+      <th>annotation_col</th>
       <td><p><em>Optional</em>. Alternative annotation to use. Useful when
 plotting more than one column.</p></td>
     </tr>

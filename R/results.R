@@ -1,5 +1,3 @@
-# FIXME Need to migrate these to bcbioRNAResults S4 methods
-
 #' Differential expression results tables
 #'
 #' @author Michael Steinbaugh

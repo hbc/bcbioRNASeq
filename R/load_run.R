@@ -136,9 +136,9 @@ load_run <- function(
     message("Reading bcbio run information")
     data_versions <- .data_versions(project_dir)
     programs <- .programs(project_dir)
-    bcbio_nextgen_log <-
+    bcbio_log <-
         .log_file(file.path(project_dir, "bcbio-nextgen.log"))
-    bcbio_nextgen_commands_log <-
+    bcbio_commands_log <-
         .log_file(file.path(project_dir, "bcbio-nextgen-commands.log"))
 
 
@@ -163,8 +163,8 @@ load_run <- function(
         sample_metadata_file = sample_metadata_file,
         data_versions = data_versions,
         programs = programs,
-        bcbio_nextgen_log = bcbio_nextgen_log,
-        bcbio_nextgen_commands_log = bcbio_nextgen_commands_log,
+        bcbio_log = bcbio_log,
+        bcbio_commands_log = bcbio_commands_log,
         all_samples = all_samples)
 
     # Add user-defined custom metadata, if specified
@@ -197,7 +197,7 @@ load_run <- function(
         message("Reading STAR/featureCounts aligned counts")
         fc <- read_tsv(fc_file) %>%
             as.data.frame %>%
-            snake(rownames = FALSE) %>%
+            snake %>%
             column_to_rownames("id") %>%
             as.matrix
         if (!identical(colnames(raw_counts), colnames(fc))) {

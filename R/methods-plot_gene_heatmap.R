@@ -18,7 +18,7 @@
 #' @param cluster_cols Use hierarchical clustering to arrange columns.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
-#' @param annotation *Optional*. Alternative annotation to use. Useful when
+#' @param annotation_col *Optional*. Alternative annotation to use. Useful when
 #'   plotting more than one column.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
@@ -55,7 +55,7 @@
     cluster_rows = TRUE,
     cluster_cols = TRUE,
     scale = "row",
-    annotation = NULL,
+    annotation_col = NULL,
     ...) {
     counts <- counts %>%
         as.matrix %>%
@@ -76,7 +76,7 @@
         show_rownames <- FALSE
     }
     pheatmap(counts,
-             annotation = annotation,
+             annotation_col = annotation_col,
              cluster_cols = cluster_cols,
              cluster_rows = cluster_rows,
              scale = scale,
@@ -97,12 +97,12 @@ setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
         rownames(counts) <- gene2symbol(object) %>%
             .[rownames(counts), "symbol"]
     }
-    annotation <- colData(object) %>%
+    annotation_col <- colData(object) %>%
         as("tibble") %>%
         tidy_select(c("rowname", metadata(object)[["interesting_groups"]])) %>%
         as.data.frame %>%
         column_to_rownames
-    .plot_gene_heatmap(counts, annotation = annotation, ...)
+    .plot_gene_heatmap(counts, annotation_col = annotation_col, ...)
 })
 
 

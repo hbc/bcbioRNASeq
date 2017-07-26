@@ -4,7 +4,7 @@
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![codecov](https://codecov.io/gh/hbc/bcbioRnaseq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRnaseq)
 
-Quality control and differential expression for [bcbio-nextgen][] RNA-seq experiments.
+Quality control and differential expression for [bcbio][] RNA-seq experiments.
 
 
 ## Installation
@@ -38,12 +38,12 @@ devtools::install_github("hbc/bcbioRnaseq")
 
 - For all changes, fork or create a new branch, then issue a pull request that will be reviewed.
 - Do not commit changes directly to master branch.
-- Open issues for any changes affecting `bcbioRNADataSet` class or `setup.R` [RMarkdown][] dependency file.
-- Support can only provided for current release version.
+- Open issues for any changes affecting `bcbioRNADataSet` class.
+- Support is only provided for the current release version.
 
 
-[Bioconductor]: https://bioconductor.org
-[bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
+[bcbio]: https://github.com/chapmanb/bcbio-nextgen
+[bioconductor]: https://bioconductor.org
 [devtools]: https://cran.r-project.org/package=devtools
-[R]: https://www.r-project.org
-[RMarkdown]: http://rmarkdown.rstudio.com
+[r]: https://www.r-project.org
+[rmarkdown]: http://rmarkdown.rstudio.com

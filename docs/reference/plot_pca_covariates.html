@@ -91,7 +91,7 @@
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>plot_pca_covariates</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='kw'>use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -113,8 +113,8 @@
 </ul></td>
     </tr>
     <tr>
-      <th>use</th>
-      <td><p><em>Optional</em>. Character vector of columns to use.</p></td>
+      <th>metrics</th>
+      <td><p>Includesample summary metrics as covariates.</p></td>
     </tr>
     </table>
     
@@ -135,7 +135,7 @@
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 <span class='fu'>plot_pca_covariates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Running PCA and calculating correlations for:</span>
-#&gt; <span class='message'>Un-scaled  data in PCA; PVE &gt;= 5%; spearman correlations </span></div><div class='output co'>#&gt; <span class='error'>Error in `[.default`(COVAR_data, , character_vars, drop = FALSE): incorrect number of dimensions</span></div></pre>
+#&gt; <span class='message'>Un-scaled  data in PCA; PVE &gt;= 5%; spearman correlations </span></div><div class='img'><img src='plot_pca_covariates-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

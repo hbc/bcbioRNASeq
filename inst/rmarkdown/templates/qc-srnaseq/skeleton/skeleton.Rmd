@@ -18,14 +18,14 @@ library(isomiRs)
 # Need to save bcb using `load_run()` prior to knit!
 bcb_name <- load(params$bcb)
 assign("bcb", get(bcb_name))
-if (is.null(bcb)) stop("bcbRNADataSet missing")
+if (is.null(bcb)) stop("bcbioRNADataSet missing")
 
 # Directory paths
 data_dir <- params$data_dir
 counts_dir <- params$counts_dir
 ```
 
-```{r header, child="header.Rmd"}
+```{r header, child="_header.Rmd"}
 ```
 
 
@@ -80,5 +80,5 @@ isoPlot(ids, type = "all", column = "group")
 
 
 
-```{r footer, child="footer.Rmd"}
+```{r footer, child="_footer.Rmd"}
 ```
