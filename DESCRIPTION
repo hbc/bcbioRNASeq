@@ -39,12 +39,12 @@ URL:
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
 Depends:
     R (>= 3.4.0),
+    basejump (>= 0.0.19),
     SummarizedExperiment (>= 1.6.3)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    basejump (>= 0.0.19),
     BiocGenerics,
     cowplot,
     data.table,
