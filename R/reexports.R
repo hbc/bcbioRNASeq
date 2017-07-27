@@ -1,3 +1,11 @@
+#' @export
+BiocGenerics::counts
+
+#' @export
+BiocGenerics::design
+
+
+
 # DESeq2 ====
 #' @export
 DESeq2::DESeq
