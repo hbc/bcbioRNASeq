@@ -10,6 +10,8 @@
 #'   applied to extracted assay elements.
 #' @param x Object.
 #' @param ... Additional arguments.
+#'
+#' @return No value.
 NULL
 
 
@@ -40,7 +42,7 @@ NULL
 
 
 #' @rdname aggregate_replicates
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("aggregate_replicates", function(object, ...) {
     standardGeneric("aggregate_replicates")
@@ -49,7 +51,7 @@ setGeneric("aggregate_replicates", function(object, ...) {
 
 
 #' @rdname alpha_summary
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("alpha_summary", function(object, ...) {
     standardGeneric("alpha_summary")
@@ -58,7 +60,7 @@ setGeneric("alpha_summary", function(object, ...) {
 
 
 #' @rdname bcbio
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("bcbio", function(object, ...) {
     standardGeneric("bcbio")
@@ -67,7 +69,7 @@ setGeneric("bcbio", function(object, ...) {
 
 
 #' @rdname bcbio
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("bcbio<-", function(object, ..., value) {
     standardGeneric("bcbio<-")
@@ -76,7 +78,7 @@ setGeneric("bcbio<-", function(object, ..., value) {
 
 
 #' @rdname melt_log10
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("melt_log10", function(object, ...) {
     standardGeneric("melt_log10")
@@ -85,7 +87,7 @@ setGeneric("melt_log10", function(object, ...) {
 
 
 #' @rdname metadata_table
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("metadata_table", function(object, ...) {
     standardGeneric("metadata_table")
@@ -94,7 +96,7 @@ setGeneric("metadata_table", function(object, ...) {
 
 
 #' @rdname metrics
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("metrics", function(object) {
     standardGeneric("metrics")
@@ -103,7 +105,7 @@ setGeneric("metrics", function(object) {
 
 
 #' @rdname plot_correlation_heatmap
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_correlation_heatmap", function(object, ...) {
     standardGeneric("plot_correlation_heatmap")
@@ -112,7 +114,7 @@ setGeneric("plot_correlation_heatmap", function(object, ...) {
 
 
 #' @rdname plot_count_density
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_count_density", function(object, ...) {
     standardGeneric("plot_count_density")
@@ -121,7 +123,7 @@ setGeneric("plot_count_density", function(object, ...) {
 
 
 #' @rdname plot_counts_per_gene
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_counts_per_gene", function(object, ...) {
     standardGeneric("plot_counts_per_gene")
@@ -130,7 +132,7 @@ setGeneric("plot_counts_per_gene", function(object, ...) {
 
 
 #' @rdname plot_deg_heatmap
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_deg_heatmap", function(object, counts, ...) {
     standardGeneric("plot_deg_heatmap")
@@ -139,7 +141,7 @@ setGeneric("plot_deg_heatmap", function(object, counts, ...) {
 
 
 #' @rdname plot_dispersion
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_dispersion", function(object) {
     standardGeneric("plot_dispersion")
@@ -148,7 +150,7 @@ setGeneric("plot_dispersion", function(object) {
 
 
 #' @rdname plot_exonic_mapping_rate
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_exonic_mapping_rate", function(object, ...) {
     standardGeneric("plot_exonic_mapping_rate")
@@ -157,7 +159,7 @@ setGeneric("plot_exonic_mapping_rate", function(object, ...) {
 
 
 #' @rdname plot_gender_markers
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_gender_markers", function(object, ...) {
     standardGeneric("plot_gender_markers")
@@ -166,7 +168,7 @@ setGeneric("plot_gender_markers", function(object, ...) {
 
 
 #' @rdname plot_gene
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_gene", function(object, ...) {
     standardGeneric("plot_gene")
@@ -175,7 +177,7 @@ setGeneric("plot_gene", function(object, ...) {
 
 
 #' @rdname plot_gene_detection_saturation
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_gene_detection_saturation", function(object, ...) {
     standardGeneric("plot_gene_detection_saturation")
@@ -184,7 +186,7 @@ setGeneric("plot_gene_detection_saturation", function(object, ...) {
 
 
 #' @rdname plot_gene_heatmap
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_gene_heatmap", function(object, ...) {
     standardGeneric("plot_gene_heatmap")
@@ -193,7 +195,7 @@ setGeneric("plot_gene_heatmap", function(object, ...) {
 
 
 #' @rdname plot_genes_detected
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_genes_detected", function(object, ...) {
     standardGeneric("plot_genes_detected")
@@ -202,7 +204,7 @@ setGeneric("plot_genes_detected", function(object, ...) {
 
 
 #' @rdname plot_intronic_mapping_rate
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_intronic_mapping_rate", function(object, ...) {
     standardGeneric("plot_intronic_mapping_rate")
@@ -211,7 +213,7 @@ setGeneric("plot_intronic_mapping_rate", function(object, ...) {
 
 
 #' @rdname plot_ma
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_ma", function(object, ...) {
     standardGeneric("plot_ma")
@@ -220,7 +222,7 @@ setGeneric("plot_ma", function(object, ...) {
 
 
 #' @rdname plot_mapped_reads
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_mapped_reads", function(object, ...) {
     standardGeneric("plot_mapped_reads")
@@ -229,7 +231,7 @@ setGeneric("plot_mapped_reads", function(object, ...) {
 
 
 #' @rdname plot_mapping_rate
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_mapping_rate", function(object, ...) {
     standardGeneric("plot_mapping_rate")
@@ -238,7 +240,7 @@ setGeneric("plot_mapping_rate", function(object, ...) {
 
 
 #' @rdname plot_mean_sd
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_mean_sd", function(object, ...) {
     standardGeneric("plot_mean_sd")
@@ -247,7 +249,7 @@ setGeneric("plot_mean_sd", function(object, ...) {
 
 
 #' @rdname plot_mirna_counts
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_mirna_counts", function(object, ...) {
     standardGeneric("plot_mirna_counts")
@@ -256,7 +258,7 @@ setGeneric("plot_mirna_counts", function(object, ...) {
 
 
 #' @rdname plot_pattern
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_pattern", function(object, ...) {
     standardGeneric("plot_pattern")
@@ -265,7 +267,7 @@ setGeneric("plot_pattern", function(object, ...) {
 
 
 #' @rdname plot_pca
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_pca", function(object, ...) {
     standardGeneric("plot_pca")
@@ -274,7 +276,7 @@ setGeneric("plot_pca", function(object, ...) {
 
 
 #' @rdname plot_pca_covariates
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_pca_covariates", function(object, ...) {
     standardGeneric("plot_pca_covariates")
@@ -283,7 +285,7 @@ setGeneric("plot_pca_covariates", function(object, ...) {
 
 
 #' @rdname plot_rrna_mapping_rate
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_rrna_mapping_rate", function(object, ...) {
     standardGeneric("plot_rrna_mapping_rate")
@@ -292,7 +294,7 @@ setGeneric("plot_rrna_mapping_rate", function(object, ...) {
 
 
 #' @rdname plot_size_distribution
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_size_distribution", function(object, ...) {
     standardGeneric("plot_size_distribution")
@@ -301,7 +303,7 @@ setGeneric("plot_size_distribution", function(object, ...) {
 
 
 #' @rdname plot_srna_clusters
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_srna_clusters", function(object, ...) {
     standardGeneric("plot_srna_clusters")
@@ -310,7 +312,7 @@ setGeneric("plot_srna_clusters", function(object, ...) {
 
 
 #' @rdname plot_total_reads
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_total_reads", function(object, ...) {
     standardGeneric("plot_total_reads")
@@ -319,7 +321,7 @@ setGeneric("plot_total_reads", function(object, ...) {
 
 
 #' @rdname plot_volcano
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_volcano", function(object, ...) {
     standardGeneric("plot_volcano")
@@ -328,7 +330,7 @@ setGeneric("plot_volcano", function(object, ...) {
 
 
 #' @rdname plot_5_3_bias
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("plot_5_3_bias", function(object, ...) {
     standardGeneric("plot_5_3_bias")
@@ -337,7 +339,7 @@ setGeneric("plot_5_3_bias", function(object, ...) {
 
 
 #' @rdname sample_dirs
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("sample_dirs", function(object) {
     standardGeneric("sample_dirs")
@@ -346,7 +348,7 @@ setGeneric("sample_dirs", function(object) {
 
 
 #' @rdname tmm
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("tmm", function(object) {
     standardGeneric("tmm")
@@ -355,7 +357,7 @@ setGeneric("tmm", function(object) {
 
 
 #' @rdname tpm
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("tpm", function(object) {
     standardGeneric("tpm")
@@ -364,7 +366,7 @@ setGeneric("tpm", function(object) {
 
 
 #' @rdname txi
-#' @inherit all_generics
+#' @inheritParams all_generics
 #' @export
 setGeneric("txi", function(object) {
     standardGeneric("txi")
