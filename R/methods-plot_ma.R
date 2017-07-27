@@ -1,3 +1,5 @@
+# FIXME Simplify with g2s lookup
+
 #' Plot Mean Average
 #'
 #' @rdname plot_ma
@@ -76,6 +78,15 @@
                      y = ~log2_fold_change,
                      label = as.name(label_column)),
                 color = label_color,
+                arrow = arrow(length = unit(0.01, "npc")),
+                box.padding = unit(0.5, "lines"),
+                color = label_color,
+                fontface = "bold",
+                force = 1L,
+                point.padding = unit(0.75, "lines"),
+                segment.color = "gray",
+                segment.size = 0.5,
+                show.legend = FALSE,
                 size = 4L)
     }
     p
