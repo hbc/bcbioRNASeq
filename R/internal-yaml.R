@@ -24,7 +24,7 @@
 
     # Check for nested keys, otherwise return NULL
     # Improve recursion method in a future update (lower priority)
-    keys <- get_objs_from_dots(dots(...))
+    keys <- getObjsFromDots(dots(...))
     if (!keys[[1L]] %in% names(samples[[1L]])) {
         return(NULL)
     }
