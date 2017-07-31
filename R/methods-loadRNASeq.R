@@ -1,4 +1,4 @@
-#' Load `bcbio` Run Data
+#' Load `bcbio` RNA-Seq Run
 #'
 #' Simply point to the final upload directory output by
 #' [bcbio](https://bcbio-nextgen.readthedocs.io/), and this function will take

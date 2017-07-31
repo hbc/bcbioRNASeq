@@ -23,7 +23,7 @@
 #' @examples
 #' path <- system.file("extra", package = "bcbioRnaseq")
 #' bcb <- load_run(file.path(path, "bcbio"))
-bcbioRNADataSet <- setClass(  # nolint
+bcbioRNADataSet <- setClass(
     "bcbioRNADataSet",
     contains = "SummarizedExperiment",
     slots = c(callers = "SimpleList"))
@@ -39,14 +39,9 @@ setValidity("bcbioRNADataSet", function(object) TRUE)
 #' @author Michael Steinbaugh
 #'
 #' @export
-bcbioRNAResults <- setClass(  # nolint
+bcbioRNAResults <- setClass(
     "bcbioRNAResults",
     contains = "SummarizedExperiment",
     slots = c(dds = "DESeqDataSet",
               res = "DESeqResults"))
 setValidity("bcbioRNAResults", function(object) TRUE)
-
-
-
-# Miscellaneous ====
-setClassUnion("missingOrNULL", c("missing", "NULL"))

@@ -22,24 +22,13 @@ Authors@R: c(
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
            role = c("cph", "fnd")))
-biocViews:
-    DataImport,
-    DataRepresentation,
-    DifferentialExpression,
-    GeneExpression,
-    Infrastructure,
-    QualityControl,
-    ReportWriting,
-    RNASeq,
-    miRNA,
-    Visualization
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
 Depends:
     R (>= 3.4.0),
-    basejump (>= 0.0.19),
+    basejump (>= 0.0.20),
     SummarizedExperiment (>= 1.6.3)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -65,11 +54,23 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    lintr,
+    lintr (>= 1.0.0.9000),
     RUnit,
     testthat
 Remotes:
+    jimhester/lintr,
     lpantano/DEGreport,
-    steinbaugh/basejump,
+    steinbaugh/basejump
+biocViews:
+    DataImport,
+    DataRepresentation,
+    DifferentialExpression,
+    GeneExpression,
+    Infrastructure,
+    QualityControl,
+    ReportWriting,
+    RNASeq,
+    miRNA,
+    Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
