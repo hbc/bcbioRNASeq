@@ -1,12 +1,11 @@
 ---
-title: "Quality control"
+title: "Quality Control"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
     bcb: "data/bcb.rda"
-    data_dir: "data"
-    counts_dir: "results/counts"
+    outputDir: "."
 ---
 
 ```{r setup, include=FALSE}
@@ -14,14 +13,14 @@ bcbioRnaseq::downloads()
 source("setup.R")
 
 # bcbioRNADataSet
-# Need to save bcb using `load_run()` prior to knit!
-bcb_name <- load(params$bcb)
-assign("bcb", get(bcb_name))
+# Need to save bcb using `loadRun()` prior to knit!
+bcbName <- load(params$bcb)
+assign("bcb", get(bcbName))
 if (is.null(bcb)) stop("bcbioRNADataSet missing")
 
 # Directory paths
-data_dir <- params$data_dir
-counts_dir <- params$counts_dir
+dataDir <- params$dataDir
+countsDir <- params$countsDir
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -30,11 +29,11 @@ counts_dir <- params$counts_dir
 
 
 ```{r counts}
-raw_counts <- counts(bcb, normalized = FALSE)
-normalized_counts <- counts(bcb, normalized = TRUE)
+rawCounts <- counts(bcb, normalized = FALSE)
+normalizedCounts <- counts(bcb, normalized = TRUE)
 tpm <- tpm(bcb)
-save_data(raw_counts, normalized_counts, tpm, dir = data_dir)
-write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
+saveData(rawCounts, normalizedCounts, tpm, dir = dataDir)
+writeCounts(rawCounts, normalizedCounts, tpm, dir = countsDir)
 ```
 
 
@@ -43,8 +42,8 @@ write_counts(raw_counts, normalized_counts, tpm, dir = counts_dir)
 
 ## Total reads
 
-```{r plot_total_reads}
-plot_total_reads(bcb)
+```{r plotTotalReads}
+plotTotalReads(bcb)
 ```
 
 
@@ -52,8 +51,8 @@ plot_total_reads(bcb)
 
 The number of mapped reads should correspond to the number of total reads.
 
-```{r plot_mapped_reads}
-plot_mapped_reads(bcb)
+```{r plotMappedReads}
+plotMappedReads(bcb)
 ```
 
 
@@ -61,15 +60,15 @@ plot_mapped_reads(bcb)
 
 The genomic mapping rate represents the percentage of reads mapping to the reference genome. Low mapping rates are indicative of sample contamination, poor sequencing quality or other artifacts.
 
-```{r plot_mapping_rate}
-plot_mapping_rate(bcb)
+```{r plotMappingRate}
+plotMappingRate(bcb)
 ```
 
 
 ## Number of genes detected
 
-```{r plot_genes_detected}
-plot_genes_detected(bcb)
+```{r plotGenesDetected}
+plotGenesDetected(bcb)
 ```
 
 
@@ -77,8 +76,8 @@ plot_genes_detected(bcb)
 
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
-```{r plot_gene_detection_saturation}
-plot_gene_detection_saturation(bcb)
+```{r plotGeneDetectionSaturation}
+plotGeneDetectionSaturation(bcb)
 ```
 
 
@@ -86,8 +85,8 @@ plot_gene_detection_saturation(bcb)
 
 Ideally, at least 60% of total reads should map to exons.
 
-```{r plot_exonic_mapping_rate}
-plot_exonic_mapping_rate(bcb)
+```{r plotExonicMappingRate}
+plotExonicMappingRate(bcb)
 ```
 
 
@@ -95,8 +94,8 @@ plot_exonic_mapping_rate(bcb)
 
 The majority of reads should map to exons and not introns.
 
-```{r plot_intronic_mapping_rate}
-plot_intronic_mapping_rate(bcb)
+```{r plotIntronicMappingRate}
+plotIntronicMappingRate(bcb)
 ```
 
 
@@ -104,15 +103,15 @@ plot_intronic_mapping_rate(bcb)
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
-```{r plot_rrna_mapping_rate}
-plot_rrna_mapping_rate(bcb)
+```{r plotRiboRNAMappingRate}
+plotRiboRNAMappingRate(bcb)
 ```
 
 
 ## 5'->3' bias
 
-```{r plot_5_3_bias}
-plot_5_3_bias(bcb)
+```{r plot53Bias}
+plot53Bias(bcb)
 ```
 
 
@@ -120,8 +119,8 @@ plot_5_3_bias(bcb)
 
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
-```{r plot_counts_per_gene}
-plot_counts_per_gene(bcb)
+```{r plotCountsPerGene}
+plotCountsPerGene(bcb)
 ```
 
 
@@ -129,8 +128,8 @@ plot_counts_per_gene(bcb)
 
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
-```{r plot_count_density}
-plot_count_density(bcb)
+```{r plotCountDensity}
+plotCountDensity(bcb)
 ```
 
 
@@ -144,8 +143,8 @@ Several quality metrics are first assessed to explore the fit of the model, befo
 
 The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
 
-```{r plot_mean_sd, fig.height=18, fig.width=6}
-plot_mean_sd(bcb)
+```{r plotMeanSD, fig.height=18, fig.width=6}
+plotMeanSD(bcb)
 ```
 
 
@@ -153,8 +152,8 @@ plot_mean_sd(bcb)
 
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
-```{r plot_dispersion, fig.height=8, fig.width=8}
-plot_dispersion(bcb)
+```{r plotDispersion, fig.height=8, fig.width=8}
+plotDispersion(bcb)
 ```
 
 
@@ -168,8 +167,8 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 
 PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
-```{r plot_pca, fig.height=12, fig.width=10}
-plot_pca(bcb)
+```{r plotPCA, fig.height=12, fig.width=10}
+plotPCA(bcb)
 ```
 
 
@@ -180,8 +179,8 @@ When multiple factors may influence the results of a given experiment, it is use
 
 Here we are showing the correlational analysis of the rlog transformed count data's principal components with the metadata covariates of interest. Significant correlations (FDR < 0.1) are shaded from blue (anti-correlated) to orange (correlated), with non-significant correlations shaded in gray.
 
-```{r plot_pca_covariates}
-plot_pca_covariates(bcb)
+```{r plotPCACovariates}
+plotPCACovariates(bcb)
 ```
 
 
@@ -189,8 +188,8 @@ plot_pca_covariates(bcb)
 
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
-```{r plot_correlation_heatmap, fig.height=8, fig.width=10}
-plot_correlation_heatmap(bcb)
+```{r plotCorrelationHeatmap, fig.height=8, fig.width=10}
+plotCorrelationHeatmap(bcb)
 ```
 
 

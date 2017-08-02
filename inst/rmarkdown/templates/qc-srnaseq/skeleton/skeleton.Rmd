@@ -1,12 +1,11 @@
 ---
-title: "Small RNA-seq quality control"
+title: "Small RNA-Seq Quality Control"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
 params:
     bcb: "data/bcb.rda"
-    data_dir: "data"
-    counts_dir: "results/counts"
+    outputDir: "."
 ---
 
 ```{r setup, include=FALSE}
@@ -15,32 +14,18 @@ source("setup.R")
 library(isomiRs)
 
 # bcbioRNADataSet
-# Need to save bcb using `load_run()` prior to knit!
-bcb_name <- load(params$bcb)
-assign("bcb", get(bcb_name))
+# Need to save bcb using `loadRun()` prior to knit!
+bcbName <- load(params$bcb)
+assign("bcb", get(bcbName))
 if (is.null(bcb)) stop("bcbioRNADataSet missing")
 
 # Directory paths
-data_dir <- params$data_dir
-counts_dir <- params$counts_dir
+outputDir <- normalizePath(params$outputDir)
+dataDir <- file.path(outputDir, "data")
+countsDir <- file.path(outputDir, "results", "counts")
 ```
 
 ```{r header, child="_header.Rmd"}
-```
-
-
-
-```{r bcb}
-# bcbioRnaDataSet
-if (file.exists(file.path(data_dir, "bcb.rda"))) {
-    load(file.path(data_dir, "bcb.rda"))
-} else {
-    bcb <- load_run(
-        upload_dir = params$upload_dir,
-        interesting_groups = params$interesting_groups,
-        analysis = "srnaseq")
-    save_data(bcb, dir = data_dir)
-}
 ```
 
 
@@ -55,7 +40,7 @@ In this section we will see descriptive figures about quality of the data, reads
 After adapter removal, we can plot the size distribution of the small RNAs.
 
 ```{r adapter}
-plot_size_distribution(bcb)
+plotSizeDistribution(bcb)
 ```
 
 
@@ -63,12 +48,12 @@ plot_size_distribution(bcb)
 
 ### Total miRNA expression annotated with mirbase
 
-```{r plot_mirna_counts, fig.height=9}
-plot_mirna_counts(bcb)
+```{r plotMicroRNACounts, fig.height=9}
+plotMicroRNACounts(bcb)
 ```
 
-```{r plot_srna_clusters}
-plot_srna_clusters(bcb)
+```{r plotSmallRNAClusters}
+plotSmallRNAClusters(bcb)
 ```
 
 ### isomiRs
