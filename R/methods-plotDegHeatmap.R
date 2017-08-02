@@ -6,8 +6,7 @@
 #' function.
 #'
 #' @rdname plotDEGHeatmap
-#' @author Michael Steinbaugh
-#' @family Heatmaps
+#' @name plotDEGHeatmap
 #'
 #' @param counts Secondary object containing normalized counts.
 #' @param alpha Alpha level cutoff.
@@ -25,24 +24,24 @@
 #' res <- results(dds)
 #' rld <- rlog(dds)
 #' plotDEGHeatmap(res, rld)
+NULL
 
 
 
-#' @rdname plotDEGHeatmap
+# Constructors ====
 .plotDEGHeatmap <- function(
     object,
     counts,
     alpha = 0.05,
     lfc = 0L,
     ...) {
-    alpha <- metadata(object)[["alpha"]]
     genes <- object %>%
         as.data.frame %>%
         rownames_to_column("ensgene") %>%
-        snake %>%
-        filter(.data[["padj"]] < !!alpha,
-               .data[["log2FoldChange"]] > !!lfc |
-                   .data[["log2FoldChange"]] < -UQ(lfc)) %>%
+        camel %>%
+        .[.[["padj"]] < alpha, ] %>%
+        .[.[["log2FoldChange"]] > lfc |
+              .[["log2FoldChange"]] < -lfc, ] %>%
         pull("ensgene") %>%
         sort
     plotGeneHeatmap(counts, genes = genes, ...)
@@ -50,15 +49,21 @@
 
 
 
+# Methods ====
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqTransform"),
-    function(
-        object,
-        counts) {
-        print(class(object))
-        print(class(counts))
+    function(object, counts, ...) {
+        alpha <- metadata(object)[["alpha"]]
+        counts <- assay(counts)
+        .plotDEGHeatmap(object, counts, alpha = alpha, ...)
     })
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod("plotDEGHeatmap", "data.frame", .plotDEGHeatmap)

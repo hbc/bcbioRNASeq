@@ -1,42 +1,45 @@
 #' Plot Mapping Rate
 #'
-#' @rdname plot_mapping_rate
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qc_plots
+#' @rdname plotMappingRate
+#' @name plotMappingRate
 #'
 #' @examples
 #' data(bcb)
-#' plot_mapping_rate(bcb)
-.plot_mapping_rate <- function(
-    metrics,
-    interesting_group = "sample_name",
-    pass_limit = 90L,
-    warn_limit = 70L,
+#' plotMappingRate(bcb)
+NULL
+
+
+
+# Constructors ====
+.plotMappingRate <- function(
+    object,
+    interestingGroup = "sampleName",
+    passLimit = 90L,
+    warnLimit = 70L,
     flip = TRUE) {
-    if (is.null(metrics)) return(NULL)
-    p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = ~mapped_reads / total_reads * 100L,
-                     fill = as.name(interesting_group))) +
+    if (is.null(object)) return(NULL)
+    p <- ggplot(object,
+                aes_(x = ~sampleName,
+                     y = ~mappedReads / totalReads * 100L,
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         ylim(0L, 100L) +
         labs(title = "mapping rate",
              x = "sample",
              y = "mapping rate (%)")
-    if (!is.null(pass_limit)) {
+    if (!is.null(passLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_pass_color,
-                       size = qc_line_size,
-                       yintercept = pass_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcPassColor,
+                       size = qcLineSize,
+                       yintercept = passLimit)
     }
-    if (!is.null(warn_limit)) {
+    if (!is.null(warnLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_warn_color,
-                       size = qc_line_size,
-                       yintercept = warn_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcWarnColor,
+                       size = qcLineSize,
+                       yintercept = warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -46,11 +49,18 @@
 
 
 
-#' @rdname plot_mapping_rate
+# Methods ====
+#' @rdname plotMappingRate
 #' @export
-setMethod("plot_mapping_rate", "bcbioRNADataSet", function(object, ...) {
-    .plot_mapping_rate(
+setMethod("plotMappingRate", "bcbioRNADataSet", function(object, ...) {
+    .plotMappingRate(
         metrics(object),
-        interesting_group = .interesting_group(object),
+        interestingGroup = .interestingGroup(object),
         ...)
 })
+
+
+
+#' @rdname plotMappingRate
+#' @export
+setMethod("plotMappingRate", "data.frame", .plotMappingRate)

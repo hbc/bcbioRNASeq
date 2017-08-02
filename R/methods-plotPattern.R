@@ -3,7 +3,6 @@
 #' [DEGreport::degPatterns()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @rdname plotPattern
-#' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @param res Table with padj as column and gene names as [rownames].
 #' @param fdr Float cutoff to consider genes significant.

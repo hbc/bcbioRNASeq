@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Count Matrix Accessors — counts • bcbioRnaseq</title>
+<title>Count Matrix Accessors — counts,bcbioRNADataSet-method • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,9 +89,7 @@ transcripts per million (TPM) can be accessed using the <code>normalized</code>
 argument.</p>
     
 
-    <pre class="usage"><span class='fu'>counts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNADataSet</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>counts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -100,10 +98,6 @@ argument.</p>
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
@@ -126,11 +120,9 @@ argument.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 <span class='co'># Raw counts</span>
-<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
+<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): Unsupported normalization method</span></div><div class='input'>
 <span class='co'># DESeq2 normalized counts</span>
-<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
+<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): Unsupported normalization method</span></div><div class='input'>
 <span class='co'># TPM</span>
 <span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>)
 

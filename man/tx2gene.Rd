@@ -4,12 +4,12 @@
 \alias{.tx2gene}
 \title{Transcript to Gene Annotations}
 \usage{
-.tx2gene(project_dir, genome_build)
+.tx2gene(projectDir, genomeBuild)
 }
 \arguments{
-\item{project_dir}{Project directory.}
+\item{projectDir}{Project directory.}
 
-\item{genome_build}{Genome build.}
+\item{genomeBuild}{Genome build.}
 }
 \value{
 \link{data.frame} with unique rownames.

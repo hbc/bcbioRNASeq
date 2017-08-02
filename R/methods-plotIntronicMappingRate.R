@@ -1,43 +1,42 @@
 #' Plot Intronic Mapping Rate
 #'
-#' @rdname plot_intronic_mapping_rate
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qc_plots
+#' @rdname plotIntronicMappingRate
+#' @name plotIntronicMappingRate
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plot_intronic_mapping_rate(bcb)
+#' plotIntronicMappingRate(bcb)
 #'
 #' # data.frame
 #' metrics <- metrics(bcb)
-#' plot_intronic_mapping_rate(metrics)
+#' plotIntronicMappingRate(metrics)
+NULL
 
 
 
-#' @rdname plot_intronic_mapping_rate
-.plot_intronic_mapping_rate <- function(
-    metrics,
-    interesting_group = "sample_name",
-    warn_limit = 20L,
+# Constructors ====
+.plotIntronicMappingRate <- function(
+    object,
+    interestingGroup = "sampleName",
+    warnLimit = 20L,
     flip = TRUE) {
-    p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = ~intronic_rate * 100L,
-                     fill = as.name(interesting_group))) +
+    p <- ggplot(object,
+                aes_(x = ~sampleName,
+                     y = ~intronicRate * 100L,
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
         ylim(0L, 100L)
-    if (!is.null(warn_limit)) {
+    if (!is.null(warnLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_warn_color,
-                       size = qc_line_size,
-                       yintercept = warn_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcWarnColor,
+                       size = qcLineSize,
+                       yintercept = warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -47,25 +46,21 @@
 
 
 
-#' @rdname plot_intronic_mapping_rate
+# Methods ====
+#' @rdname plotIntronicMappingRate
 #' @export
 setMethod(
-    "plot_intronic_mapping_rate",
+    "plotIntronicMappingRate",
     "bcbioRNADataSet",
     function(object, ...) {
-        .plot_intronic_mapping_rate(
+        .plotIntronicMappingRate(
             metrics(object),
-            interesting_group = .interesting_group(object),
+            interestingGroup = .interestingGroup(object),
             ...)
     })
 
 
 
-#' @rdname plot_intronic_mapping_rate
+#' @rdname plotIntronicMappingRate
 #' @export
-setMethod(
-    "plot_intronic_mapping_rate",
-    "data.frame",
-    function(object, ...) {
-        .plot_intronic_mapping_rate(object, ...)
-    })
+setMethod("plotIntronicMappingRate", "data.frame", .plotIntronicMappingRate)

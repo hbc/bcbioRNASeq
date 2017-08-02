@@ -2,15 +2,21 @@
 #'
 #' This method will be used to access folders where sample information is kept.
 #'
-#' @rdname sample_dirs
-#' @author Michael Steinbaugh
+#' @rdname sampleDirs
+#' @name sampleDirs
 #'
 #' @return Named character vector containing sample directory paths.
-#' @export
 #'
 #' @examples
 #' data(bcb)
-#' sample_dirs(bcb)
-setMethod("sample_dirs", "bcbioRNADataSet", function(object) {
-    metadata(object)[["sample_dirs"]]
+#' sampleDirs(bcb)
+NULL
+
+
+
+# Methods ====
+#' @rdname sampleDirs
+#' @export
+setMethod("sampleDirs", "bcbioRNADataSet", function(object) {
+    metadata(object)[["sampleDirs"]]
 })

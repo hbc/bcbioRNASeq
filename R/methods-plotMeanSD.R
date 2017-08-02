@@ -4,8 +4,7 @@
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
 #' @rdname plotMeanSD
-#' @author Michael Steinbaugh, Lorena Patano
-#' @family DESeq2 Utilities
+#' @name plotMeanSD
 #'
 #' @return [ggplot] grid.
 #' @export
@@ -13,6 +12,13 @@
 #' @examples
 #' data(bcb)
 #' plotMeanSD(bcb)
+NULL
+
+
+
+# Methods ====
+#' @rdname plotMeanSD
+#' @export
 setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
     nonzero <- counts(object, normalized = FALSE) %>%
         rowSums %>%

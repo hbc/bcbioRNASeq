@@ -1,12 +1,11 @@
 #' Print Summary Statistics of Alpha Level Cutoffs
 #'
 #' @rdname alphaSummary
-#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param contrast Character vector to use with [results] function.
 #'
-#' @return [kable].
+#' @return `kable`.
 #' @export
 #'
 #' @examples

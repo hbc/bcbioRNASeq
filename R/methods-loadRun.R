@@ -7,14 +7,14 @@
 #'
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @param upload_dir Path to final upload directory. This path is set when
+#' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param analysis Analysis type. Supports RNA-seq (`rnaseq`; **default**) or
 #'   small RNA-seq (`srnaseq`).
-#' @param interesting_groups Character vector of interesting groups. First entry
+#' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
-#' @param sample_metadata_file *Optional*. Custom metadata file containing
+#' @param sampleMetadataFile *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
@@ -27,63 +27,63 @@
 #' @export
 #'
 #' @examples
-#' extra_dir <- system.file("extra", package = "bcbioRnaseq")
-#' upload_dir <- file.path(extra_dir, "bcbio")
-#' sample_metadata_file <- file.path(extra_dir, "sample_metadata.csv")
-#' bcb <- load_run(
-#'     upload_dir,
-#'     interesting_groups = "group",
-#'     sample_metadata_file = sample_metadata_file)
-load_run <- function(
-    upload_dir = "final",
+#' extraDir <- system.file("extra", package = "bcbioRnaseq")
+#' uploadDir <- file.path(extraDir, "bcbio")
+#' sampleMetadataFile <- file.path(extraDir, "sample_metadata.csv")
+#' bcb <- loadRun(
+#'     uploadDir,
+#'     interestingGroups = "group",
+#'     sampleMetadataFile = sampleMetadataFile)
+loadRun <- function(
+    uploadDir = "final",
     analysis = "rnaseq",
-    interesting_groups = "sample_name",
-    sample_metadata_file = NULL,
+    interestingGroups = "sampleName",
+    sampleMetadataFile = NULL,
     ...) {
     # Analysis type ====
-    supported_analyses <- c("rnaseq", "srnaseq")
-    if (!analysis %in% supported_analyses) {
-        stop(paste("Supported analyses:", toString(supported_analyses)))
+    supportedAnalyses <- c("rnaseq", "srnaseq")
+    if (!analysis %in% supportedAnalyses) {
+        stop(paste("Supported analyses:", toString(supportedAnalyses)))
     }
 
 
     # Directory paths ====
     # Check connection to final upload directory
-    if (!dir.exists(upload_dir)) {
+    if (!dir.exists(uploadDir)) {
         stop("Final upload directory failed to load")
     }
-    upload_dir <- normalizePath(upload_dir)
-    # Find most recent nested project_dir (normally only 1)
-    project_dir <- dir(upload_dir,
-                       pattern = project_dir_pattern,
-                       full.names = FALSE,
-                       recursive = FALSE)
-    if (length(project_dir) != 1L) {
+    uploadDir <- normalizePath(uploadDir)
+    # Find most recent nested projectDir (normally only 1)
+    projectDir <- dir(uploadDir,
+                      pattern = projectDirPattern,
+                      full.names = FALSE,
+                      recursive = FALSE)
+    if (length(projectDir) != 1L) {
         stop("Uncertain about project directory location")
     }
-    message(project_dir)
-    match <- str_match(project_dir, project_dir_pattern)
-    run_date <- match[[2L]] %>% as.Date
+    message(projectDir)
+    match <- str_match(projectDir, projectDirPattern)
+    runDate <- match[[2L]] %>% as.Date
     template <- match[[3L]]
-    project_dir <- file.path(upload_dir, project_dir)
+    projectDir <- file.path(uploadDir, projectDir)
 
 
     # Project summary YAML ====
-    yaml_file <- file.path(project_dir, "project-summary.yaml")
-    if (!file.exists(yaml_file)) {
+    yamlFile <- file.path(projectDir, "project-summary.yaml")
+    if (!file.exists(yamlFile)) {
         stop("YAML project summary missing")
     }
-    yaml <- read_yaml(yaml_file)
+    yaml <- readYAML(yamlFile)
 
 
     # Sample directories ====
-    sample_dirs <- .sample_dirs(upload_dir)
+    sampleDirs <- .sampleDirs(uploadDir)
 
 
     # Sequencing lanes ====
-    lane_pattern <- "_L(\\d{3})"
-    if (any(str_detect(sample_dirs, lane_pattern))) {
-        lanes <- str_match(names(sample_dirs), lane_pattern) %>%
+    lanePattern <- "_L(\\d{3})"
+    if (any(str_detect(sampleDirs, lanePattern))) {
+        lanes <- str_match(names(sampleDirs), lanePattern) %>%
             .[, 2L] %>%
             unique %>%
             length
@@ -95,77 +95,80 @@ load_run <- function(
 
 
     # Sample metadata (colData) ====
-    sample_metadata <-
-        .sample_metadata_file(sample_metadata_file, lanes = lanes)
-    if (is.null(sample_metadata)) {
-        sample_metadata <- .sample_yaml_metadata(yaml)
+    sampleMetadata <-
+        .readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
+    if (is.null(sampleMetadata)) {
+        sampleMetadata <- .sampleYAMLMetadata(yaml)
+    }
+    if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
+        stop("Sample name mismatch", call. = FALSE)
     }
 
 
     # Subset sample directories by metadata ====
     # Check to see if a subset of samples is requested via the metadata file.
     # This matches by the reverse complement sequence of the index barcode.
-    if (length(sample_metadata[["sampleID"]]) < length(sample_dirs)) {
+    if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
         message("Loading a subset of samples, defined by the metadata file")
-        all_samples <- FALSE
-        sample_dirs <- sample_dirs %>%
-            .[names(sample_dirs) %in% sample_metadata[["sampleID"]]]
-        message(paste(length(sample_dirs), "samples matched by metadata"))
+        allSamples <- FALSE
+        sampleDirs <- sampleDirs %>%
+            .[names(sampleDirs) %in% sampleMetadata[["sampleID"]]]
+        message(paste(length(sampleDirs), "samples matched by metadata"))
     } else {
-        all_samples <- TRUE
+        allSamples <- TRUE
     }
 
 
     # Genome ====
     # Use the genome build of the first sample to match
-    genome_build <- yaml[["samples"]][[1L]][["genome_build"]]
-    organism <- detectOrganism(genome_build)
-    message(paste("Genome:", organism, genome_build))
-    annotable <- annotable(genome_build)
-    tx2gene <- .tx2gene(project_dir, genome_build)
+    genomeBuild <- yaml[["samples"]][[1L]][["genome_build"]]
+    organism <- detectOrganism(genomeBuild)
+    message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
+    annotable <- annotable(genomeBuild)
+    tx2gene <- .tx2gene(projectDir, genomeBuild)
 
 
     # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    metrics <- .sample_yaml_metrics(yaml)
+    metrics <- .sampleYAMLMetrics(yaml)
 
 
     # bcbio-nextgen run information ====
     message("Reading bcbio run information")
-    data_versions <- .data_versions(project_dir)
-    programs <- .programs(project_dir)
-    bcbio_log <-
-        .log_file(file.path(project_dir, "bcbio-nextgen.log"))
-    bcbio_commands_log <-
-        .log_file(file.path(project_dir, "bcbio-nextgen-commands.log"))
+    dataVersions <- .dataVersions(projectDir)
+    programs <- .programs(projectDir)
+    bcbioLog <-
+        .logFile(file.path(projectDir, "bcbio-nextgen.log"))
+    bcbioCommandsLog <-
+        .logFile(file.path(projectDir, "bcbio-nextgen-commands.log"))
 
 
     # Metadata ====
     metadata <- list(
         analysis = analysis,
-        upload_dir = upload_dir,
-        sample_dirs = sample_dirs,
-        project_dir = project_dir,
+        uploadDir = uploadDir,
+        sampleDirs = sampleDirs,
+        projectDir = projectDir,
         template = template,
-        run_date = run_date,
-        interesting_groups = interesting_groups,
-        genome_build = genome_build,
+        runDate = runDate,
+        interestingGroups = interestingGroups,
+        genomeBuild = genomeBuild,
         organism = organism,
-        ensembl_version = ensemblVersion(),
+        ensemblVersion = ensemblVersion(),
         annotable = annotable,
         tx2gene = tx2gene,
         lanes = lanes,
-        yaml_file = yaml_file,
+        yamlFile = yamlFile,
         yaml = yaml,
         metrics = metrics,
-        sample_metadata_file = sample_metadata_file,
-        data_versions = data_versions,
+        sampleMetadataFile = sampleMetadataFile,
+        dataVersions = dataVersions,
         programs = programs,
-        bcbio_log = bcbio_log,
-        bcbio_commands_log = bcbio_commands_log,
-        all_samples = all_samples)
+        bcbioLog = bcbioLog,
+        bcbioCommandsLog = bcbioCommandsLog,
+        allSamples = allSamples)
 
     # Add user-defined custom metadata, if specified
     dots <- list(...)
@@ -175,8 +178,9 @@ load_run <- function(
 
 
     # tximport ====
-    txi <- .tximport(sample_dirs, tx2gene = tx2gene)
-    raw_counts <- txi[["counts"]]
+    txi <- .tximport(sampleDirs, tx2gene = tx2gene)
+    rawCounts <- txi[["counts"]]
+    tmm <- .tmm(rawCounts)
     tpm <- txi[["abundance"]]
 
 
@@ -184,31 +188,34 @@ load_run <- function(
     message("Generating internal DESeqDataSet for quality control")
     dds <- DESeqDataSetFromTximport(
         txi = txi,
-        colData = sample_metadata,
+        colData = sampleMetadata,
         design = formula(~1L)) %>%
         DESeq
+    normalizedCounts <- counts(dds, normalized = TRUE)
+    rlog <- rlog(dds)
+    vst <- varianceStabilizingTransformation(dds)
 
 
     # featureCounts ====
     # STAR aligned counts, used for summary metrics. Not generated by
     # fast RNA-seq workflow.
-    fc_file <- file.path(project_dir, "combined.counts")
-    if (file.exists(fc_file)) {
+    fcFile <- file.path(projectDir, "combined.counts")
+    if (file.exists(fcFile)) {
         message("Reading STAR/featureCounts aligned counts")
-        fc <- read_tsv(fc_file) %>%
+        fc <- read_tsv(fcFile) %>%
             as.data.frame %>%
-            snake %>%
+            camel %>%
             column_to_rownames("id") %>%
             as.matrix
-        if (!identical(colnames(raw_counts), colnames(fc))) {
+        if (!identical(colnames(rawCounts), colnames(fc))) {
             # Look for column name mismatch and attempt fix.
             # This is an error fix for the current bcb example dataset.
             # Safe to remove in a future update.
             # Subset columns by matching STAR sample name in metrics.
             fc <- fc %>%
-                .[, snake(pull(metrics, "name"))] %>%
+                .[, camel(pull(metrics, "name"))] %>%
                 # Ensure column names match tximport
-                set_colnames(pull(metrics, "sample_name"))
+                set_colnames(pull(metrics, "sampleName"))
         }
     } else {
         fc <- NULL
@@ -216,15 +223,16 @@ load_run <- function(
 
 
     # Package SummarizedExperiment ====
+    assays <- SimpleList(
+        raw = rawCounts,
+        normalized = normalizedCounts,
+        tpm = tpm,
+        tmm = tmm,
+        rlog = rlog,
+        vst = vst)
     se <- packageSE(
-        assays = SimpleList(
-            raw_counts = raw_counts,
-            tpm = tpm,
-            normalized_counts = counts(dds, normalized = TRUE),
-            tmm = .tmm(raw_counts),
-            rlog = rlog(dds),
-            vst = varianceStabilizingTransformation(dds)),
-        colData = sample_metadata,
+        assays,
+        colData = sampleMetadata,
         rowData = annotable,
         metadata = metadata)
 

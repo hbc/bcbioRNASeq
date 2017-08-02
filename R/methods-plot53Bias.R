@@ -1,7 +1,7 @@
 #' Plot 5'->3' Bias
 #'
 #' @rdname plot53Bias
-#' @rdname plot53Bias
+#' @name plot53Bias
 #'
 #' @examples
 #' data(bcb)
@@ -16,7 +16,7 @@ NULL
 
 
 
-# Constructors
+# Constructors ====
 .plot53Bias <- function(
     object,
     interestingGroup = "sampleName",
@@ -49,7 +49,12 @@ NULL
 # Methods ====
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "bcbioRNADataSet", .plot53Bias)
+setMethod("plot53Bias", "bcbioRNADataSet", function(object, ...) {
+    .plot53Bias(
+        metrics(object),
+        interestingGroup = .interestingGroup(object),
+        ...)
+})
 
 
 

@@ -3,10 +3,6 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
-\alias{counts}
-\alias{reexports}
-\alias{design}
-\alias{reexports}
 \alias{DESeq}
 \alias{reexports}
 \alias{DESeqDataSet}
@@ -26,6 +22,14 @@
 \alias{vst}
 \alias{reexports}
 \alias{ggplot}
+\alias{reexports}
+\alias{assay}
+\alias{reexports}
+\alias{assays}
+\alias{reexports}
+\alias{colData}
+\alias{reexports}
+\alias{rowData}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -33,10 +37,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{design}}}
-
   \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqDataSetFromTximport}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{assays}}, \code{\link[SummarizedExperiment]{colData}}, \code{\link[SummarizedExperiment]{rowData}}}
 }}
 

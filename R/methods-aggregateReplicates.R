@@ -5,11 +5,17 @@
 #' of counts across the flow cells.
 #'
 #' @rdname aggregateReplicates
-#' @author Michael Steinbaugh
+#' @name aggregateReplicates
 #'
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.
+NULL
+
+
+
+# Methods ====
+#' @rdname aggregateReplicates
 #' @export
 setMethod("aggregateReplicates", "matrix", function(
     object,
@@ -27,7 +33,7 @@ setMethod("aggregateReplicates", "matrix", function(
             .[, grepl(paste0("^", stem[a], pattern), colnames(.))] %>%
             rowSums
     }) %>%
-        set_names(stem) %>%
+        setNames(stem) %>%
         do.call(cbind, .) %>%
         # [round()] here otherwise [DESeq()] will fail on this matrix
         round

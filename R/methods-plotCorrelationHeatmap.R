@@ -7,8 +7,7 @@
 #' desired genes will be used to calculate the correlation matrix.
 #'
 #' @rdname plotCorrelationHeatmap
-#' @author Michael Steinbaugh
-#' @family Heatmaps
+#' @name plotCorrelationHeatmap
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
@@ -35,12 +34,16 @@
 #' - [pheatmap::pheatmap()].
 #'
 #' @return [pheatmap()].
-#' @export
 #'
 #' @examples
 #' data(bcb)
 #' plotCorrelationHeatmap(bcb)
-setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", function(
+NULL
+
+
+
+# Constructors ====
+.plotCorrelationHeatmap <- function(
     object,
     transform = "rlog",
     method = "pearson",
@@ -104,4 +107,11 @@ setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", function(
             show_colnames = FALSE,
             show_rownames = TRUE,
             ...)
-})
+}
+
+
+
+# Methods ====
+#' @rdname plotCorrelationHeatmap
+#' @export
+setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", .plotCorrelationHeatmap)

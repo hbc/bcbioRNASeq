@@ -17,7 +17,7 @@
 #' - Server run paths.
 #' - R local environment information, including [sessionInfo()].
 #'
-#' @author Lorena Patano, Michael Steinbaugh
+#' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
 #' @examples

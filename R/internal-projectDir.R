@@ -1,12 +1,12 @@
 #' Read Data Versions
 #'
-#' @rdname data_versions
+#' @rdname dataVersions
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @param project_dir Project directory.
-.data_versions <- function(project_dir) {
-    file <- file.path(project_dir, "data_versions.csv")
+#' @param projectDir Project directory.
+.dataVersions <- function(projectDir) {
+    file <- file.path(projectDir, "data_versions.csv")
     if (!file.exists(file)) {
         warning(paste(basename(file), "missing"))
         return(NULL)
@@ -18,12 +18,12 @@
 
 #' Read Log File
 #'
-#' @rdname log_file
+#' @rdname logFile
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
 #' @param file Log file.
-.log_file <- function(file) {
+.logFile <- function(file) {
     if (!file.exists(file)) {
         warning(paste(basename(file), "missing"))
         return(NULL)
@@ -35,13 +35,13 @@
 
 #' Read Program Versions
 #'
-#' @rdname program_versions
+#' @rdname programVersions
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @param project_dir Project directory.
-.programs <- function(project_dir) {
-    file <- file.path(project_dir, "programs.txt")
+#' @param projectDir Project directory.
+.programs <- function(projectDir) {
+    file <- file.path(projectDir, "programs.txt")
     if (!file.exists(file)) {
         warning(paste(basename(file), "missing"))
         return(NULL)

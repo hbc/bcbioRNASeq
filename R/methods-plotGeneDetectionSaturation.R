@@ -1,27 +1,26 @@
 #' Plot Gene Detection Saturation
 #'
-#' @rdname plot_gene_detection_saturation
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qc_plots
+#' @rdname plotGeneDetectionSaturation
+#' @name plotGeneDetectionSaturation
 #'
 #' @examples
 #' data(bcb)
-#' plot_gene_detection_saturation(bcb)
+#' plotGeneDetectionSaturation(bcb)
+NULL
 
 
 
-#' @rdname plot_gene_detection_saturation
-.plot_gene_detection_saturation <- function(
-    metrics,
+# Constructors ====
+.plotGeneDetectionSaturation <- function(
+    object,
     counts,
-    interesting_group = "sample_name",
-    min_counts = 0L) {
-    if (is.null(metrics)) return(NULL)
-    ggplot(metrics,
-           aes_(x = ~mapped_reads / 1e6L,
-                y = colSums(counts > min_counts),
-                color = as.name(interesting_group))) +
+    interestingGroup = "sampleName",
+    minCounts = 0L) {
+    if (is.null(object)) return(NULL)
+    ggplot(object,
+           aes_(x = ~mappedReads / 1e6L,
+                y = colSums(counts > minCounts),
+                color = as.name(interestingGroup))) +
         geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene detection saturation",
@@ -31,13 +30,22 @@
 
 
 
-#' @rdname plot_gene_detection_saturation
+# Methods ====
+#' @rdname plotGeneDetectionSaturation
 #' @export
-setMethod("plot_gene_detection_saturation", "bcbioRNADataSet", function(
+setMethod("plotGeneDetectionSaturation", "bcbioRNADataSet", function(
     object, normalized = "tmm", ...) {
-    .plot_gene_detection_saturation(
-        metrics = metrics(object),
+    .plotGeneDetectionSaturation(
+        metrics(object),
         counts = counts(object, normalized = normalized),
-        interesting_group = .interesting_group(object),
+        interestingGroup = .interestingGroup(object),
         ...)
 })
+
+
+
+#' @rdname plotGeneDetectionSaturation
+#' @export
+setMethod("plotGeneDetectionSaturation",
+          "data.frame",
+          .plotGeneDetectionSaturation)

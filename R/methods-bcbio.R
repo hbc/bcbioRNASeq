@@ -4,7 +4,7 @@
 #' dimensions from the primary counts stored as a [SummarizedExperiment].
 #'
 #' @rdname bcbio
-#' @author Lorena Pantano, Michael Steinbaugh
+#' @name bcbio
 #'
 #' @param type Type of data to retrieve.
 #' @param value Value to assign.
@@ -31,6 +31,12 @@
 #'   [tmm()] are stored alongside the raw counts.
 #'
 #' @return [slot] object.
+NULL
+
+
+
+# Methods ====
+#' @rdname bcbio
 #' @export
 setMethod("bcbio", "bcbioRNADataSet", function(object, type) {
     if (type %in% names(slot(object, "callers"))) {

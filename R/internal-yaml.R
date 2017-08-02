@@ -16,7 +16,7 @@
 
 
 #' @rdname yaml
-.sample_yaml <- function(yaml, ...) {
+.sampleYAML <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
         stop("No sample information in YAML")
@@ -24,7 +24,7 @@
 
     # Check for nested keys, otherwise return NULL
     # Improve recursion method in a future update (lower priority)
-    keys <- getObjsFromDots(dots(...))
+    keys <- dots(..., character = TRUE)
     if (!keys[[1L]] %in% names(samples[[1L]])) {
         return(NULL)
     }
@@ -35,7 +35,7 @@
     }
 
     lapply(seq_along(samples), function(a) {
-        nested <- samples[[a]][[keys]] %>% snake
+        nested <- samples[[a]][[keys]]
         # Set the description
         nested[["description"]] <- samples[[a]][["description"]]
         if (rev(keys)[[1L]] == "metadata") {
@@ -56,37 +56,35 @@
         # on numeric data, whereas this doesn't happen with [rbindlist()].
         rbindlist %>%
         as("tibble") %>%
-        remove_na %>%
-        # Rename `description` to `sample_name`
-        rename(sample_name = .data[["description"]]) %>%
-        # Set `sampleID` from `sample_name` %>%
-        mutate(sampleID = .data[["sample_name"]]) %>%
-        .meta_priority_cols
+        camel %>%
+        removeNA %>%
+        # Rename `description` to `sampleName`
+        rename(sampleName = .data[["description"]]) %>%
+        # Set `sampleID` from `sampleName` %>%
+        mutate(sampleID = .data[["sampleName"]]) %>%
+        .metaPriorityCols
 }
 
 
 
 #' @rdname yaml
-.sample_yaml_metadata <- function(yaml) {
-    .sample_yaml(yaml, metadata) %>% .meta_factors
+.sampleYAMLMetadata <- function(yaml) {
+    .sampleYAML(yaml, metadata) %>% .metaFactors
 }
 
 
 
 #' @rdname yaml
-.sample_yaml_metrics <- function(yaml) {
-    metrics <- .sample_yaml(yaml, summary, metrics)
+.sampleYAMLMetrics <- function(yaml) {
+    metrics <- .sampleYAML(yaml, summary, metrics)
     if (is.null(metrics)) {
         return(NULL)
     }
     chr <- metrics %>%
-        tidy_select(c(meta_priority_cols,
-                      "name",
-                      "quality_format",
-                      "sequence_length"))
+        .[, c(metaPriorityCols, "name", "qualityFormat", "sequenceLength")]
     num <- metrics %>%
-        tidy_select(setdiff(colnames(metrics), colnames(chr))) %>%
+        .[, setdiff(colnames(metrics), colnames(chr))] %>%
         mutate_if(is.character, as.numeric)
     bind_cols(chr, num) %>%
-        tidy_select(unique(c(meta_priority_cols, sort(colnames(.)))))
+        .[, unique(c(metaPriorityCols, sort(colnames(.))))]
 }

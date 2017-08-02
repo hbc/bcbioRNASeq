@@ -8,16 +8,16 @@
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
 #'
-#' @param sample_dirs Sample directories to import.
+#' @param sampleDirs Sample directories to import.
 #' @param tx2gene Transcript to gene annotations.
 #'
 #' @return Counts saved in [tximport] list object.
 #'
 #' @seealso
 #' - [tximport::tximport()].
-.tximport <- function(sample_dirs, tx2gene) {
+.tximport <- function(sampleDirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sample_dirs[[1L]],
+    subdirs <- list.dirs(sampleDirs[[1L]],
                          full.names = FALSE,
                          recursive = FALSE)
     if ("salmon" %in% subdirs) {
@@ -30,29 +30,29 @@
 
     # Locate `quant.sf` file for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        sample_files <- list.files(
-            file.path(sample_dirs, type),
+        sampleFiles <- list.files(
+            file.path(sampleDirs, type),
             pattern = "quant.sf",
             full.names = TRUE,
             recursive = TRUE)
     }
 
     # Assign names to sample files
-    names(sample_files) <- names(sample_dirs)
+    names(sampleFiles) <- names(sampleDirs)
 
     # Begin loading of selected counts
     message(paste("Reading", type, "counts using tximport"))
 
     # Import the counts (https://goo.gl/h6fm15)
     if (type %in% c("salmon", "sailfish")) {
-        counts_from_abundance <- "lengthScaledTPM"
+        countsFromAbundance <- "lengthScaledTPM"
     } else {
-        counts_from_abundance <- "no"
+        countsFromAbundance <- "no"
     }
 
-    tximport(files = sample_files,
+    tximport(files = sampleFiles,
              type = type,
              tx2gene = as.data.frame(tx2gene),
              importer = read_tsv,
-             countsFromAbundance = counts_from_abundance)
+             countsFromAbundance = countsFromAbundance)
 }

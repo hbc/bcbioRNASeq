@@ -4,23 +4,23 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @param project_dir Project directory.
-#' @param genome_build Genome build.
+#' @param projectDir Project directory.
+#' @param genomeBuild Genome build.
 #'
 #' @return [data.frame] with unique rownames.
-.tx2gene <- function(project_dir, genome_build) {
-    file_path <- file.path(project_dir, "tx2gene.csv")
-    if (file.exists(file_path)) {
+.tx2gene <- function(projectDir, genomeBuild) {
+    filePath <- file.path(projectDir, "tx2gene.csv")
+    if (file.exists(filePath)) {
         # bcbio-nextgene tx2gene
-        read_csv(file_path, col_names = c("enstxp", "ensgene")) %>%
+        read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
             as.data.frame %>%
             set_rownames(.[["enstxp"]])
     } else {
         # annotable tx2gene
-        if (is.null(genome_build)) {
+        if (is.null(genomeBuild)) {
             stop("Genome build required for annotable tx2gene")
         }
-        tx2gene(genome_build)
+        tx2gene(genomeBuild)
     }
 }

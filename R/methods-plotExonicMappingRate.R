@@ -1,24 +1,23 @@
 #' Plot Exonic Mapping Rate
 #'
 #' @rdname plotExonicMappingRate
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qcPlots
+#' @name plotExonicMappingRate
 #'
 #' @examples
 #' data(bcb)
 #' plotExonicMappingRate(bcb)
+NULL
 
 
 
-#' @rdname plotExonicMappingRate
+# Constructors ====
 .plotExonicMappingRate <- function(
-    metrics,
+    object,
     interestingGroup = "sampleName",
     passLimit = 60L,
     flip = TRUE) {
-    if (is.null(metrics)) return(NULL)
-    p <- ggplot(metrics,
+    if (is.null(object)) return(NULL)
+    p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~exonicRate * 100L,
                      fill = as.name(interestingGroup))) +
@@ -42,11 +41,12 @@
 
 
 
+# Methods ====
 #' @rdname plotExonicMappingRate
 #' @export
 setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(object, ...) {
     .plotExonicMappingRate(
-        metrics = metrics(object),
+        metrics(object),
         interestingGroup = .interestingGroup(object),
         ...)
 })

@@ -5,16 +5,16 @@
 #' [bcbioRNADataSet] object.
 #'
 #' @rdname metadataTable
-#' @author Michael Steinbaugh
+#' @name metadataTable
 #'
 #' @param ... Additional parameters, passed to [kable()].
 #'
 #' @return [data.frame] containing only the columns of interest.
+NULL
 
 
 
-#' @rdname metadataTable
-#' @usage NULL
+# Constructors ====
 .metadataTable <- function(object, ...) {
     object %>%
         colData %>%
@@ -25,6 +25,7 @@
 
 
 
+# Methods ====
 #' @rdname metadataTable
 #' @export
 setMethod("metadataTable", "bcbioRNADataSet", .metadataTable)

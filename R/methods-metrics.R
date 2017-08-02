@@ -1,7 +1,7 @@
 #' Sample Metrics
 #'
 #' @rdname metrics
-#' @author Michael Steinbaugh
+#' @name metrics
 #'
 #' @return [data.frame].
 #' @export
@@ -9,9 +9,21 @@
 #' @examples
 #' data(bcb)
 #' metrics(bcb)
-setMethod("metrics", "bcbioRNADataSet", function(object) {
+NULL
+
+
+
+# Constructors ====
+.metrics <- function(object) {
     metrics <- .uniqueMetrics(object)
     if (is.null(metrics)) return(NULL)
     meta <- .interestingColData(object)
     cbind(meta, metrics)
-})
+}
+
+
+
+# Methods ====
+#' @rdname metrics
+#' @export
+setMethod("metrics", "bcbioRNADataSet", .metrics)

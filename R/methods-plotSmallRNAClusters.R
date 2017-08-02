@@ -1,18 +1,21 @@
 #' Cluster Small RNA Samples
 #'
-#' @rdname plot_srna_clusters
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @family Small RNA-Seq Utilities
-#'
-#' @param object Object.
+#' @rdname plotSmallRNAClusters
+#' @name plotSmallRNAClusters
 #'
 #' @return [ggplot].
-#' @export
 #'
 #' @examples
 #' data(bcb)
-#' plot_srna_clusters(bcb)
-setMethod("plot_srna_clusters", "bcbioRNADataSet", function(object) {
+#' plotSmallRNAClusters(bcb)
+NULL
+
+
+
+# Methods ====
+#' @rdname plotSmallRNAClusters
+#' @export
+setMethod("plotSmallRNAClusters", "bcbioRNADataSet", function(object) {
     counts <- assay(object) %>%
         # Require at least 3 counts
         .[rowSums(. > 0L) > 3L, ] %>%
@@ -22,12 +25,12 @@ setMethod("plot_srna_clusters", "bcbioRNADataSet", function(object) {
         countData = counts,
         colData = colData(object),
         design = ~1L)
-    vst_counts <- rlog(dds) %>% assay
-    annotation_col <- colData(object) %>%
+    vstCounts <- rlog(dds) %>% assay
+    annotationCol <- colData(object) %>%
         as.data.frame %>%
-        .[, metadata(object)[["interesting_groups"]], drop = FALSE]
-    pheatmap(vst_counts,
-             annotation_col = annotation_col,
+        .[, metadata(object)[["interestingGroups"]], drop = FALSE]
+    pheatmap(vstCounts,
+             annotation_col = annotationCol,
              clustering_distance_cols = "correlation",
              clustering_method = "ward.D",
              scale = "row",

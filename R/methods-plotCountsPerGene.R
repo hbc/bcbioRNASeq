@@ -1,22 +1,21 @@
 #' Plot Counts Per Gene
 #'
 #' @rdname plotCountsPerGene
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qcPlots
+#' @name plotCountsPerGene
 #'
 #' @examples
 #' data(bcb)
 #' plotCountsPerGene(bcb)
+NULL
 
 
 
-#' @rdname plotCountsPerGene
+# Constructors ====
 .plotCountsPerGene <- function(
-    melted,
+    object,
     interestingGroup = "sampleName",
     flip = TRUE) {
-    p <- ggplot(melted,
+    p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~counts,
                      color = as.name(interestingGroup))) +
@@ -32,12 +31,19 @@
 
 
 
+# Methods ====
 #' @rdname plotCountsPerGene
 #' @export
 setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
     object, normalized = "tmm", ...) {
     .plotCountsPerGene(
-        melted = meltLog10(object, normalized = normalized),
+        meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object),
         ...)
 })
+
+
+
+#' @rdname plotCountsPerGene
+#' @export
+setMethod("plotCountsPerGene", "data.frame", .plotCountsPerGene)

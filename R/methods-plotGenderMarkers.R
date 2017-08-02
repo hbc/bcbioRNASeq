@@ -1,21 +1,28 @@
 #' Plot Sexually Dimorphic Gender Markers
 #'
-#' @rdname plot_gender_markers
-#' @author Michael Steinbaugh
+#' @rdname plotGenderMarkers
+#' @name plotGenderMarkers
 #'
 #' @return [ggplot].
 #' @export
 #'
 #' @examples
 #' data(bcb)
-#' plot_gender_markers(bcb)
-setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
+#' plotGenderMarkers(bcb)
+NULL
+
+
+
+# Methods ====
+#' @rdname plotGenderMarkers
+#' @export
+setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
     # Organism-specific dimorphic markers ====
     organism <- metadata(object)[["organism"]]
 
     # Load the relevant internal gender markers data
     if (organism == "mmusculus") {
-        gender_markers <- get("gender_markers_mmusculus",
+        genderMarkers <- get("genderMarkersMmusculus",
                               envir = as.environment("package:bcbioRnaseq"))
     } else if (organism == "hsapiens") {
         stop("Draft support coming soon")
@@ -24,11 +31,11 @@ setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
     }
 
     # Prepare the source gender markers data frame
-    gender_markers <- gender_markers %>%
-        filter(.data[["include"]] == TRUE)
+    genderMarkers <- genderMarkers %>%
+        .[.[["include"]] == TRUE, ]
 
     # Ensembl identifiers
-    ensgene <- gender_markers %>%
+    ensgene <- genderMarkers %>%
         pull("ensgene") %>%
         sort %>%
         unique
@@ -41,17 +48,16 @@ setMethod("plot_gender_markers", "bcbioRNADataSet", function(object) {
     }
     tpm <- tpm[ensgene, ]
 
-    # Return ggplot
     tpm %>%
         as("tibble") %>%
         # Can also declare `measure.vars` here
         # If you don't set `id`, function will output a message
         melt(id = 1L) %>%
-        set_names(c("ensgene", "sample_name", "counts")) %>%
-        left_join(gender_markers, by = "ensgene") %>%
+        setNames(c("ensgene", "sampleName", "counts")) %>%
+        left_join(genderMarkers, by = "ensgene") %>%
         ggplot(aes_(x = ~symbol,
                     y = ~counts,
-                    color = ~sample_name,
+                    color = ~sampleName,
                     shape = ~chromosome)) +
         geom_jitter(size = 4L) +
         expand_limits(y = 0L) +

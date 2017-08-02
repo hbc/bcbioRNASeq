@@ -1,18 +1,23 @@
 #' Plot Size Distribution of Small RNA-Seq Data
 #'
-#' @rdname plot_size_distribution
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @family Small RNA-Seq Utilities
+#' @rdname plotSizeDistribution
+#' @name plotSizeDistribution
 #'
 #' @return [ggplot].
+NULL
+
+
+
+# Methods ====
+#' @rdname plotSizeDistribution
 #' @export
-setMethod("plot_size_distribution", "bcbioRNADataSet", function(object) {
+setMethod("plotSizeDistribution", "bcbioRNADataSet", function(object) {
     meta <- metadata(object)
-    fns <- file.path(meta[["sample_dirs"]],
-                     paste(names(meta[["sample_dirs"]]),
+    fns <- file.path(meta[["sampleDirs"]],
+                     paste(names(meta[["sampleDirs"]]),
                            "ready.trimming_stats",
                            sep = "-"))
-    names(fns) <- names(meta[["sample_dirs"]])
+    names(fns) <- names(meta[["sampleDirs"]])
     tab <- data.frame()
     for (sample in rownames(meta[["metadata"]])) {
         d <- read.table(fns[sample], sep = "")
@@ -20,17 +25,17 @@ setMethod("plot_size_distribution", "bcbioRNADataSet", function(object) {
             tab, d %>%
                 mutate(
                     sample = sample,
-                    group = meta[["metadata"]][sample,
-                                               meta[["interesting_groups"]]]))
+                    group = meta[["metadata"]] %>%
+                        .[sample, meta[["interestingGroups"]]]))
     }
 
-    reads_adapter <- tab %>%
+    readsAdapter <- tab %>%
         group_by(!!!syms(c("sample", "group"))) %>%
-        summarise(total = sum(.data[["V2"]]))
+        summarize(total = sum(.data[["V2"]]))
 
     ggdraw() +
         draw_plot(
-            ggplot(reads_adapter,
+            ggplot(readsAdapter,
                    aes_(x = ~sample, y = ~total, fill = ~group)) +
                 geom_bar(stat = "identity", position = "dodge") +
                 ggtitle("total number of reads with adapter") +

@@ -1,45 +1,44 @@
 #' Plot Genes Detected
 #'
-#' @rdname plot_genes_detected
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qc_plots
+#' @rdname plotGenesDetected
+#' @name plotGenesDetected
 #'
 #' @examples
 #' data(bcb)
-#' plot_genes_detected(bcb, pass_limit = NULL)
+#' plotGenesDetected(bcb, passLimit = NULL)
+NULL
 
 
 
-#' @rdname plot_genes_detected
-.plot_genes_detected <- function(
-    metrics,
+# Constructors ====
+.plotGenesDetected <- function(
+    object,
     counts,
-    interesting_group = "sample_name",
-    pass_limit = 20000L,
-    warn_limit = 15000L,
-    min_counts = 0L,
+    interestingGroup = "sampleName",
+    passLimit = 20000L,
+    warnLimit = 15000L,
+    minCounts = 0L,
     flip = TRUE) {
-    if (is.null(metrics)) return(NULL)
-    p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = colSums(counts > min_counts),
-                     fill = as.name(interesting_group))) +
+    if (is.null(object)) return(NULL)
+    p <- ggplot(object,
+                aes_(x = ~sampleName,
+                     y = colSums(counts > minCounts),
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
              y = "gene count")
-    if (!is.null(pass_limit)) {
-        p <- p + geom_hline(alpha = qc_line_alpha,
-                            color = qc_pass_color,
-                            size = qc_line_size,
-                            yintercept = pass_limit)
+    if (!is.null(passLimit)) {
+        p <- p + geom_hline(alpha = qcLineAlpha,
+                            color = qcPassColor,
+                            size = qcLineSize,
+                            yintercept = passLimit)
     }
-    if (!is.null(warn_limit)) {
-        p <- p + geom_hline(alpha = qc_line_alpha,
-                            color = qc_warn_color,
-                            size = qc_line_size,
-                            yintercept = warn_limit)
+    if (!is.null(warnLimit)) {
+        p <- p + geom_hline(alpha = qcLineAlpha,
+                            color = qcWarnColor,
+                            size = qcLineSize,
+                            yintercept = warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -49,12 +48,19 @@
 
 
 
-#' @rdname plot_genes_detected
+# Methods ====
+#' @rdname plotGenesDetected
 #' @export
-setMethod("plot_genes_detected", "bcbioRNADataSet", function(object, ...) {
-    .plot_genes_detected(
-        metrics = metrics(object),
+setMethod("plotGenesDetected", "bcbioRNADataSet", function(object, ...) {
+    .plotGenesDetected(
+        metrics(object),
         counts = assay(object),
-        interesting_group = .interesting_group(object),
+        interestingGroup = .interestingGroup(object),
         ...)
 })
+
+
+
+#' @rdname plotGenesDetected
+#' @export
+setMethod("plotGenesDetected", "data.frame", .plotGenesDetected)

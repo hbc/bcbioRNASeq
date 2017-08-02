@@ -86,6 +86,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc.html">Quality control</a></li>
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/de.html">Differential expression</a></li>
 </ul>
+<hr>
 </div>
 <div id="contribute" class="section level2">
 <h2 class="hasAnchor">
@@ -96,6 +97,15 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li>Open issues for any changes affecting <code>bcbioRNADataSet</code> class.</li>
 <li>Support is only provided for the current release version.</li>
 </ul>
+<div id="required-checks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#required-checks" class="anchor"></a>Required checks</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lintr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lintr/topics/lint_package">lint_package</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/check">check</a></span>()
+BiocCheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocCheck/topics/BiocCheck">BiocCheck</a></span>(<span class="kw">getwd</span>())
+pkgdown<span class="op">::</span><span class="kw"><a href="http://hadley.github.io/pkgdown/reference/build_site.html">build_site</a></span>()</code></pre></div>
+</div>
 </div>
 </div>
   </div>
@@ -117,7 +127,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li>Rory Kirchner <br><small class="roles"> Author </small> </li>
 <li>Victor Barrera <br><small class="roles"> Author </small> </li>
 <li>John Hutchinson <br><small class="roles"> Author </small> </li>
-<li>Harvard Chan Bioinformatics Core <br><small class="roles"> Copyright holder, funder </small> </li>
+<li>Harvard Chan Bioinformatics Core <br><small class="roles"> Copyright holder, funder </small> </li>
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">

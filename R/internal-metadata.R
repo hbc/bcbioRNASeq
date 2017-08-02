@@ -1,119 +1,55 @@
-.interesting_col_data <- function(object) {
+.interestingColData <- function(object) {
     colData(object) %>%
         as.data.frame %>%
-        .[, c("sample_name", .interesting_groups(object)), drop = FALSE]
+        .[, c("sampleName", .interestingGroups(object)), drop = FALSE]
 }
 
 
 
-.interesting_group <- function(object) {
+.interestingGroup <- function(object) {
     metadata(object) %>%
-        .[["interesting_groups"]] %>%
+        .[["interestingGroups"]] %>%
         .[[1L]] %>%
         as.name
 }
 
 
 
-.interesting_groups <- function(object) {
-    metadata(object)[["interesting_groups"]]
+.interestingGroups <- function(object) {
+    metadata(object)[["interestingGroups"]]
 }
 
 
 
-.meta_priority_cols <- function(meta) {
+.metaPriorityCols <- function(meta) {
     meta %>%
         as("tibble") %>%
-        # Sanitize `sampleID` into snake_case
-        mutate(sampleID = snake(.data[["sampleID"]])) %>%
-        tidy_select(unique(c(meta_priority_cols, sort(colnames(.))))) %>%
-        arrange(!!!syms(meta_priority_cols))
+        # Sanitize `sampleID` into camelCase
+        mutate(sampleID = camel(.data[["sampleName"]])) %>%
+        .[, unique(c(metaPriorityCols, sort(colnames(.))))] %>%
+        arrange(!!!syms(metaPriorityCols))
 }
 
 
 
-.meta_factors <- function(meta) {
+.metaFactors <- function(meta) {
     meta %>%
-        mutate_if(!colnames(.) %in% meta_priority_cols, factor)
+        mutate_if(!colnames(.) %in% metaPriorityCols, factor)
 }
 
 
 
-.unique_metrics <- function(object) {
-    drop_cols <- c(meta_priority_cols, "name")
+.uniqueMetrics <- function(object) {
+    dropCols <- c(metaPriorityCols, "name")
     metrics <- metadata(object)[["metrics"]] %>%
         as.data.frame %>%
         set_rownames(.[["sampleID"]]) %>%
-        .[, setdiff(colnames(.), drop_cols), drop = FALSE]
+        .[, setdiff(colnames(.), dropCols), drop = FALSE]
     # Find metrics columns with unique values
-    keep_cols <- lapply(colnames(metrics), function(a) {
+    keepCols <- lapply(colnames(metrics), function(a) {
         if (length(unique(metrics[, a])) > 1L) a
     }) %>%
         unlist %>%
         .[!is.null(.)]
-    metrics[, keep_cols, drop = FALSE]
-}
-
-
-
-#' Read Custom Metadata File
-#'
-#' @rdname sample_metadata_file
-#' @author Michael Steinbaugh
-#' @keywords internal
-#'
-#' @param file Metadata file. CSV and XLSX formats are supported.
-#' @param pattern *Optional*. Grep pattern to match against sample names.
-#' @param pattern_col *Optional*. Column in data frame used for pattern
-#'   subsetting.
-#' @param lanes *Optional*. Number of lanes used to split the samples into
-#'   technical replicates (`_LXXX`) suffix.
-#'
-#' @return [tibble] grouped by `sample_name`.
-.sample_metadata_file <- function(
-    file,
-    pattern = NULL,
-    pattern_col = "sample_name",
-    lanes = 1L) {
-    if (is.null(file)) return(NULL)
-    meta <- read_file_by_extension(file) %>% as("tibble")
-    # First column must be the `sample_name`, which points to the FASTQ.
-    # bcbio labels this `samplename` by default. Rename to `sample_name`
-    # here to ensure consistent snake_case naming syntax.
-    names(meta)[[1L]] <- "sampleID"
-    meta <- meta %>%
-        # Strip all NA rows and columns
-        remove_na %>%
-        # Make colnames snake_case
-        snake %>%
-        # Remove rows with no sample name. Sometimes Excel files will add
-        # empty rows, so this helps correct that problem as well.
-        filter(!is.na(.data[["sample_name"]]))
-
-    # Lane split, if desired
-    if (lanes > 1L) {
-        meta <- meta %>%
-            group_by(!!sym("sample_name")) %>%
-            # Expand by lane (e.g. "L001")
-            expand_(dots = ~str_c("L", str_pad(1L:lanes, 3L, pad = "0"))) %>%
-            # `expand_cols` param doesn't seem to work in tidyr 0.6.3, so
-            # set manually here instead
-            set_colnames(c("sample_name", "lane")) %>%
-            left_join(meta, by = "sample_name") %>%
-            ungroup %>%
-            mutate(sample_name = paste(.data[["sample_name"]],
-                                     .data[["lane"]],
-                                     sep = "_"),
-                   sampleID = .data[["sample_name"]])
-    }
-
-    # Subset by pattern, if desired
-    if (!is.null(pattern)) {
-        meta <- meta %>%
-            filter(str_detect(.data[[pattern_col]], pattern))
-    }
-
-    meta %>%
-        .meta_priority_cols %>%
-        .meta_factors
+    metrics[, keepCols, drop = FALSE]
 }

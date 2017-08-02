@@ -4,10 +4,10 @@
 \alias{.tximport}
 \title{Import RNA-Seq Counts}
 \usage{
-.tximport(sample_dirs, tx2gene)
+.tximport(sampleDirs, tx2gene)
 }
 \arguments{
-\item{sample_dirs}{Sample directories to import.}
+\item{sampleDirs}{Sample directories to import.}
 
 \item{tx2gene}{Transcript to gene annotations.}
 }

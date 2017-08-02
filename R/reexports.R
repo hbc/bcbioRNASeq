@@ -1,11 +1,3 @@
-#' @export
-BiocGenerics::counts
-
-#' @export
-BiocGenerics::design
-
-
-
 # DESeq2 ====
 #' @export
 DESeq2::DESeq
@@ -39,3 +31,18 @@ DESeq2::vst
 # ggplot2 ====
 #' @export
 ggplot2::ggplot
+
+
+
+# SummarizedExperiment ====
+#' @export
+SummarizedExperiment::assay
+
+#' @export
+SummarizedExperiment::assays
+
+#' @export
+SummarizedExperiment::colData
+
+#' @export
+SummarizedExperiment::rowData

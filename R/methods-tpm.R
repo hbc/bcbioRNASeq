@@ -1,14 +1,20 @@
 #' Transcripts Per Million (TPM)
 #'
 #' @rdname tpm
-#' @author Michael Steinbaugh
+#' @name tpm
 #'
 #' @return [matrix].
-#' @export
 #'
 #' @examples
 #' data(bcb)
 #' tpm(bcb) %>% head
+NULL
+
+
+
+# Methods ====
+#' @rdname tpm
+#' @export
 setMethod("tpm", "bcbioRNADataSet", function(object) {
     assays(object)[["tpm"]]
 })

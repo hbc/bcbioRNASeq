@@ -4,22 +4,17 @@
 #' default, row- and column-wise hierarchical clustering is performed using the
 #' Ward method, but this behavior can be overrided by setting `cluster_rows` or
 #' `cluster_cols` to `FALSE`. When column clustering is disabled, the columns
-#' are sorted by the interesting groups (`interesting_groups`) specified in the
+#' are sorted by the interesting groups (`interestingGroups`) specified in the
 #' [bcbioRNADataSet] and then the sample names.
 #'
-#' @rdname plot_gene_heatmap
-#' @author Michael Steinbaugh
-#' @family Heatmaps
+#' @rdname plotGeneHeatmap
+#' @name plotGeneHeatmap
 #'
-#' @param counts Counts matrix.
+#' @param object Counts matrix.
 #' @param genes Character vector of specific gene identifiers to plot.
 #' @param symbol Match against Ensembl gene symbols.
-#' @param cluster_rows Use hierarchical clustering to arrange rows.
-#' @param cluster_cols Use hierarchical clustering to arrange columns.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
-#' @param annotation_col *Optional*. Alternative annotation to use. Useful when
-#'   plotting more than one column.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
@@ -31,8 +26,8 @@
 #' genes <- counts(bcb) %>% rownames %>% .[1L:50L]
 #'
 #' # bcbioRNADataSet
-#' plot_gene_heatmap(bcb)
-#' plot_gene_heatmap(bcb, genes, symbol = FALSE)
+#' plotGeneHeatmap(bcb)
+#' plotGeneHeatmap(bcb, genes, symbol = FALSE)
 #'
 #' # DESeqDataSet
 #' dds <- DESeqDataSetFromTximport(
@@ -40,24 +35,22 @@
 #'     colData = colData(bcb),
 #'     design = formula(~group)) %>%
 #'     DESeq
-#' plot_gene_heatmap(dds)
+#' plotGeneHeatmap(dds)
 #'
 #' # DESeqTransform
 #' rld <- rlog(dds)
-#' plot_gene_heatmap(rld)
+#' plotGeneHeatmap(rld)
+NULL
 
 
 
-#' @rdname plot_gene_heatmap
-.plot_gene_heatmap <- function(
-    counts,
+# Constructors ====
+.plotGeneHeatmap <- function(
+    object,
     genes = NULL,
-    cluster_rows = TRUE,
-    cluster_cols = TRUE,
     scale = "row",
-    annotation_col = NULL,
     ...) {
-    counts <- counts %>%
+    counts <- object %>%
         as.matrix %>%
         # Subset zero counts
         .[rowSums(.) > 0L, ]
@@ -69,56 +62,56 @@
         nrow(counts) < 2L) {
         stop("Need at least 2 genes to cluster")
     }
-    if (length(counts) == 0L) return(NULL)
+    if (length(counts) == 0L) {
+        return(NULL)
+    }
     if (nrow(counts) <= 100L) {
-        show_rownames <- TRUE
+        showRownames <- TRUE
     } else {
-        show_rownames <- FALSE
+        showRownames <- FALSE
     }
     pheatmap(counts,
-             annotation_col = annotation_col,
-             cluster_cols = cluster_cols,
-             cluster_rows = cluster_rows,
              scale = scale,
-             show_colnames = TRUE,
-             show_rownames = show_rownames,
+             show_rownames = showRownames,
              ...)
 }
 
 
 
-#' @rdname plot_gene_heatmap
+# Methods ====
+#' @rdname plotGeneHeatmap
 #' @export
-setMethod("plot_gene_heatmap", "bcbioRNADataSet", function(
-    object, ..., symbol = FALSE) {
+setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
+    object, ..., symbol = TRUE) {
     counts <- counts(object, normalized = "rlog")
     if (isTRUE(symbol)) {
-        # Convert Ensembl gene identifiers to symbols
-        rownames(counts) <- gene2symbol(object) %>%
-            .[rownames(counts), "symbol"]
+        counts <- gene2symbol(counts)
     }
-    annotation_col <- colData(object) %>%
-        as("tibble") %>%
-        tidy_select(c("rowname", metadata(object)[["interesting_groups"]])) %>%
-        as.data.frame %>%
-        column_to_rownames
-    .plot_gene_heatmap(counts, annotation_col = annotation_col, ...)
+    annotationCol <- colData(object)
+        .[, c("rowname", metadata(object)[["interestingGroups"]])]
+    .plotGeneHeatmap(counts, annotation_col = annotationCol, ...)
 })
 
 
 
-#' @rdname plot_gene_heatmap
+#' @rdname plotGeneHeatmap
 #' @export
-setMethod("plot_gene_heatmap", "DESeqDataSet", function(object, ...) {
+setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
     counts <- counts(object, normalized = TRUE)
-    .plot_gene_heatmap(counts, ...)
+    .plotGeneHeatmap(counts, ...)
 })
 
 
 
-#' @rdname plot_gene_heatmap
+#' @rdname plotGeneHeatmap
 #' @export
-setMethod("plot_gene_heatmap", "DESeqTransform", function(object, ...) {
+setMethod("plotGeneHeatmap", "DESeqTransform", function(object, ...) {
     counts <- assay(object)
-    .plot_gene_heatmap(counts, ...)
+    .plotGeneHeatmap(counts, ...)
 })
+
+
+
+#' @rdname plotGeneHeatmap
+#' @export
+setMethod("plotGeneHeatmap", "matrix", .plotGeneHeatmap)

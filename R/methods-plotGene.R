@@ -1,7 +1,7 @@
 #' Plot Individual Genes
 #'
 #' @rdname plotGene
-#' @author Michael Steinbaugh
+#' @name plotGene
 #'
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
@@ -10,13 +10,19 @@
 #'   `ensgene`.
 #'
 #' @return [ggplot].
-#' @export
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
 #' data(bcb)
 #' plotGene(bcb, gene = c("Sulf1", "Phf3"))
+NULL
+
+
+
+# Methods ====
+#' @rdname plotGene
+#' @export
 setMethod("plotGene", "bcbioRNADataSet", function(
     object,
     normalized = "tpm",
@@ -35,8 +41,8 @@ setMethod("plotGene", "bcbioRNADataSet", function(
     # Match unique gene identifier with name (gene symbol) using the
     # internally stored Ensembl annotations saved in the run object
     match <- metadata(object)[["annotable"]] %>%
-        filter(.data[[format]] %in% !!gene) %>%
-        tidy_select(c("symbol", "ensgene"))
+        .[.[[format]] %in% gene, ] %>%
+        .[, c("symbol", "ensgene")]
 
     # Seq along Ensembl data frame here instead of the gene input vector,
     # which will then output only genes that match Ensembl
@@ -59,7 +65,7 @@ setMethod("plotGene", "bcbioRNADataSet", function(
             ) +
             labs(title = geneName,
                  x = "sample",
-                 y = str_c("counts (", normalized, ")"),
+                 y = paste0("counts (", normalized, ")"),
                  color = color,
                  shape = color) +
             expand_limits(y = 0L)

@@ -5,7 +5,7 @@
 #' tool when plotting counts per gene.
 #'
 #' @rdname tmm
-#' @author Michael Steinbaugh
+#' @name tmm
 #'
 #' @return [matrix].
 #' @export
@@ -13,14 +13,11 @@
 #' @examples
 #' data(bcb)
 #' tmm(bcb) %>% head
-setMethod("tmm", "bcbioRNADataSet", function(object) {
-    assays(object)[["tmm"]]
-})
+NULL
 
 
 
-#' @rdname tmm
-#' @usage NULL
+# Constructors ====
 .tmm <- function(object) {
     object %>%
         as.matrix %>%
@@ -31,11 +28,19 @@ setMethod("tmm", "bcbioRNADataSet", function(object) {
 
 
 
+# Methods ====
+#' @rdname tmm
+#' @export
+setMethod("tmm", "bcbioRNADataSet", function(object) {
+    assays(object)[["tmm"]]
+})
+
+
+
 #' @rdname tmm
 #' @export
 setMethod("tmm", "DESeqDataSet", function(object) {
-    object %>%
-        counts %>%
+    assay(object) %>%
         .tmm
 })
 

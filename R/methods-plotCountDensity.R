@@ -1,21 +1,20 @@
 #' Plot Count Density
 #'
 #' @rdname plotCountDensity
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qcPlots
+#' @name plotCountDensity
 #'
 #' @examples
 #' data(bcb)
 #' plotCountDensity(bcb)
+NULL
 
 
 
-#' @rdname plotCountDensity
+# Constructors ====
 .plotCountDensity <- function(
-    melted,
+    object,
     interestingGroup = "sampleName") {
-    ggplot(melted,
+    ggplot(object,
         aes_(x = ~counts,
              group = ~sampleName,
              color = ~sampleName)) +
@@ -26,11 +25,18 @@
 
 
 
+# Methods ====
 #' @rdname plotCountDensity
 #' @export
 setMethod("plotCountDensity", "bcbioRNADataSet", function(
     object, normalized = "tmm") {
     .plotCountDensity(
-        melted = meltLog10(object, normalized = normalized),
+        meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object))
 })
+
+
+
+#' @rdname plotCountDensity
+#' @export
+setMethod("plotCountDensity", "data.frame", .plotCountDensity)

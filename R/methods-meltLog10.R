@@ -1,7 +1,7 @@
 #' Melt Count Matrix to Long Format and log10 Transform
 #'
 #' @rdname meltLog10
-#' @author Michael Steinbaugh
+#' @name meltLog10
 #'
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
@@ -10,9 +10,11 @@
 #' @seealso [reshape2::melt()].
 #'
 #' @return log10 melted [data.frame].
+NULL
 
 
 
+# Methods ====
 #' @rdname meltLog10
 #' @export
 setMethod("meltLog10", "bcbioRNADataSet", function(
@@ -22,8 +24,8 @@ setMethod("meltLog10", "bcbioRNADataSet", function(
     interestingGroups <- metadata(object)[["interestingGroups"]]
     metadata <- colData(object) %>%
         as.data.frame %>%
-        rownamesToColumn("colname") %>%
-        tidySelect(!!!syms(c("colname", interestingGroups)))
+        rownames_to_column("colname") %>%
+        .[, c("colname", interestingGroups)]
     .joinMelt(counts, metadata)
 })
 
@@ -41,7 +43,7 @@ setMethod("meltLog10", "DESeqDataSet", function(
         rownames_to_column("colname")
     if (!is.null(interestingGroups)) {
         metadata <- metadata %>%
-            tidy_select(!!!syms(c("colname", interestingGroups)))
+            .[, c("colname", interestingGroups)]
     }
     .joinMelt(counts, metadata)
 })
@@ -59,7 +61,7 @@ setMethod("meltLog10", "DESeqTransform", function(
         rownames_to_column("colname")
     if (!is.null(interestingGroups)) {
         metadata <- metadata %>%
-            tidy_select(!!!syms(c("colname", interestingGroups)))
+            .[, c("colname", interestingGroups)]
     }
     .joinMelt(counts, metadata)
 })
@@ -86,12 +88,10 @@ setMethod("meltLog10", "DESeqTransform", function(
         as.data.frame %>%
         rownames_to_column %>%
         melt(id = 1L) %>%
-        set_names(c("rowname",  # ensembl gene ID
-                    "colname",  # sample name
-                    "counts")) %>%
-        # Filter zero counts
-        filter(.data[["counts"]] > 0L) %>%
-        # log10 transform
+        setNames(c("rowname",  # ensembl gene ID
+                   "colname",  # sample name
+                   "counts")) %>%
+        .[.[["counts"]] > 0L, ] %>%
         mutate(counts = log10(.data[["counts"]]),
                # [melt()] sets colnames as factor
                colname = as.character(.data[["colname"]]))

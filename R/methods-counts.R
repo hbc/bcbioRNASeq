@@ -7,6 +7,7 @@
 #' @rdname counts
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
 #'   - `tpm`: Transcripts per million.

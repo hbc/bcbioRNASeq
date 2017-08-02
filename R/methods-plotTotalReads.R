@@ -1,51 +1,50 @@
 #' Plot Total Reads
 #'
-#' @rdname plot_total_reads
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @family Quality Control Plots
-#' @inherit qc_plots
+#' @rdname plotTotalReads
+#' @name plotTotalReads
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plot_total_reads(bcb)
+#' plotTotalReads(bcb)
 #'
 #' # data.frame
 #' metrics <- metrics(bcb)
-#' plot_total_reads(metrics)
+#' plotTotalReads(metrics)
+NULL
 
 
 
-#' @rdname plot_total_reads
-.plot_total_reads <- function(
-    metrics,
-    interesting_group = "sample_name",
-    pass_limit = 20L,
-    warn_limit = 10L,
+# Constructors ====
+.plotTotalReads <- function(
+    object,
+    interestingGroup = "sampleName",
+    passLimit = 20L,
+    warnLimit = 10L,
     flip = TRUE) {
-    if (is.null(metrics)) return(NULL)
+    if (is.null(object)) return(NULL)
     p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = ~total_reads / 1e6L,
-                     fill = as.name(interesting_group))) +
+                aes_(x = ~sampleName,
+                     y = ~totalReads / 1e6L,
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
              y = "total reads (million)")
-    if (!is.null(pass_limit)) {
+    if (!is.null(passLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_pass_color,
-                       size = qc_line_size,
-                       yintercept = pass_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcPassColor,
+                       size = qcLineSize,
+                       yintercept = passLimit)
     }
-    if (!is.null(warn_limit)) {
+    if (!is.null(warnLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_warn_color,
-                       size = qc_line_size,
-                       yintercept = warn_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcWarnColor,
+                       size = qcLineSize,
+                       yintercept = warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -55,19 +54,18 @@
 
 
 
-#' @rdname plot_total_reads
+# Methods ====
+#' @rdname plotTotalReads
 #' @export
-setMethod("plot_total_reads", "bcbioRNADataSet", function(object, ...) {
-    .plot_total_reads(
+setMethod("plotTotalReads", "bcbioRNADataSet", function(object, ...) {
+    .plotTotalReads(
         metrics(object),
-        interesting_group = .interesting_group(object),
+        interestingGroup = .interestingGroup(object),
         ...)
 })
 
 
 
-#' @rdname plot_total_reads
+#' @rdname plotTotalReads
 #' @export
-setMethod("plot_total_reads", "data.frame", function(object, ...) {
-    .plot_total_reads(object, ...)
-})
+setMethod("plotTotalReads", "data.frame", .plotTotalReads)
