@@ -10,8 +10,7 @@
 #' plotTotalReads(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plotTotalReads(metrics)
+#' metrics(bcb) %>% plotTotalReads(metrics)
 NULL
 
 
@@ -24,7 +23,7 @@ NULL
     warnLimit = 10L,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
-    p <- ggplot(metrics,
+    p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~totalReads / 1e6L,
                      fill = as.name(interestingGroup))) +

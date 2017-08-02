@@ -27,6 +27,8 @@
 
 globalVariables(".")
 
+packageURL <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"
+
 # Quality control plot colors
 qcFailColor <- "red"
 qcPassColor <- "green"

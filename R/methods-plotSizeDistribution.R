@@ -4,6 +4,12 @@
 #' @name plotSizeDistribution
 #'
 #' @return [ggplot].
+#'
+#' @examples
+#' \dontrun{
+#' data(bcb)
+#' plotSizeDistribution(bcb)
+#' }
 NULL
 
 

@@ -37,7 +37,13 @@ Plot Exonic Mapping Rate
 }
 \examples{
 data(bcb)
+
+# bcbioRNADataSet
 plotExonicMappingRate(bcb)
+
+# data.frame
+metrics <- metrics(bcb)
+plotExonicMappingRate(metrics)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

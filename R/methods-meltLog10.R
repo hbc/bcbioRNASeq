@@ -10,6 +10,18 @@
 #' @seealso [reshape2::melt()].
 #'
 #' @return log10 melted [data.frame].
+#'
+#' @examples
+#' data(bcb, dds, rld)
+#'
+#' # bcbioRNADataSet
+#' meltLog10(bcb) %>% glimpse
+#'
+#' # DESeqDataSet
+#' meltLog10(dds) %>% glimpse
+#'
+#' # DESeqTransform
+#' meltLog10(dds) %>% glimpse
 NULL
 
 

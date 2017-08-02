@@ -10,6 +10,18 @@
 #' @param ... Additional parameters, passed to [kable()].
 #'
 #' @return [data.frame] containing only the columns of interest.
+#'
+#' @examples
+#' data(bcb, dds, rld)
+#'
+#' # bcbioRNADataSet
+#' metadataTable(bcb)
+#'
+#' # DESeqDataSet
+#' metadataTable(dds)
+#'
+#' # DESeqTransform
+#' metadataTable(dds)
 NULL
 
 

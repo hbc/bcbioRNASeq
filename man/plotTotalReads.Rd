@@ -43,8 +43,7 @@ data(bcb)
 plotTotalReads(bcb)
 
 # data.frame
-metrics <- metrics(bcb)
-plotTotalReads(metrics)
+metrics(bcb) \%>\% plotTotalReads(metrics)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

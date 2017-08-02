@@ -22,6 +22,12 @@ plotSizeDistribution(object, ...)
 \description{
 Plot Size Distribution of Small RNA-Seq Data
 }
+\examples{
+\dontrun{
+data(bcb)
+plotSizeDistribution(bcb)
+}
+}
 \seealso{
 Other Small RNA-Seq Utilities: \code{\link{plotSmallRNAClusters}}
 }

@@ -44,7 +44,7 @@ are sorted by the interesting groups (\code{interestingGroups}) specified in the
 \link{bcbioRNADataSet} and then the sample names.
 }
 \examples{
-data(bcb)
+data(bcb, dds, rld)
 genes <- counts(bcb) \%>\% rownames \%>\% .[1L:50L]
 
 # bcbioRNADataSet
@@ -52,15 +52,9 @@ plotGeneHeatmap(bcb)
 plotGeneHeatmap(bcb, genes, symbol = FALSE)
 
 # DESeqDataSet
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = formula(~group)) \%>\%
-    DESeq
 plotGeneHeatmap(dds)
 
 # DESeqTransform
-rld <- rlog(dds)
 plotGeneHeatmap(rld)
 }
 \seealso{

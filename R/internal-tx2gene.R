@@ -1,6 +1,6 @@
 #' Transcript to Gene Annotations
 #'
-#' @rdname tx2gene
+#' @rdname internal-tx2gene
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

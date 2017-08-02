@@ -23,6 +23,8 @@
 \alias{reexports}
 \alias{ggplot}
 \alias{reexports}
+\alias{formula}
+\alias{reexports}
 \alias{assay}
 \alias{reexports}
 \alias{assays}
@@ -40,6 +42,8 @@ below to see their documentation.
   \item{DESeq2}{\code{\link[DESeq2]{DESeq}}, \code{\link[DESeq2]{DESeqDataSet}}, \code{\link[DESeq2]{DESeqDataSetFromMatrix}}, \code{\link[DESeq2]{DESeqDataSetFromTximport}}, \code{\link[DESeq2]{DESeqResults}}, \code{\link[DESeq2]{DESeqTransform}}, \code{\link[DESeq2]{results}}, \code{\link[DESeq2]{rlog}}, \code{\link[DESeq2]{vst}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{stats}{\code{\link[stats]{formula}}}
 
   \item{SummarizedExperiment}{\code{\link[SummarizedExperiment]{assay}}, \code{\link[SummarizedExperiment]{assays}}, \code{\link[SummarizedExperiment]{colData}}, \code{\link[SummarizedExperiment]{rowData}}}
 }}

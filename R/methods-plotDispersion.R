@@ -11,8 +11,13 @@
 #' @export
 #'
 #' @examples
-#' data(bcb)
+#' data(bcb, dds)
+#'
+#' # bcbioRNADataSet
 #' plotDispersion(bcb)
+#'
+#' # DESeqDataSet
+#' plotDispersion(dds)
 NULL
 
 

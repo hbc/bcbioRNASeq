@@ -31,22 +31,22 @@ argument.
 \examples{
 data(bcb)
 # Raw counts
-mat <- counts(bcb, normalized = FALSE)
+counts(bcb, normalized = FALSE) \%>\% glimpse
 
 # DESeq2 normalized counts
-mat <- counts(bcb, normalized = TRUE)
+counts(bcb, normalized = TRUE) \%>\% glimpse
 
 # TPM
-mat <- counts(bcb, normalized = "tpm")
+counts(bcb, normalized = "tpm") \%>\% glimpse
 
 # TMM
-mat <- counts(bcb, normalized = "tmm")
+counts(bcb, normalized = "tmm") \%>\% glimpse
 
 # rlog
-mat <- counts(bcb, normalized = "rlog")
+counts(bcb, normalized = "rlog") \%>\% glimpse
 
 # VST
-mat <- counts(bcb, normalized = "vst")
+counts(bcb, normalized = "vst") \%>\% glimpse
 }
 \author{
 Michael Steinbaugh

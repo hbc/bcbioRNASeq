@@ -36,14 +36,7 @@ the optional parameters for \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}} ar
 function.
 }
 \examples{
-data(bcb)
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = formula(~group)) \%>\%
-    DESeq
-res <- results(dds)
-rld <- rlog(dds)
+data(res, rld)
 plotDEGHeatmap(res, rld)
 }
 \seealso{

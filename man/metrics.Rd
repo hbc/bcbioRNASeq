@@ -22,7 +22,7 @@ Sample Metrics
 }
 \examples{
 data(bcb)
-metrics(bcb)
+metrics(bcb) \%>\% glimpse
 }
 \author{
 Michael Steinbaugh

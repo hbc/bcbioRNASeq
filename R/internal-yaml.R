@@ -1,6 +1,6 @@
 #' Sample YAML Metadata Ytilities
 #'
-#' @rdname yaml
+#' @rdname internal-yaml
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -15,7 +15,7 @@
 
 
 
-#' @rdname yaml
+#' @rdname internal-yaml
 .sampleYAML <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
@@ -67,14 +67,14 @@
 
 
 
-#' @rdname yaml
+#' @rdname internal-yaml
 .sampleYAMLMetadata <- function(yaml) {
     .sampleYAML(yaml, metadata) %>% .metaFactors
 }
 
 
 
-#' @rdname yaml
+#' @rdname internal-yaml
 .sampleYAMLMetrics <- function(yaml) {
     metrics <- .sampleYAML(yaml, summary, metrics)
     if (is.null(metrics)) {

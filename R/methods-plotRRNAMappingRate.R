@@ -10,8 +10,7 @@
 #' plotRRNAMappingRate(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plotRRNAMappingRate(metrics)
+#' metrics(bcb) %>% plotRRNAMappingRate
 NULL
 
 
@@ -25,7 +24,7 @@ NULL
     if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
-                     y = ~rrnaRate * 100L,
+                     y = ~rRnaRate * 100L,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         geom_hline(alpha = qcLineAlpha,

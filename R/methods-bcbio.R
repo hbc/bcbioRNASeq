@@ -1,7 +1,7 @@
 #' `bcbioRNADataSet` Caller Slot Accessor
 #'
 #' This method is used to access alternative count matrices with differing
-#' dimensions from the primary counts stored as a [SummarizedExperiment].
+#' dimensions from the primary counts stored as a `SummarizedExperiment`.
 #'
 #' @rdname bcbio
 #' @name bcbio
@@ -31,6 +31,19 @@
 #'   [tmm()] are stored alongside the raw counts.
 #'
 #' @return [slot] object.
+#'
+#' @examples
+#' # tximport list
+#' txi <- bcbio(bcb, "tximport")
+#' class(txi)
+#' length(txi)
+#' names(txi)
+#'
+#' # featureCounts matrix
+#' fc <- bcbio(bcb, "featureCounts")
+#' class(fc)
+#' dim(fc)
+#' colnames(fc)
 NULL
 
 

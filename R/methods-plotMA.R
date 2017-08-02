@@ -2,6 +2,7 @@
 #'
 #' @rdname plotMA
 #' @name plotMA
+#'
 #' @family Differential Expression Plots
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inheritParams AllGenerics
@@ -18,22 +19,15 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb)
-#' dds <- DESeqDataSetFromTximport(
-#'     txi = txi(bcb),
-#'     colData = colData(bcb),
-#'     design = formula(~group)) %>%
-#'     DESeq
-#' res <- results(dds)
-#'
+#' data(bcb, dds, res)
 #' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 #'
 #' # DESeqResults
 #' plotMA(res, labelPoints = genes)
 #'
 #' # data.frame
-#' resDf <- as.data.frame(res)
-#' plotMA(resDf, labelPoints = genes)
+#' df <- as.data.frame(res)
+#' plotMA(df, labelPoints = genes)
 NULL
 
 
@@ -48,7 +42,7 @@ NULL
     labelColor = "black",
     title = TRUE) {
     results <- object %>%
-        as.data.frame %>%
+        as("tibble") %>%
         camel %>%
         .[!is.na(.[["padj"]]), ]
     p <- ggplot(results,
@@ -69,14 +63,13 @@ NULL
     }
     if (!is.null(labelPoints)) {
         labels <- results %>%
-            filter(.data[[labelColumn]] %in% !!syms(labelPoints))
+            .[.[[labelColumn]] %in% labelPoints, , drop = FALSE]
         p <- p +
             geom_text_repel(
                 data = labels,
                 aes_(x = ~baseMean,
                      y = ~log2FoldChange,
                      label = as.name(labelColumn)),
-                color = labelColor,
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,

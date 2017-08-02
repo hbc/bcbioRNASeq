@@ -5,7 +5,13 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNADataSet
 #' plotCountDensity(bcb)
+#'
+#' # data.frame
+#' melted <- meltLog10(bcb)
+#' plotCountDensity(melted)
 NULL
 
 

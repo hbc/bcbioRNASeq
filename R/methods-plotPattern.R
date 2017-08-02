@@ -13,6 +13,12 @@
 #'
 #' @return [ggplot].
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' data(bcb, res)
+#' plotPattern(bcb, res)
+#' }
 setMethod("plotPattern", "bcbioRNADataSet", function(
     object,
     res,

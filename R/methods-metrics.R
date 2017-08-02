@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' metrics(bcb)
+#' metrics(bcb) %>% glimpse
 NULL
 
 

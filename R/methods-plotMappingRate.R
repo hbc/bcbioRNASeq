@@ -5,7 +5,12 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNADataSet
 #' plotMappingRate(bcb)
+#'
+#' # data.frame
+#' metrics(bcb) %>% plotMappingRate
 NULL
 
 

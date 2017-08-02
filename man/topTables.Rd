@@ -26,6 +26,11 @@ Top table kables, for knit report.
 \description{
 Top Tables of Differential Expression Results
 }
+\examples{
+data(bcb, res)
+resTbl <- resultsTables(bcb, res, write = FALSE)
+topTables(resTbl)
+}
 \author{
 Michael Steinbaugh
 }

@@ -3,6 +3,7 @@
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
 #'
 #' @rdname plotPCACovariates
+#' @name plotPCACovariates
 #'
 #' @param transform String specifying [DESeqTransform] slotted inside the
 #'   [bcbioRNADataSet]:
@@ -17,11 +18,17 @@
 #' - [DESeq2::varianceStabilizingTransformation()].
 #'
 #' @return [ggplot].
-#' @export
 #'
 #' @examples
 #' data(bcb)
 #' plotPCACovariates(bcb)
+NULL
+
+
+
+# Methods ====
+#' @rdname plotPCACovariates
+#' @export
 setMethod("plotPCACovariates", "bcbioRNADataSet", function(
     object, transform = "rlog", metrics = TRUE, ...) {
     # Check for valid `transform` argument

@@ -30,6 +30,18 @@ Returns a subset of metadata columns of interest used for knit reports. These
 "interesting group" columns are defined as \code{interestingGroups} in the
 \link{bcbioRNADataSet} object.
 }
+\examples{
+data(bcb, dds, rld)
+
+# bcbioRNADataSet
+metadataTable(bcb)
+
+# DESeqDataSet
+metadataTable(dds)
+
+# DESeqTransform
+metadataTable(dds)
+}
 \author{
 Michael Steinbaugh
 }

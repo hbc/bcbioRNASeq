@@ -75,6 +75,16 @@ setGeneric("bcbio<-", function(object, ..., value) {
 
 
 
+#' @rdname download
+#' @author Michael Steinbaugh
+#' @inheritParams AllGenerics
+#' @export
+setGeneric("download", function(object) {
+    standardGeneric("download")
+})
+
+
+
 #' @rdname meltLog10
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics

@@ -5,7 +5,13 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNADataSet
 #' plotCountsPerGene(bcb)
+#'
+#' # data.frame
+#' melted <- meltLog10(bcb)
+#' plotCountsPerGene(melted)
 NULL
 
 

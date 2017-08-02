@@ -34,6 +34,12 @@ ggplot2::ggplot
 
 
 
+# stats ====
+#' @export
+stats::formula
+
+
+
 # SummarizedExperiment ====
 #' @export
 SummarizedExperiment::assay

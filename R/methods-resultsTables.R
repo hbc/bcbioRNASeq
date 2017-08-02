@@ -15,9 +15,10 @@
 #' @return Results list.
 #'
 #' @examples
-#' \dontrun{
-#' resultsTables(bcb, res, lfc = 0.25)
-#' }
+#' data(bcb, res)
+#' resTbl <- resultsTables(bcb, res, lfc = 0.25, write = FALSE)
+#' class(resTbl)
+#' names(resTbl)
 NULL
 
 

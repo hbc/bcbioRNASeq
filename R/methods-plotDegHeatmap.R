@@ -15,14 +15,7 @@
 #' @return Graphical output only.
 #'
 #' @examples
-#' data(bcb)
-#' dds <- DESeqDataSetFromTximport(
-#'     txi = txi(bcb),
-#'     colData = colData(bcb),
-#'     design = formula(~group)) %>%
-#'     DESeq
-#' res <- results(dds)
-#' rld <- rlog(dds)
+#' data(res, rld)
 #' plotDEGHeatmap(res, rld)
 NULL
 

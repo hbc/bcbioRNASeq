@@ -1,6 +1,6 @@
 #' Detect Sample Directories
 #'
-#' @rdname sampleDirs
+#' @rdname internal-sampleDirs
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

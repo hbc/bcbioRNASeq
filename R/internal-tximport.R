@@ -4,7 +4,7 @@
 #' [salmon](https://combine-lab.github.io/salmon/) (**recommended**) and
 #' [sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/).
 #'
-#' @rdname tximport
+#' @rdname internal-tximport
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
 #'

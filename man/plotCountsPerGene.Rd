@@ -37,7 +37,13 @@ Plot Counts Per Gene
 }
 \examples{
 data(bcb)
+
+# bcbioRNADataSet
 plotCountsPerGene(bcb)
+
+# data.frame
+melted <- meltLog10(bcb)
+plotCountsPerGene(melted)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

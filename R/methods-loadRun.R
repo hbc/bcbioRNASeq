@@ -215,7 +215,7 @@ loadRun <- function(
             fc <- fc %>%
                 .[, camel(pull(metrics, "name"))] %>%
                 # Ensure column names match tximport
-                set_colnames(pull(metrics, "sampleName"))
+                set_colnames(colnames(rawCounts))
         }
     } else {
         fc <- NULL

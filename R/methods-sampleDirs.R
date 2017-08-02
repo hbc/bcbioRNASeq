@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' sampleDirs(bcb)
+#' sampleDirs(bcb) %>% basename
 NULL
 
 

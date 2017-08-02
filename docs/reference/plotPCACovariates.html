@@ -106,7 +106,7 @@
     </tr>
     <tr>
       <th>transform</th>
-      <td><p>String specifying DESeqTransform slotted inside the
+      <td><p>String specifying <a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqTransform'>DESeqTransform</a> slotted inside the
 <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>:</p><ul>
 <li><p><code>rlog</code> (<strong>recommended</strong>).</p></li>
 <li><p><code>vst</code>: variance stabilizing transformation.</p></li>
@@ -120,7 +120,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -133,7 +133,9 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.frame`(., , c("sampleName", .interestingGroups(object)),     drop = FALSE): undefined columns selected</span></div></pre>
+<span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Running PCA and calculating correlations for:</span>
+#&gt; <span class='message'>Un-scaled  data in PCA; PVE &gt;= 5%; spearman correlations </span></div><div class='img'><img src='plotPCACovariates-7.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

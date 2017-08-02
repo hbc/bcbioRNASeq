@@ -39,7 +39,12 @@ Plot Mapping Rate
 }
 \examples{
 data(bcb)
+
+# bcbioRNADataSet
 plotMappingRate(bcb)
+
+# data.frame
+metrics(bcb) \%>\% plotMappingRate
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

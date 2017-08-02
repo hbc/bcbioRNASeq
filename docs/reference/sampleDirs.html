@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Detect Sample Directories — sampleDirs • bcbioRnaseq</title>
+<title>Sample Directories — sampleDirs • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,17 +80,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Detect Sample Directories</h1>
+    <h1>Sample Directories</h1>
     </div>
 
     
-    <p>Detect Sample Directories</p>
-<p>This method will be used to access folders where sample information is kept.</p>
+    <p>This method will be used to access folders where sample information is kept.</p>
     
 
     <pre class="usage"><span class='fu'>sampleDirs</span>(<span class='no'>object</span>)
-
-<span class='fu'>.sampleDirs</span>(<span class='no'>uploadDir</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>sampleDirs</span>(<span class='no'>object</span>)</pre>
@@ -102,22 +99,16 @@
       <th>object</th>
       <td><p>Object.</p></td>
     </tr>
-    <tr>
-      <th>uploadDir</th>
-      <td><p>Upload directory.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Named character vector containing sample directory paths. Function
-will <code>stop()</code> if no complete sample directories match.</p>
-<p>Named character vector containing sample directory paths.</p>
+    <p>Named character vector containing sample directory paths.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>sampleDirs</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; NULL</div></pre>
+<span class='fu'>sampleDirs</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>basename</span></div><div class='output co'>#&gt; [1] "group1_1" "group1_2" "group2_1" "group2_2"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -131,8 +122,6 @@ will <code>stop()</code> if no complete sample directories match.</p>
 
     <h2>Author</h2>
     
-Michael Steinbaugh
-
 Michael Steinbaugh
 
   </div>

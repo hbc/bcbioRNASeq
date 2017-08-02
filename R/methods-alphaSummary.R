@@ -1,21 +1,23 @@
 #' Print Summary Statistics of Alpha Level Cutoffs
 #'
 #' @rdname alphaSummary
+#' @name alphaSummary
 #'
 #' @param alpha Numeric vector of desired alpha cutoffs.
-#' @param contrast Character vector to use with [results] function.
+#' @param contrast Character vector to use with [results()] function.
 #'
 #' @return [kable].
-#' @export
 #'
 #' @examples
-#' data(bcb)
-#' dds <- DESeqDataSetFromTximport(
-#'     txi = txi(bcb),
-#'     colData = colData(bcb),
-#'     design = formula(~group)) %>%
-#'     DESeq
+#' data(dds)
 #' alphaSummary(dds)
+NULL
+
+
+
+# Methods ====
+#' @rdname alphaSummary
+#' @export
 setMethod("alphaSummary", "DESeqDataSet", function(
     object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),

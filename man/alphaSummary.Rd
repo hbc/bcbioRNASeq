@@ -3,6 +3,7 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
+\alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
@@ -18,7 +19,7 @@ alphaSummary(object, ...)
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{contrast}{Character vector to use with \link{results} function.}
+\item{contrast}{Character vector to use with \code{\link[=results]{results()}} function.}
 }
 \value{
 \link{kable}.
@@ -27,12 +28,7 @@ alphaSummary(object, ...)
 Print Summary Statistics of Alpha Level Cutoffs
 }
 \examples{
-data(bcb)
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = formula(~group)) \%>\%
-    DESeq
+data(dds)
 alphaSummary(dds)
 }
 \author{

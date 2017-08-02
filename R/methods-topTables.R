@@ -8,6 +8,11 @@
 #' @param coding Whether to only return coding genes.
 #'
 #' @return Top table kables, for knit report.
+#'
+#' @examples
+#' data(bcb, res)
+#' resTbl <- resultsTables(bcb, res, write = FALSE)
+#' topTables(resTbl)
 NULL
 
 

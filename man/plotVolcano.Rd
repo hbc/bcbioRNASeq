@@ -48,19 +48,11 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-data(bcb)
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = formula(~group)) \%>\%
-    DESeq
-res <- results(dds)
-
+data(res)
 plotVolcano(res)
 plotVolcano(res, genes = "Sulf1")
-plotVolcano(res, ntop = 5L)
 plotVolcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
-plotVolcano(res, histograms = FALSE)
+plotVolcano(res, histograms = FALSE, ntop = 5L)
 }
 \seealso{
 This function is an updated variant of

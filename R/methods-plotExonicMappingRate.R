@@ -5,7 +5,13 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNADataSet
 #' plotExonicMappingRate(bcb)
+#'
+#' # data.frame
+#' metrics <- metrics(bcb)
+#' plotExonicMappingRate(metrics)
 NULL
 
 

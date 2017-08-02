@@ -24,8 +24,13 @@ Dispersion plot \link{ggplot}.
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
 \examples{
-data(bcb)
+data(bcb, dds)
+
+# bcbioRNADataSet
 plotDispersion(bcb)
+
+# DESeqDataSet
+plotDispersion(dds)
 }
 \seealso{
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.

@@ -142,18 +142,15 @@ in either the <code>row</code> direction, <code>column</code> direction, or <cod
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>rownames</span> <span class='kw'>%&gt;%</span> <span class='no'>.</span>[<span class='fl'>1L</span>:<span class='fl'>50L</span>]</div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): Unsupported normalization method</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>rownames</span> <span class='kw'>%&gt;%</span> <span class='no'>.</span>[<span class='fl'>1L</span>:<span class='fl'>50L</span>]
+
 <span class='co'># bcbioRNADataSet</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): object '.' not found</span></div><div class='input'><span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='no'>genes</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): object '.' not found</span></div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqDataSetFromTximport</span>(
-    <span class='kw'>txi</span> <span class='kw'>=</span> <span class='fu'><a href='txi.html'>txi</a></span>(<span class='no'>bcb</span>),
-    <span class='kw'>colData</span> <span class='kw'>=</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>),
-    <span class='kw'>design</span> <span class='kw'>=</span> <span class='fu'>formula</span>(~<span class='no'>group</span>)) <span class='kw'>%&gt;%</span>
-    <span class='no'>DESeq</span></div><div class='output co'>#&gt; <span class='error'>Error in colData(bcb): could not find function "colData"</span></div><div class='input'><span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plotGeneHeatmap(dds): object 'dds' not found</span></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform</span>
-<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>rlog</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='error'>Error in colnames(object): object 'dds' not found</span></div><div class='input'><span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plotGeneHeatmap(rld): object 'rld' not found</span></div></pre>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -166,6 +163,10 @@ in either the <code>row</code> direction, <code>column</code> direction, or <cod
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

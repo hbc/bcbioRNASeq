@@ -35,7 +35,13 @@ Plot Count Density
 }
 \examples{
 data(bcb)
+
+# bcbioRNADataSet
 plotCountDensity(bcb)
+
+# data.frame
+melted <- meltLog10(bcb)
+plotCountDensity(melted)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

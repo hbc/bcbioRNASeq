@@ -2,7 +2,7 @@
 #'
 #' Read `bcbio` sample information from YAML to get `isomiR` object.
 #'
-#' @rdname readSmallRNACounts
+#' @rdname internal-readSmallRNACounts
 #' @author Lorena Patano
 #' @keywords internal
 #'

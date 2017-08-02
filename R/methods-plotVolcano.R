@@ -23,19 +23,11 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' data(bcb)
-#' dds <- DESeqDataSetFromTximport(
-#'     txi = txi(bcb),
-#'     colData = colData(bcb),
-#'     design = formula(~group)) %>%
-#'     DESeq
-#' res <- results(dds)
-#'
+#' data(res)
 #' plotVolcano(res)
 #' plotVolcano(res, genes = "Sulf1")
-#' plotVolcano(res, ntop = 5L)
 #' plotVolcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
-#' plotVolcano(res, histograms = FALSE)
+#' plotVolcano(res, histograms = FALSE, ntop = 5L)
 NULL
 
 
@@ -71,7 +63,7 @@ NULL
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")] %>%
         .[!is.na(.[["log2FoldChange"]]), ]
     g2s <- detectOrganism(stats[["ensgene"]][[1L]]) %>%
-        gene2symbol
+        annotable(format = "gene2symbol")
     stats <- left_join(stats, g2s, by = "ensgene")
 
     # Negative log10 transform the P values
@@ -96,9 +88,9 @@ NULL
     # Text labels ====
     if (!is.null(genes)) {
         volcanoText <- stats %>%
-            .[.[["symbol"]] %in% !!genes, ]
+            .[.[["symbol"]] %in% genes, , drop = FALSE]
     } else if (ntop > 0L) {
-        volcanoText <- stats[1L:ntop, ]
+        volcanoText <- stats[1L:ntop, , drop = FALSE]
     } else {
         volcanoText <- NULL
     }
@@ -118,8 +110,9 @@ NULL
     lfcDensity <- stats[["log2FoldChange"]] %>%
         na.omit %>%
         density
-    lfcDensityDf <- data.frame(x = lfcDensity[["x"]],
-                                 y = lfcDensity[["y"]])
+    lfcDensityDf <- data.frame(
+        x = lfcDensity[["x"]],
+        y = lfcDensity[["y"]])
     lfcHist <- stats %>%
         ggplot(aes_(x = ~log2FoldChange)) +
         geom_density() +

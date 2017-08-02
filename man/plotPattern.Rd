@@ -28,6 +28,12 @@ plotPattern(object, ...)
 \description{
 \code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}} wrapper supporting a \link{bcbioRNADataSet}.
 }
+\examples{
+\dontrun{
+data(bcb, res)
+plotPattern(bcb, res)
+}
+}
 \seealso{
 \code{\link[DEGreport:degPatterns]{DEGreport::degPatterns()}}.
 }

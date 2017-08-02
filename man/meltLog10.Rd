@@ -36,6 +36,18 @@ log10 melted \link{data.frame}.
 \description{
 Melt Count Matrix to Long Format and log10 Transform
 }
+\examples{
+data(bcb, dds, rld)
+
+# bcbioRNADataSet
+meltLog10(bcb) \%>\% glimpse
+
+# DESeqDataSet
+meltLog10(dds) \%>\% glimpse
+
+# DESeqTransform
+meltLog10(dds) \%>\% glimpse
+}
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.
 }

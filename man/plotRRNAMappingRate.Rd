@@ -41,8 +41,7 @@ data(bcb)
 plotRRNAMappingRate(bcb)
 
 # data.frame
-metrics <- metrics(bcb)
-plotRRNAMappingRate(metrics)
+metrics(bcb) \%>\% plotRRNAMappingRate
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
