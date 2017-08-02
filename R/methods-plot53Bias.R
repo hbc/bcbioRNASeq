@@ -1,9 +1,7 @@
 #' Plot 5'->3' Bias
 #'
 #' @rdname plot53Bias
-#' @author Michael Steinbaugh
-#' @family Quality Control Plots
-#' @inherit qcPlots
+#' @rdname plot53Bias
 #'
 #' @examples
 #' data(bcb)
@@ -14,17 +12,18 @@
 #' # data.frame
 #' metrics <- metrics(bcb)
 #' plot53Bias(metrics)
+NULL
 
 
 
-#' @rdname plot53Bias
+# Constructors
 .plot53Bias <- function(
-    metrics,
+    object,
     interestingGroup = "sampleName",
     warnLimit = 2L,
     flip = TRUE) {
-    if (is.null(metrics)) return(NULL)
-    p <- ggplot(metrics,
+    if (is.null(object)) return(NULL)
+    p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~x53Bias,
                      fill = as.name(interestingGroup))) +
@@ -47,6 +46,7 @@
 
 
 
+# Methods ====
 #' @rdname plot53Bias
 #' @export
 setMethod("plot53Bias", "bcbioRNADataSet", .plot53Bias)
