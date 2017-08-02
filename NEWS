@@ -3,6 +3,7 @@
 - Added S4 methods support for plots, allowing the user to use either
   `bcbioRNADataSet` or a metrics `data.frame` and manual `interesting_group`
   declaration for visualization.
+- Migrated function and variable names from `snake_case` to `camelCase`.
 
 
 
