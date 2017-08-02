@@ -1,8 +1,8 @@
 #' Differential Expression Results Tables
 #'
-#' @author Michael Steinbaugh
+#' @rdname resultsTables
+#' @name resultsTables
 #'
-#' @param bcb [bcbioRNADataSet].
 #' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -13,14 +13,20 @@
 #' @param dir Directory path where to write files.
 #'
 #' @return Results list.
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' resultsTables(bcb, res, lfc = 0.25)
 #' }
-resultsTables <- function(
-    bcb,
+NULL
+
+
+
+# Methods ====
+#' @rdname resultsTables
+#' @export
+setMethod("resultsTables", "bcbioRNADataSet", function(
+    object,
     res,
     lfc = 0L,
     write = TRUE,
@@ -33,7 +39,7 @@ resultsTables <- function(
 
     # Alpha level, from [DESeqResults]
     alpha <- metadata(res)[["alpha"]]
-    annotations <- rowData(bcb) %>%
+    annotations <- rowData(object) %>%
         as.data.frame %>%
         rename(ensgene = .data[["ensgene"]])
 
@@ -113,4 +119,4 @@ resultsTables <- function(
     }
 
     resTbl
-}
+})

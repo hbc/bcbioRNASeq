@@ -21,7 +21,7 @@ alphaSummary(object, ...)
 \item{contrast}{Character vector to use with \link{results} function.}
 }
 \value{
-\code{kable}.
+\link{kable}.
 }
 \description{
 Print Summary Statistics of Alpha Level Cutoffs

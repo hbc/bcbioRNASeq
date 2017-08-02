@@ -5,7 +5,7 @@
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param contrast Character vector to use with [results] function.
 #'
-#' @return `kable`.
+#' @return [kable].
 #' @export
 #'
 #' @examples

@@ -374,6 +374,16 @@ setGeneric("plot53Bias", function(object, ...) {
 
 
 
+#' @rdname resultsTables
+#' @author Michael Steinbaugh
+#' @inheritParams AllGenerics
+#' @export
+setGeneric("resultsTables", function(object, ...) {
+    standardGeneric("resultsTables")
+})
+
+
+
 #' @rdname sampleDirs
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
@@ -390,6 +400,16 @@ setGeneric("sampleDirs", function(object) {
 #' @export
 setGeneric("tmm", function(object) {
     standardGeneric("tmm")
+})
+
+
+
+#' @rdname topTables
+#' @author Michael Steinbaugh
+#' @inheritParams AllGenerics
+#' @export
+setGeneric("topTables", function(object, ...) {
+    standardGeneric("topTables")
 })
 
 
