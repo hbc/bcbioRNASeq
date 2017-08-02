@@ -4,14 +4,14 @@
 #' split across flow cell lanes. This generic facilitates quick aggregation
 #' of counts across the flow cells.
 #'
-#' @rdname aggregate_replicates
+#' @rdname aggregateReplicates
 #' @author Michael Steinbaugh
 #'
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.
 #' @export
-setMethod("aggregate_replicates", "matrix", function(
+setMethod("aggregateReplicates", "matrix", function(
     object,
     pattern = "_L\\d+") {
     # Obtain the unique pooled sample names
@@ -35,10 +35,10 @@ setMethod("aggregate_replicates", "matrix", function(
 
 
 
-#' @rdname aggregate_replicates
+#' @rdname aggregateReplicates
 #' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
 #' @export
-setMethod("aggregate_replicates", "DESeqDataSet", function(
+setMethod("aggregateReplicates", "DESeqDataSet", function(
     object,
     pattern = "_L\\d+") {
     # Get the stored design formula
@@ -46,33 +46,33 @@ setMethod("aggregate_replicates", "DESeqDataSet", function(
 
     # Pool the lane split technical replicates
     message("Aggregating raw counts slotted in DESeqDataSet")
-    count_data <- counts(object, normalized = FALSE) %>%
-        aggregate_replicates
+    countData <- counts(object, normalized = FALSE) %>%
+        aggregateReplicates
 
     # Mutate the colData metadata to pooled samples
-    col_data <- colData(object) %>%
+    colData <- colData(object) %>%
         as.data.frame %>%
-        mutate(sample_id = str_replace(.data[["sample_id"]], pattern, ""),
-               sample_name = str_replace(.data[["sample_name"]], pattern, ""),
+        mutate(sampleID = str_replace(.data[["sampleID"]], pattern, ""),
+               sampleName = str_replace(.data[["sampleName"]], pattern, ""),
                lane = NULL,
                sizeFactor = NULL) %>%
         distinct %>%
-        set_rownames(.[["sample_id"]])
+        set_rownames(.[["sampleID"]])
 
-    # Check that the new col_data matches the counts matrix
-    if (!identical(col_data[["sample_name"]], colnames(count_data))) {
-        stop("Sample name mismatch in col_data and count_data")
+    # Check that the new colData matches the counts matrix
+    if (!identical(colData[["sampleName"]], colnames(countData))) {
+        stop("Sample name mismatch in colData and countData")
     }
 
     # Replace sample names in pooled count matrix with description
-    colnames(count_data) <- col_data[["description"]]
-    if (!identical(rownames(col_data), colnames(count_data))) {
-        stop("Description mismatch in col_data and count_data")
+    colnames(countData) <- colData[["description"]]
+    if (!identical(rownames(colData), colnames(countData))) {
+        stop("Description mismatch in colData and countData")
     }
 
     message("Reloading DESeqDataSet using DESeqDataSetFromMatrix")
     DESeqDataSetFromMatrix(
-        countData = count_data,
-        colData = col_data,
+        countData = countData,
+        colData = colData,
         design = design) %>% DESeq
 })

@@ -3,7 +3,7 @@
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
-#' @rdname plot_mean_sd
+#' @rdname plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
 #' @family DESeq2 Utilities
 #'
@@ -12,8 +12,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' plot_mean_sd(bcb)
-setMethod("plot_mean_sd", "bcbioRNADataSet", function(object) {
+#' plotMeanSD(bcb)
+setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
     nonzero <- counts(object, normalized = FALSE) %>%
         rowSums %>%
         `>`(0L)

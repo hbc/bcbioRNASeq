@@ -1,38 +1,38 @@
 #' Plot Exonic Mapping Rate
 #'
-#' @rdname plot_exonic_mapping_rate
+#' @rdname plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @family Quality Control Plots
-#' @inherit qc_plots
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
-#' plot_exonic_mapping_rate(bcb)
+#' plotExonicMappingRate(bcb)
 
 
 
-#' @rdname plot_exonic_mapping_rate
-.plot_exonic_mapping_rate <- function(
+#' @rdname plotExonicMappingRate
+.plotExonicMappingRate <- function(
     metrics,
-    interesting_group = "sample_name",
-    pass_limit = 60L,
+    interestingGroup = "sampleName",
+    passLimit = 60L,
     flip = TRUE) {
     if (is.null(metrics)) return(NULL)
     p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = ~exonic_rate * 100L,
-                     fill = as.name(interesting_group))) +
+                aes_(x = ~sampleName,
+                     y = ~exonicRate * 100L,
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
              y = "exonic mapping rate (%)") +
         ylim(0L, 100L)
-    if (!is.null(pass_limit)) {
+    if (!is.null(passLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_pass_color,
-                       size = qc_line_size,
-                       yintercept = pass_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcPassColor,
+                       size = qcLineSize,
+                       yintercept = passLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -42,19 +42,17 @@
 
 
 
-#' @rdname plot_exonic_mapping_rate
+#' @rdname plotExonicMappingRate
 #' @export
-setMethod("plot_exonic_mapping_rate", "bcbioRNADataSet", function(object, ...) {
-    .plot_exonic_mapping_rate(
+setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(object, ...) {
+    .plotExonicMappingRate(
         metrics = metrics(object),
-        interesting_group = .interesting_group(object),
+        interestingGroup = .interestingGroup(object),
         ...)
 })
 
 
 
-#' @rdname plot_exonic_mapping_rate
+#' @rdname plotExonicMappingRate
 #' @export
-setMethod("plot_exonic_mapping_rate", "data.frame", function(object, ...) {
-    .plot_exonic_mapping_rate(object, ...)
-})
+setMethod("plotExonicMappingRate", "data.frame", .plotExonicMappingRate)

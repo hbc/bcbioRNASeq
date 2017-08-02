@@ -1,4 +1,4 @@
-#' File downloads for RMarkdown templates
+#' Download Dependency File
 #'
 #' If the required dependency file isn't present, download latest version from
 #' the [HBC website](http://bioinformatics.sph.harvard.edu/).
@@ -9,7 +9,7 @@
 #'   dependency files for a new experiment.
 #'
 #' @export
-downloads <- function(file = NULL) {
+download <- function(file = NULL) {
     dl <- function(file) {
         sapply(seq_along(file), function(a) {
             if (!file.exists(file[a])) {
@@ -29,7 +29,7 @@ downloads <- function(file = NULL) {
              "_header.Rmd",
              "_output.yaml",
              "bcbioRnaseq.bib",
-             "load_run.R",
+             "load.R",
              "setup.R"))
     }
 }

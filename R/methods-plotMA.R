@@ -2,7 +2,7 @@
 
 #' Plot Mean Average
 #'
-#' @rdname plot_ma
+#' @rdname plotMA
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @family Differential Expression Plots
 #'
@@ -31,16 +31,16 @@
 #' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 #'
 #' # DESeqResults
-#' plot_ma(res, label_points = genes)
+#' plotMA(res, label_points = genes)
 #'
 #' # data.frame
 #' res_df <- as.data.frame(res)
-#' plot_ma(res_df, label_points = genes)
+#' plotMA(res_df, label_points = genes)
 
 
 
-#' @rdname plot_ma
-.plot_ma <- function(
+#' @rdname plotMA
+.plotMA <- function(
     res_df,
     alpha = 0.05,
     label_points = NULL,
@@ -94,16 +94,16 @@
 
 
 
-#' @rdname plot_ma
+#' @rdname plotMA
 #' @export
-setMethod("plot_ma", "DESeqResults", function(object, ...) {
-    .plot_ma(as.data.frame(object), ...)
+setMethod("plotMA", "DESeqResults", function(object, ...) {
+    .plotMA(as.data.frame(object), ...)
 })
 
 
 
-#' @rdname plot_ma
+#' @rdname plotMA
 #' @export
-setMethod("plot_ma", "data.frame", function(object, ...) {
-    .plot_ma(object, ...)
+setMethod("plotMA", "data.frame", function(object, ...) {
+    .plotMA(object, ...)
 })

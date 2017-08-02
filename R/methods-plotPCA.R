@@ -3,7 +3,7 @@
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
 #' (PCA) sample coloring and labeling.
 #'
-#' @rdname plot_pca
+#' @rdname plotPCA
 #' @author Michael Steinbaugh
 #'
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
@@ -23,8 +23,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' plot_pca(bcb)
-setMethod("plot_pca", "bcbioRNADataSet", function(
+#' plotPCA(bcb)
+setMethod("plotPCA", "bcbioRNADataSet", function(
     object,
     transform = "rlog",
     genes = NULL,

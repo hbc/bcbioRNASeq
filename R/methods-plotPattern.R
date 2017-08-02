@@ -2,7 +2,7 @@
 #'
 #' [DEGreport::degPatterns()] wrapper supporting a [bcbioRNADataSet].
 #'
-#' @rdname plot_pattern
+#' @rdname plotPattern
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @param res Table with padj as column and gene names as [rownames].
@@ -14,7 +14,7 @@
 #'
 #' @return [ggplot].
 #' @export
-setMethod("plot_pattern", "bcbioRNADataSet", function(
+setMethod("plotPattern", "bcbioRNADataSet", function(
     object,
     res,
     fdr = 0.1,

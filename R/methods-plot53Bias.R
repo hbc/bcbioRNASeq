@@ -1,43 +1,43 @@
 #' Plot 5'->3' Bias
 #'
-#' @rdname plot_5_3_bias
+#' @rdname plot53Bias
 #' @author Michael Steinbaugh
 #' @family Quality Control Plots
-#' @inherit qc_plots
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plot_5_3_bias(bcb)
+#' plot53Bias(bcb)
 #'
 #' # data.frame
 #' metrics <- metrics(bcb)
-#' plot_5_3_bias(metrics)
+#' plot53Bias(metrics)
 
 
 
-#' @rdname plot_5_3_bias
-.plot_5_3_bias <- function(
+#' @rdname plot53Bias
+.plot53Bias <- function(
     metrics,
-    interesting_group = "sample_name",
-    warn_limit = 2L,
+    interestingGroup = "sampleName",
+    warnLimit = 2L,
     flip = TRUE) {
     if (is.null(metrics)) return(NULL)
     p <- ggplot(metrics,
-                aes_(x = ~sample_name,
-                     y = ~x5_3_bias,
-                     fill = as.name(interesting_group))) +
+                aes_(x = ~sampleName,
+                     y = ~x53Bias,
+                     fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
              y = "5'->3' bias")
-    if (!is.null(warn_limit)) {
+    if (!is.null(warnLimit)) {
         p <- p +
-            geom_hline(alpha = qc_line_alpha,
-                       color = qc_warn_color,
-                       size = qc_line_size,
-                       yintercept = warn_limit)
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcWarnColor,
+                       size = qcLineSize,
+                       yintercept = warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -47,19 +47,12 @@
 
 
 
-#' @rdname plot_5_3_bias
+#' @rdname plot53Bias
 #' @export
-setMethod("plot_5_3_bias", "bcbioRNADataSet", function(object, ...) {
-    .plot_5_3_bias(
-        metrics(object),
-        interesting_group = .interesting_group(object),
-        ...)
-})
+setMethod("plot53Bias", "bcbioRNADataSet", .plot53Bias)
 
 
 
-#' @rdname plot_5_3_bias
+#' @rdname plot53Bias
 #' @export
-setMethod("plot_5_3_bias", "data.frame", function(object, ...) {
-    .plot_5_3_bias(object, ...)
-})
+setMethod("plot53Bias", "data.frame", .plot53Bias)

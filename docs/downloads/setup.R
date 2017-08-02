@@ -20,8 +20,3 @@ opts_chunk$set(
 
 theme_set(theme_light(base_size = 14))
 theme_update(legend.position = "bottom")
-
-output_dir <- getwd()
-data_dir <- file.path(output_dir, "data")
-counts_dir <- file.path(output_dir, "results", "counts")
-de_dir <- file.path(output_dir, "results", "de")

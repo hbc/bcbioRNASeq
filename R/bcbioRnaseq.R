@@ -28,15 +28,15 @@
 globalVariables(".")
 
 # Quality control plot colors
-qc_fail_color <- "red"
-qc_pass_color <- "green"
-qc_warn_color <- "orange"
-qc_line_alpha <- 0.75
-qc_line_size <- 2L
+qcFailColor <- "red"
+qcPassColor <- "green"
+qcWarnColor <- "orange"
+qcLineAlpha <- 0.75
+qcLineSize <- 2L
 
 # Plot label separator
-label_sep <- ": "
+labelSep <- ": "
 
-project_dir_pattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
-meta_priority_cols <- c("sample_id", "sample_name")
-per_sample_dirs <- c("sailfish", "salmon")
+projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+metaPriorityCols <- c("sampleID", "sampleName")
+perSampleDirs <- c("sailfish", "salmon")

@@ -10,7 +10,7 @@ linters: with_defaults(
     nonportable_path_linter,
     no_tab_linter,
     object_length_linter(40),
-    object_name_linter("snake_case"),
+    object_name_linter("lowerCamelCase"),
     open_curly_linter,
     semicolon_terminator_linter,
     pipe_continuation_linter,

@@ -10,8 +10,8 @@
 #' data(bcb)
 #' metrics(bcb)
 setMethod("metrics", "bcbioRNADataSet", function(object) {
-    metrics <- .unique_metrics(object)
+    metrics <- .uniqueMetrics(object)
     if (is.null(metrics)) return(NULL)
-    meta <- .interesting_col_data(object)
+    meta <- .interestingColData(object)
     cbind(meta, metrics)
 })

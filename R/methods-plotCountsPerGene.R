@@ -1,25 +1,25 @@
 #' Plot Counts Per Gene
 #'
-#' @rdname plot_counts_per_gene
+#' @rdname plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @family Quality Control Plots
-#' @inherit qc_plots
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
-#' plot_counts_per_gene(bcb)
+#' plotCountsPerGene(bcb)
 
 
 
-#' @rdname plot_counts_per_gene
-.plot_counts_per_gene <- function(
+#' @rdname plotCountsPerGene
+.plotCountsPerGene <- function(
     melted,
-    interesting_group = "sample_name",
+    interestingGroup = "sampleName",
     flip = TRUE) {
     p <- ggplot(melted,
-                aes_(x = ~sample_name,
+                aes_(x = ~sampleName,
                      y = ~counts,
-                     color = as.name(interesting_group))) +
+                     color = as.name(interestingGroup))) +
         geom_boxplot(outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
@@ -32,12 +32,12 @@
 
 
 
-#' @rdname plot_counts_per_gene
+#' @rdname plotCountsPerGene
 #' @export
-setMethod("plot_counts_per_gene", "bcbioRNADataSet", function(
+setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
     object, normalized = "tmm", ...) {
-    .plot_counts_per_gene(
-        melted = melt_log10(object, normalized = normalized),
-        interesting_group = .interesting_group(object),
+    .plotCountsPerGene(
+        melted = meltLog10(object, normalized = normalized),
+        interestingGroup = .interestingGroup(object),
         ...)
 })

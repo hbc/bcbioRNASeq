@@ -2,7 +2,7 @@
 #'
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
 #'
-#' @rdname plot_pca_covariates
+#' @rdname plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @param transform String specifying [DESeqTransform] slotted inside the
@@ -22,8 +22,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' plot_pca_covariates(bcb)
-setMethod("plot_pca_covariates", "bcbioRNADataSet", function(
+#' plotPCACovariates(bcb)
+setMethod("plotPCACovariates", "bcbioRNADataSet", function(
     object, transform = "rlog", metrics = TRUE, ...) {
     # Check for valid `transform` argument
     transform_args <- c("rlog", "vst")

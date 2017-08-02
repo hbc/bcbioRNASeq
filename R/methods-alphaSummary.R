@@ -1,6 +1,6 @@
 #' Print Summary Statistics of Alpha Level Cutoffs
 #'
-#' @rdname alpha_summary
+#' @rdname alphaSummary
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @param alpha Numeric vector of desired alpha cutoffs.
@@ -16,8 +16,8 @@
 #'     colData = colData(bcb),
 #'     design = formula(~group)) %>%
 #'     DESeq
-#' alpha_summary(dds)
-setMethod("alpha_summary", "DESeqDataSet", function(
+#' alphaSummary(dds)
+setMethod("alphaSummary", "DESeqDataSet", function(
     object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     contrast = NULL) {

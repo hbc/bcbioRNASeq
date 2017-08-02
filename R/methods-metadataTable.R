@@ -1,10 +1,10 @@
 #' Metadata Table
 #'
 #' Returns a subset of metadata columns of interest used for knit reports. These
-#' "interesting group" columns are defined as `interesting_groups` in the
+#' "interesting group" columns are defined as `interestingGroups` in the
 #' [bcbioRNADataSet] object.
 #'
-#' @rdname metadata_table
+#' @rdname metadataTable
 #' @author Michael Steinbaugh
 #'
 #' @param ... Additional parameters, passed to [kable()].
@@ -13,9 +13,9 @@
 
 
 
-#' @rdname metadata_table
+#' @rdname metadataTable
 #' @usage NULL
-.metadata_table <- function(object, ...) {
+.metadataTable <- function(object, ...) {
     object %>%
         colData %>%
         as.data.frame %>%
@@ -25,24 +25,18 @@
 
 
 
-#' @rdname metadata_table
+#' @rdname metadataTable
 #' @export
-setMethod("metadata_table", "bcbioRNADataSet", function(object, ...) {
-    .metadata_table(object)
-})
+setMethod("metadataTable", "bcbioRNADataSet", .metadataTable)
 
 
 
-#' @rdname metadata_table
+#' @rdname metadataTable
 #' @export
-setMethod("metadata_table", "DESeqDataSet", function(object, ...) {
-    .metadata_table(object)
-})
+setMethod("metadataTable", "DESeqDataSet", .metadataTable)
 
 
 
-#' @rdname metadata_table
+#' @rdname metadataTable
 #' @export
-setMethod("metadata_table", "DESeqTransform", function(object, ...) {
-    .metadata_table(object)
-})
+setMethod("metadataTable", "DESeqTransform", .metadataTable)

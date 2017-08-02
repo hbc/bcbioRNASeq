@@ -105,11 +105,11 @@ load_run <- function(
     # Subset sample directories by metadata ====
     # Check to see if a subset of samples is requested via the metadata file.
     # This matches by the reverse complement sequence of the index barcode.
-    if (length(sample_metadata[["sample_id"]]) < length(sample_dirs)) {
+    if (length(sample_metadata[["sampleID"]]) < length(sample_dirs)) {
         message("Loading a subset of samples, defined by the metadata file")
         all_samples <- FALSE
         sample_dirs <- sample_dirs %>%
-            .[names(sample_dirs) %in% sample_metadata[["sample_id"]]]
+            .[names(sample_dirs) %in% sample_metadata[["sampleID"]]]
         message(paste(length(sample_dirs), "samples matched by metadata"))
     } else {
         all_samples <- TRUE

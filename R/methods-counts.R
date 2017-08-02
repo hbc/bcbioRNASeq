@@ -39,9 +39,9 @@
 #' mat <- counts(bcb, normalized = "vst")
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
-        slot <- "raw_counts"
+        slot <- "raw"
     } else if (normalized == TRUE) {
-        slot <- "normalized_counts"
+        slot <- "normalized"
     } else {
         slot <- normalized
     }

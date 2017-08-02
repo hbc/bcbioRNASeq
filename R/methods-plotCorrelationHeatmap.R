@@ -6,7 +6,7 @@
 #' input of `gene` identifier vector. In this case, only the expression of the
 #' desired genes will be used to calculate the correlation matrix.
 #'
-#' @rdname plot_correlation_heatmap
+#' @rdname plotCorrelationHeatmap
 #' @author Michael Steinbaugh
 #' @family Heatmaps
 #'
@@ -16,15 +16,15 @@
 #' @param method Correlation coefficient (or covariance) to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
-#' @param clustering_method Hierarchical clustering method. Accepts the same
+#' @param clusteringMethod Hierarchical clustering method. Accepts the same
 #'   values as [stats::hclust()].
 #' @param samples *Optional*. Character vector of specific samples.
 #' @param genes *Optional*. Character vector of specific gene identifiers to
 #'   plot.
-#' @param interesting_groups *Optional*. Interesting groups to label with bars
-#'   above heatmap. If `NULL`, defaults to `interesting_groups` defined in the
+#' @param interestingGroups *Optional*. Interesting groups to label with bars
+#'   above heatmap. If `NULL`, defaults to `interestingGroups` defined in the
 #'   [bcbioRNADataSet].
-#' @param annotation_col *Optional*. Alternative annotation to use. Useful when
+#' @param annotationCol *Optional*. Alternative annotation to use. Useful when
 #'   plotting more than one column.
 #' @param title *Optional*. Text to include in plot title.
 #' @param ... Additional arguments, passed to [pheatmap::pheatmap()].
@@ -39,16 +39,16 @@
 #'
 #' @examples
 #' data(bcb)
-#' plot_correlation_heatmap(bcb)
-setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
+#' plotCorrelationHeatmap(bcb)
+setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", function(
     object,
     transform = "rlog",
     method = "pearson",
-    clustering_method = "ward.D2",
+    clusteringMethod = "ward.D2",
     genes = NULL,
     samples = NULL,
-    interesting_groups = NULL,
-    annotation_col = NULL,
+    interestingGroups = NULL,
+    annotationCol = NULL,
     title = NULL,
     ...) {
     # Check for supported correlation method
@@ -57,14 +57,14 @@ setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     }
 
     # Interesting groups
-    if (is.null(interesting_groups)) {
-        interesting_groups <- metadata(object)[["interesting_groups"]]
+    if (is.null(interestingGroups)) {
+        interestingGroups <- metadata(object)[["interestingGroups"]]
     }
 
     # Per sample annotations of interest
-    if (is.null(annotation_col)) {
-        annotation_col <- colData(object) %>%
-            .[, interesting_groups, drop = FALSE] %>%
+    if (is.null(annotationCol)) {
+        annotationCol <- colData(object) %>%
+            .[, interestingGroups, drop = FALSE] %>%
             as.data.frame
     }
 
@@ -90,14 +90,14 @@ setMethod("plot_correlation_heatmap", "bcbioRNADataSet", function(
     # Subset count matrix by input samples, if desired
     if (!is.null(samples)) {
         counts <- counts[, samples]
-        annotation_col <- annotation_col[samples, ]
+        annotationCol <- annotationCol[samples, ]
     }
 
     counts %>%
         cor(method = method) %>%
         pheatmap(
-            annotation_col = annotation_col,
-            clustering_method = clustering_method,
+            annotation_col = annotationCol,
+            clustering_method = clusteringMethod,
             clustering_distance_rows = "correlation",
             clustering_distance_cols = "correlation",
             main = main,

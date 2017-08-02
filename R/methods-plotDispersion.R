@@ -2,7 +2,7 @@
 #'
 #' [DESeq2::plotDispEsts()] wrapper supporting a [bcbioRNADataSet].
 #'
-#' @rdname plot_dispersion
+#' @rdname plotDispersion
 #' @author Michael Steinbaugh
 #' @family DESeq2 Utilities
 #'
@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' plot_dispersion(bcb)
-setMethod("plot_dispersion", "bcbioRNADataSet", function(object) {
+#' plotDispersion(bcb)
+setMethod("plotDispersion", "bcbioRNADataSet", function(object) {
     bcbio(object, "DESeqDataSet") %>% plotDispEsts
 })

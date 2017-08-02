@@ -24,8 +24,8 @@
 .meta_priority_cols <- function(meta) {
     meta %>%
         as("tibble") %>%
-        # Sanitize `sample_id` into snake_case
-        mutate(sample_id = snake(.data[["sample_id"]])) %>%
+        # Sanitize `sampleID` into snake_case
+        mutate(sampleID = snake(.data[["sampleID"]])) %>%
         tidy_select(unique(c(meta_priority_cols, sort(colnames(.))))) %>%
         arrange(!!!syms(meta_priority_cols))
 }
@@ -43,7 +43,7 @@
     drop_cols <- c(meta_priority_cols, "name")
     metrics <- metadata(object)[["metrics"]] %>%
         as.data.frame %>%
-        set_rownames(.[["sample_id"]]) %>%
+        set_rownames(.[["sampleID"]]) %>%
         .[, setdiff(colnames(.), drop_cols), drop = FALSE]
     # Find metrics columns with unique values
     keep_cols <- lapply(colnames(metrics), function(a) {
@@ -80,7 +80,7 @@
     # First column must be the `sample_name`, which points to the FASTQ.
     # bcbio labels this `samplename` by default. Rename to `sample_name`
     # here to ensure consistent snake_case naming syntax.
-    names(meta)[[1L]] <- "sample_id"
+    names(meta)[[1L]] <- "sampleID"
     meta <- meta %>%
         # Strip all NA rows and columns
         remove_na %>%
@@ -104,7 +104,7 @@
             mutate(sample_name = paste(.data[["sample_name"]],
                                      .data[["lane"]],
                                      sep = "_"),
-                   sample_id = .data[["sample_name"]])
+                   sampleID = .data[["sample_name"]])
     }
 
     # Subset by pattern, if desired

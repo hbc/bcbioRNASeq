@@ -1,11 +1,11 @@
 #' Differentially Expressed Gene Heatmap
 #'
-#' This function is a simplified version of [plot_gene_heatmap()] that is
+#' This function is a simplified version of [plotGeneHeatmap()] that is
 #' optimized for handling a [DESeqResults] object rather a gene vector. All of
-#' the optional parameters for [plot_gene_heatmap()] are also available to this
+#' the optional parameters for [plotGeneHeatmap()] are also available to this
 #' function.
 #'
-#' @rdname plot_deg_heatmap
+#' @rdname plotDEGHeatmap
 #' @author Michael Steinbaugh
 #' @family Heatmaps
 #'
@@ -24,12 +24,12 @@
 #'     DESeq
 #' res <- results(dds)
 #' rld <- rlog(dds)
-#' plot_deg_heatmap(res, rld)
+#' plotDEGHeatmap(res, rld)
 
 
 
-#' @rdname plot_deg_heatmap
-.plot_deg_heatmap <- function(
+#' @rdname plotDEGHeatmap
+.plotDEGHeatmap <- function(
     object,
     counts,
     alpha = 0.05,
@@ -41,19 +41,19 @@
         rownames_to_column("ensgene") %>%
         snake %>%
         filter(.data[["padj"]] < !!alpha,
-               .data[["log2_fold_change"]] > !!lfc |
-                   .data[["log2_fold_change"]] < -UQ(lfc)) %>%
+               .data[["log2FoldChange"]] > !!lfc |
+                   .data[["log2FoldChange"]] < -UQ(lfc)) %>%
         pull("ensgene") %>%
         sort
-    plot_gene_heatmap(counts, genes = genes, ...)
+    plotGeneHeatmap(counts, genes = genes, ...)
 }
 
 
 
-#' @rdname plot_deg_heatmap
+#' @rdname plotDEGHeatmap
 #' @export
 setMethod(
-    "plot_deg_heatmap",
+    "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqTransform"),
     function(

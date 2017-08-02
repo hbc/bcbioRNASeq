@@ -32,5 +32,5 @@ setMethod("plot_srna_clusters", "bcbioRNADataSet", function(object) {
              clustering_method = "ward.D",
              scale = "row",
              show_rownames = FALSE)
-    plot_pca(object)
+    plotPCA(object)
 })

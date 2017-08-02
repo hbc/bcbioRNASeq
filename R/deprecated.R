@@ -88,8 +88,8 @@ pool_dds <- function(...) {
 #' @rdname deprecated
 #' @export
 plot_deseq_pca <- function(...) {
-    .Deprecated("plot_pca")
-    plot_pca(...)
+    .Deprecated("plotPCA")
+    plotPCA(...)
 }
 
 

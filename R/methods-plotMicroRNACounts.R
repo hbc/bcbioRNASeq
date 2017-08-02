@@ -1,11 +1,11 @@
 #' Plot of Total miRNA Counts
 #'
-#' @rdname plot_mirna_counts
+#' @rdname plotMicroRNACounts
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @return [ggplot].
 #' @export
-setMethod("plot_mirna_counts", "bcbioRNADataSet", function(object) {
+setMethod("plotMicroRNACounts", "bcbioRNADataSet", function(object) {
     counts <- counts(object)
     .t <- data.frame(sample = colnames(counts),
                      total = colSums(counts))

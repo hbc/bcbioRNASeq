@@ -59,8 +59,8 @@
         remove_na %>%
         # Rename `description` to `sample_name`
         rename(sample_name = .data[["description"]]) %>%
-        # Set `sample_id` from `sample_name` %>%
-        mutate(sample_id = .data[["sample_name"]]) %>%
+        # Set `sampleID` from `sample_name` %>%
+        mutate(sampleID = .data[["sample_name"]]) %>%
         .meta_priority_cols
 }
 
