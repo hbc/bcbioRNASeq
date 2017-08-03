@@ -1,3 +1,20 @@
+#' Example [bcbioRNADataSet]
+#'
+#' @author Lorena Pantano
+#' @keywords internal
+"bcb"
+
+
+
+#' Example [DESeqDataSet]
+#'
+#' Derived from `bcb`, the example [bcbioRNADataSet].
+#'
+#' @keywords internal
+"dds"
+
+
+
 #' *M. musculus* Gender Marker Genes
 #'
 #' @author Michael Steinbaugh
@@ -6,8 +23,18 @@
 
 
 
-#' Example [bcbioRNADataSet]
+#' Example [DESeqResults]
 #'
-#' @author Lorena Pantano
+#' Derived from `dds`, the example [DESeqDataSet].
+#'
 #' @keywords internal
-"bcb"
+"res"
+
+
+
+#' Example [DESeqTransform]
+#'
+#' [rlog()] transformation of `dds`, the example [DESeqDataSet].
+#'
+#' @keywords internal
+"rld"
