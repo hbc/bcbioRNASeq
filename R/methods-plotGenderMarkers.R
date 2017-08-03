@@ -21,10 +21,10 @@ setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
     organism <- metadata(object)[["organism"]]
 
     # Load the relevant internal gender markers data
-    if (organism == "mmusculus") {
+    if (organism == "Mus musculus") {
         genderMarkers <- get("genderMarkersMmusculus",
                               envir = as.environment("package:bcbioRnaseq"))
-    } else if (organism == "hsapiens") {
+    } else if (organism == "Homo sapiens") {
         stop("Draft support coming soon")
     } else {
         stop("Unsupported organism")
@@ -43,15 +43,15 @@ setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
     # Subset TPM
     tpm <- tpm(object)
     if (!all(ensgene %in% rownames(tpm))) {
-        warning("Missing dimorphic genes in counts matrix")
+        warning("Missing gender markers in counts matrix", call. = FALSE)
         return(NULL)
     }
     tpm <- tpm[ensgene, ]
 
     tpm %>%
         as("tibble") %>%
-        # Can also declare `measure.vars` here
-        # If you don't set `id`, function will output a message
+        # For `melt()`, can also declare `measure.vars` here instead of using
+        # `setNames()`. If you don't set `id`, function will output a message.
         melt(id = 1L) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(genderMarkers, by = "ensgene") %>%
