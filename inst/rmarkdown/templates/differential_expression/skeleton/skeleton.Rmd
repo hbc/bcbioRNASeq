@@ -13,7 +13,7 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-bcbioRnaseq::downloads()
+bcbioRnaseq::download()
 source("setup.R")
 library(DESeq2)
 
@@ -81,9 +81,11 @@ resUnshrunken <- results(
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
+# Use the correct coef number to modify from resultsNames(dds)
 resShrunken <- lfcShrink(
     dds = dds,
     contrast = contrast,
+    coef = 2,
     res = resUnshrunken)
 
 # Use shrunken LFC values by default
