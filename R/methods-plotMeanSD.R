@@ -10,28 +10,35 @@
 #' @export
 #'
 #' @examples
-#' data(bcb)
+#' data(bcb, dds)
+#'
+#' # bcbioRNADataSet
 #' plotMeanSD(bcb)
+#'
+#' # DESeqDataSet
+#' plotMeanSD(dds)
 NULL
 
 
 
-# Methods ====
-#' @rdname plotMeanSD
-#' @export
-setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
-    nonzero <- counts(object, normalized = FALSE) %>%
+# Constructors ====
+.plotMeanSD <- function(
+    raw,
+    normalized,
+    rlog,
+    vst) {
+    nonzero <- raw %>%
         rowSums %>%
         `>`(0L)
-    gglog2 <- counts(object, normalized = TRUE) %>%
+    gglog2 <- normalized %>%
         .[nonzero, ] %>%
         `+`(1L) %>%
         log2 %>%
         meanSdPlot(plot = FALSE)
-    ggrlog <- counts(object, normalized = "rlog") %>%
+    ggrlog <- rlog %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
-    ggvsd <- counts(object, normalized = "vst") %>%
+    ggvst <- vst %>%
         .[nonzero, ] %>%
         meanSdPlot(plot = FALSE)
     plot_grid(
@@ -41,9 +48,33 @@ setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
         ggrlog[["gg"]] +
             ggtitle("rlog") +
             theme(legend.position = "none"),
-        ggvsd[["gg"]] +
+        ggvst[["gg"]] +
             ggtitle("variance stabilizing transformation") +
             theme(legend.position = "none"),
         labels = "auto",
         nrow = 3L)
+}
+
+
+# Methods ====
+#' @rdname plotMeanSD
+#' @export
+setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
+    .plotMeanSD(
+        raw = counts(object, normalized = FALSE),
+        normalized = counts(object, normalized = TRUE),
+        rlog = counts(object, normalized = "rlog"),
+        vst = counts(object, normalized = "vst"))
+})
+
+
+
+#' @rdname plotMeanSD
+#' @export
+setMethod("plotMeanSD", "DESeqDataSet", function(object) {
+    .plotMeanSD(
+        raw = counts(object, normalized = FALSE),
+        normalized = counts(object, normalized = TRUE),
+        rlog = rlog(object) %>% assay,
+        vst = varianceStabilizingTransformation(object) %>% assay)
 })
