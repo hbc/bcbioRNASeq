@@ -147,6 +147,7 @@ loadRun <- function(
 
     # Metadata ====
     metadata <- list(
+        version = packageVersion("bcbioRnaseq"),
         analysis = analysis,
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
