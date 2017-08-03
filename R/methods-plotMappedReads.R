@@ -10,8 +10,7 @@
 #' plotMappedReads(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plotMappedReads(metrics)
+#' metrics(bcb) %>% plotMappedReads
 NULL
 
 

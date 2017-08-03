@@ -15,6 +15,9 @@
 #' @param symbol Match against Ensembl gene symbols.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
+#' @param annotationCol [data.frame] that specifies the annotations shown on the
+#'   right side of the heatmap. Each row of this [data.frame] defines the
+#'   features of the heatmap columns.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].

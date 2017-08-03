@@ -32,6 +32,10 @@ plotGeneHeatmap(object, ...)
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the \code{row} direction, \code{column} direction, or \code{none}.}
+
+\item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
+right side of the heatmap. Each row of this \link{data.frame} defines the
+features of the heatmap columns.}
 }
 \value{
 Graphical output only.

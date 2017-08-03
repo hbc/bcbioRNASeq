@@ -42,14 +42,13 @@ data(bcb)
 plotExonicMappingRate(bcb)
 
 # data.frame
-metrics <- metrics(bcb)
-plotExonicMappingRate(metrics)
+metrics(bcb) \%>\% plotExonicMappingRate
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
-  \code{\link{plotGeneDetectionSaturation}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},

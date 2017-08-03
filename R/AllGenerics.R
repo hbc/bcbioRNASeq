@@ -204,18 +204,6 @@ setGeneric("plotGene", function(object, ...) {
 
 
 
-#' @rdname plotGeneDetectionSaturation
-#' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
-#' @inherit qcPlots
-#' @export
-setGeneric("plotGeneDetectionSaturation", function(object, ...) {
-    standardGeneric("plotGeneDetectionSaturation")
-})
-
-
-
 #' @rdname plotGeneHeatmap
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
@@ -226,13 +214,27 @@ setGeneric("plotGeneHeatmap", function(object, ...) {
 
 
 
+#' @rdname plotGeneSaturation
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @inheritParams AllGenerics
+#' @inherit qcPlots
+#' @export
+setGeneric(
+    "plotGeneSaturation",
+    function(object, counts, ...) {
+        standardGeneric("plotGeneSaturation")
+    })
+
+
+
 #' @rdname plotGenesDetected
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inheritParams AllGenerics
 #' @inherit qcPlots
 #' @export
-setGeneric("plotGenesDetected", function(object, ...) {
+setGeneric("plotGenesDetected", function(object, counts, ...) {
     standardGeneric("plotGenesDetected")
 })
 

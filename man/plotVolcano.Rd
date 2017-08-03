@@ -57,10 +57,7 @@ Plot Volcano
 data(res)
 
 # DESeqResults
-plotVolcano(res)
 plotVolcano(res, genes = "Sulf1")
-plotVolcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
-plotVolcano(res, histograms = FALSE, ntop = 5L)
 
 # data.frame
 as.data.frame(res) \%>\% plotVolcano

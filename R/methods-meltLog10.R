@@ -21,7 +21,7 @@
 #' meltLog10(dds) %>% glimpse
 #'
 #' # DESeqTransform
-#' meltLog10(dds) %>% glimpse
+#' meltLog10(rld) %>% glimpse
 NULL
 
 

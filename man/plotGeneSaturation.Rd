@@ -2,30 +2,30 @@
 % Please edit documentation in R/AllGenerics.R,
 %   R/methods-plotGeneDetectionSaturation.R
 \docType{methods}
-\name{plotGeneDetectionSaturation}
-\alias{plotGeneDetectionSaturation}
-\alias{plotGeneDetectionSaturation}
-\alias{plotGeneDetectionSaturation,bcbioRNADataSet-method}
-\alias{plotGeneDetectionSaturation,data.frame-method}
+\name{plotGeneSaturation}
+\alias{plotGeneSaturation}
+\alias{plotGeneSaturation}
+\alias{plotGeneSaturation,bcbioRNADataSet,missing-method}
+\alias{plotGeneSaturation,data.frame,matrix-method}
 \title{Plot Gene Detection Saturation}
 \usage{
-plotGeneDetectionSaturation(object, ...)
+plotGeneSaturation(object, counts, ...)
 
-\S4method{plotGeneDetectionSaturation}{bcbioRNADataSet}(object,
+\S4method{plotGeneSaturation}{bcbioRNADataSet,missing}(object,
   normalized = "tmm", ...)
 
-\S4method{plotGeneDetectionSaturation}{data.frame}(object, counts,
+\S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
   interestingGroup = "sampleName", minCounts = 0L)
 }
 \arguments{
 \item{object}{Object.}
 
+\item{counts}{Counts matrix.}
+
 \item{...}{Additional arguments.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
-
-\item{counts}{Counts matrix.}
 
 \item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
 and shape). If unset, this is automatically determined by the metadata set
@@ -41,8 +41,13 @@ plotting.}
 Plot Gene Detection Saturation
 }
 \examples{
-data(bcb)
-plotGeneDetectionSaturation(bcb)
+data(bcb, rld)
+
+# bcbioRNADataSet
+plotGeneSaturation(bcb)
+
+# data.frame + matrix
+plotGeneSaturation(metrics(bcb), assay(rld))
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

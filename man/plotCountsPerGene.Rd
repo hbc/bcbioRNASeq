@@ -42,14 +42,13 @@ data(bcb)
 plotCountsPerGene(bcb)
 
 # data.frame
-melted <- meltLog10(bcb)
-plotCountsPerGene(melted)
+meltLog10(bcb) \%>\% plotCountsPerGene
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGeneDetectionSaturation}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},

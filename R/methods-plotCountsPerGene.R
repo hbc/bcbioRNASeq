@@ -10,8 +10,7 @@
 #' plotCountsPerGene(bcb)
 #'
 #' # data.frame
-#' melted <- meltLog10(bcb)
-#' plotCountsPerGene(melted)
+#' meltLog10(bcb) %>% plotCountsPerGene
 NULL
 
 

@@ -131,6 +131,12 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
       <td><p>Character indicating if the values should be centered and scaled
 in either the <code>row</code> direction, <code>column</code> direction, or <code>none</code>.</p></td>
     </tr>
+    <tr>
+      <th>annotationCol</th>
+      <td><p>data.frame that specifies the annotations shown on the
+right side of the heatmap. Each row of this data.frame defines the
+features of the heatmap columns.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -146,10 +152,10 @@ in either the <code>row</code> direction, <code>column</code> direction, or <cod
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='img'><img src='plotGeneHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Failed to match all gene IDs to symbols</span></div><div class='img'><img src='plotGeneHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Genes as symbols (default)</span>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"Rgs20"</span>, <span class='st'>"Rab23"</span>, <span class='st'>"Ncoa2"</span>, <span class='st'>"Sulf1"</span>)
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Failed to match all gene IDs to symbols</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Genes as Ensembl identifiers</span>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>)[<span class='fl'>1L</span>:<span class='fl'>50L</span>, ] <span class='kw'>%&gt;%</span> <span class='no'>rownames</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>

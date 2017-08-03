@@ -10,8 +10,7 @@
 #' plotExonicMappingRate(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plotExonicMappingRate(metrics)
+#' metrics(bcb) %>% plotExonicMappingRate
 NULL
 
 

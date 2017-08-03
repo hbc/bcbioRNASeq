@@ -4,24 +4,27 @@
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
 \alias{plotGenesDetected}
-\alias{plotGenesDetected,bcbioRNADataSet-method}
-\alias{plotGenesDetected,data.frame-method}
+\alias{plotGenesDetected,bcbioRNADataSet,missing-method}
+\alias{plotGenesDetected,data.frame,DESeqDataSet-method}
+\alias{plotGenesDetected,data.frame,matrix-method}
 \title{Plot Genes Detected}
 \usage{
-plotGenesDetected(object, ...)
+plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNADataSet}(object, ...)
+\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object, counts, ...)
 
-\S4method{plotGenesDetected}{data.frame}(object, counts,
+\S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts, ...)
+
+\S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
   interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
   minCounts = 0L, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
 \item{counts}{Counts matrix.}
+
+\item{...}{Additional arguments.}
 
 \item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
 and shape). If unset, this is automatically determined by the metadata set
@@ -43,15 +46,25 @@ plotting.}
 Plot Genes Detected
 }
 \examples{
-data(bcb)
-plotGenesDetected(bcb, passLimit = NULL)
+data(bcb, dds)
+
+# bcbioRNADataSet
+plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
+
+# data.frame + DESeqDataSet
+plotGenesDetected(metrics(bcb), dds,
+                  passLimit = NULL, warnLimit = NULL)
+
+# data.frame + matrix
+plotGenesDetected(metrics(bcb), assay(dds),
+                  passLimit = NULL, warnLimit = NULL)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGeneDetectionSaturation}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
   \code{\link{plotMappingRate}},

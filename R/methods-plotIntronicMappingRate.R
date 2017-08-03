@@ -10,8 +10,7 @@
 #' plotIntronicMappingRate(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plotIntronicMappingRate(metrics)
+#' metrics(bcb) %>% plotIntronicMappingRate
 NULL
 
 

@@ -46,7 +46,7 @@ meltLog10(bcb) \%>\% glimpse
 meltLog10(dds) \%>\% glimpse
 
 # DESeqTransform
-meltLog10(dds) \%>\% glimpse
+meltLog10(rld) \%>\% glimpse
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.

@@ -10,8 +10,7 @@
 #' plot53Bias(bcb)
 #'
 #' # data.frame
-#' metrics <- metrics(bcb)
-#' plot53Bias(metrics)
+#' metrics(bcb) %>% plot53Bias
 NULL
 
 

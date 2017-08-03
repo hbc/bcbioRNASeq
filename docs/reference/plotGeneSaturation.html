@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Mean Average — plotMA • bcbioRnaseq</title>
+<title>Plot Gene Detection Saturation — plotGeneSaturation • bcbioRnaseq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,22 +80,22 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Mean Average</h1>
+    <h1>Plot Gene Detection Saturation</h1>
     </div>
 
     
-    <p>Plot Mean Average</p>
+    <p>Plot Gene Detection Saturation</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgrey"</span>, <span class='st'>"red"</span>, <span class='st'>"green"</span>),
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for data.frame</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgrey"</span>, <span class='st'>"red"</span>, <span class='st'>"green"</span>),
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='co'># S4 method for bcbioRNADataSet,missing</span>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for data.frame,matrix</span>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
+  <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -105,30 +105,28 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff (Adjusted P value).</p></td>
+      <th>counts</th>
+      <td><p>Counts matrix.</p></td>
     </tr>
     <tr>
-      <th>labelPoints</th>
-      <td><p><em>Optional</em>. Label these particular points.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>labelColumn</th>
-      <td><p>Match <code>labelPoints</code> argument to this column in the
-results.</p></td>
+      <th>normalized</th>
+      <td><p>Count normalization method. See <code>counts()</code> documentation
+for more information.</p></td>
     </tr>
     <tr>
-      <th>pointColorScale</th>
-      <td><p>Point color scale. See
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code> for more information.</p></td>
+      <th>interestingGroup</th>
+      <td><p><em>Optional</em>. Category to use to group samples (color
+and shape). If unset, this is automatically determined by the metadata set
+inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     <tr>
-      <th>labelColor</th>
-      <td><p>Text label color.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Plot title.</p></td>
+      <th>minCounts</th>
+      <td><p>Numeric value for filtering the counts matrix before
+plotting.</p></td>
     </tr>
     </table>
     
@@ -138,18 +136,25 @@ results.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Differential Expression Plots: <code>plotVolcano</code></p>
+    <p>Other Quality Control Plots: <code>plot53Bias</code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>res</span>)
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"ENSMUSG00000104523"</span>, <span class='st'>"ENSMUSG00000016918"</span>)
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>rld</span>)
 
-<span class='co'># DESeqResults</span>
-<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotMA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># data.frame</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
-<span class='fu'>plotMA</span>(<span class='no'>df</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='co'># bcbioRNADataSet</span>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># data.frame + matrix</span>
+<span class='fu'>plotGeneSaturation</span>(<span class='fu'>metrics</span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>rld</span>))</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -165,7 +170,7 @@ results.</p></td>
 
     <h2>Author</h2>
     
-Michael Steinbaugh, Rory Kirchner
+Michael Steinbaugh, Rory Kirchner, Victor Barrera
 
   </div>
 </div>

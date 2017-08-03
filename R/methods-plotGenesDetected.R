@@ -4,8 +4,18 @@
 #' @name plotGenesDetected
 #'
 #' @examples
-#' data(bcb)
-#' plotGenesDetected(bcb, passLimit = NULL)
+#' data(bcb, dds)
+#'
+#' # bcbioRNADataSet
+#' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
+#'
+#' # data.frame + DESeqDataSet
+#' plotGenesDetected(metrics(bcb), dds,
+#'                   passLimit = NULL, warnLimit = NULL)
+#'
+#' # data.frame + matrix
+#' plotGenesDetected(metrics(bcb), assay(dds),
+#'                   passLimit = NULL, warnLimit = NULL)
 NULL
 
 
@@ -51,16 +61,39 @@ NULL
 # Methods ====
 #' @rdname plotGenesDetected
 #' @export
-setMethod("plotGenesDetected", "bcbioRNADataSet", function(object, ...) {
-    .plotGenesDetected(
-        metrics(object),
-        counts = assay(object),
-        interestingGroup = .interestingGroup(object),
-        ...)
-})
+setMethod(
+    "plotGenesDetected",
+    signature(object = "bcbioRNADataSet",
+              counts = "missing"),
+    function(object, ...) {
+        .plotGenesDetected(
+            metrics(object),
+            counts = assay(object),
+            interestingGroup = .interestingGroup(object),
+            ...)
+    })
 
 
 
 #' @rdname plotGenesDetected
 #' @export
-setMethod("plotGenesDetected", "data.frame", .plotGenesDetected)
+setMethod(
+    "plotGenesDetected",
+    signature(object = "data.frame",
+              counts = "DESeqDataSet"),
+    function(object, counts, ...) {
+        .plotGenesDetected(
+            object,
+            counts = assay(counts),
+            ...)
+    })
+
+
+
+#' @rdname plotGenesDetected
+#' @export
+setMethod(
+    "plotGenesDetected",
+    signature(object = "data.frame",
+              counts = "matrix"),
+    .plotGenesDetected)

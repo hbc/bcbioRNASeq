@@ -10,8 +10,7 @@
 #' plotCountDensity(bcb)
 #'
 #' # data.frame
-#' melted <- meltLog10(bcb)
-#' plotCountDensity(melted)
+#' meltLog10(bcb) %>% plotCountDensity
 NULL
 
 

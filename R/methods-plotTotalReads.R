@@ -10,7 +10,7 @@
 #' plotTotalReads(bcb)
 #'
 #' # data.frame
-#' metrics(bcb) %>% plotTotalReads(metrics)
+#' metrics(bcb) %>% plotTotalReads
 NULL
 
 

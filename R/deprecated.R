@@ -192,7 +192,7 @@ plot_gene <- function() {
 #' @rdname deprecated
 #' @export
 plot_gene_detection_saturation <- function() {
-    .Deprecated("plotGeneDetectionSaturation")
+    .Deprecated("plotGeneSaturation")
 }
 
 #' @rdname deprecated

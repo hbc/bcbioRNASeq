@@ -44,15 +44,14 @@ data(bcb)
 plotMappedReads(bcb)
 
 # data.frame
-metrics <- metrics(bcb)
-plotMappedReads(metrics)
+metrics(bcb) \%>\% plotMappedReads
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGeneDetectionSaturation}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappingRate}},

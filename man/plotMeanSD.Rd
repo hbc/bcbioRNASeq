@@ -5,11 +5,14 @@
 \alias{plotMeanSD}
 \alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNADataSet-method}
+\alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
 plotMeanSD(object, ...)
 
 \S4method{plotMeanSD}{bcbioRNADataSet}(object)
+
+\S4method{plotMeanSD}{DESeqDataSet}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,8 +27,13 @@ plotMeanSD(object, ...)
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-data(bcb)
+data(bcb, dds)
+
+# bcbioRNADataSet
 plotMeanSD(bcb)
+
+# DESeqDataSet
+plotMeanSD(dds)
 }
 \seealso{
 Other DESeq2 Utilities: \code{\link{plotDispersion}}

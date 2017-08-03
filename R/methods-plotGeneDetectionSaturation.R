@@ -1,17 +1,22 @@
 #' Plot Gene Detection Saturation
 #'
-#' @rdname plotGeneDetectionSaturation
-#' @name plotGeneDetectionSaturation
+#' @rdname plotGeneSaturation
+#' @name plotGeneSaturation
 #'
 #' @examples
-#' data(bcb)
-#' plotGeneDetectionSaturation(bcb)
+#' data(bcb, rld)
+#'
+#' # bcbioRNADataSet
+#' plotGeneSaturation(bcb)
+#'
+#' # data.frame + matrix
+#' plotGeneSaturation(metrics(bcb), assay(rld))
 NULL
 
 
 
 # Constructors ====
-.plotGeneDetectionSaturation <- function(
+.plotGeneSaturation <- function(
     object,
     counts,
     interestingGroup = "sampleName",
@@ -31,21 +36,27 @@ NULL
 
 
 # Methods ====
-#' @rdname plotGeneDetectionSaturation
+#' @rdname plotGeneSaturation
 #' @export
-setMethod("plotGeneDetectionSaturation", "bcbioRNADataSet", function(
-    object, normalized = "tmm", ...) {
-    .plotGeneDetectionSaturation(
-        metrics(object),
-        counts = counts(object, normalized = normalized),
-        interestingGroup = .interestingGroup(object),
-        ...)
-})
+setMethod(
+    "plotGeneSaturation",
+    signature(object = "bcbioRNADataSet",
+              counts = "missing"),
+    function(
+        object, normalized = "tmm", ...) {
+        .plotGeneSaturation(
+            metrics(object),
+            counts = counts(object, normalized = normalized),
+            interestingGroup = .interestingGroup(object),
+            ...)
+    })
 
 
 
-#' @rdname plotGeneDetectionSaturation
+#' @rdname plotGeneSaturation
 #' @export
-setMethod("plotGeneDetectionSaturation",
-          "data.frame",
-          .plotGeneDetectionSaturation)
+setMethod(
+    "plotGeneSaturation",
+    signature(object = "data.frame",
+              counts = "matrix"),
+    .plotGeneSaturation)

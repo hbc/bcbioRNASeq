@@ -41,14 +41,13 @@ data(bcb)
 plot53Bias(bcb)
 
 # data.frame
-metrics <- metrics(bcb)
-plot53Bias(metrics)
+metrics(bcb) \%>\% plot53Bias
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGeneDetectionSaturation}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
