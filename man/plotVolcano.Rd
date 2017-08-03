@@ -5,11 +5,17 @@
 \alias{plotVolcano}
 \alias{plotVolcano}
 \alias{plotVolcano,DESeqResults-method}
+\alias{plotVolcano,data.frame-method}
 \title{Plot Volcano}
 \usage{
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
+
+\S4method{plotVolcano}{data.frame}(object, alpha = 0.1, padj = TRUE,
+  lfc = 1L, genes = NULL, ntop = 0L, direction = "both",
+  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -49,10 +55,15 @@ Plot Volcano
 }
 \examples{
 data(res)
+
+# DESeqResults
 plotVolcano(res)
 plotVolcano(res, genes = "Sulf1")
 plotVolcano(res, padj = FALSE, alpha = 0.01, lfc = 4L)
 plotVolcano(res, histograms = FALSE, ntop = 5L)
+
+# data.frame
+as.data.frame(res) \%>\% plotVolcano
 }
 \seealso{
 This function is an updated variant of

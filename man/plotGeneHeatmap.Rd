@@ -12,13 +12,14 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, ..., symbol = TRUE)
+\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, symbol = TRUE, ...)
 
 \S4method{plotGeneHeatmap}{DESeqDataSet}(object, ...)
 
 \S4method{plotGeneHeatmap}{DESeqTransform}(object, ...)
 
-\S4method{plotGeneHeatmap}{matrix}(object, genes = NULL, scale = "row", ...)
+\S4method{plotGeneHeatmap}{matrix}(object, genes = NULL, scale = "row",
+  annotationCol = NULL, ...)
 }
 \arguments{
 \item{object}{Counts matrix.}
@@ -45,11 +46,18 @@ are sorted by the interesting groups (\code{interestingGroups}) specified in the
 }
 \examples{
 data(bcb, dds, rld)
-genes <- counts(bcb) \%>\% rownames \%>\% .[1L:50L]
 
 # bcbioRNADataSet
 plotGeneHeatmap(bcb)
-plotGeneHeatmap(bcb, genes, symbol = FALSE)
+
+# Genes as symbols (default)
+genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
+plotGeneHeatmap(bcb, genes = genes)
+
+# Genes as Ensembl identifiers
+genes <- counts(bcb)[1L:50L, ] \%>\% rownames
+plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
+
 
 # DESeqDataSet
 plotGeneHeatmap(dds)

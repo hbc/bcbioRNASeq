@@ -95,7 +95,7 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
     <pre class="usage"><span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -104,7 +104,8 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,14 +144,20 @@ in either the <code>row</code> direction, <code>column</code> direction, or <cod
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>rownames</span> <span class='kw'>%&gt;%</span> <span class='no'>.</span>[<span class='fl'>1L</span>:<span class='fl'>50L</span>]
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): object '.' not found</span></div><div class='input'><span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='no'>genes</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .local(object, ...): object '.' not found</span></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='img'><img src='plotGeneHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Genes as symbols (default)</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"Rgs20"</span>, <span class='st'>"Rab23"</span>, <span class='st'>"Ncoa2"</span>, <span class='st'>"Sulf1"</span>)
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unmatched genes present</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Genes as Ensembl identifiers</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>)[<span class='fl'>1L</span>:<span class='fl'>50L</span>, ] <span class='kw'>%&gt;%</span> <span class='no'>rownames</span>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+
 <span class='co'># DESeqDataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
