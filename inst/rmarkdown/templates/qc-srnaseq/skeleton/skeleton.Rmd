@@ -9,7 +9,7 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-bcbioRnaseq::downloads()
+bcbioRnaseq::download()
 source("setup.R")
 library(isomiRs)
 
