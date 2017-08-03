@@ -63,9 +63,10 @@ res_unshrunken <- results(
 
 # DESeqResults with shrunken log2 fold changes (LFC).
 # Still being prototyped, see `?lfcShrink` (DESeq 1.16).
+# Use the correct coef number to modify from resultsNames(dds)
 res_shrunken <- lfcShrink(
     dds = dds,
-    contrast = contrast,
+    coef = 2,
     res = res_unshrunken)
 
 # Compare these two results and pick which one to report
