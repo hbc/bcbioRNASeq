@@ -23,11 +23,18 @@
 #'
 #' @examples
 #' data(bcb, dds, rld)
-#' genes <- counts(bcb) %>% rownames %>% .[1L:50L]
 #'
 #' # bcbioRNADataSet
 #' plotGeneHeatmap(bcb)
-#' plotGeneHeatmap(bcb, genes, symbol = FALSE)
+#'
+#' # Genes as symbols (default)
+#' genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
+#' plotGeneHeatmap(bcb, genes = genes)
+#'
+#' # Genes as Ensembl identifiers
+#' genes <- counts(bcb)[1L:50L, ] %>% rownames
+#' plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
+#'
 #'
 #' # DESeqDataSet
 #' plotGeneHeatmap(dds)
@@ -43,21 +50,26 @@ NULL
     object,
     genes = NULL,
     scale = "row",
+    annotationCol = NULL,
     ...) {
-    counts <- object %>%
-        as.matrix %>%
-        # Subset zero counts
-        .[rowSums(.) > 0L, ]
+    counts <- as.matrix(object)
+    # Check for identifier mismatch. Do this before zero count subsetting.
     if (!is.null(genes)) {
+        if (!all(genes %in% rownames(counts))) {
+            stop(paste(
+                "Genes missing from counts matrix:",
+                toString(setdiff(genes, rownames(counts)))),
+                call. = FALSE)
+        }
         counts <- counts %>%
             .[rownames(.) %in% genes, ]
     }
+    # Subset zero counts
+    counts <- counts %>%
+        .[rowSums(.) > 0L, ]
     if (!is.matrix(counts) |
         nrow(counts) < 2L) {
         stop("Need at least 2 genes to cluster")
-    }
-    if (length(counts) == 0L) {
-        return(NULL)
     }
     if (nrow(counts) <= 100L) {
         showRownames <- TRUE
@@ -67,6 +79,7 @@ NULL
     pheatmap(counts,
              scale = scale,
              show_rownames = showRownames,
+             annotation_col = annotationCol,
              ...)
 }
 
@@ -76,14 +89,16 @@ NULL
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
-    object, ..., symbol = TRUE) {
+    object, symbol = TRUE, ...) {
     counts <- counts(object, normalized = "rlog")
     if (isTRUE(symbol)) {
         counts <- gene2symbol(counts)
     }
-    annotationCol <- colData(object)
-        .[, c("rowname", metadata(object)[["interestingGroups"]])]
-    .plotGeneHeatmap(counts, annotation_col = annotationCol, ...)
+    annotationCol <- colData(object) %>%
+        # S4 DataFrame doesn't work with `pheatmap()`
+        as.data.frame %>%
+        .[, metadata(object)[["interestingGroups"]], drop = FALSE]
+    .plotGeneHeatmap(counts, annotationCol = annotationCol, ...)
 })
 
 
