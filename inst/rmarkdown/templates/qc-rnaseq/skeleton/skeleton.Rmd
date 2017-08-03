@@ -19,8 +19,9 @@ assign("bcb", get(bcbName))
 if (is.null(bcb)) stop("bcbioRNADataSet missing")
 
 # Directory paths
-dataDir <- params$dataDir
-countsDir <- params$countsDir
+outputDir <- normalizePath(params$outputDir)
+dataDir <- file.path(outputDir, "data")
+countsDir <- file.path(outputDir, "results", "counts")
 ```
 
 ```{r header, child="_header.Rmd"}
