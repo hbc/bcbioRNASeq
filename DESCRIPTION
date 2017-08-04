@@ -26,13 +26,13 @@ URL:
     http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
 Depends:
     R (>= 3.4.0),
     basejump (>= 0.0.20),
     SummarizedExperiment (>= 1.6.3)
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
 Imports:
     BiocGenerics,
     cowplot,
