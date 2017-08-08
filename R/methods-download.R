@@ -39,7 +39,6 @@ setMethod("download", "missing", function() {
           "_footer.Rmd",
           "_header.Rmd",
           "bcbioRnaseq.bib",
-          "load.R",
           "setup.R"))
 })
 
