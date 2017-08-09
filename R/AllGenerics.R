@@ -67,6 +67,8 @@ setGeneric("bcbio", function(object, ...) {
     standardGeneric("bcbio")
 })
 
+
+
 #' @rdname bcbio
 #' @export
 setGeneric("bcbio<-", function(object, ..., value) {
@@ -81,6 +83,16 @@ setGeneric("bcbio<-", function(object, ..., value) {
 #' @export
 setGeneric("download", function(object) {
     standardGeneric("download")
+})
+
+
+
+#' @rdname loadRNASeqRun
+#' @author Michael Steinbaugh, Lorena Pantano
+#' @inheritParams AllGenerics
+#' @export
+setGeneric("loadRNASeqRun", function(object, ...) {
+    standardGeneric("loadRNASeqRun")
 })
 
 
@@ -287,26 +299,6 @@ setGeneric("plotMeanSD", function(object, ...) {
 
 
 
-#' @rdname plotMIRNACounts
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("plotMIRNACounts", function(object, ...) {
-    standardGeneric("plotMIRNACounts")
-})
-
-
-
-#' @rdname plotPattern
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("plotPattern", function(object, ...) {
-    standardGeneric("plotPattern")
-})
-
-
-
 #' @rdname plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inheritParams AllGenerics
@@ -325,28 +317,6 @@ setGeneric("plotPCACovariates", function(object, ...) {
 #' @export
 setGeneric("plotRRNAMappingRate", function(object, ...) {
     standardGeneric("plotRRNAMappingRate")
-})
-
-
-
-#' @rdname plotSizeDistribution
-#' @family Small RNA-Seq Utilities
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("plotSizeDistribution", function(object, ...) {
-    standardGeneric("plotSizeDistribution")
-})
-
-
-
-#' @rdname plotSmallRNAClusters
-#' @family Small RNA-Seq Utilities
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("plotSmallRNAClusters", function(object, ...) {
-    standardGeneric("plotSmallRNAClusters")
 })
 
 
