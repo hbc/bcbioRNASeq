@@ -3,7 +3,7 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
-#' @import basejump BiocGenerics DESeq2 rjson SummarizedExperiment S4Vectors
+#' @import basejump BiocGenerics DESeq2 methods SummarizedExperiment S4Vectors
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -16,8 +16,6 @@
 #'   scale_x_log10 annotation_logticks
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
-#' @importFrom isomiRs IsomirDataSeqFromFiles
-#' @importFrom methods as is new slot slot<- validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats formula
 #' @importFrom tximport tximport
