@@ -4,6 +4,7 @@
   `bcbioRNADataSet` or a metrics `data.frame` and manual `interesting_group`
   declaration for visualization.
 - Migrated function and variable names from `snake_case` to `camelCase`.
+- Offloaded small RNA functionality to a separate package named [bcbioSmallRna](https://github.com/lpantano/bcbioSmallRna).
 
 
 
