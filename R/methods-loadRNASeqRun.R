@@ -1,16 +1,15 @@
-#' Load `bcbio` RNA-Seq Run
+#' Load bcbio RNA-Seq Run
 #'
 #' Simply point to the final upload directory output by
 #' [bcbio](https://bcbio-nextgen.readthedocs.io/), and this function will take
 #' care of the rest. It automatically imports RNA-seq counts, metadata, and
 #' program versions used.
 #'
-#' @author Michael Steinbaugh, Lorena Patano
+#' @rdname loadRNASeqRun
+#' @name loadRNASeqRun
 #'
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
-#' @param analysis Analysis type. Supports RNA-seq (`rnaseq`; **default**) or
-#'   small RNA-seq (`srnaseq`).
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
@@ -24,28 +23,28 @@
 #'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
 #' @return [bcbioRNADataSet].
-#' @export
 #'
 #' @examples
 #' extraDir <- system.file("extra", package = "bcbioRnaseq")
 #' uploadDir <- file.path(extraDir, "bcbio")
 #' sampleMetadataFile <- file.path(extraDir, "sample_metadata.csv")
-#' bcb <- loadRun(
+#' bcb <- loadRNASeqRun(
 #'     uploadDir,
 #'     interestingGroups = "group",
 #'     sampleMetadataFile = sampleMetadataFile)
-loadRun <- function(
-    uploadDir = "final",
-    analysis = "rnaseq",
+NULL
+
+
+
+# Methods ====
+#' @rdname loadRNASeqRun
+#' @export
+setMethod("loadRNASeqRun", "character", function(
+    object = "final",
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     ...) {
-    # Analysis type ====
-    supportedAnalyses <- c("rnaseq", "srnaseq")
-    if (!analysis %in% supportedAnalyses) {
-        stop(paste("Supported analyses:", toString(supportedAnalyses)))
-    }
-
+    uploadDir <- object
 
     # Directory paths ====
     # Check connection to final upload directory
@@ -67,7 +66,6 @@ loadRun <- function(
     template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
 
-
     # Project summary YAML ====
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     if (!file.exists(yamlFile)) {
@@ -75,10 +73,8 @@ loadRun <- function(
     }
     yaml <- readYAML(yamlFile)
 
-
     # Sample directories ====
     sampleDirs <- .sampleDirs(uploadDir)
-
 
     # Sequencing lanes ====
     lanePattern <- "_L(\\d{3})"
@@ -93,7 +89,6 @@ loadRun <- function(
         lanes <- 1L
     }
 
-
     # Sample metadata (colData) ====
     sampleMetadata <-
         .readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
@@ -103,7 +98,6 @@ loadRun <- function(
     if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
         stop("Sample name mismatch", call. = FALSE)
     }
-
 
     # Subset sample directories by metadata ====
     # Check to see if a subset of samples is requested via the metadata file.
@@ -118,7 +112,6 @@ loadRun <- function(
         allSamples <- TRUE
     }
 
-
     # Genome ====
     # Use the genome build of the first sample to match
     genomeBuild <- yaml[["samples"]][[1L]][["genome_build"]]
@@ -127,13 +120,11 @@ loadRun <- function(
     annotable <- annotable(genomeBuild)
     tx2gene <- .tx2gene(projectDir, genomeBuild)
 
-
     # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
     metrics <- .sampleYAMLMetrics(yaml)
-
 
     # bcbio-nextgen run information ====
     message("Reading bcbio run information")
@@ -144,11 +135,9 @@ loadRun <- function(
     bcbioCommandsLog <-
         .logFile(file.path(projectDir, "bcbio-nextgen-commands.log"))
 
-
     # Metadata ====
     metadata <- list(
         version = packageVersion("bcbioRnaseq"),
-        analysis = analysis,
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
         projectDir = projectDir,
@@ -157,7 +146,7 @@ loadRun <- function(
         interestingGroups = interestingGroups,
         genomeBuild = genomeBuild,
         organism = organism,
-        ensemblVersion = ensemblVersion(),
+        ensemblVersion = annotables::ensembl_version,
         annotable = annotable,
         tx2gene = tx2gene,
         lanes = lanes,
@@ -177,13 +166,11 @@ loadRun <- function(
         metadata <- c(metadata, dots)
     }
 
-
     # tximport ====
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
     rawCounts <- txi[["counts"]]
     tmm <- .tmm(rawCounts)
     tpm <- txi[["abundance"]]
-
 
     # DESeqDataSet ====
     message("Generating internal DESeqDataSet for quality control")
@@ -193,16 +180,17 @@ loadRun <- function(
         design = formula(~1L)) %>%
         DESeq
     normalizedCounts <- counts(dds, normalized = TRUE)
+    message("Performing rlog transformation")
     rlog <- rlog(dds)
+    message("Performing variance stabilizing transformation")
     vst <- varianceStabilizingTransformation(dds)
-
 
     # featureCounts ====
     # STAR aligned counts, used for summary metrics. Not generated by
     # fast RNA-seq workflow.
     fcFile <- file.path(projectDir, "combined.counts")
     if (file.exists(fcFile)) {
-        message("Reading STAR/featureCounts aligned counts")
+        message("Reading STAR featureCounts aligned counts")
         fc <- read_tsv(fcFile) %>%
             as.data.frame %>%
             camel %>%
@@ -222,21 +210,18 @@ loadRun <- function(
         fc <- NULL
     }
 
-
     # Package SummarizedExperiment ====
-    assays <- SimpleList(
-        raw = rawCounts,
-        normalized = normalizedCounts,
-        tpm = tpm,
-        tmm = tmm,
-        rlog = rlog,
-        vst = vst)
     se <- packageSE(
-        assays,
+        SimpleList(
+            raw = rawCounts,
+            normalized = normalizedCounts,
+            tpm = tpm,
+            tmm = tmm,
+            rlog = rlog,
+            vst = vst),
         colData = sampleMetadata,
         rowData = annotable,
         metadata = metadata)
-
 
     # bcbioRNADataSet ====
     bcb <- new("bcbioRNADataSet", se)
@@ -247,4 +232,4 @@ loadRun <- function(
         bcbio(bcb, "featureCounts") <- fc
     }
     bcb
-}
+})

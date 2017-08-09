@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' path <- system.file("extra", package = "bcbioRnaseq")
-#' bcb <- loadRun(file.path(path, "bcbio"))
+#' bcb <- loadRNASeqRun(file.path(path, "bcbio"))
 bcbioRNADataSet <- setClass(
     "bcbioRNADataSet",
     contains = "SummarizedExperiment",
