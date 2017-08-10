@@ -146,7 +146,6 @@ setMethod("loadRNASeqRun", "character", function(
         interestingGroups = interestingGroups,
         genomeBuild = genomeBuild,
         organism = organism,
-        ensemblVersion = annotables::ensembl_version,
         annotable = annotable,
         tx2gene = tx2gene,
         lanes = lanes,
