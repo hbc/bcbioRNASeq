@@ -4,5 +4,6 @@
 ^\.Rprofile$
 ^\.Rproj\.user$
 ^\.travis\.yml$
+^CONTRIBUTING\.md$
 ^data-raw$
 ^docs$
