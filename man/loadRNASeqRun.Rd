@@ -9,11 +9,12 @@
 \usage{
 loadRNASeqRun(object, ...)
 
-\S4method{loadRNASeqRun}{character}(object = "final",
-  interestingGroups = "sampleName", sampleMetadataFile = NULL, ...)
+\S4method{loadRNASeqRun}{character}(object, interestingGroups = "sampleName",
+  sampleMetadataFile = NULL, ...)
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{Path to final upload directory. This path is set when running
+\code{bcbio_nextgen -w template}.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 
@@ -24,9 +25,6 @@ is used for PCA and heatmap QC functions.}
 \item{sampleMetadataFile}{\emph{Optional}. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
-
-\item{uploadDir}{Path to final upload directory. This path is set when
-running \code{bcbio_nextgen -w template}.}
 }
 \value{
 \link{bcbioRNADataSet}.
