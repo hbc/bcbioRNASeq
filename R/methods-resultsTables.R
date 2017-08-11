@@ -60,6 +60,7 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
+        .[!is.na(.[["padj"]]), ] %>%
         .[.[["padj"]] < alpha, ] %>%
         arrange(!!sym("padj"))
     degLFC <- deg %>%
