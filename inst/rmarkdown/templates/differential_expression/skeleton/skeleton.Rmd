@@ -12,16 +12,17 @@ params:
     outputDir: "."
 ---
 
-```{r setup, include=FALSE}
-bcbioRnaseq::download()
+```{r setup, cache=FALSE, message=FALSE}
 source("setup.R")
 library(DESeq2)
 
 # bcbioRNADataSet
-# Need to save bcb using `loadRun()` prior to knit!
+# Need to save bcb using `loadRNASeqRun()` prior to knit!
 bcbName <- load(params$bcb)
 assign("bcb", get(bcbName))
-if (is.null(bcb)) stop("bcbioRNADataSet missing")
+if (!is(bcb, "bcbioRNADataSet")) {
+    stop("bcb must bcbioRNADataSet class object")
+}
 
 # Design formula
 # help("design", "DESeq2")
