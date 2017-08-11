@@ -24,7 +24,7 @@ countsDir <- file.path(outputDir, "results", "counts")
 # Load bcbio RNA-seq run
 if (!file.exists(file.path(dataDir, "bcb.rda"))) {
     bcb <- loadRNASeqRun(
-        uploadDir = params$uploadDir,
+        params$uploadDir,
         interestingGroups = params$interestingGroups,
         experimentName = params$experimentName,
         researcher = params$researcher,
