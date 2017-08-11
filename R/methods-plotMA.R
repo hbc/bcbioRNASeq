@@ -4,7 +4,7 @@
 #' @name plotMA
 #'
 #' @family Differential Expression Plots
-#' @author Michael Steinbaugh, Rory Kirchner
+#' @author Rory Kirchner, Michael Steinbaugh
 #' @inheritParams AllGenerics
 #'
 #' @param alpha Alpha level cutoff (Adjusted P value).
