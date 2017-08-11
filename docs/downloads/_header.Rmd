@@ -1,8 +1,6 @@
 # Overview
 
-```{r metadata_table}
-metadata_table(bcb)
-```
+Experiment summary
 
 
 
