@@ -1,52 +1,48 @@
-#' Count matrix accessors
+#' Count Matrix Accessors
 #'
 #' By default, [counts()] returns the raw counts. Normalized counts, including
 #' transcripts per million (TPM) can be accessed using the `normalized`
 #' argument.
 #'
 #' @rdname counts
-#' @docType methods
-#'
 #' @author Michael Steinbaugh
 #'
-#' @param object Object.
-#' @param ... Additional parameters.
+#' @inheritParams AllGenerics
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
+#'   - `tpm`: Transcripts per million.
+#'   - `tmm`: Trimmed mean of M-values (edgeR).
+#'   - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
+#'   - `vst`: Variance stabilizing transformation
+#'     ([DESeq2::varianceStabilizingTransformation()]).
 #'
-#' - `tpm`: Transcripts per million.
-#' - `tmm`: Trimmed mean of M-values (edgeR).
-#' - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
-#' - `vst`: Variance stabilizing transformation
-#'   ([DESeq2::varianceStabilizingTransformation()]).
-#'
-#' @return Counts matrix
+#' @return [matrix].
 #' @export
 #'
 #' @examples
-#' data(dummy)
+#' data(bcb)
 #' # Raw counts
-#' ma <- counts(bcb, normalized = FALSE)
+#' counts(bcb, normalized = FALSE) %>% glimpse
 #'
 #' # DESeq2 normalized counts
-#' ma <- counts(bcb, normalized = TRUE)
+#' counts(bcb, normalized = TRUE) %>% glimpse
 #'
 #' # TPM
-#' ma <- counts(bcb, normalized = "tpm")
+#' counts(bcb, normalized = "tpm") %>% glimpse
 #'
 #' # TMM
-#' ma <- counts(bcb, normalized = "tmm")
+#' counts(bcb, normalized = "tmm") %>% glimpse
 #'
 #' # rlog
-#' ma <- counts(bcb, normalized = "rlog")
+#' counts(bcb, normalized = "rlog") %>% glimpse
 #'
 #' # VST
-#' ma <- counts(bcb, normalized = "vst")
+#' counts(bcb, normalized = "vst") %>% glimpse
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
-        slot <- "raw_counts"
+        slot <- "raw"
     } else if (normalized == TRUE) {
-        slot <- "normalized_counts"
+        slot <- "normalized"
     } else {
         slot <- normalized
     }

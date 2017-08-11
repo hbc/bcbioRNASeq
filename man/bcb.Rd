@@ -3,16 +3,15 @@
 \docType{data}
 \name{bcb}
 \alias{bcb}
-\title{\emph{M. musculus} dummy data}
+\title{Example \link{bcbioRNADataSet}}
 \format{An object of class \code{bcbioRNADataSet} with 505 rows and 4 columns.}
 \usage{
 bcb
 }
 \description{
-\emph{M. musculus} dummy data
+Example \link{bcbioRNADataSet}
 }
 \author{
 Lorena Pantano
 }
-\keyword{datasets}
 \keyword{internal}

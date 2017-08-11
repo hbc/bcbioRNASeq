@@ -1,17 +1,10 @@
-[Bioconductor]: https://bioconductor.org
-[bcbio-nextgen]: https://github.com/chapmanb/bcbio-nextgen
-[devtools]: https://cran.r-project.org/package=devtools
-[R]: https://www.r-project.org
-
-
-
 # bcbioRnaseq
 
 [![Build Status](https://travis-ci.org/hbc/bcbioRnaseq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRnaseq)
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![codecov](https://codecov.io/gh/hbc/bcbioRnaseq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRnaseq)
 
-Quality control and differential expression for [bcbio-nextgen][] RNA-seq experiments.
+Quality control and differential expression for [bcbio][] RNA-seq experiments.
 
 
 ## Installation
@@ -32,19 +25,17 @@ install.packages("devtools")
 devtools::install_github("hbc/bcbioRnaseq")
 ```
 
+
 ## Examples
 
-[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the
-default RMarkdown templates included in the package.
+[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default RMarkdown templates included in the package.
 
-* [QC example](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
-* [DE example](http://bcb.io/bcbio_rnaseq_output_example/de.html)
+- [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
+- [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de.html)
 
 
-## Contribute
-
-- Only current release branch will be maintened 
-- For major changes, create a new branch and a pull request that will be revised.
-- For small changes, commit directly to master.
-- For fixes in releases, commit to releases branches.
-- Open issues or make pull request for changes affecting `bcbioRNADataSet` object or `setup.R`
+[bcbio]: https://github.com/chapmanb/bcbio-nextgen
+[bioconductor]: https://bioconductor.org
+[devtools]: https://cran.r-project.org/package=devtools
+[r]: https://www.r-project.org
+[rmarkdown]: http://rmarkdown.rstudio.com

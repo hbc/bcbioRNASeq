@@ -1,27 +1,24 @@
-#' Trimmed mean of M-values (TMM) normalization
+#' Trimmed Mean of M-Values (TMM) Normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
 #' of genes are not differentially expressed. We use this as a quality control
 #' tool when plotting counts per gene.
 #'
 #' @rdname tmm
-#' @docType methods
+#' @name tmm
 #'
-#' @author Michael Steinbaugh
-#'
-#' @param object Object containing counts.
-#'
+#' @return [matrix].
 #' @export
-setMethod("tmm", "bcbioRNADataSet", function(object) {
-    assays(object)[["tmm"]]
-})
+#'
+#' @examples
+#' data(bcb)
+#' tmm(bcb) %>% head
+NULL
 
 
 
-#' @rdname tmm
-#' @usage NULL
+# Constructors ====
 .tmm <- function(object) {
-    message("Generating TMM-normalized counts with edgeR")
     object %>%
         as.matrix %>%
         DGEList %>%
@@ -31,11 +28,19 @@ setMethod("tmm", "bcbioRNADataSet", function(object) {
 
 
 
+# Methods ====
+#' @rdname tmm
+#' @export
+setMethod("tmm", "bcbioRNADataSet", function(object) {
+    assays(object)[["tmm"]]
+})
+
+
+
 #' @rdname tmm
 #' @export
 setMethod("tmm", "DESeqDataSet", function(object) {
-    object %>%
-        counts %>%
+    assay(object) %>%
         .tmm
 })
 

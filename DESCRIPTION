@@ -1,7 +1,7 @@
 Package: bcbioRnaseq
 Title: RNA-Seq Utilities
-Description: Quality control and differential expression for bcbio-nextgen
-    RNA-seq and small RNA-seq experiments.
+Description: Quality control and differential expression for bcbio RNA-seq and
+    small RNA-seq experiments.
 Version: 0.0.25
 Authors@R: c(
     person("Michael J.", "Steinbaugh",
@@ -16,41 +16,35 @@ Authors@R: c(
     person("Victor", "Barrera",
            email = "barrera.vic@gmail.com",
            role = "aut"),
+    person("John", "Hutchinson",
+           email = "jnhutchinson@gmail.com",
+           role = "aut"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
            role = c("cph", "fnd")))
-biocViews:
-    DifferentialExpression,
-    GeneExpression,
-    QualityControl,
-    ReportWriting,
-    RNASeq,
-    miRNA,
-    Visualization
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
     https://github.com/hbc/bcbioRnaseq
 BugReports: https://github.com/hbc/bcbioRnaseq/issues
-Depends:
-    R (>= 3.3.1),
-    SummarizedExperiment
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.4.0),
+    basejump (>= 0.0.20),
+    SummarizedExperiment (>= 1.6.3)
 Imports:
-    basejump (>= 0.0.18),
     BiocGenerics,
     cowplot,
     data.table,
-    DEGreport (>= 1.13.4),
-    DESeq2 (>= 1.16.0),
-    edgeR (>= 3.18.0),
+    DEGreport (>= 1.13.7),
+    DESeq2 (>= 1.16.1),
+    edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
     ggrepel,
-    isomiRs,
+    grid,
     methods,
-    pheatmap,
-    rjson,
+    pheatmap (>= 1.0.8),
     S4Vectors,
     stats,
     tximport (>= 1.4.0),
@@ -58,11 +52,23 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    lintr,
+    lintr (>= 1.0.0.9000),
     RUnit,
     testthat
 Remotes:
+    jimhester/lintr,
     lpantano/DEGreport,
-    steinbaugh/basejump,
+    steinbaugh/basejump
+biocViews:
+    DataImport,
+    DataRepresentation,
+    DifferentialExpression,
+    GeneExpression,
+    Infrastructure,
+    QualityControl,
+    ReportWriting,
+    RNASeq,
+    miRNA,
+    Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

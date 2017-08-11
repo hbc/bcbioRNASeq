@@ -1,13 +1,29 @@
-#' Sample metrics
+#' Sample Metrics
 #'
 #' @rdname metrics
-#' @docType methods
+#' @name metrics
 #'
-#' @param object [bcbioRNADataSet] object.
-#'
+#' @return [data.frame].
 #' @export
-setMethod("metrics", "bcbioRNADataSet", function(object) {
-    metrics <- metadata(object)[["metrics"]]
+#'
+#' @examples
+#' data(bcb)
+#' metrics(bcb) %>% glimpse
+NULL
+
+
+
+# Constructors ====
+.metrics <- function(object) {
+    metrics <- .uniqueMetrics(object)
     if (is.null(metrics)) return(NULL)
-    cbind(colData(object), metrics) %>% as.data.frame
-})
+    meta <- .interestingColData(object)
+    cbind(meta, metrics)
+}
+
+
+
+# Methods ====
+#' @rdname metrics
+#' @export
+setMethod("metrics", "bcbioRNADataSet", .metrics)

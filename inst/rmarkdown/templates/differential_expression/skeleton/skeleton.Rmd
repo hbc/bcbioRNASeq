@@ -1,29 +1,49 @@
 ---
-title: "Differential expression"
+title: "Differential Expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bcbioRnaseq.bib
+params:
+    bcb: "data/bcb.rda"
+    design: !r formula(~genotype)
+    contrast: !r c("genotype", "mutant", "wildtype")
+    alpha: 0.05
+    lfc: 0
+    outputDir: "."
 ---
 
-```{r setup, message=FALSE}
-# Run quality control template first to generate [bcbioRNADataSet]
+```{r setup, cache=FALSE, message=FALSE}
 source("setup.R")
 library(DESeq2)
-data(bcb) # only works if rda saved in .data
 
-# Design formula. Uncomment with correct values.
-# design <- formula(~genotype)
+# bcbioRNADataSet
+# Need to save bcb using `loadRNASeqRun()` prior to knit!
+bcbName <- load(params$bcb)
+assign("bcb", get(bcbName))
+if (!is(bcb, "bcbioRNADataSet")) {
+    stop("bcb must bcbioRNADataSet class object")
+}
 
-# Contrast. Uncomment with correct values.
-# 1. Design matrix parameter.
-# 2. Numerator for LFC (expt).
-# 3. Denominator for LFC (control).
-# @seealso [DESeq2::results()]
-# contrast <- c("genotype", "mutant", "wildtype")
+# Design formula
+# help("design", "DESeq2")
+design <- params$design
+
+# Contrast
+# help("results", "DESeq2")
+#   1. Design matrix parameter.
+#   2. Numerator for LFC (expt).
+#   3. Denominator for LFC (control).
+contrast <- params$contrast
 
 # Significance cutoffs
-alpha <- 0.05
-lfc <- 0
+alpha <- params$alpha
+lfc <- params$lfc
+
+# Directory paths
+outputDir <- normalizePath(params$outputDir)
+dataDir <- file.path(outputDir, "data")
+countsDir <- file.path(outputDir, "results", "counts")
+deDir <- file.path(outputDir, "results", "differential_expression")
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -37,8 +57,7 @@ dds <- DESeqDataSetFromTximport(
     colData = colData(bcb),
     design = design) %>%
     DESeq
-rld <- rlog(dds)
-save_data(dds, rld, dir = data_dir)
+saveData(dds, dir = dataDir)
 ```
 
 
@@ -47,8 +66,8 @@ save_data(dds, rld, dir = data_dir)
 
 Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
-```{r alpha_summary, results="asis"}
-alpha_summary(dds)
+```{r alphaSummary, results="asis"}
+alphaSummary(dds)
 ```
 
 
@@ -56,25 +75,27 @@ alpha_summary(dds)
 # Results
 
 ```{r res}
-res_unshrunken <- results(
+resUnshrunken <- results(
     dds,
     contrast = contrast,
     alpha = alpha)
 
-# DESeqResults with shrunken log2 fold changes (LFC).
-# Still being prototyped, see `?lfcShrink` (DESeq 1.16).
+# DESeqResults with shrunken log2 fold changes (LFC)
+# help("lfcShrink", "DESeq2")
 # Use the correct coef number to modify from resultsNames(dds)
-res_shrunken <- lfcShrink(
+resShrunken <- lfcShrink(
     dds = dds,
+    contrast = contrast,
     coef = 2,
-    res = res_unshrunken)
+    res = resUnshrunken)
 
-# Compare these two results and pick which one to report
-res <- res_shrunken
-save_data(res, res_unshrunken, res_shrunken, dir = data_dir)
+# Use shrunken LFC values by default
+res <- resShrunken
+saveData(res, resUnshrunken, resShrunken, dir = dataDir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
+
 
 
 # Plots
@@ -83,8 +104,8 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and 
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
-```{r plot_ma}
-plot_ma(res)
+```{r plotMA}
+plotMA(res)
 ```
 
 
@@ -92,8 +113,8 @@ plot_ma(res)
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
-```{r plot_volcano}
-plot_volcano(bcb, res = res, lfc = lfc)
+```{r plotVolcano}
+plotVolcano(res, lfc = lfc)
 ```
 
 
@@ -101,8 +122,8 @@ plot_volcano(bcb, res = res, lfc = lfc)
 
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
-```{r plot_deg_heatmap}
-plot_deg_heatmap(bcb, res = res, lfc = lfc)
+```{r plotDEGHeatmap}
+plotDEGHeatmap(res, assays(bcb)[["rlog"]])
 ```
 
 
@@ -114,35 +135,29 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 ## Count matrices
 
-- [`normalized_counts.csv.gz`](results/normalized_counts.csv.gz):
-    Use to evaluate individual genes and/or generate plots. These counts are
-    normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](results/tpm.csv.gz):
-    Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](results/raw_counts.csv.gz):
-    Only use to perform a new differential expression analysis. These counts
-    will vary across samples due to differences in sequencing depth, and have
-    not been normalized. Do not use this file for plotting genes.
+- [`normalized_counts.csv.gz`](`r file.path(countsDir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`raw_counts.csv.gz`](`r file.path(countsDir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 ## Differentially expressed genes (DEG)
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 
-- `ensembl_gene_id`: [Ensembl][] gene identifier.
-- `base_mean`: Mean of the normalized counts per gene for all samples.
-- `log2_fold_change`: log2 fold change.
-- `lfc_se`: log2 standard error.
+- `ensgene`: [Ensembl][] gene identifier.
+- `baseMean`: Mean of the normalized counts per gene for all samples.
+- `log2FoldChange`: log2 fold change.
+- `lfcSE`: log2 standard error.
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
-- `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; FDR).
-- `external_gene_name`: [Ensembl][] name (a.k.a. symbol).
+- `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
+- `externalGeneName`: [Ensembl][] name (a.k.a. symbol).
 - `description`: [Ensembl][] description.
-- `gene_biotype`: [Ensembl][] biotype (e.g. `protein_coding`).
+- `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
-```{r results_tables, results="asis"}
-res_tbl <- results_tables(bcb, res = res, lfc = lfc, dir = de_dir)
-save_data(res_tbl, dir = data_dir)
+```{r resultsTables, results="asis"}
+resTbl <- resultsTables(bcb, res = res, lfc = lfc, dir = deDir)
+saveData(resTbl, dir = dataDir)
 ```
 
 
@@ -151,8 +166,8 @@ save_data(res_tbl, dir = data_dir)
 
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
-```{r top_tables, results="asis"}
-top_tables(res_tbl)
+```{r topTables, results="asis"}
+topTables(resTbl)
 ```
 
 
