@@ -6,7 +6,7 @@ bibliography: bcbioRnaseq.bib
 params:
     bcb: "data/bcb.rda"
     design: !r formula(~genotype)
-    contrast: !r genotype = c("genotype", "mutant", "wildtype")
+    contrast: !r c("genotype", "mutant", "wildtype")
     alpha: 0.05
     lfc: 0
     outputDir: "."
@@ -123,7 +123,7 @@ plotVolcano(res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plotDEGHeatmap}
-plotDEGHeatmap(res, lfc = lfc)
+plotDEGHeatmap(res, assays(bcb)[["rlog"]])
 ```
 
 
