@@ -127,7 +127,8 @@ NULL
     if (direction == "both" | direction == "up") {
         lfcHist <- lfcHist +
             geom_ribbon(
-                data = dplyr::filter(lfcDensityDf, .data[["x"]] > !!lfc),
+                data = lfcDensityDf %>%
+                    .[.[["x"]] > lfc, ],
                 aes_(x = ~x, ymax = ~y),
                 ymin = 0L,
                 fill = shadeColor,
@@ -136,7 +137,8 @@ NULL
     if (direction == "both" | direction == "down") {
         lfcHist <- lfcHist +
             geom_ribbon(
-                data = dplyr::filter(lfcDensityDf, .data[["x"]] < -UQ(lfc)),
+                data = lfcDensityDf %>%
+                    .[.[["x"]] < -lfc, ],
                 aes_(x = ~x, ymax = ~y),
                 ymin = 0L,
                 fill = shadeColor,
@@ -154,13 +156,12 @@ NULL
     pvalueHist <- stats %>%
         ggplot(aes_(x = ~negLog10Pvalue)) +
         geom_density() +
-        geom_ribbon(data = dplyr::filter(
-            pvalueDensityDf,
-            .data[["x"]] > -log10(UQ(alpha) + 1e-10)),
-            aes_(x = ~x, ymax = ~y),
-            ymin = 0L,
-            fill = shadeColor,
-            alpha = shadeAlpha) +
+        geom_ribbon(data = pvalueDensityDf %>%
+                        .[.[["x"]] > -log10(alpha + 1e-10), ],
+                    aes_(x = ~x, ymax = ~y),
+                    ymin = 0L,
+                    fill = shadeColor,
+                    alpha = shadeAlpha) +
         labs(x = paste("-log10", pTitle),
              y = "") +
         # Don't label density y-axis
