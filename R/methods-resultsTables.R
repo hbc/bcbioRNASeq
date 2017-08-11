@@ -41,8 +41,7 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
     # Alpha level, from [DESeqResults]
     alpha <- metadata(res)[["alpha"]]
     annotations <- rowData(object) %>%
-        as.data.frame %>%
-        rename(ensgene = .data[["ensgene"]])
+        as.data.frame
 
     all <- res %>%
         as.data.frame %>%
