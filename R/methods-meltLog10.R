@@ -88,7 +88,7 @@ setMethod("meltLog10", "DESeqTransform", function(
     }
     .meltLog10(counts) %>%
         left_join(metadata, by = "colname") %>%
-        dplyr::rename(sampleName = .data[["colname"]])
+        rename(sampleName = .data[["colname"]])
 }
 
 
