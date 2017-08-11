@@ -119,8 +119,8 @@ plotIntronicMappingRate(bcb)
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
-```{r plotRiboRNAMappingRate}
-plotRiboRNAMappingRate(bcb)
+```{r plotRRNAMappingRate}
+plotRRNAMappingRate(bcb)
 ```
 
 
