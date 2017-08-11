@@ -53,5 +53,5 @@ plotMA(df, labelPoints = genes)
 Other Differential Expression Plots: \code{\link{plotVolcano}}
 }
 \author{
-Michael Steinbaugh, Rory Kirchner
+Rory Kirchner, Michael Steinbaugh
 }

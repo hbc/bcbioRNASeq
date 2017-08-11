@@ -93,15 +93,16 @@ program versions used.</p>
     <pre class="usage"><span class='fu'>loadRNASeqRun</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for character</span>
-<span class='fu'>loadRNASeqRun</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='st'>"final"</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>loadRNASeqRun</span>(<span class='no'>object</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object.</p></td>
+      <td><p>Path to final upload directory. This path is set when running
+<code>bcbio_nextgen -w template</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -118,11 +119,6 @@ is used for PCA and heatmap QC functions.</p></td>
       <td><p><em>Optional</em>. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.</p></td>
-    </tr>
-    <tr>
-      <th>uploadDir</th>
-      <td><p>Path to final upload directory. This path is set when
-running <code>bcbio_nextgen -w template</code>.</p></td>
     </tr>
     </table>
     
