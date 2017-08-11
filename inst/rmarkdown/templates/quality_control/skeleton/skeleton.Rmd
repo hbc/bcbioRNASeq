@@ -18,27 +18,25 @@ params:
 bcbioRnaseq::download()
 source("setup.R")
 
-# bcbioRNADataSet
-# Need to save bcb using `loadRun()` prior to knit!
-bcbName <- load(params$bcb)
-assign("bcb", get(bcbName))
-if (is.null(bcb)) stop("bcbioRNADataSet missing")
-
 # Directory paths
 outputDir <- normalizePath(params$outputDir)
 dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
 
 # Load bcbio RNA-seq run
-bcb <- loadRNASeqRun(
-    uploadDir = params$uploadDir,
-    interestingGroups = params$interestingGroups,
-    experimentName = params$experimentName,
-    researcher = params$researcher,
-    principalInvestigator = params$principalInvestigator,
-    author = params$author,
-    email = params$email)
-saveData(bcb)
+if (!file.exists(file.path(dataDir, "bcb.rda"))) {
+    bcb <- loadRNASeqRun(
+        uploadDir = params$uploadDir,
+        interestingGroups = params$interestingGroups,
+        experimentName = params$experimentName,
+        researcher = params$researcher,
+        principalInvestigator = params$principalInvestigator,
+        author = params$author,
+        email = params$email)
+    saveData(bcb)
+} else {
+    load(file.path(dataDir, "bcb.rda"))
+}
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -188,7 +186,6 @@ PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize t
 ```{r plotPCA, fig.height=12, fig.width=10}
 plotPCA(bcb)
 ```
-
 
 
 ## Covariates correlation with PCs
