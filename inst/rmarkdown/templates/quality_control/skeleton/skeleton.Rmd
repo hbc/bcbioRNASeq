@@ -12,7 +12,7 @@ params:
     outputDir: "."
 ---
 
-```{r setup, cache=FALSE, include=FALSE}
+```{r setup, cache=FALSE, message=FALSE}
 bcbioRnaseq::download()
 source("setup.R")
 
