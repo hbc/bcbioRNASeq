@@ -29,7 +29,7 @@ if (!file.exists(file.path(dataDir, "bcb.rda"))) {
         experimentName = params$experimentName,
         researcher = params$researcher,
         principalInvestigator = params$principalInvestigator)
-    saveData(bcb)
+    saveData(bcb, dir = dataDir)
 } else {
     load(file.path(dataDir, "bcb.rda"))
 }
