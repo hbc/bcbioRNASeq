@@ -40,6 +40,10 @@ if (!file.exists(file.path(dataDir, "bcb.rda"))) {
 
 
 
+```{r metadataTable}
+metadataTable(bcb)
+```
+
 ```{r counts}
 rawCounts <- counts(bcb, normalized = FALSE)
 normalizedCounts <- counts(bcb, normalized = TRUE)
