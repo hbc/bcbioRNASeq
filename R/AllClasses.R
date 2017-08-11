@@ -30,20 +30,3 @@ bcbioRNADataSet <- setClass(
     contains = "SummarizedExperiment",
     slots = c(callers = "SimpleList"))
 setValidity("bcbioRNADataSet", function(object) TRUE)
-
-
-
-#' `bcbioRNAResults`
-#'
-#' S4 class containing contrast-level results of a differential expression
-#' analysis.
-#'
-#' @author Michael Steinbaugh
-#'
-#' @export
-bcbioRNAResults <- setClass(
-    "bcbioRNAResults",
-    contains = "SummarizedExperiment",
-    slots = c(dds = "DESeqDataSet",
-              res = "DESeqResults"))
-setValidity("bcbioRNAResults", function(object) TRUE)
