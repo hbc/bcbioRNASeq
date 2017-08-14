@@ -1,4 +1,3 @@
-#importMethodsFrom SummarizedExperiment "["
 setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
           function(x, i, j, ..., drop=FALSE)
           {
@@ -65,7 +64,8 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
               }
 
               # Subset Metrics ====
-              tmpMetrics <- metadata(x)$metrics %>% filter(sampleID %in% tmpData[["sampleID"]])
+              tmpMetrics <- metadata(x)[["metrics"]] %>%
+                  .[.[["sampleID"]] %in% tmpData[["sampleID"]], ]
               metadata(tmp)[["metrics"]] <- tmpMetrics
 
               assays(tmp) <- SimpleList(

@@ -56,7 +56,7 @@ bcb <- loadRNASeqRun(
     uploadDir,
     interestingGroups = "group",
     sampleMetadataFile = sampleMetadataFile)
-bcbSmall <- bcb[1:500, 1:3]
+# bcbSmall <- bcb[1:999, 1:3]
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
