@@ -1,3 +1,4 @@
+#' @rdname bcbioRNADataSet
 setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
           function(x, i, j, ..., drop=FALSE)
           {

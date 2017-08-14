@@ -10,7 +10,7 @@
 loadRNASeqRun(object, ...)
 
 \S4method{loadRNASeqRun}{character}(object, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, maxSamples = 50, ...)
+  sampleMetadataFile = NULL, maxSamples = 50L, ...)
 }
 \arguments{
 \item{object}{Path to final upload directory. This path is set when running

@@ -51,7 +51,7 @@ setMethod("loadRNASeqRun", "character", function(
     object,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
-    maxSamples = 50,
+    maxSamples = 50L,
     ...) {
     uploadDir <- object
 
