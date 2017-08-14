@@ -188,8 +188,8 @@ setMethod("loadRNASeqRun", "character", function(
         DESeq
     normalizedCounts <- counts(dds, normalized = TRUE)
 
-    # rlog & variance
-    if(nrow(sampleMetadata) > maxSamples){
+    # rlog & variance ====
+    if (nrow(sampleMetadata) > maxSamples){
         message("Data to big, skipping vst/rlog")
         rlog <- DESeqTransform(
             SummarizedExperiment(assays = log2(tmm + 1L),

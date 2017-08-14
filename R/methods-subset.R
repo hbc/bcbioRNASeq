@@ -2,15 +2,15 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
           function(x, i, j, ..., drop=FALSE)
           {
               if (missing(i)) {
-                  i <- 1:nrow(x)
+                  i <- 1L:nrow(x)
               }
               if (missing(j)) {
-                  i <- 1:ncol(x)
+                  i <- 1L:ncol(x)
               }
               dots <- list(...)
               if (is.null(dots[["maxSamples"]]))
-                  maxSamples = 50
-              else maxSamples = dots[["maxSamples"]]
+                  maxSamples <- 50L
+              else maxSamples <- dots[["maxSamples"]]
 
               # Subset SE object ====
               se <- SummarizedExperiment(assays =
@@ -25,9 +25,12 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
 
               # Subset tximport data ====
               txi <- S4Vectors::SimpleList(
-                  abundance = tmpTxi[["abundance"]] %>% .[tmpGenes, tmpData[["sampleID"]]],
-                  counts = tmpTxi[["counts"]] %>% .[tmpGenes, tmpData[["sampleID"]]],
-                  length = tmpTxi[["length"]] %>% .[tmpGenes, tmpData[["sampleID"]]],
+                  abundance = tmpTxi[["abundance"]] %>%
+                      .[tmpGenes, tmpData[["sampleID"]]],
+                  counts = tmpTxi[["counts"]] %>%
+                      .[tmpGenes, tmpData[["sampleID"]]],
+                  length = tmpTxi[["length"]] %>%
+                      .[tmpGenes, tmpData[["sampleID"]]],
                   countsFromAbundance = tmpTxi[["countsFromAbundance"]]
               )
               rawCounts <- txi[["counts"]]
@@ -41,8 +44,8 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
                   DESeq
               normalizedCounts <- counts(dds, normalized = TRUE)
 
-              # rlog & variance
-              if(nrow(tmpData) > maxSamples){
+              # rlog & variance ====
+              if (nrow(tmpData) > maxSamples){
                   message("Data to big, skipping vst/rlog")
                   rlog <- DESeqTransform(
                       SummarizedExperiment(assays = log2(tmm + 1L),
@@ -58,7 +61,8 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
               }
 
               if (is.matrix(bcbio(x, "featureCounts"))) {
-                  tmpFC <- bcbio(x, "featureCounts") %>% .[tmpGenes, tmpData[["sampleID"]]]
+                  tmpFC <- bcbio(x, "featureCounts") %>%
+                      .[tmpGenes, tmpData[["sampleID"]]]
               }else{
                   tmpFC <- bcbio(x, "featureCounts")
               }
