@@ -10,7 +10,7 @@
 loadRNASeqRun(object, ...)
 
 \S4method{loadRNASeqRun}{character}(object, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, ...)
+  sampleMetadataFile = NULL, maxSamples = 50, ...)
 }
 \arguments{
 \item{object}{Path to final upload directory. This path is set when running
@@ -25,6 +25,9 @@ is used for PCA and heatmap QC functions.}
 \item{sampleMetadataFile}{\emph{Optional}. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
+
+\item{maxSamples}{Maximum number of samples to calculate \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix. See Details.}
 }
 \value{
 \link{bcbioRNADataSet}.
@@ -34,6 +37,11 @@ Simply point to the final upload directory output by
 \href{https://bcbio-nextgen.readthedocs.io/}{bcbio}, and this function will take
 care of the rest. It automatically imports RNA-seq counts, metadata, and
 program versions used.
+}
+\details{
+When number of samples is bigger than \code{maxSamples}, \code{rlog} and \code{vst} slot
+in \link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment} will be the output of
+\link{edgeR} normalization method.
 }
 \note{
 When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -48,6 +56,7 @@ bcb <- loadRNASeqRun(
     uploadDir,
     interestingGroups = "group",
     sampleMetadataFile = sampleMetadataFile)
+bcbSmall <- bcb[1:500, 1:3]
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
