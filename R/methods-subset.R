@@ -82,7 +82,7 @@ setMethod("[", c("bcbioRNADataSet", "ANY", "ANY"),
                           vst = vst)
 
               # bcbioRNADataSet ====
-              bcb <- new("bcbioRNADataSet", se)
+              bcb <- new("bcbioRNADataSet", tmp)
               # Slot additional callers
               bcbio(bcb, "tximport") <- txi
               bcbio(bcb, "DESeqDataSet") <- dds
