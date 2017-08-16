@@ -12,7 +12,7 @@ params:
     outputDir: "."
 ---
 
-```{r setup, cache=FALSE}
+```{r setup}
 source("setup.R")
 library(DESeq2, quietly = TRUE)
 
