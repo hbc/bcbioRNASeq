@@ -48,7 +48,9 @@
                 }
             }
         }
-        nested
+        nested %>%
+            camel %>%
+            .[unique(names(.))]
     }) %>%
         # List can be coerced to data frame using [data.table::rbindlist()] or
         # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to

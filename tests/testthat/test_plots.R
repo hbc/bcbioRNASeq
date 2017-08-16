@@ -4,9 +4,9 @@ test_that("plotMA", {
     p <- plotMA(res)
 
     # Check geom classes
-    geomType <- sapply(p[["layers"]], function(x) class(x[["geom"]])[[1L]])
+    geomtype <- sapply(p[["layers"]], function(x) class(x[["geom"]])[[1L]])
     expect_identical(
-        geomType, c("GeomPoint", "GeomLogticks"))
+        geomtype, c("GeomPoint", "GeomLogticks"))
 
     # Check plot labels
     expect_identical(
