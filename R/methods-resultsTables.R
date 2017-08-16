@@ -44,15 +44,16 @@ NULL
     deg <- resTbl[["degFile"]]
     degLFCUp <- resTbl[["degLFCUpFile"]]
     degLFCDown <- resTbl[["degLFCDownFile"]]
-    writeLines(c(
-        paste0("- [", all, "](", file.path(dir, all), "):"),
-        "    All genes, sorted by [Ensembl][] identifier.",
-        paste0("- [", deg, "](", file.path(dir, deg), "):"),
-        "    Genes that pass the alpha (FDR) cutoff.",
-        paste0("- [", degLFCUp, "](", file.path(dir, degLFCUp), "):"),
-        "    Upregulated DEG; positive log2 fold change.",
-        paste0("- [", degLFCDown, "](", file.path(dir, degLFCDown), "):"),
-        "    Downregulated DEG; negative log2 fold change."))
+    mdList(c(
+        paste0("[", all, "](", file.path(dir, all), "): ",
+               "All genes, sorted by Ensembl identifier."),
+        paste0("[", deg, "](", file.path(dir, deg), "): ",
+               "Genes that pass the alpha (FDR) cutoff."),
+        paste0("[", degLFCUp, "](", file.path(dir, degLFCUp), "): ",
+               "Upregulated DEG; positive log2 fold change."),
+        paste0("[", degLFCDown, "](", file.path(dir, degLFCDown), "): ",
+               "Downregulated DEG; negative log2 fold change.")
+    ))
 }
 
 
@@ -130,19 +131,16 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
         degLFCUpFile = degLFCUpFile,
         degLFCDownFile = degLFCDownFile)
 
-    writeLines(c(
-        paste(name, "differential expression tables"),
-        paste("-", nrow(all), "gene annotations"),
-        "- cutoffs applied:",
-        paste("    - alpha:", alpha),
-        paste("    - lfc:  ", lfc, "(tables only)"),
-        "- gene detection:",
-        paste("    - base mean > 0:", nrow(baseMeanGt0), "genes"),
-        paste("    - base mean > 1:", nrow(baseMeanGt1), "genes"),
-        "- pass cutoffs:",
-        paste("    - alpha:   ", nrow(deg), "genes"),
-        paste("    - lfc up:  ", nrow(degLFCUp), "genes"),
-        paste("    - lfc down:", nrow(degLFCDown), "genes")))
+    mdList(c(
+        paste(nrow(all), "genes in count matrix"),
+        paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+        paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
+        paste("alpha cutoff:", alpha),
+        paste("lfc cutoff:", lfc, "(applied in tables only)"),
+        paste("deg pass alpha:", nrow(deg), "genes"),
+        paste("deg lfc up:", nrow(degLFCUp), "genes"),
+        paste("deg lfc down:", nrow(degLFCDown), "genes")
+    ))
 
     if (isTRUE(write)) {
         # Write the CSV files
