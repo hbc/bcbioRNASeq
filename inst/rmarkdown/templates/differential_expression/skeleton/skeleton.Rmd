@@ -12,9 +12,9 @@ params:
     outputDir: "."
 ---
 
-```{r setup, cache=FALSE, message=FALSE}
+```{r setup, cache=FALSE}
 source("setup.R")
-library(DESeq2)
+library(DESeq2, quietly = TRUE)
 
 # bcbioRNADataSet
 # Need to save bcb using `loadRNASeqRun()` prior to knit!

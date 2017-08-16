@@ -1,6 +1,6 @@
-library(knitr)
-library(ggplot2)
-library(bcbioRnaseq)
+library(knitr, quietly = TRUE)
+library(ggplot2, quietly = TRUE)
+library(bcbioRnaseq, quietly = TRUE)
 
 opts_chunk$set(
     autodep = TRUE,
