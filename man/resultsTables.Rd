@@ -10,7 +10,7 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{bcbioRNADataSet}(object, res, lfc = 0L,
-  write = TRUE, dir = file.path("results", "de"))
+  write = TRUE, dir = file.path("results", "differential_expression"))
 }
 \arguments{
 \item{object}{Object.}
