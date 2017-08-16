@@ -38,6 +38,8 @@ if (!file.exists(file.path(dataDir, "bcb.rda"))) {
 ```{r header, child="_header.Rmd"}
 ```
 
+[bcbio][] run data was imported from **`r metadata(bcb)[["uploadDir"]]`**.
+
 
 
 ```{r metadataTable}
