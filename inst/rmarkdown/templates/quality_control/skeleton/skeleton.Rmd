@@ -17,7 +17,7 @@ bcbioRnaseq::download()
 source("setup.R")
 
 # Directory paths
-outputDir <- normalizePath(params$outputDir)
+outputDir <- params$outputDir
 dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
 
