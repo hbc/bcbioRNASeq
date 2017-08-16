@@ -17,7 +17,6 @@
 #' - Server run paths.
 #' - R local environment information, including [sessionInfo()].
 #'
-#' @aliases [,bcbioRNADataSet-method [,bcbioRNADataSet,ANY,ANY,ANY-method
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
