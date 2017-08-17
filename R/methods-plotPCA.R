@@ -47,7 +47,7 @@ setMethod("plotPCA", "bcbioRNADataSet", function(
 
     # Subset genes, if desired
     if (!is.null(genes)) {
-        dt <- dt[genes, ]
+        dt <- dt[genes, , drop = FALSE]
         # Set ntop to the number of genes requested
         ntop <- length(genes)
     } else {
@@ -71,7 +71,9 @@ setMethod("plotPCA", "bcbioRNADataSet", function(
     data <- plotPCA(dt,
                     intgroup = interestingGroups,
                     returnData = TRUE,
-                    ntop = ntop) %>% camel
+                    ntop = ntop) %>%
+        camel
+
     percentVar <- round(100L * attr(data, "percentVar"))
 
     # Always define color by `interestingGroups`
@@ -83,7 +85,8 @@ setMethod("plotPCA", "bcbioRNADataSet", function(
         data[["shape"]] <- "default"
     }
 
-    data[["label"]] <- rownames(colData(dt))
+    # Use sampleName for plot labels
+    data[["label"]] <- colData(object)[, "sampleName"]
 
     p <- ggplot(
         data,
