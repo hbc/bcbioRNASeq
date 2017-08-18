@@ -59,4 +59,19 @@ setMethod(
 
 #' @rdname plotDEGHeatmap
 #' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(object = "DESeqResults",
+              counts = "DESeqDataSet"),
+    function(object, counts, ...) {
+        warning("Using a DESeqTransform object for counts is recommended")
+        alpha <- metadata(object)[["alpha"]]
+        counts <- counts(counts, normalized = TRUE)
+        .plotDEGHeatmap(object, counts, alpha = alpha, ...)
+    })
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
 setMethod("plotDEGHeatmap", "data.frame", .plotDEGHeatmap)
