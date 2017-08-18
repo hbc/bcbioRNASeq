@@ -11,6 +11,7 @@
 #' @param counts Secondary object containing normalized counts.
 #' @param alpha Alpha level cutoff.
 #' @param lfc [log2] fold change ratio cutoff.
+#' @param gene2symbol Convert Ensembl gene identifiers to symbol names.
 #'
 #' @return Graphical output only.
 #'
@@ -25,18 +26,19 @@ NULL
 .plotDEGHeatmap <- function(
     object,
     counts,
-    alpha = 0.05,
+    alpha = 0.01,
     lfc = 0L,
     ...) {
-    genes <- object %>%
-        as.data.frame %>%
-        rownames_to_column("ensgene") %>%
+    res <- as.data.frame(object) %>%
         camel %>%
-        .[.[["padj"]] < alpha, ] %>%
+        # Keep genes that pass alpha cutoff
+        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+        .[.[["padj"]] < alpha, , drop = FALSE] %>%
+        # Keep genes that pass log2 fold change cutoff
+        .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, ] %>%
-        pull("ensgene") %>%
-        sort
+              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+    genes <- rownames(res)
     plotGeneHeatmap(counts, genes = genes, ...)
 }
 
