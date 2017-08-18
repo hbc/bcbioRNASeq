@@ -71,9 +71,7 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
     dir = file.path("results", "differential_expression")) {
     name <- deparse(substitute(res))
     contrast <- .resContrastName(res)
-    fileStem <- paste(name,
-                      str_replace_all(contrast, " ", "_"),
-                      sep = "_")
+    fileStem <- str_replace_all(contrast, " ", "_")
 
     # Alpha level, from [DESeqResults]
     alpha <- metadata(res)[["alpha"]]
