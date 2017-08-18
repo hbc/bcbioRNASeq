@@ -5,6 +5,7 @@
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,data.frame,ANY-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
@@ -12,7 +13,9 @@ plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{data.frame,ANY}(object, counts, alpha = 0.05,
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, ...)
+
+\S4method{plotDEGHeatmap}{data.frame,ANY}(object, counts, alpha = 0.01,
   lfc = 0L, ...)
 }
 \arguments{
@@ -25,6 +28,8 @@ plotDEGHeatmap(object, counts, ...)
 \item{alpha}{Alpha level cutoff.}
 
 \item{lfc}{\link{log2} fold change ratio cutoff.}
+
+\item{gene2symbol}{Convert Ensembl gene identifiers to symbol names.}
 }
 \value{
 Graphical output only.

@@ -12,7 +12,7 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, symbol = TRUE, ...)
+\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, ...)
 
 \S4method{plotGeneHeatmap}{DESeqDataSet}(object, ...)
 
@@ -25,8 +25,6 @@ plotGeneHeatmap(object, ...)
 \item{object}{Counts matrix.}
 
 \item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
-
-\item{symbol}{Match against Ensembl gene symbols.}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
@@ -54,14 +52,9 @@ data(bcb, dds, rld)
 # bcbioRNADataSet
 plotGeneHeatmap(bcb)
 
-# Genes as symbols (default)
-genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
-plotGeneHeatmap(bcb, genes = genes)
-
 # Genes as Ensembl identifiers
 genes <- counts(bcb)[1L:50L, ] \%>\% rownames
-plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
-
+plotGeneHeatmap(bcb, genes = genes)
 
 # DESeqDataSet
 plotGeneHeatmap(dds)
