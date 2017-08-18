@@ -37,7 +37,7 @@ NULL
 # Constructors ====
 .plotVolcano <- function(
     object,
-    alpha = 0.1,
+    alpha = 0.01,
     padj = TRUE,
     lfc = 1L,
     genes = NULL,
@@ -49,21 +49,23 @@ NULL
     pointAlpha = 0.75,
     pointOutlineColor = "darkgray",
     histograms = TRUE) {
-    df <- as.data.frame(object)
-
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
         stop("Direction must be both, up, or down")
     }
 
-
     # Generate stats tibble ====
-    stats <- df %>%
+    stats <- as.data.frame(object) %>%
         rownames_to_column("ensgene") %>%
-        as("tibble") %>%
         camel %>%
-        .[, c("ensgene", "log2FoldChange", "pvalue", "padj")] %>%
-        .[!is.na(.[["log2FoldChange"]]), ]
+        # Keep genes with non-zero counts
+        .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
+        # Keep genes with a fold change
+        .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
+        # Keep genes with a P value
+        .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
+        # Select columns used for plots
+        .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
     g2s <- detectOrganism(stats[["ensgene"]][[1L]]) %>%
         annotable(format = "gene2symbol")
     stats <- left_join(stats, g2s, by = "ensgene")
@@ -72,8 +74,11 @@ NULL
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
     if (isTRUE(padj)) {
         stats <- stats %>%
+            # Keep genes with an adjusted P value
+            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+            # log10 transform
             mutate(negLog10Pvalue = -log10(.data[["padj"]] + 1e-10))
-        pTitle <- "padj value"
+        pTitle <- "adj p value"
     } else {
         stats <- stats %>%
             mutate(negLog10Pvalue = -log10(.data[["pvalue"]] + 1e-10))
