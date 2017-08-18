@@ -21,8 +21,8 @@ NULL
     interestingGroup = "sampleName") {
     ggplot(object,
         aes_(x = ~counts,
-             group = ~sampleName,
-             color = ~sampleName)) +
+             group = as.name(interestingGroup),
+             color = as.name(interestingGroup))) +
         geom_density() +
         labs(title = "count density",
              x = "log10 counts per gene")
