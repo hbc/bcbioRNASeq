@@ -190,15 +190,15 @@ setMethod("loadRNASeqRun", "character", function(
     normalizedCounts <- counts(dds, normalized = TRUE)
 
     # rlog & variance ====
-    if (nrow(sampleMetadata) > maxSamples){
-        message("Data to big, skipping vst/rlog")
+    if (nrow(sampleMetadata) > maxSamples) {
+        message("Data too big, skipping count transformations")
         rlog <- DESeqTransform(
             SummarizedExperiment(assays = log2(tmm + 1L),
                                  colData = colData(dds)))
         vst <- DESeqTransform(
             SummarizedExperiment(assays = log2(tmm + 1L),
                                  colData = colData(dds)))
-    }else{
+    } else {
         message("Performing rlog transformation")
         rlog <- rlog(dds)
         message("Performing variance stabilizing transformation")
