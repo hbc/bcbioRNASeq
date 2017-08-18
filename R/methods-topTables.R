@@ -47,14 +47,12 @@ setMethod("topTables", "list", function(
     down <- subsetTop(object[["degLFCDown"]])
 
     # Captions
-    name <- object[["name"]]
-    contrast <- object[["contrast"]]
-    namePrefix <- paste(name, contrast, sep = labelSep)
+    contrastName <- object[["contrast"]]
 
     show(kable(
         up,
-        caption = paste(namePrefix, "upregulated", sep = labelSep)))
+        caption = paste(contrastName, "(upregulated)")))
     show(kable(
         down,
-        caption = paste(namePrefix, "downregulated", sep = labelSep)))
+        caption = paste(contrastName, "(downregulated)")))
 })
