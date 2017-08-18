@@ -9,6 +9,7 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
+#' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
 #'
@@ -45,13 +46,13 @@ NULL
     degLFCUp <- resTbl[["degLFCUpFile"]]
     degLFCDown <- resTbl[["degLFCDownFile"]]
     mdList(c(
-        paste0("[", all, "](", file.path(dir, all), "): ",
+        paste0("[`", all, "`](", file.path(dir, all), "): ",
                "All genes, sorted by Ensembl identifier."),
-        paste0("[", deg, "](", file.path(dir, deg), "): ",
+        paste0("[`", deg, "`](", file.path(dir, deg), "): ",
                "Genes that pass the alpha (FDR) cutoff."),
-        paste0("[", degLFCUp, "](", file.path(dir, degLFCUp), "): ",
+        paste0("[`", degLFCUp, "`](", file.path(dir, degLFCUp), "): ",
                "Upregulated DEG; positive log2 fold change."),
-        paste0("[", degLFCDown, "](", file.path(dir, degLFCDown), "): ",
+        paste0("[`", degLFCDown, "`](", file.path(dir, degLFCDown), "): ",
                "Downregulated DEG; negative log2 fold change.")
     ))
 }
@@ -66,6 +67,7 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
     res,
     lfc = 0L,
     write = TRUE,
+    headerLevel = 3L,
     dir = file.path("results", "differential_expression")) {
     name <- deparse(substitute(res))
     contrast <- .resContrastName(res)
@@ -131,6 +133,20 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
         degLFCUpFile = degLFCUpFile,
         degLFCDownFile = degLFCDownFile)
 
+    if (isTRUE(write)) {
+        # Write the CSV files
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+
+        write_csv(all, file.path(dir, allFile))
+        write_csv(deg, file.path(dir, degFile))
+        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
+        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+
+        # Output file information in Markdown format
+        .mdResultsTables(resTbl, dir)
+    }
+
+    mdHeader("Summary statistics", level = headerLevel)
     mdList(c(
         paste(nrow(all), "genes in count matrix"),
         paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
@@ -141,17 +157,6 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
         paste("deg lfc up:", nrow(degLFCUp), "genes"),
         paste("deg lfc down:", nrow(degLFCDown), "genes")
     ))
-
-    if (isTRUE(write)) {
-        # Write the CSV files
-        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-        write_csv(all, file.path(dir, allFile))
-        write_csv(deg, file.path(dir, degFile))
-        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
-        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
-        # Output file information in Markdown format
-        .mdResultsTables(resTbl, dir)
-    }
 
     resTbl
 })

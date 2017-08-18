@@ -10,7 +10,8 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{bcbioRNADataSet}(object, res, lfc = 0L,
-  write = TRUE, dir = file.path("results", "differential_expression"))
+  write = TRUE, headerLevel = 3L, dir = file.path("results",
+  "differential_expression"))
 }
 \arguments{
 \item{object}{Object.}
@@ -26,6 +27,8 @@ See \code{\link[=results]{results()}} for additional information about using \co
 changes.}
 
 \item{write}{Write CSV files to disk.}
+
+\item{headerLevel}{Markdown header level.}
 
 \item{dir}{Directory path where to write files.}
 }
