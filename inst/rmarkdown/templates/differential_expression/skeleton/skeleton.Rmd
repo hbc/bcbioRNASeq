@@ -7,7 +7,7 @@ params:
     bcb: "data/bcb.rda"
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
-    alpha: 0.05
+    alpha: 0.01
     lfc: 0
     outputDir: "."
 ---
