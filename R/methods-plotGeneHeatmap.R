@@ -12,7 +12,6 @@
 #'
 #' @param object Counts matrix.
 #' @param genes Character vector of specific gene identifiers to plot.
-#' @param symbol Match against Ensembl gene symbols.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
@@ -30,14 +29,9 @@
 #' # bcbioRNADataSet
 #' plotGeneHeatmap(bcb)
 #'
-#' # Genes as symbols (default)
-#' genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
-#' plotGeneHeatmap(bcb, genes = genes)
-#'
 #' # Genes as Ensembl identifiers
 #' genes <- counts(bcb)[1L:50L, ] %>% rownames
-#' plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
-#'
+#' plotGeneHeatmap(bcb, genes = genes)
 #'
 #' # DESeqDataSet
 #' plotGeneHeatmap(dds)
@@ -65,20 +59,26 @@ NULL
                 call. = FALSE)
         }
         counts <- counts %>%
-            .[rownames(.) %in% genes, ]
+            .[rownames(.) %in% genes, , drop = FALSE]
     }
     # Subset zero counts
     counts <- counts %>%
-        .[rowSums(.) > 0L, ]
+        .[rowSums(.) > 0L, , drop = FALSE]
     if (!is.matrix(counts) |
         nrow(counts) < 2L) {
         stop("Need at least 2 genes to cluster")
     }
+
+    # Convert Ensembl gene identifiers to symbol names, if necessary
     if (nrow(counts) <= 100L) {
         showRownames <- TRUE
     } else {
         showRownames <- FALSE
     }
+    if (isTRUE(showRownames)) {
+        counts <- gene2symbol(counts)
+    }
+
     pheatmap(counts,
              scale = scale,
              show_rownames = showRownames,
@@ -98,7 +98,7 @@ setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
         counts <- gene2symbol(counts)
     }
     annotationCol <- colData(object) %>%
-        # S4 DataFrame doesn't work with `pheatmap()`
+        # S4 DataFrame doesn't work with `pheatmap()`, so coerce to data.frame
         as.data.frame %>%
         .[, metadata(object)[["interestingGroups"]], drop = FALSE]
     .plotGeneHeatmap(counts, annotationCol = annotationCol, ...)
