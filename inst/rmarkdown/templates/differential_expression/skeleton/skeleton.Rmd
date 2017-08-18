@@ -82,11 +82,12 @@ resUnshrunken <- results(
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
-# Use the correct coef number to modify from resultsNames(dds)
+# Only `coef` or `contrast` can be specified, not both
+# Use the correct `coef` number to modify from `resultsNames(dds)`
 resShrunken <- lfcShrink(
     dds = dds,
+    # coef = 2,
     contrast = contrast,
-    coef = 2,
     res = resUnshrunken)
 
 # Use shrunken LFC values by default
