@@ -52,7 +52,7 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    lintr (>= 1.0.0.9000),
+    lintr (>= 1.0.1),
     RUnit,
     testthat
 Remotes:
