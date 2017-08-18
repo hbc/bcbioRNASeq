@@ -136,12 +136,17 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 ## Count matrices
 
-- [`normalized_counts.csv.gz`](`r file.path(countsDir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`normalizedCounts.csv.gz`](`r file.path(countsDir, "normalizedCounts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
 - [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](`r file.path(countsDir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
+- [`rawCounts.csv.gz`](`r file.path(countsDir, "rawCounts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 ## Differentially expressed genes (DEG)
+
+```{r resultsTables, results="asis"}
+resTbl <- resultsTables(bcb, res = res, lfc = lfc, dir = deDir)
+saveData(resTbl, dir = dataDir)
+```
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 
@@ -155,11 +160,6 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `externalGeneName`: [Ensembl][] name (a.k.a. symbol).
 - `description`: [Ensembl][] description.
 - `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
-
-```{r resultsTables, results="asis"}
-resTbl <- resultsTables(bcb, res = res, lfc = lfc, dir = deDir)
-saveData(resTbl, dir = dataDir)
-```
 
 
 
