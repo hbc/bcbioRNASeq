@@ -92,11 +92,8 @@ NULL
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
-    object, symbol = TRUE, ...) {
+    object, ...) {
     counts <- counts(object, normalized = "rlog")
-    if (isTRUE(symbol)) {
-        counts <- gene2symbol(counts)
-    }
     annotationCol <- colData(object) %>%
         # S4 DataFrame doesn't work with `pheatmap()`, so coerce to data.frame
         as.data.frame %>%
@@ -109,8 +106,8 @@ setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
-    counts <- counts(object, normalized = TRUE)
-    .plotGeneHeatmap(counts, ...)
+    counts(object, normalized = TRUE) %>%
+        .plotGeneHeatmap(...)
 })
 
 
@@ -118,8 +115,8 @@ setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "DESeqTransform", function(object, ...) {
-    counts <- assay(object)
-    .plotGeneHeatmap(counts, ...)
+    assay(object) %>%
+        .plotGeneHeatmap(...)
 })
 
 
