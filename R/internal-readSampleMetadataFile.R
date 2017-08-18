@@ -17,12 +17,16 @@
     pattern = NULL,
     patternCol = "sampleName",
     lanes = 1L) {
-    if (is.null(file)) return(NULL)
-    meta <- readFileByExtension(file) %>% as("tibble")
-    # First column must match the sample directory names output by bcbio.
-    # This is set as `description` during bcbio config. Any other column
-    # is optional metadata.
-    names(meta)[[1L]] <- "sampleName"
+    meta <- readFileByExtension(file)
+    # Rename legacy `samplename` column, if set
+    if ("samplename" %in% colnames(meta)) {
+        meta <- rename(meta, fileName = .data[["samplename"]])
+    }
+
+    # Rename `description` to `sampleName`, if set.
+    if ("description" %in% colnames(meta)) {
+        meta <- rename(meta, sampleName = .data[["description"]])
+    }
     meta <- meta %>%
         # Strip all NA rows and columns
         removeNA %>%
@@ -45,8 +49,7 @@
             ungroup %>%
             mutate(sampleName = paste(.data[["sampleName"]],
                                       .data[["lane"]],
-                                      sep = "_"),
-                   sampleID = .data[["sampleName"]])
+                                      sep = "_"))
     }
 
     # Subset by pattern, if desired
@@ -56,6 +59,7 @@
     }
 
     meta %>%
+        mutate(sampleID = camel(.data[["sampleName"]])) %>%
         .metaPriorityCols %>%
         .metaFactors
 }
