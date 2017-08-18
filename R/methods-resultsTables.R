@@ -107,7 +107,7 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
         .[.[["log2FoldChange"]] < 0L, ]
 
     # File paths
-    allFile <- paste(fileStem, "all_genes.csv.gz", sep = "_")
+    allFile <- paste(fileStem, "all.csv.gz", sep = "_")
     degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
     degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
     degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
