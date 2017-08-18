@@ -7,8 +7,6 @@
 \alias{meltLog10,bcbioRNADataSet-method}
 \alias{meltLog10,DESeqDataSet-method}
 \alias{meltLog10,DESeqTransform-method}
-\alias{.joinMelt}
-\alias{.meltLog10}
 \title{Melt Count Matrix to Long Format and log10 Transform}
 \usage{
 meltLog10(object, ...)
