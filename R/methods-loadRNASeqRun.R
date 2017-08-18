@@ -99,9 +99,10 @@ setMethod("loadRNASeqRun", "character", function(
     }
 
     # Sample metadata (colData) ====
-    sampleMetadata <-
-        .readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
-    if (is.null(sampleMetadata)) {
+    if (!is.null(sampleMetadataFile)) {
+        sampleMetadata <-
+            .readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
+    } else {
         sampleMetadata <- .sampleYAMLMetadata(yaml)
     }
     if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {

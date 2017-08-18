@@ -23,7 +23,7 @@
         meta <- rename(meta, fileName = .data[["samplename"]])
     }
 
-    # Rename `description` to `sampleName`, if set.
+    # Rename `description` to `sampleName`, if set
     if ("description" %in% colnames(meta)) {
         meta <- rename(meta, sampleName = .data[["description"]])
     }
