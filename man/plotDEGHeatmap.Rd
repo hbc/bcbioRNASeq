@@ -28,8 +28,6 @@ plotDEGHeatmap(object, counts, ...)
 \item{alpha}{Alpha level cutoff.}
 
 \item{lfc}{\link{log2} fold change ratio cutoff.}
-
-\item{gene2symbol}{Convert Ensembl gene identifiers to symbol names.}
 }
 \value{
 Graphical output only.

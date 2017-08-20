@@ -11,7 +11,6 @@
 #' @param counts Secondary object containing normalized counts.
 #' @param alpha Alpha level cutoff.
 #' @param lfc [log2] fold change ratio cutoff.
-#' @param gene2symbol Convert Ensembl gene identifiers to symbol names.
 #'
 #' @return Graphical output only.
 #'
