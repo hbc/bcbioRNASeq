@@ -41,7 +41,6 @@ lfc <- params$lfc
 
 # Directory paths
 outputDir <- params$outputDir
-dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
 deDir <- file.path(outputDir, "results", "differential_expression")
 ```
@@ -57,7 +56,7 @@ dds <- DESeqDataSetFromTximport(
     colData = colData(bcb),
     design = design) %>%
     DESeq
-saveData(dds, dir = dataDir)
+rld <- rlog(dds)
 ```
 
 
@@ -92,7 +91,6 @@ resShrunken <- lfcShrink(
 
 # Use shrunken LFC values by default
 res <- resShrunken
-saveData(res, resUnshrunken, resShrunken, dir = dataDir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
@@ -124,7 +122,7 @@ plotVolcano(res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plotDEGHeatmap}
-plotDEGHeatmap(res, assays(bcb)[["rlog"]])
+plotDEGHeatmap(res, counts = rld)
 ```
 
 
@@ -144,8 +142,7 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 ## Differentially expressed genes (DEG)
 
 ```{r resultsTables, results="asis"}
-resTbl <- resultsTables(bcb, res = res, lfc = lfc, dir = deDir)
-saveData(resTbl, dir = dataDir)
+resTbl <- resultsTables(res, lfc = lfc, dir = deDir)
 ```
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:
