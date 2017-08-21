@@ -35,7 +35,7 @@ NULL
 # Constructors ====
 .plotMA <- function(
     object,
-    alpha = 0.05,
+    alpha = 0.01,
     labelPoints = NULL,
     labelColumn = "rowname",
     pointColorScale = c("darkgrey", "red", "green"),

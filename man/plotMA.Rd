@@ -11,7 +11,7 @@
   labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
   labelColor = "black")
 
-\S4method{plotMA}{data.frame}(object, alpha = 0.05, labelPoints = NULL,
+\S4method{plotMA}{data.frame}(object, alpha = 0.01, labelPoints = NULL,
   labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
   labelColor = "black", title = TRUE)
 }

@@ -10,8 +10,8 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
-#' data(bcb, res)
-#' resTbl <- resultsTables(bcb, res, write = FALSE)
+#' data(res)
+#' resTbl <- resultsTables(res, write = FALSE)
 #' topTables(resTbl)
 NULL
 
