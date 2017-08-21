@@ -11,6 +11,7 @@
 #' @param counts Secondary object containing normalized counts.
 #' @param alpha Alpha level cutoff.
 #' @param lfc [log2] fold change ratio cutoff.
+#' @param title Plot title.
 #'
 #' @return Graphical output only.
 #'
@@ -27,6 +28,7 @@ NULL
     counts,
     alpha = 0.01,
     lfc = 0L,
+    title = TRUE,
     ...) {
     res <- as.data.frame(object) %>%
         camel %>%
@@ -38,7 +40,12 @@ NULL
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     genes <- rownames(res)
-    plotGeneHeatmap(counts, genes = genes, ...)
+    if (isTRUE(title)) {
+        title <- "de genes"
+    } else if (is.character(title)) {
+        title <- paste("de genes:", title)
+    }
+    plotGeneHeatmap(counts, genes = genes, title = title, ...)
 }
 
 
@@ -53,7 +60,8 @@ setMethod(
     function(object, counts, ...) {
         alpha <- metadata(object)[["alpha"]]
         counts <- assay(counts)
-        .plotDEGHeatmap(object, counts, alpha = alpha, ...)
+        title <- .resContrastName(object)
+        .plotDEGHeatmap(object, counts, alpha = alpha, title = title, ...)
     })
 
 
@@ -68,7 +76,8 @@ setMethod(
         warning("Using a DESeqTransform object for counts is recommended")
         alpha <- metadata(object)[["alpha"]]
         counts <- counts(counts, normalized = TRUE)
-        .plotDEGHeatmap(object, counts, alpha = alpha, ...)
+        title <- .resContrastName(object)
+        .plotDEGHeatmap(object, counts, alpha = alpha, title = title, ...)
     })
 
 

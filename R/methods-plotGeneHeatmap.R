@@ -17,6 +17,7 @@
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
+#' @param title Plot title.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
@@ -48,8 +49,10 @@ NULL
     genes = NULL,
     scale = "row",
     annotationCol = NULL,
+    title = NULL,
     ...) {
     counts <- as.matrix(object)
+
     # Check for identifier mismatch. Do this before zero count subsetting.
     if (!is.null(genes)) {
         if (!all(genes %in% rownames(counts))) {
@@ -61,6 +64,7 @@ NULL
         counts <- counts %>%
             .[rownames(.) %in% genes, , drop = FALSE]
     }
+
     # Subset zero counts
     counts <- counts %>%
         .[rowSums(.) > 0L, , drop = FALSE]
@@ -79,10 +83,16 @@ NULL
         counts <- gene2symbol(counts)
     }
 
+    # pheatmap will error if `NULL` title is passed as `main`
+    if (is.null(title)) {
+        title <- ""
+    }
+
     pheatmap(counts,
              scale = scale,
              show_rownames = showRownames,
              annotation_col = annotationCol,
+             main = title,
              ...)
 }
 
