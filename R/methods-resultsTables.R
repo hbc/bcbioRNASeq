@@ -12,12 +12,16 @@
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
+#' @param genomeBuild *Optional*. Override automatic genome detection. By
+#'   default the function matches the genome annotations based on the first
+#'   Ensembl gene identifier row in the object. If a custom FASTA spike-in
+#'   is provided, then this may need to be manually set.
 #'
 #' @return Results list.
 #'
 #' @examples
-#' data(bcb, res)
-#' resTbl <- resultsTables(bcb, res, lfc = 0.25, write = FALSE)
+#' data(res)
+#' resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
 #' class(resTbl)
 #' names(resTbl)
 NULL
@@ -62,28 +66,32 @@ NULL
 # Methods ====
 #' @rdname resultsTables
 #' @export
-setMethod("resultsTables", "bcbioRNADataSet", function(
+setMethod("resultsTables", "DESeqResults", function(
     object,
-    res,
     lfc = 0L,
     write = TRUE,
     headerLevel = 3L,
-    dir = file.path("results", "differential_expression")) {
-    name <- deparse(substitute(res))
-    contrast <- .resContrastName(res)
+    dir = file.path("results", "differential_expression"),
+    genomeBuild = NULL) {
+    contrast <- .resContrastName(object)
     fileStem <- str_replace_all(contrast, " ", "_")
 
     # Alpha level, from [DESeqResults]
-    alpha <- metadata(res)[["alpha"]]
-    annotations <- rowData(object) %>%
-        as.data.frame
+    alpha <- metadata(object)[["alpha"]]
 
-    all <- res %>%
+    # Match genome against the first gene identifier by default
+    if (is.null(genomeBuild)) {
+        genomeBuild <- rownames(object)[[1L]] %>%
+            detectOrganism
+    }
+    anno <- annotable(genomeBuild)
+
+    all <- object %>%
         as.data.frame %>%
         rownames_to_column("ensgene") %>%
         as("tibble") %>%
         camel %>%
-        left_join(annotations, by = "ensgene") %>%
+        left_join(anno, by = "ensgene") %>%
         arrange(!!sym("ensgene"))
 
     # Check for overall gene expression with base mean
@@ -113,8 +121,6 @@ setMethod("resultsTables", "bcbioRNADataSet", function(
     degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
 
     resTbl <- list(
-        res = res,
-        name = name,
         contrast = contrast,
         # Cutoffs
         alpha = alpha,
