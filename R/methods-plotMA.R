@@ -91,9 +91,22 @@ NULL
 # Methods ====
 #' @rdname plotMA
 #' @export
-setMethod("plotMA", "DESeqResults", function(object) {
+setMethod("plotMA", "DESeqResults", function(
+    object,
+    labelPoints = NULL,
+    labelColumn = "rowname",
+    pointColorScale = c("darkgrey", "red", "green"),
+    labelColor = "black") {
+    alpha <- metadata(object)[["alpha"]]
     title <- .resContrastName(object)
-    .plotMA(object, title = title)
+    .plotMA(object,
+            labelPoints = labelPoints,
+            labelColumn = labelColumn,
+            pointColorScale = pointColorScale,
+            labelColor = labelColor,
+            # Automatic
+            alpha = alpha,
+            title = title)
 })
 
 
