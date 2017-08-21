@@ -57,9 +57,11 @@ NULL
         labs(x = "mean expression across all samples",
              y = "log2 fold change")
     if (isTRUE(title)) {
-        p <- p + ggtitle("mean average")
+        p <- p +
+            ggtitle("mean average")
     } else if (is.character(title)) {
-        p <- p + ggtitle(title)
+        p <- p +
+            ggtitle(paste("mean average:", title))
     }
     if (!is.null(labelPoints)) {
         labels <- results %>%
@@ -89,7 +91,10 @@ NULL
 # Methods ====
 #' @rdname plotMA
 #' @export
-setMethod("plotMA", "DESeqResults", .plotMA)
+setMethod("plotMA", "DESeqResults", function(object) {
+    title <- .resContrastName(object)
+    .plotMA(object, title = title)
+})
 
 
 

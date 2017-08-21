@@ -7,9 +7,7 @@
 \alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
-\S4method{plotMA}{DESeqResults}(object, alpha = 0.05, labelPoints = NULL,
-  labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
-  labelColor = "black", title = TRUE)
+\S4method{plotMA}{DESeqResults}(object)
 
 \S4method{plotMA}{data.frame}(object, alpha = 0.05, labelPoints = NULL,
   labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
