@@ -73,7 +73,7 @@ setMethod("resultsTables", "DESeqResults", function(
     dir = file.path("results", "differential_expression"),
     genomeBuild = NULL) {
     contrast <- .resContrastName(object)
-    fileStem <- str_replace_all(contrast, " ", "_")
+    fileStem <- snake(contrast)
 
     # Alpha level, from [DESeqResults]
     alpha <- metadata(object)[["alpha"]]
