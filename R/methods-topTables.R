@@ -31,15 +31,17 @@ setMethod("topTables", "list", function(
         }
         df %>%
             head(n = n) %>%
+            rename(lfc = .data[["log2FoldChange"]]) %>%
             mutate(
                 baseMean = round(.data[["baseMean"]]),
-                log2FoldChange = format(.data[["log2FoldChange"]],
-                                        digits = 3L),
+                lfc = format(.data[["lfc"]], digits = 3L),
                 padj = format(.data[["padj"]],
                               digits = 3L,
-                              scientific = TRUE)) %>%
-            .[, c("ensgene", "baseMean", "log2FoldChange", "padj",
-                  "symbol", "biotype")] %>%
+                              scientific = TRUE),
+                description = str_trunc(.data[["description"]],
+                                        width = 50L)) %>%
+            .[, c("ensgene", "baseMean", "lfc", "padj",
+                  "symbol", "description")] %>%
             remove_rownames
     }
 
