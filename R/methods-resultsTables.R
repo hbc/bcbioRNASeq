@@ -3,7 +3,6 @@
 #' @rdname resultsTables
 #' @name resultsTables
 #'
-#' @param res [DESeqResults].
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See [results()] for additional information about using `lfcThreshold` and

@@ -34,8 +34,6 @@ changes.}
 default the function matches the genome annotations based on the first
 Ensembl gene identifier row in the object. If a custom FASTA spike-in
 is provided, then this may need to be manually set.}
-
-\item{res}{\link{DESeqResults}.}
 }
 \value{
 Results list.
