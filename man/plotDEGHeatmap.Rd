@@ -16,7 +16,7 @@ plotDEGHeatmap(object, counts, ...)
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{data.frame,ANY}(object, counts, alpha = 0.01,
-  lfc = 0L, ...)
+  lfc = 0L, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -28,6 +28,8 @@ plotDEGHeatmap(object, counts, ...)
 \item{alpha}{Alpha level cutoff.}
 
 \item{lfc}{\link{log2} fold change ratio cutoff.}
+
+\item{title}{Plot title.}
 }
 \value{
 Graphical output only.

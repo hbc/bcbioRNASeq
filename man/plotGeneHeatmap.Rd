@@ -19,7 +19,7 @@ plotGeneHeatmap(object, ...)
 \S4method{plotGeneHeatmap}{DESeqTransform}(object, ...)
 
 \S4method{plotGeneHeatmap}{matrix}(object, genes = NULL, scale = "row",
-  annotationCol = NULL, ...)
+  annotationCol = NULL, title = NULL, ...)
 }
 \arguments{
 \item{object}{Counts matrix.}
@@ -34,6 +34,8 @@ in either the \code{row} direction, \code{column} direction, or \code{none}.}
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
 features of the heatmap columns.}
+
+\item{title}{Plot title.}
 }
 \value{
 Graphical output only.
