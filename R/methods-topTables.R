@@ -17,6 +17,33 @@ NULL
 
 
 
+# Constructors ====
+.subsetTop <- function(df, n, coding) {
+    if (isTRUE(coding)) {
+        df <- df %>%
+            .[.[["broadClass"]] == "coding", ]
+    }
+    df <- df %>%
+        head(n = n) %>%
+        rename(lfc = .data[["log2FoldChange"]]) %>%
+        mutate(
+            baseMean = round(.data[["baseMean"]]),
+            lfc = format(.data[["lfc"]], digits = 3L),
+            padj = format(.data[["padj"]],
+                          digits = 3L,
+                          scientific = TRUE),
+            # Remove symbol information in description, if present
+            description = str_replace(.data[["description"]],
+                                      " \\[.+\\]$",
+                                      "")) %>%
+        .[, c("ensgene", "baseMean", "lfc", "padj",
+              "symbol", "description")] %>%
+        remove_rownames %>%
+        fixNA
+}
+
+
+
 # Methods ====
 #' @rdname topTables
 #' @export
@@ -24,29 +51,8 @@ setMethod("topTables", "list", function(
     object,
     n = 50L,
     coding = FALSE) {
-    subsetTop <- function(df) {
-        if (isTRUE(coding)) {
-            df <- df %>%
-                .[.[["broadClass"]] == "coding", ]
-        }
-        df %>%
-            head(n = n) %>%
-            rename(lfc = .data[["log2FoldChange"]]) %>%
-            mutate(
-                baseMean = round(.data[["baseMean"]]),
-                lfc = format(.data[["lfc"]], digits = 3L),
-                padj = format(.data[["padj"]],
-                              digits = 3L,
-                              scientific = TRUE),
-                description = str_trunc(.data[["description"]],
-                                        width = 50L)) %>%
-            .[, c("ensgene", "baseMean", "lfc", "padj",
-                  "symbol", "description")] %>%
-            remove_rownames
-    }
-
-    up <- subsetTop(object[["degLFCUp"]])
-    down <- subsetTop(object[["degLFCDown"]])
+    up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
+    down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
 
     # Captions
     contrastName <- object[["contrast"]]
