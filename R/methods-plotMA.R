@@ -58,10 +58,10 @@ NULL
              y = "log2 fold change")
     if (isTRUE(title)) {
         p <- p +
-            ggtitle("mean average")
+            ggtitle("ma")
     } else if (is.character(title)) {
         p <- p +
-            ggtitle(paste("mean average:", title))
+            ggtitle(paste("ma:", title))
     }
     if (!is.null(labelPoints)) {
         labels <- results %>%
