@@ -45,7 +45,10 @@
 
 globalVariables(".")
 
-packageURL <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"
+#' Package Website URL
+#' @keywords internal
+#' @export
+website <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"
 
 # Quality control plot colors
 qcFailColor <- "red"
