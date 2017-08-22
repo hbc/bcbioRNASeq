@@ -9,6 +9,9 @@
 \arguments{
 \item{projectDir}{Project directory.}
 }
+\value{
+\link{data.frame}.
+}
 \description{
 Read Program Versions
 }

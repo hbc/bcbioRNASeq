@@ -18,6 +18,9 @@ download(object)
 \item{object}{\emph{Optional}. File name. If \code{NULL} (default), download the
 default dependency files for a new experiment.}
 }
+\value{
+No value.
+}
 \description{
 If the required dependency file isn't present, download latest version from
 the \href{http://bioinformatics.sph.harvard.edu/}{HBC website}.
