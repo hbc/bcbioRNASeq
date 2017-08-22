@@ -6,14 +6,10 @@ bibliography: bcbioRnaseq.bib
 params:
     uploadDir: "final"
     interestingGroups: !r c("genotype", "treatment")
-    experimentName: ""
-    researcher: ""
-    principalInvestigator: ""
     outputDir: "."
 ---
 
 ```{r setup, message=FALSE}
-bcbioRnaseq::download()
 source("setup.R")
 
 # Directory paths
@@ -21,14 +17,11 @@ outputDir <- params$outputDir
 dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
 
-# Load bcbio RNA-seq run
+# Load bcbio run
 if (!file.exists(file.path(dataDir, "bcb.rda"))) {
     bcb <- loadRNASeqRun(
         params$uploadDir,
-        interestingGroups = params$interestingGroups,
-        experimentName = params$experimentName,
-        researcher = params$researcher,
-        principalInvestigator = params$principalInvestigator)
+        interestingGroups = params$interestingGroups)
     saveData(bcb, dir = dataDir)
 } else {
     load(file.path(dataDir, "bcb.rda"))
