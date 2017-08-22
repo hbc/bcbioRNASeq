@@ -3,6 +3,7 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
+#' @import methods
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
 #'   mdHeader mdList packageSE readFileByExtension readYAML removeNA snake
@@ -26,7 +27,6 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom methods as new show slot slot<- validObject
 #' @importFrom pheatmap pheatmap
 #' @importFrom readr read_csv read_delim read_lines read_tsv write_csv
 #' @importFrom reshape2 melt
