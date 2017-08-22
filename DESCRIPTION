@@ -31,32 +31,39 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    basejump (>= 0.0.20),
-    SummarizedExperiment (>= 1.6.3)
+    SummarizedExperiment (>= 1.6.3),
+    basejump (>= 0.0.21)
 Imports:
     BiocGenerics,
     cowplot,
     data.table,
     DEGreport (>= 1.13.7),
     DESeq2 (>= 1.16.1),
+    dplyr,
     edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
     ggrepel,
     grid,
+    knitr,
+    magrittr,
     methods,
     pheatmap (>= 1.0.8),
+    readr,
+    reshape2,
+    rlang,
     S4Vectors,
     stats,
+    stringr,
+    tibble,
+    tidyr,
     tximport (>= 1.4.0),
     utils,
     vsn
 Suggests:
     BiocStyle,
     lintr (>= 1.0.1),
-    RUnit,
     testthat
 Remotes:
-    jimhester/lintr,
     lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
@@ -68,7 +75,6 @@ biocViews:
     QualityControl,
     ReportWriting,
     RNASeq,
-    miRNA,
     Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
