@@ -59,7 +59,8 @@
     }
 
     meta %>%
-        mutate(sampleID = camel(.data[["sampleName"]])) %>%
+        # Sanitize `sampleID` into valid names
+        mutate(sampleID = make.names(.data[["sampleName"]])) %>%
         .metaPriorityCols %>%
         .metaFactors
 }

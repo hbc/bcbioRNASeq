@@ -62,8 +62,8 @@
         removeNA %>%
         # Rename `description` to `sampleName`
         rename(sampleName = .data[["description"]]) %>%
-        # Set `sampleID` from `sampleName` %>%
-        mutate(sampleID = .data[["sampleName"]]) %>%
+        # Sanitize `sampleID` into valid names
+        mutate(sampleID = make.names(.data[["sampleName"]])) %>%
         .metaPriorityCols
 }
 

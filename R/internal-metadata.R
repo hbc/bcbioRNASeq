@@ -24,8 +24,8 @@
 .metaPriorityCols <- function(meta) {
     meta %>%
         as("tibble") %>%
-        # Sanitize `sampleID` into camelCase
-        mutate(sampleID = camel(.data[["sampleName"]])) %>%
+        # Sanitize `sampleID` into valid names
+        mutate(sampleID = make.names(.data[["sampleName"]])) %>%
         .[, unique(c(metaPriorityCols, sort(colnames(.))))] %>%
         arrange(!!!syms(metaPriorityCols))
 }
