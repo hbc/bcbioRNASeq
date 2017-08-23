@@ -39,7 +39,8 @@
 #' @importFrom tibble column_to_rownames remove_rownames rownames_to_column
 #' @importFrom tidyr expand_
 #' @importFrom tximport tximport
-#' @importFrom utils capture.output download.file packageVersion read.table
+#' @importFrom utils capture.output download.file globalVariables packageVersion
+#'   read.table
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
