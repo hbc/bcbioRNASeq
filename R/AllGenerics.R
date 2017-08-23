@@ -77,16 +77,6 @@ setGeneric("bcbio<-", function(object, ..., value) {
 
 
 
-#' @rdname download
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("download", function(object) {
-    standardGeneric("download")
-})
-
-
-
 #' @rdname loadRNASeqRun
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inheritParams AllGenerics
