@@ -8,7 +8,7 @@
 #' @param genomeBuild Genome build.
 #'
 #' @return [data.frame] with unique rownames.
-.tx2gene <- function(projectDir, genomeBuild) {
+.tx2gene <- function(projectDir, genomeBuild = NULL) {
     filePath <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(filePath)) {
         # bcbio-nextgene tx2gene
