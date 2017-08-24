@@ -8,6 +8,14 @@
 
 ## Required checks
 
+If there are changes to `bcbioRNADataSet` class or `loadRNASeqRun()` function, be sure to rebuild all working example data:
+
+```r
+source(file.path("data-raw", "examples.R"))
+```
+
+For all package updates, run these commands prior to a pull request:
+
 ```r
 lintr::lint_package()
 devtools::document()
