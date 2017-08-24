@@ -6,8 +6,8 @@
 #' @import methods
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
-#'   mdHeader mdList prepareSE readFileByExtension readYAML removeNA snake
-#'   tx2gene
+#'   mdHeader mdList prepareSE prepareTemplate readFileByExtension readYAML
+#'   removeNA snake tx2gene
 #' @importFrom BiocGenerics counts density plotMA plotPCA
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist

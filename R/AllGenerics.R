@@ -50,6 +50,7 @@ setGeneric("aggregateReplicates", function(object, ...) {
 
 
 #' @rdname alphaSummary
+#' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inheritParams AllGenerics
 #' @export
@@ -164,7 +165,7 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 #' @rdname plotDispersion
-#' @family DESeq2 Utilities
+#' @family Differential Expression Utilities
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
@@ -187,6 +188,7 @@ setGeneric("plotExonicMappingRate", function(object, ...) {
 
 
 #' @rdname plotGenderMarkers
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
@@ -197,6 +199,7 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 
 
 #' @rdname plotGene
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
@@ -279,7 +282,7 @@ setGeneric("plotMappingRate", function(object, ...) {
 
 
 #' @rdname plotMeanSD
-#' @family DESeq2 Utilities
+#' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inheritParams AllGenerics
 #' @export
@@ -342,6 +345,16 @@ setGeneric("plotVolcano", function(object, ...) {
 #' @export
 setGeneric("plot53Bias", function(object, ...) {
     standardGeneric("plot53Bias")
+})
+
+
+
+#' @rdname prepareRNASeqTemplate
+#' @author Michael Steinbaugh
+#' @inheritParams AllGenerics
+#' @export
+setGeneric("prepareRNASeqTemplate", function(object, ...) {
+    standardGeneric("prepareRNASeqTemplate")
 })
 
 
