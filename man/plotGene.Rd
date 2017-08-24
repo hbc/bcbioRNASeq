@@ -37,6 +37,19 @@ plotGene(bcb, gene = c("Sulf1", "Phf3"))
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
+
+Other Quality Control Plots: \code{\link{plot53Bias}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

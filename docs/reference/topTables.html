@@ -119,30 +119,32 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>res</span>)
-<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(<span class='no'>bcb</span>, <span class='no'>res</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; res differential expression tables
-#&gt; - 505 gene annotations
-#&gt; - cutoffs applied:
-#&gt;     - alpha: 0.1
-#&gt;     - lfc:   0 (tables only)
-#&gt; - gene detection:
-#&gt;     - base mean &gt; 0: 304 genes
-#&gt;     - base mean &gt; 1: 213 genes
-#&gt; - pass cutoffs:
-#&gt;     - alpha:    4 genes
-#&gt;     - lfc up:   2 genes
-#&gt;     - lfc down: 2 genes</div><div class='input'><span class='fu'>topTables</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>res</span>)
+<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(<span class='no'>res</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |ensgene            | baseMean|log2FoldChange |padj    |symbol  |biotype              |
-#&gt; |:------------------|--------:|:--------------|:-------|:-------|:--------------------|
-#&gt; |ENSMUSG00000104523 |      409|0.815          |7.7e-02 |Gm37335 |antisense            |
-#&gt; |ENSMUSG00000070960 |       15|7.307          |9.6e-02 |Gm19680 |processed_pseudogene |
+#&gt; ### Summary statistics
 #&gt; 
 #&gt; 
-#&gt; |ensgene            | baseMean|log2FoldChange |padj    |symbol |biotype        |
-#&gt; |:------------------|--------:|:--------------|:-------|:------|:--------------|
-#&gt; |ENSMUSG00000016918 |      521|-0.992         |9.6e-02 |Sulf1  |protein_coding |
-#&gt; |ENSMUSG00000048874 |     2484|-0.855         |9.6e-02 |Phf3   |protein_coding |</div></pre>
+#&gt; - 505 genes in count matrix
+#&gt; - base mean &gt; 0: 304 genes (non-zero)
+#&gt; - base mean &gt; 1: 213 genes
+#&gt; - alpha cutoff: 0.1
+#&gt; - lfc cutoff: 0 (applied in tables only)
+#&gt; - deg pass alpha: 4 genes
+#&gt; - deg lfc up: 2 genes
+#&gt; - deg lfc down: 2 genes
+#&gt; </div><div class='input'><span class='fu'>topTables</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; 
+#&gt; 
+#&gt; |ensgene            | baseMean|lfc   |padj    |symbol  |description           |
+#&gt; |:------------------|--------:|:-----|:-------|:-------|:---------------------|
+#&gt; |ENSMUSG00000104523 |      409|0.815 |7.7e-02 |Gm37335 |predicted gene, 37335 |
+#&gt; |ENSMUSG00000070960 |       15|7.307 |9.6e-02 |Gm19680 |predicted gene, 19680 |
+#&gt; 
+#&gt; 
+#&gt; |ensgene            | baseMean|lfc    |padj    |symbol |description          |
+#&gt; |:------------------|--------:|:------|:-------|:------|:--------------------|
+#&gt; |ENSMUSG00000016918 |      521|-0.992 |9.6e-02 |Sulf1  |sulfatase 1          |
+#&gt; |ENSMUSG00000048874 |     2484|-0.855 |9.6e-02 |Phf3   |PHD finger protein 3 |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

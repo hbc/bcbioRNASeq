@@ -88,12 +88,12 @@
     
 
     <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgrey"</span>, <span class='st'>"red"</span>, <span class='st'>"green"</span>),
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
 
 <span class='co'># S4 method for data.frame</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"rowname"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgrey"</span>, <span class='st'>"red"</span>, <span class='st'>"green"</span>),
   <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -103,10 +103,6 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff (Adjusted P value).</p></td>
     </tr>
     <tr>
       <th>labelPoints</th>
@@ -125,6 +121,10 @@ results.</p></td>
     <tr>
       <th>labelColor</th>
       <td><p>Text label color.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>Alpha level cutoff (Adjusted P value).</p></td>
     </tr>
     <tr>
       <th>title</th>

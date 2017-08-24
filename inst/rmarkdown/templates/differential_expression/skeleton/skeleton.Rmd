@@ -2,24 +2,30 @@
 title: "Differential Expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
-bibliography: bcbioRnaseq.bib
+bibliography: bibliography.bib
 params:
     bcb: "data/bcb.rda"
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
-    alpha: 0.05
+    alpha: 0.01
     lfc: 0
     outputDir: "."
 ---
 
-```{r setup, cache=FALSE, message=FALSE}
-source("setup.R")
+```{r setup, message=FALSE}
 library(DESeq2)
+library(bcbioRnaseq)
 
-# bcbioRNADataSet
-# Need to save bcb using `loadRNASeqRun()` prior to knit!
+# Shared RMarkdown settings
+prepareRNASeqTemplate()
+if (file.exists("setup.R")) {
+    source("setup.R")
+}
+
+# Load bcbioRNADataSet
 bcbName <- load(params$bcb)
 assign("bcb", get(bcbName))
+rm(list = bcbName)
 if (!is(bcb, "bcbioRNADataSet")) {
     stop("bcb must bcbioRNADataSet class object")
 }
@@ -40,13 +46,12 @@ alpha <- params$alpha
 lfc <- params$lfc
 
 # Directory paths
-outputDir <- normalizePath(params$outputDir)
-dataDir <- file.path(outputDir, "data")
+outputDir <- params$outputDir
 countsDir <- file.path(outputDir, "results", "counts")
 deDir <- file.path(outputDir, "results", "differential_expression")
 ```
 
-```{r header, child="_header.Rmd"}
+```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
 ```
 
 
@@ -57,7 +62,7 @@ dds <- DESeqDataSetFromTximport(
     colData = colData(bcb),
     design = design) %>%
     DESeq
-saveData(dds, dir = dataDir)
+rld <- rlog(dds)
 ```
 
 
@@ -82,16 +87,16 @@ resUnshrunken <- results(
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
-# Use the correct coef number to modify from resultsNames(dds)
+# Only `coef` or `contrast` can be specified, not both
+# Use the correct `coef` number to modify from `resultsNames(dds)`
 resShrunken <- lfcShrink(
     dds = dds,
+    # coef = 2,
     contrast = contrast,
-    coef = 2,
     res = resUnshrunken)
 
 # Use shrunken LFC values by default
 res <- resShrunken
-saveData(res, resUnshrunken, resShrunken, dir = dataDir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and a log fold-change (LFC) ratio cutoff of `r lfc`.
@@ -105,7 +110,7 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
 ```{r plotMA}
-plotMA(res)
+plotMA(res, alpha = alpha)
 ```
 
 
@@ -123,7 +128,7 @@ plotVolcano(res, lfc = lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plotDEGHeatmap}
-plotDEGHeatmap(res, assays(bcb)[["rlog"]])
+plotDEGHeatmap(res, counts = rld)
 ```
 
 
@@ -135,12 +140,16 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 ## Count matrices
 
-- [`normalized_counts.csv.gz`](`r file.path(countsDir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`normalizedCounts.csv.gz`](`r file.path(countsDir, "normalizedCounts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
 - [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](`r file.path(countsDir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
+- [`rawCounts.csv.gz`](`r file.path(countsDir, "rawCounts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 ## Differentially expressed genes (DEG)
+
+```{r resultsTables, results="asis"}
+resTbl <- resultsTables(res, lfc = lfc, dir = deDir)
+```
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 
@@ -155,11 +164,6 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `description`: [Ensembl][] description.
 - `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
-```{r resultsTables, results="asis"}
-resTbl <- resultsTables(bcb, res = res, lfc = lfc, dir = deDir)
-saveData(resTbl, dir = dataDir)
-```
-
 
 
 # Top tables
@@ -172,5 +176,5 @@ topTables(resTbl)
 
 
 
-```{r footer, child="_footer.Rmd"}
+```{r header, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
 ```

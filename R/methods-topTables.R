@@ -10,10 +10,37 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
-#' data(bcb, res)
-#' resTbl <- resultsTables(bcb, res, write = FALSE)
+#' data(res)
+#' resTbl <- resultsTables(res, write = FALSE)
 #' topTables(resTbl)
 NULL
+
+
+
+# Constructors ====
+.subsetTop <- function(df, n, coding) {
+    if (isTRUE(coding)) {
+        df <- df %>%
+            .[.[["broadClass"]] == "coding", ]
+    }
+    df <- df %>%
+        head(n = n) %>%
+        rename(lfc = .data[["log2FoldChange"]]) %>%
+        mutate(
+            baseMean = round(.data[["baseMean"]]),
+            lfc = format(.data[["lfc"]], digits = 3L),
+            padj = format(.data[["padj"]],
+                          digits = 3L,
+                          scientific = TRUE),
+            # Remove symbol information in description, if present
+            description = str_replace(.data[["description"]],
+                                      " \\[.+\\]$",
+                                      "")) %>%
+        .[, c("ensgene", "baseMean", "lfc", "padj",
+              "symbol", "description")] %>%
+        remove_rownames %>%
+        fixNA
+}
 
 
 
@@ -24,37 +51,16 @@ setMethod("topTables", "list", function(
     object,
     n = 50L,
     coding = FALSE) {
-    subsetTop <- function(df) {
-        if (isTRUE(coding)) {
-            df <- df %>%
-                .[.[["broadClass"]] == "coding", ]
-        }
-        df %>%
-            head(n = n) %>%
-            mutate(
-                baseMean = round(.data[["baseMean"]]),
-                log2FoldChange = format(.data[["log2FoldChange"]],
-                                        digits = 3L),
-                padj = format(.data[["padj"]],
-                              digits = 3L,
-                              scientific = TRUE)) %>%
-            .[, c("ensgene", "baseMean", "log2FoldChange", "padj",
-                  "symbol", "biotype")] %>%
-            remove_rownames
-    }
-
-    up <- subsetTop(object[["degLFCUp"]])
-    down <- subsetTop(object[["degLFCDown"]])
+    up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
+    down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
 
     # Captions
-    name <- object[["name"]]
-    contrast <- object[["contrast"]]
-    namePrefix <- paste(name, contrast, sep = labelSep)
+    contrastName <- object[["contrast"]]
 
     show(kable(
         up,
-        caption = paste(namePrefix, "upregulated", sep = labelSep)))
+        caption = paste(contrastName, "(upregulated)")))
     show(kable(
         down,
-        caption = paste(namePrefix, "downregulated", sep = labelSep)))
+        caption = paste(contrastName, "(downregulated)")))
 })

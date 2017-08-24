@@ -56,14 +56,14 @@
         # [dplyr::bind_rows()]. Some YAML files will cause [bind_rows()] to
         # throw `Column XXX can't be converted from integer to character` errors
         # on numeric data, whereas this doesn't happen with [rbindlist()].
-        rbindlist %>%
+        rbindlist(fill = TRUE) %>%
         as("tibble") %>%
         camel %>%
         removeNA %>%
         # Rename `description` to `sampleName`
         rename(sampleName = .data[["description"]]) %>%
-        # Set `sampleID` from `sampleName` %>%
-        mutate(sampleID = .data[["sampleName"]]) %>%
+        # Sanitize `sampleID` into valid names
+        mutate(sampleID = make.names(.data[["sampleName"]])) %>%
         .metaPriorityCols
 }
 

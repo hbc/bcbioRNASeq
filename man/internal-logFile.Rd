@@ -9,6 +9,9 @@
 \arguments{
 \item{file}{Log file.}
 }
+\value{
+Character vector.
+}
 \description{
 Read Log File
 }

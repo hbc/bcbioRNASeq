@@ -7,18 +7,16 @@
 \alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
-\S4method{plotMA}{DESeqResults}(object, alpha = 0.05, labelPoints = NULL,
+\S4method{plotMA}{DESeqResults}(object, labelPoints = NULL,
   labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
-  labelColor = "black", title = TRUE)
+  labelColor = "black")
 
-\S4method{plotMA}{data.frame}(object, alpha = 0.05, labelPoints = NULL,
+\S4method{plotMA}{data.frame}(object, alpha = 0.01, labelPoints = NULL,
   labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
   labelColor = "black", title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{alpha}{Alpha level cutoff (Adjusted P value).}
 
 \item{labelPoints}{\emph{Optional}. Label these particular points.}
 
@@ -29,6 +27,8 @@ results.}
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}} for more information.}
 
 \item{labelColor}{Text label color.}
+
+\item{alpha}{Alpha level cutoff (Adjusted P value).}
 
 \item{title}{Plot title.}
 }

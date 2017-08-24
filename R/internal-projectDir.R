@@ -5,6 +5,8 @@
 #' @keywords internal
 #'
 #' @param projectDir Project directory.
+#'
+#' @return [data.frame].
 .dataVersions <- function(projectDir) {
     file <- file.path(projectDir, "data_versions.csv")
     if (!file.exists(file)) {
@@ -23,6 +25,8 @@
 #' @keywords internal
 #'
 #' @param file Log file.
+#'
+#' @return Character vector.
 .logFile <- function(file) {
     if (!file.exists(file)) {
         warning(paste(basename(file), "missing"))
@@ -40,6 +44,8 @@
 #' @keywords internal
 #'
 #' @param projectDir Project directory.
+#'
+#' @return [data.frame].
 .programs <- function(projectDir) {
     file <- file.path(projectDir, "programs.txt")
     if (!file.exists(file)) {

@@ -5,8 +5,6 @@ dist: trusty
 r:
   - bioc-devel
 r_github_packages:
-  - jimhester/covr
-  - jimhester/lintr
   - lpantano/DEGreport
 after_success:
   - Rscript -e 'covr::codecov()'

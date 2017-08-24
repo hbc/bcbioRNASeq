@@ -26,6 +26,19 @@ Plot Sexually Dimorphic Gender Markers
 data(bcb)
 plotGenderMarkers(bcb)
 }
+\seealso{
+Other Quality Control Plots: \code{\link{plot53Bias}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
+}
 \author{
 Michael Steinbaugh
 }

@@ -12,21 +12,19 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, symbol = TRUE, ...)
+\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, ...)
 
 \S4method{plotGeneHeatmap}{DESeqDataSet}(object, ...)
 
 \S4method{plotGeneHeatmap}{DESeqTransform}(object, ...)
 
 \S4method{plotGeneHeatmap}{matrix}(object, genes = NULL, scale = "row",
-  annotationCol = NULL, ...)
+  annotationCol = NULL, title = NULL, ...)
 }
 \arguments{
 \item{object}{Counts matrix.}
 
 \item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
-
-\item{symbol}{Match against Ensembl gene symbols.}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
@@ -36,6 +34,8 @@ in either the \code{row} direction, \code{column} direction, or \code{none}.}
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
 features of the heatmap columns.}
+
+\item{title}{Plot title.}
 }
 \value{
 Graphical output only.
@@ -54,14 +54,9 @@ data(bcb, dds, rld)
 # bcbioRNADataSet
 plotGeneHeatmap(bcb)
 
-# Genes as symbols (default)
-genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
-plotGeneHeatmap(bcb, genes = genes)
-
 # Genes as Ensembl identifiers
 genes <- counts(bcb)[1L:50L, ] \%>\% rownames
-plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
-
+plotGeneHeatmap(bcb, genes = genes)
 
 # DESeqDataSet
 plotGeneHeatmap(dds)

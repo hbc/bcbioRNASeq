@@ -4,7 +4,7 @@
 \alias{.tx2gene}
 \title{Transcript to Gene Annotations}
 \usage{
-.tx2gene(projectDir, genomeBuild)
+.tx2gene(projectDir, genomeBuild = NULL)
 }
 \arguments{
 \item{projectDir}{Project directory.}
