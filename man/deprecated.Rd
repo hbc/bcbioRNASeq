@@ -7,9 +7,13 @@
 \usage{
 download(...)
 }
+\arguments{
+\item{...}{Additional arguments.}
+}
 \value{
 No value.
 }
 \description{
 Deprecated Functions
 }
+\keyword{internal}
