@@ -17,5 +17,5 @@ NULL
 #' @rdname prepareRNASeqTemplate
 #' @export
 setMethod("prepareRNASeqTemplate", "missing", function(object) {
-    prepareTemplate(package = "bcbioRnaseq")
+    prepareTemplate(dir = file.path(url, "downloads"))
 })

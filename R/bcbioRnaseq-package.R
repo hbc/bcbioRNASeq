@@ -60,7 +60,4 @@ projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 metaPriorityCols <- c("sampleID", "sampleName")
 perSampleDirs <- c("sailfish", "salmon")
 
-#' Package Website URL
-#' @keywords internal
-#' @export
 url <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"
