@@ -150,7 +150,8 @@ plotting.</p></td>
   <code>plotCountDensity</code>,
   <code>plotCountsPerGene</code>,
   <code>plotExonicMappingRate</code>,
-  <code>plotGeneSaturation</code>,
+  <code>plotGenderMarkers</code>,
+  <code>plotGeneSaturation</code>, <code>plotGene</code>,
   <code>plotIntronicMappingRate</code>,
   <code>plotMappedReads</code>,
   <code>plotMappingRate</code>,
@@ -162,13 +163,13 @@ plotting.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame + DESeqDataSet</span>
 <span class='fu'>plotGenesDetected</span>(<span class='fu'>metrics</span>(<span class='no'>bcb</span>), <span class='no'>dds</span>,
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame + matrix</span>
 <span class='fu'>plotGenesDetected</span>(<span class='fu'>metrics</span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>dds</span>),
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-9.png' alt='' width='700' height='432.632880098887' /></div></pre>
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

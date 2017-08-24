@@ -31,6 +31,10 @@ Print Summary Statistics of Alpha Level Cutoffs
 data(dds)
 alphaSummary(dds)
 }
+\seealso{
+Other Differential Expression Utilities: \code{\link{plotDispersion}},
+  \code{\link{plotMeanSD}}
+}
 \author{
 Michael Steinbaugh, Lorena Patano
 }

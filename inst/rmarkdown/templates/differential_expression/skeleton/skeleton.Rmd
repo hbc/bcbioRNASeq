@@ -2,7 +2,7 @@
 title: "Differential Expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
-bibliography: bcbioRnaseq.bib
+bibliography: bibliography.bib
 params:
     bcb: "data/bcb.rda"
     design: !r formula(~genotype)
@@ -16,7 +16,8 @@ params:
 library(DESeq2)
 library(bcbioRnaseq)
 
-# Optional shared RMarkdown settings
+# Shared RMarkdown settings
+prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
     source("setup.R")
 }

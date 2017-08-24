@@ -2,7 +2,7 @@
 title: "Quality Control"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
-bibliography: bcbioRnaseq.bib
+bibliography: bibliography.bib
 params:
     uploadDir: "final"
     interestingGroups: !r c("genotype", "treatment")
@@ -12,7 +12,8 @@ params:
 ```{r setup, message=FALSE}
 library(bcbioRnaseq)
 
-# Optional shared RMarkdown settings
+# Shared RMarkdown settings
+prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
     source("setup.R")
 }
