@@ -13,10 +13,15 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-source("setup.R")
 library(DESeq2)
+library(bcbioRnaseq)
 
-# bcbioRNADataSet
+# Optional shared RMarkdown settings
+if (file.exists("setup.R")) {
+    source("setup.R")
+}
+
+# Load bcbioRNADataSet
 bcbName <- load(params$bcb)
 assign("bcb", get(bcbName))
 rm(list = bcbName)
@@ -45,7 +50,7 @@ countsDir <- file.path(outputDir, "results", "counts")
 deDir <- file.path(outputDir, "results", "differential_expression")
 ```
 
-```{r header, child="_header.Rmd"}
+```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
 ```
 
 
@@ -170,5 +175,5 @@ topTables(resTbl)
 
 
 
-```{r footer, child="_footer.Rmd"}
+```{r header, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
 ```
