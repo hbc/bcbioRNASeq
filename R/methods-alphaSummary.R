@@ -14,7 +14,7 @@
 NULL
 
 .guessResults <- function(object, what, alpha){
-    if (length(what) == 1)
+    if (length(what) == 1L)
         res <- results(object, name = what, alpha = alpha)
     else res <- results(object, contrast = what, alpha = alpha)
     res
