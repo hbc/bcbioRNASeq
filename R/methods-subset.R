@@ -77,11 +77,7 @@ setMethod(
         tmm <- .tmm(rawCounts)
         tpm <- txi[["abundance"]]
 
-        dds <- DESeqDataSetFromTximport(
-            txi = txi,
-            colData = tmpData,
-            design = formula(~1L)) %>%
-            DESeq
+        dds <- createDds(txi, tmpData)
         normalizedCounts <- counts(dds, normalized = TRUE)
 
         # rlog & variance ====
@@ -130,3 +126,13 @@ setMethod(
         }
         bcb
     })
+
+# This will avoid huge objects when saving the data after subsetting.
+# Don't ask me why, but this change made the trick.
+createDds <- function(txi, tmpData){
+    DESeqDataSetFromTximport(
+        txi = txi,
+        colData = tmpData,
+        design = formula(~1L)) %>%
+        DESeq
+}
