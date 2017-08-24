@@ -65,7 +65,7 @@ Suggests:
     testthat
 Remotes:
     lpantano/DEGreport,
-    steinbaugh/basejump@dev
+    steinbaugh/basejump
 biocViews:
     DataImport,
     DataRepresentation,
