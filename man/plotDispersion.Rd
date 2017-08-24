@@ -35,7 +35,8 @@ plotDispersion(dds)
 \seealso{
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
 
-Other DESeq2 Utilities: \code{\link{plotMeanSD}}
+Other Differential Expression Utilities: \code{\link{alphaSummary}},
+  \code{\link{plotMeanSD}}
 }
 \author{
 Michael Steinbaugh

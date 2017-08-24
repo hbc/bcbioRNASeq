@@ -36,7 +36,8 @@ plotMeanSD(bcb)
 plotMeanSD(dds)
 }
 \seealso{
-Other DESeq2 Utilities: \code{\link{plotDispersion}}
+Other Differential Expression Utilities: \code{\link{alphaSummary}},
+  \code{\link{plotDispersion}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

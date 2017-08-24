@@ -51,12 +51,9 @@ run directory as a remote connection over
 \examples{
 extraDir <- system.file("extra", package = "bcbioRnaseq")
 uploadDir <- file.path(extraDir, "bcbio")
-sampleMetadataFile <- file.path(extraDir, "sample_metadata.csv")
 bcb <- loadRNASeqRun(
     uploadDir,
-    interestingGroups = "group",
-    sampleMetadataFile = sampleMetadataFile)
-# bcbSmall <- bcb[1:999, 1:3]
+    interestingGroups = "group")
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

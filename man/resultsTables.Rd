@@ -4,20 +4,19 @@
 \name{resultsTables}
 \alias{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables,bcbioRNADataSet-method}
+\alias{resultsTables,DESeqResults-method}
 \title{Differential Expression Results Tables}
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{bcbioRNADataSet}(object, res, lfc = 0L,
-  write = TRUE, dir = file.path("results", "de"))
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, write = TRUE,
+  headerLevel = 3L, dir = file.path("results", "differential_expression"),
+  genomeBuild = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
-
-\item{res}{\link{DESeqResults}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
@@ -27,7 +26,14 @@ changes.}
 
 \item{write}{Write CSV files to disk.}
 
+\item{headerLevel}{Markdown header level.}
+
 \item{dir}{Directory path where to write files.}
+
+\item{genomeBuild}{\emph{Optional}. Override automatic genome detection. By
+default the function matches the genome annotations based on the first
+Ensembl gene identifier row in the object. If a custom FASTA spike-in
+is provided, then this may need to be manually set.}
 }
 \value{
 Results list.
@@ -36,8 +42,8 @@ Results list.
 Differential Expression Results Tables
 }
 \examples{
-data(bcb, res)
-resTbl <- resultsTables(bcb, res, lfc = 0.25, write = FALSE)
+data(res)
+resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
 class(resTbl)
 names(resTbl)
 }

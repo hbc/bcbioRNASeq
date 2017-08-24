@@ -26,6 +26,34 @@ NULL
 
 
 
+# Constructors ====
+.joinMelt <- function(counts, metadata) {
+    if (!identical(colnames(counts), metadata[["sampleID"]])) {
+        stop("Sample name mismatch between counts and metadata")
+    }
+    .meltLog10(counts) %>%
+        left_join(metadata, by = "sampleID")
+}
+
+
+
+.meltLog10 <- function(counts) {
+    counts %>%
+        as.data.frame %>%
+        rownames_to_column %>%
+        melt(id = 1L) %>%
+        setNames(c("ensgene",
+                   "sampleID",
+                   "counts")) %>%
+        .[.[["counts"]] > 0L, ] %>%
+        # log10 transform the counts
+        mutate(counts = log10(.data[["counts"]]),
+               # [melt()] sets colnames as factor
+               sampleID = as.character(.data[["sampleID"]]))
+}
+
+
+
 # Methods ====
 #' @rdname meltLog10
 #' @export
@@ -36,8 +64,7 @@ setMethod("meltLog10", "bcbioRNADataSet", function(
     interestingGroups <- metadata(object)[["interestingGroups"]]
     metadata <- colData(object) %>%
         as.data.frame %>%
-        rownames_to_column("colname") %>%
-        .[, c("colname", interestingGroups)]
+        .[, c(metaPriorityCols, interestingGroups)]
     .joinMelt(counts, metadata)
 })
 
@@ -51,11 +78,10 @@ setMethod("meltLog10", "DESeqDataSet", function(
     interestingGroups = NULL) {
     counts <- counts(object, normalized = normalized)
     metadata <- colData(object) %>%
-        as.data.frame %>%
-        rownames_to_column("colname")
+        as.data.frame
     if (!is.null(interestingGroups)) {
         metadata <- metadata %>%
-            .[, c("colname", interestingGroups)]
+            .[, c(metaPriorityCols, interestingGroups)]
     }
     .joinMelt(counts, metadata)
 })
@@ -77,34 +103,3 @@ setMethod("meltLog10", "DESeqTransform", function(
     }
     .joinMelt(counts, metadata)
 })
-
-
-
-#' @rdname meltLog10
-#' @usage NULL
-.joinMelt <- function(counts, metadata) {
-    if (!identical(colnames(counts), metadata[["colname"]])) {
-        stop("Sample name mismatch between counts and metadata")
-    }
-    .meltLog10(counts) %>%
-        left_join(metadata, by = "colname") %>%
-        rename(sampleName = .data[["colname"]])
-}
-
-
-
-#' @rdname meltLog10
-#' @usage NULL
-.meltLog10 <- function(counts) {
-    counts %>%
-        as.data.frame %>%
-        rownames_to_column %>%
-        melt(id = 1L) %>%
-        setNames(c("rowname",  # ensembl gene ID
-                   "colname",  # sample name
-                   "counts")) %>%
-        .[.[["counts"]] > 0L, ] %>%
-        mutate(counts = log10(.data[["counts"]]),
-               # [melt()] sets colnames as factor
-               colname = as.character(.data[["colname"]]))
-}

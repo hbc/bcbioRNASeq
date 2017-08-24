@@ -95,9 +95,12 @@ function.</p>
 <span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
+<span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+
 <span class='co'># S4 method for data.frame,ANY</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -121,6 +124,10 @@ function.</p>
     <tr>
       <th>lfc</th>
       <td><p>log2 fold change ratio cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>Plot title.</p></td>
     </tr>
     </table>
     

@@ -12,12 +12,12 @@
 #'
 #' @param object Counts matrix.
 #' @param genes Character vector of specific gene identifiers to plot.
-#' @param symbol Match against Ensembl gene symbols.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the `row` direction, `column` direction, or `none`.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
+#' @param title Plot title.
 #' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
@@ -30,14 +30,9 @@
 #' # bcbioRNADataSet
 #' plotGeneHeatmap(bcb)
 #'
-#' # Genes as symbols (default)
-#' genes <- c("Rgs20", "Rab23", "Ncoa2", "Sulf1")
-#' plotGeneHeatmap(bcb, genes = genes)
-#'
 #' # Genes as Ensembl identifiers
 #' genes <- counts(bcb)[1L:50L, ] %>% rownames
-#' plotGeneHeatmap(bcb, genes = genes, symbol = FALSE)
-#'
+#' plotGeneHeatmap(bcb, genes = genes)
 #'
 #' # DESeqDataSet
 #' plotGeneHeatmap(dds)
@@ -54,8 +49,10 @@ NULL
     genes = NULL,
     scale = "row",
     annotationCol = NULL,
+    title = NULL,
     ...) {
     counts <- as.matrix(object)
+
     # Check for identifier mismatch. Do this before zero count subsetting.
     if (!is.null(genes)) {
         if (!all(genes %in% rownames(counts))) {
@@ -65,24 +62,37 @@ NULL
                 call. = FALSE)
         }
         counts <- counts %>%
-            .[rownames(.) %in% genes, ]
+            .[rownames(.) %in% genes, , drop = FALSE]
     }
+
     # Subset zero counts
     counts <- counts %>%
-        .[rowSums(.) > 0L, ]
+        .[rowSums(.) > 0L, , drop = FALSE]
     if (!is.matrix(counts) |
         nrow(counts) < 2L) {
         stop("Need at least 2 genes to cluster")
     }
+
+    # Convert Ensembl gene identifiers to symbol names, if necessary
     if (nrow(counts) <= 100L) {
         showRownames <- TRUE
     } else {
         showRownames <- FALSE
     }
+    if (isTRUE(showRownames)) {
+        counts <- gene2symbol(counts)
+    }
+
+    # pheatmap will error if `NULL` title is passed as `main`
+    if (is.null(title)) {
+        title <- ""
+    }
+
     pheatmap(counts,
              scale = scale,
              show_rownames = showRownames,
              annotation_col = annotationCol,
+             main = title,
              ...)
 }
 
@@ -92,13 +102,10 @@ NULL
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
-    object, symbol = TRUE, ...) {
+    object, ...) {
     counts <- counts(object, normalized = "rlog")
-    if (isTRUE(symbol)) {
-        counts <- gene2symbol(counts)
-    }
     annotationCol <- colData(object) %>%
-        # S4 DataFrame doesn't work with `pheatmap()`
+        # S4 DataFrame doesn't work with `pheatmap()`, so coerce to data.frame
         as.data.frame %>%
         .[, metadata(object)[["interestingGroups"]], drop = FALSE]
     .plotGeneHeatmap(counts, annotationCol = annotationCol, ...)
@@ -109,8 +116,8 @@ setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
-    counts <- counts(object, normalized = TRUE)
-    .plotGeneHeatmap(counts, ...)
+    counts(object, normalized = TRUE) %>%
+        .plotGeneHeatmap(...)
 })
 
 
@@ -118,8 +125,8 @@ setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "DESeqTransform", function(object, ...) {
-    counts <- assay(object)
-    .plotGeneHeatmap(counts, ...)
+    assay(object) %>%
+        .plotGeneHeatmap(...)
 })
 
 

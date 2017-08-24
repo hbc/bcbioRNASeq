@@ -18,7 +18,7 @@
 #' @examples
 #' data(bcb)
 #' genes <- 1L:50L
-#' samples <- c("group11", "group12")
+#' samples <- c("group1_1", "group1_2")
 #'
 #' # Subset by sample name
 #' bcb[, samples]

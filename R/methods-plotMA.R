@@ -35,7 +35,7 @@ NULL
 # Constructors ====
 .plotMA <- function(
     object,
-    alpha = 0.05,
+    alpha = 0.01,
     labelPoints = NULL,
     labelColumn = "rowname",
     pointColorScale = c("darkgrey", "red", "green"),
@@ -57,9 +57,11 @@ NULL
         labs(x = "mean expression across all samples",
              y = "log2 fold change")
     if (isTRUE(title)) {
-        p <- p + ggtitle("mean average")
+        p <- p +
+            ggtitle("ma")
     } else if (is.character(title)) {
-        p <- p + ggtitle(title)
+        p <- p +
+            ggtitle(paste("ma:", title))
     }
     if (!is.null(labelPoints)) {
         labels <- results %>%
@@ -89,7 +91,23 @@ NULL
 # Methods ====
 #' @rdname plotMA
 #' @export
-setMethod("plotMA", "DESeqResults", .plotMA)
+setMethod("plotMA", "DESeqResults", function(
+    object,
+    labelPoints = NULL,
+    labelColumn = "rowname",
+    pointColorScale = c("darkgrey", "red", "green"),
+    labelColor = "black") {
+    alpha <- metadata(object)[["alpha"]]
+    title <- .resContrastName(object)
+    .plotMA(object,
+            labelPoints = labelPoints,
+            labelColumn = labelColumn,
+            pointColorScale = pointColorScale,
+            labelColor = labelColor,
+            # Automatic
+            alpha = alpha,
+            title = title)
+})
 
 
 

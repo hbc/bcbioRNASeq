@@ -12,7 +12,7 @@ plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
 
-\S4method{plotVolcano}{data.frame}(object, alpha = 0.1, padj = TRUE,
+\S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
   lfc = 1L, genes = NULL, ntop = 0L, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)

@@ -30,8 +30,8 @@
     if (length(sampleDirs) == 0L) {
         stop("No sample directories detected")
     } else {
-        # Generate names from file paths and sanitize into camelCase
-        names <- basename(sampleDirs) %>% camel
+        # Generate names from file paths and make valid
+        names <- basename(sampleDirs) %>% make.names
         sampleDirs <- normalizePath(sampleDirs) %>%
             setNames(names)
         message(paste(length(sampleDirs), "samples detected"))
