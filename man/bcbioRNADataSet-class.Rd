@@ -23,8 +23,9 @@ The \code{metadata} accessor contains:
 }
 }
 \examples{
-path <- system.file("extra", package = "bcbioRnaseq")
-bcb <- loadRNASeqRun(file.path(path, "bcbio"))
+extraDir <- system.file("extra", package = "bcbioRnaseq")
+uploadDir <- file.path(extraDir, "bcbio")
+bcb <- loadRNASeqRun(uploadDir)
 }
 \seealso{
 \link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}.

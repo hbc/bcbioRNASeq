@@ -6,8 +6,8 @@
 #' @import methods
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
-#'   mdHeader mdList prepareSE readFileByExtension readYAML removeNA snake
-#'   tx2gene
+#'   mdHeader mdList prepareSE prepareTemplate readFileByExtension readYAML
+#'   removeNA snake tx2gene
 #' @importFrom BiocGenerics counts density plotMA plotPCA
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
@@ -60,7 +60,4 @@ projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 metaPriorityCols <- c("sampleID", "sampleName")
 perSampleDirs <- c("sailfish", "salmon")
 
-#' Package Website URL
-#' @keywords internal
-#' @export
 url <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"

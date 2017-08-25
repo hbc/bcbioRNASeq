@@ -163,37 +163,37 @@ internal DESeqDataSet and count transformations are rescaled automatically.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fl'>1L</span>:<span class='fl'>50L</span>
-<span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"group11"</span>, <span class='st'>"group12"</span>)
+<span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"group1_1"</span>, <span class='st'>"group1_2"</span>)
 
 <span class='co'># Subset by sample name</span>
 <span class='no'>bcb</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; class: bcbioRNADataSet 
 #&gt; dim: 505 2 
-#&gt; metadata(27): analysis uploadDir ... sessionInfo missingGenes
+#&gt; metadata(25): version uploadDir ... sessionInfo missingGenes
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000105982 ENSMUSG00000109048
 #&gt; rowData names(0):
-#&gt; colnames(2): group11 group12
+#&gt; colnames(2): group1_1 group1_2
 #&gt; colData names(3): sampleID sampleName group</div><div class='input'>
 <span class='co'># Subset by gene list</span>
 <span class='no'>bcb</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; class: bcbioRNADataSet 
 #&gt; dim: 50 4 
-#&gt; metadata(27): analysis uploadDir ... sessionInfo missingGenes
+#&gt; metadata(25): version uploadDir ... sessionInfo missingGenes
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000026154 ENSMUSG00000026155
 #&gt; rowData names(0):
-#&gt; colnames(4): group11 group12 group21 group22
+#&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(3): sampleID sampleName group</div><div class='input'>
 <span class='co'># Subset by both genes and samples</span>
 <span class='no'>bcb</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; class: bcbioRNADataSet 
 #&gt; dim: 50 2 
-#&gt; metadata(27): analysis uploadDir ... sessionInfo missingGenes
+#&gt; metadata(25): version uploadDir ... sessionInfo missingGenes
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000026154 ENSMUSG00000026155
 #&gt; rowData names(0):
-#&gt; colnames(2): group11 group12
+#&gt; colnames(2): group1_1 group1_2
 #&gt; colData names(3): sampleID sampleName group</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

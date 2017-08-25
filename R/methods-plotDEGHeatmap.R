@@ -45,7 +45,9 @@ NULL
     } else if (is.character(title)) {
         title <- paste("de genes:", title)
     }
-    plotGeneHeatmap(counts, genes = genes, title = title, ...)
+    if (length(genes) < 2L)
+        message(length(genes), " is too few to plot.")
+    else plotGeneHeatmap(counts, genes = genes, title = title, ...)
 }
 
 

@@ -2,7 +2,7 @@
 title: "Quality Control"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
-bibliography: bcbioRnaseq.bib
+bibliography: bibliography.bib
 params:
     uploadDir: "final"
     interestingGroups: !r c("genotype", "treatment")
@@ -10,7 +10,13 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-source("setup.R")
+library(bcbioRnaseq)
+
+# Shared RMarkdown settings
+prepareRNASeqTemplate()
+if (file.exists("setup.R")) {
+    source("setup.R")
+}
 
 # Directory paths
 outputDir <- params$outputDir
@@ -21,14 +27,15 @@ countsDir <- file.path(outputDir, "results", "counts")
 if (!file.exists(file.path(dataDir, "bcb.rda"))) {
     bcb <- loadRNASeqRun(
         params$uploadDir,
-        interestingGroups = params$interestingGroups)
+        interestingGroups = params$interestingGroups,
+        params = params)
     saveData(bcb, dir = dataDir)
 } else {
     load(file.path(dataDir, "bcb.rda"))
 }
 ```
 
-```{r header, child="_header.Rmd"}
+```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)[["uploadDir"]]`**.
@@ -204,5 +211,5 @@ plotCorrelationHeatmap(bcb)
 
 
 
-```{r footer, child="_footer.Rmd"}
+```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
 ```
