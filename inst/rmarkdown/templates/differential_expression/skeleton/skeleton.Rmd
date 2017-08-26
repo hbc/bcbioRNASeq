@@ -110,7 +110,7 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
 ```{r plotMA}
-plotMA(res, alpha = alpha)
+plotMA(res)
 ```
 
 
