@@ -23,7 +23,7 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{counts}{Secondary object containing normalized counts.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
 
 \item{alpha}{Alpha level cutoff.}
 

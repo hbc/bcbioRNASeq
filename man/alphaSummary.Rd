@@ -10,7 +10,7 @@
 alphaSummary(object, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), contrast = NULL)
+  0.001, 1e-06), contrast = NULL, caption = NULL)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,6 +20,8 @@ alphaSummary(object, ...)
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
 \item{contrast}{Character vector to use with \code{\link[=results]{results()}} function.}
+
+\item{caption}{Character vector to add as caption to the table.}
 }
 \value{
 \link{kable}.

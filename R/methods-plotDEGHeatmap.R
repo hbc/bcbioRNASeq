@@ -12,6 +12,7 @@
 #' @param alpha Alpha level cutoff.
 #' @param lfc [log2] fold change ratio cutoff.
 #' @param title Plot title.
+#' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @return Graphical output only.
 #'

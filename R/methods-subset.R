@@ -55,6 +55,7 @@ setMethod(
         # Subset SE object ====
         se <- SummarizedExperiment(
             assays = SimpleList(counts(x)),
+            rowData = rowData(x),
             colData = colData(x),
             metadata = metadata(x))
 
