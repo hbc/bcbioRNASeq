@@ -32,6 +32,20 @@ NULL
 
 
 
+# Constructors ====
+# This operation must be placed outside of the S4 method dispatch. Otherwise,
+# the resulting subset object will be ~2X the expected size on disk when saving,
+# for an unknown reason.
+.createDDS <- function(txi, tmpData) {
+    DESeqDataSetFromTximport(
+        txi = txi,
+        colData = tmpData,
+        design = formula(~1L)) %>%
+        DESeq
+}
+
+
+
 # Methods ====
 #' @rdname subset
 #' @export
@@ -77,11 +91,8 @@ setMethod(
         tmm <- .tmm(rawCounts)
         tpm <- txi[["abundance"]]
 
-        dds <- DESeqDataSetFromTximport(
-            txi = txi,
-            colData = tmpData,
-            design = formula(~1L)) %>%
-            DESeq
+        # Fix for unexpected disk space issue (see constructor above)
+        dds <- .createDDS(txi, tmpData)
         normalizedCounts <- counts(dds, normalized = TRUE)
 
         # rlog & variance ====
