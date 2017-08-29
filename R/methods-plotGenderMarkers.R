@@ -23,7 +23,7 @@ setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
     # Load the relevant internal gender markers data
     if (organism == "Mus musculus") {
         genderMarkers <- get("genderMarkersMmusculus",
-                              envir = as.environment("package:bcbioRnaseq"))
+                              envir = as.environment("package:bcbioRNASeq"))
     } else if (organism == "Homo sapiens") {
         stop("Draft support coming soon")
     } else {

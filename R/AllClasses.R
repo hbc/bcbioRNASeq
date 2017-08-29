@@ -23,7 +23,7 @@
 #' @seealso [SummarizedExperiment::SummarizedExperiment].
 #'
 #' @examples
-#' extraDir <- system.file("extra", package = "bcbioRnaseq")
+#' extraDir <- system.file("extra", package = "bcbioRNASeq")
 #' uploadDir <- file.path(extraDir, "bcbio")
 #' bcb <- loadRNASeqRun(uploadDir)
 bcbioRNADataSet <- setClass(

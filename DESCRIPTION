@@ -1,4 +1,4 @@
-Package: bcbioRnaseq
+Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
@@ -23,9 +23,9 @@ Authors@R: c(
            email = "bioinformatics@hsph.harvard.edu",
            role = c("cph", "fnd")))
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRnaseq,
-    https://github.com/hbc/bcbioRnaseq
-BugReports: https://github.com/hbc/bcbioRnaseq/issues
+    http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
+    https://github.com/hbc/bcbioRNASeq
+BugReports: https://github.com/hbc/bcbioRNASeq/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -58,14 +58,18 @@ Imports:
     tidyr,
     tximport (>= 1.4.0),
     utils,
+    viridis,
     vsn
 Suggests:
     BiocStyle,
     lintr (>= 1.0.1),
-    testthat
+    knitr,
+    rmarkdown,
+    testthat,
+    tidyverse
 Remotes:
     lpantano/DEGreport,
-    steinbaugh/basejump@dev
+    steinbaugh/basejump
 biocViews:
     DataImport,
     DataRepresentation,

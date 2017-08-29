@@ -1,4 +1,4 @@
-#' bcbioRnaseq
+#' bcbioRNASeq
 #'
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
@@ -60,4 +60,4 @@ projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 metaPriorityCols <- c("sampleID", "sampleName")
 perSampleDirs <- c("sailfish", "salmon")
 
-url <- "http://bioinformatics.sph.harvard.edu/bcbioRnaseq"
+url <- "http://bioinformatics.sph.harvard.edu/bcbioRNASeq"

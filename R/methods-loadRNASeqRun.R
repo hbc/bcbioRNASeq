@@ -32,7 +32,7 @@
 #' @return [bcbioRNADataSet].
 #'
 #' @examples
-#' extraDir <- system.file("extra", package = "bcbioRnaseq")
+#' extraDir <- system.file("extra", package = "bcbioRNASeq")
 #' uploadDir <- file.path(extraDir, "bcbio")
 #' bcb <- loadRNASeqRun(
 #'     uploadDir,
@@ -144,7 +144,7 @@ setMethod("loadRNASeqRun", "character", function(
 
     # Metadata ====
     metadata <- list(
-        version = packageVersion("bcbioRnaseq"),
+        version = packageVersion("bcbioRNASeq"),
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
         projectDir = projectDir,

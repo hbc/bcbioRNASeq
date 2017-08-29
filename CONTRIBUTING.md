@@ -1,4 +1,4 @@
-# Contributing to bcbioRnaseq development
+# Contributing to bcbioRNASeq development
 
 - For all changes, fork or create a new branch, then issue a pull request that will be reviewed.
 - Do not commit changes directly to master branch.
