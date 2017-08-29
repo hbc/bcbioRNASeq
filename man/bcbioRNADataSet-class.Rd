@@ -23,7 +23,7 @@ The \code{metadata} accessor contains:
 }
 }
 \examples{
-extraDir <- system.file("extra", package = "bcbioRnaseq")
+extraDir <- system.file("extra", package = "bcbioRNASeq")
 uploadDir <- file.path(extraDir, "bcbio")
 bcb <- loadRNASeqRun(uploadDir)
 }
