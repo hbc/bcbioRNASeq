@@ -9,8 +9,7 @@
 #' @name plotDEGHeatmap
 #'
 #' @param counts Secondary object containing normalized counts.
-#' @param alpha Alpha level cutoff.
-#' @param lfc [log2] fold change ratio cutoff.
+#' @param lfc log2 fold change ratio cutoff.
 #' @param title Plot title.
 #'
 #' @return Graphical output only.
@@ -91,7 +90,11 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqDataSet"),
-    function(object, counts, lfc = 0L) {
+    function(
+        object,
+        counts,
+        lfc = 0L,
+        title = TRUE) {
         warning("Using a DESeqTransform object for counts is recommended",
                 call. = FALSE)
         results <- as.data.frame(object)

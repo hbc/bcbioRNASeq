@@ -15,7 +15,7 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix DESeqDataSetFromTximport
 #'   DESeqTransform results resultsNames rlog varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
-#'   mutate_if pull rename ungroup
+#'   mutate_all mutate_if pull rename ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
@@ -30,7 +30,7 @@
 #' @importFrom pheatmap pheatmap
 #' @importFrom readr read_csv read_delim read_lines read_tsv write_csv
 #' @importFrom reshape2 melt
-#' @importFrom rlang .data sym syms
+#' @importFrom rlang .data set_names sym syms
 #' @importFrom S4Vectors cor head mcols metadata metadata<- na.omit SimpleList
 #' @importFrom stats formula setNames
 #' @importFrom stringr str_detect str_match str_replace str_replace_all
