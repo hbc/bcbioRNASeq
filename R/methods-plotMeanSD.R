@@ -27,6 +27,7 @@ NULL
     normalized,
     rlog,
     vst) {
+    xlab <- "rank (mean)"
     nonzero <- raw %>%
         rowSums %>%
         `>`(0L)
@@ -34,23 +35,26 @@ NULL
         .[nonzero, ] %>%
         `+`(1L) %>%
         log2 %>%
-        meanSdPlot(plot = FALSE)
+        meanSdPlot(plot = FALSE) %>%
+        .[["gg"]] +
+        ggtitle("log2") +
+        xlab(xlab)
     ggrlog <- rlog %>%
         .[nonzero, ] %>%
-        meanSdPlot(plot = FALSE)
+        meanSdPlot(plot = FALSE) %>%
+        .[["gg"]] +
+        ggtitle("rlog") +
+        xlab(xlab)
     ggvst <- vst %>%
         .[nonzero, ] %>%
-        meanSdPlot(plot = FALSE)
+        meanSdPlot(plot = FALSE) %>%
+        .[["gg"]] +
+        ggtitle("variance stabilizing transformation") +
+        xlab(xlab)
     plot_grid(
-        gglog2[["gg"]]  +
-            ggtitle("log2") +
-            theme(legend.position = "none"),
-        ggrlog[["gg"]] +
-            ggtitle("rlog") +
-            theme(legend.position = "none"),
-        ggvst[["gg"]] +
-            ggtitle("variance stabilizing transformation") +
-            theme(legend.position = "none"),
+        gglog2,
+        ggrlog,
+        ggvst,
         labels = "auto",
         nrow = 3L)
 }
