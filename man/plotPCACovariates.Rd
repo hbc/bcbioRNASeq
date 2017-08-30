@@ -24,7 +24,7 @@ plotPCACovariates(object, ...)
 \item \code{vst}: variance stabilizing transformation.
 }}
 
-\item{metrics}{Includesample summary metrics as covariates.}
+\item{metrics}{Include sample summary metrics as covariates.}
 }
 \value{
 \link{ggplot}.

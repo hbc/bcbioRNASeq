@@ -40,6 +40,7 @@ Methods ====
 \examples{
 data(bcb)
 plotPCA(bcb)
+plotPCA(bcb, label = FALSE)
 }
 \seealso{
 \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
