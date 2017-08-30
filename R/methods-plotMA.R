@@ -27,7 +27,7 @@
 #'
 #' # data.frame
 #' df <- as.data.frame(res)
-#' plotMA(df, labelPoints = genes)
+#' plotMA(df, alpha = 0.1, labelPoints = genes)
 NULL
 
 

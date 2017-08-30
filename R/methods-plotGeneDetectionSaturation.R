@@ -9,7 +9,7 @@
 #' # bcbioRNADataSet
 #' plotGeneSaturation(bcb)
 #'
-#' # data.frame + matrix
+#' # data.frame, matrix
 #' plotGeneSaturation(metrics(bcb), assay(rld))
 NULL
 
