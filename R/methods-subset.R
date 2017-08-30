@@ -70,9 +70,9 @@ setMethod(
         }
 
         if (is.null(dots[["skipNorm"]])) {
-            skipNorm = FALSE
+            skipNorm <- FALSE
         } else {
-            skipNorm = dots[["skipNorm"]]
+            skipNorm <- dots[["skipNorm"]]
         }
 
         # Subset SE object ====
