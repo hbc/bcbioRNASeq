@@ -41,13 +41,15 @@ NULL
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     genes <- rownames(res)
     if (isTRUE(title)) {
-        title <- "de genes"
+        title <- "deg"
     } else if (is.character(title)) {
-        title <- paste("de genes:", title)
+        title <- paste("deg:", title)
     }
-    if (length(genes) < 2L)
+    if (length(genes) < 2L) {
         message(length(genes), " is too few to plot.")
-    else plotGeneHeatmap(counts, genes = genes, title = title, ...)
+    } else {
+        plotGeneHeatmap(counts, genes = genes, title = title, ...)
+    }
 }
 
 
@@ -75,7 +77,8 @@ setMethod(
     signature(object = "DESeqResults",
               counts = "DESeqDataSet"),
     function(object, counts, ...) {
-        warning("Using a DESeqTransform object for counts is recommended")
+        warning("Using a DESeqTransform object for counts is recommended",
+                call. = FALSE)
         alpha <- metadata(object)[["alpha"]]
         counts <- counts(counts, normalized = TRUE)
         title <- .resContrastName(object)

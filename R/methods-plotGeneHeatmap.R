@@ -89,6 +89,8 @@ NULL
     }
 
     pheatmap(counts,
+             # `viridis()` also works well
+             color = inferno(256L),
              scale = scale,
              show_rownames = showRownames,
              annotation_col = annotationCol,

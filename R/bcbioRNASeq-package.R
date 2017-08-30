@@ -41,7 +41,7 @@
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output download.file globalVariables packageVersion
 #'   read.table
-#' @importFrom viridis scale_color_viridis scale_fill_viridis
+#' @importFrom viridis inferno scale_color_viridis scale_fill_viridis
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
 
