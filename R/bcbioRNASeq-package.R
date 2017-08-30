@@ -48,11 +48,23 @@
 globalVariables(".")
 
 # Quality control plot colors
+qcCutoffColor <- "black"
 qcFailColor <- "red"
 qcPassColor <- "green"
 qcWarnColor <- "orange"
+
+# Quality control label appearance
+qcLabelAlpha <- 0.75
+qcLabelColor <- "white"
+qcLabelFill <- "black"
+qcLabelFontface <- "bold"
+qcLabelPadding <- unit(0.2, "lines")
+qcLabelSize <- NA
+
+# Quality control line appearance
 qcLineAlpha <- 0.75
-qcLineSize <- 2L
+qcLineSize <- 1.5
+qcLineType <- "longdash"
 
 # Plot label separator
 labelSep <- ": "
