@@ -30,7 +30,7 @@ NULL
 
 
 
-#' Methods ====
+# Methods ====
 #' @rdname plotPCA
 #' @export
 setMethod("plotPCA", "bcbioRNADataSet", function(
