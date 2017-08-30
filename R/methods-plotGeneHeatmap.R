@@ -11,14 +11,11 @@
 #' @name plotGeneHeatmap
 #'
 #' @param object Counts matrix.
-#' @param genes Character vector of specific gene identifiers to plot.
-#' @param scale Character indicating if the values should be centered and scaled
-#'   in either the `row` direction, `column` direction, or `none`.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
+#' @param genes Character vector of specific gene identifiers to plot.
 #' @param title Plot title.
-#' @param ... Additional arguments, passed to [pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
 #'
@@ -45,13 +42,13 @@ NULL
 
 # Constructors ====
 .plotGeneHeatmap <- function(
-    object,
+    counts,
     genes = NULL,
-    scale = "row",
     annotationCol = NULL,
     title = NULL,
-    ...) {
-    counts <- as.matrix(object)
+    # Internal parameters
+    scale = "row") {
+    counts <- as.matrix(counts)
 
     # Check for identifier mismatch. Do this before zero count subsetting.
     if (!is.null(genes)) {
@@ -83,6 +80,29 @@ NULL
         counts <- gene2symbol(counts)
     }
 
+    if (!is.null(annotationCol)) {
+        annotationCol <- annotationCol %>%
+            as.data.frame %>%
+            # Coerce annotation columns to factors
+            rownames_to_column %>%
+            mutate_all(factor) %>%
+            column_to_rownames
+        # Define colors for each annotation column
+        annotationColors <- lapply(
+            seq_along(dim(annotationCol)[[2L]]), function(a) {
+                col <- annotationCol[[a]]
+                colors <- annotationCol[[a]] %>%
+                    levels %>%
+                    length %>%
+                    viridis
+                names(colors) <- col
+                colors
+            }) %>%
+            set_names(colnames(annotationCol))
+    } else {
+        annotationColors <- NULL
+    }
+
     # pheatmap will error if `NULL` title is passed as `main`
     if (is.null(title)) {
         title <- ""
@@ -90,13 +110,12 @@ NULL
 
     pheatmap(counts,
              annotation_col = annotationCol,
+             annotation_colors = annotationColors,
              border_color = NA,
-             # `viridis()` also works well
              color = inferno(256L),
              main = title,
              scale = scale,
-             show_rownames = showRownames,
-             ...)
+             show_rownames = showRownames)
 }
 
 
@@ -105,35 +124,69 @@ NULL
 #' @rdname plotGeneHeatmap
 #' @export
 setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
-    object, ...) {
+    object,
+    genes = NULL,
+    title = NULL) {
     counts <- counts(object, normalized = "rlog")
     annotationCol <- colData(object) %>%
-        # S4 DataFrame doesn't work with `pheatmap()`, so coerce to data.frame
-        as.data.frame %>%
         .[, metadata(object)[["interestingGroups"]], drop = FALSE]
-    .plotGeneHeatmap(counts, annotationCol = annotationCol, ...)
+    .plotGeneHeatmap(
+        counts = counts,
+        annotationCol = annotationCol,
+        # User-defined
+        genes = genes,
+        title = title)
 })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "DESeqDataSet", function(object, ...) {
-    counts(object, normalized = TRUE) %>%
-        .plotGeneHeatmap(...)
+setMethod("plotGeneHeatmap", "DESeqDataSet", function(
+    object,
+    genes = NULL,
+    annotationCol = NULL,
+    title = NULL) {
+    counts <- counts(object, normalized = TRUE)
+    .plotGeneHeatmap(
+        counts = counts,
+        # User-defined
+        genes = genes,
+        annotationCol = annotationCol,
+        title = title)
 })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "DESeqTransform", function(object, ...) {
-    assay(object) %>%
-        .plotGeneHeatmap(...)
+setMethod("plotGeneHeatmap", "DESeqTransform", function(
+    object,
+    genes = NULL,
+    annotationCol = NULL,
+    title = NULL) {
+    counts <- assay(object)
+    .plotGeneHeatmap(
+        counts = counts,
+        # User-defined
+        genes = genes,
+        annotationCol = annotationCol,
+        title = title)
 })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "matrix", .plotGeneHeatmap)
+setMethod("plotGeneHeatmap", "matrix", function(
+    object,
+    genes = NULL,
+    annotationCol = NULL,
+    title = NULL) {
+    .plotGeneHeatmap(
+        counts = object,
+        # User-defined
+        genes = genes,
+        annotationCol = annotationCol,
+        title = title)
+})
