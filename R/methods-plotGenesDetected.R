@@ -7,13 +7,14 @@
 #' data(bcb, dds)
 #'
 #' # bcbioRNADataSet
+#' plotGenesDetected(bcb)
 #' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
 #'
-#' # data.frame + DESeqDataSet
+#' # data.frame, DESeqDataSet
 #' plotGenesDetected(metrics(bcb), dds,
 #'                   passLimit = NULL, warnLimit = NULL)
 #'
-#' # data.frame + matrix
+#' # data.frame, matrix
 #' plotGenesDetected(metrics(bcb), assay(dds),
 #'                   passLimit = NULL, warnLimit = NULL)
 NULL
@@ -37,16 +38,19 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
-             y = "gene count")
+             y = "gene count") +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
         p <- p + geom_hline(alpha = qcLineAlpha,
                             color = qcPassColor,
+                            linetype = qcLineType,
                             size = qcLineSize,
                             yintercept = passLimit)
     }
     if (!is.null(warnLimit)) {
         p <- p + geom_hline(alpha = qcLineAlpha,
                             color = qcWarnColor,
+                            linetype = qcLineType,
                             size = qcLineSize,
                             yintercept = warnLimit)
     }
