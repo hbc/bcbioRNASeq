@@ -31,7 +31,7 @@
 #' plotGeneHeatmap(bcb)
 #'
 #' # Genes as Ensembl identifiers
-#' genes <- counts(bcb)[1L:50L, ] %>% rownames
+#' genes <- counts(bcb)[1L:20L, ] %>% rownames
 #' plotGeneHeatmap(bcb, genes = genes)
 #'
 #' # DESeqDataSet
@@ -89,12 +89,13 @@ NULL
     }
 
     pheatmap(counts,
+             annotation_col = annotationCol,
+             border_color = NA,
              # `viridis()` also works well
              color = inferno(256L),
+             main = title,
              scale = scale,
              show_rownames = showRownames,
-             annotation_col = annotationCol,
-             main = title,
              ...)
 }
 

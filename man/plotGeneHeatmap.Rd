@@ -55,7 +55,7 @@ data(bcb, dds, rld)
 plotGeneHeatmap(bcb)
 
 # Genes as Ensembl identifiers
-genes <- counts(bcb)[1L:50L, ] \%>\% rownames
+genes <- counts(bcb)[1L:20L, ] \%>\% rownames
 plotGeneHeatmap(bcb, genes = genes)
 
 # DESeqDataSet
