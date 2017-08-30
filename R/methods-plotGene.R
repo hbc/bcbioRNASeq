@@ -56,8 +56,7 @@ setMethod("plotGene", "bcbioRNADataSet", function(
             ggplot(
                 aes_(x = ~x,
                      y = ~y,
-                     color = ~color,
-                     shape = ~color)
+                     color = ~color)
             ) +
             geom_point(size = 4L) +
             theme(
@@ -66,9 +65,9 @@ setMethod("plotGene", "bcbioRNADataSet", function(
             labs(title = geneName,
                  x = "sample",
                  y = paste0("counts (", normalized, ")"),
-                 color = color,
-                 shape = color) +
-            expand_limits(y = 0L)
+                 color = color) +
+            expand_limits(y = 0L) +
+            scale_color_viridis(discrete = TRUE)
         show(plot)
     }) %>% invisible
 })

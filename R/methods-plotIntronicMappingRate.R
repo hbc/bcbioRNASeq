@@ -29,11 +29,13 @@ NULL
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
-        ylim(0L, 100L)
+        ylim(0L, 100L) +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcWarnColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = warnLimit)
     }

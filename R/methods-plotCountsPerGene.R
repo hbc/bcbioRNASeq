@@ -27,7 +27,8 @@ NULL
         geom_boxplot(outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene")
+             y = "log10 counts per gene") +
+        scale_color_viridis(discrete = TRUE)
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }

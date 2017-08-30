@@ -29,11 +29,13 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
-             y = "5'->3' bias")
+             y = "5'->3' bias") +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcWarnColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = warnLimit)
     }

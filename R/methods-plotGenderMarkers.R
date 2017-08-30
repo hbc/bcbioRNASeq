@@ -63,5 +63,6 @@ setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
         expand_limits(y = 0L) +
         labs(title = "gender markers",
              x = "gene",
-             y = "transcripts per million (tpm)")
+             y = "transcripts per million (tpm)") +
+        scale_color_viridis(discrete = TRUE)
 })

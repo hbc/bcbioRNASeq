@@ -30,11 +30,13 @@ NULL
         labs(title = "exonic mapping rate",
              x = "sample",
              y = "exonic mapping rate (%)") +
-        ylim(0L, 100L)
+        ylim(0L, 100L) +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcPassColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = passLimit)
     }

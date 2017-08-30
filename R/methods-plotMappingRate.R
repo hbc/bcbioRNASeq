@@ -31,11 +31,13 @@ NULL
         ylim(0L, 100L) +
         labs(title = "mapping rate",
              x = "sample",
-             y = "mapping rate (%)")
+             y = "mapping rate (%)") +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcPassColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = passLimit)
     }
@@ -43,6 +45,7 @@ NULL
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcWarnColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = warnLimit)
     }

@@ -25,7 +25,8 @@ NULL
              color = as.name(interestingGroup))) +
         geom_density() +
         labs(title = "count density",
-             x = "log10 counts per gene")
+             x = "log10 counts per gene") +
+        scale_color_viridis(discrete = TRUE)
 }
 
 

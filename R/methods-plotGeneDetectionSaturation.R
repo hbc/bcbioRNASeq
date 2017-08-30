@@ -28,9 +28,10 @@ NULL
                 color = as.name(interestingGroup))) +
         geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +
-        labs(title = "gene detection saturation",
+        labs(title = "gene saturation",
              x = "mapped reads (million)",
-             y = "gene count")
+             y = "genes") +
+        scale_color_viridis(discrete = TRUE)
 }
 
 

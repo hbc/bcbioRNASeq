@@ -30,11 +30,13 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
              x = "sample",
-             y = "mapped reads (million)")
+             y = "mapped reads (million)") +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcPassColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = passLimit)
     }
@@ -42,6 +44,7 @@ NULL
         p <- p +
             geom_hline(alpha = qcLineAlpha,
                        color = qcWarnColor,
+                       linetype = qcLineType,
                        size = qcLineSize,
                        yintercept = warnLimit)
     }

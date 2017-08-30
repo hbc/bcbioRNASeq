@@ -27,13 +27,18 @@ NULL
                      y = ~rRnaRate * 100L,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
-        geom_hline(alpha = qcLineAlpha,
-                   color = qcWarnColor,
-                   size = qcLineSize,
-                   yintercept = warnLimit) +
         labs(title = "rrna mapping rate",
              x = "sample",
-             y = "rRNA mapping rate (%)")
+             y = "rRNA mapping rate (%)") +
+        scale_fill_viridis(discrete = TRUE)
+    if (!is.null(warnLimit)) {
+        p <- p +
+            geom_hline(alpha = qcLineAlpha,
+                       color = qcWarnColor,
+                       linetype = qcLineType,
+                       size = qcLineSize,
+                       yintercept = warnLimit)
+    }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
