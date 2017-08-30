@@ -3,7 +3,6 @@
 \docType{methods}
 \name{metadataTable}
 \alias{metadataTable}
-\alias{metadataTable}
 \alias{metadataTable,bcbioRNADataSet-method}
 \alias{metadataTable,DESeqDataSet-method}
 \alias{metadataTable,DESeqTransform-method}

@@ -55,3 +55,4 @@ Other Differential Expression Plots: \code{\link{plotVolcano}}
 \author{
 Rory Kirchner, Michael Steinbaugh
 }
+\concept{Differential Expression Plots}

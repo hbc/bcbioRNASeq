@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,data.frame,ANY-method}
@@ -50,3 +49,4 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}}
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}

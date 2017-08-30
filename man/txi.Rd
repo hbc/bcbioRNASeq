@@ -3,7 +3,6 @@
 \docType{methods}
 \name{txi}
 \alias{txi}
-\alias{txi}
 \alias{txi,bcbioRNADataSet-method}
 \title{\code{tximport} Accessor Shortcut}
 \usage{

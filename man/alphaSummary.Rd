@@ -3,7 +3,6 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
-\alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
@@ -40,3 +39,4 @@ Other Differential Expression Utilities: \code{\link{plotDispersion}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
+\concept{Differential Expression Utilities}

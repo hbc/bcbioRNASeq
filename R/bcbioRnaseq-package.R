@@ -14,6 +14,7 @@
 #' @importFrom DEGreport degQC degCovariates degPatterns
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix DESeqDataSetFromTximport
 #'   DESeqTransform results resultsNames rlog varianceStabilizingTransformation
+#'   DESeqDataSet estimateSizeFactors estimateDispersions
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
 #'   mutate_if pull rename ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList

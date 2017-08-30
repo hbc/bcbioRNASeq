@@ -4,7 +4,6 @@
 \docType{methods}
 \name{prepareRNASeqTemplate}
 \alias{prepareRNASeqTemplate}
-\alias{prepareRNASeqTemplate}
 \alias{prepareRNASeqTemplate,missing-method}
 \title{Prepare RNA-Seq RMarkdown Template}
 \usage{
