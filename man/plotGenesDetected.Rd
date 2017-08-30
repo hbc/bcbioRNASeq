@@ -49,13 +49,14 @@ Plot Genes Detected
 data(bcb, dds)
 
 # bcbioRNADataSet
+plotGenesDetected(bcb)
 plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
 
-# data.frame + DESeqDataSet
+# data.frame, DESeqDataSet
 plotGenesDetected(metrics(bcb), dds,
                   passLimit = NULL, warnLimit = NULL)
 
-# data.frame + matrix
+# data.frame, matrix
 plotGenesDetected(metrics(bcb), assay(dds),
                   passLimit = NULL, warnLimit = NULL)
 }

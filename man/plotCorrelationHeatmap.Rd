@@ -11,37 +11,25 @@
 plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNADataSet}(object, transform = "rlog",
-  method = "pearson", clusteringMethod = "ward.D2", genes = NULL,
-  samples = NULL, interestingGroups = NULL, annotationCol = NULL,
-  title = NULL, ...)
+  method = "pearson", genes = NULL, samples = NULL, title = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments, passed to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{Additional arguments.}
 
 \item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
 (\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
 inside the \link{bcbioRNADataSet}.}
 
-\item{method}{Correlation coefficient (or covariance) to be computed.
+\item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
 \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
-
-\item{clusteringMethod}{Hierarchical clustering method. Accepts the same
-values as \code{\link[stats:hclust]{stats::hclust()}}.}
 
 \item{genes}{\emph{Optional}. Character vector of specific gene identifiers to
 plot.}
 
 \item{samples}{\emph{Optional}. Character vector of specific samples.}
-
-\item{interestingGroups}{\emph{Optional}. Interesting groups to label with bars
-above heatmap. If \code{NULL}, defaults to \code{interestingGroups} defined in the
-\link{bcbioRNADataSet}.}
-
-\item{annotationCol}{\emph{Optional}. Alternative annotation to use. Useful when
-plotting more than one column.}
 
 \item{title}{\emph{Optional}. Text to include in plot title.}
 }
@@ -58,6 +46,7 @@ desired genes will be used to calculate the correlation matrix.
 \examples{
 data(bcb)
 plotCorrelationHeatmap(bcb)
+plotCorrelationHeatmap(bcb, method = "spearman")
 }
 \seealso{
 \itemize{
