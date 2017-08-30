@@ -19,7 +19,7 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb, dds, res)
+#' data(res)
 #' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 #'
 #' # DESeqResults
