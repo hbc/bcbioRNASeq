@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotCountDensity}
 \alias{plotCountDensity}
-\alias{plotCountDensity}
 \alias{plotCountDensity,bcbioRNADataSet-method}
 \alias{plotCountDensity,data.frame-method}
 \title{Plot Count Density}
@@ -58,3 +57,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Plots}

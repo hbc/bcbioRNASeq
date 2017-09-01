@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
-\alias{plotMappedReads}
 \alias{plotMappedReads,bcbioRNADataSet-method}
 \alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
@@ -62,3 +61,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Plots}

@@ -4,7 +4,6 @@
 \name{bcbio}
 \alias{bcbio}
 \alias{bcbio<-}
-\alias{bcbio}
 \alias{bcbio,bcbioRNADataSet-method}
 \alias{bcbio<-,bcbioRNADataSet-method}
 \title{\code{bcbioRNADataSet} Caller Slot Accessor}

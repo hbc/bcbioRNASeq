@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotMappingRate}
 \alias{plotMappingRate}
-\alias{plotMappingRate}
 \alias{plotMappingRate,bcbioRNADataSet-method}
 \alias{plotMappingRate,data.frame-method}
 \title{Plot Mapping Rate}
@@ -62,3 +61,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Plots}

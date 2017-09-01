@@ -4,7 +4,6 @@
 \docType{methods}
 \name{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate}
-\alias{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate,bcbioRNADataSet-method}
 \alias{plotIntronicMappingRate,data.frame-method}
 \title{Plot Intronic Mapping Rate}
@@ -60,3 +59,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Plots}

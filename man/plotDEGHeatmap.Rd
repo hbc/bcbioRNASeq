@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \title{Differentially Expressed Gene Heatmap}
@@ -51,3 +50,4 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}}
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}

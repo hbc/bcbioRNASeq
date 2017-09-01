@@ -3,7 +3,6 @@
 \docType{methods}
 \name{metrics}
 \alias{metrics}
-\alias{metrics}
 \alias{metrics,bcbioRNADataSet-method}
 \title{Sample Metrics}
 \usage{

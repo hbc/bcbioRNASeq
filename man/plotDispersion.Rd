@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDispersion}
 \alias{plotDispersion}
-\alias{plotDispersion}
 \alias{plotDispersion,bcbioRNADataSet-method}
 \alias{plotDispersion,DESeqDataSet-method}
 \title{Plot Dispersion Estimates}
@@ -41,3 +40,4 @@ Other Differential Expression Utilities: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
+\concept{Differential Expression Utilities}

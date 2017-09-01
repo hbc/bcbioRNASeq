@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNADataSet-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
@@ -42,3 +41,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Plots}

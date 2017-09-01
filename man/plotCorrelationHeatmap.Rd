@@ -4,7 +4,6 @@
 \docType{methods}
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
-\alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNADataSet-method}
 \title{Plot Correlation Heatmap}
 \usage{
@@ -60,3 +59,4 @@ Other Heatmaps: \code{\link{plotDEGHeatmap}}
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}
