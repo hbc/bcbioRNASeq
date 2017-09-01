@@ -158,8 +158,7 @@ setMethod(
                       featureCounts = tmpFC)
 
         # bcbioRNADataSet ====
-        # FIXME Calling an internal function with `:::` isn't valid
-        bcb <- BiocGenerics:::replaceSlots(
+        bcb <- BiocGenerics::replaceSlots(
             x,
             assays = tmpAssays,
             colData = tmpData,
