@@ -14,7 +14,7 @@
 #' @importFrom data.table rbindlist
 #' @importFrom DEGreport degQC degCovariates degPatterns
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix DESeqDataSetFromTximport
-#'   estimateSizeFactors results resultsNames rlog
+#'   DESeqTransform estimateSizeFactors results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
 #'   mutate_if pull rename ungroup
