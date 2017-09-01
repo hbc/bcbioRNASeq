@@ -36,7 +36,7 @@
 #' @importFrom S4Vectors cor head mcols metadata metadata<- na.omit SimpleList
 #' @importFrom stats formula setNames
 #' @importFrom stringr str_detect str_match str_replace str_replace_all
-#' @importFrom SummarizedExperiment assay assays assays<- colData
+#' @importFrom SummarizedExperiment assay assays assays<- colData rowData
 #'   SummarizedExperiment
 #' @importFrom tibble column_to_rownames remove_rownames rownames_to_column
 #' @importFrom tidyr expand_
