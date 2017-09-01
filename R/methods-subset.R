@@ -153,18 +153,17 @@ setMethod(
             vst = vst)
 
         # Slot additional callers
-        extra <- list(tximport = txi,
-                      DESeqDataSet = dds,
-                      featureCounts = tmpFC)
+        extra <- SimpleList(tximport = txi,
+                            DESeqDataSet = dds,
+                            featureCounts = tmpFC)
 
         # bcbioRNADataSet ====
-        bcb <- BiocGenerics::replaceSlots(
-            x,
-            assays = tmpAssays,
-            colData = tmpData,
-            elementMetadata = tmpRow,
-            callers = extra,
-            metadata = tmpMetadata,
-            check = FALSE)
+        bcb <- new("bcbioRNADataSet",
+            SummarizedExperiment(
+                assays = tmpAssays,
+                colData = tmpData,
+                rowData = tmpRow,
+                metadata = tmpMetadata),
+            callers = extra)
         bcb
     })
