@@ -40,11 +40,14 @@ NULL
     DESeqDataSetFromTximport(
         txi = txi,
         colData = tmpData,
-        design = formula(~1L)) %>%
-        DESeq
+        design = formula(~1L))
 }
 
-
+.countSubset <- function(x, tmpData){
+        DESeqTransform(
+            SummarizedExperiment(assays = x,
+                                 colData = tmpData))
+}
 
 # Methods ====
 #' @rdname subset
@@ -66,14 +69,22 @@ setMethod(
             maxSamples <- dots[["maxSamples"]]
         }
 
+        if (is.null(dots[["skipNorm"]])) {
+            skipNorm <- FALSE
+        } else {
+            skipNorm <- dots[["skipNorm"]]
+        }
+
         # Subset SE object ====
         se <- SummarizedExperiment(
             assays = SimpleList(counts(x)),
+            rowData = rowData(x),
             colData = colData(x),
             metadata = metadata(x))
 
         tmp <- se[i, j, drop = drop]
         tmpGenes <- row.names(tmp)
+        tmpRow <- rowData(tmp) %>% as.data.frame
         tmpData <- colData(tmp) %>% as.data.frame
         tmpTxi <- bcbio(x, "tximport")
 
@@ -91,20 +102,29 @@ setMethod(
         tmm <- .tmm(rawCounts)
         tpm <- txi[["abundance"]]
 
-        # Fix for unexpected disk space issue (see constructor above)
-        dds <- .createDDS(txi, tmpData)
-        normalizedCounts <- counts(dds, normalized = TRUE)
+        if (skipNorm){
+            message("Skip re-normalization, just selecting samples and genes.")
+            # To Fix if we find the solution.
+            # Only way to avoid disk space issue.
+            # Direct subset of dds create a huge file.
+            dds <- .createDDS(txi, tmpData)  %>%
+                estimateSizeFactors()
+            vst <- .countSubset(counts(x, "vst")[i, j], tmpData)
+            rlog <- .countSubset(counts(x, "rlog")[i, j], tmpData)
+            normalizedCounts <- counts(x, "normalized")[i, j]
+        } else {
+            # Fix for unexpected disk space issue (see constructor above)
+            dds <- .createDDS(txi, tmpData)  %>%
+                DESeq
+            normalizedCounts <- counts(dds, normalized = TRUE)
+        }
 
         # rlog & variance ====
-        if (nrow(tmpData) > maxSamples) {
+        if (nrow(tmpData) > maxSamples & !skipNorm) {
             message("Many samples detected...skipping count transformations")
-            rlog <- DESeqTransform(
-                SummarizedExperiment(assays = log2(tmm + 1L),
-                                     colData = colData(dds)))
-            vst <- DESeqTransform(
-                SummarizedExperiment(assays = log2(tmm + 1L),
-                                     colData = colData(dds)))
-        } else {
+            rlog <- .countSubset(log2(tmm + 1L), tmpData)
+            vst <- .countSubset(log2(tmm + 1L), tmpData)
+        } else if (!skipNorm) {
             message("Performing rlog transformation")
             rlog <- rlog(dds)
             message("Performing variance stabilizing transformation")
@@ -119,11 +139,12 @@ setMethod(
         }
 
         # Subset Metrics ====
-        tmpMetrics <- metadata(x)[["metrics"]] %>%
+        tmpMetadata <- metadata(x)
+        tmpMetrics <- tmpMetadata[["metrics"]] %>%
             .[.[["sampleID"]] %in% tmpData[["sampleID"]], ]
-        metadata(tmp)[["metrics"]] <- tmpMetrics
+        tmpMetadata[["metrics"]] <- tmpMetrics
 
-        assays(tmp) <- SimpleList(
+        tmpAssays <- SimpleList(
             raw = rawCounts,
             normalized = normalizedCounts,
             tpm = tpm,
@@ -131,13 +152,18 @@ setMethod(
             rlog = rlog,
             vst = vst)
 
-        # bcbioRNADataSet ====
-        bcb <- new("bcbioRNADataSet", tmp)
         # Slot additional callers
-        bcbio(bcb, "tximport") <- txi
-        bcbio(bcb, "DESeqDataSet") <- dds
-        if (is.matrix(tmpFC)) {
-            bcbio(bcb, "featureCounts") <- tmpFC
-        }
+        extra <- SimpleList(tximport = txi,
+                            DESeqDataSet = dds,
+                            featureCounts = tmpFC)
+
+        # bcbioRNADataSet ====
+        bcb <- new("bcbioRNADataSet",
+            SummarizedExperiment(
+                assays = tmpAssays,
+                colData = tmpData,
+                rowData = tmpRow,
+                metadata = tmpMetadata),
+            callers = extra)
         bcb
     })

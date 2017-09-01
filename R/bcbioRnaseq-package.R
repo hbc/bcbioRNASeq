@@ -4,6 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @import methods
+#' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
 #'   mdHeader mdList prepareSE prepareTemplate readFileByExtension readYAML
@@ -13,7 +14,8 @@
 #' @importFrom data.table rbindlist
 #' @importFrom DEGreport degQC degCovariates degPatterns
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix DESeqDataSetFromTximport
-#'   DESeqTransform results resultsNames rlog varianceStabilizingTransformation
+#'   DESeqTransform estimateSizeFactors results resultsNames rlog
+#'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
 #'   mutate_if pull rename ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -34,7 +36,7 @@
 #' @importFrom S4Vectors cor head mcols metadata metadata<- na.omit SimpleList
 #' @importFrom stats formula setNames
 #' @importFrom stringr str_detect str_match str_replace str_replace_all
-#' @importFrom SummarizedExperiment assay assays assays<- colData
+#' @importFrom SummarizedExperiment assay assays assays<- colData rowData
 #'   SummarizedExperiment
 #' @importFrom tibble column_to_rownames remove_rownames rownames_to_column
 #' @importFrom tidyr expand_

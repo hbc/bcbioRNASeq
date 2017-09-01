@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,data.frame,ANY-method}
@@ -23,7 +22,7 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{counts}{Secondary object containing normalized counts.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
 
 \item{alpha}{Alpha level cutoff.}
 
@@ -50,3 +49,4 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}}
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}

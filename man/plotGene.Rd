@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene}
 \alias{plotGene,bcbioRNADataSet-method}
 \title{Plot Individual Genes}
 \usage{
@@ -54,3 +53,4 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Plots}

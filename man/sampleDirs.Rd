@@ -3,7 +3,6 @@
 \docType{methods}
 \name{sampleDirs}
 \alias{sampleDirs}
-\alias{sampleDirs}
 \alias{sampleDirs,bcbioRNADataSet-method}
 \title{Sample Directories}
 \usage{

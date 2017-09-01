@@ -34,8 +34,6 @@ parameters set in \link{bcbioRNADataSet}.}
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
 (PCA) sample coloring and labeling.
-
-Methods ====
 }
 \examples{
 data(bcb)

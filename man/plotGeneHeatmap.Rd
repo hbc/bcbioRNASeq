@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotGeneHeatmap}
 \alias{plotGeneHeatmap}
-\alias{plotGeneHeatmap}
 \alias{plotGeneHeatmap,bcbioRNADataSet-method}
 \alias{plotGeneHeatmap,DESeqDataSet-method}
 \alias{plotGeneHeatmap,DESeqTransform-method}

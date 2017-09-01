@@ -3,7 +3,6 @@
 \docType{methods}
 \name{loadRNASeqRun}
 \alias{loadRNASeqRun}
-\alias{loadRNASeqRun}
 \alias{loadRNASeqRun,character-method}
 \title{Load bcbio RNA-Seq Run}
 \usage{

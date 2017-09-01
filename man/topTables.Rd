@@ -3,7 +3,6 @@
 \docType{methods}
 \name{topTables}
 \alias{topTables}
-\alias{topTables}
 \alias{topTables,list-method}
 \title{Top Tables of Differential Expression Results}
 \usage{
