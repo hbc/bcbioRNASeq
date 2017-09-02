@@ -8,6 +8,7 @@
 #'
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
+#' @inherit plotGeneHeatmap
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
@@ -18,14 +19,10 @@
 #' @param samples *Optional*. Character vector of specific samples.
 #' @param genes *Optional*. Character vector of specific gene identifiers to
 #'   plot.
-#' @param title *Optional*. Text to include in plot title.
 #'
 #' @seealso
 #' - [stats::cor()].
 #' - [stats::hclust()].
-#' - [pheatmap::pheatmap()].
-#'
-#' @return [pheatmap()].
 #'
 #' @examples
 #' data(bcb)

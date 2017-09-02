@@ -7,12 +7,10 @@
 #'
 #' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
+#' @inherit plotGeneHeatmap
 #'
-#' @param counts Secondary object containing normalized counts.
+#' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
-#' @param title Plot title.
-#'
-#' @return Graphical output only.
 #'
 #' @examples
 #' data(dds, res, rld)
@@ -54,7 +52,7 @@ NULL
         title <- paste("deg:", title)
     }
     if (length(genes) < 2L) {
-        message(length(genes), " is too few to plot.")
+        message(paste(length(genes), "is too few to plot"))
     } else {
         plotGeneHeatmap(counts, genes = genes, title = title)
     }
@@ -69,7 +67,10 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqTransform"),
-    function(object, counts, lfc = 0L) {
+    function(
+        object,
+        counts,
+        lfc = 0L) {
         results <- as.data.frame(object)
         counts <- assay(counts)
         alpha <- metadata(object)[["alpha"]]
