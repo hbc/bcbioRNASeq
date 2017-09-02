@@ -7,7 +7,6 @@
 #' @name plotMeanSD
 #'
 #' @return [ggplot] grid.
-#' @export
 #'
 #' @examples
 #' data(bcb, dds)
