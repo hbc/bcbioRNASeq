@@ -33,20 +33,10 @@ NULL
              y = "mapped reads (million)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcPassColor,
-                       linetype = qcLineType,
-                       size = qcLineSize,
-                       yintercept = passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcWarnColor,
-                       linetype = qcLineType,
-                       size = qcLineSize,
-                       yintercept = warnLimit)
+        p <- p + qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -59,11 +49,17 @@ NULL
 # Methods ====
 #' @rdname plotMappedReads
 #' @export
-setMethod("plotMappedReads", "bcbioRNADataSet", function(object, ...) {
+setMethod("plotMappedReads", "bcbioRNADataSet", function(
+    object,
+    passLimit = 20L,
+    warnLimit = 10L,
+    flip = TRUE) {
     .plotMappedReads(
         metrics(object),
         interestingGroup = .interestingGroup(object),
-        ...)
+        passLimit = passLimit,
+        warnLimit = warnLimit,
+        flip = flip)
 })
 
 
