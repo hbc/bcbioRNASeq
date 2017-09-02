@@ -36,10 +36,11 @@ Plot Count Density
 data(bcb)
 
 # bcbioRNADataSet
-plotCountDensity(bcb)
+plotCountDensity(bcb, normalized = "tmm")
 
 # data.frame
-meltLog10(bcb) \%>\% plotCountDensity
+meltLog10(bcb, normalized = "tmm") \%>\%
+    plotCountDensity
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

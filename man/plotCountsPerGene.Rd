@@ -39,10 +39,11 @@ Plot Counts Per Gene
 data(bcb)
 
 # bcbioRNADataSet
-plotCountsPerGene(bcb)
+plotCountsPerGene(bcb, normalized = "tmm")
 
 # data.frame
-meltLog10(bcb) \%>\% plotCountsPerGene
+meltLog10(bcb, normalized = "tmm") \%>\%
+    plotCountsPerGene
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
