@@ -4,7 +4,6 @@
 #' @name plotGenderMarkers
 #'
 #' @return [ggplot].
-#' @export
 #'
 #' @examples
 #' data(bcb)
