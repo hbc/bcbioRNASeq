@@ -9,7 +9,7 @@
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
 #'   mdHeader mdList prepareSE prepareTemplate readFileByExtension readYAML
 #'   removeNA snake tx2gene
-#' @importFrom BiocGenerics counts density plotDispEsts plotMA plotPCA
+#' @importFrom BiocGenerics counts design density plotDispEsts plotMA plotPCA
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
 #' @importFrom DEGreport degQC degCovariates degPatterns

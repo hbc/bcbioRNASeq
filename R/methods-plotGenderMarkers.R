@@ -6,6 +6,7 @@
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.
+#' @param ylab Y-axis label.
 #'
 #' @return [ggplot].
 #'
@@ -51,7 +52,7 @@ NULL
         # `setNames()`. If you don't set `id`, function will output a message.
         melt(id = 1L) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
-        left_join(genderMarkers, by = "ensgene") %>%
+        left_join(markers, by = "ensgene") %>%
         ggplot(aes_(x = ~symbol,
                     y = ~counts,
                     color = ~sampleName,
