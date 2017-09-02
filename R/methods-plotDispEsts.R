@@ -4,7 +4,9 @@
 #' @name plotDispEsts
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh
+#'
 #' @inheritParams AllGenerics
+#' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
 #'
 #' @seealso [DESeq2::plotDispEsts()].
 #'
@@ -14,6 +16,7 @@
 #' @examples
 #' data(bcb)
 #' plotDispEsts(bcb)
+#' plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
 NULL
 
 
@@ -21,6 +24,7 @@ NULL
 # Methods ====
 #' @rdname plotDispEsts
 #' @export
-setMethod("plotDispEsts", "bcbioRNADataSet", function(object) {
-    bcbio(object, "DESeqDataSet") %>% plotDispEsts
+setMethod("plotDispEsts", "bcbioRNADataSet", function(object, ...) {
+    bcbio(object, "DESeqDataSet") %>%
+        plotDispEsts(...)
 })
