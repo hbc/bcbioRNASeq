@@ -69,5 +69,6 @@ setMethod("plotGene", "bcbioRNADataSet", function(
             expand_limits(y = 0L) +
             scale_color_viridis(discrete = TRUE)
         show(plot)
-    }) %>% invisible
+    }) %>%
+        invisible
 })

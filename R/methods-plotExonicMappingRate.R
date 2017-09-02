@@ -33,12 +33,7 @@ NULL
         ylim(0L, 100L) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcPassColor,
-                       linetype = qcLineType,
-                       size = qcLineSize,
-                       yintercept = passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -51,11 +46,15 @@ NULL
 # Methods ====
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(object, ...) {
+setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(
+    object,
+    passLimit = 60L,
+    flip = TRUE) {
     .plotExonicMappingRate(
         metrics(object),
         interestingGroup = .interestingGroup(object),
-        ...)
+        passLimit = passLimit,
+        flip = flip)
 })
 
 

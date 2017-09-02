@@ -35,7 +35,8 @@ NULL
 #' @rdname plotCountDensity
 #' @export
 setMethod("plotCountDensity", "bcbioRNADataSet", function(
-    object, normalized = "tmm") {
+    object,
+    normalized = "tmm") {
     .plotCountDensity(
         meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object))

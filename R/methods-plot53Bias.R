@@ -32,12 +32,7 @@ NULL
              y = "5'->3' bias") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcWarnColor,
-                       linetype = qcLineType,
-                       size = qcLineSize,
-                       yintercept = warnLimit)
+        p <- p + qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -50,11 +45,15 @@ NULL
 # Methods ====
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "bcbioRNADataSet", function(object, ...) {
+setMethod("plot53Bias", "bcbioRNADataSet", function(
+    object,
+    warnLimit = 2L,
+    flip = TRUE) {
     .plot53Bias(
         metrics(object),
         interestingGroup = .interestingGroup(object),
-        ...)
+        warnLimit = warnLimit,
+        flip = flip)
 })
 
 

@@ -24,7 +24,7 @@ NULL
                 aes_(x = ~sampleName,
                      y = ~counts,
                      fill = as.name(interestingGroup))) +
-        geom_boxplot(outlier.shape = NA) +
+        geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
              y = "log10 counts per gene") +
@@ -41,11 +41,13 @@ NULL
 #' @rdname plotCountsPerGene
 #' @export
 setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
-    object, normalized = "tmm", ...) {
+    object,
+    normalized = "tmm",
+    flip = TRUE) {
     .plotCountsPerGene(
         meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object),
-        ...)
+        flip = flip)
 })
 
 

@@ -56,11 +56,10 @@ setMethod("plotTotalReads", "bcbioRNADataSet", function(
     flip = TRUE) {
     .plotTotalReads(
         metrics(object),
+        interestingGroup = .interestingGroup(object),
         passLimit = passLimit,
         warnLimit = warnLimit,
-        flip = flip,
-        # Automatic
-        interestingGroup = .interestingGroup(object))
+        flip = flip)
 })
 
 

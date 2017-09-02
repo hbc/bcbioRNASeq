@@ -15,7 +15,7 @@
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
 #' @param genes Character vector of specific gene identifiers to plot.
-#' @param title Plot title.
+#' @param title *Optional*. Plot title.
 #'
 #' @seealso [pheatmap::pheatmap()].
 #'

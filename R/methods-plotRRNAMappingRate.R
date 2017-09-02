@@ -32,12 +32,7 @@ NULL
              y = "rRNA mapping rate (%)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcWarnColor,
-                       linetype = qcLineType,
-                       size = qcLineSize,
-                       yintercept = warnLimit)
+        p <- p + qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -50,11 +45,15 @@ NULL
 # Methods ====
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "bcbioRNADataSet", function(object, ...) {
+setMethod("plotRRNAMappingRate", "bcbioRNADataSet", function(
+    object,
+    warnLimit = 10L,
+    flip = TRUE) {
     .plotRRNAMappingRate(
         metrics(object),
         interestingGroup = .interestingGroup(object),
-        ...)
+        warnLimit = warnLimit,
+        flip = flip)
 })
 
 
