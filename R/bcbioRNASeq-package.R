@@ -4,7 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @import methods
-#' @importClassesFrom DESeq2 DESeqTransform
+#' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
 #'   mdHeader mdList prepareSE prepareTemplate readFileByExtension readYAML
@@ -14,7 +14,8 @@
 #' @importFrom data.table rbindlist
 #' @importFrom DEGreport degQC degCovariates degPatterns
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix DESeqDataSetFromTximport
-#'   results resultsNames rlog varianceStabilizingTransformation
+#'   DESeqTransform estimateSizeFactors results resultsNames rlog
+#'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
 #'   mutate_all mutate_if pull rename ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
@@ -47,25 +48,6 @@
 "_PACKAGE"
 
 globalVariables(".")
-
-# Quality control plot colors
-qcCutoffColor <- "black"
-qcFailColor <- "red"
-qcPassColor <- "green"
-qcWarnColor <- "orange"
-
-# Quality control label appearance
-qcLabelAlpha <- 0.75
-qcLabelColor <- "white"
-qcLabelFill <- "black"
-qcLabelFontface <- "bold"
-qcLabelPadding <- unit(0.2, "lines")
-qcLabelSize <- NA
-
-# Quality control line appearance
-qcLineAlpha <- 0.75
-qcLineSize <- 1.5
-qcLineType <- "longdash"
 
 # Plot label separator
 labelSep <- ": "
