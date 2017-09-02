@@ -22,11 +22,11 @@ NULL
     ggplot(object,
         aes_(x = ~counts,
              group = as.name(interestingGroup),
-             color = as.name(interestingGroup))) +
-        geom_density() +
+             fill = as.name(interestingGroup))) +
+        geom_density(alpha = 0.75, color = NA) +
         labs(title = "count density",
              x = "log10 counts per gene") +
-        scale_color_viridis(discrete = TRUE)
+        scale_fill_viridis(discrete = TRUE)
 }
 
 
