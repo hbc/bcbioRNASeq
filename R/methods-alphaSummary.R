@@ -16,7 +16,7 @@ NULL
 
 
 # Constructors ====
-.guessResults <- function(object, what, alpha){
+.guessResults <- function(object, what, alpha) {
     if (length(what) == 1L) {
         res <- results(object, name = what, alpha = alpha)
     } else {
