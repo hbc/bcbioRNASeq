@@ -1,4 +1,6 @@
+library(devtools)
+load_all()
 genderMarkersMmusculus <-
     file.path("data-raw", "genderMarkersMmusculus.csv") %>%
     read_csv
-saveData(genderMarkersMmusculus)
+use_data(genderMarkersMmusculus, compress = "xz", overwrite = TRUE)
