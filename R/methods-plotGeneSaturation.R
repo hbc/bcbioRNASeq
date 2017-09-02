@@ -44,12 +44,14 @@ setMethod(
     signature(object = "bcbioRNADataSet",
               counts = "missing"),
     function(
-        object, normalized = "tmm", ...) {
+        object,
+        normalized = "tmm",
+        minCounts = 0L) {
         .plotGeneSaturation(
             metrics(object),
             counts = counts(object, normalized = normalized),
             interestingGroup = .interestingGroup(object),
-            ...)
+            minCounts = minCounts)
     })
 
 
