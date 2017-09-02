@@ -5,11 +5,11 @@
 #' @keywords internal
 #'
 #' @param object Object.
+#' @param x Object.
 #' @param i An integer or numeric scalar.
 #' @param withDimnames A `logical`, indicating whether dimnames should be
 #'   applied to extracted assay elements.
-#' @param x Object.
-#' @param ... Additional arguments.
+#' @param ... *Additional arguments (for the S4 generic definition).*
 #'
 #' @return No value.
 NULL
@@ -22,11 +22,11 @@ NULL
 #' @name qcPlots
 #' @keywords internal
 #'
-#' @param counts Counts matrix.
+#' @param counts Object containing a count matrix.
 #' @param flip Flip X and Y axes.
-#' @param interestingGroup *Optional*. Category to use to group samples (color
-#'   and shape). If unset, this is automatically determined by the metadata set
-#'   inside the [bcbioRNADataSet].
+#' @param interestingGroup Category to use to group samples (color and shape).
+#'   If unset, this is automatically determined by the metadata set inside the
+#'   [bcbioRNADataSet].
 #' @param minCounts Numeric value for filtering the counts matrix before
 #'   plotting.
 #' @param normalized Count normalization method. See [counts()] documentation
