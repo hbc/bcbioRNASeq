@@ -90,10 +90,12 @@
     <pre class="usage"><span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet,missing</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>,
+  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame,DESeqDataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
+  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame,matrix</span>
 <span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
@@ -109,17 +111,11 @@
     </tr>
     <tr>
       <th>counts</th>
-      <td><p>Counts matrix.</p></td>
+      <td><p>Object containing a count matrix.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p><em>Optional</em>. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
     </tr>
     <tr>
       <th>passLimit</th>
@@ -138,6 +134,12 @@ plotting.</p></td>
       <th>flip</th>
       <td><p>Flip X and Y axes.</p></td>
     </tr>
+    <tr>
+      <th>interestingGroup</th>
+      <td><p>Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -146,30 +148,30 @@ plotting.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code>plot53Bias</code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>, <code>plotGene</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+    <p>Other Quality Control Plots: <code><a href='plot53Bias.html'>plot53Bias</a></code>,
+  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenesDetected-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-15.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenesDetected-17.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-18.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame, DESeqDataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='fu'>metrics</span>(<span class='no'>bcb</span>), <span class='no'>dds</span>,
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-16.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='no'>dds</span>,
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-19.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame, matrix</span>
-<span class='fu'>plotGenesDetected</span>(<span class='fu'>metrics</span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>dds</span>),
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-17.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>dds</span>),
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-20.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

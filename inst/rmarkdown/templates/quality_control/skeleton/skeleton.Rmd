@@ -170,8 +170,8 @@ plotMeanSD(bcb)
 
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
-```{r plotDispersion, fig.height=8, fig.width=8}
-plotDispersion(bcb)
+```{r plotDispEsts, fig.height=8, fig.width=8}
+plotDispEsts(bcb)
 ```
 
 

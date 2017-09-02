@@ -10,9 +10,11 @@
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object, counts, ...)
+\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object,
+  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
 
-\S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts, ...)
+\S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
+  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
   interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
@@ -21,13 +23,9 @@ plotGenesDetected(object, counts, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Counts matrix.}
+\item{counts}{Object containing a count matrix.}
 
-\item{...}{Additional arguments.}
-
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -37,6 +35,10 @@ inside the \link{bcbioRNADataSet}.}
 plotting.}
 
 \item{flip}{Flip X and Y axes.}
+
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

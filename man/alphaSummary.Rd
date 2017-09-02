@@ -3,24 +3,27 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
+\alias{alphaSummary,bcbioRNADataSet-method}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
 alphaSummary(object, ...)
 
+\S4method{alphaSummary}{bcbioRNADataSet}(object, alpha = c(0.1, 0.05, 0.01,
+  0.001, 1e-06), caption = NULL, ...)
+
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), contrast = NULL, caption = NULL)
+  0.001, 1e-06), caption = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Optional}. Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
+either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{contrast}{Character vector to use with \code{\link[=results]{results()}} function.}
-
-\item{caption}{Character vector to add as caption to the table.}
+\item{caption}{\emph{Optional}. Character vector to add as caption to the table.}
 }
 \value{
 \link{kable}.
@@ -28,12 +31,25 @@ alphaSummary(object, ...)
 \description{
 Print Summary Statistics of Alpha Level Cutoffs
 }
+\note{
+\link{bcbioRNADataSet} does not support contrast definitions, since the
+object contains an internal \link{DESeqDataSet} with an empty design formula.
+}
 \examples{
-data(dds)
+data(bcb, dds)
+
+# bcbioRNADataSet
+alphaSummary(bcb)
+
+# DESeqDataSet
 alphaSummary(dds)
+alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
+alphaSummary(dds, name = "group_ko_vs_ctrl")
 }
 \seealso{
-Other Differential Expression Utilities: \code{\link{plotDispersion}},
+\code{\link[DESeq2:results]{DESeq2::results()}}.
+
+Other Differential Expression Utilities: \code{\link{plotDispEsts}},
   \code{\link{plotMeanSD}}
 }
 \author{

@@ -16,7 +16,7 @@ aggregateReplicates(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{pattern}{Grep pattern to match lane identifiers in sample name.}
 }

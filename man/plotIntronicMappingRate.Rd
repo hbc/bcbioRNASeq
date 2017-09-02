@@ -10,7 +10,8 @@
 \usage{
 plotIntronicMappingRate(object, ...)
 
-\S4method{plotIntronicMappingRate}{bcbioRNADataSet}(object, ...)
+\S4method{plotIntronicMappingRate}{bcbioRNADataSet}(object, warnLimit = 20L,
+  flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
   interestingGroup = "sampleName", warnLimit = 20L, flip = TRUE)
@@ -18,15 +19,15 @@ plotIntronicMappingRate(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
+
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

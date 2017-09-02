@@ -15,7 +15,7 @@ resultsTables(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.

@@ -26,11 +26,11 @@ plotGeneHeatmap(object, ...)
 \arguments{
 \item{object}{Counts matrix.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
-\item{title}{Plot title.}
+\item{title}{\emph{Optional}. Plot title.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the

@@ -16,7 +16,7 @@ plotMeanSD(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 }
 \value{
 \link{ggplot} grid.
@@ -36,7 +36,7 @@ plotMeanSD(dds)
 }
 \seealso{
 Other Differential Expression Utilities: \code{\link{alphaSummary}},
-  \code{\link{plotDispersion}}
+  \code{\link{plotDispEsts}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

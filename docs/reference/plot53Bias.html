@@ -90,7 +90,7 @@
     <pre class="usage"><span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
-<span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame</span>
 <span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
@@ -105,13 +105,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p><em>Optional</em>. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
     </tr>
     <tr>
       <th>warnLimit</th>
@@ -121,6 +115,12 @@ inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
       <th>flip</th>
       <td><p>Flip X and Y axes.</p></td>
     </tr>
+    <tr>
+      <th>interestingGroup</th>
+      <td><p>Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -129,17 +129,17 @@ inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>, <code>plotGene</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+    <p>Other Quality Control Plots: <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -148,7 +148,7 @@ inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
 <span class='co'># bcbioRNADataSet</span>
 <span class='fu'>plot53Bias</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plot53Bias-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame</span>
-<span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>plot53Bias</span></div><div class='img'><img src='plot53Bias-10.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>plot53Bias</span></div><div class='img'><img src='plot53Bias-10.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -18,13 +18,13 @@ plotDEGHeatmap(object, counts, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Secondary object containing normalized counts.}
+\item{counts}{Secondary object containing a normalized count matrix.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
-\item{title}{Plot title.}
+\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
 Graphical output only.

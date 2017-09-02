@@ -9,7 +9,8 @@
 \usage{
 plotCountsPerGene(object, ...)
 
-\S4method{plotCountsPerGene}{bcbioRNADataSet}(object, normalized = "tmm", ...)
+\S4method{plotCountsPerGene}{bcbioRNADataSet}(object, normalized = "tmm",
+  flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
   interestingGroup = "sampleName", flip = TRUE)
@@ -17,16 +18,16 @@ plotCountsPerGene(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
 
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
-
 \item{flip}{Flip X and Y axes.}
+
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

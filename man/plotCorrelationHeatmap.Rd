@@ -15,7 +15,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
 (\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
@@ -30,10 +30,10 @@ plot.}
 
 \item{samples}{\emph{Optional}. Character vector of specific samples.}
 
-\item{title}{\emph{Optional}. Text to include in plot title.}
+\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-\code{\link[=pheatmap]{pheatmap()}}.
+Graphical output only.
 }
 \description{
 This function calculates a correlation matrix based on gene expression per
@@ -51,7 +51,6 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 \itemize{
 \item \code{\link[stats:cor]{stats::cor()}}.
 \item \code{\link[stats:hclust]{stats::hclust()}}.
-\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
 }
 
 Other Heatmaps: \code{\link{plotDEGHeatmap}}
