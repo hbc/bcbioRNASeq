@@ -164,17 +164,6 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 
-#' @rdname plotDispersion
-#' @family Differential Expression Utilities
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("plotDispersion", function(object) {
-    standardGeneric("plotDispersion")
-})
-
-
-
 #' @rdname plotExonicMappingRate
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

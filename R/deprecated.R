@@ -23,3 +23,8 @@ plotGeneDetectionSaturation <- function(...) {
     .Deprecated("plotGeneSaturation")
     plotGeneSaturation(...)
 }
+
+plotDispersion <- function(...) {
+    .Deprecated("plotDispEsts")
+    plotDispEsts(...)
+}
