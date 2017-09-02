@@ -7,10 +7,11 @@
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plotCountsPerGene(bcb)
+#' plotCountsPerGene(bcb, normalized = "tmm")
 #'
 #' # data.frame
-#' meltLog10(bcb) %>% plotCountsPerGene
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountsPerGene
 NULL
 
 

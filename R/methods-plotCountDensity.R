@@ -7,10 +7,11 @@
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plotCountDensity(bcb)
+#' plotCountDensity(bcb, normalized = "tmm")
 #'
 #' # data.frame
-#' meltLog10(bcb) %>% plotCountDensity
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountDensity
 NULL
 
 

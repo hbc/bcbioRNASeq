@@ -42,9 +42,7 @@ NULL
         as.data.frame %>%
         rownames_to_column %>%
         melt(id = 1L) %>%
-        setNames(c("ensgene",
-                   "sampleID",
-                   "counts")) %>%
+        setNames(c("ensgene", "sampleID", "counts")) %>%
         .[.[["counts"]] > 0L, ] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]]),
