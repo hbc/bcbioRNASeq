@@ -11,7 +11,6 @@
 #' @seealso [DESeq2::plotDispEsts()].
 #'
 #' @return [ggplot].
-#' @export
 #'
 #' @examples
 #' data(bcb)
