@@ -228,7 +228,7 @@ setMethod("loadRNASeqRun", "character", function(
     }
 
     # Prepare SummarizedExperiment ====
-    se <- prepareSE(
+    se <- prepareSummarizedExperiment(
         SimpleList(
             raw = rawCounts,
             normalized = normalizedCounts,
