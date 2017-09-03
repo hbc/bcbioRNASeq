@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -23,7 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
+  <link href="../extra.css" rel="stylesheet">
   
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -141,39 +141,39 @@ object contains an internal DESeqDataSet with an empty design formula.</p>
 <span class='co'># bcbioRNADataSet</span>
 <span class='fu'>alphaSummary</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Empty DESeqDataSet design formula detected</span></div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |170, 56%         |166, 55%         |157, 52%         |151, 50%         |136, 45%         |
-#&gt; |LFC &lt; 0 (down) |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |
-#&gt; |low counts     |67, 22%          |57, 19%          |0, 0%            |63, 21%          |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 1) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'>
+#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
+#&gt; |:--------------|:---|:----|:----|:-----|:-----|
+#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
+#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
+#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
+#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
+#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='fu'>alphaSummary</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"group"</span>, <span class='st'>"ko"</span>, <span class='st'>"ctrl"</span>))</div><div class='output co'>#&gt; 
+#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
+#&gt; |:--------------|:---|:----|:----|:-----|:-----|
+#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
+#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
+#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
+#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
+#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"group"</span>, <span class='st'>"ko"</span>, <span class='st'>"ctrl"</span>))</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"group_ko_vs_ctrl"</span>)</div><div class='output co'>#&gt; 
+#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
+#&gt; |:--------------|:---|:----|:----|:-----|:-----|
+#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
+#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
+#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
+#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
+#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"group_ko_vs_ctrl"</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div></pre>
+#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
+#&gt; |:--------------|:---|:----|:----|:-----|:-----|
+#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
+#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
+#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
+#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
+#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -198,7 +198,7 @@ Michael Steinbaugh, Lorena Patano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

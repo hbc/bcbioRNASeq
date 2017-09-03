@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -23,7 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
+  <link href="../extra.css" rel="stylesheet">
   
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -165,13 +165,13 @@ If unset, this is automatically determined by the metadata set inside the
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenesDetected-25.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-26.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenesDetected-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame, DESeqDataSet</span>
 <span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='no'>dds</span>,
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-27.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame, matrix</span>
 <span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>dds</span>),
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-28.png' alt='' width='700' height='432.632880098887' /></div></pre>
+                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -194,7 +194,7 @@ Michael Steinbaugh, Rory Kirchner, Victor Barrera
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
