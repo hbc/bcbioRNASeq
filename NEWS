@@ -1,6 +1,6 @@
 # 0.0.26
 
-- Renamed package from `bcbioRnaseq` to `bcbioRNASeq`.
+- Renamed package from bcbioRnaseq to bcbioRNASeq.
 - Improved website appearance.
 - Added viridis color palette support to quality control functions.
 - Improved subset operations on `bcbioRNADataSet` object.
