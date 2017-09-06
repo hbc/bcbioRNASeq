@@ -14,7 +14,7 @@ params:
 
 ```{r setup, message=FALSE}
 library(DESeq2)
-library(bcbioRnaseq)
+library(bcbioRNASeq)
 
 # Shared RMarkdown settings
 prepareRNASeqTemplate()

@@ -10,7 +10,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-library(bcbioRnaseq)
+library(bcbioRNASeq)
 
 # Shared RMarkdown settings
 prepareRNASeqTemplate()
