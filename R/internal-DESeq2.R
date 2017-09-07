@@ -1,6 +1,5 @@
 #' `DESeqResults` Contrast Name
 #'
-#' @rdname internal-resContrastName
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

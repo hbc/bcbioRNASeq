@@ -2,23 +2,14 @@
 % Please edit documentation in R/internal-yaml.R
 \name{.sampleYAML}
 \alias{.sampleYAML}
-\alias{.sampleYAMLMetadata}
-\alias{.sampleYAMLMetrics}
 \title{Sample YAML Metadata Ytilities}
 \usage{
 .sampleYAML(yaml, ...)
-
-.sampleYAMLMetadata(yaml)
-
-.sampleYAMLMetrics(yaml)
 }
 \arguments{
 \item{yaml}{Project summary YAML.}
 
 \item{...}{Nested operator keys supplied as dot objects.}
-}
-\value{
-\link{tibble}.
 }
 \description{
 Sample YAML Metadata Ytilities
