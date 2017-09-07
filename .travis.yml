@@ -11,10 +11,10 @@ after_success:
   - pwd
   - cd ..
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-  - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
+  - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
   - Rscript -e 'test_that::test_file("test_reports.R")'
   - mv de.html de-${TRAVIS_BRANCH}.html
   - mv qc.html qc-${TRAVIS_BRANCH}.html
-  - cp ../bcbioRnaseq.push.sh push.sh
+  - cp ../bcbioRNASeq.push.sh push.sh
   - chmod +x push.sh
   - ./push.sh
