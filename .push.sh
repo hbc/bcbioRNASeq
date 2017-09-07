@@ -9,7 +9,7 @@ commit_website_files() {
   git fetch origin gh-pages
   git checkout gh-pages
   git pull
-  cp ../template/*.html .
+  cp report/*.html .
   git add *.html
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
