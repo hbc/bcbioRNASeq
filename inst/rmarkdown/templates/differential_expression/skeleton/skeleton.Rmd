@@ -71,7 +71,7 @@ rld <- rlog(dds)
 
 Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
 
-```{r alphaSummary, results="asis"}
+```{r alpha_summary, results="asis"}
 alphaSummary(dds)
 ```
 
@@ -109,7 +109,7 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r alpha` and 
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
-```{r plotMA}
+```{r plot_ma}
 plotMA(res)
 ```
 
@@ -118,7 +118,7 @@ plotMA(res)
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
-```{r plotVolcano}
+```{r plot_volcano}
 plotVolcano(res, lfc = lfc)
 ```
 
@@ -127,7 +127,7 @@ plotVolcano(res, lfc = lfc)
 
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
-```{r plotDEGHeatmap}
+```{r plot_deg_heatmap}
 plotDEGHeatmap(res, counts = rld)
 ```
 
@@ -147,7 +147,7 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 ## Differentially expressed genes (DEG)
 
-```{r resultsTables, results="asis"}
+```{r results_tables, results="asis"}
 resTbl <- resultsTables(res, lfc = lfc, dir = deDir)
 ```
 
@@ -170,7 +170,7 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
-```{r topTables, results="asis"}
+```{r top_tables, results="asis"}
 topTables(resTbl)
 ```
 
