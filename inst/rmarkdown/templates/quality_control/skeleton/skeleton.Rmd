@@ -50,8 +50,12 @@ metadataTable(bcb)
 rawCounts <- counts(bcb, normalized = FALSE)
 normalizedCounts <- counts(bcb, normalized = TRUE)
 tpm <- tpm(bcb)
-saveData(rawCounts, normalizedCounts, tpm, dir = dataDir)
-writeCounts(rawCounts, normalizedCounts, tpm, dir = countsDir)
+
+# Temporary code to test bcb.io knit
+devtools::use_data(rawCounts, normalizedCounts, tpm, overwrite = TRUE)
+
+# saveData(rawCounts, normalizedCounts, tpm, dir = dataDir)
+# writeCounts(rawCounts, normalizedCounts, tpm, dir = countsDir)
 ```
 
 
