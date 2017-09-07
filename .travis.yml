@@ -14,9 +14,10 @@ after_success:
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
   - cd bcbio_rnaseq_output_example
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
+  - Rscript -e 'install.packages("formatR")'
   - Rscript -e 'testthat::test_file("test_reports.R")'
   - mv de.html de-${TRAVIS_BRANCH}.html
   - mv qc.html qc-${TRAVIS_BRANCH}.html
-  - cp ../bcbioRnaseq/push.sh push.sh
+  - cp ../bcbioRnaseq/.push.sh push.sh
   - chmod +x push.sh
   - ./push.sh
