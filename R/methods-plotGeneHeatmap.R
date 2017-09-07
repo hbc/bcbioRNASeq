@@ -90,7 +90,8 @@ NULL
         # Define colors for each annotation column
         annotationColors <- lapply(
             seq_along(dim(annotationCol)[[2L]]), function(a) {
-                col <- annotationCol[[a]]
+                col <- annotationCol[[a]] %>%
+                    levels
                 colors <- annotationCol[[a]] %>%
                     levels %>%
                     length %>%
