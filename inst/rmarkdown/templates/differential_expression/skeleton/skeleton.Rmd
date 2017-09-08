@@ -22,9 +22,9 @@ if (file.exists("setup.R")) {
     source("setup.R")
 }
 
-# Load bcbioRNADataSet
+# Load bcbioRNADataSet object
 bcbName <- load(params$bcb)
-assign("bcb", get(bcbName, inherits = FALSE))
+bcb <- get(bcbName, inherits = FALSE)
 rm(list = bcbName)
 if (!is(bcb, "bcbioRNADataSet")) {
     stop("bcb must bcbioRNADataSet class object")
