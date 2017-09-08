@@ -21,7 +21,7 @@ NULL
 .subsetTop <- function(df, n, coding) {
     if (isTRUE(coding)) {
         df <- df %>%
-            .[.[["broadClass"]] == "coding", ]
+            .[.[["broadClass"]] == "coding", , drop = FALSE]
     }
     df <- df %>%
         head(n = n) %>%
