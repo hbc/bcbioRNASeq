@@ -29,13 +29,10 @@ NULL
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
-        ylim(0L, 100L)
+        ylim(0L, 100L) +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcWarnColor,
-                       size = qcLineSize,
-                       yintercept = warnLimit)
+        p <- p + qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -51,11 +48,15 @@ NULL
 setMethod(
     "plotIntronicMappingRate",
     "bcbioRNADataSet",
-    function(object, ...) {
+    function(
+        object,
+        warnLimit = 20L,
+        flip = TRUE) {
         .plotIntronicMappingRate(
             metrics(object),
             interestingGroup = .interestingGroup(object),
-            ...)
+            warnLimit = warnLimit,
+            flip = flip)
     })
 
 

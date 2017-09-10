@@ -9,7 +9,8 @@
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNADataSet}(object, ...)
+\S4method{plotTotalReads}{bcbioRNADataSet}(object, passLimit = 20L,
+  warnLimit = 10L, flip = TRUE)
 
 \S4method{plotTotalReads}{data.frame}(object, interestingGroup = "sampleName",
   passLimit = 20L, warnLimit = 10L, flip = TRUE)
@@ -17,17 +18,17 @@ plotTotalReads(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
+
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

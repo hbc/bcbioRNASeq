@@ -11,8 +11,18 @@
 #' @export
 #'
 #' @examples
-#' data(bcb)
+#' data(bcb, dds)
+#'
+#' # bcbioRNADataSet
 #' tmm(bcb) %>% head
+#'
+#' \dontrun{
+#' # DESeqDataSet
+#' tmm(dds) %>% head
+#'
+#' # matrix
+#' assay(bcb) %>% tmm %>% head
+#' }
 NULL
 
 

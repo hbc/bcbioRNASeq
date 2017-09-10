@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trimmed Mean of M-Values (TMM) Normalization — tmm • bcbioRnaseq</title>
+<title>Trimmed Mean of M-Values (TMM) Normalization — tmm • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -23,7 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
+  <link href="../extra.css" rel="stylesheet">
   
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRnaseq</a>
+      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -60,11 +60,14 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRnaseq">
+  <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -115,14 +118,23 @@ tool when plotting counts per gene.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>head</span></div><div class='output co'>#&gt;                    group1_1 group1_2 group2_1 group2_2
-#&gt; ENSMUSG00000002459   28.633     8.87    37.16    18.59
-#&gt; ENSMUSG00000004768  985.698   792.50   848.80   497.80
-#&gt; ENSMUSG00000005886 4223.485  3975.93  4899.91  2662.41
-#&gt; ENSMUSG00000016918 1670.701  1424.09   959.51   582.67
-#&gt; ENSMUSG00000025774    2.464     0.00     0.00     0.00
-#&gt; ENSMUSG00000025776  145.770    80.47    84.61   105.05</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
+
+<span class='co'># bcbioRNADataSet</span>
+<span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>head</span></div><div class='output co'>#&gt;                      group1_1   group1_2   group2_1   group2_2
+#&gt; ENSMUSG00000002459   28.63256    8.86970   37.16232   18.59052
+#&gt; ENSMUSG00000004768  985.69787  792.49940  848.79742  497.79582
+#&gt; ENSMUSG00000005886 4223.48470 3975.93096 4899.91440 2662.40847
+#&gt; ENSMUSG00000016918 1670.70126 1424.08740  959.50781  582.67226
+#&gt; ENSMUSG00000025774    2.46352    0.00000    0.00000    0.00000
+#&gt; ENSMUSG00000025776  145.77000   80.46812   84.60875  105.05135</div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># DESeqDataSet</span>
+<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='no'>head</span>
+
+<span class='co'># matrix</span>
+<span class='fu'>assay</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>tmm</span> <span class='kw'>%&gt;%</span> <span class='no'>head</span>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -143,7 +155,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael J. Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera, John Hutchinson, Harvard Chan Bioinformatics Core.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

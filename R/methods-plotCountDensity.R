@@ -7,10 +7,11 @@
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plotCountDensity(bcb)
+#' plotCountDensity(bcb, normalized = "tmm")
 #'
 #' # data.frame
-#' meltLog10(bcb) %>% plotCountDensity
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountDensity
 NULL
 
 
@@ -22,10 +23,11 @@ NULL
     ggplot(object,
         aes_(x = ~counts,
              group = as.name(interestingGroup),
-             color = as.name(interestingGroup))) +
-        geom_density() +
+             fill = as.name(interestingGroup))) +
+        geom_density(alpha = 0.75, color = NA) +
         labs(title = "count density",
-             x = "log10 counts per gene")
+             x = "log10 counts per gene") +
+        scale_fill_viridis(discrete = TRUE)
 }
 
 
@@ -34,7 +36,8 @@ NULL
 #' @rdname plotCountDensity
 #' @export
 setMethod("plotCountDensity", "bcbioRNADataSet", function(
-    object, normalized = "tmm") {
+    object,
+    normalized = "tmm") {
     .plotCountDensity(
         meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object))

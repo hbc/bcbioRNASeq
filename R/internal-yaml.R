@@ -1,6 +1,5 @@
 #' Sample YAML Metadata Ytilities
 #'
-#' @rdname internal-yaml
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -10,12 +9,6 @@
 #' @note Metrics are only generated for a standard RNA-seq run with aligned
 #'   counts. Fast RNA-seq mode with lightweight counts (pseudocounts) doesn't
 #'   output the same metrics into the YAML.
-#'
-#' @return [tibble].
-
-
-
-#' @rdname internal-yaml
 .sampleYAML <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
@@ -69,14 +62,12 @@
 
 
 
-#' @rdname internal-yaml
 .sampleYAMLMetadata <- function(yaml) {
     .sampleYAML(yaml, metadata) %>% .metaFactors
 }
 
 
 
-#' @rdname internal-yaml
 .sampleYAMLMetrics <- function(yaml) {
     metrics <- .sampleYAML(yaml, summary, metrics)
     if (is.null(metrics)) {

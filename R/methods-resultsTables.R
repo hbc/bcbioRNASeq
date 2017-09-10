@@ -32,7 +32,6 @@ NULL
 #'
 #' Enables looping of results contrast file links for RMarkdown.
 #'
-#' @rdname internal-mdResultsTables
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

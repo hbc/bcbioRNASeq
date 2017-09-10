@@ -1,6 +1,5 @@
 #' Read Data Versions
 #'
-#' @rdname internal-dataVersions
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -20,7 +19,6 @@
 
 #' Read Log File
 #'
-#' @rdname internal-logFile
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -39,7 +37,6 @@
 
 #' Read Program Versions
 #'
-#' @rdname internal-programVersions
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

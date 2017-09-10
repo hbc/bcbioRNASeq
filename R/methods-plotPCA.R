@@ -25,11 +25,12 @@
 #' @examples
 #' data(bcb)
 #' plotPCA(bcb)
+#' plotPCA(bcb, label = FALSE)
 NULL
 
 
 
-#' Methods ====
+# Methods ====
 #' @rdname plotPCA
 #' @export
 setMethod("plotPCA", "bcbioRNADataSet", function(
@@ -100,17 +101,15 @@ setMethod("plotPCA", "bcbioRNADataSet", function(
              x = paste0("pc1: ", percentVar[[1L]], "% variance"),
              y = paste0("pc2: ", percentVar[[2L]], "% variance"),
              color = interestingGroupsName,
-             shape = interestingGroupsName)
+             shape = interestingGroupsName) +
+        scale_color_viridis(discrete = TRUE)
 
     if (!isTRUE(shape)) {
         p <- p + guides(shape = FALSE)
     }
 
-    # Show side by side if label is set
     if (isTRUE(label)) {
-        unlabeled <- p +
-            theme(legend.position = "none")
-        labeled <- p +
+        p <- p +
             geom_text_repel(
                 # Color the labels to match the points
                 aes_(label = ~label),
@@ -128,17 +127,7 @@ setMethod("plotPCA", "bcbioRNADataSet", function(
                 arrow = arrow(length = unit(0.01, "npc")),
                 # Strength of the repulsion force
                 force = 1L,
-                show.legend = FALSE) +
-            labs(title = "", x = "", y = "") +
-            theme(axis.text.x = element_blank(),
-                  axis.text.y = element_blank(),
-                  axis.ticks.x = element_blank(),
-                  axis.ticks.y = element_blank(),
-                  legend.position = "bottom")
-        plot_grid(unlabeled,
-                  labeled,
-                  nrow = 2L)
-    } else {
-        p
+                show.legend = FALSE)
     }
+    p
 })

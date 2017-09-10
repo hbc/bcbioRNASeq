@@ -7,31 +7,32 @@
 #'
 #' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
+#' @inherit plotGeneHeatmap
 #'
-#' @param counts Secondary object containing normalized counts.
-#' @param alpha Alpha level cutoff.
-#' @param lfc [log2] fold change ratio cutoff.
-#' @param title Plot title.
-#' @param ... Additional arguments, passed to [pheatmap()].
-#'
-#' @return Graphical output only.
+#' @param counts Secondary object containing a normalized count matrix.
+#' @param lfc log2 fold change ratio cutoff.
 #'
 #' @examples
-#' data(res, rld)
+#' data(dds, res, rld)
+#'
+#' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
+#'
+#' # DESeqResults, DESeqDataSet
+#' plotDEGHeatmap(res, dds)
 NULL
 
 
 
 # Constructors ====
 .plotDEGHeatmap <- function(
-    object,
+    results,
     counts,
     alpha = 0.01,
     lfc = 0L,
-    title = TRUE,
-    ...) {
-    res <- as.data.frame(object) %>%
+    title = TRUE) {
+    results <- results %>%
+        as.data.frame %>%
         camel %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
@@ -40,15 +41,21 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    genes <- rownames(res)
-    if (isTRUE(title)) {
-        title <- "de genes"
-    } else if (is.character(title)) {
-        title <- paste("de genes:", title)
+    if (nrow(results) == 0L) {
+        warning("No genes passed significance cutoffs", call. = FALSE)
+        return(NULL)
     }
-    if (length(genes) < 2L)
-        message(length(genes), " is too few to plot.")
-    else plotGeneHeatmap(counts, genes = genes, title = title, ...)
+    genes <- rownames(results)
+    if (isTRUE(title)) {
+        title <- "deg"
+    } else if (is.character(title)) {
+        title <- paste("deg:", title)
+    }
+    if (length(genes) < 2L) {
+        message(paste(length(genes), "is too few to plot"))
+    } else {
+        plotGeneHeatmap(counts, genes = genes, title = title)
+    }
 }
 
 
@@ -60,11 +67,20 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqTransform"),
-    function(object, counts, ...) {
-        alpha <- metadata(object)[["alpha"]]
+    function(
+        object,
+        counts,
+        lfc = 0L) {
+        results <- as.data.frame(object)
         counts <- assay(counts)
+        alpha <- metadata(object)[["alpha"]]
         title <- .resContrastName(object)
-        .plotDEGHeatmap(object, counts, alpha = alpha, title = title, ...)
+        .plotDEGHeatmap(
+            results = results,
+            counts = counts,
+            alpha = alpha,
+            lfc = lfc,
+            title = title)
     })
 
 
@@ -75,16 +91,21 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqDataSet"),
-    function(object, counts, ...) {
-        warning("Using a DESeqTransform object for counts is recommended")
-        alpha <- metadata(object)[["alpha"]]
+    function(
+        object,
+        counts,
+        lfc = 0L,
+        title = TRUE) {
+        warning("Using a DESeqTransform object for counts is recommended",
+                call. = FALSE)
+        results <- as.data.frame(object)
         counts <- counts(counts, normalized = TRUE)
+        alpha <- metadata(object)[["alpha"]]
         title <- .resContrastName(object)
-        .plotDEGHeatmap(object, counts, alpha = alpha, title = title, ...)
+        .plotDEGHeatmap(
+            results = results,
+            counts = counts,
+            alpha = alpha,
+            lfc = lfc,
+            title = title)
     })
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod("plotDEGHeatmap", "data.frame", .plotDEGHeatmap)

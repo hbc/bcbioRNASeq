@@ -5,6 +5,7 @@
 #' argument.
 #'
 #' @rdname counts
+#' @name counts
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
@@ -17,7 +18,6 @@
 #'     ([DESeq2::varianceStabilizingTransformation()]).
 #'
 #' @return [matrix].
-#' @export
 #'
 #' @examples
 #' data(bcb)
@@ -38,6 +38,13 @@
 #'
 #' # VST
 #' counts(bcb, normalized = "vst") %>% glimpse
+NULL
+
+
+
+# Methods ====
+#' @rdname counts
+#' @export
 setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
     if (normalized == FALSE) {
         slot <- "raw"

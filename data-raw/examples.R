@@ -1,7 +1,7 @@
 library(devtools)
 library(DESeq2)
 load_all()
-extraDir <- system.file("extra", package = "bcbioRnaseq")
+extraDir <- system.file("extra", package = "bcbioRNASeq")
 uploadDir <- file.path(extraDir, "bcbio")
 bcb <- loadRNASeqRun(uploadDir)
 dds <- DESeqDataSetFromTximport(

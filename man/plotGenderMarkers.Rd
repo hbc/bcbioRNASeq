@@ -4,16 +4,28 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNADataSet-method}
+\alias{plotGenderMarkers,DESeqDataSet-method}
+\alias{plotGenderMarkers,matrix-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNADataSet}(object)
+
+\S4method{plotGenderMarkers}{DESeqDataSet}(object, organism = NULL)
+
+\S4method{plotGenderMarkers}{matrix}(object, organism, ylab = "counts")
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
+unless a spike-in FASTA sequence is provided containing a gene identifier
+that is first alphabetically in the count matrix rownames.}
+
+\item{ylab}{Y-axis label.}
 }
 \value{
 \link{ggplot}.

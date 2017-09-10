@@ -4,7 +4,6 @@
 #' @name metrics
 #'
 #' @return [data.frame].
-#' @export
 #'
 #' @examples
 #' data(bcb)

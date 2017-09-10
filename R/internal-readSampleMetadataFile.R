@@ -1,6 +1,5 @@
 #' Read Custom Metadata File
 #'
-#' @rdname internal-readSampleMetadataFile
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'

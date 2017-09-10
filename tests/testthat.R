@@ -1,7 +1,7 @@
 set.seed(42L)
 
 library(testthat)
-library(bcbioRnaseq)
+library(bcbioRNASeq)
 data(bcb, dds, res)
 
-test_check("bcbioRnaseq")
+test_check("bcbioRNASeq")

@@ -11,30 +11,30 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, ...)
+\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, genes = NULL,
+  title = NULL)
 
-\S4method{plotGeneHeatmap}{DESeqDataSet}(object, ...)
+\S4method{plotGeneHeatmap}{DESeqDataSet}(object, genes = NULL,
+  annotationCol = NULL, title = NULL)
 
-\S4method{plotGeneHeatmap}{DESeqTransform}(object, ...)
+\S4method{plotGeneHeatmap}{DESeqTransform}(object, genes = NULL,
+  annotationCol = NULL, title = NULL)
 
-\S4method{plotGeneHeatmap}{matrix}(object, genes = NULL, scale = "row",
-  annotationCol = NULL, title = NULL, ...)
+\S4method{plotGeneHeatmap}{matrix}(object, genes = NULL,
+  annotationCol = NULL, title = NULL)
 }
 \arguments{
 \item{object}{Counts matrix.}
 
-\item{...}{Additional arguments, passed to \code{\link[=pheatmap]{pheatmap()}}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
-\item{scale}{Character indicating if the values should be centered and scaled
-in either the \code{row} direction, \code{column} direction, or \code{none}.}
+\item{title}{\emph{Optional}. Plot title.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
 features of the heatmap columns.}
-
-\item{title}{Plot title.}
 }
 \value{
 Graphical output only.
@@ -54,7 +54,7 @@ data(bcb, dds, rld)
 plotGeneHeatmap(bcb)
 
 # Genes as Ensembl identifiers
-genes <- counts(bcb)[1L:50L, ] \%>\% rownames
+genes <- counts(bcb)[1L:20L, ] \%>\% rownames
 plotGeneHeatmap(bcb, genes = genes)
 
 # DESeqDataSet

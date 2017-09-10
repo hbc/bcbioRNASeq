@@ -28,8 +28,18 @@ of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
 \examples{
-data(bcb)
+data(bcb, dds)
+
+# bcbioRNADataSet
 tmm(bcb) \%>\% head
+
+\dontrun{
+# DESeqDataSet
+tmm(dds) \%>\% head
+
+# matrix
+assay(bcb) \%>\% tmm \%>\% head
+}
 }
 \author{
 Michael Steinbaugh

@@ -6,14 +6,14 @@
 \arguments{
 \item{object}{Object.}
 
+\item{x}{Object.}
+
 \item{i}{An integer or numeric scalar.}
 
 \item{withDimnames}{A \code{logical}, indicating whether dimnames should be
 applied to extracted assay elements.}
 
-\item{x}{Object.}
-
-\item{...}{Additional arguments.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 }
 \value{
 No value.

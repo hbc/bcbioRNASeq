@@ -9,7 +9,7 @@
 #'   [bcbioRNADataSet]:
 #'   - `rlog` (**recommended**).
 #'   - `vst`: variance stabilizing transformation.
-#' @param metrics Includesample summary metrics as covariates.
+#' @param metrics Include sample summary metrics as covariates.
 #' @param ... Additional arguments, passed to [degCovariates()].
 #'
 #' @seealso

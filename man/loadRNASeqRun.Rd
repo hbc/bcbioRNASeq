@@ -48,7 +48,7 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \examples{
-extraDir <- system.file("extra", package = "bcbioRnaseq")
+extraDir <- system.file("extra", package = "bcbioRNASeq")
 uploadDir <- file.path(extraDir, "bcbio")
 bcb <- loadRNASeqRun(
     uploadDir,

@@ -39,7 +39,7 @@ results.}
 Plot Mean Average
 }
 \examples{
-data(bcb, dds, res)
+data(res)
 genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 
 # DESeqResults
@@ -47,7 +47,7 @@ plotMA(res, labelPoints = genes)
 
 # data.frame
 df <- as.data.frame(res)
-plotMA(df, labelPoints = genes)
+plotMA(df, alpha = 0.1, labelPoints = genes)
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plotVolcano}}

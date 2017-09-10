@@ -7,10 +7,11 @@
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plotCountsPerGene(bcb)
+#' plotCountsPerGene(bcb, normalized = "tmm")
 #'
 #' # data.frame
-#' meltLog10(bcb) %>% plotCountsPerGene
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountsPerGene
 NULL
 
 
@@ -23,11 +24,12 @@ NULL
     p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~counts,
-                     color = as.name(interestingGroup))) +
-        geom_boxplot(outlier.shape = NA) +
+                     fill = as.name(interestingGroup))) +
+        geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene")
+             y = "log10 counts per gene") +
+        scale_fill_viridis(discrete = TRUE)
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
@@ -40,11 +42,13 @@ NULL
 #' @rdname plotCountsPerGene
 #' @export
 setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
-    object, normalized = "tmm", ...) {
+    object,
+    normalized = "tmm",
+    flip = TRUE) {
     .plotCountsPerGene(
         meltLog10(object, normalized = normalized),
         interestingGroup = .interestingGroup(object),
-        ...)
+        flip = flip)
 })
 
 

@@ -1,6 +1,5 @@
 #' Transcript to Gene Annotations
 #'
-#' @rdname internal-tx2gene
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -11,7 +10,7 @@
 .tx2gene <- function(projectDir, genomeBuild = NULL) {
     filePath <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(filePath)) {
-        # bcbio-nextgene tx2gene
+        # bcbio tx2gene
         read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
             as.data.frame %>%

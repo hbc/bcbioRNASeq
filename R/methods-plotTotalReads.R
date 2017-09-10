@@ -30,20 +30,13 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
-             y = "total reads (million)")
+             y = "total reads (million)") +
+        scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcPassColor,
-                       size = qcLineSize,
-                       yintercept = passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p +
-            geom_hline(alpha = qcLineAlpha,
-                       color = qcWarnColor,
-                       size = qcLineSize,
-                       yintercept = warnLimit)
+        p <- p + qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -56,11 +49,17 @@ NULL
 # Methods ====
 #' @rdname plotTotalReads
 #' @export
-setMethod("plotTotalReads", "bcbioRNADataSet", function(object, ...) {
+setMethod("plotTotalReads", "bcbioRNADataSet", function(
+    object,
+    passLimit = 20L,
+    warnLimit = 10L,
+    flip = TRUE) {
     .plotTotalReads(
         metrics(object),
         interestingGroup = .interestingGroup(object),
-        ...)
+        passLimit = passLimit,
+        warnLimit = warnLimit,
+        flip = flip)
 })
 
 

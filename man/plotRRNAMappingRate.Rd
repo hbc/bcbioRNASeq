@@ -9,7 +9,8 @@
 \usage{
 plotRRNAMappingRate(object, ...)
 
-\S4method{plotRRNAMappingRate}{bcbioRNADataSet}(object, ...)
+\S4method{plotRRNAMappingRate}{bcbioRNADataSet}(object, warnLimit = 10L,
+  flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
   interestingGroup = "sampleName", warnLimit = 10L, flip = TRUE)
@@ -17,15 +18,15 @@ plotRRNAMappingRate(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
+
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.

@@ -32,7 +32,7 @@
 #' @return [bcbioRNADataSet].
 #'
 #' @examples
-#' extraDir <- system.file("extra", package = "bcbioRnaseq")
+#' extraDir <- system.file("extra", package = "bcbioRNASeq")
 #' uploadDir <- file.path(extraDir, "bcbio")
 #' bcb <- loadRNASeqRun(
 #'     uploadDir,
@@ -105,6 +105,9 @@ setMethod("loadRNASeqRun", "character", function(
     if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
         stop("Sample name mismatch", call. = FALSE)
     }
+    sampleMetadata <- sampleMetadata %>%
+        as.data.frame %>%
+        set_rownames(.[["sampleID"]])
 
     # Subset sample directories by metadata ====
     # Check to see if a subset of samples is requested via the metadata file.
@@ -144,7 +147,7 @@ setMethod("loadRNASeqRun", "character", function(
 
     # Metadata ====
     metadata <- list(
-        version = packageVersion("bcbioRnaseq"),
+        version = packageVersion("bcbioRNASeq"),
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
         projectDir = projectDir,
@@ -228,7 +231,7 @@ setMethod("loadRNASeqRun", "character", function(
     }
 
     # Prepare SummarizedExperiment ====
-    se <- prepareSE(
+    se <- prepareSummarizedExperiment(
         SimpleList(
             raw = rawCounts,
             normalized = normalizedCounts,
@@ -236,8 +239,8 @@ setMethod("loadRNASeqRun", "character", function(
             tmm = tmm,
             rlog = rlog,
             vst = vst),
-        colData = sampleMetadata,
         rowData = annotable,
+        colData = sampleMetadata,
         metadata = metadata)
 
     # bcbioRNADataSet ====

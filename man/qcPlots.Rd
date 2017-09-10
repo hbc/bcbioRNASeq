@@ -4,13 +4,13 @@
 \alias{qcPlots}
 \title{Quality Control Plots}
 \arguments{
-\item{counts}{Counts matrix.}
+\item{counts}{Object containing a count matrix.}
 
 \item{flip}{Flip X and Y axes.}
 
-\item{interestingGroup}{\emph{Optional}. Category to use to group samples (color
-and shape). If unset, this is automatically determined by the metadata set
-inside the \link{bcbioRNADataSet}.}
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}

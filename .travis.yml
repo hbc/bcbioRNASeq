@@ -2,6 +2,7 @@ language: r
 cache: packages
 sudo: false
 dist: trusty
+warnings_are_errors: false
 r:
   - bioc-devel
 r_github_packages:
@@ -11,16 +12,14 @@ after_success:
   - pwd
   - cd ..
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-  - mkdir template
-  - cd template
-  - cp ../bcbio_rnaseq_output_example/setup.R .
-  - cp ../bcbioRnaseq/inst/rmarkdown/templates/quality_control/skeleton/skeleton.Rmd qc.Rmd
+  - cd bcbio_rnaseq_output_example
   - Rscript -e 'devtools::install_local("../bcbioRnaseq")'
-  - Rscript -e 'library(methods);bcbioRnaseq::downloads();rmarkdown::render("qc.Rmd")'
-  - cp ../bcbioRnaseq/inst/rmarkdown/templates/differential_expression/skeleton/skeleton.Rmd de.Rmd
-  - Rscript -e 'library(methods);rmarkdown::render("de.Rmd")'
-  - ls
-  - cd ../bcbio_rnaseq_output_example
+  - Rscript -e 'install.packages("formatR")'
+  - Rscript -e 'testthat::test_file("test_reports.R")'
+  - cd report
+  - mv de.html de-${TRAVIS_BRANCH}.html
+  - mv qc.html qc-${TRAVIS_BRANCH}.html
+  - cd ..
   - cp ../bcbioRnaseq/.push.sh push.sh
   - chmod +x push.sh
   - ./push.sh
