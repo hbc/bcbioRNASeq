@@ -35,7 +35,7 @@ devtools::install_github("hbc/bcbioRNASeq")
 
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
-[bioconductor]: https://bioconductor.org
+[Bioconductor]: https://bioconductor.org
 [devtools]: https://cran.r-project.org/package=devtools
-[r]: https://www.r-project.org
-[rmarkdown]: http://rmarkdown.rstudio.com
+[R]: https://www.r-project.org
+[RMarkdown]: http://rmarkdown.rstudio.com
