@@ -30,8 +30,8 @@ devtools::install_github("hbc/bcbioRNASeq")
 
 [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default RMarkdown templates included in the package.
 
-- [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc.html)
-- [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de.html)
+- [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
+- [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
