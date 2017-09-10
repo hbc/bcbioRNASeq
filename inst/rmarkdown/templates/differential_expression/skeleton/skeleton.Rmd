@@ -23,14 +23,14 @@ if (file.exists("setup.R")) {
 }
 
 # Load bcbioRNADataSet object
+if (exists("bcb", inherits = FALSE)) {
+    stop("bcb already exists in environment")
+}
 bcbName <- load(params$bcb)
-bcb <- mget(bcbName, inherits = FALSE)[[1]]
-# rm(list = bcbName) # Only when the object is not equal to bcb to save memory space.
+bcb <- get(bcbName, inherits = FALSE)
 if (!is(bcb, "bcbioRNADataSet")) {
     stop("bcb must bcbioRNADataSet class object")
 }
-if (nrow(bcb) == 505)
-    print("Loaded object is the same dimension than test data in package.")
 
 # Design formula
 # help("design", "DESeq2")
