@@ -180,8 +180,3 @@ topTables(resTbl)
 
 ```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
 ```
-
-
-```{r object}
-print(bcb)
-```
