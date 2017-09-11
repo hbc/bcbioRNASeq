@@ -51,5 +51,5 @@ setMethod("plotPCACovariates", "bcbioRNADataSet", function(
         # Assay needed here to get the matrix from the slotted [DESeqTransform]
         assay
 
-    degCovariates(counts, metadata)
+    degCovariates(counts, metadata, ...)
 })
