@@ -25,6 +25,20 @@ install.packages("devtools")
 devtools::install_github("hbc/bcbioRNASeq")
 ```
 
+## Load bcbio results
+
+```
+library(bcbioRNASeq)
+bcb <- loadRNASeqRun(
+params$uploadDir,
+interestingGroups = params$interestingGroups,
+params = params)
+saveData(bcb, dir = dataDir)
+```
+
+Use the Quality Control or/and the Differential Expression template available
+in Rstudio at `File -> New File -> R markdown -> From template`.
+
 
 ## Examples
 
