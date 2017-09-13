@@ -4,7 +4,7 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb: "data/bcb.rda"
+    bcbFile: "data/bcb.rda"
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
     alpha: 0.01
@@ -23,7 +23,7 @@ if (file.exists("setup.R")) {
 }
 
 # Load bcbioRNADataSet object
-bcbName <- load(params$bcb)
+bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 if (!is(bcb, "bcbioRNADataSet")) {
     stop("bcb must bcbioRNADataSet class object")

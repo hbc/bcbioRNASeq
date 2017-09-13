@@ -4,8 +4,7 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    uploadDir: "final"
-    interestingGroups: !r c("genotype", "treatment")
+    bcbFile: "data/bcb.rda"
     outputDir: "."
 ---
 
@@ -18,21 +17,17 @@ if (file.exists("setup.R")) {
     source("setup.R")
 }
 
+# Load bcbioRNADataSet object
+bcbName <- load(params$bcbFile)
+bcb <- get(bcbName, inherits = FALSE)
+if (!is(bcb, "bcbioRNADataSet")) {
+    stop("bcb must bcbioRNADataSet class object")
+}
+
 # Directory paths
 outputDir <- params$outputDir
 dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
-
-# Load bcbio run
-if (!file.exists(file.path(dataDir, "bcb.rda"))) {
-    bcb <- loadRNASeqRun(
-        params$uploadDir,
-        interestingGroups = params$interestingGroups,
-        params = params)
-    saveData(bcb, dir = dataDir)
-} else {
-    load(file.path(dataDir, "bcb.rda"))
-}
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
