@@ -23,9 +23,6 @@ if (file.exists("setup.R")) {
 }
 
 # Load bcbioRNADataSet object
-if (exists("bcb", inherits = FALSE)) {
-    stop("bcb already exists in environment")
-}
 bcbName <- load(params$bcb)
 bcb <- get(bcbName, inherits = FALSE)
 if (!is(bcb, "bcbioRNADataSet")) {
