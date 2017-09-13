@@ -109,6 +109,14 @@ setMethod("loadRNASeqRun", "character", function(
         as.data.frame %>%
         set_rownames(.[["sampleID"]])
 
+    # Interesting groups ====
+    # Ensure internal formatting in camelCase
+    interestingGroups <- camel(interestingGroups)
+    # Check to ensure interesting groups are defined
+    if (!all(interestingGroups %in% colnames(sampleMetadata))) {
+        stop("Interesting groups missing in sample metadata")
+    }
+
     # Subset sample directories by metadata ====
     # Check to see if a subset of samples is requested via the metadata file.
     # This matches by the reverse complement sequence of the index barcode.
