@@ -29,12 +29,15 @@ devtools::install_github("hbc/bcbioRNASeq")
 
 ```
 library(bcbioRNASeq)
-bcb <- loadRNASeqRun(
-params$uploadDir,
-interestingGroups = params$interestingGroups,
-params = params)
+bcb <- loadRNASeqRun(uploadDir,
+                     interestingGroups = interestingGroups)
 saveData(bcb, dir = dataDir)
 ```
+
+`uploadDir` is the final bcbio directory. `interestingGroups` is a character
+vector with the variables to use for represnetation of the data that should
+match columns in the metadata. `dataDir` is the output directory where to 
+save the object.
 
 Use the Quality Control or/and the Differential Expression template available
 in Rstudio at `File -> New File -> R markdown -> From template`.
