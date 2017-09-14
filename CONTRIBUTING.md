@@ -16,7 +16,6 @@ Attempt to follow these style guides, by priority: (1) [Bioconductor coding styl
 - Explicitly define `if`/`then` statements using opening and closing brackets (`{`, `}`).
 - `else` declarations should be on the same line as the closing bracket.
 - Use spaces around assignment operators (`<-`), brackets (`{`), and comma delimiters (e.g. `c("foo", "bar")` not `c("foo","bar")`.
-- Integers should be explicitly declared inside functions (e.g. `1L`), to avoid unexpected issues comparing against `numeric` or `double` values.
 
 
 ## Required checks
