@@ -15,10 +15,7 @@ sessionInfo()
 ```
 
 ```{r params}
-# Print YAML parameters, if set
-if (exists("params") & is(params, "knit_param_list")) {
-    print(params)
-}
+print(params)
 ```
 
 
