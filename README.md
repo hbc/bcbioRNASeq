@@ -37,7 +37,7 @@ bcb <- loadRNASeqRun(
 
 Parameters:
 
-- `uploadDir`: Directory path to the final [bcbio][] run output.
+- Primary object: Directory path to the final [bcbio][] run output.
 - `interestingGroups`: Character vector with the variables to use for representation of the data that should match columns of interest in the sample metadata.
 
 Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
