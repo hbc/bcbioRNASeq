@@ -1,4 +1,4 @@
-# bcbioRNASeq 0.0.26
+# bcbioRNASeq 0.0.27
 
 - Switched `loadRNASeqRun()` from using S4 dispatch to a standard function.
 - Added a parameter argument to `loadRNASeqRun()` that enables request of a specific Ensembl release version for gene annotations.
