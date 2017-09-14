@@ -5,8 +5,7 @@
 #' care of the rest. It automatically imports RNA-seq counts, metadata, and
 #' program versions used.
 #'
-#' @rdname loadRNASeqRun
-#' @name loadRNASeqRun
+#' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @param object Path to final upload directory. This path is set when running
 #'   `bcbio_nextgen -w template`.
@@ -18,6 +17,9 @@
 #'   file.
 #' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
 #'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
+#' @param ensemblVersion Ensembl release version. Defaults to current, and does
+#'   typically need to be user-defined. This parameter can be useful for
+#'   matching Ensembl annotations against an outdated bcbio annotation build.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -30,27 +32,19 @@
 #' [edgeR] normalization method.
 #'
 #' @return [bcbioRNADataSet].
+#' @export
 #'
 #' @examples
 #' extraDir <- system.file("extra", package = "bcbioRNASeq")
 #' uploadDir <- file.path(extraDir, "bcbio")
-#' bcb <- loadRNASeqRun(
-#'     uploadDir,
-#'     interestingGroups = "group")
-NULL
-
-
-
-# Methods ====
-#' @rdname loadRNASeqRun
-#' @export
-setMethod("loadRNASeqRun", "character", function(
-    object,
+#' bcb <- loadRNASeqRun(uploadDir, interestingGroups = "group")
+loadRNASeqRun <- function(
+    uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     maxSamples = 50L,
+    ensemblVersion = "current",
     ...) {
-    uploadDir <- object
 
     # Directory paths ====
     # Check connection to final upload directory
@@ -135,8 +129,8 @@ setMethod("loadRNASeqRun", "character", function(
     genomeBuild <- yaml[["samples"]][[1L]][["genome_build"]]
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
-    annotable <- annotable(genomeBuild)
-    tx2gene <- .tx2gene(projectDir, genomeBuild)
+    annotable <- annotable(genomeBuild, release = ensemblVersion)
+    tx2gene <- .tx2gene(projectDir, genomeBuild, release = ensemblVersion)
 
     # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
@@ -164,6 +158,7 @@ setMethod("loadRNASeqRun", "character", function(
         interestingGroups = interestingGroups,
         genomeBuild = genomeBuild,
         organism = organism,
+        ensemblVersion = ensemblVersion,
         annotable = annotable,
         tx2gene = tx2gene,
         lanes = lanes,
@@ -261,4 +256,4 @@ setMethod("loadRNASeqRun", "character", function(
         bcbio(bcb, "featureCounts") <- fc
     }
     bcb
-})
+}

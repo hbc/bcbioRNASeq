@@ -1,5 +1,12 @@
 # bcbioRNASeq 0.0.26
 
+- Switched `loadRNASeqRun()` from using S4 dispatch to a standard function.
+- Added a parameter argument to `loadRNASeqRun()` that enables request of a specific Ensembl release version for gene annotations.
+
+
+
+# bcbioRNASeq 0.0.26
+
 - Renamed package from bcbioRnaseq to bcbioRNASeq.
 - Improved website appearance.
 - Added [viridis][] color palette support to quality control functions.
