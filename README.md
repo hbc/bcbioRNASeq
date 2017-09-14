@@ -61,3 +61,4 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 [devtools]: https://cran.r-project.org/package=devtools
 [R]: https://www.r-project.org
 [RMarkdown]: http://rmarkdown.rstudio.com
+[RStudio]: https://www.rstudio.com
