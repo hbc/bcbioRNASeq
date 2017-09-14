@@ -26,7 +26,7 @@ devtools::install_github("hbc/bcbioRNASeq")
 ```
 
 
-## Load [bcbio][] run output
+## Load [bcbio][] run output into `bcbioRNADataSet`
 
 ```r
 library(bcbioRNASeq)
@@ -38,7 +38,7 @@ bcb <- loadRNASeqRun(
 Parameters:
 
 - Primary object: Directory path to the final [bcbio][] run output.
-- `interestingGroups`: Character vector with the variables to use for representation of the data that should match columns of interest in the sample metadata.
+- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNADataSet` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 
 Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
 
