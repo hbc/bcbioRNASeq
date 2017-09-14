@@ -25,34 +25,39 @@ install.packages("devtools")
 devtools::install_github("hbc/bcbioRNASeq")
 ```
 
-## Load bcbio results
 
-```
+## Load [bcbio][] run output
+
+```r
 library(bcbioRNASeq)
-bcb <- loadRNASeqRun(uploadDir,
-                     interestingGroups = interestingGroups)
-saveData(bcb, dir = dataDir)
+bcb <- loadRNASeqRun(
+    file.path("bcbio_rnaseq_run", "final"),
+    interestingGroups = c("genotype", "treatment"))
 ```
 
-`uploadDir` is the final bcbio directory. `interestingGroups` is a character
-vector with the variables to use for represnetation of the data that should
-match columns in the metadata. `dataDir` is the output directory where to 
-save the object.
+Parameters:
 
-Use the Quality Control or/and the Differential Expression template available
-in Rstudio at `File -> New File -> R markdown -> From template`.
+- `uploadDir`: Directory path to the final [bcbio][] run output.
+- `interestingGroups`: Character vector with the variables to use for representation of the data that should match columns of interest in the sample metadata.
+
+Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
 
 
-## Examples
+## [RMarkdown][] templates
 
-[HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default RMarkdown templates included in the package.
+This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using DESeq2, which are available in [RStudio][] at `File -> New File -> R Markdown... -> From Template`.
 
-- [Quality control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
-- [Differential expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
+### Examples
+
+View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [RMarkdown][] templates included in the package:
+
+- [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
+- [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [Bioconductor]: https://bioconductor.org
+[DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [devtools]: https://cran.r-project.org/package=devtools
 [R]: https://www.r-project.org
 [RMarkdown]: http://rmarkdown.rstudio.com
