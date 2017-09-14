@@ -9,6 +9,9 @@ loadRNASeqRun(uploadDir, interestingGroups = "sampleName",
   ...)
 }
 \arguments{
+\item{uploadDir}{Path to final upload directory. This path is set when
+running \code{bcbio_nextgen -w template}.}
+
 \item{interestingGroups}{Character vector of interesting groups. First entry
 is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.}
@@ -25,9 +28,6 @@ typically need to be user-defined. This parameter can be useful for
 matching Ensembl annotations against an outdated bcbio annotation build.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
-
-\item{object}{Path to final upload directory. This path is set when running
-\code{bcbio_nextgen -w template}.}
 }
 \value{
 \link{bcbioRNADataSet}.

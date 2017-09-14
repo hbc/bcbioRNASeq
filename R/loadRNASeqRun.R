@@ -7,8 +7,8 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @param object Path to final upload directory. This path is set when running
-#'   `bcbio_nextgen -w template`.
+#' @param uploadDir Path to final upload directory. This path is set when
+#'   running `bcbio_nextgen -w template`.
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.

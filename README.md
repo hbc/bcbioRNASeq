@@ -37,7 +37,7 @@ bcb <- loadRNASeqRun(
 
 Parameters:
 
-- Primary object: Path to the [bcbio][] final upload directory.
+- `uploadDir`: Path to the [bcbio][] final upload directory.
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNADataSet` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 
 Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
