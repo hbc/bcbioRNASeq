@@ -45,7 +45,7 @@ Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
 
 ## [RMarkdown][] templates
 
-This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using DESeq2, which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
 ### Examples
 
