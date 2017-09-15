@@ -68,7 +68,7 @@ Suggests:
     tidyverse
 Remotes:
     lpantano/DEGreport,
-    steinbaugh/basejump
+    steinbaugh/basejump@develop
 biocViews:
     DataImport,
     DataRepresentation,
