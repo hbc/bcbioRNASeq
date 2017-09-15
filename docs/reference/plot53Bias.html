@@ -93,7 +93,8 @@
     <pre class="usage"><span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet</span>
-<span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>interestingGroup</span>,
+  <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame</span>
 <span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
@@ -111,18 +112,18 @@
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
     </tr>
     <tr>
+      <th>interestingGroup</th>
+      <td><p>Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
       <th>warnLimit</th>
       <td><p>Threshold to plot warning color marker.</p></td>
     </tr>
     <tr>
       <th>flip</th>
       <td><p>Flip X and Y axes.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p>Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     </table>
     

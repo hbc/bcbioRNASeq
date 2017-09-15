@@ -82,14 +82,36 @@
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
 </div>
 </div>
-<div id="examples" class="section level2">
+<div id="load-bcbio-run-output-into-bcbiornadataset" class="section level2">
 <h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<p><a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default RMarkdown templates included in the package.</p>
+<a href="#load-bcbio-run-output-into-bcbiornadataset" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run output into <code>bcbioRNADataSet</code>
+</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeqRun.html">loadRNASeqRun</a></span>(
+    <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
+    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
+<p>Parameters:</p>
 <ul>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality control</a></li>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential expression</a></li>
+<li>
+<code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
+<li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNADataSet</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>metadata(bcb)$interestingGroups &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
 </ul>
+<p>Consult <code>help("loadRNASeqRun", "bcbioRNASeq")</code> for additional documentation.</p>
+</div>
+<div id="rmarkdown-templates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rmarkdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates</h2>
+<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates, including Quality Control and Differential Expression using <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
+<div id="examples" class="section level3">
+<h3 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h3>
+<p>View example <a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default <a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates included in the package:</p>
+<ul>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
+</ul>
+</div>
 </div>
 </div>
   </div>
