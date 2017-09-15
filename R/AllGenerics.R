@@ -39,19 +39,8 @@ NULL
 
 
 
-#' @rdname aggregateReplicates
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("aggregateReplicates", function(object, ...) {
-    standardGeneric("aggregateReplicates")
-})
-
-
-
 #' @rdname alphaSummary
 #' @family Differential Expression Utilities
-#' @author Michael Steinbaugh, Lorena Patano
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("alphaSummary", function(object, ...) {
@@ -60,26 +49,7 @@ setGeneric("alphaSummary", function(object, ...) {
 
 
 
-#' @rdname bcbio
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("bcbio", function(object, ...) {
-    standardGeneric("bcbio")
-})
-
-
-
-#' @rdname bcbio
-#' @export
-setGeneric("bcbio<-", function(object, ..., value) {
-    standardGeneric("bcbio<-")
-})
-
-
-
 #' @rdname meltLog10
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("meltLog10", function(object, ...) {
@@ -88,29 +58,19 @@ setGeneric("meltLog10", function(object, ...) {
 
 
 
-#' @rdname metadataTable
-#' @author Michael Steinbaugh
+#' @rdname plot53Bias
+#' @family Quality Control Plots
+#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
-setGeneric("metadataTable", function(object, ...) {
-    standardGeneric("metadataTable")
-})
-
-
-
-#' @rdname metrics
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("metrics", function(object) {
-    standardGeneric("metrics")
+setGeneric("plot53Bias", function(object, ...) {
+    standardGeneric("plot53Bias")
 })
 
 
 
 #' @rdname plotCorrelationHeatmap
 #' @family Heatmaps
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCorrelationHeatmap", function(object, ...) {
@@ -121,9 +81,8 @@ setGeneric("plotCorrelationHeatmap", function(object, ...) {
 
 #' @rdname plotCountDensity
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountDensity", function(object, ...) {
     standardGeneric("plotCountDensity")
@@ -133,9 +92,8 @@ setGeneric("plotCountDensity", function(object, ...) {
 
 #' @rdname plotCountsPerGene
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountsPerGene", function(object, ...) {
     standardGeneric("plotCountsPerGene")
@@ -145,7 +103,6 @@ setGeneric("plotCountsPerGene", function(object, ...) {
 
 #' @rdname plotDEGHeatmap
 #' @family Heatmaps
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotDEGHeatmap", function(object, counts, ...) {
@@ -156,9 +113,8 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 #' @rdname plotExonicMappingRate
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotExonicMappingRate", function(object, ...) {
     standardGeneric("plotExonicMappingRate")
@@ -168,7 +124,6 @@ setGeneric("plotExonicMappingRate", function(object, ...) {
 
 #' @rdname plotGenderMarkers
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenderMarkers", function(object, ...) {
@@ -179,7 +134,6 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 
 #' @rdname plotGene
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGene", function(object, ...) {
@@ -189,7 +143,7 @@ setGeneric("plotGene", function(object, ...) {
 
 
 #' @rdname plotGeneHeatmap
-#' @author Michael Steinbaugh
+#' @family Heatmaps
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGeneHeatmap", function(object, ...) {
@@ -200,9 +154,8 @@ setGeneric("plotGeneHeatmap", function(object, ...) {
 
 #' @rdname plotGeneSaturation
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric(
     "plotGeneSaturation",
@@ -214,9 +167,8 @@ setGeneric(
 
 #' @rdname plotGenesDetected
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenesDetected", function(object, counts, ...) {
     standardGeneric("plotGenesDetected")
@@ -226,9 +178,8 @@ setGeneric("plotGenesDetected", function(object, counts, ...) {
 
 #' @rdname plotIntronicMappingRate
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotIntronicMappingRate", function(object, ...) {
     standardGeneric("plotIntronicMappingRate")
@@ -238,9 +189,8 @@ setGeneric("plotIntronicMappingRate", function(object, ...) {
 
 #' @rdname plotMappedReads
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappedReads", function(object, ...) {
     standardGeneric("plotMappedReads")
@@ -250,9 +200,8 @@ setGeneric("plotMappedReads", function(object, ...) {
 
 #' @rdname plotMappingRate
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappingRate", function(object, ...) {
     standardGeneric("plotMappingRate")
@@ -262,7 +211,6 @@ setGeneric("plotMappingRate", function(object, ...) {
 
 #' @rdname plotMeanSD
 #' @family Differential Expression Utilities
-#' @author Michael Steinbaugh, Lorena Patano
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMeanSD", function(object, ...) {
@@ -272,7 +220,6 @@ setGeneric("plotMeanSD", function(object, ...) {
 
 
 #' @rdname plotPCACovariates
-#' @author Lorena Pantano, Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotPCACovariates", function(object, ...) {
@@ -283,9 +230,8 @@ setGeneric("plotPCACovariates", function(object, ...) {
 
 #' @rdname plotRRNAMappingRate
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotRRNAMappingRate", function(object, ...) {
     standardGeneric("plotRRNAMappingRate")
@@ -295,9 +241,8 @@ setGeneric("plotRRNAMappingRate", function(object, ...) {
 
 #' @rdname plotTotalReads
 #' @family Quality Control Plots
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inheritParams AllGenerics
 #' @inherit qcPlots
+#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotTotalReads", function(object, ...) {
     standardGeneric("plotTotalReads")
@@ -307,7 +252,6 @@ setGeneric("plotTotalReads", function(object, ...) {
 
 #' @rdname plotVolcano
 #' @family Differential Expression Plots
-#' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotVolcano", function(object, ...) {
@@ -316,20 +260,7 @@ setGeneric("plotVolcano", function(object, ...) {
 
 
 
-#' @rdname plot53Bias
-#' @family Quality Control Plots
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @inherit qcPlots
-#' @export
-setGeneric("plot53Bias", function(object, ...) {
-    standardGeneric("plot53Bias")
-})
-
-
-
 #' @rdname prepareRNASeqTemplate
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("prepareRNASeqTemplate", function(object, ...) {
@@ -339,7 +270,6 @@ setGeneric("prepareRNASeqTemplate", function(object, ...) {
 
 
 #' @rdname resultsTables
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("resultsTables", function(object, ...) {
@@ -348,18 +278,7 @@ setGeneric("resultsTables", function(object, ...) {
 
 
 
-#' @rdname sampleDirs
-#' @author Michael Steinbaugh
-#' @inheritParams AllGenerics
-#' @export
-setGeneric("sampleDirs", function(object) {
-    standardGeneric("sampleDirs")
-})
-
-
-
 #' @rdname tmm
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("tmm", function(object) {
@@ -369,7 +288,6 @@ setGeneric("tmm", function(object) {
 
 
 #' @rdname topTables
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("topTables", function(object, ...) {
@@ -379,7 +297,6 @@ setGeneric("topTables", function(object, ...) {
 
 
 #' @rdname tpm
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("tpm", function(object) {
@@ -389,7 +306,6 @@ setGeneric("tpm", function(object) {
 
 
 #' @rdname txi
-#' @author Michael Steinbaugh
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("txi", function(object) {
