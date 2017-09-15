@@ -25,6 +25,7 @@
 #' @examples
 #' data(bcb)
 #' plotPCA(bcb)
+#' plotPCA(bcb, interestingGroup = "group")
 #' plotPCA(bcb, label = FALSE)
 NULL
 
