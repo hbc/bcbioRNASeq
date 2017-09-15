@@ -12,9 +12,12 @@
 #'
 #' # bcbioRNADataSet
 #' plotIntronicMappingRate(bcb)
+#' plotIntronicMappingRate(bcb, interestingGroup = "group")
 #'
+#' \dontrun{
 #' # data.frame
 #' metrics(bcb) %>% plotIntronicMappingRate
+#' }
 NULL
 
 
@@ -54,11 +57,18 @@ setMethod(
     "bcbioRNADataSet",
     function(
         object,
+        interestingGroup,
         warnLimit = 20L,
         flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- .interestingGroup(object)
+        }
         .plotIntronicMappingRate(
             metrics(object),
-            interestingGroup = .interestingGroup(object),
+            interestingGroup = interestingGroup,
             warnLimit = warnLimit,
             flip = flip)
     })
