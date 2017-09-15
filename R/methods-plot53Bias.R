@@ -28,7 +28,6 @@ NULL
     interestingGroup = "sampleName",
     warnLimit = 2L,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~x53Bias,
@@ -57,6 +56,9 @@ setMethod("plot53Bias", "bcbioRNADataSet", function(
     interestingGroup,
     warnLimit = 2L,
     flip = TRUE) {
+    if (is.null(metrics(object))) {
+        return(NULL)
+    }
     if (missing(interestingGroup)) {
         interestingGroup <- .interestingGroup(object)
     }

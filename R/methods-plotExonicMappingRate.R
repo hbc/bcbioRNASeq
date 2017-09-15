@@ -28,7 +28,6 @@ NULL
     interestingGroup = "sampleName",
     passLimit = 60L,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~exonicRate * 100L,
@@ -58,6 +57,9 @@ setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(
     interestingGroup,
     passLimit = 60L,
     flip = TRUE) {
+    if (is.null(metrics(object))) {
+        return(NULL)
+    }
     if (missing(interestingGroup)) {
         interestingGroup <- .interestingGroup(object)
     }
