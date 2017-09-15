@@ -11,7 +11,7 @@
     metadata(object) %>%
         .[["interestingGroups"]] %>%
         .[[1L]] %>%
-        as.name
+        as.character
 }
 
 
