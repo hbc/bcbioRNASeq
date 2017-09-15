@@ -37,20 +37,3 @@
     meta %>%
         mutate_if(!colnames(.) %in% metaPriorityCols, factor)
 }
-
-
-
-.uniqueMetrics <- function(object) {
-    dropCols <- c(metaPriorityCols, "name")
-    metrics <- metadata(object)[["metrics"]] %>%
-        as.data.frame %>%
-        set_rownames(.[["sampleID"]]) %>%
-        .[, setdiff(colnames(.), dropCols), drop = FALSE]
-    # Find metrics columns with unique values
-    keepCols <- lapply(colnames(metrics), function(a) {
-        if (length(unique(metrics[, a])) > 1L) a
-    }) %>%
-        unlist %>%
-        .[!is.null(.)]
-    metrics[, keepCols, drop = FALSE]
-}
