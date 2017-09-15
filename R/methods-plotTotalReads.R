@@ -26,7 +26,6 @@ NULL
     passLimit = 20L,
     warnLimit = 10L,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~totalReads / 1e6L,
@@ -58,9 +57,15 @@ setMethod("plotTotalReads", "bcbioRNADataSet", function(
     passLimit = 20L,
     warnLimit = 10L,
     flip = TRUE) {
+    if (is.null(metrics(object))) {
+        return(NULL)
+    }
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plotTotalReads(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         passLimit = passLimit,
         warnLimit = warnLimit,
         flip = flip)

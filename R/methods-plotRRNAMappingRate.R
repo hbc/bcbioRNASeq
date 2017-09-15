@@ -12,6 +12,7 @@
 #'
 #' # bcbioRNADataSet
 #' plotRRNAMappingRate(bcb)
+#' plotRRNAMappingRate(bcb, interestingGroup = "group")
 #'
 #' # data.frame
 #' metrics(bcb) %>% plotRRNAMappingRate
@@ -25,7 +26,6 @@ NULL
     interestingGroup = "sampleName",
     warnLimit = 10L,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
                      y = ~rRnaRate * 100L,
@@ -51,11 +51,18 @@ NULL
 #' @export
 setMethod("plotRRNAMappingRate", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     warnLimit = 10L,
     flip = TRUE) {
+    if (is.null(metrics(object))) {
+        return(NULL)
+    }
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plotRRNAMappingRate(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         warnLimit = warnLimit,
         flip = flip)
 })

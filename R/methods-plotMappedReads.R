@@ -12,9 +12,12 @@
 #'
 #' # bcbioRNADataSet
 #' plotMappedReads(bcb)
+#' plotMappedReads(bcb, interestingGroup = "group")
 #'
+#' \dontrun{
 #' # data.frame
 #' metrics(bcb) %>% plotMappedReads
+#' }
 NULL
 
 
@@ -55,12 +58,19 @@ NULL
 #' @export
 setMethod("plotMappedReads", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     passLimit = 20L,
     warnLimit = 10L,
     flip = TRUE) {
+    if (is.null(metrics(object))) {
+        return(NULL)
+    }
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plotMappedReads(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         passLimit = passLimit,
         warnLimit = warnLimit,
         flip = flip)
