@@ -5,6 +5,7 @@
 #'
 #' @rdname plotMeanSD
 #' @name plotMeanSD
+#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @return [ggplot] grid.
 #'

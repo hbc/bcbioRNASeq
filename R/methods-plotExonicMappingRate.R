@@ -2,6 +2,7 @@
 #'
 #' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)

@@ -2,6 +2,7 @@
 #'
 #' @rdname resultsTables
 #' @name resultsTables
+#' @author Michael Steinbaugh
 #'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.

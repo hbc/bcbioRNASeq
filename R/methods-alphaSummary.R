@@ -2,6 +2,7 @@
 #'
 #' @rdname alphaSummary
 #' @name alphaSummary
+#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams DESeq2::results
 #' @param alpha Numeric vector of desired alpha cutoffs.

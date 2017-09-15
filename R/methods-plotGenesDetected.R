@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGenesDetected
 #' @name plotGenesDetected
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb, dds)

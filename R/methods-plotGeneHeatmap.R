@@ -9,6 +9,7 @@
 #'
 #' @rdname plotGeneHeatmap
 #' @name plotGeneHeatmap
+#' @author Michael Steinbaugh
 #'
 #' @param object Counts matrix.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the

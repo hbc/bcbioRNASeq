@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
+#' @author Michael Steinbaugh
 #'
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier

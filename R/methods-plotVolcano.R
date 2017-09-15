@@ -2,6 +2,7 @@
 #'
 #' @rdname plotVolcano
 #' @name plotVolcano
+#' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.

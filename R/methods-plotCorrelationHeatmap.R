@@ -8,6 +8,8 @@
 #'
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
+#' @author Michael Steinbaugh
+#'
 #' @inherit plotGeneHeatmap
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`

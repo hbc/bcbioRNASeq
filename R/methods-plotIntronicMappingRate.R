@@ -2,6 +2,7 @@
 #'
 #' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)

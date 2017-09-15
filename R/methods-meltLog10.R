@@ -2,6 +2,7 @@
 #'
 #' @rdname meltLog10
 #' @name meltLog10
+#' @author Michael Steinbaugh
 #'
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).

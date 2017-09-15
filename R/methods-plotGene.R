@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGene
 #' @name plotGene
+#' @author Michael Steinbaugh
 #'
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,

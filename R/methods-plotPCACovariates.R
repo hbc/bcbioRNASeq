@@ -4,6 +4,7 @@
 #'
 #' @rdname plotPCACovariates
 #' @name plotPCACovariates
+#' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @param transform String specifying [DESeqTransform] slotted inside the
 #'   [bcbioRNADataSet]:

@@ -2,6 +2,7 @@
 #'
 #' @rdname prepareRNASeqTemplate
 #' @name prepareRNASeqTemplate
+#' @author Michael Steinbaugh
 #'
 #' @return No value.
 #'

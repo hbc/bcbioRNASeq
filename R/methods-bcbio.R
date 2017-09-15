@@ -5,6 +5,7 @@
 #'
 #' @rdname bcbio
 #' @name bcbio
+#' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @param type Type of data to retrieve.
 #' @param value Value to assign.

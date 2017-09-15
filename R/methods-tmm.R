@@ -6,6 +6,7 @@
 #'
 #' @rdname tmm
 #' @name tmm
+#' @author Michael Steinbaugh
 #'
 #' @return [matrix].
 #' @export

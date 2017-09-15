@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGeneSaturation
 #' @name plotGeneSaturation
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb, rld)

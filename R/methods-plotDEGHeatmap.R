@@ -7,6 +7,8 @@
 #'
 #' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
+#' @author Michael Steinbaugh
+#'
 #' @inherit plotGeneHeatmap
 #'
 #' @param counts Secondary object containing a normalized count matrix.

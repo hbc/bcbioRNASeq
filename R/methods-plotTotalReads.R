@@ -2,6 +2,7 @@
 #'
 #' @rdname plotTotalReads
 #' @name plotTotalReads
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)

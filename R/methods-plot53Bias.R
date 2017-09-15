@@ -2,6 +2,7 @@
 #'
 #' @rdname plot53Bias
 #' @name plot53Bias
+#' @author Michael Steinbaugh
 #'
 #' @examples
 #' data(bcb)
@@ -47,11 +48,15 @@ NULL
 #' @export
 setMethod("plot53Bias", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     warnLimit = 2L,
     flip = TRUE) {
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plot53Bias(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         warnLimit = warnLimit,
         flip = flip)
 })

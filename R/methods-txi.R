@@ -2,6 +2,7 @@
 #'
 #' @rdname txi
 #' @name txi
+#' @author Michael Steinbaugh
 #'
 #' @return [tximport::tximport()] list.
 #'

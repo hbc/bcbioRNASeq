@@ -2,6 +2,7 @@
 #'
 #' @rdname plotRRNAMappingRate
 #' @name plotRRNAMappingRate
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)

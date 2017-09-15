@@ -2,6 +2,7 @@
 #'
 #' @rdname plotMappedReads
 #' @name plotMappedReads
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)

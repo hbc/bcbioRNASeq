@@ -2,6 +2,7 @@
 #'
 #' @rdname plotCountsPerGene
 #' @name plotCountsPerGene
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @examples
 #' data(bcb)
