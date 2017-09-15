@@ -11,7 +11,7 @@
 #'
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
-#' @param ... Options to pass to [plotGeneHearmap()].
+#' @param ... Options to pass to [plotGeneHeatmap()].
 #' @examples
 #' data(dds, res, rld)
 #'

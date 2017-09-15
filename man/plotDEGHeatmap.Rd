@@ -20,7 +20,7 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{counts}{Secondary object containing a normalized count matrix.}
 
-\item{...}{Options to pass to \code{\link[=plotGeneHearmap]{plotGeneHearmap()}}.}
+\item{...}{Options to pass to \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
