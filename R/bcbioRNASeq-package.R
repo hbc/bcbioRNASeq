@@ -3,12 +3,11 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
-#' @import methods
+#' @import basejump methods
+#'
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
-#' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
-#'   mdHeader mdList prepareSummarizedExperiment prepareTemplate
-#'   readFileByExtension readYAML removeNA snake tx2gene
+#'
 #' @importFrom BiocGenerics counts design density plotDispEsts plotMA plotPCA
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
