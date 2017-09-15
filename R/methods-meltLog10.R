@@ -33,7 +33,7 @@ NULL
         stop("Sample name mismatch between counts and metadata")
     }
     .meltLog10(counts) %>%
-        left_join(metadata, by = "sampleID")
+        left_join(as.data.frame(metadata), by = "sampleID")
 }
 
 
@@ -47,7 +47,7 @@ NULL
         .[.[["counts"]] > 0L, ] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]]),
-               # [melt()] sets colnames as factor
+               # `melt()` sets colnames as factor
                sampleID = as.character(.data[["sampleID"]]))
 }
 
@@ -59,12 +59,9 @@ NULL
 setMethod("meltLog10", "bcbioRNADataSet", function(
     object,
     normalized = TRUE) {
-    counts <- counts(object, normalized = normalized)
-    interestingGroups <- metadata(object)[["interestingGroups"]]
-    metadata <- colData(object) %>%
-        as.data.frame %>%
-        .[, c(metaPriorityCols, interestingGroups)]
-    .joinMelt(counts, metadata)
+    .joinMelt(
+        counts = counts(object, normalized = normalized),
+        metadata = colData(object))
 })
 
 
@@ -73,32 +70,18 @@ setMethod("meltLog10", "bcbioRNADataSet", function(
 #' @export
 setMethod("meltLog10", "DESeqDataSet", function(
     object,
-    normalized = TRUE,
-    interestingGroups = NULL) {
-    counts <- counts(object, normalized = normalized)
-    metadata <- colData(object) %>%
-        as.data.frame
-    if (!is.null(interestingGroups)) {
-        metadata <- metadata %>%
-            .[, c(metaPriorityCols, interestingGroups)]
-    }
-    .joinMelt(counts, metadata)
+    normalized = TRUE) {
+    .joinMelt(
+        counts = counts(object, normalized = normalized),
+        metadata = colData(object))
 })
 
 
 
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "DESeqTransform", function(
-    object,
-    interestingGroups = NULL) {
-    counts <- assay(object)
-    metadata <- colData(object) %>%
-        as.data.frame %>%
-        rownames_to_column("colname")
-    if (!is.null(interestingGroups)) {
-        metadata <- metadata %>%
-            .[, c("colname", interestingGroups)]
-    }
-    .joinMelt(counts, metadata)
+setMethod("meltLog10", "DESeqTransform", function(object) {
+    .joinMelt(
+        counts = assay(object),
+        metadata = colData(object))
 })
