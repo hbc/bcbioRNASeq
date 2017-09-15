@@ -11,7 +11,7 @@
 #'
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
-#'
+#' @param ... Options to pass to [plotGeneHearmap()].
 #' @examples
 #' data(dds, res, rld)
 #'
@@ -30,7 +30,8 @@ NULL
     counts,
     alpha = 0.01,
     lfc = 0L,
-    title = TRUE) {
+    title = TRUE,
+    ...) {
     results <- results %>%
         as.data.frame %>%
         camel %>%
@@ -54,7 +55,7 @@ NULL
     if (length(genes) < 2L) {
         message(paste(length(genes), "is too few to plot"))
     } else {
-        plotGeneHeatmap(counts, genes = genes, title = title)
+        plotGeneHeatmap(counts, genes = genes, title = title, ...)
     }
 }
 
@@ -70,7 +71,8 @@ setMethod(
     function(
         object,
         counts,
-        lfc = 0L) {
+        lfc = 0L,
+        ...) {
         results <- as.data.frame(object)
         counts <- assay(counts)
         alpha <- metadata(object)[["alpha"]]
@@ -80,7 +82,8 @@ setMethod(
             counts = counts,
             alpha = alpha,
             lfc = lfc,
-            title = title)
+            title = title,
+            ...)
     })
 
 
@@ -95,7 +98,8 @@ setMethod(
         object,
         counts,
         lfc = 0L,
-        title = TRUE) {
+        title = TRUE,
+        ...) {
         warning("Using a DESeqTransform object for counts is recommended",
                 call. = FALSE)
         results <- as.data.frame(object)
@@ -107,5 +111,6 @@ setMethod(
             counts = counts,
             alpha = alpha,
             lfc = lfc,
-            title = title)
+            title = title,
+            ...)
     })
