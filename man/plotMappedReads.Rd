@@ -9,8 +9,8 @@
 \usage{
 plotMappedReads(object, ...)
 
-\S4method{plotMappedReads}{bcbioRNADataSet}(object, passLimit = 20L,
-  warnLimit = 10L, flip = TRUE)
+\S4method{plotMappedReads}{bcbioRNADataSet}(object, interestingGroup,
+  passLimit = 20L, warnLimit = 10L, flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
   interestingGroup = "sampleName", passLimit = 20L, warnLimit = 10L,
@@ -21,15 +21,15 @@ plotMappedReads(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
+
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -42,9 +42,12 @@ data(bcb)
 
 # bcbioRNADataSet
 plotMappedReads(bcb)
+plotMappedReads(bcb, interestingGroup = "group")
 
+\dontrun{
 # data.frame
 metrics(bcb) \%>\% plotMappedReads
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

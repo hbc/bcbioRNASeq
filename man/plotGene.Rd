@@ -8,8 +8,8 @@
 \usage{
 plotGene(object, ...)
 
-\S4method{plotGene}{bcbioRNADataSet}(object, normalized = "tpm", gene,
-  format = "symbol")
+\S4method{plotGene}{bcbioRNADataSet}(object, interestingGroup,
+  normalized = "tpm", gene, format = "symbol")
 }
 \arguments{
 \item{object}{Object.}
@@ -32,7 +32,11 @@ Plot Individual Genes
 }
 \examples{
 data(bcb)
-plotGene(bcb, gene = c("Sulf1", "Phf3"))
+genes <- c("Sulf1", "Phf3")
+
+# bcbioRNADataSet
+plotGene(bcb, gene = genes)
+plotGene(bcb, gene = genes, interestingGroup = "group")
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

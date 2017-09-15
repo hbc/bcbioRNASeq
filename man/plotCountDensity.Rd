@@ -9,7 +9,8 @@
 \usage{
 plotCountDensity(object, ...)
 
-\S4method{plotCountDensity}{bcbioRNADataSet}(object, normalized = "tmm")
+\S4method{plotCountDensity}{bcbioRNADataSet}(object, interestingGroup,
+  normalized = "tmm")
 
 \S4method{plotCountDensity}{data.frame}(object,
   interestingGroup = "sampleName")
@@ -19,12 +20,12 @@ plotCountDensity(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
-for more information.}
-
 \item{interestingGroup}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
 \link{bcbioRNADataSet}.}
+
+\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
+for more information.}
 }
 \value{
 \link{ggplot}.
@@ -36,11 +37,14 @@ Plot Count Density
 data(bcb)
 
 # bcbioRNADataSet
-plotCountDensity(bcb, normalized = "tmm")
+plotCountDensity(bcb)
+plotCountDensity(bcb, interestingGroup = "group")
 
+\dontrun{
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
     plotCountDensity
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

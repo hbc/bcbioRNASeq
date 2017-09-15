@@ -10,8 +10,8 @@
 \usage{
 plotExonicMappingRate(object, ...)
 
-\S4method{plotExonicMappingRate}{bcbioRNADataSet}(object, passLimit = 60L,
-  flip = TRUE)
+\S4method{plotExonicMappingRate}{bcbioRNADataSet}(object, interestingGroup,
+  passLimit = 60L, flip = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
   interestingGroup = "sampleName", passLimit = 60L, flip = TRUE)
@@ -21,13 +21,13 @@ plotExonicMappingRate(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{passLimit}{Threshold to plot pass color marker.}
-
-\item{flip}{Flip X and Y axes.}
-
 \item{interestingGroup}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
 \link{bcbioRNADataSet}.}
+
+\item{passLimit}{Threshold to plot pass color marker.}
+
+\item{flip}{Flip X and Y axes.}
 }
 \value{
 \link{ggplot}.
@@ -40,9 +40,12 @@ data(bcb)
 
 # bcbioRNADataSet
 plotExonicMappingRate(bcb)
+plotExonicMappingRate(bcb, interestingGroup = "group")
 
+\dontrun{
 # data.frame
 metrics(bcb) \%>\% plotExonicMappingRate
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

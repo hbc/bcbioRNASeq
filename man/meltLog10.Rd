@@ -12,10 +12,9 @@ meltLog10(object, ...)
 
 \S4method{meltLog10}{bcbioRNADataSet}(object, normalized = TRUE)
 
-\S4method{meltLog10}{DESeqDataSet}(object, normalized = TRUE,
-  interestingGroups = NULL)
+\S4method{meltLog10}{DESeqDataSet}(object, normalized = TRUE)
 
-\S4method{meltLog10}{DESeqTransform}(object, interestingGroups = NULL)
+\S4method{meltLog10}{DESeqTransform}(object)
 }
 \arguments{
 \item{object}{Object.}

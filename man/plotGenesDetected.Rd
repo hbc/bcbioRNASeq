@@ -10,11 +10,12 @@
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object,
+\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object, interestingGroup,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
-  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
+  interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
+  minCounts = 0L, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
   interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
@@ -27,6 +28,10 @@ plotGenesDetected(object, counts, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
+
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
@@ -35,10 +40,6 @@ plotGenesDetected(object, counts, ...)
 plotting.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -50,16 +51,31 @@ Plot Genes Detected
 data(bcb, dds)
 
 # bcbioRNADataSet
-plotGenesDetected(bcb)
-plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
+plotGenesDetected(
+    bcb,
+    passLimit = NULL,
+    warnLimit = NULL)
+plotGenesDetected(
+    bcb,
+    interestingGroup = "group",
+    passLimit = NULL,
+    warnLimit = NULL)
 
+\dontrun{
 # data.frame, DESeqDataSet
-plotGenesDetected(metrics(bcb), dds,
-                  passLimit = NULL, warnLimit = NULL)
+plotGenesDetected(
+    metrics(bcb),
+    counts = dds,
+    passLimit = NULL,
+    warnLimit = NULL)
 
 # data.frame, matrix
-plotGenesDetected(metrics(bcb), assay(dds),
-                  passLimit = NULL, warnLimit = NULL)
+plotGenesDetected(
+    metrics(bcb),
+    counts = assay(dds),
+    passLimit = NULL,
+    warnLimit = NULL)
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

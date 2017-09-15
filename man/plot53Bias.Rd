@@ -39,9 +39,12 @@ data(bcb)
 
 # bcbioRNADataSet
 plot53Bias(bcb)
+plot53Bias(bcb, interestingGroup = "group")
 
+\dontrun{
 # data.frame
 metrics(bcb) \%>\% plot53Bias
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},

@@ -9,7 +9,7 @@
 \usage{
 plotGeneSaturation(object, counts, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNADataSet,missing}(object,
+\S4method{plotGeneSaturation}{bcbioRNADataSet,missing}(object, interestingGroup,
   normalized = "tmm", minCounts = 0L)
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
@@ -22,15 +22,15 @@ plotGeneSaturation(object, counts, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroup}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNADataSet}.}
+
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -43,9 +43,12 @@ data(bcb, rld)
 
 # bcbioRNADataSet
 plotGeneSaturation(bcb)
+plotGeneSaturation(bcb, interestingGroup = "group")
 
+\dontrun{
 # data.frame, matrix
 plotGeneSaturation(metrics(bcb), assay(rld))
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
