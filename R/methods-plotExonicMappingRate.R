@@ -2,16 +2,22 @@
 #'
 #' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
 #' plotExonicMappingRate(bcb)
+#' plotExonicMappingRate(bcb, interestingGroup = "group")
 #'
+#' \dontrun{
 #' # data.frame
 #' metrics(bcb) %>% plotExonicMappingRate
+#' }
 NULL
 
 
@@ -49,11 +55,15 @@ NULL
 #' @export
 setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     passLimit = 60L,
     flip = TRUE) {
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plotExonicMappingRate(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         passLimit = passLimit,
         flip = flip)
 })

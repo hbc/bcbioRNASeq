@@ -9,6 +9,7 @@
 #'
 #' @rdname plotGeneHeatmap
 #' @name plotGeneHeatmap
+#' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
 #' @param object Counts matrix.

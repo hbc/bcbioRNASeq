@@ -2,7 +2,10 @@
 #'
 #' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)

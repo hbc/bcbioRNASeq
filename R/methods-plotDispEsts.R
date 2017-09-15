@@ -14,6 +14,8 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNADataSet
 #' plotDispEsts(bcb)
 #' plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
 NULL

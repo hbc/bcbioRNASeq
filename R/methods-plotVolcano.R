@@ -2,6 +2,7 @@
 #'
 #' @rdname plotVolcano
 #' @name plotVolcano
+#' @family Differential Expression Plots
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @param alpha Alpha level cutoff used for coloring.

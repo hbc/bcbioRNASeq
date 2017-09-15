@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
 #' @param organism *Optional*. Organism name. Should be detected automatically,

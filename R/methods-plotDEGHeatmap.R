@@ -7,6 +7,7 @@
 #'
 #' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
+#' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotGeneHeatmap

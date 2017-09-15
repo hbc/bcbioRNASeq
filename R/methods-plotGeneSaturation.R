@@ -2,7 +2,10 @@
 #'
 #' @rdname plotGeneSaturation
 #' @name plotGeneSaturation
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb, rld)

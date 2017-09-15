@@ -8,6 +8,7 @@
 #'
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
+#' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotGeneHeatmap

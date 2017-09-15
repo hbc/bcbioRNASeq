@@ -2,17 +2,23 @@
 #'
 #' @rdname plotCountsPerGene
 #' @name plotCountsPerGene
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
-#' plotCountsPerGene(bcb, normalized = "tmm")
+#' plotCountsPerGene(bcb)
+#' plotCountsPerGene(bcb, interestingGroup = "group")
 #'
+#' \dontrun{
 #' # data.frame
 #' meltLog10(bcb, normalized = "tmm") %>%
 #'     plotCountsPerGene
+#' }
 NULL
 
 
@@ -44,11 +50,15 @@ NULL
 #' @export
 setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     normalized = "tmm",
     flip = TRUE) {
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
     .plotCountsPerGene(
         meltLog10(object, normalized = normalized),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroup,
         flip = flip)
 })
 

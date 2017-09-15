@@ -5,6 +5,7 @@
 #'
 #' @rdname plotMeanSD
 #' @name plotMeanSD
+#' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @return [ggplot] grid.
