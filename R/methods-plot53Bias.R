@@ -2,16 +2,22 @@
 #'
 #' @rdname plot53Bias
 #' @name plot53Bias
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh
+#'
+#' @inherit qcPlots
 #'
 #' @examples
 #' data(bcb)
 #'
 #' # bcbioRNADataSet
 #' plot53Bias(bcb)
+#' plot53Bias(bcb, interestingGroup = "group")
 #'
+#' \dontrun{
 #' # data.frame
 #' metrics(bcb) %>% plot53Bias
+#' }
 NULL
 
 
