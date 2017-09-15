@@ -59,8 +59,6 @@ setGeneric("meltLog10", function(object, ...) {
 
 
 #' @rdname plot53Bias
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plot53Bias", function(object, ...) {
@@ -70,7 +68,6 @@ setGeneric("plot53Bias", function(object, ...) {
 
 
 #' @rdname plotCorrelationHeatmap
-#' @family Heatmaps
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCorrelationHeatmap", function(object, ...) {
@@ -80,8 +77,6 @@ setGeneric("plotCorrelationHeatmap", function(object, ...) {
 
 
 #' @rdname plotCountDensity
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountDensity", function(object, ...) {
@@ -91,8 +86,6 @@ setGeneric("plotCountDensity", function(object, ...) {
 
 
 #' @rdname plotCountsPerGene
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountsPerGene", function(object, ...) {
@@ -102,7 +95,6 @@ setGeneric("plotCountsPerGene", function(object, ...) {
 
 
 #' @rdname plotDEGHeatmap
-#' @family Heatmaps
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotDEGHeatmap", function(object, counts, ...) {
@@ -112,8 +104,6 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 #' @rdname plotExonicMappingRate
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotExonicMappingRate", function(object, ...) {
@@ -123,7 +113,6 @@ setGeneric("plotExonicMappingRate", function(object, ...) {
 
 
 #' @rdname plotGenderMarkers
-#' @family Quality Control Plots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenderMarkers", function(object, ...) {
@@ -133,7 +122,6 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 
 
 #' @rdname plotGene
-#' @family Quality Control Plots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGene", function(object, ...) {
@@ -143,7 +131,6 @@ setGeneric("plotGene", function(object, ...) {
 
 
 #' @rdname plotGeneHeatmap
-#' @family Heatmaps
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGeneHeatmap", function(object, ...) {
@@ -153,8 +140,6 @@ setGeneric("plotGeneHeatmap", function(object, ...) {
 
 
 #' @rdname plotGeneSaturation
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric(
@@ -166,8 +151,6 @@ setGeneric(
 
 
 #' @rdname plotGenesDetected
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenesDetected", function(object, counts, ...) {
@@ -177,8 +160,6 @@ setGeneric("plotGenesDetected", function(object, counts, ...) {
 
 
 #' @rdname plotIntronicMappingRate
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotIntronicMappingRate", function(object, ...) {
@@ -188,8 +169,6 @@ setGeneric("plotIntronicMappingRate", function(object, ...) {
 
 
 #' @rdname plotMappedReads
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappedReads", function(object, ...) {
@@ -199,8 +178,6 @@ setGeneric("plotMappedReads", function(object, ...) {
 
 
 #' @rdname plotMappingRate
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappingRate", function(object, ...) {
@@ -210,7 +187,6 @@ setGeneric("plotMappingRate", function(object, ...) {
 
 
 #' @rdname plotMeanSD
-#' @family Differential Expression Utilities
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMeanSD", function(object, ...) {
@@ -229,8 +205,6 @@ setGeneric("plotPCACovariates", function(object, ...) {
 
 
 #' @rdname plotRRNAMappingRate
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotRRNAMappingRate", function(object, ...) {
@@ -240,8 +214,6 @@ setGeneric("plotRRNAMappingRate", function(object, ...) {
 
 
 #' @rdname plotTotalReads
-#' @family Quality Control Plots
-#' @inherit qcPlots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotTotalReads", function(object, ...) {
@@ -251,7 +223,6 @@ setGeneric("plotTotalReads", function(object, ...) {
 
 
 #' @rdname plotVolcano
-#' @family Differential Expression Plots
 #' @inheritParams AllGenerics
 #' @export
 setGeneric("plotVolcano", function(object, ...) {
