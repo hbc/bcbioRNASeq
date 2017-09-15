@@ -1,5 +1,5 @@
 language: r
-cache: packages
+# cache: packages
 sudo: false
 dist: trusty
 warnings_are_errors: false
