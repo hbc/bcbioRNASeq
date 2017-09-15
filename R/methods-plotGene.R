@@ -2,6 +2,7 @@
 #'
 #' @rdname plotGene
 #' @name plotGene
+#' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
@@ -21,11 +22,46 @@ NULL
 
 
 
+# Constructors ====
+.plotGene <- function(
+    counts,
+    gene,
+    metadata,
+    interestingGroup = "sampleName") {
+    metadata <- as.data.frame(metadata)
+    sapply(seq_along(gene), function(a) {
+        ensgene <- gene[[a]]
+        symbol <- names(gene)[[a]]
+        df <- data.frame(
+            x = colnames(counts),
+            y = counts[ensgene, ],
+            color = metadata[[as.character(interestingGroup)]])
+        p <- ggplot(df,
+                aes_(x = ~x,
+                     y = ~y,
+                     color = ~color)) +
+            geom_point(size = 4L) +
+            theme(
+                axis.text.x = element_text(angle = 90L)) +
+            labs(title = symbol,
+                 x = "sample",
+                 y = paste0("counts (", normalized, ")"),
+                 color = interestingGroup) +
+            expand_limits(y = 0L) +
+            scale_color_viridis(discrete = TRUE)
+        show(p)
+    }) %>%
+        invisible
+}
+
+
+
 # Methods ====
 #' @rdname plotGene
 #' @export
 setMethod("plotGene", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     normalized = "tpm",
     gene,
     format = "symbol") {
@@ -33,43 +69,27 @@ setMethod("plotGene", "bcbioRNADataSet", function(
         stop("Unsupported gene identifier format")
     }
     if (is.logical(normalized)) {
-        stop("Explicit request of normalized counts format is required")
+        warning("Explicit format of normalized counts format is recommended")
     }
+    if (missing(interestingGroup)) {
+        interestingGroup <- .interestingGroup(object)
+    }
+
     counts <- counts(object, normalized = normalized)
     metadata <- colData(object)
-    color <- metadata(object)[["interestingGroups"]][[1L]]
 
     # Match unique gene identifier with name (gene symbol) using the
     # internally stored Ensembl annotations saved in the run object
-    match <- metadata(object)[["annotable"]] %>%
-        .[.[[format]] %in% gene, ] %>%
+    gene2symbol <- metadata(object) %>%
+        .[["annotable"]] %>%
+        .[.[[format]] %in% gene, , drop = FALSE] %>%
         .[, c("symbol", "ensgene")]
+    gene <- gene2symbol[["ensgene"]]
+    names(gene) <- gene2symbol[["symbol"]]
 
-    # Seq along Ensembl data frame here instead of the gene input vector,
-    # which will then output only genes that match Ensembl
-    lapply(1L:nrow(match), function(a) {
-        geneName <- match[["symbol"]][[a]]
-        geneID <- match[["ensgene"]][[a]]
-        plot <- data.frame(
-            x = colnames(counts),
-            y = counts[geneID, ],
-            color = metadata[[color]]) %>%
-            ggplot(
-                aes_(x = ~x,
-                     y = ~y,
-                     color = ~color)
-            ) +
-            geom_point(size = 4L) +
-            theme(
-                axis.text.x = element_text(angle = 90L)
-            ) +
-            labs(title = geneName,
-                 x = "sample",
-                 y = paste0("counts (", normalized, ")"),
-                 color = color) +
-            expand_limits(y = 0L) +
-            scale_color_viridis(discrete = TRUE)
-        show(plot)
-    }) %>%
-        invisible
+    .plotGene(
+        counts = counts,
+        gene = gene,
+        metadata = metadata,
+        interestingGroup = interestingGroup)
 })
