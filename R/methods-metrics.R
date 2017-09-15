@@ -12,17 +12,13 @@ NULL
 
 
 
-# Constructors ====
-.metrics <- function(object) {
-    metrics <- .uniqueMetrics(object)
-    if (is.null(metrics)) return(NULL)
-    meta <- .interestingColData(object)
-    cbind(meta, metrics)
-}
-
-
-
 # Methods ====
 #' @rdname metrics
 #' @export
-setMethod("metrics", "bcbioRNADataSet", .metrics)
+setMethod("metrics", "bcbioRNADataSet", function(object) {
+    left_join(
+        as.data.frame(colData(object)),
+        as.data.frame(metadata(object)[["metrics"]]),
+        by = c("sampleID", "sampleName")
+    )
+})
