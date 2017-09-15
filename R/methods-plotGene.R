@@ -39,7 +39,7 @@ NULL
         df <- data.frame(
             x = colnames(counts),
             y = counts[ensgene, ],
-            color = metadata[[as.character(interestingGroup)]])
+            color = metadata[[interestingGroup]])
         p <- ggplot(df,
                 aes_(x = ~x,
                      y = ~y,
