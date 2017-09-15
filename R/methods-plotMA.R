@@ -44,7 +44,7 @@ NULL
     results <- object %>%
         as("tibble") %>%
         camel %>%
-        .[!is.na(.[["padj"]]), ]
+        .[!is.na(.[["padj"]]), , drop = FALSE]
     p <- ggplot(results,
                 aes_(x = ~baseMean,
                      y = ~log2FoldChange,
