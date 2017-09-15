@@ -9,7 +9,8 @@
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNADataSet}(object, warnLimit = 2L, flip = TRUE)
+\S4method{plot53Bias}{bcbioRNADataSet}(object, interestingGroup,
+  warnLimit = 2L, flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroup = "sampleName",
   warnLimit = 2L, flip = TRUE)
@@ -19,13 +20,13 @@ plot53Bias(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{warnLimit}{Threshold to plot warning color marker.}
-
-\item{flip}{Flip X and Y axes.}
-
 \item{interestingGroup}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
 \link{bcbioRNADataSet}.}
+
+\item{warnLimit}{Threshold to plot warning color marker.}
+
+\item{flip}{Flip X and Y axes.}
 }
 \value{
 \link{ggplot}.

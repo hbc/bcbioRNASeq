@@ -65,7 +65,11 @@ plotGeneHeatmap(rld)
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+
+Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotDEGHeatmap}}
 }
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}

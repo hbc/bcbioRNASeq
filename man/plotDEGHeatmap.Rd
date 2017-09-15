@@ -45,7 +45,8 @@ plotDEGHeatmap(res, rld)
 plotDEGHeatmap(res, dds)
 }
 \seealso{
-Other Heatmaps: \code{\link{plotCorrelationHeatmap}}
+Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotGeneHeatmap}}
 }
 \author{
 Michael Steinbaugh

@@ -53,7 +53,8 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 \item \code{\link[stats:hclust]{stats::hclust()}}.
 }
 
-Other Heatmaps: \code{\link{plotDEGHeatmap}}
+Other Heatmaps: \code{\link{plotDEGHeatmap}},
+  \code{\link{plotGeneHeatmap}}
 }
 \author{
 Michael Steinbaugh
