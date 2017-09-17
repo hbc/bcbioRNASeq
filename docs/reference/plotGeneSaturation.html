@@ -93,7 +93,7 @@
     <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNADataSet,missing</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>,
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>interestingGroup</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
 
 <span class='co'># S4 method for data.frame,matrix</span>
@@ -116,6 +116,12 @@
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
     </tr>
     <tr>
+      <th>interestingGroup</th>
+      <td><p>Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+    </tr>
+    <tr>
       <th>normalized</th>
       <td><p>Count normalization method. See <code><a href='counts.html'>counts()</a></code> documentation
 for more information.</p></td>
@@ -124,12 +130,6 @@ for more information.</p></td>
       <th>minCounts</th>
       <td><p>Numeric value for filtering the counts matrix before
 plotting.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p>Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     </table>
     
@@ -156,9 +156,11 @@ If unset, this is automatically determined by the metadata set inside the
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>rld</span>)
 
 <span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># data.frame, matrix</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>rld</span>))</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGeneSaturation</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>rld</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

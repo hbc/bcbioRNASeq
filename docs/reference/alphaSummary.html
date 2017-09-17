@@ -144,39 +144,39 @@ object contains an internal DESeqDataSet with an empty design formula.</p>
 <span class='co'># bcbioRNADataSet</span>
 <span class='fu'>alphaSummary</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Empty DESeqDataSet design formula detected</span></div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
-#&gt; |:--------------|:---|:----|:----|:-----|:-----|
-#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
-#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
-#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
-#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
-#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'>
+#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
+#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
+#&gt; |LFC &gt; 0 (up)   |170, 56%         |166, 55%         |157, 52%         |151, 50%         |136, 45%         |
+#&gt; |LFC &lt; 0 (down) |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |outliers       |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |
+#&gt; |low counts     |67, 22%          |57, 19%          |0, 0%            |63, 21%          |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 1) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='fu'>alphaSummary</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
-#&gt; |:--------------|:---|:----|:----|:-----|:-----|
-#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
-#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
-#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
-#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
-#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"group"</span>, <span class='st'>"ko"</span>, <span class='st'>"ctrl"</span>))</div><div class='output co'>#&gt; 
+#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
+#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
+#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"group"</span>, <span class='st'>"ko"</span>, <span class='st'>"ctrl"</span>))</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
-#&gt; |:--------------|:---|:----|:----|:-----|:-----|
-#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
-#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
-#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
-#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
-#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"group_ko_vs_ctrl"</span>)</div><div class='output co'>#&gt; 
+#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
+#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
+#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"group_ko_vs_ctrl"</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1 |0.05 |0.01 |0.001 |1e-06 |
-#&gt; |:--------------|:---|:----|:----|:-----|:-----|
-#&gt; |LFC &gt; 0 (up)   |NA  |NA   |NA   |NA    |NA    |
-#&gt; |LFC &lt; 0 (down) |NA  |NA   |NA   |NA    |NA    |
-#&gt; |outliers       |NA  |NA   |NA   |NA    |NA    |
-#&gt; |low counts     |NA  |NA   |NA   |NA    |NA    |
-#&gt; |cutoff         |NA  |NA   |NA   |NA    |NA    |</div></pre>
+#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
+#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
+#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
