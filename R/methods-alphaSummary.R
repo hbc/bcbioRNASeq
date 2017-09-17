@@ -2,8 +2,10 @@
 #'
 #' @rdname alphaSummary
 #' @name alphaSummary
+#' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @inheritParams AllGenerics
 #' @inheritParams DESeq2::results
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param caption *Optional*. Character vector to add as caption to the table.

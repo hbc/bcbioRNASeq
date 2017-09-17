@@ -6,6 +6,7 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param transform String specifying [DESeqTransform] slotted inside the
 #'   [bcbioRNADataSet]:
 #'   - `rlog` (**recommended**).

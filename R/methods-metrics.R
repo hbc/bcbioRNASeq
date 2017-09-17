@@ -3,6 +3,8 @@
 #' @rdname metrics
 #' @name metrics
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [data.frame].
 #'
 #' @examples

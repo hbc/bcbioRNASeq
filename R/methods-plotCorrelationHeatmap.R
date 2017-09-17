@@ -13,6 +13,7 @@
 #'
 #' @inherit plotGeneHeatmap
 #'
+#' @inheritParams AllGenerics
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
 #'   inside the [bcbioRNADataSet].

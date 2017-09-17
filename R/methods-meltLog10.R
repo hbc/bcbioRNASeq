@@ -4,9 +4,9 @@
 #' @name meltLog10
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
-#' @param interestingGroups *Optional*. Interesting groups.
 #'
 #' @seealso [reshape2::melt()].
 #'

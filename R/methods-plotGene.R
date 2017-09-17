@@ -5,6 +5,8 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
+#' @inherit qcPlots
+#'
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
