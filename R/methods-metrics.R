@@ -22,5 +22,6 @@ setMethod("metrics", "bcbioRNADataSet", function(object) {
         as.data.frame(colData(object)),
         as.data.frame(metadata(object)[["metrics"]]),
         by = c("sampleID", "sampleName")
-    )
+    ) %>%
+        set_rownames(.[["sampleID"]])
 })
