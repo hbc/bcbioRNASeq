@@ -38,6 +38,7 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 \examples{
 data(bcb)
 plotPCA(bcb)
+plotPCA(bcb, interestingGroup = "group")
 plotPCA(bcb, label = FALSE)
 }
 \seealso{

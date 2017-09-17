@@ -12,6 +12,8 @@
 \S4method{aggregateReplicates}{DESeqDataSet}(object, pattern = "_L\\\\d+")
 }
 \arguments{
+\item{object}{Object.}
+
 \item{pattern}{Grep pattern to match lane identifiers in sample name.}
 }
 \value{

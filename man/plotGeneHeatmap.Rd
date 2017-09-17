@@ -24,7 +24,7 @@ plotGeneHeatmap(object, ...)
   annotationCol = NULL, title = NULL)
 }
 \arguments{
-\item{object}{Counts matrix.}
+\item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 

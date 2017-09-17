@@ -12,6 +12,8 @@
 \S4method{bcbio}{bcbioRNADataSet}(object, type) <- value
 }
 \arguments{
+\item{object}{Object.}
+
 \item{type}{Type of data to retrieve.}
 
 \item{value}{Value to assign.}

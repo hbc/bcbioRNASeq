@@ -15,6 +15,8 @@
 \S4method{metadataTable}{DESeqTransform}(object, ...)
 }
 \arguments{
+\item{object}{Object.}
+
 \item{...}{Additional parameters, passed to \code{\link[=kable]{kable()}}.}
 }
 \value{
