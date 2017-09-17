@@ -22,6 +22,7 @@ NULL
 #' @name qcPlots
 #' @keywords internal
 #'
+#' @inheritParams AllGenerics
 #' @param counts Object containing a count matrix.
 #' @param flip Flip X and Y axes.
 #' @param interestingGroup Category to use to group samples (color and shape).
@@ -40,8 +41,6 @@ NULL
 
 
 #' @rdname alphaSummary
-#' @family Differential Expression Utilities
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("alphaSummary", function(object, ...) {
     standardGeneric("alphaSummary")
@@ -50,7 +49,6 @@ setGeneric("alphaSummary", function(object, ...) {
 
 
 #' @rdname meltLog10
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("meltLog10", function(object, ...) {
     standardGeneric("meltLog10")
@@ -59,7 +57,6 @@ setGeneric("meltLog10", function(object, ...) {
 
 
 #' @rdname plot53Bias
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plot53Bias", function(object, ...) {
     standardGeneric("plot53Bias")
@@ -68,7 +65,6 @@ setGeneric("plot53Bias", function(object, ...) {
 
 
 #' @rdname plotCorrelationHeatmap
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCorrelationHeatmap", function(object, ...) {
     standardGeneric("plotCorrelationHeatmap")
@@ -77,7 +73,6 @@ setGeneric("plotCorrelationHeatmap", function(object, ...) {
 
 
 #' @rdname plotCountDensity
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountDensity", function(object, ...) {
     standardGeneric("plotCountDensity")
@@ -86,7 +81,6 @@ setGeneric("plotCountDensity", function(object, ...) {
 
 
 #' @rdname plotCountsPerGene
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotCountsPerGene", function(object, ...) {
     standardGeneric("plotCountsPerGene")
@@ -95,7 +89,6 @@ setGeneric("plotCountsPerGene", function(object, ...) {
 
 
 #' @rdname plotDEGHeatmap
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotDEGHeatmap", function(object, counts, ...) {
     standardGeneric("plotDEGHeatmap")
@@ -104,7 +97,6 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 #' @rdname plotExonicMappingRate
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotExonicMappingRate", function(object, ...) {
     standardGeneric("plotExonicMappingRate")
@@ -113,7 +105,6 @@ setGeneric("plotExonicMappingRate", function(object, ...) {
 
 
 #' @rdname plotGenderMarkers
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenderMarkers", function(object, ...) {
     standardGeneric("plotGenderMarkers")
@@ -122,7 +113,6 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 
 
 #' @rdname plotGene
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGene", function(object, ...) {
     standardGeneric("plotGene")
@@ -131,7 +121,6 @@ setGeneric("plotGene", function(object, ...) {
 
 
 #' @rdname plotGeneHeatmap
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGeneHeatmap", function(object, ...) {
     standardGeneric("plotGeneHeatmap")
@@ -140,7 +129,6 @@ setGeneric("plotGeneHeatmap", function(object, ...) {
 
 
 #' @rdname plotGeneSaturation
-#' @inheritParams AllGenerics
 #' @export
 setGeneric(
     "plotGeneSaturation",
@@ -151,7 +139,6 @@ setGeneric(
 
 
 #' @rdname plotGenesDetected
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotGenesDetected", function(object, counts, ...) {
     standardGeneric("plotGenesDetected")
@@ -160,7 +147,6 @@ setGeneric("plotGenesDetected", function(object, counts, ...) {
 
 
 #' @rdname plotIntronicMappingRate
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotIntronicMappingRate", function(object, ...) {
     standardGeneric("plotIntronicMappingRate")
@@ -169,7 +155,6 @@ setGeneric("plotIntronicMappingRate", function(object, ...) {
 
 
 #' @rdname plotMappedReads
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappedReads", function(object, ...) {
     standardGeneric("plotMappedReads")
@@ -178,7 +163,6 @@ setGeneric("plotMappedReads", function(object, ...) {
 
 
 #' @rdname plotMappingRate
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMappingRate", function(object, ...) {
     standardGeneric("plotMappingRate")
@@ -187,7 +171,6 @@ setGeneric("plotMappingRate", function(object, ...) {
 
 
 #' @rdname plotMeanSD
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotMeanSD", function(object, ...) {
     standardGeneric("plotMeanSD")
@@ -196,7 +179,6 @@ setGeneric("plotMeanSD", function(object, ...) {
 
 
 #' @rdname plotPCACovariates
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotPCACovariates", function(object, ...) {
     standardGeneric("plotPCACovariates")
@@ -205,7 +187,6 @@ setGeneric("plotPCACovariates", function(object, ...) {
 
 
 #' @rdname plotRRNAMappingRate
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotRRNAMappingRate", function(object, ...) {
     standardGeneric("plotRRNAMappingRate")
@@ -214,7 +195,6 @@ setGeneric("plotRRNAMappingRate", function(object, ...) {
 
 
 #' @rdname plotTotalReads
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotTotalReads", function(object, ...) {
     standardGeneric("plotTotalReads")
@@ -223,7 +203,6 @@ setGeneric("plotTotalReads", function(object, ...) {
 
 
 #' @rdname plotVolcano
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("plotVolcano", function(object, ...) {
     standardGeneric("plotVolcano")
@@ -232,7 +211,6 @@ setGeneric("plotVolcano", function(object, ...) {
 
 
 #' @rdname prepareRNASeqTemplate
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("prepareRNASeqTemplate", function(object, ...) {
     standardGeneric("prepareRNASeqTemplate")
@@ -241,7 +219,6 @@ setGeneric("prepareRNASeqTemplate", function(object, ...) {
 
 
 #' @rdname resultsTables
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("resultsTables", function(object, ...) {
     standardGeneric("resultsTables")
@@ -250,7 +227,6 @@ setGeneric("resultsTables", function(object, ...) {
 
 
 #' @rdname tmm
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("tmm", function(object) {
     standardGeneric("tmm")
@@ -268,7 +244,6 @@ setGeneric("topTables", function(object, ...) {
 
 
 #' @rdname tpm
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("tpm", function(object) {
     standardGeneric("tpm")
@@ -277,7 +252,6 @@ setGeneric("tpm", function(object) {
 
 
 #' @rdname txi
-#' @inheritParams AllGenerics
 #' @export
 setGeneric("txi", function(object) {
     standardGeneric("txi")
