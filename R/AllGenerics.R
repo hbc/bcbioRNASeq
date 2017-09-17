@@ -22,7 +22,6 @@ NULL
 #' @name qcPlots
 #' @keywords internal
 #'
-#' @inheritParams AllGenerics
 #' @param counts Object containing a count matrix.
 #' @param flip Flip X and Y axes.
 #' @param interestingGroup Category to use to group samples (color and shape).
