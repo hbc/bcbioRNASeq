@@ -92,7 +92,16 @@
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
 <span class='fu'>metrics</span>(<span class='no'>object</span>)</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>data.frame.</p>
@@ -101,22 +110,32 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 <span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>glimpse</span></div><div class='output co'>#&gt; Observations: 4
-#&gt; Variables: 11
-#&gt; $ sampleName              &lt;chr&gt; "group1_1", "group1_2", "group2_1", "group2_2"
-#&gt; $ duplicationRateOfMapped &lt;dbl&gt; 0.5574675, 0.5890465, 0.5772400, 0.5828299
-#&gt; $ exonicRate              &lt;dbl&gt; 0.8590, 0.8820, 0.8632, 0.8713
-#&gt; $ intergenicRate          &lt;dbl&gt; 0.0663, 0.0599, 0.0661, 0.0635
-#&gt; $ intronicRate            &lt;dbl&gt; 0.0747, 0.0581, 0.0707, 0.0652
-#&gt; $ mappedReads             &lt;dbl&gt; 22062337, 25852621, 25172084, 25100941
-#&gt; $ rRna                    &lt;dbl&gt; 42218.64, 48275.49, 38893.78, 40831.69
-#&gt; $ rRnaRate                &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623, 0.00...
-#&gt; $ totalReads              &lt;dbl&gt; 22339941, 26168288, 25490090, 25399483
-#&gt; $ x53Bias                 &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
-#&gt; $ xGc                     &lt;dbl&gt; 48, 48, 47, 48</div></pre>
+#&gt; Variables: 20
+#&gt; $ sampleID                      &lt;chr&gt; "group1_1", "group1_2", "group2_1", "...
+#&gt; $ sampleName                    &lt;chr&gt; "group1_1", "group1_2", "group2_1", "...
+#&gt; $ group                         &lt;fctr&gt; ctrl, ctrl, ko, ko
+#&gt; $ averageInsertSize             &lt;dbl&gt; 0, 0, 0, 0
+#&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0
+#&gt; $ duplicationRateOfMapped       &lt;dbl&gt; 0.5574675, 0.5890465, 0.5772400, 0.58...
+#&gt; $ exonicRate                    &lt;dbl&gt; 0.8590, 0.8820, 0.8632, 0.8713
+#&gt; $ intergenicRate                &lt;dbl&gt; 0.0663, 0.0599, 0.0661, 0.0635
+#&gt; $ intronicRate                  &lt;dbl&gt; 0.0747, 0.0581, 0.0707, 0.0652
+#&gt; $ mappedPairedReads             &lt;dbl&gt; 0, 0, 0, 0
+#&gt; $ mappedReads                   &lt;dbl&gt; 22062337, 25852621, 25172084, 25100941
+#&gt; $ name                          &lt;chr&gt; "ctrl_f_1", "ctrl_f_4", "ko_f_1", "ko...
+#&gt; $ qualityFormat                 &lt;chr&gt; "standard", "standard", "standard", "...
+#&gt; $ rRna                          &lt;dbl&gt; 42218.64, 48275.49, 38893.78, 40831.69
+#&gt; $ rRnaRate                      &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623...
+#&gt; $ sequenceLength                &lt;chr&gt; "25-75", "25-75", "25-75", "25-75"
+#&gt; $ sequencesFlaggedAsPoorQuality &lt;dbl&gt; 0, 0, 0, 0
+#&gt; $ totalReads                    &lt;dbl&gt; 22339941, 26168288, 25490090, 25399483
+#&gt; $ x53Bias                       &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
+#&gt; $ xGc                           &lt;dbl&gt; 48, 48, 47, 48</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
       

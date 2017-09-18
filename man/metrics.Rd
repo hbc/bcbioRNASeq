@@ -8,6 +8,9 @@
 \usage{
 \S4method{metrics}{bcbioRNADataSet}(object)
 }
+\arguments{
+\item{object}{Object.}
+}
 \value{
 \link{data.frame}.
 }

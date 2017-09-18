@@ -8,6 +8,9 @@
 \usage{
 \S4method{sampleDirs}{bcbioRNADataSet}(object)
 }
+\arguments{
+\item{object}{Object.}
+}
 \value{
 Named character vector containing sample directory paths.
 }

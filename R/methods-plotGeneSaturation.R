@@ -7,6 +7,8 @@
 #'
 #' @inherit qcPlots
 #'
+#' @inheritParams AllGenerics
+#'
 #' @examples
 #' data(bcb, rld)
 #'

@@ -1,0 +1,26 @@
+language: r
+cache: packages
+sudo: false
+dist: trusty
+warnings_are_errors: false
+r:
+  - bioc-release
+  - bioc-devel
+r_github_packages:
+  - jimhester/lintr
+after_success:
+  - Rscript -e 'covr::codecov()'
+  - pwd
+  - cd ..
+  - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
+  - cd bcbio_rnaseq_output_example
+  - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
+  - Rscript -e 'install.packages("formatR")'
+  - Rscript -e 'testthat::test_file("test_reports.R")'
+  - cd report
+  - mv de.html de-${TRAVIS_BRANCH}.html
+  - mv qc.html qc-${TRAVIS_BRANCH}.html
+  - cd ..
+  - cp ../bcbioRNASeq/.push.sh push.sh
+  - chmod +x push.sh
+  - ./push.sh

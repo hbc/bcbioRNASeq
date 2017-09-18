@@ -96,11 +96,10 @@
 <span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>meltLog10</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,10 +116,6 @@
       <th>normalized</th>
       <td><p>Select normalized counts (<code>TRUE</code>), raw counts (<code>FALSE</code>),
 or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p><em>Optional</em>. Interesting groups.</p></td>
     </tr>
     </table>
     
@@ -139,11 +134,11 @@ or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
 <span class='co'># bcbioRNADataSet</span>
 <span class='fu'>meltLog10</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>glimpse</span></div><div class='output co'>#&gt; Observations: 922
 #&gt; Variables: 5
-#&gt; $ ensgene      &lt;chr&gt; "ENSMUSG00000002459", "ENSMUSG00000004768", "ENSMUSG00...
-#&gt; $ sampleID     &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group...
-#&gt; $ counts       &lt;dbl&gt; 1.12058610, 2.64346485, 3.27516222, 2.87263455, 0.0414...
-#&gt; $ sampleName   &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group...
-#&gt; $ sampleName.1 &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group...</div><div class='input'>
+#&gt; $ ensgene    &lt;chr&gt; "ENSMUSG00000002459", "ENSMUSG00000004768", "ENSMUSG0000...
+#&gt; $ sampleID   &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group1_...
+#&gt; $ counts     &lt;dbl&gt; 1.12058610, 2.64346485, 3.27516222, 2.87263455, 0.041404...
+#&gt; $ sampleName &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group1_...
+#&gt; $ group      &lt;fctr&gt; ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, c...</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='fu'>meltLog10</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='no'>glimpse</span></div><div class='output co'>#&gt; Observations: 922
 #&gt; Variables: 6
@@ -155,11 +150,10 @@ or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
 #&gt; $ sizeFactor &lt;dbl&gt; 0.9090654, 0.9090654, 0.9090654, 0.9090654, 0.9090654, 0...</div><div class='input'>
 <span class='co'># DESeqTransform</span>
 <span class='fu'>meltLog10</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='no'>glimpse</span></div><div class='output co'>#&gt; Observations: 841
-#&gt; Variables: 7
+#&gt; Variables: 6
 #&gt; $ ensgene    &lt;chr&gt; "ENSMUSG00000002459", "ENSMUSG00000004768", "ENSMUSG0000...
 #&gt; $ sampleID   &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group1_...
 #&gt; $ counts     &lt;dbl&gt; 0.5335118, 0.9380281, 1.0354722, 0.9718929, 0.7577204, 0...
-#&gt; $ colname    &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group1_...
 #&gt; $ sampleName &lt;chr&gt; "group1_1", "group1_1", "group1_1", "group1_1", "group1_...
 #&gt; $ group      &lt;fctr&gt; ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, ctrl, c...
 #&gt; $ sizeFactor &lt;dbl&gt; 0.9090654, 0.9090654, 0.9090654, 0.9090654, 0.9090654, 0...</div></pre>

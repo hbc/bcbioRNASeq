@@ -8,6 +8,8 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [ggplot] grid.
 #'
 #' @examples
@@ -80,6 +82,6 @@ setMethod("plotMeanSD", "DESeqDataSet", function(object) {
     .plotMeanSD(
         raw = counts(object, normalized = FALSE),
         normalized = counts(object, normalized = TRUE),
-        rlog = rlog(object) %>% assay,
-        vst = varianceStabilizingTransformation(object) %>% assay)
+        rlog = assay(rlog(object)),
+        vst = assay(varianceStabilizingTransformation(object)))
 })

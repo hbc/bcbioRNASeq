@@ -7,6 +7,7 @@
 #' @rdname aggregateReplicates
 #' @name aggregateReplicates
 #'
+#' @inheritParams AllGenerics
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.

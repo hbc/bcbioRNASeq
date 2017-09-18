@@ -6,6 +6,7 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param transform String specifying [DESeqTransform] slotted inside the
 #'   [bcbioRNADataSet]:
 #'   - `rlog` (**recommended**).
@@ -31,8 +32,11 @@ NULL
 #' @rdname plotPCACovariates
 #' @export
 setMethod("plotPCACovariates", "bcbioRNADataSet", function(
-    object, transform = "rlog", metrics = TRUE, ...) {
-    # Check for valid `transform` argument
+    object,
+    transform = "rlog",
+    metrics = TRUE,
+    ...) {
+    # Check for valid transform argument
     transformArgs <- c("rlog", "vst")
     if (!transform %in% transformArgs) {
         stop(paste("Valid transforms:", toString(transformArgs)))
@@ -45,12 +49,18 @@ setMethod("plotPCACovariates", "bcbioRNADataSet", function(
         metadata <- .interestingColData(object)
     }
     metadata[["sampleName"]] <- NULL
+    if (!length(colnames(metadata))) {
+        stop("Sample metadata is empty")
+    }
 
     # Counts
     counts <- assays(object) %>%
         .[[transform]] %>%
-        # Assay needed here to get the matrix from the slotted [DESeqTransform]
+        # Assay needed here to get the matrix from the slotted DESeqTransform
         assay
 
-    degCovariates(counts, metadata, ...)
+    degCovariates(
+        counts = counts,
+        metadata = metadata,
+        ...)
 })

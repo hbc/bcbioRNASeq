@@ -12,7 +12,7 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @param object Counts matrix.
+#' @inheritParams AllGenerics
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.

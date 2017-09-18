@@ -4,6 +4,8 @@
 #' @name tpm
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [matrix].
 #'
 #' @examples

@@ -5,6 +5,9 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
@@ -49,7 +52,7 @@ NULL
                 axis.text.x = element_text(angle = 90L)) +
             labs(title = symbol,
                  x = "sample",
-                 y = paste0("counts (", normalized, ")"),
+                 y = "counts",
                  color = interestingGroup) +
             expand_limits(y = 0L) +
             scale_color_viridis(discrete = TRUE)

@@ -5,6 +5,8 @@
 #' @rdname sampleDirs
 #' @name sampleDirs
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return Named character vector containing sample directory paths.
 #'
 #' @examples

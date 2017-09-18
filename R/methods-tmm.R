@@ -8,6 +8,8 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [matrix].
 #' @export
 #'

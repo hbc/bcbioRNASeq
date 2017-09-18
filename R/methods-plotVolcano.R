@@ -5,6 +5,7 @@
 #' @family Differential Expression Plots
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
+#' @inheritParams AllGenerics
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.

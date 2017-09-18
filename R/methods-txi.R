@@ -4,6 +4,8 @@
 #' @name txi
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [tximport::tximport()] list.
 #'
 #' @examples

@@ -7,6 +7,8 @@
 #'
 #' @inherit qcPlots
 #'
+#' @inheritParams AllGenerics
+#'
 #' @examples
 #' data(bcb)
 #'
@@ -54,6 +56,7 @@ NULL
 #' @export
 setMethod("plotTotalReads", "bcbioRNADataSet", function(
     object,
+    interestingGroup,
     passLimit = 20L,
     warnLimit = 10L,
     flip = TRUE) {

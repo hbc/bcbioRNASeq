@@ -26,7 +26,7 @@ devtools::install_github("hbc/bcbioRNASeq")
 ```
 
 
-## Load [bcbio][] run output into `bcbioRNADataSet`
+## Load [bcbio][] run
 
 ```r
 library(bcbioRNASeq)
@@ -34,6 +34,8 @@ bcb <- loadRNASeqRun(
     file.path("bcbio_rnaseq_run", "final"),
     interestingGroups = c("genotype", "treatment"))
 ```
+
+This will return a `bcbioRNADataSet`, which is an extension of the [Bioconductor][] [SummarizedExperiment][] class.
 
 Parameters:
 
@@ -62,3 +64,4 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 [R]: https://www.r-project.org
 [RMarkdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
+[SummarizedExperiment]: http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html

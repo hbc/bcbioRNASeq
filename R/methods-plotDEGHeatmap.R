@@ -12,6 +12,7 @@
 #'
 #' @inherit plotGeneHeatmap
 #'
+#' @inheritParams AllGenerics
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #'

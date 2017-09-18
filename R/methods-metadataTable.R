@@ -7,6 +7,7 @@
 #' @rdname metadataTable
 #' @name metadataTable
 #'
+#' @inheritParams AllGenerics
 #' @param ... Additional parameters, passed to [kable()].
 #'
 #' @return [data.frame] containing only the columns of interest.
