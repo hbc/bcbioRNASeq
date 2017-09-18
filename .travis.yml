@@ -1,12 +1,13 @@
 language: r
-cache: packages
+# cache: packages
 sudo: false
 dist: trusty
 warnings_are_errors: false
 r:
+  - bioc-release
   - bioc-devel
 r_github_packages:
-  - lpantano/DEGreport
+  - jimhester/lintr
 after_success:
   - Rscript -e 'covr::codecov()'
   - pwd
