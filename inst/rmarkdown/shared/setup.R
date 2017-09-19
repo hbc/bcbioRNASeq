@@ -10,7 +10,7 @@ opts_chunk$set(
     cache.lazy = TRUE,
     dev = c("png", "pdf"),
     error = TRUE,
-    fig.height = 8,
+    fig.height = 10,
     fig.retina = 2,
     fig.width = 10,
     highlight = TRUE,
