@@ -1,6 +1,7 @@
+library(bcbioRNASeq)
 library(knitr)
 library(ggplot2)
-library(bcbioRNASeq)
+library(tidyverse)
 
 opts_chunk$set(
     autodep = TRUE,
