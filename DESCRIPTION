@@ -33,7 +33,7 @@ Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.6.3),
     DESeq2 (>= 1.16.1),
-    basejump (>= 0.0.22)
+    basejump (>= 0.0.24)
 Imports:
     BiocGenerics,
     cowplot,
