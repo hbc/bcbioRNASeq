@@ -4,14 +4,14 @@
 \alias{.tx2gene}
 \title{Transcript to Gene Annotations}
 \usage{
-.tx2gene(projectDir, genomeBuild = NULL, release = "current")
+.tx2gene(projectDir, organism, release = "current")
 }
 \arguments{
 \item{projectDir}{Project directory.}
 
-\item{genomeBuild}{Genome build.}
-
 \item{release}{Ensembl release version.}
+
+\item{genomeBuild}{Genome build.}
 }
 \value{
 \link{data.frame} with unique rownames.
