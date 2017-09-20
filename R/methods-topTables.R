@@ -26,7 +26,7 @@ NULL
     }
     df <- df %>%
         head(n = n) %>%
-        tidy_rename(lfc = .data[["log2FoldChange"]]) %>%
+        dplyr::rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
             baseMean = round(.data[["baseMean"]]),
             lfc = format(.data[["lfc"]], digits = 3L),

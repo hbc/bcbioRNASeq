@@ -19,12 +19,12 @@
     meta <- readFileByExtension(file)
     # Rename legacy `samplename` column, if set
     if ("samplename" %in% colnames(meta)) {
-        meta <- tidy_rename(meta, fileName = .data[["samplename"]])
+        meta <- dplyr::rename(meta, fileName = .data[["samplename"]])
     }
 
     # Rename `description` to `sampleName`, if set
     if ("description" %in% colnames(meta)) {
-        meta <- tidy_rename(meta, sampleName = .data[["description"]])
+        meta <- dplyr::rename(meta, sampleName = .data[["description"]])
     }
     meta <- meta %>%
         # Strip all NA rows and columns

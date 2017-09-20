@@ -16,7 +16,7 @@
 #'   DESeqTransform estimateSizeFactors results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
-#'   mutate_all mutate_if pull ungroup
+#'   mutate_all mutate_if pull rename ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar

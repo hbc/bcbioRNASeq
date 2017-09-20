@@ -54,7 +54,7 @@
         camel %>%
         removeNA %>%
         # Rename `description` to `sampleName`
-        tidy_rename(sampleName = .data[["description"]]) %>%
+        dplyr::rename(sampleName = .data[["description"]]) %>%
         # Sanitize `sampleID` into valid names
         mutate(sampleID = make.names(.data[["sampleName"]])) %>%
         .metaPriorityCols
