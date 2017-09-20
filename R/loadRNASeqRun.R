@@ -18,7 +18,7 @@
 #' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
 #'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
 #' @param ensemblVersion Ensembl release version. Defaults to current, and does
-#'   typically need to be user-defined. This parameter can be useful for
+#'   not typically need to be user-defined. This parameter can be useful for
 #'   matching Ensembl annotations against an outdated bcbio annotation build.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
@@ -129,7 +129,9 @@ loadRNASeqRun <- function(
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
     annotable <- annotable(genomeBuild, release = ensemblVersion)
-    tx2gene <- .tx2gene(projectDir, genomeBuild, release = ensemblVersion)
+    tx2gene <- .tx2gene(projectDir,
+                        organism = organism,
+                        release = ensemblVersion)
 
     # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
