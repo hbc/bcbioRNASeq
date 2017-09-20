@@ -3,7 +3,7 @@ library(knitr)
 library(ggplot2)
 library(tidyverse)
 
-opts_chunk$set(
+opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
     cache = TRUE,
