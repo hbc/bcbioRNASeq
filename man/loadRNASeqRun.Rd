@@ -24,7 +24,7 @@ file.}
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix. See Details.}
 
 \item{ensemblVersion}{Ensembl release version. Defaults to current, and does
-typically need to be user-defined. This parameter can be useful for
+not typically need to be user-defined. This parameter can be useful for
 matching Ensembl annotations against an outdated bcbio annotation build.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
@@ -49,8 +49,7 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \examples{
-extraDir <- system.file("extra", package = "bcbioRNASeq")
-uploadDir <- file.path(extraDir, "bcbio")
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeqRun(uploadDir, interestingGroups = "group")
 }
 \author{

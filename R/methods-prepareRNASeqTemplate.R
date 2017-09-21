@@ -20,5 +20,7 @@ NULL
 #' @rdname prepareRNASeqTemplate
 #' @export
 setMethod("prepareRNASeqTemplate", "missing", function(object) {
-    prepareTemplate(sourceDir = file.path(url, "downloads"))
+    prepareTemplate(
+        sourceDir = system.file("rmarkdown/shared",
+                                package = "bcbioRNASeq"))
 })

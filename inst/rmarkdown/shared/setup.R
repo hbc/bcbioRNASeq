@@ -1,15 +1,16 @@
+library(bcbioRNASeq)
 library(knitr)
 library(ggplot2)
-library(bcbioRNASeq)
+library(tidyverse)
 
-opts_chunk$set(
+opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
     cache = TRUE,
     cache.lazy = TRUE,
     dev = c("png", "pdf"),
     error = TRUE,
-    fig.height = 8,
+    fig.height = 10,
     fig.retina = 2,
     fig.width = 10,
     highlight = TRUE,
