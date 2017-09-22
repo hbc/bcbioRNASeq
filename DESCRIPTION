@@ -4,7 +4,7 @@ Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
 Version: 0.0.27
 Authors@R: c(
-    person("Michael J.", "Steinbaugh",
+    person("Michael", "Steinbaugh",
            email = "mike@steinbaugh.com",
            role = c("aut", "cre")),
     person("Lorena", "Pantano",
@@ -15,6 +15,9 @@ Authors@R: c(
            role = "aut"),
     person("Victor", "Barrera",
            email = "barrera.vic@gmail.com",
+           role = "aut"),
+    person("Mary", "Piper",
+           email = "mary.piper@gmail.com",
            role = "aut"),
     person("John", "Hutchinson",
            email = "jnhutchinson@gmail.com",
