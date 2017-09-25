@@ -16,13 +16,13 @@
 #' data(bcb, dds, rld)
 #'
 #' # bcbioRNADataSet
-#' meltLog10(bcb) %>% glimpse
+#' meltLog10(bcb) %>% str
 #'
 #' # DESeqDataSet
-#' meltLog10(dds) %>% glimpse
+#' meltLog10(dds) %>% str
 #'
 #' # DESeqTransform
-#' meltLog10(rld) %>% glimpse
+#' meltLog10(rld) %>% str
 NULL
 
 
