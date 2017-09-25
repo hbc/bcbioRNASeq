@@ -31,23 +31,24 @@ argument.
 }
 \examples{
 data(bcb)
+
 # Raw counts
-counts(bcb, normalized = FALSE) \%>\% glimpse
+counts(bcb, normalized = FALSE) \%>\% str
 
 # DESeq2 normalized counts
-counts(bcb, normalized = TRUE) \%>\% glimpse
+counts(bcb, normalized = TRUE) \%>\% str
 
 # TPM
-counts(bcb, normalized = "tpm") \%>\% glimpse
+counts(bcb, normalized = "tpm") \%>\% str
 
 # TMM
-counts(bcb, normalized = "tmm") \%>\% glimpse
+counts(bcb, normalized = "tmm") \%>\% str
 
 # rlog
-counts(bcb, normalized = "rlog") \%>\% glimpse
+counts(bcb, normalized = "rlog") \%>\% str
 
 # VST
-counts(bcb, normalized = "vst") \%>\% glimpse
+counts(bcb, normalized = "vst") \%>\% str
 }
 \author{
 Michael Steinbaugh

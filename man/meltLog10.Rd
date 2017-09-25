@@ -34,13 +34,13 @@ Melt Count Matrix to Long Format and log10 Transform
 data(bcb, dds, rld)
 
 # bcbioRNADataSet
-meltLog10(bcb) \%>\% glimpse
+meltLog10(bcb) \%>\% str
 
 # DESeqDataSet
-meltLog10(dds) \%>\% glimpse
+meltLog10(dds) \%>\% str
 
 # DESeqTransform
-meltLog10(rld) \%>\% glimpse
+meltLog10(rld) \%>\% str
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.
