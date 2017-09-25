@@ -7,6 +7,7 @@ r:
   - bioc-release
   - bioc-devel
 r_github_packages:
+  - jimhester/covr
   - jimhester/lintr
 after_success:
   - Rscript -e 'covr::codecov()'
