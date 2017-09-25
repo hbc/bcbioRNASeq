@@ -111,14 +111,6 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 
 
 
-#' @rdname plotGene
-#' @export
-setGeneric("plotGene", function(object, ...) {
-    standardGeneric("plotGene")
-})
-
-
-
 #' @rdname plotGeneHeatmap
 #' @export
 setGeneric("plotGeneHeatmap", function(object, ...) {

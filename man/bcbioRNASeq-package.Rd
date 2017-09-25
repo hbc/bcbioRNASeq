@@ -19,13 +19,14 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Michael J. Steinbaugh \email{mike@steinbaugh.com}
+\strong{Maintainer}: Michael Steinbaugh \email{mike@steinbaugh.com}
 
 Authors:
 \itemize{
   \item Lorena Pantano \email{lorena.pantano@gmail.com}
   \item Rory Kirchner \email{roryk@alum.mit.edu}
   \item Victor Barrera \email{barrera.vic@gmail.com}
+  \item Mary Piper \email{mary.piper@gmail.com}
   \item John Hutchinson \email{jnhutchinson@gmail.com}
 }
 

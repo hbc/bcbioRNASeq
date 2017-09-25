@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' metrics(bcb) %>% glimpse
+#' metrics(bcb) %>% str
 NULL
 
 
