@@ -20,8 +20,10 @@ qcLineAlpha <- 0.75
 qcLineSize <- 1L
 qcLineType <- "dashed"
 
+# Plot label separator
+labelSep <- ": "
 
-
+# Line functions
 qcPassLine <- function(intercept) {
     geom_hline(alpha = qcLineAlpha,
                color = qcPassColor,
@@ -29,8 +31,6 @@ qcPassLine <- function(intercept) {
                size = qcLineSize,
                yintercept = intercept)
 }
-
-
 
 qcWarnLine <- function(intercept) {
     geom_hline(alpha = qcLineAlpha,
