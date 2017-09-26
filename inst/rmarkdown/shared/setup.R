@@ -3,6 +3,9 @@ library(knitr)
 library(ggplot2)
 library(tidyverse)
 
+# Set seed for reproducibility
+set.seed(1454944673)
+
 opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
@@ -19,5 +22,8 @@ opts_chunk[["set"]](
     tidy = TRUE,
     warning = FALSE)
 
-theme_set(theme_light(base_size = 14))
-theme_update(legend.position = "bottom")
+theme_set(
+    theme_light(base_size = 14))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
