@@ -4,7 +4,7 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb: "data/bcb.rda"
+    bcbFile: "data/bcb.rda"
     res: "data/res.rda"
     organism: "Hs"
     speies: "human"
