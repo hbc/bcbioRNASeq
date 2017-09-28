@@ -10,7 +10,8 @@
 #' @param lanes *Optional*. Number of lanes used to split the samples into
 #'   technical replicates (`_LXXX`) suffix.
 #'
-#' @return [tibble] grouped by `sampleName`.
+#' @return [tibble], grouped by `sampleName`.
+#' @noRd
 .readSampleMetadataFile <- function(
     file,
     pattern = NULL,
@@ -28,12 +29,12 @@
     }
     meta <- meta %>%
         # Strip all NA rows and columns
-        removeNA %>%
+        removeNA() %>%
         # Make colnames camelCase
-        camel %>%
+        camel(strict = FALSE) %>%
         # Remove rows with no sample name. Sometimes Excel files will add
         # empty rows, so this helps correct that problem as well.
-        .[!is.na(.[["sampleName"]]), ]
+        .[!is.na(.[["sampleName"]]), , drop = FALSE]
 
     # Lane split, if desired
     if (lanes > 1L) {
@@ -45,7 +46,7 @@
             # set manually here instead
             set_colnames(c("sampleName", "lane")) %>%
             left_join(meta, by = "sampleName") %>%
-            ungroup %>%
+            ungroup() %>%
             mutate(sampleName = paste(.data[["sampleName"]],
                                       .data[["lane"]],
                                       sep = "_"))
@@ -54,12 +55,12 @@
     # Subset by pattern, if desired
     if (!is.null(pattern)) {
         meta <- meta %>%
-            .[str_detect(.[[patternCol]], pattern), ]
+            .[str_detect(.[[patternCol]], pattern), , drop = FALSE]
     }
 
     meta %>%
         # Sanitize `sampleID` into valid names
         mutate(sampleID = make.names(.data[["sampleName"]])) %>%
-        .metaPriorityCols %>%
-        .metaFactors
+        .metaPriorityCols() %>%
+        .metaFactors()
 }

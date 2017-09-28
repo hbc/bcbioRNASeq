@@ -12,13 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotMappedReads(bcb)
 #' plotMappedReads(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
-#' metrics(bcb) %>% plotMappedReads
+#' metrics(bcb) %>%
+#'     plotMappedReads()
 #' }
 NULL
 
@@ -42,13 +43,16 @@ NULL
              y = "mapped reads (million)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -58,7 +62,7 @@ NULL
 # Methods ====
 #' @rdname plotMappedReads
 #' @export
-setMethod("plotMappedReads", "bcbioRNADataSet", function(
+setMethod("plotMappedReads", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     passLimit = 20L,

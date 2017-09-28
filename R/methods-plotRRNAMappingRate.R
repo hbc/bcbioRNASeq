@@ -12,12 +12,13 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotRRNAMappingRate(bcb)
 #' plotRRNAMappingRate(bcb, interestingGroup = "group")
 #'
 #' # data.frame
-#' metrics(bcb) %>% plotRRNAMappingRate
+#' metrics(bcb) %>%
+#'     plotRRNAMappingRate()
 NULL
 
 
@@ -38,10 +39,12 @@ NULL
              y = "rRNA mapping rate (%)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -51,7 +54,7 @@ NULL
 # Methods ====
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "bcbioRNADataSet", function(
+setMethod("plotRRNAMappingRate", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     warnLimit = 10L,

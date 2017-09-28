@@ -15,7 +15,7 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotMeanSD(bcb)
 #'
 #' # DESeqDataSet
@@ -35,7 +35,7 @@ NULL
         rowSums %>%
         `>`(0L)
     gglog2 <- normalized %>%
-        .[nonzero, ] %>%
+        .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
         log2 %>%
         meanSdPlot(plot = FALSE) %>%
@@ -43,13 +43,13 @@ NULL
         ggtitle("log2") +
         xlab(xlab)
     ggrlog <- rlog %>%
-        .[nonzero, ] %>%
+        .[nonzero, , drop = FALSE] %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("rlog") +
         xlab(xlab)
     ggvst <- vst %>%
-        .[nonzero, ] %>%
+        .[nonzero, , drop = FALSE] %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("variance stabilizing transformation") +
@@ -66,7 +66,7 @@ NULL
 # Methods ====
 #' @rdname plotMeanSD
 #' @export
-setMethod("plotMeanSD", "bcbioRNADataSet", function(object) {
+setMethod("plotMeanSD", "bcbioRNASeqANY", function(object) {
     .plotMeanSD(
         raw = counts(object, normalized = FALSE),
         normalized = counts(object, normalized = TRUE),

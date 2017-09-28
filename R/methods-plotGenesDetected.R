@@ -12,7 +12,7 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotGenesDetected(
 #'     bcb,
 #'     passLimit = NULL,
@@ -61,13 +61,16 @@ NULL
              y = "gene count") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -79,7 +82,7 @@ NULL
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "bcbioRNADataSet",
+    signature(object = "bcbioRNASeqANY",
               counts = "missing"),
     function(
         object,

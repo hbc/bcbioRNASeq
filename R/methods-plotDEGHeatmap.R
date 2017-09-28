@@ -36,8 +36,8 @@ NULL
     lfc = 0L,
     title = TRUE) {
     results <- results %>%
-        as.data.frame %>%
-        camel %>%
+        as.data.frame() %>%
+        camel() %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
         .[.[["padj"]] < alpha, , drop = FALSE] %>%

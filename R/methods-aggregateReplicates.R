@@ -26,18 +26,18 @@ setMethod("aggregateReplicates", "matrix", function(
         stop("Lane pattern didn't match all samples")
     }
     stem <- str_replace(colnames(object), pattern, "") %>%
-        unique %>%
-        sort
+        unique() %>%
+        sort()
     # Perform [rowSums()] on the matching columns per sample
     lapply(seq_along(stem), function(a) {
         object %>%
             .[, grepl(paste0("^", stem[a], pattern), colnames(.))] %>%
-            rowSums
+            rowSums()
     }) %>%
         setNames(stem) %>%
         do.call(cbind, .) %>%
         # [round()] here otherwise [DESeq()] will fail on this matrix
-        round
+        round()
 })
 
 
@@ -54,16 +54,16 @@ setMethod("aggregateReplicates", "DESeqDataSet", function(
     # Pool the lane split technical replicates
     message("Aggregating raw counts slotted in DESeqDataSet")
     countData <- counts(object, normalized = FALSE) %>%
-        aggregateReplicates
+        aggregateReplicates()
 
     # Mutate the colData metadata to pooled samples
     colData <- colData(object) %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         mutate(sampleID = str_replace(.data[["sampleID"]], pattern, ""),
                sampleName = str_replace(.data[["sampleName"]], pattern, ""),
                lane = NULL,
                sizeFactor = NULL) %>%
-        distinct %>%
+        distinct() %>%
         set_rownames(.[["sampleID"]])
 
     # Check that the new colData matches the counts matrix
@@ -81,5 +81,6 @@ setMethod("aggregateReplicates", "DESeqDataSet", function(
     DESeqDataSetFromMatrix(
         countData = countData,
         colData = colData,
-        design = design) %>% DESeq
+        design = design) %>%
+        DESeq()
 })

@@ -15,14 +15,17 @@
 #' @examples
 #' data(bcb, dds, rld)
 #'
-#' # bcbioRNADataSet
-#' meltLog10(bcb) %>% str
+#' # bcbioRNASeq
+#' meltLog10(bcb) %>%
+#'     str()
 #'
 #' # DESeqDataSet
-#' meltLog10(dds) %>% str
+#' meltLog10(dds) %>%
+#'     str()
 #'
 #' # DESeqTransform
-#' meltLog10(rld) %>% str
+#' meltLog10(rld) %>%
+#'     str()
 NULL
 
 
@@ -40,8 +43,8 @@ NULL
 
 .meltLog10 <- function(counts) {
     counts %>%
-        as.data.frame %>%
-        rownames_to_column %>%
+        as.data.frame() %>%
+        rownames_to_column() %>%
         melt(id = 1L) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
         .[.[["counts"]] > 0L, ] %>%
@@ -56,7 +59,7 @@ NULL
 # Methods ====
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "bcbioRNADataSet", function(
+setMethod("meltLog10", "bcbioRNASeqANY", function(
     object,
     normalized = TRUE) {
     .joinMelt(

@@ -1,7 +1,7 @@
 .interestingColData <- function(object) {
     cols <- unique(c("sampleName", .interestingGroups(object)))
     colData(object) %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         .[, cols, drop = FALSE]
 }
 
@@ -11,7 +11,7 @@
     metadata(object) %>%
         .[["interestingGroups"]] %>%
         .[[1L]] %>%
-        as.character
+        as.character()
 }
 
 

@@ -16,15 +16,19 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
-#' tmm(bcb) %>% head
+#' # bcbioRNASeq
+#' tmm(bcb) %>%
+#'     summary()
 #'
 #' \dontrun{
 #' # DESeqDataSet
-#' tmm(dds) %>% head
+#' tmm(dds) %>%
+#'     summary()
 #'
 #' # matrix
-#' assay(bcb) %>% tmm %>% head
+#' assay(bcb) %>%
+#'     tmm() %>%
+#'     summary()
 #' }
 NULL
 
@@ -33,9 +37,9 @@ NULL
 # Constructors ====
 .tmm <- function(object) {
     object %>%
-        as.matrix %>%
-        DGEList %>%
-        calcNormFactors %>%
+        as.matrix() %>%
+        DGEList() %>%
+        calcNormFactors() %>%
         cpm(normalized.lib.sizes = TRUE)
 }
 
@@ -44,7 +48,7 @@ NULL
 # Methods ====
 #' @rdname tmm
 #' @export
-setMethod("tmm", "bcbioRNADataSet", function(object) {
+setMethod("tmm", "bcbioRNASeqANY", function(object) {
     assays(object)[["tmm"]]
 })
 
@@ -54,7 +58,7 @@ setMethod("tmm", "bcbioRNADataSet", function(object) {
 #' @export
 setMethod("tmm", "DESeqDataSet", function(object) {
     assay(object) %>%
-        .tmm
+        .tmm()
 })
 
 

@@ -9,7 +9,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' metrics(bcb) %>% str
+#' metrics(bcb) %>%
+#'     str()
 NULL
 
 
@@ -17,7 +18,7 @@ NULL
 # Methods ====
 #' @rdname metrics
 #' @export
-setMethod("metrics", "bcbioRNADataSet", function(object) {
+setMethod("metrics", "bcbioRNASeqANY", function(object) {
     left_join(
         as.data.frame(colData(object)),
         as.data.frame(metadata(object)[["metrics"]]),

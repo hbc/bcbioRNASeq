@@ -9,7 +9,8 @@
 #' @return [tximport::tximport()] list.
 #'
 #' @examples
-#' txi(bcb) %>% names
+#' txi(bcb) %>%
+#'     names()
 NULL
 
 
@@ -17,6 +18,6 @@ NULL
 # Methods ====
 #' @rdname txi
 #' @export
-setMethod("txi", "bcbioRNADataSet", function(object) {
+setMethod("txi", "bcbioRNASeqANY", function(object) {
     bcbio(object, type = "tximport")
 })

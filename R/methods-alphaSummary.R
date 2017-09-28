@@ -12,7 +12,7 @@
 #' @param ... *Optional*. Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
 #'
-#' @note [bcbioRNADataSet] does not support contrast definitions, since the
+#' @note [bcbioRNASeq] does not support contrast definitions, since the
 #'   object contains an internal [DESeqDataSet] with an empty design formula.
 #'
 #' @return [kable].
@@ -22,7 +22,7 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
@@ -79,7 +79,7 @@ NULL
 # Methods ====
 #' @rdname alphaSummary
 #' @export
-setMethod("alphaSummary", "bcbioRNADataSet", function(
+setMethod("alphaSummary", "bcbioRNASeqANY", function(
     object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     caption = NULL,

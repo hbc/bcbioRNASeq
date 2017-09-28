@@ -1,6 +1,6 @@
 #' Bracket-Based Subsetting
 #'
-#' Extract genes by row and samples by column from a [bcbioRNADataSet]. The
+#' Extract genes by row and samples by column from a [bcbioRNASeq] object. The
 #' internal [DESeqDataSet] and count transformations are rescaled automatically.
 #'
 #' @rdname subset
@@ -11,7 +11,7 @@
 #' @inheritParams base::`[`
 #' @param ... Additional arguments.
 #'
-#' @return [bcbioRNADataSet].
+#' @return [bcbioRNASeq].
 #'
 #' @seealso `help("[", "base")`.
 #'
@@ -43,10 +43,11 @@ NULL
         design = formula(~1L))
 }
 
-.countSubset <- function(x, tmpData){
-        DESeqTransform(
-            SummarizedExperiment(assays = x,
-                                 colData = tmpData))
+.countSubset <- function(x, tmpData) {
+    DESeqTransform(
+        SummarizedExperiment(
+            assays = x,
+            colData = tmpData))
 }
 
 # Methods ====
@@ -54,7 +55,7 @@ NULL
 #' @export
 setMethod(
     "[",
-    signature(x = "bcbioRNADataSet", i = "ANY", j = "ANY"),
+    signature(x = "bcbioRNASeqANY", i = "ANY", j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
         if (missing(i)) {
             i <- 1L:nrow(x)
@@ -84,8 +85,10 @@ setMethod(
 
         tmp <- se[i, j, drop = drop]
         tmpGenes <- row.names(tmp)
-        tmpRow <- rowData(tmp) %>% as.data.frame
-        tmpData <- colData(tmp) %>% as.data.frame
+        tmpRow <- rowData(tmp) %>%
+            as.data.frame()
+        tmpData <- colData(tmp) %>%
+            as.data.frame()
         tmpTxi <- bcbio(x, "tximport")
 
         # Subset tximport data ====
@@ -102,12 +105,12 @@ setMethod(
         tmm <- .tmm(rawCounts)
         tpm <- txi[["abundance"]]
 
-        if (skipNorm){
-            message("Skip re-normalization, just selecting samples and genes.")
+        if (skipNorm) {
+            message("Skip re-normalization, just selecting samples and genes")
             # To Fix if we find the solution.
             # Only way to avoid disk space issue.
             # Direct subset of dds create a huge file.
-            dds <- .createDDS(txi, tmpData)  %>%
+            dds <- .createDDS(txi, tmpData) %>%
                 estimateSizeFactors()
             vst <- .countSubset(counts(x, "vst")[i, j], tmpData)
             rlog <- .countSubset(counts(x, "rlog")[i, j], tmpData)
@@ -115,7 +118,7 @@ setMethod(
         } else {
             # Fix for unexpected disk space issue (see constructor above)
             dds <- .createDDS(txi, tmpData)  %>%
-                DESeq
+                DESeq()
             normalizedCounts <- counts(dds, normalized = TRUE)
         }
 
@@ -133,7 +136,7 @@ setMethod(
 
         if (is.matrix(bcbio(x, "featureCounts"))) {
             tmpFC <- bcbio(x, "featureCounts") %>%
-                .[tmpGenes, tmpData[["sampleID"]]]
+                .[tmpGenes, tmpData[["sampleID"]], drop = FALSE]
         } else {
             tmpFC <- bcbio(x, "featureCounts")
         }
@@ -141,7 +144,7 @@ setMethod(
         # Subset Metrics ====
         tmpMetadata <- metadata(x)
         tmpMetrics <- tmpMetadata[["metrics"]] %>%
-            .[.[["sampleID"]] %in% tmpData[["sampleID"]], ]
+            .[.[["sampleID"]] %in% tmpData[["sampleID"]], , drop = FALSE]
         tmpMetadata[["metrics"]] <- tmpMetrics
 
         tmpAssays <- SimpleList(
@@ -152,18 +155,19 @@ setMethod(
             rlog = rlog,
             vst = vst)
 
-        # Slot additional callers
-        extra <- SimpleList(tximport = txi,
-                            DESeqDataSet = dds,
-                            featureCounts = tmpFC)
+        # Slot additional data
+        extra <- SimpleList(
+            tximport = txi,
+            DESeqDataSet = dds,
+            featureCounts = tmpFC)
 
-        # bcbioRNADataSet ====
-        bcb <- new("bcbioRNADataSet",
+        # bcbioRNASeq ====
+        bcb <- new("bcbioRNASeq",
             SummarizedExperiment(
                 assays = tmpAssays,
                 colData = tmpData,
                 rowData = tmpRow,
                 metadata = tmpMetadata),
-            callers = extra)
+            bcbio = extra)
         bcb
     })

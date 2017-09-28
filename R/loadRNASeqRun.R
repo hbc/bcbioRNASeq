@@ -31,7 +31,7 @@
 #' in [SummarizedExperiment::SummarizedExperiment] will be the output of
 #' [edgeR] normalization method.
 #'
-#' @return [bcbioRNADataSet].
+#' @return [bcbioRNASeq].
 #' @export
 #'
 #' @examples
@@ -247,9 +247,9 @@ loadRNASeqRun <- function(
         colData = sampleMetadata,
         metadata = metadata)
 
-    # bcbioRNADataSet ====
-    bcb <- new("bcbioRNADataSet", se)
-    # Slot additional callers
+    # bcbioRNASeq ====
+    bcb <- new("bcbioRNASeq", se)
+    # Slot additional data
     bcbio(bcb, "tximport") <- txi
     bcbio(bcb, "DESeqDataSet") <- dds
     # Slot STAR featureCounts matrix, if present

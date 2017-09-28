@@ -18,6 +18,6 @@ NULL
 # Methods ====
 #' @rdname tpm
 #' @export
-setMethod("tpm", "bcbioRNADataSet", function(object) {
+setMethod("tpm", "bcbioRNASeqANY", function(object) {
     assays(object)[["tpm"]]
 })

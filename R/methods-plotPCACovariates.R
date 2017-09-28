@@ -1,6 +1,6 @@
 #' Find Correlation Between Principal Components (PCs) and Covariates
 #'
-#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNADataSet].
+#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
 #'
 #' @rdname plotPCACovariates
 #' @name plotPCACovariates
@@ -8,11 +8,11 @@
 #'
 #' @inheritParams AllGenerics
 #' @param transform String specifying [DESeqTransform] slotted inside the
-#'   [bcbioRNADataSet]:
+#'   [bcbioRNASeq] object:
 #'   - `rlog` (**recommended**).
 #'   - `vst`: variance stabilizing transformation.
 #' @param metrics Include sample summary metrics as covariates.
-#' @param ... Additional arguments, passed to [degCovariates()].
+#' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
 #'
 #' @seealso
 #' - [DEGreport::degCovariates()].
@@ -31,7 +31,7 @@ NULL
 # Methods ====
 #' @rdname plotPCACovariates
 #' @export
-setMethod("plotPCACovariates", "bcbioRNADataSet", function(
+setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
     object,
     transform = "rlog",
     metrics = TRUE,
@@ -57,7 +57,7 @@ setMethod("plotPCACovariates", "bcbioRNADataSet", function(
     counts <- assays(object) %>%
         .[[transform]] %>%
         # Assay needed here to get the matrix from the slotted DESeqTransform
-        assay
+        assay()
 
     degCovariates(
         counts = counts,

@@ -16,7 +16,7 @@
 #' @inheritParams AllGenerics
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
-#'   inside the [bcbioRNADataSet].
+#'   inside the [bcbioRNASeq] object.
 #' @param method Correlation coefficient (or covariance) method to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
@@ -53,33 +53,33 @@ NULL
 
     # Subset counts matrix by input genes, if desired
     if (!is.null(genes)) {
-        counts <- counts[genes, ]
+        counts <- counts[genes, , drop = FALSE]
     }
 
     # Subset count matrix by input samples, if desired
     if (!is.null(samples)) {
         counts <- counts[, samples]
         if (!is.null(annotationCol)) {
-            annotationCol <- annotationCol[samples, ]
+            annotationCol <- annotationCol[samples, , drop = FALSE]
         }
     }
 
     if (!is.null(annotationCol)) {
         # Coerce annotation columns to factors
         annotationCol <- annotationCol %>%
-            as.data.frame %>%
-            rownames_to_column %>%
+            as.data.frame() %>%
+            rownames_to_column() %>%
             mutate_all(factor) %>%
-            column_to_rownames
+            column_to_rownames()
         # Define colors for each annotation column
         annotationColors <- lapply(
             seq_along(dim(annotationCol)[[2L]]), function(a) {
                 col <- annotationCol[[a]] %>%
-                    levels
+                    levels()
                 colors <- annotationCol[[a]] %>%
-                    levels %>%
-                    length %>%
-                    viridis
+                    levels() %>%
+                    length() %>%
+                    viridis()
                 names(colors) <- col
                 colors
             }) %>%
@@ -115,7 +115,7 @@ NULL
 # Methods ====
 #' @rdname plotCorrelationHeatmap
 #' @export
-setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", function(
+setMethod("plotCorrelationHeatmap", "bcbioRNASeqANY", function(
     object,
     transform = "rlog",
     method = "pearson",
@@ -127,11 +127,14 @@ setMethod("plotCorrelationHeatmap", "bcbioRNADataSet", function(
         stop("DESeqTransform must be rlog or vst")
     }
     # Get count matrix from `assays` slot
-    counts <- assays(object)[[transform]] %>% assay
-    interestingGroups <- metadata(object)[["interestingGroups"]]
+    counts <- assays(object) %>%
+        .[[transform]] %>%
+        assay()
+    interestingGroups <- metadata(object) %>%
+        .[["interestingGroups"]]
     annotationCol <- colData(object) %>%
         .[, interestingGroups, drop = FALSE] %>%
-        as.data.frame
+        as.data.frame()
     .plotCorrelationHeatmap(
         counts = counts,
         method = method,

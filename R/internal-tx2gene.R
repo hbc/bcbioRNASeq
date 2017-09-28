@@ -7,14 +7,15 @@
 #' @param genomeBuild Genome build.
 #' @param release Ensembl release version.
 #'
-#' @return [data.frame] with unique rownames.
+#' @return [data.frame], with unique rownames.
+#' @noRd
 .tx2gene <- function(projectDir, organism, release = "current") {
     filePath <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(filePath)) {
         # bcbio tx2gene
         read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
-            as.data.frame %>%
+            as.data.frame() %>%
             set_rownames(.[["enstxp"]])
     } else {
         # Fall back to using annotable tx2gene

@@ -29,7 +29,7 @@ NULL
     if (organism == "Mus musculus") {
         markers <- get("genderMarkersMmusculus", envir = envir)
     } else if (organism == "Homo sapiens") {
-        stop("Human marker support coming soon")
+        stop("Human marker support coming in future update")
     } else {
         stop("Unsupported organism")
     }
@@ -38,8 +38,8 @@ NULL
     ensgene <- markers %>%
         .[.[["include"]] == TRUE, , drop = FALSE] %>%
         pull("ensgene") %>%
-        sort %>%
-        unique
+        sort() %>%
+        unique()
 
     if (!all(ensgene %in% rownames(counts))) {
         warning("Missing gender markers in count matrix", call. = FALSE)
@@ -73,7 +73,7 @@ NULL
 # Methods ====
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
+setMethod("plotGenderMarkers", "bcbioRNASeqANY", function(object) {
     counts <- tpm(object)
     organism <- metadata(object)[["organism"]]
     ylab <- "transcripts per million (tpm)"
@@ -91,7 +91,7 @@ setMethod("plotGenderMarkers", "DESeqDataSet", function(
     if (is.null(organism)) {
         organism <- rownames(counts) %>%
             .[[1L]] %>%
-            detectOrganism
+            detectOrganism()
     }
     ylab <- "normalized counts"
     .plotGenderMarkers(counts, organism = organism, ylab = ylab)

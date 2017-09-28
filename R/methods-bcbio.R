@@ -1,4 +1,4 @@
-#' `bcbioRNADataSet` Caller Slot Accessor
+#' `bcbioRNASeq` Additional Run Data Accessor
 #'
 #' This method is used to access alternative count matrices with differing
 #' dimensions from the primary counts stored as a `SummarizedExperiment`.
@@ -51,6 +51,32 @@ NULL
 
 
 # Methods ====
+#' @rdname bcbio
+#' @export
+setMethod("bcbio", "bcbioRNASeq", function(object, type) {
+    if (type %in% names(slot(object, "bcbio"))) {
+        slot(object, "bcbio")[[type]]
+    } else {
+        stop(paste(type, "not found"))
+    }
+})
+
+
+
+#' @rdname bcbio
+#' @export
+setMethod(
+    "bcbio<-",
+    signature(object = "bcbioRNASeq", value = "ANY"),
+    function(object, type, value) {
+        slot(object, "bcbio")[[type]] <- value
+        validObject(object)
+        object
+    })
+
+
+
+# Legacy class support ====
 #' @rdname bcbio
 #' @export
 setMethod("bcbio", "bcbioRNADataSet", function(object, type) {

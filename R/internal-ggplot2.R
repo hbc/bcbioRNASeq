@@ -25,17 +25,19 @@ labelSep <- ": "
 
 # Line functions
 qcPassLine <- function(intercept) {
-    geom_hline(alpha = qcLineAlpha,
-               color = qcPassColor,
-               linetype = qcLineType,
-               size = qcLineSize,
-               yintercept = intercept)
+    geom_hline(
+        alpha = qcLineAlpha,
+        color = qcPassColor,
+        linetype = qcLineType,
+        size = qcLineSize,
+        yintercept = intercept)
 }
 
 qcWarnLine <- function(intercept) {
-    geom_hline(alpha = qcLineAlpha,
-               color = qcWarnColor,
-               linetype = qcLineType,
-               size = qcLineSize,
-               yintercept = intercept)
+    geom_hline(
+        alpha = qcLineAlpha,
+        color = qcWarnColor,
+        linetype = qcLineType,
+        size = qcLineSize,
+        yintercept = intercept)
 }

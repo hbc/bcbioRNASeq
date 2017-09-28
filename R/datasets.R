@@ -1,4 +1,4 @@
-#' Example [bcbioRNADataSet]
+#' Example [bcbioRNASeq]
 #'
 #' @author Lorena Pantano
 #' @keywords internal

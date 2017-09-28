@@ -39,8 +39,8 @@ NULL
                                       "")) %>%
         .[, c("ensgene", "baseMean", "lfc", "padj",
               "symbol", "description")] %>%
-        remove_rownames %>%
-        fixNA
+        remove_rownames() %>%
+        fixNA()
 }
 
 

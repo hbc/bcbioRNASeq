@@ -12,7 +12,7 @@
 #' @examples
 #' data(bcb, rld)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotGeneSaturation(bcb)
 #' plotGeneSaturation(bcb, interestingGroup = "group")
 #'
@@ -49,7 +49,7 @@ NULL
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(object = "bcbioRNADataSet",
+    signature(object = "bcbioRNASeqANY",
               counts = "missing"),
     function(
         object,

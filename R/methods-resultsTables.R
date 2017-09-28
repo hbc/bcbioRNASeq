@@ -41,6 +41,7 @@ NULL
 #' @param dir Output directory.
 #'
 #' @return [writeLines()].
+#' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
         stop("DE results directory missing")
@@ -82,15 +83,15 @@ setMethod("resultsTables", "DESeqResults", function(
     # Match genome against the first gene identifier by default
     if (is.null(genomeBuild)) {
         genomeBuild <- rownames(object)[[1L]] %>%
-            detectOrganism
+            detectOrganism()
     }
     anno <- annotable(genomeBuild)
 
     all <- object %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         rownames_to_column("ensgene") %>%
         as("tibble") %>%
-        camel %>%
+        camel(strict = FALSE) %>%
         left_join(anno, by = "ensgene") %>%
         arrange(!!sym("ensgene"))
 

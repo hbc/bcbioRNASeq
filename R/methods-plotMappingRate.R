@@ -12,7 +12,7 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotMappingRate(bcb)
 #'
 #' # data.frame
@@ -56,7 +56,7 @@ NULL
 # Methods ====
 #' @rdname plotMappingRate
 #' @export
-setMethod("plotMappingRate", "bcbioRNADataSet", function(
+setMethod("plotMappingRate", "bcbioRNASeqANY", function(
     object,
     passLimit = 90L,
     warnLimit = 70L,

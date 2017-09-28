@@ -12,14 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotCountsPerGene(bcb)
 #' plotCountsPerGene(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
 #' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountsPerGene
+#'     plotCountsPerGene()
 #' }
 NULL
 
@@ -40,7 +40,8 @@ NULL
              y = "log10 counts per gene") +
         scale_fill_viridis(discrete = TRUE)
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -50,7 +51,7 @@ NULL
 # Methods ====
 #' @rdname plotCountsPerGene
 #' @export
-setMethod("plotCountsPerGene", "bcbioRNADataSet", function(
+setMethod("plotCountsPerGene", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     normalized = "tmm",

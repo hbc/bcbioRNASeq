@@ -22,7 +22,7 @@
 #' data(bcb)
 #' genes <- c("Sulf1", "Phf3")
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotGene(bcb, gene = genes)
 #' plotGene(bcb, gene = genes, interestingGroup = "group")
 NULL
@@ -58,7 +58,7 @@ NULL
             scale_color_viridis(discrete = TRUE)
         show(p)
     }) %>%
-        invisible
+        invisible()
 }
 
 
@@ -66,7 +66,7 @@ NULL
 # Methods ====
 #' @rdname plotGene
 #' @export
-setMethod("plotGene", "bcbioRNADataSet", function(
+setMethod("plotGene", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     normalized = "tpm",

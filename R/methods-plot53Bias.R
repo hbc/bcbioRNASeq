@@ -12,13 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plot53Bias(bcb)
 #' plot53Bias(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
-#' metrics(bcb) %>% plot53Bias
+#' metrics(bcb) %>%
+#'     plot53Bias()
 #' }
 NULL
 
@@ -40,10 +41,12 @@ NULL
              y = "5'->3' bias") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -53,7 +56,7 @@ NULL
 # Methods ====
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "bcbioRNADataSet", function(
+setMethod("plot53Bias", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     warnLimit = 2L,

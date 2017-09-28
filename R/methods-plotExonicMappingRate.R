@@ -12,13 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotExonicMappingRate(bcb)
 #' plotExonicMappingRate(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
-#' metrics(bcb) %>% plotExonicMappingRate
+#' metrics(bcb) %>%
+#'     plotExonicMappingRate()
 #' }
 NULL
 
@@ -41,10 +42,12 @@ NULL
         ylim(0L, 100L) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -54,7 +57,7 @@ NULL
 # Methods ====
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(
+setMethod("plotExonicMappingRate", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     passLimit = 60L,

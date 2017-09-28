@@ -11,7 +11,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' sampleDirs(bcb) %>% basename
+#' sampleDirs(bcb) %>%
+#'     basename()
 NULL
 
 
@@ -19,6 +20,6 @@ NULL
 # Methods ====
 #' @rdname sampleDirs
 #' @export
-setMethod("sampleDirs", "bcbioRNADataSet", function(object) {
+setMethod("sampleDirs", "bcbioRNASeqANY", function(object) {
     metadata(object)[["sampleDirs"]]
 })

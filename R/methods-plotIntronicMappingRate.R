@@ -12,13 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotIntronicMappingRate(bcb)
 #' plotIntronicMappingRate(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
-#' metrics(bcb) %>% plotIntronicMappingRate
+#' metrics(bcb) %>%
+#'     plotIntronicMappingRate()
 #' }
 NULL
 
@@ -41,10 +42,12 @@ NULL
         ylim(0L, 100L) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -56,7 +59,7 @@ NULL
 #' @export
 setMethod(
     "plotIntronicMappingRate",
-    "bcbioRNADataSet",
+    "bcbioRNASeqANY",
     function(
         object,
         interestingGroup,

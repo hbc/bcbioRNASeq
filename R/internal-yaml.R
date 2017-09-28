@@ -9,6 +9,9 @@
 #' @note Metrics are only generated for a standard RNA-seq run with aligned
 #'   counts. Fast RNA-seq mode with lightweight counts (pseudocounts) doesn't
 #'   output the same metrics into the YAML.
+#'
+#' @return [tibble].
+#' @noRd
 .sampleYAML <- function(yaml, ...) {
     samples <- yaml[["samples"]]
     if (!length(samples)) {
@@ -42,7 +45,7 @@
             }
         }
         nested %>%
-            camel %>%
+            camel(strict = FALSE) %>%
             .[unique(names(.))]
     }) %>%
         # List can be coerced to data frame using [data.table::rbindlist()] or
@@ -51,19 +54,20 @@
         # on numeric data, whereas this doesn't happen with [rbindlist()].
         rbindlist(fill = TRUE) %>%
         as("tibble") %>%
-        camel %>%
-        removeNA %>%
+        camel(strict = FALSE) %>%
+        removeNA() %>%
         # Rename `description` to `sampleName`
         dplyr::rename(sampleName = .data[["description"]]) %>%
         # Sanitize `sampleID` into valid names
         mutate(sampleID = make.names(.data[["sampleName"]])) %>%
-        .metaPriorityCols
+        .metaPriorityCols()
 }
 
 
 
 .sampleYAMLMetadata <- function(yaml) {
-    .sampleYAML(yaml, metadata) %>% .metaFactors
+    .sampleYAML(yaml, metadata) %>%
+        .metaFactors()
 }
 
 

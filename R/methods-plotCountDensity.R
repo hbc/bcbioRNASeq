@@ -12,14 +12,14 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotCountDensity(bcb)
 #' plotCountDensity(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
 #' # data.frame
 #' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountDensity
+#'     plotCountDensity()
 #' }
 NULL
 
@@ -44,7 +44,7 @@ NULL
 # Methods ====
 #' @rdname plotCountDensity
 #' @export
-setMethod("plotCountDensity", "bcbioRNADataSet", function(
+setMethod("plotCountDensity", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     normalized = "tmm") {

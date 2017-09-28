@@ -32,7 +32,8 @@
 #' plotVolcano(res, genes = "Sulf1")
 #'
 #' # data.frame
-#' as.data.frame(res) %>% plotVolcano
+#' as.data.frame(res) %>%
+#'     plotVolcano()
 NULL
 
 
@@ -60,7 +61,7 @@ NULL
     # Generate stats tibble ====
     stats <- as.data.frame(object) %>%
         rownames_to_column("ensgene") %>%
-        camel %>%
+        camel(strict = FALSE) %>%
         # Keep genes with non-zero counts
         .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
         # Keep genes with a fold change
@@ -118,8 +119,8 @@ NULL
 
     # LFC density histogram ====
     lfcDensity <- stats[["log2FoldChange"]] %>%
-        na.omit %>%
-        density
+        na.omit() %>%
+        density()
     lfcDensityDf <- data.frame(
         x = lfcDensity[["x"]],
         y = lfcDensity[["y"]])
@@ -156,8 +157,8 @@ NULL
 
     # P value density plot ====
     pvalueDensity <- stats[["negLog10Pvalue"]] %>%
-        na.omit %>%
-        density
+        na.omit() %>%
+        density()
     pvalueDensityDf <-
         data.frame(x = pvalueDensity[["x"]],
                    y = pvalueDensity[["y"]])
@@ -261,7 +262,8 @@ NULL
             draw_plot(
                 volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
     } else {
-        volcano + ggtitle("volcano")
+        volcano +
+            ggtitle("volcano")
     }
 }
 

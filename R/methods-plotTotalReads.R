@@ -12,7 +12,7 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotTotalReads(bcb)
 #'
 #' # data.frame
@@ -38,13 +38,16 @@ NULL
              y = "total reads (million)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -54,7 +57,7 @@ NULL
 # Methods ====
 #' @rdname plotTotalReads
 #' @export
-setMethod("plotTotalReads", "bcbioRNADataSet", function(
+setMethod("plotTotalReads", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
     passLimit = 20L,

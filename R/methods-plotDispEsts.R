@@ -15,7 +15,7 @@
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotDispEsts(bcb)
 #' plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
 NULL
@@ -25,7 +25,7 @@ NULL
 # Methods ====
 #' @rdname plotDispEsts
 #' @export
-setMethod("plotDispEsts", "bcbioRNADataSet", function(object, ...) {
+setMethod("plotDispEsts", "bcbioRNASeqANY", function(object, ...) {
     bcbio(object, "DESeqDataSet") %>%
         plotDispEsts(...)
 })

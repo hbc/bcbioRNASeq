@@ -5,7 +5,7 @@
 #' Ward method, but this behavior can be overrided by setting `cluster_rows` or
 #' `cluster_cols` to `FALSE`. When column clustering is disabled, the columns
 #' are sorted by the interesting groups (`interestingGroups`) specified in the
-#' [bcbioRNADataSet] and then the sample names.
+#' [bcbioRNASeq] and then the sample names.
 #'
 #' @rdname plotGeneHeatmap
 #' @name plotGeneHeatmap
@@ -26,11 +26,12 @@
 #' @examples
 #' data(bcb, dds, rld)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotGeneHeatmap(bcb)
 #'
 #' # Genes as Ensembl identifiers
-#' genes <- counts(bcb)[1L:20L, ] %>% rownames
+#' genes <- counts(bcb)[1L:20L, ] %>%
+#'     rownames()
 #' plotGeneHeatmap(bcb, genes = genes)
 #'
 #' # DESeqDataSet
@@ -84,20 +85,20 @@ NULL
 
     if (!is.null(annotationCol)) {
         annotationCol <- annotationCol %>%
-            as.data.frame %>%
+            as.data.frame() %>%
             # Coerce annotation columns to factors
-            rownames_to_column %>%
+            rownames_to_column() %>%
             mutate_all(factor) %>%
-            column_to_rownames
+            column_to_rownames()
         # Define colors for each annotation column
         annotationColors <- lapply(
             seq_along(dim(annotationCol)[[2L]]), function(a) {
                 col <- annotationCol[[a]] %>%
-                    levels
+                    levels()
                 colors <- annotationCol[[a]] %>%
-                    levels %>%
-                    length %>%
-                    viridis
+                    levels() %>%
+                    length() %>%
+                    viridis()
                 names(colors) <- col
                 colors
             }) %>%
@@ -126,7 +127,7 @@ NULL
 # Methods ====
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "bcbioRNADataSet", function(
+setMethod("plotGeneHeatmap", "bcbioRNASeqANY", function(
     object,
     genes = NULL,
     title = NULL) {

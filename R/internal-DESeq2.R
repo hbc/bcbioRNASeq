@@ -6,6 +6,7 @@
 #' @param res [DESeqResults].
 #'
 #' @return Contrast name string.
+#' @noRd
 .resContrastName <- function(res) {
     mcols(res)[2L, 2L] %>%
         str_replace("^.*:\\s", "") %>%
