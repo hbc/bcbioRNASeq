@@ -24,6 +24,8 @@ plotGeneDetectionSaturation <- function(...) {
     plotGeneSaturation(...)
 }
 
+#' @rdname deprecated
+#' @export
 plotDispersion <- function(...) {
     .Deprecated("plotDispEsts")
     plotDispEsts(...)
