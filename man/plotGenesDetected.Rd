@@ -3,14 +3,14 @@
 \docType{methods}
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
-\alias{plotGenesDetected,bcbioRNADataSet,missing-method}
+\alias{plotGenesDetected,bcbioRNASeqANY,missing-method}
 \alias{plotGenesDetected,data.frame,DESeqDataSet-method}
 \alias{plotGenesDetected,data.frame,matrix-method}
 \title{Plot Genes Detected}
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object, interestingGroup,
+\S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroup,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
@@ -50,7 +50,7 @@ Plot Genes Detected
 \examples{
 data(bcb, dds)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotGenesDetected(
     bcb,
     passLimit = NULL,

@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotMappingRate}
 \alias{plotMappingRate}
-\alias{plotMappingRate,bcbioRNADataSet-method}
+\alias{plotMappingRate,bcbioRNASeqANY-method}
 \alias{plotMappingRate,data.frame-method}
 \title{Plot Mapping Rate}
 \usage{
 plotMappingRate(object, ...)
 
-\S4method{plotMappingRate}{bcbioRNADataSet}(object, passLimit = 90L,
+\S4method{plotMappingRate}{bcbioRNASeqANY}(object, passLimit = 90L,
   warnLimit = 70L, flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
@@ -40,7 +40,7 @@ Plot Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotMappingRate(bcb)
 
 # data.frame

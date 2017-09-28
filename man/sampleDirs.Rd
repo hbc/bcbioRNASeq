@@ -3,10 +3,10 @@
 \docType{methods}
 \name{sampleDirs}
 \alias{sampleDirs}
-\alias{sampleDirs,bcbioRNADataSet-method}
+\alias{sampleDirs,bcbioRNASeqANY-method}
 \title{Sample Directories}
 \usage{
-\S4method{sampleDirs}{bcbioRNADataSet}(object)
+\S4method{sampleDirs}{bcbioRNASeqANY}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -19,5 +19,6 @@ This method will be used to access folders where sample information is kept.
 }
 \examples{
 data(bcb)
-sampleDirs(bcb) \%>\% basename
+sampleDirs(bcb) \%>\%
+    basename()
 }

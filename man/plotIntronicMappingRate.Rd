@@ -4,13 +4,13 @@
 \docType{methods}
 \name{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate}
-\alias{plotIntronicMappingRate,bcbioRNADataSet-method}
+\alias{plotIntronicMappingRate,bcbioRNASeqANY-method}
 \alias{plotIntronicMappingRate,data.frame-method}
 \title{Plot Intronic Mapping Rate}
 \usage{
 plotIntronicMappingRate(object, ...)
 
-\S4method{plotIntronicMappingRate}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotIntronicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
   warnLimit = 20L, flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
@@ -38,13 +38,14 @@ Plot Intronic Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotIntronicMappingRate(bcb)
 plotIntronicMappingRate(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
-metrics(bcb) \%>\% plotIntronicMappingRate
+metrics(bcb) \%>\%
+    plotIntronicMappingRate()
 }
 }
 \seealso{

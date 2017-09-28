@@ -3,10 +3,10 @@
 \docType{methods}
 \name{counts}
 \alias{counts}
-\alias{counts,bcbioRNADataSet-method}
+\alias{counts,bcbioRNASeqANY-method}
 \title{Count Matrix Accessors}
 \usage{
-\S4method{counts}{bcbioRNADataSet}(object, normalized = FALSE)
+\S4method{counts}{bcbioRNASeqANY}(object, normalized = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -33,22 +33,30 @@ argument.
 data(bcb)
 
 # Raw counts
-counts(bcb, normalized = FALSE) \%>\% str
-
-# DESeq2 normalized counts
-counts(bcb, normalized = TRUE) \%>\% str
+counts(bcb, normalized = FALSE) \%>\%
+    summary()
 
 # TPM
-counts(bcb, normalized = "tpm") \%>\% str
+counts(bcb, normalized = "tpm") \%>\%
+    summary()
+
+\dontrun{
+# DESeq2 normalized counts
+counts(bcb, normalized = TRUE) \%>\%
+    summary()
+
+#' # rlog
+counts(bcb, normalized = "rlog") \%>\%
+    str()
 
 # TMM
-counts(bcb, normalized = "tmm") \%>\% str
-
-# rlog
-counts(bcb, normalized = "rlog") \%>\% str
+counts(bcb, normalized = "tmm") \%>\%
+    summary()
 
 # VST
-counts(bcb, normalized = "vst") \%>\% str
+counts(bcb, normalized = "vst") \%>\%
+    summary()
+}
 }
 \author{
 Michael Steinbaugh

@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plot53Bias}
 \alias{plot53Bias}
-\alias{plot53Bias,bcbioRNADataSet-method}
+\alias{plot53Bias,bcbioRNASeqANY-method}
 \alias{plot53Bias,data.frame-method}
 \title{Plot 5'->3' Bias}
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroup,
   warnLimit = 2L, flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroup = "sampleName",
@@ -37,13 +37,14 @@ Plot 5'->3' Bias
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plot53Bias(bcb)
 plot53Bias(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
-metrics(bcb) \%>\% plot53Bias
+metrics(bcb) \%>\%
+    plot53Bias()
 }
 }
 \seealso{

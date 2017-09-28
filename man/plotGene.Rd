@@ -3,10 +3,10 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene,bcbioRNADataSet-method}
+\alias{plotGene,bcbioRNASeqANY-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotGene}{bcbioRNASeqANY}(object, interestingGroup,
   normalized = "tpm", gene, format = "symbol")
 }
 \arguments{
@@ -34,7 +34,7 @@ Plot Individual Genes
 data(bcb)
 genes <- c("Sulf1", "Phf3")
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotGene(bcb, gene = genes)
 plotGene(bcb, gene = genes, interestingGroup = "group")
 }

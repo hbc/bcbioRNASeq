@@ -3,18 +3,18 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
-\alias{plotPCA,bcbioRNADataSet-method}
+\alias{plotPCA,bcbioRNASeqANY-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNADataSet}(object, transform = "rlog",
-  genes = NULL, censorSamples = NULL, interestingGroups = NULL,
-  shape = FALSE, label = TRUE)
+\S4method{plotPCA}{bcbioRNASeqANY}(object, transform = "rlog", genes = NULL,
+  censorSamples = NULL, interestingGroups = NULL, shape = FALSE,
+  label = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
-\link{DESeqTransform} slotted inside the \link{bcbioRNADataSet}.}
+\link{DESeqTransform} slotted inside the \link{bcbioRNASeq} object.}
 
 \item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
 
@@ -22,7 +22,7 @@
 
 \item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
 appearance. If \code{NULL}, color defaults to all \code{interestingGroups}
-parameters set in \link{bcbioRNADataSet}.}
+parameters set in the \link{bcbioRNASeq} object.}
 
 \item{shape}{\emph{Optional}. Make points easier to inspect with differing shapes.}
 

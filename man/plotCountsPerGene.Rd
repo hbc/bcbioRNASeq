@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotCountsPerGene}
 \alias{plotCountsPerGene}
-\alias{plotCountsPerGene,bcbioRNADataSet-method}
+\alias{plotCountsPerGene,bcbioRNASeqANY-method}
 \alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
 \usage{
 plotCountsPerGene(object, ...)
 
-\S4method{plotCountsPerGene}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotCountsPerGene}{bcbioRNASeqANY}(object, interestingGroup,
   normalized = "tmm", flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
@@ -38,14 +38,14 @@ Plot Counts Per Gene
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotCountsPerGene(bcb)
 plotCountsPerGene(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountsPerGene
+    plotCountsPerGene()
 }
 }
 \seealso{

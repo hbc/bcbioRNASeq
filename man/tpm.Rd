@@ -3,12 +3,12 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
-\alias{tpm,bcbioRNADataSet-method}
+\alias{tpm,bcbioRNASeqANY-method}
 \title{Transcripts Per Million (TPM)}
 \usage{
 tpm(object)
 
-\S4method{tpm}{bcbioRNADataSet}(object)
+\S4method{tpm}{bcbioRNASeqANY}(object)
 }
 \arguments{
 \item{object}{Object.}

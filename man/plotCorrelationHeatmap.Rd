@@ -4,12 +4,12 @@
 \docType{methods}
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
-\alias{plotCorrelationHeatmap,bcbioRNADataSet-method}
+\alias{plotCorrelationHeatmap,bcbioRNASeqANY-method}
 \title{Plot Correlation Heatmap}
 \usage{
 plotCorrelationHeatmap(object, ...)
 
-\S4method{plotCorrelationHeatmap}{bcbioRNADataSet}(object, transform = "rlog",
+\S4method{plotCorrelationHeatmap}{bcbioRNASeqANY}(object, transform = "rlog",
   method = "pearson", genes = NULL, samples = NULL, title = NULL)
 }
 \arguments{
@@ -19,7 +19,7 @@ plotCorrelationHeatmap(object, ...)
 
 \item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
 (\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
-inside the \link{bcbioRNADataSet}.}
+inside the \link{bcbioRNASeq} object.}
 
 \item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the

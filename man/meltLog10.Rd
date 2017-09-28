@@ -3,14 +3,14 @@
 \docType{methods}
 \name{meltLog10}
 \alias{meltLog10}
-\alias{meltLog10,bcbioRNADataSet-method}
+\alias{meltLog10,bcbioRNASeqANY-method}
 \alias{meltLog10,DESeqDataSet-method}
 \alias{meltLog10,DESeqTransform-method}
 \title{Melt Count Matrix to Long Format and log10 Transform}
 \usage{
 meltLog10(object, ...)
 
-\S4method{meltLog10}{bcbioRNADataSet}(object, normalized = TRUE)
+\S4method{meltLog10}{bcbioRNASeqANY}(object, normalized = TRUE)
 
 \S4method{meltLog10}{DESeqDataSet}(object, normalized = TRUE)
 
@@ -33,14 +33,17 @@ Melt Count Matrix to Long Format and log10 Transform
 \examples{
 data(bcb, dds, rld)
 
-# bcbioRNADataSet
-meltLog10(bcb) \%>\% str
+# bcbioRNASeq
+meltLog10(bcb) \%>\%
+    str()
 
 # DESeqDataSet
-meltLog10(dds) \%>\% str
+meltLog10(dds) \%>\%
+    str()
 
 # DESeqTransform
-meltLog10(rld) \%>\% str
+meltLog10(rld) \%>\%
+    str()
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.

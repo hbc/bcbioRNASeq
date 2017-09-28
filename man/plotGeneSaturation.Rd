@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
-\alias{plotGeneSaturation,bcbioRNADataSet,missing-method}
+\alias{plotGeneSaturation,bcbioRNASeqANY,missing-method}
 \alias{plotGeneSaturation,data.frame,matrix-method}
 \title{Plot Gene Detection Saturation}
 \usage{
 plotGeneSaturation(object, counts, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNADataSet,missing}(object, interestingGroup,
+\S4method{plotGeneSaturation}{bcbioRNASeqANY,missing}(object, interestingGroup,
   normalized = "tmm", minCounts = 0L)
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
@@ -41,7 +41,7 @@ Plot Gene Detection Saturation
 \examples{
 data(bcb, rld)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotGeneSaturation(bcb)
 plotGeneSaturation(bcb, interestingGroup = "group")
 

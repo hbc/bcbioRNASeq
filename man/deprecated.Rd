@@ -4,11 +4,14 @@
 \alias{deprecated}
 \alias{download}
 \alias{plotGeneDetectionSaturation}
+\alias{plotDispersion}
 \title{Deprecated Functions}
 \usage{
 download(...)
 
 plotGeneDetectionSaturation(...)
+
+plotDispersion(...)
 }
 \arguments{
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}

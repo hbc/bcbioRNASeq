@@ -4,13 +4,13 @@
 \docType{methods}
 \name{plotExonicMappingRate}
 \alias{plotExonicMappingRate}
-\alias{plotExonicMappingRate,bcbioRNADataSet-method}
+\alias{plotExonicMappingRate,bcbioRNASeqANY-method}
 \alias{plotExonicMappingRate,data.frame-method}
 \title{Plot Exonic Mapping Rate}
 \usage{
 plotExonicMappingRate(object, ...)
 
-\S4method{plotExonicMappingRate}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotExonicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
   passLimit = 60L, flip = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
@@ -38,13 +38,14 @@ Plot Exonic Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotExonicMappingRate(bcb)
 plotExonicMappingRate(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
-metrics(bcb) \%>\% plotExonicMappingRate
+metrics(bcb) \%>\%
+    plotExonicMappingRate()
 }
 }
 \seealso{

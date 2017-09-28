@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
-\alias{plotMappedReads,bcbioRNADataSet-method}
+\alias{plotMappedReads,bcbioRNASeqANY-method}
 \alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
 \usage{
 plotMappedReads(object, ...)
 
-\S4method{plotMappedReads}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotMappedReads}{bcbioRNASeqANY}(object, interestingGroup,
   passLimit = 20L, warnLimit = 10L, flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
@@ -40,13 +40,14 @@ Plot Mapped Reads
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotMappedReads(bcb)
 plotMappedReads(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
-metrics(bcb) \%>\% plotMappedReads
+metrics(bcb) \%>\%
+    plotMappedReads()
 }
 }
 \seealso{

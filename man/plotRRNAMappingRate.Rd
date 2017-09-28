@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate}
-\alias{plotRRNAMappingRate,bcbioRNADataSet-method}
+\alias{plotRRNAMappingRate,bcbioRNASeqANY-method}
 \alias{plotRRNAMappingRate,data.frame-method}
 \title{Plot Ribosomal RNA (rRNA) Mapping Rate}
 \usage{
 plotRRNAMappingRate(object, ...)
 
-\S4method{plotRRNAMappingRate}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotRRNAMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
   warnLimit = 10L, flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
@@ -37,12 +37,13 @@ Plot Ribosomal RNA (rRNA) Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotRRNAMappingRate(bcb)
 plotRRNAMappingRate(bcb, interestingGroup = "group")
 
 # data.frame
-metrics(bcb) \%>\% plotRRNAMappingRate
+metrics(bcb) \%>\%
+    plotRRNAMappingRate()
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

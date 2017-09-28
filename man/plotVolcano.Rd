@@ -59,7 +59,8 @@ data(res)
 plotVolcano(res, genes = "Sulf1")
 
 # data.frame
-as.data.frame(res) \%>\% plotVolcano
+as.data.frame(res) \%>\%
+    plotVolcano()
 }
 \seealso{
 This function is an updated variant of

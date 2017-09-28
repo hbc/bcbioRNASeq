@@ -3,14 +3,14 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers,bcbioRNADataSet-method}
+\alias{plotGenderMarkers,bcbioRNASeqANY-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,matrix-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
 plotGenderMarkers(object, ...)
 
-\S4method{plotGenderMarkers}{bcbioRNADataSet}(object)
+\S4method{plotGenderMarkers}{bcbioRNASeqANY}(object)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object, organism = NULL)
 

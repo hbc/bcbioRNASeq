@@ -30,7 +30,7 @@ matching Ensembl annotations against an outdated bcbio annotation build.}
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
-\link{bcbioRNADataSet}.
+\link{bcbioRNASeq}.
 }
 \description{
 Simply point to the final upload directory output by

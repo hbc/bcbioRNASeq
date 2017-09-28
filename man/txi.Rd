@@ -3,12 +3,12 @@
 \docType{methods}
 \name{txi}
 \alias{txi}
-\alias{txi,bcbioRNADataSet-method}
+\alias{txi,bcbioRNASeqANY-method}
 \title{\code{tximport} Accessor Shortcut}
 \usage{
 txi(object)
 
-\S4method{txi}{bcbioRNADataSet}(object)
+\S4method{txi}{bcbioRNASeqANY}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,7 +20,8 @@ txi(object)
 \code{tximport} Accessor Shortcut
 }
 \examples{
-txi(bcb) \%>\% names
+txi(bcb) \%>\%
+    names()
 }
 \author{
 Michael Steinbaugh

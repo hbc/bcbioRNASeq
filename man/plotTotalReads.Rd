@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotTotalReads}
 \alias{plotTotalReads}
-\alias{plotTotalReads,bcbioRNADataSet-method}
+\alias{plotTotalReads,bcbioRNASeqANY-method}
 \alias{plotTotalReads,data.frame-method}
 \title{Plot Total Reads}
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotTotalReads}{bcbioRNASeqANY}(object, interestingGroup,
   passLimit = 20L, warnLimit = 10L, flip = TRUE)
 
 \S4method{plotTotalReads}{data.frame}(object, interestingGroup = "sampleName",
@@ -39,7 +39,7 @@ Plot Total Reads
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotTotalReads(bcb)
 
 # data.frame

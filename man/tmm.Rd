@@ -3,14 +3,14 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
-\alias{tmm,bcbioRNADataSet-method}
+\alias{tmm,bcbioRNASeqANY-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}
 \title{Trimmed Mean of M-Values (TMM) Normalization}
 \usage{
 tmm(object)
 
-\S4method{tmm}{bcbioRNADataSet}(object)
+\S4method{tmm}{bcbioRNASeqANY}(object)
 
 \S4method{tmm}{DESeqDataSet}(object)
 
@@ -30,15 +30,19 @@ tool when plotting counts per gene.
 \examples{
 data(bcb, dds)
 
-# bcbioRNADataSet
-tmm(bcb) \%>\% head
+# bcbioRNASeq
+tmm(bcb) \%>\%
+    summary()
 
 \dontrun{
 # DESeqDataSet
-tmm(dds) \%>\% head
+tmm(dds) \%>\%
+    summary()
 
 # matrix
-assay(bcb) \%>\% tmm \%>\% head
+assay(bcb) \%>\%
+    tmm() \%>\%
+    summary()
 }
 }
 \author{

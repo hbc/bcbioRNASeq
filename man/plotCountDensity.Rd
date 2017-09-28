@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotCountDensity}
 \alias{plotCountDensity}
-\alias{plotCountDensity,bcbioRNADataSet-method}
+\alias{plotCountDensity,bcbioRNASeqANY-method}
 \alias{plotCountDensity,data.frame-method}
 \title{Plot Count Density}
 \usage{
 plotCountDensity(object, ...)
 
-\S4method{plotCountDensity}{bcbioRNADataSet}(object, interestingGroup,
+\S4method{plotCountDensity}{bcbioRNASeqANY}(object, interestingGroup,
   normalized = "tmm")
 
 \S4method{plotCountDensity}{data.frame}(object,
@@ -36,14 +36,14 @@ Plot Count Density
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotCountDensity(bcb)
 plotCountDensity(bcb, interestingGroup = "group")
 
 \dontrun{
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountDensity
+    plotCountDensity()
 }
 }
 \seealso{
