@@ -33,13 +33,13 @@ countsDir <- file.path(outputDir, "results", "counts")
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
 ```
 
-[bcbio][] run data was imported from **`r metadata(bcb)[["uploadDir"]]`**.
 
 
-
-```{r metadata_table}
-metadataTable(bcb)
+```{r sample_metadata}
+sampleMetadata(bcb)
 ```
+
+[bcbio][] run data was imported from **`r metadata(bcb)[["uploadDir"]]`**.
 
 ```{r counts}
 rawCounts <- counts(bcb, normalized = FALSE)
