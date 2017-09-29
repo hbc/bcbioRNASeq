@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Gene Detection Saturation — plotGeneSaturation • bcbioRNASeq</title>
+<title>Sample Metadata — sampleMetadata • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,22 +83,18 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Gene Detection Saturation</h1>
+    <h1>Sample Metadata</h1>
     </div>
 
     
-    <p>Plot Gene Detection Saturation</p>
+    <p>Returns the sample metadata.</p>
     
 
-    <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeqANY</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeqANY,missing</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>interestingGroup</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-
-<span class='co'># S4 method for data.frame,matrix</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+<span class='co'># S4 method for DESeqANY</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -108,59 +104,37 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>counts</th>
-      <td><p>Object containing a count matrix.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p>Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
-    </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p>Count normalization method. See <code><a href='counts.html'>counts()</a></code> documentation
-for more information.</p></td>
-    </tr>
-    <tr>
-      <th>minCounts</th>
-      <td><p>Numeric value for filtering the counts matrix before
-plotting.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Other Quality Control Plots: <code><a href='plot53Bias.html'>plot53Bias</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>, <code><a href='plotGene.html'>plotGene</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
+    <p>data.frame.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>rld</span>)
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='co'># data.frame, matrix</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>rld</span>))
-<span class='co'># }</span></pre>
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt;          sampleID sampleName group
+#&gt; group1_1 group1_1   group1_1  ctrl
+#&gt; group1_2 group1_2   group1_2  ctrl
+#&gt; group2_1 group2_1   group2_1    ko
+#&gt; group2_2 group2_2   group2_2    ko</div><div class='input'>
+<span class='co'># DESeqDataSet</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt;          sampleID sampleName group sizeFactor
+#&gt; group1_1 group1_1   group1_1  ctrl  0.9090654
+#&gt; group1_2 group1_2   group1_2  ctrl  1.0278975
+#&gt; group2_1 group2_1   group2_1    ko  1.0464056
+#&gt; group2_2 group2_2   group2_2    ko  1.0284265</div><div class='input'>
+<span class='co'># DESeqTransform</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt;          sampleID sampleName group sizeFactor
+#&gt; group1_1 group1_1   group1_1  ctrl  0.9090654
+#&gt; group1_2 group1_2   group1_2  ctrl  1.0278975
+#&gt; group2_1 group2_1   group2_1    ko  1.0464056
+#&gt; group2_2 group2_2   group2_2    ko  1.0284265</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,15 +142,9 @@ plotting.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh, Rory Kirchner, Victor Barrera
 
   </div>
 </div>

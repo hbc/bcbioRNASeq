@@ -9,11 +9,11 @@
 \usage{
 plotMappingRate(object, ...)
 
-\S4method{plotMappingRate}{bcbioRNASeqANY}(object, passLimit = 90L,
-  warnLimit = 70L, flip = TRUE)
+\S4method{plotMappingRate}{bcbioRNASeqANY}(object, passLimit = 90,
+  warnLimit = 70, flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 90L, warnLimit = 70L,
+  interestingGroup = "sampleName", passLimit = 90, warnLimit = 70,
   flip = TRUE)
 }
 \arguments{

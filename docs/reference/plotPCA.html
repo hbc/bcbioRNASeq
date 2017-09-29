@@ -91,10 +91,10 @@
 (PCA) sample coloring and labeling.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNADataSet</span>
-<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeqANY</span>
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -106,7 +106,7 @@
     <tr>
       <th>transform</th>
       <td><p>String specifying rlog (<strong>recommended</strong>) or vst
-DESeqTransform slotted inside the <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+DESeqTransform slotted inside the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -120,7 +120,7 @@ DESeqTransform slotted inside the <a href='bcbioRNADataSet-class.html'>bcbioRNAD
       <th>interestingGroups</th>
       <td><p><em>Optional</em>. Interesting groups to use for point
 appearance. If <code>NULL</code>, color defaults to all <code>interestingGroups</code>
-parameters set in <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
+parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
     </tr>
     <tr>
       <th>shape</th>
@@ -166,7 +166,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

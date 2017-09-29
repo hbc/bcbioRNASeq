@@ -5,7 +5,7 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, maxSamples = 50L, ensemblVersion = "current",
+  sampleMetadataFile = NULL, maxSamples = 50, ensemblVersion = "current",
   ...)
 }
 \arguments{

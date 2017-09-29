@@ -76,7 +76,7 @@ internal \link{DESeqDataSet} and count transformations are rescaled automaticall
 }
 \examples{
 data(bcb)
-genes <- 1L:50L
+genes <- 1:50
 samples <- c("group1_1", "group1_2")
 
 # Subset by sample name

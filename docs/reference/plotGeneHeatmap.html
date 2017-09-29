@@ -92,12 +92,12 @@ default, row- and column-wise hierarchical clustering is performed using the
 Ward method, but this behavior can be overrided by setting <code>cluster_rows</code> or
 <code>cluster_cols</code> to <code>FALSE</code>. When column clustering is disabled, the columns
 are sorted by the interesting groups (<code>interestingGroups</code>) specified in the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a> and then the sample names.</p>
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> and then the sample names.</p>
     
 
     <pre class="usage"><span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNADataSet</span>
+<span class='co'># S4 method for bcbioRNASeqANY</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
@@ -154,11 +154,12 @@ features of the heatmap columns.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
 
-<span class='co'># bcbioRNADataSet</span>
+<span class='co'># bcbioRNASeq</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Genes as Ensembl identifiers</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1L</span>:<span class='fl'>20L</span>, ] <span class='kw'>%&gt;%</span> <span class='no'>rownames</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span>
+    <span class='fu'>rownames</span>()
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform</span>
@@ -185,7 +186,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

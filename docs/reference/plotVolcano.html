@@ -97,7 +97,7 @@
 
 <span class='co'># S4 method for data.frame</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
   <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
   <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -178,9 +178,10 @@ individual ggplot (<code>grid = FALSE</code>).</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>res</span>)
 
 <span class='co'># DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span> <span class='no'>plotVolcano</span></div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>as.data.frame</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plotVolcano</span>()</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -203,7 +204,7 @@ John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

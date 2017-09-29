@@ -10,10 +10,10 @@
 plotGeneSaturation(object, counts, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeqANY,missing}(object, interestingGroup,
-  normalized = "tmm", minCounts = 0L)
+  normalized = "tmm", minCounts = 0)
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroup = "sampleName", minCounts = 0L)
+  interestingGroup = "sampleName", minCounts = 0)
 }
 \arguments{
 \item{object}{Object.}

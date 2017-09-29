@@ -10,10 +10,10 @@
 plotRRNAMappingRate(object, ...)
 
 \S4method{plotRRNAMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
-  warnLimit = 10L, flip = TRUE)
+  warnLimit = 10, flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 10L, flip = TRUE)
+  interestingGroup = "sampleName", warnLimit = 10, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

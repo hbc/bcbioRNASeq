@@ -82,14 +82,14 @@
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
 </div>
 </div>
-<div id="load-bcbio-run-output-into-bcbiornadataset" class="section level2">
+<div id="load-bcbio-run" class="section level2">
 <h2 class="hasAnchor">
-<a href="#load-bcbio-run-output-into-bcbiornadataset" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run output into <code>bcbioRNADataSet</code>
-</h2>
+<a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeqRun.html">loadRNASeqRun</a></span>(
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/deprecated.html">loadRNASeqRun</a></span>(
     <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
     <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
+<p>This will return a <code>bcbioRNADataSet</code>, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
 <li>
@@ -128,14 +128,14 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>
-<a href="http://steinbaugh.com">Michael J. Steinbaugh</a> <br><small class="roles"> Author, maintainer </small> </li>
+<li>Michael Steinbaugh <br><small class="roles"> Author, maintainer </small> </li>
 <li>
 <a href="https://lpantano.github.io">Lorena Pantano</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/roryk">Rory Kirchner</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/vbarrera">Victor Barrera</a> <br><small class="roles"> Author </small> </li>
+<li>Mary Piper <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/jnhutchinson">John Hutchinson</a> <br><small class="roles"> Author </small> </li>
 <li>
@@ -152,7 +152,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://steinbaugh.com">Michael J. Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by Michael Steinbaugh, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, Mary Piper, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

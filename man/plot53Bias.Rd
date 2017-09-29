@@ -9,11 +9,11 @@
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroup,
-  warnLimit = 2L, flip = TRUE)
+\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroup, warnLimit = 2,
+  flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroup = "sampleName",
-  warnLimit = 2L, flip = TRUE)
+  warnLimit = 2, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

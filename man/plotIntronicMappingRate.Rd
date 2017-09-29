@@ -11,10 +11,10 @@
 plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
-  warnLimit = 20L, flip = TRUE)
+  warnLimit = 20, flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 20L, flip = TRUE)
+  interestingGroup = "sampleName", warnLimit = 20, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

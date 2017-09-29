@@ -1,0 +1,78 @@
+#' Over-representation analysis
+#' 
+#' These functions are wrappers for clusterProfiler's [enrichGO()] and the different output plotting functions: [dotplot()], [enrichMap()] and [cnetplot()] that have been optimized to work
+#' with a [bcbioRnaDataSet] run object. 
+#'
+#' `ora_clusterprofiler()` uses the results output from DESeq2 to identify GO processes that are enriched for a user-defined significant gene list relative to all genes tested for differential expression. 
+#' By default, this function will assume the data is of human (`organism` = "Hs") origin, and it will subset the DESeq2 results using a p-adjusted threshold of 0.05 and a log2 fold change threshold of 0.
+#' These defaults can be altered in the function using the `organism`, `padj_threshold` and `lfc_threshold` arguments.
+#'
+#'
+#' @seealso
+#' - [enrichGO()].
+#' - [dotplot()].
+#' - [enrichMap()].
+#' - [cnetplot()].
+#'
+#' @rdname ora-analysis
+#' @author Mary Piper
+#'
+#' @param res [bcbioRnaDataSet]. DESeq2 full results output
+#' @param organism Character string specifying the organism using the two letters. The first letter is capitalized representing the first letter of the genus, and the second letter is lower case and represents the first letter of the species (default = "Hs").
+#' @param padj_cutoff Numeric string representing the p-adjusted threshold (default = 0.05).
+#' @param lfc_cutoff Numeric string representing the log2 fold change threshold (default = 0).
+#' @param output_label Character string to label the output to be meaningful for the DE comparison.
+#' @export
+
+## Set-up
+library(clusterProfiler)
+library(DOSE)
+org_db <- paste("org.", organism, ".eg.db", sep="")
+library(org_db, character.only = TRUE) # only good for organism for which the database exists
+
+ora_clusterprofiler <- function(res = res, organism = "Hs", padj_cutoff = 0.05, lfc_cutoff = 0, GO = "BP", output_label){ 
+# for organism use "Hs", "Mm", "Rn", etc. and for GO use "BP", "CC", "MF"
+org_db <- paste("org.", organism, ".eg.db", sep="")
+
+dir.create(file.path("results", "ORA_clusterProfiler"), recursive = TRUE, showWarnings = FALSE)
+
+# Subset the significant results from the DESeq2 results output
+sig_results <- data.frame(subset(res, res$padj < padj_cutoff & abs(res$log2FoldChange) > lfc_cutoff))  #'res' is the results output from DESeq2 from bcbioRnaseq
+
+# Extract the Ensembl IDs for the significant genes
+sig_genes <- as.character(rownames(sig_results))
+
+# Extract the Ensembl IDs for the background dataset, which is the all of the genes tested for differential expression
+all_genes <- as.character(rownames(res))
+
+# Run GO enrichment analysis 
+ego <- enrichGO(gene = sig_genes, 
+                universe = all_genes, 
+                keytype = "ENSEMBL", 
+                OrgDb = org_db, 
+                ont = GO, 
+                pAdjustMethod = "BH", 
+                qvalueCutoff = 0.05, 
+                readable = TRUE)
+
+# Output results from GO analysis to a table
+cluster_summary <<- data.frame(ego@result)
+
+# Save to file
+filename <- paste("ORA_clusterProfiler_", output_label, "_padj", padj_cutoff, "_lfc", lfc_cutoff, ".csv", sep="")
+
+write.csv(cluster_summary, file.path("results", "ORA_clusterProfiler", filename))
+
+# Dotplot of top 25
+dotplot(ego, showCategory=25)
+
+# Enrichment plot of top 25
+enrichMap(ego, n=25, vertex.label.font = 6)
+
+# Cnet plot with genes colored by fold changes for top 5 most significant GO processes
+foldchanges <- sig_results$log2FoldChange
+
+names(foldchanges) <- rownames(sig_results)
+
+cnetplot(ego, categorySize = "pvalue", showCategory = 5, foldChange = foldchanges, vertex.label.font=6)
+}

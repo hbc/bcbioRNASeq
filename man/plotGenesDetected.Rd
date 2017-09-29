@@ -11,15 +11,15 @@
 plotGenesDetected(object, counts, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroup,
-  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
+  passLimit = 20000, warnLimit = 15000, minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
-  interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
-  minCounts = 0L, flip = TRUE)
+  interestingGroup = "sampleName", passLimit = 20000, warnLimit = 15000,
+  minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
-  interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
-  minCounts = 0L, flip = TRUE)
+  interestingGroup = "sampleName", passLimit = 20000, warnLimit = 15000,
+  minCounts = 0, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

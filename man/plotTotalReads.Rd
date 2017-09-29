@@ -10,10 +10,10 @@
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeqANY}(object, interestingGroup,
-  passLimit = 20L, warnLimit = 10L, flip = TRUE)
+  passLimit = 20, warnLimit = 10, flip = TRUE)
 
 \S4method{plotTotalReads}{data.frame}(object, interestingGroup = "sampleName",
-  passLimit = 20L, warnLimit = 10L, flip = TRUE)
+  passLimit = 20, warnLimit = 10, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

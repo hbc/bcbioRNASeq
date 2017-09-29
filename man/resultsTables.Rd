@@ -8,8 +8,8 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, write = TRUE,
-  headerLevel = 3L, dir = file.path("results", "differential_expression"),
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0, write = TRUE,
+  headerLevel = 3, dir = file.path("results", "differential_expression"),
   genomeBuild = NULL)
 }
 \arguments{

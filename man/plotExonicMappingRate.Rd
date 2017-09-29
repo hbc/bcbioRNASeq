@@ -11,10 +11,10 @@
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
-  passLimit = 60L, flip = TRUE)
+  passLimit = 60, flip = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 60L, flip = TRUE)
+  interestingGroup = "sampleName", passLimit = 60, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
