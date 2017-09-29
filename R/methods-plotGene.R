@@ -47,14 +47,14 @@ NULL
                 aes_(x = ~x,
                      y = ~y,
                      color = ~color)) +
-            geom_point(size = 4L) +
+            geom_point(size = 4) +
             theme(
-                axis.text.x = element_text(angle = 90L)) +
+                axis.text.x = element_text(angle = 90)) +
             labs(title = symbol,
                  x = "sample",
                  y = "counts",
                  color = interestingGroup) +
-            expand_limits(y = 0L) +
+            expand_limits(y = 0) +
             scale_color_viridis(discrete = TRUE)
         show(p)
     }) %>%

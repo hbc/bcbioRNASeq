@@ -27,7 +27,7 @@
     }
 
     # Return
-    if (length(sampleDirs) == 0L) {
+    if (length(sampleDirs) == 0) {
         stop("No sample directories detected")
     } else {
         # Generate names from file paths and make valid

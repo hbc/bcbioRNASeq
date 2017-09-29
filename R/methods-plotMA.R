@@ -76,12 +76,12 @@ NULL
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
-                force = 1L,
+                force = 1,
                 point.padding = unit(0.75, "lines"),
                 segment.color = "gray",
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4L)
+                size = 4)
     }
     p
 }

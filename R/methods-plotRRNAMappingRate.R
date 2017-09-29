@@ -27,11 +27,11 @@ NULL
 .plotRRNAMappingRate <- function(
     object,
     interestingGroup = "sampleName",
-    warnLimit = 10L,
+    warnLimit = 10,
     flip = TRUE) {
     p <- ggplot(object,
                 aes_(x = ~sampleName,
-                     y = ~rRnaRate * 100L,
+                     y = ~rRnaRate * 100,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
@@ -57,7 +57,7 @@ NULL
 setMethod("plotRRNAMappingRate", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
-    warnLimit = 10L,
+    warnLimit = 10,
     flip = TRUE) {
     if (is.null(metrics(object))) {
         return(NULL)

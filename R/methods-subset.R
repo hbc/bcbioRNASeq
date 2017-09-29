@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' genes <- 1L:50L
+#' genes <- 1:50
 #' samples <- c("group1_1", "group1_2")
 #'
 #' # Subset by sample name
@@ -40,7 +40,7 @@ NULL
     DESeqDataSetFromTximport(
         txi = txi,
         colData = tmpData,
-        design = formula(~1L))
+        design = formula(~1))
 }
 
 .countSubset <- function(x, tmpData) {
@@ -58,14 +58,14 @@ setMethod(
     signature(x = "bcbioRNASeqANY", i = "ANY", j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
         if (missing(i)) {
-            i <- 1L:nrow(x)
+            i <- 1:nrow(x)
         }
         if (missing(j)) {
-            j <- 1L:ncol(x)
+            j <- 1:ncol(x)
         }
         dots <- list(...)
         if (is.null(dots[["maxSamples"]])) {
-            maxSamples <- 50L
+            maxSamples <- 50
         } else {
             maxSamples <- dots[["maxSamples"]]
         }
@@ -125,8 +125,8 @@ setMethod(
         # rlog & variance ====
         if (nrow(tmpData) > maxSamples & !skipNorm) {
             message("Many samples detected...skipping count transformations")
-            rlog <- .countSubset(log2(tmm + 1L), tmpData)
-            vst <- .countSubset(log2(tmm + 1L), tmpData)
+            rlog <- .countSubset(log2(tmm + 1), tmpData)
+            vst <- .countSubset(log2(tmm + 1), tmpData)
         } else if (!skipNorm) {
             message("Performing rlog transformation")
             rlog <- rlog(dds)

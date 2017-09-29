@@ -29,12 +29,12 @@ NULL
     object,
     counts,
     interestingGroup = "sampleName",
-    minCounts = 0L) {
+    minCounts = 0) {
     ggplot(object,
-           aes_(x = ~mappedReads / 1e6L,
+           aes_(x = ~mappedReads / 1e6,
                 y = colSums(counts > minCounts),
                 color = as.name(interestingGroup))) +
-        geom_point(size = 3L) +
+        geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
              x = "mapped reads (million)",
@@ -55,7 +55,7 @@ setMethod(
         object,
         interestingGroup,
         normalized = "tmm",
-        minCounts = 0L) {
+        minCounts = 0) {
         if (is.null(metrics(object))) {
             return(NULL)
         }

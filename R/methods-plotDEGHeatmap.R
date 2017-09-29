@@ -33,7 +33,7 @@ NULL
     results,
     counts,
     alpha = 0.01,
-    lfc = 0L,
+    lfc = 0,
     title = TRUE) {
     results <- results %>%
         as.data.frame() %>%
@@ -45,7 +45,7 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    if (nrow(results) == 0L) {
+    if (nrow(results) == 0) {
         warning("No genes passed significance cutoffs", call. = FALSE)
         return(NULL)
     }
@@ -55,7 +55,7 @@ NULL
     } else if (is.character(title)) {
         title <- paste("deg:", title)
     }
-    if (length(genes) < 2L) {
+    if (length(genes) < 2) {
         message(paste(length(genes), "is too few to plot"))
     } else {
         plotGeneHeatmap(counts, genes = genes, title = title)
@@ -74,7 +74,7 @@ setMethod(
     function(
         object,
         counts,
-        lfc = 0L) {
+        lfc = 0) {
         results <- as.data.frame(object)
         counts <- assay(counts)
         alpha <- metadata(object)[["alpha"]]
@@ -98,7 +98,7 @@ setMethod(
     function(
         object,
         counts,
-        lfc = 0L,
+        lfc = 0,
         title = TRUE) {
         warning("Using a DESeqTransform object for counts is recommended",
                 call. = FALSE)

@@ -29,7 +29,7 @@ NULL
 .plot53Bias <- function(
     object,
     interestingGroup = "sampleName",
-    warnLimit = 2L,
+    warnLimit = 2,
     flip = TRUE) {
     p <- ggplot(object,
                 aes_(x = ~sampleName,
@@ -59,7 +59,7 @@ NULL
 setMethod("plot53Bias", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
-    warnLimit = 2L,
+    warnLimit = 2,
     flip = TRUE) {
     if (is.null(metrics(object))) {
         return(NULL)

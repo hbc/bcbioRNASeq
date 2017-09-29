@@ -41,7 +41,7 @@ loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
-    maxSamples = 50L,
+    maxSamples = 50,
     ensemblVersion = "current",
     ...) {
 
@@ -56,13 +56,13 @@ loadRNASeq <- function(
                       pattern = projectDirPattern,
                       full.names = FALSE,
                       recursive = FALSE)
-    if (length(projectDir) != 1L) {
+    if (length(projectDir) != 1) {
         stop("Uncertain about project directory location")
     }
     message(projectDir)
     match <- str_match(projectDir, projectDirPattern)
-    runDate <- match[[2L]] %>% as.Date
-    template <- match[[3L]]
+    runDate <- match[[2]] %>% as.Date
+    template <- match[[3]]
     projectDir <- file.path(uploadDir, projectDir)
 
     # Project summary YAML ====
@@ -79,13 +79,13 @@ loadRNASeq <- function(
     lanePattern <- "_L(\\d{3})"
     if (any(str_detect(sampleDirs, lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
-            .[, 2L] %>%
+            .[, 2] %>%
             unique %>%
             length
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
-        lanes <- 1L
+        lanes <- 1
     }
 
     # Sample metadata (colData) ====
@@ -125,7 +125,7 @@ loadRNASeq <- function(
 
     # Genome ====
     # Use the genome build of the first sample to match
-    genomeBuild <- yaml[["samples"]][[1L]][["genome_build"]]
+    genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
     annotable <- annotable(genomeBuild, release = ensemblVersion)
@@ -174,7 +174,7 @@ loadRNASeq <- function(
         allSamples = allSamples)
     # Add user-defined custom metadata, if specified
     dots <- list(...)
-    if (length(dots) > 0L) {
+    if (length(dots) > 0) {
         metadata <- c(metadata, dots)
     }
 
@@ -189,7 +189,7 @@ loadRNASeq <- function(
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = sampleMetadata,
-        design = formula(~1L)) %>%
+        design = formula(~1)) %>%
         DESeq
     normalizedCounts <- counts(dds, normalized = TRUE)
 
@@ -197,10 +197,10 @@ loadRNASeq <- function(
     if (nrow(sampleMetadata) > maxSamples) {
         message("Data too big, skipping count transformations")
         rlog <- DESeqTransform(
-            SummarizedExperiment(assays = log2(tmm + 1L),
+            SummarizedExperiment(assays = log2(tmm + 1),
                                  colData = colData(dds)))
         vst <- DESeqTransform(
-            SummarizedExperiment(assays = log2(tmm + 1L),
+            SummarizedExperiment(assays = log2(tmm + 1),
                                  colData = colData(dds)))
     } else {
         message("Performing rlog transformation")

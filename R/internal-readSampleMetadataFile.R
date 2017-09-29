@@ -16,7 +16,7 @@
     file,
     pattern = NULL,
     patternCol = "sampleName",
-    lanes = 1L) {
+    lanes = 1) {
     meta <- readFileByExtension(file)
     # Rename legacy `samplename` column, if set
     if ("samplename" %in% colnames(meta)) {
@@ -37,11 +37,11 @@
         .[!is.na(.[["sampleName"]]), , drop = FALSE]
 
     # Lane split, if desired
-    if (lanes > 1L) {
+    if (lanes > 1) {
         meta <- meta %>%
             group_by(!!sym("sampleName")) %>%
             # Expand by lane (e.g. "L001")
-            expand_(dots = ~paste0("L", str_pad(1L:lanes, 3L, pad = "0"))) %>%
+            expand_(dots = ~paste0("L", str_pad(1:lanes, 3, pad = "0"))) %>%
             # `expand_cols` param doesn't seem to work in tidyr 0.6.3, so
             # set manually here instead
             set_colnames(c("sampleName", "lane")) %>%

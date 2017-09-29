@@ -21,11 +21,11 @@
     # Check for nested keys, otherwise return NULL
     # Improve recursion method in a future update (lower priority)
     keys <- dots(..., character = TRUE)
-    if (!keys[[1L]] %in% names(samples[[1L]])) {
+    if (!keys[[1]] %in% names(samples[[1]])) {
         return(NULL)
     }
-    if (length(keys) > 1L) {
-        if (!keys[[2L]] %in% names(samples[[1L]][[keys[[1L]]]])) {
+    if (length(keys) > 1) {
+        if (!keys[[2]] %in% names(samples[[1]][[keys[[1]]]])) {
             return(NULL)
         }
     }
@@ -34,7 +34,7 @@
         nested <- samples[[a]][[keys]]
         # Set the description
         nested[["description"]] <- samples[[a]][["description"]]
-        if (rev(keys)[[1L]] == "metadata") {
+        if (rev(keys)[[1]] == "metadata") {
             if (is.null(nested[["batch"]])) {
                 nested[["batch"]] <- NA
             }

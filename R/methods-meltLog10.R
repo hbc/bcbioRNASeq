@@ -45,9 +45,9 @@ NULL
     counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
-        melt(id = 1L) %>%
+        melt(id = 1) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
-        .[.[["counts"]] > 0L, ] %>%
+        .[.[["counts"]] > 0, ] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]]),
                # `melt()` sets colnames as factor

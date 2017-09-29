@@ -33,10 +33,10 @@ NULL
     xlab <- "rank (mean)"
     nonzero <- raw %>%
         rowSums %>%
-        `>`(0L)
+        `>`(0)
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
-        `+`(1L) %>%
+        `+`(1) %>%
         log2 %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
@@ -59,7 +59,7 @@ NULL
         ggrlog,
         ggvst,
         labels = "auto",
-        nrow = 3L)
+        nrow = 3)
 }
 
 

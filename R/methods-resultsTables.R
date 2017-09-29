@@ -69,9 +69,9 @@ NULL
 #' @export
 setMethod("resultsTables", "DESeqResults", function(
     object,
-    lfc = 0L,
+    lfc = 0,
     write = TRUE,
-    headerLevel = 3L,
+    headerLevel = 3,
     dir = file.path("results", "differential_expression"),
     genomeBuild = NULL) {
     contrast <- .resContrastName(object)
@@ -82,7 +82,7 @@ setMethod("resultsTables", "DESeqResults", function(
 
     # Match genome against the first gene identifier by default
     if (is.null(genomeBuild)) {
-        genomeBuild <- rownames(object)[[1L]] %>%
+        genomeBuild <- rownames(object)[[1]] %>%
             detectOrganism()
     }
     anno <- annotable(genomeBuild)
@@ -98,9 +98,9 @@ setMethod("resultsTables", "DESeqResults", function(
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0L, ]
+        .[.[["baseMean"]] > 0, ]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1L, ]
+        .[.[["baseMean"]] > 1, ]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
@@ -111,9 +111,9 @@ setMethod("resultsTables", "DESeqResults", function(
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, ]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0L, ]
+        .[.[["log2FoldChange"]] > 0, ]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0L, ]
+        .[.[["log2FoldChange"]] < 0, ]
 
     # File paths
     allFile <- paste(fileStem, "all.csv.gz", sep = "_")

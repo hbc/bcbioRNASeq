@@ -73,7 +73,7 @@ NULL
             column_to_rownames()
         # Define colors for each annotation column
         annotationColors <- lapply(
-            seq_along(dim(annotationCol)[[2L]]), function(a) {
+            seq_along(dim(annotationCol)[[2]]), function(a) {
                 col <- annotationCol[[a]] %>%
                     levels()
                 colors <- annotationCol[[a]] %>%
@@ -104,7 +104,7 @@ NULL
             clustering_method = "ward.D2",
             clustering_distance_rows = "correlation",
             clustering_distance_cols = "correlation",
-            color = inferno(256L),
+            color = inferno(256),
             main = main,
             show_colnames = FALSE,
             show_rownames = TRUE)

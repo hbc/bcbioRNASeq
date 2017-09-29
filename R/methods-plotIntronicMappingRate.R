@@ -29,17 +29,17 @@ NULL
 .plotIntronicMappingRate <- function(
     object,
     interestingGroup = "sampleName",
-    warnLimit = 20L,
+    warnLimit = 20,
     flip = TRUE) {
     p <- ggplot(object,
                 aes_(x = ~sampleName,
-                     y = ~intronicRate * 100L,
+                     y = ~intronicRate * 100,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
-        ylim(0L, 100L) +
+        ylim(0, 100) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
         p <- p +
@@ -63,7 +63,7 @@ setMethod(
     function(
         object,
         interestingGroup,
-        warnLimit = 20L,
+        warnLimit = 20,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

@@ -10,7 +10,7 @@
 .interestingGroup <- function(object) {
     metadata(object) %>%
         .[["interestingGroups"]] %>%
-        .[[1L]] %>%
+        .[[1]] %>%
         as.character()
 }
 

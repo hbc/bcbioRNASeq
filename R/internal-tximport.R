@@ -17,7 +17,7 @@
 #' @noRd
 .tximport <- function(sampleDirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sampleDirs[[1L]],
+    subdirs <- list.dirs(sampleDirs[[1]],
                          full.names = FALSE,
                          recursive = FALSE)
     if ("salmon" %in% subdirs) {

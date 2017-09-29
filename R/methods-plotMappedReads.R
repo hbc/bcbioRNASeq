@@ -29,13 +29,13 @@ NULL
 .plotMappedReads <- function(
     object,
     interestingGroup = "sampleName",
-    passLimit = 20L,
-    warnLimit = 10L,
+    passLimit = 20,
+    warnLimit = 10,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
     p <- ggplot(object,
                 aes_(x = ~sampleName,
-                     y = ~mappedReads / 1e6L,
+                     y = ~mappedReads / 1e6,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
@@ -65,8 +65,8 @@ NULL
 setMethod("plotMappedReads", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
-    passLimit = 20L,
-    warnLimit = 10L,
+    passLimit = 20,
+    warnLimit = 10,
     flip = TRUE) {
     if (is.null(metrics(object))) {
         return(NULL)

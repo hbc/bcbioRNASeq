@@ -29,9 +29,9 @@ NULL
         dplyr::rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
             baseMean = round(.data[["baseMean"]]),
-            lfc = format(.data[["lfc"]], digits = 3L),
+            lfc = format(.data[["lfc"]], digits = 3),
             padj = format(.data[["padj"]],
-                          digits = 3L,
+                          digits = 3,
                           scientific = TRUE),
             # Remove symbol information in description, if present
             description = str_replace(.data[["description"]],
@@ -50,7 +50,7 @@ NULL
 #' @export
 setMethod("topTables", "list", function(
     object,
-    n = 50L,
+    n = 50,
     coding = FALSE) {
     up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
     down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)

@@ -1,11 +1,11 @@
 lineColor <- "black"
-qcColors <- inferno(3L)
 
 # Quality control plot colors
+qcColors <- inferno(3)
+qcPassColor <- qcColors[[1]]
+qcWarnColor <- qcColors[[2]]
+qcFailColor <- qcColors[[3]]
 qcCutoffColor <- "black"
-qcPassColor <- qcColors[[1L]]
-qcWarnColor <- qcColors[[2L]]
-qcFailColor <- qcColors[[3L]]
 
 # Quality control label appearance
 qcLabelAlpha <- 0.75
@@ -17,7 +17,7 @@ qcLabelSize <- NA
 
 # Quality control line appearance
 qcLineAlpha <- 0.75
-qcLineSize <- 1L
+qcLineSize <- 1
 qcLineType <- "dashed"
 
 # Plot label separator

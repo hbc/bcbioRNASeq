@@ -54,8 +54,8 @@ NULL
             summary(results(dds, ..., alpha = alpha[a]))
         ) %>%
             # Get the lines of interest from summary
-            .[4L:8L]
-        parse <- info[1L:5L] %>%
+            .[4:8]
+        parse <- info[1:5] %>%
             # Extract the values after the colon in summary
             sapply(function(a) {
                 gsub("^.+\\:\\s(.+)\\s$", "\\1", a)
@@ -86,7 +86,7 @@ setMethod("alphaSummary", "bcbioRNASeqANY", function(
     ...) {
     dds <- bcbio(object, "DESeqDataSet")
     # Warn if empty design formula detected
-    if (design(dds) == formula(~1L)) {
+    if (design(dds) == formula(~1)) {
         warning("Empty DESeqDataSet design formula detected",
                 call. = FALSE)
     }

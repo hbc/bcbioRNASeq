@@ -54,7 +54,7 @@ setMethod("plotPCA", "bcbioRNASeqANY", function(
         ntop <- length(genes)
     } else {
         # Recommended DESeq default
-        ntop <- 500L
+        ntop <- 500
     }
 
     # Censor samples, if desired
@@ -77,7 +77,7 @@ setMethod("plotPCA", "bcbioRNASeqANY", function(
         ntop = ntop) %>%
         camel(strict = FALSE)
 
-    percentVar <- round(100L * attr(data, "percentVar"))
+    percentVar <- round(100 * attr(data, "percentVar"))
 
     # Always define color by `interestingGroups`
     data[["color"]] <- data[["group"]]
@@ -96,11 +96,11 @@ setMethod("plotPCA", "bcbioRNASeqANY", function(
                                y = ~pc2,
                                color = ~color,
                                shape = ~shape)) +
-        geom_point(size = 4L) +
+        geom_point(size = 4) +
         coord_fixed() +
         labs(title = "pca",
-             x = paste0("pc1: ", percentVar[[1L]], "% variance"),
-             y = paste0("pc2: ", percentVar[[2L]], "% variance"),
+             x = paste0("pc1: ", percentVar[[1]], "% variance"),
+             y = paste0("pc2: ", percentVar[[2]], "% variance"),
              color = interestingGroupsName,
              shape = interestingGroupsName) +
         scale_color_viridis(discrete = TRUE)
@@ -128,7 +128,7 @@ setMethod("plotPCA", "bcbioRNASeqANY", function(
                 # Draw an arrow from the label to the data point
                 arrow = arrow(length = unit(0.01, "npc")),
                 # Strength of the repulsion force
-                force = 1L,
+                force = 1,
                 show.legend = FALSE)
     }
     p

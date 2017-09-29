@@ -29,17 +29,17 @@ NULL
 .plotExonicMappingRate <- function(
     object,
     interestingGroup = "sampleName",
-    passLimit = 60L,
+    passLimit = 60,
     flip = TRUE) {
     p <- ggplot(object,
                 aes_(x = ~sampleName,
-                     y = ~exonicRate * 100L,
+                     y = ~exonicRate * 100,
                      fill = as.name(interestingGroup))) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
              y = "exonic mapping rate (%)") +
-        ylim(0L, 100L) +
+        ylim(0, 100) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
         p <- p +
@@ -60,7 +60,7 @@ NULL
 setMethod("plotExonicMappingRate", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
-    passLimit = 60L,
+    passLimit = 60,
     flip = TRUE) {
     if (is.null(metrics(object))) {
         return(NULL)

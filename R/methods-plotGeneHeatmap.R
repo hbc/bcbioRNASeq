@@ -30,7 +30,7 @@
 #' plotGeneHeatmap(bcb)
 #'
 #' # Genes as Ensembl identifiers
-#' genes <- counts(bcb)[1L:20L, ] %>%
+#' genes <- counts(bcb)[1:20, ] %>%
 #'     rownames()
 #' plotGeneHeatmap(bcb, genes = genes)
 #'
@@ -67,14 +67,14 @@ NULL
 
     # Subset zero counts
     counts <- counts %>%
-        .[rowSums(.) > 0L, , drop = FALSE]
+        .[rowSums(.) > 0, , drop = FALSE]
     if (!is.matrix(counts) |
-        nrow(counts) < 2L) {
+        nrow(counts) < 2) {
         stop("Need at least 2 genes to cluster")
     }
 
     # Convert Ensembl gene identifiers to symbol names, if necessary
-    if (nrow(counts) <= 100L) {
+    if (nrow(counts) <= 100) {
         showRownames <- TRUE
     } else {
         showRownames <- FALSE
@@ -92,7 +92,7 @@ NULL
             column_to_rownames()
         # Define colors for each annotation column
         annotationColors <- lapply(
-            seq_along(dim(annotationCol)[[2L]]), function(a) {
+            seq_along(dim(annotationCol)[[2]]), function(a) {
                 col <- annotationCol[[a]] %>%
                     levels()
                 colors <- annotationCol[[a]] %>%
@@ -116,7 +116,7 @@ NULL
              annotation_col = annotationCol,
              annotation_colors = annotationColors,
              border_color = NA,
-             color = inferno(256L),
+             color = inferno(256),
              main = title,
              scale = scale,
              show_rownames = showRownames)

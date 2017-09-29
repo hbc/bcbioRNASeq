@@ -47,9 +47,9 @@ NULL
     object,
     counts,
     interestingGroup = "sampleName",
-    passLimit = 20000L,
-    warnLimit = 15000L,
-    minCounts = 0L,
+    passLimit = 20000,
+    warnLimit = 15000,
+    minCounts = 0,
     flip = TRUE) {
     p <- ggplot(object,
                 aes_(x = ~sampleName,
@@ -87,9 +87,9 @@ setMethod(
     function(
         object,
         interestingGroup,
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
+        passLimit = 20000,
+        warnLimit = 15000,
+        minCounts = 0,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -119,9 +119,9 @@ setMethod(
         object,
         counts,
         interestingGroup = "sampleName",
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
+        passLimit = 20000,
+        warnLimit = 15000,
+        minCounts = 0,
         flip = TRUE) {
         .plotGenesDetected(
             object,

@@ -53,15 +53,15 @@ NULL
         as("tibble") %>%
         # For `melt()`, can also declare `measure.vars` here instead of using
         # `setNames()`. If you don't set `id`, function will output a message.
-        melt(id = 1L) %>%
+        melt(id = 1) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
         ggplot(aes_(x = ~symbol,
                     y = ~counts,
                     color = ~sampleName,
                     shape = ~chromosome)) +
-        geom_jitter(size = 4L) +
-        expand_limits(y = 0L) +
+        geom_jitter(size = 4) +
+        expand_limits(y = 0) +
         labs(title = "gender markers",
              x = "gene",
              y = ylab) +
@@ -90,7 +90,7 @@ setMethod("plotGenderMarkers", "DESeqDataSet", function(
     counts <- counts(object, normalized = TRUE)
     if (is.null(organism)) {
         organism <- rownames(counts) %>%
-            .[[1L]] %>%
+            .[[1]] %>%
             detectOrganism()
     }
     ylab <- "normalized counts"
