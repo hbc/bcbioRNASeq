@@ -34,14 +34,14 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    SummarizedExperiment (>= 1.6.3),
-    DESeq2 (>= 1.16.1),
-    basejump (>= 0.0.24)
+    SummarizedExperiment (>= 1.6.3)
 Imports:
+    basejump (>= 0.0.24),
     BiocGenerics,
     cowplot,
     data.table,
     DEGreport (>= 1.13.7),
+    DESeq2 (>= 1.16.1),
     dplyr,
     edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
