@@ -1,12 +1,11 @@
-# Follow the same order as `Depends:` in `DESCRIPTION` file
 .onLoad <- function(libname, pkgname) {
-    pkgs <-
+    packages <-
         c("SummarizedExperiment",
           "DESeq2",
           "basejump")
-    lapply(seq_along(pkgs), function(a) {
-        if (!pkgs[[a]] %in% (.packages())) {
-            attachNamespace(pkgs[[a]])
+    lapply(seq_along(packages), function(a) {
+        if (!packages[[a]] %in% (.packages())) {
+            attachNamespace(packages[[a]])
         }
     })
     invisible()
