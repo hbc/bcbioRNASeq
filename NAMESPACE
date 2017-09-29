@@ -2,6 +2,7 @@
 
 export(alphaSummary)
 export(download)
+export(loadRNASeq)
 export(loadRNASeqRun)
 export(meltLog10)
 export(plot53Bias)

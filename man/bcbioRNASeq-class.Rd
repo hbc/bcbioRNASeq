@@ -32,7 +32,7 @@ featureCounts aligned counts.}
 
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- loadRNASeqRun(uploadDir)
+bcb <- loadRNASeq(uploadDir)
 }
 \seealso{
 \itemize{

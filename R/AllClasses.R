@@ -37,7 +37,7 @@ setClassUnion(
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#' bcb <- loadRNASeqRun(uploadDir)
+#' bcb <- loadRNASeq(uploadDir)
 bcbioRNASeq <- setClass(
     "bcbioRNASeq",
     contains = "SummarizedExperiment",

@@ -30,3 +30,13 @@ plotDispersion <- function(...) {
     .Deprecated("plotDispEsts")
     plotDispEsts(...)
 }
+
+
+
+# 0.0.27 ====
+#' @rdname deprecated
+#' @export
+loadRNASeqRun <- function(...) {
+    .Deprecated("loadRNASeq")
+    loadRNASeq(...)
+}

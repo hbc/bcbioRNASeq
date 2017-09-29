@@ -1,4 +1,4 @@
-#' Load bcbio RNA-Seq Run
+#' Load bcbio RNA-Seq Data
 #'
 #' Simply point to the final upload directory output by
 #' [bcbio](https://bcbio-nextgen.readthedocs.io/), and this function will take
@@ -36,8 +36,8 @@
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#' bcb <- loadRNASeqRun(uploadDir, interestingGroups = "group")
-loadRNASeqRun <- function(
+#' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,

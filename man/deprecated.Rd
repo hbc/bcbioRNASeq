@@ -5,6 +5,7 @@
 \alias{download}
 \alias{plotGeneDetectionSaturation}
 \alias{plotDispersion}
+\alias{loadRNASeqRun}
 \title{Deprecated Functions}
 \usage{
 download(...)
@@ -12,6 +13,8 @@ download(...)
 plotGeneDetectionSaturation(...)
 
 plotDispersion(...)
+
+loadRNASeqRun(...)
 }
 \arguments{
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
