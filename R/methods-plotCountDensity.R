@@ -8,6 +8,7 @@
 #' @inherit qcPlots
 #'
 #' @inheritParams AllGenerics
+#' @param style Desired plot style (`color` or `fill`).
 #'
 #' @examples
 #' data(bcb)
@@ -28,14 +29,37 @@ NULL
 # Constructors ====
 .plotCountDensity <- function(
     object,
-    interestingGroup = "sampleName") {
-    ggplot(object,
+    interestingGroup = "sampleName",
+    style = "color") {
+    validStyles <- c("color", "fill")
+    if (!style %in% validStyles) {
+        stop(paste(
+            "Valid 'style' arguments:",
+            toString(validStyles)))
+    }
+    if (style == "color") {
+        color <- as.name(interestingGroup)
+        fill <- NULL
+    } else if (style == "fill") {
+        color <- NULL
+        fill <- as.name(interestingGroup)
+    }
+    p <- ggplot(object,
         aes_(x = ~counts,
              group = as.name(interestingGroup),
-             fill = as.name(interestingGroup))) +
-        geom_density(alpha = 0.75, color = NA) +
+             color = color,
+             fill = fill))
+    if (style == "color") {
+        p <- p +
+            geom_density()
+    } else if (style == "fill") {
+        p <- p +
+            geom_density(alpha = 0.75, color = NA)
+    }
+    p +
         labs(title = "count density",
              x = "log10 counts per gene") +
+        scale_color_viridis(discrete = TRUE) +
         scale_fill_viridis(discrete = TRUE)
 }
 
@@ -47,13 +71,15 @@ NULL
 setMethod("plotCountDensity", "bcbioRNASeqANY", function(
     object,
     interestingGroup,
-    normalized = "tmm") {
+    normalized = "tmm",
+    style = "color") {
     if (missing(interestingGroup)) {
         interestingGroup <- .interestingGroup(object)
     }
     .plotCountDensity(
         meltLog10(object, normalized = normalized),
-        interestingGroup = interestingGroup)
+        interestingGroup = interestingGroup,
+        style = style)
 })
 
 

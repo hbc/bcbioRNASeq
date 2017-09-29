@@ -10,10 +10,10 @@
 plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeqANY}(object, interestingGroup,
-  normalized = "tmm")
+  normalized = "tmm", style = "color")
 
 \S4method{plotCountDensity}{data.frame}(object,
-  interestingGroup = "sampleName")
+  interestingGroup = "sampleName", style = "color")
 }
 \arguments{
 \item{object}{Object.}
@@ -26,6 +26,8 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
+
+\item{style}{Desired plot style (\code{color} or \code{fill}).}
 }
 \value{
 \link{ggplot}.
