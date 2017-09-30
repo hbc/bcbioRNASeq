@@ -1,0 +1,167 @@
+---
+title: "Functional analysis"
+author: "`r getOption('author')`"
+date: "`r Sys.Date()`"
+bibliography: bibliography.bib
+params:
+    bcbFile: "data/bcb.rda"
+    res: "data/res.rda"
+    organism: "Hs"
+    speies: "human"
+    alpha: 0.01
+    lfc: 0
+    goOnt: "BP"
+    outputDir: "."
+---
+
+```{r setup, message=FALSE}
+library(bcbioRNASeq)
+library(clusterProfiler)
+library(DOSE)
+library(DT)
+library(DEGreport)
+
+# Shared RMarkdown settings
+prepareRNASeqTemplate()
+if (file.exists("setup.R")) {
+    source("setup.R")
+}
+
+# Load bcbioRNADataSet object
+if (exists("bcb", inherits = FALSE)) {
+    stop("bcb already exists in environment")
+}
+bcbName <- load(params$bcb)
+bcb <- get(bcbName, inherits = FALSE)
+if (!is(bcb, "bcbioRNADataSet")) {
+    stop("bcb must bcbioRNADataSet class object")
+}
+resName <- load(params$res)
+res <- get(resName, inherits = FALSE)
+if (!is(res, "DESeqResults")) {
+    stop("bcb must DESeqResults class object")
+}
+res <- res[!is.na(res[["padj"]]),]
+
+# species
+# help("enrichGO", "clusterProfiler")
+orgDB <- paste("org.", params$organism, ".eg.db", sep="")
+goOnt <- params$goOnt
+species <- params$species
+
+# Significance cutoffs
+alpha <- params$alpha
+lfc <- params$lfc
+
+# Directory paths
+outputDir <- params$outputDir
+faDir <- file.path(outputDir, "results", "functional_analysis")
+```
+
+```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
+```
+
+# GO enrichment analysis
+
+Gene Ontology (GO) term enrichment is a technique for interpreting sets of genes making use of the Gene Ontology system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
+
+```{r go}
+sig_genes <- significants(res, fc = lfc, fdr = alpha)
+sig_results <- data.frame(res[sig_genes,])
+
+# Extract the Ensembl IDs for the background dataset, which is the all of the genes tested for differential expression
+all_genes <- as.character(rownames(res))
+
+# Run GO enrichment analysis
+ego <- enrichGO(gene = sig_genes,
+                universe = all_genes,
+                keytype = "ENSEMBL",
+                OrgDb = orgDB,
+                ont = goOnt,
+                pAdjustMethod = "BH",
+                qvalueCutoff = 0.05,
+                readable = TRUE)
+
+ego <- simplify(ego)
+
+cluster_summary <- data.frame(slot(ego, "result"))
+
+fileName <- paste(goOnt, "_clusterProfiler", "_padj",
+                  padj_cutoff, "_lfc", lfc_cutoff, ".tsv", sep="")
+write.table(cluster_summary, file.path(fa, fileName))
+
+DT::datatable(cluster_summary)
+```
+
+## DOTplot
+
+```{r dotplot, fig.width=8}
+# Dotplot of top 25
+dotplot(ego, showCategory = 25)
+```
+
+## GO terms map
+
+```{r map, fig.width=8, fig.height=8}
+# Enrichment plot of top 25
+enrichMap(ego, n = 25, vertex.label.font = 3)
+```
+
+## Gene map
+
+In order to consider the potentially biological complexities in which a gene may belong to multiple annotation categories and provide information of numeric changes if available
+
+```{r cnet, fig.width=8, fig.height=8}
+# Cnet plot with genes colored by fold changes for top 5 most significant GO processes
+foldchanges <- sig_results[["log2FoldChange"]]
+
+names(foldchanges) <- rownames(sig_results)
+
+cnetplot(ego, categorySize = "pvalue", showCategory = 5,
+         foldChange = foldchanges, vertex.label.font = 3)
+```
+
+
+## KEGG analysis
+
+```{r reactome}
+entrezid <- bitr(sig_genes, fromType="ENSEMBL", toType=c("ENTREZID"), OrgDb=orgDB)
+kegg <- enrichKEGG(entrezid[["ENTREZID"]], organism = species)
+kegg_summary <- data.frame(slot(kegg, "result"))
+
+fileName <- paste("KEGG_clusterProfiler", "_padj",
+                  padj_cutoff, "_lfc", lfc_cutoff, ".tsv", sep="")
+write.table(kegg_summary, file.path(fa, fileName))
+
+DT::datatable(kegg_summary)
+```
+
+## GO GSEA analysis
+
+A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previous were based on these differential expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. Gene Set Enrichment Analysis (GSEA) directly addresses this limitation. All genes can be used in GSEA; GSEA aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
+
+
+```{r gsea}
+fdrOrdered <- as.data.frame(res)[order(res[["padj"]]),]
+geneList <- 1 - fdrOrdered[["padj"]]
+names(geneList) <- row.names(fdrOrdered)
+gse <- gseGO(geneList     = geneList[!is.na(geneList)],
+              OrgDb        = orgDB,
+              ont          = goOnt,
+              keyType      = "ENSEMBL",
+              nPerm        = 1000,
+              minGSSize    = 100,
+              maxGSSize    = 500,
+              pvalueCutoff = 0.05,
+              verbose      = FALSE)
+gse_summary <- data.frame(slot(gse, "result"))
+
+fileName <- paste("KEGG_clusterProfiler", "_padj",
+                  padj_cutoff, "_lfc", lfc_cutoff, ".tsv", sep="")
+write.table(gse_summary, file.path(fa, fileName))
+
+DT::datatable(gse_summary)
+```
+
+```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
+```

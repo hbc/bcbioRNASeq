@@ -10,17 +10,17 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0)
+  lfc = 0, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
-  title = TRUE)
+  title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{counts}{Secondary object containing a normalized count matrix.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Options to pass to \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
