@@ -58,7 +58,7 @@ Imports:
     stats,
     stringr,
     tibble,
-    tidyr,
+    tidyr (>= 0.7.1),
     tximport (>= 1.4.0),
     utils,
     viridis,
