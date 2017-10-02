@@ -41,7 +41,7 @@
 #' @importFrom SummarizedExperiment assay assays assays<- colData rowData
 #'   SummarizedExperiment
 #' @importFrom tibble column_to_rownames remove_rownames rownames_to_column
-#' @importFrom tidyr expand_
+#' @importFrom tidyr expand
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output download.file globalVariables packageVersion
 #'   read.table

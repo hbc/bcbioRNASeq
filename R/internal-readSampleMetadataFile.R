@@ -41,15 +41,11 @@
         meta <- meta %>%
             group_by(!!sym("sampleName")) %>%
             # Expand by lane (e.g. "L001")
-            expand_(dots = ~paste0("L", str_pad(1:lanes, 3, pad = "0"))) %>%
-            # `expand_cols` param doesn't seem to work in tidyr 0.6.3, so
-            # set manually here instead
-            set_colnames(c("sampleName", "lane")) %>%
+            expand(lane = paste0("L", str_pad(1:lanes, 3, pad = "0"))) %>%
             left_join(meta, by = "sampleName") %>%
             ungroup() %>%
-            mutate(sampleName = paste(.data[["sampleName"]],
-                                      .data[["lane"]],
-                                      sep = "_"))
+            mutate(sampleName = paste(
+              .data[["sampleName"]], .data[["lane"]], sep = "_"))
     }
 
     # Subset by pattern, if desired
