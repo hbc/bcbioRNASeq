@@ -240,7 +240,7 @@ loadRNASeq <- function(
 
     # Prepare SummarizedExperiment ====
     se <- .SummarizedExperiment(
-        SimpleList(
+        assays = list(
             raw = rawCounts,
             normalized = normalizedCounts,
             tpm = tpm,
