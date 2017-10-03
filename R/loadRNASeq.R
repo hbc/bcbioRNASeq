@@ -89,7 +89,7 @@ loadRNASeq <- function(
     # Sample metadata ====
     if (!is.null(sampleMetadataFile)) {
         sampleMetadataFile <- normalizePath(sampleMetadataFile)
-        sampleMetadata <- .readSampleMetadataFile(
+        sampleMetadata <- readSampleMetadataFile(
             file = sampleMetadataFile,
             lanes = lanes)
     } else {
@@ -135,7 +135,10 @@ loadRNASeq <- function(
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    metrics <- .sampleYAMLMetrics(yaml)
+    metrics <- .sampleYAMLMetrics(
+        yaml = yaml,
+        characterCols = c("name", "qualityFormat", "sequenceLength")
+    )
 
     # bcbio-nextgen run information ====
     message("Reading bcbio run information")
@@ -193,13 +196,16 @@ loadRNASeq <- function(
 
     # rlog & variance ====
     if (nrow(sampleMetadata) > maxSamples) {
-        message("Data too big, skipping count transformations")
-        rlog <- DESeqTransform(
-            SummarizedExperiment(assays = log2(tmm + 1),
-                                 colData = colData(dds)))
-        vst <- DESeqTransform(
-            SummarizedExperiment(assays = log2(tmm + 1),
-                                 colData = colData(dds)))
+        warning("Dataset too large, skipping count transformations",
+                call. = FALSE)
+        rlog <- SummarizedExperiment(
+                assays = log2(tmm + 1),
+                colData = colData(dds)) %>%
+            DESeqTransform()
+        vst <- SummarizedExperiment(
+                assays = log2(tmm + 1),
+                colData = colData(dds)) %>%
+            DESeqTransform()
     } else {
         message("Performing rlog transformation")
         rlog <- rlog(dds)
@@ -233,7 +239,7 @@ loadRNASeq <- function(
     }
 
     # Prepare SummarizedExperiment ====
-    se <- prepareSummarizedExperiment(
+    se <- .SummarizedExperiment(
         SimpleList(
             raw = rawCounts,
             normalized = normalizedCounts,
