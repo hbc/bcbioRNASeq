@@ -1,6 +1,6 @@
 #' Read Program Versions
 #'
-#' @familly Project Directory File Utilities
+#' @family Project Directory File Utilities
 #' @author Michael Steinbaugh
 #' @keywords internal
 #' @noRd
