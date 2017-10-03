@@ -2,11 +2,11 @@
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
+#' @noRd
 #'
 #' @param res [DESeqResults].
 #'
 #' @return Contrast name string.
-#' @noRd
 .resContrastName <- function(res) {
     mcols(res)[2, 2] %>%
         str_replace("^.*:\\s", "") %>%
