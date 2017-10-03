@@ -44,35 +44,26 @@ loadRNASeq <- function(
     maxSamples = 50,
     ensemblVersion = "current",
     ...) {
-
     # Directory paths ====
     # Check connection to final upload directory
     if (!dir.exists(uploadDir)) {
-        stop("Final upload directory failed to load")
+        stop("Final upload directory failed to load", call. = FALSE)
     }
     uploadDir <- normalizePath(uploadDir)
-    # Find most recent nested projectDir (normally only 1)
-    projectDir <- dir(uploadDir,
-                      pattern = projectDirPattern,
-                      full.names = FALSE,
-                      recursive = FALSE)
+    projectDir <- dir(
+        uploadDir,
+        pattern = projectDirPattern,
+        full.names = FALSE,
+        recursive = FALSE)
     if (length(projectDir) != 1) {
-        stop("Uncertain about project directory location")
+        stop("Uncertain about project directory location", call. = FALSE)
     }
     message(projectDir)
     match <- str_match(projectDir, projectDirPattern)
-    runDate <- match[[2]] %>% as.Date
+    runDate <- match[[2]] %>%
+        as.Date()
     template <- match[[3]]
     projectDir <- file.path(uploadDir, projectDir)
-
-    # Project summary YAML ====
-    yamlFile <- file.path(projectDir, "project-summary.yaml")
-    if (!file.exists(yamlFile)) {
-        stop("YAML project summary missing")
-    }
-    yaml <- readYAML(yamlFile)
-
-    # Sample directories ====
     sampleDirs <- .sampleDirs(uploadDir)
 
     # Sequencing lanes ====
@@ -80,18 +71,27 @@ loadRNASeq <- function(
     if (any(str_detect(sampleDirs, lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
             .[, 2] %>%
-            unique %>%
-            length
+            unique() %>%
+            length()
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
         lanes <- 1
     }
 
-    # Sample metadata (colData) ====
+    # Project summary YAML ====
+    yamlFile <- file.path(projectDir, "project-summary.yaml")
+    if (!file.exists(yamlFile)) {
+        stop("'project-summary.yaml' file missing", call. = FALSE)
+    }
+    yaml <- readYAML(yamlFile)
+
+    # Sample metadata ====
     if (!is.null(sampleMetadataFile)) {
-        sampleMetadata <-
-            .readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
+        sampleMetadataFile <- normalizePath(sampleMetadataFile)
+        sampleMetadata <- .readSampleMetadataFile(
+            file = sampleMetadataFile,
+            lanes = lanes)
     } else {
         sampleMetadata <- .sampleYAMLMetadata(yaml)
     }
@@ -99,20 +99,18 @@ loadRNASeq <- function(
         stop("Sample name mismatch", call. = FALSE)
     }
     sampleMetadata <- sampleMetadata %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         set_rownames(.[["sampleID"]])
 
     # Interesting groups ====
     # Ensure internal formatting in camelCase
-    interestingGroups <- camel(interestingGroups)
+    interestingGroups <- camel(interestingGroups, strict = FALSE)
     # Check to ensure interesting groups are defined
     if (!all(interestingGroups %in% colnames(sampleMetadata))) {
-        stop("Interesting groups missing in sample metadata")
+        stop("Interesting groups missing in sample metadata", call. = FALSE)
     }
 
     # Subset sample directories by metadata ====
-    # Check to see if a subset of samples is requested via the metadata file.
-    # This matches by the reverse complement sequence of the index barcode.
     if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
         message("Loading a subset of samples, defined by the metadata file")
         allSamples <- FALSE
@@ -190,7 +188,7 @@ loadRNASeq <- function(
         txi = txi,
         colData = sampleMetadata,
         design = formula(~1)) %>%
-        DESeq
+        DESeq()
     normalizedCounts <- counts(dds, normalized = TRUE)
 
     # rlog & variance ====
@@ -215,11 +213,11 @@ loadRNASeq <- function(
     if (file.exists(fcFile)) {
         message("Reading STAR featureCounts aligned counts")
         fc <- read_tsv(fcFile) %>%
-            as.data.frame %>%
+            as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
             set_colnames(make.names(colnames(.))) %>%
             column_to_rownames("id") %>%
-            as.matrix
+            as.matrix()
         if (!identical(colnames(rawCounts), colnames(fc))) {
             # Look for column name mismatch and attempt fix.
             # This is an error fix for the current bcb example dataset.
