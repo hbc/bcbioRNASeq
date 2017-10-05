@@ -8,7 +8,7 @@
 
 #' Example [DESeqDataSet]
 #'
-#' Derived from `bcb`, the example [bcbioRNADataSet].
+#' Derived from `bcb`, the example [bcbioRNASeq] run.
 #'
 #' @keywords internal
 "dds"
