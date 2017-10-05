@@ -9,6 +9,6 @@
 dds
 }
 \description{
-Derived from \code{bcb}, the example \link{bcbioRNADataSet}.
+Derived from \code{bcb}, the example \link{bcbioRNASeq} run.
 }
 \keyword{internal}
