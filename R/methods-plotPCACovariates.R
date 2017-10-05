@@ -10,6 +10,7 @@
 #'   - `rlog` (**recommended**).
 #'   - `vst`: variance stabilizing transformation.
 #' @param metrics Include sample summary metrics as covariates.
+#'   If character vector given, only use the selected metrics.
 #' @param ... Additional arguments, passed to [degCovariates()].
 #'
 #' @seealso
@@ -40,6 +41,8 @@ setMethod("plotPCACovariates", "bcbioRNADataSet", function(
     # Metadata
     if (isTRUE(metrics)) {
         metadata <- metrics(object)
+    } else if (is.vector(metrics)) {
+        metadata <- metrics(object)[, metrics, drop = FALSE]
     } else {
         metadata <- .interestingColData(object)
     }
