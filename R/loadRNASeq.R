@@ -190,8 +190,8 @@ loadRNASeq <- function(
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = sampleMetadata,
-        design = formula(~1)) %>%
-        DESeq()
+        design = formula(~1))
+    dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
 
     # rlog & variance ====
