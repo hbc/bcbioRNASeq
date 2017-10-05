@@ -73,7 +73,7 @@ NULL
             column_to_rownames()
         # Define colors for each annotation column
         annotationColors <- lapply(
-            seq_along(dim(annotationCol)[[2]]), function(a) {
+            seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
                     levels()
                 colors <- annotationCol[[a]] %>%
