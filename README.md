@@ -35,7 +35,7 @@ bcb <- loadRNASeqRun(
     interestingGroups = c("genotype", "treatment"))
 ```
 
-This will return a `bcbioRNADataSet`, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
 
 Parameters:
 
