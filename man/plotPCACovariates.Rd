@@ -23,7 +23,8 @@ plotPCACovariates(object, ...)
 \item \code{vst}: variance stabilizing transformation.
 }}
 
-\item{metrics}{Include sample summary metrics as covariates.}
+\item{metrics}{Include sample summary metrics as covariates.
+If character vector given, only use the selected metrics.}
 }
 \value{
 \link{ggplot}.
