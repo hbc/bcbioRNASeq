@@ -4,7 +4,7 @@
 \name{bcb}
 \alias{bcb}
 \title{Example \link{bcbioRNASeq}}
-\format{An object of class \code{bcbioRNADataSet} with 505 rows and 4 columns.}
+\format{An object of class \code{bcbioRNASeq} with 505 rows and 4 columns.}
 \usage{
 bcb
 }
