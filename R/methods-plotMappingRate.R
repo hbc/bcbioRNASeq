@@ -63,7 +63,7 @@ setMethod("plotMappingRate", "bcbioRNASeqANY", function(
     flip = TRUE) {
     .plotMappingRate(
         metrics(object),
-        interestingGroup = .interestingGroup(object),
+        interestingGroup = interestingGroups(object)[[1]],
         passLimit = passLimit,
         warnLimit = warnLimit,
         flip = flip)

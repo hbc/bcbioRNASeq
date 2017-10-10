@@ -95,7 +95,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroup)) {
-            interestingGroup <- .interestingGroup(object)
+            interestingGroup <- interestingGroups(object)[[1]]
         }
         .plotGenesDetected(
             metrics(object),

@@ -57,7 +57,7 @@ setMethod("plotCountsPerGene", "bcbioRNASeqANY", function(
     normalized = "tmm",
     flip = TRUE) {
     if (missing(interestingGroup)) {
-        interestingGroup <- .interestingGroup(object)
+        interestingGroup <- interestingGroups(object)[[1]]
     }
     .plotCountsPerGene(
         meltLog10(object, normalized = normalized),

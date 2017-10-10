@@ -66,7 +66,7 @@ setMethod("plotExonicMappingRate", "bcbioRNASeqANY", function(
         return(NULL)
     }
     if (missing(interestingGroup)) {
-        interestingGroup <- .interestingGroup(object)
+        interestingGroup <- interestingGroups(object)[[1]]
     }
     .plotExonicMappingRate(
         metrics(object),

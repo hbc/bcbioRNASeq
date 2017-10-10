@@ -74,7 +74,7 @@ setMethod("plotCountDensity", "bcbioRNASeqANY", function(
     normalized = "tmm",
     style = "color") {
     if (missing(interestingGroup)) {
-        interestingGroup <- .interestingGroup(object)
+        interestingGroup <- interestingGroups(object)[[1]]
     }
     .plotCountDensity(
         meltLog10(object, normalized = normalized),

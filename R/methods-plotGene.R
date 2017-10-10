@@ -79,7 +79,7 @@ setMethod("plotGene", "bcbioRNASeqANY", function(
         warning("Explicit format of normalized counts format is recommended")
     }
     if (missing(interestingGroup)) {
-        interestingGroup <- .interestingGroup(object)
+        interestingGroup <- interestingGroups(object)[[1]]
     }
 
     counts <- counts(object, normalized = normalized)

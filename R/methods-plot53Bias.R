@@ -65,7 +65,7 @@ setMethod("plot53Bias", "bcbioRNASeqANY", function(
         return(NULL)
     }
     if (missing(interestingGroup)) {
-        interestingGroup <- .interestingGroup(object)
+        interestingGroup <- interestingGroups(object)[[1]]
     }
     .plot53Bias(
         metrics(object),
