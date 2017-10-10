@@ -53,13 +53,16 @@ NULL
 # Methods ====
 #' @rdname bcbio
 #' @export
-setMethod("bcbio", "bcbioRNASeq", function(object, type) {
-    if (type %in% names(slot(object, "bcbio"))) {
-        slot(object, "bcbio")[[type]]
-    } else {
-        stop(paste(type, "not found"))
-    }
-})
+setMethod(
+    "bcbio",
+    signature("bcbioRNASeq"),
+    function(object, type) {
+        if (type %in% names(slot(object, "bcbio"))) {
+            slot(object, "bcbio")[[type]]
+        } else {
+            stop(paste(type, "not found"))
+        }
+    })
 
 
 
@@ -77,15 +80,19 @@ setMethod(
 
 
 # Legacy class support ====
+# Note the use of `callers` slot here
 #' @rdname bcbio
 #' @export
-setMethod("bcbio", "bcbioRNADataSet", function(object, type) {
-    if (type %in% names(slot(object, "callers"))) {
-        slot(object, "callers")[[type]]
-    } else {
-        stop(paste(type, "not found"))
-    }
-})
+setMethod(
+    "bcbio",
+    signature("bcbioRNADataSet"),
+    function(object, type) {
+        if (type %in% names(slot(object, "callers"))) {
+            slot(object, "callers")[[type]]
+        } else {
+            stop(paste(type, "not found"))
+        }
+    })
 
 
 

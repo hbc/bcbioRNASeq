@@ -19,6 +19,9 @@ NULL
 # Methods ====
 #' @rdname txi
 #' @export
-setMethod("txi", "bcbioRNASeqANY", function(object) {
-    bcbio(object, type = "tximport")
-})
+setMethod(
+    "txi",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        bcbio(object, type = "tximport")
+    })

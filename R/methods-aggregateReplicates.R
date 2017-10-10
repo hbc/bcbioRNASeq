@@ -87,9 +87,8 @@ NULL
 #' @export
 setMethod(
     "aggregateReplicates",
-    signature = "matrix",
-    definition = .aggregateReplicatesMatrix
-)
+    signature("matrix"),
+    .aggregateReplicatesMatrix)
 
 
 
@@ -98,6 +97,5 @@ setMethod(
 #' @export
 setMethod(
     "aggregateReplicates",
-    signature = "DESeqDataSet",
-    definition = .aggregateReplicatesDESeqDataSet
-)
+    signature("DESeqDataSet"),
+    .aggregateReplicatesDESeqDataSet)

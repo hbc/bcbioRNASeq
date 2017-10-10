@@ -69,37 +69,42 @@ NULL
 # Methods ====
 #' @rdname plotGene
 #' @export
-setMethod("plotGene", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    normalized = "tpm",
-    gene,
-    format = "symbol") {
-    if (!format %in% c("ensgene", "symbol")) {
-        stop("Unsupported gene identifier format")
-    }
-    if (is.logical(normalized)) {
-        warning("Explicit format of normalized counts format is recommended")
-    }
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
+setMethod(
+    "plotGene",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        normalized = "tpm",
+        gene,
+        format = "symbol") {
+        if (!format %in% c("ensgene", "symbol")) {
+            stop("Unsupported gene identifier format", call. = FALSE)
+        }
+        if (is.logical(normalized)) {
+            warning(paste(
+                "Explicit format of normalized counts format is recommended"
+            ), call. = FALSE)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
 
-    counts <- counts(object, normalized = normalized)
-    metadata <- colData(object)
+        counts <- counts(object, normalized = normalized)
+        metadata <- colData(object)
 
-    # Match unique gene identifier with name (gene symbol) using the
-    # internally stored Ensembl annotations saved in the run object
-    gene2symbol <- metadata(object) %>%
-        .[["annotable"]] %>%
-        .[.[[format]] %in% gene, , drop = FALSE] %>%
-        .[, c("symbol", "ensgene")]
-    gene <- gene2symbol[["ensgene"]]
-    names(gene) <- gene2symbol[["symbol"]]
+        # Match unique gene identifier with name (gene symbol) using the
+        # internally stored Ensembl annotations saved in the run object
+        gene2symbol <- metadata(object) %>%
+            .[["annotable"]] %>%
+            .[.[[format]] %in% gene, , drop = FALSE] %>%
+            .[, c("symbol", "ensgene")]
+        gene <- gene2symbol[["ensgene"]]
+        names(gene) <- gene2symbol[["symbol"]]
 
-    .plotGene(
-        counts = counts,
-        gene = gene,
-        metadata = metadata,
-        interestingGroup = interestingGroup)
-})
+        .plotGene(
+            counts = counts,
+            gene = gene,
+            metadata = metadata,
+            interestingGroup = interestingGroup)
+    })

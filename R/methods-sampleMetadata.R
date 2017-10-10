@@ -36,10 +36,16 @@ NULL
 # Methods ====
 #' @rdname sampleMetadata
 #' @export
-setMethod("sampleMetadata", "bcbioRNASeqANY", .sampleMetadata)
+setMethod(
+    "sampleMetadata",
+    signature("bcbioRNASeqANY"),
+    .sampleMetadata)
 
 
 
 #' @rdname sampleMetadata
 #' @export
-setMethod("sampleMetadata", "DESeqANY", .sampleMetadata)
+setMethod(
+    "sampleMetadata",
+    signature("DESeqANY"),
+    .sampleMetadata)

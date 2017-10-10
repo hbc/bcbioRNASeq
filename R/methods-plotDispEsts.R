@@ -25,7 +25,10 @@ NULL
 # Methods ====
 #' @rdname plotDispEsts
 #' @export
-setMethod("plotDispEsts", "bcbioRNASeqANY", function(object, ...) {
-    bcbio(object, "DESeqDataSet") %>%
-        plotDispEsts(...)
-})
+setMethod(
+    "plotDispEsts",
+    signature("bcbioRNASeqANY"),
+    function(object, ...) {
+        bcbio(object, "DESeqDataSet") %>%
+            plotDispEsts(...)
+    })

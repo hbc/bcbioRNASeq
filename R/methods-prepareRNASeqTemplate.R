@@ -19,7 +19,11 @@ NULL
 # Methods ====
 #' @rdname prepareRNASeqTemplate
 #' @export
-setMethod("prepareRNASeqTemplate", "missing", function(object) {
-    prepareTemplate(
-        sourceDir = system.file("rmarkdown/shared", package = "bcbioRNASeq"))
-})
+setMethod(
+    "prepareRNASeqTemplate",
+    signature("missing"),
+    function(object) {
+        prepareTemplate(
+            sourceDir = system.file("rmarkdown/shared",
+                                    package = "bcbioRNASeq"))
+    })

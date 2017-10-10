@@ -54,22 +54,28 @@ NULL
 # Methods ====
 #' @rdname plotCountsPerGene
 #' @export
-setMethod("plotCountsPerGene", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    normalized = "tmm",
-    flip = TRUE) {
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plotCountsPerGene(
-        meltLog10(object, normalized = normalized),
-        interestingGroup = interestingGroup,
-        flip = flip)
-})
+setMethod(
+    "plotCountsPerGene",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        normalized = "tmm",
+        flip = TRUE) {
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plotCountsPerGene(
+            meltLog10(object, normalized = normalized),
+            interestingGroup = interestingGroup,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotCountsPerGene
 #' @export
-setMethod("plotCountsPerGene", "data.frame", .plotCountsPerGene)
+setMethod(
+    "plotCountsPerGene",
+    signature("data.frame"),
+    .plotCountsPerGene)

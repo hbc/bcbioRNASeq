@@ -272,15 +272,21 @@ NULL
 # Methods ====
 #' @rdname plotVolcano
 #' @export
-setMethod("plotVolcano", "DESeqResults", function(object, alpha = NULL, ...) {
-    if (is.null(alpha)) {
-        alpha <- metadata(object)[["alpha"]]
-    }
-    .plotVolcano(object, alpha = alpha, ...)
-})
+setMethod(
+    "plotVolcano",
+    signature("DESeqResults"),
+    function(object, alpha = NULL, ...) {
+        if (is.null(alpha)) {
+            alpha <- metadata(object)[["alpha"]]
+        }
+        .plotVolcano(object, alpha = alpha, ...)
+    })
 
 
 
 #' @rdname plotVolcano
 #' @export
-setMethod("plotVolcano", "data.frame", .plotVolcano)
+setMethod(
+    "plotVolcano",
+    signature("data.frame"),
+    .plotVolcano)

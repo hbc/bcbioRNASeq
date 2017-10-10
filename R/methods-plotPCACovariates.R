@@ -34,10 +34,8 @@ NULL
 
 
 
-# Methods ====
-#' @rdname plotPCACovariates
-#' @export
-setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
+# Constructors ====
+.plotPCACovariates <- function(
     object,
     transform = "rlog",
     metrics = TRUE,
@@ -83,4 +81,14 @@ setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
         counts = counts,
         metadata = metadata,
         ...)
-})
+}
+
+
+
+# Methods ====
+#' @rdname plotPCACovariates
+#' @export
+setMethod(
+    "plotPCACovariates",
+    signature("bcbioRNASeqANY"),
+    .plotPCACovariates)

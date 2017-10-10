@@ -59,26 +59,32 @@ NULL
 # Methods ====
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    warnLimit = 2,
-    flip = TRUE) {
-    if (is.null(metrics(object))) {
-        return(NULL)
-    }
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plot53Bias(
-        metrics(object),
-        interestingGroup = interestingGroup,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plot53Bias",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        warnLimit = 2,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plot53Bias(
+            metrics(object),
+            interestingGroup = interestingGroup,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "data.frame", .plot53Bias)
+setMethod(
+    "plot53Bias",
+    signature("data.frame"),
+    .plot53Bias)

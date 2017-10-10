@@ -57,26 +57,32 @@ NULL
 # Methods ====
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    warnLimit = 10,
-    flip = TRUE) {
-    if (is.null(metrics(object))) {
-        return(NULL)
-    }
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plotRRNAMappingRate(
-        metrics(object),
-        interestingGroup = interestingGroup,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotRRNAMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        warnLimit = 10,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plotRRNAMappingRate(
+            metrics(object),
+            interestingGroup = interestingGroup,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "data.frame", .plotRRNAMappingRate)
+setMethod(
+    "plotRRNAMappingRate",
+    signature("data.frame"),
+    .plotRRNAMappingRate)

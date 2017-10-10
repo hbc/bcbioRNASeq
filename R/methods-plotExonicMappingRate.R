@@ -60,26 +60,32 @@ NULL
 # Methods ====
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    passLimit = 60,
-    flip = TRUE) {
-    if (is.null(metrics(object))) {
-        return(NULL)
-    }
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plotExonicMappingRate(
-        metrics(object),
-        interestingGroup = interestingGroup,
-        passLimit = passLimit,
-        flip = flip)
-})
+setMethod(
+    "plotExonicMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        passLimit = 60,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plotExonicMappingRate(
+            metrics(object),
+            interestingGroup = interestingGroup,
+            passLimit = passLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "data.frame", .plotExonicMappingRate)
+setMethod(
+    "plotExonicMappingRate",
+    signature("data.frame"),
+    .plotExonicMappingRate)

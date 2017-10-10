@@ -20,6 +20,9 @@ NULL
 # Methods ====
 #' @rdname sampleDirs
 #' @export
-setMethod("sampleDirs", "bcbioRNASeqANY", function(object) {
-    metadata(object)[["sampleDirs"]]
-})
+setMethod(
+    "sampleDirs",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        metadata(object)[["sampleDirs"]]
+    })

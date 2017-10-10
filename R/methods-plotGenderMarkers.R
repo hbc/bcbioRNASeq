@@ -76,32 +76,41 @@ NULL
 # Methods ====
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "bcbioRNASeqANY", function(object) {
-    counts <- tpm(object)
-    organism <- metadata(object)[["organism"]]
-    ylab <- "transcripts per million (tpm)"
-    .plotGenderMarkers(counts, organism = organism, ylab = ylab)
-})
+setMethod(
+    "plotGenderMarkers",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        counts <- tpm(object)
+        organism <- metadata(object)[["organism"]]
+        ylab <- "transcripts per million (tpm)"
+        .plotGenderMarkers(counts, organism = organism, ylab = ylab)
+    })
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "DESeqDataSet", function(
-    object,
-    organism = NULL) {
-    counts <- counts(object, normalized = TRUE)
-    if (is.null(organism)) {
-        organism <- rownames(counts) %>%
-            .[[1]] %>%
-            detectOrganism()
-    }
-    ylab <- "normalized counts"
-    .plotGenderMarkers(counts, organism = organism, ylab = ylab)
-})
+setMethod(
+    "plotGenderMarkers",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        organism = NULL) {
+        counts <- counts(object, normalized = TRUE)
+        if (is.null(organism)) {
+            organism <- rownames(counts) %>%
+                .[[1]] %>%
+                detectOrganism()
+        }
+        ylab <- "normalized counts"
+        .plotGenderMarkers(counts, organism = organism, ylab = ylab)
+    })
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "matrix", .plotGenderMarkers)
+setMethod(
+    "plotGenderMarkers",
+    signature("matrix"),
+    .plotGenderMarkers)

@@ -64,10 +64,7 @@ NULL
 
 
 
-# Methods ====
-#' @rdname resultsTables
-#' @export
-setMethod("resultsTables", "DESeqResults", function(
+.resultsTablesDESeqResults <- function(
     object,
     lfc = 0,
     write = TRUE,
@@ -164,4 +161,14 @@ setMethod("resultsTables", "DESeqResults", function(
     ))
 
     resTbl
-})
+}
+
+
+
+# Methods ====
+#' @rdname resultsTables
+#' @export
+setMethod(
+    "resultsTables",
+    signature("DESeqResults"),
+    .resultsTablesDESeqResults)

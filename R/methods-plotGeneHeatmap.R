@@ -127,70 +127,82 @@ NULL
 # Methods ====
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "bcbioRNASeqANY", function(
-    object,
-    genes = NULL,
-    title = NULL) {
-    counts <- counts(object, normalized = "rlog")
-    annotationCol <- colData(object) %>%
-        .[, metadata(object)[["interestingGroups"]], drop = FALSE]
-    .plotGeneHeatmap(
-        counts = counts,
-        annotationCol = annotationCol,
-        # User-defined
-        genes = genes,
-        title = title)
-})
+setMethod(
+    "plotGeneHeatmap",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        genes = NULL,
+        title = NULL) {
+        counts <- counts(object, normalized = "rlog")
+        annotationCol <- colData(object) %>%
+            .[, metadata(object)[["interestingGroups"]], drop = FALSE]
+        .plotGeneHeatmap(
+            counts = counts,
+            annotationCol = annotationCol,
+            # User-defined
+            genes = genes,
+            title = title)
+    })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "DESeqDataSet", function(
-    object,
-    genes = NULL,
-    annotationCol = NULL,
-    title = NULL) {
-    counts <- counts(object, normalized = TRUE)
-    .plotGeneHeatmap(
-        counts = counts,
-        # User-defined
-        genes = genes,
-        annotationCol = annotationCol,
-        title = title)
-})
+setMethod(
+    "plotGeneHeatmap",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        genes = NULL,
+        annotationCol = NULL,
+        title = NULL) {
+        counts <- counts(object, normalized = TRUE)
+        .plotGeneHeatmap(
+            counts = counts,
+            # User-defined
+            genes = genes,
+            annotationCol = annotationCol,
+            title = title)
+    })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "DESeqTransform", function(
-    object,
-    genes = NULL,
-    annotationCol = NULL,
-    title = NULL) {
-    counts <- assay(object)
-    .plotGeneHeatmap(
-        counts = counts,
-        # User-defined
-        genes = genes,
-        annotationCol = annotationCol,
-        title = title)
-})
+setMethod(
+    "plotGeneHeatmap",
+    signature("DESeqTransform"),
+    function(
+        object,
+        genes = NULL,
+        annotationCol = NULL,
+        title = NULL) {
+        counts <- assay(object)
+        .plotGeneHeatmap(
+            counts = counts,
+            # User-defined
+            genes = genes,
+            annotationCol = annotationCol,
+            title = title)
+    })
 
 
 
 #' @rdname plotGeneHeatmap
 #' @export
-setMethod("plotGeneHeatmap", "matrix", function(
-    object,
-    genes = NULL,
-    annotationCol = NULL,
-    title = NULL) {
-    .plotGeneHeatmap(
-        counts = object,
-        # User-defined
-        genes = genes,
-        annotationCol = annotationCol,
-        title = title)
-})
+setMethod(
+    "plotGeneHeatmap",
+    signature("matrix"),
+    function(
+        object,
+        genes = NULL,
+        annotationCol = NULL,
+        title = NULL) {
+        .plotGeneHeatmap(
+            counts = object,
+            # User-defined
+            genes = genes,
+            annotationCol = annotationCol,
+            title = title)
+    })

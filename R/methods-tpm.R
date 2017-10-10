@@ -10,7 +10,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' tpm(bcb) %>% head
+#' tpm(bcb) %>%
+#'     head()
 NULL
 
 
@@ -18,6 +19,9 @@ NULL
 # Methods ====
 #' @rdname tpm
 #' @export
-setMethod("tpm", "bcbioRNASeqANY", function(object) {
-    assays(object)[["tpm"]]
-})
+setMethod(
+    "tpm",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        assays(object)[["tpm"]]
+    })

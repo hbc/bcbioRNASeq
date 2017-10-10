@@ -18,10 +18,13 @@ NULL
 # Methods ====
 #' @rdname metrics
 #' @export
-setMethod("metrics", "bcbioRNASeqANY", function(object) {
-    suppressMessages(left_join(
-        as.data.frame(colData(object)),
-        as.data.frame(metadata(object)[["metrics"]])
-    )) %>%
-        set_rownames(.[["sampleID"]])
-})
+setMethod(
+    "metrics",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        suppressMessages(left_join(
+            as.data.frame(colData(object)),
+            as.data.frame(metadata(object)[["metrics"]])
+        )) %>%
+            set_rownames(.[["sampleID"]])
+    })

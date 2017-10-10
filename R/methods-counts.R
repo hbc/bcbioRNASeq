@@ -50,28 +50,31 @@ NULL
 # Methods ====
 #' @rdname counts
 #' @export
-setMethod("counts", "bcbioRNASeqANY", function(
-    object,
-    normalized = FALSE) {
-    if (normalized == FALSE) {
-        slot <- "raw"
-    } else if (normalized == TRUE) {
-        slot <- "normalized"
-    } else {
-        slot <- normalized
-    }
+setMethod(
+    "counts",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        normalized = FALSE) {
+        if (normalized == FALSE) {
+            slot <- "raw"
+        } else if (normalized == TRUE) {
+            slot <- "normalized"
+        } else {
+            slot <- normalized
+        }
 
-    # Check for slot presence
-    if (!slot %in% names(assays(object))) {
-        stop("Unsupported normalization method")
-    }
+        # Check for slot presence
+        if (!slot %in% names(assays(object))) {
+            stop("Unsupported normalization method")
+        }
 
-    counts <- assays(object)[[slot]]
+        counts <- assays(object)[[slot]]
 
-    # Return matrix from [DESeqTransform]
-    if (slot %in% c("rlog", "vst")) {
-        counts <- assay(counts)
-    }
+        # Return matrix from [DESeqTransform]
+        if (slot %in% c("rlog", "vst")) {
+            counts <- assay(counts)
+        }
 
-    counts
-})
+        counts
+    })

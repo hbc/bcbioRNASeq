@@ -59,32 +59,41 @@ NULL
 # Methods ====
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "bcbioRNASeqANY", function(
-    object,
-    normalized = TRUE) {
-    .joinMelt(
-        counts = counts(object, normalized = normalized),
-        metadata = colData(object))
-})
+setMethod(
+    "meltLog10",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = colData(object))
+    })
 
 
 
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "DESeqDataSet", function(
-    object,
-    normalized = TRUE) {
-    .joinMelt(
-        counts = counts(object, normalized = normalized),
-        metadata = colData(object))
-})
+setMethod(
+    "meltLog10",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = colData(object))
+    })
 
 
 
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "DESeqTransform", function(object) {
-    .joinMelt(
-        counts = assay(object),
-        metadata = colData(object))
-})
+setMethod(
+    "meltLog10",
+    signature("DESeqTransform"),
+    function(object) {
+        .joinMelt(
+            counts = assay(object),
+            metadata = colData(object))
+    })

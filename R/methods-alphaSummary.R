@@ -79,28 +79,34 @@ NULL
 # Methods ====
 #' @rdname alphaSummary
 #' @export
-setMethod("alphaSummary", "bcbioRNASeqANY", function(
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    dds <- bcbio(object, "DESeqDataSet")
-    # Warn if empty design formula detected
-    if (design(dds) == formula(~1)) {
-        warning("Empty DESeqDataSet design formula detected",
-                call. = FALSE)
-    }
-    .alphaSummary(dds, alpha = alpha, caption = caption, ...)
-})
+setMethod(
+    "alphaSummary",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+        caption = NULL,
+        ...) {
+        dds <- bcbio(object, "DESeqDataSet")
+        # Warn if empty design formula detected
+        if (design(dds) == formula(~1)) {
+            warning("Empty DESeqDataSet design formula detected",
+                    call. = FALSE)
+        }
+        .alphaSummary(dds, alpha = alpha, caption = caption, ...)
+    })
 
 
 
 #' @rdname alphaSummary
 #' @export
-setMethod("alphaSummary", "DESeqDataSet", function(
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    .alphaSummary(object, alpha = alpha, caption = caption, ...)
-})
+setMethod(
+    "alphaSummary",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+        caption = NULL,
+        ...) {
+        .alphaSummary(object, alpha = alpha, caption = caption, ...)
+    })

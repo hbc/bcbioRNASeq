@@ -71,22 +71,28 @@ NULL
 # Methods ====
 #' @rdname plotCountDensity
 #' @export
-setMethod("plotCountDensity", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    normalized = "tmm",
-    style = "color") {
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plotCountDensity(
-        meltLog10(object, normalized = normalized),
-        interestingGroup = interestingGroup,
-        style = style)
-})
+setMethod(
+    "plotCountDensity",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        normalized = "tmm",
+        style = "color") {
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plotCountDensity(
+            meltLog10(object, normalized = normalized),
+            interestingGroup = interestingGroup,
+            style = style)
+    })
 
 
 
 #' @rdname plotCountDensity
 #' @export
-setMethod("plotCountDensity", "data.frame", .plotCountDensity)
+setMethod(
+    "plotCountDensity",
+    signature("data.frame"),
+    .plotCountDensity)

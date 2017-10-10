@@ -61,28 +61,34 @@ NULL
 # Methods ====
 #' @rdname plotTotalReads
 #' @export
-setMethod("plotTotalReads", "bcbioRNASeqANY", function(
-    object,
-    interestingGroup,
-    passLimit = 20,
-    warnLimit = 10,
-    flip = TRUE) {
-    if (is.null(metrics(object))) {
-        return(NULL)
-    }
-    if (missing(interestingGroup)) {
-        interestingGroup <- interestingGroups(object)[[1]]
-    }
-    .plotTotalReads(
-        metrics(object),
-        interestingGroup = interestingGroup,
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotTotalReads",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroup,
+        passLimit = 20,
+        warnLimit = 10,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroup)) {
+            interestingGroup <- interestingGroups(object)[[1]]
+        }
+        .plotTotalReads(
+            metrics(object),
+            interestingGroup = interestingGroup,
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotTotalReads
 #' @export
-setMethod("plotTotalReads", "data.frame", .plotTotalReads)
+setMethod(
+    "plotTotalReads",
+    signature("data.frame"),
+    .plotTotalReads)

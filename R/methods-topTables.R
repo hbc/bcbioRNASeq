@@ -48,20 +48,23 @@ NULL
 # Methods ====
 #' @rdname topTables
 #' @export
-setMethod("topTables", "list", function(
-    object,
-    n = 50,
-    coding = FALSE) {
-    up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
-    down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
+setMethod(
+    "topTables",
+    signature("list"),
+    function(
+        object,
+        n = 50,
+        coding = FALSE) {
+        up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
+        down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
 
-    # Captions
-    contrastName <- object[["contrast"]]
+        # Captions
+        contrastName <- object[["contrast"]]
 
-    show(kable(
-        up,
-        caption = paste(contrastName, "(upregulated)")))
-    show(kable(
-        down,
-        caption = paste(contrastName, "(downregulated)")))
-})
+        show(kable(
+            up,
+            caption = paste(contrastName, "(upregulated)")))
+        show(kable(
+            down,
+            caption = paste(contrastName, "(downregulated)")))
+    })

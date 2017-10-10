@@ -55,7 +55,9 @@ NULL
 #' @export
 setMethod(
     "[",
-    signature(x = "bcbioRNASeqANY", i = "ANY", j = "ANY"),
+    signature(x = "bcbioRNASeqANY",
+              i = "ANY",
+              j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
         if (missing(i)) {
             i <- 1:nrow(x)

@@ -115,31 +115,34 @@ NULL
 # Methods ====
 #' @rdname plotCorrelationHeatmap
 #' @export
-setMethod("plotCorrelationHeatmap", "bcbioRNASeqANY", function(
-    object,
-    transform = "rlog",
-    method = "pearson",
-    genes = NULL,
-    samples = NULL,
-    title = NULL) {
-    # Transformed counts
-    if (!transform %in% c("rlog", "vst")) {
-        stop("DESeqTransform must be rlog or vst")
-    }
-    # Get count matrix from `assays` slot
-    counts <- assays(object) %>%
-        .[[transform]] %>%
-        assay()
-    interestingGroups <- metadata(object) %>%
-        .[["interestingGroups"]]
-    annotationCol <- colData(object) %>%
-        .[, interestingGroups, drop = FALSE] %>%
-        as.data.frame()
-    .plotCorrelationHeatmap(
-        counts = counts,
-        method = method,
-        annotationCol = annotationCol,
-        genes = genes,
-        samples = samples,
-        title = title)
-})
+setMethod(
+    "plotCorrelationHeatmap",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        transform = "rlog",
+        method = "pearson",
+        genes = NULL,
+        samples = NULL,
+        title = NULL) {
+        # Transformed counts
+        if (!transform %in% c("rlog", "vst")) {
+            stop("DESeqTransform must be rlog or vst")
+        }
+        # Get count matrix from `assays` slot
+        counts <- assays(object) %>%
+            .[[transform]] %>%
+            assay()
+        interestingGroups <- metadata(object) %>%
+            .[["interestingGroups"]]
+        annotationCol <- colData(object) %>%
+            .[, interestingGroups, drop = FALSE] %>%
+            as.data.frame()
+        .plotCorrelationHeatmap(
+            counts = counts,
+            method = method,
+            annotationCol = annotationCol,
+            genes = genes,
+            samples = samples,
+            title = title)
+    })

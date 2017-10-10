@@ -66,22 +66,28 @@ NULL
 # Methods ====
 #' @rdname plotMeanSD
 #' @export
-setMethod("plotMeanSD", "bcbioRNASeqANY", function(object) {
-    .plotMeanSD(
-        raw = counts(object, normalized = FALSE),
-        normalized = counts(object, normalized = TRUE),
-        rlog = counts(object, normalized = "rlog"),
-        vst = counts(object, normalized = "vst"))
-})
+setMethod(
+    "plotMeanSD",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        .plotMeanSD(
+            raw = counts(object, normalized = FALSE),
+            normalized = counts(object, normalized = TRUE),
+            rlog = counts(object, normalized = "rlog"),
+            vst = counts(object, normalized = "vst"))
+    })
 
 
 
 #' @rdname plotMeanSD
 #' @export
-setMethod("plotMeanSD", "DESeqDataSet", function(object) {
-    .plotMeanSD(
-        raw = counts(object, normalized = FALSE),
-        normalized = counts(object, normalized = TRUE),
-        rlog = assay(rlog(object)),
-        vst = assay(varianceStabilizingTransformation(object)))
-})
+setMethod(
+    "plotMeanSD",
+    signature("DESeqDataSet"),
+    function(object) {
+        .plotMeanSD(
+            raw = counts(object, normalized = FALSE),
+            normalized = counts(object, normalized = TRUE),
+            rlog = assay(rlog(object)),
+            vst = assay(varianceStabilizingTransformation(object)))
+    })

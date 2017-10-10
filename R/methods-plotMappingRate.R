@@ -60,21 +60,27 @@ NULL
 # Methods ====
 #' @rdname plotMappingRate
 #' @export
-setMethod("plotMappingRate", "bcbioRNASeqANY", function(
-    object,
-    passLimit = 90,
-    warnLimit = 70,
-    flip = TRUE) {
-    .plotMappingRate(
-        metrics(object),
-        interestingGroup = interestingGroups(object)[[1]],
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        passLimit = 90,
+        warnLimit = 70,
+        flip = TRUE) {
+        .plotMappingRate(
+            metrics(object),
+            interestingGroup = interestingGroups(object)[[1]],
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotMappingRate
 #' @export
-setMethod("plotMappingRate", "data.frame", .plotMappingRate)
+setMethod(
+    "plotMappingRate",
+    signature("data.frame"),
+    .plotMappingRate)

@@ -62,7 +62,7 @@ NULL
 #' @export
 setMethod(
     "plotIntronicMappingRate",
-    "bcbioRNASeqANY",
+    signature("bcbioRNASeqANY"),
     function(
         object,
         interestingGroup,
@@ -85,4 +85,7 @@ setMethod(
 
 #' @rdname plotIntronicMappingRate
 #' @export
-setMethod("plotIntronicMappingRate", "data.frame", .plotIntronicMappingRate)
+setMethod(
+    "plotIntronicMappingRate",
+    signature("data.frame"),
+    .plotIntronicMappingRate)
