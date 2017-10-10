@@ -93,8 +93,8 @@
     <pre class="usage"><span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeqANY</span>
-<span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -108,17 +108,18 @@
       <td><p>Additional arguments, passed to <code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>metrics</th>
+      <td><p>Include sample summary metrics as covariates. Defaults to
+include all metrics columns (<code>TRUE</code>), but desired columns can be specified
+here as a character vector.</p></td>
+    </tr>
+    <tr>
       <th>transform</th>
       <td><p>String specifying DESeqTransform slotted inside the
 <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object:</p><ul>
 <li><p><code>rlog</code> (<strong>recommended</strong>).</p></li>
 <li><p><code>vst</code>: variance stabilizing transformation.</p></li>
 </ul></td>
-    </tr>
-    <tr>
-      <th>metrics</th>
-      <td><p>Include sample summary metrics as covariates.
-If character vector given, only use the selected metrics.</p></td>
     </tr>
     </table>
     
@@ -137,9 +138,11 @@ If character vector given, only use the selected metrics.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>running pca and calculating correlations for:</span>
-#&gt; <span class='message'>un-scaled  data in pca; pve &gt;= 5%; spearman correlations </span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the standard deviation is zero</span></div><div class='img'><img src='plotPCACovariates-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+#&gt; <span class='message'>un-scaled  data in pca; pve &gt;= 5%; spearman correlations </span></div><div class='img'><img src='plotPCACovariates-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"exonicRate"</span>, <span class='st'>"intronicRate"</span>))</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>running pca and calculating correlations for:</span>
+#&gt; <span class='message'>un-scaled  data in pca; pve &gt;= 5%; spearman correlations </span></div><div class='img'><img src='plotPCACovariates-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -162,7 +165,7 @@ Lorena Pantano, Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

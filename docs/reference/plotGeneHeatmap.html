@@ -155,15 +155,15 @@ features of the heatmap columns.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneHeatmap-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Genes as Ensembl identifiers</span>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span>
     <span class='fu'>rownames</span>()
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-8.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -186,7 +186,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

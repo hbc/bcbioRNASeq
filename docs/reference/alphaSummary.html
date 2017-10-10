@@ -142,15 +142,15 @@ object contains an internal DESeqDataSet with an empty design formula.</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>alphaSummary</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>alphaSummary</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Empty DESeqDataSet design formula detected</span></div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
 #&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |170, 56%         |166, 55%         |157, 52%         |151, 50%         |136, 45%         |
+#&gt; |LFC &gt; 0 (up)   |170, 56%         |166, 55%         |157, 52%         |152, 50%         |136, 45%         |
 #&gt; |LFC &lt; 0 (down) |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
 #&gt; |outliers       |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |
-#&gt; |low counts     |67, 22%          |57, 19%          |0, 0%            |63, 21%          |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 1) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'>
+#&gt; |low counts     |67, 22%          |57, 19%          |0, 0%            |74, 24%          |0, 0%            |
+#&gt; |cutoff         |(mean count &lt; 1) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 1) |(mean count &lt; 0) |</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='fu'>alphaSummary</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; 
 #&gt; 
@@ -201,7 +201,7 @@ Michael Steinbaugh, Lorena Patano
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael Steinbaugh, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, Mary Piper, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

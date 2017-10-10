@@ -89,13 +89,13 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/deprecated.html">loadRNASeqRun</a></span>(
     <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
     <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
-<p>This will return a <code>bcbioRNADataSet</code>, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
 <li>
 <code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
 <li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNADataSet</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>metadata(bcb)$interestingGroups &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>metadata(bcb)$interestingGroups &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
 </ul>
 <p>Consult <code>help("loadRNASeqRun", "bcbioRNASeq")</code> for additional documentation.</p>
 </div>
@@ -128,16 +128,24 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/deprecated
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Michael Steinbaugh <br><small class="roles"> Author, maintainer </small> </li>
+<li>
+<a href="http://steinbaugh.com">Michael Steinbaugh</a> <br><small class="roles"> Author, maintainer </small> </li>
 <li>
 <a href="https://lpantano.github.io">Lorena Pantano</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/roryk">Rory Kirchner</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/vbarrera">Victor Barrera</a> <br><small class="roles"> Author </small> </li>
-<li>Mary Piper <br><small class="roles"> Author </small> </li>
+<li>
+<a href="https://github.com/marypiper">Mary Piper</a> <br><small class="roles"> Author </small> </li>
+<li>
+<a href="https://github.com/mistrm82">Meeta Mistry</a> <br><small class="roles"> Author </small> </li>
+<li>
+<a href="https://github.com/rkhetani">Radhika Khetani</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/jnhutchinson">John Hutchinson</a> <br><small class="roles"> Author </small> </li>
+<li>
+<a href="https://github.com/sjhosui">Shannan Ho Sui</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a> <br><small class="roles"> Copyright holder, funder </small> </li>
 </ul>
@@ -152,7 +160,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/deprecated
 
 
       <footer><div class="copyright">
-  <p>Developed by Michael Steinbaugh, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, Mary Piper, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href="http://steinbaugh.com">Michael Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/marypiper">Mary Piper</a>, <a href="https://github.com/mistrm82">Meeta Mistry</a>, <a href="https://github.com/rkhetani">Radhika Khetani</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="https://github.com/sjhosui">Shannan Ho Sui</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
