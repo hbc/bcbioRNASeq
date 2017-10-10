@@ -2,26 +2,19 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.0.26
-Authors@R: c(
-    person("Michael J.", "Steinbaugh",
-           email = "mike@steinbaugh.com",
-           role = c("aut", "cre")),
-    person("Lorena", "Pantano",
-           email = "lorena.pantano@gmail.com",
-           role = "aut"),
-    person("Rory", "Kirchner",
-           email = "roryk@alum.mit.edu",
-           role = "aut"),
-    person("Victor", "Barrera",
-           email = "barrera.vic@gmail.com",
-           role = "aut"),
-    person("John", "Hutchinson",
-           email = "jnhutchinson@gmail.com",
-           role = "aut"),
-    person("Harvard Chan Bioinformatics Core",
-           email = "bioinformatics@hsph.harvard.edu",
-           role = c("cph", "fnd")))
+Version: 0.0.27
+Authors@R: as.person(c(
+    "Michael Steinbaugh <mike@steinbaugh.com> [aut, cre]",
+    "Lorena Pantano <lorena.pantano@gmail.com> [aut]",
+    "Rory Kirchner <roryk@alum.mit.edu> [aut]",
+    "Victor Barrera <barrera.vic@gmail.com> [aut]",
+    "Mary Piper <mary.piper@gmail.com> [aut]",
+    "Meeta Mistry <meeta.mistry@gmail.com> [aut]",
+    "Radhika Khetani <rkhetani@hsph.harvard.edu> [aut]",
+    "John Hutchinson <jnhutchinson@gmail.com> [aut]",
+    "Shannan Ho Sui <shosui@hsph.harvard.edu> [aut]",
+    "Harvard Chan Bioinformatics Core <bioinformatics@hsph.harvard.edu> [cph, fnd]"
+  ))
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
     https://github.com/hbc/bcbioRNASeq
@@ -31,13 +24,13 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    SummarizedExperiment (>= 1.6.3),
-    basejump (>= 0.0.22)
+    SummarizedExperiment (>= 1.6.5)
 Imports:
+    basejump (>= 0.0.24),
     BiocGenerics,
     cowplot,
     data.table,
-    DEGreport (>= 1.13.7),
+    DEGreport (>= 1.13.11),
     DESeq2 (>= 1.16.1),
     dplyr,
     edgeR (>= 3.18.1),
@@ -50,12 +43,12 @@ Imports:
     pheatmap (>= 1.0.8),
     readr,
     reshape2,
-    rlang,
+    rlang (>= 0.1.2),
     S4Vectors,
     stats,
     stringr,
     tibble,
-    tidyr,
+    tidyr (>= 0.7.1),
     tximport (>= 1.4.0),
     utils,
     viridis,
@@ -68,7 +61,7 @@ Suggests:
     tidyverse
 Remotes:
     lpantano/DEGreport,
-    steinbaugh/basejump
+    steinbaugh/basejump@develop
 biocViews:
     DataImport,
     DataRepresentation,

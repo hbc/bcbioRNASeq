@@ -3,7 +3,7 @@
 \docType{methods}
 \name{plotGeneHeatmap}
 \alias{plotGeneHeatmap}
-\alias{plotGeneHeatmap,bcbioRNADataSet-method}
+\alias{plotGeneHeatmap,bcbioRNASeqANY-method}
 \alias{plotGeneHeatmap,DESeqDataSet-method}
 \alias{plotGeneHeatmap,DESeqTransform-method}
 \alias{plotGeneHeatmap,matrix-method}
@@ -11,7 +11,7 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNADataSet}(object, genes = NULL,
+\S4method{plotGeneHeatmap}{bcbioRNASeqANY}(object, genes = NULL,
   title = NULL)
 
 \S4method{plotGeneHeatmap}{DESeqDataSet}(object, genes = NULL,
@@ -24,7 +24,7 @@ plotGeneHeatmap(object, ...)
   annotationCol = NULL, title = NULL)
 }
 \arguments{
-\item{object}{Counts matrix.}
+\item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
@@ -45,16 +45,17 @@ default, row- and column-wise hierarchical clustering is performed using the
 Ward method, but this behavior can be overrided by setting \code{cluster_rows} or
 \code{cluster_cols} to \code{FALSE}. When column clustering is disabled, the columns
 are sorted by the interesting groups (\code{interestingGroups}) specified in the
-\link{bcbioRNADataSet} and then the sample names.
+\link{bcbioRNASeq} and then the sample names.
 }
 \examples{
 data(bcb, dds, rld)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotGeneHeatmap(bcb)
 
 # Genes as Ensembl identifiers
-genes <- counts(bcb)[1L:20L, ] \%>\% rownames
+genes <- counts(bcb)[1:20, ] \%>\%
+    rownames()
 plotGeneHeatmap(bcb, genes = genes)
 
 # DESeqDataSet
@@ -65,7 +66,11 @@ plotGeneHeatmap(rld)
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+
+Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotDEGHeatmap}}
 }
 \author{
 Michael Steinbaugh
 }
+\concept{Heatmaps}

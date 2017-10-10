@@ -2,10 +2,11 @@
 #'
 #' @rdname meltLog10
 #' @name meltLog10
+#' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
-#' @param interestingGroups *Optional*. Interesting groups.
 #'
 #' @seealso [reshape2::melt()].
 #'
@@ -14,14 +15,17 @@
 #' @examples
 #' data(bcb, dds, rld)
 #'
-#' # bcbioRNADataSet
-#' meltLog10(bcb) %>% glimpse
+#' # bcbioRNASeq
+#' meltLog10(bcb) %>%
+#'     str()
 #'
 #' # DESeqDataSet
-#' meltLog10(dds) %>% glimpse
+#' meltLog10(dds) %>%
+#'     str()
 #'
 #' # DESeqTransform
-#' meltLog10(rld) %>% glimpse
+#' meltLog10(rld) %>%
+#'     str()
 NULL
 
 
@@ -32,21 +36,21 @@ NULL
         stop("Sample name mismatch between counts and metadata")
     }
     .meltLog10(counts) %>%
-        left_join(metadata, by = "sampleID")
+        left_join(as.data.frame(metadata), by = "sampleID")
 }
 
 
 
 .meltLog10 <- function(counts) {
     counts %>%
-        as.data.frame %>%
-        rownames_to_column %>%
-        melt(id = 1L) %>%
+        as.data.frame() %>%
+        rownames_to_column() %>%
+        melt(id = 1) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
-        .[.[["counts"]] > 0L, ] %>%
+        .[.[["counts"]] > 0, ] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]]),
-               # [melt()] sets colnames as factor
+               # `melt()` sets colnames as factor
                sampleID = as.character(.data[["sampleID"]]))
 }
 
@@ -55,49 +59,41 @@ NULL
 # Methods ====
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "bcbioRNADataSet", function(
-    object,
-    normalized = TRUE) {
-    counts <- counts(object, normalized = normalized)
-    interestingGroups <- metadata(object)[["interestingGroups"]]
-    metadata <- colData(object) %>%
-        as.data.frame %>%
-        .[, c(metaPriorityCols, interestingGroups)]
-    .joinMelt(counts, metadata)
-})
+setMethod(
+    "meltLog10",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = colData(object))
+    })
 
 
 
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "DESeqDataSet", function(
-    object,
-    normalized = TRUE,
-    interestingGroups = NULL) {
-    counts <- counts(object, normalized = normalized)
-    metadata <- colData(object) %>%
-        as.data.frame
-    if (!is.null(interestingGroups)) {
-        metadata <- metadata %>%
-            .[, c(metaPriorityCols, interestingGroups)]
-    }
-    .joinMelt(counts, metadata)
-})
+setMethod(
+    "meltLog10",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = colData(object))
+    })
 
 
 
 #' @rdname meltLog10
 #' @export
-setMethod("meltLog10", "DESeqTransform", function(
-    object,
-    interestingGroups = NULL) {
-    counts <- assay(object)
-    metadata <- colData(object) %>%
-        as.data.frame %>%
-        rownames_to_column("colname")
-    if (!is.null(interestingGroups)) {
-        metadata <- metadata %>%
-            .[, c("colname", interestingGroups)]
-    }
-    .joinMelt(counts, metadata)
-})
+setMethod(
+    "meltLog10",
+    signature("DESeqTransform"),
+    function(object) {
+        .joinMelt(
+            counts = assay(object),
+            metadata = colData(object))
+    })

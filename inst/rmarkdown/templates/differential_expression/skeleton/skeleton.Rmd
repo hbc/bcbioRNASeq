@@ -22,12 +22,9 @@ if (file.exists("setup.R")) {
     source("setup.R")
 }
 
-# Load bcbioRNADataSet object
+# Load bcbioRNASeq object
 bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
-if (!is(bcb, "bcbioRNADataSet")) {
-    stop("bcb must bcbioRNADataSet class object")
-}
 
 # Design formula
 # help("design", "DESeq2")

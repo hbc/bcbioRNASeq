@@ -7,8 +7,12 @@
 #'
 #' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
+#' @family Heatmaps
+#' @author Michael Steinbaugh
+#'
 #' @inherit plotGeneHeatmap
 #'
+#' @inheritParams AllGenerics
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Options to pass to [plotGeneHeatmap()].
@@ -18,8 +22,10 @@
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
 #'
+#' \dontrun{
 #' # DESeqResults, DESeqDataSet
 #' plotDEGHeatmap(res, dds)
+#' }
 NULL
 
 
@@ -29,12 +35,12 @@ NULL
     results,
     counts,
     alpha = 0.01,
-    lfc = 0L,
+    lfc = 0,
     title = TRUE,
     ...) {
     results <- results %>%
-        as.data.frame %>%
-        camel %>%
+        as.data.frame() %>%
+        camel() %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
         .[.[["padj"]] < alpha, , drop = FALSE] %>%
@@ -42,7 +48,7 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    if (nrow(results) == 0L) {
+    if (nrow(results) == 0) {
         warning("No genes passed significance cutoffs", call. = FALSE)
         return(NULL)
     }
@@ -52,7 +58,7 @@ NULL
     } else if (is.character(title)) {
         title <- paste("deg:", title)
     }
-    if (length(genes) < 2L) {
+    if (length(genes) < 2) {
         message(paste(length(genes), "is too few to plot"))
     } else {
         plotGeneHeatmap(counts, genes = genes, title = title, ...)
@@ -71,7 +77,7 @@ setMethod(
     function(
         object,
         counts,
-        lfc = 0L,
+        lfc = 0,
         ...) {
         results <- as.data.frame(object)
         counts <- assay(counts)
@@ -97,7 +103,7 @@ setMethod(
     function(
         object,
         counts,
-        lfc = 0L,
+        lfc = 0,
         title = TRUE,
         ...) {
         warning("Using a DESeqTransform object for counts is recommended",

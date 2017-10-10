@@ -44,11 +44,14 @@ NULL
     results <- object %>%
         as("tibble") %>%
         camel %>%
-        .[!is.na(.[["padj"]]), ]
-    p <- ggplot(results,
-                aes_(x = ~baseMean,
-                     y = ~log2FoldChange,
-                     color = ~padj < alpha)) +
+        .[!is.na(.[["padj"]]), , drop = FALSE]
+    p <- ggplot(
+        results,
+        mapping = aes_(
+            x = ~baseMean,
+            y = ~log2FoldChange,
+            color = ~padj < alpha)
+    ) +
         geom_point(size = 0.8) +
         scale_x_log10() +
         annotation_logticks(sides = "b") +
@@ -76,12 +79,12 @@ NULL
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
-                force = 1L,
+                force = 1,
                 point.padding = unit(0.75, "lines"),
                 segment.color = "gray",
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4L)
+                size = 4)
     }
     p
 }
@@ -91,26 +94,32 @@ NULL
 # Methods ====
 #' @rdname plotMA
 #' @export
-setMethod("plotMA", "DESeqResults", function(
-    object,
-    labelPoints = NULL,
-    labelColumn = "rowname",
-    pointColorScale = c("darkgrey", "red", "green"),
-    labelColor = "black") {
-    alpha <- metadata(object)[["alpha"]]
-    title <- .resContrastName(object)
-    .plotMA(object,
-            labelPoints = labelPoints,
-            labelColumn = labelColumn,
-            pointColorScale = pointColorScale,
-            labelColor = labelColor,
-            # Automatic
-            alpha = alpha,
-            title = title)
-})
+setMethod(
+    "plotMA",
+    signature("DESeqResults"),
+    function(
+        object,
+        labelPoints = NULL,
+        labelColumn = "rowname",
+        pointColorScale = c("darkgrey", "red", "green"),
+        labelColor = "black") {
+        alpha <- metadata(object)[["alpha"]]
+        title <- .resContrastName(object)
+        .plotMA(object,
+                labelPoints = labelPoints,
+                labelColumn = labelColumn,
+                pointColorScale = pointColorScale,
+                labelColor = labelColor,
+                # Automatic
+                alpha = alpha,
+                title = title)
+    })
 
 
 
 #' @rdname plotMA
 #' @export
-setMethod("plotMA", "data.frame", .plotMA)
+setMethod(
+    "plotMA",
+    signature("data.frame"),
+    .plotMA)

@@ -3,29 +3,30 @@
 \docType{methods}
 \name{plot53Bias}
 \alias{plot53Bias}
-\alias{plot53Bias,bcbioRNADataSet-method}
+\alias{plot53Bias,bcbioRNASeqANY-method}
 \alias{plot53Bias,data.frame-method}
 \title{Plot 5'->3' Bias}
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNADataSet}(object, warnLimit = 2L, flip = TRUE)
+\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroups,
+  warnLimit = 2, flip = TRUE)
 
-\S4method{plot53Bias}{data.frame}(object, interestingGroup = "sampleName",
-  warnLimit = 2L, flip = TRUE)
+\S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
+  warnLimit = 2, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -36,11 +37,16 @@ Plot 5'->3' Bias
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plot53Bias(bcb)
 
+\dontrun{
+plot53Bias(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plot53Bias
+metrics(bcb) \%>\%
+    plot53Bias()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},

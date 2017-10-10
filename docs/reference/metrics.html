@@ -90,9 +90,7 @@
     <p>Sample Metrics</p>
     
 
-    <pre class="usage"><span class='fu'>metrics</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for bcbioRNADataSet</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeqANY</span>
 <span class='fu'>metrics</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -111,19 +109,29 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='no'>glimpse</span></div><div class='output co'>#&gt; Observations: 4
-#&gt; Variables: 11
-#&gt; $ sampleName              &lt;chr&gt; "group1_1", "group1_2", "group2_1", "group2_2"
-#&gt; $ duplicationRateOfMapped &lt;dbl&gt; 0.5574675, 0.5890465, 0.5772400, 0.5828299
-#&gt; $ exonicRate              &lt;dbl&gt; 0.8590, 0.8820, 0.8632, 0.8713
-#&gt; $ intergenicRate          &lt;dbl&gt; 0.0663, 0.0599, 0.0661, 0.0635
-#&gt; $ intronicRate            &lt;dbl&gt; 0.0747, 0.0581, 0.0707, 0.0652
-#&gt; $ mappedReads             &lt;dbl&gt; 22062337, 25852621, 25172084, 25100941
-#&gt; $ rRna                    &lt;dbl&gt; 42218.64, 48275.49, 38893.78, 40831.69
-#&gt; $ rRnaRate                &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623, 0.00...
-#&gt; $ totalReads              &lt;dbl&gt; 22339941, 26168288, 25490090, 25399483
-#&gt; $ x53Bias                 &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
-#&gt; $ xGc                     &lt;dbl&gt; 48, 48, 47, 48</div></pre>
+<span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	4 obs. of  21 variables:
+#&gt;  $ sampleID                     : chr  "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;  $ sampleName                   : chr  "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;  $ description                  : chr  "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;  $ group                        : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
+#&gt;  $ xGC                          : num  48 48 47 48
+#&gt;  $ x53Bias                      : num  1.01 1.04 1 0.98
+#&gt;  $ averageInsertSize            : num  0 0 0 0
+#&gt;  $ duplicates                   : num  0 0 0 0
+#&gt;  $ duplicationRateOfMapped      : num  0.557 0.589 0.577 0.583
+#&gt;  $ exonicRate                   : num  0.859 0.882 0.863 0.871
+#&gt;  $ intergenicRate               : num  0.0663 0.0599 0.0661 0.0635
+#&gt;  $ intronicRate                 : num  0.0747 0.0581 0.0707 0.0652
+#&gt;  $ mappedPairedReads            : num  0 0 0 0
+#&gt;  $ mappedReads                  : num  22062337 25852621 25172084 25100941
+#&gt;  $ name                         : chr  "ctrl_f_1" "ctrl_f_4" "ko_f_1" "ko_f_6"
+#&gt;  $ qualityFormat                : chr  "standard" "standard" "standard" "standard"
+#&gt;  $ sequenceLength               : chr  "25-75" "25-75" "25-75" "25-75"
+#&gt;  $ sequencesFlaggedAsPoorQuality: num  0 0 0 0
+#&gt;  $ totalReads                   : num  22339941 26168288 25490090 25399483
+#&gt;  $ rRNA                         : num  42219 48275 38894 40832
+#&gt;  $ rrnaRate                     : num  0.00207 0.00197 0.00167 0.00174</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -135,16 +143,12 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    
-Michael Steinbaugh
-
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

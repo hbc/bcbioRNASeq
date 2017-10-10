@@ -4,30 +4,30 @@
 \docType{methods}
 \name{plotExonicMappingRate}
 \alias{plotExonicMappingRate}
-\alias{plotExonicMappingRate,bcbioRNADataSet-method}
+\alias{plotExonicMappingRate,bcbioRNASeqANY-method}
 \alias{plotExonicMappingRate,data.frame-method}
 \title{Plot Exonic Mapping Rate}
 \usage{
 plotExonicMappingRate(object, ...)
 
-\S4method{plotExonicMappingRate}{bcbioRNADataSet}(object, passLimit = 60L,
-  flip = TRUE)
+\S4method{plotExonicMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
+  passLimit = 60, flip = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 60L, flip = TRUE)
+  interestingGroups = "sampleName", passLimit = 60, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -38,11 +38,16 @@ Plot Exonic Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotExonicMappingRate(bcb)
 
+\dontrun{
+plotExonicMappingRate(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plotExonicMappingRate
+metrics(bcb) \%>\%
+    plotExonicMappingRate()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

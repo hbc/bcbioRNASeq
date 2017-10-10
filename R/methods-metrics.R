@@ -3,26 +3,28 @@
 #' @rdname metrics
 #' @name metrics
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [data.frame].
 #'
 #' @examples
 #' data(bcb)
-#' metrics(bcb) %>% glimpse
+#' metrics(bcb) %>%
+#'     str()
 NULL
-
-
-
-# Constructors ====
-.metrics <- function(object) {
-    metrics <- .uniqueMetrics(object)
-    if (is.null(metrics)) return(NULL)
-    meta <- .interestingColData(object)
-    cbind(meta, metrics)
-}
 
 
 
 # Methods ====
 #' @rdname metrics
 #' @export
-setMethod("metrics", "bcbioRNADataSet", .metrics)
+setMethod(
+    "metrics",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        suppressMessages(left_join(
+            as.data.frame(colData(object)),
+            as.data.frame(metadata(object)[["metrics"]])
+        )) %>%
+            set_rownames(.[["sampleID"]])
+    })

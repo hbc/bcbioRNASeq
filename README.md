@@ -26,7 +26,7 @@ devtools::install_github("hbc/bcbioRNASeq")
 ```
 
 
-## Load [bcbio][] run output into `bcbioRNADataSet`
+## Load [bcbio][] run
 
 ```r
 library(bcbioRNASeq)
@@ -35,17 +35,19 @@ bcb <- loadRNASeqRun(
     interestingGroups = c("genotype", "treatment"))
 ```
 
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
+
 Parameters:
 
-- Primary object: Path to the [bcbio][] final upload directory.
-- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNADataSet` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
+- `uploadDir`: Path to the [bcbio][] final upload directory.
+- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 
 Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
 
 
 ## [RMarkdown][] templates
 
-This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using DESeq2, which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
 ### Examples
 
@@ -62,3 +64,4 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 [R]: https://www.r-project.org
 [RMarkdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
+[SummarizedExperiment]: http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html

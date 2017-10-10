@@ -4,30 +4,30 @@
 \docType{methods}
 \name{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate}
-\alias{plotIntronicMappingRate,bcbioRNADataSet-method}
+\alias{plotIntronicMappingRate,bcbioRNASeqANY-method}
 \alias{plotIntronicMappingRate,data.frame-method}
 \title{Plot Intronic Mapping Rate}
 \usage{
 plotIntronicMappingRate(object, ...)
 
-\S4method{plotIntronicMappingRate}{bcbioRNADataSet}(object, warnLimit = 20L,
-  flip = TRUE)
+\S4method{plotIntronicMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
+  warnLimit = 20, flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 20L, flip = TRUE)
+  interestingGroups = "sampleName", warnLimit = 20, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -38,11 +38,15 @@ Plot Intronic Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotIntronicMappingRate(bcb)
+plotIntronicMappingRate(bcb, interestingGroups = "group")
 
+\dontrun{
 # data.frame
-metrics(bcb) \%>\% plotIntronicMappingRate
+metrics(bcb) \%>\%
+    plotIntronicMappingRate()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

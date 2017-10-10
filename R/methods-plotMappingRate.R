@@ -2,15 +2,26 @@
 #'
 #' @rdname plotMappingRate
 #' @name plotMappingRate
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotMappingRate(bcb)
 #'
+#' \dontrun{
+#' plotMappingRate(bcb, interestingGroups = "group")
+#'
 #' # data.frame
-#' metrics(bcb) %>% plotMappingRate
+#' metrics(bcb) %>%
+#'     plotMappingRate()
+#' }
 NULL
 
 
@@ -18,17 +29,20 @@ NULL
 # Constructors ====
 .plotMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
-    passLimit = 90L,
-    warnLimit = 70L,
+    interestingGroups = "sampleName",
+    passLimit = 90,
+    warnLimit = 70,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~mappedReads / totalReads * 100L,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~mappedReads / totalReads * 100,
+            fill = as.name(interestingGroups))
+    ) +
         geom_bar(stat = "identity") +
-        ylim(0L, 100L) +
+        ylim(0, 100) +
         labs(title = "mapping rate",
              x = "sample",
              y = "mapping rate (%)") +
@@ -50,21 +64,32 @@ NULL
 # Methods ====
 #' @rdname plotMappingRate
 #' @export
-setMethod("plotMappingRate", "bcbioRNADataSet", function(
-    object,
-    passLimit = 90L,
-    warnLimit = 70L,
-    flip = TRUE) {
-    .plotMappingRate(
-        metrics(object),
-        interestingGroup = .interestingGroup(object),
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        passLimit = 90,
+        warnLimit = 70,
+        flip = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
+        .plotMappingRate(
+            metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotMappingRate
 #' @export
-setMethod("plotMappingRate", "data.frame", .plotMappingRate)
+setMethod(
+    "plotMappingRate",
+    signature("data.frame"),
+    .plotMappingRate)

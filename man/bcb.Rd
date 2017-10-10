@@ -3,13 +3,13 @@
 \docType{data}
 \name{bcb}
 \alias{bcb}
-\title{Example \link{bcbioRNADataSet}}
-\format{An object of class \code{bcbioRNADataSet} with 505 rows and 4 columns.}
+\title{Example \link{bcbioRNASeq}}
+\format{An object of class \code{bcbioRNASeq} with 505 rows and 4 columns.}
 \usage{
 bcb
 }
 \description{
-Example \link{bcbioRNADataSet}
+Example \link{bcbioRNASeq}
 }
 \author{
 Lorena Pantano

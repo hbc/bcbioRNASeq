@@ -10,9 +10,9 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0L, ...)
+  lfc = 0, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0L,
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
   title = TRUE, ...)
 }
 \arguments{
@@ -41,11 +41,14 @@ data(dds, res, rld)
 # DESeqResults, DESeqTransform
 plotDEGHeatmap(res, rld)
 
+\dontrun{
 # DESeqResults, DESeqDataSet
 plotDEGHeatmap(res, dds)
 }
+}
 \seealso{
-Other Heatmaps: \code{\link{plotCorrelationHeatmap}}
+Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotGeneHeatmap}}
 }
 \author{
 Michael Steinbaugh

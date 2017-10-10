@@ -7,6 +7,7 @@
 #' @rdname aggregateReplicates
 #' @name aggregateReplicates
 #'
+#' @inheritParams AllGenerics
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.
@@ -14,10 +15,8 @@ NULL
 
 
 
-# Methods ====
-#' @rdname aggregateReplicates
-#' @export
-setMethod("aggregateReplicates", "matrix", function(
+# Constructors ====
+.aggregateReplicatesMatrix <- function(
     object,
     pattern = "_L\\d+") {
     # Obtain the unique pooled sample names
@@ -25,26 +24,23 @@ setMethod("aggregateReplicates", "matrix", function(
         stop("Lane pattern didn't match all samples")
     }
     stem <- str_replace(colnames(object), pattern, "") %>%
-        unique %>%
-        sort
+        unique() %>%
+        sort()
     # Perform [rowSums()] on the matching columns per sample
     lapply(seq_along(stem), function(a) {
         object %>%
             .[, grepl(paste0("^", stem[a], pattern), colnames(.))] %>%
-            rowSums
+            rowSums()
     }) %>%
         setNames(stem) %>%
         do.call(cbind, .) %>%
         # [round()] here otherwise [DESeq()] will fail on this matrix
-        round
-})
+        round()
+}
 
 
 
-#' @rdname aggregateReplicates
-#' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
-#' @export
-setMethod("aggregateReplicates", "DESeqDataSet", function(
+.aggregateReplicatesDESeqDataSet <- function(
     object,
     pattern = "_L\\d+") {
     # Get the stored design formula
@@ -53,16 +49,16 @@ setMethod("aggregateReplicates", "DESeqDataSet", function(
     # Pool the lane split technical replicates
     message("Aggregating raw counts slotted in DESeqDataSet")
     countData <- counts(object, normalized = FALSE) %>%
-        aggregateReplicates
+        aggregateReplicates()
 
     # Mutate the colData metadata to pooled samples
     colData <- colData(object) %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         mutate(sampleID = str_replace(.data[["sampleID"]], pattern, ""),
                sampleName = str_replace(.data[["sampleName"]], pattern, ""),
                lane = NULL,
                sizeFactor = NULL) %>%
-        distinct %>%
+        distinct() %>%
         set_rownames(.[["sampleID"]])
 
     # Check that the new colData matches the counts matrix
@@ -80,5 +76,26 @@ setMethod("aggregateReplicates", "DESeqDataSet", function(
     DESeqDataSetFromMatrix(
         countData = countData,
         colData = colData,
-        design = design) %>% DESeq
-})
+        design = design) %>%
+        DESeq()
+}
+
+
+
+# Methods ====
+#' @rdname aggregateReplicates
+#' @export
+setMethod(
+    "aggregateReplicates",
+    signature("matrix"),
+    .aggregateReplicatesMatrix)
+
+
+
+#' @rdname aggregateReplicates
+#' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
+#' @export
+setMethod(
+    "aggregateReplicates",
+    signature("DESeqDataSet"),
+    .aggregateReplicatesDESeqDataSet)

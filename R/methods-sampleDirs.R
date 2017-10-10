@@ -5,11 +5,14 @@
 #' @rdname sampleDirs
 #' @name sampleDirs
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return Named character vector containing sample directory paths.
 #'
 #' @examples
 #' data(bcb)
-#' sampleDirs(bcb) %>% basename
+#' sampleDirs(bcb) %>%
+#'     basename()
 NULL
 
 
@@ -17,6 +20,9 @@ NULL
 # Methods ====
 #' @rdname sampleDirs
 #' @export
-setMethod("sampleDirs", "bcbioRNADataSet", function(object) {
-    metadata(object)[["sampleDirs"]]
-})
+setMethod(
+    "sampleDirs",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        metadata(object)[["sampleDirs"]]
+    })

@@ -2,14 +2,17 @@
 #'
 #' @rdname alphaSummary
 #' @name alphaSummary
+#' @family Differential Expression Utilities
+#' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @inheritParams AllGenerics
 #' @inheritParams DESeq2::results
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param caption *Optional*. Character vector to add as caption to the table.
 #' @param ... *Optional*. Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
 #'
-#' @note [bcbioRNADataSet] does not support contrast definitions, since the
+#' @note [bcbioRNASeq] does not support contrast definitions, since the
 #'   object contains an internal [DESeqDataSet] with an empty design formula.
 #'
 #' @return [kable].
@@ -19,7 +22,7 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
@@ -51,8 +54,8 @@ NULL
             summary(results(dds, ..., alpha = alpha[a]))
         ) %>%
             # Get the lines of interest from summary
-            .[4L:8L]
-        parse <- info[1L:5L] %>%
+            .[4:8]
+        parse <- info[1:5] %>%
             # Extract the values after the colon in summary
             sapply(function(a) {
                 gsub("^.+\\:\\s(.+)\\s$", "\\1", a)
@@ -76,28 +79,34 @@ NULL
 # Methods ====
 #' @rdname alphaSummary
 #' @export
-setMethod("alphaSummary", "bcbioRNADataSet", function(
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    dds <- bcbio(object, "DESeqDataSet")
-    # Warn if empty design formula detected
-    if (design(dds) == formula(~1L)) {
-        warning("Empty DESeqDataSet design formula detected",
-                call. = FALSE)
-    }
-    .alphaSummary(dds, alpha = alpha, caption = caption, ...)
-})
+setMethod(
+    "alphaSummary",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+        caption = NULL,
+        ...) {
+        dds <- bcbio(object, "DESeqDataSet")
+        # Warn if empty design formula detected
+        if (design(dds) == formula(~1)) {
+            warning("Empty DESeqDataSet design formula detected",
+                    call. = FALSE)
+        }
+        .alphaSummary(dds, alpha = alpha, caption = caption, ...)
+    })
 
 
 
 #' @rdname alphaSummary
 #' @export
-setMethod("alphaSummary", "DESeqDataSet", function(
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    .alphaSummary(object, alpha = alpha, caption = caption, ...)
-})
+setMethod(
+    "alphaSummary",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+        caption = NULL,
+        ...) {
+        .alphaSummary(object, alpha = alpha, caption = caption, ...)
+    })

@@ -2,15 +2,26 @@
 #'
 #' @rdname plot53Bias
 #' @name plot53Bias
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plot53Bias(bcb)
 #'
+#' \dontrun{
+#' plot53Bias(bcb, interestingGroups = "group")
+#'
 #' # data.frame
-#' metrics(bcb) %>% plot53Bias
+#' metrics(bcb) %>%
+#'     plot53Bias()
+#' }
 NULL
 
 
@@ -18,24 +29,28 @@ NULL
 # Constructors ====
 .plot53Bias <- function(
     object,
-    interestingGroup = "sampleName",
-    warnLimit = 2L,
+    interestingGroups = "sampleName",
+    warnLimit = 2,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~x53Bias,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_string(
+            x = "sampleName",
+            y = "x53Bias",
+            fill = interestingGroups)
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
              y = "5'->3' bias") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -45,19 +60,33 @@ NULL
 # Methods ====
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "bcbioRNADataSet", function(
-    object,
-    warnLimit = 2L,
-    flip = TRUE) {
-    .plot53Bias(
-        metrics(object),
-        interestingGroup = .interestingGroup(object),
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plot53Bias",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        warnLimit = 2,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
+        .plot53Bias(
+            metrics(object),
+            interestingGroups = interestingGroups,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plot53Bias
 #' @export
-setMethod("plot53Bias", "data.frame", .plot53Bias)
+setMethod(
+    "plot53Bias",
+    signature("data.frame"),
+    .plot53Bias)

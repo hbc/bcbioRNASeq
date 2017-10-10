@@ -2,15 +2,26 @@
 #'
 #' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotExonicMappingRate(bcb)
 #'
+#' \dontrun{
+#' plotExonicMappingRate(bcb, interestingGroups = "group")
+#'
 #' # data.frame
-#' metrics(bcb) %>% plotExonicMappingRate
+#' metrics(bcb) %>%
+#'     plotExonicMappingRate()
+#' }
 NULL
 
 
@@ -18,25 +29,29 @@ NULL
 # Constructors ====
 .plotExonicMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
-    passLimit = 60L,
+    interestingGroups = "sampleName",
+    passLimit = 60,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~exonicRate * 100L,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~exonicRate * 100,
+            fill = as.name(interestingGroups))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
              y = "exonic mapping rate (%)") +
-        ylim(0L, 100L) +
+        ylim(0, 100) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -46,19 +61,33 @@ NULL
 # Methods ====
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "bcbioRNADataSet", function(
-    object,
-    passLimit = 60L,
-    flip = TRUE) {
-    .plotExonicMappingRate(
-        metrics(object),
-        interestingGroup = .interestingGroup(object),
-        passLimit = passLimit,
-        flip = flip)
-})
+setMethod(
+    "plotExonicMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        passLimit = 60,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
+        .plotExonicMappingRate(
+            metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotExonicMappingRate
 #' @export
-setMethod("plotExonicMappingRate", "data.frame", .plotExonicMappingRate)
+setMethod(
+    "plotExonicMappingRate",
+    signature("data.frame"),
+    .plotExonicMappingRate)

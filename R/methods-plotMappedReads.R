@@ -2,15 +2,26 @@
 #'
 #' @rdname plotMappedReads
 #' @name plotMappedReads
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotMappedReads(bcb)
 #'
+#' \dontrun{
+#' plotMappedReads(bcb, interestingGroups = "group")
+#'
 #' # data.frame
-#' metrics(bcb) %>% plotMappedReads
+#' metrics(bcb) %>%
+#'     plotMappedReads()
+#' }
 NULL
 
 
@@ -18,28 +29,34 @@ NULL
 # Constructors ====
 .plotMappedReads <- function(
     object,
-    interestingGroup = "sampleName",
-    passLimit = 20L,
-    warnLimit = 10L,
+    interestingGroups = "sampleName",
+    passLimit = 20,
+    warnLimit = 10,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~mappedReads / 1e6L,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~mappedReads / 1e6,
+            fill = as.name(interestingGroups))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
              x = "sample",
              y = "mapped reads (million)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(passLimit)) {
-        p <- p + qcPassLine(passLimit)
+        p <- p +
+            qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -49,21 +66,35 @@ NULL
 # Methods ====
 #' @rdname plotMappedReads
 #' @export
-setMethod("plotMappedReads", "bcbioRNADataSet", function(
-    object,
-    passLimit = 20L,
-    warnLimit = 10L,
-    flip = TRUE) {
-    .plotMappedReads(
-        metrics(object),
-        interestingGroup = .interestingGroup(object),
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotMappedReads",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        passLimit = 20,
+        warnLimit = 10,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
+        .plotMappedReads(
+            metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotMappedReads
 #' @export
-setMethod("plotMappedReads", "data.frame", .plotMappedReads)
+setMethod(
+    "plotMappedReads",
+    signature("data.frame"),
+    .plotMappedReads)

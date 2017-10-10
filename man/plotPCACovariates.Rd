@@ -3,38 +3,40 @@
 \docType{methods}
 \name{plotPCACovariates}
 \alias{plotPCACovariates}
-\alias{plotPCACovariates,bcbioRNADataSet-method}
+\alias{plotPCACovariates,bcbioRNASeqANY-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
 plotPCACovariates(object, ...)
 
-\S4method{plotPCACovariates}{bcbioRNADataSet}(object, transform = "rlog",
-  metrics = TRUE, ...)
+\S4method{plotPCACovariates}{bcbioRNASeqANY}(object, metrics = TRUE,
+  transform = "rlog", ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments, passed to \code{\link[=degCovariates]{degCovariates()}}.}
+\item{...}{Additional arguments, passed to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+
+\item{metrics}{Include sample summary metrics as covariates. Defaults to
+include all metrics columns (\code{TRUE}), but desired columns can be specified
+here as a character vector.}
 
 \item{transform}{String specifying \link{DESeqTransform} slotted inside the
-\link{bcbioRNADataSet}:
+\link{bcbioRNASeq} object:
 \itemize{
 \item \code{rlog} (\strong{recommended}).
 \item \code{vst}: variance stabilizing transformation.
 }}
-
-\item{metrics}{Include sample summary metrics as covariates.
-If character vector given, only use the selected metrics.}
 }
 \value{
 \link{ggplot}.
 }
 \description{
-\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNADataSet}.
+\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNASeq} object.
 }
 \examples{
 data(bcb)
-plotPCACovariates(bcb)
+plotPCACovariates(bcb, metrics = TRUE)
+plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 }
 \seealso{
 \itemize{

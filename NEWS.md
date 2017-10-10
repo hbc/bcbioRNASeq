@@ -1,3 +1,16 @@
+# bcbioRNASeq 0.0.27
+
+- Renamed `bcbioRNADataSet` S4 class to `bcbioRNASeq`. This matches the naming conventions in the [bcbioSingleCell][] package.
+- Renamed `loadRNASeqRun()` to simply `loadRNASeq()`.
+- Switched `loadRNASeq()` from using S4 dispatch to a standard function.
+- Added a parameter argument to `loadRNASeq()` that enables request of a specific Ensembl release version for gene annotations.
+- Renamed `interestingGroup` argument in quality control functions to `interestingGroups` for better consistency.
+- Improved handling of sample metrics in `plotPCACovariates()`.
+- Added functional analysis R Markdown template.
+- Offloaded some core functionality shared between [bcbioRNASeq][] and [bcbioSingleCell][] to the [basejump][] package. This included some code to handle sample metadata YAML and file loading. This helps provide a consistent experience across both packages.
+
+
+
 # bcbioRNASeq 0.0.26
 
 - Renamed package from bcbioRnaseq to bcbioRNASeq.
@@ -14,7 +27,7 @@
   `bcbioRNADataSet` or a metrics `data.frame` and manual `interesting_group`
   declaration for visualization.
 - Migrated function and variable names from `snake_case` to `camelCase`.
-- Offloaded small RNA functionality to a separate package named [bcbioSmallRna][].
+- Offloaded small RNA functionality to a separate package named [bcbioSmallRNA][].
 
 
 
@@ -181,7 +194,8 @@
 
 [basejump]: http://steinbaugh.com/basejump
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
-[bcbioSmallRna]: https://github.com/lpantano/bcbioSmallRna
+[bcbioSingleCell]: https://github.com/hbc/bcbioSingleCell
+[bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna
 [biomaRt]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [CHBUtils]: https://github.com/hbc/CHBUtils
 [covr]: https://github.com/jimhester/covr

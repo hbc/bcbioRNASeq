@@ -1,16 +1,24 @@
 template:
-  params:
-    bootswatch: readable
+    params:
+        bootswatch: readable
 authors:
-  Michael J. Steinbaugh:
-    href: http://steinbaugh.com
-  Lorena Pantano:
-    href: https://lpantano.github.io
-  Rory Kirchner:
-    href: https://github.com/roryk
-  Victor Barrera:
-    href: https://github.com/vbarrera
-  John Hutchinson:
-    href: https://github.com/jnhutchinson
-  Harvard Chan Bioinformatics Core:
-    href: http://bioinformatics.sph.harvard.edu
+    Michael Steinbaugh:
+        href: http://steinbaugh.com
+    Lorena Pantano:
+        href: https://lpantano.github.io
+    Rory Kirchner:
+        href: https://github.com/roryk
+    Victor Barrera:
+        href: https://github.com/vbarrera
+    Mary Piper:
+        href: https://github.com/marypiper
+    Meeta Mistry:
+        href: https://github.com/mistrm82
+    Radhika Khetani:
+        href: https://github.com/rkhetani
+    John Hutchinson:
+        href: https://github.com/jnhutchinson
+    Shannan Ho Sui:
+        href: https://github.com/sjhosui
+    Harvard Chan Bioinformatics Core:
+        href: http://bioinformatics.sph.harvard.edu

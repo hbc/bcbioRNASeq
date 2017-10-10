@@ -2,11 +2,16 @@
 #'
 #' @rdname txi
 #' @name txi
+#' @author Michael Steinbaugh
+#' @keywords internal
+#'
+#' @inheritParams AllGenerics
 #'
 #' @return [tximport::tximport()] list.
 #'
 #' @examples
-#' txi(bcb) %>% names
+#' txi(bcb) %>%
+#'     names()
 NULL
 
 
@@ -14,6 +19,9 @@ NULL
 # Methods ====
 #' @rdname txi
 #' @export
-setMethod("txi", "bcbioRNADataSet", function(object) {
-    bcbio(object, type = "tximport")
-})
+setMethod(
+    "txi",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        bcbio(object, type = "tximport")
+    })

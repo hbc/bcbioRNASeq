@@ -21,23 +21,28 @@
 #'
 #' @examples
 #' data(bcb)
-#' # Raw counts
-#' counts(bcb, normalized = FALSE) %>% glimpse
 #'
-#' # DESeq2 normalized counts
-#' counts(bcb, normalized = TRUE) %>% glimpse
+#' # Raw counts
+#' counts(bcb, normalized = FALSE) %>%
+#'     summary()
 #'
 #' # TPM
-#' counts(bcb, normalized = "tpm") %>% glimpse
+#' counts(bcb, normalized = "tpm") %>%
+#'     summary()
+#'
+#' \dontrun{
+#' # DESeq2 normalized counts
+#' counts(bcb, normalized = TRUE)
+#'
+#' #' # rlog
+#' counts(bcb, normalized = "rlog")
 #'
 #' # TMM
-#' counts(bcb, normalized = "tmm") %>% glimpse
-#'
-#' # rlog
-#' counts(bcb, normalized = "rlog") %>% glimpse
+#' counts(bcb, normalized = "tmm")
 #'
 #' # VST
-#' counts(bcb, normalized = "vst") %>% glimpse
+#' counts(bcb, normalized = "vst")
+#' }
 NULL
 
 
@@ -45,26 +50,31 @@ NULL
 # Methods ====
 #' @rdname counts
 #' @export
-setMethod("counts", "bcbioRNADataSet", function(object, normalized = FALSE) {
-    if (normalized == FALSE) {
-        slot <- "raw"
-    } else if (normalized == TRUE) {
-        slot <- "normalized"
-    } else {
-        slot <- normalized
-    }
+setMethod(
+    "counts",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        normalized = FALSE) {
+        if (normalized == FALSE) {
+            slot <- "raw"
+        } else if (normalized == TRUE) {
+            slot <- "normalized"
+        } else {
+            slot <- normalized
+        }
 
-    # Check for slot presence
-    if (!slot %in% names(assays(object))) {
-        stop("Unsupported normalization method")
-    }
+        # Check for slot presence
+        if (!slot %in% names(assays(object))) {
+            stop("Unsupported normalization method")
+        }
 
-    counts <- assays(object)[[slot]]
+        counts <- assays(object)[[slot]]
 
-    # Return matrix from [DESeqTransform]
-    if (slot %in% c("rlog", "vst")) {
-        counts <- assay(counts)
-    }
+        # Return matrix from [DESeqTransform]
+        if (slot %in% c("rlog", "vst")) {
+            counts <- assay(counts)
+        }
 
-    counts
-})
+        counts
+    })

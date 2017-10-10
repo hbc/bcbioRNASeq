@@ -3,22 +3,23 @@
 \docType{methods}
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
-\alias{plotGenesDetected,bcbioRNADataSet,missing-method}
+\alias{plotGenesDetected,bcbioRNASeqANY,missing-method}
 \alias{plotGenesDetected,data.frame,DESeqDataSet-method}
 \alias{plotGenesDetected,data.frame,matrix-method}
 \title{Plot Genes Detected}
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNADataSet,missing}(object,
-  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
+\S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroups,
+  passLimit = 20000, warnLimit = 15000, minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
-  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L, flip = TRUE)
+  interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
+  minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
-  interestingGroup = "sampleName", passLimit = 20000L, warnLimit = 15000L,
-  minCounts = 0L, flip = TRUE)
+  interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
+  minCounts = 0, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -26,6 +27,10 @@ plotGenesDetected(object, counts, ...)
 \item{counts}{Object containing a count matrix.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -35,10 +40,6 @@ plotGenesDetected(object, counts, ...)
 plotting.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -49,17 +50,25 @@ Plot Genes Detected
 \examples{
 data(bcb, dds)
 
-# bcbioRNADataSet
-plotGenesDetected(bcb)
-plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
+# bcbioRNASeq
+plotGenesDetected(
+    bcb,
+    passLimit = NULL,
+    warnLimit = NULL)
+
+\dontrun{
+plotGenesDetected(bcb, interestingGroups = "group")
 
 # data.frame, DESeqDataSet
-plotGenesDetected(metrics(bcb), dds,
-                  passLimit = NULL, warnLimit = NULL)
+plotGenesDetected(
+    metrics(bcb),
+    counts = dds)
 
 # data.frame, matrix
-plotGenesDetected(metrics(bcb), assay(dds),
-                  passLimit = NULL, warnLimit = NULL)
+plotGenesDetected(
+    metrics(bcb),
+    counts = assay(dds))
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

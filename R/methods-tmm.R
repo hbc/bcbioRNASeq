@@ -6,6 +6,9 @@
 #'
 #' @rdname tmm
 #' @name tmm
+#' @author Michael Steinbaugh
+#'
+#' @inheritParams AllGenerics
 #'
 #' @return [matrix].
 #' @export
@@ -13,15 +16,19 @@
 #' @examples
 #' data(bcb, dds)
 #'
-#' # bcbioRNADataSet
-#' tmm(bcb) %>% head
+#' # bcbioRNASeq
+#' tmm(bcb) %>%
+#'     summary()
 #'
 #' \dontrun{
 #' # DESeqDataSet
-#' tmm(dds) %>% head
+#' tmm(dds) %>%
+#'     summary()
 #'
 #' # matrix
-#' assay(bcb) %>% tmm %>% head
+#' assay(bcb) %>%
+#'     tmm() %>%
+#'     summary()
 #' }
 NULL
 
@@ -30,9 +37,9 @@ NULL
 # Constructors ====
 .tmm <- function(object) {
     object %>%
-        as.matrix %>%
-        DGEList %>%
-        calcNormFactors %>%
+        as.matrix() %>%
+        DGEList() %>%
+        calcNormFactors() %>%
         cpm(normalized.lib.sizes = TRUE)
 }
 
@@ -41,21 +48,30 @@ NULL
 # Methods ====
 #' @rdname tmm
 #' @export
-setMethod("tmm", "bcbioRNADataSet", function(object) {
-    assays(object)[["tmm"]]
-})
+setMethod(
+    "tmm",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        assays(object)[["tmm"]]
+    })
 
 
 
 #' @rdname tmm
 #' @export
-setMethod("tmm", "DESeqDataSet", function(object) {
-    assay(object) %>%
-        .tmm
-})
+setMethod(
+    "tmm",
+    signature("DESeqDataSet"),
+    function(object) {
+        assay(object) %>%
+            .tmm()
+    })
 
 
 
 #' @rdname tmm
 #' @export
-setMethod("tmm", "matrix", .tmm)
+setMethod(
+    "tmm",
+    signature("matrix"),
+    .tmm)

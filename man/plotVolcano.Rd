@@ -12,7 +12,7 @@ plotVolcano(object, ...)
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1L, genes = NULL, ntop = 0L, direction = "both",
+  lfc = 1, genes = NULL, ntop = 0, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 }
@@ -59,7 +59,8 @@ data(res)
 plotVolcano(res, genes = "Sulf1")
 
 # data.frame
-as.data.frame(res) \%>\% plotVolcano
+as.data.frame(res) \%>\%
+    plotVolcano()
 }
 \seealso{
 This function is an updated variant of

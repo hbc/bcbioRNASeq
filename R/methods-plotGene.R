@@ -2,7 +2,12 @@
 #'
 #' @rdname plotGene
 #' @name plotGene
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh
 #'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
@@ -15,60 +20,95 @@
 #'
 #' @examples
 #' data(bcb)
-#' plotGene(bcb, gene = c("Sulf1", "Phf3"))
+#' genes <- c("Sulf1", "Phf3")
+#'
+#' # bcbioRNASeq
+#' plotGene(bcb, gene = genes)
+#'
+#' \dontrun{
+#' plotGene(bcb, gene = genes, interestingGroups = "group")
+#' }
 NULL
+
+
+
+# Constructors ====
+.plotGene <- function(
+    counts,
+    gene,
+    metadata,
+    interestingGroups = "sampleName") {
+    metadata <- as.data.frame(metadata)
+    sapply(seq_along(gene), function(a) {
+        ensgene <- gene[[a]]
+        symbol <- names(gene)[[a]]
+        df <- data.frame(
+            x = colnames(counts),
+            y = counts[ensgene, ],
+            color = metadata[[interestingGroups]])
+        p <- ggplot(
+            df,
+            mapping = aes_string(
+                x = "x",
+                y = "y",
+                color = "color")
+        ) +
+            geom_point(size = 4) +
+            theme(
+                axis.text.x = element_text(angle = 90)) +
+            labs(title = symbol,
+                 x = "sample",
+                 y = "counts",
+                 color = interestingGroups) +
+            expand_limits(y = 0) +
+            scale_color_viridis(discrete = TRUE)
+        show(p)
+    }) %>%
+        invisible()
+}
 
 
 
 # Methods ====
 #' @rdname plotGene
 #' @export
-setMethod("plotGene", "bcbioRNADataSet", function(
-    object,
-    normalized = "tpm",
-    gene,
-    format = "symbol") {
-    if (!format %in% c("ensgene", "symbol")) {
-        stop("Unsupported gene identifier format")
-    }
-    if (is.logical(normalized)) {
-        stop("Explicit request of normalized counts format is required")
-    }
-    counts <- counts(object, normalized = normalized)
-    metadata <- colData(object)
-    color <- metadata(object)[["interestingGroups"]][[1L]]
+setMethod(
+    "plotGene",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        normalized = "tpm",
+        gene,
+        format = "symbol") {
+        if (!format %in% c("ensgene", "symbol")) {
+            stop("Unsupported gene identifier format", call. = FALSE)
+        }
+        if (is.logical(normalized)) {
+            warning(paste(
+                "Explicit format of normalized counts format is recommended"
+            ), call. = FALSE)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
 
-    # Match unique gene identifier with name (gene symbol) using the
-    # internally stored Ensembl annotations saved in the run object
-    match <- metadata(object)[["annotable"]] %>%
-        .[.[[format]] %in% gene, ] %>%
-        .[, c("symbol", "ensgene")]
+        counts <- counts(object, normalized = normalized)
+        metadata <- colData(object)
 
-    # Seq along Ensembl data frame here instead of the gene input vector,
-    # which will then output only genes that match Ensembl
-    lapply(1L:nrow(match), function(a) {
-        geneName <- match[["symbol"]][[a]]
-        geneID <- match[["ensgene"]][[a]]
-        plot <- data.frame(
-            x = colnames(counts),
-            y = counts[geneID, ],
-            color = metadata[[color]]) %>%
-            ggplot(
-                aes_(x = ~x,
-                     y = ~y,
-                     color = ~color)
-            ) +
-            geom_point(size = 4L) +
-            theme(
-                axis.text.x = element_text(angle = 90L)
-            ) +
-            labs(title = geneName,
-                 x = "sample",
-                 y = paste0("counts (", normalized, ")"),
-                 color = color) +
-            expand_limits(y = 0L) +
-            scale_color_viridis(discrete = TRUE)
-        show(plot)
-    }) %>%
-        invisible
-})
+        # Match unique gene identifier with name (gene symbol) using the
+        # internally stored Ensembl annotations saved in the run object
+        gene2symbol <- metadata(object) %>%
+            .[["annotable"]] %>%
+            .[.[[format]] %in% gene, , drop = FALSE] %>%
+            .[, c("symbol", "ensgene")]
+        gene <- gene2symbol[["ensgene"]]
+        names(gene) <- gene2symbol[["symbol"]]
+
+        .plotGene(
+            counts = counts,
+            gene = gene,
+            metadata = metadata,
+            interestingGroups = interestingGroups)
+    })

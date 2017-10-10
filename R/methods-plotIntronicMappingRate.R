@@ -2,15 +2,25 @@
 #'
 #' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotIntronicMappingRate(bcb)
+#' plotIntronicMappingRate(bcb, interestingGroups = "group")
 #'
+#' \dontrun{
 #' # data.frame
-#' metrics(bcb) %>% plotIntronicMappingRate
+#' metrics(bcb) %>%
+#'     plotIntronicMappingRate()
+#' }
 NULL
 
 
@@ -18,24 +28,29 @@ NULL
 # Constructors ====
 .plotIntronicMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
-    warnLimit = 20L,
+    interestingGroups = "sampleName",
+    warnLimit = 20,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~intronicRate * 100L,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~intronicRate * 100,
+            fill = as.name(interestingGroups))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
-        ylim(0L, 100L) +
+        ylim(0, 100) +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -47,14 +62,22 @@ NULL
 #' @export
 setMethod(
     "plotIntronicMappingRate",
-    "bcbioRNADataSet",
+    signature("bcbioRNASeqANY"),
     function(
         object,
-        warnLimit = 20L,
+        interestingGroups,
+        warnLimit = 20,
         flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
         .plotIntronicMappingRate(
             metrics(object),
-            interestingGroup = .interestingGroup(object),
+            interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             flip = flip)
     })
@@ -63,4 +86,7 @@ setMethod(
 
 #' @rdname plotIntronicMappingRate
 #' @export
-setMethod("plotIntronicMappingRate", "data.frame", .plotIntronicMappingRate)
+setMethod(
+    "plotIntronicMappingRate",
+    signature("data.frame"),
+    .plotIntronicMappingRate)

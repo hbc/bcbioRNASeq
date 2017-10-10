@@ -3,12 +3,14 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
-#' @import methods
+#' @rdname bcbioRNASeq-package
+#' @name bcbioRNASeq-package
+#'
+#' @import basejump methods
+#'
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
-#' @importFrom basejump annotable camel detectOrganism dots fixNA gene2symbol
-#'   mdHeader mdList prepareSummarizedExperiment prepareTemplate
-#'   readFileByExtension readYAML removeNA snake tx2gene
+#'
 #' @importFrom BiocGenerics counts design density plotDispEsts plotMA plotPCA
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom data.table rbindlist
@@ -17,7 +19,7 @@
 #'   DESeqTransform estimateSizeFactors results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc distinct group_by left_join mutate
-#'   mutate_all mutate_if pull rename ungroup
+#'   mutate_all mutate_if pull rename select_if ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
@@ -39,21 +41,14 @@
 #' @importFrom SummarizedExperiment assay assays assays<- colData rowData
 #'   SummarizedExperiment
 #' @importFrom tibble column_to_rownames remove_rownames rownames_to_column
-#' @importFrom tidyr expand_
+#' @importFrom tidyr expand
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output download.file globalVariables packageVersion
 #'   read.table
 #' @importFrom viridis inferno scale_color_viridis scale_fill_viridis viridis
 #' @importFrom vsn meanSdPlot
-"_PACKAGE"
+NULL
 
 globalVariables(".")
-
-# Plot label separator
-labelSep <- ": "
-
 projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
-metaPriorityCols <- c("sampleID", "sampleName")
 perSampleDirs <- c("sailfish", "salmon")
-
-url <- "http://bioinformatics.sph.harvard.edu/bcbioRNASeq"

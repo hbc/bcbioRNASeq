@@ -92,18 +92,19 @@
 
     <pre class="usage"><span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNADataSet,missing</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>,
-  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># S4 method for bcbioRNASeqANY,missing</span>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame,DESeqDataSet</span>
 <span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000</span>,
+  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame,matrix</span>
 <span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>interestingGroup</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>,
-  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000</span>,
+  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -121,6 +122,12 @@
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
     </tr>
     <tr>
+      <th>interestingGroups</th>
+      <td><p>Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
+    </tr>
+    <tr>
       <th>passLimit</th>
       <td><p>Threshold to plot pass color marker.</p></td>
     </tr>
@@ -136,12 +143,6 @@ plotting.</p></td>
     <tr>
       <th>flip</th>
       <td><p>Flip X and Y axes.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroup</th>
-      <td><p>Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-<a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a>.</p></td>
     </tr>
     </table>
     
@@ -167,14 +168,24 @@ If unset, this is automatically determined by the metadata set inside the
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
 
-<span class='co'># bcbioRNADataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenesDetected-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># bcbioRNASeq</span>
+<span class='fu'>plotGenesDetected</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)
+
 <span class='co'># data.frame, DESeqDataSet</span>
-<span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='no'>dds</span>,
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotGenesDetected</span>(
+    <span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds</span>)
+
 <span class='co'># data.frame, matrix</span>
-<span class='fu'>plotGenesDetected</span>(<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>), <span class='fu'>assay</span>(<span class='no'>dds</span>),
-                  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenesDetected-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGenesDetected</span>(
+    <span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>),
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'>assay</span>(<span class='no'>dds</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -197,7 +208,7 @@ Michael Steinbaugh, Rory Kirchner, Victor Barrera
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

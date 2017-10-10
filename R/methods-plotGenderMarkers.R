@@ -2,7 +2,10 @@
 #'
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.
@@ -26,7 +29,7 @@ NULL
     if (organism == "Mus musculus") {
         markers <- get("genderMarkersMmusculus", envir = envir)
     } else if (organism == "Homo sapiens") {
-        stop("Human marker support coming soon")
+        stop("Human marker support coming in future update")
     } else {
         stop("Unsupported organism")
     }
@@ -35,8 +38,8 @@ NULL
     ensgene <- markers %>%
         .[.[["include"]] == TRUE, , drop = FALSE] %>%
         pull("ensgene") %>%
-        sort %>%
-        unique
+        sort() %>%
+        unique()
 
     if (!all(ensgene %in% rownames(counts))) {
         warning("Missing gender markers in count matrix", call. = FALSE)
@@ -50,15 +53,18 @@ NULL
         as("tibble") %>%
         # For `melt()`, can also declare `measure.vars` here instead of using
         # `setNames()`. If you don't set `id`, function will output a message.
-        melt(id = 1L) %>%
+        melt(id = 1) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
-        ggplot(aes_(x = ~symbol,
-                    y = ~counts,
-                    color = ~sampleName,
-                    shape = ~chromosome)) +
-        geom_jitter(size = 4L) +
-        expand_limits(y = 0L) +
+        ggplot(
+            mapping = aes_string(
+                x = "symbol",
+                y = "counts",
+                color = "sampleName",
+                shape = "chromosome")
+        ) +
+        geom_jitter(size = 4) +
+        expand_limits(y = 0) +
         labs(title = "gender markers",
              x = "gene",
              y = ylab) +
@@ -70,32 +76,41 @@ NULL
 # Methods ====
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "bcbioRNADataSet", function(object) {
-    counts <- tpm(object)
-    organism <- metadata(object)[["organism"]]
-    ylab <- "transcripts per million (tpm)"
-    .plotGenderMarkers(counts, organism = organism, ylab = ylab)
-})
+setMethod(
+    "plotGenderMarkers",
+    signature("bcbioRNASeqANY"),
+    function(object) {
+        counts <- tpm(object)
+        organism <- metadata(object)[["organism"]]
+        ylab <- "transcripts per million (tpm)"
+        .plotGenderMarkers(counts, organism = organism, ylab = ylab)
+    })
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "DESeqDataSet", function(
-    object,
-    organism = NULL) {
-    counts <- counts(object, normalized = TRUE)
-    if (is.null(organism)) {
-        organism <- rownames(counts) %>%
-            .[[1L]] %>%
-            detectOrganism
-    }
-    ylab <- "normalized counts"
-    .plotGenderMarkers(counts, organism = organism, ylab = ylab)
-})
+setMethod(
+    "plotGenderMarkers",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        organism = NULL) {
+        counts <- counts(object, normalized = TRUE)
+        if (is.null(organism)) {
+            organism <- rownames(counts) %>%
+                .[[1]] %>%
+                detectOrganism()
+        }
+        ylab <- "normalized counts"
+        .plotGenderMarkers(counts, organism = organism, ylab = ylab)
+    })
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
-setMethod("plotGenderMarkers", "matrix", .plotGenderMarkers)
+setMethod(
+    "plotGenderMarkers",
+    signature("matrix"),
+    .plotGenderMarkers)

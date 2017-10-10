@@ -6,17 +6,18 @@
 #'
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
+#' @noRd
 #'
 #' @param sampleDirs Sample directories to import.
 #' @param tx2gene Transcript to gene annotations.
 #'
-#' @return Counts saved in [tximport] list object.
-#'
 #' @seealso
 #' - [tximport::tximport()].
+#'
+#' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sampleDirs[[1L]],
+    subdirs <- list.dirs(sampleDirs[[1]],
                          full.names = FALSE,
                          recursive = FALSE)
     if ("salmon" %in% subdirs) {

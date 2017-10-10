@@ -3,30 +3,30 @@
 \docType{methods}
 \name{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate}
-\alias{plotRRNAMappingRate,bcbioRNADataSet-method}
+\alias{plotRRNAMappingRate,bcbioRNASeqANY-method}
 \alias{plotRRNAMappingRate,data.frame-method}
 \title{Plot Ribosomal RNA (rRNA) Mapping Rate}
 \usage{
 plotRRNAMappingRate(object, ...)
 
-\S4method{plotRRNAMappingRate}{bcbioRNADataSet}(object, warnLimit = 10L,
-  flip = TRUE)
+\S4method{plotRRNAMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
+  warnLimit = 10, flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 10L, flip = TRUE)
+  interestingGroups = "sampleName", warnLimit = 10, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -37,11 +37,16 @@ Plot Ribosomal RNA (rRNA) Mapping Rate
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotRRNAMappingRate(bcb)
 
+\dontrun{
+plotRRNAMappingRate(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plotRRNAMappingRate
+metrics(bcb) \%>\%
+    plotRRNAMappingRate()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

@@ -97,11 +97,11 @@ function.</p>
 
 <span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -116,7 +116,7 @@ function.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+      <td><p>Options to pass to <code><a href='plotGeneHeatmap.html'>plotGeneHeatmap()</a></code>.</p></td>
     </tr>
     <tr>
       <th>lfc</th>
@@ -134,16 +134,19 @@ function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Heatmaps: <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code></p>
+    <p>Other Heatmaps: <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code><a href='plotGeneHeatmap.html'>plotGeneHeatmap</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>dds</span>, <span class='no'>res</span>, <span class='no'>rld</span>)
 
 <span class='co'># DESeqResults, DESeqTransform</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>rld</span>)</div><div class='output co'>#&gt; <span class='message'>Mus musculus Ensembl 88 annotations</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>rld</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotDEGHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># DESeqResults, DESeqDataSet</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using a DESeqTransform object for counts is recommended</span></div><div class='output co'>#&gt; <span class='message'>Mus musculus Ensembl 88 annotations</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>dds</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -166,7 +169,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael J. Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

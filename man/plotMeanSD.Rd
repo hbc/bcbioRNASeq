@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
-\alias{plotMeanSD,bcbioRNADataSet-method}
+\alias{plotMeanSD,bcbioRNASeqANY-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNADataSet}(object)
+\S4method{plotMeanSD}{bcbioRNASeqANY}(object)
 
 \S4method{plotMeanSD}{DESeqDataSet}(object)
 }
@@ -28,7 +28,7 @@ plotMeanSD(object, ...)
 \examples{
 data(bcb, dds)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotMeanSD(bcb)
 
 # DESeqDataSet

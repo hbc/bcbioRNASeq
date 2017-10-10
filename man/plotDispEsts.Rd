@@ -3,10 +3,10 @@
 \docType{methods}
 \name{plotDispEsts}
 \alias{plotDispEsts}
-\alias{plotDispEsts,bcbioRNADataSet-method}
+\alias{plotDispEsts,bcbioRNASeqANY-method}
 \title{Plot Dispersion Estimates}
 \usage{
-\S4method{plotDispEsts}{bcbioRNADataSet}(object, ...)
+\S4method{plotDispEsts}{bcbioRNASeqANY}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,8 +21,17 @@ Plot Dispersion Estimates
 }
 \examples{
 data(bcb)
+
+# bcbioRNASeq
 plotDispEsts(bcb)
-plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
+
+\dontrun{
+plotDispEsts(
+    bcb,
+    genecol = "gray",
+    fitcol = "purple",
+    finalcol = "orange")
+}
 }
 \seealso{
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.

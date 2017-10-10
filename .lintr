@@ -4,7 +4,6 @@ linters: with_defaults(
     closed_curly_linter,
     commas_linter,
     extraction_operator_linter,
-    implicit_integer_linter,
     infix_spaces_linter,
     line_length_linter(80),
     nonportable_path_linter,

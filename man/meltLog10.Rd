@@ -3,19 +3,18 @@
 \docType{methods}
 \name{meltLog10}
 \alias{meltLog10}
-\alias{meltLog10,bcbioRNADataSet-method}
+\alias{meltLog10,bcbioRNASeqANY-method}
 \alias{meltLog10,DESeqDataSet-method}
 \alias{meltLog10,DESeqTransform-method}
 \title{Melt Count Matrix to Long Format and log10 Transform}
 \usage{
 meltLog10(object, ...)
 
-\S4method{meltLog10}{bcbioRNADataSet}(object, normalized = TRUE)
+\S4method{meltLog10}{bcbioRNASeqANY}(object, normalized = TRUE)
 
-\S4method{meltLog10}{DESeqDataSet}(object, normalized = TRUE,
-  interestingGroups = NULL)
+\S4method{meltLog10}{DESeqDataSet}(object, normalized = TRUE)
 
-\S4method{meltLog10}{DESeqTransform}(object, interestingGroups = NULL)
+\S4method{meltLog10}{DESeqTransform}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,8 +23,6 @@ meltLog10(object, ...)
 
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts (\code{tmm}).}
-
-\item{interestingGroups}{\emph{Optional}. Interesting groups.}
 }
 \value{
 log10 melted \link{data.frame}.
@@ -36,14 +33,17 @@ Melt Count Matrix to Long Format and log10 Transform
 \examples{
 data(bcb, dds, rld)
 
-# bcbioRNADataSet
-meltLog10(bcb) \%>\% glimpse
+# bcbioRNASeq
+meltLog10(bcb) \%>\%
+    str()
 
 # DESeqDataSet
-meltLog10(dds) \%>\% glimpse
+meltLog10(dds) \%>\%
+    str()
 
 # DESeqTransform
-meltLog10(rld) \%>\% glimpse
+meltLog10(rld) \%>\%
+    str()
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.

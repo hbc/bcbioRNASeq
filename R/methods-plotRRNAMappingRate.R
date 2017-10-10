@@ -2,15 +2,26 @@
 #'
 #' @rdname plotRRNAMappingRate
 #' @name plotRRNAMappingRate
+#' @family Quality Control Plots
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
+#' @inherit qcPlots
+#'
+#' @inheritParams AllGenerics
 #'
 #' @examples
 #' data(bcb)
 #'
-#' # bcbioRNADataSet
+#' # bcbioRNASeq
 #' plotRRNAMappingRate(bcb)
 #'
+#' \dontrun{
+#' plotRRNAMappingRate(bcb, interestingGroups = "group")
+#'
 #' # data.frame
-#' metrics(bcb) %>% plotRRNAMappingRate
+#' metrics(bcb) %>%
+#'     plotRRNAMappingRate()
+#' }
 NULL
 
 
@@ -18,24 +29,28 @@ NULL
 # Constructors ====
 .plotRRNAMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
-    warnLimit = 10L,
+    interestingGroups = "sampleName",
+    warnLimit = 10,
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~rRnaRate * 100L,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~rrnaRate * 100,
+            fill = as.name(interestingGroups))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
              x = "sample",
              y = "rRNA mapping rate (%)") +
         scale_fill_viridis(discrete = TRUE)
     if (!is.null(warnLimit)) {
-        p <- p + qcWarnLine(warnLimit)
+        p <- p +
+            qcWarnLine(warnLimit)
     }
     if (isTRUE(flip)) {
-        p <- p + coord_flip()
+        p <- p +
+            coord_flip()
     }
     p
 }
@@ -45,19 +60,33 @@ NULL
 # Methods ====
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "bcbioRNADataSet", function(
-    object,
-    warnLimit = 10L,
-    flip = TRUE) {
-    .plotRRNAMappingRate(
-        metrics(object),
-        interestingGroup = .interestingGroup(object),
-        warnLimit = warnLimit,
-        flip = flip)
-})
+setMethod(
+    "plotRRNAMappingRate",
+    signature("bcbioRNASeqANY"),
+    function(
+        object,
+        interestingGroups,
+        warnLimit = 10,
+        flip = TRUE) {
+        if (is.null(metrics(object))) {
+            return(NULL)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
+        .plotRRNAMappingRate(
+            metrics(object),
+            interestingGroups = interestingGroups,
+            warnLimit = warnLimit,
+            flip = flip)
+    })
 
 
 
 #' @rdname plotRRNAMappingRate
 #' @export
-setMethod("plotRRNAMappingRate", "data.frame", .plotRRNAMappingRate)
+setMethod(
+    "plotRRNAMappingRate",
+    signature("data.frame"),
+    .plotRRNAMappingRate)

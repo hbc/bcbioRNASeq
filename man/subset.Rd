@@ -3,10 +3,10 @@
 \docType{methods}
 \name{subset}
 \alias{subset}
-\alias{[,bcbioRNADataSet,ANY,ANY,ANY-method}
+\alias{[,bcbioRNASeqANY,ANY,ANY,ANY-method}
 \title{Bracket-Based Subsetting}
 \usage{
-\S4method{[}{bcbioRNADataSet,ANY,ANY,ANY}(x, i, j, ..., drop = FALSE)
+\S4method{[}{bcbioRNASeqANY,ANY,ANY,ANY}(x, i, j, ..., drop = FALSE)
 }
 \arguments{
 \item{x}{
@@ -68,15 +68,15 @@
   }
 }
 \value{
-\link{bcbioRNADataSet}.
+\link{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \link{bcbioRNADataSet}. The
+Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
 internal \link{DESeqDataSet} and count transformations are rescaled automatically.
 }
 \examples{
 data(bcb)
-genes <- 1L:50L
+genes <- 1:50
 samples <- c("group1_1", "group1_2")
 
 # Subset by sample name

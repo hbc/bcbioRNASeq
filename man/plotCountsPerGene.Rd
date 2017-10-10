@@ -3,31 +3,31 @@
 \docType{methods}
 \name{plotCountsPerGene}
 \alias{plotCountsPerGene}
-\alias{plotCountsPerGene,bcbioRNADataSet-method}
+\alias{plotCountsPerGene,bcbioRNASeqANY-method}
 \alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
 \usage{
 plotCountsPerGene(object, ...)
 
-\S4method{plotCountsPerGene}{bcbioRNADataSet}(object, normalized = "tmm",
-  flip = TRUE)
+\S4method{plotCountsPerGene}{bcbioRNASeqANY}(object, interestingGroups,
+  normalized = "tmm", flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroup = "sampleName", flip = TRUE)
+  interestingGroups = "sampleName", flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -38,12 +38,16 @@ Plot Counts Per Gene
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
-plotCountsPerGene(bcb, normalized = "tmm")
+# bcbioRNASeq
+plotCountsPerGene(bcb)
+
+\dontrun{
+plotCountsPerGene(bcb, interestingGroups = "group")
 
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountsPerGene
+    plotCountsPerGene()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

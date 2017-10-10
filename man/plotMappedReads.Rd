@@ -3,17 +3,17 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
-\alias{plotMappedReads,bcbioRNADataSet-method}
+\alias{plotMappedReads,bcbioRNASeqANY-method}
 \alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
 \usage{
 plotMappedReads(object, ...)
 
-\S4method{plotMappedReads}{bcbioRNADataSet}(object, passLimit = 20L,
-  warnLimit = 10L, flip = TRUE)
+\S4method{plotMappedReads}{bcbioRNASeqANY}(object, interestingGroups,
+  passLimit = 20, warnLimit = 10, flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 20L, warnLimit = 10L,
+  interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
   flip = TRUE)
 }
 \arguments{
@@ -21,15 +21,15 @@ plotMappedReads(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -40,11 +40,16 @@ Plot Mapped Reads
 \examples{
 data(bcb)
 
-# bcbioRNADataSet
+# bcbioRNASeq
 plotMappedReads(bcb)
 
+\dontrun{
+plotMappedReads(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plotMappedReads
+metrics(bcb) \%>\%
+    plotMappedReads()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

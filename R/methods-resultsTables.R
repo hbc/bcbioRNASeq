@@ -2,7 +2,9 @@
 #'
 #' @rdname resultsTables
 #' @name resultsTables
+#' @author Michael Steinbaugh
 #'
+#' @inheritParams AllGenerics
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See [results()] for additional information about using `lfcThreshold` and
@@ -39,6 +41,7 @@ NULL
 #' @param dir Output directory.
 #'
 #' @return [writeLines()].
+#' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
         stop("DE results directory missing")
@@ -61,14 +64,11 @@ NULL
 
 
 
-# Methods ====
-#' @rdname resultsTables
-#' @export
-setMethod("resultsTables", "DESeqResults", function(
+.resultsTablesDESeqResults <- function(
     object,
-    lfc = 0L,
+    lfc = 0,
     write = TRUE,
-    headerLevel = 3L,
+    headerLevel = 3,
     dir = file.path("results", "differential_expression"),
     genomeBuild = NULL) {
     contrast <- .resContrastName(object)
@@ -79,25 +79,25 @@ setMethod("resultsTables", "DESeqResults", function(
 
     # Match genome against the first gene identifier by default
     if (is.null(genomeBuild)) {
-        genomeBuild <- rownames(object)[[1L]] %>%
-            detectOrganism
+        genomeBuild <- rownames(object)[[1]] %>%
+            detectOrganism()
     }
     anno <- annotable(genomeBuild)
 
     all <- object %>%
-        as.data.frame %>%
+        as.data.frame() %>%
         rownames_to_column("ensgene") %>%
         as("tibble") %>%
-        camel %>%
+        camel(strict = FALSE) %>%
         left_join(anno, by = "ensgene") %>%
         arrange(!!sym("ensgene"))
 
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0L, ]
+        .[.[["baseMean"]] > 0, ]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1L, ]
+        .[.[["baseMean"]] > 1, ]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
@@ -108,9 +108,9 @@ setMethod("resultsTables", "DESeqResults", function(
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, ]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0L, ]
+        .[.[["log2FoldChange"]] > 0, ]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0L, ]
+        .[.[["log2FoldChange"]] < 0, ]
 
     # File paths
     allFile <- paste(fileStem, "all.csv.gz", sep = "_")
@@ -161,4 +161,14 @@ setMethod("resultsTables", "DESeqResults", function(
     ))
 
     resTbl
-})
+}
+
+
+
+# Methods ====
+#' @rdname resultsTables
+#' @export
+setMethod(
+    "resultsTables",
+    signature("DESeqResults"),
+    .resultsTablesDESeqResults)

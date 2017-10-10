@@ -14,8 +14,17 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' # bcbioRNASeq
 #' plotDispEsts(bcb)
-#' plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
+#'
+#' \dontrun{
+#' plotDispEsts(
+#'     bcb,
+#'     genecol = "gray",
+#'     fitcol = "purple",
+#'     finalcol = "orange")
+#' }
 NULL
 
 
@@ -23,7 +32,10 @@ NULL
 # Methods ====
 #' @rdname plotDispEsts
 #' @export
-setMethod("plotDispEsts", "bcbioRNADataSet", function(object, ...) {
-    bcbio(object, "DESeqDataSet") %>%
-        plotDispEsts(...)
-})
+setMethod(
+    "plotDispEsts",
+    signature("bcbioRNASeqANY"),
+    function(object, ...) {
+        bcbio(object, "DESeqDataSet") %>%
+            plotDispEsts(...)
+    })
