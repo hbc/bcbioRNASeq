@@ -26,7 +26,7 @@ NULL
 #' @param flip Flip X and Y axes.
 #' @param interestingGroup Category to use to group samples (color and shape).
 #'   If unset, this is automatically determined by the metadata set inside the
-#'   [bcbioRNADataSet].
+#'   [bcbioRNASeq] object.
 #' @param minCounts Numeric value for filtering the counts matrix before
 #'   plotting.
 #' @param normalized Count normalization method. See [counts()] documentation
