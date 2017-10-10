@@ -9,7 +9,7 @@ dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
     design = formula(~group)) %>%
-    DESeq
+    DESeq()
 rld <- rlog(dds)
 res <- results(dds)
 use_data(bcb, dds, rld, res, compress = "xz", overwrite = TRUE)
