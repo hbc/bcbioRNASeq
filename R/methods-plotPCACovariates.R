@@ -26,6 +26,9 @@
 #' @examples
 #' data(bcb)
 #' plotPCACovariates(bcb, metrics = TRUE)
+#' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
+#'
+#' # Return `NULL` on example data, since only `sampleName` is interesting
 #' plotPCACovariates(bcb, metrics = FALSE)
 NULL
 
@@ -48,7 +51,7 @@ setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
     metadata <- metrics(object)
 
     # Select the metrics to use for plot
-    if (isTRUE(metrics)) {
+    if (identical(metrics, TRUE)) {
         # Subset the metadata data.frame
         metadata <- metadata %>%
             # Select only the numeric columns
@@ -57,7 +60,7 @@ setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
             .[, colSums(.) > 0]
         # Sort columns alphabetically
         metrics <- sort(colnames(metadata))
-    } else if (metrics == FALSE) {
+    } else if (identical(metrics, FALSE)) {
         # Use the defined interesting groups
         metrics <- interestingGroups(object)
     }
