@@ -15,10 +15,8 @@ NULL
 
 
 
-# Methods ====
-#' @rdname aggregateReplicates
-#' @export
-setMethod("aggregateReplicates", "matrix", function(
+# Constructors ====
+.aggregateReplicatesMatrix <- function(
     object,
     pattern = "_L\\d+") {
     # Obtain the unique pooled sample names
@@ -38,14 +36,11 @@ setMethod("aggregateReplicates", "matrix", function(
         do.call(cbind, .) %>%
         # [round()] here otherwise [DESeq()] will fail on this matrix
         round()
-})
+}
 
 
 
-#' @rdname aggregateReplicates
-#' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
-#' @export
-setMethod("aggregateReplicates", "DESeqDataSet", function(
+.aggregateReplicatesDESeqDataSet <- function(
     object,
     pattern = "_L\\d+") {
     # Get the stored design formula
@@ -83,4 +78,26 @@ setMethod("aggregateReplicates", "DESeqDataSet", function(
         colData = colData,
         design = design) %>%
         DESeq()
-})
+}
+
+
+
+# Methods ====
+#' @rdname aggregateReplicates
+#' @export
+setMethod(
+    "aggregateReplicates",
+    signature = "matrix",
+    definition = .aggregateReplicatesMatrix
+)
+
+
+
+#' @rdname aggregateReplicates
+#' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
+#' @export
+setMethod(
+    "aggregateReplicates",
+    signature = "DESeqDataSet",
+    definition = .aggregateReplicatesDESeqDataSet
+)
