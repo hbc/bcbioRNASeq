@@ -69,12 +69,17 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
+        interestingGroups,
         passLimit = 90,
         warnLimit = 70,
         flip = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
+        }
         .plotMappingRate(
             metrics(object),
-            interestingGroups = interestingGroups(object)[[1]],
+            interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
             flip = flip)

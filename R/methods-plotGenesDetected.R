@@ -91,7 +91,8 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         .plotGenesDetected(
             metrics(object),

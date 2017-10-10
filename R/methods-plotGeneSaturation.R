@@ -64,12 +64,13 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         .plotGeneSaturation(
             metrics(object),
             counts = counts(object, normalized = normalized),
-            interestingGroups = interestingGroups(object)[[1]],
+            interestingGroups = interestingGroups,
             minCounts = minCounts)
     })
 

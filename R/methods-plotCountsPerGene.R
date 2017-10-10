@@ -64,7 +64,8 @@ setMethod(
         normalized = "tmm",
         flip = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),

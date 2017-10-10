@@ -72,7 +72,8 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         .plot53Bias(
             metrics(object),

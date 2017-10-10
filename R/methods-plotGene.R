@@ -90,7 +90,8 @@ setMethod(
             ), call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
 
         counts <- counts(object, normalized = normalized)

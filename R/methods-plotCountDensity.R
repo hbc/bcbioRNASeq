@@ -81,7 +81,8 @@ setMethod(
         normalized = "tmm",
         style = "color") {
         if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)[[1]]
+             interestingGroups <-
+                 metadata(object)[["interestingGroups"]][[1]]
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),
