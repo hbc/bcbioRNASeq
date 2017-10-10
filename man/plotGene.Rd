@@ -6,15 +6,15 @@
 \alias{plotGene,bcbioRNASeqANY-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotGene}{bcbioRNASeqANY}(object, interestingGroups,
   normalized = "tpm", gene, format = "symbol")
 }
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
@@ -36,7 +36,10 @@ genes <- c("Sulf1", "Phf3")
 
 # bcbioRNASeq
 plotGene(bcb, gene = genes)
-plotGene(bcb, gene = genes, interestingGroup = "group")
+
+\dontrun{
+plotGene(bcb, gene = genes, interestingGroups = "group")
+}
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

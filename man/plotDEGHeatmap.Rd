@@ -41,8 +41,10 @@ data(dds, res, rld)
 # DESeqResults, DESeqTransform
 plotDEGHeatmap(res, rld)
 
+\dontrun{
 # DESeqResults, DESeqDataSet
 plotDEGHeatmap(res, dds)
+}
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},

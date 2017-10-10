@@ -9,20 +9,20 @@
 \usage{
 plotCountDensity(object, ...)
 
-\S4method{plotCountDensity}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotCountDensity}{bcbioRNASeqANY}(object, interestingGroups,
   normalized = "tmm", style = "color")
 
 \S4method{plotCountDensity}{data.frame}(object,
-  interestingGroup = "sampleName", style = "color")
+  interestingGroups = "sampleName", style = "color")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
@@ -40,9 +40,10 @@ data(bcb)
 
 # bcbioRNASeq
 plotCountDensity(bcb)
-plotCountDensity(bcb, interestingGroup = "group")
 
 \dontrun{
+plotCountDensity(bcb, interestingGroups = "group")
+
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
     plotCountDensity()

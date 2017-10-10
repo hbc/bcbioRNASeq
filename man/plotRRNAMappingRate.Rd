@@ -9,20 +9,20 @@
 \usage{
 plotRRNAMappingRate(object, ...)
 
-\S4method{plotRRNAMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotRRNAMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
   warnLimit = 10, flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 10, flip = TRUE)
+  interestingGroups = "sampleName", warnLimit = 10, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
@@ -39,11 +39,14 @@ data(bcb)
 
 # bcbioRNASeq
 plotRRNAMappingRate(bcb)
-plotRRNAMappingRate(bcb, interestingGroup = "group")
+
+\dontrun{
+plotRRNAMappingRate(bcb, interestingGroups = "group")
 
 # data.frame
 metrics(bcb) \%>\%
     plotRRNAMappingRate()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

@@ -21,7 +21,8 @@ Transcripts Per Million (TPM)
 }
 \examples{
 data(bcb)
-tpm(bcb) \%>\% head
+tpm(bcb) \%>\%
+    head()
 }
 \author{
 Michael Steinbaugh

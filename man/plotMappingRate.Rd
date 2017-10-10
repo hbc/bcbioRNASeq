@@ -9,11 +9,11 @@
 \usage{
 plotMappingRate(object, ...)
 
-\S4method{plotMappingRate}{bcbioRNASeqANY}(object, passLimit = 90,
-  warnLimit = 70, flip = TRUE)
+\S4method{plotMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
+  passLimit = 90, warnLimit = 70, flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 90, warnLimit = 70,
+  interestingGroups = "sampleName", passLimit = 90, warnLimit = 70,
   flip = TRUE)
 }
 \arguments{
@@ -21,15 +21,15 @@ plotMappingRate(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
+
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{interestingGroup}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
 }
 \value{
 \link{ggplot}.
@@ -43,8 +43,13 @@ data(bcb)
 # bcbioRNASeq
 plotMappingRate(bcb)
 
+\dontrun{
+plotMappingRate(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plotMappingRate
+metrics(bcb) \%>\%
+    plotMappingRate()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

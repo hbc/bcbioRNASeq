@@ -10,15 +10,15 @@
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroup,
+\S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroups,
   passLimit = 20000, warnLimit = 15000, minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
-  interestingGroup = "sampleName", passLimit = 20000, warnLimit = 15000,
+  interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
   minCounts = 0, flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
-  interestingGroup = "sampleName", passLimit = 20000, warnLimit = 15000,
+  interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
   minCounts = 0, flip = TRUE)
 }
 \arguments{
@@ -28,9 +28,9 @@ plotGenesDetected(object, counts, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -55,26 +55,19 @@ plotGenesDetected(
     bcb,
     passLimit = NULL,
     warnLimit = NULL)
-plotGenesDetected(
-    bcb,
-    interestingGroup = "group",
-    passLimit = NULL,
-    warnLimit = NULL)
 
 \dontrun{
+plotGenesDetected(bcb, interestingGroups = "group")
+
 # data.frame, DESeqDataSet
 plotGenesDetected(
     metrics(bcb),
-    counts = dds,
-    passLimit = NULL,
-    warnLimit = NULL)
+    counts = dds)
 
 # data.frame, matrix
 plotGenesDetected(
     metrics(bcb),
-    counts = assay(dds),
-    passLimit = NULL,
-    warnLimit = NULL)
+    counts = assay(dds))
 }
 }
 \seealso{

@@ -8,9 +8,9 @@
 
 \item{flip}{Flip X and Y axes.}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}

@@ -9,10 +9,10 @@
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroup, warnLimit = 2,
-  flip = TRUE)
+\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroups,
+  warnLimit = 2, flip = TRUE)
 
-\S4method{plot53Bias}{data.frame}(object, interestingGroup = "sampleName",
+\S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
   warnLimit = 2, flip = TRUE)
 }
 \arguments{
@@ -20,9 +20,9 @@ plot53Bias(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
@@ -39,9 +39,10 @@ data(bcb)
 
 # bcbioRNASeq
 plot53Bias(bcb)
-plot53Bias(bcb, interestingGroup = "group")
 
 \dontrun{
+plot53Bias(bcb, interestingGroups = "group")
+
 # data.frame
 metrics(bcb) \%>\%
     plot53Bias()

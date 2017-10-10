@@ -8,13 +8,17 @@
 \usage{
 plotPCACovariates(object, ...)
 
-\S4method{plotPCACovariates}{bcbioRNASeqANY}(object, transform = "rlog",
-  metrics = TRUE, ...)
+\S4method{plotPCACovariates}{bcbioRNASeqANY}(object, metrics = TRUE,
+  transform = "rlog", ...)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments, passed to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
+
+\item{metrics}{Include sample summary metrics as covariates. Defaults to
+include all metrics columns (\code{TRUE}), but desired columns can be specified
+here as a character vector.}
 
 \item{transform}{String specifying \link{DESeqTransform} slotted inside the
 \link{bcbioRNASeq} object:
@@ -22,10 +26,6 @@ plotPCACovariates(object, ...)
 \item \code{rlog} (\strong{recommended}).
 \item \code{vst}: variance stabilizing transformation.
 }}
-
-\item{metrics}{Include sample summary metrics as covariates. Defaults to
-include all metrics columns (\code{TRUE}), but desired columns can be specified
-here as a character vector.}
 }
 \value{
 \link{ggplot}.
@@ -37,9 +37,6 @@ here as a character vector.}
 data(bcb)
 plotPCACovariates(bcb, metrics = TRUE)
 plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
-
-# Return `NULL` on example data, since only `sampleName` is interesting
-plotPCACovariates(bcb, metrics = FALSE)
 }
 \seealso{
 \itemize{

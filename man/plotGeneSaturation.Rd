@@ -9,11 +9,11 @@
 \usage{
 plotGeneSaturation(object, counts, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeqANY,missing}(object, interestingGroup,
+\S4method{plotGeneSaturation}{bcbioRNASeqANY,missing}(object, interestingGroups,
   normalized = "tmm", minCounts = 0)
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroup = "sampleName", minCounts = 0)
+  interestingGroups = "sampleName", minCounts = 0)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,9 +22,9 @@ plotGeneSaturation(object, counts, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
@@ -43,9 +43,10 @@ data(bcb, rld)
 
 # bcbioRNASeq
 plotGeneSaturation(bcb)
-plotGeneSaturation(bcb, interestingGroup = "group")
 
 \dontrun{
+plotGeneSaturation(bcb, interestingGroups = "group")
+
 # data.frame, matrix
 plotGeneSaturation(metrics(bcb), assay(rld))
 }

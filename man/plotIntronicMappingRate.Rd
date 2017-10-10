@@ -10,20 +10,20 @@
 \usage{
 plotIntronicMappingRate(object, ...)
 
-\S4method{plotIntronicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotIntronicMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
   warnLimit = 20, flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", warnLimit = 20, flip = TRUE)
+  interestingGroups = "sampleName", warnLimit = 20, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
@@ -40,7 +40,7 @@ data(bcb)
 
 # bcbioRNASeq
 plotIntronicMappingRate(bcb)
-plotIntronicMappingRate(bcb, interestingGroup = "group")
+plotIntronicMappingRate(bcb, interestingGroups = "group")
 
 \dontrun{
 # data.frame

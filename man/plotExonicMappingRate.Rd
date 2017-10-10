@@ -10,20 +10,20 @@
 \usage{
 plotExonicMappingRate(object, ...)
 
-\S4method{plotExonicMappingRate}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotExonicMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
   passLimit = 60, flip = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 60, flip = TRUE)
+  interestingGroups = "sampleName", passLimit = 60, flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -40,9 +40,10 @@ data(bcb)
 
 # bcbioRNASeq
 plotExonicMappingRate(bcb)
-plotExonicMappingRate(bcb, interestingGroup = "group")
 
 \dontrun{
+plotExonicMappingRate(bcb, interestingGroups = "group")
+
 # data.frame
 metrics(bcb) \%>\%
     plotExonicMappingRate()

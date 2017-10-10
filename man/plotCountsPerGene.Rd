@@ -9,20 +9,20 @@
 \usage{
 plotCountsPerGene(object, ...)
 
-\S4method{plotCountsPerGene}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotCountsPerGene}{bcbioRNASeqANY}(object, interestingGroups,
   normalized = "tmm", flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroup = "sampleName", flip = TRUE)
+  interestingGroups = "sampleName", flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
@@ -40,9 +40,10 @@ data(bcb)
 
 # bcbioRNASeq
 plotCountsPerGene(bcb)
-plotCountsPerGene(bcb, interestingGroup = "group")
 
 \dontrun{
+plotCountsPerGene(bcb, interestingGroups = "group")
+
 # data.frame
 meltLog10(bcb, normalized = "tmm") \%>\%
     plotCountsPerGene()

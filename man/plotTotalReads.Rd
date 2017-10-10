@@ -9,20 +9,21 @@
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotTotalReads}{bcbioRNASeqANY}(object, interestingGroups,
   passLimit = 20, warnLimit = 10, flip = TRUE)
 
-\S4method{plotTotalReads}{data.frame}(object, interestingGroup = "sampleName",
-  passLimit = 20, warnLimit = 10, flip = TRUE)
+\S4method{plotTotalReads}{data.frame}(object,
+  interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
+  flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -42,8 +43,13 @@ data(bcb)
 # bcbioRNASeq
 plotTotalReads(bcb)
 
+\dontrun{
+plotTotalReads(bcb, interestingGroups = "group")
+
 # data.frame
-metrics(bcb) \%>\% plotTotalReads
+metrics(bcb) \%>\%
+    plotTotalReads()
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

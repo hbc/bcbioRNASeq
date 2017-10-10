@@ -24,7 +24,14 @@ data(bcb)
 
 # bcbioRNASeq
 plotDispEsts(bcb)
-plotDispEsts(bcb, genecol = "gray", fitcol = "purple", finalcol = "orange")
+
+\dontrun{
+plotDispEsts(
+    bcb,
+    genecol = "gray",
+    fitcol = "purple",
+    finalcol = "orange")
+}
 }
 \seealso{
 \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.

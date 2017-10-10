@@ -9,11 +9,11 @@
 \usage{
 plotMappedReads(object, ...)
 
-\S4method{plotMappedReads}{bcbioRNASeqANY}(object, interestingGroup,
+\S4method{plotMappedReads}{bcbioRNASeqANY}(object, interestingGroups,
   passLimit = 20, warnLimit = 10, flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
-  interestingGroup = "sampleName", passLimit = 20, warnLimit = 10,
+  interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
   flip = TRUE)
 }
 \arguments{
@@ -21,9 +21,9 @@ plotMappedReads(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroup}{Category to use to group samples (color and shape).
+\item{interestingGroups}{Category to use to group samples (color and shape).
 If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNADataSet}.}
+\link{bcbioRNASeq} object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
@@ -42,9 +42,10 @@ data(bcb)
 
 # bcbioRNASeq
 plotMappedReads(bcb)
-plotMappedReads(bcb, interestingGroup = "group")
 
 \dontrun{
+plotMappedReads(bcb, interestingGroups = "group")
+
 # data.frame
 metrics(bcb) \%>\%
     plotMappedReads()

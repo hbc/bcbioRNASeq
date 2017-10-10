@@ -17,3 +17,7 @@ Character vector.
 \description{
 Interesting Groups
 }
+\examples{
+data(bcb)
+interestingGroups(bcb)
+}
