@@ -3,6 +3,7 @@
 #' @rdname txi
 #' @name txi
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @inheritParams AllGenerics
 #'
