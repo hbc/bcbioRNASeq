@@ -3,6 +3,7 @@
 \docType{methods}
 \name{interestingGroups}
 \alias{interestingGroups}
+\alias{interestingGroups,bcbioRNASeqANY-method}
 \title{Interesting Groups}
 \usage{
 \S4method{interestingGroups}{bcbioRNASeqANY}(object)

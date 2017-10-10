@@ -36,6 +36,9 @@ here as a character vector.}
 \examples{
 data(bcb)
 plotPCACovariates(bcb, metrics = TRUE)
+plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
+
+# Return `NULL` on example data, since only `sampleName` is interesting
 plotPCACovariates(bcb, metrics = FALSE)
 }
 \seealso{
