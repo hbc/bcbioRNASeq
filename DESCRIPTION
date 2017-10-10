@@ -19,9 +19,17 @@ Authors@R: c(
     person("Mary", "Piper",
            email = "mary.piper@gmail.com",
            role = "aut"),
+    person("Meeta", "Mistry",
+           email = "meeta.mistry@gmail.com",
+           role = "aut"),
+    person("Radhika", "Khetani",
+           email = "rkhetani@hsph.harvard.edu",
+           role = "aut"),
     person("John", "Hutchinson",
            email = "jnhutchinson@gmail.com",
            role = "aut"),
+    person("Shannan", "Ho Sui",
+           email = "shosui@hsph.harvard.edu"),
     person("Harvard Chan Bioinformatics Core",
            email = "bioinformatics@hsph.harvard.edu",
            role = c("cph", "fnd")))
@@ -34,13 +42,13 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    SummarizedExperiment (>= 1.6.3)
+    SummarizedExperiment (>= 1.6.5)
 Imports:
     basejump (>= 0.0.24),
     BiocGenerics,
     cowplot,
     data.table,
-    DEGreport (>= 1.13.7),
+    DEGreport (>= 1.13.12),
     DESeq2 (>= 1.16.1),
     dplyr,
     edgeR (>= 3.18.1),
@@ -53,7 +61,7 @@ Imports:
     pheatmap (>= 1.0.8),
     readr,
     reshape2,
-    rlang,
+    rlang (>= 0.1.2),
     S4Vectors,
     stats,
     stringr,
