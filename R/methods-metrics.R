@@ -22,7 +22,7 @@ setMethod("metrics", "bcbioRNASeqANY", function(object) {
     left_join(
         as.data.frame(colData(object)),
         as.data.frame(metadata(object)[["metrics"]]),
-        by = c("sampleID", "sampleName")
+        by = metaPriorityCols
     ) %>%
         set_rownames(.[["sampleID"]])
 })
