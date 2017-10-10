@@ -30,10 +30,13 @@ NULL
     object,
     interestingGroup = "sampleName",
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~counts,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_string(
+            x = "sampleName",
+            y = "counts",
+            fill = interestingGroup)
+    ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",

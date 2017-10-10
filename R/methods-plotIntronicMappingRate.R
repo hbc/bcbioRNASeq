@@ -31,10 +31,13 @@ NULL
     interestingGroup = "sampleName",
     warnLimit = 20,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~intronicRate * 100,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~intronicRate * 100,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",

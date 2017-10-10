@@ -43,10 +43,13 @@ NULL
             x = colnames(counts),
             y = counts[ensgene, ],
             color = metadata[[interestingGroup]])
-        p <- ggplot(df,
-                aes_(x = ~x,
-                     y = ~y,
-                     color = ~color)) +
+        p <- ggplot(
+            df,
+            mapping = aes_string(
+                x = "x",
+                y = "y",
+                color = "color")
+        ) +
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)) +

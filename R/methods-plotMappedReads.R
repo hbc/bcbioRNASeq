@@ -33,10 +33,13 @@ NULL
     warnLimit = 10,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~mappedReads / 1e6,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~mappedReads / 1e6,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
              x = "sample",

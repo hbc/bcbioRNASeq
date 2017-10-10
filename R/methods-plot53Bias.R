@@ -31,10 +31,13 @@ NULL
     interestingGroup = "sampleName",
     warnLimit = 2,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~x53Bias,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_string(
+            x = "sampleName",
+            y = "x53Bias",
+            fill = interestingGroup)
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",

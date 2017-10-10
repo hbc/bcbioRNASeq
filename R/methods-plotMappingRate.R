@@ -16,7 +16,8 @@
 #' plotMappingRate(bcb)
 #'
 #' # data.frame
-#' metrics(bcb) %>% plotMappingRate
+#' metrics(bcb) %>%
+#'     plotMappingRate()
 NULL
 
 
@@ -29,10 +30,13 @@ NULL
     warnLimit = 70,
     flip = TRUE) {
     if (is.null(object)) return(NULL)
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~mappedReads / totalReads * 100,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~mappedReads / totalReads * 100,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         ylim(0, 100) +
         labs(title = "mapping rate",

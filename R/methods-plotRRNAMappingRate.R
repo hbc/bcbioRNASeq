@@ -29,10 +29,13 @@ NULL
     interestingGroup = "sampleName",
     warnLimit = 10,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~rRnaRate * 100,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~rrnaRate * 100,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
              x = "sample",

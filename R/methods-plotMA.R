@@ -45,10 +45,13 @@ NULL
         as("tibble") %>%
         camel %>%
         .[!is.na(.[["padj"]]), , drop = FALSE]
-    p <- ggplot(results,
-                aes_(x = ~baseMean,
-                     y = ~log2FoldChange,
-                     color = ~padj < alpha)) +
+    p <- ggplot(
+        results,
+        mapping = aes_(
+            x = ~baseMean,
+            y = ~log2FoldChange,
+            color = ~padj < alpha)
+    ) +
         geom_point(size = 0.8) +
         scale_x_log10() +
         annotation_logticks(sides = "b") +

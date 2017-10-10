@@ -31,10 +31,13 @@ NULL
     interestingGroup = "sampleName",
     passLimit = 60,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~exonicRate * 100,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~exonicRate * 100,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",

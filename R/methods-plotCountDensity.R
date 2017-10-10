@@ -38,17 +38,20 @@ NULL
             toString(validStyles)))
     }
     if (style == "color") {
-        color <- as.name(interestingGroup)
+        color <- interestingGroup
         fill <- NULL
     } else if (style == "fill") {
         color <- NULL
-        fill <- as.name(interestingGroup)
+        fill <- interestingGroup
     }
-    p <- ggplot(object,
-        aes_(x = ~counts,
-             group = as.name(interestingGroup),
-             color = color,
-             fill = fill))
+    p <- ggplot(
+        object,
+        mapping = aes_string(
+            x = "counts",
+            group = interestingGroup,
+            color = color,
+            fill = fill)
+    )
     if (style == "color") {
         p <- p +
             geom_density()

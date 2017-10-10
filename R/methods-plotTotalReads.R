@@ -16,7 +16,8 @@
 #' plotTotalReads(bcb)
 #'
 #' # data.frame
-#' metrics(bcb) %>% plotTotalReads
+#' metrics(bcb) %>%
+#'     plotTotalReads()
 NULL
 
 
@@ -28,10 +29,13 @@ NULL
     passLimit = 20,
     warnLimit = 10,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = ~totalReads / 1e6,
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = ~totalReads / 1e6,
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",

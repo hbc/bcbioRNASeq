@@ -51,10 +51,13 @@ NULL
     warnLimit = 15000,
     minCounts = 0,
     flip = TRUE) {
-    p <- ggplot(object,
-                aes_(x = ~sampleName,
-                     y = colSums(counts > minCounts),
-                     fill = as.name(interestingGroup))) +
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~sampleName,
+            y = colSums(counts > minCounts),
+            fill = as.name(interestingGroup))
+    ) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",

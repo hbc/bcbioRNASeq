@@ -56,10 +56,13 @@ NULL
         melt(id = 1) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
-        ggplot(aes_(x = ~symbol,
-                    y = ~counts,
-                    color = ~sampleName,
-                    shape = ~chromosome)) +
+        ggplot(
+            mapping = aes_string(
+                x = "symbol",
+                y = "counts",
+                color = "sampleName",
+                shape = "chromosome")
+        ) +
         geom_jitter(size = 4) +
         expand_limits(y = 0) +
         labs(title = "gender markers",

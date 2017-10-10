@@ -30,10 +30,13 @@ NULL
     counts,
     interestingGroup = "sampleName",
     minCounts = 0) {
-    ggplot(object,
-           aes_(x = ~mappedReads / 1e6,
-                y = colSums(counts > minCounts),
-                color = as.name(interestingGroup))) +
+    ggplot(
+        object,
+        mapping = aes_(
+            x = ~mappedReads / 1e6,
+            y = colSums(counts > minCounts),
+            color = as.name(interestingGroup))
+    ) +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
