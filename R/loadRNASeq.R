@@ -133,9 +133,7 @@ loadRNASeq <- function(
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    metrics <- sampleYAMLMetrics(
-        yaml, characterCols = c("name", "qualityFormat", "sequenceLength")
-    )
+    metrics <- sampleYAMLMetrics(yaml)
 
     # bcbio-nextgen run information ====
     message("Reading bcbio run information")
