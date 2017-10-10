@@ -19,10 +19,9 @@ NULL
 #' @rdname metrics
 #' @export
 setMethod("metrics", "bcbioRNASeqANY", function(object) {
-    left_join(
+    suppressMessages(left_join(
         as.data.frame(colData(object)),
-        as.data.frame(metadata(object)[["metrics"]]),
-        by = metaPriorityCols
-    ) %>%
+        as.data.frame(metadata(object)[["metrics"]])
+    )) %>%
         set_rownames(.[["sampleID"]])
 })
