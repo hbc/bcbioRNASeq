@@ -93,14 +93,11 @@ loadRNASeq <- function(
             file = sampleMetadataFile,
             lanes = lanes)
     } else {
-        sampleMetadata <- .sampleYAMLMetadata(yaml)
+        sampleMetadata <- sampleYAMLMetadata(yaml)
     }
     if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
         stop("Sample name mismatch", call. = FALSE)
     }
-    sampleMetadata <- sampleMetadata %>%
-        as.data.frame() %>%
-        set_rownames(.[["sampleID"]])
 
     # Interesting groups ====
     # Ensure internal formatting in camelCase
@@ -127,27 +124,29 @@ loadRNASeq <- function(
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
     annotable <- annotable(genomeBuild, release = ensemblVersion)
-    tx2gene <- .tx2gene(projectDir,
-                        organism = organism,
-                        release = ensemblVersion)
+    tx2gene <- .tx2gene(
+        projectDir,
+        organism = organism,
+        release = ensemblVersion)
 
     # Sample metrics ====
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    metrics <- .sampleYAMLMetrics(
-        yaml = yaml,
-        characterCols = c("name", "qualityFormat", "sequenceLength")
+    metrics <- sampleYAMLMetrics(
+        yaml, characterCols = c("name", "qualityFormat", "sequenceLength")
     )
 
     # bcbio-nextgen run information ====
     message("Reading bcbio run information")
-    dataVersions <- .dataVersions(projectDir)
-    programs <- .programs(projectDir)
-    bcbioLog <-
-        .logFile(file.path(projectDir, "bcbio-nextgen.log"))
-    bcbioCommandsLog <-
-        .logFile(file.path(projectDir, "bcbio-nextgen-commands.log"))
+    dataVersions <- readDataVersions(
+        file.path(projectDir, "data_versions.csv"))
+    programs <- readProgramVersions(
+        file.path(projectDir, "programs.txt"))
+    bcbioLog <- readLogFile(
+        file.path(projectDir, "bcbio-nextgen.log"))
+    bcbioCommandsLog <- readLogFile(
+        file.path(projectDir, "bcbio-nextgen-commands.log"))
 
     # Metadata ====
     metadata <- list(
