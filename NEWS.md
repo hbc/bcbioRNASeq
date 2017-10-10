@@ -4,7 +4,9 @@
 - Renamed `loadRNASeqRun()` to simply `loadRNASeq()`.
 - Switched `loadRNASeq()` from using S4 dispatch to a standard function.
 - Added a parameter argument to `loadRNASeq()` that enables request of a specific Ensembl release version for gene annotations.
+- Renamed `interestingGroup` argument in quality control functions to `interestingGroups` for better consistency.
 - Improved handling of sample metrics in `plotPCACovariates()`.
+- Added functional analysis R Markdown template.
 - Offloaded some core functionality shared between [bcbioRNASeq][] and [bcbioSingleCell][] to the [basejump][] package. This included some code to handle sample metadata YAML and file loading. This helps provide a consistent experience across both packages.
 
 
