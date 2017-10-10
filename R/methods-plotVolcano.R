@@ -31,9 +31,11 @@
 #' # DESeqResults
 #' plotVolcano(res, genes = "Sulf1")
 #'
+#' \dontrun{
 #' # data.frame
 #' as.data.frame(res) %>%
 #'     plotVolcano()
+#' }
 NULL
 
 
