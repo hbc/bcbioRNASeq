@@ -60,12 +60,10 @@ setValidity("bcbioRNADataSet", function(object) TRUE)
 
 setClassUnion(
     name = "bcbioRNASeqANY",
-    members = c("bcbioRNASeq",
-                "bcbioRNADataSet"))
+    members = c("bcbioRNASeq", "bcbioRNADataSet"))
 
 
 
 setClassUnion(
     name = "DESeqANY",
-    members = c("DESeqDataSet",
-                "DESeqTransform"))
+    members = c("DESeqDataSet", "DESeqTransform"))
