@@ -32,20 +32,16 @@
 #'
 #' \dontrun{
 #' # DESeq2 normalized counts
-#' counts(bcb, normalized = TRUE) %>%
-#'     summary()
+#' counts(bcb, normalized = TRUE)
 #'
 #' #' # rlog
-#' counts(bcb, normalized = "rlog") %>%
-#'     str()
+#' counts(bcb, normalized = "rlog")
 #'
 #' # TMM
-#' counts(bcb, normalized = "tmm") %>%
-#'     summary()
+#' counts(bcb, normalized = "tmm")
 #'
 #' # VST
-#' counts(bcb, normalized = "vst") %>%
-#'     summary()
+#' counts(bcb, normalized = "vst")
 #' }
 NULL
 
