@@ -14,7 +14,7 @@
 #'
 #' # bcbioRNASeq
 #' plotIntronicMappingRate(bcb)
-#' plotIntronicMappingRate(bcb, interestingGroup = "group")
+#' plotIntronicMappingRate(bcb, interestingGroups = "group")
 #'
 #' \dontrun{
 #' # data.frame
@@ -28,7 +28,7 @@ NULL
 # Constructors ====
 .plotIntronicMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     warnLimit = 20,
     flip = TRUE) {
     p <- ggplot(
@@ -36,7 +36,7 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~intronicRate * 100,
-            fill = as.name(interestingGroup))
+            fill = as.name(interestingGroups))
     ) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
@@ -65,18 +65,18 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         warnLimit = 20,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotIntronicMappingRate(
             metrics(object),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             flip = flip)
     })

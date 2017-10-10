@@ -17,26 +17,19 @@
 #'     bcb,
 #'     passLimit = NULL,
 #'     warnLimit = NULL)
-#' plotGenesDetected(
-#'     bcb,
-#'     interestingGroup = "group",
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
 #'
 #' \dontrun{
+#' plotGenesDetected(bcb, interestingGroups = "group")
+#'
 #' # data.frame, DESeqDataSet
 #' plotGenesDetected(
 #'     metrics(bcb),
-#'     counts = dds,
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
+#'     counts = dds)
 #'
 #' # data.frame, matrix
 #' plotGenesDetected(
 #'     metrics(bcb),
-#'     counts = assay(dds),
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
+#'     counts = assay(dds))
 #' }
 NULL
 
@@ -46,7 +39,7 @@ NULL
 .plotGenesDetected <- function(
     object,
     counts,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     passLimit = 20000,
     warnLimit = 15000,
     minCounts = 0,
@@ -56,7 +49,7 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
-            fill = as.name(interestingGroup))
+            fill = as.name(interestingGroups))
     ) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
@@ -89,7 +82,7 @@ setMethod(
               counts = "missing"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         passLimit = 20000,
         warnLimit = 15000,
         minCounts = 0,
@@ -97,13 +90,13 @@ setMethod(
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotGenesDetected(
             metrics(object),
             counts = assay(object),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
             minCounts = minCounts,
@@ -121,7 +114,7 @@ setMethod(
     function(
         object,
         counts,
-        interestingGroup = "sampleName",
+        interestingGroups = "sampleName",
         passLimit = 20000,
         warnLimit = 15000,
         minCounts = 0,
@@ -129,7 +122,7 @@ setMethod(
         .plotGenesDetected(
             object,
             counts = assay(counts),
-            interestingGroup = "sampleName",
+            interestingGroups = "sampleName",
             passLimit = passLimit,
             warnLimit = warnLimit,
             minCounts = minCounts,

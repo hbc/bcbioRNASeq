@@ -15,9 +15,10 @@
 #'
 #' # bcbioRNASeq
 #' plotCountDensity(bcb)
-#' plotCountDensity(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
+#' plotCountDensity(bcb, interestingGroups = "group")
+#'
 #' # data.frame
 #' meltLog10(bcb, normalized = "tmm") %>%
 #'     plotCountDensity()
@@ -29,7 +30,7 @@ NULL
 # Constructors ====
 .plotCountDensity <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     style = "color") {
     validStyles <- c("color", "fill")
     if (!style %in% validStyles) {
@@ -38,17 +39,17 @@ NULL
             toString(validStyles)))
     }
     if (style == "color") {
-        color <- interestingGroup
+        color <- interestingGroups
         fill <- NULL
     } else if (style == "fill") {
         color <- NULL
-        fill <- interestingGroup
+        fill <- interestingGroups
     }
     p <- ggplot(
         object,
         mapping = aes_string(
             x = "counts",
-            group = interestingGroup,
+            group = interestingGroups,
             color = color,
             fill = fill)
     )
@@ -76,15 +77,15 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         normalized = "tmm",
         style = "color") {
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             style = style)
     })
 

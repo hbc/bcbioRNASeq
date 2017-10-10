@@ -14,11 +14,14 @@
 #'
 #' # bcbioRNASeq
 #' plotRRNAMappingRate(bcb)
-#' plotRRNAMappingRate(bcb, interestingGroup = "group")
+#'
+#' \dontrun{
+#' plotRRNAMappingRate(bcb, interestingGroups = "group")
 #'
 #' # data.frame
 #' metrics(bcb) %>%
 #'     plotRRNAMappingRate()
+#' }
 NULL
 
 
@@ -26,7 +29,7 @@ NULL
 # Constructors ====
 .plotRRNAMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     warnLimit = 10,
     flip = TRUE) {
     p <- ggplot(
@@ -34,7 +37,7 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100,
-            fill = as.name(interestingGroup))
+            fill = as.name(interestingGroups))
     ) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
@@ -62,18 +65,18 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         warnLimit = 10,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotRRNAMappingRate(
             metrics(object),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             flip = flip)
     })

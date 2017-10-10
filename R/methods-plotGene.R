@@ -24,7 +24,10 @@
 #'
 #' # bcbioRNASeq
 #' plotGene(bcb, gene = genes)
-#' plotGene(bcb, gene = genes, interestingGroup = "group")
+#'
+#' \dontrun{
+#' plotGene(bcb, gene = genes, interestingGroups = "group")
+#' }
 NULL
 
 
@@ -34,7 +37,7 @@ NULL
     counts,
     gene,
     metadata,
-    interestingGroup = "sampleName") {
+    interestingGroups = "sampleName") {
     metadata <- as.data.frame(metadata)
     sapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
@@ -42,7 +45,7 @@ NULL
         df <- data.frame(
             x = colnames(counts),
             y = counts[ensgene, ],
-            color = metadata[[interestingGroup]])
+            color = metadata[[interestingGroups]])
         p <- ggplot(
             df,
             mapping = aes_string(
@@ -56,7 +59,7 @@ NULL
             labs(title = symbol,
                  x = "sample",
                  y = "counts",
-                 color = interestingGroup) +
+                 color = interestingGroups) +
             expand_limits(y = 0) +
             scale_color_viridis(discrete = TRUE)
         show(p)
@@ -74,7 +77,7 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         normalized = "tpm",
         gene,
         format = "symbol") {
@@ -86,8 +89,8 @@ setMethod(
                 "Explicit format of normalized counts format is recommended"
             ), call. = FALSE)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
 
         counts <- counts(object, normalized = normalized)
@@ -106,5 +109,5 @@ setMethod(
             counts = counts,
             gene = gene,
             metadata = metadata,
-            interestingGroup = interestingGroup)
+            interestingGroups = interestingGroups)
     })

@@ -14,9 +14,10 @@
 #'
 #' # bcbioRNASeq
 #' plotCountsPerGene(bcb)
-#' plotCountsPerGene(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
+#' plotCountsPerGene(bcb, interestingGroups = "group")
+#'
 #' # data.frame
 #' meltLog10(bcb, normalized = "tmm") %>%
 #'     plotCountsPerGene()
@@ -28,14 +29,14 @@ NULL
 # Constructors ====
 .plotCountsPerGene <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     flip = TRUE) {
     p <- ggplot(
         object,
         mapping = aes_string(
             x = "sampleName",
             y = "counts",
-            fill = interestingGroup)
+            fill = interestingGroups)
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
@@ -59,15 +60,15 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         normalized = "tmm",
         flip = TRUE) {
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             flip = flip)
     })
 

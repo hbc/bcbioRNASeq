@@ -14,9 +14,10 @@
 #'
 #' # bcbioRNASeq
 #' plotGeneSaturation(bcb)
-#' plotGeneSaturation(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
+#' plotGeneSaturation(bcb, interestingGroups = "group")
+#'
 #' # data.frame, matrix
 #' plotGeneSaturation(metrics(bcb), assay(rld))
 #' }
@@ -28,14 +29,14 @@ NULL
 .plotGeneSaturation <- function(
     object,
     counts,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     minCounts = 0) {
     ggplot(
         object,
         mapping = aes_(
             x = ~mappedReads / 1e6,
             y = colSums(counts > minCounts),
-            color = as.name(interestingGroup))
+            color = as.name(interestingGroups))
     ) +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
@@ -56,19 +57,19 @@ setMethod(
               counts = "missing"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         normalized = "tmm",
         minCounts = 0) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotGeneSaturation(
             metrics(object),
             counts = counts(object, normalized = normalized),
-            interestingGroup = interestingGroups(object)[[1]],
+            interestingGroups = interestingGroups(object)[[1]],
             minCounts = minCounts)
     })
 

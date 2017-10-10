@@ -14,9 +14,10 @@
 #'
 #' # bcbioRNASeq
 #' plotMappedReads(bcb)
-#' plotMappedReads(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
+#' plotMappedReads(bcb, interestingGroups = "group")
+#'
 #' # data.frame
 #' metrics(bcb) %>%
 #'     plotMappedReads()
@@ -28,7 +29,7 @@ NULL
 # Constructors ====
 .plotMappedReads <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
     flip = TRUE) {
@@ -38,7 +39,7 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / 1e6,
-            fill = as.name(interestingGroup))
+            fill = as.name(interestingGroups))
     ) +
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
@@ -70,19 +71,19 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         passLimit = 20,
         warnLimit = 10,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plotMappedReads(
             metrics(object),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
             flip = flip)

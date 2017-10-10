@@ -133,8 +133,7 @@ setMethod(
         counts <- assays(object) %>%
             .[[transform]] %>%
             assay()
-        interestingGroups <- metadata(object) %>%
-            .[["interestingGroups"]]
+        interestingGroups <- interestingGroups(object)
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE] %>%
             as.data.frame()

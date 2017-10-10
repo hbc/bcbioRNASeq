@@ -14,9 +14,10 @@
 #'
 #' # bcbioRNASeq
 #' plot53Bias(bcb)
-#' plot53Bias(bcb, interestingGroup = "group")
 #'
 #' \dontrun{
+#' plot53Bias(bcb, interestingGroups = "group")
+#'
 #' # data.frame
 #' metrics(bcb) %>%
 #'     plot53Bias()
@@ -28,7 +29,7 @@ NULL
 # Constructors ====
 .plot53Bias <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     warnLimit = 2,
     flip = TRUE) {
     p <- ggplot(
@@ -36,7 +37,7 @@ NULL
         mapping = aes_string(
             x = "sampleName",
             y = "x53Bias",
-            fill = interestingGroup)
+            fill = interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
@@ -64,18 +65,18 @@ setMethod(
     signature("bcbioRNASeqANY"),
     function(
         object,
-        interestingGroup,
+        interestingGroups,
         warnLimit = 2,
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroup)) {
-            interestingGroup <- interestingGroups(object)[[1]]
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)[[1]]
         }
         .plot53Bias(
             metrics(object),
-            interestingGroup = interestingGroup,
+            interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             flip = flip)
     })

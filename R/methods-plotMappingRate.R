@@ -15,9 +15,13 @@
 #' # bcbioRNASeq
 #' plotMappingRate(bcb)
 #'
+#' \dontrun{
+#' plotMappingRate(bcb, interestingGroups = "group")
+#'
 #' # data.frame
 #' metrics(bcb) %>%
 #'     plotMappingRate()
+#' }
 NULL
 
 
@@ -25,7 +29,7 @@ NULL
 # Constructors ====
 .plotMappingRate <- function(
     object,
-    interestingGroup = "sampleName",
+    interestingGroups = "sampleName",
     passLimit = 90,
     warnLimit = 70,
     flip = TRUE) {
@@ -35,7 +39,7 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / totalReads * 100,
-            fill = as.name(interestingGroup))
+            fill = as.name(interestingGroups))
     ) +
         geom_bar(stat = "identity") +
         ylim(0, 100) +
@@ -70,7 +74,7 @@ setMethod(
         flip = TRUE) {
         .plotMappingRate(
             metrics(object),
-            interestingGroup = interestingGroups(object)[[1]],
+            interestingGroups = interestingGroups(object)[[1]],
             passLimit = passLimit,
             warnLimit = warnLimit,
             flip = flip)
