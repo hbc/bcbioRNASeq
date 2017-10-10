@@ -30,8 +30,8 @@ devtools::install_github("hbc/bcbioRNASeq")
 
 ```r
 library(bcbioRNASeq)
-bcb <- loadRNASeqRun(
-    file.path("bcbio_rnaseq_run", "final"),
+bcb <- loadRNASeq(
+    uploadDir = file.path("bcbio_rnaseq_run", "final"),
     interestingGroups = c("genotype", "treatment"))
 ```
 
@@ -42,7 +42,7 @@ Parameters:
 - `uploadDir`: Path to the [bcbio][] final upload directory.
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 
-Consult `help("loadRNASeqRun", "bcbioRNASeq")` for additional documentation.
+Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
 
 
 ## [RMarkdown][] templates
