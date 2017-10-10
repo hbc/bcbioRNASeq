@@ -43,11 +43,7 @@ setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
     }
 
     # Metadata
-    if (isTRUE(metrics)) {
-        metadata <- metrics(object)
-    } else {
-        metadata <- .interestingColData(object)
-    }
+    metadata <- metrics(object)
     metadata[["sampleName"]] <- NULL
     if (!length(colnames(metadata))) {
         stop("Sample metadata is empty")
