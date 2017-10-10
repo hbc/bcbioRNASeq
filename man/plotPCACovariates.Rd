@@ -23,7 +23,9 @@ plotPCACovariates(object, ...)
 \item \code{vst}: variance stabilizing transformation.
 }}
 
-\item{metrics}{Include sample summary metrics as covariates.}
+\item{metrics}{Include sample summary metrics as covariates. Defaults to
+include all metrics columns (\code{TRUE}), but desired columns can be specified
+here as a character vector.}
 }
 \value{
 \link{ggplot}.
@@ -33,7 +35,8 @@ plotPCACovariates(object, ...)
 }
 \examples{
 data(bcb)
-plotPCACovariates(bcb)
+plotPCACovariates(bcb, metrics = TRUE)
+plotPCACovariates(bcb, metrics = FALSE)
 }
 \seealso{
 \itemize{

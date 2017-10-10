@@ -11,7 +11,9 @@
 #'   [bcbioRNASeq] object:
 #'   - `rlog` (**recommended**).
 #'   - `vst`: variance stabilizing transformation.
-#' @param metrics Include sample summary metrics as covariates.
+#' @param metrics Include sample summary metrics as covariates. Defaults to
+#'   include all metrics columns (`TRUE`), but desired columns can be specified
+#'   here as a character vector.
 #' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
 #'
 #' @seealso
@@ -23,7 +25,8 @@
 #'
 #' @examples
 #' data(bcb)
-#' plotPCACovariates(bcb)
+#' plotPCACovariates(bcb, metrics = TRUE)
+#' plotPCACovariates(bcb, metrics = FALSE)
 NULL
 
 
@@ -42,17 +45,35 @@ setMethod("plotPCACovariates", "bcbioRNASeqANY", function(
         stop(paste("Valid transforms:", toString(transformArgs)))
     }
 
-    # Metadata
     metadata <- metrics(object)
-    metadata[["sampleName"]] <- NULL
-    if (!length(colnames(metadata))) {
-        stop("Sample metadata is empty")
+
+    # Select the metrics to use for plot
+    if (isTRUE(metrics)) {
+        # Subset the metadata data.frame
+        metadata <- metadata %>%
+            # Select only the numeric columns
+            select_if(is.numeric) %>%
+            # Drop columns that are all zeroes (not useful to plot)
+            .[, colSums(.) > 0]
+        # Sort columns alphabetically
+        metrics <- sort(colnames(metadata))
+    } else if (metrics == FALSE) {
+        # Use the defined interesting groups
+        metrics <- interestingGroups(object)
+    }
+
+    # Now select the columns to use for plotting
+    if (is.character(metrics) &
+        all(metrics %in% colnames(metadata))) {
+        metadata <- dplyr::select(metadata, metrics)
+    } else {
+        stop("Failed to select valid metrics for plot", call. = FALSE)
     }
 
     # Counts
     counts <- assays(object) %>%
         .[[transform]] %>%
-        # Assay needed here to get the matrix from the slotted DESeqTransform
+        # Assay needed to get matrix from the slotted DESeqTransform
         assay()
 
     degCovariates(
