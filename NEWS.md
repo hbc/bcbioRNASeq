@@ -1,3 +1,9 @@
+# bcbioRNASeq 0.0.28
+
+- Added support for output of unstructured data inside `bcbioRNASeq` S4 object using `flatFiles()` function.
+
+
+
 # bcbioRNASeq 0.0.27
 
 - Renamed `bcbioRNADataSet` S4 class to `bcbioRNASeq`. This matches the naming conventions in the [bcbioSingleCell][] package.
