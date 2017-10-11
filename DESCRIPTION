@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.0.27
+Version: 0.0.28
 Authors@R: as.person(c(
     "Michael Steinbaugh <mike@steinbaugh.com> [aut, cre]",
     "Lorena Pantano <lorena.pantano@gmail.com> [aut]",
@@ -26,7 +26,7 @@ Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.6.5)
 Imports:
-    basejump (>= 0.0.24),
+    basejump (>= 0.0.25),
     BiocGenerics,
     cowplot,
     data.table,
