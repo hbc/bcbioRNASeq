@@ -199,7 +199,7 @@ entrezID <- bitr(
 entrezID <- subset(entrezID, entrezgene != "NA")
 
 # Remove any duplicates
-entrezID <- entrezID[which(duplicated(entrezID$Row.names) == F), ]
+entrezID <- entrezID[which(duplicated(entrezID$Row.names) == FALSE), ]
 
 # Merge the Ensembl IDs with the results
 resEntrez <- merge(
