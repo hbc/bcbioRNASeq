@@ -58,9 +58,11 @@ data(res)
 # DESeqResults
 plotVolcano(res, genes = "Sulf1")
 
+\dontrun{
 # data.frame
 as.data.frame(res) \%>\%
     plotVolcano()
+}
 }
 \seealso{
 This function is an updated variant of
