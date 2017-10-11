@@ -1,6 +1,7 @@
 # bcbioRNASeq 0.0.28
 
 - Added support for output of unstructured data inside `bcbioRNASeq` S4 object using `flatFiles()` function.
+- Added `bcbioRNASeq` method support for `annotable()` generic.
 
 
 
