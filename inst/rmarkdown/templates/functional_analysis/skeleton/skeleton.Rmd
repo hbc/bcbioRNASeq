@@ -7,7 +7,8 @@ params:
     bcbFile: "data/bcb.rda"
     res: "data/res.rda"
     organism: "Hs"
-    speies: "human"
+    gspecies: "Hsa"
+    species: "human"
     alpha: 0.01
     lfc: 0
     goOnt: "BP"
@@ -214,7 +215,7 @@ foldchanges <- sort(foldchanges, decreasing = TRUE)
 
 ## GSEA using gene sets from KEGG pathways
 gseaKEGG <- gseKEGG(geneList = foldchanges,
-              organism = params$species,
+              organism = params$gspecies,
               nPerm = 1000,
               minGSSize = 120,
               pvalueCutoff = 0.05,
@@ -229,7 +230,7 @@ gseaKeggSummary
 
 ## Output images for all significant KEGG pathways
 get_kegg_plots <- function(x) {
-   pathview(gene.data = foldchanges, pathway.id = gseaKeggSummary$ID[x], species = "hsa", 
+   pathview(gene.data = foldchanges, pathway.id = gseaKeggSummary$ID[x], species = params$gspecies, 
        limit = list(gene = 2, cpd = 1))
 }
 
