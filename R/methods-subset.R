@@ -171,6 +171,8 @@ NULL
 
 }
 
+
+
 # Methods ====
 #' @rdname subset
 #' @export
@@ -183,7 +185,8 @@ setMethod(
         .subset(x, i, j, ..., drop)
     })
 
-# Methods ====
+
+
 #' @rdname subset
 #' @export
 setMethod(
