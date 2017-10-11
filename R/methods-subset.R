@@ -28,6 +28,9 @@
 #'
 #' # Subset by both genes and samples
 #' bcb[genes, samples]
+#'
+#' # Skip normalization
+#' bcb[genes, samples, skipNorm = TRUE]
 NULL
 
 
@@ -50,126 +53,144 @@ NULL
             colData = tmpData))
 }
 
+
+.subset <- function(x, i, j, ..., drop = FALSE){
+    if (missing(i)) {
+        i <- 1:nrow(x)
+    }
+    if (missing(j)) {
+        j <- 1:ncol(x)
+    }
+    dots <- list(...)
+    if (is.null(dots[["maxSamples"]])) {
+        maxSamples <- 50
+    } else {
+        maxSamples <- dots[["maxSamples"]]
+    }
+
+    if (is.null(dots[["skipNorm"]])) {
+        skipNorm <- FALSE
+    } else {
+        skipNorm <- dots[["skipNorm"]]
+    }
+
+    # Subset SE object ====
+    se <- SummarizedExperiment(
+        assays = SimpleList(counts(x)),
+        rowData = rowData(x),
+        colData = colData(x),
+        metadata = metadata(x))
+
+    tmp <- se[i, j, drop = drop]
+    tmpGenes <- row.names(tmp)
+    tmpRow <- rowData(tmp) %>%
+        as.data.frame()
+    tmpData <- colData(tmp) %>%
+        as.data.frame()
+    tmpTxi <- bcbio(x, "tximport")
+
+    # Subset tximport data ====
+    txi <- SimpleList(
+        abundance = tmpTxi[["abundance"]] %>%
+            .[tmpGenes, tmpData[["sampleID"]]],
+        counts = tmpTxi[["counts"]] %>%
+            .[tmpGenes, tmpData[["sampleID"]]],
+        length = tmpTxi[["length"]] %>%
+            .[tmpGenes, tmpData[["sampleID"]]],
+        countsFromAbundance = tmpTxi[["countsFromAbundance"]]
+    )
+    rawCounts <- txi[["counts"]]
+    tmm <- .tmm(rawCounts)
+    tpm <- txi[["abundance"]]
+
+    if (skipNorm) {
+        message("Skip re-normalization, just selecting samples and genes")
+        # To Fix if we find the solution.
+        # Only way to avoid disk space issue.
+        # Direct subset of dds create a huge file.
+        dds <- .createDDS(txi, tmpData) %>%
+            estimateSizeFactors()
+        vst <- .countSubset(counts(x, "vst")[i, j], tmpData)
+        rlog <- .countSubset(counts(x, "rlog")[i, j], tmpData)
+        normalizedCounts <- counts(x, "normalized")[i, j]
+    } else {
+        # Fix for unexpected disk space issue (see constructor above)
+        dds <- .createDDS(txi, tmpData)  %>%
+            DESeq()
+        normalizedCounts <- counts(dds, normalized = TRUE)
+    }
+
+    # rlog & variance ====
+    if (nrow(tmpData) > maxSamples & !skipNorm) {
+        message("Many samples detected...skipping count transformations")
+        rlog <- .countSubset(log2(tmm + 1), tmpData)
+        vst <- .countSubset(log2(tmm + 1), tmpData)
+    } else if (!skipNorm) {
+        message("Performing rlog transformation")
+        rlog <- rlog(dds)
+        message("Performing variance stabilizing transformation")
+        vst <- varianceStabilizingTransformation(dds)
+    }
+
+    if (is.matrix(bcbio(x, "featureCounts"))) {
+        tmpFC <- bcbio(x, "featureCounts") %>%
+            .[tmpGenes, tmpData[["sampleID"]], drop = FALSE]
+    } else {
+        tmpFC <- bcbio(x, "featureCounts")
+    }
+
+    # Subset Metrics ====
+    tmpMetadata <- metadata(x)
+    tmpMetrics <- tmpMetadata[["metrics"]] %>%
+        .[.[["sampleID"]] %in% tmpData[["sampleID"]], , drop = FALSE]
+    tmpMetadata[["metrics"]] <- tmpMetrics
+
+    tmpAssays <- SimpleList(
+        raw = rawCounts,
+        normalized = normalizedCounts,
+        tpm = tpm,
+        tmm = tmm,
+        rlog = rlog,
+        vst = vst)
+
+    # Slot additional data
+    extra <- SimpleList(
+        tximport = txi,
+        DESeqDataSet = dds,
+        featureCounts = tmpFC)
+
+    # bcbioRNASeq ====
+    bcb <- new("bcbioRNASeq",
+               SummarizedExperiment(
+                   assays = tmpAssays,
+                   colData = tmpData,
+                   rowData = tmpRow,
+                   metadata = tmpMetadata),
+               bcbio = extra)
+    bcb
+
+}
+
 # Methods ====
 #' @rdname subset
 #' @export
 setMethod(
     "[",
-    signature(x = "bcbioRNASeqANY",
+    signature(x = "bcbioRNASeq",
               i = "ANY",
               j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
-        if (missing(i)) {
-            i <- 1:nrow(x)
-        }
-        if (missing(j)) {
-            j <- 1:ncol(x)
-        }
-        dots <- list(...)
-        if (is.null(dots[["maxSamples"]])) {
-            maxSamples <- 50
-        } else {
-            maxSamples <- dots[["maxSamples"]]
-        }
+        .subset(x, i, j, ..., drop)
+    })
 
-        if (is.null(dots[["skipNorm"]])) {
-            skipNorm <- FALSE
-        } else {
-            skipNorm <- dots[["skipNorm"]]
-        }
-
-        # Subset SE object ====
-        se <- SummarizedExperiment(
-            assays = SimpleList(counts(x)),
-            rowData = rowData(x),
-            colData = colData(x),
-            metadata = metadata(x))
-
-        tmp <- se[i, j, drop = drop]
-        tmpGenes <- row.names(tmp)
-        tmpRow <- rowData(tmp) %>%
-            as.data.frame()
-        tmpData <- colData(tmp) %>%
-            as.data.frame()
-        tmpTxi <- bcbio(x, "tximport")
-
-        # Subset tximport data ====
-        txi <- SimpleList(
-            abundance = tmpTxi[["abundance"]] %>%
-                .[tmpGenes, tmpData[["sampleID"]]],
-            counts = tmpTxi[["counts"]] %>%
-                .[tmpGenes, tmpData[["sampleID"]]],
-            length = tmpTxi[["length"]] %>%
-                .[tmpGenes, tmpData[["sampleID"]]],
-            countsFromAbundance = tmpTxi[["countsFromAbundance"]]
-        )
-        rawCounts <- txi[["counts"]]
-        tmm <- .tmm(rawCounts)
-        tpm <- txi[["abundance"]]
-
-        if (skipNorm) {
-            message("Skip re-normalization, just selecting samples and genes")
-            # To Fix if we find the solution.
-            # Only way to avoid disk space issue.
-            # Direct subset of dds create a huge file.
-            dds <- .createDDS(txi, tmpData) %>%
-                estimateSizeFactors()
-            vst <- .countSubset(counts(x, "vst")[i, j], tmpData)
-            rlog <- .countSubset(counts(x, "rlog")[i, j], tmpData)
-            normalizedCounts <- counts(x, "normalized")[i, j]
-        } else {
-            # Fix for unexpected disk space issue (see constructor above)
-            dds <- .createDDS(txi, tmpData)  %>%
-                DESeq()
-            normalizedCounts <- counts(dds, normalized = TRUE)
-        }
-
-        # rlog & variance ====
-        if (nrow(tmpData) > maxSamples & !skipNorm) {
-            message("Many samples detected...skipping count transformations")
-            rlog <- .countSubset(log2(tmm + 1), tmpData)
-            vst <- .countSubset(log2(tmm + 1), tmpData)
-        } else if (!skipNorm) {
-            message("Performing rlog transformation")
-            rlog <- rlog(dds)
-            message("Performing variance stabilizing transformation")
-            vst <- varianceStabilizingTransformation(dds)
-        }
-
-        if (is.matrix(bcbio(x, "featureCounts"))) {
-            tmpFC <- bcbio(x, "featureCounts") %>%
-                .[tmpGenes, tmpData[["sampleID"]], drop = FALSE]
-        } else {
-            tmpFC <- bcbio(x, "featureCounts")
-        }
-
-        # Subset Metrics ====
-        tmpMetadata <- metadata(x)
-        tmpMetrics <- tmpMetadata[["metrics"]] %>%
-            .[.[["sampleID"]] %in% tmpData[["sampleID"]], , drop = FALSE]
-        tmpMetadata[["metrics"]] <- tmpMetrics
-
-        tmpAssays <- SimpleList(
-            raw = rawCounts,
-            normalized = normalizedCounts,
-            tpm = tpm,
-            tmm = tmm,
-            rlog = rlog,
-            vst = vst)
-
-        # Slot additional data
-        extra <- SimpleList(
-            tximport = txi,
-            DESeqDataSet = dds,
-            featureCounts = tmpFC)
-
-        # bcbioRNASeq ====
-        bcb <- new("bcbioRNASeq",
-            SummarizedExperiment(
-                assays = tmpAssays,
-                colData = tmpData,
-                rowData = tmpRow,
-                metadata = tmpMetadata),
-            bcbio = extra)
-        bcb
+# Methods ====
+#' @rdname subset
+#' @export
+setMethod(
+    "[",
+    signature(x = "bcbioRNADataSet",
+              i = "ANY",
+              j = "ANY"),
+    function(x, i, j, ..., drop = FALSE) {
+        .subset(x, i, j, ..., drop)
     })
