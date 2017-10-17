@@ -44,7 +44,7 @@ NULL
 #' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
-        stop("DE results directory missing")
+        stop("DE results directory missing", call. = FALSE)
     }
     all <- resTbl[["allFile"]]
     deg <- resTbl[["degFile"]]
@@ -82,7 +82,7 @@ NULL
         genomeBuild <- rownames(object)[[1]] %>%
             detectOrganism()
     }
-    anno <- annotable(genomeBuild)
+    anno <- annotable(genomeBuild, quiet = FALSE)
 
     all <- object %>%
         as.data.frame() %>%
