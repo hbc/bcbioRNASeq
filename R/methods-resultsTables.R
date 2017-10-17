@@ -82,7 +82,7 @@ NULL
         genomeBuild <- rownames(object)[[1]] %>%
             detectOrganism()
     }
-    anno <- annotable(genomeBuild, quiet = FALSE)
+    anno <- annotable(genomeBuild)
 
     all <- object %>%
         as.data.frame() %>%
