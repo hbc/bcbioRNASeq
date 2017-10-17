@@ -44,7 +44,7 @@ NULL
 #' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
-        stop("DE results directory missing")
+        stop("DE results directory missing", call. = FALSE)
     }
     all <- resTbl[["allFile"]]
     deg <- resTbl[["degFile"]]
@@ -82,7 +82,7 @@ NULL
         genomeBuild <- rownames(object)[[1]] %>%
             detectOrganism()
     }
-    anno <- annotable(genomeBuild)
+    anno <- annotable(genomeBuild, quiet = FALSE)
 
     all <- object %>%
         as.data.frame() %>%
@@ -148,17 +148,20 @@ NULL
         .mdResultsTables(resTbl, dir)
     }
 
-    mdHeader("Summary statistics", level = headerLevel)
-    mdList(c(
-        paste(nrow(all), "genes in count matrix"),
-        paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-        paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
-        paste("alpha cutoff:", alpha),
-        paste("lfc cutoff:", lfc, "(applied in tables only)"),
-        paste("deg pass alpha:", nrow(deg), "genes"),
-        paste("deg lfc up:", nrow(degLFCUp), "genes"),
-        paste("deg lfc down:", nrow(degLFCDown), "genes")
-    ))
+    mdHeader(
+        "Summary statistics",
+        level = headerLevel,
+        asis = TRUE)
+    mdList(
+        c(paste(nrow(all), "genes in count matrix"),
+          paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+          paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
+          paste("alpha cutoff:", alpha),
+          paste("lfc cutoff:", lfc, "(applied in tables only)"),
+          paste("deg pass alpha:", nrow(deg), "genes"),
+          paste("deg lfc up:", nrow(degLFCUp), "genes"),
+          paste("deg lfc down:", nrow(degLFCDown), "genes")),
+        asis = TRUE)
 
     resTbl
 }
