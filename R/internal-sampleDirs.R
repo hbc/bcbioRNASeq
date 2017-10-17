@@ -32,6 +32,9 @@
     } else {
         # Generate names from file paths and make valid
         names <- basename(sampleDirs) %>%
+            gsub(x = .,
+                 pattern = "-",
+                 replacement = "_") %>%
             make.names()
         sampleDirs <- normalizePath(sampleDirs) %>%
             setNames(names)
