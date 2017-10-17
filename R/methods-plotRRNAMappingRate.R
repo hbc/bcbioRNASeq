@@ -32,6 +32,17 @@ NULL
     interestingGroups = "sampleName",
     warnLimit = 10,
     flip = TRUE) {
+    # Fix for camel variant mismatch (e.g. rRnaRate).
+    if (!"rrnaRate" %in% colnames(object)) {
+        # grep match the outdated camel variant
+        col <- grep(x = colnames(object),
+                    pattern = "rrnarate",
+                    ignore.case = TRUE,
+                    value = TRUE)
+        object[["rrnaRate"]] <- object[[col]]
+        object[[col]] <- NULL
+    }
+
     p <- ggplot(
         object,
         mapping = aes_(
