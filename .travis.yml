@@ -4,7 +4,6 @@ sudo: false
 dist: trusty
 warnings_are_errors: false
 r:
-  - bioc-release
   - bioc-devel
 r_github_packages:
   - r-lib/covr
