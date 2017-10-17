@@ -1,5 +1,5 @@
-sampleName,group
-group1_1,ctrl
-group1_2,ctrl
-group2_1,ko
-group2_2,ko
+description,group
+group1-1,ctrl
+group1-2,ctrl
+group2-1,ko
+group2-2,ko
