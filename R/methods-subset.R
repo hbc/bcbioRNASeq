@@ -117,7 +117,7 @@ NULL
         # Fix for unexpected disk space issue (see constructor above)
         dds <- .createDDS(txi, tmpData)
         # DESeq2 will warn about empty design formula
-        dds <- suppressWarnings(DESeq())
+        dds <- suppressWarnings(DESeq(dds))
         normalizedCounts <- counts(dds, normalized = TRUE)
     }
 
