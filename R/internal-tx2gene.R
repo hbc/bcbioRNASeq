@@ -1,5 +1,5 @@
 .sanitize <- function(tx2gene){
-    tx2gene[["enstxp"]] = gsub("\\.[0-9]+", "", tx2gene[["enstxp"]])
+    tx2gene[["enstxp"]] <- gsub("\\.[0-9]+", "", tx2gene[["enstxp"]])
     tx2gene
 }
 
