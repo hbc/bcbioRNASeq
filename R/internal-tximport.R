@@ -55,5 +55,5 @@
              tx2gene = as.data.frame(tx2gene),
              importer = read_tsv,
              countsFromAbundance = countsFromAbundance,
-            ignoreTxVersion = TRUE)
+             ignoreTxVersion = TRUE)
 }
