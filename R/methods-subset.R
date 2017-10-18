@@ -46,6 +46,8 @@ NULL
         design = formula(~1))
 }
 
+
+
 .countSubset <- function(x, tmpData) {
     DESeqTransform(
         SummarizedExperiment(
@@ -54,7 +56,8 @@ NULL
 }
 
 
-.subset <- function(x, i, j, ..., drop = FALSE){
+
+.subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)
     }
@@ -169,7 +172,6 @@ NULL
                    metadata = tmpMetadata),
                bcbio = extra)
     bcb
-
 }
 
 
