@@ -7,6 +7,8 @@
 #' @name flatFiles
 #' @author Michael Steinbaugh, Rory Kirchner
 #'
+#' @inheritParams AllGenerics
+#'
 #' @return [list].
 NULL
 
