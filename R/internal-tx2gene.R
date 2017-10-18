@@ -1,3 +1,8 @@
+.sanitize <- function(tx2gene){
+    tx2gene[["enstxp"]] = gsub("\\.[0-9]+", "", tx2gene[["enstxp"]])
+    tx2gene
+}
+
 #' Transcript to Gene Annotations
 #'
 #' @author Michael Steinbaugh
@@ -16,7 +21,8 @@
         read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
             as.data.frame() %>%
-            set_rownames(.[["enstxp"]])
+            set_rownames(.[["enstxp"]]) %>%
+            .sanitize()
     } else {
         # Fall back to using annotable tx2gene
         warning(paste(
