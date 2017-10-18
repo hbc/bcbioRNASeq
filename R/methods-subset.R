@@ -115,8 +115,9 @@ NULL
         normalizedCounts <- counts(x, "normalized")[i, j]
     } else {
         # Fix for unexpected disk space issue (see constructor above)
-        dds <- .createDDS(txi, tmpData)  %>%
-            DESeq()
+        dds <- .createDDS(txi, tmpData)
+        # DESeq2 will warn about empty design formula
+        dds <- suppressWarnings(DESeq())
         normalizedCounts <- counts(dds, normalized = TRUE)
     }
 
