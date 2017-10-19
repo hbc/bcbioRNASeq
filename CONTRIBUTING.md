@@ -2,7 +2,7 @@
 
 - For all changes, fork or create a new branch, then issue a pull request that will be reviewed.
 - Do not commit changes directly to master branch.
-- Open issues for any changes affecting `bcbioRNADataSet` class.
+- Open issues for any changes affecting `bcbioRNASeq` class.
 - Support is only provided for the current release version.
 
 
@@ -20,7 +20,7 @@ Attempt to follow these style guides, by priority: (1) [Bioconductor coding styl
 
 ## Required checks
 
-If there are changes to `bcbioRNADataSet` class or `loadRNASeqRun()` function, be sure to rebuild all working example data:
+If there are changes to `bcbioRNASeq` class or `loadRNASeq()` function, be sure to rebuild all working example data:
 
 ```r
 source(file.path("data-raw", "examples.R"))
@@ -32,6 +32,7 @@ For all package updates, run these commands prior to a pull request:
 lintr::lint_package()
 devtools::document()
 devtools::check()
+devtools::test()
 BiocCheck::BiocCheck(getwd())
 pkgdown::build_site()
 ```

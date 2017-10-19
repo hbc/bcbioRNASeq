@@ -217,7 +217,11 @@ loadRNASeq <- function(
         fc <- read_tsv(fcFile) %>%
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
-            set_colnames(make.names(colnames(.))) %>%
+            set_colnames(
+                gsub(x = make.names(colnames(.), unique = TRUE),
+                     pattern = "\\.",
+                     replacement = "_")
+            ) %>%
             column_to_rownames("id") %>%
             as.matrix()
         if (!identical(colnames(rawCounts), colnames(fc))) {
@@ -226,7 +230,9 @@ loadRNASeq <- function(
             # Safe to remove in a future update.
             # Subset columns by matching STAR sample name in metrics.
             fc <- fc %>%
-                .[, make.names(pull(metrics, "name"))] %>%
+                .[, gsub(x = make.names(pull(metrics, "name"), unique = TRUE),
+                        pattern = "\\.",
+                        replacement = "_"), drop = FALSE] %>%
                 # Ensure column names match tximport
                 set_colnames(colnames(rawCounts))
         }

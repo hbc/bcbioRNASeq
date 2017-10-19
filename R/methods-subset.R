@@ -46,6 +46,8 @@ NULL
         design = formula(~1))
 }
 
+
+
 .countSubset <- function(x, tmpData) {
     DESeqTransform(
         SummarizedExperiment(
@@ -54,7 +56,8 @@ NULL
 }
 
 
-.subset <- function(x, i, j, ..., drop = FALSE){
+
+.subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)
     }
@@ -115,8 +118,9 @@ NULL
         normalizedCounts <- counts(x, "normalized")[i, j]
     } else {
         # Fix for unexpected disk space issue (see constructor above)
-        dds <- .createDDS(txi, tmpData)  %>%
-            DESeq()
+        dds <- .createDDS(txi, tmpData)
+        # DESeq2 will warn about empty design formula
+        dds <- suppressWarnings(DESeq(dds))
         normalizedCounts <- counts(dds, normalized = TRUE)
     }
 
@@ -168,7 +172,6 @@ NULL
                    metadata = tmpMetadata),
                bcbio = extra)
     bcb
-
 }
 
 
