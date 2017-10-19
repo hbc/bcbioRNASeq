@@ -1,0 +1,4 @@
+# blocklist
+branches:
+  except:
+  - f1000v1
