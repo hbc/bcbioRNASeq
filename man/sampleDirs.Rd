@@ -19,6 +19,5 @@ This method will be used to access folders where sample information is kept.
 }
 \examples{
 data(bcb)
-sampleDirs(bcb) \%>\%
-    basename()
+sampleDirs(bcb) \%>\% basename()
 }
