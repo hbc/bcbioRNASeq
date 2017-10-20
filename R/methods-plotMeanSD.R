@@ -10,6 +10,11 @@
 #'
 #' @inheritParams AllGenerics
 #'
+#' @param orientation Orientation to use for plot grid, either `horizontal` or
+#'   `vertical` (default).
+#' @param showLegend Include the color bar legend. This is typically not that
+#'   informative and is disabled by default, to improve the plot appearance.
+#'
 #' @return [ggplot] grid.
 #'
 #' @examples
@@ -29,15 +34,17 @@ NULL
     raw,
     normalized,
     rlog,
-    vst) {
+    vst,
+    orientation = "vertical",
+    showLegend = FALSE) {
     xlab <- "rank (mean)"
     nonzero <- raw %>%
-        rowSums %>%
+        rowSums() %>%
         `>`(0)
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1) %>%
-        log2 %>%
+        log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("log2") +
@@ -47,19 +54,42 @@ NULL
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("rlog") +
-        xlab(xlab)
+        xlab(xlab) +
+        theme(legend.position = "none")
     ggvst <- vst %>%
         .[nonzero, , drop = FALSE] %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
-        ggtitle("variance stabilizing transformation") +
-        xlab(xlab)
+        ggtitle("vst") +
+        xlab(xlab) +
+        theme(legend.position = "none")
+
+    # Remove the plot (color) legend, if desired
+    if (!isTRUE(showLegend)) {
+        gglog2 <- gglog2 +
+            theme(legend.position = "none")
+        ggrlog <- ggrlog +
+            theme(legend.position = "none")
+        ggvst <- ggvst +
+            theme(legend.position = "none")
+    }
+
+    # Return either horizontal or vertical
+    if (orientation == "horizontal") {
+        ncol <- 3
+        nrow <- 1
+    } else if (orientation == "vertical") {
+        ncol <- 1
+        nrow <- 3
+    }
+
     plot_grid(
         gglog2,
         ggrlog,
         ggvst,
-        labels = "auto",
-        nrow = 3)
+        labels = "AUTO",
+        ncol = ncol,
+        nrow = nrow)
 }
 
 
@@ -69,7 +99,10 @@ NULL
 setMethod(
     "plotMeanSD",
     signature("bcbioRNASeqANY"),
-    function(object) {
+    function(
+        object,
+        orientation = "vertical",
+        showLegend = FALSE) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
@@ -84,7 +117,10 @@ setMethod(
 setMethod(
     "plotMeanSD",
     signature("DESeqDataSet"),
-    function(object) {
+    function(
+        object,
+        orientation = "vertical",
+        showLegend = FALSE) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),

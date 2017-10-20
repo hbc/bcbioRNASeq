@@ -7,6 +7,7 @@
 #' @rdname tmm
 #' @name tmm
 #' @author Michael Steinbaugh
+#' @keywords internal
 #'
 #' @inheritParams AllGenerics
 #'

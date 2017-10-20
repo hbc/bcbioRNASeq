@@ -9,14 +9,22 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeqANY}(object)
+\S4method{plotMeanSD}{bcbioRNASeqANY}(object, orientation = "vertical",
+  showLegend = FALSE)
 
-\S4method{plotMeanSD}{DESeqDataSet}(object)
+\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = "vertical",
+  showLegend = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
+\code{vertical} (default).}
+
+\item{showLegend}{Include the color bar legend. This is typically not that
+informative and is disabled by default, to improve the plot appearance.}
 }
 \value{
 \link{ggplot} grid.
