@@ -1,12 +1,12 @@
-.sanitize <- function(tx2gene){
-    tx2gene[["enstxp"]] <- gsub("\\.[0-9]+", "", tx2gene[["enstxp"]])
-    tx2gene
-}
-
 #' Transcript to Gene Annotations
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
+#'
+#' @importFrom dplyr arrange mutate
+#' @importFrom magrittr set_rownames
+#' @importFrom readr read_csv
+#' @importFrom rlang !! sym
 #'
 #' @param projectDir Project directory.
 #' @param genomeBuild Genome build.
@@ -21,8 +21,14 @@
         read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
             as.data.frame() %>%
-            set_rownames(.[["enstxp"]]) %>%
-            .sanitize()
+            # Ensure transcript versions are removed
+            mutate(
+                enstxp = gsub(
+                    x = .data[["enstxp"]],
+                    pattern = "\\.\\d+",
+                    replacement = "")
+            ) %>%
+            set_rownames(.[["enstxp"]])
     } else {
         # Fall back to using annotable tx2gene
         warning(paste(
