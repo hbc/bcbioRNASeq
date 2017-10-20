@@ -4,6 +4,8 @@
 #' @name annotable
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump annotable
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [data.frame]

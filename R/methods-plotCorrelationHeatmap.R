@@ -11,6 +11,9 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
+#' @importFrom pheatmap pheatmap
+#' @importFrom S4Vectors cor
+#'
 #' @inherit plotGeneHeatmap
 #'
 #' @inheritParams AllGenerics
@@ -37,6 +40,10 @@ NULL
 
 
 # Constructors ====
+#' @importFrom dplyr mutate_all
+#' @importFrom stats setNames
+#' @importFrom tibble column_to_rownames rownames_to_column
+#' @importFrom viridis inferno viridis
 .plotCorrelationHeatmap <- function(
     counts,
     method,
@@ -83,7 +90,7 @@ NULL
                 names(colors) <- col
                 colors
             }) %>%
-            set_names(colnames(annotationCol))
+            setNames(colnames(annotationCol))
     } else {
         annotationColors <- NULL
     }
@@ -127,7 +134,7 @@ setMethod(
         title = NULL) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
-            stop("DESeqTransform must be rlog or vst")
+            stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%

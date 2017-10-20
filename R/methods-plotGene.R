@@ -33,6 +33,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom viridis scale_color_viridis
 .plotGene <- function(
     counts,
     gene,

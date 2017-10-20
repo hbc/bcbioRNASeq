@@ -3,6 +3,8 @@
 #' @rdname interestingGroups
 #' @name interestingGroups
 #'
+#' @importFrom basejump interestingGroups
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return Character vector.

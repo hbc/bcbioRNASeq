@@ -7,6 +7,8 @@
 #' @author Rory Kirchner, Michael Steinbaugh
 #' @inheritParams AllGenerics
 #'
+#' @importFrom BiocGenerics plotMA
+#'
 #' @param alpha Alpha level cutoff (Adjusted P value).
 #' @param labelPoints *Optional*. Label these particular points.
 #' @param labelColumn Match `labelPoints` argument to this column in the
@@ -33,6 +35,8 @@ NULL
 
 
 # Constructors ====
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
 .plotMA <- function(
     object,
     alpha = 0.01,

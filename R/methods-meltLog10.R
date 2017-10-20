@@ -31,6 +31,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom dplyr left_join
 .joinMelt <- function(counts, metadata) {
     if (!identical(colnames(counts), metadata[["sampleID"]])) {
         stop("Sample name mismatch between counts and metadata")
@@ -41,6 +42,10 @@ NULL
 
 
 
+#' @importFrom dplyr mutate
+#' @importFrom reshape2 melt
+#' @importFrom stats setNames
+#' @importFrom tibble rownames_to_column
 .meltLog10 <- function(counts) {
     counts %>%
         as.data.frame() %>%

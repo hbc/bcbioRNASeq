@@ -36,9 +36,16 @@ NULL
 
 
 # Constructors ====
-# This operation must be placed outside of the S4 method dispatch. Otherwise,
-# the resulting subset object will be ~2X the expected size on disk when saving,
-# for an unknown reason.
+#' Create DDS
+#'
+#' This operation must be placed outside of the S4 method dispatch. Otherwise,
+#' the resulting subset object will be ~2X the expected size on disk when
+#' saving, for an unknown reason.
+#'
+#' @noRd
+#'
+#' @importFrom DESeq2 DESeqDataSetFromTximport
+#' @importFrom stats formula
 .createDDS <- function(txi, tmpData) {
     DESeqDataSetFromTximport(
         txi = txi,
@@ -48,6 +55,7 @@ NULL
 
 
 
+#' @importFrom DESeq2 DESeqTransform
 .countSubset <- function(x, tmpData) {
     DESeqTransform(
         SummarizedExperiment(
@@ -57,6 +65,9 @@ NULL
 
 
 
+#' @importFrom DESeq2 DESeq estimateSizeFactors rlog
+#'   varianceStabilizingTransformation
+#' @importFrom S4Vectors SimpleList
 .subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)

@@ -31,6 +31,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump camel
 .plotDEGHeatmap <- function(
     results,
     counts,
@@ -40,7 +41,7 @@ NULL
     ...) {
     results <- results %>%
         as.data.frame() %>%
-        camel() %>%
+        camel(strict = FALSE) %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
         .[.[["padj"]] < alpha, , drop = FALSE] %>%

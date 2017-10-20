@@ -5,6 +5,8 @@
 #' @rdname sampleMetadata
 #' @name sampleMetadata
 #'
+#' @importFrom basejump sampleMetadata
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [data.frame].

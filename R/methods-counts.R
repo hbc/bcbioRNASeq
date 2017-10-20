@@ -8,7 +8,10 @@
 #' @name counts
 #' @author Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics counts
+#'
 #' @inheritParams AllGenerics
+#'
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
 #'   - `tpm`: Transcripts per million.

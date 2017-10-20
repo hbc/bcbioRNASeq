@@ -21,7 +21,14 @@ NULL
 
 
 # Constructors ====
-.plotGenderMarkers <- function(object, organism, ylab = "counts") {
+#' @importFrom dplyr left_join pull
+#' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
+#' @importFrom stats setNames
+#' @importFrom viridis scale_color_viridis
+.plotGenderMarkers <- function(
+    object,
+    organism,
+    ylab = "counts") {
     counts <- object
 
     # Load the relevant internal gender markers data
@@ -29,9 +36,9 @@ NULL
     if (organism == "Mus musculus") {
         markers <- get("genderMarkersMmusculus", envir = envir)
     } else if (organism == "Homo sapiens") {
-        stop("Human marker support coming in future update")
+        stop("Human marker support coming in future update", call. = FALSE)
     } else {
-        stop("Unsupported organism")
+        stop("Unsupported organism", call. = FALSE)
     }
 
     # Ensembl identifiers

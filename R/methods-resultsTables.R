@@ -64,6 +64,11 @@ NULL
 
 
 
+#' @importFrom basejump annotable camel snake
+#' @importFrom dplyr arrange desc left_join
+#' @importFrom readr write_csv
+#' @importFrom rlang !! sym
+#' @importFrom tibble rownames_to_column
 .resultsTablesDESeqResults <- function(
     object,
     lfc = 0,

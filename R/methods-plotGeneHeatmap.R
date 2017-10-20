@@ -12,6 +12,8 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
+#' @importFrom pheatmap pheatmap
+#'
 #' @inheritParams AllGenerics
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
@@ -44,6 +46,9 @@ NULL
 
 
 # Constructors ====
+#' @importFrom dplyr mutate_all
+#' @importFrom tibble column_to_rownames rownames_to_column
+#' @importFrom viridis inferno viridis
 .plotGeneHeatmap <- function(
     counts,
     genes = NULL,

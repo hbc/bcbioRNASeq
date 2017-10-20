@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
     counts,

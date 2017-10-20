@@ -36,6 +36,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
     counts,

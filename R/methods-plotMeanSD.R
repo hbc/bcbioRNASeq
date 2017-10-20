@@ -8,6 +8,8 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @importFrom vsn meanSdPlot
+#'
 #' @inheritParams AllGenerics
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
@@ -30,6 +32,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom cowplot plot_grid
 .plotMeanSD <- function(
     raw,
     normalized,
@@ -107,12 +110,15 @@ setMethod(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = counts(object, normalized = "rlog"),
-            vst = counts(object, normalized = "vst"))
+            vst = counts(object, normalized = "vst"),
+            orientation = orientation,
+            showLegend = showLegend)
     })
 
 
 
 #' @rdname plotMeanSD
+#' @importFrom DESeq2 rlog varianceStabilizingTransformation
 #' @export
 setMethod(
     "plotMeanSD",
@@ -125,5 +131,7 @@ setMethod(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = assay(rlog(object)),
-            vst = assay(varianceStabilizingTransformation(object)))
+            vst = assay(varianceStabilizingTransformation(object)),
+            orientation = orientation,
+            showLegend = showLegend)
     })

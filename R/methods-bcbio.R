@@ -7,7 +7,10 @@
 #' @name bcbio
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
+#' @importFrom basejump bcbio bcbio<-
+#'
 #' @inheritParams AllGenerics
+#'
 #' @param type Type of data to retrieve.
 #' @param value Value to assign.
 #'

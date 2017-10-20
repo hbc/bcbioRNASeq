@@ -9,6 +9,8 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
+#' @importFrom edgeR calcNormFactors cpm DGEList
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [matrix].

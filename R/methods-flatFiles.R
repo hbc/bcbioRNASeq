@@ -7,6 +7,8 @@
 #' @name flatFiles
 #' @author Michael Steinbaugh, Rory Kirchner
 #'
+#' @importFrom basejump flatFiles
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [list].

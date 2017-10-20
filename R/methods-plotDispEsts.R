@@ -5,6 +5,8 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics plotDispEsts
+#'
 #' @inheritParams AllGenerics
 #' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
 #'

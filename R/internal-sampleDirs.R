@@ -3,6 +3,8 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
+#' @importFrom stats setNames
+#'
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function

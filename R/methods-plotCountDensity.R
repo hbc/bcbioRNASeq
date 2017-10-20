@@ -28,6 +28,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
     interestingGroups = "sampleName",

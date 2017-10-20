@@ -6,6 +6,9 @@
 #' @rdname plotPCA
 #' @name plotPCA
 #' @author Michael Steinbaugh
+#'
+#' @importFrom BiocGenerics plotPCA
+#'
 #' @inheritParams AllGenerics
 #'
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
@@ -31,6 +34,10 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump camel
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
+#' @importFrom viridis scale_color_viridis
 .plotPCA <- function(
     object,
     transform = "rlog",

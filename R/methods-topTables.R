@@ -19,6 +19,10 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump fixNA
+#' @importFrom dplyr mutate rename
+#' @importFrom S4Vectors head
+#' @importFrom tibble remove_rownames
 .subsetTop <- function(df, n, coding) {
     if (isTRUE(coding)) {
         df <- df %>%
@@ -34,11 +38,15 @@ NULL
                           digits = 3,
                           scientific = TRUE),
             # Remove symbol information in description, if present
-            description = str_replace(.data[["description"]],
-                                      " \\[.+\\]$",
-                                      "")) %>%
-        .[, c("ensgene", "baseMean", "lfc", "padj",
-              "symbol", "description")] %>%
+            description = gsub(x = .data[["description"]],
+                               pattern = " \\[.+\\]$",
+                               replacement = "")) %>%
+        .[, c("ensgene",
+              "baseMean",
+              "lfc",
+              "padj",
+              "symbol",
+              "description")] %>%
         remove_rownames() %>%
         fixNA()
 }
@@ -47,6 +55,7 @@ NULL
 
 # Methods ====
 #' @rdname topTables
+#' @importFrom knitr kable
 #' @export
 setMethod(
     "topTables",

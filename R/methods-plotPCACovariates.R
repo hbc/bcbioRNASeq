@@ -33,6 +33,7 @@ NULL
 
 # Constructors ====
 #' @importFrom DEGreport degCovariates
+#' @importFrom dplyr select_if
 .plotPCACovariates <- function(
     object,
     metrics = TRUE,

@@ -5,14 +5,15 @@
 #' @rdname sampleDirs
 #' @name sampleDirs
 #'
+#' @importFrom basejump sampleDirs
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return Named character vector containing sample directory paths.
 #'
 #' @examples
 #' data(bcb)
-#' sampleDirs(bcb) %>%
-#'     basename()
+#' sampleDirs(bcb) %>% basename()
 NULL
 
 

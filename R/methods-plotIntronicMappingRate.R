@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",

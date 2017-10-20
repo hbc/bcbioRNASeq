@@ -41,6 +41,15 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump annotable camel
+#' @importFrom BiocGenerics density
+#' @importFrom cowplot draw_plot ggdraw
+#' @importFrom dplyr arrange desc left_join mutate
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
+#' @importFrom rlang !! sym
+#' @importFrom S4Vectors na.omit
+#' @importFrom tibble rownames_to_column
 .plotVolcano <- function(
     object,
     alpha = 0.01,
