@@ -4,6 +4,7 @@ library(DESeq2)
 library(ggplot2)
 library(cowplot)
 
+source("loadRNASeq.R")
 loadData(bcb)
 
 theme_set(
