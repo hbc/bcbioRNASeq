@@ -10,8 +10,7 @@
 #'
 #' @examples
 #' data(bcb)
-#' tpm(bcb) %>%
-#'     head()
+#' tpm(bcb) %>% head()
 NULL
 
 
