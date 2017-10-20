@@ -1,3 +1,11 @@
+# bcbioRNASeq 0.1.0
+
+- Updated version and author information to match the F1000 Research workflow.
+- Added an `f1000v1` branch containing the reproducible code used to generate the figures in our workflow.
+- Modified `plotMA()` to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.
+
+
+
 # bcbioRNASeq 0.0.28
 
 - Added support for output of unstructured data inside `bcbioRNASeq` S4 object using `flatFiles()` function.

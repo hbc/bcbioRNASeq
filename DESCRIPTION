@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.0.28
+Version: 0.1.0
 Authors@R: as.person(c(
     "Michael Steinbaugh <mike@steinbaugh.com> [aut, cre]",
     "Lorena Pantano <lorena.pantano@gmail.com> [aut]",
@@ -11,6 +11,7 @@ Authors@R: as.person(c(
     "Mary Piper <mary.piper@gmail.com> [aut]",
     "Meeta Mistry <meeta.mistry@gmail.com> [aut]",
     "Radhika Khetani <rkhetani@hsph.harvard.edu> [aut]",
+    "Kayleigh Rutherford <kayrut1@gmail.com> [aut]",
     "John Hutchinson <jnhutchinson@gmail.com> [aut]",
     "Shannan Ho Sui <shosui@hsph.harvard.edu> [aut]",
     "Harvard Chan Bioinformatics Core <bioinformatics@hsph.harvard.edu> [cph, fnd]"
