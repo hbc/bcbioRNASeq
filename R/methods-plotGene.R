@@ -5,6 +5,8 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump plotGene
+#'
 #' @inherit qcPlots
 #'
 #' @inheritParams AllGenerics
