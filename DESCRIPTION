@@ -36,6 +36,7 @@ Imports:
     edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
     ggrepel,
+    grid,
     knitr,
     magrittr,
     methods,
