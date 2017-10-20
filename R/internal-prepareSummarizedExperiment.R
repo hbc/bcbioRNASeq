@@ -14,10 +14,12 @@
 #' @family bcbio Utilities
 #' @keywords internal
 #'
+#' @importFrom devtools session_info
 #' @importFrom magrittr set_rownames
 #' @importFrom S4Vectors head
 #' @importFrom scales percent
 #' @importFrom tibble column_to_rownames has_rownames
+#' @importFrom utils sessionInfo
 #'
 #' @param assays List containing RNA-seq count matrices with matching
 #'   dimensions. Counts can be passed in either dense (`matrix`) or sparse

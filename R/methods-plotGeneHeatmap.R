@@ -47,6 +47,7 @@ NULL
 
 # Constructors ====
 #' @importFrom dplyr mutate_all
+#' @importFrom stats setNames
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom viridis inferno viridis
 .plotGeneHeatmap <- function(
@@ -107,7 +108,7 @@ NULL
                 names(colors) <- col
                 colors
             }) %>%
-            set_names(colnames(annotationCol))
+            setNames(colnames(annotationCol))
     } else {
         annotationColors <- NULL
     }
