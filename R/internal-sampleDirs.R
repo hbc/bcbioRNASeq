@@ -21,21 +21,22 @@
         unique()
 
     # Ensure removal of nested `projectDir`
-    if (any(str_detect(basename(sampleDirs), projectDirPattern))) {
+    if (any(grepl(x = basename(sampleDirs),
+                  pattern = projectDirPattern))) {
         sampleDirs <- sampleDirs %>%
-            .[!str_detect(basename(.), projectDirPattern)]
+            .[!grepl(x = basename(.), pattern = projectDirPattern)]
     }
 
     # Return
     if (length(sampleDirs) == 0) {
-        stop("No sample directories detected")
+        stop("No sample directories detected", call. = FALSE)
     } else {
         # Generate names from file paths and make valid
         names <- basename(sampleDirs) %>%
+            make.names(unique = TRUE) %>%
             gsub(x = .,
-                 pattern = "-",
-                 replacement = "_") %>%
-            make.names()
+                 pattern = "\\.",
+                 replacement = "_")
         sampleDirs <- normalizePath(sampleDirs) %>%
             setNames(names)
         message(paste(length(sampleDirs), "samples detected"))
