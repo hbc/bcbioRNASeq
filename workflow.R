@@ -51,7 +51,7 @@ dev.off()
 
 # Figure 3 ====
 pdf("figures/plotMeanSD.pdf", width = 3, height = 9)
-plotMeanSD(bcb)
+plotMeanSD(bcb, orientation = "horizontal")
 dev.off()
 
 
