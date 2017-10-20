@@ -13,4 +13,4 @@ bcb <- loadRNASeq(
     interestingGroups = "group",
     ensemblVersion = "current"
 )
-save(bcb, file = "bcb.rda", compress = "xz")
+saveData(bcb)
