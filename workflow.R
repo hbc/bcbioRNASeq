@@ -13,12 +13,29 @@ library(DESeq2)
 library(DEGreport)
 library(bcbioRNASeq)
 
-source("loadRNASeq.R")
-loadData(bcb)
-
 theme_set(
     theme_gray(base_size = 10)
 )
+
+
+
+# Load bcbio run ====
+# GSE65267
+bcb <- loadRNASeq(
+    uploadDir = file.path(
+        "/n",
+        "scratch2",
+        "hsph_bioinformatic_core",
+        "lp113",
+        "workflow",
+        "samples-merged",
+        "final"),
+    interestingGroups = "group",
+    ensemblVersion = "current"
+)
+saveData(bcb)
+
+
 
 # Figure 1 ====
 theme_update(
