@@ -7,7 +7,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump camel
+#' @importFrom basejump camel prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr pull
@@ -251,7 +251,7 @@ loadRNASeq <- function(
     }
 
     # Prepare SummarizedExperiment ====
-    se <- .prepareSummarizedExperiment(
+    se <- prepareSummarizedExperiment(
         assays = list(
             raw = rawCounts,
             normalized = normalizedCounts,
