@@ -1,8 +1,17 @@
-library(bcbioRNASeq)
-library(DEGreport)
-library(DESeq2)
+source("https://bioconductor.org/biocLite.R")
+biocLite(c(
+    "ggplot2",
+    "cowplot",
+    "DESeq2",
+    "lpantano/DEGreport",
+    "hbc/bcbioRNASeq"
+))
+
 library(ggplot2)
 library(cowplot)
+library(DESeq2)
+library(DEGreport)
+library(bcbioRNASeq)
 
 source("loadRNASeq.R")
 loadData(bcb)
