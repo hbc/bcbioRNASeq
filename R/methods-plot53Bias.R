@@ -59,6 +59,7 @@ NULL
 
 # Methods ====
 #' @rdname plot53Bias
+#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
