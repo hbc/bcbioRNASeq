@@ -30,9 +30,6 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotTotalReads(bcb)
 #'
 #' \dontrun{
