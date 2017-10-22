@@ -55,7 +55,7 @@ NULL
 #' @export
 setMethod(
     "counts",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         normalized = FALSE) {
