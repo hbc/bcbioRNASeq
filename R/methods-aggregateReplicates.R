@@ -14,6 +14,16 @@
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.
+#'
+#' @examples
+#' \dontrun{
+#' # matrix
+#' mat <- assay(bcb)
+#' aggregateReplicates(mat)
+#'
+#' # DESeqDataSet
+#' aggregateReplicates(dds)
+#' }
 NULL
 
 
