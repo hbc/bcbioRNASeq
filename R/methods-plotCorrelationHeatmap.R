@@ -17,6 +17,7 @@
 #' @inherit plotGeneHeatmap
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
 #'   inside the [bcbioRNASeq] object.
@@ -32,7 +33,6 @@
 #' - [stats::hclust()].
 #'
 #' @examples
-#' data(bcb)
 #' plotCorrelationHeatmap(bcb)
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 NULL
@@ -124,7 +124,7 @@ NULL
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         transform = "rlog",
