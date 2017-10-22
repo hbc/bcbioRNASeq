@@ -24,7 +24,7 @@ NULL
 #' @export
 setMethod(
     "metrics",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         suppressMessages(left_join(
             as.data.frame(colData(object)),
