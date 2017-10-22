@@ -5,9 +5,29 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
+#' @importFrom viridis scale_fill_viridis
 #'
 #' @inheritParams AllGenerics
+#'
+#' @param counts Object containing a count matrix.
+#' @param flip Flip X and Y axes.
+#' @param interestingGroups Category to use to group samples (color and shape).
+#'   If unset, this is automatically determined by the metadata set inside the
+#'   [bcbioRNASeq] object.
+#' @param minCounts Numeric value for filtering the counts matrix before
+#'   plotting.
+#' @param normalized Count normalization method. See [counts()] documentation
+#'   for more information.
+#' @param passLimit Threshold to plot pass color marker.
+#' @param warnLimit Threshold to plot warning color marker.
+#'
+#' @param fill Desired ggplot color scale. Defaults to
+#'   [viridis::scale_color_viridis(discrete = TRUE)]. Must supply discrete
+#'   values. When set to `NULL`, the default ggplot2 color palette will be used.
+#'   If manual color definitions are desired, we recommend using
+#'   [ggplot2::scale_fill_manual()].
+#'
+#' @return [ggplot].
 #'
 #' @examples
 #' data(bcb)
@@ -16,23 +36,25 @@
 #' plotTotalReads(bcb)
 #'
 #' \dontrun{
-#' plotTotalReads(bcb, interestingGroups = "group")
+#' plotTotalReads(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
 #'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plotTotalReads()
+#' plotTotalReads(metrics(bcb))
 #' }
 NULL
 
 
 
 # Constructors ====
-#' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -44,19 +66,18 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
-             y = "total reads (million)") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "total reads (million)")
     if (!is.null(passLimit)) {
-        p <- p +
-            qcPassLine(passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -68,12 +89,13 @@ NULL
 #' @export
 setMethod(
     "plotTotalReads",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         passLimit = 20,
         warnLimit = 10,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -87,6 +109,7 @@ setMethod(
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 
