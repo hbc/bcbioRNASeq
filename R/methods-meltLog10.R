@@ -66,7 +66,7 @@ NULL
 #' @export
 setMethod(
     "meltLog10",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         normalized = TRUE) {
