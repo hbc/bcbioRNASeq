@@ -30,7 +30,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 2,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -69,7 +69,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 2,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
