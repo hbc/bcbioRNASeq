@@ -21,7 +21,7 @@ NULL
 #' @export
 setMethod(
     "interestingGroups",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         metadata(object)[["interestingGroups"]]
     })
