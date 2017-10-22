@@ -18,6 +18,7 @@ NULL
 
 # Methods ====
 #' @rdname flatFiles
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "flatFiles",
