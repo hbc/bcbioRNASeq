@@ -5,8 +5,6 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @importFrom viridis scale_fill_viridis
-#'
 #' @inheritParams AllGenerics
 #'
 #' @param counts Object containing a count matrix.
@@ -46,6 +44,8 @@ NULL
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
     interestingGroups = "sampleName",
