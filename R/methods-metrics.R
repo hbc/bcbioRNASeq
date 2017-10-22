@@ -10,9 +10,7 @@
 #' @return [data.frame].
 #'
 #' @examples
-#' data(bcb)
-#' metrics(bcb) %>%
-#'     str()
+#' metrics(bcb) %>% str()
 NULL
 
 
@@ -21,6 +19,7 @@ NULL
 #' @rdname metrics
 #' @importFrom dplyr left_join
 #' @importFrom magrittr set_rownames
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "metrics",
