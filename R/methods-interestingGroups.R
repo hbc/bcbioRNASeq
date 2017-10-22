@@ -18,6 +18,7 @@ NULL
 
 # Methods ====
 #' @rdname interestingGroups
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups",
