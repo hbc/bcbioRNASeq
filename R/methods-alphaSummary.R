@@ -88,7 +88,7 @@ NULL
 #' @export
 setMethod(
     "alphaSummary",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
