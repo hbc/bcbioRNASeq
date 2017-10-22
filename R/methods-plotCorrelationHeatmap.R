@@ -43,6 +43,7 @@
 #' # Spearman correlation
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 #'
+#' \dontrun{
 #' # Flip the palettes used for plot and legend
 #' plotCorrelationHeatmap(
 #'     bcb,
@@ -54,6 +55,7 @@
 #'     bcb,
 #'     color = NULL,
 #'     legendColor = NULL)
+#' }
 NULL
 
 
