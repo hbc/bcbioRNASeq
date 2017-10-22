@@ -21,8 +21,6 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
-#' data(bcb, dds)
-#'
 #' # bcbioRNASeq
 #' alphaSummary(bcb)
 #'
