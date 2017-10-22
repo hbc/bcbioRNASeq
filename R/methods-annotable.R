@@ -15,6 +15,7 @@ NULL
 
 # Methods ====
 #' @rdname annotable
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "annotable",
