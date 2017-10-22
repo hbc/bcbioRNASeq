@@ -83,6 +83,7 @@ NULL
 
 # Methods ====
 #' @rdname plotTotalReads
+#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotTotalReads",
