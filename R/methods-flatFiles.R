@@ -21,7 +21,7 @@ NULL
 #' @export
 setMethod(
     "flatFiles",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         list(
             assays = assays(object),
