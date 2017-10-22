@@ -18,7 +18,7 @@ NULL
 #' @export
 setMethod(
     "annotable",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         metadata(object)[["annotable"]]
     })
