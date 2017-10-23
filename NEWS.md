@@ -1,3 +1,21 @@
+# bcbioRNASeq 0.1.0
+
+- Updated version and author information to match the F1000 Research workflow.
+- Added an `f1000v1` branch containing the reproducible code used to generate the figures in our workflow.
+- Modified `plotMA()` to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.
+- Added custom color palette support to the quality control functions.
+- Upgrading from `bcbioRNADataSet` (< 0.1.0) to `bcbioRNASeq` class object is now possible using `as()` coercion method.
+- Object oriented methods are now restricted to use `bcbioRNASeq` object. Legacy `bcbioRNADataSet` objects must be upgraded to `bcbioRNASeq` class.
+
+
+
+# bcbioRNASeq 0.0.28
+
+- Added support for output of unstructured data inside `bcbioRNASeq` S4 object using `flatFiles()` function.
+- Added `bcbioRNASeq` method support for `annotable()` generic.
+
+
+
 # bcbioRNASeq 0.0.27
 
 - Renamed `bcbioRNADataSet` S4 class to `bcbioRNASeq`. This matches the naming conventions in the [bcbioSingleCell][] package.

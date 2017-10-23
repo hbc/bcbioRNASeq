@@ -3,12 +3,13 @@
 #' @rdname interestingGroups
 #' @name interestingGroups
 #'
+#' @importFrom basejump interestingGroups
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return Character vector.
 #'
 #' @examples
-#' data(bcb)
 #' interestingGroups(bcb)
 NULL
 
@@ -16,10 +17,11 @@ NULL
 
 # Methods ====
 #' @rdname interestingGroups
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         metadata(object)[["interestingGroups"]]
     })

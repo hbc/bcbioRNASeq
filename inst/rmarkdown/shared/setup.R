@@ -1,12 +1,10 @@
 library(bcbioRNASeq)
-library(knitr)
-library(ggplot2)
 library(tidyverse)
 
 # Set seed for reproducibility
 set.seed(1454944673)
 
-opts_chunk[["set"]](
+knitr::opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
     cache = TRUE,
@@ -19,6 +17,7 @@ opts_chunk[["set"]](
     highlight = TRUE,
     message = FALSE,
     prompt = TRUE,
+    # formatR required for tidy code
     tidy = TRUE,
     warning = FALSE)
 

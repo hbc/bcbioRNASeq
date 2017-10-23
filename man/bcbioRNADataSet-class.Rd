@@ -6,7 +6,8 @@
 \alias{bcbioRNADataSet}
 \title{\code{bcbioRNADataSet}}
 \description{
-This class will be deprecated in favor of \link{bcbioRNASeq} in a future release.
+This class has been superceded by \link{bcbioRNASeq} and will be formally
+deprecated in a future release.
 }
 \section{Slots}{
 

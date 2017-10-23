@@ -15,14 +15,36 @@ This is an [R][] package.
 
 ```r
 source("https://bioconductor.org/biocLite.R")
+```
+
+Ensure that these dependencies install correctly:
+
+```r
+biocLite(c(
+    "steinbaugh/basejump",
+    "lpantano/DEGreport",
+    "tidyverse",
+    "rmarkdown",
+    "knitr",
+    "formatR",
+    "GenomeInfoDbData"
+))
+```
+
+Now you're ready to install bcbioRNASeq:
+
+```r
 biocLite("hbc/bcbioRNASeq")
 ```
 
-### [devtools][] method
+For the *Functional Analysis* R Markdown template, these additional libraries are required:
 
 ```r
-install.packages("devtools")
-devtools::install_github("hbc/bcbioRNASeq")
+biocLite(c(
+    "clusterProfiler",
+    "DOSE",
+    "pathview"
+))
 ```
 
 

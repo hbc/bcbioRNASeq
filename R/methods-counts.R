@@ -8,7 +8,10 @@
 #' @name counts
 #' @author Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics counts
+#'
 #' @inheritParams AllGenerics
+#'
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
 #'   - `tpm`: Transcripts per million.
@@ -23,24 +26,28 @@
 #' data(bcb)
 #'
 #' # Raw counts
-#' counts(bcb, normalized = FALSE) %>%
-#'     summary()
+#' counts(bcb, normalized = FALSE) %>% summary()
 #'
 #' # TPM
-#' counts(bcb, normalized = "tpm") %>%
-#'     summary()
+#' counts(bcb, normalized = "tpm") %>% summary()
 #'
-#' \dontrun{
 #' # DESeq2 normalized counts
+#' \dontrun{
 #' counts(bcb, normalized = TRUE)
+#' }
 #'
-#' #' # rlog
+#' # rlog
+#' \dontrun{
 #' counts(bcb, normalized = "rlog")
+#' }
 #'
 #' # TMM
+#' \dontrun{
 #' counts(bcb, normalized = "tmm")
+#' }
 #'
 #' # VST
+#' \dontrun{
 #' counts(bcb, normalized = "vst")
 #' }
 NULL
@@ -52,7 +59,7 @@ NULL
 #' @export
 setMethod(
     "counts",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         normalized = FALSE) {

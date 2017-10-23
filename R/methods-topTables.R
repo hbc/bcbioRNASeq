@@ -11,7 +11,6 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
-#' data(res)
 #' resTbl <- resultsTables(res, write = FALSE)
 #' topTables(resTbl)
 NULL
@@ -19,6 +18,10 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump fixNA
+#' @importFrom dplyr filter mutate rename
+#' @importFrom S4Vectors head
+#' @importFrom tibble remove_rownames
 .subsetTop <- function(df, n, coding) {
     if (isTRUE(coding)) {
         df <- df %>%
@@ -26,19 +29,19 @@ NULL
     }
     df <- df %>%
         head(n = n) %>%
-        dplyr::rename(lfc = .data[["log2FoldChange"]]) %>%
+        rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
             baseMean = round(.data[["baseMean"]]),
             lfc = format(.data[["lfc"]], digits = 3),
-            padj = format(.data[["padj"]],
-                          digits = 3,
-                          scientific = TRUE),
+            padj = format(.data[["padj"]], digits = 3, scientific = TRUE),
             # Remove symbol information in description, if present
-            description = str_replace(.data[["description"]],
-                                      " \\[.+\\]$",
-                                      "")) %>%
-        .[, c("ensgene", "baseMean", "lfc", "padj",
-              "symbol", "description")] %>%
+            description = gsub(
+                x = .data[["description"]],
+                pattern = " \\[.+\\]$",
+                replacement = "")
+        ) %>%
+        .[, c("ensgene", "baseMean", "lfc",
+              "padj", "symbol", "description")] %>%
         remove_rownames() %>%
         fixNA()
 }
@@ -47,6 +50,7 @@ NULL
 
 # Methods ====
 #' @rdname topTables
+#' @importFrom knitr kable
 #' @export
 setMethod(
     "topTables",
@@ -57,14 +61,13 @@ setMethod(
         coding = FALSE) {
         up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
         down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
-
-        # Captions
         contrastName <- object[["contrast"]]
-
         show(kable(
             up,
-            caption = paste(contrastName, "(upregulated)")))
+            caption = paste(contrastName, "(upregulated)")
+        ))
         show(kable(
             down,
-            caption = paste(contrastName, "(downregulated)")))
+            caption = paste(contrastName, "(downregulated)")
+        ))
     })

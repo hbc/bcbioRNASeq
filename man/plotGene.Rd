@@ -3,11 +3,12 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene,bcbioRNASeqANY-method}
+\alias{plotGene,bcbioRNASeq-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeqANY}(object, interestingGroups,
-  normalized = "tpm", gene, format = "symbol")
+\S4method{plotGene}{bcbioRNASeq}(object, interestingGroups,
+  normalized = "tpm", gene, format = "symbol",
+  color = scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -23,22 +24,33 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{format}{Ensembl identifier format. Supports \code{symbol} (\strong{default}) or
 \code{ensgene}.}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 }
 \value{
-\link{ggplot}.
+\itemize{
+\item \code{return = FALSE}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
+\item \code{return = TRUE}: \link{list} of per gene \link{ggplot} objects.
+}
 }
 \description{
 Plot Individual Genes
 }
 \examples{
-data(bcb)
-genes <- c("Sulf1", "Phf3")
+# Gene symbols
+symbol <- rowData(bcb)[["symbol"]][1:3]
+print(symbol)
+plotGene(bcb, gene = symbol, format = "symbol")
 
-# bcbioRNASeq
-plotGene(bcb, gene = genes)
-
+# Gene identifiers
 \dontrun{
-plotGene(bcb, gene = genes, interestingGroups = "group")
+ensgene <- rownames(bcb)[1:3]
+print(ensgene)
+plotGene(bcb, gene = ensgene, format = "ensgene")
 }
 }
 \seealso{

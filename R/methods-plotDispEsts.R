@@ -5,7 +5,10 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics plotDispEsts
+#'
 #' @inheritParams AllGenerics
+#'
 #' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
 #'
 #' @seealso [DESeq2::plotDispEsts()].
@@ -13,9 +16,6 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotDispEsts(bcb)
 #'
 #' \dontrun{
@@ -34,7 +34,7 @@ NULL
 #' @export
 setMethod(
     "plotDispEsts",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object, ...) {
         bcbio(object, "DESeqDataSet") %>%
             plotDispEsts(...)

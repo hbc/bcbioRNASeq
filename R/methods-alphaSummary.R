@@ -1,5 +1,8 @@
 #' Print Summary Statistics of Alpha Level Cutoffs
 #'
+#' @note [bcbioRNASeq] does not support contrast definitions, since the
+#'   object contains an internal [DESeqDataSet] with an empty design formula.
+#'
 #' @rdname alphaSummary
 #' @name alphaSummary
 #' @family Differential Expression Utilities
@@ -7,34 +10,36 @@
 #'
 #' @inheritParams AllGenerics
 #' @inheritParams DESeq2::results
+#'
 #' @param alpha Numeric vector of desired alpha cutoffs.
 #' @param caption *Optional*. Character vector to add as caption to the table.
 #' @param ... *Optional*. Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
-#'
-#' @note [bcbioRNASeq] does not support contrast definitions, since the
-#'   object contains an internal [DESeqDataSet] with an empty design formula.
 #'
 #' @return [kable].
 #'
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
-#' data(bcb, dds)
-#'
 #' # bcbioRNASeq
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
 #' alphaSummary(dds)
+#' \dontrun{
 #' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 #' alphaSummary(dds, name = "group_ko_vs_ctrl")
+#' }
 NULL
 
 
 
 # Constructors ====
-# This works on a DESeqDataSet class object
+#' @importFrom DESeq2 results
+#' @importFrom dplyr bind_cols
+#' @importFrom knitr kable
+#' @importFrom magrittr set_colnames set_rownames
+#' @importFrom utils capture.output
 .alphaSummary <- function(
     dds,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
@@ -57,14 +62,14 @@ NULL
             .[4:8]
         parse <- info[1:5] %>%
             # Extract the values after the colon in summary
-            sapply(function(a) {
+            vapply(function(a) {
                 gsub("^.+\\:\\s(.+)\\s$", "\\1", a)
-            }) %>%
+            }, FUN.VALUE = "character") %>%
             # Coerce to character here to remove names
-            as.character
+            as.character()
         data.frame(alpha = parse)
     }) %>%
-        bind_cols %>%
+        bind_cols() %>%
         set_colnames(alpha) %>%
         set_rownames(c("LFC > 0 (up)",
                        "LFC < 0 (down)",
@@ -78,10 +83,12 @@ NULL
 
 # Methods ====
 #' @rdname alphaSummary
+#' @importFrom BiocGenerics design
+#' @importFrom stats formula
 #' @export
 setMethod(
     "alphaSummary",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
@@ -93,7 +100,11 @@ setMethod(
             warning("Empty DESeqDataSet design formula detected",
                     call. = FALSE)
         }
-        .alphaSummary(dds, alpha = alpha, caption = caption, ...)
+        .alphaSummary(
+            dds = dds,
+            alpha = alpha,
+            caption = caption,
+            ...)
     })
 
 
@@ -108,5 +119,9 @@ setMethod(
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
         caption = NULL,
         ...) {
-        .alphaSummary(object, alpha = alpha, caption = caption, ...)
+        .alphaSummary(
+            dds = object,
+            alpha = alpha,
+            caption = caption,
+            ...)
     })

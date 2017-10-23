@@ -5,35 +5,36 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotMappedReads(bcb)
 #'
 #' \dontrun{
-#' plotMappedReads(bcb, interestingGroups = "group")
+#' plotMappedReads(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plotMappedReads()
+#' \dontrun{
+#' metrics(bcb) %>% plotMappedReads()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom viridis scale_fill_viridis
 .plotMappedReads <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
     p <- ggplot(
         object,
         mapping = aes_(
@@ -44,19 +45,18 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
              x = "sample",
-             y = "mapped reads (million)") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "mapped reads (million)")
     if (!is.null(passLimit)) {
-        p <- p +
-            qcPassLine(passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -65,15 +65,17 @@ NULL
 
 # Methods ====
 #' @rdname plotMappedReads
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMappedReads",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         passLimit = 20,
         warnLimit = 10,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -87,6 +89,7 @@ setMethod(
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 

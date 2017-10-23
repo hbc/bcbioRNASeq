@@ -5,33 +5,34 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotMappingRate(bcb)
 #'
 #' \dontrun{
-#' plotMappingRate(bcb, interestingGroups = "group")
+#' plotMappingRate(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plotMappingRate()
+#' \dontrun{
+#' metrics(bcb) %>% plotMappingRate()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 90,
     warnLimit = 70,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     if (is.null(object)) return(NULL)
     p <- ggplot(
@@ -45,13 +46,15 @@ NULL
         ylim(0, 100) +
         labs(title = "mapping rate",
              x = "sample",
-             y = "mapping rate (%)") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "mapping rate (%)")
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
         p <- p + coord_flip()
@@ -63,15 +66,17 @@ NULL
 
 # Methods ====
 #' @rdname plotMappingRate
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMappingRate",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         passLimit = 90,
         warnLimit = 70,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <-
@@ -82,6 +87,7 @@ setMethod(
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 

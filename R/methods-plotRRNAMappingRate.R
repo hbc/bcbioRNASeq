@@ -5,33 +5,46 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotRRNAMappingRate(bcb)
 #'
 #' \dontrun{
-#' plotRRNAMappingRate(bcb, interestingGroups = "group")
+#' plotRRNAMappingRate(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plotRRNAMappingRate()
+#' \dontrun{
+#' metrics(bcb) %>% plotRRNAMappingRate()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 10,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    # Fix for camel variant mismatch (e.g. rRnaRate).
+    if (!"rrnaRate" %in% colnames(object)) {
+        # grep match the outdated camel variant
+        col <- grep(
+            x = colnames(object),
+            pattern = "rrnarate",
+            ignore.case = TRUE,
+            value = TRUE)
+        object[["rrnaRate"]] <- object[[col]]
+        object[[col]] <- NULL
+    }
     p <- ggplot(
         object,
         mapping = aes_(
@@ -42,15 +55,15 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
              x = "sample",
-             y = "rRNA mapping rate (%)") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "rRNA mapping rate (%)")
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -59,14 +72,17 @@ NULL
 
 # Methods ====
 #' @rdname plotRRNAMappingRate
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotRRNAMappingRate",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         warnLimit = 10,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -79,6 +95,7 @@ setMethod(
             metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 

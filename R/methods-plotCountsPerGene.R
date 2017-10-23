@@ -5,31 +5,34 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
+#' @inheritParams plotCountDensity
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotCountsPerGene(bcb)
 #'
 #' \dontrun{
-#' plotCountsPerGene(bcb, interestingGroups = "group")
+#' plotCountsPerGene(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountsPerGene()
+#' \dontrun{
+#' meltLog10(bcb, normalized = "tmm") %>% plotCountsPerGene()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_string geom_boxplot ggplot labs
+#' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -41,11 +44,12 @@ NULL
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "log10 counts per gene")
+    if (!is.null(fill)) {
+        p <- p + fill
+    }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -54,14 +58,17 @@ NULL
 
 # Methods ====
 #' @rdname plotCountsPerGene
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotCountsPerGene",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         normalized = "tmm",
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <-
@@ -70,6 +77,7 @@ setMethod(
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),
             interestingGroups = interestingGroups,
+            fill = fill,
             flip = flip)
     })
 

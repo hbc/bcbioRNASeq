@@ -5,81 +5,86 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
+#' @inherit plotTotalReads
+#' @inheritParams plotGene
 #'
-#' @inheritParams AllGenerics
-#' @param style Desired plot style (`color` or `fill`).
+#' @param normalized Count normalization method. See [counts()] documentation
+#'   for more information.
+#' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotCountDensity(bcb)
 #'
 #' \dontrun{
-#' plotCountDensity(bcb, interestingGroups = "group")
+#' plotCountDensity(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountDensity()
+#' \dontrun{
+#' meltLog10(bcb, normalized = "tmm") %>% plotCountDensity()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_string geom_density ggplot labs
+#' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
     interestingGroups = "sampleName",
-    style = "color") {
-    validStyles <- c("color", "fill")
+    style = "solid",
+    color = scale_color_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE)) {
+    validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
             "Valid 'style' arguments:",
-            toString(validStyles)))
-    }
-    if (style == "color") {
-        color <- interestingGroups
-        fill <- NULL
-    } else if (style == "fill") {
-        color <- NULL
-        fill <- interestingGroups
+            toString(validStyles)
+        ), call. = FALSE)
     }
     p <- ggplot(
         object,
         mapping = aes_string(
             x = "counts",
             group = interestingGroups,
-            color = color,
-            fill = fill)
-    )
-    if (style == "color") {
-        p <- p +
-            geom_density()
-    } else if (style == "fill") {
-        p <- p +
-            geom_density(alpha = 0.75, color = NA)
-    }
-    p +
+            color = interestingGroups,
+            fill = interestingGroups)
+    ) +
         labs(title = "count density",
-             x = "log10 counts per gene") +
-        scale_color_viridis(discrete = TRUE) +
-        scale_fill_viridis(discrete = TRUE)
+             x = "log10 counts per gene")
+    if (style == "line") {
+        p <- p +
+            geom_density(fill = NA) +
+            color
+    } else if (style == "solid") {
+        p <- p +
+            geom_density(alpha = 0.75, color = NA) +
+            fill
+    }
+    p
 }
 
 
 
 # Methods ====
 #' @rdname plotCountDensity
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotCountDensity",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         normalized = "tmm",
-        style = "color") {
+        style = "solid",
+        color = scale_color_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
              interestingGroups <-
                  metadata(object)[["interestingGroups"]][[1]]
@@ -87,7 +92,9 @@ setMethod(
         .plotCountDensity(
             meltLog10(object, normalized = normalized),
             interestingGroups = interestingGroups,
-            style = style)
+            style = style,
+            color = color,
+            fill = fill)
     })
 
 

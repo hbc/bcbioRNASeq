@@ -7,6 +7,16 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
+#' @importFrom basejump camel prepareSummarizedExperiment
+#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
+#'  varianceStabilizingTransformation
+#' @importFrom dplyr pull
+#' @importFrom magrittr set_colnames
+#' @importFrom stats formula
+#' @importFrom stringr str_match
+#' @importFrom tibble column_to_rownames
+#' @importFrom utils packageVersion
+#'
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param interestingGroups Character vector of interesting groups. First entry
@@ -68,7 +78,7 @@ loadRNASeq <- function(
 
     # Sequencing lanes ====
     lanePattern <- "_L(\\d{3})"
-    if (any(str_detect(sampleDirs, lanePattern))) {
+    if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
             .[, 2] %>%
             unique() %>%

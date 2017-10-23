@@ -92,7 +92,7 @@ transcripts per million (TPM) can be accessed using the <code>normalized</code>
 argument.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeqANY</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>counts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -124,8 +124,7 @@ argument.</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 
 <span class='co'># Raw counts</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1            group2_2        
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1            group2_2        
 #&gt;  Min.   :     0.00   Min.   :0.00e+00   Min.   :     0.00   Min.   :     0.00  
 #&gt;  1st Qu.:     0.00   1st Qu.:0.00e+00   1st Qu.:     0.00   1st Qu.:     0.00  
 #&gt;  Median :     0.00   Median :0.00e+00   Median :     0.00   Median :     0.00  
@@ -133,8 +132,7 @@ argument.</p>
 #&gt;  3rd Qu.:     7.99   3rd Qu.:7.96e+00   3rd Qu.:     9.21   3rd Qu.:     8.02  
 #&gt;  Max.   :125708.15   Max.   :1.70e+05   Max.   :172785.31   Max.   :182449.79  </div><div class='input'>
 <span class='co'># TPM</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2            group2_1        
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2            group2_1        
 #&gt;  Min.   :    0.000   Min.   :    0.000   Min.   :    0.000  
 #&gt;  1st Qu.:    0.000   1st Qu.:    0.000   1st Qu.:    0.000  
 #&gt;  Median :    0.000   Median :    0.000   Median :    0.000  
@@ -148,17 +146,20 @@ argument.</p>
 #&gt;  Mean   :   86.122  
 #&gt;  3rd Qu.:    0.184  
 #&gt;  Max.   :17995.900  </div><div class='input'>
+# DESeq2 normalized counts
 </div><span class='co'># NOT RUN {</span>
-<span class='co'># DESeq2 normalized counts</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'>#' # rlog</span>
+<span class='co'># }</span><div class='input'>
+# rlog
+</div><span class='co'># NOT RUN {</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>)
-
-<span class='co'># TMM</span>
+<span class='co'># }</span><div class='input'>
+# TMM
+</div><span class='co'># NOT RUN {</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>)
-
-<span class='co'># VST</span>
+<span class='co'># }</span><div class='input'>
+# VST
+</div><span class='co'># NOT RUN {</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)
 <span class='co'># }</span></pre>
   </div>
@@ -181,7 +182,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

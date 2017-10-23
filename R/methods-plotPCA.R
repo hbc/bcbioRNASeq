@@ -6,6 +6,9 @@
 #' @rdname plotPCA
 #' @name plotPCA
 #' @author Michael Steinbaugh
+#'
+#' @importFrom BiocGenerics plotPCA
+#'
 #' @inheritParams AllGenerics
 #'
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
@@ -15,30 +18,37 @@
 #' @param interestingGroups *Optional*. Interesting groups to use for point
 #'   appearance. If `NULL`, color defaults to all `interestingGroups`
 #'   parameters set in the [bcbioRNASeq] object.
-#' @param shape *Optional*. Make points easier to inspect with differing shapes.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
+#' @param shape *Optional*. Make points easier to inspect with differing shapes.
+#' @param returnData Return PCA loadings data instead of plotting.
 #'
 #' @seealso [DESeq2::plotPCA()].
 #'
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb)
-#' plotPCA(bcb)
+#' plotPCA(bcb, label = TRUE)
 #' plotPCA(bcb, label = FALSE)
 NULL
 
 
 
 # Constructors ====
+#' @importFrom basejump camel
+#' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_color_viridis
 .plotPCA <- function(
     object,
     transform = "rlog",
     genes = NULL,
     censorSamples = NULL,
     interestingGroups = NULL,
+    label = FALSE,
     shape = FALSE,
-    label = TRUE) {
+    returnData = FALSE) {
     if (!transform %in% c("rlog", "vst")) {
         stop("DESeqTransform must be rlog or vst")
     }
@@ -88,11 +98,14 @@ NULL
     # Use sampleName for plot labels
     data[["label"]] <- colData(object)[, "sampleName"]
 
-    p <- ggplot(data,
-                mapping = aes_(x = ~pc1,
-                               y = ~pc2,
-                               color = ~color,
-                               shape = ~shape)) +
+    p <- ggplot(
+        data,
+        mapping = aes_string(
+            x = "pc1",
+            y = "pc2",
+            color = "color",
+            shape = "shape")
+    ) +
         geom_point(size = 4) +
         coord_fixed() +
         labs(title = "pca",
@@ -111,7 +124,7 @@ NULL
         p <- p +
             geom_text_repel(
                 # Color the labels to match the points
-                aes_(label = ~label),
+                aes_string(label = "label"),
                 color = "black",
                 fontface = "bold",
                 # Add extra padding around each text label
@@ -128,7 +141,12 @@ NULL
                 force = 1,
                 show.legend = FALSE)
     }
-    p
+
+    if (isTRUE(returnData)) {
+        data
+    } else {
+        p
+    }
 }
 
 
@@ -138,5 +156,5 @@ NULL
 #' @export
 setMethod(
     "plotPCA",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     .plotPCA)

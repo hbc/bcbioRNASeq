@@ -3,17 +3,17 @@
 \docType{methods}
 \name{plot53Bias}
 \alias{plot53Bias}
-\alias{plot53Bias,bcbioRNASeqANY-method}
+\alias{plot53Bias,bcbioRNASeq-method}
 \alias{plot53Bias,data.frame-method}
 \title{Plot 5'->3' Bias}
 \usage{
 plot53Bias(object, ...)
 
-\S4method{plot53Bias}{bcbioRNASeqANY}(object, interestingGroups,
-  warnLimit = 2, flip = TRUE)
+\S4method{plot53Bias}{bcbioRNASeq}(object, interestingGroups, warnLimit = 2,
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
-  warnLimit = 2, flip = TRUE)
+  warnLimit = 2, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -26,6 +26,11 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+
 \item{flip}{Flip X and Y axes.}
 }
 \value{
@@ -35,17 +40,18 @@ If unset, this is automatically determined by the metadata set inside the
 Plot 5'->3' Bias
 }
 \examples{
-data(bcb)
-
-# bcbioRNASeq
 plot53Bias(bcb)
 
 \dontrun{
-plot53Bias(bcb, interestingGroups = "group")
+plot53Bias(
+    bcb,
+    interestingGroups = "group",
+    fill = NULL)
+}
 
 # data.frame
-metrics(bcb) \%>\%
-    plot53Bias()
+\dontrun{
+metrics(bcb) \%>\% plot53Bias()
 }
 }
 \seealso{

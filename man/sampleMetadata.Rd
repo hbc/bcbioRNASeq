@@ -3,13 +3,16 @@
 \docType{methods}
 \name{sampleMetadata}
 \alias{sampleMetadata}
-\alias{sampleMetadata,bcbioRNASeqANY-method}
-\alias{sampleMetadata,DESeqANY-method}
+\alias{sampleMetadata,bcbioRNASeq-method}
+\alias{sampleMetadata,DESeqDataSet-method}
+\alias{sampleMetadata,DESeqTransform-method}
 \title{Sample Metadata}
 \usage{
-\S4method{sampleMetadata}{bcbioRNASeqANY}(object, ...)
+\S4method{sampleMetadata}{bcbioRNASeq}(object, ...)
 
-\S4method{sampleMetadata}{DESeqANY}(object, ...)
+\S4method{sampleMetadata}{DESeqDataSet}(object, ...)
+
+\S4method{sampleMetadata}{DESeqTransform}(object, ...)
 }
 \arguments{
 \item{object}{Object.}

@@ -6,6 +6,7 @@
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
@@ -26,21 +27,27 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' data(res)
-#'
 #' # DESeqResults
 #' plotVolcano(res, genes = "Sulf1")
 #'
 #' \dontrun{
 #' # data.frame
-#' as.data.frame(res) %>%
-#'     plotVolcano()
+#' plotVolcano(as.data.frame(res))
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom basejump annotable camel
+#' @importFrom BiocGenerics density
+#' @importFrom cowplot draw_plot ggdraw
+#' @importFrom dplyr arrange desc left_join mutate
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
+#' @importFrom rlang !! sym
+#' @importFrom S4Vectors na.omit
+#' @importFrom tibble rownames_to_column
 .plotVolcano <- function(
     object,
     alpha = 0.01,
@@ -273,6 +280,7 @@ NULL
 
 # Methods ====
 #' @rdname plotVolcano
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotVolcano",

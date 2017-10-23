@@ -5,6 +5,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
 #'
@@ -13,24 +14,20 @@
 #' @return log10 melted [data.frame].
 #'
 #' @examples
-#' data(bcb, dds, rld)
-#'
 #' # bcbioRNASeq
-#' meltLog10(bcb) %>%
-#'     str()
+#' meltLog10(bcb) %>% str()
 #'
 #' # DESeqDataSet
-#' meltLog10(dds) %>%
-#'     str()
+#' meltLog10(dds) %>% str()
 #'
 #' # DESeqTransform
-#' meltLog10(rld) %>%
-#'     str()
+#' meltLog10(rld) %>% str()
 NULL
 
 
 
 # Constructors ====
+#' @importFrom dplyr left_join
 .joinMelt <- function(counts, metadata) {
     if (!identical(colnames(counts), metadata[["sampleID"]])) {
         stop("Sample name mismatch between counts and metadata")
@@ -41,6 +38,10 @@ NULL
 
 
 
+#' @importFrom dplyr mutate
+#' @importFrom reshape2 melt
+#' @importFrom stats setNames
+#' @importFrom tibble rownames_to_column
 .meltLog10 <- function(counts) {
     counts %>%
         as.data.frame() %>%
@@ -61,7 +62,7 @@ NULL
 #' @export
 setMethod(
     "meltLog10",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         normalized = TRUE) {

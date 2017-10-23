@@ -13,7 +13,6 @@
 #'
 #' @inherit plotGeneHeatmap
 #'
-#' @inheritParams AllGenerics
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
 #'   inside the [bcbioRNASeq] object.
@@ -29,27 +28,53 @@
 #' - [stats::hclust()].
 #'
 #' @examples
-#' data(bcb)
+#' # Pearson correlation (default)
 #' plotCorrelationHeatmap(bcb)
+#'
+#' # Spearman correlation
 #' plotCorrelationHeatmap(bcb, method = "spearman")
+#'
+#' # Flip the palettes used for plot and legend
+#' \dontrun{
+#' plotCorrelationHeatmap(
+#'     bcb,
+#'     color = viridis(256),
+#'     legendColor = inferno)
+#' }
+#'
+#' # Default pheatmap palette
+#' \dontrun{
+#' plotCorrelationHeatmap(
+#'     bcb,
+#'     color = NULL,
+#'     legendColor = NULL)
+#' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom dplyr mutate_all
+#' @importFrom grDevices colorRampPalette
+#' @importFrom pheatmap pheatmap
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom stats setNames
+#' @importFrom S4Vectors cor
+#' @importFrom tibble column_to_rownames rownames_to_column
+#' @importFrom viridis inferno viridis
 .plotCorrelationHeatmap <- function(
     counts,
     method,
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    title = NULL) {
+    title = NULL,
+    color = inferno(256),
+    legendColor = viridis) {
     # Check for supported correlation method
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
     }
-
-    counts <- as.matrix(counts)
 
     # Subset counts matrix by input genes, if desired
     if (!is.null(genes)) {
@@ -64,6 +89,7 @@ NULL
         }
     }
 
+    # Prepare the annotation columns
     if (!is.null(annotationCol)) {
         # Coerce annotation columns to factors
         annotationCol <- annotationCol %>%
@@ -71,7 +97,10 @@ NULL
             rownames_to_column() %>%
             mutate_all(factor) %>%
             column_to_rownames()
-        # Define colors for each annotation column
+    }
+
+    # Define colors for each annotation column, if desired
+    if (!is.null(annotationCol) & !is.null(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -79,11 +108,11 @@ NULL
                 colors <- annotationCol[[a]] %>%
                     levels() %>%
                     length() %>%
-                    viridis()
+                    legendColor
                 names(colors) <- col
                 colors
             }) %>%
-            set_names(colnames(annotationCol))
+            setNames(colnames(annotationCol))
     } else {
         annotationColors <- NULL
     }
@@ -95,6 +124,11 @@ NULL
         main <- paste(method, "correlation")
     }
 
+    # If `color = NULL`, use the pheatmap default
+    if (is.null(color)) {
+        color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+    }
+
     counts %>%
         cor(method = method) %>%
         pheatmap(
@@ -104,7 +138,7 @@ NULL
             clustering_method = "ward.D2",
             clustering_distance_rows = "correlation",
             clustering_distance_cols = "correlation",
-            color = inferno(256),
+            color = color,
             main = main,
             show_colnames = FALSE,
             show_rownames = TRUE)
@@ -117,17 +151,19 @@ NULL
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         transform = "rlog",
         method = "pearson",
         genes = NULL,
         samples = NULL,
-        title = NULL) {
+        title = NULL,
+        color = inferno(256),
+        legendColor = viridis) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
-            stop("DESeqTransform must be rlog or vst")
+            stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%
@@ -143,5 +179,7 @@ setMethod(
             annotationCol = annotationCol,
             genes = genes,
             samples = samples,
-            title = title)
+            title = title,
+            color = color,
+            legendColor = legendColor)
     })

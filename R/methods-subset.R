@@ -27,18 +27,29 @@
 #' bcb[genes, ]
 #'
 #' # Subset by both genes and samples
+#' \dontrun{
 #' bcb[genes, samples]
+#' }
 #'
 #' # Skip normalization
+#' \dontrun{
 #' bcb[genes, samples, skipNorm = TRUE]
+#' }
 NULL
 
 
 
 # Constructors ====
-# This operation must be placed outside of the S4 method dispatch. Otherwise,
-# the resulting subset object will be ~2X the expected size on disk when saving,
-# for an unknown reason.
+#' Create DDS
+#'
+#' This operation must be placed outside of the S4 method dispatch. Otherwise,
+#' the resulting subset object will be ~2X the expected size on disk when
+#' saving, for an unknown reason.
+#'
+#' @noRd
+#'
+#' @importFrom DESeq2 DESeqDataSetFromTximport
+#' @importFrom stats formula
 .createDDS <- function(txi, tmpData) {
     DESeqDataSetFromTximport(
         txi = txi,
@@ -48,6 +59,7 @@ NULL
 
 
 
+#' @importFrom DESeq2 DESeqTransform
 .countSubset <- function(x, tmpData) {
     DESeqTransform(
         SummarizedExperiment(
@@ -57,6 +69,9 @@ NULL
 
 
 
+#' @importFrom DESeq2 DESeq estimateSizeFactors rlog
+#'   varianceStabilizingTransformation
+#' @importFrom S4Vectors metadata SimpleList
 .subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)
@@ -158,20 +173,19 @@ NULL
         vst = vst)
 
     # Slot additional data
-    extra <- SimpleList(
+    bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
         featureCounts = tmpFC)
 
     # bcbioRNASeq ====
-    bcb <- new("bcbioRNASeq",
-               SummarizedExperiment(
-                   assays = tmpAssays,
-                   colData = tmpData,
-                   rowData = tmpRow,
-                   metadata = tmpMetadata),
-               bcbio = extra)
-    bcb
+    new("bcbioRNASeq",
+        SummarizedExperiment(
+            assays = tmpAssays,
+            colData = tmpData,
+            rowData = tmpRow,
+            metadata = tmpMetadata),
+        bcbio = bcbio)
 }
 
 
@@ -182,19 +196,6 @@ NULL
 setMethod(
     "[",
     signature(x = "bcbioRNASeq",
-              i = "ANY",
-              j = "ANY"),
-    function(x, i, j, ..., drop = FALSE) {
-        .subset(x, i, j, ..., drop)
-    })
-
-
-
-#' @rdname subset
-#' @export
-setMethod(
-    "[",
-    signature(x = "bcbioRNADataSet",
               i = "ANY",
               j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {

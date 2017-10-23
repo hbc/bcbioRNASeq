@@ -5,32 +5,34 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plot53Bias(bcb)
 #'
 #' \dontrun{
-#' plot53Bias(bcb, interestingGroups = "group")
+#' plot53Bias(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plot53Bias()
+#' \dontrun{
+#' metrics(bcb) %>% plot53Bias()
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs
+#' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 2,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -42,15 +44,15 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
-             y = "5'->3' bias") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "5'->3' bias")
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -59,14 +61,17 @@ NULL
 
 # Methods ====
 #' @rdname plot53Bias
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plot53Bias",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         warnLimit = 2,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -79,6 +84,7 @@ setMethod(
             metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 

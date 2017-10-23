@@ -34,14 +34,16 @@
 bcbioRNASeq <- setClass(
     "bcbioRNASeq",
     contains = "SummarizedExperiment",
-    slots = c(bcbio = "SimpleList"))
+    slots = c(bcbio = "SimpleList")
+)
 setValidity("bcbioRNASeq", function(object) TRUE)
 
 
 
 #' `bcbioRNADataSet`
 #'
-#' This class will be deprecated in favor of [bcbioRNASeq] in a future release.
+#' This class has been superceded by [bcbioRNASeq] and will be formally
+#' deprecated in a future release.
 #'
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @keywords internal
@@ -53,17 +55,6 @@ setValidity("bcbioRNASeq", function(object) TRUE)
 bcbioRNADataSet <- setClass(
     "bcbioRNADataSet",
     contains = "SummarizedExperiment",
-    slots = c(callers = "SimpleList"))
+    slots = c(callers = "SimpleList")
+)
 setValidity("bcbioRNADataSet", function(object) TRUE)
-
-
-
-setClassUnion(
-    name = "bcbioRNASeqANY",
-    members = c("bcbioRNASeq", "bcbioRNADataSet"))
-
-
-
-setClassUnion(
-    name = "DESeqANY",
-    members = c("DESeqDataSet", "DESeqTransform"))

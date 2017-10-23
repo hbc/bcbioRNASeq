@@ -5,6 +5,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See [results()] for additional information about using `lfcThreshold` and
@@ -44,7 +45,7 @@ NULL
 #' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
-        stop("DE results directory missing")
+        stop("DE results directory missing", call. = FALSE)
     }
     all <- resTbl[["allFile"]]
     deg <- resTbl[["degFile"]]
@@ -64,6 +65,12 @@ NULL
 
 
 
+#' @importFrom basejump annotable camel snake
+#' @importFrom dplyr arrange desc left_join
+#' @importFrom readr write_csv
+#' @importFrom rlang !! sym
+#' @importFrom S4Vectors metadata
+#' @importFrom tibble rownames_to_column
 .resultsTablesDESeqResults <- function(
     object,
     lfc = 0,

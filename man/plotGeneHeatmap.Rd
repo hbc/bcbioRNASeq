@@ -3,7 +3,7 @@
 \docType{methods}
 \name{plotGeneHeatmap}
 \alias{plotGeneHeatmap}
-\alias{plotGeneHeatmap,bcbioRNASeqANY-method}
+\alias{plotGeneHeatmap,bcbioRNASeq-method}
 \alias{plotGeneHeatmap,DESeqDataSet-method}
 \alias{plotGeneHeatmap,DESeqTransform-method}
 \alias{plotGeneHeatmap,matrix-method}
@@ -11,17 +11,20 @@
 \usage{
 plotGeneHeatmap(object, ...)
 
-\S4method{plotGeneHeatmap}{bcbioRNASeqANY}(object, genes = NULL,
-  title = NULL)
+\S4method{plotGeneHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
+  color = inferno(256), legendColor = viridis)
 
 \S4method{plotGeneHeatmap}{DESeqDataSet}(object, genes = NULL,
-  annotationCol = NULL, title = NULL)
+  annotationCol = NULL, title = NULL, color = inferno(256),
+  legendColor = viridis)
 
 \S4method{plotGeneHeatmap}{DESeqTransform}(object, genes = NULL,
-  annotationCol = NULL, title = NULL)
+  annotationCol = NULL, title = NULL, color = inferno(256),
+  legendColor = viridis)
 
 \S4method{plotGeneHeatmap}{matrix}(object, genes = NULL,
-  annotationCol = NULL, title = NULL)
+  annotationCol = NULL, title = NULL, color = inferno(256),
+  legendColor = viridis)
 }
 \arguments{
 \item{object}{Object.}
@@ -31,6 +34,11 @@ plotGeneHeatmap(object, ...)
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
 \item{title}{\emph{Optional}. Plot title.}
+
+\item{color}{Colors to use for plot. Defaults to \code{\link[=inferno]{inferno()}} palette.}
+
+\item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
+palette.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
@@ -48,21 +56,39 @@ are sorted by the interesting groups (\code{interestingGroups}) specified in the
 \link{bcbioRNASeq} and then the sample names.
 }
 \examples{
-data(bcb, dds, rld)
-
-# bcbioRNASeq
-plotGeneHeatmap(bcb)
-
 # Genes as Ensembl identifiers
-genes <- counts(bcb)[1:20, ] \%>\%
-    rownames()
+genes <- counts(bcb)[1:20, ] \%>\% rownames()
 plotGeneHeatmap(bcb, genes = genes)
 
+# Flip the plot and legend palettes
+plotGeneHeatmap(
+    bcb,
+    genes = genes,
+    color = viridis(256),
+    legendColor = inferno)
+
+# Transcriptome heatmap
+\dontrun{
+plotGeneHeatmap(bcb)
+}
+
+# Use default pheatmap color palette
+\dontrun{
+plotGeneHeatmap(
+    bcb,
+    color = NULL,
+    legendColor = NULL)
+}
+
 # DESeqDataSet
+\dontrun{
 plotGeneHeatmap(dds)
+}
 
 # DESeqTransform
+\dontrun{
 plotGeneHeatmap(rld)
+}
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.

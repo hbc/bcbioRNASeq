@@ -3,10 +3,10 @@
 \docType{methods}
 \name{counts}
 \alias{counts}
-\alias{counts,bcbioRNASeqANY-method}
+\alias{counts,bcbioRNASeq-method}
 \title{Count Matrix Accessors}
 \usage{
-\S4method{counts}{bcbioRNASeqANY}(object, normalized = FALSE)
+\S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -33,24 +33,28 @@ argument.
 data(bcb)
 
 # Raw counts
-counts(bcb, normalized = FALSE) \%>\%
-    summary()
+counts(bcb, normalized = FALSE) \%>\% summary()
 
 # TPM
-counts(bcb, normalized = "tpm") \%>\%
-    summary()
+counts(bcb, normalized = "tpm") \%>\% summary()
 
-\dontrun{
 # DESeq2 normalized counts
+\dontrun{
 counts(bcb, normalized = TRUE)
+}
 
-#' # rlog
+# rlog
+\dontrun{
 counts(bcb, normalized = "rlog")
+}
 
 # TMM
+\dontrun{
 counts(bcb, normalized = "tmm")
+}
 
 # VST
+\dontrun{
 counts(bcb, normalized = "vst")
 }
 }

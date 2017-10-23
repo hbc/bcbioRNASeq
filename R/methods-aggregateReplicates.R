@@ -7,15 +7,30 @@
 #' @rdname aggregateReplicates
 #' @name aggregateReplicates
 #'
+#' @importFrom basejump aggregateReplicates
+#'
 #' @inheritParams AllGenerics
+#'
 #' @param pattern Grep pattern to match lane identifiers in sample name.
 #'
 #' @return Object of same class, with pooled technical replicates.
+#'
+#' @examples
+#' # matrix
+#' \dontrun{
+#' aggregateReplicates(assay(bcb))
+#' }
+#'
+#' # DESeqDataSet
+#' \dontrun{
+#' aggregateReplicates(dds)
+#' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom stats setNames
 .aggregateReplicatesMatrix <- function(
     object,
     pattern = "_L\\d+") {
@@ -23,7 +38,9 @@ NULL
     if (!all(grepl(pattern, colnames(object)))) {
         stop("Lane pattern didn't match all samples")
     }
-    stem <- str_replace(colnames(object), pattern, "") %>%
+    stem <- gsub(x = colnames(object),
+                 pattern = pattern,
+                 replacement = "") %>%
         unique() %>%
         sort()
     # Perform [rowSums()] on the matching columns per sample
@@ -40,6 +57,10 @@ NULL
 
 
 
+#' @importFrom BiocGenerics design
+#' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix
+#' @importFrom dplyr distinct mutate
+#' @importFrom magrittr set_rownames
 .aggregateReplicatesDESeqDataSet <- function(
     object,
     pattern = "_L\\d+") {
@@ -54,10 +75,18 @@ NULL
     # Mutate the colData metadata to pooled samples
     colData <- colData(object) %>%
         as.data.frame() %>%
-        mutate(sampleID = str_replace(.data[["sampleID"]], pattern, ""),
-               sampleName = str_replace(.data[["sampleName"]], pattern, ""),
-               lane = NULL,
-               sizeFactor = NULL) %>%
+        mutate(
+            sampleID = gsub(
+                x = .data[["sampleID"]],
+                pattern = pattern,
+                replacement = ""),
+            sampleName = gsub(
+                x = .data[["sampleName"]],
+                pattern = pattern,
+                replacement = ""),
+            lane = NULL,
+            sizeFactor = NULL
+        ) %>%
         distinct() %>%
         set_rownames(.[["sampleID"]])
 

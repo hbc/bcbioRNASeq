@@ -16,29 +16,6 @@ NULL
 
 
 
-#' Quality Control Plots
-#'
-#' @rdname qcPlots
-#' @name qcPlots
-#' @keywords internal
-#'
-#' @param counts Object containing a count matrix.
-#' @param flip Flip X and Y axes.
-#' @param interestingGroups Category to use to group samples (color and shape).
-#'   If unset, this is automatically determined by the metadata set inside the
-#'   [bcbioRNASeq] object.
-#' @param minCounts Numeric value for filtering the counts matrix before
-#'   plotting.
-#' @param normalized Count normalization method. See [counts()] documentation
-#'   for more information.
-#' @param passLimit Threshold to plot pass color marker.
-#' @param warnLimit Threshold to plot warning color marker.
-#'
-#' @return [ggplot].
-NULL
-
-
-
 #' @rdname alphaSummary
 #' @export
 setGeneric("alphaSummary", function(object, ...) {

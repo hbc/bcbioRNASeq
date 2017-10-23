@@ -175,13 +175,12 @@ individual ggplot (<code>grid = FALSE</code>).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>res</span>)
-
-<span class='co'># DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># DESeqResults</span>
+<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike/.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>2017-10-18</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># data.frame</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plotVolcano</span>()</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-3.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotVolcano</span>(<span class='fu'>as.data.frame</span>(<span class='no'>res</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,7 +203,7 @@ John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

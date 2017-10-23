@@ -8,6 +8,9 @@
 #' @keywords internal
 #' @noRd
 #'
+#' @importFrom readr read_tsv
+#' @importFrom tximport tximport
+#'
 #' @param sampleDirs Sample directories to import.
 #' @param tx2gene Transcript to gene annotations.
 #'
@@ -25,7 +28,7 @@
     } else if ("sailfish" %in% subdirs) {
         type <- "sailfish"
     } else {
-        stop("Unsupported counts output format")
+        stop("Unsupported counts output format", call. = FALSE)
     }
 
     # Locate `quant.sf` file for salmon or sailfish output

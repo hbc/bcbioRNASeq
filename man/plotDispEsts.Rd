@@ -3,10 +3,10 @@
 \docType{methods}
 \name{plotDispEsts}
 \alias{plotDispEsts}
-\alias{plotDispEsts,bcbioRNASeqANY-method}
+\alias{plotDispEsts,bcbioRNASeq-method}
 \title{Plot Dispersion Estimates}
 \usage{
-\S4method{plotDispEsts}{bcbioRNASeqANY}(object, ...)
+\S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,9 +20,6 @@
 Plot Dispersion Estimates
 }
 \examples{
-data(bcb)
-
-# bcbioRNASeq
 plotDispEsts(bcb)
 
 \dontrun{

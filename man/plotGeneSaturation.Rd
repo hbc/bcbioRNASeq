@@ -3,17 +3,19 @@
 \docType{methods}
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
-\alias{plotGeneSaturation,bcbioRNASeqANY,missing-method}
+\alias{plotGeneSaturation,bcbioRNASeq,missing-method}
 \alias{plotGeneSaturation,data.frame,matrix-method}
 \title{Plot Gene Detection Saturation}
 \usage{
 plotGeneSaturation(object, counts, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeqANY,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0)
+\S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
+  normalized = "tmm", minCounts = 0, color = scale_color_viridis(discrete
+  = TRUE))
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroups = "sampleName", minCounts = 0)
+  interestingGroups = "sampleName", minCounts = 0,
+  color = scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -31,6 +33,12 @@ for more information.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 }
 \value{
 \link{ggplot}.
@@ -39,15 +47,14 @@ plotting.}
 Plot Gene Detection Saturation
 }
 \examples{
-data(bcb, rld)
-
-# bcbioRNASeq
 plotGeneSaturation(bcb)
 
 \dontrun{
 plotGeneSaturation(bcb, interestingGroups = "group")
+}
 
 # data.frame, matrix
+\dontrun{
 plotGeneSaturation(metrics(bcb), assay(rld))
 }
 }

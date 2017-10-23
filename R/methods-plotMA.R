@@ -7,6 +7,8 @@
 #' @author Rory Kirchner, Michael Steinbaugh
 #' @inheritParams AllGenerics
 #'
+#' @importFrom BiocGenerics plotMA
+#'
 #' @param alpha Alpha level cutoff (Adjusted P value).
 #' @param labelPoints *Optional*. Label these particular points.
 #' @param labelColumn Match `labelPoints` argument to this column in the
@@ -19,32 +21,41 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(res)
 #' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 #'
 #' # DESeqResults
 #' plotMA(res, labelPoints = genes)
 #'
 #' # data.frame
+#' \dontrun{
 #' df <- as.data.frame(res)
 #' plotMA(df, alpha = 0.1, labelPoints = genes)
+#' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom basejump camel
+#' @importFrom dplyr filter
+#' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
+#'   scale_color_manual scale_x_log10
+#' @importFrom ggrepel geom_text_repel
+#' @importFrom grid arrow unit
+#' @importFrom tibble rownames_to_column
 .plotMA <- function(
     object,
     alpha = 0.01,
     labelPoints = NULL,
-    labelColumn = "rowname",
-    pointColorScale = c("darkgrey", "red", "green"),
+    labelColumn = "ensgene",
+    pointColorScale = c("darkgray", "red"),
     labelColor = "black",
     title = TRUE) {
     results <- object %>%
-        as("tibble") %>%
-        camel %>%
-        .[!is.na(.[["padj"]]), , drop = FALSE]
+        as.data.frame() %>%
+        rownames_to_column("ensgene") %>%
+        camel(strict = FALSE) %>%
+        filter(!is.na(.data[["padj"]]))
     p <- ggplot(
         results,
         mapping = aes_(
@@ -55,16 +66,16 @@ NULL
         geom_point(size = 0.8) +
         scale_x_log10() +
         annotation_logticks(sides = "b") +
-        scale_color_manual(values = pointColorScale) +
         guides(color = FALSE) +
         labs(x = "mean expression across all samples",
              y = "log2 fold change")
     if (isTRUE(title)) {
-        p <- p +
-            ggtitle("ma")
+        p <- p + ggtitle("ma")
     } else if (is.character(title)) {
-        p <- p +
-            ggtitle(paste("ma:", title))
+        p <- p + ggtitle(paste("ma:", title))
+    }
+    if (!is.null(pointColorScale)) {
+        p <- p + scale_color_manual(values = pointColorScale)
     }
     if (!is.null(labelPoints)) {
         labels <- results %>%
@@ -93,6 +104,8 @@ NULL
 
 # Methods ====
 #' @rdname plotMA
+#' @importFrom ggplot2 scale_color_manual
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMA",
@@ -100,19 +113,20 @@ setMethod(
     function(
         object,
         labelPoints = NULL,
-        labelColumn = "rowname",
-        pointColorScale = c("darkgrey", "red", "green"),
+        labelColumn = "ensgene",
+        pointColorScale = c("darkgray", "red"),
         labelColor = "black") {
         alpha <- metadata(object)[["alpha"]]
         title <- .resContrastName(object)
-        .plotMA(object,
-                labelPoints = labelPoints,
-                labelColumn = labelColumn,
-                pointColorScale = pointColorScale,
-                labelColor = labelColor,
-                # Automatic
-                alpha = alpha,
-                title = title)
+        .plotMA(
+            object,
+            labelPoints = labelPoints,
+            labelColumn = labelColumn,
+            pointColorScale = pointColorScale,
+            labelColor = labelColor,
+            # Automatic
+            alpha = alpha,
+            title = title)
     })
 
 

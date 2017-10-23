@@ -5,37 +5,31 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
+#' @inheritParams plotGeneSaturation
 #'
 #' @examples
-#' data(bcb, dds)
-#'
-#' # bcbioRNASeq
-#' plotGenesDetected(
-#'     bcb,
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
+#' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
 #'
 #' \dontrun{
 #' plotGenesDetected(bcb, interestingGroups = "group")
+#' }
 #'
 #' # data.frame, DESeqDataSet
-#' plotGenesDetected(
-#'     metrics(bcb),
-#'     counts = dds)
+#' \dontrun{
+#' plotGenesDetected(metrics(bcb), counts = dds)
+#' }
 #'
 #' # data.frame, matrix
-#' plotGenesDetected(
-#'     metrics(bcb),
-#'     counts = assay(dds))
+#' \dontrun{
+#' plotGenesDetected(metrics(bcb), counts = assay(dds))
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
     counts,
@@ -43,6 +37,7 @@ NULL
     passLimit = 20000,
     warnLimit = 15000,
     minCounts = 0,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -54,19 +49,18 @@ NULL
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
-             y = "gene count") +
-        scale_fill_viridis(discrete = TRUE)
+             y = "gene count")
     if (!is.null(passLimit)) {
-        p <- p +
-            qcPassLine(passLimit)
+        p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -75,10 +69,11 @@ NULL
 
 # Methods ====
 #' @rdname plotGenesDetected
+#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "bcbioRNASeqANY",
+    signature(object = "bcbioRNASeq",
               counts = "missing"),
     function(
         object,
@@ -86,6 +81,7 @@ setMethod(
         passLimit = 20000,
         warnLimit = 15000,
         minCounts = 0,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -101,12 +97,14 @@ setMethod(
             passLimit = passLimit,
             warnLimit = warnLimit,
             minCounts = minCounts,
+            fill = fill,
             flip = flip)
     })
 
 
 
 #' @rdname plotGenesDetected
+#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenesDetected",
@@ -119,6 +117,7 @@ setMethod(
         passLimit = 20000,
         warnLimit = 15000,
         minCounts = 0,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         .plotGenesDetected(
             object,
@@ -127,6 +126,7 @@ setMethod(
             passLimit = passLimit,
             warnLimit = warnLimit,
             minCounts = minCounts,
+            fill = fill,
             flip = flip)
     })
 

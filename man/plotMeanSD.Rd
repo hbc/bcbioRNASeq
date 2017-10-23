@@ -3,20 +3,28 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
-\alias{plotMeanSD,bcbioRNASeqANY-method}
+\alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeqANY}(object)
+\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = "vertical",
+  showLegend = FALSE)
 
-\S4method{plotMeanSD}{DESeqDataSet}(object)
+\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = "vertical",
+  showLegend = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
+\code{vertical} (default).}
+
+\item{showLegend}{Include the color bar legend. This is typically not that
+informative and is disabled by default, to improve the plot appearance.}
 }
 \value{
 \link{ggplot} grid.
@@ -26,10 +34,10 @@ plotMeanSD(object, ...)
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-data(bcb, dds)
-
 # bcbioRNASeq
 plotMeanSD(bcb)
+
+plotMeanSD(bcb, orientation = "horizontal")
 
 # DESeqDataSet
 plotMeanSD(dds)

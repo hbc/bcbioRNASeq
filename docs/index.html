@@ -72,14 +72,25 @@
 <div id="bioconductor-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
-<span class="kw">biocLite</span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
-</div>
-<div id="devtools-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#devtools-method" class="anchor"></a><a href="https://cran.r-project.org/package=devtools">devtools</a> method</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
+<p>Ensure that these dependencies install correctly:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="kw">c</span>(
+    <span class="st">"steinbaugh/basejump"</span>,
+    <span class="st">"lpantano/DEGreport"</span>,
+    <span class="st">"tidyverse"</span>,
+    <span class="st">"rmarkdown"</span>,
+    <span class="st">"knitr"</span>,
+    <span class="st">"formatR"</span>,
+    <span class="st">"GenomeInfoDbData"</span>
+))</code></pre></div>
+<p>Now you’re ready to install bcbioRNASeq:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
+<p>For the <em>Functional Analysis</em> R Markdown template, these additional libraries are required:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="kw">c</span>(
+    <span class="st">"clusterProfiler"</span>,
+    <span class="st">"DOSE"</span>,
+    <span class="st">"pathview"</span>
+))</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">
@@ -143,6 +154,8 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <li>
 <a href="https://github.com/rkhetani">Radhika Khetani</a> <br><small class="roles"> Author </small> </li>
 <li>
+<a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a> <br><small class="roles"> Author </small> </li>
+<li>
 <a href="https://github.com/jnhutchinson">John Hutchinson</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="https://github.com/sjhosui">Shannan Ho Sui</a> <br><small class="roles"> Author </small> </li>
@@ -160,7 +173,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://steinbaugh.com">Michael Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/marypiper">Mary Piper</a>, <a href="https://github.com/mistrm82">Meeta Mistry</a>, <a href="https://github.com/rkhetani">Radhika Khetani</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="https://github.com/sjhosui">Shannan Ho Sui</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href="http://steinbaugh.com">Michael Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/marypiper">Mary Piper</a>, <a href="https://github.com/mistrm82">Meeta Mistry</a>, <a href="https://github.com/rkhetani">Radhika Khetani</a>, <a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="https://github.com/sjhosui">Shannan Ho Sui</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

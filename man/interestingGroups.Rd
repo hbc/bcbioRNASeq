@@ -3,10 +3,10 @@
 \docType{methods}
 \name{interestingGroups}
 \alias{interestingGroups}
-\alias{interestingGroups,bcbioRNASeqANY-method}
+\alias{interestingGroups,bcbioRNASeq-method}
 \title{Interesting Groups}
 \usage{
-\S4method{interestingGroups}{bcbioRNASeqANY}(object)
+\S4method{interestingGroups}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -18,6 +18,5 @@ Character vector.
 Interesting Groups
 }
 \examples{
-data(bcb)
 interestingGroups(bcb)
 }

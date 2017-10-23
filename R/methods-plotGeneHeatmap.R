@@ -13,10 +13,14 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#'
+#' @param genes Character vector of specific gene identifiers to plot.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
-#' @param genes Character vector of specific gene identifiers to plot.
+#' @param color Colors to use for plot. Defaults to [inferno()] palette.
+#' @param legendColor Colors to use for legend labels. Defaults to [viridis()]
+#'   palette.
 #' @param title *Optional*. Plot title.
 #'
 #' @seealso [pheatmap::pheatmap()].
@@ -24,31 +28,56 @@
 #' @return Graphical output only.
 #'
 #' @examples
-#' data(bcb, dds, rld)
-#'
-#' # bcbioRNASeq
-#' plotGeneHeatmap(bcb)
-#'
 #' # Genes as Ensembl identifiers
-#' genes <- counts(bcb)[1:20, ] %>%
-#'     rownames()
+#' genes <- counts(bcb)[1:20, ] %>% rownames()
 #' plotGeneHeatmap(bcb, genes = genes)
 #'
+#' # Flip the plot and legend palettes
+#' plotGeneHeatmap(
+#'     bcb,
+#'     genes = genes,
+#'     color = viridis(256),
+#'     legendColor = inferno)
+#'
+#' # Transcriptome heatmap
+#' \dontrun{
+#' plotGeneHeatmap(bcb)
+#' }
+#'
+#' # Use default pheatmap color palette
+#' \dontrun{
+#' plotGeneHeatmap(
+#'     bcb,
+#'     color = NULL,
+#'     legendColor = NULL)
+#' }
+#'
 #' # DESeqDataSet
+#' \dontrun{
 #' plotGeneHeatmap(dds)
+#' }
 #'
 #' # DESeqTransform
+#' \dontrun{
 #' plotGeneHeatmap(rld)
+#' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom dplyr mutate_all
+#' @importFrom pheatmap pheatmap
+#' @importFrom stats setNames
+#' @importFrom tibble column_to_rownames rownames_to_column
+#' @importFrom viridis inferno viridis
 .plotGeneHeatmap <- function(
     counts,
     genes = NULL,
     annotationCol = NULL,
     title = NULL,
+    color = inferno(256),
+    legendColor = viridis,
     # Internal parameters
     scale = "row") {
     counts <- as.matrix(counts)
@@ -70,7 +99,7 @@ NULL
         .[rowSums(.) > 0, , drop = FALSE]
     if (!is.matrix(counts) |
         nrow(counts) < 2) {
-        stop("Need at least 2 genes to cluster")
+        stop("Need at least 2 genes to cluster", call. = FALSE)
     }
 
     # Convert Ensembl gene identifiers to symbol names, if necessary
@@ -83,6 +112,7 @@ NULL
         counts <- gene2symbol(counts)
     }
 
+    # Prepare the annotation columns
     if (!is.null(annotationCol)) {
         annotationCol <- annotationCol %>%
             as.data.frame() %>%
@@ -90,7 +120,10 @@ NULL
             rownames_to_column() %>%
             mutate_all(factor) %>%
             column_to_rownames()
-        # Define colors for each annotation column
+    }
+
+    # Define colors for each annotation column, if desired
+    if (!is.null(annotationCol) & !is.null(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -98,11 +131,11 @@ NULL
                 colors <- annotationCol[[a]] %>%
                     levels() %>%
                     length() %>%
-                    viridis()
+                    legendColor
                 names(colors) <- col
                 colors
             }) %>%
-            set_names(colnames(annotationCol))
+            setNames(colnames(annotationCol))
     } else {
         annotationColors <- NULL
     }
@@ -112,28 +145,37 @@ NULL
         title <- ""
     }
 
-    pheatmap(counts,
-             annotation_col = annotationCol,
-             annotation_colors = annotationColors,
-             border_color = NA,
-             color = inferno(256),
-             main = title,
-             scale = scale,
-             show_rownames = showRownames)
+    # If `color = NULL`, use the pheatmap default
+    if (is.null(color)) {
+        color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+    }
+
+    pheatmap(
+        counts,
+        annotation_col = annotationCol,
+        annotation_colors = annotationColors,
+        border_color = NA,
+        color = color,
+        main = title,
+        scale = scale,
+        show_rownames = showRownames)
 }
 
 
 
 # Methods ====
 #' @rdname plotGeneHeatmap
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotGeneHeatmap",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         genes = NULL,
-        title = NULL) {
+        title = NULL,
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- counts(object, normalized = "rlog")
         annotationCol <- colData(object) %>%
             .[, metadata(object)[["interestingGroups"]], drop = FALSE]
@@ -142,7 +184,9 @@ setMethod(
             annotationCol = annotationCol,
             # User-defined
             genes = genes,
-            title = title)
+            title = title,
+            color = color,
+            legendColor = legendColor)
     })
 
 
@@ -156,14 +200,18 @@ setMethod(
         object,
         genes = NULL,
         annotationCol = NULL,
-        title = NULL) {
+        title = NULL,
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- counts(object, normalized = TRUE)
         .plotGeneHeatmap(
             counts = counts,
             # User-defined
             genes = genes,
             annotationCol = annotationCol,
-            title = title)
+            title = title,
+            color = color,
+            legendColor = legendColor)
     })
 
 
@@ -177,14 +225,18 @@ setMethod(
         object,
         genes = NULL,
         annotationCol = NULL,
-        title = NULL) {
+        title = NULL,
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- assay(object)
         .plotGeneHeatmap(
             counts = counts,
             # User-defined
             genes = genes,
             annotationCol = annotationCol,
-            title = title)
+            title = title,
+            color = color,
+            legendColor = legendColor)
     })
 
 
@@ -198,11 +250,15 @@ setMethod(
         object,
         genes = NULL,
         annotationCol = NULL,
-        title = NULL) {
+        title = NULL,
+        color = inferno(256),
+        legendColor = viridis) {
         .plotGeneHeatmap(
             counts = object,
             # User-defined
             genes = genes,
             annotationCol = annotationCol,
-            title = title)
+            title = title,
+            color = color,
+            legendColor = legendColor)
     })

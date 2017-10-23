@@ -1,5 +1,5 @@
-sampleName,group
-group1_1,ctrl
-group1_2,ctrl
-group2_1,ko
-group2_2,ko
+fileName,description,group
+group1_1_R1.fastq.gz,group1-1,ctrl
+group1_2_R1.fastq.gz,ctrl
+group2_1_R1.fastq.gz,ko
+group2_2_R1.fastq.gz,ko
