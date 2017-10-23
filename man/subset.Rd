@@ -4,12 +4,9 @@
 \name{subset}
 \alias{subset}
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
-\alias{[,bcbioRNADataSet,ANY,ANY,ANY-method}
 \title{Bracket-Based Subsetting}
 \usage{
 \S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, ..., drop = FALSE)
-
-\S4method{[}{bcbioRNADataSet,ANY,ANY,ANY}(x, i, j, ..., drop = FALSE)
 }
 \arguments{
 \item{x}{
@@ -89,10 +86,14 @@ bcb[, samples]
 bcb[genes, ]
 
 # Subset by both genes and samples
+\dontrun{
 bcb[genes, samples]
+}
 
 # Skip normalization
+\dontrun{
 bcb[genes, samples, skipNorm = TRUE]
+}
 }
 \seealso{
 \code{help("[", "base")}.

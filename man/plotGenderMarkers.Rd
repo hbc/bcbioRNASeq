@@ -3,23 +3,32 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers,bcbioRNASeqANY-method}
+\alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,matrix-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
 plotGenderMarkers(object, ...)
 
-\S4method{plotGenderMarkers}{bcbioRNASeqANY}(object)
+\S4method{plotGenderMarkers}{bcbioRNASeq}(object,
+  color = scale_color_viridis(discrete = TRUE))
 
-\S4method{plotGenderMarkers}{DESeqDataSet}(object, organism = NULL)
+\S4method{plotGenderMarkers}{DESeqDataSet}(object, organism,
+  color = scale_color_viridis(discrete = TRUE))
 
-\S4method{plotGenderMarkers}{matrix}(object, organism, ylab = "counts")
+\S4method{plotGenderMarkers}{matrix}(object, organism, ylab = "counts",
+  color = scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
 unless a spike-in FASTA sequence is provided containing a gene identifier
@@ -34,7 +43,6 @@ that is first alphabetically in the count matrix rownames.}
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
-data(bcb)
 plotGenderMarkers(bcb)
 }
 \seealso{

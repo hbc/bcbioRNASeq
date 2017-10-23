@@ -3,18 +3,19 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
-\alias{plotMappedReads,bcbioRNASeqANY-method}
+\alias{plotMappedReads,bcbioRNASeq-method}
 \alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
 \usage{
 plotMappedReads(object, ...)
 
-\S4method{plotMappedReads}{bcbioRNASeqANY}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10, flip = TRUE)
+\S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
+  passLimit = 20, warnLimit = 10, fill = scale_fill_viridis(discrete =
+  TRUE), flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  flip = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -29,6 +30,11 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+
 \item{flip}{Flip X and Y axes.}
 }
 \value{
@@ -38,17 +44,18 @@ If unset, this is automatically determined by the metadata set inside the
 Plot Mapped Reads
 }
 \examples{
-data(bcb)
-
-# bcbioRNASeq
 plotMappedReads(bcb)
 
 \dontrun{
-plotMappedReads(bcb, interestingGroups = "group")
+plotMappedReads(
+    bcb,
+    interestingGroups = "group",
+    fill = NULL)
+}
 
 # data.frame
-metrics(bcb) \%>\%
-    plotMappedReads()
+\dontrun{
+metrics(bcb) \%>\% plotMappedReads()
 }
 }
 \seealso{

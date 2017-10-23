@@ -8,11 +8,11 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, labelPoints = NULL,
-  labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
+  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
   labelColor = "black")
 
 \S4method{plotMA}{data.frame}(object, alpha = 0.01, labelPoints = NULL,
-  labelColumn = "rowname", pointColorScale = c("darkgrey", "red", "green"),
+  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
   labelColor = "black", title = TRUE)
 }
 \arguments{
@@ -39,15 +39,16 @@ results.}
 Plot Mean Average
 }
 \examples{
-data(res)
 genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 
 # DESeqResults
 plotMA(res, labelPoints = genes)
 
 # data.frame
+\dontrun{
 df <- as.data.frame(res)
 plotMA(df, alpha = 0.1, labelPoints = genes)
+}
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plotVolcano}}

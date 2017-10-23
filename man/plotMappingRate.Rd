@@ -3,18 +3,19 @@
 \docType{methods}
 \name{plotMappingRate}
 \alias{plotMappingRate}
-\alias{plotMappingRate,bcbioRNASeqANY-method}
+\alias{plotMappingRate,bcbioRNASeq-method}
 \alias{plotMappingRate,data.frame-method}
 \title{Plot Mapping Rate}
 \usage{
 plotMappingRate(object, ...)
 
-\S4method{plotMappingRate}{bcbioRNASeqANY}(object, interestingGroups,
-  passLimit = 90, warnLimit = 70, flip = TRUE)
+\S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
+  passLimit = 90, warnLimit = 70, fill = scale_fill_viridis(discrete =
+  TRUE), flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 90, warnLimit = 70,
-  flip = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -29,6 +30,11 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+
 \item{flip}{Flip X and Y axes.}
 }
 \value{
@@ -38,17 +44,18 @@ If unset, this is automatically determined by the metadata set inside the
 Plot Mapping Rate
 }
 \examples{
-data(bcb)
-
-# bcbioRNASeq
 plotMappingRate(bcb)
 
 \dontrun{
-plotMappingRate(bcb, interestingGroups = "group")
+plotMappingRate(
+    bcb,
+    interestingGroups = "group",
+    fill = NULL)
+}
 
 # data.frame
-metrics(bcb) \%>\%
-    plotMappingRate()
+\dontrun{
+metrics(bcb) \%>\% plotMappingRate()
 }
 }
 \seealso{

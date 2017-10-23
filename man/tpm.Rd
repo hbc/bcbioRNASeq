@@ -3,12 +3,12 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
-\alias{tpm,bcbioRNASeqANY-method}
+\alias{tpm,bcbioRNASeq-method}
 \title{Transcripts Per Million (TPM)}
 \usage{
 tpm(object)
 
-\S4method{tpm}{bcbioRNASeqANY}(object)
+\S4method{tpm}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,7 +20,6 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
-data(bcb)
 tpm(bcb) \%>\% head()
 }
 \author{

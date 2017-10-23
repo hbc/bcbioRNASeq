@@ -3,17 +3,21 @@
 \docType{methods}
 \name{plotCountDensity}
 \alias{plotCountDensity}
-\alias{plotCountDensity,bcbioRNASeqANY-method}
+\alias{plotCountDensity,bcbioRNASeq-method}
 \alias{plotCountDensity,data.frame-method}
 \title{Plot Count Density}
 \usage{
 plotCountDensity(object, ...)
 
-\S4method{plotCountDensity}{bcbioRNASeqANY}(object, interestingGroups,
-  normalized = "tmm", style = "color")
+\S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
+  normalized = "tmm", style = "solid",
+  color = scale_color_viridis(discrete = TRUE),
+  fill = scale_fill_viridis(discrete = TRUE))
 
 \S4method{plotCountDensity}{data.frame}(object,
-  interestingGroups = "sampleName", style = "color")
+  interestingGroups = "sampleName", style = "solid",
+  color = scale_color_viridis(discrete = TRUE),
+  fill = scale_fill_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -27,7 +31,12 @@ If unset, this is automatically determined by the metadata set inside the
 \item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
 for more information.}
 
-\item{style}{Desired plot style (\code{color} or \code{fill}).}
+\item{style}{Desired plot style (\code{line} or \code{solid}).}
+
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 }
 \value{
 \link{ggplot}.
@@ -36,17 +45,18 @@ for more information.}
 Plot Count Density
 }
 \examples{
-data(bcb)
-
-# bcbioRNASeq
 plotCountDensity(bcb)
 
 \dontrun{
-plotCountDensity(bcb, interestingGroups = "group")
+plotCountDensity(
+    bcb,
+    interestingGroups = "group",
+    fill = NULL)
+}
 
 # data.frame
-meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountDensity()
+\dontrun{
+meltLog10(bcb, normalized = "tmm") \%>\% plotCountDensity()
 }
 }
 \seealso{

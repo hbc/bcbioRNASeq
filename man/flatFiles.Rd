@@ -3,10 +3,10 @@
 \docType{methods}
 \name{flatFiles}
 \alias{flatFiles}
-\alias{flatFiles,bcbioRNASeqANY-method}
+\alias{flatFiles,bcbioRNASeq-method}
 \title{Get Flat Files from S4 Object}
 \usage{
-\S4method{flatFiles}{bcbioRNASeqANY}(object)
+\S4method{flatFiles}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -17,6 +17,9 @@
 \description{
 Prepare an unstructured list of information saved in the S4 object,
 for improved archival data storage.
+}
+\examples{
+flatFiles(bcb) \%>\% names()
 }
 \author{
 Michael Steinbaugh, Rory Kirchner

@@ -3,10 +3,10 @@
 \docType{methods}
 \name{sampleDirs}
 \alias{sampleDirs}
-\alias{sampleDirs,bcbioRNASeqANY-method}
+\alias{sampleDirs,bcbioRNASeq-method}
 \title{Sample Directories}
 \usage{
-\S4method{sampleDirs}{bcbioRNASeqANY}(object)
+\S4method{sampleDirs}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}

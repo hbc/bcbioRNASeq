@@ -3,12 +3,12 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
-\alias{plotPCA,bcbioRNASeqANY-method}
+\alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNASeqANY}(object, transform = "rlog", genes = NULL,
-  censorSamples = NULL, interestingGroups = NULL, shape = FALSE,
-  label = TRUE)
+\S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", genes = NULL,
+  censorSamples = NULL, interestingGroups = NULL, label = FALSE,
+  shape = FALSE, returnData = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,9 +24,11 @@
 appearance. If \code{NULL}, color defaults to all \code{interestingGroups}
 parameters set in the \link{bcbioRNASeq} object.}
 
+\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+
 \item{shape}{\emph{Optional}. Make points easier to inspect with differing shapes.}
 
-\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+\item{returnData}{Return PCA loadings data instead of plotting.}
 }
 \value{
 \link{ggplot}.
@@ -36,8 +38,7 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
-data(bcb)
-plotPCA(bcb)
+plotPCA(bcb, label = TRUE)
 plotPCA(bcb, label = FALSE)
 }
 \seealso{

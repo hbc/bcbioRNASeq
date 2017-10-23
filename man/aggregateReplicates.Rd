@@ -27,3 +27,14 @@ of counts across the flow cells.
 \note{
 \link{DESeqDataSet} is returned using \code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
 }
+\examples{
+# matrix
+\dontrun{
+aggregateReplicates(assay(bcb))
+}
+
+# DESeqDataSet
+\dontrun{
+aggregateReplicates(dds)
+}
+}

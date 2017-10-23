@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
-\alias{plotMeanSD,bcbioRNASeqANY-method}
+\alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeqANY}(object, orientation = "vertical",
+\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = "vertical",
   showLegend = FALSE)
 
 \S4method{plotMeanSD}{DESeqDataSet}(object, orientation = "vertical",
@@ -34,10 +34,10 @@ informative and is disabled by default, to improve the plot appearance.}
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-data(bcb, dds)
-
 # bcbioRNASeq
 plotMeanSD(bcb)
+
+plotMeanSD(bcb, orientation = "horizontal")
 
 # DESeqDataSet
 plotMeanSD(dds)

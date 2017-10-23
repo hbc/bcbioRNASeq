@@ -20,7 +20,7 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{counts}{Secondary object containing a normalized count matrix.}
 
-\item{...}{Options to pass to \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
@@ -36,13 +36,11 @@ the optional parameters for \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}} ar
 function.
 }
 \examples{
-data(dds, res, rld)
-
 # DESeqResults, DESeqTransform
 plotDEGHeatmap(res, rld)
 
-\dontrun{
 # DESeqResults, DESeqDataSet
+\dontrun{
 plotDEGHeatmap(res, dds)
 }
 }

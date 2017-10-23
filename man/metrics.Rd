@@ -3,10 +3,10 @@
 \docType{methods}
 \name{metrics}
 \alias{metrics}
-\alias{metrics,bcbioRNASeqANY-method}
+\alias{metrics,bcbioRNASeq-method}
 \title{Sample Metrics}
 \usage{
-\S4method{metrics}{bcbioRNASeqANY}(object)
+\S4method{metrics}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -18,7 +18,5 @@
 Sample Metrics
 }
 \examples{
-data(bcb)
-metrics(bcb) \%>\%
-    str()
+metrics(bcb) \%>\% str()
 }

@@ -30,21 +30,12 @@ If unset, this is automatically determined by the metadata set inside the
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
-\item{fill}{Desired ggplot color scale. Defaults to
-\link[viridis:scale_color_viridis(discrete = TRUE)]{viridis::scale_color_viridis(discrete = TRUE)}. Must supply discrete
-values. When set to \code{NULL}, the default ggplot2 color palette will be used.
-If manual color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip X and Y axes.}
-
-\item{counts}{Object containing a count matrix.}
-
-\item{minCounts}{Numeric value for filtering the counts matrix before
-plotting.}
-
-\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
-for more information.}
 }
 \value{
 \link{ggplot}.
@@ -60,8 +51,10 @@ plotTotalReads(
     bcb,
     interestingGroups = "group",
     fill = NULL)
+}
 
 # data.frame
+\dontrun{
 plotTotalReads(metrics(bcb))
 }
 }

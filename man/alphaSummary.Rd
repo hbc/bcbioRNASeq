@@ -3,14 +3,14 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
-\alias{alphaSummary,bcbioRNASeqANY-method}
+\alias{alphaSummary,bcbioRNASeq-method}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
 alphaSummary(object, ...)
 
-\S4method{alphaSummary}{bcbioRNASeqANY}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), caption = NULL, ...)
+\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
+  1e-06), caption = NULL, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
   0.001, 1e-06), caption = NULL, ...)
@@ -36,15 +36,15 @@ Print Summary Statistics of Alpha Level Cutoffs
 object contains an internal \link{DESeqDataSet} with an empty design formula.
 }
 \examples{
-data(bcb, dds)
-
 # bcbioRNASeq
 alphaSummary(bcb)
 
 # DESeqDataSet
 alphaSummary(dds)
+\dontrun{
 alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 alphaSummary(dds, name = "group_ko_vs_ctrl")
+}
 }
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.

@@ -3,14 +3,14 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
-\alias{tmm,bcbioRNASeqANY-method}
+\alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}
 \title{Trimmed Mean of M-Values (TMM) Normalization}
 \usage{
 tmm(object)
 
-\S4method{tmm}{bcbioRNASeqANY}(object)
+\S4method{tmm}{bcbioRNASeq}(object)
 
 \S4method{tmm}{DESeqDataSet}(object)
 
@@ -28,18 +28,16 @@ of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
 \examples{
-data(bcb, dds)
-
 # bcbioRNASeq
-tmm(bcb) \%>\%
-    summary()
+tmm(bcb) \%>\% summary()
 
-\dontrun{
 # DESeqDataSet
-tmm(dds) \%>\%
-    summary()
+\dontrun{
+tmm(dds) \%>\% summary()
+}
 
 # matrix
+\dontrun{
 assay(bcb) \%>\%
     tmm() \%>\%
     summary()

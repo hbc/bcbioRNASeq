@@ -3,23 +3,24 @@
 \docType{methods}
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
-\alias{plotGenesDetected,bcbioRNASeqANY,missing-method}
+\alias{plotGenesDetected,bcbioRNASeq,missing-method}
 \alias{plotGenesDetected,data.frame,DESeqDataSet-method}
 \alias{plotGenesDetected,data.frame,matrix-method}
 \title{Plot Genes Detected}
 \usage{
 plotGenesDetected(object, counts, ...)
 
-\S4method{plotGenesDetected}{bcbioRNASeqANY,missing}(object, interestingGroups,
-  passLimit = 20000, warnLimit = 15000, minCounts = 0, flip = TRUE)
+\S4method{plotGenesDetected}{bcbioRNASeq,missing}(object, interestingGroups,
+  passLimit = 20000, warnLimit = 15000, minCounts = 0,
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
   interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
-  minCounts = 0, flip = TRUE)
+  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
   interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
-  minCounts = 0, flip = TRUE)
+  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -39,6 +40,11 @@ If unset, this is automatically determined by the metadata set inside the
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}
 
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+
 \item{flip}{Flip X and Y axes.}
 }
 \value{
@@ -48,26 +54,20 @@ plotting.}
 Plot Genes Detected
 }
 \examples{
-data(bcb, dds)
-
-# bcbioRNASeq
-plotGenesDetected(
-    bcb,
-    passLimit = NULL,
-    warnLimit = NULL)
+plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
 
 \dontrun{
 plotGenesDetected(bcb, interestingGroups = "group")
+}
 
 # data.frame, DESeqDataSet
-plotGenesDetected(
-    metrics(bcb),
-    counts = dds)
+\dontrun{
+plotGenesDetected(metrics(bcb), counts = dds)
+}
 
 # data.frame, matrix
-plotGenesDetected(
-    metrics(bcb),
-    counts = assay(dds))
+\dontrun{
+plotGenesDetected(metrics(bcb), counts = assay(dds))
 }
 }
 \seealso{

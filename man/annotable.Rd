@@ -3,10 +3,10 @@
 \docType{methods}
 \name{annotable}
 \alias{annotable}
-\alias{annotable,bcbioRNASeqANY-method}
+\alias{annotable,bcbioRNASeq-method}
 \title{Ensembl Annotations}
 \usage{
-\S4method{annotable}{bcbioRNASeqANY}(object)
+\S4method{annotable}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -16,6 +16,9 @@
 }
 \description{
 Ensembl Annotations
+}
+\examples{
+annotable(bcb) \%>\% str()
 }
 \author{
 Michael Steinbaugh

@@ -53,15 +53,12 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-data(res)
-
 # DESeqResults
 plotVolcano(res, genes = "Sulf1")
 
 \dontrun{
 # data.frame
-as.data.frame(res) \%>\%
-    plotVolcano()
+plotVolcano(as.data.frame(res))
 }
 }
 \seealso{
