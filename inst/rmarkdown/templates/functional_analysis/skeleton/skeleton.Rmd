@@ -5,24 +5,49 @@ date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
     bcbFile: "data/bcb.rda"
-    res: "data/res.rda"
+    resFile: "data/res.rda"
     organism: "Hs"
     gspecies: "Hsa"
     species: "human"
-    alpha: 0.01
     lfc: 0
     goOnt: "BP"
     outputDir: "."
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-library(bcbioRNASeq)
-library(readr)
-library(clusterProfiler)
-library(DOSE)
-library(DEGreport)
-library(pathview)
-library(purrr)
+# Organism params:
+# Human (default)
+#     organism: "Hs"
+#     gspecies: "Hsa"
+#     species: "human"
+# Mouse
+#     organism: "Mm"
+#     gspecies: "Mmu"
+#     species: "mouse"
+
+# Organism database package
+# help("enrichGO", "clusterProfiler")
+orgDB <- paste("org", params$organism, "eg.db", sep = ".")
+
+# Load the required libraries
+packages <- c(
+    orgDB,
+    "lpantano/DEGreport",
+    "hbc/bcbioRNASeq",
+    "clusterProfiler",
+    "DOSE",
+    "pathview",
+    "tidyverse"
+)
+if (!all(basename(packages) %in% rownames(installed.packages()))) {
+    source("https://bioconductor.org/biocLite.R")
+    notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
+    biocLite(notInstalled)
+} else {
+    invisible(lapply(
+        basename(packages), library, character.only = TRUE
+    ))
+}
 
 # Shared RMarkdown settings
 prepareRNASeqTemplate()
@@ -31,19 +56,17 @@ if (file.exists("setup.R")) {
 }
 
 # Load bcbioRNASeq object
-bcbName <- load(params$bcb)
+bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 
-resName <- load(params$res)
+resName <- load(params$resFile)
 res <- get(resName, inherits = FALSE) %>%
-    .[!is.na(.[["padj"]]), ]
-
-# Species
-# help("enrichGO", "clusterProfiler")
-orgDB <- paste0("org.", params$organism, ".eg.db")
+    .[!is.na(.[["padj"]]), , drop = FALSE]
+alpha <- metadata(res)[["alpha"]]
 
 # Directory paths
 faDir <- file.path(params$outputDir, "results", "functional_analysis")
+dir.create(faDir, recursive = TRUE, showWarnings = FALSE)
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
@@ -55,45 +78,48 @@ faDir <- file.path(params$outputDir, "results", "functional_analysis")
 
 Gene Ontology (GO) term enrichment is a technique for interpreting sets of genes making use of the Gene Ontology system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
 
-```{r go}
+```{r enrich_go}
+# Extract the Ensembl IDs for the background dataset, which is the all of the
+# genes tested for differential expression
+allGenes <- rownames(res) %>%
+    as.character()
 sigGenes <- significants(
     res,
     fc = params$lfc,
-    fdr = params$alpha)
+    fdr = alpha)
 sigResults <- res[sigGenes, ] %>%
     as.data.frame()
-
-# Extract the Ensembl IDs for the background dataset, which is the all of the genes tested for differential expression
-allGenes <- rownames(res) %>%
-    as.character()
-
 # Run GO enrichment analysis
 ego <- enrichGO(
     gene = sigGenes,
     universe = allGenes,
-    keytype = "ENSEMBL",
+    keytype = "ENSEMBL",  # `keyType` in clusterProfiler 3.5
     OrgDb = orgDB,
     ont = params$goOnt,
     pAdjustMethod = "BH",
     qvalueCutoff = 0.05,
     readable = TRUE)
-ego <- simplify(ego)
-clusterSummary <- slot(ego, "result") %>%
+egoSummary <- slot(ego, "result") %>%
     as.data.frame()
-fileName <- paste0(
-    params$goOnt,
-    "_clusterProfiler",
-    "_padj",
-    params$alpha,
-    "_lfc",
-    params$lfc,
-    ".csv.gz")
-write_csv(clusterSummary, file.path(fa, fileName))
-clusterSummary
+write_csv(
+    egoSummary,
+    path = file.path(
+        faDir,
+        paste0(
+            paste("go",
+                  tolower(params$goOnt),
+                  "clusterprofiler",
+                  "padj",
+                  alpha,
+                  "lfc",
+                  params$lfc,
+                  sep = "_"),
+            ".csv.gz")))
+egoSummary
 ```
 
 
-## DOTplot
+# DOTplot
 
 ```{r dotplot, fig.width=8}
 # Dotplot of top 25
@@ -101,19 +127,19 @@ dotplot(ego, showCategory = 25)
 ```
 
 
-## GO terms map
+# GO terms map
 
-```{r map, fig.width=8, fig.height=8}
+```{r enrich_map, fig.width=8, fig.height=8}
 # Enrichment plot of top 25
 enrichMap(ego, n = 25, vertex.label.font = 3)
 ```
 
 
-## Gene map
+# Gene map
 
 In order to consider the potentially biological complexities in which a gene may belong to multiple annotation categories and provide information of numeric changes if available
 
-```{r cnet, fig.width=8, fig.height=8}
+```{r cnetplot, fig.width=8, fig.height=8}
 # Cnet plot with genes colored by fold changes for top 5 most significant GO
 # processes
 foldChanges <- sigResults[["log2FoldChange"]]
@@ -127,34 +153,50 @@ cnetplot(
 ```
 
 
-## KEGG analysis
+# KEGG analysis
 
-```{r reactome}
-entrezID <- bitr(
+```{r enrich_kegg}
+allEntrez <- bitr(
+    allGenes,
+    fromType = "ENSEMBL",
+    toType = "ENTREZID",
+    OrgDb = orgDB) %>%
+    .[["ENTREZID"]]
+sigEntrez <- bitr(
     sigGenes,
     fromType = "ENSEMBL",
-    toType = c("ENTREZID"),
-    OrgDb = orgDB)
-kegg <- enrichKEGG(entrezID[["ENTREZID"]], organism = params$species)
+    toType = "ENTREZID",
+    OrgDb = orgDB) %>%
+    .[["ENTREZID"]]
+kegg <- enrichKEGG(
+    gene = sigEntrez,
+    universe = allEntrez,
+    organism = params$species)
 keggSummary <- slot(kegg, "result") %>%
     as.data.frame()
-fileName <- paste0(
-    "kegg_clusterprofiler",
-    "_padj",
-    params$alpha,
-    "_lfc",
-    params$lfc,
-    ".csv.gz")
-write_csv(keggSummary, file.path(fa, fileName))
+write_csv(
+    keggSummary,
+    path = file.path(
+        faDir,
+        paste0(
+            paste(
+                "kegg",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc,
+                sep = "_"),
+            ".csv.gz")))
 keggSummary
 ```
 
 
-## GO GSEA analysis
+# GO GSEA analysis
 
 A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. Gene Set Enrichment Analysis (GSEA) directly addresses this limitation. All genes can be used in GSEA; GSEA aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
-```{r go_gsea}
+```{r gse_go}
 fdrOrdered <- res %>%
     as.data.frame() %>%
     .[order(.[["padj"]]), ]
@@ -172,19 +214,25 @@ gse <- gseGO(
     verbose = FALSE)
 gseSummary <- slot(gse, "result") %>%
     as.data.frame()
-fileName <- paste0(
-    "kegg_clusterprofiler",
-    "_padj",
-    params$alpha,
-    "_lfc",
-    params$lfc,
-    ".csv.gz")
-write_csv(gseSummary, file.path(fa, fileName))
+write_csv(
+    gseSummary,
+    path = file.path(
+        faDir,
+        paste0(
+            paste(
+                "gsea",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc,
+                sep = "_"),
+            ".csv.gz")))
 gseSummary
 ```
 
 
-## KEGG GSEA analysis
+# KEGG GSEA analysis
 
 We can also perform GSEA analysis with clusterProfiler using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
 
@@ -228,7 +276,9 @@ gseaKEGG <- gseKEGG(
 
 # Extract the GSEA results
 gseaKEGGSummary <- slot(gseaKEGG, "result")
-write_csv(gseaKEGGSummary, file.path(fa, "kegg_gsea_clusterprofiler.csv.gz"))
+write_csv(
+    gseaKEGGSummary,
+    path = file.path(faDir, "gsea_kegg_clusterprofiler.csv.gz"))
 gseaKEGGSummary
 ```
 
