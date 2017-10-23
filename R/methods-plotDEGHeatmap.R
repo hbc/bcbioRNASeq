@@ -16,7 +16,7 @@
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotGeneHeatmap()].
 #'
-#' @examplesd
+#' @examples
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
 #'
