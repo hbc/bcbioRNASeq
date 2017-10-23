@@ -58,11 +58,3 @@ bcbioRNADataSet <- setClass(
     slots = c(callers = "SimpleList")
 )
 setValidity("bcbioRNADataSet", function(object) TRUE)
-
-
-
-# DESeq2
-setClassUnion(
-    name = "DESeq",
-    members = c("DESeqDataSet", "DESeqTransform")
-)

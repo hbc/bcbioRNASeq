@@ -40,7 +40,7 @@ NULL
 #' @export
 setMethod(
     "sampleMetadata",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     .sampleMetadata)
 
 
@@ -49,5 +49,14 @@ setMethod(
 #' @export
 setMethod(
     "sampleMetadata",
-    signature("DESeqANY"),
+    signature("DESeqDataSet"),
+    .sampleMetadata)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata",
+    signature("DESeqTransform"),
     .sampleMetadata)
