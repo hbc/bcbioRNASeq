@@ -7,42 +7,49 @@
 #'
 #' @importFrom basejump plotGene
 #'
-#' @inherit qcPlots
+#' @inherit plotTotalReads
 #'
-#' @inheritParams AllGenerics
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @param format Ensembl identifier format. Supports `symbol` (**default**) or
 #'   `ensgene`.
 #'
-#' @return [ggplot].
+#' @return
+#' - `return = FALSE`: [cowplot::plot_grid()] graphical output.
+#' - `return = TRUE`: [list] of per gene [ggplot] objects.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
-#' data(bcb)
-#' genes <- c("Sulf1", "Phf3")
-#'
-#' # bcbioRNASeq
-#' plotGene(bcb, gene = genes)
+#' # Gene symbols
+#' symbol <- rowData(bcb)[["symbol"]][1:3]
+#' print(symbol)
+#' plotGene(bcb, gene = symbol, format = "symbol")
 #'
 #' \dontrun{
-#' plotGene(bcb, gene = genes, interestingGroups = "group")
+#' # Gene identifiers
+#' ensgene <- rownames(bcb)[1:3]
+#' print(ensgene)
+#' plotGene(bcb, gene = ensgene, format = "ensgene")
 #' }
 NULL
 
 
 
 # Constructors ====
+#' @importFrom cowplot plot_grid
+#' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot labs theme
 #' @importFrom viridis scale_color_viridis
 .plotGene <- function(
     counts,
     gene,
     metadata,
-    interestingGroups = "sampleName") {
+    interestingGroups = "sampleName",
+    color = scale_color_viridis(discrete = TRUE),
+    return = FALSE) {
     metadata <- as.data.frame(metadata)
-    sapply(seq_along(gene), function(a) {
+    plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
         symbol <- names(gene)[[a]]
         df <- data.frame(
@@ -63,27 +70,36 @@ NULL
                  x = "sample",
                  y = "counts",
                  color = interestingGroups) +
-            expand_limits(y = 0) +
-            scale_color_viridis(discrete = TRUE)
-        show(p)
-    }) %>%
-        invisible()
+            expand_limits(y = 0)
+        if (!is.null(color)) {
+            p <- p + color
+        }
+        p
+    })
+    if (isTRUE(return)) {
+        plots
+    } else {
+        plot_grid(plotlist = plots, labels = "AUTO")
+    }
 }
 
 
 
 # Methods ====
 #' @rdname plotGene
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGene",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         normalized = "tpm",
         gene,
-        format = "symbol") {
+        format = "symbol",
+        color = scale_color_viridis(discrete = TRUE)) {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
@@ -113,5 +129,6 @@ setMethod(
             counts = counts,
             gene = gene,
             metadata = metadata,
-            interestingGroups = interestingGroups)
+            interestingGroups = interestingGroups,
+            color = color)
     })
