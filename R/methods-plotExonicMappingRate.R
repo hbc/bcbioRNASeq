@@ -15,9 +15,11 @@
 #'     bcb,
 #'     interestingGroups = "group",
 #'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' plotExonicMappingRate(metrics(bcb))
+#' \dontrun{
+#' metrics(bcb) %>% plotExonicMappingRate()
 #' }
 NULL
 

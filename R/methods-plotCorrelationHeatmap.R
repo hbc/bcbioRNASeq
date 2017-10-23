@@ -11,12 +11,7 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @importFrom pheatmap pheatmap
-#' @importFrom S4Vectors cor
-#'
 #' @inherit plotGeneHeatmap
-#'
-#' @inheritParams AllGenerics
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
@@ -27,10 +22,6 @@
 #' @param samples *Optional*. Character vector of specific samples.
 #' @param genes *Optional*. Character vector of specific gene identifiers to
 #'   plot.
-#' @param color Colors to use for plot. Defaults to [viridis::inferno()]
-#'   palette.
-#' @param legendColor Colors to use for legend labels. Defaults to
-#'   [viridis::viridis()] palette.
 #'
 #' @seealso
 #' - [stats::cor()].
@@ -43,14 +34,16 @@
 #' # Spearman correlation
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 #'
-#' \dontrun{
 #' # Flip the palettes used for plot and legend
+#' \dontrun{
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = viridis::viridis(256),
 #'     legendColor = viridis::inferno)
+#' }
 #'
 #' # Default pheatmap palette
+#' \dontrun{
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = NULL,
@@ -63,8 +56,10 @@ NULL
 # Constructors ====
 #' @importFrom dplyr mutate_all
 #' @importFrom grDevices colorRampPalette
+#' @importFrom pheatmap pheatmap
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom stats setNames
+#' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom viridis inferno viridis
 .plotCorrelationHeatmap <- function(

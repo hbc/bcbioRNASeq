@@ -15,9 +15,11 @@
 #'     bcb,
 #'     interestingGroups = "group",
 #'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' plot53Bias(metrics(bcb))
+#' \dontrun{
+#' metrics(bcb) %>% plot53Bias()
 #' }
 NULL
 

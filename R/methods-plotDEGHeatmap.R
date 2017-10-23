@@ -20,8 +20,8 @@
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
 #'
-#' \dontrun{
 #' # DESeqResults, DESeqDataSet
+#' \dontrun{
 #' plotDEGHeatmap(res, dds)
 #' }
 NULL

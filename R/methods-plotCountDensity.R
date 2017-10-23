@@ -17,9 +17,11 @@
 #'     bcb,
 #'     interestingGroups = "group",
 #'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' plotCountDensity(meltLog10(bcb, normalized = "tmm"))
+#' \dontrun{
+#' meltLog10(bcb, normalized = "tmm") %>% plotCountDensity()
 #' }
 NULL
 

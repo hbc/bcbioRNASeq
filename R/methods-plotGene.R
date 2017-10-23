@@ -27,8 +27,8 @@
 #' print(symbol)
 #' plotGene(bcb, gene = symbol, format = "symbol")
 #'
-#' \dontrun{
 #' # Gene identifiers
+#' \dontrun{
 #' ensgene <- rownames(bcb)[1:3]
 #' print(ensgene)
 #' plotGene(bcb, gene = ensgene, format = "ensgene")

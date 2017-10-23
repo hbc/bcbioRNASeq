@@ -15,9 +15,11 @@
 #'     bcb,
 #'     interestingGroups = "group",
 #'     fill = NULL)
+#' }
 #'
 #' # data.frame
-#' plotCountsPerGene(meltLog10(bcb, normalized = "tmm"))
+#' \dontrun{
+#' meltLog10(bcb, normalized = "tmm") %>% plotCountsPerGene()
 #' }
 NULL
 
