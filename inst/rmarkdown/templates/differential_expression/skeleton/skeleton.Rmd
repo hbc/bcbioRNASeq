@@ -43,7 +43,7 @@ dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
     design = params$design) %>%
-    DESeq
+    DESeq()
 rld <- rlog(dds)
 ```
 
