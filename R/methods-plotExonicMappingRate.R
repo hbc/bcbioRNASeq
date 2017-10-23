@@ -8,13 +8,13 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotExonicMappingRate(bcb)
 #'
 #' \dontrun{
-#' plotExonicMappingRate(bcb, interestingGroups = "group")
+#' plotExonicMappingRate(
+#'     bcb,
+#'     interestingGroups = "group",
+#'     fill = NULL)
 #'
 #' # data.frame
 #' plotExonicMappingRate(metrics(bcb))
