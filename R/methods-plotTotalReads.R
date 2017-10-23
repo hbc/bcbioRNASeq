@@ -35,8 +35,10 @@
 #'     bcb,
 #'     interestingGroups = "group",
 #'     fill = NULL)
+#' }
 #'
 #' # data.frame
+#' \dontrun{
 #' plotTotalReads(metrics(bcb))
 #' }
 NULL
