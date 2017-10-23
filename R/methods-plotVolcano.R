@@ -6,6 +6,7 @@
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
@@ -26,15 +27,12 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' data(res)
-#'
 #' # DESeqResults
 #' plotVolcano(res, genes = "Sulf1")
 #'
 #' \dontrun{
 #' # data.frame
-#' as.data.frame(res) %>%
-#'     plotVolcano()
+#' plotVolcano(as.data.frame(res))
 #' }
 NULL
 
@@ -282,6 +280,7 @@ NULL
 
 # Methods ====
 #' @rdname plotVolcano
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotVolcano",
