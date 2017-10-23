@@ -9,7 +9,7 @@
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
 #' @family Heatmaps
-#' @author Michael Steinbaugh
+#' @author Michael Steinbaugh, Victor Barrera
 #'
 #' @inherit plotGeneHeatmap
 #'
@@ -124,7 +124,8 @@ setMethod(
         method = "pearson",
         genes = NULL,
         samples = NULL,
-        title = NULL) {
+        title = NULL,
+        interestingGroups= NULL) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst")
@@ -133,7 +134,9 @@ setMethod(
         counts <- assays(object) %>%
             .[[transform]] %>%
             assay()
+        if (missing(interestingGroups)) {
         interestingGroups <- interestingGroups(object)
+        }
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE] %>%
             as.data.frame()

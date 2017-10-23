@@ -31,13 +31,26 @@ NULL
     counts,
     interestingGroups = "sampleName",
     minCounts = 0) {
-    ggplot(
+    if (is.null(interestingGroups)){
+    p <- ggplot(
+        object,
+        mapping = aes_(
+            x = ~mappedReads / 1e6,
+            y = colSums(counts > minCounts))
+    )
+    }
+    else {
+    p <- ggplot(
         object,
         mapping = aes_(
             x = ~mappedReads / 1e6,
             y = colSums(counts > minCounts),
             color = as.name(interestingGroups))
-    ) +
+        )
+    }
+
+
+    p +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
@@ -63,7 +76,7 @@ setMethod(
         if (is.null(metrics(object))) {
             return(NULL)
         }
-        if (missing(interestingGroups)) {
+        if (missing(interestingGroups) & !(is.null(interestingGroups))) {
             interestingGroups <-
                 metadata(object)[["interestingGroups"]][[1]]
         }
