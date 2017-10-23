@@ -27,7 +27,7 @@ Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.6.5)
 Imports:
-    basejump (>= 0.0.25),
+    basejump (>= 0.1.0),
     BiocGenerics,
     cowplot,
     DEGreport (>= 1.13.11),
@@ -58,6 +58,7 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
+    formatR,
     lintr (>= 1.0.1),
     rmarkdown,
     testthat,
