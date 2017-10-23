@@ -119,7 +119,7 @@ setMethod(
         organism,
         color = viridis::scale_color_viridis(discrete = TRUE)) {
         counts <- counts(object, normalized = TRUE)
-        if (is.missing(organism)) {
+        if (missing(organism)) {
             organism <- rownames(counts) %>%
                 .[[1]] %>%
                 detectOrganism()
