@@ -125,7 +125,7 @@ setMethod(
         genes = NULL,
         samples = NULL,
         title = NULL,
-        interestingGroups= NULL) {
+        interestingGroups = NULL) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst")
