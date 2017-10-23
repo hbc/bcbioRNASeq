@@ -12,13 +12,11 @@
 #'
 #' @inherit plotGeneHeatmap
 #'
-#' @inheritParams AllGenerics
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
-#' @param ... Options to pass to [plotGeneHeatmap()].
-#' @examples
-#' data(dds, res, rld)
+#' @param ... Passthrough arguments to [plotGeneHeatmap()].
 #'
+#' @examplesd
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
 #'
@@ -70,6 +68,7 @@ NULL
 
 # Methods ====
 #' @rdname plotDEGHeatmap
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -96,6 +95,7 @@ setMethod(
 
 
 #' @rdname plotDEGHeatmap
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -107,7 +107,7 @@ setMethod(
         lfc = 0,
         title = TRUE,
         ...) {
-        warning("Using a DESeqTransform object for counts is recommended",
+        warning("DESeqTransform for counts is recommended",
                 call. = FALSE)
         results <- as.data.frame(object)
         counts <- counts(counts, normalized = TRUE)
