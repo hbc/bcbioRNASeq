@@ -21,7 +21,7 @@ Ensure that these dependencies install correctly:
 
 ```r
 biocLite(c(
-    "steinbaugh/basejump"
+    "steinbaugh/basejump",
     "lpantano/DEGreport",
     "tidyverse",
     "rmarkdown",
