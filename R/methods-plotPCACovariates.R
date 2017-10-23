@@ -7,6 +7,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.
@@ -24,7 +25,6 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' data(bcb)
 #' plotPCACovariates(bcb, metrics = TRUE)
 #' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 NULL
@@ -46,15 +46,14 @@ NULL
     }
 
     metadata <- metrics(object)
+    factors <- select_if(metadata, is.factor)
+    numerics <- select_if(metadata, is.numeric) %>%
+        # Drop columns that are all zeroes (not useful to plot)
+        .[, colSums(.) > 0]
+    metadata <- cbind(factors, numerics)
 
     # Select the metrics to use for plot
     if (identical(metrics, TRUE)) {
-        # Subset the metadata data.frame
-        metadata <- metadata %>%
-            # Select only the numeric columns
-            select_if(is.numeric) %>%
-            # Drop columns that are all zeroes (not useful to plot)
-            .[, colSums(.) > 0]
         # Sort columns alphabetically
         col <- sort(colnames(metadata))
     } else if (identical(metrics, FALSE)) {
@@ -100,5 +99,5 @@ NULL
 #' @export
 setMethod(
     "plotPCACovariates",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     .plotPCACovariates)
