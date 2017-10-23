@@ -9,7 +9,6 @@
 #' @return [matrix].
 #'
 #' @examples
-#' data(bcb)
 #' tpm(bcb) %>% head()
 NULL
 
@@ -20,7 +19,7 @@ NULL
 #' @export
 setMethod(
     "tpm",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         assays(object)[["tpm"]]
     })

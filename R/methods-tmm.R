@@ -17,18 +17,16 @@
 #' @export
 #'
 #' @examples
-#' data(bcb, dds)
-#'
 #' # bcbioRNASeq
-#' tmm(bcb) %>%
-#'     summary()
+#' tmm(bcb) %>% summary()
 #'
-#' \dontrun{
 #' # DESeqDataSet
-#' tmm(dds) %>%
-#'     summary()
+#' \dontrun{
+#' tmm(dds) %>% summary()
+#' }
 #'
 #' # matrix
+#' \dontrun{
 #' assay(bcb) %>%
 #'     tmm() %>%
 #'     summary()
@@ -53,7 +51,7 @@ NULL
 #' @export
 setMethod(
     "tmm",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         assays(object)[["tmm"]]
     })

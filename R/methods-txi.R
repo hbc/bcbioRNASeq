@@ -10,8 +10,7 @@
 #' @return [tximport::tximport()] list.
 #'
 #' @examples
-#' txi(bcb) %>%
-#'     names()
+#' txi(bcb) %>% names()
 NULL
 
 
@@ -21,7 +20,7 @@ NULL
 #' @export
 setMethod(
     "txi",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         bcbio(object, type = "tximport")
     })
