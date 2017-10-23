@@ -27,10 +27,14 @@
 #' bcb[genes, ]
 #'
 #' # Subset by both genes and samples
+#' \dontrun{
 #' bcb[genes, samples]
+#' }
 #'
 #' # Skip normalization
+#' \dontrun{
 #' bcb[genes, samples, skipNorm = TRUE]
+#' }
 NULL
 
 
@@ -67,7 +71,7 @@ NULL
 
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
-#' @importFrom S4Vectors SimpleList
+#' @importFrom S4Vectors metadata SimpleList
 .subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)
@@ -169,20 +173,19 @@ NULL
         vst = vst)
 
     # Slot additional data
-    extra <- SimpleList(
+    bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
         featureCounts = tmpFC)
 
     # bcbioRNASeq ====
-    bcb <- new("bcbioRNASeq",
-               SummarizedExperiment(
-                   assays = tmpAssays,
-                   colData = tmpData,
-                   rowData = tmpRow,
-                   metadata = tmpMetadata),
-               bcbio = extra)
-    bcb
+    new("bcbioRNASeq",
+        SummarizedExperiment(
+            assays = tmpAssays,
+            colData = tmpData,
+            rowData = tmpRow,
+            metadata = tmpMetadata),
+        bcbio = bcbio)
 }
 
 
@@ -193,19 +196,6 @@ NULL
 setMethod(
     "[",
     signature(x = "bcbioRNASeq",
-              i = "ANY",
-              j = "ANY"),
-    function(x, i, j, ..., drop = FALSE) {
-        .subset(x, i, j, ..., drop)
-    })
-
-
-
-#' @rdname subset
-#' @export
-setMethod(
-    "[",
-    signature(x = "bcbioRNADataSet",
               i = "ANY",
               j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
