@@ -8,8 +8,6 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @importFrom vsn meanSdPlot
-#'
 #' @inheritParams AllGenerics
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
@@ -20,10 +18,10 @@
 #' @return [ggplot] grid.
 #'
 #' @examples
-#' data(bcb, dds)
-#'
 #' # bcbioRNASeq
 #' plotMeanSD(bcb)
+#'
+#' plotMeanSD(bcb, orientation = "horizontal")
 #'
 #' # DESeqDataSet
 #' plotMeanSD(dds)
@@ -33,6 +31,8 @@ NULL
 
 # Constructors ====
 #' @importFrom cowplot plot_grid
+#' @importFrom ggplot2 ggtitle theme xlab
+#' @importFrom vsn meanSdPlot
 .plotMeanSD <- function(
     raw,
     normalized,
@@ -57,15 +57,13 @@ NULL
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("rlog") +
-        xlab(xlab) +
-        theme(legend.position = "none")
+        xlab(xlab)
     ggvst <- vst %>%
         .[nonzero, , drop = FALSE] %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("vst") +
-        xlab(xlab) +
-        theme(legend.position = "none")
+        xlab(xlab)
 
     # Remove the plot (color) legend, if desired
     if (!isTRUE(showLegend)) {
@@ -101,7 +99,7 @@ NULL
 #' @export
 setMethod(
     "plotMeanSD",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         orientation = "vertical",
