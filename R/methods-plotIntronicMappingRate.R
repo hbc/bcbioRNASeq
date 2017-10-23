@@ -5,21 +5,21 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb)
-#'
-#' # bcbioRNASeq
 #' plotIntronicMappingRate(bcb)
-#' plotIntronicMappingRate(bcb, interestingGroups = "group")
 #'
 #' \dontrun{
+#' plotIntronicMappingRate(
+#'     bcb,
+#'     interestingGroups = "group"
+#'     fill = NULL)
+#' }
+#'
 #' # data.frame
-#' metrics(bcb) %>%
-#'     plotIntronicMappingRate()
+#' \dontrun{
+#' metrics(bcb) %>% plotIntronicMappingRate()
 #' }
 NULL
 
@@ -31,6 +31,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 20,
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -43,15 +44,15 @@ NULL
         labs(title = "intronic mapping rate",
              x = "sample",
              y = "intronic mapping rate (%)") +
-        ylim(0, 100) +
-        scale_fill_viridis(discrete = TRUE)
+        ylim(0, 100)
     if (!is.null(warnLimit)) {
-        p <- p +
-            qcWarnLine(warnLimit)
+        p <- p + qcWarnLine(warnLimit)
+    }
+    if (!is.null(fill)) {
+        p <- p + fill
     }
     if (isTRUE(flip)) {
-        p <- p +
-            coord_flip()
+        p <- p + coord_flip()
     }
     p
 }
@@ -60,14 +61,17 @@ NULL
 
 # Methods ====
 #' @rdname plotIntronicMappingRate
+#' @importFrom viridis scale_color_viridis
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotIntronicMappingRate",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         warnLimit = 20,
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)
@@ -80,6 +84,7 @@ setMethod(
             metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
+            fill = fill,
             flip = flip)
     })
 
