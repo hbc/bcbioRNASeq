@@ -274,7 +274,7 @@ resTblEntrez <- res %>%
     rownames_to_column("ensembl") %>%
     as_tibble() %>%
     # Use the full join option here to include all Entrez identifiers
-    full_join(ensembl2entrez) %>%
+    full_join(ensembl2entrez, by = "ensembl") %>%
     select(entrezid, ensembl, everything()) %>%
     # Remove rows with duplicate Entrez identifiers
     filter(!duplicated(entrezid))
@@ -314,14 +314,22 @@ pathways <- gseaKEGGSummary$ID
 keggPlotsDir <- file.path(faDir, "kegg_plots")
 dir.create(keggPlotsDir, recursive = TRUE, showWarnings = FALSE)
 
-# There is currently no way to set the output path of the pathview PNG files
+# There is currently no way to set the output path of the pathview PNG files.
+# We're using tryCatch here to return to the user pathways that didn't output
+# graphics correctly.
 lapply(seq_along(pathways), function(a) {
-    pathview(
-       gene.data = foldChanges,
-       pathway.id = pathways[[a]],
-       species = tolower(params$gspecies), 
-       limit = list(gene = 2, cpd = 1),
-       kegg.dir = keggPlotsDir)
+    pathway <- pathways[[a]]
+    tryCatch(
+        pathview(
+            gene.data = foldChanges,
+            pathway.id = pathway,
+            species = tolower(params$gspecies), 
+            limit = list(gene = 2, cpd = 1),
+            kegg.dir = keggPlotsDir),
+        error = function(e) {
+            warning(paste(pathway, "failed to plot"), call. = FALSE)
+        }
+    )
 }) %>%
     invisible()
 
