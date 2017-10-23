@@ -10,7 +10,6 @@
 #' @return Character vector.
 #'
 #' @examples
-#' data(bcb)
 #' interestingGroups(bcb)
 NULL
 

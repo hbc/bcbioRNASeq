@@ -14,8 +14,7 @@
 #' @return [list].
 #'
 #' @examples
-#' lst <- flatFiles(bcb)
-#' names(lst)
+#' flatFiles(bcb) %>% names()
 NULL
 
 

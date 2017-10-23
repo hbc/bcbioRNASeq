@@ -13,19 +13,14 @@
 #' @return log10 melted [data.frame].
 #'
 #' @examples
-#' data(bcb, dds, rld)
-#'
 #' # bcbioRNASeq
-#' meltLog10(bcb) %>%
-#'     str()
+#' meltLog10(bcb) %>% str()
 #'
 #' # DESeqDataSet
-#' meltLog10(dds) %>%
-#'     str()
+#' meltLog10(dds) %>% str()
 #'
 #' # DESeqTransform
-#' meltLog10(rld) %>%
-#'     str()
+#' meltLog10(rld) %>% str()
 NULL
 
 
