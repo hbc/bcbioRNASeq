@@ -20,10 +20,11 @@ NULL
 
 # Methods ====
 #' @rdname sampleDirs
+#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "sampleDirs",
-    signature("bcbioRNASeqANY"),
+    signature("bcbioRNASeq"),
     function(object) {
         metadata(object)[["sampleDirs"]]
     })
