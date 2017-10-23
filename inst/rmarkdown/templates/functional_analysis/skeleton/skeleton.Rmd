@@ -73,13 +73,6 @@ dir.create(faDir, recursive = TRUE, showWarnings = FALSE)
 ```
 
 
-```{r sig_tables}
-sigResults <- as.data.frame(res)[sigGenes, ]
-foldChanges <- sigResults[, "log2FoldChange", drop = FALSE]
-fdrOrdered <- res %>%
-    as.data.frame() %>%
-    .[order(.$padj), ]
-```
 
 ```{r identifiers, message=FALSE, warning=FALSE}
 allGenes <- rownames(res) %>%
@@ -104,6 +97,17 @@ sigEntrez <- bitr(
     camel() %>%
     .$entrezid %>%
     unique()
+```
+
+```{r sig_tables}
+sigResults <- as.data.frame(res)[sigGenes, ]
+
+foldChanges <- sigResults$log2FoldChange
+names(foldChanges) <- rownames(sigResults)
+
+fdrOrdered <- res %>%
+    as.data.frame() %>%
+    .[order(.$padj), ]
 ```
 
 
@@ -161,7 +165,7 @@ dotplot(ego, showCategory = 25)
 
 ```{r enrich_map, fig.width=8, fig.height=8}
 # Enrichment plot of top 25
-enrichMap(ego, n = 25, vertex.label.font = 3)
+enrichMap(ego, n = 25, vertex.label.font = 1)
 ```
 
 
@@ -178,7 +182,6 @@ cnetplot(
     categorySize = "pvalue",
     showCategory = 5,
     foldChange = foldChanges,
-    # http://igraph.org/r/doc/plot.common.html
     vertex.label.font = 1)
 ```
 
@@ -267,7 +270,7 @@ We can also perform GSEA analysis with clusterProfiler using KEGG gene sets and 
 
 ```{r kegg_gsea}
 resTblEntrez <- res %>%
-    as.data.frame %>%
+    as.data.frame() %>%
     rownames_to_column("ensembl") %>%
     as_tibble() %>%
     # Use the full join option here to include all Entrez identifiers
@@ -309,7 +312,7 @@ suppressWarnings(detach("package:dplyr", unload = TRUE))
 pathways <- gseaKEGGSummary$ID
 
 keggPlotsDir <- file.path(faDir, "kegg_plots")
-dir.create(keggDir, recursive = TRUE, showWarnings = FALSE)
+dir.create(keggPlotsDir, recursive = TRUE, showWarnings = FALSE)
 
 # There is currently no way to set the output path of the pathview PNG files
 lapply(seq_along(pathways), function(a) {
