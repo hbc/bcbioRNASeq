@@ -44,7 +44,8 @@ NULL
 
 # Constructors ====
 #' @importFrom cowplot plot_grid
-#' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot labs theme
+#' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
+#'   labs theme
 #' @importFrom viridis scale_color_viridis
 .plotGene <- function(
     counts,
