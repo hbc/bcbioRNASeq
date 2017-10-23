@@ -16,12 +16,13 @@
 #' @return Object of same class, with pooled technical replicates.
 #'
 #' @examples
-#' \dontrun{
 #' # matrix
-#' mat <- assay(bcb)
-#' aggregateReplicates(mat)
+#' \dontrun{
+#' aggregateReplicates(assay(bcb))
+#' }
 #'
 #' # DESeqDataSet
+#' \dontrun{
 #' aggregateReplicates(dds)
 #' }
 NULL

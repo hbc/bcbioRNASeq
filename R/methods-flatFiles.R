@@ -12,6 +12,10 @@
 #' @inheritParams AllGenerics
 #'
 #' @return [list].
+#'
+#' @examples
+#' lst <- flatFiles(bcb)
+#' names(lst)
 NULL
 
 

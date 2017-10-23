@@ -9,6 +9,9 @@
 #' @inheritParams AllGenerics
 #'
 #' @return [data.frame]
+#'
+#' @examples
+#' annotable(bcb) %>% str()
 NULL
 
 
