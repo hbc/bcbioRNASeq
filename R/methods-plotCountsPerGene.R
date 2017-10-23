@@ -6,6 +6,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads
+#' @inheritParams plotCountDensity
 #'
 #' @examples
 #' plotCountsPerGene(bcb)
@@ -31,7 +32,7 @@ NULL
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -67,7 +68,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = "tmm",
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <-

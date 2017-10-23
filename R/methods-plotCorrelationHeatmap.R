@@ -38,8 +38,8 @@
 #' \dontrun{
 #' plotCorrelationHeatmap(
 #'     bcb,
-#'     color = viridis::viridis(256),
-#'     legendColor = viridis::inferno)
+#'     color = viridis(256),
+#'     legendColor = inferno)
 #' }
 #'
 #' # Default pheatmap palette
@@ -69,8 +69,8 @@ NULL
     genes = NULL,
     samples = NULL,
     title = NULL,
-    color = viridis::inferno(256),
-    legendColor = viridis::viridis) {
+    color = inferno(256),
+    legendColor = viridis) {
     # Check for supported correlation method
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
@@ -159,8 +159,8 @@ setMethod(
         genes = NULL,
         samples = NULL,
         title = NULL,
-        color = viridis::inferno(256),
-        legendColor = viridis::viridis) {
+        color = inferno(256),
+        legendColor = viridis) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst", call. = FALSE)

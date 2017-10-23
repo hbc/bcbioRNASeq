@@ -6,6 +6,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotGene
 #'
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
@@ -29,7 +30,7 @@ NULL
     object,
     organism,
     ylab = "counts",
-    color = viridis::scale_color_viridis(discrete = TRUE)) {
+    color = scale_color_viridis(discrete = TRUE)) {
     # Load the relevant internal gender markers data
     envir <- loadNamespace("bcbioRNASeq")
     if (organism == "Homo sapiens") {
@@ -94,7 +95,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = scale_color_viridis(discrete = TRUE)) {
         counts <- tpm(object)
         organism <- metadata(object)[["organism"]]
         ylab <- "transcripts per million (tpm)"
@@ -117,7 +118,7 @@ setMethod(
     function(
         object,
         organism,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = scale_color_viridis(discrete = TRUE)) {
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {
             organism <- rownames(counts) %>%

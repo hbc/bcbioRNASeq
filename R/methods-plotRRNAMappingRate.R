@@ -32,7 +32,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 10,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     # Fix for camel variant mismatch (e.g. rRnaRate).
     if (!"rrnaRate" %in% colnames(object)) {
@@ -82,7 +82,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 10,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

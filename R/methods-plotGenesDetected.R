@@ -6,6 +6,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads
+#' @inheritParams plotGeneSaturation
 #'
 #' @examples
 #' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)

@@ -7,23 +7,16 @@
 #'
 #' @inheritParams AllGenerics
 #'
-#' @param counts Object containing a count matrix.
-#' @param flip Flip X and Y axes.
 #' @param interestingGroups Category to use to group samples (color and shape).
 #'   If unset, this is automatically determined by the metadata set inside the
 #'   [bcbioRNASeq] object.
-#' @param minCounts Numeric value for filtering the counts matrix before
-#'   plotting.
-#' @param normalized Count normalization method. See [counts()] documentation
-#'   for more information.
 #' @param passLimit Threshold to plot pass color marker.
 #' @param warnLimit Threshold to plot warning color marker.
-#'
-#' @param fill Desired ggplot color scale. Defaults to
-#'   [viridis::scale_color_viridis(discrete = TRUE)]. Must supply discrete
-#'   values. When set to `NULL`, the default ggplot2 color palette will be used.
-#'   If manual color definitions are desired, we recommend using
-#'   [ggplot2::scale_fill_manual()].
+#' @param fill Desired ggplot fill scale. Defaults to
+#'   [viridis::scale_fill_viridis()]. Must supply discrete values. When set to
+#'   `NULL`, the default ggplot2 color palette will be used. If manual color
+#'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
+#' @param flip Flip X and Y axes.
 #'
 #' @return [ggplot].
 #'
@@ -53,7 +46,7 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     p <- ggplot(
         object,
@@ -96,7 +89,7 @@ setMethod(
         interestingGroups,
         passLimit = 20,
         warnLimit = 10,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

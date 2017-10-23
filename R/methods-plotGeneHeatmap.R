@@ -18,10 +18,9 @@
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
 #'   right side of the heatmap. Each row of this [data.frame] defines the
 #'   features of the heatmap columns.
-#' @param color Colors to use for plot. Defaults to [viridis::inferno()]
+#' @param color Colors to use for plot. Defaults to [inferno()] palette.
+#' @param legendColor Colors to use for legend labels. Defaults to [viridis()]
 #'   palette.
-#' @param legendColor Colors to use for legend labels. Defaults to
-#'   [viridis::viridis()] palette.
 #' @param title *Optional*. Plot title.
 #'
 #' @seealso [pheatmap::pheatmap()].
@@ -37,8 +36,8 @@
 #' plotGeneHeatmap(
 #'     bcb,
 #'     genes = genes,
-#'     color = viridis::viridis(256),
-#'     legendColor = viridis::inferno)
+#'     color = viridis(256),
+#'     legendColor = inferno)
 #'
 #' # Transcriptome heatmap
 #' \dontrun{
@@ -77,8 +76,8 @@ NULL
     genes = NULL,
     annotationCol = NULL,
     title = NULL,
-    color = viridis::inferno(256),
-    legendColor = viridis::viridis,
+    color = inferno(256),
+    legendColor = viridis,
     # Internal parameters
     scale = "row") {
     counts <- as.matrix(counts)
@@ -175,8 +174,8 @@ setMethod(
         object,
         genes = NULL,
         title = NULL,
-        color = viridis::inferno(256),
-        legendColor = viridis::viridis) {
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- counts(object, normalized = "rlog")
         annotationCol <- colData(object) %>%
             .[, metadata(object)[["interestingGroups"]], drop = FALSE]
@@ -202,8 +201,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = viridis::inferno(256),
-        legendColor = viridis::viridis) {
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- counts(object, normalized = TRUE)
         .plotGeneHeatmap(
             counts = counts,
@@ -227,8 +226,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = viridis::inferno(256),
-        legendColor = viridis::viridis) {
+        color = inferno(256),
+        legendColor = viridis) {
         counts <- assay(object)
         .plotGeneHeatmap(
             counts = counts,
@@ -252,8 +251,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = viridis::inferno(256),
-        legendColor = viridis::viridis) {
+        color = inferno(256),
+        legendColor = viridis) {
         .plotGeneHeatmap(
             counts = object,
             # User-defined

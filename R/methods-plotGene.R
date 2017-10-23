@@ -10,10 +10,15 @@
 #' @inherit plotTotalReads
 #'
 #' @param gene Gene identifier. Can input multiple genes as a character vector.
-#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
-#'   `rlog`, or `vst`.
 #' @param format Ensembl identifier format. Supports `symbol` (**default**) or
 #'   `ensgene`.
+#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
+#'   `rlog`, or `vst`.
+#' @param color Desired ggplot color scale. Defaults to
+#'   [viridis::scale_color_viridis()]. Must supply discrete values. When set to
+#'   `NULL`, the default ggplot2 color palette will be used. If manual color
+#'   definitions are desired, we recommend using
+#'   [ggplot2::scale_color_manual()].
 #'
 #' @return
 #' - `return = FALSE`: [cowplot::plot_grid()] graphical output.

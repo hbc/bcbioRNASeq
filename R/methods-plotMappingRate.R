@@ -32,7 +32,7 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 90,
     warnLimit = 70,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     if (is.null(object)) return(NULL)
     p <- ggplot(
@@ -76,7 +76,7 @@ setMethod(
         interestingGroups,
         passLimit = 90,
         warnLimit = 70,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <-
