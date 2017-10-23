@@ -97,21 +97,24 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
 
     <pre class="usage"><span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeqANY</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)
 
 <span class='co'># S4 method for matrix</span>
 <span class='fu'>plotGeneHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +136,15 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
       <td><p><em>Optional</em>. Plot title.</p></td>
     </tr>
     <tr>
+      <th>color</th>
+      <td><p>Colors to use for plot. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno()</a></code> palette.</p></td>
+    </tr>
+    <tr>
+      <th>legendColor</th>
+      <td><p>Colors to use for legend labels. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>
+palette.</p></td>
+    </tr>
+    <tr>
       <th>annotationCol</th>
       <td><p>data.frame that specifies the annotations shown on the
 right side of the heatmap. Each row of this data.frame defines the
@@ -152,18 +164,34 @@ features of the heatmap columns.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneHeatmap-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># Genes as Ensembl identifiers</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span>
-    <span class='fu'>rownames</span>()
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Obtaining Ensembl annotations with AnnotationHub and ensembldb</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike//.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2017-09-07</span></div><div class='output co'>#&gt; <span class='message'>EnsDB: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGeneHeatmap-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqTransform</span>
-<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotGeneHeatmap-8.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Genes as Ensembl identifiers</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>rownames</span>()
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike/.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>2017-10-18</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Flip the plot and legend palettes</span>
+<span class='fu'>plotGeneHeatmap</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike/.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>2017-10-18</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotGeneHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# Transcriptome heatmap
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>bcb</span>)
+<span class='co'># }</span><div class='input'>
+# Use default pheatmap color palette
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotGeneHeatmap</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='co'># }</span><div class='input'>
+# DESeqDataSet
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>dds</span>)
+<span class='co'># }</span><div class='input'>
+# DESeqTransform
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotGeneHeatmap</span>(<span class='no'>rld</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -186,7 +214,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -92,7 +92,7 @@
 
     <pre class="usage"><span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeqANY</span>
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>meltLog10</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
@@ -129,11 +129,8 @@ or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>, <span class='no'>rld</span>)
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>meltLog10</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	922 obs. of  6 variables:
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
+<span class='fu'>meltLog10</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	922 obs. of  6 variables:
 #&gt;  $ ensgene    : chr  "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886" "ENSMUSG00000016918" ...
 #&gt;  $ sampleID   : chr  "group1_1" "group1_1" "group1_1" "group1_1" ...
 #&gt;  $ counts     : num  1.1206 2.6435 3.2752 2.8726 0.0414 ...
@@ -141,8 +138,7 @@ or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
 #&gt;  $ description: chr  "group1_1" "group1_1" "group1_1" "group1_1" ...
 #&gt;  $ group      : Factor w/ 2 levels "ctrl","ko": 1 1 1 1 1 1 1 1 1 1 ...</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='fu'>meltLog10</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	922 obs. of  7 variables:
+<span class='fu'>meltLog10</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	922 obs. of  7 variables:
 #&gt;  $ ensgene    : chr  "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886" "ENSMUSG00000016918" ...
 #&gt;  $ sampleID   : chr  "group1_1" "group1_1" "group1_1" "group1_1" ...
 #&gt;  $ counts     : num  1.1206 2.6435 3.2752 2.8726 0.0414 ...
@@ -151,8 +147,7 @@ or specifically request TMM-normalized counts (<code>tmm</code>).</p></td>
 #&gt;  $ group      : Factor w/ 2 levels "ctrl","ko": 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ sizeFactor : num  0.909 0.909 0.909 0.909 0.909 ...</div><div class='input'>
 <span class='co'># DESeqTransform</span>
-<span class='fu'>meltLog10</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	841 obs. of  7 variables:
+<span class='fu'>meltLog10</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'>str</span>()</div><div class='output co'>#&gt; 'data.frame':	841 obs. of  7 variables:
 #&gt;  $ ensgene    : chr  "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886" "ENSMUSG00000016918" ...
 #&gt;  $ sampleID   : chr  "group1_1" "group1_1" "group1_1" "group1_1" ...
 #&gt;  $ counts     : num  0.534 0.938 1.035 0.972 0.758 ...
@@ -182,7 +177,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

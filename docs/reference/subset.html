@@ -91,7 +91,7 @@
 internal DESeqDataSet and count transformations are rescaled automatically.</p>
     
 
-    <pre class="usage"># S4 method for bcbioRNASeqANY,ANY,ANY,ANY
+    <pre class="usage"># S4 method for bcbioRNASeq,ANY,ANY,ANY
 [(x, i, j, ..., drop = FALSE)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -169,7 +169,7 @@ internal DESeqDataSet and count transformations are rescaled automatically.</p>
 <span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"group1_1"</span>, <span class='st'>"group1_2"</span>)
 
 <span class='co'># Subset by sample name</span>
-<span class='no'>bcb</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; class: bcbioRNASeq 
+<span class='no'>bcb</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 2 
 #&gt; metadata(26): version uploadDir ... devtoolsSessionInfo missingGenes
 #&gt; assays(6): raw normalized ... rlog vst
@@ -179,7 +179,7 @@ internal DESeqDataSet and count transformations are rescaled automatically.</p>
 #&gt; colnames(2): group1_1 group1_2
 #&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
 <span class='co'># Subset by gene list</span>
-<span class='no'>bcb</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; class: bcbioRNASeq 
+<span class='no'>bcb</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 50 4 
 #&gt; metadata(26): version uploadDir ... devtoolsSessionInfo missingGenes
 #&gt; assays(6): raw normalized ... rlog vst
@@ -188,16 +188,14 @@ internal DESeqDataSet and count transformations are rescaled automatically.</p>
 #&gt; rowData names(5): ensgene symbol description biotype broadClass
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
-<span class='co'># Subset by both genes and samples</span>
-<span class='no'>bcb</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 50 2 
-#&gt; metadata(26): version uploadDir ... devtoolsSessionInfo missingGenes
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000026154 ENSMUSG00000026155
-#&gt; rowData names(5): ensgene symbol description biotype broadClass
-#&gt; colnames(2): group1_1 group1_2
-#&gt; colData names(4): sampleID sampleName description group</div></pre>
+# Subset by both genes and samples
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>bcb</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]
+<span class='co'># }</span><div class='input'>
+# Skip normalization
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>bcb</span>[<span class='no'>genes</span>, <span class='no'>samples</span>, <span class='kw'>skipNorm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>]
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,7 +218,7 @@ Lorena Pantano, Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

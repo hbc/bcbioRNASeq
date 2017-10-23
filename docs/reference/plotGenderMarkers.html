@@ -92,14 +92,17 @@
 
     <pre class="usage"><span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeqANY</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>)
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>organism</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>organism</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"counts"</span>)</pre>
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>organism</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,6 +114,14 @@
     <tr>
       <th>...</th>
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Desired ggplot color scale. Defaults to
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>viridis::scale_color_viridis()</a></code>. Must supply discrete values. When set to
+<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>organism</th>
@@ -144,8 +155,7 @@ that is first alphabetically in the count matrix rownames.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Missing gender markers in count matrix</span></div><div class='output co'>#&gt; NULL</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Missing gender markers in count matrix</span></div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,7 +178,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

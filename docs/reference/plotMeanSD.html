@@ -93,11 +93,13 @@
 
     <pre class="usage"><span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeqANY</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>)
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>,
+  <span class='kw'>showLegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>,
+  <span class='kw'>showLegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,6 +111,16 @@
     <tr>
       <th>...</th>
       <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+    </tr>
+    <tr>
+      <th>orientation</th>
+      <td><p>Orientation to use for plot grid, either <code>horizontal</code> or
+<code>vertical</code> (default).</p></td>
+    </tr>
+    <tr>
+      <th>showLegend</th>
+      <td><p>Include the color bar legend. This is typically not that
+informative and is disabled by default, to improve the plot appearance.</p></td>
     </tr>
     </table>
     
@@ -123,13 +135,11 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>, <span class='no'>dds</span>)
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>)
-
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMeanSD-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>)</div><div class='img'><img src='plotMeanSD-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotMeanSD-3.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plotMeanSD-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotMeanSD-6.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -152,7 +162,7 @@ Michael Steinbaugh, Lorena Patano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
