@@ -9,8 +9,6 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom edgeR calcNormFactors cpm DGEList
-#'
 #' @inheritParams AllGenerics
 #'
 #' @return [matrix].
@@ -36,6 +34,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom edgeR calcNormFactors cpm DGEList
 .tmm <- function(object) {
     object %>%
         as.matrix() %>%
