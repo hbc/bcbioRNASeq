@@ -3,6 +3,9 @@
 - Updated version and author information to match the F1000 Research workflow.
 - Added an `f1000v1` branch containing the reproducible code used to generate the figures in our workflow.
 - Modified `plotMA()` to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.
+- Added custom color palette support to the quality control functions.
+- Upgrading from `bcbioRNADataSet` (< 0.1.0) to `bcbioRNASeq` class object is now possible using `as()` coercion method.
+- Object oriented methods are now restricted to use `bcbioRNASeq` object. Legacy `bcbioRNADataSet` objects must be upgraded to `bcbioRNASeq` class.
 
 
 
