@@ -6,6 +6,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads
+#' @inheritParams plotGene
 #'
 #' @param normalized Count normalization method. See [counts()] documentation
 #'   for more information.
