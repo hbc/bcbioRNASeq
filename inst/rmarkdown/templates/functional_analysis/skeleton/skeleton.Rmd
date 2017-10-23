@@ -322,10 +322,10 @@ lapply(seq_along(pathways), function(a) {
        species = tolower(params$gspecies), 
        limit = list(gene = 2, cpd = 1),
        kegg.dir = keggPlotsDir)
-})
+}) %>%
+    invisible()
 
-# Reattach dplyr
-library(dplyr)
+pathways
 ```
 
 
