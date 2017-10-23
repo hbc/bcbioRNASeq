@@ -5,20 +5,17 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit qcPlots
-#'
-#' @inheritParams AllGenerics
+#' @inherit plotTotalReads
 #'
 #' @examples
-#' data(bcb, rld)
-#'
-#' # bcbioRNASeq
 #' plotGeneSaturation(bcb)
 #'
 #' \dontrun{
 #' plotGeneSaturation(bcb, interestingGroups = "group")
+#' }
 #'
 #' # data.frame, matrix
+#' \dontrun{
 #' plotGeneSaturation(metrics(bcb), assay(rld))
 #' }
 NULL
@@ -31,8 +28,9 @@ NULL
     object,
     counts,
     interestingGroups = "sampleName",
-    minCounts = 0) {
-    ggplot(
+    minCounts = 0,
+    color = scale_color_viridis(discrete = TRUE)) {
+    p <- ggplot(
         object,
         mapping = aes_(
             x = ~mappedReads / 1e6,
@@ -43,24 +41,30 @@ NULL
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
              x = "mapped reads (million)",
-             y = "genes") +
-        scale_color_viridis(discrete = TRUE)
+             y = "genes")
+    if (!is.null(color)) {
+        p <- p + color
+    }
+    p
 }
 
 
 
 # Methods ====
 #' @rdname plotGeneSaturation
+#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(object = "bcbioRNASeqANY",
+    signature(object = "bcbioRNASeq",
               counts = "missing"),
     function(
         object,
         interestingGroups,
         normalized = "tmm",
-        minCounts = 0) {
+        minCounts = 0,
+        color = scale_color_viridis(discrete = TRUE)) {
         if (is.null(metrics(object))) {
             return(NULL)
         }
@@ -72,7 +76,8 @@ setMethod(
             metrics(object),
             counts = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
-            minCounts = minCounts)
+            minCounts = minCounts,
+            color = color)
     })
 
 
