@@ -19,11 +19,12 @@ opts_chunk[["set"]](
     highlight = TRUE,
     message = FALSE,
     prompt = TRUE,
+    # formatR required for tidy code
     tidy = TRUE,
     warning = FALSE)
 
 theme_set(
-    theme_gray(base_size = 14))
+    theme_light(base_size = 14))
 theme_update(
     legend.justification = "center",
     legend.position = "bottom")
