@@ -42,7 +42,7 @@ packages <- c(
 if (!all(basename(packages) %in% rownames(installed.packages()))) {
     source("https://bioconductor.org/biocLite.R")
     notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
-    biocLite(notInstalled)
+    biocLite(pkgs = notInstalled)
 } else {
     invisible(lapply(
         basename(packages), library, character.only = TRUE
