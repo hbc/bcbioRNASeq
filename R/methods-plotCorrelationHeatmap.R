@@ -160,7 +160,8 @@ setMethod(
         samples = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis) {
+        legendColor = viridis,
+        interestingGroups = NULL) {
         # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
@@ -169,7 +170,9 @@ setMethod(
         counts <- assays(object) %>%
             .[[transform]] %>%
             assay()
-        interestingGroups <- interestingGroups(object)
+        if (missing(interestingGroups)) {
+            interestingGroups <- interestingGroups(object)
+        }
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE] %>%
             as.data.frame()
