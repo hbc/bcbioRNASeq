@@ -11,7 +11,7 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
   method = "pearson", genes = NULL, samples = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis)
+  color = inferno(256), legendColor = viridis, interestingGroups = NULL)
 }
 \arguments{
 \item{object}{Object.}
@@ -37,6 +37,10 @@ plot.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
 palette.}
+
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
 }
 \value{
 Graphical output only.
