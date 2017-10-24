@@ -54,6 +54,7 @@ NULL
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
     return = FALSE) {
+    .checkInterestingGroups(object, interestingGroups)
     metadata <- as.data.frame(metadata)
     plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]

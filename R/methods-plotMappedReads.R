@@ -35,6 +35,7 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    .checkInterestingGroups(object, interestingGroups)
     p <- ggplot(
         object,
         mapping = aes_(

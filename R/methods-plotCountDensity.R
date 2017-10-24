@@ -39,6 +39,7 @@ NULL
     style = "solid",
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE)) {
+    .checkInterestingGroups(object, interestingGroups)
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(

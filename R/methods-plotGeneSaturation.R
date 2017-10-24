@@ -36,6 +36,7 @@ NULL
     interestingGroups = "sampleName",
     minCounts = 0,
     color = scale_color_viridis(discrete = TRUE)) {
+    .checkInterestingGroups(object, interestingGroups)
     p <- ggplot(
         object,
         mapping = aes_(

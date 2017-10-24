@@ -34,7 +34,10 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    # Fix for camel variant mismatch (e.g. rRnaRate).
+    .checkInterestingGroups(object, interestingGroups)
+
+    # Fix for camel variant mismatch (e.g. rRnaRate). This is safe to remove
+    # in a future update.
     if (!"rrnaRate" %in% colnames(object)) {
         # grep match the outdated camel variant
         col <- grep(
@@ -45,6 +48,7 @@ NULL
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
+
     p <- ggplot(
         object,
         mapping = aes_(
