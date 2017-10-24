@@ -36,14 +36,24 @@ NULL
     interestingGroups = "sampleName",
     minCounts = 0,
     color = scale_color_viridis(discrete = TRUE)) {
-    p <- ggplot(
-        object,
-        mapping = aes_(
-            x = ~mappedReads / 1e6,
-            y = colSums(counts > minCounts),
-            color = as.name(interestingGroups))
-    ) +
-        geom_point(size = 3) +
+    if (is.null(interestingGroups)) {
+        p <- ggplot(
+            object,
+            mapping = aes_(
+                x = ~mappedReads / 1e6,
+                y = colSums(counts > minCounts))
+        )
+    }
+    else {
+        p <- ggplot(
+            object,
+            mapping = aes_(
+                x = ~mappedReads / 1e6,
+                y = colSums(counts > minCounts),
+                color = as.name(interestingGroups))
+        )
+    }
+     p <- p +  geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
              x = "mapped reads (million)",
