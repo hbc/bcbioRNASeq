@@ -12,6 +12,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotGeneHeatmap
+#' @inheritParams plotTotalReads
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
@@ -140,7 +141,7 @@ NULL
             clustering_distance_cols = "correlation",
             color = color,
             main = main,
-            show_colnames = FALSE,
+            show_colnames = TRUE,
             show_rownames = TRUE)
 }
 

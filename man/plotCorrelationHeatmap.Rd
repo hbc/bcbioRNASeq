@@ -37,6 +37,10 @@ plot.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
 palette.}
+
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
 }
 \value{
 Graphical output only.
