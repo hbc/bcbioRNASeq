@@ -26,21 +26,6 @@ if (file.exists("setup.R")) {
 bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 
-# Design formula
-# help("design", "DESeq2")
-design <- params$design
-
-# Contrast
-# help("results", "DESeq2")
-#   1. Design matrix parameter.
-#   2. Numerator for LFC (expt).
-#   3. Denominator for LFC (control).
-contrast <- params$contrast
-
-# Significance cutoffs
-alpha <- params$alpha
-lfc <- params$lfc
-
 # Directory paths
 outputDir <- params$outputDir
 countsDir <- file.path(outputDir, "results", "counts")
@@ -53,11 +38,12 @@ deDir <- file.path(outputDir, "results", "differential_expression")
 
 
 ```{r dds, results="hide"}
+# help("design", "DESeq2")
 dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
-    design = design) %>%
-    DESeq
+    design = params$design) %>%
+    DESeq()
 rld <- rlog(dds)
 ```
 
@@ -76,10 +62,15 @@ alphaSummary(dds)
 # Results
 
 ```{r res}
+# help("results", "DESeq2")
+# For contrast argument as character vector:
+#   1. Design matrix factor of interest.
+#   2. Numerator for LFC (expt).
+#   3. Denominator for LFC (control).
 resUnshrunken <- results(
     dds,
-    contrast = contrast,
-    alpha = alpha)
+    contrast = params$contrast,
+    alpha = params$alpha)
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
@@ -88,7 +79,7 @@ resUnshrunken <- results(
 resShrunken <- lfcShrink(
     dds = dds,
     # coef = 2,
-    contrast = contrast,
+    contrast = params$contrast,
     res = resUnshrunken)
 
 # Use shrunken LFC values by default
@@ -144,7 +135,7 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 ## Differentially expressed genes (DEG)
 
 ```{r results_tables, results="asis"}
-resTbl <- resultsTables(res, lfc = lfc, dir = deDir)
+resTbl <- resultsTables(res, lfc = params$lfc, dir = deDir)
 ```
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:

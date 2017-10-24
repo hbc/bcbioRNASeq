@@ -7,7 +7,6 @@ r:
   - bioc-devel
 r_github_packages:
   - r-lib/covr
-  - jimhester/lintr
 after_success:
   - Rscript -e 'covr::codecov()'
   - pwd
@@ -15,6 +14,7 @@ after_success:
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
   - cd bcbio_rnaseq_output_example
   - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
+  - Rscript -e 'devtools::install_github("lpantano/DEGreport")'
   - Rscript -e 'install.packages("formatR")'
   - Rscript -e 'testthat::test_file("test_reports.R")'
   - cd report
