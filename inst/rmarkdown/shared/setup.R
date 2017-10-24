@@ -1,10 +1,11 @@
 library(bcbioRNASeq)
+library(knitr)
 library(tidyverse)
 
 # Set seed for reproducibility
 set.seed(1454944673)
 
-knitr::opts_chunk[["set"]](
+opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
     cache = TRUE,
