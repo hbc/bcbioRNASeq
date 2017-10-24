@@ -140,7 +140,7 @@ NULL
             clustering_distance_cols = "correlation",
             color = color,
             main = main,
-            show_colnames = FALSE,
+            show_colnames = TRUE,
             show_rownames = TRUE)
 }
 
