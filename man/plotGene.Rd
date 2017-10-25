@@ -13,9 +13,11 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object.}
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
