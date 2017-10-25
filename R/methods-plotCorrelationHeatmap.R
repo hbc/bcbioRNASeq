@@ -12,6 +12,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotGeneHeatmap
+#' @inheritParams plotTotalReads
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
 #'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
@@ -140,7 +141,7 @@ NULL
             clustering_distance_cols = "correlation",
             color = color,
             main = main,
-            show_colnames = FALSE,
+            show_colnames = TRUE,
             show_rownames = TRUE)
 }
 
@@ -156,20 +157,23 @@ setMethod(
         object,
         transform = "rlog",
         method = "pearson",
+        interestingGroups,
         genes = NULL,
         samples = NULL,
         title = NULL,
         color = inferno(256),
         legendColor = viridis) {
-        # Transformed counts
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%
             .[[transform]] %>%
             assay()
-        interestingGroups <- interestingGroups(object)
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE] %>%
             as.data.frame()
