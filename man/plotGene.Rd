@@ -50,7 +50,7 @@ plotGene(bcb, gene = symbol, format = "symbol")
 
 # Gene identifiers
 \dontrun{
-ensgene <- rownames(bcb)[1:3]
+ensgene <- rowData(bcb)[["ensgene"]][1:3]
 print(ensgene)
 plotGene(bcb, gene = ensgene, format = "ensgene")
 }

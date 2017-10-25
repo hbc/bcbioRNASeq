@@ -16,6 +16,8 @@
 }
 \arguments{
 \item{object}{Object.}
+
+\item{value}{Value to assign.}
 }
 \value{
 Character vector.
