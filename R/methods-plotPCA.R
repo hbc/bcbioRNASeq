@@ -20,8 +20,9 @@
 #'   parameters set in the [bcbioRNASeq] object.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
 #' @param shape *Optional*. Make points easier to inspect with differing shapes.
-#'   Generally this isn't recommended for PCA and performs poorly for more than
-#'   6 discrete factors, as defined by the `interestingGroups` argument.
+#'   Generally this isn't recommended for PCA and works poorly for more
+#'   than 6 discrete factors, as defined by the `interestingGroups` argument.
+#'   We recommend typically leaving this to `FALSE`.
 #' @param returnData Return PCA loadings data instead of plotting.
 #'
 #' @seealso [DESeq2::plotPCA()].
@@ -32,7 +33,8 @@
 #' plotPCA(bcb, label = TRUE)
 #' plotPCA(bcb, label = FALSE)
 #'
-#' # Manually define interesting groups
+#' # Manually set interesting groups
+#' # Note these columns aren't present in our example data
 #' \dontrun{
 #' plotPCA(bcb, interestingGroups = c("genotype", "treatment"))
 #' }
@@ -57,7 +59,7 @@ NULL
     shape = FALSE,
     returnData = FALSE) {
     if (!transform %in% c("rlog", "vst")) {
-        stop("DESeqTransform must be rlog or vst")
+        stop("DESeqTransform must be rlog or vst", call. = FALSE)
     }
     dt <- assays(object)[[transform]]
     .checkInterestingGroups(colData(dt), interestingGroups)

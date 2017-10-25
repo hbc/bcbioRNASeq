@@ -27,8 +27,9 @@ parameters set in the \link{bcbioRNASeq} object.}
 \item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
 
 \item{shape}{\emph{Optional}. Make points easier to inspect with differing shapes.
-Generally this isn't recommended for PCA and performs poorly for more than
-6 discrete factors, as defined by the \code{interestingGroups} argument.}
+Generally this isn't recommended for PCA and works poorly for more
+than 6 discrete factors, as defined by the \code{interestingGroups} argument.
+We recommend typically leaving this to \code{FALSE}.}
 
 \item{returnData}{Return PCA loadings data instead of plotting.}
 }
@@ -43,7 +44,8 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 plotPCA(bcb, label = TRUE)
 plotPCA(bcb, label = FALSE)
 
-# Manually define interesting groups
+# Manually set interesting groups
+# Note these columns aren't present in our example data
 \dontrun{
 plotPCA(bcb, interestingGroups = c("genotype", "treatment"))
 }
