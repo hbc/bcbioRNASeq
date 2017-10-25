@@ -44,12 +44,11 @@ if (!all(basename(packages) %in% rownames(installed.packages()))) {
     source("https://bioconductor.org/biocLite.R")
     notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
     biocLite(pkgs = notInstalled)
-} else {
-    invisible(lapply(
-        basename(packages), library, character.only = TRUE
-    ))
 }
-
+invisible(lapply(
+    basename(packages), library, character.only = TRUE
+))
+    
 # Shared RMarkdown settings
 prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
