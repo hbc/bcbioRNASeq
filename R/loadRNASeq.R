@@ -114,8 +114,10 @@ loadRNASeq <- function(
     interestingGroups <- camel(interestingGroups, strict = FALSE)
     # Default to `sampleName`
     if (is.null(interestingGroups)) {
-        warning("'interestingGroups' is 'NULL'. Defaulting to 'sampleName'.",
-                call. = FALSE)
+        warning(paste(
+            "'interestingGroups' is 'NULL'.",
+            "Defaulting to 'sampleName'."
+            ), call. = FALSE)
         interestingGroups <- "sampleName"
     }
     # Check to ensure interesting groups are defined
