@@ -157,23 +157,23 @@ setMethod(
         object,
         transform = "rlog",
         method = "pearson",
+        interestingGroups,
         genes = NULL,
         samples = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis,
-        interestingGroups = NULL) {
-        # Transformed counts
+        legendColor = viridis) {
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
+        }
+        if (missing(interestingGroups)) {
+            interestingGroups <-
+                metadata(object)[["interestingGroups"]][[1]]
         }
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%
             .[[transform]] %>%
             assay()
-        if (missing(interestingGroups)) {
-            interestingGroups <- interestingGroups(object)
-        }
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE] %>%
             as.data.frame()
