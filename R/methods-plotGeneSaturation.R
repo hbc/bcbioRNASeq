@@ -36,6 +36,11 @@ NULL
     interestingGroups = "sampleName",
     minCounts = 0,
     color = scale_color_viridis(discrete = TRUE)) {
+    # Ensure `interestingGroups` defaults to `sampleName`
+    if (is.null(interestingGroups)) {
+        interestingGroups <- "sampleName"
+
+    }
     p <- ggplot(
         object,
         mapping = aes_(

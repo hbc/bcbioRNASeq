@@ -10,8 +10,8 @@
 plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
-  method = "pearson", genes = NULL, samples = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis)
+  method = "pearson", interestingGroups, genes = NULL, samples = NULL,
+  title = NULL, color = inferno(256), legendColor = viridis)
 }
 \arguments{
 \item{object}{Object.}
@@ -25,6 +25,10 @@ inside the \link{bcbioRNASeq} object.}
 \item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
 \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
+
+\item{interestingGroups}{Category to use to group samples (color and shape).
+If unset, this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object.}
 
 \item{genes}{\emph{Optional}. Character vector of specific gene identifiers to
 plot.}
