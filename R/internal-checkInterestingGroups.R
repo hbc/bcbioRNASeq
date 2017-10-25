@@ -10,7 +10,7 @@
 #' @param object Object supporting [colnames()], typically a [data.frame].
 #' @param interestingGroups Interesting groups character vector.
 #'
-#' @return Stop on failure.
+#' @return Valid character of defined interesting groups. Stop on failure.
 .checkInterestingGroups <- function(object, interestingGroups) {
     # Check that interesting groups are present in DESeqTransform colData
     if(!all(interestingGroups %in% colnames(object))) {
@@ -19,4 +19,9 @@
             toString(setdiff(interestingGroups, colnames(object)))
         ), call. = FALSE)
     }
+    # Default to `sampleName` if `NULL`
+    if (is.null(interestingGroups)) {
+        interestingGroups <- "sampleName"
+    }
+    interestingGroups
 }
