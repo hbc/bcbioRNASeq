@@ -7,9 +7,11 @@
 #'
 #' @inheritParams AllGenerics
 #'
-#' @param interestingGroups Category to use to group samples (color and shape).
-#'   If unset, this is automatically determined by the metadata set inside the
-#'   [bcbioRNASeq] object.
+#' @param interestingGroups Category to use to group samples. In the plotting
+#'   functions, this will define color and shape, where applicable. If unset,
+#'   this is automatically determined by the metadata set inside the
+#'   [bcbioRNASeq] object. When set to `NULL`, this will default to
+#'   `sampleName`.
 #' @param passLimit Threshold to plot pass color marker.
 #' @param warnLimit Threshold to plot warning color marker.
 #' @param fill Desired ggplot fill scale. Defaults to
@@ -48,7 +50,7 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    .checkInterestingGroups(object, interestingGroups)
+    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
     p <- ggplot(
         object,
         mapping = aes_(

@@ -170,6 +170,7 @@ setMethod(
             interestingGroups <-
                 metadata(object)[["interestingGroups"]][[1]]
         }
+        interestingGroups <- .checkInterestingGroups(object, interestingGroups)
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%
             .[[transform]] %>%

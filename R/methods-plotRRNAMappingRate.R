@@ -34,7 +34,7 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    .checkInterestingGroups(object, interestingGroups)
+    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
 
     # Fix for camel variant mismatch (e.g. rRnaRate). This is safe to remove
     # in a future update.

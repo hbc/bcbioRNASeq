@@ -48,13 +48,13 @@ NULL
 #'   labs theme
 #' @importFrom viridis scale_color_viridis
 .plotGene <- function(
-    counts,
+    object,
     gene,
     metadata,
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
     return = FALSE) {
-    .checkInterestingGroups(object, interestingGroups)
+    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
     metadata <- as.data.frame(metadata)
     plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
@@ -133,7 +133,7 @@ setMethod(
         names(gene) <- gene2symbol[["symbol"]]
 
         .plotGene(
-            counts = counts,
+            object = counts,
             gene = gene,
             metadata = metadata,
             interestingGroups = interestingGroups,
