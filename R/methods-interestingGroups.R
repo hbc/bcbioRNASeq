@@ -3,7 +3,7 @@
 #' @rdname interestingGroups
 #' @name interestingGroups
 #'
-#' @importFrom basejump interestingGroups
+#' @importFrom basejump interestingGroups interestingGroups<-
 #'
 #' @inheritParams AllGenerics
 #'
