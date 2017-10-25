@@ -19,7 +19,7 @@
     # Check that interesting groups are present in DESeqTransform colData
     if(!all(interestingGroups %in% colnames(object))) {
         stop(paste(
-            "Interesting group(s) not defined in metadata:",
+            "Interesting groups not defined in metadata:",
             toString(setdiff(interestingGroups, colnames(object)))
         ), call. = FALSE)
     }

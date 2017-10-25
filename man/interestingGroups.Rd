@@ -4,9 +4,15 @@
 \name{interestingGroups}
 \alias{interestingGroups}
 \alias{interestingGroups,bcbioRNASeq-method}
+\alias{interestingGroups<-,bcbioRNASeq,character-method}
+\alias{interestingGroups<-,bcbioRNASeq,NULL-method}
 \title{Interesting Groups}
 \usage{
 \S4method{interestingGroups}{bcbioRNASeq}(object)
+
+\S4method{interestingGroups}{bcbioRNASeq,character}(object) <- value
+
+\S4method{interestingGroups}{bcbioRNASeq,`NULL`}(object) <- value
 }
 \arguments{
 \item{object}{Object.}
