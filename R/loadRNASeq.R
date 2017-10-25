@@ -112,6 +112,12 @@ loadRNASeq <- function(
     # Interesting groups ====
     # Ensure internal formatting in camelCase
     interestingGroups <- camel(interestingGroups, strict = FALSE)
+    # Default to `sampleName`
+    if (is.null(interestingGroups)) {
+        warning("'interestingGroups' is 'NULL'. Defaulting to 'sampleName'.",
+                call. = FALSE)
+        interestingGroups <- "sampleName"
+    }
     # Check to ensure interesting groups are defined
     if (!all(interestingGroups %in% colnames(sampleMetadata))) {
         stop("Interesting groups missing in sample metadata", call. = FALSE)
