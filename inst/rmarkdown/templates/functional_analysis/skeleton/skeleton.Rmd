@@ -34,21 +34,21 @@ packages <- c(
     orgDB,
     "lpantano/DEGreport",
     "hbc/bcbioRNASeq",
+    "tidyverse",
+    "DT",
     "clusterProfiler",
     "DOSE",
-    "pathview",
-    "tidyverse"
+    "pathview"
 )
 if (!all(basename(packages) %in% rownames(installed.packages()))) {
     source("https://bioconductor.org/biocLite.R")
     notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
     biocLite(pkgs = notInstalled)
-} else {
-    invisible(lapply(
-        basename(packages), library, character.only = TRUE
-    ))
 }
-
+invisible(lapply(
+    basename(packages), library, character.only = TRUE
+))
+    
 # Shared RMarkdown settings
 prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
@@ -119,9 +119,9 @@ Gene Ontology (GO) term enrichment is a technique for interpreting sets of genes
 ```{r enrich_go}
 # Run GO enrichment analysis
 ego <- enrichGO(
-    gene = sigGenes,
+    sigGenes,
+    "ENSEMBL",
     universe = allGenes,
-    keytype = "ENSEMBL",  # `keyType` in clusterProfiler 3.5
     OrgDb = orgDB,
     ont = params$goOnt,
     pAdjustMethod = "BH",
@@ -147,7 +147,7 @@ write_csv(
                   params$lfc,
                   sep = "_"),
             ".csv.gz")))
-egoSummary
+egoSummary %>% datatable()
 ```
 
 
@@ -214,7 +214,7 @@ write_csv(
                 params$lfc,
                 sep = "_"),
             ".csv.gz")))
-keggSummary
+keggSummary %>% datatable()
 ```
 
 
@@ -259,7 +259,7 @@ write_csv(
                 params$lfc,
                 sep = "_"),
             ".csv.gz")))
-gseSummary
+gseSummary %>% datatable()
 ```
 
 
@@ -275,7 +275,7 @@ resTblEntrez <- res %>%
     as_tibble() %>%
     # Use the full join option here to include all Entrez identifiers
     full_join(ensembl2entrez, by = "ensembl") %>%
-    select(entrezid, ensembl, everything()) %>%
+    dplyr::select(entrezid, ensembl, everything()) %>%
     # Remove rows with duplicate Entrez identifiers
     filter(!duplicated(entrezid))
 
@@ -298,10 +298,10 @@ gseaKEGGSummary <- slot(gseaKEGG, "result") %>% as_tibble()
 write_csv(
     gseaKEGGSummary,
     path = file.path(faDir, "gsea_kegg_clusterprofiler.csv.gz"))
-gseaKEGGSummary
+gseaKEGGSummary %>% datatable()
 ```
 
-```{r kegg_plots, message=FALSE}
+```{r kegg_plots, message=FALSE, results='asis'}
 # dplyr must be unloaded at this step for pathview to work
 suppressWarnings(detach("package:dplyr", unload = TRUE))
 
@@ -317,6 +317,8 @@ dir.create(keggPlotsDir, recursive = TRUE, showWarnings = FALSE)
 # There is currently no way to set the output path of the pathview PNG files.
 # We're using tryCatch here to return to the user pathways that didn't output
 # graphics correctly.
+current <- getwd() %>% normalizePath()
+setwd(keggPlotsDir)
 lapply(seq_along(pathways), function(a) {
     pathway <- pathways[[a]]
     tryCatch(
@@ -324,16 +326,20 @@ lapply(seq_along(pathways), function(a) {
             gene.data = foldChanges,
             pathway.id = pathway,
             species = tolower(params$gspecies), 
-            limit = list(gene = 2, cpd = 1),
-            kegg.dir = keggPlotsDir),
+            limit = list(gene = 2, cpd = 1)),
         error = function(e) {
             warning(paste(pathway, "failed to plot"), call. = FALSE)
         }
     )
 }) %>%
     invisible()
+setwd(current)
 
-pathways
+figures <- list.files(keggPlotsDir, pattern = "pathview", full.names = TRUE)
+invisible(lapply(seq_along(figures), function(a) {
+    figure <- figures[[a]]
+    cat(paste0("<img src=\"", figure, "\">\n"))
+}))
 ```
 
 

@@ -15,11 +15,14 @@ after_success:
   - cd bcbio_rnaseq_output_example
   - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
   - Rscript -e 'devtools::install_github("lpantano/DEGreport")'
+  - Rscript -e 'install.packages("DT")'
+  - Rscript -e 'install.packages("tidyverse")'
   - Rscript -e 'install.packages("formatR")'
   - Rscript -e 'testthat::test_file("test_reports.R")'
   - cd report
   - mv de.html de-${TRAVIS_BRANCH}.html
   - mv qc.html qc-${TRAVIS_BRANCH}.html
+  - mv fa.html fa-${TRAVIS_BRANCH}.html
   - cd ..
   - cp ../bcbioRNASeq/.push.sh push.sh
   - chmod +x push.sh
