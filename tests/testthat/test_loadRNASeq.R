@@ -3,8 +3,8 @@ context("loadRNASeq")
 # Load the minimal example bcbio run saved in the package
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 # This should produce the following warnings:
-#   1: bcbio-nextgen.log missing 
-#   2: bcbio-nextgen-commands.log missing 
+#   1: bcbio-nextgen.log missing
+#   2: bcbio-nextgen-commands.log missing
 #   3: Unannotated genes detected in counts matrix
 bcb <- suppressWarnings(
     loadRNASeq(uploadDir)
@@ -122,6 +122,15 @@ test_that("metadata", {
     expect_equal(
         metadata(bcb)[["ensemblVersion"]],
         "current"
+    )
+})
+
+test_that("bcbio", {
+    expect_equal(
+        lapply(slot(bcb, "bcbio"), class),
+        list(tximport = "list",
+             DESeqDataSet = structure("DESeqDataSet", package = "DESeq2"),
+             featureCounts = "matrix")
     )
 })
 
