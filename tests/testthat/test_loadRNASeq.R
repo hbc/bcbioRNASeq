@@ -50,10 +50,6 @@ test_that("class definition", {
 
 test_that("assays", {
     expect_equal(
-        names(assays(bcb)),
-        c("raw", "normalized", "tpm", "tmm", "rlog", "vst")
-    )
-    expect_equal(
         lapply(assays(bcb), class),
         list(raw = "matrix",
              normalized = "matrix",
@@ -67,10 +63,6 @@ test_that("assays", {
 
 test_that("colData", {
     expect_equal(
-        colnames(colData(bcb)),
-        c("sampleID", "sampleName", "description", "group")
-    )
-    expect_equal(
         lapply(colData(bcb), class),
         list(sampleID = "character",
              sampleName = "character",
@@ -82,10 +74,6 @@ test_that("colData", {
 # Ensembl annotations from AnnotationHub, using ensembldb
 test_that("rowData", {
     expect_equal(
-        colnames(rowData(bcb)),
-        c("ensgene", "symbol", "description", "biotype", "broadClass")
-    )
-    expect_equal(
         lapply(rowData(bcb), class),
         list(ensgene = "character",
              symbol = "character",
@@ -96,46 +84,6 @@ test_that("rowData", {
 })
 
 test_that("metadata", {
-    expect_equal(
-        names(metadata(bcb)),
-        c("version",
-          "uploadDir",
-          "sampleDirs",
-          "projectDir",
-          "template",
-          "runDate",
-          "interestingGroups",
-          "organism",
-          "genomeBuild",
-          "ensemblVersion",
-          "annotable",
-          "tx2gene",
-          "lanes",
-          "yaml",
-          "metrics",
-          "sampleMetadataFile",
-          "dataVersions",
-          "programs",
-          "bcbioLog",
-          "bcbioCommandsLog",
-          "allSamples",
-          "date",
-          "wd",
-          "utilsSessionInfo",
-          "devtoolsSessionInfo",
-          "unannotatedGenes")
-    )
-    # Interesting groups should default to `sampleName`
-    expect_equal(
-        metadata(bcb)[["interestingGroups"]],
-        "sampleName"
-    )
-    # Ensembl metadata version should default to `current`
-    expect_equal(
-        metadata(bcb)[["ensemblVersion"]],
-        "current"
-    )
-    # Check the classes of the slotted objects
     expect_equal(
         lapply(metadata(bcb), class),
         list(version = c("package_version", "numeric_version"),
@@ -164,6 +112,16 @@ test_that("metadata", {
              utilsSessionInfo = "sessionInfo",
              devtoolsSessionInfo = "session_info",
              unannotatedGenes = "character")
+    )
+    # Interesting groups should default to `sampleName`
+    expect_equal(
+        metadata(bcb)[["interestingGroups"]],
+        "sampleName"
+    )
+    # Ensembl metadata version should default to `current`
+    expect_equal(
+        metadata(bcb)[["ensemblVersion"]],
+        "current"
     )
 })
 
