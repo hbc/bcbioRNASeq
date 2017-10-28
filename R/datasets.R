@@ -15,11 +15,11 @@
 
 
 
-#' *M. musculus* Gender Marker Genes
+#' Gender Marker Genes
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
-"genderMarkersMmusculus"
+"genderMarkers"
 
 
 
