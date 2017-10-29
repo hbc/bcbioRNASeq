@@ -1,6 +1,6 @@
 context("plotGenderMarkers")
 
 test_that("plotGenderMarkers", {
-    p <- plotGenderMarkers(bcb)
+    p <- plotGenderMarkers(gse65267)
     expect_true(is(p, "ggplot"))
 })
