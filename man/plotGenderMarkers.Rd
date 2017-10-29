@@ -43,6 +43,17 @@ that is first alphabetically in the count matrix rownames.}
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
+# Use F1000 workflow example dataset
+# The minimal example inside the package doesn't have dimorphic genes
+file.path(
+    "https://github.com",
+    "hbc",
+    "bcbioRNASeq",
+    "raw",
+    "f1000v1",
+    "data",
+    "bcb.rda") \%>\%
+    loadRemoteData()
 plotGenderMarkers(bcb)
 }
 \seealso{

@@ -1,4 +1,4 @@
-#' Gene Heatmap
+#' Heatmap
 #'
 #' These functions facilitate heatmap plotting of a specified set of genes. By
 #' default, row- and column-wise hierarchical clustering is performed using the
@@ -7,8 +7,8 @@
 #' are sorted by the interesting groups (`interestingGroups`) specified in the
 #' [bcbioRNASeq] and then the sample names.
 #'
-#' @rdname plotGeneHeatmap
-#' @name plotGeneHeatmap
+#' @rdname plotHeatmap
+#' @name plotHeatmap
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
@@ -30,10 +30,10 @@
 #' @examples
 #' # Genes as Ensembl identifiers
 #' genes <- counts(bcb)[1:20, ] %>% rownames()
-#' plotGeneHeatmap(bcb, genes = genes)
+#' plotHeatmap(bcb, genes = genes)
 #'
 #' # Flip the plot and legend palettes
-#' plotGeneHeatmap(
+#' plotHeatmap(
 #'     bcb,
 #'     genes = genes,
 #'     color = viridis(256),
@@ -41,12 +41,12 @@
 #'
 #' # Transcriptome heatmap
 #' \dontrun{
-#' plotGeneHeatmap(bcb)
+#' plotHeatmap(bcb)
 #' }
 #'
 #' # Use default pheatmap color palette
 #' \dontrun{
-#' plotGeneHeatmap(
+#' plotHeatmap(
 #'     bcb,
 #'     color = NULL,
 #'     legendColor = NULL)
@@ -54,12 +54,12 @@
 #'
 #' # DESeqDataSet
 #' \dontrun{
-#' plotGeneHeatmap(dds)
+#' plotHeatmap(dds)
 #' }
 #'
 #' # DESeqTransform
 #' \dontrun{
-#' plotGeneHeatmap(rld)
+#' plotHeatmap(rld)
 #' }
 NULL
 
@@ -71,7 +71,7 @@ NULL
 #' @importFrom stats setNames
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom viridis inferno viridis
-.plotGeneHeatmap <- function(
+.plotHeatmap <- function(
     counts,
     genes = NULL,
     annotationCol = NULL,
@@ -164,11 +164,11 @@ NULL
 
 
 # Methods ====
-#' @rdname plotGeneHeatmap
+#' @rdname plotHeatmap
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
-    "plotGeneHeatmap",
+    "plotHeatmap",
     signature("bcbioRNASeq"),
     function(
         object,
@@ -179,7 +179,7 @@ setMethod(
         counts <- counts(object, normalized = "rlog")
         annotationCol <- colData(object) %>%
             .[, metadata(object)[["interestingGroups"]], drop = FALSE]
-        .plotGeneHeatmap(
+        .plotHeatmap(
             counts = counts,
             annotationCol = annotationCol,
             # User-defined
@@ -191,10 +191,10 @@ setMethod(
 
 
 
-#' @rdname plotGeneHeatmap
+#' @rdname plotHeatmap
 #' @export
 setMethod(
-    "plotGeneHeatmap",
+    "plotHeatmap",
     signature("DESeqDataSet"),
     function(
         object,
@@ -204,7 +204,7 @@ setMethod(
         color = inferno(256),
         legendColor = viridis) {
         counts <- counts(object, normalized = TRUE)
-        .plotGeneHeatmap(
+        .plotHeatmap(
             counts = counts,
             # User-defined
             genes = genes,
@@ -216,10 +216,10 @@ setMethod(
 
 
 
-#' @rdname plotGeneHeatmap
+#' @rdname plotHeatmap
 #' @export
 setMethod(
-    "plotGeneHeatmap",
+    "plotHeatmap",
     signature("DESeqTransform"),
     function(
         object,
@@ -229,7 +229,7 @@ setMethod(
         color = inferno(256),
         legendColor = viridis) {
         counts <- assay(object)
-        .plotGeneHeatmap(
+        .plotHeatmap(
             counts = counts,
             # User-defined
             genes = genes,
@@ -241,10 +241,10 @@ setMethod(
 
 
 
-#' @rdname plotGeneHeatmap
+#' @rdname plotHeatmap
 #' @export
 setMethod(
-    "plotGeneHeatmap",
+    "plotHeatmap",
     signature("matrix"),
     function(
         object,
@@ -253,7 +253,7 @@ setMethod(
         title = NULL,
         color = inferno(256),
         legendColor = viridis) {
-        .plotGeneHeatmap(
+        .plotHeatmap(
             counts = object,
             # User-defined
             genes = genes,

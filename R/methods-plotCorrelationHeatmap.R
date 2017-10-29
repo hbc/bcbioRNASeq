@@ -11,7 +11,7 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotGeneHeatmap
+#' @inherit plotHeatmap
 #' @inheritParams plotTotalReads
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`

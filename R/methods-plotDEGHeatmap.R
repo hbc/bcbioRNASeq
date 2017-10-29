@@ -1,8 +1,8 @@
 #' Differentially Expressed Gene Heatmap
 #'
-#' This function is a simplified version of [plotGeneHeatmap()] that is
+#' This function is a simplified version of [plotHeatmap()] that is
 #' optimized for handling a [DESeqResults] object rather a gene vector. All of
-#' the optional parameters for [plotGeneHeatmap()] are also available to this
+#' the optional parameters for [plotHeatmap()] are also available to this
 #' function.
 #'
 #' @rdname plotDEGHeatmap
@@ -10,11 +10,11 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotGeneHeatmap
+#' @inherit plotHeatmap
 #'
 #' @param counts Secondary object containing a normalized count matrix.
 #' @param lfc log2 fold change ratio cutoff.
-#' @param ... Passthrough arguments to [plotGeneHeatmap()].
+#' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
 #' # DESeqResults, DESeqTransform
@@ -60,7 +60,7 @@ NULL
     if (length(genes) < 2) {
         message(paste(length(genes), "is too few to plot"))
     } else {
-        plotGeneHeatmap(counts, genes = genes, title = title, ...)
+        plotHeatmap(counts, genes = genes, title = title, ...)
     }
 }
 

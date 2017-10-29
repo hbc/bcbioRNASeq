@@ -84,7 +84,7 @@ plotCorrelationHeatmap(
 }
 
 Other Heatmaps: \code{\link{plotDEGHeatmap}},
-  \code{\link{plotGeneHeatmap}}
+  \code{\link{plotHeatmap}}
 }
 \author{
 Michael Steinbaugh
