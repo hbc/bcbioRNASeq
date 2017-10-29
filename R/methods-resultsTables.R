@@ -5,16 +5,18 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams basejump::annotable
 #'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
+#' @param summary Show summary statistics as a Markdown list.
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
-#' @param genomeBuild *Optional*. Override automatic genome detection. By
+#' @param organism *Optional*. Override automatic genome detection. By
 #'   default the function matches the genome annotations based on the first
 #'   Ensembl gene identifier row in the object. If a custom FASTA spike-in
 #'   is provided, then this may need to be manually set.
@@ -75,9 +77,11 @@ NULL
     object,
     lfc = 0,
     write = TRUE,
+    summary = TRUE,
     headerLevel = 3,
     dir = file.path("results", "differential_expression"),
-    genomeBuild = NULL) {
+    organism = NULL,
+    quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
 
@@ -85,11 +89,11 @@ NULL
     alpha <- metadata(object)[["alpha"]]
 
     # Match genome against the first gene identifier by default
-    if (is.null(genomeBuild)) {
-        genomeBuild <- rownames(object)[[1]] %>%
+    if (is.null(organism)) {
+        organism <- rownames(object)[[1]] %>%
             detectOrganism()
     }
-    anno <- annotable(genomeBuild)
+    anno <- annotable(organism, quiet = quiet)
 
     all <- object %>%
         as.data.frame() %>%
@@ -155,20 +159,24 @@ NULL
         .mdResultsTables(resTbl, dir)
     }
 
-    mdHeader(
-        "Summary statistics",
-        level = headerLevel,
-        asis = TRUE)
-    mdList(
-        c(paste(nrow(all), "genes in count matrix"),
-          paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-          paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
-          paste("alpha cutoff:", alpha),
-          paste("lfc cutoff:", lfc, "(applied in tables only)"),
-          paste("deg pass alpha:", nrow(deg), "genes"),
-          paste("deg lfc up:", nrow(degLFCUp), "genes"),
-          paste("deg lfc down:", nrow(degLFCDown), "genes")),
-        asis = TRUE)
+    if (isTRUE(summary)) {
+        if (!is.null(headerLevel)) {
+            mdHeader(
+                "Summary statistics",
+                level = headerLevel,
+                asis = TRUE)
+        }
+        mdList(
+            c(paste(nrow(all), "genes in count matrix"),
+              paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+              paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
+              paste("alpha cutoff:", alpha),
+              paste("lfc cutoff:", lfc, "(applied in tables only)"),
+              paste("deg pass alpha:", nrow(deg), "genes"),
+              paste("deg lfc up:", nrow(degLFCUp), "genes"),
+              paste("deg lfc down:", nrow(degLFCDown), "genes")),
+            asis = TRUE)
+    }
 
     resTbl
 }
