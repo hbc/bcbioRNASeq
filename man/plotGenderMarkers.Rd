@@ -45,6 +45,7 @@ Plot Sexually Dimorphic Gender Markers
 \examples{
 # Use F1000 workflow example dataset
 # The minimal example inside the package doesn't have dimorphic genes
+\dontrun{
 file.path(
     "https://github.com",
     "hbc",
@@ -55,6 +56,7 @@ file.path(
     "bcb.rda") \%>\%
     loadRemoteData()
 plotGenderMarkers(bcb)
+}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
