@@ -136,7 +136,13 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 ## Differentially expressed genes (DEG)
 
 ```{r results_tables, results="asis"}
-resTbl <- resultsTables(res, lfc = params$lfc, dir = deDir)
+resTbl <- resultsTables(
+    res,
+    lfc = params$lfc,
+    write = TRUE,
+    summary = TRUE,
+    headerLevel = 3,
+    dir = deDir)
 ```
 
 DEG tables are sorted by BH-adjusted P value, and contain the following columns:
