@@ -2,7 +2,7 @@ context("annotable")
 
 test_that("annotable", {
     anno <- annotable(bcb)
-    expect_true(is.data.frame(anno))
+    expect_is(anno, "data.frame")
     expect_equal(
         colnames(anno),
         c("ensgene",

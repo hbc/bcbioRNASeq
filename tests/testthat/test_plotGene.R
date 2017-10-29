@@ -7,12 +7,12 @@ ensgene <- rowData(bcb)[["ensgene"]][1:3]
 
 test_that("Gene symbol", {
     p <- plotGene(bcb, gene = symbol, format = "symbol")
-    expect_true(is(p, "ggplot"))
+    expect_is(p, "ggplot")
 })
 
 test_that("Ensembl gene identifier", {
     p <- plotGene(bcb, gene = ensgene, format = "ensgene")
-    expect_true(is(p, "ggplot"))
+    expect_is(p, "ggplot")
 })
 
 test_that("plotlist return", {
@@ -21,7 +21,7 @@ test_that("plotlist return", {
         gene = symbol,
         format = "symbol",
         returnList = TRUE)
-    expect_true(is(list, "list"))
+    expect_is(list, "list")
     expect_true(
         lapply(list, function(x) is(x, "ggplot")) %>%
             unlist() %>%
