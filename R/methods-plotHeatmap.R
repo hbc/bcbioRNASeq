@@ -13,6 +13,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams basejump::gene2symbol
 #'
 #' @param genes Character vector of specific gene identifiers to plot.
 #' @param annotationCol [data.frame] that specifies the annotations shown on the
@@ -78,7 +79,7 @@ NULL
     title = NULL,
     color = inferno(256),
     legendColor = viridis,
-    # Internal parameters
+    quiet = FALSE,
     scale = "row") {
     counts <- as.matrix(counts)
 
@@ -109,7 +110,7 @@ NULL
         showRownames <- FALSE
     }
     if (isTRUE(showRownames)) {
-        counts <- gene2symbol(counts)
+        counts <- gene2symbol(counts, quiet = quiet)
     }
 
     # Prepare the annotation columns
@@ -175,7 +176,8 @@ setMethod(
         genes = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis) {
+        legendColor = viridis,
+        quiet = FALSE) {
         counts <- counts(object, normalized = "rlog")
         annotationCol <- colData(object) %>%
             .[, metadata(object)[["interestingGroups"]], drop = FALSE]
@@ -186,7 +188,8 @@ setMethod(
             genes = genes,
             title = title,
             color = color,
-            legendColor = legendColor)
+            legendColor = legendColor,
+            quiet = quiet)
     })
 
 
@@ -202,7 +205,8 @@ setMethod(
         annotationCol = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis) {
+        legendColor = viridis,
+        quiet = FALSE) {
         counts <- counts(object, normalized = TRUE)
         .plotHeatmap(
             counts = counts,
@@ -211,7 +215,8 @@ setMethod(
             annotationCol = annotationCol,
             title = title,
             color = color,
-            legendColor = legendColor)
+            legendColor = legendColor,
+            quiet = quiet)
     })
 
 
@@ -227,7 +232,8 @@ setMethod(
         annotationCol = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis) {
+        legendColor = viridis,
+        quiet = FALSE) {
         counts <- assay(object)
         .plotHeatmap(
             counts = counts,
@@ -236,7 +242,8 @@ setMethod(
             annotationCol = annotationCol,
             title = title,
             color = color,
-            legendColor = legendColor)
+            legendColor = legendColor,
+            quiet = quiet)
     })
 
 
@@ -252,7 +259,8 @@ setMethod(
         annotationCol = NULL,
         title = NULL,
         color = inferno(256),
-        legendColor = viridis) {
+        legendColor = viridis,
+        quiet = FALSE) {
         .plotHeatmap(
             counts = object,
             # User-defined
@@ -260,5 +268,6 @@ setMethod(
             annotationCol = annotationCol,
             title = title,
             color = color,
-            legendColor = legendColor)
+            legendColor = legendColor,
+            quiet = quiet)
     })

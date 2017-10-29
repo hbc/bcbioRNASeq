@@ -10,10 +10,10 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0, ...)
+  lfc = 0, quiet = FALSE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
-  title = TRUE, ...)
+  title = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -23,6 +23,8 @@ plotDEGHeatmap(object, counts, ...)
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
+
+\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 
 \item{title}{\emph{Optional}. Plot title.}
 }

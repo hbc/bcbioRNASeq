@@ -14,18 +14,19 @@
 plotHeatmap(object, ...)
 
 \S4method{plotHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis)
+  color = inferno(256), legendColor = viridis, quiet = FALSE)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
   annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis)
+  legendColor = viridis, quiet = FALSE)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
   annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis)
+  legendColor = viridis, quiet = FALSE)
 
 \S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis)
+  title = NULL, color = inferno(256), legendColor = viridis,
+  quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -40,6 +41,8 @@ plotHeatmap(object, ...)
 
 \item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
 palette.}
+
+\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
