@@ -8,7 +8,7 @@
 \alias{loadRNASeqRun}
 \title{Deprecated Functions}
 \usage{
-download(...)
+download()
 
 plotGeneDetectionSaturation(...)
 

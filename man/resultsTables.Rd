@@ -9,8 +9,8 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0, write = TRUE,
-  headerLevel = 3, dir = file.path("results", "differential_expression"),
-  genomeBuild = NULL)
+  summary = TRUE, headerLevel = 3, dir = file.path("results",
+  "differential_expression"), organism = NULL, quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -25,14 +25,18 @@ changes.}
 
 \item{write}{Write CSV files to disk.}
 
+\item{summary}{Show summary statistics as a Markdown list.}
+
 \item{headerLevel}{Markdown header level.}
 
 \item{dir}{Directory path where to write files.}
 
-\item{genomeBuild}{\emph{Optional}. Override automatic genome detection. By
+\item{organism}{\emph{Optional}. Override automatic genome detection. By
 default the function matches the genome annotations based on the first
 Ensembl gene identifier row in the object. If a custom FASTA spike-in
 is provided, then this may need to be manually set.}
+
+\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
 Results list.
