@@ -19,10 +19,12 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
+#' @param returnList Return the plotlist used to generate the paneled,
+#'   multi-gene plot with [cowplot::plot_grid()].
 #'
 #' @return
-#' - `return = FALSE`: [cowplot::plot_grid()] graphical output.
-#' - `return = TRUE`: [list] of per gene [ggplot] objects.
+#' - `returnList = FALSE`: [cowplot::plot_grid()] graphical output.
+#' - `returnList = TRUE`: [list] of per gene [ggplot] objects.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -67,7 +69,7 @@ NULL
     metadata,
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
-    return = FALSE) {
+    returnList = FALSE) {
     metadata <- as.data.frame(metadata)
     interestingGroups <- .checkInterestingGroups(
         object = metadata,
@@ -99,7 +101,7 @@ NULL
         }
         p
     })
-    if (isTRUE(return)) {
+    if (isTRUE(returnList)) {
         plots
     } else {
         plot_grid(plotlist = plots, labels = "AUTO")
@@ -122,7 +124,8 @@ setMethod(
         normalized = "tpm",
         gene,
         format = "symbol",
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = scale_color_viridis(discrete = TRUE),
+        returnList = FALSE) {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
@@ -167,5 +170,6 @@ setMethod(
             gene = geneVec,
             metadata = metadata,
             interestingGroups = interestingGroups,
-            color = color)
+            color = color,
+            returnList = returnList)
     })
