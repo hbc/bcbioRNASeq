@@ -107,7 +107,7 @@ plotMA(res)
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
-plotVolcano(res, lfc = lfc)
+plotVolcano(res, lfc = params$lfc)
 ```
 
 
