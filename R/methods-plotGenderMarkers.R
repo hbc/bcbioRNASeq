@@ -64,8 +64,7 @@ NULL
         unique()
 
     if (!all(ensgene %in% rownames(object))) {
-        warning("Missing gender markers in count matrix", call. = FALSE)
-        return(NULL)
+        return(warning("Missing gender markers in count matrix", call. = FALSE))
     }
 
     counts <- object %>%
