@@ -1,3 +1,9 @@
+# bcbioRNASeq 0.1.1
+
+- Added support for coloring of multiple interesting groups in quality control plots.
+
+
+
 # bcbioRNASeq 0.1.0
 
 - Updated version and author information to match the F1000 Research workflow.
