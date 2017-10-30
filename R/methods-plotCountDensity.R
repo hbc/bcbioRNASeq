@@ -39,7 +39,6 @@ NULL
     style = "solid",
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE)) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
@@ -47,16 +46,18 @@ NULL
             toString(validStyles)
         ), call. = FALSE)
     }
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_string(
             x = "counts",
-            group = interestingGroups,
-            color = interestingGroups,
-            fill = interestingGroups)
+            group = "interestingGroups",
+            color = "interestingGroups",
+            fill = "interestingGroups")
     ) +
         labs(title = "count density",
-             x = "log10 counts per gene")
+             x = "log10 counts per gene",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (style == "line") {
         p <- p +
             geom_density(fill = NA) +
@@ -88,7 +89,7 @@ setMethod(
         fill = scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
              interestingGroups <-
-                 metadata(object)[["interestingGroups"]][[1]]
+                 metadata(object)[["interestingGroups"]]
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),

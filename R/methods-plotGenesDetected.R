@@ -39,18 +39,19 @@ NULL
     minCounts = 0,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
-             y = "gene count")
+             y = "gene count",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -89,7 +90,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotGenesDetected(
             metrics(object),

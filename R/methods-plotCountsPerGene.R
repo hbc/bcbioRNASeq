@@ -34,18 +34,19 @@ NULL
     interestingGroups = "sampleName",
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_string(
             x = "sampleName",
             y = "counts",
-            fill = interestingGroups)
+            fill = "interestingGroups")
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene")
+             y = "log10 counts per gene",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(fill)) {
         p <- p + fill
     }
@@ -73,7 +74,7 @@ setMethod(
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),

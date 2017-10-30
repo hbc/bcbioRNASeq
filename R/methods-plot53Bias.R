@@ -34,18 +34,19 @@ NULL
     warnLimit = 2,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_string(
             x = "sampleName",
             y = "x53Bias",
-            fill = interestingGroups)
+            fill = "interestingGroups")
     ) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
-             y = "5'->3' bias")
+             y = "5'->3' bias",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -79,7 +80,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plot53Bias(
             metrics(object),

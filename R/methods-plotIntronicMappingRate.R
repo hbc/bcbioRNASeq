@@ -33,18 +33,19 @@ NULL
     warnLimit = 20,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~intronicRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",
-             y = "intronic mapping rate (%)") +
+             y = "intronic mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
@@ -79,7 +80,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotIntronicMappingRate(
             metrics(object),

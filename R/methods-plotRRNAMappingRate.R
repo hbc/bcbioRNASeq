@@ -34,8 +34,6 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
-
     # Fix for camel variant mismatch (e.g. rRnaRate). This is safe to remove
     # in a future update.
     if (!"rrnaRate" %in% colnames(object)) {
@@ -48,18 +46,19 @@ NULL
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
-
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
              x = "sample",
-             y = "rRNA mapping rate (%)")
+             y = "rRNA mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -93,7 +92,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotRRNAMappingRate(
             metrics(object),

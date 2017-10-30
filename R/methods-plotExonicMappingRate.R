@@ -34,18 +34,19 @@ NULL
     passLimit = 60,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~exonicRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
-             y = "exonic mapping rate (%)") +
+             y = "exonic mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
@@ -79,7 +80,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotExonicMappingRate(
             metrics(object),

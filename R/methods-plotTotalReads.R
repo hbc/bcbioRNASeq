@@ -52,9 +52,7 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    metrics <- .preparePlotMetrics(
-        metrics = object,
-        interestingGroups = interestingGroups)
+    metrics <- .uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
@@ -66,7 +64,7 @@ NULL
         labs(title = "total reads",
              x = "sample",
              y = "total reads (million)",
-             fill = paste(interestingGroups, collapse = " : "))
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }

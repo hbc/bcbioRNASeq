@@ -70,23 +70,22 @@ NULL
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
     returnList = FALSE) {
-    metadata <- as.data.frame(metadata)
-    interestingGroups <- .checkInterestingGroups(
-        object = metadata,
-        interestingGroups = interestingGroups)
+    metadata <- metadata %>%
+        as.data.frame() %>%
+        .uniteInterestingGroups(interestingGroups)
     plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
         symbol <- names(gene)[[a]]
         df <- data.frame(
             x = colnames(object),
             y = object[ensgene, ],
-            color = metadata[[interestingGroups]])
+            interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
             df,
             mapping = aes_string(
                 x = "x",
                 y = "y",
-                color = "color")
+                color = "interestingGroups")
         ) +
             geom_point(size = 4) +
             theme(
@@ -94,7 +93,7 @@ NULL
             labs(title = symbol,
                  x = "sample",
                  y = "counts",
-                 color = interestingGroups) +
+                 color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
             p <- p + color
@@ -136,7 +135,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
 
         counts <- counts(object, normalized = normalized)
