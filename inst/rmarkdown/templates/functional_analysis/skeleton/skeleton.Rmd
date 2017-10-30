@@ -66,7 +66,8 @@ alpha <- metadata(res)$alpha
 
 # Directory paths
 faDir <- file.path(params$outputDir, "results", "functional_analysis")
-dir.create(faDir, recursive = TRUE, showWarnings = FALSE)
+dataDir <- file.path(params$outputDir, "data")
+lapply(list(faDir, dataDir), dir.create, recursive = TRUE, showWarnings = FALSE) %>% invisible()
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
@@ -127,7 +128,7 @@ ego <- enrichGO(
     pAdjustMethod = "BH",
     qvalueCutoff = 0.05,
     readable = TRUE)
-saveData(ego)
+saveData(ego, dir = dataDir)
 
 # Show summary data.frame
 egoSummary <- slot(ego, "result") %>%
@@ -165,7 +166,7 @@ dotplot(ego, showCategory = 25)
 
 ```{r enrich_map, fig.width=8, fig.height=8}
 # Enrichment plot of top 25
-enrichMap(ego, n = 25, vertex.label.font = 1)
+enrichMap(ego, n = 25, vertex.label.cex = 0.5)
 ```
 
 
@@ -182,7 +183,7 @@ cnetplot(
     categorySize = "pvalue",
     showCategory = 5,
     foldChange = foldChanges,
-    vertex.label.font = 1)
+    vertex.label.cex = 0.5)
 ```
 
 
@@ -194,7 +195,7 @@ kegg <- enrichKEGG(
     gene = sigEntrez,
     universe = allEntrez,
     organism = params$species)
-saveData(kegg)
+saveData(kegg, dir = dataDir)
 
 # Show KEGG summary data.frame
 keggSummary <- slot(kegg, "result") %>%
@@ -240,6 +241,7 @@ gse <- gseGO(
     maxGSSize = 500,
     pvalueCutoff = 0.05,
     verbose = FALSE)
+saveData(gse, dir = dataDir)
 
 # Write out summary data.frame
 gseSummary <- slot(gse, "result") %>%
@@ -292,6 +294,7 @@ gseaKEGG <- gseKEGG(
     minGSSize = 120,
     pvalueCutoff = 0.05,
     verbose = FALSE)
+saveData(gseKEGG, dir = dataDir)
 
 # Extract the GSEA results
 gseaKEGGSummary <- slot(gseaKEGG, "result") %>% as_tibble()
