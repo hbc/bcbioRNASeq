@@ -42,6 +42,8 @@ NULL
 
 # Constructors ====
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom rlang !!! syms
+#' @importFrom tidyr unite
 #' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
@@ -50,18 +52,21 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    interestingGroups <- .checkInterestingGroups(object, interestingGroups)
+    metrics <- .preparePlotMetrics(
+        metrics = object,
+        interestingGroups = interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~totalReads / 1e6,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
-             y = "total reads (million)")
+             y = "total reads (million)",
+             fill = paste(interestingGroups, collapse = " : "))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -99,7 +104,7 @@ setMethod(
         }
         if (missing(interestingGroups)) {
             interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+                metadata(object)[["interestingGroups"]]
         }
         .plotTotalReads(
             metrics(object),
