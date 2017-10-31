@@ -56,6 +56,9 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+#'
+#' # Load without gene annotations
+#' bcb <- loadRNASeq(uploadDir, annotable = NULL)
 loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
@@ -154,7 +157,7 @@ loadRNASeq <- function(
 
     # Gene and transcript annotations ====
     if (missing(annotable)) {
-        annotable <- annotable(genomeBuild, release = ensemblVersion)
+        annotable <- basejump::annotable(organism, release = ensemblVersion)
     } else if (!is.null(annotable)) {
         annotable <- prepareAnnotable(annotable)
     }
