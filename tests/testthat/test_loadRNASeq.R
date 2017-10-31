@@ -118,10 +118,10 @@ test_that("metadata", {
         metadata(bcb)[["interestingGroups"]],
         "sampleName"
     )
-    # Ensembl metadata version should default to `current`
+    # Ensembl metadata version should default to `NULL`
     expect_equal(
         metadata(bcb)[["ensemblVersion"]],
-        "current"
+        NULL
     )
 })
 

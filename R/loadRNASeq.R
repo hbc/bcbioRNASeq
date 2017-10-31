@@ -7,7 +7,8 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump camel prepareSummarizedExperiment
+#' @importFrom basejump annotable camel prepareAnnotable
+#'   prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr pull
@@ -27,9 +28,17 @@
 #'   file.
 #' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
 #'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
-#' @param ensemblVersion Ensembl release version. Defaults to current, and does
-#'   not typically need to be user-defined. This parameter can be useful for
-#'   matching Ensembl annotations against an outdated bcbio annotation build.
+#' @param annotable *Optional*. User-defined gene annotations (a.k.a.
+#'   "annotable"), which will be slotted into [rowData()]. Typically this should
+#'   be left undefined. By default, the function will automatically generate an
+#'   annotable from the annotations available on Ensembl. If set `NULL`, then
+#'   [rowData()] inside the resulting [bcbioRNASeq] object will be left empty.
+#'   This is recommended for projects dealing with genes or transcripts that are
+#'   poorly annotated.
+#' @param ensemblVersion *Optional*. Ensembl release version. If `NULL`,
+#'   defaults to current release, and does not typically need to be
+#'   user-defined. This parameter can be useful for matching Ensembl annotations
+#'   against an outdated bcbio annotation build.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -52,7 +61,8 @@ loadRNASeq <- function(
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     maxSamples = 50,
-    ensemblVersion = "current",
+    annotable,
+    ensemblVersion = NULL,
     ...) {
     # Directory paths ====
     # Check connection to final upload directory
@@ -141,7 +151,13 @@ loadRNASeq <- function(
     genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
-    annotable <- annotable(genomeBuild, release = ensemblVersion)
+
+    # Gene and transcript annotations ====
+    if (missing(annotable)) {
+        annotable <- annotable(genomeBuild, release = ensemblVersion)
+    } else if (!is.null(annotable)) {
+        annotable <- prepareAnnotable(annotable)
+    }
     tx2gene <- .tx2gene(
         projectDir,
         organism = organism,
