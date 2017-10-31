@@ -23,6 +23,7 @@
 #' @param legendColor Colors to use for legend labels. Defaults to [viridis()]
 #'   palette.
 #' @param title *Optional*. Plot title.
+#' @param ... Passthrough arguments to [pheatmap::pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].
 #'
@@ -80,7 +81,8 @@ NULL
     color = inferno(256),
     legendColor = viridis,
     quiet = FALSE,
-    scale = "row") {
+    scale = "row",
+    ...) {
     counts <- as.matrix(counts)
 
     # Check for identifier mismatch. Do this before zero count subsetting.
@@ -159,7 +161,8 @@ NULL
         color = color,
         main = title,
         scale = scale,
-        show_rownames = showRownames)
+        show_rownames = showRownames,
+        ...)
 }
 
 
@@ -177,7 +180,8 @@ setMethod(
         title = NULL,
         color = inferno(256),
         legendColor = viridis,
-        quiet = FALSE) {
+        quiet = FALSE,
+        ...) {
         counts <- counts(object, normalized = "rlog")
         annotationCol <- colData(object) %>%
             .[, metadata(object)[["interestingGroups"]], drop = FALSE]
@@ -189,7 +193,8 @@ setMethod(
             title = title,
             color = color,
             legendColor = legendColor,
-            quiet = quiet)
+            quiet = quiet,
+            ...)
     })
 
 
@@ -206,7 +211,8 @@ setMethod(
         title = NULL,
         color = inferno(256),
         legendColor = viridis,
-        quiet = FALSE) {
+        quiet = FALSE,
+        ...) {
         counts <- counts(object, normalized = TRUE)
         .plotHeatmap(
             counts = counts,
@@ -216,7 +222,8 @@ setMethod(
             title = title,
             color = color,
             legendColor = legendColor,
-            quiet = quiet)
+            quiet = quiet,
+            ...)
     })
 
 
@@ -233,7 +240,8 @@ setMethod(
         title = NULL,
         color = inferno(256),
         legendColor = viridis,
-        quiet = FALSE) {
+        quiet = FALSE,
+        ...) {
         counts <- assay(object)
         .plotHeatmap(
             counts = counts,
@@ -243,7 +251,8 @@ setMethod(
             title = title,
             color = color,
             legendColor = legendColor,
-            quiet = quiet)
+            quiet = quiet,
+            ...)
     })
 
 
@@ -260,7 +269,8 @@ setMethod(
         title = NULL,
         color = inferno(256),
         legendColor = viridis,
-        quiet = FALSE) {
+        quiet = FALSE,
+        ...) {
         .plotHeatmap(
             counts = object,
             # User-defined
@@ -269,5 +279,6 @@ setMethod(
             title = title,
             color = color,
             legendColor = legendColor,
-            quiet = quiet)
+            quiet = quiet,
+            ...)
     })

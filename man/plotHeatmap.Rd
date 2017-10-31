@@ -14,24 +14,24 @@
 plotHeatmap(object, ...)
 
 \S4method{plotHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis, quiet = FALSE)
+  color = inferno(256), legendColor = viridis, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
   annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE)
+  legendColor = viridis, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
   annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE)
+  legendColor = viridis, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
   title = NULL, color = inferno(256), legendColor = viridis,
-  quiet = FALSE)
+  quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{genes}{Character vector of specific gene identifiers to plot.}
 
