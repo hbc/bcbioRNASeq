@@ -16,7 +16,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
 (\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
