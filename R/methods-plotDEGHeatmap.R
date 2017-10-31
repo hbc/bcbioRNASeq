@@ -36,7 +36,6 @@ NULL
     alpha = 0.01,
     lfc = 0,
     title = TRUE,
-    quiet = FALSE,
     ...) {
     results <- results %>%
         as.data.frame() %>%
@@ -65,7 +64,6 @@ NULL
             counts,
             genes = genes,
             title = title,
-            quiet = quiet,
             ...)
     }
 }
@@ -84,7 +82,6 @@ setMethod(
         object,
         counts,
         lfc = 0,
-        quiet = FALSE,
         ...) {
         results <- as.data.frame(object)
         counts <- assay(counts)
@@ -96,7 +93,6 @@ setMethod(
             alpha = alpha,
             lfc = lfc,
             title = title,
-            quiet = quiet,
             ...)
     })
 
@@ -114,7 +110,6 @@ setMethod(
         counts,
         lfc = 0,
         title = TRUE,
-        quiet = FALSE,
         ...) {
         warning("DESeqTransform for counts is recommended",
                 call. = FALSE)
@@ -128,6 +123,5 @@ setMethod(
             alpha = alpha,
             lfc = lfc,
             title = title,
-            quiet = quiet,
             ...)
     })
