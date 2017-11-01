@@ -3,6 +3,7 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{ggplot}
 \alias{inferno}
 \alias{scale_color_viridis}
 \alias{scale_fill_viridis}
@@ -14,6 +15,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
   \item{viridis}{\code{\link[viridis]{inferno}}, \code{\link[viridis]{scale_color_viridis}}, \code{\link[viridis]{scale_fill_viridis}}, \code{\link[viridis]{viridis}}}
 }}
 
