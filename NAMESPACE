@@ -2,6 +2,7 @@
 
 export(alphaSummary)
 export(download)
+export(ggplot)
 export(inferno)
 export(loadRNASeq)
 export(loadRNASeqRun)
