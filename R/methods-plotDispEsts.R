@@ -1,5 +1,10 @@
 #' Plot Dispersion Estimates
 #'
+#' Method support for plotting the dispersion of counts stored in a
+#' [bcbioRNASeq] object. Here we're using the internally stored [DESeqDataSet],
+#' which already has method support for plotting dispersion, provided by
+#' the DESeq2 package.
+#'
 #' @rdname plotDispEsts
 #' @name plotDispEsts
 #' @family Differential Expression Utilities
@@ -7,11 +12,12 @@
 #'
 #' @importFrom BiocGenerics plotDispEsts
 #'
-#' @inheritParams AllGenerics
-#'
+#' @param object [bcbioRNASeq].
 #' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
 #'
-#' @seealso [DESeq2::plotDispEsts()].
+#' @seealso
+#' - [DESeq2::plotDispEsts()].
+#' - `getMethod("plotDispEsts", "DESeqDataSet")`.
 #'
 #' @return [ggplot].
 #'
