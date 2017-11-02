@@ -51,6 +51,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   labs theme
@@ -72,7 +73,7 @@ NULL
     returnList = FALSE) {
     metadata <- metadata %>%
         as.data.frame() %>%
-        .uniteInterestingGroups(interestingGroups)
+        uniteInterestingGroups(interestingGroups)
     plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
         symbol <- names(gene)[[a]]

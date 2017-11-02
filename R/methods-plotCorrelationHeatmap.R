@@ -149,6 +149,8 @@ NULL
 
 # Methods ====
 #' @rdname plotCorrelationHeatmap
+#' @importFrom basejump checkInterestingGroups
+#' @importFrom viridis inferno
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -170,7 +172,7 @@ setMethod(
             interestingGroups <-
                 metadata(object)[["interestingGroups"]][[1]]
         }
-        interestingGroups <- .checkInterestingGroups(
+        interestingGroups <- checkInterestingGroups(
             object = sampleMetadata(object),
             interestingGroups)
         # Get count matrix from `assays` slot

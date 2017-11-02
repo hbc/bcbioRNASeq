@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotMappedReads <- function(
@@ -35,7 +36,7 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(

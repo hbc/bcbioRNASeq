@@ -43,7 +43,7 @@ NULL
 
 
 # Constructors ====
-#' @importFrom basejump camel
+#' @importFrom basejump camel checkInterestingGroups
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
@@ -62,7 +62,7 @@ NULL
         stop("DESeqTransform must be rlog or vst", call. = FALSE)
     }
     dt <- assays(object)[[transform]]
-    .checkInterestingGroups(colData(dt), interestingGroups)
+    checkInterestingGroups(colData(dt), interestingGroups)
 
     # Subset genes, if desired
     if (!is.null(genes)) {

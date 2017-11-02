@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
@@ -46,7 +47,7 @@ NULL
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(

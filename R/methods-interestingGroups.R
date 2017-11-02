@@ -29,6 +29,7 @@ setMethod(
 
 
 #' @rdname interestingGroups
+#' @importFrom basejump checkInterestingGroups
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
@@ -40,7 +41,7 @@ setMethod(
         # `sampleMetadata()` is used here for better code consistency with
         # the bcbioSingleCell package.
         sampleMetadata <- sampleMetadata(object)
-        interestingGroups <- .checkInterestingGroups(
+        interestingGroups <- checkInterestingGroups(
             object = sampleMetadata,
             interestingGroups = value)
         metadata(object)[["interestingGroups"]] <- interestingGroups

@@ -27,6 +27,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
@@ -34,7 +35,7 @@ NULL
     interestingGroups = "sampleName",
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_string(

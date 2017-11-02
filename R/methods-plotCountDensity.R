@@ -31,6 +31,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
@@ -46,7 +47,7 @@ NULL
             toString(validStyles)
         ), call. = FALSE)
     }
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_string(

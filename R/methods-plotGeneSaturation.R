@@ -29,6 +29,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
@@ -36,7 +37,7 @@ NULL
     interestingGroups = "sampleName",
     minCounts = 0,
     color = scale_color_viridis(discrete = TRUE)) {
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(

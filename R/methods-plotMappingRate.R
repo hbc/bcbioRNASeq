@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
@@ -34,7 +35,7 @@ NULL
     warnLimit = 70,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    metrics <- .uniteInterestingGroups(object, interestingGroups)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
