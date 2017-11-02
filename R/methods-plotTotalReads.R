@@ -18,7 +18,7 @@
 #'   [viridis::scale_fill_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
-#' @param flip Flip X and Y axes.
+#' @param flip Flip x and y axes.
 #'
 #' @return [ggplot].
 #'
