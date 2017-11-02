@@ -4,4 +4,4 @@ bcb <- loadRNASeq(
     interestingGroups = c("genotype", "treatment"))
 # Back up all data inside bcbioRNASeq object
 flatFiles <- flatFiles(bcb)
-saveData(bcb, flatFiles)
+saveData(bcb, flatFiles, dir = "data")
