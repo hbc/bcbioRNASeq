@@ -95,7 +95,7 @@ test_that("metadata", {
              interestingGroups = "character",
              organism = "character",
              genomeBuild = "character",
-             ensemblVersion = "character",
+             ensemblVersion = "NULL",
              annotable = "data.frame",
              tx2gene = "data.frame",
              lanes = "numeric",
