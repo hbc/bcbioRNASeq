@@ -36,10 +36,6 @@ setMethod(
     "interestingGroups<-",
     signature(object = "bcbioRNASeq", value = "character"),
     function(object, value) {
-        # Check the interesting groups against the sample metadata. `colData()`
-        # can also be used here in place of `sampleMetadata()`, but
-        # `sampleMetadata()` is used here for better code consistency with
-        # the bcbioSingleCell package.
         sampleMetadata <- sampleMetadata(object)
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata,
