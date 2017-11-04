@@ -74,8 +74,7 @@ setMethod(
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),

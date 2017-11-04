@@ -183,8 +183,9 @@ setMethod(
         quiet = FALSE,
         ...) {
         counts <- counts(object, normalized = "rlog")
+        interestingGroups <- interestingGroups(object)
         annotationCol <- colData(object) %>%
-            .[, metadata(object)[["interestingGroups"]], drop = FALSE]
+            .[, interestingGroups, drop = FALSE]
         .plotHeatmap(
             counts = counts,
             annotationCol = annotationCol,

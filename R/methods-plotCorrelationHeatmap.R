@@ -169,8 +169,7 @@ setMethod(
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata(object),

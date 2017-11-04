@@ -135,8 +135,7 @@ setMethod(
             ), call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
 
         counts <- counts(object, normalized = normalized)
