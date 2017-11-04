@@ -6,9 +6,8 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", genes = NULL,
-  censorSamples = NULL, interestingGroups = NULL, label = FALSE,
-  shape = FALSE, returnData = FALSE)
+\S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", interestingGroups,
+  genes, censorSamples, label = FALSE, shape = FALSE, returnData = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -16,13 +15,13 @@
 \item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
 \link{DESeqTransform} slotted inside the \link{bcbioRNASeq} object.}
 
+\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
+appearance. If missing, color defaults to all \code{interestingGroups}
+parameters set in the \link{bcbioRNASeq} object.}
+
 \item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
 
 \item{censorSamples}{\emph{Optional}. Censors to exclude from PCA plot.}
-
-\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
-appearance. If \code{NULL}, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
 
 \item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
 

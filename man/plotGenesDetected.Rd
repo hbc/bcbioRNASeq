@@ -47,7 +47,7 @@ plotting.}
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
-\item{flip}{Flip X and Y axes.}
+\item{flip}{Flip x and y axes.}
 }
 \value{
 \link{ggplot}.
