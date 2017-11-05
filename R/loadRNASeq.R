@@ -156,7 +156,10 @@ loadRNASeq <- function(
 
     # Gene and transcript annotations ====
     if (missing(annotable)) {
-        annotable <- basejump::annotable(organism, release = ensemblVersion)
+        annotable <- basejump::annotable(
+            organism,
+            genomeBuild = genomeBuild,
+            release = ensemblVersion)
     } else if (is.data.frame(annotable)) {
         annotable <- annotable(annotable)
     }
