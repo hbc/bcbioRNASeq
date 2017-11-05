@@ -7,8 +7,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump annotable camel prepareAnnotable
-#'   prepareSummarizedExperiment
+#' @importFrom basejump annotable camel prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr pull
@@ -158,8 +157,8 @@ loadRNASeq <- function(
     # Gene and transcript annotations ====
     if (missing(annotable)) {
         annotable <- basejump::annotable(organism, release = ensemblVersion)
-    } else if (!is.null(annotable)) {
-        annotable <- prepareAnnotable(annotable)
+    } else if (is.data.frame(annotable)) {
+        annotable <- annotable(annotable)
     }
     tx2gene <- .tx2gene(
         projectDir,
