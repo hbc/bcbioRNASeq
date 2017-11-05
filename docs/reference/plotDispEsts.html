@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -87,7 +87,10 @@
     </div>
 
     
-    <p>Plot Dispersion Estimates</p>
+    <p>Method support for plotting the dispersion of counts stored in a
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. Here we're using the internally stored DESeqDataSet,
+which already has method support for plotting dispersion, provided by
+the DESeq2 package.</p>
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
@@ -98,7 +101,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object.</p></td>
+      <td><p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -108,12 +111,15 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p>
-<p>Other Differential Expression Utilities: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
+    <ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></li>
+<li><p><code>getMethod("plotDispEsts", "DESeqDataSet")</code>.</p></li>
+</ul>
+    <p>Other Differential Expression Utilities: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
   <code><a href='plotMeanSD.html'>plotMeanSD</a></code></p>
     
 

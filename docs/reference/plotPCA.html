@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -92,9 +92,8 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>returnData</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='no'>interestingGroups</span>,
+  <span class='no'>genes</span>, <span class='no'>censorSamples</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>returnData</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,6 +108,12 @@
 DESeqTransform slotted inside the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
     </tr>
     <tr>
+      <th>interestingGroups</th>
+      <td><p><em>Optional</em>. Interesting groups to use for point
+appearance. If missing, color defaults to all <code>interestingGroups</code>
+parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
+    </tr>
+    <tr>
       <th>genes</th>
       <td><p><em>Optional</em>. Character vector of gene identifiers to use.</p></td>
     </tr>
@@ -117,18 +122,15 @@ DESeqTransform slotted inside the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</
       <td><p><em>Optional</em>. Censors to exclude from PCA plot.</p></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p><em>Optional</em>. Interesting groups to use for point
-appearance. If <code>NULL</code>, color defaults to all <code>interestingGroups</code>
-parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
-    </tr>
-    <tr>
       <th>label</th>
       <td><p><em>Optional</em>. Superimpose sample text labels on the plot.</p></td>
     </tr>
     <tr>
       <th>shape</th>
-      <td><p><em>Optional</em>. Make points easier to inspect with differing shapes.</p></td>
+      <td><p><em>Optional</em>. Make points easier to inspect with differing shapes.
+Generally this isn't recommended for PCA and works poorly for more
+than 6 discrete factors, as defined by the <code>interestingGroups</code> argument.
+We recommend typically leaving this to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>returnData</th>
@@ -138,7 +140,7 @@ parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -146,7 +148,12 @@ parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# Manually set interesting groups
+# Note these columns aren't present in our example data
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"genotype"</span>, <span class='st'>"treatment"</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
