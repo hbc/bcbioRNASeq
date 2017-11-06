@@ -94,13 +94,13 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotMappedReads</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span>
+  <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>scale_fill_viridis</span>(<span class='kw'>discrete</span> <span class='kw'>=</span>
   <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame</span>
 <span class='fu'>plotMappedReads</span>(<span class='no'>object</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>scale_fill_viridis</span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -118,7 +118,7 @@
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
+bcbioRNASeq object. When set to <code>NULL</code>, this will default to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
@@ -144,21 +144,21 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p>ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code><a href='plot53Bias.html'>plot53Bias</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>, <code><a href='plotGene.html'>plotGene</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
+    <p>Other Quality Control Plots: <code>plot53Bias</code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGenderMarkers</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>, <code>plotGene</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappingRate</code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -171,7 +171,7 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
 <span class='co'># }</span><div class='input'>
 # data.frame
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>plotMappedReads</span>()
+<span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>plotMappedReads</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

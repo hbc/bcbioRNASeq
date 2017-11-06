@@ -30,7 +30,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="/index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -97,7 +97,7 @@
 <h2 class="hasAnchor">
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/loadRNASeq">loadRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
     <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
