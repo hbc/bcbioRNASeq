@@ -6,9 +6,7 @@ uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #   1: bcbio-nextgen.log missing
 #   2: bcbio-nextgen-commands.log missing
 #   3: Unannotated genes detected in counts matrix
-bcb <- suppressWarnings(
-    loadRNASeq(uploadDir)
-)
+bcb <- suppressWarnings(loadRNASeq(uploadDir))
 
 test_that("class definition", {
     expect_equal(
@@ -64,9 +62,9 @@ test_that("assays", {
 test_that("colData", {
     expect_equal(
         lapply(colData(bcb), class),
-        list(sampleID = "character",
-             sampleName = "character",
-             description = "character",
+        list(sampleID = "factor",
+             sampleName = "factor",
+             description = "factor",
              group = "factor")
     )
 })
@@ -79,7 +77,12 @@ test_that("rowData", {
              symbol = "character",
              description = "character",
              biotype = "character",
-             broadClass = "character")
+             broadClass = "character",
+             geneSeqStart = "integer",
+             geneSeqEnd = "integer",
+             seqName = "character",
+             seqStrand = "integer",
+             seqCoordSystem = "character")
     )
 })
 
