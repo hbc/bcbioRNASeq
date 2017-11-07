@@ -29,8 +29,12 @@ NULL
 # Constructors ====
 #' @importFrom dplyr left_join
 .joinMelt <- function(counts, metadata) {
-    if (!identical(colnames(counts), metadata[["sampleID"]])) {
-        stop("Sample name mismatch between counts and metadata")
+    if (!identical(
+            colnames(counts),
+            as.character(metadata[["sampleID"]])
+        )) {
+        stop("Sample name mismatch between counts and metadata",
+             call. = FALSE)
     }
     .meltLog10(counts) %>%
         left_join(as.data.frame(metadata), by = "sampleID")
@@ -51,8 +55,7 @@ NULL
         .[.[["counts"]] > 0, ] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]]),
-               # `melt()` sets colnames as factor
-               sampleID = as.character(.data[["sampleID"]]))
+               sampleID = as.factor(.data[["sampleID"]]))
 }
 
 
