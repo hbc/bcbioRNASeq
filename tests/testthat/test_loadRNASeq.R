@@ -110,6 +110,7 @@ test_that("metadata", {
              bcbioLog = "NULL",
              bcbioCommandsLog = "NULL",
              allSamples = "logical",
+             design = "formula",
              date = "Date",
              wd = "character",
              utilsSessionInfo = "sessionInfo",
