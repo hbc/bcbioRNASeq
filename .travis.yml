@@ -3,7 +3,8 @@ cache: packages
 sudo: false
 dist: trusty
 warnings_are_errors: false
-script: true
+# Temporarily enable when caching Bioconductor packages
+# script: true
 r:
   - bioc-release
   - bioc-devel
