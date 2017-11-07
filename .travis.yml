@@ -5,6 +5,7 @@ dist: trusty
 warnings_are_errors: false
 script: true
 r:
+  - bioc-release
   - bioc-devel
 r_github_packages:
   - r-lib/covr
