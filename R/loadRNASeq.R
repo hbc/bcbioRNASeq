@@ -185,35 +185,6 @@ loadRNASeq <- function(
     bcbioCommandsLog <- readLogFile(
         file.path(projectDir, "bcbio-nextgen-commands.log"))
 
-    # Metadata ====
-    metadata <- list(
-        version = packageVersion("bcbioRNASeq"),
-        uploadDir = uploadDir,
-        sampleDirs = sampleDirs,
-        projectDir = projectDir,
-        template = template,
-        runDate = runDate,
-        interestingGroups = interestingGroups,
-        organism = organism,
-        genomeBuild = genomeBuild,
-        ensemblVersion = ensemblVersion,
-        annotable = annotable,
-        tx2gene = tx2gene,
-        lanes = lanes,
-        yaml = yaml,
-        metrics = metrics,
-        sampleMetadataFile = sampleMetadataFile,
-        dataVersions = dataVersions,
-        programs = programs,
-        bcbioLog = bcbioLog,
-        bcbioCommandsLog = bcbioCommandsLog,
-        allSamples = allSamples)
-    # Add user-defined custom metadata, if specified
-    dots <- list(...)
-    if (length(dots) > 0) {
-        metadata <- c(metadata, dots)
-    }
-
     # tximport ====
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
     rawCounts <- txi[["counts"]]
@@ -222,10 +193,11 @@ loadRNASeq <- function(
 
     # DESeqDataSet ====
     message("Generating internal DESeqDataSet for quality control")
+    design <- formula(~1)
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = sampleMetadata,
-        design = formula(~1))
+        design = design)
     dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
 
@@ -279,18 +251,35 @@ loadRNASeq <- function(
         fc <- NULL
     }
 
-    # Prepare SummarizedExperiment ====
-    se <- prepareSummarizedExperiment(
-        assays = list(
-            raw = rawCounts,
-            normalized = normalizedCounts,
-            tpm = tpm,
-            tmm = tmm,
-            rlog = rlog,
-            vst = vst),
-        rowData = annotable,
-        colData = sampleMetadata,
-        metadata = metadata)
+    # Metadata ====
+    metadata <- list(
+        version = packageVersion("bcbioRNASeq"),
+        uploadDir = uploadDir,
+        sampleDirs = sampleDirs,
+        projectDir = projectDir,
+        template = template,
+        runDate = runDate,
+        interestingGroups = interestingGroups,
+        organism = organism,
+        genomeBuild = genomeBuild,
+        ensemblVersion = ensemblVersion,
+        annotable = annotable,
+        tx2gene = tx2gene,
+        lanes = lanes,
+        yaml = yaml,
+        metrics = metrics,
+        sampleMetadataFile = sampleMetadataFile,
+        dataVersions = dataVersions,
+        programs = programs,
+        bcbioLog = bcbioLog,
+        bcbioCommandsLog = bcbioCommandsLog,
+        allSamples = allSamples,
+        design = design)
+    # Add user-defined custom metadata, if specified
+    dots <- list(...)
+    if (length(dots) > 0) {
+        metadata <- c(metadata, dots)
+    }
 
     # bcbioRNASeq ====
     bcb <- new("bcbioRNASeq", se)
