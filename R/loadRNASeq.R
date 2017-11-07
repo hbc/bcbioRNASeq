@@ -281,6 +281,19 @@ loadRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
+    # Prepare SummarizedExperiment ====
+    se <- prepareSummarizedExperiment(
+        assays = list(
+            raw = rawCounts,
+            normalized = normalizedCounts,
+            tpm = tpm,
+            tmm = tmm,
+            rlog = rlog,
+            vst = vst),
+        rowData = annotable,
+        colData = sampleMetadata,
+        metadata = metadata)
+
     # bcbioRNASeq ====
     bcb <- new("bcbioRNASeq", se)
     # Slot additional data
