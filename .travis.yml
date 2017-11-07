@@ -3,6 +3,7 @@ cache: packages
 sudo: false
 dist: trusty
 warnings_are_errors: false
+script: true
 r:
   - bioc-devel
 r_github_packages:
