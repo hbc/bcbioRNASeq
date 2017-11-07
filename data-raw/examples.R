@@ -4,7 +4,8 @@ load_all()
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(
     uploadDir,
-    interestingGroups = "group")
+    interestingGroups = "group",
+    ensemblVersion = 90)
 dds <- DESeqDataSetFromTximport(
     txi = txi(bcb),
     colData = colData(bcb),
