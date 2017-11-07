@@ -13,10 +13,15 @@ test_that("annotable", {
     )
     expect_equal(
         lapply(anno, class),
-        c(ensgene = "character",
-          symbol = "character",
-          description = "character",
-          biotype = "character",
-          broadClass = "character")
+        list(ensgene = "character",
+             symbol = "character",
+             description = "character",
+             biotype = "character",
+             broadClass = "character",
+             geneSeqStart = "integer",
+             geneSeqEnd = "integer",
+             seqName = "character",
+             seqStrand = "integer",
+             seqCoordSystem = "character")
     )
 })
