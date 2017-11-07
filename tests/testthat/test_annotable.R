@@ -4,17 +4,19 @@ test_that("annotable", {
     anno <- annotable(bcb)
     expect_is(anno, "data.frame")
     expect_equal(
-        colnames(anno),
-        c("ensgene",
-          "symbol",
-          "description",
-          "biotype",
-          "broadClass")
+        nrow(anno),
+        nrow(bcb)
     )
     expect_equal(
-        rownames(anno)[1:3],
-        c("ENSMUSG00000000001",
-          "ENSMUSG00000000003",
-          "ENSMUSG00000000028")
+        rownames(anno),
+        rownames(bcb)
+    )
+    expect_equal(
+        lapply(anno, class),
+        c(ensgene = "character",
+          symbol = "character",
+          description = "character",
+          biotype = "character",
+          broadClass = "character")
     )
 })
