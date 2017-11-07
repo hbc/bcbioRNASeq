@@ -19,7 +19,7 @@ NULL
 
 # Constructors ====
 #' @importFrom basejump fixNA
-#' @importFrom dplyr filter mutate rename
+#' @importFrom dplyr filter mutate rename select
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames
 .subsetTop <- function(df, n, coding) {
@@ -40,8 +40,14 @@ NULL
                 pattern = " \\[.+\\]$",
                 replacement = "")
         ) %>%
-        .[, c("ensgene", "baseMean", "lfc",
-              "padj", "symbol", "description")] %>%
+        select(
+            c("ensgene",
+              "baseMean",
+              "lfc",
+              "padj",
+              "symbol",
+              "description")
+        ) %>%
         remove_rownames() %>%
         fixNA()
 }
