@@ -17,17 +17,17 @@ NULL
 
 # Methods ====
 #' @rdname metrics
-#' @importFrom dplyr left_join
-#' @importFrom magrittr set_rownames
+#' @importFrom dplyr left_join mutate_if
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
     function(object) {
-        suppressMessages(left_join(
-            as.data.frame(colData(object)),
-            as.data.frame(metadata(object)[["metrics"]])
-        )) %>%
-            set_rownames(.[["sampleID"]])
+        metrics <- metadata(object)[["metrics"]] %>%
+            mutate_if(is.character, as.factor)
+        metadata <- sampleMetadata(object)
+        metrics <- left_join(metrics, metadata, by = metadataPriorityCols)
+        rownames(metrics) <- metrics[["sampleID"]]
+        metrics
     })
