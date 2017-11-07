@@ -30,7 +30,7 @@ NULL
 #' @importFrom dplyr mutate_all
 #' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
-    colData(bcb) %>%
+    colData(object) %>%
         as.data.frame() %>%
         mutate_all(as.factor) %>%
         set_rownames(.[["sampleID"]])
