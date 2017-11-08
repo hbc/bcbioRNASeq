@@ -99,7 +99,7 @@ desired genes will be used to calculate the correlation matrix.</p>
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='no'>interestingGroups</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>inferno</span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)</pre>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -116,7 +116,7 @@ desired genes will be used to calculate the correlation matrix.</p>
       <th>transform</th>
       <td><p>String specifying <code>rlog</code> (<strong>recommended</strong>) or <code>vst</code>
 (<code>varianceStabilizingTransformation</code>) DESeqTransform object slotted
-inside the bcbioRNASeq object.</p></td>
+inside the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -129,7 +129,7 @@ Defaults to <code>pearson</code> but <code>spearman</code> can also be used. Con
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
-bcbioRNASeq object. When set to <code>NULL</code>, this will default to
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
@@ -147,11 +147,11 @@ plot.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Colors to use for plot. Defaults to <code>inferno()</code> palette.</p></td>
+      <td><p>Colors to use for plot. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno()</a></code> palette.</p></td>
     </tr>
     <tr>
       <th>legendColor</th>
-      <td><p>Colors to use for legend labels. Defaults to <code>viridis()</code>
+      <td><p>Colors to use for legend labels. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>
 palette.</p></td>
     </tr>
     </table>
@@ -166,8 +166,8 @@ palette.</p></td>
 <li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
 </ul>
-    <p>Other Heatmaps: <code>plotDEGHeatmap</code>,
-  <code>plotHeatmap</code></p>
+    <p>Other Heatmaps: <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
+  <code><a href='plotHeatmap.html'>plotHeatmap</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -179,7 +179,7 @@ palette.</p></td>
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
     <span class='no'>bcb</span>,
-    <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>viridis</span>(<span class='fl'>256</span>),
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
     <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)
 <span class='co'># }</span><div class='input'>
 # Default pheatmap palette

@@ -128,7 +128,7 @@ file.</p></td>
 "annotable"), which will be slotted into <code>rowData()</code>. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set <code>NULL</code>, then
-<code>rowData()</code> inside the resulting bcbioRNASeq object will be left empty.
+<code>rowData()</code> inside the resulting <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object will be left empty.
 This is recommended for projects dealing with genes or transcripts that are
 poorly annotated.</p></td>
     </tr>
@@ -147,7 +147,7 @@ against an outdated bcbio annotation build.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>bcbioRNASeq.</p>
+    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -165,7 +165,7 @@ run directory as a remote connection over
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 <span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='warning'>Warning: call dbDisconnect() when finished working with a connection</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>

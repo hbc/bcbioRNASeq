@@ -93,7 +93,7 @@
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>, <span class='no'>gene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>scale_color_viridis</span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -107,7 +107,7 @@
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
-bcbioRNASeq object. When set to <code>NULL</code>, this will default to
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
@@ -144,25 +144,25 @@ multi-gene plot with <code><a href='http://www.rdocumentation.org/packages/cowpl
     
 <ul>
 <li><p><code>returnList = FALSE</code>: <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code> graphical output.</p></li>
-<li><p><code>returnList = TRUE</code>: list of per gene ggplot objects.</p></li>
+<li><p><code>returnList = TRUE</code>: list of per gene <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> objects.</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p>
-<p>Other Quality Control Plots: <code>plot53Bias</code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+<p>Other Quality Control Plots: <code><a href='plot53Bias.html'>plot53Bias</a></code>,
+  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
