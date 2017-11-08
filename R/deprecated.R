@@ -39,3 +39,13 @@ loadRNASeqRun <- function(...) {
     .Deprecated("loadRNASeq")
     loadRNASeq(...)
 }
+
+
+
+# 0.1.2 ====
+#' @rdname deprecated
+#' @export
+plotGeneHeatmap <- function(...) {
+    .Deprecated("plotHeatmap")
+    plotHeatmap(...)
+}
