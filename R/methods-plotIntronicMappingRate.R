@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
@@ -33,17 +34,19 @@ NULL
     warnLimit = 20,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~intronicRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "intronic mapping rate",
              x = "sample",
-             y = "intronic mapping rate (%)") +
+             y = "intronic mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
@@ -77,8 +80,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotIntronicMappingRate(
             metrics(object),

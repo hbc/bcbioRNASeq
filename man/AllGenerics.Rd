@@ -10,6 +10,8 @@
 
 \item{i}{An integer or numeric scalar.}
 
+\item{value}{Value to assign.}
+
 \item{withDimnames}{A \code{logical}, indicating whether dimnames should be
 applied to extracted assay elements.}
 

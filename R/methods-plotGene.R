@@ -19,10 +19,12 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
+#' @param returnList Return the plotlist used to generate the paneled,
+#'   multi-gene plot with [cowplot::plot_grid()].
 #'
 #' @return
-#' - `return = FALSE`: [cowplot::plot_grid()] graphical output.
-#' - `return = TRUE`: [list] of per gene [ggplot] objects.
+#' - `returnList = FALSE`: [cowplot::plot_grid()] graphical output.
+#' - `returnList = TRUE`: [list] of per gene [ggplot] objects.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -34,7 +36,7 @@
 #'
 #' # Gene identifiers
 #' \dontrun{
-#' ensgene <- rownames(bcb)[1:3]
+#' ensgene <- rowData(bcb)[["ensgene"]][1:3]
 #' print(ensgene)
 #' plotGene(bcb, gene = ensgene, format = "ensgene")
 #' }
@@ -43,31 +45,48 @@ NULL
 
 
 # Constructors ====
+#' Plot Gene Constructor
+#'
+#' @author Michael Steinbaugh
+#' @keywords internal
+#' @noRd
+#'
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   labs theme
 #' @importFrom viridis scale_color_viridis
+#'
+#' @param object Counts matrix.
+#' @param gene Gene identifiers, as a named character vector. `ensgene` is
+#'   provided as the value and `symbol` as the name. This gets defined in the S4
+#'   method (see below).
+#' @param metadata Sample metadata [data.frame].
+#'
+#' @return [ggplot].
 .plotGene <- function(
-    counts,
+    object,
     gene,
     metadata,
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
-    return = FALSE) {
-    metadata <- as.data.frame(metadata)
+    returnList = FALSE) {
+    metadata <- metadata %>%
+        as.data.frame() %>%
+        uniteInterestingGroups(interestingGroups)
     plots <- lapply(seq_along(gene), function(a) {
         ensgene <- gene[[a]]
         symbol <- names(gene)[[a]]
         df <- data.frame(
-            x = colnames(counts),
-            y = counts[ensgene, ],
-            color = metadata[[interestingGroups]])
+            x = colnames(object),
+            y = object[ensgene, ],
+            interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
             df,
             mapping = aes_string(
                 x = "x",
                 y = "y",
-                color = "color")
+                color = "interestingGroups")
         ) +
             geom_point(size = 4) +
             theme(
@@ -75,14 +94,14 @@ NULL
             labs(title = symbol,
                  x = "sample",
                  y = "counts",
-                 color = interestingGroups) +
+                 color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
             p <- p + color
         }
         p
     })
-    if (isTRUE(return)) {
+    if (isTRUE(returnList)) {
         plots
     } else {
         plot_grid(plotlist = plots, labels = "AUTO")
@@ -105,7 +124,8 @@ setMethod(
         normalized = "tpm",
         gene,
         format = "symbol",
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = scale_color_viridis(discrete = TRUE),
+        returnList = FALSE) {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
@@ -115,26 +135,40 @@ setMethod(
             ), call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
 
         counts <- counts(object, normalized = normalized)
-        metadata <- colData(object)
+        metadata <- sampleMetadata(object)
 
         # Match unique gene identifier with name (gene symbol) using the
         # internally stored Ensembl annotations saved in the run object
         gene2symbol <- metadata(object) %>%
             .[["annotable"]] %>%
-            .[.[[format]] %in% gene, , drop = FALSE] %>%
             .[, c("symbol", "ensgene")]
-        gene <- gene2symbol[["ensgene"]]
-        names(gene) <- gene2symbol[["symbol"]]
+
+        # Detect missing genes. This also handles `format` mismatch.
+        if (!all(gene %in% gene2symbol[[format]])) {
+            stop(paste(
+                "Missing genes:",
+                toString(setdiff(gene, gene2symbol[[format]]))
+            ), call. = FALSE)
+        }
+
+        # Now safe to prepare the named gene character vector. Here we're
+        # passing in the `ensgene` as the value and `symbol` as the name. This
+        # works with the constructor function to match the counts matrix by
+        # the ensgene, then use the symbol as the name.
+        match <- gene2symbol %>%
+            .[.[[format]] %in% gene, , drop = FALSE]
+        geneVec <- match[["ensgene"]]
+        names(geneVec) <- match[["symbol"]]
 
         .plotGene(
-            counts = counts,
-            gene = gene,
+            object = counts,
+            gene = geneVec,
             metadata = metadata,
             interestingGroups = interestingGroups,
-            color = color)
+            color = color,
+            returnList = returnList)
     })

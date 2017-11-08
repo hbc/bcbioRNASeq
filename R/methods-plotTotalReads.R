@@ -7,16 +7,18 @@
 #'
 #' @inheritParams AllGenerics
 #'
-#' @param interestingGroups Category to use to group samples (color and shape).
-#'   If unset, this is automatically determined by the metadata set inside the
-#'   [bcbioRNASeq] object.
+#' @param interestingGroups Category to use to group samples. In the plotting
+#'   functions, this will define color and shape, where applicable. If unset,
+#'   this is automatically determined by the metadata set inside the
+#'   [bcbioRNASeq] object. When set to `NULL`, this will default to
+#'   `sampleName`.
 #' @param passLimit Threshold to plot pass color marker.
 #' @param warnLimit Threshold to plot warning color marker.
 #' @param fill Desired ggplot fill scale. Defaults to
 #'   [viridis::scale_fill_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
-#' @param flip Flip X and Y axes.
+#' @param flip Flip x and y axes.
 #'
 #' @return [ggplot].
 #'
@@ -39,7 +41,10 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom rlang !!! syms
+#' @importFrom tidyr unite
 #' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
@@ -48,17 +53,19 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~totalReads / 1e6,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "total reads",
              x = "sample",
-             y = "total reads (million)")
+             y = "total reads (million)",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -95,8 +102,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotTotalReads(
             metrics(object),

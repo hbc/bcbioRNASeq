@@ -24,5 +24,7 @@ setMethod(
     "annotable",
     signature("bcbioRNASeq"),
     function(object) {
-        metadata(object)[["annotable"]]
+        annotable <- as.data.frame(rowData(object))
+        rownames(annotable) <- slot(object, "NAMES")
+        annotable
     })

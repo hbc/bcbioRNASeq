@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
@@ -34,7 +35,8 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    # Fix for camel variant mismatch (e.g. rRnaRate).
+    # Fix for camel variant mismatch (e.g. rRnaRate). This is safe to remove
+    # in a future update.
     if (!"rrnaRate" %in% colnames(object)) {
         # grep match the outdated camel variant
         col <- grep(
@@ -45,17 +47,19 @@ NULL
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "rrna mapping rate",
              x = "sample",
-             y = "rRNA mapping rate (%)")
+             y = "rRNA mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -88,8 +92,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotRRNAMappingRate(
             metrics(object),

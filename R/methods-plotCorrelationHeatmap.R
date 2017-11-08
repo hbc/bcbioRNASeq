@@ -11,7 +11,7 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotGeneHeatmap
+#' @inherit plotHeatmap
 #' @inheritParams plotTotalReads
 #'
 #' @param transform String specifying `rlog` (**recommended**) or `vst`
@@ -149,6 +149,8 @@ NULL
 
 # Methods ====
 #' @rdname plotCorrelationHeatmap
+#' @importFrom basejump checkInterestingGroups
+#' @importFrom viridis inferno
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -167,9 +169,11 @@ setMethod(
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
+        interestingGroups <- checkInterestingGroups(
+            object = sampleMetadata(object),
+            interestingGroups)
         # Get count matrix from `assays` slot
         counts <- assays(object) %>%
             .[[transform]] %>%

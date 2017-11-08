@@ -16,7 +16,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
 (\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
@@ -26,9 +26,11 @@ inside the \link{bcbioRNASeq} object.}
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
 \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
 
-\item{interestingGroups}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object.}
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 
 \item{genes}{\emph{Optional}. Character vector of specific gene identifiers to
 plot.}
@@ -82,7 +84,7 @@ plotCorrelationHeatmap(
 }
 
 Other Heatmaps: \code{\link{plotDEGHeatmap}},
-  \code{\link{plotGeneHeatmap}}
+  \code{\link{plotHeatmap}}
 }
 \author{
 Michael Steinbaugh

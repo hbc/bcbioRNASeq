@@ -9,7 +9,7 @@
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{\link{bcbioRNASeq}.}
 
 \item{...}{Passthrough arguments to \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.}
 }
@@ -17,7 +17,10 @@
 \link{ggplot}.
 }
 \description{
-Plot Dispersion Estimates
+Method support for plotting the dispersion of counts stored in a
+\link{bcbioRNASeq} object. Here we're using the internally stored \link{DESeqDataSet},
+which already has method support for plotting dispersion, provided by
+the DESeq2 package.
 }
 \examples{
 plotDispEsts(bcb)
@@ -31,7 +34,10 @@ plotDispEsts(
 }
 }
 \seealso{
-\code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
+\itemize{
+\item \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
+\item \code{getMethod("plotDispEsts", "DESeqDataSet")}.
+}
 
 Other Differential Expression Utilities: \code{\link{alphaSummary}},
   \code{\link{plotMeanSD}}

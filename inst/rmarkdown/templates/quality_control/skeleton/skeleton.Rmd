@@ -25,10 +25,6 @@ bcb <- get(bcbName, inherits = FALSE)
 outputDir <- params$outputDir
 dataDir <- file.path(outputDir, "data")
 countsDir <- file.path(outputDir, "results", "counts")
-
-# Back up all data inside bcbioRNASeq object
-flatFiles <- flatFiles(bcb)
-saveData(flatFiles, dir = dataDir)
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}

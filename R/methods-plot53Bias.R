@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
@@ -34,17 +35,19 @@ NULL
     warnLimit = 2,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_string(
             x = "sampleName",
             y = "x53Bias",
-            fill = interestingGroups)
+            fill = "interestingGroups")
     ) +
         geom_bar(stat = "identity") +
         labs(title = "5'->3' bias",
              x = "sample",
-             y = "5'->3' bias")
+             y = "5'->3' bias",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -77,8 +80,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plot53Bias(
             metrics(object),

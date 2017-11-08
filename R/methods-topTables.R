@@ -40,8 +40,12 @@ NULL
                 pattern = " \\[.+\\]$",
                 replacement = "")
         ) %>%
-        .[, c("ensgene", "baseMean", "lfc",
-              "padj", "symbol", "description")] %>%
+        .[, c("ensgene",
+              "baseMean",
+              "lfc",
+              "padj",
+              "symbol",
+              "description")] %>%
         remove_rownames() %>%
         fixNA()
 }

@@ -7,7 +7,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump camel prepareSummarizedExperiment
+#' @importFrom basejump annotable camel prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr pull
@@ -27,9 +27,17 @@
 #'   file.
 #' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
 #'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
-#' @param ensemblVersion Ensembl release version. Defaults to current, and does
-#'   not typically need to be user-defined. This parameter can be useful for
-#'   matching Ensembl annotations against an outdated bcbio annotation build.
+#' @param annotable *Optional*. User-defined gene annotations (a.k.a.
+#'   "annotable"), which will be slotted into [rowData()]. Typically this should
+#'   be left undefined. By default, the function will automatically generate an
+#'   annotable from the annotations available on Ensembl. If set `NULL`, then
+#'   [rowData()] inside the resulting [bcbioRNASeq] object will be left empty.
+#'   This is recommended for projects dealing with genes or transcripts that are
+#'   poorly annotated.
+#' @param ensemblVersion *Optional*. Ensembl release version. If `NULL`,
+#'   defaults to current release, and does not typically need to be
+#'   user-defined. This parameter can be useful for matching Ensembl annotations
+#'   against an outdated bcbio annotation build.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -47,12 +55,16 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+#'
+#' # Load without gene annotations
+#' bcb <- loadRNASeq(uploadDir, annotable = NULL)
 loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     maxSamples = 50,
-    ensemblVersion = "current",
+    annotable,
+    ensemblVersion = NULL,
     ...) {
     # Directory paths ====
     # Check connection to final upload directory
@@ -112,6 +124,14 @@ loadRNASeq <- function(
     # Interesting groups ====
     # Ensure internal formatting in camelCase
     interestingGroups <- camel(interestingGroups, strict = FALSE)
+    # Default to `sampleName`
+    if (is.null(interestingGroups)) {
+        warning(paste(
+            "'interestingGroups' is 'NULL'.",
+            "Defaulting to 'sampleName'."
+            ), call. = FALSE)
+        interestingGroups <- "sampleName"
+    }
     # Check to ensure interesting groups are defined
     if (!all(interestingGroups %in% colnames(sampleMetadata))) {
         stop("Interesting groups missing in sample metadata", call. = FALSE)
@@ -133,7 +153,16 @@ loadRNASeq <- function(
     genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
-    annotable <- annotable(genomeBuild, release = ensemblVersion)
+
+    # Gene and transcript annotations ====
+    if (missing(annotable)) {
+        annotable <- basejump::annotable(
+            organism,
+            genomeBuild = genomeBuild,
+            release = ensemblVersion)
+    } else if (is.data.frame(annotable)) {
+        annotable <- annotable(annotable)
+    }
     tx2gene <- .tx2gene(
         projectDir,
         organism = organism,
@@ -156,35 +185,6 @@ loadRNASeq <- function(
     bcbioCommandsLog <- readLogFile(
         file.path(projectDir, "bcbio-nextgen-commands.log"))
 
-    # Metadata ====
-    metadata <- list(
-        version = packageVersion("bcbioRNASeq"),
-        uploadDir = uploadDir,
-        sampleDirs = sampleDirs,
-        projectDir = projectDir,
-        template = template,
-        runDate = runDate,
-        interestingGroups = interestingGroups,
-        organism = organism,
-        genomeBuild = genomeBuild,
-        ensemblVersion = ensemblVersion,
-        annotable = annotable,
-        tx2gene = tx2gene,
-        lanes = lanes,
-        yaml = yaml,
-        metrics = metrics,
-        sampleMetadataFile = sampleMetadataFile,
-        dataVersions = dataVersions,
-        programs = programs,
-        bcbioLog = bcbioLog,
-        bcbioCommandsLog = bcbioCommandsLog,
-        allSamples = allSamples)
-    # Add user-defined custom metadata, if specified
-    dots <- list(...)
-    if (length(dots) > 0) {
-        metadata <- c(metadata, dots)
-    }
-
     # tximport ====
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
     rawCounts <- txi[["counts"]]
@@ -193,10 +193,11 @@ loadRNASeq <- function(
 
     # DESeqDataSet ====
     message("Generating internal DESeqDataSet for quality control")
+    design <- formula(~1)
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = sampleMetadata,
-        design = formula(~1))
+        design = design)
     dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
 
@@ -248,6 +249,36 @@ loadRNASeq <- function(
         }
     } else {
         fc <- NULL
+    }
+
+    # Metadata ====
+    metadata <- list(
+        version = packageVersion("bcbioRNASeq"),
+        uploadDir = uploadDir,
+        sampleDirs = sampleDirs,
+        projectDir = projectDir,
+        template = template,
+        runDate = runDate,
+        interestingGroups = interestingGroups,
+        organism = organism,
+        genomeBuild = genomeBuild,
+        ensemblVersion = ensemblVersion,
+        annotable = annotable,
+        tx2gene = tx2gene,
+        lanes = lanes,
+        yaml = yaml,
+        metrics = metrics,
+        sampleMetadataFile = sampleMetadataFile,
+        dataVersions = dataVersions,
+        programs = programs,
+        bcbioLog = bcbioLog,
+        bcbioCommandsLog = bcbioCommandsLog,
+        allSamples = allSamples,
+        design = design)
+    # Add user-defined custom metadata, if specified
+    dots <- list(...)
+    if (length(dots) > 0) {
+        metadata <- c(metadata, dots)
     }
 
     # Prepare SummarizedExperiment ====

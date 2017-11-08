@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotExonicMappingRate <- function(
@@ -34,17 +35,19 @@ NULL
     passLimit = 60,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~exonicRate * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "exonic mapping rate",
              x = "sample",
-             y = "exonic mapping rate (%)") +
+             y = "exonic mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
@@ -77,8 +80,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotExonicMappingRate(
             metrics(object),

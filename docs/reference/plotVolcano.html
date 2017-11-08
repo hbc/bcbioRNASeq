@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -165,7 +165,7 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Volcano plot arranged as grid (<code>grid = TRUE</code>), or <code>show()</code>
-individual ggplot (<code>grid = FALSE</code>).</p>
+individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> (<code>grid = FALSE</code>).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -176,7 +176,8 @@ individual ggplot (<code>grid = FALSE</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>/Users/mike/.AnnotationHub</span></div><div class='output co'>#&gt; <span class='message'>2017-10-18</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='st'>"Sulf1"</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'># data.frame</span>
 <span class='fu'>plotVolcano</span>(<span class='fu'>as.data.frame</span>(<span class='no'>res</span>))

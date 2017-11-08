@@ -12,9 +12,8 @@ NULL
 # 0.0.25 ====
 #' @rdname deprecated
 #' @export
-download <- function(...) {
+download <- function() {
     .Deprecated("prepareRNASeqTemplate")
-    prepareRNASeqTemplate(...)
 }
 
 #' @rdname deprecated
@@ -39,4 +38,14 @@ plotDispersion <- function(...) {
 loadRNASeqRun <- function(...) {
     .Deprecated("loadRNASeq")
     loadRNASeq(...)
+}
+
+
+
+# 0.1.2 ====
+#' @rdname deprecated
+#' @export
+plotGeneHeatmap <- function(...) {
+    .Deprecated("plotHeatmap")
+    plotHeatmap(...)
 }

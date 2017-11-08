@@ -5,8 +5,8 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, maxSamples = 50, ensemblVersion = "current",
-  ...)
+  sampleMetadataFile = NULL, maxSamples = 50, annotable,
+  ensemblVersion = NULL, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -23,9 +23,18 @@ file.}
 \item{maxSamples}{Maximum number of samples to calculate \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix. See Details.}
 
-\item{ensemblVersion}{Ensembl release version. Defaults to current, and does
-not typically need to be user-defined. This parameter can be useful for
-matching Ensembl annotations against an outdated bcbio annotation build.}
+\item{annotable}{\emph{Optional}. User-defined gene annotations (a.k.a.
+"annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should
+be left undefined. By default, the function will automatically generate an
+annotable from the annotations available on Ensembl. If set \code{NULL}, then
+\code{\link[=rowData]{rowData()}} inside the resulting \link{bcbioRNASeq} object will be left empty.
+This is recommended for projects dealing with genes or transcripts that are
+poorly annotated.}
+
+\item{ensemblVersion}{\emph{Optional}. Ensembl release version. If \code{NULL},
+defaults to current release, and does not typically need to be
+user-defined. This parameter can be useful for matching Ensembl annotations
+against an outdated bcbio annotation build.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
@@ -51,6 +60,9 @@ run directory as a remote connection over
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+
+# Load without gene annotations
+bcb <- loadRNASeq(uploadDir, annotable = NULL)
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

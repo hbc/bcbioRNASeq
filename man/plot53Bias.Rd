@@ -20,9 +20,11 @@ plot53Bias(object, ...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{interestingGroups}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object.}
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
@@ -31,7 +33,7 @@ If unset, this is automatically determined by the metadata set inside the
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
-\item{flip}{Flip X and Y axes.}
+\item{flip}{Flip x and y axes.}
 }
 \value{
 \link{ggplot}.

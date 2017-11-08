@@ -1,4 +1,4 @@
-#' Prepare RNA-Seq RMarkdown Template
+#' Prepare RNA-Seq R Markdown Template
 #'
 #' @rdname prepareRNASeqTemplate
 #' @name prepareRNASeqTemplate

@@ -20,7 +20,7 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{counts}{Secondary object containing a normalized count matrix.}
 
-\item{...}{Passthrough arguments to \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
@@ -30,9 +30,9 @@ plotDEGHeatmap(object, counts, ...)
 Graphical output only.
 }
 \description{
-This function is a simplified version of \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}} that is
+This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
 optimized for handling a \link{DESeqResults} object rather a gene vector. All of
-the optional parameters for \code{\link[=plotGeneHeatmap]{plotGeneHeatmap()}} are also available to this
+the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
 }
 \examples{
@@ -46,7 +46,7 @@ plotDEGHeatmap(res, dds)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotGeneHeatmap}}
+  \code{\link{plotHeatmap}}
 }
 \author{
 Michael Steinbaugh

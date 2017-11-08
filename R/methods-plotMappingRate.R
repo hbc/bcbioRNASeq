@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
@@ -34,19 +35,20 @@ NULL
     warnLimit = 70,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
-    if (is.null(object)) return(NULL)
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / totalReads * 100,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         ylim(0, 100) +
         labs(title = "mapping rate",
              x = "sample",
-             y = "mapping rate (%)")
+             y = "mapping rate (%)",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -79,8 +81,7 @@ setMethod(
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotMappingRate(
             metrics(object),

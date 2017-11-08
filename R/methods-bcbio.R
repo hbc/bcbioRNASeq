@@ -12,7 +12,6 @@
 #' @inheritParams AllGenerics
 #'
 #' @param type Type of data to retrieve.
-#' @param value Value to assign.
 #'
 #' @details
 #' Additional count matrices of interest include:

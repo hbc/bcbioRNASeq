@@ -26,6 +26,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotMappedReads <- function(
@@ -35,17 +36,19 @@ NULL
     warnLimit = 10,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / 1e6,
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "mapped reads",
              x = "sample",
-             y = "mapped reads (million)")
+             y = "mapped reads (million)",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -81,8 +84,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotMappedReads(
             metrics(object),

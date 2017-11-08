@@ -29,6 +29,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
@@ -39,17 +40,19 @@ NULL
     minCounts = 0,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
-            fill = as.name(interestingGroups))
+            fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(title = "genes detected",
              x = "sample",
-             y = "gene count")
+             y = "gene count",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -87,8 +90,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotGenesDetected(
             metrics(object),

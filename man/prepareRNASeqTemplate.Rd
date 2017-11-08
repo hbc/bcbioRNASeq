@@ -5,7 +5,7 @@
 \name{prepareRNASeqTemplate}
 \alias{prepareRNASeqTemplate}
 \alias{prepareRNASeqTemplate,missing-method}
-\title{Prepare RNA-Seq RMarkdown Template}
+\title{Prepare RNA-Seq R Markdown Template}
 \usage{
 prepareRNASeqTemplate(object, ...)
 
@@ -20,7 +20,7 @@ prepareRNASeqTemplate(object, ...)
 No value.
 }
 \description{
-Prepare RNA-Seq RMarkdown Template
+Prepare RNA-Seq R Markdown Template
 }
 \examples{
 \dontrun{

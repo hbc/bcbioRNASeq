@@ -27,6 +27,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
@@ -34,17 +35,19 @@ NULL
     interestingGroups = "sampleName",
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_string(
             x = "sampleName",
             y = "counts",
-            fill = interestingGroups)
+            fill = "interestingGroups")
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(title = "counts per gene",
              x = "sample",
-             y = "log10 counts per gene")
+             y = "log10 counts per gene",
+             fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(fill)) {
         p <- p + fill
     }
@@ -71,8 +74,7 @@ setMethod(
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),

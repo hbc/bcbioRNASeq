@@ -27,10 +27,13 @@ NULL
 
 
 # Constructors ====
+#' @importFrom dplyr mutate_all
+#' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
-    object %>%
-        colData() %>%
-        as.data.frame()
+    colData(object) %>%
+        as.data.frame() %>%
+        mutate_all(as.factor) %>%
+        set_rownames(.[["sampleID"]])
 }
 
 

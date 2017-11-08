@@ -1,4 +1,4 @@
-context("Plots")
+context("plotMA")
 
 test_that("plotMA", {
     p <- plotMA(res)

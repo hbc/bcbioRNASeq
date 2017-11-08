@@ -8,14 +8,16 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tpm", gene, format = "symbol",
-  color = scale_color_viridis(discrete = TRUE))
+  color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{Category to use to group samples (color and shape).
-If unset, this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object.}
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
@@ -30,11 +32,14 @@ If unset, this is automatically determined by the metadata set inside the
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{returnList}{Return the plotlist used to generate the paneled,
+multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
 }
 \value{
 \itemize{
-\item \code{return = FALSE}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{return = TRUE}: \link{list} of per gene \link{ggplot} objects.
+\item \code{returnList = FALSE}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
+\item \code{returnList = TRUE}: \link{list} of per gene \link{ggplot} objects.
 }
 }
 \description{
@@ -48,7 +53,7 @@ plotGene(bcb, gene = symbol, format = "symbol")
 
 # Gene identifiers
 \dontrun{
-ensgene <- rownames(bcb)[1:3]
+ensgene <- rowData(bcb)[["ensgene"]][1:3]
 print(ensgene)
 plotGene(bcb, gene = ensgene, format = "ensgene")
 }

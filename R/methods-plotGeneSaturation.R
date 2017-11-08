@@ -29,6 +29,7 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump uniteInterestingGroups
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
@@ -36,23 +37,20 @@ NULL
     interestingGroups = "sampleName",
     minCounts = 0,
     color = scale_color_viridis(discrete = TRUE)) {
-    # Ensure `interestingGroups` defaults to `sampleName`
-    if (is.null(interestingGroups)) {
-        interestingGroups <- "sampleName"
-
-    }
+    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        object,
+        metrics,
         mapping = aes_(
             x = ~mappedReads / 1e6,
             y = colSums(counts > minCounts),
-            color = as.name(interestingGroups))
+            color = ~interestingGroups)
     ) +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(title = "gene saturation",
              x = "mapped reads (million)",
-             y = "genes")
+             y = "genes",
+             color = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(color)) {
         p <- p + color
     }
@@ -80,8 +78,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <-
-                metadata(object)[["interestingGroups"]][[1]]
+            interestingGroups <- basejump::interestingGroups(object)
         }
         .plotGeneSaturation(
             metrics(object),
