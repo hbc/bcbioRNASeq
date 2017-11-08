@@ -35,5 +35,5 @@ sampleMetadata(bcb)
 sampleMetadata(dds)
 
 # DESeqTransform
-sampleMetadata(dds)
+sampleMetadata(rld)
 }

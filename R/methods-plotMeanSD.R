@@ -19,12 +19,12 @@
 #'
 #' @examples
 #' # bcbioRNASeq
-#' plotMeanSD(bcb)
-#'
 #' plotMeanSD(bcb, orientation = "horizontal")
 #'
 #' # DESeqDataSet
+#' \dontrun{
 #' plotMeanSD(dds)
+#' }
 NULL
 
 

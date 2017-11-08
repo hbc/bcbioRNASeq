@@ -62,7 +62,9 @@ uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 
 # Load without gene annotations
+\dontrun{
 bcb <- loadRNASeq(uploadDir, annotable = NULL)
+}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

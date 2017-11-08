@@ -21,7 +21,7 @@
 #' sampleMetadata(dds)
 #'
 #' # DESeqTransform
-#' sampleMetadata(dds)
+#' sampleMetadata(rld)
 NULL
 
 

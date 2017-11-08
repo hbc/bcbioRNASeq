@@ -35,12 +35,12 @@ informative and is disabled by default, to improve the plot appearance.}
 }
 \examples{
 # bcbioRNASeq
-plotMeanSD(bcb)
-
 plotMeanSD(bcb, orientation = "horizontal")
 
 # DESeqDataSet
+\dontrun{
 plotMeanSD(dds)
+}
 }
 \seealso{
 Other Differential Expression Utilities: \code{\link{alphaSummary}},

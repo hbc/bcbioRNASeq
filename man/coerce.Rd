@@ -10,12 +10,12 @@
 \description{
 Coerce Object
 }
-\section{Upgrade \link{bcbioRNASeq} to current version}{
- This method adds support
-for upgrading \link{bcbioRNADataSet} objects to the latest \link{bcbioRNASeq} class
-version. This should be backwards compatible to \link{bcbioRNASeq} version
-0.0.26. Previous objects saved using \code{bcbioRnaseq} (note case) will likely
-fail to load with newer versions of the package.
+\section{Upgrade \code{bcbioRNASeq} to current version}{
+
+This method adds support for upgrading \link{bcbioRNADataSet} objects to the
+latest \link{bcbioRNASeq} class version. This should be backwards compatible to
+\link{bcbioRNASeq} version 0.0.26. Previous objects saved using \code{bcbioRnaseq}
+(note case) will likely fail to load with newer versions of the package.
 }
 
 \examples{

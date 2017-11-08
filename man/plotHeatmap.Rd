@@ -7,7 +7,7 @@
 \alias{plotHeatmap,DESeqDataSet-method}
 \alias{plotHeatmap,DESeqTransform-method}
 \alias{plotHeatmap,matrix-method}
-\title{Heatmap}
+\title{Plot Heatmap}
 \usage{
 plotHeatmap(object, ...)
 

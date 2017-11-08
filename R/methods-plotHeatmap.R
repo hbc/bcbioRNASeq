@@ -1,4 +1,4 @@
-#' Heatmap
+#' Plot Heatmap
 #'
 #' These functions facilitate heatmap plotting of a specified set of genes. By
 #' default, row- and column-wise hierarchical clustering is performed using the

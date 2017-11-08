@@ -57,7 +57,9 @@
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #'
 #' # Load without gene annotations
+#' \dontrun{
 #' bcb <- loadRNASeq(uploadDir, annotable = NULL)
+#' }
 loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
