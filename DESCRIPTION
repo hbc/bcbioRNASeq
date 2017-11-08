@@ -63,7 +63,7 @@ Suggests:
     lintr (>= 1.0.1),
     rmarkdown,
     testthat,
-    tidyverse
+    tidyverse (>= 1.2.0)
 Remotes:
     lpantano/DEGreport,
     steinbaugh/basejump
