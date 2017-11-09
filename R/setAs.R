@@ -42,43 +42,40 @@ NULL
         ), call. = FALSE)
     }
     message(paste(
-        "Upgrading from",
-        version,
-        "to",
-        packageVersion("bcbioRNASeq")
+        paste("Upgrading from", version, "to", packageVersion("bcbioRNASeq")),
+        paste("Existing metadata:", toString(names(metadata(from)))),
+        sep = "\n"
     ))
-    message(paste("Existing metadata:", toString(names(metadata(from)))))
 
-    assays <- assays(from)
+    # Regenerate the bcbioRNASeq object
+    se <- as(from, "SummarizedExperiment")
+    to <- new("bcbioRNASeq", se)
+    bcbio(to) <- bcbio(from)
+    validObject(to)
 
-    rowData <- rowData(from)
-    rownames(rowData) <- slot(from, "NAMES")
-
-    colData <- colData(from)
-
-    metadata <- metadata(from)
-    metadata[["originalVersion"]] <- metadata[["version"]]
-    metadata[["version"]] <- packageVersion("bcbioRNASeq")
-    metadata[["upgradeDate"]] <- Sys.Date()
+    # Update the automatic metadata slots
+    metadata(to)[["version"]] <- packageVersion("bcbioRNASeq")
+    metadata(to)[["originalVersion"]] <- metadata(from)[["version"]]
+    metadata(to)[["upgradeDate"]] <- Sys.Date()
 
     # Version-specific modifications ====
     if (version <= package_version("0.0.26")) {
-        bcbio <- slot(from, "callers")
         # Remove GTF file, if present (too large)
-        metadata[["gtf"]] <- NULL
-    } else {
-        bcbio <- slot(from, "bcbio")
+        metadata(to)[["gtf"]] <- NULL
     }
 
-    se <- SummarizedExperiment(
-        assays = assays,
-        rowData = rowData,
-        colData = colData,
-        metadata = metadata)
+    to
+}
 
-    # Return updated object ====
-    to <- new("bcbioRNASeq", se)
-    slot(to, "bcbio") <- bcbio
+
+
+.coerceToSummarizedExperiment <- function(from) {
+    to <- new("SummarizedExperiment")
+    slot(to, "colData") <- slot(from, "colData")
+    slot(to, "assays") <- slot(from, "assays")
+    slot(to, "NAMES") <- slot(from, "NAMES")
+    slot(to, "elementMetadata") <- slot(from, "elementMetadata")
+    slot(to, "metadata") <- slot(from, "metadata")
     validObject(to)
     to
 }
@@ -94,6 +91,19 @@ NULL
 #' [bcbioRNASeq] version 0.0.26. Previous objects saved using `bcbioRnaseq`
 #' (note case) will likely fail to load with newer versions of the package.
 setAs(
-    "bcbioRNADataSet",
-    signature("bcbioRNASeq"),
+    from = "bcbioRNADataSet",
+    to = "bcbioRNASeq",
     .coerceLegacy)
+
+
+
+#' @rdname coerce
+#' @name coerce-bcbioRNASeq-SummarizedExperiment
+#' @section [bcbioRNASeq] to [SummarizedExperiment]:
+#' Since [bcbioRNASeq] is an extension of [SummarizedExperiment], this
+#' coercion method is very simple. Here we're simply dropping our `@bcbio` slot,
+#' which contains raw cellular barcodes and other bcbio-specific metadata.
+setAs(
+    from = "bcbioRNASeq",
+    to = "SummarizedExperiment",
+    .coerceToSummarizedExperiment)
