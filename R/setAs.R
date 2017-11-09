@@ -58,7 +58,7 @@ NULL
     metadata(to)[["originalVersion"]] <- metadata(from)[["version"]]
     metadata(to)[["upgradeDate"]] <- Sys.Date()
 
-    # Version-specific modifications ====
+    # Version-specific modifications
     if (version <= package_version("0.0.26")) {
         # Remove GTF file, if present (too large)
         metadata(to)[["gtf"]] <- NULL
