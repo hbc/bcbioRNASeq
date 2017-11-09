@@ -50,21 +50,19 @@ NULL
 #'
 #' @importFrom DESeq2 DESeqDataSetFromTximport
 #' @importFrom stats formula
-.createDDS <- function(txi, tmpData) {
+.createDDS <- function(txi, colData) {
     DESeqDataSetFromTximport(
         txi = txi,
-        colData = tmpData,
+        colData = colData,
         design = formula(~1))
 }
 
 
 
 #' @importFrom DESeq2 DESeqTransform
-.countSubset <- function(x, tmpData) {
-    DESeqTransform(
-        SummarizedExperiment(
-            assays = x,
-            colData = tmpData))
+.subsetCounts <- function(counts, colData) {
+    se <- SummarizedExperiment(assays = counts, colData = colData)
+    DESeqTransform(se)
 }
 
 
@@ -79,112 +77,101 @@ NULL
     if (missing(j)) {
         j <- 1:ncol(x)
     }
+
     dots <- list(...)
     if (is.null(dots[["maxSamples"]])) {
         maxSamples <- 50
     } else {
         maxSamples <- dots[["maxSamples"]]
     }
-
     if (is.null(dots[["skipNorm"]])) {
         skipNorm <- FALSE
     } else {
         skipNorm <- dots[["skipNorm"]]
     }
 
-    # Subset SE object ====
-    se <- SummarizedExperiment(
-        assays = SimpleList(counts(x)),
-        rowData = rowData(x),
-        colData = colData(x),
-        metadata = metadata(x))
+    # Regenerate and subset SummarizedExperiment
+    se <- as(x, "SummarizedExperiment")
+    se <- se[i, j, drop = drop]
 
-    tmp <- se[i, j, drop = drop]
-    tmpGenes <- row.names(tmp)
-    tmpRow <- rowData(tmp) %>%
-        as.data.frame()
-    tmpData <- colData(tmp) %>%
-        as.data.frame()
-    tmpTxi <- bcbio(x, "tximport")
+    genes <- rownames(se)
+    samples <- colnames(se)
 
-    # Subset tximport data ====
-    txi <- SimpleList(
-        abundance = tmpTxi[["abundance"]] %>%
-            .[tmpGenes, tmpData[["sampleID"]]],
-        counts = tmpTxi[["counts"]] %>%
-            .[tmpGenes, tmpData[["sampleID"]]],
-        length = tmpTxi[["length"]] %>%
-            .[tmpGenes, tmpData[["sampleID"]]],
-        countsFromAbundance = tmpTxi[["countsFromAbundance"]]
-    )
-    rawCounts <- txi[["counts"]]
-    tmm <- .tmm(rawCounts)
+    rowData <- rowData(se)
+    colData <- colData(se)
+
+    # Subset the tximport list
+    txi <- bcbio(x, "tximport")
+    txi[["abundance"]] <- txi[["abundance"]][genes, samples]
+    txi[["counts"]] <- txi[["counts"]][genes, samples]
+    txi[["length"]] <- txi[["length"]][genes, samples]
+
+    # Obtain the counts from the updated tximport list
+    raw <- txi[["counts"]]
+    tmm <- .tmm(raw)
     tpm <- txi[["abundance"]]
 
-    if (skipNorm) {
+    # Skip normalization option, for large datasets
+    if (isTRUE(skipNorm)) {
         message("Skip re-normalization, just selecting samples and genes")
-        # To Fix if we find the solution.
         # Only way to avoid disk space issue.
-        # Direct subset of dds create a huge file.
-        dds <- .createDDS(txi, tmpData) %>%
+        # Direct subset of dds creates a huge file.
+        dds <- .createDDS(txi, colData) %>%
             estimateSizeFactors()
-        vst <- .countSubset(counts(x, "vst")[i, j], tmpData)
-        rlog <- .countSubset(counts(x, "rlog")[i, j], tmpData)
-        normalizedCounts <- counts(x, "normalized")[i, j]
+        vst <- .subsetCounts(counts(x, "vst")[i, j], colData)
+        rlog <- .subsetCounts(counts(x, "rlog")[i, j], colData)
+        normalized <- counts(x, "normalized")[i, j]
     } else {
         # Fix for unexpected disk space issue (see constructor above)
-        dds <- .createDDS(txi, tmpData)
+        dds <- .createDDS(txi, colData)
         # DESeq2 will warn about empty design formula
         dds <- suppressWarnings(DESeq(dds))
-        normalizedCounts <- counts(dds, normalized = TRUE)
+        normalized <- counts(dds, normalized = TRUE)
     }
 
-    # rlog & variance ====
-    if (nrow(tmpData) > maxSamples & !skipNorm) {
+    # Update rlog and vst data
+    if (nrow(colData) > maxSamples & !isTRUE(skipNorm)) {
         message("Many samples detected...skipping count transformations")
-        rlog <- .countSubset(log2(tmm + 1), tmpData)
-        vst <- .countSubset(log2(tmm + 1), tmpData)
-    } else if (!skipNorm) {
+        rlog <- .subsetCounts(log2(tmm + 1), colData)
+        vst <- .subsetCounts(log2(tmm + 1), colData)
+    } else if (!isTRUE(skipNorm)) {
         message("Performing rlog transformation")
         rlog <- rlog(dds)
         message("Performing variance stabilizing transformation")
         vst <- varianceStabilizingTransformation(dds)
     }
 
+    # Update featureCounts
     if (is.matrix(bcbio(x, "featureCounts"))) {
-        tmpFC <- bcbio(x, "featureCounts") %>%
-            .[tmpGenes, tmpData[["sampleID"]], drop = FALSE]
+        featureCounts <- bcbio(x, "featureCounts") %>%
+            .[genes, samples, drop = FALSE]
     } else {
-        tmpFC <- bcbio(x, "featureCounts")
+        featureCounts <- NULL
     }
 
-    # Subset Metrics ====
-    tmpMetadata <- metadata(x)
-    tmpMetrics <- tmpMetadata[["metrics"]] %>%
-        .[.[["sampleID"]] %in% tmpData[["sampleID"]], , drop = FALSE]
-    tmpMetadata[["metrics"]] <- tmpMetrics
+    # Update metadata ====
+    metadata <- metadata(x)
+    metadata[["metrics"]] <- metadata[["metrics"]] %>%
+        .[.[["sampleID"]] %in% samples, , drop = FALSE]
 
-    tmpAssays <- SimpleList(
-        raw = rawCounts,
-        normalized = normalizedCounts,
+    # Return `bcbioRNASeq`
+    assays <- SimpleList(
+        raw = raw,
+        normalized = normalized,
         tpm = tpm,
         tmm = tmm,
         rlog = rlog,
         vst = vst)
-
-    # Slot additional data
     bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
-        featureCounts = tmpFC)
-
-    # bcbioRNASeq ====
+        featureCounts = featureCounts)
     new("bcbioRNASeq",
         SummarizedExperiment(
-            assays = tmpAssays,
-            colData = tmpData,
-            rowData = tmpRow,
-            metadata = tmpMetadata),
+            assays = assays,
+            colData = colData,
+            rowData = rowData,
+            metadata = metadata),
         bcbio = bcbio)
 }
 
