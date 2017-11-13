@@ -120,9 +120,9 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
+        gene,
         interestingGroups,
         normalized = "tpm",
-        gene,
         format = "symbol",
         color = scale_color_viridis(discrete = TRUE),
         returnList = FALSE) {
