@@ -161,8 +161,8 @@ setMethod(
         # the ensgene, then use the symbol as the name.
         match <- match(x = gene, table = gene2symbol[[format]])
         gene2symbol <- gene2symbol[match, , drop = FALSE]
-        ensgene <- match[["ensgene"]]
-        names(ensgene) <- match[["symbol"]]
+        ensgene <- gene2symbol[["ensgene"]]
+        names(ensgene) <- gene2symbol[["symbol"]]
 
         .plotGene(
             object = counts,
