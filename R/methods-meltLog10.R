@@ -36,8 +36,10 @@ NULL
         stop("Sample name mismatch between counts and metadata",
              call. = FALSE)
     }
-    .meltLog10(counts) %>%
-        left_join(as.data.frame(metadata), by = "sampleID")
+    melted <- .meltLog10(counts)
+    metadata <- as.data.frame(metadata) %>%
+        mutate_if(is.factor, droplevels)
+    left_join(melted, metadata, by = "sampleID")
 }
 
 
@@ -52,10 +54,15 @@ NULL
         rownames_to_column() %>%
         melt(id = 1) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
-        .[.[["counts"]] > 0, ] %>%
+        # Melt operation will define as factor. Let's set this manually later.
+        mutate(sampleID = as.character(.data[["sampleID"]])) %>%
+        # Remove zero counts
+        .[.[["counts"]] > 0, , drop = FALSE] %>%
         # log10 transform the counts
-        mutate(counts = log10(.data[["counts"]]),
-               sampleID = as.factor(.data[["sampleID"]]))
+        mutate(counts = log10(.data[["counts"]])) %>%
+        # Arrange by sampleID, to match factor levels
+        arrange(.data[["sampleID"]]) %>%
+        mutate(sampleID = as.factor(.data[["sampleID"]]))
 }
 
 
