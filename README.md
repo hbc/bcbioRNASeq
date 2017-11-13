@@ -62,18 +62,18 @@ This will return a `bcbioRNASeq` object, which is an extension of the [Bioconduc
 Parameters:
 
 - `uploadDir`: Path to the [bcbio][] final upload directory.
-- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `metadata(bcb)$interestingGroups <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
+- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 
 Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
 
 
-## [RMarkdown][] templates
+## [R Markdown][] templates
 
-This package provides multiple [RMarkdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+This package provides multiple [R Markdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
 ### Examples
 
-View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [RMarkdown][] templates included in the package:
+View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [R Markdown][] templates included in the package:
 
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
@@ -84,6 +84,6 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 [DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [devtools]: https://cran.r-project.org/package=devtools
 [R]: https://www.r-project.org
-[RMarkdown]: http://rmarkdown.rstudio.com
+[R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
 [SummarizedExperiment]: http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html
