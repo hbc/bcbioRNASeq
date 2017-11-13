@@ -7,7 +7,7 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, gene, interestingGroups,
-  normalized = "tpm", format = "symbol",
+  normalized = "tpm", format = "ensgene",
   color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
 }
 \arguments{

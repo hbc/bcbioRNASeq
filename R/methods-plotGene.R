@@ -123,7 +123,7 @@ setMethod(
         gene,
         interestingGroups,
         normalized = "tpm",
-        format = "symbol",
+        format = "ensgene",
         color = scale_color_viridis(discrete = TRUE),
         returnList = FALSE) {
         if (!format %in% c("ensgene", "symbol")) {
@@ -145,7 +145,7 @@ setMethod(
         # internally stored Ensembl annotations saved in the run object
         gene2symbol <- metadata(object) %>%
             .[["annotable"]] %>%
-            .[, c("symbol", "ensgene")]
+            .[, c("ensgene", "symbol")]
 
         # Detect missing genes. This also handles `format` mismatch.
         if (!all(gene %in% gene2symbol[[format]])) {
@@ -159,14 +159,14 @@ setMethod(
         # passing in the `ensgene` as the value and `symbol` as the name. This
         # works with the constructor function to match the counts matrix by
         # the ensgene, then use the symbol as the name.
-        match <- gene2symbol %>%
-            .[.[[format]] %in% gene, , drop = FALSE]
-        geneVec <- match[["ensgene"]]
-        names(geneVec) <- match[["symbol"]]
+        match <- match(x = gene, table = gene2symbol[[format]])
+        gene2symbol <- gene2symbol[match, , drop = FALSE]
+        ensgene <- match[["ensgene"]]
+        names(ensgene) <- match[["symbol"]]
 
         .plotGene(
             object = counts,
-            gene = geneVec,
+            gene = ensgene,
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
