@@ -288,6 +288,7 @@ setMethod(
     function(
         object,
         alpha,
+        padj = TRUE,
         lfc = 0,
         genes,
         ntop = 0,
@@ -304,6 +305,7 @@ setMethod(
         .plotVolcano(
             object,
             alpha = alpha,
+            padj = padj,
             lfc = lfc,
             genes = genes,
             ntop = ntop,
