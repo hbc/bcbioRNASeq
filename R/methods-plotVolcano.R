@@ -52,8 +52,8 @@ NULL
     object,
     alpha = 0.01,
     padj = TRUE,
-    lfc = 1,
-    genes = NULL,
+    lfc = 0,
+    genes,
     ntop = 0,
     direction = "both",
     shadeColor = "green",
@@ -106,7 +106,7 @@ NULL
 
 
     # Text labels ====
-    if (!is.null(genes)) {
+    if (!missing(genes)) {
         volcanoText <- stats %>%
             .[.[["symbol"]] %in% genes, , drop = FALSE]
     } else if (ntop > 0) {
@@ -285,11 +285,35 @@ NULL
 setMethod(
     "plotVolcano",
     signature("DESeqResults"),
-    function(object, alpha = NULL, ...) {
-        if (is.null(alpha)) {
+    function(
+        object,
+        alpha,
+        lfc = 0,
+        genes,
+        ntop = 0,
+        direction = "both",
+        shadeColor = "green",
+        shadeAlpha = 0.25,
+        pointColor = "gray",
+        pointAlpha = 0.75,
+        pointOutlineColor = "darkgray",
+        histograms = TRUE) {
+        if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }
-        .plotVolcano(object, alpha = alpha, ...)
+        .plotVolcano(
+            object,
+            alpha = alpha,
+            lfc = lfc,
+            genes = genes,
+            ntop = ntop,
+            direction = direction,
+            shadeColor = shadeColor,
+            shadeAlpha = shadeAlpha,
+            pointColor = pointColor,
+            pointAlpha = pointAlpha,
+            pointOutlineColor = pointOutlineColor,
+            histograms = histograms)
     })
 
 

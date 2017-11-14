@@ -9,12 +9,15 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, lfc = 0, genes,
+  ntop = 0, direction = "both", shadeColor = "green", shadeAlpha = 0.25,
+  pointColor = "gray", pointAlpha = 0.75, pointOutlineColor = "darkgray",
+  histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, ntop = 0, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
+  lfc = 0, genes, ntop = 0, direction = "both", shadeColor = "green",
+  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,8 +25,6 @@ plotVolcano(object, ...)
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{alpha}{Alpha level cutoff used for coloring.}
-
-\item{padj}{Use P values adjusted for multiple comparisions.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
@@ -44,6 +45,8 @@ plotVolcano(object, ...)
 \item{pointOutlineColor}{Point outline color.}
 
 \item{histograms}{Show LFC and P value histograms.}
+
+\item{padj}{Use P values adjusted for multiple comparisions.}
 }
 \value{
 Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
