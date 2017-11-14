@@ -70,6 +70,7 @@ NULL
     metadata,
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
+    countsAxisLabel = "counts",
     returnList = FALSE) {
     metadata <- metadata %>%
         as.data.frame() %>%
@@ -93,7 +94,7 @@ NULL
                 axis.text.x = element_text(angle = 90)) +
             labs(title = symbol,
                  x = "sample",
-                 y = "counts",
+                 y = countsAxisLabel,
                  color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
@@ -129,11 +130,14 @@ setMethod(
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
-        if (is.logical(normalized)) {
-            warning(paste(
-                "Explicit format of normalized counts format is recommended"
+        supportedAssay <- c("tpm", "tmm", "rlog", "vst")
+        if (!normalized %in% supportedAssay) {
+            stop(paste(
+                "'normalized' argument requires:",
+                toString(supportedAssay)
             ), call. = FALSE)
         }
+        countsAxisLabel <- normalized
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -170,5 +174,6 @@ setMethod(
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
+            countsAxisLabel = countsAxisLabel,
             returnList = returnList)
     })
