@@ -8,7 +8,7 @@ params:
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
     alpha: 0.01
-    lfc: 0
+    lfc: 1
     outputDir: "."
 ---
 
