@@ -70,6 +70,7 @@ NULL
     metadata,
     interestingGroups = "sampleName",
     color = scale_color_viridis(discrete = TRUE),
+    countsAxisLabel = "counts",
     returnList = FALSE) {
     metadata <- metadata %>%
         as.data.frame() %>%
@@ -93,7 +94,7 @@ NULL
                 axis.text.x = element_text(angle = 90)) +
             labs(title = symbol,
                  x = "sample",
-                 y = "counts",
+                 y = countsAxisLabel,
                  color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
@@ -120,20 +121,23 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
+        gene,
         interestingGroups,
         normalized = "tpm",
-        gene,
-        format = "symbol",
+        format = "ensgene",
         color = scale_color_viridis(discrete = TRUE),
         returnList = FALSE) {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
-        if (is.logical(normalized)) {
-            warning(paste(
-                "Explicit format of normalized counts format is recommended"
+        supportedAssay <- c("tpm", "tmm", "rlog", "vst")
+        if (!normalized %in% supportedAssay) {
+            stop(paste(
+                "'normalized' argument requires:",
+                toString(supportedAssay)
             ), call. = FALSE)
         }
+        countsAxisLabel <- normalized
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -145,7 +149,7 @@ setMethod(
         # internally stored Ensembl annotations saved in the run object
         gene2symbol <- metadata(object) %>%
             .[["annotable"]] %>%
-            .[, c("symbol", "ensgene")]
+            .[, c("ensgene", "symbol")]
 
         # Detect missing genes. This also handles `format` mismatch.
         if (!all(gene %in% gene2symbol[[format]])) {
@@ -159,16 +163,17 @@ setMethod(
         # passing in the `ensgene` as the value and `symbol` as the name. This
         # works with the constructor function to match the counts matrix by
         # the ensgene, then use the symbol as the name.
-        match <- gene2symbol %>%
-            .[.[[format]] %in% gene, , drop = FALSE]
-        geneVec <- match[["ensgene"]]
-        names(geneVec) <- match[["symbol"]]
+        match <- match(x = gene, table = gene2symbol[[format]])
+        gene2symbol <- gene2symbol[match, , drop = FALSE]
+        ensgene <- gene2symbol[["ensgene"]]
+        names(ensgene) <- gene2symbol[["symbol"]]
 
         .plotGene(
             object = counts,
-            gene = geneVec,
+            gene = ensgene,
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
+            countsAxisLabel = countsAxisLabel,
             returnList = returnList)
     })

@@ -6,12 +6,14 @@
 \alias{plotGene,bcbioRNASeq-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tpm", gene, format = "symbol",
+\S4method{plotGene}{bcbioRNASeq}(object, gene, interestingGroups,
+  normalized = "tpm", format = "ensgene",
   color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{gene}{Gene identifier. Can input multiple genes as a character vector.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -21,8 +23,6 @@ this is automatically determined by the metadata set inside the
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
-
-\item{gene}{Gene identifier. Can input multiple genes as a character vector.}
 
 \item{format}{Ensembl identifier format. Supports \code{symbol} (\strong{default}) or
 \code{ensgene}.}

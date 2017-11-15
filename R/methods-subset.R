@@ -69,6 +69,7 @@ NULL
 
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
+#' @importFrom dplyr mutate_if
 #' @importFrom S4Vectors metadata SimpleList
 .subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
@@ -98,7 +99,11 @@ NULL
     samples <- colnames(se)
 
     rowData <- rowData(se)
-    colData <- colData(se)
+    colData <- colData(se) %>%
+        as.data.frame() %>%
+        mutate_if(is.character, as.factor) %>%
+        mutate_if(is.factor, droplevels) %>%
+        as("DataFrame")
 
     # Subset the tximport list
     txi <- bcbio(x, "tximport")

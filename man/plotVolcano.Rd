@@ -9,12 +9,15 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0,
+  genes, ntop = 0, direction = "both", shadeColor = "green",
+  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, ntop = 0, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
+  lfc = 0, genes, ntop = 0, direction = "both", shadeColor = "green",
+  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
