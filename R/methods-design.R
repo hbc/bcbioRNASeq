@@ -4,7 +4,7 @@
 #' @name design
 #' @author Michael Steinbaugh
 #'
-#' @importFrom DESeq2 design
+#' @importFrom DESeq2 design design<-
 #'
 #' @inherit DESeq2::design
 #'
