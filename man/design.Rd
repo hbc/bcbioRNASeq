@@ -12,7 +12,7 @@
 \S4method{design}{bcbioRNASeq,formula}(object) <- value
 }
 \arguments{
-\item{object}{a \code{DESeqDataSet} object}
+\item{object}{Object.}
 
 \item{value}{a \code{formula} used for estimating dispersion
 and fitting Negative Binomial GLMs}

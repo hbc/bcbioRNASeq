@@ -8,6 +8,8 @@
 #'
 #' @inherit DESeq2::design
 #'
+#' @param object Object.
+#'
 #' @seealso
 #' - [BiocGenerics::design].
 #' - [DESeq2::design].
