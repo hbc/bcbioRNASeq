@@ -12,12 +12,10 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotCountsPerGene(bcb)
-#' \dontrun{
 #' plotCountsPerGene(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{

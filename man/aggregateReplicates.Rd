@@ -28,6 +28,8 @@ of counts across the flow cells.
 \link{DESeqDataSet} is returned using \code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
 }
 \examples{
+bcb <- examples[["bcb"]]
+
 # matrix
 \dontrun{
 aggregateReplicates(assay(bcb))

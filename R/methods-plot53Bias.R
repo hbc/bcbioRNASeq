@@ -11,12 +11,10 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plot53Bias(bcb)
-#' \dontrun{
 #' plot53Bias(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{

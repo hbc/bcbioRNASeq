@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # bcbioRNADataSet
+#' # Legacy bcbioRNADataSet class
 #' new <- as(old, "bcbioRNASeq")
 #' }
 NULL
@@ -85,7 +85,7 @@ NULL
 # Methods ====
 #' @rdname coerce
 #' @name upgrade-bcbioRNASeq
-#' @section Upgrade `bcbioRNASeq` to current version:
+#' @section Upgrade bcbioRNASeq to current version:
 #' This method adds support for upgrading [bcbioRNADataSet] objects to the
 #' latest [bcbioRNASeq] class version. This should be backwards compatible to
 #' [bcbioRNASeq] version 0.0.26. Previous objects saved using `bcbioRnaseq`
@@ -99,7 +99,7 @@ setAs(
 
 #' @rdname coerce
 #' @name coerce-bcbioRNASeq-SummarizedExperiment
-#' @section [bcbioRNASeq] to [SummarizedExperiment]:
+#' @section bcbioRNASeq to SummarizedExperiment:
 #' Since [bcbioRNASeq] is an extension of [SummarizedExperiment], this
 #' coercion method is very simple. Here we're simply dropping our `@bcbio` slot,
 #' which contains raw cellular barcodes and other bcbio-specific metadata.

@@ -119,6 +119,7 @@ tool when plotting counts per gene.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
 <span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
@@ -128,6 +129,7 @@ tool when plotting counts per gene.</p>
 #&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
 # DESeqDataSet
 </div><span class='co'># NOT RUN {</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
 <span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()
 <span class='co'># }</span><div class='input'>
 # matrix

@@ -23,7 +23,10 @@ counts depend on the variables in \code{colData}.
 See \code{\link{DESeqDataSet}} for details.
 }
 \examples{
+bcb <- examples[["bcb"]]
 design(bcb)
+
+# Assignment support
 design(bcb) <- formula(~group)
 design(bcb)
 }

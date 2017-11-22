@@ -18,5 +18,6 @@
 Sample Metrics
 }
 \examples{
+bcb <- examples[["bcb"]]
 metrics(bcb) \%>\% str()
 }

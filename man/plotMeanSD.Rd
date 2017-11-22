@@ -21,7 +21,7 @@ plotMeanSD(object, ...)
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
-\code{vertical} (default).}
+\code{vertical}.}
 
 \item{showLegend}{Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.}
@@ -35,10 +35,13 @@ informative and is disabled by default, to improve the plot appearance.}
 }
 \examples{
 # bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotMeanSD(bcb, orientation = "horizontal")
+plotMeanSD(bcb, orientation = "vertical")
 
 # DESeqDataSet
 \dontrun{
+dds <- examples[["dds"]]
 plotMeanSD(dds)
 }
 }

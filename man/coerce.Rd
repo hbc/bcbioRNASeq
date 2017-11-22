@@ -11,7 +11,7 @@
 \description{
 Coerce Object
 }
-\section{Upgrade \code{bcbioRNASeq} to current version}{
+\section{Upgrade bcbioRNASeq to current version}{
 
 This method adds support for upgrading \link{bcbioRNADataSet} objects to the
 latest \link{bcbioRNASeq} class version. This should be backwards compatible to
@@ -19,7 +19,7 @@ latest \link{bcbioRNASeq} class version. This should be backwards compatible to
 (note case) will likely fail to load with newer versions of the package.
 }
 
-\section{\link{bcbioRNASeq} to \link{SummarizedExperiment}}{
+\section{bcbioRNASeq to SummarizedExperiment}{
 
 Since \link{bcbioRNASeq} is an extension of \link{SummarizedExperiment}, this
 coercion method is very simple. Here we're simply dropping our \code{@bcbio} slot,
@@ -28,8 +28,8 @@ which contains raw cellular barcodes and other bcbio-specific metadata.
 
 \examples{
 \dontrun{
-# bcbioRNADataSet
-newClass <- as(oldClass, "bcbioRNASeq")
+# Legacy bcbioRNADataSet class
+new <- as(old, "bcbioRNASeq")
 }
 }
 \seealso{

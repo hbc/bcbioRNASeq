@@ -19,6 +19,7 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
+#' @param countsAxisLabel Text label of counts axis.
 #' @param returnList Return the plotlist used to generate the paneled,
 #'   multi-gene plot with [cowplot::plot_grid()].
 #'
@@ -35,6 +36,12 @@
 #' symbol <- rowData(bcb)[["symbol"]][1:3]
 #' print(symbol)
 #' plotGene(bcb, gene = symbol, format = "symbol")
+#' plotGene(
+#'     bcb,
+#'     gene = symbol,
+#'     format = "symbol",
+#'     interestingGroups = "sampleName",
+#'     color = NULL)
 #'
 #' # Gene identifiers
 #' \dontrun{
@@ -179,3 +186,12 @@ setMethod(
             countsAxisLabel = countsAxisLabel,
             returnList = returnList)
     })
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("matrix"),
+    .plotGene)

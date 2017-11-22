@@ -11,10 +11,16 @@
 #' @examples
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
-#' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
-#' \dontrun{
-#' plotGenesDetected(bcb, interestingGroups = "group")
-#' }
+#' plotGenesDetected(
+#'     bcb,
+#'     passLimit = NULL,
+#'     warnLimit = NULL)
+#' plotGenesDetected(
+#'     bcb,
+#'     interestingGroups = "sampleName",
+#'     fill = NULL,
+#'     passLimit = NULL,
+#'     warnLimit = NULL)
 #'
 #' # data.frame, DESeqDataSet
 #' \dontrun{

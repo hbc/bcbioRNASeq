@@ -46,18 +46,18 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Total Reads
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotTotalReads(bcb)
-
-\dontrun{
 plotTotalReads(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-plotTotalReads(metrics(bcb))
+metrics <- examples[["metrics"]]
+plotTotalReads(metrics)
 }
 }
 \seealso{

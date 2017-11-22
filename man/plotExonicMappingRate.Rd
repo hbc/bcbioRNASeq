@@ -44,18 +44,18 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Exonic Mapping Rate
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotExonicMappingRate(bcb)
-
-\dontrun{
 plotExonicMappingRate(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-metrics(bcb) \%>\% plotExonicMappingRate()
+metrics <- examples[["metrics"]]
+plotExonicMappingRate(metrics)
 }
 }
 \seealso{

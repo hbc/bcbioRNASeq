@@ -75,7 +75,7 @@ Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
 internal \link{DESeqDataSet} and count transformations are rescaled automatically.
 }
 \examples{
-data(bcb)
+bcb <- examples[["bcb"]]
 genes <- 1:50
 samples <- c("group1_1", "group1_2")
 

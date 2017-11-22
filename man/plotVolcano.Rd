@@ -57,6 +57,7 @@ Plot Volcano
 }
 \examples{
 # DESeqResults
+res <- examples[["res"]]
 plotVolcano(res, genes = "Sulf1")
 
 \dontrun{

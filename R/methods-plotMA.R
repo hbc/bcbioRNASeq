@@ -29,8 +29,7 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' df <- as.data.frame(res)
-#' plotMA(df, alpha = 0.1, labelPoints = genes)
+#' plotMA(as.data.frame(res), alpha = 0.01)
 #' }
 NULL
 

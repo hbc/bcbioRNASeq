@@ -4,11 +4,16 @@
 \name{plotGene}
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
+\alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, gene, interestingGroups,
   normalized = "tpm", format = "ensgene",
   color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
+
+\S4method{plotGene}{matrix}(object, gene, metadata,
+  interestingGroups = "sampleName", color = scale_color_viridis(discrete =
+  TRUE), countsAxisLabel = "counts", returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -35,6 +40,8 @@ definitions are desired, we recommend using
 
 \item{returnList}{Return the plotlist used to generate the paneled,
 multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
 \itemize{
@@ -46,10 +53,18 @@ multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
 Plot Individual Genes
 }
 \examples{
+bcb <- examples[["bcb"]]
+
 # Gene symbols
 symbol <- rowData(bcb)[["symbol"]][1:3]
 print(symbol)
 plotGene(bcb, gene = symbol, format = "symbol")
+plotGene(
+    bcb,
+    gene = symbol,
+    format = "symbol",
+    interestingGroups = "sampleName",
+    color = NULL)
 
 # Gene identifiers
 \dontrun{

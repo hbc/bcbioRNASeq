@@ -17,17 +17,18 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
-#' dds <- examples[["dds"]]
+#' # DESeqResults, DESeqTransform
 #' res <- examples[["res"]]
 #' rld <- examples[["rld"]]
-#'
-#' # DESeqResults, DESeqTransform
-#' plotDEGHeatmap(res, rld)
+#' plotDEGHeatmap(res, counts = rld)
 #'
 #' # DESeqResults, DESeqDataSet
-#' \dontrun{
-#' plotDEGHeatmap(res, dds)
-#' }
+#' dds <- examples[["dds"]]
+#' plotDEGHeatmap(
+#'     res,
+#'     counts = dds,
+#'     color = NULL,
+#'     legendColor = NULL)
 NULL
 
 

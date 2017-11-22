@@ -43,17 +43,15 @@
 #'     color = viridis(256),
 #'     legendColor = inferno)
 #'
-#' # Transcriptome heatmap
-#' \dontrun{
-#' plotHeatmap(bcb)
-#' }
-#'
 #' # Use default pheatmap color palette
-#' \dontrun{
 #' plotHeatmap(
 #'     bcb,
 #'     color = NULL,
 #'     legendColor = NULL)
+#'
+#' # Transcriptome heatmap (CPU intensive)
+#' \dontrun{
+#' plotHeatmap(bcb)
 #' }
 #'
 #' # DESeqDataSet

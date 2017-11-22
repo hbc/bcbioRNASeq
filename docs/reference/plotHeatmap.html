@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Heatmap — plotHeatmap • bcbioRNASeq</title>
+<title>Plot Heatmap — plotHeatmap • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,7 +83,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Heatmap</h1>
+    <h1>Plot Heatmap</h1>
     </div>
 
     
@@ -168,34 +168,36 @@ features of the heatmap columns.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Genes as Ensembl identifiers</span>
+    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+
+<span class='co'># Genes as Ensembl identifiers</span>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>rownames</span>()
 <span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Flip the plot and legend palettes</span>
 <span class='fu'>plotHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
     <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# Transcriptome heatmap
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>)
-<span class='co'># }</span><div class='input'>
-# Use default pheatmap color palette
-</div><span class='co'># NOT RUN {</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Use default pheatmap color palette</span>
 <span class='fu'>plotHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotHeatmap-10.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# Transcriptome heatmap (CPU intensive)
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>)
 <span class='co'># }</span><div class='input'>
 # DESeqDataSet
 </div><span class='co'># NOT RUN {</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
 <span class='fu'>plotHeatmap</span>(<span class='no'>dds</span>)
 <span class='co'># }</span><div class='input'>
 # DESeqTransform
 </div><span class='co'># NOT RUN {</span>
+<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"rld"</span>]]
 <span class='fu'>plotHeatmap</span>(<span class='no'>rld</span>)
 <span class='co'># }</span></pre>
   </div>

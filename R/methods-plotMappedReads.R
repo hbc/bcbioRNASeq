@@ -11,16 +11,14 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotMappedReads(bcb)
-#' \dontrun{
 #' plotMappedReads(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics <- examples[["metrics]]
+#' metrics <- examples[["metrics"]]
 #' plotMappedReads(metrics)
 #' }
 NULL

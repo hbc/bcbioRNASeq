@@ -11,12 +11,10 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotMappingRate(bcb)
-#' \dontrun{
 #' plotMappingRate(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{

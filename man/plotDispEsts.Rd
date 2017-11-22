@@ -23,8 +23,8 @@ which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
+bcb <- examples[["bcb"]]
 plotDispEsts(bcb)
-
 \dontrun{
 plotDispEsts(
     bcb,

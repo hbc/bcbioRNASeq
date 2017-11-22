@@ -17,6 +17,8 @@
 #' @examples
 #' bcb <- examples[["bcb"]]
 #' design(bcb)
+#'
+#' # Assignment support
 #' design(bcb) <- formula(~group)
 #' design(bcb)
 NULL

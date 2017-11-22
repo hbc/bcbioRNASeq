@@ -91,9 +91,14 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>, <span class='no'>gene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>gene</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for matrix</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>gene</span>, <span class='no'>metadata</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span>
+  <span class='fl'>TRUE</span>), <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -101,6 +106,10 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>gene</th>
+      <td><p>Gene identifier. Can input multiple genes as a character vector.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
@@ -114,10 +123,6 @@ this is automatically determined by the metadata set inside the
       <th>normalized</th>
       <td><p>Normalization method. Supports <code>tpm</code> (<strong>default</strong>), <code>tmm</code>,
 <code>rlog</code>, or <code>vst</code>.</p></td>
-    </tr>
-    <tr>
-      <th>gene</th>
-      <td><p>Gene identifier. Can input multiple genes as a character vector.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -136,6 +141,10 @@ definitions are desired, we recommend using
       <th>returnList</th>
       <td><p>Return the plotlist used to generate the paneled,
 multi-gene plot with <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>countsAxisLabel</th>
+      <td><p>Text label of counts axis.</p></td>
     </tr>
     </table>
     
@@ -166,9 +175,16 @@ multi-gene plot with <code><a href='http://www.rdocumentation.org/packages/cowpl
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Gene symbols</span>
+    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+
+<span class='co'># Gene symbols</span>
 <span class='no'>symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>rowData</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"symbol"</span>]][<span class='fl'>1</span>:<span class='fl'>3</span>]
-<span class='fu'>print</span>(<span class='no'>symbol</span>)</div><div class='output co'>#&gt; [1] "Rgs20" "Rab23" "Ncoa2"</div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>gene</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>print</span>(<span class='no'>symbol</span>)</div><div class='output co'>#&gt; [1] "Rgs20" "Rab23" "Ncoa2"</div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>gene</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</div><div class='img'><img src='plotGene-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGene</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>gene</span> <span class='kw'>=</span> <span class='no'>symbol</span>,
+    <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>,
+    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGene-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 # Gene identifiers
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rowData</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"ensgene"</span>]][<span class='fl'>1</span>:<span class='fl'>3</span>]

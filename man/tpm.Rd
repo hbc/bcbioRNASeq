@@ -20,6 +20,7 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
+bcb <- examples[["bcb"]]
 tpm(bcb) \%>\% head()
 }
 \author{

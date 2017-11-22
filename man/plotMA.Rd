@@ -39,6 +39,7 @@ results.}
 Plot Mean Average
 }
 \examples{
+res <- examples[["res"]]
 genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 
 # DESeqResults
@@ -46,8 +47,7 @@ plotMA(res, labelPoints = genes)
 
 # data.frame
 \dontrun{
-df <- as.data.frame(res)
-plotMA(df, alpha = 0.1, labelPoints = genes)
+plotMA(as.data.frame(res), alpha = 0.01)
 }
 }
 \seealso{

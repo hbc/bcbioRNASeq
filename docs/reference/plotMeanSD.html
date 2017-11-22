@@ -115,7 +115,7 @@
     <tr>
       <th>orientation</th>
       <td><p>Orientation to use for plot grid, either <code>horizontal</code> or
-<code>vertical</code> (default).</p></td>
+<code>vertical</code>.</p></td>
     </tr>
     <tr>
       <th>showLegend</th>
@@ -136,10 +136,13 @@ informative and is disabled by default, to improve the plot appearance.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotMeanSD-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>)</div><div class='img'><img src='plotMeanSD-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>)</div><div class='img'><img src='plotMeanSD-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# DESeqDataSet
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
+<span class='fu'>plotMeanSD</span>(<span class='no'>dds</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

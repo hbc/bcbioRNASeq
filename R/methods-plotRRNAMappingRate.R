@@ -11,12 +11,11 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotRRNAMappingRate(bcb)
-#' \dontrun{
 #' plotRRNAMappingRate(
 #'     bcb,
-#'     interestingGroups = "group",
-#'     fill = NULL)
-#' }
+#'     interestingGroups = "sampleName",
+#'     fill = NULL,
+#'     warnLimit = NULL)
 #'
 #' # data.frame
 #' \dontrun{
@@ -58,7 +57,7 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "rrna mapping rate",
+        labs(title = "rRNA mapping rate",
              x = "sample",
              y = "rRNA mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n"))

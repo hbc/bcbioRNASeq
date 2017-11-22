@@ -20,6 +20,7 @@ txi(object)
 \code{tximport} Accessor Shortcut
 }
 \examples{
+bcb <- examples[["bcb"]]
 txi(bcb) \%>\% names()
 }
 \author{

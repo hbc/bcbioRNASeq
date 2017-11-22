@@ -12,6 +12,10 @@
 #' @examples
 #' bcb <- examples[["bcb"]]
 #' interestingGroups(bcb)
+#'
+#' # Assignment support
+#' interestingGroups(bcb) <- "sampleName"
+#' interestingGroups(bcb)
 NULL
 
 

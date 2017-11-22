@@ -15,13 +15,12 @@
 #' @examples
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
-#' plotCountDensity(bcb)
-#' \dontrun{
+#' plotCountDensity(bcb, style = "solid")
 #' plotCountDensity(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     style = "line",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{

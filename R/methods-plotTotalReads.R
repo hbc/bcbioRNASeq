@@ -26,16 +26,14 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotTotalReads(bcb)
-#' \dontrun{
 #' plotTotalReads(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics <- examples[["metrics]]
+#' metrics <- examples[["metrics"]]
 #' plotTotalReads(metrics)
 #' }
 NULL

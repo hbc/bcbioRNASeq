@@ -17,9 +17,10 @@
 #' # bcbioRNASeq
 #' bcb <- examples[["bcb"]]
 #' plotGeneSaturation(bcb)
-#' \dontrun{
-#' plotGeneSaturation(bcb, interestingGroups = "group")
-#' }
+#' plotGeneSaturation(
+#'     bcb,
+#'     interestingGroups = "sampleName",
+#'     color = NULL)
 #'
 #' # data.frame, matrix
 #' \dontrun{
