@@ -15,17 +15,7 @@ This is an [R][] package.
 
 ```r
 source("https://bioconductor.org/biocLite.R")
-```
-
-Ensure that these dependencies install correctly:
-
-```r
 biocLite("ensembldb")
-```
-
-Now you're ready to install bcbioRNASeq:
-
-```r
 biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
