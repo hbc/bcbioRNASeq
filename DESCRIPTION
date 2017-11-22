@@ -62,7 +62,6 @@ Suggests:
     devtools,
     DOSE,
     formatR,
-    knitr,
     lintr,
     pathview,
     rmarkdown,
