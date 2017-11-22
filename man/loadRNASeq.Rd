@@ -66,7 +66,7 @@ print(bcb)
 # Advanced use only! Not generally recommended.
 bcb <- loadRNASeq(uploadDir, annotable = NULL)
 print(bcb)
-annotable(bcb)
+rowData(bcb)
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
