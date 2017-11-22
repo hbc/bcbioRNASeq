@@ -1,9 +1,8 @@
 library(devtools)
 library(DESeq2)
 load_all()
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(
-    uploadDir,
+    uploadDir = system.file("extdata/bcbio", package = "bcbioRNASeq"),
     interestingGroups = "group",
     ensemblVersion = 90)
 dds <- DESeqDataSetFromTximport(
@@ -13,4 +12,10 @@ dds <- DESeqDataSetFromTximport(
     DESeq()
 rld <- rlog(dds)
 res <- results(dds)
-use_data(bcb, dds, rld, res, compress = "xz", overwrite = TRUE)
+examples <- list(
+    bcb = bcb,
+    dds = dds,
+    rld = rld,
+    res = res
+)
+use_data(examples, compress = "xz", overwrite = TRUE)
