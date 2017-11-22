@@ -29,6 +29,8 @@
 #' - [stats::hclust()].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # Pearson correlation (default)
 #' plotCorrelationHeatmap(bcb)
 #'

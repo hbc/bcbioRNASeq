@@ -22,8 +22,8 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' plotDispEsts(bcb)
-#'
 #' \dontrun{
 #' plotDispEsts(
 #'     bcb,

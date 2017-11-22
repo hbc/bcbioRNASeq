@@ -16,7 +16,7 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
-#' data(bcb)
+#' bcb <- examples[["bcb"]]
 #' genes <- 1:50
 #' samples <- c("group1_1", "group1_2")
 #'

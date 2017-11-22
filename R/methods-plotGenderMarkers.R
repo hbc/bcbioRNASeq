@@ -27,9 +27,7 @@
 #'         "raw",
 #'         "f1000v1",
 #'         "data",
-#'         "bcb.rda"
-#'     )
-#' )
+#'         "bcb.rda"))
 #' plotGenderMarkers(bcb)
 #' }
 NULL

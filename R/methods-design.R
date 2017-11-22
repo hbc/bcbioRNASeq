@@ -15,6 +15,7 @@
 #' - [DESeq2::design].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' design(bcb)
 #' design(bcb) <- formula(~group)
 #' design(bcb)

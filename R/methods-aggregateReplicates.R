@@ -16,6 +16,8 @@
 #' @return Object of same class, with pooled technical replicates.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # matrix
 #' \dontrun{
 #' aggregateReplicates(assay(bcb))

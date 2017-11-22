@@ -19,10 +19,12 @@
 #'
 #' @examples
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotMeanSD(bcb, orientation = "horizontal")
 #'
 #' # DESeqDataSet
 #' \dontrun{
+#' dds <- examples[["dds"]]
 #' plotMeanSD(dds)
 #' }
 NULL

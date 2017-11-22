@@ -8,8 +8,9 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotMappedReads(bcb)
-#'
 #' \dontrun{
 #' plotMappedReads(
 #'     bcb,
@@ -19,7 +20,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics(bcb) %>% plotMappedReads()
+#' metrics <- examples[["metrics]]
+#' plotMappedReads(metrics)
 #' }
 NULL
 

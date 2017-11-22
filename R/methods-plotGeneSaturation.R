@@ -14,15 +14,18 @@
 #'   plotting.
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotGeneSaturation(bcb)
-#'
 #' \dontrun{
 #' plotGeneSaturation(bcb, interestingGroups = "group")
 #' }
 #'
 #' # data.frame, matrix
 #' \dontrun{
-#' plotGeneSaturation(metrics(bcb), assay(rld))
+#' metrics <- examples[["metrics"]]
+#' rld <- examples[["rld"]]
+#' plotGeneSaturation(metrics, counts = assay(rld))
 #' }
 NULL
 

@@ -13,8 +13,9 @@
 #' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotCountDensity(bcb)
-#'
 #' \dontrun{
 #' plotCountDensity(
 #'     bcb,
@@ -24,7 +25,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>% plotCountDensity()
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountDensity()
 #' }
 NULL
 

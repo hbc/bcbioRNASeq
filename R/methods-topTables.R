@@ -11,6 +11,7 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
+#' res <- examples[["res"]]
 #' resTbl <- resultsTables(res, write = FALSE)
 #' topTables(resTbl)
 NULL

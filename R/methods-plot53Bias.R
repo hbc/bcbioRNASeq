@@ -8,8 +8,9 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plot53Bias(bcb)
-#'
 #' \dontrun{
 #' plot53Bias(
 #'     bcb,
@@ -19,7 +20,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics(bcb) %>% plot53Bias()
+#' metrics <- examples[["metrics"]]
+#' plot53Bias(metrics)
 #' }
 NULL
 

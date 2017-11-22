@@ -30,6 +30,8 @@
 #' @return Graphical output only.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # Genes as Ensembl identifiers
 #' genes <- counts(bcb)[1:20, ] %>% rownames()
 #' plotHeatmap(bcb, genes = genes)
@@ -56,11 +58,13 @@
 #'
 #' # DESeqDataSet
 #' \dontrun{
+#' dds <- examples[["dds"]]
 #' plotHeatmap(dds)
 #' }
 #'
 #' # DESeqTransform
 #' \dontrun{
+#' rld <- examples[["rld"]]
 #' plotHeatmap(rld)
 #' }
 NULL

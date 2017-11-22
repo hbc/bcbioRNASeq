@@ -10,6 +10,7 @@
 #' @return Character vector.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' interestingGroups(bcb)
 NULL
 

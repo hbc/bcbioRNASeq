@@ -29,6 +29,8 @@
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # Gene symbols
 #' symbol <- rowData(bcb)[["symbol"]][1:3]
 #' print(symbol)

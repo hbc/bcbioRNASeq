@@ -9,20 +9,25 @@
 #' @inheritParams plotGeneSaturation
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
-#'
 #' \dontrun{
 #' plotGenesDetected(bcb, interestingGroups = "group")
 #' }
 #'
 #' # data.frame, DESeqDataSet
 #' \dontrun{
-#' plotGenesDetected(metrics(bcb), counts = dds)
+#' metrics <- examples[["metrics"]]
+#' dds <- examples[["dds"]]
+#' plotGenesDetected(metrics, counts = dds)
 #' }
 #'
 #' # data.frame, matrix
 #' \dontrun{
-#' plotGenesDetected(metrics(bcb), counts = assay(dds))
+#' metrics <- examples[["metrics"]]
+#' dds <- examples[["dds"]]
+#' plotGenesDetected(metrics, counts = assay(dds))
 #' }
 NULL
 

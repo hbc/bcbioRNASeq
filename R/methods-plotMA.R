@@ -21,6 +21,7 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' res <- examples[["res"]]
 #' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 #'
 #' # DESeqResults

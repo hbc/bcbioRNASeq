@@ -30,6 +30,7 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' plotPCA(bcb, label = TRUE)
 #' plotPCA(bcb, label = FALSE)
 #'

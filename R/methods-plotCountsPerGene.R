@@ -9,8 +9,9 @@
 #' @inheritParams plotCountDensity
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotCountsPerGene(bcb)
-#'
 #' \dontrun{
 #' plotCountsPerGene(
 #'     bcb,
@@ -20,7 +21,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>% plotCountsPerGene()
+#' meltLog10(bcb, normalized = "tmm") %>%
+#'     plotCountsPerGene()
 #' }
 NULL
 

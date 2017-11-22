@@ -23,7 +23,7 @@
 #' @return [matrix].
 #'
 #' @examples
-#' data(bcb)
+#' bcb <- examples[["bcb"]]
 #'
 #' # Raw counts
 #' counts(bcb, normalized = FALSE) %>% summary()

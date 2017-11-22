@@ -23,8 +23,9 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotTotalReads(bcb)
-#'
 #' \dontrun{
 #' plotTotalReads(
 #'     bcb,
@@ -34,7 +35,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' plotTotalReads(metrics(bcb))
+#' metrics <- examples[["metrics]]
+#' plotTotalReads(metrics)
 #' }
 NULL
 

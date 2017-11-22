@@ -17,6 +17,10 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
+#' dds <- examples[["dds"]]
+#' res <- examples[["res"]]
+#' rld <- examples[["rld"]]
+#'
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(res, rld)
 #'

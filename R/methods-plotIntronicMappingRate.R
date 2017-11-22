@@ -8,8 +8,9 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotIntronicMappingRate(bcb)
-#'
 #' \dontrun{
 #' plotIntronicMappingRate(
 #'     bcb,
@@ -19,7 +20,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics(bcb) %>% plotIntronicMappingRate()
+#' metrics <- examples[["metrics"]]
+#' plotIntronicMappingRate(metrics)
 #' }
 NULL
 

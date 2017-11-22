@@ -8,8 +8,9 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotExonicMappingRate(bcb)
-#'
 #' \dontrun{
 #' plotExonicMappingRate(
 #'     bcb,
@@ -19,7 +20,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' metrics(bcb) %>% plotExonicMappingRate()
+#' metrics <- examples[["metrics"]]
+#' plotExonicMappingRate(metrics)
 #' }
 NULL
 

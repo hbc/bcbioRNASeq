@@ -11,7 +11,7 @@
 #' @examples
 #' \dontrun{
 #' # bcbioRNADataSet
-#' newClass <- as(oldClass, "bcbioRNASeq")
+#' new <- as(old, "bcbioRNASeq")
 #' }
 NULL
 
