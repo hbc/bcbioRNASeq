@@ -60,11 +60,13 @@ run directory as a remote connection over
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+print(bcb)
 
 # Load without gene annotations
-\dontrun{
+# Advanced use only! Not generally recommended.
 bcb <- loadRNASeq(uploadDir, annotable = NULL)
-}
+print(bcb)
+annotable(bcb)
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
