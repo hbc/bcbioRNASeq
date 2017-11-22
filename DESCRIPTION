@@ -64,10 +64,15 @@ Suggests:
     formatR,
     lintr,
     pathview,
+    pkgdown,
     rmarkdown,
+    roxygen2,
     testthat,
     tidyverse (>= 1.2.0)
 Remotes:
+    hadley/pkgdown,
+    jimhester/lintr,
+    klutometis/roxygen,
     lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
