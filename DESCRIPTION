@@ -58,9 +58,13 @@ Imports:
     vsn (>= 3.46.0)
 Suggests:
     BiocStyle,
+    clusterProfiler,
     devtools,
+    DOSE,
     formatR,
-    lintr (>= 1.0.1),
+    knitr,
+    lintr,
+    pathview,
     rmarkdown,
     testthat,
     tidyverse (>= 1.2.0)
