@@ -1,5 +1,7 @@
 context("plotGeneHeatmap")
 
+bcb <- examples[["bcb"]]
+
 test_that("plotGeneHeatmap", {
     genes <- counts(bcb)[1:20, ] %>% rownames()
     p <- plotGeneHeatmap(bcb, genes = genes)

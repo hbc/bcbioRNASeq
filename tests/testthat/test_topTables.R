@@ -1,5 +1,7 @@
 context("topTables")
 
+res <- examples[["res"]]
+
 test_that("topTables", {
     resTbl <- resultsTables(
         res,

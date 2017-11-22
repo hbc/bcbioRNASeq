@@ -1,5 +1,7 @@
 context("flatFiles")
 
+bcb <- examples[["bcb"]]
+
 test_that("flatFiles", {
     flat <- flatFiles(bcb)
     expect_is(flat, "list")

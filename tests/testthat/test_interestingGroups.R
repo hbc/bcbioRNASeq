@@ -1,5 +1,7 @@
 context("interestingGroups")
 
+bcb <- examples[["bcb"]]
+
 test_that("accessor", {
     expect_equal(
         interestingGroups(bcb),

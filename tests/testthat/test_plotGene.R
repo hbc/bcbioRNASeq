@@ -1,5 +1,6 @@
 context("plotGene")
 
+bcb <- examples[["bcb"]]
 symbol <- rowData(bcb)[["symbol"]][1:3]
 ensgene <- rowData(bcb)[["ensgene"]][1:3]
 

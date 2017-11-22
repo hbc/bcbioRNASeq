@@ -1,5 +1,8 @@
 context("plotDEGHeatmap")
 
+res <- examples[["res"]]
+rld <- examples[["rld"]]
+
 test_that("plotDEGHeatmap", {
     p <- plotDEGHeatmap(object = res, counts = rld, quiet = TRUE)
     expect_is(p, "list")

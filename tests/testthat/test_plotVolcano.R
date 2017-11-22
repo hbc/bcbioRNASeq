@@ -1,5 +1,7 @@
 context("plotVolcano")
 
+res <- examples[["res"]]
+
 test_that("DESeqResults", {
     plot <- plotVolcano(res)
     expect_equal(

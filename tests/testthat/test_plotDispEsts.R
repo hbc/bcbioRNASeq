@@ -1,5 +1,7 @@
 context("plotDispEsts")
 
+bcb <- examples[["bcb"]]
+
 test_that("plotDispEsts", {
     p <- plotDispEsts(bcb)
     expect_is(p, "list")

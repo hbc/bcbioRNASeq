@@ -1,5 +1,7 @@
 context("plotMA")
 
+res <- examples[["res"]]
+
 test_that("plotMA", {
     p <- plotMA(res)
 

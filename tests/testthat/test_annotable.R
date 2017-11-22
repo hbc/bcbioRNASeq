@@ -1,5 +1,7 @@
 context("annotable")
 
+bcb <- examples[["bcb"]]
+
 test_that("annotable", {
     anno <- annotable(bcb)
     expect_is(anno, "data.frame")
