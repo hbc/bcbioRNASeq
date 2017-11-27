@@ -177,8 +177,8 @@ NULL
     new("bcbioRNASeq",
         SummarizedExperiment(
             assays = assays,
-            colData = colData,
             rowData = rowData,
+            colData = colData,
             metadata = metadata),
         bcbio = bcbio)
 }
