@@ -197,6 +197,11 @@ loadRNASeq <- function(
     tpm <- txi[["abundance"]]
 
     # colData ====
+    # This step is necessary for samples have been sanitized with
+    # `make.names()`, which can cause samples that are now prefixed with `X` to
+    # become out of order in the rows. This will cause the
+    # `DESeqDataSetFromTximport` call below to error out because of a
+    # `txi$counts` colnames / colData rownames mismatch.
     colData <- sampleMetadata[colnames(rawCounts), ]
 
     # DESeqDataSet ====
