@@ -9,6 +9,7 @@
 #' @return [matrix].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' tpm(bcb) %>% head()
 NULL
 

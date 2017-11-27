@@ -53,18 +53,19 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Count Density
 }
 \examples{
-plotCountDensity(bcb)
-
-\dontrun{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
+plotCountDensity(bcb, style = "solid")
 plotCountDensity(
     bcb,
-    interestingGroups = "group",
+    style = "line",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\% plotCountDensity()
+meltLog10(bcb, normalized = "tmm") \%>\%
+    plotCountDensity()
 }
 }
 \seealso{

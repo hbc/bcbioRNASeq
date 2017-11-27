@@ -29,10 +29,12 @@ tool when plotting counts per gene.
 }
 \examples{
 # bcbioRNASeq
+bcb <- examples[["bcb"]]
 tmm(bcb) \%>\% summary()
 
 # DESeqDataSet
 \dontrun{
+dds <- examples[["dds"]]
 tmm(dds) \%>\% summary()
 }
 

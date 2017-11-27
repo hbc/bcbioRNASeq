@@ -12,15 +12,16 @@
 #' @return [data.frame].
 #'
 #' @examples
-#' data(bcb, dds, rld)
-#'
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' sampleMetadata(bcb)
 #'
 #' # DESeqDataSet
+#' dds <- examples[["dds"]]
 #' sampleMetadata(dds)
 #'
 #' # DESeqTransform
+#' rld <- examples[["rld"]]
 #' sampleMetadata(rld)
 NULL
 

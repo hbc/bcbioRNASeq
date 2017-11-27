@@ -1,5 +1,7 @@
 context("txi")
 
+bcb <- examples[["bcb"]]
+
 test_that("txi", {
     txi <- txi(bcb)
     expect_equal(

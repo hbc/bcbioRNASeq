@@ -26,6 +26,7 @@ Top table kables, for knit report.
 Top Tables of Differential Expression Results
 }
 \examples{
+res <- examples[["res"]]
 resTbl <- resultsTables(res, write = FALSE)
 topTables(resTbl)
 }

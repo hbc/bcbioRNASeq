@@ -37,12 +37,17 @@ function.
 }
 \examples{
 # DESeqResults, DESeqTransform
-plotDEGHeatmap(res, rld)
+res <- examples[["res"]]
+rld <- examples[["rld"]]
+plotDEGHeatmap(res, counts = rld)
 
 # DESeqResults, DESeqDataSet
-\dontrun{
-plotDEGHeatmap(res, dds)
-}
+dds <- examples[["dds"]]
+plotDEGHeatmap(
+    res,
+    counts = dds,
+    color = NULL,
+    legendColor = NULL)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},

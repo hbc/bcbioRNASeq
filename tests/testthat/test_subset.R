@@ -1,5 +1,7 @@
 context("subset")
 
+bcb <- examples[["bcb"]]
+
 test_that("sample selection", {
     subset <- bcb[, 1:2]
     expect_equal(

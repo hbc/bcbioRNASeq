@@ -1,5 +1,8 @@
 context("alphaSummary")
 
+bcb <- examples[["bcb"]]
+dds <- examples[["dds"]]
+
 test_that("bcbioRNASeq", {
     expect_warning(
         alphaSummary(bcb),

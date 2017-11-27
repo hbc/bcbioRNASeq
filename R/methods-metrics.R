@@ -10,6 +10,7 @@
 #' @return [data.frame].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' metrics(bcb) %>% str()
 NULL
 

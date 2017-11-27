@@ -25,6 +25,7 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' plotPCACovariates(bcb, metrics = TRUE)
 #' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 NULL

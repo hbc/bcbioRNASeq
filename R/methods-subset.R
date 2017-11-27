@@ -16,7 +16,7 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
-#' data(bcb)
+#' bcb <- examples[["bcb"]]
 #' genes <- 1:50
 #' samples <- c("group1_1", "group1_2")
 #'
@@ -99,6 +99,9 @@ NULL
     samples <- colnames(se)
 
     rowData <- rowData(se)
+    if (!is.null(rowData)) {
+        rownames(rowData) <- slot(se, "NAMES")
+    }
     colData <- colData(se) %>%
         as.data.frame() %>%
         mutate_if(is.character, as.factor) %>%
@@ -174,8 +177,8 @@ NULL
     new("bcbioRNASeq",
         SummarizedExperiment(
             assays = assays,
-            colData = colData,
             rowData = rowData,
+            colData = colData,
             metadata = metadata),
         bcbio = bcbio)
 }

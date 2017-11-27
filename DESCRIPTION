@@ -58,13 +58,21 @@ Imports:
     vsn (>= 3.46.0)
 Suggests:
     BiocStyle,
+    clusterProfiler,
     devtools,
+    DOSE,
     formatR,
-    lintr (>= 1.0.1),
+    lintr,
+    pathview,
+    pkgdown,
     rmarkdown,
+    roxygen2,
     testthat,
     tidyverse (>= 1.2.0)
 Remotes:
+    hadley/pkgdown,
+    jimhester/lintr,
+    klutometis/roxygen,
     lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:

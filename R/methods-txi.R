@@ -10,6 +10,7 @@
 #' @return [tximport::tximport()] list.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' txi(bcb) %>% names()
 NULL
 

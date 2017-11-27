@@ -1,5 +1,7 @@
 context("resultsTables")
 
+res <- examples[["res"]]
+
 test_that("resultsTables", {
     resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
     expect_equal(

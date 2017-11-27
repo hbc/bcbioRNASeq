@@ -1,5 +1,7 @@
 context("plotCorrelationHeatmap")
 
+bcb <- examples[["bcb"]]
+
 test_that("plotCorrelationHeatmap", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb)

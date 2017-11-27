@@ -10,19 +10,27 @@
 \usage{
 plotGenderMarkers(object, ...)
 
-\S4method{plotGenderMarkers}{bcbioRNASeq}(object,
+\S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
   color = scale_color_viridis(discrete = TRUE))
 
-\S4method{plotGenderMarkers}{DESeqDataSet}(object, organism,
+\S4method{plotGenderMarkers}{DESeqDataSet}(object,
+  interestingGroups = "sampleName", organism,
   color = scale_color_viridis(discrete = TRUE))
 
-\S4method{plotGenderMarkers}{matrix}(object, organism, ylab = "counts",
+\S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
+  organism, metadata, countsAxisLabel = "counts",
   color = scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
@@ -34,7 +42,7 @@ definitions are desired, we recommend using
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
 
-\item{ylab}{Y-axis label.}
+\item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
 \link{ggplot}.
@@ -43,21 +51,26 @@ that is first alphabetically in the count matrix rownames.}
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
+# bcbioRNASeq
 # Use F1000 workflow example dataset
 # The minimal example inside the package doesn't have dimorphic genes
-\dontrun{
 loadRemoteData(
     file.path(
-        "https://github.com",
-        "hbc",
-        "bcbioRNASeq",
-        "raw",
+        "http://bcbiornaseq.seq.cloud",
         "f1000v1",
         "data",
-        "bcb.rda"
-    )
-)
+        "bcb.rda"),
+    quiet = TRUE)
 plotGenderMarkers(bcb)
+plotGenderMarkers(
+    bcb,
+    interestingGroups = "sampleName",
+    color = NULL)
+
+# DESeqDataSet
+\dontrun{
+dds <- bcbio(bcb, "DESeqDataSet")
+plotGenderMarkers(dds)
 }
 }
 \seealso{

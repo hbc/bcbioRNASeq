@@ -43,18 +43,19 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Ribosomal RNA (rRNA) Mapping Rate
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotRRNAMappingRate(bcb)
-
-\dontrun{
 plotRRNAMappingRate(
     bcb,
-    interestingGroups = "group",
-    fill = NULL)
-}
+    interestingGroups = "sampleName",
+    fill = NULL,
+    warnLimit = NULL)
 
 # data.frame
 \dontrun{
-metrics(bcb) \%>\% plotRRNAMappingRate()
+metrics <- examples[["metrics"]]
+plotRRNAMappingRate(metrics)
 }
 }
 \seealso{

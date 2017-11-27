@@ -23,7 +23,7 @@
 #' @return [matrix].
 #'
 #' @examples
-#' data(bcb)
+#' bcb <- examples[["bcb"]]
 #'
 #' # Raw counts
 #' counts(bcb, normalized = FALSE) %>% summary()
@@ -32,24 +32,16 @@
 #' counts(bcb, normalized = "tpm") %>% summary()
 #'
 #' # DESeq2 normalized counts
-#' \dontrun{
 #' counts(bcb, normalized = TRUE)
-#' }
 #'
 #' # rlog
-#' \dontrun{
 #' counts(bcb, normalized = "rlog")
-#' }
 #'
 #' # TMM
-#' \dontrun{
 #' counts(bcb, normalized = "tmm")
-#' }
 #'
 #' # VST
-#' \dontrun{
 #' counts(bcb, normalized = "vst")
-#' }
 NULL
 
 

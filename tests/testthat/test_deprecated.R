@@ -1,5 +1,7 @@
 context("Deprecated Functions")
 
+bcb <- examples[["bcb"]]
+
 test_that("download", {
     expect_warning(
         download(),

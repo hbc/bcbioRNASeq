@@ -118,7 +118,11 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "group"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "group"</div><div class='input'>
+<span class='co'># Assignment support</span>
+<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='st'>"sampleName"</span>
+<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "sampleName"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

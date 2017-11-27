@@ -16,10 +16,12 @@
 #'
 #' @examples
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' tmm(bcb) %>% summary()
 #'
 #' # DESeqDataSet
 #' \dontrun{
+#' dds <- examples[["dds"]]
 #' tmm(dds) %>% summary()
 #' }
 #'

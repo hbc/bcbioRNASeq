@@ -11,26 +11,30 @@
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.
-#' @param ylab Y-axis label.
 #'
 #' @return [ggplot].
 #'
 #' @examples
+#' # bcbioRNASeq
 #' # Use F1000 workflow example dataset
 #' # The minimal example inside the package doesn't have dimorphic genes
-#' \dontrun{
 #' loadRemoteData(
 #'     file.path(
-#'         "https://github.com",
-#'         "hbc",
-#'         "bcbioRNASeq",
-#'         "raw",
+#'         "http://bcbiornaseq.seq.cloud",
 #'         "f1000v1",
 #'         "data",
-#'         "bcb.rda"
-#'     )
-#' )
+#'         "bcb.rda"),
+#'     quiet = TRUE)
 #' plotGenderMarkers(bcb)
+#' plotGenderMarkers(
+#'     bcb,
+#'     interestingGroups = "sampleName",
+#'     color = NULL)
+#'
+#' # DESeqDataSet
+#' \dontrun{
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' plotGenderMarkers(dds)
 #' }
 NULL
 
@@ -44,8 +48,10 @@ NULL
 #' @importFrom viridis scale_color_viridis
 .plotGenderMarkers <- function(
     object,
+    interestingGroups = "sampleName",
     organism,
-    ylab = "counts",
+    metadata,
+    countsAxisLabel = "counts",
     color = scale_color_viridis(discrete = TRUE)) {
     # Load the relevant internal gender markers data
     envir <- loadNamespace("bcbioRNASeq")
@@ -69,7 +75,7 @@ NULL
         return(warning("Missing gender markers in count matrix", call. = FALSE))
     }
 
-    counts <- object %>%
+    data <- object %>%
         .[ensgene, , drop = FALSE] %>%
         # This will coerce rownames to a column named `rowname`. We will rename
         # this to `ensgene` after melting the counts.
@@ -79,21 +85,24 @@ NULL
         # `setNames()`. If you don't set `id`, function will output a message.
         melt(id = 1) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
-        left_join(markers, by = "ensgene")
+        left_join(markers, by = "ensgene") %>%
+        left_join(metadata, by  = "sampleName") %>%
+        uniteInterestingGroups(interestingGroups)
 
     p <- ggplot(
-        counts,
+        data,
         mapping = aes_string(
             x = "symbol",
             y = "counts",
-            color = "sampleName",
+            color = "interestingGroups",
             shape = "chromosome")
     ) +
         geom_jitter(size = 4) +
         expand_limits(y = 0) +
         labs(title = "gender markers",
              x = "gene",
-             y = ylab)
+             y = countsAxisLabel,
+             color = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(color)) {
         p <- p + color
     }
@@ -112,14 +121,17 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
+        interestingGroups,
         color = scale_color_viridis(discrete = TRUE)) {
-        counts <- tpm(object)
-        organism <- metadata(object)[["organism"]]
-        ylab <- "transcripts per million (tpm)"
+        if (missing(interestingGroups)) {
+            interestingGroups <- basejump::interestingGroups(object)
+        }
         .plotGenderMarkers(
-            counts,
-            organism = organism,
-            ylab = ylab,
+            object = tpm(object),
+            interestingGroups = interestingGroups,
+            organism = metadata(object)[["organism"]],
+            metadata = sampleMetadata(object),
+            countsAxisLabel = "transcripts per million (tpm)",
             color = color)
     })
 
@@ -134,6 +146,7 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
+        interestingGroups = "sampleName",
         organism,
         color = scale_color_viridis(discrete = TRUE)) {
         counts <- counts(object, normalized = TRUE)
@@ -142,11 +155,12 @@ setMethod(
                 .[[1]] %>%
                 detectOrganism()
         }
-        ylab <- "normalized counts"
         .plotGenderMarkers(
             counts,
+            interestingGroups = interestingGroups,
             organism = organism,
-            ylab = ylab,
+            metadata = as.data.frame(colData(object)),
+            countsAxisLabel = "normalized counts",
             color = color)
     })
 

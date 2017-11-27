@@ -55,6 +55,8 @@ input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
 }
 \examples{
+bcb <- examples[["bcb"]]
+
 # Pearson correlation (default)
 plotCorrelationHeatmap(bcb)
 
@@ -62,20 +64,16 @@ plotCorrelationHeatmap(bcb)
 plotCorrelationHeatmap(bcb, method = "spearman")
 
 # Flip the palettes used for plot and legend
-\dontrun{
 plotCorrelationHeatmap(
     bcb,
     color = viridis(256),
     legendColor = inferno)
-}
 
 # Default pheatmap palette
-\dontrun{
 plotCorrelationHeatmap(
     bcb,
     color = NULL,
     legendColor = NULL)
-}
 }
 \seealso{
 \itemize{

@@ -11,7 +11,7 @@
 #' @inheritParams AllGenerics
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
-#'   `vertical` (default).
+#'   `vertical`.
 #' @param showLegend Include the color bar legend. This is typically not that
 #'   informative and is disabled by default, to improve the plot appearance.
 #'
@@ -19,10 +19,13 @@
 #'
 #' @examples
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' plotMeanSD(bcb, orientation = "horizontal")
+#' plotMeanSD(bcb, orientation = "vertical")
 #'
 #' # DESeqDataSet
 #' \dontrun{
+#' dds <- examples[["dds"]]
 #' plotMeanSD(dds)
 #' }
 NULL

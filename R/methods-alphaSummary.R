@@ -22,9 +22,11 @@
 #'
 #' @examples
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
+#' dds <- examples[["dds"]]
 #' alphaSummary(dds)
 #' \dontrun{
 #' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))

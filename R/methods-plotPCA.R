@@ -10,6 +10,7 @@
 #' @importFrom BiocGenerics plotPCA
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotGene
 #'
 #' @param transform String specifying [rlog] (**recommended**) or [vst]
 #'   [DESeqTransform] slotted inside the [bcbioRNASeq] object.
@@ -19,10 +20,6 @@
 #' @param genes *Optional*. Character vector of gene identifiers to use.
 #' @param censorSamples *Optional*. Censors to exclude from PCA plot.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
-#' @param shape *Optional*. Make points easier to inspect with differing shapes.
-#'   Generally this isn't recommended for PCA and works poorly for more
-#'   than 6 discrete factors, as defined by the `interestingGroups` argument.
-#'   We recommend typically leaving this to `FALSE`.
 #' @param returnData Return PCA loadings data instead of plotting.
 #'
 #' @seealso [DESeq2::plotPCA()].
@@ -30,14 +27,10 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' plotPCA(bcb, label = TRUE)
 #' plotPCA(bcb, label = FALSE)
-#'
-#' # Manually set interesting groups
-#' # Note these columns aren't present in our example data
-#' \dontrun{
-#' plotPCA(bcb, interestingGroups = c("genotype", "treatment"))
-#' }
+#' plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
 NULL
 
 
@@ -55,8 +48,8 @@ NULL
     interestingGroups,
     genes,
     censorSamples,
+    color = scale_color_viridis(discrete = TRUE),
     label = FALSE,
-    shape = FALSE,
     returnData = FALSE) {
     if (!transform %in% c("rlog", "vst")) {
         stop("DESeqTransform must be rlog or vst", call. = FALSE)
@@ -97,15 +90,6 @@ NULL
 
     percentVar <- round(100 * attr(data, "percentVar"))
 
-    # Always define color by `interestingGroups`
-    data[["color"]] <- data[["group"]]
-
-    if (isTRUE(shape)) {
-        data[["shape"]] <- data[["group"]]
-    } else {
-        data[["shape"]] <- "default"
-    }
-
     # Use sampleName for plot labels
     data[["label"]] <- colData(object)[, "sampleName"]
 
@@ -114,21 +98,17 @@ NULL
         mapping = aes_string(
             x = "pc1",
             y = "pc2",
-            color = "color",
-            shape = "shape")
+            color = "group")
     ) +
         geom_point(size = 4) +
         coord_fixed() +
         labs(title = "pca",
              x = paste0("pc1: ", percentVar[[1]], "% variance"),
              y = paste0("pc2: ", percentVar[[2]], "% variance"),
-             color = interestingGroupsName,
-             shape = interestingGroupsName) +
-        scale_color_viridis(discrete = TRUE)
+             color = interestingGroupsName)
 
-    if (!isTRUE(shape)) {
-        p <- p +
-            guides(shape = FALSE)
+    if (!is.null(color)) {
+        p <- p + color
     }
 
     if (isTRUE(label)) {

@@ -45,7 +45,7 @@ Results list.
 Differential Expression Results Tables
 }
 \examples{
-data(res)
+res <- examples[["res"]]
 resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
 class(resTbl)
 names(resTbl)

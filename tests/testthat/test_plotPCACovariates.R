@@ -1,5 +1,7 @@
 context("plotPCACovariates")
 
+bcb <- examples[["bcb"]]
+
 test_that("default", {
     p <- plotPCACovariates(bcb)
     expect_is(p, "list")

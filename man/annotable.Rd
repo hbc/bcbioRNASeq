@@ -18,6 +18,7 @@
 Ensembl Annotations
 }
 \examples{
+bcb <- examples[["bcb"]]
 annotable(bcb) \%>\% str()
 }
 \author{

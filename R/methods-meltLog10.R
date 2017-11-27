@@ -15,12 +15,15 @@
 #'
 #' @examples
 #' # bcbioRNASeq
+#' bcb <- examples[["bcb"]]
 #' meltLog10(bcb) %>% str()
 #'
 #' # DESeqDataSet
+#' dds <- examples[["dds"]]
 #' meltLog10(dds) %>% str()
 #'
 #' # DESeqTransform
+#' rld <- examples[["rld"]]
 #' meltLog10(rld) %>% str()
 NULL
 

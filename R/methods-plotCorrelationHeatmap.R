@@ -29,6 +29,8 @@
 #' - [stats::hclust()].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # Pearson correlation (default)
 #' plotCorrelationHeatmap(bcb)
 #'
@@ -36,20 +38,16 @@
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 #'
 #' # Flip the palettes used for plot and legend
-#' \dontrun{
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = viridis(256),
 #'     legendColor = inferno)
-#' }
 #'
 #' # Default pheatmap palette
-#' \dontrun{
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = NULL,
 #'     legendColor = NULL)
-#' }
 NULL
 
 

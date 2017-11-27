@@ -11,6 +11,7 @@
 #' @return [data.frame]
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' annotable(bcb) %>% str()
 NULL
 

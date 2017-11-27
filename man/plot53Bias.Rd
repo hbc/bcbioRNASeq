@@ -42,18 +42,18 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot 5'->3' Bias
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plot53Bias(bcb)
-
-\dontrun{
 plot53Bias(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-metrics(bcb) \%>\% plot53Bias()
+metrics <- examples[["metrics"]]
+plot53Bias(metrics)
 }
 }
 \seealso{

@@ -37,6 +37,8 @@
 #' @return [slot] object.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
+#'
 #' # tximport list
 #' txi <- bcbio(bcb, "tximport")
 #' class(txi)

@@ -24,7 +24,7 @@
 #' @return Results list.
 #'
 #' @examples
-#' data(res)
+#' res <- examples[["res"]]
 #' resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
 #' class(resTbl)
 #' names(resTbl)

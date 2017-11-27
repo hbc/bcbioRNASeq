@@ -20,7 +20,7 @@ opts_chunk[["set"]](
     prompt = TRUE,
     # formatR required for tidy code
     tidy = TRUE,
-    warning = FALSE)
+    warning = TRUE)
 
 theme_set(
     theme_light(base_size = 14))

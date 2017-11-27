@@ -169,7 +169,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  genome = col_character(),</span>
 #&gt; <span class='message'>  resource = col_character(),</span>
@@ -207,49 +207,10 @@ run directory as a remote connection over
 #&gt; <span class='message'>  .default = col_integer(),</span>
 #&gt; <span class='message'>  id = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in counts matrix (0.594%)</span></div><div class='input'>
-<span class='co'># Load without gene annotations</span>
-<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  enstxp = col_character(),</span>
-#&gt; <span class='message'>  ensgene = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  genome = col_character(),</span>
-#&gt; <span class='message'>  resource = col_character(),</span>
-#&gt; <span class='message'>  version = col_datetime(format = "")</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen.log missing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen-commands.log missing</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Generating internal DESeqDataSet for quality control</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  .default = col_integer(),</span>
-#&gt; <span class='message'>  id = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div></pre>
+# Load without gene annotations
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

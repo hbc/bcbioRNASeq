@@ -46,18 +46,18 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Mapping Rate
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotMappingRate(bcb)
-
-\dontrun{
 plotMappingRate(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-metrics(bcb) \%>\% plotMappingRate()
+metrics <- examples[["metrics"]]
+plotMappingRate(metrics)
 }
 }
 \seealso{

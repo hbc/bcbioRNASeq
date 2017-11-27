@@ -19,6 +19,7 @@ Prepare an unstructured list of information saved in the S4 object,
 for improved archival data storage.
 }
 \examples{
+bcb <- examples[["bcb"]]
 flatFiles(bcb) \%>\% names()
 }
 \author{

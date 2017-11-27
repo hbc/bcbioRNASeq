@@ -171,24 +171,22 @@ palette.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Pearson correlation (default)</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+
+<span class='co'># Pearson correlation (default)</span>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotCorrelationHeatmap-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Spearman correlation</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# Flip the palettes used for plot and legend
-</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-10.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Flip the palettes used for plot and legend</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)
-<span class='co'># }</span><div class='input'>
-# Default pheatmap palette
-</div><span class='co'># NOT RUN {</span>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='img'><img src='plotCorrelationHeatmap-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Default pheatmap palette</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-<span class='co'># }</span></pre>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotCorrelationHeatmap-12.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

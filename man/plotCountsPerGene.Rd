@@ -45,18 +45,18 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Counts Per Gene
 }
 \examples{
+# bcbioRNASeq
+bcb <- examples[["bcb"]]
 plotCountsPerGene(bcb)
-
-\dontrun{
 plotCountsPerGene(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
 \dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\% plotCountsPerGene()
+meltLog10(bcb, normalized = "tmm") \%>\%
+    plotCountsPerGene()
 }
 }
 \seealso{
