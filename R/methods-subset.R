@@ -99,6 +99,9 @@ NULL
     samples <- colnames(se)
 
     rowData <- rowData(se)
+    if (!is.null(rowData)) {
+        rownames(rowData) <- slot(se, "NAMES")
+    }
     colData <- colData(se) %>%
         as.data.frame() %>%
         mutate_if(is.character, as.factor) %>%
