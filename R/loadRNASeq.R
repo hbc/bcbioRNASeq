@@ -25,8 +25,6 @@
 #' @param sampleMetadataFile *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file.
-#' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
-#'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
 #' @param annotable *Optional*. User-defined gene annotations (a.k.a.
 #'   "annotable"), which will be slotted into [rowData()]. Typically this should
 #'   be left undefined. By default, the function will automatically generate an
@@ -38,6 +36,8 @@
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. This parameter can be useful for matching Ensembl annotations
 #'   against an outdated bcbio annotation build.
+#' @param maxSamples Maximum number of samples to calculate [DESeq2::rlog()] and
+#'   [DESeq2::varianceStabilizingTransformation()] matrix. See Details.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -64,9 +64,9 @@ loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
-    maxSamples = 50,
     annotable,
     ensemblVersion = NULL,
+    maxSamples = Inf,
     ...) {
     # Directory paths ====
     # Check connection to final upload directory
@@ -193,12 +193,15 @@ loadRNASeq <- function(
     tmm <- .tmm(rawCounts)
     tpm <- txi[["abundance"]]
 
+    # colData ====
+    colData <- sampleMetadata[colnames(rawCounts), ]
+
     # DESeqDataSet ====
     message("Generating internal DESeqDataSet for quality control")
     design <- formula(~1)
     dds <- DESeqDataSetFromTximport(
         txi = txi,
-        colData = sampleMetadata,
+        colData = colData,
         design = design)
     dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
@@ -293,7 +296,7 @@ loadRNASeq <- function(
             rlog = rlog,
             vst = vst),
         rowData = annotable,
-        colData = sampleMetadata,
+        colData = colData,
         metadata = metadata)
 
     # bcbioRNASeq ====

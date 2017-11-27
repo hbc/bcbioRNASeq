@@ -5,8 +5,8 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, maxSamples = 50, annotable,
-  ensemblVersion = NULL, ...)
+  sampleMetadataFile = NULL, annotable, ensemblVersion = NULL,
+  maxSamples = Inf, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -20,9 +20,6 @@ is used for PCA and heatmap QC functions.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file.}
 
-\item{maxSamples}{Maximum number of samples to calculate \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
-\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix. See Details.}
-
 \item{annotable}{\emph{Optional}. User-defined gene annotations (a.k.a.
 "annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should
 be left undefined. By default, the function will automatically generate an
@@ -35,6 +32,9 @@ poorly annotated.}
 defaults to current release, and does not typically need to be
 user-defined. This parameter can be useful for matching Ensembl annotations
 against an outdated bcbio annotation build.}
+
+\item{maxSamples}{Maximum number of samples to calculate \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix. See Details.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
