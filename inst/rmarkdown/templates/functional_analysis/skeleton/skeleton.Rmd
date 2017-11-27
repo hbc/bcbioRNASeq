@@ -49,7 +49,7 @@ invisible(lapply(
     basename(packages), library, character.only = TRUE
 ))
     
-# Shared RMarkdown settings
+# Shared R Markdown settings
 prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
     source("setup.R")
