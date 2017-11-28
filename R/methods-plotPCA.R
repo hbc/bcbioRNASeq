@@ -98,7 +98,7 @@ NULL
 
     percentVar <- round(100 * attr(data, "percentVar"))
 
-    # Use sampleName for plot labels
+    # Use `sampleName` for plot labels
     data[["label"]] <- colData(object)[samples, "sampleName"]
 
     p <- ggplot(
