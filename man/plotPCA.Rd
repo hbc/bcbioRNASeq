@@ -22,7 +22,8 @@ parameters set in the \link{bcbioRNASeq} object.}
 
 \item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
 
-\item{censorSamples}{\emph{Optional}. Censors to exclude from PCA plot.}
+\item{censorSamples}{\emph{Optional}. Samples to exclude from the PCA plot.
+Supply them as a character vector. These should match \code{colnames(object)}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
@@ -46,6 +47,11 @@ bcb <- examples[["bcb"]]
 plotPCA(bcb, label = TRUE)
 plotPCA(bcb, label = FALSE)
 plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
+
+# Censor samples
+colnames(bcb)
+censor <- "group1_1"
+plotPCA(bcb, censorSamples = censor)
 }
 \seealso{
 \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
