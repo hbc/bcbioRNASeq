@@ -81,7 +81,7 @@ allGenes <- rownames(res) %>%
 sigGenes <- significants(
     res,
     fc = params$lfc,
-    fdr = alpha)
+    padj = alpha)
 # Convert Ensembl gene identifiers to Entrez
 ensembl2entrez <- bitr(
     allGenes,
