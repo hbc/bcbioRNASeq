@@ -18,7 +18,9 @@
 #'   appearance. If missing, color defaults to all `interestingGroups`
 #'   parameters set in the [bcbioRNASeq] object.
 #' @param genes *Optional*. Character vector of gene identifiers to use.
-#' @param censorSamples *Optional*. Censors to exclude from PCA plot.
+#' @param censorSamples *Optional*. Samples to exclude from the PCA plot.
+#'   Supply them as a character vector. These should match
+#'  `colnames(object)`.
 #' @param label *Optional*. Superimpose sample text labels on the plot.
 #' @param returnData Return PCA loadings data instead of plotting.
 #'
