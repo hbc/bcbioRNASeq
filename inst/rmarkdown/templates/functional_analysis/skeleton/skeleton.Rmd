@@ -45,9 +45,7 @@ if (!all(basename(packages) %in% rownames(installed.packages()))) {
     notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
     biocLite(pkgs = notInstalled)
 }
-invisible(lapply(
-    basename(packages), library, character.only = TRUE
-))
+invisible(lapply(basename(packages), library, character.only = TRUE))
     
 # Shared R Markdown settings
 prepareRNASeqTemplate()
