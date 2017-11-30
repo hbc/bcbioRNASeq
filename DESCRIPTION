@@ -67,10 +67,8 @@ Suggests:
     rmarkdown,
     roxygen2,
     testthat,
-    tidyverse (>= 1.2.0)
+    tidyverse
 Remotes:
-    jimhester/lintr,
-    klutometis/roxygen,
     steinbaugh/basejump
 biocViews:
     DataImport,
