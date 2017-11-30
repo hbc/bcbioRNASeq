@@ -12,6 +12,8 @@ script: true
 r:
   - bioc-release
   - bioc-devel
+r_packages:
+  - covr
 
 after_success:
   - Rscript -e 'covr::codecov()'
