@@ -92,4 +92,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

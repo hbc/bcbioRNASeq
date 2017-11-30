@@ -45,4 +45,3 @@ Other Differential Expression Utilities: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Utilities}

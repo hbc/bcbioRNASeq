@@ -3,6 +3,7 @@
 \docType{methods}
 \name{meltLog10}
 \alias{meltLog10}
+\alias{meltLog10}
 \alias{meltLog10,bcbioRNASeq-method}
 \alias{meltLog10,DESeqDataSet-method}
 \alias{meltLog10,DESeqTransform-method}

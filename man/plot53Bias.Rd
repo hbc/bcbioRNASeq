@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plot53Bias}
 \alias{plot53Bias}
+\alias{plot53Bias}
 \alias{plot53Bias,bcbioRNASeq-method}
 \alias{plot53Bias,data.frame-method}
 \title{Plot 5'->3' Bias}
@@ -72,4 +73,3 @@ Other Quality Control Plots: \code{\link{plotCountDensity}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

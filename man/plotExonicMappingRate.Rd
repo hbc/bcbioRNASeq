@@ -4,6 +4,7 @@
 \docType{methods}
 \name{plotExonicMappingRate}
 \alias{plotExonicMappingRate}
+\alias{plotExonicMappingRate}
 \alias{plotExonicMappingRate,bcbioRNASeq-method}
 \alias{plotExonicMappingRate,data.frame-method}
 \title{Plot Exonic Mapping Rate}
@@ -74,4 +75,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

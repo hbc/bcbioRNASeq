@@ -18,9 +18,7 @@
 and fitting Negative Binomial GLMs}
 }
 \description{
-The design holds the R \code{formula} which expresses how the
-counts depend on the variables in \code{colData}.
-See \code{\link{DESeqDataSet}} for details.
+Design Formula Accessor
 }
 \examples{
 bcb <- examples[["bcb"]]

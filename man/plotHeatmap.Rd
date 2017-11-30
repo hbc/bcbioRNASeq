@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotHeatmap}
 \alias{plotHeatmap}
+\alias{plotHeatmap}
 \alias{plotHeatmap,bcbioRNASeq-method}
 \alias{plotHeatmap,DESeqDataSet-method}
 \alias{plotHeatmap,DESeqTransform-method}
@@ -103,4 +104,3 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
 \author{
 Michael Steinbaugh
 }
-\concept{Heatmaps}

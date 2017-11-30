@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
+\alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,matrix-method}
@@ -89,4 +90,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

@@ -3,6 +3,7 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
+\alias{alphaSummary}
 \alias{alphaSummary,bcbioRNASeq-method}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
@@ -57,4 +58,3 @@ Other Differential Expression Utilities: \code{\link{plotDispEsts}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Differential Expression Utilities}

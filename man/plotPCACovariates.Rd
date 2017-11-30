@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotPCACovariates}
 \alias{plotPCACovariates}
+\alias{plotPCACovariates}
 \alias{plotPCACovariates,bcbioRNASeq-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
