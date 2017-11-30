@@ -14,6 +14,12 @@
 #' cd[["age"]] <- factor(c(14, 30, 14, 30))
 #' colData(bcb) <- cd
 #' colData(bcb)
+#' \dontrun{
+#' # These should also match
+#' bcbio(bcb, "DESeqDataSet") %>% colData()
+#' assays(bcb)[["rlog"]] %>% colData()
+#' assays(bcb)[["vst"]] %>% colData()
+#' }
 NULL
 
 
