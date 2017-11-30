@@ -16,6 +16,8 @@ r_packages:
   - callr
   - covr
   - rlang
+  - roxygen2
+  - xml2
 
 after_success:
   - Rscript -e 'covr::codecov()'
