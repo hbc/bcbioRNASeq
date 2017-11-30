@@ -7,7 +7,7 @@ cache: packages
 warnings_are_errors: false
 
 # Temporarily enable when caching Bioconductor packages
-script: true
+# script: true
 
 r:
   - bioc-release
