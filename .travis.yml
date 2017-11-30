@@ -13,6 +13,7 @@ r:
   - bioc-release
   - bioc-devel
 r_packages:
+  - callr
   - covr
   - rlang
 
