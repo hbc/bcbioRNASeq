@@ -1,15 +1,21 @@
+# R for travis
+# https://docs.travis-ci.com/user/languages/r
+
 language: r
-cache: packages
 sudo: false
-dist: trusty
+cache: packages
 warnings_are_errors: false
+
 # Temporarily enable when caching Bioconductor packages
-script: true
+# script: true
+
 r:
   - bioc-release
   - bioc-devel
 r_packages:
   - covr
+  - rlang
+
 after_success:
   - Rscript -e 'covr::codecov()'
   - pwd
