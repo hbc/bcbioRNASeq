@@ -43,6 +43,8 @@ definitions are desired, we recommend using
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
 
+\item{metadata}{Sample metadata \link{data.frame}.}
+
 \item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
