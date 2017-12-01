@@ -36,7 +36,6 @@ here as a character vector.}
 }
 \examples{
 bcb <- examples[["bcb"]]
-plotPCACovariates(bcb, metrics = TRUE)
 plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 }
 \seealso{
