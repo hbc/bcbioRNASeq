@@ -18,6 +18,5 @@ examples <- list(
     metrics = metrics,
     dds = dds,
     rld = rld,
-    res = res
-)
+    res = res)
 use_data(examples, compress = "xz", overwrite = TRUE)
