@@ -22,6 +22,7 @@
 #' @param countsAxisLabel Text label of counts axis.
 #' @param returnList Return the plotlist used to generate the paneled,
 #'   multi-gene plot with [cowplot::plot_grid()].
+#' @param metadata Sample metadata [data.frame].
 #'
 #' @return
 #' - `returnList = FALSE`: [cowplot::plot_grid()] graphical output.
