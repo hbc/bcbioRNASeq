@@ -3,7 +3,9 @@ context("plotPCACovariates")
 bcb <- examples[["bcb"]]
 
 test_that("default", {
-    p <- plotPCACovariates(bcb)
+    p <- suppressWarnings(suppressMessages(
+        plotPCACovariates(bcb)
+    ))
     expect_is(p, "list")
     expect_equal(
         names(p),
