@@ -25,6 +25,7 @@ test_that("annotable", {
              seqName = "character",
              seqStrand = "integer",
              seqCoordSystem = "character",
-             entrez = "list")
+             # This is returning `AsIs` instead of `list`
+             entrez = "AsIs")
     )
 })
