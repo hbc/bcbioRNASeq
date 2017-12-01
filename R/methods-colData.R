@@ -1,12 +1,22 @@
 #' Column Data
 #'
+#' @description
 #' Improved assignment method support for [bcbioRNASeq] object.
+#'
+#' This method support will also update `colData` for these slots:
+#'
+#' - `bcbio(bcb, "DESeqDataSet")`
+#' - `assays(bcb)[["rlog"]]`
+#' - `assays(bcb)[["vst"]]`
+#'
 #'
 #' @rdname colData
 #' @name colData
 #'
 #' @inheritParams AllGenerics
-#' @inherit SummarizedExperiment::colData
+#'
+#' @seealso
+#' `help("colData", "SummarizedExperiment")`
 #'
 #' @examples
 #' bcb <- examples[["bcb"]]
@@ -14,12 +24,6 @@
 #' cd[["age"]] <- factor(c(14, 30, 14, 30))
 #' colData(bcb) <- cd
 #' colData(bcb)
-#' \dontrun{
-#' # These should also match
-#' bcbio(bcb, "DESeqDataSet") %>% colData()
-#' assays(bcb)[["rlog"]] %>% colData()
-#' assays(bcb)[["vst"]] %>% colData()
-#' }
 NULL
 
 
@@ -27,11 +31,6 @@ NULL
 # Methods ====
 #' @rdname colData
 #' @export
-#' @seealso
-#' `getMethod(
-#'     "colData<-",
-#'     signature(x = "SummarizedExperiment",
-#'               value = "DataFrame"))`
 setMethod(
     "colData<-",
     signature(x = "bcbioRNASeq", value = "DataFrame"),
@@ -48,5 +47,6 @@ setMethod(
         if (!is.null(assays(x)[["vst"]])) {
             colData(assays(x)[["vst"]]) <- value
         }
-        BiocGenerics:::replaceSlots(x, colData = value, check = FALSE)
+        slot(x, "colData") <- value
+        x
     })

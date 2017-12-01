@@ -9,256 +9,32 @@
 \S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
 }
 \arguments{
-\item{x}{A SummarizedExperiment object.}
+\item{x}{Object.}
 
-\item{...}{
-    For \code{assay}, \code{...} may contain \code{withDimnames}, which is
-    forwarded to \code{assays}.
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-    For \code{rowData}, arguments passed thru \code{...} are forwarded to
-    \code{\link[S4Vectors]{mcols}}.
-
-    For \code{cbind}, \code{rbind}, \code{...} contains SummarizedExperiment
-    objects to be combined.
-
-    For other accessors, ignored.
-  }
-
-\item{value}{An object of a class specified in the S4 method
-    signature or as outlined in \sQuote{Details}.}
+\item{value}{Value to assign.}
 }
 \description{
 Improved assignment method support for \link{bcbioRNASeq} object.
-}
-\details{
-The SummarizedExperiment class is meant for numeric and other
-  data types derived from a sequencing experiment. The structure is
-  rectangular like a \code{matrix}, but with additional annotations on
-  the rows and columns, and with the possibility to manage several
-  assays simultaneously.
 
-  The rows of a SummarizedExperiment object represent features
-  of interest. Information about these features is stored in a
-  \link{DataFrame} object, accessible using the function
-  \code{rowData}. The \link{DataFrame} must have as many rows
-  as there are rows in the SummarizedExperiment object, with each row
-  of the \link{DataFrame} providing information on the feature in the
-  corresponding row of the SummarizedExperiment object. Columns of the
-  \link{DataFrame} represent different attributes of the features
-  of interest, e.g., gene or transcript IDs, etc.
-
-  Each column of a SummarizedExperiment object represents a sample.
-  Information about the samples are stored in a \link{DataFrame},
-  accessible using the function \code{colData}, described below.
-  The \link{DataFrame} must have as many rows as there are
-  columns in the SummarizedExperiment object, with each row of the
-  \link{DataFrame} providing information on the sample in the
-  corresponding column of the SummarizedExperiment object.
-  Columns of the \link{DataFrame} represent different sample
-  attributes, e.g., tissue of origin, etc. Columns of the
-  \link{DataFrame} can themselves be annotated (via the
-  \code{\link[S4Vectors]{mcols}} function). Column names typically
-  provide a short identifier unique to each sample.
-
-  A SummarizedExperiment object can also contain information about
-  the overall experiment, for instance the lab in which it was conducted,
-  the publications with which it is associated, etc. This information is
-  stored as a \code{list} object, accessible using the \code{metadata}
-  function. The form of the data associated with the experiment is left to
-  the discretion of the user.
-
-  The SummarizedExperiment container is appropriate for matrix-like
-  data. The data are accessed using the \code{assays} function,
-  described below. This returns a \link{SimpleList} object. Each
-  element of the list must itself be a matrix (of any mode) and must
-  have dimensions that are the same as the dimensions of the
-  SummarizedExperiment in which they are stored. Row and column
-  names of each matrix must either be \code{NULL} or match those of the
-  SummarizedExperiment during construction. It is convenient for
-  the elements of \link{SimpleList} of assays to be named.
-}
-\section{Constructor}{
-
-
-  SummarizedExperiment instances are constructed using the
-  \code{SummarizedExperiment} function documented in
-  \code{?\link{RangedSummarizedExperiment}}.
-
-
+This method support will also update \code{colData} for these slots:
+\itemize{
+\item \code{bcbio(bcb, "DESeqDataSet")}
+\item \code{assays(bcb)[["rlog"]]}
+\item \code{assays(bcb)[["vst"]]}
 }
 
-\section{Accessors}{
-
-
-  In the following code snippets, \code{x} is a SummarizedExperiment
-  object.
-
-  \describe{
-
-    \item{\code{assays(x)}, \code{assays(x) <- value}:}{Get or set the
-      assays. \code{value} is a \code{list} or \code{SimpleList}, each
-      element of which is a matrix with the same dimensions as
-      \code{x}.}
-
-    \item{\code{assay(x, i)}, \code{assay(x, i) <- value}:}{A convenient
-      alternative (to \code{assays(x)[[i]]}, \code{assays(x)[[i]] <-
-      value}) to get or set the \code{i}th (default first) assay
-      element. \code{value} must be a matrix of the same dimension as
-      \code{x}, and with dimension names \code{NULL} or consistent with
-      those of \code{x}.}
-
-    \item{\code{assayNames(x)}, \code{assayNames(x) <- value}:}{Get or
-     set the names of \code{assay()} elements.}
-
-    \item{\code{rowData(x)}, \code{rowData(x) <- value}:}{Get or set the
-      row data. \code{value} is a \link{DataFrame} object. Row
-      names of \code{value} must be NULL or consistent with the existing
-      row names of \code{x}.}
-
-    \item{\code{colData(x)}, \code{colData(x) <- value}:}{Get or set the
-      column data. \code{value} is a \link{DataFrame} object. Row
-      names of \code{value} must be NULL or consistent with the existing
-      column names of \code{x}.}
-
-    \item{\code{metadata(x)}, \code{metadata(x) <- value}:}{Get or set
-      the experiment data. \code{value} is a \code{list} with arbitrary
-      content.}
-
-    \item{\code{dim(x)}:}{Get the dimensions (features of interest x samples)
-      of the SummarizedExperiment.}
-
-    \item{\code{dimnames(x)}, \code{dimnames(x) <- value}:}{Get or set
-      the dimension names. \code{value} is usually a list of length 2,
-      containing elements that are either \code{NULL} or vectors of
-      appropriate length for the corresponding dimension. \code{value}
-      can be \code{NULL}, which removes dimension names. This method
-      implies that \code{rownames}, \code{rownames<-}, \code{colnames},
-      and \code{colnames<-} are all available.}
-
-  }
-
+[["rlog"]: R:[%22rlog%22
+[["vst"]: R:[%22vst%22
 }
-
-\section{Subsetting}{
-
-
-  In the code snippets below, \code{x} is a SummarizedExperiment object.
-
-  \describe{
-
-    \item{\code{x[i,j]}, \code{x[i,j] <- value}:}{Create or replace a
-      subset of \code{x}. \code{i}, \code{j} can be \code{numeric},
-      \code{logical}, \code{character}, or \code{missing}. \code{value}
-      must be a SummarizedExperiment object with dimensions,
-      dimension names, and assay elements consistent with the subset
-      \code{x[i,j]} being replaced.}
-
-  }
-
-  Additional subsetting accessors provide convenient access to
-  \code{colData} columns
-
-  \describe{
-
-    \item{\code{x$name}, \code{x$name <- value}}{Access or replace
-    column \code{name} in \code{x}.}
-
-    \item{\code{x[[i, ...]]}, \code{x[[i, ...]] <- value}}{Access or
-    replace column \code{i} in \code{x}.}
-
-  }
-
-
-}
-
-\section{Combining}{
-
-
-  In the code snippets below, \code{...} are SummarizedExperiment objects
-  to be combined.
-
-  \describe{
-
-    \item{\code{cbind(...)}:}{
-      \code{cbind} combines objects with the same features of interest
-      but different samples (columns in \code{assays}).
-      The colnames in \code{colData(SummarizedExperiment)} must match or
-      an error is thrown.
-      Duplicate columns of \code{rowData(SummarizedExperiment)} must
-      contain the same data.
-
-      Data in \code{assays} are combined by name matching; if all assay
-      names are NULL matching is by position. A mixture of names and NULL
-      throws an error.
-
-      \code{metadata} from all objects are combined into a \code{list}
-      with no name checking.
-    }
-
-    \item{\code{rbind(...)}:}{
-      \code{rbind} combines objects with the same samples
-      but different features of interest (rows in \code{assays}).
-      The colnames in \code{rowData(SummarizedExperiment)} must match or
-      an error is thrown.
-      Duplicate columns of \code{colData(SummarizedExperiment)} must
-      contain the same data. 
-
-      Data in \code{assays} are combined by name matching; if all assay
-      names are NULL matching is by position. A mixture of names and NULL
-      throws an error.
-
-      \code{metadata} from all objects are combined into a \code{list}
-      with no name checking.
-    }
-
-  }
-
-
-}
-
-\section{Implementation and Extension}{
-
-
-  This section contains advanced material meant for package developers.
-
-  SummarizedExperiment is implemented as an S4 class, and can be extended in
-  the usual way, using \code{contains="SummarizedExperiment"} in the new
-  class definition.
-
-  In addition, the representation of the \code{assays} slot of
-  SummarizedExperiment is as a virtual class Assays. This
-  allows derived classes (\code{contains="Assays"}) to easily implement
-  alternative requirements for the assays, e.g., backed by file-based
-  storage like NetCDF or the \code{ff} package, while re-using the existing
-  SummarizedExperiment class without modification.
-  See \link{Assays} for more information.
-
-  The current \code{assays} slot is implemented as a reference class
-  that has copy-on-change semantics. This means that modifying non-assay
-  slots does not copy the (large) assay data, and at the same time the
-  user is not surprised by reference-based semantics. Updates to
-  non-assay slots are very fast; updating the assays slot itself can be
-  5x or more faster than with an S4 instance in the slot. One useful
-  technique when working with \code{assay} or \code{assays} function is
-  use of the \code{withDimnames=FALSE} argument, which benefits speed
-  and memory use by not copying dimnames from the row- and colData
-  elements to each assay.
-
-}
-
 \examples{
 bcb <- examples[["bcb"]]
 cd <- colData(bcb)
 cd[["age"]] <- factor(c(14, 30, 14, 30))
 colData(bcb) <- cd
 colData(bcb)
-\dontrun{
-# These should also match
-bcbio(bcb, "DESeqDataSet") \%>\% colData()
-assays(bcb)[["rlog"]] \%>\% colData()
-assays(bcb)[["vst"]] \%>\% colData()
-}
 }
 \seealso{
-\code{getMethod( "colData<-", signature(x = "SummarizedExperiment", value = "DataFrame"))}
+\code{help("colData", "SummarizedExperiment")}
 }
