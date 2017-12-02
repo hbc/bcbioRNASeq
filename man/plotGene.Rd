@@ -71,7 +71,7 @@ plotGene(
 
 # Gene identifiers
 \dontrun{
-ensgene <- rowData(bcb)[["ensgene"]][1:3]
+ensgene <- rowData(bcb)[["ensgene"]][1:4]
 print(ensgene)
 plotGene(bcb, gene = ensgene, format = "ensgene")
 }

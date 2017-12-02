@@ -11,15 +11,14 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1,
-  genes = NULL, ntop = 0, direction = "both", shadeColor = "green",
-  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", histograms = TRUE, gene2symbol)
+  genes = NULL, gene2symbol, ntop = 0, direction = "both",
+  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, ntop = 0, direction = "both",
+  lfc = 1, genes = NULL, gene2symbol, ntop = 0, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE,
-  gene2symbol)
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -33,6 +32,10 @@ plotVolcano(object, ...)
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
 \item{genes}{\emph{Optional}. Character vector of gene symbols to label.}
+
+\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
+missing (default), then the \code{data.frame} will be prepared automatically
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 
 \item{ntop}{Number of top genes to label.}
 
@@ -49,10 +52,6 @@ plotVolcano(object, ...)
 \item{pointOutlineColor}{Point outline color.}
 
 \item{histograms}{Show LFC and P value histograms.}
-
-\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
-missing (default), then the \code{data.frame} will be prepared automatically
-from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 }
 \value{
 Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}

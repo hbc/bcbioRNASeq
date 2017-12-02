@@ -16,16 +16,16 @@ plotHeatmap(object, ...)
   color = viridis::viridis(256), legendColor = viridis::viridis,
   quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
+\S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL, gene2symbol,
   annotationCol = NULL, title = NULL, color = viridis::viridis(256),
   legendColor = viridis::viridis, quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
+\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL, gene2symbol,
   annotationCol = NULL, title = NULL, color = viridis::viridis(256),
   legendColor = viridis::viridis, quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
-  title = NULL, color = viridis::viridis(256),
+\S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol,
+  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
   legendColor = viridis::viridis, quiet = FALSE, ...)
 }
 \arguments{
@@ -43,6 +43,10 @@ plotHeatmap(object, ...)
 palette.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
+
+\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
+missing (default), then the \code{data.frame} will be prepared automatically
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
