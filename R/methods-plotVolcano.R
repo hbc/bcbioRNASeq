@@ -6,6 +6,7 @@
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotHeatmap
 #'
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
@@ -19,9 +20,6 @@
 #' @param pointAlpha Point transparency alpha.
 #' @param pointOutlineColor Point outline color.
 #' @param histograms Show LFC and P value histograms.
-#' @param gene2symbol *Optional*. Gene to symbol mappings [data.frame]. If left
-#'   missing (default), then the `data.frame` will be prepared automatically
-#'   from Ensembl using [basejump::annotable()].
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
@@ -67,6 +65,7 @@ NULL
     padj = TRUE,
     lfc = 1,
     genes = NULL,
+    gene2symbol,
     ntop = 0,
     direction = "both",
     shadeColor = "green",
@@ -74,8 +73,7 @@ NULL
     pointColor = "gray",
     pointAlpha = 0.75,
     pointOutlineColor = "darkgray",
-    histograms = TRUE,
-    gene2symbol) {
+    histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
         stop("Direction must be both, up, or down", call. = FALSE)
@@ -333,6 +331,7 @@ setMethod(
         padj = TRUE,
         lfc = 1,
         genes = NULL,
+        gene2symbol,
         ntop = 0,
         direction = "both",
         shadeColor = "green",
@@ -340,8 +339,7 @@ setMethod(
         pointColor = "gray",
         pointAlpha = 0.75,
         pointOutlineColor = "darkgray",
-        histograms = TRUE,
-        gene2symbol) {
+        histograms = TRUE) {
         if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }
@@ -351,6 +349,7 @@ setMethod(
             padj = padj,
             lfc = lfc,
             genes = genes,
+            gene2symbol = gene2symbol,
             ntop = ntop,
             direction = direction,
             shadeColor = shadeColor,
@@ -358,8 +357,7 @@ setMethod(
             pointColor = pointColor,
             pointAlpha = pointAlpha,
             pointOutlineColor = pointOutlineColor,
-            histograms = histograms,
-            gene2symbol = gene2symbol)
+            histograms = histograms)
     })
 
 
