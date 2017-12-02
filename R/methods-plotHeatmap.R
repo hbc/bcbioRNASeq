@@ -120,7 +120,7 @@ NULL
         showRownames <- FALSE
     }
     if (isTRUE(showRownames)) {
-        if (missing(gene2symbol)) {
+        if (is.null(gene2symbol)) {
             counts <- gene2symbol(counts, quiet = quiet)
         } else {
             # Remap the rownames to use the gene symbols
@@ -226,7 +226,7 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol,
+        gene2symbol = NULL,
         annotationCol = NULL,
         title = NULL,
         color = viridis::viridis(256),
@@ -258,7 +258,7 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol,
+        gene2symbol = NULL,
         annotationCol = NULL,
         title = NULL,
         color = viridis::viridis(256),
@@ -290,7 +290,7 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol,
+        gene2symbol = NULL,
         annotationCol = NULL,
         title = NULL,
         color = viridis::viridis(256),

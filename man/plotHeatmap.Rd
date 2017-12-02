@@ -16,15 +16,17 @@ plotHeatmap(object, ...)
   color = viridis::viridis(256), legendColor = viridis::viridis,
   quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL, gene2symbol,
-  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis, quiet = FALSE, ...)
+\S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
+  gene2symbol = NULL, annotationCol = NULL, title = NULL,
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL, gene2symbol,
-  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis, quiet = FALSE, ...)
+\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
+  gene2symbol = NULL, annotationCol = NULL, title = NULL,
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol,
+\S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol = NULL,
   annotationCol = NULL, title = NULL, color = viridis::viridis(256),
   legendColor = viridis::viridis, quiet = FALSE, ...)
 }
