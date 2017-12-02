@@ -39,8 +39,8 @@ NULL
     object,
     interestingGroups = "sampleName",
     style = "solid",
-    color = scale_color_viridis(discrete = TRUE),
-    fill = scale_fill_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE)) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
@@ -87,8 +87,8 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         style = "solid",
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
              interestingGroups <- basejump::interestingGroups(object)
         }

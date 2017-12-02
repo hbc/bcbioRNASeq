@@ -11,12 +11,12 @@
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 20, warnLimit = 10,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotTotalReads}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

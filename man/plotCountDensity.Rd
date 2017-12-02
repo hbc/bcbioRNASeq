@@ -12,13 +12,13 @@ plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", style = "solid",
-  color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  fill = viridis::scale_fill_viridis(discrete = TRUE))
 
 \S4method{plotCountDensity}{data.frame}(object,
   interestingGroups = "sampleName", style = "solid",
-  color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  fill = viridis::scale_fill_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}

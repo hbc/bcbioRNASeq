@@ -52,7 +52,7 @@ NULL
     organism,
     metadata,
     countsAxisLabel = "counts",
-    color = scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE)) {
     # Load the relevant internal gender markers data
     envir <- loadNamespace("bcbioRNASeq")
     markers <- get("genderMarkers", envir = envir)
@@ -122,7 +122,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -148,7 +148,7 @@ setMethod(
         object,
         interestingGroups = "sampleName",
         organism,
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE)) {
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {
             organism <- rownames(counts) %>%

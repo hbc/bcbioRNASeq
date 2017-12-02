@@ -11,12 +11,12 @@
 plotGeneSaturation(object, counts, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0, color = scale_color_viridis(discrete
-  = TRUE))
+  normalized = "tmm", minCounts = 0,
+  color = viridis::scale_color_viridis(discrete = TRUE))
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
   interestingGroups = "sampleName", minCounts = 0,
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}

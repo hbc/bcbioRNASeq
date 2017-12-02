@@ -11,10 +11,11 @@
 plot53Bias(object, ...)
 
 \S4method{plot53Bias}{bcbioRNASeq}(object, interestingGroups, warnLimit = 2,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
-  warnLimit = 2, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  warnLimit = 2, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

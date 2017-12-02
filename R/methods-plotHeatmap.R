@@ -74,14 +74,14 @@ NULL
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats setNames
 #' @importFrom tibble column_to_rownames rownames_to_column
-#' @importFrom viridis inferno viridis
+#' @importFrom viridis viridis
 .plotHeatmap <- function(
     counts,
     genes = NULL,
     annotationCol = NULL,
     title = NULL,
-    color = inferno(256),
-    legendColor = viridis,
+    color = viridis::viridis(256),
+    legendColor = viridis::viridis,
     quiet = FALSE,
     scale = "row",
     ...) {
@@ -171,7 +171,7 @@ NULL
 
 # Methods ====
 #' @rdname plotHeatmap
-#' @importFrom S4Vectors metadata
+#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -180,8 +180,8 @@ setMethod(
         object,
         genes = NULL,
         title = NULL,
-        color = inferno(256),
-        legendColor = viridis,
+        color = viridis::viridis(256),
+        legendColor = viridis::viridis,
         quiet = FALSE,
         ...) {
         counts <- counts(object, normalized = "rlog")
@@ -203,6 +203,7 @@ setMethod(
 
 
 #' @rdname plotHeatmap
+#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -212,8 +213,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = inferno(256),
-        legendColor = viridis,
+        color = viridis::viridis(256),
+        legendColor = viridis::viridis,
         quiet = FALSE,
         ...) {
         counts <- counts(object, normalized = TRUE)
@@ -232,6 +233,7 @@ setMethod(
 
 
 #' @rdname plotHeatmap
+#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -241,8 +243,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = inferno(256),
-        legendColor = viridis,
+        color = viridis::viridis(256),
+        legendColor = viridis::viridis,
         quiet = FALSE,
         ...) {
         counts <- assay(object)
@@ -261,6 +263,7 @@ setMethod(
 
 
 #' @rdname plotHeatmap
+#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -270,8 +273,8 @@ setMethod(
         genes = NULL,
         annotationCol = NULL,
         title = NULL,
-        color = inferno(256),
-        legendColor = viridis,
+        color = viridis::viridis(256),
+        legendColor = viridis::viridis,
         quiet = FALSE,
         ...) {
         .plotHeatmap(

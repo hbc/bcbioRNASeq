@@ -9,11 +9,12 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, gene, interestingGroups,
   normalized = "tpm", format = "ensgene",
-  color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
+  color = viridis::scale_color_viridis(discrete = TRUE), returnList = FALSE)
 
 \S4method{plotGene}{matrix}(object, gene, metadata,
-  interestingGroups = "sampleName", color = scale_color_viridis(discrete =
-  TRUE), countsAxisLabel = "counts", returnList = FALSE)
+  interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  countsAxisLabel = "counts", returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}

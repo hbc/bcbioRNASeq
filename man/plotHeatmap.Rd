@@ -13,19 +13,20 @@
 plotHeatmap(object, ...)
 
 \S4method{plotHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis, quiet = FALSE, ...)
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
+  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
+  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis,
-  quiet = FALSE, ...)
+  title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis, quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}

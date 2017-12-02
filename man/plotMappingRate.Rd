@@ -11,12 +11,12 @@
 plotMappingRate(object, ...)
 
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 90, warnLimit = 70, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 90, warnLimit = 70,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 90, warnLimit = 70,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}

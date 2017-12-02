@@ -7,7 +7,7 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", interestingGroups,
-  genes, censorSamples, color = scale_color_viridis(discrete = TRUE),
+  genes, censorSamples, color = viridis::scale_color_viridis(discrete = TRUE),
   label = FALSE, returnData = FALSE)
 }
 \arguments{

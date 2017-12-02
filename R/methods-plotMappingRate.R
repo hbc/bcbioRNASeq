@@ -33,7 +33,7 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 90,
     warnLimit = 70,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -78,7 +78,7 @@ setMethod(
         interestingGroups,
         passLimit = 90,
         warnLimit = 70,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)

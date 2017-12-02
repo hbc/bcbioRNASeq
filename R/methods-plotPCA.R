@@ -54,7 +54,7 @@ NULL
     interestingGroups,
     genes,
     censorSamples,
-    color = scale_color_viridis(discrete = TRUE),
+    color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
     if (!transform %in% c("rlog", "vst")) {
