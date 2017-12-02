@@ -53,7 +53,7 @@ NULL
 #' @importFrom cowplot draw_plot ggdraw
 #' @importFrom dplyr arrange desc left_join mutate
 #' @importFrom ggplot2 aes_string element_blank geom_density geom_point
-#'   geom_ribbon ggplot ggtitle scale_x_continuous theme
+#'   geom_polygon geom_ribbon ggplot ggtitle scale_x_continuous theme
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom rlang !! sym
