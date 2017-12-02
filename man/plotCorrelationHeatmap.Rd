@@ -12,7 +12,8 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis)
+  title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis)
 }
 \arguments{
 \item{object}{Object.}
