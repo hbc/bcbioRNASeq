@@ -58,9 +58,7 @@ NULL
     }
     genes <- rownames(results)
     if (isTRUE(title)) {
-        title <- "deg"
-    } else if (is.character(title)) {
-        title <- paste("deg:", title)
+        title <- "differentially expressed genes"
     }
     if (length(genes) < 2) {
         message(paste(length(genes), "is too few to plot"))
