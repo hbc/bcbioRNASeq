@@ -65,7 +65,6 @@ NULL
 
 # Methods ====
 #' @rdname plotExonicMappingRate
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotExonicMappingRate",

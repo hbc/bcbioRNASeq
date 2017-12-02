@@ -27,6 +27,7 @@ NULL
 
 # Constructors ====
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
@@ -65,7 +66,6 @@ NULL
 # Methods ====
 #' @rdname plotIntronicMappingRate
 #' @importFrom viridis scale_color_viridis
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotIntronicMappingRate",

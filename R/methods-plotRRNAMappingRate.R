@@ -77,7 +77,6 @@ NULL
 
 # Methods ====
 #' @rdname plotRRNAMappingRate
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(

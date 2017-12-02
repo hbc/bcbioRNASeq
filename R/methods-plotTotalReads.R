@@ -86,7 +86,6 @@ NULL
 # Methods ====
 #' @rdname plotTotalReads
 #' @importFrom viridis scale_fill_viridis
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotTotalReads",

@@ -29,7 +29,8 @@
 #'
 #' # data.frame
 #' \dontrun{
-#' plotMA(as.data.frame(res), alpha = 0.01)
+#' df <- as.data.frame(res)
+#' plotMA(df, alpha = 0.01)
 #' }
 NULL
 

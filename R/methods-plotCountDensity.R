@@ -76,7 +76,6 @@ NULL
 
 # Methods ====
 #' @rdname plotCountDensity
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(

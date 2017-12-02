@@ -34,6 +34,7 @@ NULL
 
 # Constructors ====
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
@@ -65,7 +66,6 @@ NULL
 
 # Methods ====
 #' @rdname plotGeneSaturation
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
