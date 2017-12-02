@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
+\alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
@@ -52,4 +53,3 @@ Other Differential Expression Utilities: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Differential Expression Utilities}

@@ -3,6 +3,7 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
+\alias{tpm}
 \alias{tpm,bcbioRNASeq-method}
 \title{Transcripts Per Million (TPM)}
 \usage{

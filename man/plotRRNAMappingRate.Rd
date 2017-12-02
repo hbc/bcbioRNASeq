@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate}
+\alias{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate,bcbioRNASeq-method}
 \alias{plotRRNAMappingRate,data.frame-method}
 \title{Plot Ribosomal RNA (rRNA) Mapping Rate}
@@ -74,4 +75,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

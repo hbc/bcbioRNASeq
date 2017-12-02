@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotCountsPerGene}
 \alias{plotCountsPerGene}
+\alias{plotCountsPerGene}
 \alias{plotCountsPerGene,bcbioRNASeq-method}
 \alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
@@ -75,4 +76,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

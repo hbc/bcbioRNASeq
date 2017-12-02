@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
+\alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,matrix-method}
@@ -41,6 +42,8 @@ definitions are desired, we recommend using
 \item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
+
+\item{metadata}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
 }
@@ -89,4 +92,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

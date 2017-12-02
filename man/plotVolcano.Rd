@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotVolcano}
 \alias{plotVolcano}
+\alias{plotVolcano}
 \alias{plotVolcano,DESeqResults-method}
 \alias{plotVolcano,data.frame-method}
 \title{Plot Volcano}
@@ -74,4 +75,3 @@ Other Differential Expression Plots: \code{\link{plotMA}}
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 }
-\concept{Differential Expression Plots}

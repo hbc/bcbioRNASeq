@@ -3,6 +3,7 @@
 \docType{methods}
 \name{resultsTables}
 \alias{resultsTables}
+\alias{resultsTables}
 \alias{resultsTables,DESeqResults-method}
 \title{Differential Expression Results Tables}
 \usage{

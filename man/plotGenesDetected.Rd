@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
+\alias{plotGenesDetected}
 \alias{plotGenesDetected,bcbioRNASeq,missing-method}
 \alias{plotGenesDetected,data.frame,DESeqDataSet-method}
 \alias{plotGenesDetected,data.frame,matrix-method}
@@ -99,4 +100,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

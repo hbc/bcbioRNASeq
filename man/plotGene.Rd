@@ -41,6 +41,8 @@ definitions are desired, we recommend using
 \item{returnList}{Return the plotlist used to generate the paneled,
 multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
 
+\item{metadata}{Sample metadata \link{data.frame}.}
+
 \item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
@@ -92,4 +94,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

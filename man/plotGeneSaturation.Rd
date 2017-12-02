@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
+\alias{plotGeneSaturation}
 \alias{plotGeneSaturation,bcbioRNASeq,missing-method}
 \alias{plotGeneSaturation,data.frame,matrix-method}
 \title{Plot Gene Detection Saturation}
@@ -80,4 +81,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

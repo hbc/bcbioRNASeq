@@ -10,11 +10,11 @@
 #' @importFrom basejump annotable camel prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
-#' @importFrom dplyr pull
+#' @importFrom dplyr mutate_if pull
 #' @importFrom magrittr set_colnames
 #' @importFrom stats formula
 #' @importFrom stringr str_match
-#' @importFrom tibble column_to_rownames
+#' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom utils packageVersion
 #'
 #' @param uploadDir Path to final upload directory. This path is set when
@@ -205,7 +205,13 @@ loadRNASeq <- function(
     # become out of order in the rows. This will cause the
     # `DESeqDataSetFromTximport` call below to error out because of a
     # `txi$counts` colnames / colData rownames mismatch.
-    colData <- sampleMetadata[colnames(rawCounts), ]
+    colData <- sampleMetadata %>%
+        as.data.frame() %>%
+        .[colnames(rawCounts), ] %>%
+        rownames_to_column() %>%
+        mutate_if(is.factor, droplevels) %>%
+        column_to_rownames() %>%
+        as("DataFrame")
 
     # DESeqDataSet ====
     message("Generating internal DESeqDataSet for quality control")

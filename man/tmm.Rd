@@ -3,6 +3,7 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
+\alias{tmm}
 \alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}

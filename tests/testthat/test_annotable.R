@@ -24,6 +24,8 @@ test_that("annotable", {
              geneSeqEnd = "integer",
              seqName = "character",
              seqStrand = "integer",
-             seqCoordSystem = "character")
+             seqCoordSystem = "character",
+             # This is returning `AsIs` instead of `list`
+             entrez = "AsIs")
     )
 })

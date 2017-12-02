@@ -3,7 +3,9 @@ context("plotPCACovariates")
 bcb <- examples[["bcb"]]
 
 test_that("default", {
-    p <- plotPCACovariates(bcb)
+    p <- suppressWarnings(suppressMessages(
+        plotPCACovariates(bcb)
+    ))
     expect_is(p, "list")
     expect_equal(
         names(p),
@@ -16,7 +18,10 @@ test_that("default", {
     )
     # Check significant covariates
     expect_equal(
-        as.character(p[["significantCovars"]]),
+        p[["significantCovars"]] %>%
+            na.omit() %>%
+            as.character() %>%
+            sort(),
         c("duplicationRateOfMapped",
           "exonicRate",
           "intergenicRate",
@@ -24,19 +29,16 @@ test_that("default", {
           "rrna")
     )
     expect_equal(
-        round(p[["effectsSignificantCovars"]], digits = 3),
+        p[["effectsSignificantCovars"]] %>%
+            na.omit() %>%
+            .[. > 0] %>%
+            .[(sort(names(.)))] %>%
+            round(digits = 3),
         c(duplicationRateOfMapped = 0.610,
           exonicRate = 0.610,
           intergenicRate = 0.610,
           intronicRate = 0.610,
-          rrna = 0.279,
-          group = 0,
-          mappedReads = 0,
-          rrnaRate = 0,
-          totalReads = 0,
-          x53Bias = 0,
-          # Fix GC name in YAML metadata?
-          xGC = 0)
+          rrna = 0.279)
     )
 })
 

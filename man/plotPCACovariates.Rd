@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotPCACovariates}
 \alias{plotPCACovariates}
+\alias{plotPCACovariates}
 \alias{plotPCACovariates,bcbioRNASeq-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
@@ -35,7 +36,6 @@ here as a character vector.}
 }
 \examples{
 bcb <- examples[["bcb"]]
-plotPCACovariates(bcb, metrics = TRUE)
 plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 }
 \seealso{

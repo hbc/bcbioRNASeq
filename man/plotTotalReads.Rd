@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotTotalReads}
 \alias{plotTotalReads}
+\alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
 \alias{plotTotalReads,data.frame-method}
 \title{Plot Total Reads}
@@ -76,4 +77,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

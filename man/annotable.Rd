@@ -19,7 +19,8 @@ Ensembl Annotations
 }
 \examples{
 bcb <- examples[["bcb"]]
-annotable(bcb) \%>\% str()
+annotable(bcb) \%>\%
+    glimpse()
 }
 \author{
 Michael Steinbaugh
