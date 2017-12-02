@@ -17,7 +17,7 @@ NULL
 
 # Constructors ====
 .gene2symbol <- function(object) {
-    annotable <- annotable(bcb)
+    annotable <- annotable(object)
     if (is.null(annotable)) {
         return(NULL)
     }
