@@ -60,7 +60,7 @@ NULL
 #' @importFrom stats setNames
 #' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
-#' @importFrom viridis inferno viridis
+#' @importFrom viridis viridis
 .plotCorrelationHeatmap <- function(
     counts,
     method,
@@ -68,8 +68,8 @@ NULL
     genes = NULL,
     samples = NULL,
     title = NULL,
-    color = inferno(256),
-    legendColor = viridis) {
+    color = viridis::viridis(256),
+    legendColor = viridis::viridis) {
     # Check for supported correlation method
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
@@ -148,7 +148,7 @@ NULL
 # Methods ====
 #' @rdname plotCorrelationHeatmap
 #' @importFrom basejump checkInterestingGroups
-#' @importFrom viridis inferno
+#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -161,8 +161,8 @@ setMethod(
         genes = NULL,
         samples = NULL,
         title = NULL,
-        color = inferno(256),
-        legendColor = viridis) {
+        color = viridis::viridis(256),
+        legendColor = viridis::viridis) {
         if (!transform %in% c("rlog", "vst")) {
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
