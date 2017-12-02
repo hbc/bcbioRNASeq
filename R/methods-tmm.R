@@ -27,9 +27,7 @@
 #'
 #' # matrix
 #' \dontrun{
-#' assay(bcb) %>%
-#'     tmm() %>%
-#'     summary()
+#' assay(bcb) %>% tmm() %>% summary()
 #' }
 NULL
 
