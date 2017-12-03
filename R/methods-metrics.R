@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' bcb <- examples[["bcb"]]
-#' metrics(bcb) %>% str()
+#' metrics(bcb) %>% glimpse()
 NULL
 
 

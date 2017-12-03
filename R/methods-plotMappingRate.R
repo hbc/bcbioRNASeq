@@ -17,10 +17,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotMappingRate(metrics)
-#' }
 NULL
 
 

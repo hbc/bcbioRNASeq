@@ -1,4 +1,4 @@
-#' `bcbioRNASeq` Additional Run Data Accessor
+#' bcbioRNASeq Additional Run Data Accessor
 #'
 #' This method is used to access alternative count matrices with differing
 #' dimensions from the primary counts stored as a `SummarizedExperiment`.

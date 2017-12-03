@@ -23,10 +23,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountDensity()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountDensity(df)
 NULL
 
 

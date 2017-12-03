@@ -18,10 +18,8 @@
 #'     warnLimit = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotRRNAMappingRate(metrics)
-#' }
 NULL
 
 

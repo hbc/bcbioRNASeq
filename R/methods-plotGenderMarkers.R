@@ -32,10 +32,8 @@
 #'     color = NULL)
 #'
 #' # DESeqDataSet
-#' \dontrun{
 #' dds <- bcbio(bcb, "DESeqDataSet")
 #' plotGenderMarkers(dds)
-#' }
 NULL
 
 
