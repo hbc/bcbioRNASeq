@@ -55,10 +55,8 @@ plotCountsPerGene(
     fill = NULL)
 
 # data.frame
-\dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountsPerGene()
-}
+df <- meltLog10(bcb, normalized = "tmm")
+plotCountsPerGene(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

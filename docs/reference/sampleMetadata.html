@@ -120,25 +120,30 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
 <span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
-<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt;          sampleID sampleName description group
-#&gt; group1_1 group1_1   group1_1    group1_1  ctrl
-#&gt; group1_2 group1_2   group1_2    group1_2  ctrl
-#&gt; group2_1 group2_1   group2_1    group2_1    ko
-#&gt; group2_2 group2_2   group2_2    group2_2    ko</div><div class='input'>
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+#&gt; Variables: 4
+#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
-<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt;          sampleID sampleName description group        sizeFactor
-#&gt; group1_1 group1_1   group1_1    group1_1  ctrl 0.909065432053506
-#&gt; group1_2 group1_2   group1_2    group1_2  ctrl  1.02789752352872
-#&gt; group2_1 group2_1   group2_1    group2_1    ko  1.04640556301908
-#&gt; group2_2 group2_2   group2_2    group2_2    ko  1.02842649122569</div><div class='input'>
+<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+#&gt; Variables: 5
+#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko
+#&gt; $ sizeFactor  &lt;fctr&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908,...</div><div class='input'>
 <span class='co'># DESeqTransform</span>
 <span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"rld"</span>]]
-<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>)</div><div class='output co'>#&gt;          sampleID sampleName description group        sizeFactor
-#&gt; group1_1 group1_1   group1_1    group1_1  ctrl 0.909065432053506
-#&gt; group1_2 group1_2   group1_2    group1_2  ctrl  1.02789752352872
-#&gt; group2_1 group2_1   group2_1    group2_1    ko  1.04640556301908
-#&gt; group2_2 group2_2   group2_2    group2_2    ko  1.02842649122569</div></pre>
+<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+#&gt; Variables: 5
+#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko
+#&gt; $ sizeFactor  &lt;fctr&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908,...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

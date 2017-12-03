@@ -55,10 +55,8 @@ plotRRNAMappingRate(
     warnLimit = NULL)
 
 # data.frame
-\dontrun{
 metrics <- examples[["metrics"]]
 plotRRNAMappingRate(metrics)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

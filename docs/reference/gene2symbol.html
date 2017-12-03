@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Dispersion Estimates — plotDispEsts • bcbioRNASeq</title>
+<title>Gene to Symbol Mappings — gene2symbol • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,65 +83,41 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Dispersion Estimates</h1>
+    <h1>Gene to Symbol Mappings</h1>
     </div>
 
     
-    <p>Method support for plotting the dispersion of counts stored in a
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. Here we're using the internally stored DESeqDataSet,
-which already has method support for plotting dispersion, provided by
-the DESeq2 package.</p>
+    <p>Gene to Symbol Mappings</p>
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>gene2symbol</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></li>
-<li><p><code>getMethod("plotDispEsts", "DESeqDataSet")</code>.</p></li>
-</ul>
-    <p>Other Differential Expression Utilities: <code>alphaSummary</code>,
-  <code>plotMeanSD</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
-<span class='fu'>plotDispEsts</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># Custom colors</span>
-<span class='fu'>plotDispEsts</span>(
-    <span class='no'>bcb</span>,
-    <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
-    <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
-    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)</div><div class='img'><img src='plotDispEsts-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>gene2symbol</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()</div><div class='output co'>#&gt;                               ensgene   symbol
+#&gt; ENSMUSG00000002459 ENSMUSG00000002459    Rgs20
+#&gt; ENSMUSG00000004768 ENSMUSG00000004768    Rab23
+#&gt; ENSMUSG00000005886 ENSMUSG00000005886    Ncoa2
+#&gt; ENSMUSG00000016918 ENSMUSG00000016918    Sulf1
+#&gt; ENSMUSG00000025774 ENSMUSG00000025774   Crisp4
+#&gt; ENSMUSG00000025776 ENSMUSG00000025776 Crispld1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

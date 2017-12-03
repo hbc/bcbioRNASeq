@@ -43,6 +43,7 @@ rld <- examples[["rld"]]
 plotDEGHeatmap(res, counts = rld)
 
 # DESeqResults, DESeqDataSet
+# Using default ggplot2 colors
 dds <- examples[["dds"]]
 plotDEGHeatmap(
     res,

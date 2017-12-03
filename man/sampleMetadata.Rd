@@ -28,13 +28,13 @@ Returns the sample metadata.
 \examples{
 # bcbioRNASeq
 bcb <- examples[["bcb"]]
-sampleMetadata(bcb)
+sampleMetadata(bcb) \%>\% glimpse()
 
 # DESeqDataSet
 dds <- examples[["dds"]]
-sampleMetadata(dds)
+sampleMetadata(dds) \%>\% glimpse()
 
 # DESeqTransform
 rld <- examples[["rld"]]
-sampleMetadata(rld)
+sampleMetadata(rld) \%>\% glimpse()
 }

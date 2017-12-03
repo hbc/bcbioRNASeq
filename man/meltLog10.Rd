@@ -34,15 +34,15 @@ Melt Count Matrix to Long Format and log10 Transform
 \examples{
 # bcbioRNASeq
 bcb <- examples[["bcb"]]
-meltLog10(bcb) \%>\% str()
+meltLog10(bcb) \%>\% glimpse()
 
 # DESeqDataSet
 dds <- examples[["dds"]]
-meltLog10(dds) \%>\% str()
+meltLog10(dds) \%>\% glimpse()
 
 # DESeqTransform
 rld <- examples[["rld"]]
-meltLog10(rld) \%>\% str()
+meltLog10(rld) \%>\% glimpse()
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.

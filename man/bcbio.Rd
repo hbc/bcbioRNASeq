@@ -7,7 +7,7 @@
 \alias{bcbio<-,bcbioRNASeq-method}
 \alias{bcbio,bcbioRNADataSet-method}
 \alias{bcbio<-,bcbioRNADataSet-method}
-\title{\code{bcbioRNASeq} Additional Run Data Accessor}
+\title{bcbioRNASeq Additional Run Data Accessor}
 \usage{
 \S4method{bcbio}{bcbioRNASeq}(object, type)
 
