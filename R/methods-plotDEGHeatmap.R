@@ -23,6 +23,7 @@
 #' plotDEGHeatmap(res, counts = rld)
 #'
 #' # DESeqResults, DESeqDataSet
+#' # Using default ggplot2 colors
 #' dds <- examples[["dds"]]
 #' plotDEGHeatmap(
 #'     res,
@@ -40,7 +41,7 @@ NULL
     counts,
     alpha = 0.01,
     lfc = 0,
-    title = TRUE,
+    title,
     ...) {
     results <- results %>%
         as.data.frame() %>%
@@ -57,13 +58,11 @@ NULL
         return(NULL)
     }
     genes <- rownames(results)
-    if (isTRUE(title)) {
-        title <- "deg"
-    } else if (is.character(title)) {
-        title <- paste("deg:", title)
-    }
     if (length(genes) < 2) {
-        message(paste(length(genes), "is too few to plot"))
+        warning(paste(
+            length(genes), "gene(s) is too few to plot"
+        ), call. = FALSE)
+        return(NULL)
     } else {
         plotHeatmap(
             counts,

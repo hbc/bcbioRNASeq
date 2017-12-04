@@ -17,10 +17,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotExonicMappingRate(metrics)
-#' }
 NULL
 
 
@@ -33,7 +31,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     passLimit = 60,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -65,7 +63,6 @@ NULL
 
 # Methods ====
 #' @rdname plotExonicMappingRate
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotExonicMappingRate",
@@ -74,7 +71,7 @@ setMethod(
         object,
         interestingGroups,
         passLimit = 60,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

@@ -44,10 +44,8 @@ alphaSummary(bcb)
 # DESeqDataSet
 dds <- examples[["dds"]]
 alphaSummary(dds)
-\dontrun{
 alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 alphaSummary(dds, name = "group_ko_vs_ctrl")
-}
 }
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.

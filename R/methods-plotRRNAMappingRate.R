@@ -18,10 +18,8 @@
 #'     warnLimit = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotRRNAMappingRate(metrics)
-#' }
 NULL
 
 
@@ -34,7 +32,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 10,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     # Fix for camel variant mismatch (e.g. rRnaRate). This is safe to remove
     # in a future update.
@@ -77,7 +75,6 @@ NULL
 
 # Methods ====
 #' @rdname plotRRNAMappingRate
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -87,7 +84,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 10,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

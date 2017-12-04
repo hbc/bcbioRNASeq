@@ -32,10 +32,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotTotalReads(metrics)
-#' }
 NULL
 
 
@@ -51,7 +49,7 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -86,7 +84,6 @@ NULL
 # Methods ====
 #' @rdname plotTotalReads
 #' @importFrom viridis scale_fill_viridis
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotTotalReads",
@@ -96,7 +93,7 @@ setMethod(
         interestingGroups,
         passLimit = 20,
         warnLimit = 10,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

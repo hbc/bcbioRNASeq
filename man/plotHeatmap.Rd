@@ -13,19 +13,22 @@
 plotHeatmap(object, ...)
 
 \S4method{plotHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis, quiet = FALSE, ...)
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
+  gene2symbol = NULL, annotationCol = NULL, title = NULL,
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
-
-\S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis,
+  gene2symbol = NULL, annotationCol = NULL, title = NULL,
+  color = viridis::viridis(256), legendColor = viridis::viridis,
   quiet = FALSE, ...)
+
+\S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol = NULL,
+  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis, quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -42,6 +45,10 @@ plotHeatmap(object, ...)
 palette.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
+
+\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
+missing (default), then the \code{data.frame} will be prepared automatically
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 
 \item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
 right side of the heatmap. Each row of this \link{data.frame} defines the
@@ -65,35 +72,26 @@ bcb <- examples[["bcb"]]
 genes <- counts(bcb)[1:20, ] \%>\% rownames()
 plotHeatmap(bcb, genes = genes)
 
-# Flip the plot and legend palettes
+# Use inferno color palette
 plotHeatmap(
     bcb,
     genes = genes,
-    color = viridis(256),
-    legendColor = inferno)
+    color = viridis::inferno(256),
+    legendColor = viridis::inferno)
 
-# Use default pheatmap color palette
+# Transcriptome heatmap with default pheatmap colors
 plotHeatmap(
     bcb,
     color = NULL,
     legendColor = NULL)
 
-# Transcriptome heatmap (CPU intensive)
-\dontrun{
-plotHeatmap(bcb)
-}
-
 # DESeqDataSet
-\dontrun{
 dds <- examples[["dds"]]
 plotHeatmap(dds)
-}
 
 # DESeqTransform
-\dontrun{
 rld <- examples[["rld"]]
 plotHeatmap(rld)
-}
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.

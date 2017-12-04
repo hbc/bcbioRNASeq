@@ -18,15 +18,8 @@
 \description{
 Improved assignment method support for \link{bcbioRNASeq} object.
 
-This method support will also update \code{colData} for these slots:
-\itemize{
-\item \code{bcbio(bcb, "DESeqDataSet")}
-\item \code{assays(bcb)[["rlog"]]}
-\item \code{assays(bcb)[["vst"]]}
-}
-
-[["rlog"]: R:[%22rlog%22
-[["vst"]: R:[%22vst%22
+This method support will also update the \code{colData} inside the \code{bcbio} and
+\code{assays} slots.
 }
 \examples{
 bcb <- examples[["bcb"]]
@@ -34,6 +27,11 @@ cd <- colData(bcb)
 cd[["age"]] <- factor(c(14, 30, 14, 30))
 colData(bcb) <- cd
 colData(bcb)
+
+# These internal objects will also get updated
+bcbio(bcb, "DESeqDataSet") \%>\% colData()
+assays(bcb)[["rlog"]] \%>\% colData()
+assays(bcb)[["vst"]] \%>\% colData()
 }
 \seealso{
 \code{help("colData", "SummarizedExperiment")}

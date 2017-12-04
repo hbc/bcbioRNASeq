@@ -71,18 +71,15 @@ plotGenesDetected(
     warnLimit = NULL)
 
 # data.frame, DESeqDataSet
-\dontrun{
 metrics <- examples[["metrics"]]
 dds <- examples[["dds"]]
 plotGenesDetected(metrics, counts = dds)
-}
 
 # data.frame, matrix
-\dontrun{
 metrics <- examples[["metrics"]]
 dds <- examples[["dds"]]
-plotGenesDetected(metrics, counts = assay(dds))
-}
+counts <- assay(dds)
+plotGenesDetected(metrics, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

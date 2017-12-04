@@ -10,15 +10,15 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0,
-  genes, ntop = 0, direction = "both", shadeColor = "green",
-  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", histograms = TRUE)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1,
+  genes = NULL, gene2symbol, ntop = 0, direction = "both",
+  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 0, genes, ntop = 0, direction = "both", shadeColor = "green",
-  shadeAlpha = 0.25, pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", histograms = TRUE)
+  lfc = 1, genes = NULL, gene2symbol, ntop = 0, direction = "both",
+  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -31,7 +31,11 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{genes}{Character vector of gene symbols to label.}
+\item{genes}{\emph{Optional}. Character vector of gene symbols to label.}
+
+\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
+missing (default), then the \code{data.frame} will be prepared automatically
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 
 \item{ntop}{Number of top genes to label.}
 
@@ -61,10 +65,14 @@ Plot Volcano
 res <- examples[["res"]]
 plotVolcano(res, genes = "Sulf1")
 
-\dontrun{
+# Using stashed gene2symbol mappings
+bcb <- examples[["bcb"]]
+gene2symbol <- gene2symbol(bcb)
+plotVolcano(res, gene2symbol = gene2symbol)
+
 # data.frame
-plotVolcano(as.data.frame(res))
-}
+df <- as.data.frame(res)
+plotVolcano(df)
 }
 \seealso{
 This function is an updated variant of

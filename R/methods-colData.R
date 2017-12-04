@@ -3,12 +3,8 @@
 #' @description
 #' Improved assignment method support for [bcbioRNASeq] object.
 #'
-#' This method support will also update `colData` for these slots:
-#'
-#' - `bcbio(bcb, "DESeqDataSet")`
-#' - `assays(bcb)[["rlog"]]`
-#' - `assays(bcb)[["vst"]]`
-#'
+#' This method support will also update the `colData` inside the `bcbio` and
+#' `assays` slots.
 #'
 #' @rdname colData
 #' @name colData
@@ -24,6 +20,11 @@
 #' cd[["age"]] <- factor(c(14, 30, 14, 30))
 #' colData(bcb) <- cd
 #' colData(bcb)
+#'
+#' # These internal objects will also get updated
+#' bcbio(bcb, "DESeqDataSet") %>% colData()
+#' assays(bcb)[["rlog"]] %>% colData()
+#' assays(bcb)[["vst"]] %>% colData()
 NULL
 
 

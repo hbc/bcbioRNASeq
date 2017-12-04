@@ -9,11 +9,12 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, gene, interestingGroups,
   normalized = "tpm", format = "ensgene",
-  color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
+  color = viridis::scale_color_viridis(discrete = TRUE), returnList = FALSE)
 
 \S4method{plotGene}{matrix}(object, gene, metadata,
-  interestingGroups = "sampleName", color = scale_color_viridis(discrete =
-  TRUE), countsAxisLabel = "counts", returnList = FALSE)
+  interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  countsAxisLabel = "counts", returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -69,11 +70,9 @@ plotGene(
     color = NULL)
 
 # Gene identifiers
-\dontrun{
-ensgene <- rowData(bcb)[["ensgene"]][1:3]
+ensgene <- rowData(bcb)[["ensgene"]][1:4]
 print(ensgene)
 plotGene(bcb, gene = ensgene, format = "ensgene")
-}
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

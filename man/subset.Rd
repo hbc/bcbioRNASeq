@@ -86,14 +86,10 @@ bcb[, samples]
 bcb[genes, ]
 
 # Subset by both genes and samples
-\dontrun{
 bcb[genes, samples]
-}
 
 # Skip normalization
-\dontrun{
 bcb[genes, samples, skipNorm = TRUE]
-}
 }
 \seealso{
 \code{help("[", "base")}.

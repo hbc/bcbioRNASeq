@@ -23,10 +23,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountDensity()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountDensity(df)
 NULL
 
 
@@ -39,8 +37,8 @@ NULL
     object,
     interestingGroups = "sampleName",
     style = "solid",
-    color = scale_color_viridis(discrete = TRUE),
-    fill = scale_fill_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE)) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
@@ -76,7 +74,6 @@ NULL
 
 # Methods ====
 #' @rdname plotCountDensity
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -87,8 +84,8 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         style = "solid",
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
              interestingGroups <- basejump::interestingGroups(object)
         }

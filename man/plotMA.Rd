@@ -46,9 +46,8 @@ genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
 plotMA(res, labelPoints = genes)
 
 # data.frame
-\dontrun{
-plotMA(as.data.frame(res), alpha = 0.01)
-}
+df <- as.data.frame(res)
+plotMA(df, alpha = 0.01)
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plotVolcano}}

@@ -39,16 +39,16 @@ counts(bcb, normalized = FALSE) \%>\% summary()
 counts(bcb, normalized = "tpm") \%>\% summary()
 
 # DESeq2 normalized counts
-counts(bcb, normalized = TRUE)
+counts(bcb, normalized = TRUE) \%>\% summary()
 
 # rlog
-counts(bcb, normalized = "rlog")
+counts(bcb, normalized = "rlog") \%>\% summary()
 
 # TMM
-counts(bcb, normalized = "tmm")
+counts(bcb, normalized = "tmm") \%>\% summary()
 
 # VST
-counts(bcb, normalized = "vst")
+counts(bcb, normalized = "vst") \%>\% summary()
 }
 \author{
 Michael Steinbaugh

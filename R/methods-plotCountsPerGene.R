@@ -18,10 +18,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountsPerGene()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountsPerGene(df)
 NULL
 
 
@@ -33,7 +31,7 @@ NULL
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -61,7 +59,6 @@ NULL
 
 # Methods ====
 #' @rdname plotCountsPerGene
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -71,7 +68,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = "tmm",
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)

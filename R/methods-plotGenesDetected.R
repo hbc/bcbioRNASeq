@@ -23,24 +23,22 @@
 #'     warnLimit = NULL)
 #'
 #' # data.frame, DESeqDataSet
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' dds <- examples[["dds"]]
 #' plotGenesDetected(metrics, counts = dds)
-#' }
 #'
 #' # data.frame, matrix
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' dds <- examples[["dds"]]
-#' plotGenesDetected(metrics, counts = assay(dds))
-#' }
+#' counts <- assay(dds)
+#' plotGenesDetected(metrics, counts = counts)
 NULL
 
 
 
 # Constructors ====
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,

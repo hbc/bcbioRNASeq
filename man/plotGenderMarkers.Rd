@@ -12,15 +12,15 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 
 \S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
   organism, metadata, countsAxisLabel = "counts",
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -71,10 +71,8 @@ plotGenderMarkers(
     color = NULL)
 
 # DESeqDataSet
-\dontrun{
 dds <- bcbio(bcb, "DESeqDataSet")
 plotGenderMarkers(dds)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

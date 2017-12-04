@@ -11,12 +11,12 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 20, warnLimit = 10,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -56,10 +56,8 @@ plotMappedReads(
     fill = NULL)
 
 # data.frame
-\dontrun{
 metrics <- examples[["metrics"]]
 plotMappedReads(metrics)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

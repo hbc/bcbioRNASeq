@@ -11,12 +11,12 @@
 plotGeneSaturation(object, counts, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0, color = scale_color_viridis(discrete
-  = TRUE))
+  normalized = "tmm", minCounts = 0,
+  color = viridis::scale_color_viridis(discrete = TRUE))
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
   interestingGroups = "sampleName", minCounts = 0,
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -59,11 +59,10 @@ plotGeneSaturation(
     color = NULL)
 
 # data.frame, matrix
-\dontrun{
 metrics <- examples[["metrics"]]
 rld <- examples[["rld"]]
-plotGeneSaturation(metrics, counts = assay(rld))
-}
+counts <- assay(rld)
+plotGeneSaturation(metrics, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

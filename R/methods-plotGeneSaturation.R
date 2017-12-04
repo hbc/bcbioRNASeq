@@ -23,24 +23,24 @@
 #'     color = NULL)
 #'
 #' # data.frame, matrix
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' rld <- examples[["rld"]]
-#' plotGeneSaturation(metrics, counts = assay(rld))
-#' }
+#' counts <- assay(rld)
+#' plotGeneSaturation(metrics, counts = counts)
 NULL
 
 
 
 # Constructors ====
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
     counts,
     interestingGroups = "sampleName",
     minCounts = 0,
-    color = scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE)) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -65,7 +65,6 @@ NULL
 
 # Methods ====
 #' @rdname plotGeneSaturation
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
@@ -77,7 +76,7 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         minCounts = 0,
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE)) {
         if (is.null(metrics(object))) {
             return(NULL)
         }

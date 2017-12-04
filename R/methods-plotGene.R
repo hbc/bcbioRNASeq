@@ -45,11 +45,9 @@
 #'     color = NULL)
 #'
 #' # Gene identifiers
-#' \dontrun{
-#' ensgene <- rowData(bcb)[["ensgene"]][1:3]
+#' ensgene <- rowData(bcb)[["ensgene"]][1:4]
 #' print(ensgene)
 #' plotGene(bcb, gene = ensgene, format = "ensgene")
-#' }
 NULL
 
 
@@ -79,7 +77,7 @@ NULL
     gene,
     metadata,
     interestingGroups = "sampleName",
-    color = scale_color_viridis(discrete = TRUE),
+    color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
     returnList = FALSE) {
     metadata <- metadata %>%
@@ -123,7 +121,6 @@ NULL
 
 # Methods ====
 #' @rdname plotGene
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
@@ -135,7 +132,7 @@ setMethod(
         interestingGroups,
         normalized = "tpm",
         format = "ensgene",
-        color = scale_color_viridis(discrete = TRUE),
+        color = viridis::scale_color_viridis(discrete = TRUE),
         returnList = FALSE) {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
@@ -157,9 +154,7 @@ setMethod(
 
         # Match unique gene identifier with name (gene symbol) using the
         # internally stored Ensembl annotations saved in the run object
-        gene2symbol <- metadata(object) %>%
-            .[["annotable"]] %>%
-            .[, c("ensgene", "symbol")]
+        gene2symbol <- gene2symbol(object)
 
         # Detect missing genes. This also handles `format` mismatch.
         if (!all(gene %in% gene2symbol[[format]])) {

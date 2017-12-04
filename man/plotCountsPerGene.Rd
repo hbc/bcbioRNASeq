@@ -11,12 +11,12 @@
 plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
+  normalized = "tmm", fill = viridis::scale_fill_viridis(discrete = TRUE),
   flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroups = "sampleName", fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  interestingGroups = "sampleName",
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -55,10 +55,8 @@ plotCountsPerGene(
     fill = NULL)
 
 # data.frame
-\dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountsPerGene()
-}
+df <- meltLog10(bcb, normalized = "tmm")
+plotCountsPerGene(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

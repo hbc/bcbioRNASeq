@@ -34,17 +34,11 @@ bcb <- examples[["bcb"]]
 tmm(bcb) \%>\% summary()
 
 # DESeqDataSet
-\dontrun{
 dds <- examples[["dds"]]
 tmm(dds) \%>\% summary()
-}
 
 # matrix
-\dontrun{
-assay(bcb) \%>\%
-    tmm() \%>\%
-    summary()
-}
+assay(bcb) \%>\% tmm() \%>\% summary()
 }
 \author{
 Michael Steinbaugh

@@ -41,10 +41,8 @@ plotMeanSD(bcb, orientation = "horizontal")
 plotMeanSD(bcb, orientation = "vertical")
 
 # DESeqDataSet
-\dontrun{
 dds <- examples[["dds"]]
-plotMeanSD(dds)
-}
+plotMeanSD(dds, orientation = "horizontal")
 }
 \seealso{
 Other Differential Expression Utilities: \code{\link{alphaSummary}},

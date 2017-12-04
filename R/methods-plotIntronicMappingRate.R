@@ -17,22 +17,21 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotIntronicMappingRate(metrics)
-#' }
 NULL
 
 
 
 # Constructors ====
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 20,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -65,7 +64,6 @@ NULL
 # Methods ====
 #' @rdname plotIntronicMappingRate
 #' @importFrom viridis scale_color_viridis
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotIntronicMappingRate",
@@ -74,7 +72,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 20,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

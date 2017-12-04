@@ -17,10 +17,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plot53Bias(metrics)
-#' }
 NULL
 
 
@@ -33,7 +31,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 2,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -64,7 +62,6 @@ NULL
 
 # Methods ====
 #' @rdname plot53Bias
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -74,7 +71,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 2,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

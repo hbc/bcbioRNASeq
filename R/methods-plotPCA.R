@@ -46,7 +46,6 @@ NULL
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis
 .plotPCA <- function(
     object,
@@ -54,7 +53,7 @@ NULL
     interestingGroups,
     genes,
     censorSamples,
-    color = scale_color_viridis(discrete = TRUE),
+    color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
     if (!transform %in% c("rlog", "vst")) {
