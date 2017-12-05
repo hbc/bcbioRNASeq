@@ -24,6 +24,7 @@
 #' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
 #' genes <- rownames(res) %>% head(n = 4)
+#' print(genes)
 #' gene2symbol <- gene2symbol(bcb)
 #'
 #' # DESeqResults
@@ -44,7 +45,7 @@ NULL
 
 # Constructors ====
 #' @importFrom basejump annotable camel checkGene2symbol detectOrganism
-#' @importFrom dplyr filter
+#' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10
 #' @importFrom ggrepel geom_text_repel
