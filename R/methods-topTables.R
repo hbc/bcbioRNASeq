@@ -11,8 +11,14 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
-#' resTbl <- resultsTables(res, write = FALSE)
+#' annotable <- annotable(bcb)
+#' resTbl <- resultsTables(
+#'     res,
+#'     annotable = annotable,
+#'     summary = FALSE,
+#'     write = FALSE)
 #' topTables(resTbl)
 NULL
 
