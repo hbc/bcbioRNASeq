@@ -5,19 +5,16 @@
 #'
 #' @family Differential Expression Plots
 #' @author Rory Kirchner, Michael Steinbaugh
+#'
 #' @inheritParams AllGenerics
+#' @inheritParams plotHeatmap
 #'
 #' @importFrom BiocGenerics plotMA
 #'
 #' @param alpha Alpha level cutoff (Adjusted P value).
-#' @param genes *Optional*. Genes to label on the plot.
-#' @param format Gene identifier format (`ensgene` or `symbol`) used for
-#'   matching.
-#' @param gene2symbol Gene to symbol [data.frame] that defines
-#'   identifier mappings. Required if `genes` is defined.
-#' @param color Default point color for the plot.
-#' @param sigColor Color for points corresponding to significant genes that have
-#'   passed alpha level cutoffs.
+#' @param pointColor Default point color for the plot.
+#' @param sigPointColor Color for points corresponding to significant genes that
+#'   have passed alpha level cutoffs.
 #' @param labelColor Text label color.
 #' @param title *Optional*. Plot title.
 #'
@@ -26,19 +23,17 @@
 #' @examples
 #' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
+#' genes <- rownames(res) %>% head(n = 4)
 #' gene2symbol <- gene2symbol(bcb)
 #'
 #' # DESeqResults
-#' plotMA(
-#'     res,
-#'     genes = "ENSMUSG00000016918",
-#'     format = "ensgene",
-#'     gene2symbol = gene2symbol)
-#' plotMA(
-#'     res,
-#'     genes = "Sulf1",
-#'     format = "symbol",
-#'     gene2symbol = gene2symbol)
+#' plotMA(res, genes = genes, gene2symbol = TRUE)
+#'
+#' # Use a stashed gene2symbol data.frame
+#' plotMA(res, genes = genes, gene2symbol = gene2symbol)
+#'
+#' # Label the Ensembl gene identifiers instead of symbols
+#' plotMA(res, genes = genes, gene2symbol = FALSE)
 #'
 #' # data.frame
 #' df <- as.data.frame(res)
@@ -48,7 +43,7 @@ NULL
 
 
 # Constructors ====
-#' @importFrom basejump camel
+#' @importFrom basejump annotable camel checkGene2symbol detectOrganism
 #' @importFrom dplyr filter
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10
@@ -59,16 +54,11 @@ NULL
     object,
     alpha = 0.01,
     genes = NULL,
-    format = "ensgene",
-    gene2symbol = NULL,
-    color = "darkgray",
-    sigColor = "red",
+    gene2symbol = TRUE,
+    pointColor = "darkgray",
+    sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
-    validFormat <- c("ensgene", "symbol")
-    if (!format %in% validFormat) {
-        stop(paste("format:", toString(validFormat)), call. = FALSE)
-    }
     data <- object %>%
         rownames_to_column("ensgene") %>%
         as_tibble() %>%
@@ -88,27 +78,30 @@ NULL
         labs(title = title,
              x = "mean expression across all samples",
              y = "log2 fold change")
-    if (!is.null(color) & !is.null(sigColor)) {
+    if (!is.null(pointColor) & !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
         p <- p +
             scale_color_manual(
-                values = c("FALSE" = color,
-                           "TRUE" = sigColor))
+                values = c("FALSE" = pointColor,
+                           "TRUE" = sigPointColor))
     }
     if (!is.null(genes)) {
-        if (!is.data.frame(gene2symbol)) {
-            stop("'gene2symbol' data.frame required when 'genes' is defined",
-                 call. = FALSE)
+        if (isTRUE(gene2symbol)) {
+            organism <- pull(data, "ensgene") %>%
+                .[[1]] %>%
+                detectOrganism()
+            gene2symbol <- annotable(organism, format = "gene2symbol")
         }
-        if (!all(colnames(gene2symbol) %in% validFormat)) {
-            stop(paste(
-                "'gene2symbol' must contain:", toString(validFormat)
-            ), call. = FALSE)
+        if (is.data.frame(gene2symbol)) {
+            labelCol <- "symbol"
+            checkGene2symbol(gene2symbol)
+            data <- left_join(data, gene2symbol, by = "ensgene")
+        } else {
+            labelCol <- "ensgene"
         }
-        data <- left_join(data, gene2symbol, by = "ensgene")
         labels <- data %>%
-            .[.[[format]] %in% genes, , drop = FALSE]
+            .[.[["ensgene"]] %in% genes, , drop = FALSE]
         if (!nrow(labels)) {
             stop("Failed to label any gene identifiers")
         }
@@ -117,7 +110,7 @@ NULL
                 data = labels,
                 aes_string(x = "baseMean",
                      y = "log2FoldChange",
-                     label = "symbol"),
+                     label = labelCol),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
@@ -145,19 +138,17 @@ setMethod(
     function(
         object,
         genes = NULL,
-        format = "ensgene",
-        gene2symbol = NULL,
-        color = "darkgray",
-        sigColor = "red",
+        gene2symbol = TRUE,
+        pointColor = "darkgray",
+        sigPointColor = "red",
         labelColor = "black") {
         .plotMA(
             object = as.data.frame(object),
             alpha = metadata(object)[["alpha"]],
             genes = genes,
-            format = format,
             gene2symbol = gene2symbol,
-            color = color,
-            sigColor = sigColor,
+            pointColor = pointColor,
+            sigPointColor = sigPointColor,
             labelColor = labelColor,
             title = .resContrastName(object)
         )
