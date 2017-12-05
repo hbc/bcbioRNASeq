@@ -73,7 +73,7 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel snake
+#' @importFrom basejump annotable camel sanitizeAnnotable snake
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
@@ -109,7 +109,7 @@ NULL
     }
 
     if (!is.null(annotable)) {
-        annotable <- .sanitizeAnnotable(annotable)
+        annotable <- sanitizeAnnotable(annotable)
         all <- left_join(all, annotable, by = "ensgene")
     }
 
