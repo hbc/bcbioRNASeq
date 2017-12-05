@@ -7,30 +7,35 @@
 \alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
-\S4method{plotMA}{DESeqResults}(object, labelPoints = NULL,
-  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
+\S4method{plotMA}{DESeqResults}(object, genes = NULL, format = "ensgene",
+  gene2symbol = NULL, color = "darkgray", sigColor = "red",
   labelColor = "black")
 
-\S4method{plotMA}{data.frame}(object, alpha = 0.01, labelPoints = NULL,
-  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
-  labelColor = "black", title = TRUE)
+\S4method{plotMA}{data.frame}(object, alpha = 0.01, genes = NULL,
+  format = "ensgene", gene2symbol = NULL, color = "darkgray",
+  sigColor = "red", labelColor = "black", title = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{labelPoints}{\emph{Optional}. Label these particular points.}
+\item{genes}{\emph{Optional}. Genes to label on the plot.}
 
-\item{labelColumn}{Match \code{labelPoints} argument to this column in the
-results.}
+\item{format}{Gene identifier format (\code{ensgene} or \code{symbol}) used for
+matching.}
 
-\item{pointColorScale}{Point color scale. See
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}} for more information.}
+\item{gene2symbol}{Gene to symbol \link{data.frame} that defines
+identifier mappings. Required if \code{genes} is defined.}
+
+\item{color}{Default point color for the plot.}
+
+\item{sigColor}{Color for points corresponding to significant genes that have
+passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
 \item{alpha}{Alpha level cutoff (Adjusted P value).}
 
-\item{title}{Plot title.}
+\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
 \link{ggplot}.
@@ -39,11 +44,21 @@ results.}
 Plot Mean Average
 }
 \examples{
+bcb <- examples[["bcb"]]
 res <- examples[["res"]]
-genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
+gene2symbol <- gene2symbol(bcb)
 
 # DESeqResults
-plotMA(res, labelPoints = genes)
+plotMA(
+    res,
+    genes = "ENSMUSG00000016918",
+    format = "ensgene",
+    gene2symbol = gene2symbol)
+plotMA(
+    res,
+    genes = "Sulf1",
+    format = "symbol",
+    gene2symbol = gene2symbol)
 
 # data.frame
 \dontrun{

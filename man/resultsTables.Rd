@@ -9,9 +9,9 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0, write = TRUE,
-  summary = TRUE, headerLevel = 3, dir = file.path("results",
-  "differential_expression"), organism = NULL, quiet = FALSE)
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable,
+  write = TRUE, summary = TRUE, headerLevel = 3,
+  dir = file.path("results", "differential_expression"), quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,6 +24,12 @@ See \code{\link[=results]{results()}} for additional information about using \co
 \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.}
 
+\item{annotable}{\emph{Optional}. Use a pre-saved Ensembl annotations
+\link{data.frame}. If left missing, the function will attempt to load from
+Ensembl by matching the organism from the first gene identifier in the
+rownames. Alternatively, this can be left \code{NULL}, and no gene annotations
+will be added to the results.}
+
 \item{write}{Write CSV files to disk.}
 
 \item{summary}{Show summary statistics as a Markdown list.}
@@ -32,23 +38,23 @@ changes.}
 
 \item{dir}{Directory path where to write files.}
 
-\item{organism}{\emph{Optional}. Override automatic genome detection. By
-default the function matches the genome annotations based on the first
-Ensembl gene identifier row in the object. If a custom FASTA spike-in
-is provided, then this may need to be manually set.}
-
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
-Results list.
+Results \link{list}.
 }
 \description{
 Differential Expression Results Tables
 }
 \examples{
+bcb <- examples[["bcb"]]
 res <- examples[["res"]]
-resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
-class(resTbl)
+annotable <- annotable(bcb)
+resTbl <- resultsTables(
+    res,
+    lfc = 0.25,
+    annotable = annotable,
+    write = FALSE)
 names(resTbl)
 }
 \author{
