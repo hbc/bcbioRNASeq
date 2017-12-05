@@ -11,14 +11,16 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1,
-  genes = NULL, gene2symbol, ntop = 0, direction = "both",
+  genes = NULL, gene2symbol = TRUE, ntop = 0, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
+  histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, gene2symbol, ntop = 0, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
+  lfc = 1, genes = NULL, format = "ensgene", gene2symbol = TRUE,
+  ntop = 0, direction = "both", pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
+  labelColor = "black", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -31,11 +33,17 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{genes}{\emph{Optional}. Character vector of gene symbols to label.}
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.}
 
-\item{gene2symbol}{\emph{Optional}. Gene to symbol mappings \link{data.frame}. If left
-missing (default), then the \code{data.frame} will be prepared automatically
-from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{ntop}{Number of top genes to label.}
 
@@ -44,8 +52,6 @@ from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}.}
 \item{shadeColor}{Shading color for bounding box.}
 
 \item{shadeAlpha}{Shading transparency alpha.}
-
-\item{pointColor}{Point color.}
 
 \item{pointAlpha}{Point transparency alpha.}
 
@@ -61,14 +67,22 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-# DESeqResults
-res <- examples[["res"]]
-plotVolcano(res, genes = "Sulf1")
-
-# Using stashed gene2symbol mappings
 bcb <- examples[["bcb"]]
+res <- examples[["res"]]
+
+# Use a defined gene2symbol data.frame for better speed
 gene2symbol <- gene2symbol(bcb)
-plotVolcano(res, gene2symbol = gene2symbol)
+
+# Label the top genes
+plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+
+# Label specific genes
+genes <- rownames(res) \%>\% head()
+print(genes)
+plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
+
+# Label with Ensembl gene identifiers
+plotVolcano(res, ntop = 1, gene2symbol = FALSE)
 
 # data.frame
 df <- as.data.frame(res)

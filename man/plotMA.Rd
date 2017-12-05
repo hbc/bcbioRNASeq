@@ -7,29 +7,32 @@
 \alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
-\S4method{plotMA}{DESeqResults}(object, genes = NULL, format = "ensgene",
-  gene2symbol = NULL, color = "darkgray", sigColor = "red",
-  labelColor = "black")
+\S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = TRUE,
+  pointColor = "darkgray", sigPointColor = "red", labelColor = "black")
 
 \S4method{plotMA}{data.frame}(object, alpha = 0.01, genes = NULL,
-  format = "ensgene", gene2symbol = NULL, color = "darkgray",
-  sigColor = "red", labelColor = "black", title = NULL)
+  gene2symbol = TRUE, pointColor = "darkgray", sigPointColor = "purple",
+  labelColor = "black", title = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\emph{Optional}. Genes to label on the plot.}
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.}
 
-\item{format}{Gene identifier format (\code{ensgene} or \code{symbol}) used for
-matching.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
-\item{gene2symbol}{Gene to symbol \link{data.frame} that defines
-identifier mappings. Required if \code{genes} is defined.}
+\item{pointColor}{Default point color for the plot.}
 
-\item{color}{Default point color for the plot.}
-
-\item{sigColor}{Color for points corresponding to significant genes that have
-passed alpha level cutoffs.}
+\item{sigPointColor}{Color for points corresponding to significant genes that
+have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
@@ -46,19 +49,18 @@ Plot Mean Average
 \examples{
 bcb <- examples[["bcb"]]
 res <- examples[["res"]]
+genes <- rownames(res) \%>\% head(n = 4)
+print(genes)
 gene2symbol <- gene2symbol(bcb)
 
 # DESeqResults
-plotMA(
-    res,
-    genes = "ENSMUSG00000016918",
-    format = "ensgene",
-    gene2symbol = gene2symbol)
-plotMA(
-    res,
-    genes = "Sulf1",
-    format = "symbol",
-    gene2symbol = gene2symbol)
+plotMA(res, genes = genes, gene2symbol = TRUE)
+
+# Use a stashed gene2symbol data.frame
+plotMA(res, genes = genes, gene2symbol = gene2symbol)
+
+# Label the Ensembl gene identifiers instead of symbols
+plotMA(res, genes = genes, gene2symbol = FALSE)
 
 # data.frame
 df <- as.data.frame(res)

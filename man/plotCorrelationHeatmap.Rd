@@ -41,10 +41,11 @@ plot.}
 
 \item{title}{\emph{Optional}. Plot title.}
 
-\item{color}{Colors to use for plot. Defaults to \code{\link[=inferno]{inferno()}} palette.}
-
-\item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
+\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
 palette.}
+
+\item{legendColor}{Colors to use for legend labels. Defaults to the
+\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
 }
 \value{
 Graphical output only.

@@ -9,8 +9,8 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable,
-  write = TRUE, summary = TRUE, headerLevel = 3,
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
+  summary = TRUE, headerLevel = 3, write = FALSE,
   dir = file.path("results", "differential_expression"), quiet = FALSE)
 }
 \arguments{
@@ -24,17 +24,20 @@ See \code{\link[=results]{results()}} for additional information about using \co
 \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.}
 
-\item{annotable}{\emph{Optional}. Use a pre-saved Ensembl annotations
-\link{data.frame}. If left missing, the function will attempt to load from
-Ensembl by matching the organism from the first gene identifier in the
-rownames. Alternatively, this can be left \code{NULL}, and no gene annotations
-will be added to the results.}
-
-\item{write}{Write CSV files to disk.}
+\item{annotable}{Join Ensembl gene annotations to the results. Apply gene
+identifier to symbol mappings. If \code{TRUE}, the function will attempt to
+detect the organism from the gene identifiers (rownames; "ensgene" column)
+and automatically obtain the latest annotations from Ensembl using
+\code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then gene annotations will
+not be added to the results. This is useful when working with a poorly
+annotated genome. Alternatively, a previously saved annotable \link{data.frame}
+can be passed in.}
 
 \item{summary}{Show summary statistics as a Markdown list.}
 
 \item{headerLevel}{Markdown header level.}
+
+\item{write}{Write CSV files to disk.}
 
 \item{dir}{Directory path where to write files.}
 
