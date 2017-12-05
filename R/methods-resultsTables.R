@@ -12,11 +12,14 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
-#' @param annotable *Optional*. Use a pre-saved Ensembl annotations
-#'   [data.frame]. If left missing, the function will attempt to load from
-#'   Ensembl by matching the organism from the first gene identifier in the
-#'   rownames. Alternatively, this can be left `NULL`, and no gene annotations
-#'   will be added to the results.
+#' @param annotable Join Ensembl gene annotations to the results. Apply gene
+#'   identifier to symbol mappings. If `TRUE`, the function will attempt to
+#'   detect the organism from the gene identifiers (rownames; "ensgene" column)
+#'   and automatically obtain the latest annotations from Ensembl using
+#'   [basejump::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
+#'   not be added to the results. This is useful when working with a poorly
+#'   annotated genome. Alternatively, a previously saved annotable [data.frame]
+#'   can be passed in.
 #' @param summary Show summary statistics as a Markdown list.
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
@@ -82,10 +85,10 @@ NULL
 .resultsTablesDESeqResults <- function(
     object,
     lfc = 0,
-    annotable,
-    write = TRUE,
+    annotable = TRUE,
     summary = TRUE,
     headerLevel = 3,
+    write = FALSE,
     dir = file.path("results", "differential_expression"),
     quiet = FALSE) {
     contrast <- .resContrastName(object)
@@ -101,14 +104,19 @@ NULL
         camel(strict = FALSE) %>%
         arrange(!!sym("ensgene"))
 
-    if (missing(annotable)) {
+    # Add Ensembl gene annotations (annotable), if desired
+    if (isTRUE(annotable)) {
         # Match genome against the first gene identifier by default
-        organism <- rownames(object)[[1]] %>%
+        organism <- rownames(object) %>%
+            .[[1]] %>%
             detectOrganism()
-        annotable <- basejump::annotable(organism, quiet = quiet)
+        annotable <- annotable(organism, quiet = quiet)
     }
-
     if (!is.null(annotable)) {
+        checkAnnotable(annotable)
+        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
+        # save when `write = TRUE`.
+        annotable <- sanitizeAnnotable(annotable)
         all <- left_join(all, annotable, by = "ensgene")
     }
 
@@ -155,19 +163,6 @@ NULL
         degLFCUpFile = degLFCUpFile,
         degLFCDownFile = degLFCDownFile)
 
-    if (isTRUE(write)) {
-        # Write the CSV files
-        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-
-        write_csv(all, file.path(dir, allFile))
-        write_csv(deg, file.path(dir, degFile))
-        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
-        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
-
-        # Output file information in Markdown format
-        .mdResultsTables(resTbl, dir)
-    }
-
     if (isTRUE(summary)) {
         if (!is.null(headerLevel)) {
             mdHeader(
@@ -185,6 +180,19 @@ NULL
               paste("deg lfc up:", nrow(degLFCUp), "genes"),
               paste("deg lfc down:", nrow(degLFCDown), "genes")),
             asis = TRUE)
+    }
+
+    if (isTRUE(write)) {
+        # Write the CSV files
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+
+        write_csv(all, file.path(dir, allFile))
+        write_csv(deg, file.path(dir, degFile))
+        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
+        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+
+        # Output file information in Markdown format
+        .mdResultsTables(resTbl, dir)
     }
 
     resTbl
