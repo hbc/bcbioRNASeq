@@ -109,7 +109,6 @@ NULL
     }
 
     if (!is.null(annotable)) {
-        annotable <- sanitizeAnnotable(annotable)
         all <- left_join(all, annotable, by = "ensgene")
     }
 
