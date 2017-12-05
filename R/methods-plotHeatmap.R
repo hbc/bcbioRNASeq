@@ -39,35 +39,26 @@
 #' genes <- counts(bcb)[1:20, ] %>% rownames()
 #' plotHeatmap(bcb, genes = genes)
 #'
-#' # Flip the plot and legend palettes
+#' # Use inferno color palette
 #' plotHeatmap(
 #'     bcb,
 #'     genes = genes,
-#'     color = viridis(256),
-#'     legendColor = inferno)
+#'     color = viridis::inferno(256),
+#'     legendColor = viridis::inferno)
 #'
-#' # Use default pheatmap color palette
+#' # Transcriptome heatmap with default pheatmap colors
 #' plotHeatmap(
 #'     bcb,
 #'     color = NULL,
 #'     legendColor = NULL)
 #'
-#' # Transcriptome heatmap (CPU intensive)
-#' \dontrun{
-#' plotHeatmap(bcb)
-#' }
-#'
 #' # DESeqDataSet
-#' \dontrun{
 #' dds <- examples[["dds"]]
 #' plotHeatmap(dds)
-#' }
 #'
 #' # DESeqTransform
-#' \dontrun{
 #' rld <- examples[["rld"]]
 #' plotHeatmap(rld)
-#' }
 NULL
 
 

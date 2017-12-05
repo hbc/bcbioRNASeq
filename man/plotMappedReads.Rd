@@ -56,10 +56,8 @@ plotMappedReads(
     fill = NULL)
 
 # data.frame
-\dontrun{
 metrics <- examples[["metrics"]]
 plotMappedReads(metrics)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

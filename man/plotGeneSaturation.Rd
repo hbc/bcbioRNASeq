@@ -59,11 +59,10 @@ plotGeneSaturation(
     color = NULL)
 
 # data.frame, matrix
-\dontrun{
 metrics <- examples[["metrics"]]
 rld <- examples[["rld"]]
-plotGeneSaturation(metrics, counts = assay(rld))
-}
+counts <- assay(rld)
+plotGeneSaturation(metrics, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

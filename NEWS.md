@@ -1,3 +1,27 @@
+# bcbioRNASeq 0.1.3 (2017-12-03)
+
+- Combined examples (`bcb`, `dds`, `res`, etc.) into a single `examples` object. This helps avoid accidental use of example `bcb` in an analysis.
+- Moved ggplot imports from `internal-ggplot.R` to above each function.
+- Renamed `maxSamples` parameter in `loadRNASeq()` to `transformationLimit`. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, `rlog` and `vst` will not be slotted into `assays()`.
+- Added a colData sanitization step in `loadRNASeq()` to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the `DESeqDataSetFromTximport()` step. We're also ensuring the factor levels get updated here.
+- Now using `glimpse()` instead of `str()` in examples, where applicable.
+- Added `colData<-` assignment method support. This requires a `DataFrame` class object. Upon assignment, the internal colData at `bcbio(object, "DESeqDataSet")`, `assays(object)[["rlog"]]` and `assays(object)[["vst"]]` are also updated to match.
+- Initial assignment support for `design`, which will update the internal DESeqDataSet.
+- Added method support for `gene2symbol()` generic, which will now return a 2 column `data.frame` with `ensgene` and `symbol` columns. This is helpful for downstream gene to symbol mapping operations.
+- Added working example for `interestingGroups<-` in the documentation.
+- Added some code to improve factor releveling, where applicable. See `internal-meltLog10.R` for example.
+- Now explicitly defining the custom color palettes (e.g. `viridis::scale_fill_viridis(discrete = TRUE)`. This makes it clearer to the user in the documentation where these palettes are located.
+- Improved axis label support in `plotGene()`.
+- `plotHeatmap()` now uses internal `gene2symbol` mappings from stashed annotable, instead of always querying Ensembl. The user can define custom mappings with the `gene2symbol` argument, if desired.
+- `plotPCA()` now supports custom color palettes. The `shapes` parameter has been removed because it doesn't work well and is limited to datasets with few samples. This behavior matches the PCA functionality in DESeq2.
+- Improved internal code for `plotVolcano()`. Added support for `gene2symbol` argument, like in `plotHeatmap()`. If left missing, the function will query Ensembl for the gene2symbol mappings. We're now using `data` instead of `stats` as the main data source.
+- Improved legibility of subset method code.
+- Added some additional reexports, which are used for the package documentation and website.
+- Simplified legacy object coercion method code.
+- Updated Bioconductor installation method code. We're now using the `dependencies` argument, which allows for automatic install of suggested packages along with imports.
+
+
+
 # bcbioRNASeq 0.1.2 (2017-11-08)
 
 - Updated package imports to match Bioconductor 3.6.

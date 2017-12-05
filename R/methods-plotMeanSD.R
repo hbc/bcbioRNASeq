@@ -24,10 +24,8 @@
 #' plotMeanSD(bcb, orientation = "vertical")
 #'
 #' # DESeqDataSet
-#' \dontrun{
 #' dds <- examples[["dds"]]
-#' plotMeanSD(dds)
-#' }
+#' plotMeanSD(dds, orientation = "horizontal")
 NULL
 
 

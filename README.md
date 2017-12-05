@@ -54,10 +54,21 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 
 
+## Citation
+
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.](https://f1000research.com/articles/6-1976/v1) *F1000Research* 6:1976.
+
+
+## References
+
+The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
+
+
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [Bioconductor]: https://bioconductor.org
 [DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [devtools]: https://cran.r-project.org/package=devtools
+[Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com

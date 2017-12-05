@@ -127,17 +127,23 @@ tool when plotting counts per gene.</p>
 #&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
 #&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
 #&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
-# DESeqDataSet
-</div><span class='co'># NOT RUN {</span>
+<span class='co'># DESeqDataSet</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
-<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()
-<span class='co'># }</span><div class='input'>
-# matrix
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>assay</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>summary</span>()
-<span class='co'># }</span></pre>
+<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
+#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
+#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
+#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0  
+#&gt;  Mean   :  1415.64   Mean   :  2202.6   Mean   :  2084.6   Mean   :  2366  
+#&gt;  3rd Qu.:    19.75   3rd Qu.:    17.3   3rd Qu.:    19.2   3rd Qu.:    17  
+#&gt;  Max.   :310393.35   Max.   :367094.0   Max.   :368116.4   Max.   :387262  </div><div class='input'>
+<span class='co'># matrix</span>
+<span class='fu'>assay</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
+#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
+#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
+#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
+#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
+#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

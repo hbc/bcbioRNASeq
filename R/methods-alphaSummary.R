@@ -28,10 +28,8 @@
 #' # DESeqDataSet
 #' dds <- examples[["dds"]]
 #' alphaSummary(dds)
-#' \dontrun{
 #' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 #' alphaSummary(dds, name = "group_ko_vs_ctrl")
-#' }
 NULL
 
 

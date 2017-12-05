@@ -37,13 +37,13 @@
 #' # Spearman correlation
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 #'
-#' # Flip the palettes used for plot and legend
+#' # Inferno palette
 #' plotCorrelationHeatmap(
 #'     bcb,
-#'     color = viridis(256),
-#'     legendColor = inferno)
+#'     color = viridis::inferno(256),
+#'     legendColor = viridis::inferno)
 #'
-#' # Default pheatmap palette
+#' # Default pheatmap colors
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = NULL,

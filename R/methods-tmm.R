@@ -20,15 +20,11 @@
 #' tmm(bcb) %>% summary()
 #'
 #' # DESeqDataSet
-#' \dontrun{
 #' dds <- examples[["dds"]]
 #' tmm(dds) %>% summary()
-#' }
 #'
 #' # matrix
-#' \dontrun{
 #' assay(bcb) %>% tmm() %>% summary()
-#' }
 NULL
 
 

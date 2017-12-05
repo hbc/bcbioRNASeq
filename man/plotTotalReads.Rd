@@ -56,10 +56,8 @@ plotTotalReads(
     fill = NULL)
 
 # data.frame
-\dontrun{
 metrics <- examples[["metrics"]]
 plotTotalReads(metrics)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

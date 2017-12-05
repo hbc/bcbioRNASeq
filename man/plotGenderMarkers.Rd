@@ -71,10 +71,8 @@ plotGenderMarkers(
     color = NULL)
 
 # DESeqDataSet
-\dontrun{
 dds <- bcbio(bcb, "DESeqDataSet")
 plotGenderMarkers(dds)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

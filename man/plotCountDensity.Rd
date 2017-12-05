@@ -64,10 +64,8 @@ plotCountDensity(
     fill = NULL)
 
 # data.frame
-\dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\%
-    plotCountDensity()
-}
+df <- meltLog10(bcb, normalized = "tmm")
+plotCountDensity(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

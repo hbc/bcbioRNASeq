@@ -4,7 +4,7 @@
 \name{bcbioRNADataSet-class}
 \alias{bcbioRNADataSet-class}
 \alias{bcbioRNADataSet}
-\title{\code{bcbioRNADataSet}}
+\title{bcbioRNADataSet Legacy Object Class}
 \description{
 This class has been superceded by \link{bcbioRNASeq} and will be formally
 deprecated in a future release.

@@ -53,10 +53,8 @@ plot53Bias(
     fill = NULL)
 
 # data.frame
-\dontrun{
 metrics <- examples[["metrics"]]
 plot53Bias(metrics)
-}
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},

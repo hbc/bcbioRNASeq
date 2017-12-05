@@ -66,16 +66,13 @@ res <- examples[["res"]]
 plotVolcano(res, genes = "Sulf1")
 
 # Using stashed gene2symbol mappings
-\dontrun{
 bcb <- examples[["bcb"]]
 gene2symbol <- gene2symbol(bcb)
 plotVolcano(res, gene2symbol = gene2symbol)
-}
 
-\dontrun{
 # data.frame
-plotVolcano(as.data.frame(res))
-}
+df <- as.data.frame(res)
+plotVolcano(df)
 }
 \seealso{
 This function is an updated variant of

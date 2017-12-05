@@ -32,10 +32,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
 #' metrics <- examples[["metrics"]]
 #' plotTotalReads(metrics)
-#' }
 NULL
 
 

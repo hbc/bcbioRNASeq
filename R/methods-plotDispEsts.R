@@ -24,13 +24,13 @@
 #' @examples
 #' bcb <- examples[["bcb"]]
 #' plotDispEsts(bcb)
-#' \dontrun{
+#'
+#' # Custom colors
 #' plotDispEsts(
 #'     bcb,
 #'     genecol = "gray",
 #'     fitcol = "purple",
 #'     finalcol = "orange")
-#' }
 NULL
 
 

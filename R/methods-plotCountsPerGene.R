@@ -18,10 +18,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>%
-#'     plotCountsPerGene()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountsPerGene(df)
 NULL
 
 

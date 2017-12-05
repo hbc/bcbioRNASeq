@@ -45,11 +45,9 @@
 #'     color = NULL)
 #'
 #' # Gene identifiers
-#' \dontrun{
 #' ensgene <- rowData(bcb)[["ensgene"]][1:4]
 #' print(ensgene)
 #' plotGene(bcb, gene = ensgene, format = "ensgene")
-#' }
 NULL
 
 
