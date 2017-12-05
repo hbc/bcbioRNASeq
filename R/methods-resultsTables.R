@@ -12,21 +12,27 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
+#' @param annotable *Optional*. Use a pre-saved Ensembl annotations
+#'   [data.frame]. If left missing, the function will attempt to load from
+#'   Ensembl by matching the organism from the first gene identifier in the
+#'   rownames. Alternatively, this can be left `NULL`, and no gene annotations
+#'   will be added to the results.
 #' @param summary Show summary statistics as a Markdown list.
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
-#' @param organism *Optional*. Override automatic genome detection. By
-#'   default the function matches the genome annotations based on the first
-#'   Ensembl gene identifier row in the object. If a custom FASTA spike-in
-#'   is provided, then this may need to be manually set.
 #'
-#' @return Results list.
+#' @return Results [list].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
-#' resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
-#' class(resTbl)
+#' annotable <- annotable(bcb)
+#' resTbl <- resultsTables(
+#'     res,
+#'     lfc = 0.25,
+#'     annotable = annotable,
+#'     write = FALSE)
 #' names(resTbl)
 NULL
 
@@ -76,52 +82,56 @@ NULL
 .resultsTablesDESeqResults <- function(
     object,
     lfc = 0,
+    annotable,
     write = TRUE,
     summary = TRUE,
     headerLevel = 3,
     dir = file.path("results", "differential_expression"),
-    organism = NULL,
     quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
 
-    # Alpha level, from [DESeqResults]
+    # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]
-
-    # Match genome against the first gene identifier by default
-    if (is.null(organism)) {
-        organism <- rownames(object)[[1]] %>%
-            detectOrganism()
-    }
-    anno <- annotable(organism, quiet = quiet)
 
     all <- object %>%
         as.data.frame() %>%
         rownames_to_column("ensgene") %>%
         as("tibble") %>%
         camel(strict = FALSE) %>%
-        left_join(anno, by = "ensgene") %>%
         arrange(!!sym("ensgene"))
+
+    if (missing(annotable)) {
+        # Match genome against the first gene identifier by default
+        organism <- rownames(object)[[1]] %>%
+            detectOrganism()
+        annotable <- basejump::annotable(organism, quiet = quiet)
+    }
+
+    if (!is.null(annotable)) {
+        annotable <- .sanitizeAnnotable(annotable)
+        all <- left_join(all, annotable, by = "ensgene")
+    }
 
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0, ]
+        .[.[["baseMean"]] > 0, , drop = FALSE]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1, ]
+        .[.[["baseMean"]] > 1, , drop = FALSE]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
-        .[!is.na(.[["padj"]]), ] %>%
-        .[.[["padj"]] < alpha, ] %>%
+        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+        .[.[["padj"]] < alpha, , drop = FALSE] %>%
         arrange(!!sym("padj"))
     degLFC <- deg %>%
         .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, ]
+              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0, ]
+        .[.[["log2FoldChange"]] > 0, , drop = FALSE]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0, ]
+        .[.[["log2FoldChange"]] < 0, , drop = FALSE]
 
     # File paths
     allFile <- paste(fileStem, "all.csv.gz", sep = "_")

@@ -11,8 +11,14 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
-#' resTbl <- resultsTables(res, write = FALSE)
+#' annotable <- annotable(bcb)
+#' resTbl <- resultsTables(
+#'     res,
+#'     annotable = annotable,
+#'     summary = FALSE,
+#'     write = FALSE)
 #' topTables(resTbl)
 NULL
 
@@ -25,10 +31,24 @@ NULL
 #' @importFrom tibble remove_rownames
 .subsetTop <- function(df, n, coding) {
     if (isTRUE(coding)) {
+        if (!"broadClass" %in% colnames(df)) {
+            stop("'coding = TRUE' argument requires 'broadClass' column",
+                 call. = FALSE)
+        }
         df <- df %>%
             .[.[["broadClass"]] == "coding", , drop = FALSE]
     }
-    df <- df %>%
+    if (!nrow(df) | !is.data.frame(df)) {
+        return(NULL)
+    }
+    keepCols <- c(
+        "ensgene",
+        "baseMean",
+        "lfc",
+        "padj",
+        "symbol",
+        "description")
+    df %>%
         head(n = n) %>%
         rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
@@ -41,12 +61,7 @@ NULL
                 pattern = " \\[.+\\]$",
                 replacement = "")
         ) %>%
-        .[, c("ensgene",
-              "baseMean",
-              "lfc",
-              "padj",
-              "symbol",
-              "description")] %>%
+        .[, which(colnames(.) %in% keepCols)] %>%
         remove_rownames() %>%
         fixNA()
 }
