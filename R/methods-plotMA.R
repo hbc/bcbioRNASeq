@@ -10,22 +10,35 @@
 #' @importFrom BiocGenerics plotMA
 #'
 #' @param alpha Alpha level cutoff (Adjusted P value).
-#' @param labelPoints *Optional*. Label these particular points.
-#' @param labelColumn Match `labelPoints` argument to this column in the
-#'   results.
-#' @param pointColorScale Point color scale. See
-#'   [ggplot2::scale_color_manual()] for more information.
+#' @param genes *Optional*. Genes to label on the plot.
+#' @param format Gene identifier format (`ensgene` or `symbol`) used for
+#'   matching.
+#' @param gene2symbol Gene to symbol [data.frame] that defines
+#'   identifier mappings. Required if `genes` is defined.
+#' @param color Default point color for the plot.
+#' @param sigColor Color for points corresponding to significant genes that have
+#'   passed alpha level cutoffs.
 #' @param labelColor Text label color.
-#' @param title Plot title.
+#' @param title *Optional*. Plot title.
 #'
 #' @return [ggplot].
 #'
 #' @examples
+#' bcb <- examples[["bcb"]]
 #' res <- examples[["res"]]
-#' genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
+#' gene2symbol <- gene2symbol(bcb)
 #'
 #' # DESeqResults
-#' plotMA(res, labelPoints = genes)
+#' plotMA(
+#'     res,
+#'     genes = "ENSMUSG00000016918",
+#'     format = "ensgene",
+#'     gene2symbol = gene2symbol)
+#' plotMA(
+#'     res,
+#'     genes = "Sulf1",
+#'     format = "symbol",
+#'     gene2symbol = gene2symbol)
 #'
 #' # data.frame
 #' \dontrun{
@@ -43,22 +56,28 @@ NULL
 #'   scale_color_manual scale_x_log10
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
-#' @importFrom tibble rownames_to_column
+#' @importFrom tibble as_tibble rownames_to_column
 .plotMA <- function(
     object,
     alpha = 0.01,
-    labelPoints = NULL,
-    labelColumn = "ensgene",
-    pointColorScale = c("darkgray", "red"),
+    genes = NULL,
+    format = "ensgene",
+    gene2symbol = NULL,
+    color = "darkgray",
+    sigColor = "red",
     labelColor = "black",
-    title = TRUE) {
-    results <- object %>%
-        as.data.frame() %>%
+    title = NULL) {
+    validFormat <- c("ensgene", "symbol")
+    if (!format %in% validFormat) {
+        stop(paste("format:", toString(validFormat)), call. = FALSE)
+    }
+    data <- object %>%
         rownames_to_column("ensgene") %>%
+        as_tibble() %>%
         camel(strict = FALSE) %>%
         filter(!is.na(.data[["padj"]]))
     p <- ggplot(
-        results,
+        data,
         mapping = aes_(
             x = ~baseMean,
             y = ~log2FoldChange,
@@ -68,32 +87,46 @@ NULL
         scale_x_log10() +
         annotation_logticks(sides = "b") +
         guides(color = FALSE) +
-        labs(x = "mean expression across all samples",
+        labs(title = title,
+             x = "mean expression across all samples",
              y = "log2 fold change")
-    if (isTRUE(title)) {
-        p <- p + ggtitle("ma")
-    } else if (is.character(title)) {
-        p <- p + ggtitle(paste("ma:", title))
+    if (!is.null(color) & !is.null(sigColor)) {
+        # `FALSE`: Genes that don't pass alpha
+        # `TRUE`: Significant genes that do pass alpha
+        p <- p +
+            scale_color_manual(
+                values = c("FALSE" = color,
+                           "TRUE" = sigColor))
     }
-    if (!is.null(pointColorScale)) {
-        p <- p + scale_color_manual(values = pointColorScale)
-    }
-    if (!is.null(labelPoints)) {
-        labels <- results %>%
-            .[.[[labelColumn]] %in% labelPoints, , drop = FALSE]
+    if (!is.null(genes)) {
+        if (!is.data.frame(gene2symbol)) {
+            stop("'gene2symbol' data.frame required when 'genes' is defined",
+                 call. = FALSE)
+        }
+        if (!all(colnames(gene2symbol) %in% validFormat)) {
+            stop(paste(
+                "'gene2symbol' must contain:", toString(validFormat)
+            ), call. = FALSE)
+        }
+        data <- left_join(data, gene2symbol, by = "ensgene")
+        labels <- data %>%
+            .[.[[format]] %in% genes, , drop = FALSE]
+        if (!nrow(labels)) {
+            stop("Failed to label any gene identifiers")
+        }
         p <- p +
             geom_text_repel(
                 data = labels,
-                aes_(x = ~baseMean,
-                     y = ~log2FoldChange,
-                     label = as.name(labelColumn)),
+                aes_string(x = "baseMean",
+                     y = "log2FoldChange",
+                     label = "symbol"),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
                 force = 1,
                 point.padding = unit(0.75, "lines"),
-                segment.color = "gray",
+                segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
                 size = 4)
@@ -113,21 +146,23 @@ setMethod(
     signature("DESeqResults"),
     function(
         object,
-        labelPoints = NULL,
-        labelColumn = "ensgene",
-        pointColorScale = c("darkgray", "red"),
+        genes = NULL,
+        format = "ensgene",
+        gene2symbol = NULL,
+        color = "darkgray",
+        sigColor = "red",
         labelColor = "black") {
-        alpha <- metadata(object)[["alpha"]]
-        title <- .resContrastName(object)
         .plotMA(
-            object,
-            labelPoints = labelPoints,
-            labelColumn = labelColumn,
-            pointColorScale = pointColorScale,
+            object = as.data.frame(object),
+            alpha = metadata(object)[["alpha"]],
+            genes = genes,
+            format = format,
+            gene2symbol = gene2symbol,
+            color = color,
+            sigColor = sigColor,
             labelColor = labelColor,
-            # Automatic
-            alpha = alpha,
-            title = title)
+            title = .resContrastName(object)
+        )
     })
 
 
