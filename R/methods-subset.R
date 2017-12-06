@@ -36,37 +36,11 @@ NULL
 
 
 # Constructors ====
-#' Create DDS
-#'
-#' This operation must be placed outside of the S4 method dispatch. Otherwise,
-#' the resulting subset object will be ~2X the expected size on disk when
-#' saving, for an unknown reason.
-#'
-#' @noRd
-#'
-#' @importFrom DESeq2 DESeqDataSetFromTximport
-#' @importFrom stats formula
-.createDDS <- function(txi, colData) {
-    DESeqDataSetFromTximport(
-        txi = txi,
-        colData = colData,
-        design = formula(~1))
-}
-
-
-
-#' @importFrom DESeq2 DESeqTransform
-.subsetCounts <- function(counts, colData) {
-    se <- SummarizedExperiment(assays = counts, colData = colData)
-    DESeqTransform(se)
-}
-
-
-
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if
 #' @importFrom S4Vectors metadata SimpleList
+#' @importFrom tibble column_to_rownames rownames_to_column
 .subset <- function(x, i, j, ..., drop = FALSE) {
     if (missing(i)) {
         i <- 1:nrow(x)
@@ -79,10 +53,10 @@ NULL
     if (identical(dim(x), c(length(i), length(j)))) return(x)
 
     dots <- list(...)
-    if (is.null(dots[["maxSamples"]])) {
-        maxSamples <- 50
+    if (is.null(dots[["transformationLimit"]])) {
+        transformationLimit <- 50
     } else {
-        maxSamples <- dots[["maxSamples"]]
+        transformationLimit <- dots[["transformationLimit"]]
     }
     if (is.null(dots[["skipNorm"]])) {
         skipNorm <- FALSE
@@ -97,82 +71,85 @@ NULL
     genes <- rownames(se)
     samples <- colnames(se)
 
+    # Row Data =================================================================
     rowData <- rowData(se)
     if (!is.null(rowData)) {
         rownames(rowData) <- slot(se, "NAMES")
     }
+
+    # Column Data ==============================================================
+    # Better base R approach here to relevel factors?
     colData <- colData(se) %>%
         as.data.frame() %>%
+        rownames_to_column() %>%
         mutate_if(is.character, as.factor) %>%
         mutate_if(is.factor, droplevels) %>%
+        column_to_rownames() %>%
         as("DataFrame")
 
-    # Subset the tximport list
+    # bcbio ====================================================================
+    # tximport
     txi <- bcbio(x, "tximport")
     txi[["abundance"]] <- txi[["abundance"]][genes, samples]
     txi[["counts"]] <- txi[["counts"]][genes, samples]
     txi[["length"]] <- txi[["length"]][genes, samples]
 
-    # Obtain the counts from the updated tximport list
-    raw <- txi[["counts"]]
-    tmm <- .tmm(raw)
-    tpm <- txi[["abundance"]]
-
+    # DESeqDataSet
+    dds <- bcbio(x, "DESeqDataSet")
+    dds <- dds[genes, samples]
+    colData(dds) <- colData
     # Skip normalization option, for large datasets
-    if (isTRUE(skipNorm)) {
-        message("Skip re-normalization, just selecting samples and genes")
-        # Only way to avoid disk space issue.
-        # Direct subset of dds creates a huge file.
-        dds <- .createDDS(txi, colData) %>%
-            estimateSizeFactors()
-        vst <- .subsetCounts(counts(x, "vst")[i, j], colData)
-        rlog <- .subsetCounts(counts(x, "rlog")[i, j], colData)
-        normalized <- counts(x, "normalized")[i, j]
+    if (isTRUE(skipNorm) | nrow(colData) > transformationLimit) {
+        message("Skipping re-normalization, just selecting samples and genes")
+        dds <- estimateSizeFactors(dds)
+        vst <- NULL
+        rlog <- NULL
     } else {
-        # Fix for unexpected disk space issue (see constructor above)
-        dds <- .createDDS(txi, colData)
-        # DESeq2 will warn about empty design formula
+        # DESeq2 will warn about empty design formula, if set
         dds <- suppressWarnings(DESeq(dds))
-        normalized <- counts(dds, normalized = TRUE)
-    }
-
-    # Update rlog and vst data
-    if (nrow(colData) > maxSamples & !isTRUE(skipNorm)) {
-        message("Many samples detected...skipping count transformations")
-        rlog <- .subsetCounts(log2(tmm + 1), colData)
-        vst <- .subsetCounts(log2(tmm + 1), colData)
-    } else if (!isTRUE(skipNorm)) {
         message("Performing rlog transformation")
         rlog <- rlog(dds)
         message("Performing variance stabilizing transformation")
         vst <- varianceStabilizingTransformation(dds)
     }
 
-    # Update featureCounts
-    if (is.matrix(bcbio(x, "featureCounts"))) {
-        featureCounts <- bcbio(x, "featureCounts") %>%
-            .[genes, samples, drop = FALSE]
+    # featureCounts
+    featureCounts <- bcbio(x, "featureCounts")
+    if (is.matrix(featureCounts)) {
+        featureCounts <- featureCounts[genes, samples, drop = FALSE]
     } else {
         featureCounts <- NULL
     }
 
-    # Update metadata ====
-    metadata <- metadata(x)
-    metadata[["metrics"]] <- metadata[["metrics"]] %>%
-        .[.[["sampleID"]] %in% samples, , drop = FALSE]
-
-    # Return `bcbioRNASeq`
-    assays <- SimpleList(
-        raw = raw,
-        normalized = normalized,
-        tpm = tpm,
-        tmm = tmm,
-        rlog = rlog,
-        vst = vst)
     bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
         featureCounts = featureCounts)
+
+    # Assays ===================================================================
+    assays <- SimpleList(
+        raw = txi[["counts"]],
+        normalized = counts(dds, normalized = TRUE),
+        tpm = txi[["abundance"]],
+        tmm = tmm(raw),
+        rlog = rlog,
+        vst = vst)
+
+    # Metadata =================================================================
+    metadata <- metadata(x)
+    # Update version, if necessary
+    if (!identical(metadata[["version"]], packageVersion("bcbioRNASeq"))) {
+        metadata[["oldVersion"]] <- metadata[["version"]]
+        metadata[["version"]] = packageVersion("bcbioRNASeq")
+    }
+    metadata[["metrics"]] <- metadata[["metrics"]] %>%
+        .[.[["sampleID"]] %in% samples, , drop = FALSE] %>%
+        rownames_to_column() %>%
+        mutate_if(is.character, as.factor) %>%
+        mutate_if(is.factor, droplevels) %>%
+        column_to_rownames()
+
+    # Return ===================================================================
     new("bcbioRNASeq",
         SummarizedExperiment(
             assays = assays,
