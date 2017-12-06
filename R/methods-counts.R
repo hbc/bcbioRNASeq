@@ -65,7 +65,11 @@ setMethod(
 
         # Check for slot presence
         if (!slot %in% names(assays(object))) {
-            stop("Unsupported normalization method")
+            warning(paste(
+                paste0("'", slot, "'"),
+                "counts matrix not defined in 'assays()' slot"
+            ), call. = FALSE)
+            return(NULL)
         }
 
         counts <- assays(object)[[slot]]

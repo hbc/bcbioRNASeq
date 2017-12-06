@@ -38,12 +38,9 @@ bcb <- get(bcbName, inherits = FALSE)
 
 
 ```{r dds, results="hide"}
-# help("design", "DESeq2")
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = params$design) %>%
-    DESeq()
+dds <- bcbio(bcb, "DESeqDataSet")
+design(dds) <- params$design
+dds <- DESeq(dds)
 rld <- rlog(dds)
 ```
 

@@ -17,17 +17,26 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
-#' # DESeqResults, DESeqTransform
+#' bcb <- examples[["bcb"]]
+#' dds <- examples[["dds"]]
 #' res <- examples[["res"]]
 #' rld <- examples[["rld"]]
-#' plotDEGHeatmap(res, counts = rld)
+#'
+#' # Use our stashed gene2symbol for better speed
+#' gene2symbol <- gene2symbol(bcb)
+#'
+#' # DESeqResults, DESeqTransform
+#' plotDEGHeatmap(
+#'     res,
+#'     counts = rld,
+#'     gene2symbol = gene2symbol)
 #'
 #' # DESeqResults, DESeqDataSet
 #' # Using default ggplot2 colors
-#' dds <- examples[["dds"]]
 #' plotDEGHeatmap(
 #'     res,
 #'     counts = dds,
+#'     gene2symbol = gene2symbol,
 #'     color = NULL,
 #'     legendColor = NULL)
 NULL
@@ -86,11 +95,14 @@ setMethod(
         object,
         counts,
         lfc = 0,
+        title = TRUE,
         ...) {
         results <- as.data.frame(object)
         counts <- assay(counts)
         alpha <- metadata(object)[["alpha"]]
-        title <- .resContrastName(object)
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotDEGHeatmap(
             results = results,
             counts = counts,
@@ -120,7 +132,9 @@ setMethod(
         results <- as.data.frame(object)
         counts <- counts(counts, normalized = TRUE)
         alpha <- metadata(object)[["alpha"]]
-        title <- .resContrastName(object)
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotDEGHeatmap(
             results = results,
             counts = counts,

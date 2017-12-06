@@ -14,17 +14,25 @@
 #'
 #' @inheritParams AllGenerics
 #' @inheritParams basejump::gene2symbol
+#' @inheritParams counts
 #'
-#' @param genes Character vector of specific gene identifiers to plot.
-#' @param gene2symbol *Optional*. Gene to symbol mappings [data.frame]. If left
-#'   missing (default), then the `data.frame` will be prepared automatically
-#'   from Ensembl using [basejump::annotable()].
-#' @param annotationCol [data.frame] that specifies the annotations shown on the
-#'   right side of the heatmap. Each row of this [data.frame] defines the
-#'   features of the heatmap columns.
-#' @param color Colors to use for plot. Defaults to [inferno()] palette.
-#' @param legendColor Colors to use for legend labels. Defaults to [viridis()]
+#' @param genes *Optional*. Character vector of gene identifiers to plot. These
+#'   must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+#'   not the gene symbols.
+#' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
+#'   the function will attempt to automatically map gene identifiers to symbols
+#'   from Ensembl using [basejump::annotable()]. If set `FALSE`/`NULL`, then
+#'   gene2symbol mapping will be disabled. This is useful when working with a
+#'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
+#'   passed in, and must contain the columns `ensgene` and `symbol`. then the
+#'   Ensembl gene identifiers will be labeled in place of gene symbols.
+#' @param annotationCol *Optional*. [data.frame] that specifies the annotations
+#'   shown on the right side of the heatmap. Each row of this [data.frame]
+#'   defines the features of the heatmap columns.
+#' @param color Colors to use for plot. Defaults to the [viridis::viridis()]
 #'   palette.
+#' @param legendColor Colors to use for legend labels. Defaults to the
+#'   [viridis::viridis()] palette.
 #' @param title *Optional*. Plot title.
 #' @param ... Passthrough arguments to [pheatmap::pheatmap()].
 #'
@@ -35,7 +43,7 @@
 #' @examples
 #' bcb <- examples[["bcb"]]
 #'
-#' # Genes as Ensembl identifiers
+#' # Use Ensembl identifiers to define genes
 #' genes <- counts(bcb)[1:20, ] %>% rownames()
 #' plotHeatmap(bcb, genes = genes)
 #'
@@ -64,15 +72,16 @@ NULL
 
 
 # Constructors ====
+#' @importFrom basejump checkGene2symbol gene2symbol
 #' @importFrom dplyr mutate_all
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats setNames
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom viridis viridis
 .plotHeatmap <- function(
-    counts,
+    object,
     genes = NULL,
-    gene2symbol,
+    gene2symbol = TRUE,
     annotationCol = NULL,
     title = NULL,
     color = viridis::viridis(256),
@@ -80,11 +89,10 @@ NULL
     quiet = FALSE,
     scale = "row",
     ...) {
-    if (!is.matrix(counts)) {
-        stop("Counts must be a matrix", call. = FALSE)
-    }
+    counts <- object
+    if (!is.matrix(counts)) return(NULL)
 
-    # Check for identifier mismatch. Do this before zero count subsetting.
+    # Check for missing genes
     if (!is.null(genes)) {
         if (!all(genes %in% rownames(counts))) {
             stop(paste(
@@ -94,14 +102,14 @@ NULL
         }
         counts <- counts %>%
             .[rownames(.) %in% genes, , drop = FALSE]
+    } else {
+        # Remove zero counts
+        counts <- counts %>%
+            .[rowSums(.) > 0, , drop = FALSE]
     }
 
-    # Subset zero counts
-    counts <- counts %>%
-        .[rowSums(.) > 0, , drop = FALSE]
-    if (!is.matrix(counts) |
-        nrow(counts) < 2) {
-        stop("Need at least 2 genes to cluster", call. = FALSE)
+    if (nrow(counts) < 2) {
+        stop("Need at least 2 genes to plot heatmap", call. = FALSE)
     }
 
     # Convert Ensembl gene identifiers to symbol names, if necessary
@@ -111,9 +119,10 @@ NULL
         showRownames <- FALSE
     }
     if (isTRUE(showRownames)) {
-        if (is.null(gene2symbol)) {
+        if (isTRUE(gene2symbol)) {
             counts <- gene2symbol(counts, quiet = quiet)
-        } else {
+        } else if (is.data.frame(gene2symbol)) {
+            checkGene2symbol(gene2symbol)
             # Remap the rownames to use the gene symbols
             remap <- gene2symbol %>%
                 .[rownames(counts), "symbol"] %>%
@@ -160,7 +169,7 @@ NULL
     }
 
     pheatmap(
-        counts,
+        mat = counts,
         annotation_col = annotationCol,
         annotation_colors = annotationColors,
         border_color = NA,
@@ -182,26 +191,26 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
+        normalized = "rlog",
         genes = NULL,
         title = NULL,
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
         quiet = FALSE,
         ...) {
-        counts <- counts(object, normalized = "rlog")
+        counts <- counts(object, normalized = normalized)
+        gene2symbol <- gene2symbol(object)
         interestingGroups <- interestingGroups(object)
         annotationCol <- colData(object) %>%
             .[, interestingGroups, drop = FALSE]
-        gene2symbol <- gene2symbol(object)
         .plotHeatmap(
-            counts = counts,
-            annotationCol = annotationCol,
-            gene2symbol = gene2symbol,
-            # User-defined ====
+            object = counts,
             genes = genes,
-            title = title,
+            gene2symbol = gene2symbol,
+            annotationCol = annotationCol,
             color = color,
             legendColor = legendColor,
+            title = title,
             quiet = quiet,
             ...)
     })
@@ -216,24 +225,24 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
+        normalized = TRUE,
         genes = NULL,
-        gene2symbol = NULL,
+        gene2symbol = TRUE,
         annotationCol = NULL,
-        title = NULL,
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
+        title = NULL,
         quiet = FALSE,
         ...) {
-        counts <- counts(object, normalized = TRUE)
+        counts <- counts(object, normalized = normalized)
         .plotHeatmap(
-            counts = counts,
-            # User-defined ====
+            object = counts,
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,
-            title = title,
             color = color,
             legendColor = legendColor,
+            title = title,
             quiet = quiet,
             ...)
     })
@@ -249,23 +258,22 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol = NULL,
+        gene2symbol = TRUE,
         annotationCol = NULL,
-        title = NULL,
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
+        title = NULL,
         quiet = FALSE,
         ...) {
         counts <- assay(object)
         .plotHeatmap(
-            counts = counts,
-            # User-defined ====
+            object = counts,
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,
-            title = title,
             color = color,
             legendColor = legendColor,
+            title = title,
             quiet = quiet,
             ...)
     })
@@ -278,25 +286,4 @@ setMethod(
 setMethod(
     "plotHeatmap",
     signature("matrix"),
-    function(
-        object,
-        genes = NULL,
-        gene2symbol = NULL,
-        annotationCol = NULL,
-        title = NULL,
-        color = viridis::viridis(256),
-        legendColor = viridis::viridis,
-        quiet = FALSE,
-        ...) {
-        .plotHeatmap(
-            counts = object,
-            # User-defined ====
-            genes = genes,
-            gene2symbol = gene2symbol,
-            annotationCol = annotationCol,
-            title = title,
-            color = color,
-            legendColor = legendColor,
-            quiet = quiet,
-            ...)
-    })
+    .plotHeatmap)

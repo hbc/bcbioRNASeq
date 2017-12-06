@@ -11,7 +11,7 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0, ...)
+  lfc = 0, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
   title = TRUE, ...)
@@ -37,17 +37,26 @@ the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also a
 function.
 }
 \examples{
-# DESeqResults, DESeqTransform
+bcb <- examples[["bcb"]]
+dds <- examples[["dds"]]
 res <- examples[["res"]]
 rld <- examples[["rld"]]
-plotDEGHeatmap(res, counts = rld)
+
+# Use our stashed gene2symbol for better speed
+gene2symbol <- gene2symbol(bcb)
+
+# DESeqResults, DESeqTransform
+plotDEGHeatmap(
+    res,
+    counts = rld,
+    gene2symbol = gene2symbol)
 
 # DESeqResults, DESeqDataSet
 # Using default ggplot2 colors
-dds <- examples[["dds"]]
 plotDEGHeatmap(
     res,
     counts = dds,
+    gene2symbol = gene2symbol,
     color = NULL,
     legendColor = NULL)
 }

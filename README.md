@@ -56,7 +56,7 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 
 ## Citation
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.](https://f1000research.com/articles/6-1976/v1) *F1000 Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.](https://f1000research.com/articles/6-1976/v1) *F1000Research* 6:1976.
 
 
 ## References

@@ -9,9 +9,9 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0, write = TRUE,
-  summary = TRUE, headerLevel = 3, dir = file.path("results",
-  "differential_expression"), organism = NULL, quiet = FALSE)
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
+  summary = TRUE, headerLevel = 3, write = FALSE,
+  dir = file.path("results", "differential_expression"), quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,31 +24,40 @@ See \code{\link[=results]{results()}} for additional information about using \co
 \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.}
 
-\item{write}{Write CSV files to disk.}
+\item{annotable}{Join Ensembl gene annotations to the results. Apply gene
+identifier to symbol mappings. If \code{TRUE}, the function will attempt to
+detect the organism from the gene identifiers (rownames; "ensgene" column)
+and automatically obtain the latest annotations from Ensembl using
+\code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then gene annotations will
+not be added to the results. This is useful when working with a poorly
+annotated genome. Alternatively, a previously saved annotable \link{data.frame}
+can be passed in.}
 
 \item{summary}{Show summary statistics as a Markdown list.}
 
 \item{headerLevel}{Markdown header level.}
 
-\item{dir}{Directory path where to write files.}
+\item{write}{Write CSV files to disk.}
 
-\item{organism}{\emph{Optional}. Override automatic genome detection. By
-default the function matches the genome annotations based on the first
-Ensembl gene identifier row in the object. If a custom FASTA spike-in
-is provided, then this may need to be manually set.}
+\item{dir}{Directory path where to write files.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
-Results list.
+Results \link{list}.
 }
 \description{
 Differential Expression Results Tables
 }
 \examples{
+bcb <- examples[["bcb"]]
 res <- examples[["res"]]
-resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
-class(resTbl)
+annotable <- annotable(bcb)
+resTbl <- resultsTables(
+    res,
+    lfc = 0.25,
+    annotable = annotable,
+    write = FALSE)
 names(resTbl)
 }
 \author{

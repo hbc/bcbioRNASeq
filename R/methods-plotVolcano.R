@@ -11,14 +11,12 @@
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
-#' @param genes *Optional*. Character vector of gene symbols to label.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
-#' @param shadeColor Shading color for bounding box.
-#' @param shadeAlpha Shading transparency alpha.
-#' @param pointColor Point color.
 #' @param pointAlpha Point transparency alpha.
 #' @param pointOutlineColor Point outline color.
+#' @param shadeColor Shading color for bounding box.
+#' @param shadeAlpha Shading transparency alpha.
 #' @param histograms Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
@@ -28,14 +26,22 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' # DESeqResults
-#' res <- examples[["res"]]
-#' plotVolcano(res, genes = "Sulf1")
-#'
-#' # Using stashed gene2symbol mappings
 #' bcb <- examples[["bcb"]]
+#' res <- examples[["res"]]
+#'
+#' # Use a defined gene2symbol data.frame for better speed
 #' gene2symbol <- gene2symbol(bcb)
-#' plotVolcano(res, gene2symbol = gene2symbol)
+#'
+#' # Label the top genes
+#' plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+#'
+#' # Label specific genes
+#' genes <- rownames(res) %>% head()
+#' print(genes)
+#' plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
+#'
+#' # Label with Ensembl gene identifiers
+#' plotVolcano(res, ntop = 1, gene2symbol = FALSE)
 #'
 #' # data.frame
 #' df <- as.data.frame(res)
@@ -48,7 +54,7 @@ NULL
 #' @importFrom basejump annotable camel
 #' @importFrom BiocGenerics density
 #' @importFrom cowplot draw_plot ggdraw
-#' @importFrom dplyr arrange desc left_join mutate
+#' @importFrom dplyr arrange desc left_join mutate pull
 #' @importFrom ggplot2 aes_string element_blank geom_density geom_point
 #'   geom_polygon geom_ribbon ggplot ggtitle scale_x_continuous theme
 #' @importFrom ggrepel geom_text_repel
@@ -62,21 +68,23 @@ NULL
     padj = TRUE,
     lfc = 1,
     genes = NULL,
-    gene2symbol,
+    format = "ensgene",
+    gene2symbol = TRUE,
     ntop = 0,
     direction = "both",
-    shadeColor = "green",
-    shadeAlpha = 0.25,
     pointColor = "gray",
     pointAlpha = 0.75,
     pointOutlineColor = "darkgray",
+    shadeColor = "green",
+    shadeAlpha = 0.25,
+    labelColor = "black",
     histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
         stop("Direction must be both, up, or down", call. = FALSE)
     }
 
-    # Generate data `tibble` ====
+    # Generate data `tibble`
     data <- object %>%
         rownames_to_column("ensgene") %>%
         as_tibble() %>%
@@ -89,11 +97,19 @@ NULL
         .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
         # Select columns used for plots
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
-    if (missing(gene2symbol)) {
-        gene2symbol <- detectOrganism(data[["ensgene"]][[1]]) %>%
-            annotable(format = "gene2symbol")
+    if (isTRUE(gene2symbol)) {
+        organism <- pull(data, "ensgene") %>%
+            .[[1]] %>%
+            detectOrganism()
+        gene2symbol <- annotable(organism, format = "gene2symbol")
     }
-    data <- left_join(data, gene2symbol, by = "ensgene")
+    if (is.data.frame(gene2symbol)) {
+        labelCol <- "symbol"
+        checkGene2symbol(gene2symbol)
+        data <- left_join(data, gene2symbol, by = "ensgene")
+    } else {
+        labelCol <- "ensgene"
+    }
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -103,11 +119,11 @@ NULL
             .[!is.na(.[["padj"]]), , drop = FALSE] %>%
             # log10 transform
             mutate(negLog10Pvalue = -log10(.data[["padj"]] + 1e-10))
-        pTitle <- "adj p value"
+        pvalTitle <- "adj p value"
     } else {
         data <- data %>%
             mutate(negLog10Pvalue = -log10(.data[["pvalue"]] + 1e-10))
-        pTitle <- "p value"
+        pvalTitle <- "p value"
     }
 
     # Calculate rank score
@@ -122,7 +138,7 @@ NULL
     # Text labels ====
     if (!is.null(genes)) {
         volcanoText <- data %>%
-            .[.[["symbol"]] %in% genes, , drop = FALSE]
+            .[.[["ensgene"]] %in% genes, , drop = FALSE]
     } else if (ntop > 0) {
         volcanoText <- data[1:ntop, , drop = FALSE]
     } else {
@@ -200,7 +216,7 @@ NULL
             fill = shadeColor,
             alpha = shadeAlpha
         ) +
-        labs(x = paste("-log10", pTitle),
+        labs(x = paste("-log10", pvalTitle),
              y = "") +
         # Don't label density y-axis
         theme(axis.text.y = element_blank(),
@@ -215,7 +231,7 @@ NULL
             y = "negLog10Pvalue")
     ) +
         labs(x = "log2 fold change",
-             y = paste("-log10", pTitle)) +
+             y = paste("-log10", pvalTitle)) +
         geom_point(
             alpha = pointAlpha,
             color = pointOutlineColor,
@@ -230,14 +246,14 @@ NULL
                 mapping = aes_string(
                     x = "log2FoldChange",
                     y = "negLog10Pvalue",
-                    label = "symbol"),
+                    label = labelCol),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
-                color = "black",
+                color = labelColor,
                 fontface = "bold",
                 force = 1,
                 point.padding = unit(0.75, "lines"),
-                segment.color = "gray",
+                segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
                 size = 4)
@@ -328,7 +344,7 @@ setMethod(
         padj = TRUE,
         lfc = 1,
         genes = NULL,
-        gene2symbol,
+        gene2symbol = TRUE,
         ntop = 0,
         direction = "both",
         shadeColor = "green",
@@ -336,6 +352,7 @@ setMethod(
         pointColor = "gray",
         pointAlpha = 0.75,
         pointOutlineColor = "darkgray",
+        labelColor = "black",
         histograms = TRUE) {
         if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
@@ -349,11 +366,12 @@ setMethod(
             gene2symbol = gene2symbol,
             ntop = ntop,
             direction = direction,
-            shadeColor = shadeColor,
-            shadeAlpha = shadeAlpha,
             pointColor = pointColor,
             pointAlpha = pointAlpha,
             pointOutlineColor = pointOutlineColor,
+            shadeColor = shadeColor,
+            shadeAlpha = shadeAlpha,
+            labelColor = labelColor,
             histograms = histograms)
     })
 
