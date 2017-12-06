@@ -137,11 +137,13 @@ NULL
 
     # Metadata =================================================================
     metadata <- metadata(x)
+    metadata[["subset"]] <- TRUE
     # Update version, if necessary
     if (!identical(metadata[["version"]], packageVersion("bcbioRNASeq"))) {
         metadata[["oldVersion"]] <- metadata[["version"]]
         metadata[["version"]] = packageVersion("bcbioRNASeq")
     }
+    # Metrics
     metadata[["metrics"]] <- metadata[["metrics"]] %>%
         .[.[["sampleID"]] %in% samples, , drop = FALSE] %>%
         rownames_to_column() %>%
