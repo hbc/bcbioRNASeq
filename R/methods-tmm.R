@@ -32,6 +32,7 @@ NULL
 # Constructors ====
 #' @importFrom edgeR calcNormFactors cpm DGEList
 .tmm <- function(object) {
+    message("Performing trimmed mean of M-values (TMM) normalization")
     object %>%
         as.matrix() %>%
         DGEList() %>%

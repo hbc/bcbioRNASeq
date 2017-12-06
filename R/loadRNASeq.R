@@ -196,7 +196,7 @@ loadRNASeq <- function(
     # tximport ====
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
     rawCounts <- txi[["counts"]]
-    tmm <- .tmm(rawCounts)
+    tmm <- tmm(rawCounts)
     tpm <- txi[["abundance"]]
 
     # colData ====
