@@ -71,13 +71,13 @@ NULL
     genes <- rownames(se)
     samples <- colnames(se)
 
-    # Row Data =================================================================
+    # Row data =================================================================
     rowData <- rowData(se)
     if (!is.null(rowData)) {
         rownames(rowData) <- slot(se, "NAMES")
     }
 
-    # Column Data ==============================================================
+    # Column data ==============================================================
     # Better base R approach here to relevel factors?
     colData <- colData(se) %>%
         as.data.frame() %>%
