@@ -139,9 +139,9 @@ NULL
     metadata <- metadata(x)
     metadata[["subset"]] <- TRUE
     # Update version, if necessary
-    if (!identical(metadata[["version"]], packageVersion("bcbioRNASeq"))) {
-        metadata[["oldVersion"]] <- metadata[["version"]]
-        metadata[["version"]] = packageVersion("bcbioRNASeq")
+    if (!identical(metadata[["version"]], packageVersion)) {
+        metadata[["originalVersion"]] <- metadata[["version"]]
+        metadata[["version"]] <- packageVersion
     }
     # Metrics
     metadata[["metrics"]] <- metadata[["metrics"]] %>%

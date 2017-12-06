@@ -29,7 +29,6 @@ NULL
 #' @noRd
 #'
 #' @importFrom S4Vectors metadata
-#' @importFrom utils packageVersion
 #'
 #' @return [bcbioRNASeq].
 .coerceLegacy <- function(from) {
@@ -42,7 +41,7 @@ NULL
         ), call. = FALSE)
     }
     message(paste(
-        paste("Upgrading from", version, "to", packageVersion("bcbioRNASeq")),
+        paste("Upgrading from", version, "to", packageVersion),
         paste("Existing metadata:", toString(names(metadata(from)))),
         sep = "\n"
     ))
@@ -54,7 +53,7 @@ NULL
     validObject(to)
 
     # Update the automatic metadata slots
-    metadata(to)[["version"]] <- packageVersion("bcbioRNASeq")
+    metadata(to)[["version"]] <- packageVersion
     metadata(to)[["originalVersion"]] <- metadata(from)[["version"]]
     metadata(to)[["upgradeDate"]] <- Sys.Date()
 
