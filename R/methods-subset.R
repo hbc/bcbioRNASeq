@@ -75,6 +75,9 @@ NULL
         j <- 1:ncol(x)
     }
 
+    # Early return if dimensions are unmodified
+    if (identical(dim(x), c(length(i), length(j)))) return(x)
+
     dots <- list(...)
     if (is.null(dots[["maxSamples"]])) {
         maxSamples <- 50
