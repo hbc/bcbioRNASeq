@@ -127,11 +127,15 @@ NULL
         featureCounts = featureCounts)
 
     # Assays ===================================================================
+    raw <- txi[["counts"]]
+    normalized <- counts(dds, normalized = TRUE)
+    tpm <- txi[["abundance"]]
+    tmm <- tmm(raw)
     assays <- SimpleList(
-        raw = txi[["counts"]],
-        normalized = counts(dds, normalized = TRUE),
-        tpm = txi[["abundance"]],
-        tmm = tmm(raw),
+        raw = raw,
+        normalized = normalized,
+        tpm = tpm,
+        tmm = tmm,
         rlog = rlog,
         vst = vst)
 
