@@ -13,10 +13,12 @@
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
+#' @param pointColor Point color.
 #' @param pointAlpha Point transparency alpha.
 #' @param pointOutlineColor Point outline color.
 #' @param shadeColor Shading color for bounding box.
 #' @param shadeAlpha Shading transparency alpha.
+#' @param labelColor Gene label color.
 #' @param histograms Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
@@ -68,7 +70,6 @@ NULL
     padj = TRUE,
     lfc = 1,
     genes = NULL,
-    format = "ensgene",
     gene2symbol = TRUE,
     ntop = 0,
     direction = "both",

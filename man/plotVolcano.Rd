@@ -17,8 +17,8 @@ plotVolcano(object, ...)
   histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, format = "ensgene", gene2symbol = TRUE,
-  ntop = 0, direction = "both", pointColor = "gray", pointAlpha = 0.75,
+  lfc = 1, genes = NULL, gene2symbol = TRUE, ntop = 0,
+  direction = "both", pointColor = "gray", pointAlpha = 0.75,
   pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
   labelColor = "black", histograms = TRUE)
 }
@@ -53,9 +53,13 @@ Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{shadeAlpha}{Shading transparency alpha.}
 
+\item{pointColor}{Point color.}
+
 \item{pointAlpha}{Point transparency alpha.}
 
 \item{pointOutlineColor}{Point outline color.}
+
+\item{labelColor}{Gene label color.}
 
 \item{histograms}{Show LFC and P value histograms.}
 }
