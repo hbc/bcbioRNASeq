@@ -1,4 +1,4 @@
-context("Internals")
+context("internal")
 
 test_that("tx2gene", {
     dataDir <- system.file(
