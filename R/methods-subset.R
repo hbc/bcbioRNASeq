@@ -44,11 +44,20 @@ NULL
 #' @importFrom S4Vectors metadata SimpleList
 #' @importFrom tibble column_to_rownames rownames_to_column
 .subset <- function(x, i, j, ..., drop = FALSE) {
+    # Genes (rows)
     if (missing(i)) {
         i <- 1:nrow(x)
     }
+    if (length(i) < 2) {
+        stop("At least 2 genes are required", call. = FALSE)
+    }
+
+    # Samples (columns)
     if (missing(j)) {
         j <- 1:ncol(x)
+    }
+    if (length(j) < 2) {
+        stop("At least 2 samples are required", call. = FALSE)
     }
 
     # Early return if dimensions are unmodified
@@ -97,6 +106,7 @@ NULL
     txi[["length"]] <- txi[["length"]][genes, samples]
 
     # DESeqDataSet
+    message("Updating internal DESeqDataSet")
     dds <- bcbio(x, "DESeqDataSet")
     dds <- dds[genes, samples]
     colData(dds) <- colData
@@ -129,13 +139,20 @@ NULL
         featureCounts = featureCounts)
 
     # Assays ===================================================================
+    raw <- txi[["counts"]]
+    normalized <- counts(dds, normalized = TRUE)
+    tpm <- txi[["abundance"]]
+    tmm <- tmm(raw)
     assays <- SimpleList(
-        raw = txi[["counts"]],
-        normalized = counts(dds, normalized = TRUE),
-        tpm = txi[["abundance"]],
-        tmm = tmm(raw),
+        raw = raw,
+        normalized = normalized,
+        tpm = tpm,
+        tmm = tmm,
         rlog = rlog,
         vst = vst)
+    # Drop `NULL` assay slots, if necessary. We need this step if rlog and vst
+    # transformations are skipped above.
+    assays <- Filter(Negate(is.null), assays)
 
     # Metadata =================================================================
     metadata <- metadata(x)
