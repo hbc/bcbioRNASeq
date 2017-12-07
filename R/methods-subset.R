@@ -17,8 +17,10 @@
 #'
 #' @examples
 #' bcb <- examples[["bcb"]]
-#' genes <- 1:50
-#' samples <- c("group1_1", "group1_2")
+#' genes <- rownames(bcb)[1:50]
+#' head(genes)
+#' samples <- colnames(bcb)[1:2]
+#' head(samples)
 #'
 #' # Subset by sample name
 #' bcb[, samples]
