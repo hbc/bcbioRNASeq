@@ -1,4 +1,4 @@
-#' Example Output from [bcbioRNASeq] Workflow
+#' Example Data
 #'
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @keywords internal
