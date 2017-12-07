@@ -1,4 +1,4 @@
-context("Deprecated Functions")
+context("deprecated")
 
 bcb <- examples[["bcb"]]
 
