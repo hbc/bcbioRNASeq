@@ -26,10 +26,14 @@ Character vector.
 Interesting Groups
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 interestingGroups(bcb)
 
 # Assignment support
-interestingGroups(bcb) <- "sampleName"
+interestingGroups(bcb) <- "sampleID"
 interestingGroups(bcb)
 }

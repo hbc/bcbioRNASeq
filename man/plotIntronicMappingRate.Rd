@@ -46,8 +46,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Intronic Mapping Rate
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotIntronicMappingRate(bcb)
 plotIntronicMappingRate(
     bcb,
@@ -55,8 +58,8 @@ plotIntronicMappingRate(
     fill = NULL)
 
 # data.frame
-metrics <- examples[["metrics"]]
-plotIntronicMappingRate(metrics)
+df <- metrics(bcb)
+plotIntronicMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

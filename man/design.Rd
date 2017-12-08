@@ -21,7 +21,11 @@ and fitting Negative Binomial GLMs}
 Design Formula Accessor
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 design(bcb)
 
 # Assignment support

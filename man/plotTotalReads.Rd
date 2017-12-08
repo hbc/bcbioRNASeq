@@ -47,8 +47,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Total Reads
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotTotalReads(bcb)
 plotTotalReads(
     bcb,
@@ -56,8 +59,8 @@ plotTotalReads(
     fill = NULL)
 
 # data.frame
-metrics <- examples[["metrics"]]
-plotTotalReads(metrics)
+df <- metrics(bcb)
+plotTotalReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

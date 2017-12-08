@@ -15,7 +15,11 @@
 Gene to Symbol Mappings
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 gene2symbol(bcb) \%>\% head()
 }
 \author{

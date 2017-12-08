@@ -58,10 +58,12 @@ input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-# Pearson correlation (default)
-plotCorrelationHeatmap(bcb)
+# Pearson correlation
+plotCorrelationHeatmap(bcb, method = "pearson")
 
 # Spearman correlation
 plotCorrelationHeatmap(bcb, method = "spearman")
@@ -72,7 +74,7 @@ plotCorrelationHeatmap(
     color = viridis::inferno(256),
     legendColor = viridis::inferno)
 
-# Default pheatmap colors
+# Default pheatmap palette
 plotCorrelationHeatmap(
     bcb,
     color = NULL,

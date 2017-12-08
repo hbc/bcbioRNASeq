@@ -45,8 +45,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Ribosomal RNA (rRNA) Mapping Rate
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotRRNAMappingRate(bcb)
 plotRRNAMappingRate(
     bcb,
@@ -55,8 +58,8 @@ plotRRNAMappingRate(
     warnLimit = NULL)
 
 # data.frame
-metrics <- examples[["metrics"]]
-plotRRNAMappingRate(metrics)
+df <- metrics(bcb)
+plotRRNAMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

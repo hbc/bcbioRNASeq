@@ -71,8 +71,12 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-bcb <- examples[["bcb"]]
-res <- examples[["res"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
 
 # Use a defined gene2symbol data.frame for better speed
 gene2symbol <- gene2symbol(bcb)
@@ -81,9 +85,9 @@ gene2symbol <- gene2symbol(bcb)
 plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
 
 # Label specific genes
-genes <- rownames(res) \%>\% head()
-print(genes)
-plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
+ensgene <- rownames(res) \%>\% head()
+print(ensgene)
+plotVolcano(res, genes = ensgene, gene2symbol = gene2symbol)
 
 # Label with Ensembl gene identifiers
 plotVolcano(res, ntop = 1, gene2symbol = FALSE)

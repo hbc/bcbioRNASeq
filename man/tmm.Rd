@@ -29,16 +29,20 @@ of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 tmm(bcb) \%>\% summary()
 
 # DESeqDataSet
-dds <- examples[["dds"]]
+dds <- bcbio(bcb, "DESeqDataSet")
 tmm(dds) \%>\% summary()
 
 # matrix
-assay(bcb) \%>\% tmm() \%>\% summary()
+counts <- counts(bcb)
+tmm(counts) \%>\% summary()
 }
 \author{
 Michael Steinbaugh

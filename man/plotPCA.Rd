@@ -43,9 +43,15 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 plotPCA(bcb, label = TRUE)
 plotPCA(bcb, label = FALSE)
+
+# Default ggplot color palette
 plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
 
 # Censor samples

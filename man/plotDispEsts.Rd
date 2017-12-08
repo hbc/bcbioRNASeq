@@ -23,10 +23,14 @@ which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 plotDispEsts(bcb)
 
-# Custom colors
+# Custom colors, using DESeq2 parameters
 plotDispEsts(
     bcb,
     genecol = "gray",

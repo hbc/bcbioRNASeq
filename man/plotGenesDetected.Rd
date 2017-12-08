@@ -57,8 +57,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Genes Detected
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotGenesDetected(
     bcb,
     passLimit = NULL,
@@ -71,15 +74,13 @@ plotGenesDetected(
     warnLimit = NULL)
 
 # data.frame, DESeqDataSet
-metrics <- examples[["metrics"]]
-dds <- examples[["dds"]]
-plotGenesDetected(metrics, counts = dds)
+df <- metrics(bcb)
+dds <- bcbio(bcb, "DESeqDataSet")
+plotGenesDetected(df, counts = dds)
 
 # data.frame, matrix
-metrics <- examples[["metrics"]]
-dds <- examples[["dds"]]
-counts <- assay(dds)
-plotGenesDetected(metrics, counts = counts)
+counts <- counts(bcb, normalized = TRUE)
+plotGenesDetected(df, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

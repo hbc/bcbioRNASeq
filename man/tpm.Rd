@@ -21,7 +21,11 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 tpm(bcb) \%>\% head()
 }
 \author{

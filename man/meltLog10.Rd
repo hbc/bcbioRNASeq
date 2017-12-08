@@ -32,16 +32,23 @@ log10 melted \link{data.frame}.
 Melt Count Matrix to Long Format and log10 Transform
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 meltLog10(bcb) \%>\% glimpse()
 
 # DESeqDataSet
-dds <- examples[["dds"]]
 meltLog10(dds) \%>\% glimpse()
 
 # DESeqTransform
-rld <- examples[["rld"]]
 meltLog10(rld) \%>\% glimpse()
 }
 \seealso{

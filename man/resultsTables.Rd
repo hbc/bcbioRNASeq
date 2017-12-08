@@ -50,13 +50,20 @@ Results \link{list}.
 Differential Expression Results Tables
 }
 \examples{
-bcb <- examples[["bcb"]]
-res <- examples[["res"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
 annotable <- annotable(bcb)
+
 resTbl <- resultsTables(
     res,
     lfc = 0.25,
     annotable = annotable,
+    summary = FALSE,
     write = FALSE)
 names(resTbl)
 }

@@ -47,20 +47,26 @@ have passed alpha level cutoffs.}
 Plot Mean Average
 }
 \examples{
-bcb <- examples[["bcb"]]
-res <- examples[["res"]]
-genes <- rownames(res) \%>\% head(n = 4)
-print(genes)
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
 gene2symbol <- gene2symbol(bcb)
 
+ensgene <- rownames(res) \%>\% head(n = 4)
+print(ensgene)
+
 # DESeqResults
-plotMA(res, genes = genes, gene2symbol = TRUE)
+plotMA(res, genes = ensgene, gene2symbol = TRUE)
 
 # Use a stashed gene2symbol data.frame
-plotMA(res, genes = genes, gene2symbol = gene2symbol)
+plotMA(res, genes = ensgene, gene2symbol = gene2symbol)
 
 # Label the Ensembl gene identifiers instead of symbols
-plotMA(res, genes = genes, gene2symbol = FALSE)
+plotMA(res, genes = ensgene, gene2symbol = FALSE)
 
 # data.frame
 df <- as.data.frame(res)

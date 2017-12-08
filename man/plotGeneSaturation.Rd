@@ -50,8 +50,11 @@ definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotGeneSaturation(bcb)
 plotGeneSaturation(
     bcb,
@@ -59,10 +62,9 @@ plotGeneSaturation(
     color = NULL)
 
 # data.frame, matrix
-metrics <- examples[["metrics"]]
-rld <- examples[["rld"]]
-counts <- assay(rld)
-plotGeneSaturation(metrics, counts = counts)
+df <- metrics(bcb)
+counts <- counts(bcb, normalized = "rlog")
+plotGeneSaturation(df, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

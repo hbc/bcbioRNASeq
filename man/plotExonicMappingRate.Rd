@@ -46,8 +46,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Exonic Mapping Rate
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotExonicMappingRate(bcb)
 plotExonicMappingRate(
     bcb,
@@ -55,8 +58,8 @@ plotExonicMappingRate(
     fill = NULL)
 
 # data.frame
-metrics <- examples[["metrics"]]
-plotExonicMappingRate(metrics)
+df <- metrics(bcb)
+plotExonicMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

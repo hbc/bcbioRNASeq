@@ -27,8 +27,13 @@ Top table kables, for knit report.
 Top Tables of Differential Expression Results
 }
 \examples{
-bcb <- examples[["bcb"]]
-res <- examples[["res"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
 annotable <- annotable(bcb)
 resTbl <- resultsTables(
     res,
