@@ -1,7 +1,7 @@
-#' `tximport` Accessor Shortcut
+#' Access tximport Data
 #'
-#' @rdname txi
-#' @name txi
+#' @rdname tximport
+#' @name tximport
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
@@ -10,17 +10,21 @@
 #' @return [tximport::tximport()] list.
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
-#' txi(bcb) %>% names()
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
+#' tximport(bcb) %>% names()
 NULL
 
 
 
 # Methods ====
-#' @rdname txi
+#' @rdname tximport
 #' @export
 setMethod(
-    "txi",
+    "tximport",
     signature("bcbioRNASeq"),
     function(object) {
         bcbio(object, type = "tximport")

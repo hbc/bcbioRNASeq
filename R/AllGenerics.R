@@ -220,8 +220,8 @@ setGeneric("tpm", function(object) {
 
 
 
-#' @rdname txi
+#' @rdname tximport
 #' @export
-setGeneric("txi", function(object) {
-    standardGeneric("txi")
+setGeneric("tximport", function(object) {
+    standardGeneric("tximport")
 })
