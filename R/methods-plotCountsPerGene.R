@@ -9,8 +9,11 @@
 #' @inheritParams plotCountDensity
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotCountsPerGene(bcb)
 #' plotCountsPerGene(
 #'     bcb,
