@@ -1,10 +1,10 @@
 context("alphaSummary")
 
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 load(system.file(
-    file.path("inst", "extdata", "dds.rda"),
+    file.path("extdata", "dds.rda"),
     package = "bcbioRNASeq"))
 
 test_that("bcbioRNASeq", {
@@ -23,17 +23,17 @@ test_that("DESeqData", {
     expect_identical(
         summary[[3L]],
         paste0("|LFC > 0 (up)   |",
-               "170, 56%         |",
-               "166, 55%         |",
-               "157, 52%         |",
-               "152, 50%         |",
-               "136, 45%         |")
+               "2, 0.66%         |",
+               "0, 0%            |",
+               "0, 0%            |",
+               "0, 0%            |",
+               "0, 0%            |")
     )
     # Downregulated genes
     expect_identical(
         summary[[4L]],
         paste0("|LFC < 0 (down) |",
-               "0, 0%            |",
+               "2, 0.66%         |",
                "0, 0%            |",
                "0, 0%            |",
                "0, 0%            |",

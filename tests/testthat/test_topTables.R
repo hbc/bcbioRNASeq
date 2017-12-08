@@ -1,7 +1,7 @@
 context("topTables")
 
 load(system.file(
-    file.path("inst", "extdata", "res.rda"),
+    file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
 
 test_that("topTables", {
@@ -17,5 +17,5 @@ test_that("topTables", {
     # Check for ensgene column in header
     expect_true(grepl("^\\|ensgene", output[[3L]]))
     # Check the output length
-    expect_equal(length(output), 60L)
+    expect_equal(length(output), 12L)
 })

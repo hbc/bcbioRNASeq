@@ -1,7 +1,7 @@
 context("resultsTables")
 
 load(system.file(
-    file.path("inst", "extdata", "res.rda"),
+    file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
 
 test_that("resultsTables", {

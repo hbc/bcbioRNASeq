@@ -1,10 +1,10 @@
 context("plotDEGHeatmap")
 
 load(system.file(
-    file.path("inst", "extdata", "res.rda"),
+    file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
 load(system.file(
-    file.path("inst", "extdata", "rld.rda"),
+    file.path("extdata", "rld.rda"),
     package = "bcbioRNASeq"))
 
 test_that("plotDEGHeatmap", {
