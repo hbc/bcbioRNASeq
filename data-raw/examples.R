@@ -1,22 +1,26 @@
-library(devtools)
-library(DESeq2)
-load_all()
+devtools::load_all()
+
+extdataDir <- file.path("inst", "extdata")
+uploadDir <- file.path(extdataDir, "bcbio")
+
 bcb <- loadRNASeq(
-    uploadDir = system.file("extdata/bcbio", package = "bcbioRNASeq"),
+    uploadDir = uploadDir,
     interestingGroups = "group",
     ensemblVersion = 90)
 metrics <- metrics(bcb)
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = formula(~group)) %>%
-    DESeq()
+
+dds <- bcbio(bcb, "DESeqDataSet")
+design(dds) <- formula(~group)
+
 rld <- rlog(dds)
 res <- results(dds)
-examples <- list(
-    bcb = bcb,
-    metrics = metrics,
-    dds = dds,
-    rld = rld,
-    res = res)
-use_data(examples, compress = "xz", overwrite = TRUE)
+
+saveData(
+    bcb,
+    metrics,
+    dds,
+    rld,
+    res,
+    dir = extdataDir,
+    compress = "xz",
+    overwrite = TRUE)
