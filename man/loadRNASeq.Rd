@@ -61,7 +61,9 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \examples{
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+uploadDir <- system.file(
+    file.path("extdata", "bcbio"),
+    package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 print(bcb)
 
