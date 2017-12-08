@@ -1,6 +1,8 @@
 context("plotPCACovariates")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("default", {
     p <- suppressWarnings(suppressMessages(

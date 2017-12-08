@@ -1,7 +1,11 @@
 context("plotDEGHeatmap")
 
-res <- examples[["res"]]
-rld <- examples[["rld"]]
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("inst", "extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotDEGHeatmap", {
     p <- plotDEGHeatmap(object = res, counts = rld, quiet = TRUE)

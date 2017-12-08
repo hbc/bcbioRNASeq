@@ -1,6 +1,8 @@
 context("plotCountDensity")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotCountDensity", {
     p <- plotCountDensity(bcb)

@@ -1,7 +1,9 @@
 context("loadRNASeq")
 
 # Load the minimal example bcbio run saved in the package
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+uploadDir <- system.file(
+    file.path("extdata", "bcbio"),
+    package = "bcbioRNASeq")
 # This should produce the following warnings:
 #   1: bcbio-nextgen.log missing
 #   2: bcbio-nextgen-commands.log missing
@@ -10,7 +12,7 @@ bcb <- suppressWarnings(suppressMessages(
     loadRNASeq(uploadDir)
 ))
 
-test_that("class definition", {
+test_that("Class definition", {
     expect_equal(
         slotNames(bcb),
         c("bcbio",
@@ -48,7 +50,7 @@ test_that("class definition", {
     )
 })
 
-test_that("assays", {
+test_that("assays slot", {
     expect_equal(
         lapply(assays(bcb), class),
         list(raw = "matrix",
@@ -61,7 +63,7 @@ test_that("assays", {
     )
 })
 
-test_that("colData", {
+test_that("colData slot", {
     expect_equal(
         lapply(colData(bcb), class),
         list(sampleID = "factor",
@@ -72,7 +74,7 @@ test_that("colData", {
 })
 
 # Ensembl annotations from AnnotationHub, using ensembldb
-test_that("rowData", {
+test_that("rowData slot", {
     expect_equal(
         lapply(rowData(bcb), class),
         list(ensgene = "character",
@@ -89,7 +91,7 @@ test_that("rowData", {
     )
 })
 
-test_that("metadata", {
+test_that("metadata slot", {
     expect_equal(
         lapply(metadata(bcb), class),
         list(version = c("package_version", "numeric_version"),
@@ -132,7 +134,7 @@ test_that("metadata", {
     )
 })
 
-test_that("bcbio", {
+test_that("bcbio slot", {
     expect_equal(
         lapply(slot(bcb, "bcbio"), class),
         list(tximport = "list",
@@ -141,7 +143,7 @@ test_that("bcbio", {
     )
 })
 
-test_that("example data dimensions", {
+test_that("Example data dimensions", {
     expect_equal(
         dim(bcb),
         c(505, 4)

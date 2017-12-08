@@ -1,6 +1,8 @@
 context("annotable")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("annotable", {
     anno <- annotable(bcb)

@@ -1,6 +1,8 @@
 context("plotHeatmap")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotHeatmap", {
     genes <- counts(bcb)[1:20, ] %>%

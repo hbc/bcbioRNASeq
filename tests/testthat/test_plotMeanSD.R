@@ -1,6 +1,8 @@
 context("plotMeanSD")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotGenderMarkers", {
     p <- plotMeanSD(bcb)

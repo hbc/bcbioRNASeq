@@ -1,6 +1,8 @@
 context("plotMA")
 
-res <- examples[["res"]]
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotMA", {
     p <- plotMA(res)

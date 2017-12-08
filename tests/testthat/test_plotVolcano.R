@@ -1,6 +1,8 @@
 context("plotVolcano")
 
-res <- examples[["res"]]
+load(system.file(
+    file.path("inst", "extdata", "res.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("DESeqResults", {
     plot <- plotVolcano(res)

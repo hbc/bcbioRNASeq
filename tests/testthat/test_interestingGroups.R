@@ -1,6 +1,8 @@
 context("interestingGroups")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("accessor", {
     expect_equal(

@@ -1,6 +1,8 @@
 context("plotIntronicMappingRate")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotIntronicMappingRate", {
     p <- plotIntronicMappingRate(bcb)

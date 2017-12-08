@@ -1,6 +1,8 @@
 context("subset")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("Normal gene and sample selection", {
     subset <- suppressMessages(bcb[1:100, 1:4])

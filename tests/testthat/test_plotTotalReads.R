@@ -1,6 +1,8 @@
 context("plotTotalReads")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotTotalReads", {
     p <- plotTotalReads(bcb)
