@@ -34,7 +34,10 @@ NULL
 #' @importFrom dplyr filter mutate rename
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames
-.subsetTop <- function(df, n, coding) {
+.subsetTop <- function(
+    df,
+    n = 50,
+    coding = FALSE) {
     if (isTRUE(coding)) {
         if (!"broadClass" %in% colnames(df)) {
             stop("'coding = TRUE' argument requires 'broadClass' column",
@@ -84,15 +87,25 @@ setMethod(
         object,
         n = 50,
         coding = FALSE) {
-        up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
-        down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
+        up <- .subsetTop(
+            object[["degLFCUp"]],
+            n = n,
+            coding = coding)
+        down <- .subsetTop(
+            object[["degLFCDown"]],
+            n = n,
+            coding = coding)
         contrastName <- object[["contrast"]]
-        show(kable(
-            up,
-            caption = paste(contrastName, "(upregulated)")
-        ))
-        show(kable(
-            down,
-            caption = paste(contrastName, "(downregulated)")
-        ))
+        if (!is.null(up)) {
+            show(kable(
+                up,
+                caption = paste(contrastName, "(upregulated)")
+            ))
+        }
+        if (!is.null(down)) {
+            show(kable(
+                down,
+                caption = paste(contrastName, "(downregulated)")
+            ))
+        }
     })
