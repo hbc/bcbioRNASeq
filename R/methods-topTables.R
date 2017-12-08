@@ -12,10 +12,10 @@
 #'
 #' @examples
 #' load(system.file(
-#'     file.path("inst", "extdata", "bcb.rda"),
+#'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
 #' load(system.file(
-#'     file.path("inst", "extdata", "res.rda"),
+#'     file.path("extdata", "res.rda"),
 #'     package = "bcbioRNASeq"))
 #'
 #' annotable <- annotable(bcb)

@@ -15,13 +15,13 @@
 #'
 #' @examples
 #' load(system.file(
-#'     file.path("inst", "extdata", "bcb.rda"),
+#'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
 #' load(system.file(
-#'     file.path("inst", "extdata", "dds.rda"),
+#'     file.path("extdata", "dds.rda"),
 #'     package = "bcbioRNASeq"))
 #' load(system.file(
-#'     file.path("inst", "extdata", "rld.rda"),
+#'     file.path("extdata", "rld.rda"),
 #'     package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
