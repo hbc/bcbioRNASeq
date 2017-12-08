@@ -9,9 +9,10 @@
 #'
 #' @inherit plotTotalReads
 #'
-#' @param gene Gene identifier. Can input multiple genes as a character vector.
-#' @param format Ensembl identifier format. Supports `symbol` (**default**) or
-#'   `ensgene`.
+#' @param genes Gene identifier(s). Can input multiple genes as a character
+#'   vector.
+#' @param format Ensembl identifier format. Supports `ensgene` (**recommended**)
+#'   or `symbol`.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @param color Desired ggplot color scale. Defaults to
@@ -31,23 +32,33 @@
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' # Gene symbols
-#' symbol <- rowData(bcb)[["symbol"]][1:3]
-#' print(symbol)
-#' plotGene(bcb, gene = symbol, format = "symbol")
+#' # Gene identifiers
+#' ensgene <- rownames(bcb)[1:4]
+#' print(ensgene)
 #' plotGene(
 #'     bcb,
-#'     gene = symbol,
+#'     genes = ensgene,
+#'     format = "ensgene")
+#'
+#' # Gene symbols
+#' symbol <- rowData(bcb)[["symbol"]][1:4]
+#' print(symbol)
+#' plotGene(
+#'     bcb,
+#'     genes = symbol,
+#'     format = "symbol")
+#'
+#' # Default ggplot2 color palette
+#' plotGene(
+#'     bcb,
+#'     genes = ensgene,
 #'     format = "symbol",
 #'     interestingGroups = "sampleName",
 #'     color = NULL)
-#'
-#' # Gene identifiers
-#' ensgene <- rowData(bcb)[["ensgene"]][1:4]
-#' print(ensgene)
-#' plotGene(bcb, gene = ensgene, format = "ensgene")
 NULL
 
 
@@ -66,7 +77,7 @@ NULL
 #' @importFrom viridis scale_color_viridis
 #'
 #' @param object Counts matrix.
-#' @param gene Gene identifiers, as a named character vector. `ensgene` is
+#' @param genes Gene identifiers, as a named character vector. `ensgene` is
 #'   provided as the value and `symbol` as the name. This gets defined in the S4
 #'   method (see below).
 #' @param metadata Sample metadata [data.frame].
@@ -74,7 +85,7 @@ NULL
 #' @return [ggplot].
 .plotGene <- function(
     object,
-    gene,
+    genes,
     metadata,
     interestingGroups = "sampleName",
     color = viridis::scale_color_viridis(discrete = TRUE),
@@ -83,9 +94,9 @@ NULL
     metadata <- metadata %>%
         as.data.frame() %>%
         uniteInterestingGroups(interestingGroups)
-    plots <- lapply(seq_along(gene), function(a) {
-        ensgene <- gene[[a]]
-        symbol <- names(gene)[[a]]
+    plots <- lapply(seq_along(genes), function(a) {
+        ensgene <- genes[[a]]
+        symbol <- names(genes)[[a]]
         df <- data.frame(
             x = colnames(object),
             y = object[ensgene, ],
@@ -128,7 +139,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        gene,
+        genes,
         interestingGroups,
         normalized = "tpm",
         format = "ensgene",
@@ -157,10 +168,10 @@ setMethod(
         gene2symbol <- gene2symbol(object)
 
         # Detect missing genes. This also handles `format` mismatch.
-        if (!all(gene %in% gene2symbol[[format]])) {
+        if (!all(genes %in% gene2symbol[[format]])) {
             stop(paste(
                 "Missing genes:",
-                toString(setdiff(gene, gene2symbol[[format]]))
+                toString(setdiff(genes, gene2symbol[[format]]))
             ), call. = FALSE)
         }
 
@@ -168,14 +179,14 @@ setMethod(
         # passing in the `ensgene` as the value and `symbol` as the name. This
         # works with the constructor function to match the counts matrix by
         # the ensgene, then use the symbol as the name.
-        match <- match(x = gene, table = gene2symbol[[format]])
+        match <- match(x = genes, table = gene2symbol[[format]])
         gene2symbol <- gene2symbol[match, , drop = FALSE]
         ensgene <- gene2symbol[["ensgene"]]
         names(ensgene) <- gene2symbol[["symbol"]]
 
         .plotGene(
             object = counts,
-            gene = ensgene,
+            genes = ensgene,
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
