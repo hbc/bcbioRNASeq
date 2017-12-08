@@ -18,13 +18,16 @@
 #' @return [ggplot] grid.
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotMeanSD(bcb, orientation = "horizontal")
 #' plotMeanSD(bcb, orientation = "vertical")
 #'
 #' # DESeqDataSet
-#' dds <- examples[["dds"]]
+#' dds <- bcbio(bcb, "DESeqDataSet")
 #' plotMeanSD(dds, orientation = "horizontal")
 NULL
 

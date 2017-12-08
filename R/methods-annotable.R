@@ -11,9 +11,12 @@
 #' @return [data.frame]
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
-#' annotable(bcb) %>%
-#'     glimpse()
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
+#' annotable(bcb) %>% glimpse()
 NULL
 
 

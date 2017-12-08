@@ -21,12 +21,17 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("inst", "extdata", "dds.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
-#' dds <- examples[["dds"]]
 #' alphaSummary(dds)
 #' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 #' alphaSummary(dds, name = "group_ko_vs_ctrl")

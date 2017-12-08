@@ -8,8 +8,11 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotRRNAMappingRate(bcb)
 #' plotRRNAMappingRate(
 #'     bcb,
@@ -18,8 +21,8 @@
 #'     warnLimit = NULL)
 #'
 #' # data.frame
-#' metrics <- examples[["metrics"]]
-#' plotRRNAMappingRate(metrics)
+#' df <- metrics(bcb)
+#' plotRRNAMappingRate(df)
 NULL
 
 

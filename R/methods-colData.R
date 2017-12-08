@@ -15,16 +15,20 @@
 #' `help("colData", "SummarizedExperiment")`
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
-#' cd <- colData(bcb)
-#' cd[["age"]] <- factor(c(14, 30, 14, 30))
-#' colData(bcb) <- cd
-#' colData(bcb)
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # Assignment support
+#' colData <- colData(bcb)
+#' colData[["age"]] <- factor(c(14, 30, 14, 30))
+#' colData(bcb) <- colData
+#' colData(bcb) %>% glimpse()
 #'
 #' # These internal objects will also get updated
-#' bcbio(bcb, "DESeqDataSet") %>% colData()
-#' assays(bcb)[["rlog"]] %>% colData()
-#' assays(bcb)[["vst"]] %>% colData()
+#' bcbio(bcb, "DESeqDataSet") %>% colData() %>% glimpse()
+#' assays(bcb)[["rlog"]] %>% colData() %>% glimpse()
+#' assays(bcb)[["vst"]] %>% colData() %>% glimpse()
 NULL
 
 

@@ -23,8 +23,11 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotTotalReads(bcb)
 #' plotTotalReads(
 #'     bcb,
@@ -32,8 +35,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' metrics <- examples[["metrics"]]
-#' plotTotalReads(metrics)
+#' df <- metrics(bcb)
+#' plotTotalReads(df)
 NULL
 
 

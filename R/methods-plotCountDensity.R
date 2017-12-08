@@ -13,8 +13,11 @@
 #' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotCountDensity(bcb, style = "solid")
 #' plotCountDensity(
 #'     bcb,

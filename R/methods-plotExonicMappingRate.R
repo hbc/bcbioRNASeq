@@ -8,8 +8,11 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plotExonicMappingRate(bcb)
 #' plotExonicMappingRate(
 #'     bcb,
@@ -17,8 +20,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' metrics <- examples[["metrics"]]
-#' plotExonicMappingRate(metrics)
+#' df <- metrics(bcb)
+#' plotExonicMappingRate(df)
 NULL
 
 

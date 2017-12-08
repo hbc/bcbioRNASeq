@@ -25,6 +25,8 @@
 #'         "data",
 #'         "bcb.rda"),
 #'     quiet = TRUE)
+#'
+#' # bcbioRNASeq
 #' plotGenderMarkers(bcb)
 #' plotGenderMarkers(
 #'     bcb,

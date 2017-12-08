@@ -23,24 +23,26 @@
 #' @return [matrix].
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' # Raw counts
+#' # Raw counts (from tximport)
 #' counts(bcb, normalized = FALSE) %>% summary()
 #'
-#' # TPM
+#' # TPM (from tximport)
 #' counts(bcb, normalized = "tpm") %>% summary()
 #'
-#' # DESeq2 normalized counts
+#' # Normalized counts (from DESeq2)
 #' counts(bcb, normalized = TRUE) %>% summary()
 #'
-#' # rlog
+#' # rlog (from DESeq2)
 #' counts(bcb, normalized = "rlog") %>% summary()
 #'
-#' # TMM
+#' # TMM (from edgeR)
 #' counts(bcb, normalized = "tmm") %>% summary()
 #'
-#' # VST
+#' # VST (from DESeq2)
 #' counts(bcb, normalized = "vst") %>% summary()
 NULL
 

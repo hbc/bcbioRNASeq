@@ -28,9 +28,15 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' plotPCA(bcb, label = TRUE)
 #' plotPCA(bcb, label = FALSE)
+#'
+#' # Default ggplot color palette
 #' plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
 #'
 #' # Censor samples

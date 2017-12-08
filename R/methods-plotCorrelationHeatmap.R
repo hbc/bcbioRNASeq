@@ -29,10 +29,12 @@
 #' - [stats::hclust()].
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' # Pearson correlation (default)
-#' plotCorrelationHeatmap(bcb)
+#' # Pearson correlation
+#' plotCorrelationHeatmap(bcb, method = "pearson")
 #'
 #' # Spearman correlation
 #' plotCorrelationHeatmap(bcb, method = "spearman")
@@ -43,7 +45,7 @@
 #'     color = viridis::inferno(256),
 #'     legendColor = viridis::inferno)
 #'
-#' # Default pheatmap colors
+#' # Default pheatmap palette
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = NULL,

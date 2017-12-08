@@ -37,13 +37,19 @@
 #' @return [slot] object.
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
 #' # tximport list
 #' txi <- bcbio(bcb, "tximport")
 #' class(txi)
 #' length(txi)
 #' names(txi)
+#'
+#' # DESeqDataSet
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds
 #'
 #' # featureCounts matrix
 #' fc <- bcbio(bcb, "featureCounts")

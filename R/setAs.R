@@ -18,7 +18,7 @@ NULL
 
 
 # Constructors ====
-#' Coerce Legacy bcbio Object to `bcbioRNASeq` class
+#' Coerce Legacy bcbio Object to bcbioRNASeq class
 #'
 #' Compatible with old versions created by bcbioRNASeq package.
 #' The previous bcbioRnaseq package (note lowercase "c") must be reinstalled

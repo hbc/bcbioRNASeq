@@ -44,16 +44,18 @@
 #' @return Graphical output only.
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
 #' # Use Ensembl identifiers to define genes
-#' genes <- counts(bcb)[1:20, ] %>% rownames()
-#' plotHeatmap(bcb, genes = genes)
+#' ensgene <- counts(bcb)[1:20, ] %>% rownames()
+#' plotHeatmap(bcb, genes = ensgene)
 #'
 #' # Use inferno color palette
 #' plotHeatmap(
 #'     bcb,
-#'     genes = genes,
+#'     genes = ensgene,
 #'     color = viridis::inferno(256),
 #'     legendColor = viridis::inferno)
 #'
@@ -64,11 +66,11 @@
 #'     legendColor = NULL)
 #'
 #' # DESeqDataSet
-#' dds <- examples[["dds"]]
+#' dds <- bcbio(bcb, "DESeqDataSet")
 #' plotHeatmap(dds)
 #'
 #' # DESeqTransform
-#' rld <- examples[["rld"]]
+#' rld <- assays(bcb)[["rlog"]]
 #' plotHeatmap(rld)
 NULL
 

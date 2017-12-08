@@ -16,9 +16,12 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
-#' genes <- rownames(bcb)[1:50]
-#' head(genes)
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' ensgene <- rownames(bcb)[1:50]
+#' head(ensgene)
 #' samples <- colnames(bcb)[1:2]
 #' head(samples)
 #'
@@ -26,13 +29,13 @@
 #' bcb[, samples]
 #'
 #' # Subset by gene list
-#' bcb[genes, ]
+#' bcb[ensgene, ]
 #'
 #' # Subset by both genes and samples
-#' bcb[genes, samples]
+#' bcb[ensgene, samples]
 #'
 #' # Skip normalization
-#' bcb[genes, samples, skipNorm = TRUE]
+#' bcb[ensgene, samples, skipNorm = TRUE]
 NULL
 
 

@@ -9,7 +9,11 @@
 #' @inheritParams AllGenerics
 #'
 #' @examples
-#' bcb <- examples[["bcb"]]
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' gene2symbol(bcb) %>% head()
 NULL
 

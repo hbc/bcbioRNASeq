@@ -8,8 +8,11 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("inst", "extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
-#' bcb <- examples[["bcb"]]
 #' plot53Bias(bcb)
 #' plot53Bias(
 #'     bcb,
@@ -17,8 +20,8 @@
 #'     fill = NULL)
 #'
 #' # data.frame
-#' metrics <- examples[["metrics"]]
-#' plot53Bias(metrics)
+#' df <- metrics(bcb)
+#' plot53Bias(df)
 NULL
 
 
