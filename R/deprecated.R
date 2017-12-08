@@ -55,7 +55,7 @@ plotGeneHeatmap <- function(...) {
 # v0.1.3 ====
 #' @rdname deprecated
 #' @export
-txi <- function(...) {
-    .Deprecated("tximport")
-    tximport(...)
+txi <- function(object) {
+    .Deprecated("bcbio(object, \"tximport\")")
+    bcbio(object, "tximport")
 }
