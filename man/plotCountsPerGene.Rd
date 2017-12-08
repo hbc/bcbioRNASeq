@@ -46,8 +46,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Counts Per Gene
 }
 \examples{
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-bcb <- examples[["bcb"]]
 plotCountsPerGene(bcb)
 plotCountsPerGene(
     bcb,
