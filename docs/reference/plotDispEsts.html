@@ -124,14 +124,18 @@ the DESeq2 package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
-<span class='fu'>plotDispEsts</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># Custom colors</span>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># bcbioRNASeq</span>
+<span class='fu'>plotDispEsts</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Custom colors, using DESeq2 parameters</span>
 <span class='fu'>plotDispEsts</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
     <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
-    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)</div><div class='img'><img src='plotDispEsts-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)</div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

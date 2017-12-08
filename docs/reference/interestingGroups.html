@@ -118,11 +118,15 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># bcbioRNASeq</span>
 <span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "group"</div><div class='input'>
 <span class='co'># Assignment support</span>
-<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='st'>"sampleName"</span>
-<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "sampleName"</div></pre>
+<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='st'>"sampleID"</span>
+<span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "sampleID"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

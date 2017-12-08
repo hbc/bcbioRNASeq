@@ -118,8 +118,11 @@ tool when plotting counts per gene.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq</span>
-<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># bcbioRNASeq</span>
 <span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
@@ -128,8 +131,8 @@ tool when plotting counts per gene.</p>
 #&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
 #&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"dds"</span>]]
-<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
 #&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0  
@@ -137,7 +140,8 @@ tool when plotting counts per gene.</p>
 #&gt;  3rd Qu.:    19.75   3rd Qu.:    17.3   3rd Qu.:    19.2   3rd Qu.:    17  
 #&gt;  Max.   :310393.35   Max.   :367094.0   Max.   :368116.4   Max.   :387262  </div><div class='input'>
 <span class='co'># matrix</span>
-<span class='fu'>assay</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
+<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)
+<span class='fu'>tmm</span>(<span class='no'>counts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
 #&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  

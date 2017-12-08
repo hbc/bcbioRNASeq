@@ -149,12 +149,25 @@ transformations of those original counts, including <code>tpm()</code>, <code>rl
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># tximport list</span>
 <span class='no'>txi</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"tximport"</span>)
 <span class='fu'>class</span>(<span class='no'>txi</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>length</span>(<span class='no'>txi</span>)</div><div class='output co'>#&gt; [1] 4</div><div class='input'><span class='fu'>names</span>(<span class='no'>txi</span>)</div><div class='output co'>#&gt; [1] "abundance"           "counts"              "length"             
 #&gt; [4] "countsFromAbundance"</div><div class='input'>
+<span class='co'># DESeqDataSet</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='no'>dds</span></div><div class='output co'>#&gt; class: DESeqDataSet 
+#&gt; dim: 505 4 
+#&gt; metadata(1): version
+#&gt; assays(3): counts mu cooks
+#&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
+#&gt;   ENSMUSG00000105982 ENSMUSG00000109048
+#&gt; rowData names(17): baseMean baseVar ... deviance maxCooks
+#&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
+#&gt; colData names(5): sampleID sampleName description group sizeFactor</div><div class='input'>
 <span class='co'># featureCounts matrix</span>
 <span class='no'>fc</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"featureCounts"</span>)
 <span class='fu'>class</span>(<span class='no'>fc</span>)</div><div class='output co'>#&gt; [1] "matrix"</div><div class='input'><span class='fu'>dim</span>(<span class='no'>fc</span>)</div><div class='output co'>#&gt; [1] 999   4</div><div class='input'><span class='fu'>colnames</span>(<span class='no'>fc</span>)</div><div class='output co'>#&gt; [1] "group1_1" "group1_2" "group2_1" "group2_2"</div></pre>

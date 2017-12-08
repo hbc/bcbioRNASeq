@@ -91,14 +91,13 @@
     
 
     <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgray"</span>, <span class='st'>"red"</span>),
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
+<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
 
 <span class='co'># S4 method for data.frame</span>
-<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>, <span class='kw'>pointColorScale</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkgray"</span>, <span class='st'>"red"</span>),
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
+  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -108,18 +107,29 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>labelPoints</th>
-      <td><p><em>Optional</em>. Label these particular points.</p></td>
+      <th>genes</th>
+      <td><p><em>Optional</em>. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.</p></td>
     </tr>
     <tr>
-      <th>labelColumn</th>
-      <td><p>Match <code>labelPoints</code> argument to this column in the
-results.</p></td>
+      <th>gene2symbol</th>
+      <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using <code><a href='http://www.rdocumentation.org/packages/basejump/topics/annotable'>basejump::annotable()</a></code>. If set <code>FALSE</code>/<code>NULL</code>, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol data.frame can be
+passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
     </tr>
     <tr>
-      <th>pointColorScale</th>
-      <td><p>Point color scale. See
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code> for more information.</p></td>
+      <th>pointColor</th>
+      <td><p>Default point color for the plot.</p></td>
+    </tr>
+    <tr>
+      <th>sigPointColor</th>
+      <td><p>Color for points corresponding to significant genes that
+have passed alpha level cutoffs.</p></td>
     </tr>
     <tr>
       <th>labelColor</th>
@@ -131,7 +141,7 @@ results.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Plot title.</p></td>
+      <td><p><em>Optional</em>. Plot title.</p></td>
     </tr>
     </table>
     
@@ -145,14 +155,28 @@ results.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"res"</span>]]
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"ENSMUSG00000104523"</span>, <span class='st'>"ENSMUSG00000016918"</span>)
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
+<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+
+<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='fu'>print</span>(<span class='no'>ensgene</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886"
+#&gt; [4] "ENSMUSG00000016918"</div><div class='input'>
 <span class='co'># DESeqResults</span>
-<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>labelPoints</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotMA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Use a stashed gene2symbol data.frame</span>
+<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Label the Ensembl gene identifiers instead of symbols</span>
+<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotMA-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
-<span class='fu'>plotMA</span>(<span class='no'>df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='plotMA-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotMA</span>(<span class='no'>df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='plotMA-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

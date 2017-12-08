@@ -118,37 +118,61 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>examples</span><span class='kw'>[[</span><span class='st'>"bcb"</span>]]
-<span class='no'>cd</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
-<span class='no'>cd</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='fu'>c</span>(<span class='fl'>14</span>, <span class='fl'>30</span>, <span class='fl'>14</span>, <span class='fl'>30</span>))
-<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>cd</span>
-<span class='fu'>colData</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; DataFrame with 4 rows and 5 columns
-#&gt;          sampleID sampleName description    group      age
-#&gt;          &lt;factor&gt;   &lt;factor&gt;    &lt;factor&gt; &lt;factor&gt; &lt;factor&gt;
-#&gt; group1_1 group1_1   group1_1    group1_1     ctrl       14
-#&gt; group1_2 group1_2   group1_2    group1_2     ctrl       30
-#&gt; group2_1 group2_1   group2_1    group2_1       ko       14
-#&gt; group2_2 group2_2   group2_2    group2_2       ko       30</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Assignment support</span>
+<span class='no'>colData</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
+<span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='fu'>c</span>(<span class='fl'>14</span>, <span class='fl'>30</span>, <span class='fl'>14</span>, <span class='fl'>30</span>))
+<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>colData</span>
+<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;   ..@ nrows          : int 4
+#&gt;   ..@ listData       :List of 5
+#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
+#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
+#&gt;   ..@ elementType    : chr "ANY"
+#&gt;   ..@ elementMetadata: NULL
+#&gt;   ..@ metadata       : list()</div><div class='input'>
 <span class='co'># These internal objects will also get updated</span>
-<span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>()</div><div class='output co'>#&gt; DataFrame with 4 rows and 5 columns
-#&gt;          sampleID sampleName description    group      age
-#&gt;          &lt;factor&gt;   &lt;factor&gt;    &lt;factor&gt; &lt;factor&gt; &lt;factor&gt;
-#&gt; group1_1 group1_1   group1_1    group1_1     ctrl       14
-#&gt; group1_2 group1_2   group1_2    group1_2     ctrl       30
-#&gt; group2_1 group2_1   group2_1    group2_1       ko       14
-#&gt; group2_2 group2_2   group2_2    group2_2       ko       30</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>()</div><div class='output co'>#&gt; DataFrame with 4 rows and 5 columns
-#&gt;          sampleID sampleName description    group      age
-#&gt;          &lt;factor&gt;   &lt;factor&gt;    &lt;factor&gt; &lt;factor&gt; &lt;factor&gt;
-#&gt; group1_1 group1_1   group1_1    group1_1     ctrl       14
-#&gt; group1_2 group1_2   group1_2    group1_2     ctrl       30
-#&gt; group2_1 group2_1   group2_1    group2_1       ko       14
-#&gt; group2_2 group2_2   group2_2    group2_2       ko       30</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>()</div><div class='output co'>#&gt; DataFrame with 4 rows and 5 columns
-#&gt;          sampleID sampleName description    group      age
-#&gt;          &lt;factor&gt;   &lt;factor&gt;    &lt;factor&gt; &lt;factor&gt; &lt;factor&gt;
-#&gt; group1_1 group1_1   group1_1    group1_1     ctrl       14
-#&gt; group1_2 group1_2   group1_2    group1_2     ctrl       30
-#&gt; group2_1 group2_1   group2_1    group2_1       ko       14
-#&gt; group2_2 group2_2   group2_2    group2_2       ko       30</div></pre>
+<span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;   ..@ nrows          : int 4
+#&gt;   ..@ listData       :List of 5
+#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
+#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
+#&gt;   ..@ elementType    : chr "ANY"
+#&gt;   ..@ elementMetadata: NULL
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;   ..@ nrows          : int 4
+#&gt;   ..@ listData       :List of 5
+#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
+#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
+#&gt;   ..@ elementType    : chr "ANY"
+#&gt;   ..@ elementMetadata: NULL
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
+#&gt;   ..@ nrows          : int 4
+#&gt;   ..@ listData       :List of 5
+#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
+#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
+#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
+#&gt;   ..@ elementType    : chr "ANY"
+#&gt;   ..@ elementMetadata: NULL
+#&gt;   ..@ metadata       : list()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
