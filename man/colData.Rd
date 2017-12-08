@@ -23,7 +23,7 @@ This method support will also update the \code{colData} inside the \code{bcbio} 
 }
 \examples{
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
 # Assignment support

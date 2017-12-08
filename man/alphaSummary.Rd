@@ -38,10 +38,10 @@ object contains an internal \link{DESeqDataSet} with an empty design formula.
 }
 \examples{
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 load(system.file(
-    file.path("inst", "extdata", "dds.rda"),
+    file.path("extdata", "dds.rda"),
     package = "bcbioRNASeq"))
 
 # bcbioRNASeq

@@ -58,7 +58,7 @@ Plot Individual Genes
 }
 \examples{
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
 # Gene identifiers
@@ -81,7 +81,7 @@ plotGene(
 plotGene(
     bcb,
     genes = ensgene,
-    format = "symbol",
+    format = "ensgene",
     interestingGroups = "sampleName",
     color = NULL)
 }

@@ -47,7 +47,7 @@ Plot Counts Per Gene
 }
 \examples{
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
 # bcbioRNASeq

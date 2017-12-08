@@ -44,7 +44,7 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 }
 \examples{
 load(system.file(
-    file.path("inst", "extdata", "bcb.rda"),
+    file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
 # bcbioRNASeq
