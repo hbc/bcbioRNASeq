@@ -29,6 +29,9 @@
 #' @param annotationCol *Optional*. [data.frame] that specifies the annotations
 #'   shown on the right side of the heatmap. Each row of this [data.frame]
 #'   defines the features of the heatmap columns.
+#' @param scale Character indicating if the values should be centered and scaled
+#'   in either the row direction or the column direction, or none. Corresponding
+#'   values are "row", "column" and "none".
 #' @param color Colors to use for plot. Defaults to the [viridis::viridis()]
 #'   palette.
 #' @param legendColor Colors to use for legend labels. Defaults to the
@@ -83,11 +86,11 @@ NULL
     genes = NULL,
     gene2symbol = TRUE,
     annotationCol = NULL,
-    title = NULL,
+    scale = "row",
     color = viridis::viridis(256),
     legendColor = viridis::viridis,
+    title = NULL,
     quiet = FALSE,
-    scale = "row",
     ...) {
     counts <- object
     if (!is.matrix(counts)) return(NULL)
@@ -193,9 +196,10 @@ setMethod(
         object,
         normalized = "rlog",
         genes = NULL,
-        title = NULL,
+        scale = "row",
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
+        title = NULL,
         quiet = FALSE,
         ...) {
         counts <- counts(object, normalized = normalized)
@@ -208,6 +212,7 @@ setMethod(
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,
+            scale = scale,
             color = color,
             legendColor = legendColor,
             title = title,
@@ -229,6 +234,7 @@ setMethod(
         genes = NULL,
         gene2symbol = TRUE,
         annotationCol = NULL,
+        scale = "row",
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
         title = NULL,
@@ -240,6 +246,7 @@ setMethod(
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,
+            scale = scale,
             color = color,
             legendColor = legendColor,
             title = title,
@@ -260,6 +267,7 @@ setMethod(
         genes = NULL,
         gene2symbol = TRUE,
         annotationCol = NULL,
+        scale = "row",
         color = viridis::viridis(256),
         legendColor = viridis::viridis,
         title = NULL,
@@ -271,6 +279,7 @@ setMethod(
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,
+            scale = scale,
             color = color,
             legendColor = legendColor,
             title = title,

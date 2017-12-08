@@ -13,21 +13,22 @@
 plotHeatmap(object, ...)
 
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  genes = NULL, title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis, quiet = FALSE, ...)
+  genes = NULL, scale = "row", color = viridis::viridis(256),
+  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
-  genes = NULL, gene2symbol = TRUE, annotationCol = NULL,
+  genes = NULL, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
   color = viridis::viridis(256), legendColor = viridis::viridis,
   title = NULL, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  gene2symbol = TRUE, annotationCol = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
+  gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  title = NULL, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol = TRUE,
-  annotationCol = NULL, title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis, quiet = FALSE, scale = "row", ...)
+  annotationCol = NULL, scale = "row", color = viridis::viridis(256),
+  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -48,13 +49,17 @@ plotHeatmap(object, ...)
 must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
 not the gene symbols.}
 
-\item{title}{\emph{Optional}. Plot title.}
+\item{scale}{Character indicating if the values should be centered and scaled
+in either the row direction or the column direction, or none. Corresponding
+values are "row", "column" and "none".}
 
 \item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
 palette.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
 \code{\link[viridis:viridis]{viridis::viridis()}} palette.}
+
+\item{title}{\emph{Optional}. Plot title.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 
