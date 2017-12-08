@@ -20,10 +20,12 @@ loadRNASeqRun(...)
 
 plotGeneHeatmap(...)
 
-txi(...)
+txi(object)
 }
 \arguments{
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{object}{Object.}
 }
 \value{
 No value.

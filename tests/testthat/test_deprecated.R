@@ -1,6 +1,8 @@
 context("deprecated")
 
-bcb <- examples[["bcb"]]
+load(system.file(
+    file.path("inst", "extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("download", {
     expect_warning(
@@ -10,7 +12,9 @@ test_that("download", {
 })
 
 test_that("loadRNASeqRun", {
-    uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+    uploadDir <- system.file(
+        file.path("extdata", "bcbio"),
+        package = "bcbioRNASeq")
     expect_warning(
         loadRNASeqRun(uploadDir),
         "Use 'loadRNASeq' instead."
@@ -28,5 +32,12 @@ test_that("plotDispersion", {
     expect_warning(
         plotDispersion(bcb),
         "Use 'plotDispEsts' instead."
+    )
+})
+
+test_that("txi", {
+    expect_warning(
+        txi(bcb),
+        "Use 'bcbio\\(object, \"tximport\"\\)' instead."
     )
 })
