@@ -15,7 +15,6 @@ This is an [R][] package.
 
 ```r
 source("https://bioconductor.org/biocLite.R")
-biocLite("ensembldb")
 biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
