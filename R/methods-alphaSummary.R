@@ -39,7 +39,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom DESeq2 results
 #' @importFrom dplyr bind_cols
 #' @importFrom knitr kable
@@ -86,7 +86,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname alphaSummary
 #' @importFrom BiocGenerics design
 #' @importFrom stats formula

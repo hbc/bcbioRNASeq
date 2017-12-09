@@ -40,7 +40,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom dplyr filter left_join pull
 #' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
 #' @importFrom stats setNames
@@ -111,7 +111,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotGenderMarkers
 #' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis

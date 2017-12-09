@@ -35,7 +35,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom DEGreport degCovariates
 #' @importFrom dplyr select_if
 .plotPCACovariates <- function(
@@ -98,7 +98,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotPCACovariates
 #' @export
 setMethod(

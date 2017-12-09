@@ -32,7 +32,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
@@ -75,7 +75,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotCountDensity
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export

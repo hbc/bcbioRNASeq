@@ -20,7 +20,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname metrics
 #' @importFrom dplyr left_join mutate_if
 #' @importFrom S4Vectors metadata

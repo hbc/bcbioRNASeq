@@ -9,7 +9,7 @@ NULL
 
 
 
-# v0.0.25 ====
+# v0.0.25 ======================================================================
 #' @rdname deprecated
 #' @export
 download <- function() {
@@ -32,7 +32,7 @@ plotDispersion <- function(...) {
 
 
 
-# v0.0.27 ====
+# v0.0.27 ======================================================================
 #' @rdname deprecated
 #' @export
 loadRNASeqRun <- function(...) {
@@ -42,7 +42,7 @@ loadRNASeqRun <- function(...) {
 
 
 
-# v0.1.2 ====
+# v0.1.2 =======================================================================
 #' @rdname deprecated
 #' @export
 plotGeneHeatmap <- function(...) {
@@ -52,7 +52,7 @@ plotGeneHeatmap <- function(...) {
 
 
 
-# v0.1.3 ====
+# v0.1.3 =======================================================================
 #' @rdname deprecated
 #' @export
 txi <- function(object) {

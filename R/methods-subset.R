@@ -40,7 +40,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if
@@ -185,7 +185,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname subset
 #' @export
 setMethod(

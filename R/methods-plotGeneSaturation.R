@@ -33,7 +33,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
@@ -65,7 +65,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotGeneSaturation
 #' @importFrom viridis scale_color_viridis
 #' @export

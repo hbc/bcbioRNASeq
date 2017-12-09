@@ -39,7 +39,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom stats setNames
 .aggregateReplicatesMatrix <- function(
     object,
@@ -121,7 +121,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname aggregateReplicates
 #' @export
 setMethod(

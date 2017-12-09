@@ -21,7 +21,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname annotable
 #' @importFrom S4Vectors metadata
 #' @export

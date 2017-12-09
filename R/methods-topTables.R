@@ -29,7 +29,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump fixNA
 #' @importFrom dplyr filter mutate rename
 #' @importFrom S4Vectors head
@@ -76,7 +76,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname topTables
 #' @importFrom knitr kable
 #' @export

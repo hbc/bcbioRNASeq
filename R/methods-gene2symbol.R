@@ -19,7 +19,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 .gene2symbol <- function(object) {
     annotable <- annotable(object)
     if (is.null(annotable)) {
@@ -36,7 +36,7 @@ NULL
 }
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname gene2symbol
 #' @export
 setMethod(

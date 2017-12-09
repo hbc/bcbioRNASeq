@@ -49,7 +49,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump annotable camel checkGene2symbol detectOrganism
 #' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
@@ -134,7 +134,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotMA
 #' @importFrom ggplot2 scale_color_manual
 #' @importFrom S4Vectors metadata

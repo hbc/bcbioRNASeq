@@ -33,7 +33,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 ggtitle theme xlab
 #' @importFrom vsn meanSdPlot
@@ -98,7 +98,7 @@ NULL
 }
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotMeanSD
 #' @export
 setMethod(

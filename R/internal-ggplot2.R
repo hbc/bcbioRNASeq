@@ -25,7 +25,7 @@ labelSep <- ": "
 
 
 
-# Line functions ====
+# Line functions ===============================================================
 #' @importFrom ggplot2 geom_hline
 qcPassLine <- function(intercept) {
     geom_hline(

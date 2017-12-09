@@ -48,7 +48,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' Markdown List of Results Files
 #'
 #' Enables looping of results contrast file links for RMarkdown.
@@ -207,7 +207,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname resultsTables
 #' @export
 setMethod(

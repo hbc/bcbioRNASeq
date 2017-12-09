@@ -30,7 +30,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom dplyr mutate_all
 #' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
@@ -42,7 +42,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname sampleMetadata
 #' @export
 setMethod(

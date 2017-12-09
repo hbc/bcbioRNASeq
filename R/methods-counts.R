@@ -48,7 +48,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname counts
 #' @export
 setMethod(

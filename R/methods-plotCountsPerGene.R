@@ -27,7 +27,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot labs
 #' @importFrom viridis scale_fill_viridis
@@ -60,7 +60,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotCountsPerGene
 #' @importFrom viridis scale_fill_viridis
 #' @export

@@ -23,7 +23,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname flatFiles
 #' @importFrom S4Vectors metadata
 #' @export

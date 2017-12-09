@@ -54,7 +54,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom dplyr mutate_all
 #' @importFrom grDevices colorRampPalette
 #' @importFrom pheatmap pheatmap
@@ -147,7 +147,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
 #' @importFrom basejump checkInterestingGroups
 #' @importFrom viridis viridis

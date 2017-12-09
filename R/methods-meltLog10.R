@@ -36,7 +36,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom dplyr left_join
 .joinMelt <- function(counts, metadata) {
     if (!identical(
@@ -77,7 +77,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname meltLog10
 #' @export
 setMethod(

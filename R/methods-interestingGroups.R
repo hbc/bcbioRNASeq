@@ -24,7 +24,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname interestingGroups
 #' @importFrom S4Vectors metadata
 #' @export

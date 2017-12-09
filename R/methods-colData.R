@@ -33,7 +33,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname colData
 #' @export
 setMethod(

@@ -76,7 +76,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump checkGene2symbol gene2symbol
 #' @importFrom dplyr mutate_all
 #' @importFrom pheatmap pheatmap
@@ -187,7 +187,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotHeatmap
 #' @importFrom viridis viridis
 #' @export

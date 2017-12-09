@@ -17,7 +17,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' Coerce Legacy bcbio Object to bcbioRNASeq class
 #'
 #' Compatible with old versions created by bcbioRNASeq package.
@@ -81,7 +81,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname coerce
 #' @name upgrade-bcbioRNASeq
 #' @section Upgrade bcbioRNASeq to current version:

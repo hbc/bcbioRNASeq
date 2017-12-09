@@ -29,7 +29,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname design
 #' @export
 setMethod(

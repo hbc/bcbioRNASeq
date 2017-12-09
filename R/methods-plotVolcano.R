@@ -56,7 +56,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump annotable camel
 #' @importFrom BiocGenerics density
 #' @importFrom cowplot draw_plot ggdraw
@@ -139,8 +139,7 @@ NULL
         ) %>%
         arrange(desc(!!sym("rankScore")))
 
-
-    # Text labels ====
+    # Text labels ==============================================================
     if (!is.null(genes)) {
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
@@ -150,8 +149,7 @@ NULL
         volcanoText <- NULL
     }
 
-
-    # Plot ranges ====
+    # Plot ranges ==============================================================
     # Get range of LFC and P values to set up plot borders
     rangeLFC <-
         c(floor(min(na.omit(data[["log2FoldChange"]]))),
@@ -160,8 +158,7 @@ NULL
         c(floor(min(na.omit(data[["negLog10Pvalue"]]))),
           ceiling(max(na.omit(data[["negLog10Pvalue"]]))))
 
-
-    # LFC density histogram ====
+    # LFC density histogram ====================================================
     lfcDensity <- data[["log2FoldChange"]] %>%
         na.omit() %>%
         density()
@@ -200,8 +197,7 @@ NULL
                 alpha = shadeAlpha)
     }
 
-
-    # P value density plot ====
+    # P value density plot =====================================================
     pvalueDensity <- data[["negLog10Pvalue"]] %>%
         na.omit() %>%
         density()
@@ -227,8 +223,7 @@ NULL
         theme(axis.text.y = element_blank(),
               axis.ticks.y = element_blank())
 
-
-    # Volcano plot ====
+    # Volcano plot =============================================================
     volcano <- ggplot(
         data,
         mapping = aes_string(
@@ -316,8 +311,7 @@ NULL
                 alpha = shadeAlpha)
     }
 
-
-    # Grid layout ====
+    # Grid layout ==============================================================
     if (isTRUE(histograms)) {
         ggdraw() +
             # Coordinates are relative to lower left corner
@@ -336,7 +330,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotVolcano
 #' @importFrom S4Vectors metadata
 #' @export

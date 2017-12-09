@@ -60,7 +60,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname bcbio
 #' @export
 setMethod(
@@ -92,7 +92,7 @@ setMethod(
 
 
 
-# Legacy class support ====
+# Legacy classes ===============================================================
 # Package versions prior to 0.0.27 used `callers` to define the extra bcbio
 # slot. The structure of the object is otherwise the same.
 #' @rdname bcbio

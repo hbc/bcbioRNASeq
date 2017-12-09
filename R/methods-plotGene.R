@@ -63,7 +63,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' Plot Gene Constructor
 #'
 #' @author Michael Steinbaugh
@@ -130,7 +130,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotGene
 #' @importFrom viridis scale_color_viridis
 #' @export

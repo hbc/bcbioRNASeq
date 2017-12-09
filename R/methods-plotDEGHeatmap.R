@@ -51,7 +51,7 @@ NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump camel
 .plotDEGHeatmap <- function(
     results,
@@ -91,7 +91,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotDEGHeatmap
 #' @importFrom S4Vectors metadata
 #' @export
