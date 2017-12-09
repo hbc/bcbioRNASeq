@@ -159,7 +159,7 @@ setMethod(
             counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            metadata = as.data.frame(colData(object)),
+            metadata = sampleMetadata(object),
             countsAxisLabel = "normalized counts",
             color = color)
     })
