@@ -14,6 +14,7 @@ r:
   - bioc-devel
 r_packages:
   - covr
+  - rlang
 
 after_success:
   - Rscript -e 'covr::codecov()'
