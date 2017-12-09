@@ -74,7 +74,7 @@ loadRNASeq <- function(
     ensemblVersion = NULL,
     transformationLimit = 50,
     ...) {
-    # Directory paths ====
+    # Directory paths ==========================================================
     # Check connection to final upload directory
     if (!dir.exists(uploadDir)) {
         stop("Final upload directory failed to load", call. = FALSE)
@@ -96,7 +96,7 @@ loadRNASeq <- function(
     projectDir <- file.path(uploadDir, projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
 
-    # Sequencing lanes ====
+    # Sequencing lanes =========================================================
     lanePattern <- "_L(\\d{3})"
     if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
@@ -109,14 +109,14 @@ loadRNASeq <- function(
         lanes <- 1
     }
 
-    # Project summary YAML ====
+    # Project summary YAML =====================================================
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     if (!file.exists(yamlFile)) {
         stop("'project-summary.yaml' file missing", call. = FALSE)
     }
     yaml <- readYAML(yamlFile)
 
-    # Sample metadata ====
+    # Sample metadata ==========================================================
     if (!is.null(sampleMetadataFile)) {
         sampleMetadataFile <- normalizePath(sampleMetadataFile)
         sampleMetadata <- readSampleMetadataFile(
@@ -129,7 +129,7 @@ loadRNASeq <- function(
         stop("Sample name mismatch", call. = FALSE)
     }
 
-    # Interesting groups ====
+    # Interesting groups =======================================================
     # Ensure internal formatting in camelCase
     interestingGroups <- camel(interestingGroups, strict = FALSE)
     # Default to `sampleName`
@@ -145,7 +145,7 @@ loadRNASeq <- function(
         stop("Interesting groups missing in sample metadata", call. = FALSE)
     }
 
-    # Subset sample directories by metadata ====
+    # Subset sample directories by metadata ====================================
     if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
         message("Loading a subset of samples, defined by the metadata file")
         allSamples <- FALSE
@@ -156,13 +156,13 @@ loadRNASeq <- function(
         allSamples <- TRUE
     }
 
-    # Genome ====
+    # Genome ===================================================================
     # Use the genome build of the first sample to match
     genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
     organism <- detectOrganism(genomeBuild)
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
 
-    # Gene and transcript annotations ====
+    # Gene and transcript annotations ==========================================
     if (missing(annotable)) {
         annotable <- basejump::annotable(
             organism,
@@ -176,14 +176,14 @@ loadRNASeq <- function(
         organism = organism,
         release = ensemblVersion)
 
-    # Sample metrics ====
+    # Sample metrics ===========================================================
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
     message("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
 
-    # bcbio-nextgen run information ====
+    # bcbio-nextgen run information ============================================
     message("Reading bcbio run information")
     dataVersions <- readDataVersions(
         file.path(projectDir, "data_versions.csv"))
@@ -194,13 +194,13 @@ loadRNASeq <- function(
     bcbioCommandsLog <- readLogFile(
         file.path(projectDir, "bcbio-nextgen-commands.log"))
 
-    # tximport ====
+    # tximport =================================================================
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
     rawCounts <- txi[["counts"]]
     tmm <- tmm(rawCounts)
     tpm <- txi[["abundance"]]
 
-    # colData ====
+    # colData ==================================================================
     # This step is necessary for samples have been sanitized with
     # `make.names()`, which can cause samples that are now prefixed with `X` to
     # become out of order in the rows. This will cause the
@@ -214,7 +214,7 @@ loadRNASeq <- function(
         column_to_rownames() %>%
         as("DataFrame")
 
-    # DESeqDataSet ====
+    # DESeqDataSet =============================================================
     message("Generating internal DESeqDataSet for quality control")
     design <- formula(~1)
     dds <- DESeqDataSetFromTximport(
@@ -224,7 +224,7 @@ loadRNASeq <- function(
     dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
 
-    # rlog & variance ====
+    # Variance stabilizing transformations =====================================
     if (nrow(sampleMetadata) > transformationLimit) {
         warning(paste(
             "Dataset contains many samples.",
@@ -239,12 +239,12 @@ loadRNASeq <- function(
         vst <- varianceStabilizingTransformation(dds)
     }
 
-    # STAR featureCounts ====
+    # STAR/featureCounts aligned counts matrix =================================
     # Aligned counts, used for summary metrics. Not generated for fast RNA-seq.
-    fcFile <- file.path(projectDir, "combined.counts")
+    featureCountsFile <- file.path(projectDir, "combined.counts")
     if (file.exists(fcFile)) {
         message("Reading STAR featureCounts aligned counts")
-        fc <- read_tsv(fcFile) %>%
+        featureCounts <- read_tsv(fcFile) %>%
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
             set_colnames(
@@ -259,7 +259,7 @@ loadRNASeq <- function(
             # This is an error fix for the current bcb example dataset.
             # Safe to remove in a future update.
             # Subset columns by matching STAR sample name in metrics.
-            fc <- fc %>%
+            featureCounts <- featureCounts %>%
                 .[, gsub(x = make.names(pull(metrics, "name"), unique = TRUE),
                         pattern = "\\.",
                         replacement = "_"), drop = FALSE] %>%
@@ -267,10 +267,10 @@ loadRNASeq <- function(
                 set_colnames(colnames(rawCounts))
         }
     } else {
-        fc <- NULL
+        featureCounts <- NULL
     }
 
-    # Metadata ====
+    # Metadata =================================================================
     metadata <- list(
         version = packageVersion,
         uploadDir = uploadDir,
@@ -300,7 +300,7 @@ loadRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
-    # Prepare SummarizedExperiment ====
+    # Return ===================================================================
     se <- prepareSummarizedExperiment(
         assays = list(
             raw = rawCounts,
@@ -312,15 +312,9 @@ loadRNASeq <- function(
         rowData = annotable,
         colData = colData,
         metadata = metadata)
-
-    # bcbioRNASeq ====
-    bcb <- new("bcbioRNASeq", se)
-    # Slot additional data
-    bcbio(bcb, "tximport") <- txi
-    bcbio(bcb, "DESeqDataSet") <- dds
-    # Slot STAR featureCounts matrix, if present
-    if (is.matrix(fc)) {
-        bcbio(bcb, "featureCounts") <- fc
-    }
-    bcb
+    bcbio <- SimpleList(
+        tximport = txi,
+        DESeqDataSet = dds,
+        featureCounts = featureCounts)
+    new("bcbioRNASeq", se, bcbio = bcbio)
 }
