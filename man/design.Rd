@@ -26,11 +26,11 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 # bcbioRNASeq
-design(bcb)
+design(bcb) \%>\% print(showEnv = FALSE)
 
 # Assignment support
 design(bcb) <- formula(~group)
-design(bcb)
+design(bcb) \%>\% print(showEnv = FALSE)
 }
 \seealso{
 \itemize{
