@@ -242,9 +242,9 @@ loadRNASeq <- function(
     # STAR/featureCounts aligned counts matrix =================================
     # Aligned counts, used for summary metrics. Not generated for fast RNA-seq.
     featureCountsFile <- file.path(projectDir, "combined.counts")
-    if (file.exists(fcFile)) {
+    if (file.exists(featureCountsFile)) {
         message("Reading STAR featureCounts aligned counts")
-        featureCounts <- read_tsv(fcFile) %>%
+        featureCounts <- read_tsv(featureCountsFile) %>%
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
             set_colnames(
@@ -254,7 +254,7 @@ loadRNASeq <- function(
             ) %>%
             column_to_rownames("id") %>%
             as.matrix()
-        if (!identical(colnames(rawCounts), colnames(fc))) {
+        if (!identical(colnames(rawCounts), colnames(featureCounts))) {
             # Look for column name mismatch and attempt fix.
             # This is an error fix for the current bcb example dataset.
             # Safe to remove in a future update.
