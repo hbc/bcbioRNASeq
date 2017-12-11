@@ -7,30 +7,38 @@
 \alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
-\S4method{plotMA}{DESeqResults}(object, labelPoints = NULL,
-  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
-  labelColor = "black")
+\S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = TRUE,
+  pointColor = "darkgray", sigPointColor = "red", labelColor = "black")
 
-\S4method{plotMA}{data.frame}(object, alpha = 0.01, labelPoints = NULL,
-  labelColumn = "ensgene", pointColorScale = c("darkgray", "red"),
-  labelColor = "black", title = TRUE)
+\S4method{plotMA}{data.frame}(object, alpha = 0.01, genes = NULL,
+  gene2symbol = TRUE, pointColor = "darkgray", sigPointColor = "purple",
+  labelColor = "black", title = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{labelPoints}{\emph{Optional}. Label these particular points.}
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.}
 
-\item{labelColumn}{Match \code{labelPoints} argument to this column in the
-results.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
-\item{pointColorScale}{Point color scale. See
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}} for more information.}
+\item{pointColor}{Default point color for the plot.}
+
+\item{sigPointColor}{Color for points corresponding to significant genes that
+have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
 \item{alpha}{Alpha level cutoff (Adjusted P value).}
 
-\item{title}{Plot title.}
+\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
 \link{ggplot}.
@@ -39,16 +47,30 @@ results.}
 Plot Mean Average
 }
 \examples{
-genes <- c("ENSMUSG00000104523", "ENSMUSG00000016918")
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
+gene2symbol <- gene2symbol(bcb)
+
+ensgene <- rownames(res) \%>\% head(n = 4)
+print(ensgene)
 
 # DESeqResults
-plotMA(res, labelPoints = genes)
+plotMA(res, genes = ensgene, gene2symbol = TRUE)
+
+# Use a stashed gene2symbol data.frame
+plotMA(res, genes = ensgene, gene2symbol = gene2symbol)
+
+# Label the Ensembl gene identifiers instead of symbols
+plotMA(res, genes = ensgene, gene2symbol = FALSE)
 
 # data.frame
-\dontrun{
 df <- as.data.frame(res)
-plotMA(df, alpha = 0.1, labelPoints = genes)
-}
+plotMA(df, alpha = 0.01)
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plotVolcano}}
@@ -56,4 +78,3 @@ Other Differential Expression Plots: \code{\link{plotVolcano}}
 \author{
 Rory Kirchner, Michael Steinbaugh
 }
-\concept{Differential Expression Plots}

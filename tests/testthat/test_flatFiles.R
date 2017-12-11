@@ -1,5 +1,9 @@
 context("flatFiles")
 
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 test_that("flatFiles", {
     flat <- flatFiles(bcb)
     expect_is(flat, "list")

@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
+\alias{plotGeneSaturation}
 \alias{plotGeneSaturation,bcbioRNASeq,missing-method}
 \alias{plotGeneSaturation,data.frame,matrix-method}
 \title{Plot Gene Detection Saturation}
@@ -10,12 +11,12 @@
 plotGeneSaturation(object, counts, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0, color = scale_color_viridis(discrete
-  = TRUE))
+  normalized = "tmm", minCounts = 0,
+  color = viridis::scale_color_viridis(discrete = TRUE))
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
   interestingGroups = "sampleName", minCounts = 0,
-  color = scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -49,16 +50,21 @@ definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
-plotGeneSaturation(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
-plotGeneSaturation(bcb, interestingGroups = "group")
-}
+# bcbioRNASeq
+plotGeneSaturation(bcb)
+plotGeneSaturation(
+    bcb,
+    interestingGroups = "sampleName",
+    color = NULL)
 
 # data.frame, matrix
-\dontrun{
-plotGeneSaturation(metrics(bcb), assay(rld))
-}
+df <- metrics(bcb)
+counts <- counts(bcb, normalized = "rlog")
+plotGeneSaturation(df, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -76,4 +82,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

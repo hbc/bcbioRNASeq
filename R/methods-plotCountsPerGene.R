@@ -9,31 +9,32 @@
 #' @inheritParams plotCountDensity
 #'
 #' @examples
-#' plotCountsPerGene(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # bcbioRNASeq
+#' plotCountsPerGene(bcb)
 #' plotCountsPerGene(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>% plotCountsPerGene()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountsPerGene(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -59,9 +60,8 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotCountsPerGene
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -71,7 +71,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = "tmm",
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)

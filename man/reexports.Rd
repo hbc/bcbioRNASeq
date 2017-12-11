@@ -4,9 +4,15 @@
 \name{reexports}
 \alias{reexports}
 \alias{ggplot}
+\alias{reexports}
+\alias{glimpse}
+\alias{reexports}
 \alias{inferno}
+\alias{reexports}
 \alias{scale_color_viridis}
+\alias{reexports}
 \alias{scale_fill_viridis}
+\alias{reexports}
 \alias{viridis}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -16,6 +22,8 @@ below to see their documentation.
 
 \describe{
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{tibble}{\code{\link[tibble]{glimpse}}}
 
   \item{viridis}{\code{\link[viridis]{inferno}}, \code{\link[viridis]{scale_color_viridis}}, \code{\link[viridis]{scale_fill_viridis}}, \code{\link[viridis]{viridis}}}
 }}

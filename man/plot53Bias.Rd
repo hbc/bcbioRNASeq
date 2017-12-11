@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plot53Bias}
 \alias{plot53Bias}
+\alias{plot53Bias}
 \alias{plot53Bias,bcbioRNASeq-method}
 \alias{plot53Bias,data.frame-method}
 \title{Plot 5'->3' Bias}
@@ -10,10 +11,11 @@
 plot53Bias(object, ...)
 
 \S4method{plot53Bias}{bcbioRNASeq}(object, interestingGroups, warnLimit = 2,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
-  warnLimit = 2, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  warnLimit = 2, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -42,19 +44,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot 5'->3' Bias
 }
 \examples{
-plot53Bias(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plot53Bias(bcb)
 plot53Bias(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-metrics(bcb) \%>\% plot53Bias()
-}
+df <- metrics(bcb)
+plot53Bias(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},
@@ -72,4 +75,3 @@ Other Quality Control Plots: \code{\link{plotCountDensity}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

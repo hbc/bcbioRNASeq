@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotCountDensity}
 \alias{plotCountDensity}
+\alias{plotCountDensity}
 \alias{plotCountDensity,bcbioRNASeq-method}
 \alias{plotCountDensity,data.frame-method}
 \title{Plot Count Density}
@@ -11,13 +12,13 @@ plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", style = "solid",
-  color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  fill = viridis::scale_fill_viridis(discrete = TRUE))
 
 \S4method{plotCountDensity}{data.frame}(object,
   interestingGroups = "sampleName", style = "solid",
-  color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  fill = viridis::scale_fill_viridis(discrete = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -53,19 +54,21 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Count Density
 }
 \examples{
-plotCountDensity(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotCountDensity(bcb, style = "solid")
 plotCountDensity(
     bcb,
-    interestingGroups = "group",
+    style = "line",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\% plotCountDensity()
-}
+df <- meltLog10(bcb, normalized = "tmm")
+plotCountDensity(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -83,4 +86,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

@@ -21,20 +21,25 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "dds.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
 #' alphaSummary(dds)
-#' \dontrun{
 #' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 #' alphaSummary(dds, name = "group_ko_vs_ctrl")
-#' }
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom DESeq2 results
 #' @importFrom dplyr bind_cols
 #' @importFrom knitr kable
@@ -81,7 +86,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname alphaSummary
 #' @importFrom BiocGenerics design
 #' @importFrom stats formula

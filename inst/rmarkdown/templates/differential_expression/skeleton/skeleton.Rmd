@@ -8,7 +8,7 @@ params:
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
     alpha: 0.01
-    lfc: 0
+    lfc: 1
     outputDir: "."
 ---
 
@@ -16,20 +16,20 @@ params:
 library(DESeq2)
 library(bcbioRNASeq)
 
-# Shared RMarkdown settings
+# Shared R Markdown settings
 prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
     source("setup.R")
 }
 
+# Directory paths
+dataDir <- file.path(params$outputDir, "data")
+countsDir <- file.path(params$outputDir, "results", "counts")
+deDir <- file.path(params$outputDir, "results", "differential_expression")
+
 # Load bcbioRNASeq object
 bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
-
-# Directory paths
-outputDir <- params$outputDir
-countsDir <- file.path(outputDir, "results", "counts")
-deDir <- file.path(outputDir, "results", "differential_expression")
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
@@ -38,12 +38,9 @@ deDir <- file.path(outputDir, "results", "differential_expression")
 
 
 ```{r dds, results="hide"}
-# help("design", "DESeq2")
-dds <- DESeqDataSetFromTximport(
-    txi = txi(bcb),
-    colData = colData(bcb),
-    design = params$design) %>%
-    DESeq()
+dds <- bcbio(bcb, "DESeqDataSet")
+design(dds) <- params$design
+dds <- DESeq(dds)
 rld <- rlog(dds)
 ```
 
@@ -84,7 +81,7 @@ resShrunken <- lfcShrink(
 
 # Use shrunken LFC values by default
 res <- resShrunken
-saveData(res, dir = outputDir)
+saveData(res, dir = dataDir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc`.

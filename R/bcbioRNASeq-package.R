@@ -13,10 +13,14 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
-#' @importFrom utils globalVariables
 NULL
 
+#' @importFrom utils globalVariables
 globalVariables(".")
+
+#' @importFrom utils packageVersion
+packageVersion <- packageVersion("bcbioRNASeq")
+
 projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 metadataPriorityCols <- c("sampleID", "description", "sampleName")
 perSampleDirs <- c("sailfish", "salmon")

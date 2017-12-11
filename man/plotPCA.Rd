@@ -7,7 +7,8 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", interestingGroups,
-  genes, censorSamples, label = FALSE, shape = FALSE, returnData = FALSE)
+  genes, censorSamples, color = viridis::scale_color_viridis(discrete = TRUE),
+  label = FALSE, returnData = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,14 +22,16 @@ parameters set in the \link{bcbioRNASeq} object.}
 
 \item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
 
-\item{censorSamples}{\emph{Optional}. Censors to exclude from PCA plot.}
+\item{censorSamples}{\emph{Optional}. Samples to exclude from the PCA plot.
+Supply them as a character vector. These should match \code{colnames(object)}.}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
-
-\item{shape}{\emph{Optional}. Make points easier to inspect with differing shapes.
-Generally this isn't recommended for PCA and works poorly for more
-than 6 discrete factors, as defined by the \code{interestingGroups} argument.
-We recommend typically leaving this to \code{FALSE}.}
 
 \item{returnData}{Return PCA loadings data instead of plotting.}
 }
@@ -40,14 +43,21 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 plotPCA(bcb, label = TRUE)
 plotPCA(bcb, label = FALSE)
 
-# Manually set interesting groups
-# Note these columns aren't present in our example data
-\dontrun{
-plotPCA(bcb, interestingGroups = c("genotype", "treatment"))
-}
+# Default ggplot color palette
+plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
+
+# Censor samples
+colnames(bcb)
+censor <- "group1_1"
+plotPCA(bcb, censorSamples = censor)
 }
 \seealso{
 \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.

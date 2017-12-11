@@ -8,24 +8,25 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' plotMappedReads(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # bcbioRNASeq
+#' plotMappedReads(bcb)
 #' plotMappedReads(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
-#' \dontrun{
-#' metrics(bcb) %>% plotMappedReads()
-#' }
+#' df <- metrics(bcb)
+#' plotMappedReads(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
@@ -34,7 +35,7 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 20,
     warnLimit = 10,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -66,7 +67,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotMappedReads
 #' @importFrom S4Vectors metadata
 #' @export
@@ -78,7 +79,7 @@ setMethod(
         interestingGroups,
         passLimit = 20,
         warnLimit = 10,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

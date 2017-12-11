@@ -3,6 +3,7 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
+\alias{alphaSummary}
 \alias{alphaSummary,bcbioRNASeq-method}
 \alias{alphaSummary,DESeqDataSet-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
@@ -36,15 +37,20 @@ Print Summary Statistics of Alpha Level Cutoffs
 object contains an internal \link{DESeqDataSet} with an empty design formula.
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
 alphaSummary(bcb)
 
 # DESeqDataSet
 alphaSummary(dds)
-\dontrun{
 alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
 alphaSummary(dds, name = "group_ko_vs_ctrl")
-}
 }
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.
@@ -55,4 +61,3 @@ Other Differential Expression Utilities: \code{\link{plotDispEsts}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Differential Expression Utilities}

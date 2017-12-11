@@ -11,7 +11,7 @@ params:
 ```{r setup, message=FALSE}
 library(bcbioRNASeq)
 
-# Shared RMarkdown settings
+# Shared R Markdown settings
 prepareRNASeqTemplate()
 if (file.exists("setup.R")) {
     source("setup.R")

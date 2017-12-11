@@ -1,7 +1,15 @@
 context("resultsTables")
 
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
 test_that("resultsTables", {
-    resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
+    resTbl <- resultsTables(
+        res,
+        lfc = 0.25,
+        summary = FALSE,
+        write = FALSE)
     expect_equal(
         class(resTbl),
         "list"

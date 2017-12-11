@@ -99,7 +99,8 @@ desired genes will be used to calculate the correlation matrix.</p>
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='no'>interestingGroups</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>)</pre>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -147,12 +148,13 @@ plot.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Colors to use for plot. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno()</a></code> palette.</p></td>
+      <td><p>Colors to use for plot. Defaults to the <code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code>
+palette.</p></td>
     </tr>
     <tr>
       <th>legendColor</th>
-      <td><p>Colors to use for legend labels. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>
-palette.</p></td>
+      <td><p>Colors to use for legend labels. Defaults to the
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code> palette.</p></td>
     </tr>
     </table>
     
@@ -166,29 +168,29 @@ palette.</p></td>
 <li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
 </ul>
-    <p>Other Heatmaps: <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
-  <code><a href='plotHeatmap.html'>plotHeatmap</a></code></p>
+    <p>Other Heatmaps: <code>plotDEGHeatmap</code>,
+  <code>plotHeatmap</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Pearson correlation (default)</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Pearson correlation</span>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Spearman correlation</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# Flip the palettes used for plot and legend
-</div><span class='co'># NOT RUN {</span>
+<span class='co'># Inferno palette</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
     <span class='no'>bcb</span>,
-    <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)
-<span class='co'># }</span><div class='input'>
-# Default pheatmap palette
-</div><span class='co'># NOT RUN {</span>
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>inferno</a></span>(<span class='fl'>256</span>),
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>inferno</a></span>)</div><div class='img'><img src='plotCorrelationHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Default pheatmap palette</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-<span class='co'># }</span></pre>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotCorrelationHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

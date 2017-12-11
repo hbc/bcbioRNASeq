@@ -4,6 +4,7 @@
 \docType{methods}
 \name{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate}
+\alias{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate,bcbioRNASeq-method}
 \alias{plotIntronicMappingRate,data.frame-method}
 \title{Plot Intronic Mapping Rate}
@@ -11,11 +12,12 @@
 plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  warnLimit = 20, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  warnLimit = 20, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  flip = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", warnLimit = 20,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -44,19 +46,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Intronic Mapping Rate
 }
 \examples{
-plotIntronicMappingRate(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotIntronicMappingRate(bcb)
 plotIntronicMappingRate(
     bcb,
-    interestingGroups = "group"
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-metrics(bcb) \%>\% plotIntronicMappingRate()
-}
+df <- metrics(bcb)
+plotIntronicMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -74,4 +77,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

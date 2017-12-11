@@ -9,12 +9,17 @@
 #' @return [matrix].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' tpm(bcb) %>% head()
 NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname tpm
 #' @export
 setMethod(

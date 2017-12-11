@@ -11,12 +11,17 @@
 #' @return [data.frame]
 #'
 #' @examples
-#' annotable(bcb) %>% str()
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
+#' annotable(bcb) %>% glimpse()
 NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname annotable
 #' @importFrom S4Vectors metadata
 #' @export

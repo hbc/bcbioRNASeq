@@ -3,6 +3,7 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
+\alias{tmm}
 \alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}
@@ -28,20 +29,20 @@ of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
 tmm(bcb) \%>\% summary()
 
 # DESeqDataSet
-\dontrun{
+dds <- bcbio(bcb, "DESeqDataSet")
 tmm(dds) \%>\% summary()
-}
 
 # matrix
-\dontrun{
-assay(bcb) \%>\%
-    tmm() \%>\%
-    summary()
-}
+counts <- counts(bcb)
+tmm(counts) \%>\% summary()
 }
 \author{
 Michael Steinbaugh

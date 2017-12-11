@@ -4,14 +4,23 @@
 \name{plotGene}
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
+\alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tpm", gene, format = "symbol",
-  color = scale_color_viridis(discrete = TRUE), returnList = FALSE)
+\S4method{plotGene}{bcbioRNASeq}(object, genes, interestingGroups,
+  normalized = "tpm", format = "ensgene",
+  color = viridis::scale_color_viridis(discrete = TRUE), returnList = FALSE)
+
+\S4method{plotGene}{matrix}(object, genes, metadata,
+  interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE),
+  countsAxisLabel = "counts", returnList = FALSE)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{genes}{Gene identifier(s). Can input multiple genes as a character
+vector.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -22,10 +31,8 @@ this is automatically determined by the metadata set inside the
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
 
-\item{gene}{Gene identifier. Can input multiple genes as a character vector.}
-
-\item{format}{Ensembl identifier format. Supports \code{symbol} (\strong{default}) or
-\code{ensgene}.}
+\item{format}{Ensembl identifier format. Supports \code{ensgene} (\strong{recommended})
+or \code{symbol}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
@@ -35,6 +42,10 @@ definitions are desired, we recommend using
 
 \item{returnList}{Return the plotlist used to generate the paneled,
 multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
+
+\item{metadata}{Sample metadata \link{data.frame}.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
 \itemize{
@@ -46,17 +57,33 @@ multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
 Plot Individual Genes
 }
 \examples{
-# Gene symbols
-symbol <- rowData(bcb)[["symbol"]][1:3]
-print(symbol)
-plotGene(bcb, gene = symbol, format = "symbol")
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 # Gene identifiers
-\dontrun{
-ensgene <- rowData(bcb)[["ensgene"]][1:3]
+ensgene <- rownames(bcb)[1:4]
 print(ensgene)
-plotGene(bcb, gene = ensgene, format = "ensgene")
-}
+plotGene(
+    bcb,
+    genes = ensgene,
+    format = "ensgene")
+
+# Gene symbols
+symbol <- rowData(bcb)[["symbol"]][1:4]
+print(symbol)
+plotGene(
+    bcb,
+    genes = symbol,
+    format = "symbol")
+
+# Default ggplot2 color palette
+plotGene(
+    bcb,
+    genes = ensgene,
+    format = "ensgene",
+    interestingGroups = "sampleName",
+    color = NULL)
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
@@ -77,4 +104,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Plots}

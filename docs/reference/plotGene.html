@@ -91,9 +91,15 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>, <span class='no'>gene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for matrix</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='no'>metadata</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>returnList</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -101,6 +107,11 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>genes</th>
+      <td><p>Gene identifier(s). Can input multiple genes as a character
+vector.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
@@ -116,13 +127,9 @@ this is automatically determined by the metadata set inside the
 <code>rlog</code>, or <code>vst</code>.</p></td>
     </tr>
     <tr>
-      <th>gene</th>
-      <td><p>Gene identifier. Can input multiple genes as a character vector.</p></td>
-    </tr>
-    <tr>
       <th>format</th>
-      <td><p>Ensembl identifier format. Supports <code>symbol</code> (<strong>default</strong>) or
-<code>ensgene</code>.</p></td>
+      <td><p>Ensembl identifier format. Supports <code>ensgene</code> (<strong>recommended</strong>)
+or <code>symbol</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -136,6 +143,14 @@ definitions are desired, we recommend using
       <th>returnList</th>
       <td><p>Return the plotlist used to generate the paneled,
 multi-gene plot with <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>metadata</th>
+      <td><p>Sample metadata data.frame.</p></td>
+    </tr>
+    <tr>
+      <th>countsAxisLabel</th>
+      <td><p>Text label of counts axis.</p></td>
     </tr>
     </table>
     
@@ -151,30 +166,45 @@ multi-gene plot with <code><a href='http://www.rdocumentation.org/packages/cowpl
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p>
-<p>Other Quality Control Plots: <code><a href='plot53Bias.html'>plot53Bias</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p>
+<p>Other Quality Control Plots: <code>plot53Bias</code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGenderMarkers</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Gene symbols</span>
-<span class='no'>symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>rowData</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"symbol"</span>]][<span class='fl'>1</span>:<span class='fl'>3</span>]
-<span class='fu'>print</span>(<span class='no'>symbol</span>)</div><div class='output co'>#&gt; [1] "Rgs20" "Rab23" "Ncoa2"</div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>gene</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# Gene identifiers
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rowData</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"ensgene"</span>]][<span class='fl'>1</span>:<span class='fl'>3</span>]
-<span class='fu'>print</span>(<span class='no'>ensgene</span>)
-<span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>gene</span> <span class='kw'>=</span> <span class='no'>ensgene</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Gene identifiers</span>
+<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>]
+<span class='fu'>print</span>(<span class='no'>ensgene</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886"
+#&gt; [4] "ENSMUSG00000016918"</div><div class='input'><span class='fu'>plotGene</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>,
+    <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Gene symbols</span>
+<span class='no'>symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>rowData</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"symbol"</span>]][<span class='fl'>1</span>:<span class='fl'>4</span>]
+<span class='fu'>print</span>(<span class='no'>symbol</span>)</div><div class='output co'>#&gt; [1] "Rgs20" "Rab23" "Ncoa2" "Sulf1"</div><div class='input'><span class='fu'>plotGene</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>symbol</span>,
+    <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"symbol"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Default ggplot2 color palette</span>
+<span class='fu'>plotGene</span>(
+    <span class='no'>bcb</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>,
+    <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ensgene"</span>,
+    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

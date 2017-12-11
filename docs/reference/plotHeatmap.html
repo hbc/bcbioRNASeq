@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Heatmap — plotHeatmap • bcbioRNASeq</title>
+<title>Plot Heatmap — plotHeatmap • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,7 +83,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Heatmap</h1>
+    <h1>Plot Heatmap</h1>
     </div>
 
     
@@ -98,23 +98,26 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
     <pre class="usage"><span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>),
-  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
 <span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>),
-  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+  <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>),
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -128,31 +131,61 @@ are sorted by the interesting groups (<code>interestingGroups</code>) specified 
       <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>normalized</th>
+      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
+(<code>TRUE</code>), or additional normalization methods:</p><ul>
+<li><p><code>tpm</code>: Transcripts per million.</p></li>
+<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
+<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
+<li><p><code>vst</code>: Variance stabilizing transformation
+(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>genes</th>
-      <td><p>Character vector of specific gene identifiers to plot.</p></td>
+      <td><p><em>Optional</em>. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>Character indicating if the values should be centered and scaled
+in either the row direction or the column direction, or none. Corresponding
+values are "row", "column" and "none".</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Colors to use for plot. Defaults to the <code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code>
+palette.</p></td>
+    </tr>
+    <tr>
+      <th>legendColor</th>
+      <td><p>Colors to use for legend labels. Defaults to the
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code> palette.</p></td>
     </tr>
     <tr>
       <th>title</th>
       <td><p><em>Optional</em>. Plot title.</p></td>
     </tr>
     <tr>
-      <th>color</th>
-      <td><p>Colors to use for plot. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>inferno()</a></code> palette.</p></td>
-    </tr>
-    <tr>
-      <th>legendColor</th>
-      <td><p>Colors to use for legend labels. Defaults to <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>
-palette.</p></td>
-    </tr>
-    <tr>
       <th>quiet</th>
       <td><p>If <code>TRUE</code>, suppress any status messages and/or progress bars.</p></td>
     </tr>
     <tr>
+      <th>gene2symbol</th>
+      <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using <code><a href='http://www.rdocumentation.org/packages/basejump/topics/annotable'>basejump::annotable()</a></code>. If set <code>FALSE</code>/<code>NULL</code>, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol data.frame can be
+passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
+    </tr>
+    <tr>
       <th>annotationCol</th>
-      <td><p>data.frame that specifies the annotations shown on the
-right side of the heatmap. Each row of this data.frame defines the
-features of the heatmap columns.</p></td>
+      <td><p><em>Optional</em>. data.frame that specifies the annotations
+shown on the right side of the heatmap. Each row of this data.frame
+defines the features of the heatmap columns.</p></td>
     </tr>
     </table>
     
@@ -163,41 +196,35 @@ features of the heatmap columns.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p>
-<p>Other Heatmaps: <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code></p>
+<p>Other Heatmaps: <code>plotCorrelationHeatmap</code>,
+  <code>plotDEGHeatmap</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Genes as Ensembl identifiers</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>rownames</span>()
-<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># Flip the plot and legend palettes</span>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Use Ensembl identifiers to define genes</span>
+<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>, ] <span class='kw'>%&gt;%</span> <span class='fu'>rownames</span>()
+<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>)</div><div class='img'><img src='plotHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Use inferno color palette</span>
 <span class='fu'>plotHeatmap</span>(
     <span class='no'>bcb</span>,
-    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>,
-    <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis</a></span>(<span class='fl'>256</span>),
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# Transcriptome heatmap
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>)
-<span class='co'># }</span><div class='input'>
-# Use default pheatmap color palette
-</div><span class='co'># NOT RUN {</span>
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>inferno</a></span>(<span class='fl'>256</span>),
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>inferno</a></span>)</div><div class='img'><img src='plotHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># Transcriptome heatmap with default pheatmap colors</span>
 <span class='fu'>plotHeatmap</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-<span class='co'># }</span><div class='input'>
-# DESeqDataSet
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>dds</span>)
-<span class='co'># }</span><div class='input'>
-# DESeqTransform
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>rld</span>)
-<span class='co'># }</span></pre>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqDataSet</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>plotHeatmap</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqTransform</span>
+<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
+<span class='fu'>plotHeatmap</span>(<span class='no'>rld</span>)</div><div class='img'><img src='plotHeatmap-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

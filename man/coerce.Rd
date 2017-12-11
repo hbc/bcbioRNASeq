@@ -3,6 +3,7 @@
 \name{coerce}
 \alias{coerce}
 \alias{upgrade-bcbioRNASeq}
+\alias{coerce-bcbioRNASeq-SummarizedExperiment}
 \title{Coerce Object}
 \arguments{
 \item{from}{Class for which the coerce method will perform coercion.}
@@ -10,18 +11,25 @@
 \description{
 Coerce Object
 }
-\section{Upgrade \link{bcbioRNASeq} to current version}{
- This method adds support
-for upgrading \link{bcbioRNADataSet} objects to the latest \link{bcbioRNASeq} class
-version. This should be backwards compatible to \link{bcbioRNASeq} version
-0.0.26. Previous objects saved using \code{bcbioRnaseq} (note case) will likely
-fail to load with newer versions of the package.
+\section{Upgrade bcbioRNASeq to current version}{
+
+This method adds support for upgrading \link{bcbioRNADataSet} objects to the
+latest \link{bcbioRNASeq} class version. This should be backwards compatible to
+\link{bcbioRNASeq} version 0.0.26. Previous objects saved using \code{bcbioRnaseq}
+(note case) will likely fail to load with newer versions of the package.
+}
+
+\section{bcbioRNASeq to SummarizedExperiment}{
+
+Since \link{bcbioRNASeq} is an extension of \link{SummarizedExperiment}, this
+coercion method is very simple. Here we're simply dropping our \code{@bcbio} slot,
+which contains raw cellular barcodes and other bcbio-specific metadata.
 }
 
 \examples{
 \dontrun{
-# bcbioRNADataSet
-newClass <- as(oldClass, "bcbioRNASeq")
+# Legacy bcbioRNADataSet class
+new <- as(old, "bcbioRNASeq")
 }
 }
 \seealso{

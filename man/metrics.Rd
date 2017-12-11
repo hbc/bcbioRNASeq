@@ -18,5 +18,10 @@
 Sample Metrics
 }
 \examples{
-metrics(bcb) \%>\% str()
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
+metrics(bcb) \%>\% glimpse()
 }

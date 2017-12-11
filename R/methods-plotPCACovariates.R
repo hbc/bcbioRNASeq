@@ -25,13 +25,17 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' plotPCACovariates(bcb, metrics = TRUE)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom DEGreport degCovariates
 #' @importFrom dplyr select_if
 .plotPCACovariates <- function(
@@ -94,7 +98,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotPCACovariates
 #' @export
 setMethod(

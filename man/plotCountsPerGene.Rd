@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotCountsPerGene}
 \alias{plotCountsPerGene}
+\alias{plotCountsPerGene}
 \alias{plotCountsPerGene,bcbioRNASeq-method}
 \alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
@@ -10,12 +11,12 @@
 plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
+  normalized = "tmm", fill = viridis::scale_fill_viridis(discrete = TRUE),
   flip = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroups = "sampleName", fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  interestingGroups = "sampleName",
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -45,19 +46,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Counts Per Gene
 }
 \examples{
-plotCountsPerGene(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotCountsPerGene(bcb)
 plotCountsPerGene(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-meltLog10(bcb, normalized = "tmm") \%>\% plotCountsPerGene()
-}
+df <- meltLog10(bcb, normalized = "tmm")
+plotCountsPerGene(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -75,4 +77,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

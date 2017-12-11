@@ -18,7 +18,12 @@
 Ensembl Annotations
 }
 \examples{
-annotable(bcb) \%>\% str()
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
+annotable(bcb) \%>\% glimpse()
 }
 \author{
 Michael Steinbaugh

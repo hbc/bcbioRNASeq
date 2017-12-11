@@ -28,13 +28,23 @@ of counts across the flow cells.
 \link{DESeqDataSet} is returned using \code{\link[=DESeqDataSetFromMatrix]{DESeqDataSetFromMatrix()}}.
 }
 \examples{
-# matrix
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 \dontrun{
-aggregateReplicates(assay(bcb))
+aggregateReplicates(bcb)
 }
 
 # DESeqDataSet
 \dontrun{
 aggregateReplicates(dds)
+}
+
+# matrix
+\dontrun{
+counts <- counts(bcb)
+aggregateReplicates(counts)
 }
 }

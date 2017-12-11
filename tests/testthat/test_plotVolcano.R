@@ -1,5 +1,9 @@
 context("plotVolcano")
 
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
 test_that("DESeqResults", {
     plot <- plotVolcano(res)
     expect_equal(

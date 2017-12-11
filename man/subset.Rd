@@ -75,25 +75,26 @@ Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
 internal \link{DESeqDataSet} and count transformations are rescaled automatically.
 }
 \examples{
-data(bcb)
-genes <- 1:50
-samples <- c("group1_1", "group1_2")
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+ensgene <- rownames(bcb)[1:50]
+head(ensgene)
+samples <- colnames(bcb)[1:2]
+head(samples)
 
 # Subset by sample name
 bcb[, samples]
 
 # Subset by gene list
-bcb[genes, ]
+bcb[ensgene, ]
 
 # Subset by both genes and samples
-\dontrun{
-bcb[genes, samples]
-}
+bcb[ensgene, samples]
 
 # Skip normalization
-\dontrun{
-bcb[genes, samples, skipNorm = TRUE]
-}
+bcb[ensgene, samples, skipNorm = TRUE]
 }
 \seealso{
 \code{help("[", "base")}.

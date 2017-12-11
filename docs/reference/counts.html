@@ -121,9 +121,11 @@ argument.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># Raw counts</span>
+<span class='co'># Raw counts (from tximport)</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1            group2_2        
 #&gt;  Min.   :     0.00   Min.   :0.00e+00   Min.   :     0.00   Min.   :     0.00  
 #&gt;  1st Qu.:     0.00   1st Qu.:0.00e+00   1st Qu.:     0.00   1st Qu.:     0.00  
@@ -131,7 +133,7 @@ argument.</p>
 #&gt;  Mean   :   573.33   Mean   :1.02e+03   Mean   :   978.47   Mean   :  1114.48  
 #&gt;  3rd Qu.:     7.99   3rd Qu.:7.96e+00   3rd Qu.:     9.21   3rd Qu.:     8.02  
 #&gt;  Max.   :125708.15   Max.   :1.70e+05   Max.   :172785.31   Max.   :182449.79  </div><div class='input'>
-<span class='co'># TPM</span>
+<span class='co'># TPM (from tximport)</span>
 <span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2            group2_1        
 #&gt;  Min.   :    0.000   Min.   :    0.000   Min.   :    0.000  
 #&gt;  1st Qu.:    0.000   1st Qu.:    0.000   1st Qu.:    0.000  
@@ -146,22 +148,38 @@ argument.</p>
 #&gt;  Mean   :   86.122  
 #&gt;  3rd Qu.:    0.184  
 #&gt;  Max.   :17995.900  </div><div class='input'>
-# DESeq2 normalized counts
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span><div class='input'>
-# rlog
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>)
-<span class='co'># }</span><div class='input'>
-# TMM
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>)
-<span class='co'># }</span><div class='input'>
-# VST
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)
-<span class='co'># }</span></pre>
+<span class='co'># Normalized counts (from DESeq2)</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1           group1_2            group2_1           group2_2        
+#&gt;  Min.   :     0.0   Min.   :     0.00   Min.   :     0.0   Min.   :     0.00  
+#&gt;  1st Qu.:     0.0   1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.00  
+#&gt;  Median :     0.0   Median :     0.00   Median :     0.0   Median :     0.00  
+#&gt;  Mean   :   630.7   Mean   :   992.34   Mean   :   935.1   Mean   :  1083.66  
+#&gt;  3rd Qu.:     8.8   3rd Qu.:     7.78   3rd Qu.:     8.6   3rd Qu.:     7.78  
+#&gt;  Max.   :138282.7   Max.   :165390.03   Max.   :165122.4   Max.   :177406.94  </div><div class='input'>
+<span class='co'># rlog (from DESeq2)</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1         group1_2         group2_1         group2_2     
+#&gt;  Min.   :-1.726   Min.   :-1.727   Min.   :-1.727   Min.   :-1.727  
+#&gt;  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000  
+#&gt;  Median : 0.000   Median : 0.000   Median : 0.000   Median : 0.000  
+#&gt;  Mean   : 1.885   Mean   : 1.887   Mean   : 1.888   Mean   : 1.884  
+#&gt;  3rd Qu.: 2.993   3rd Qu.: 2.977   3rd Qu.: 2.954   3rd Qu.: 2.997  
+#&gt;  Max.   :17.127   Max.   :17.327   Max.   :17.325   Max.   :17.405  </div><div class='input'>
+<span class='co'># TMM (from edgeR)</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
+#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
+#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
+#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
+#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
+#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
+<span class='co'># VST (from DESeq2)</span>
+<span class='fu'>counts</span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1         group1_2         group2_1         group2_2     
+#&gt;  Min.   : 5.739   Min.   : 5.739   Min.   : 5.739   Min.   : 5.739  
+#&gt;  1st Qu.: 5.739   1st Qu.: 5.739   1st Qu.: 5.739   1st Qu.: 5.739  
+#&gt;  Median : 5.739   Median : 5.739   Median : 5.739   Median : 5.739  
+#&gt;  Mean   : 6.530   Mean   : 6.531   Mean   : 6.541   Mean   : 6.528  
+#&gt;  3rd Qu.: 6.321   3rd Qu.: 6.286   3rd Qu.: 6.314   3rd Qu.: 6.286  
+#&gt;  Max.   :17.078   Max.   :17.336   Max.   :17.334   Max.   :17.438  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

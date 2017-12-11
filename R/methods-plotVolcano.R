@@ -6,18 +6,19 @@
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotHeatmap
 #'
 #' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param lfc Log fold change ratio (base 2) cutoff for coloring.
-#' @param genes Character vector of gene symbols to label.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot `up`, `down`, or `both` (**default**) directions.
-#' @param shadeColor Shading color for bounding box.
-#' @param shadeAlpha Shading transparency alpha.
 #' @param pointColor Point color.
 #' @param pointAlpha Point transparency alpha.
 #' @param pointOutlineColor Point outline color.
+#' @param shadeColor Shading color for bounding box.
+#' @param shadeAlpha Shading transparency alpha.
+#' @param labelColor Gene label color.
 #' @param histograms Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
@@ -27,49 +28,71 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' # DESeqResults
-#' plotVolcano(res, genes = "Sulf1")
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "res.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # Use a defined gene2symbol data.frame for better speed
+#' gene2symbol <- gene2symbol(bcb)
+#'
+#' # Label the top genes
+#' plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+#'
+#' # Label specific genes
+#' ensgene <- rownames(res) %>% head()
+#' print(ensgene)
+#' plotVolcano(res, genes = ensgene, gene2symbol = gene2symbol)
+#'
+#' # Label with Ensembl gene identifiers
+#' plotVolcano(res, ntop = 1, gene2symbol = FALSE)
+#'
 #' # data.frame
-#' plotVolcano(as.data.frame(res))
-#' }
+#' df <- as.data.frame(res)
+#' plotVolcano(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump annotable camel
 #' @importFrom BiocGenerics density
 #' @importFrom cowplot draw_plot ggdraw
-#' @importFrom dplyr arrange desc left_join mutate
+#' @importFrom dplyr arrange desc left_join mutate pull
+#' @importFrom ggplot2 aes_string element_blank geom_density geom_point
+#'   geom_polygon geom_ribbon ggplot ggtitle scale_x_continuous theme
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom rlang !! sym
 #' @importFrom S4Vectors na.omit
-#' @importFrom tibble rownames_to_column
+#' @importFrom tibble as_tibble rownames_to_column
 .plotVolcano <- function(
     object,
     alpha = 0.01,
     padj = TRUE,
     lfc = 1,
     genes = NULL,
+    gene2symbol = TRUE,
     ntop = 0,
     direction = "both",
-    shadeColor = "green",
-    shadeAlpha = 0.25,
     pointColor = "gray",
     pointAlpha = 0.75,
     pointOutlineColor = "darkgray",
+    shadeColor = "green",
+    shadeAlpha = 0.25,
+    labelColor = "black",
     histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1) {
-        stop("Direction must be both, up, or down")
+        stop("Direction must be both, up, or down", call. = FALSE)
     }
 
-    # Generate stats tibble ====
-    stats <- as.data.frame(object) %>%
+    # Generate data `tibble`
+    data <- object %>%
         rownames_to_column("ensgene") %>%
+        as_tibble() %>%
         camel(strict = FALSE) %>%
         # Keep genes with non-zero counts
         .[.[["baseMean"]] > 0, , drop = FALSE] %>%
@@ -79,62 +102,73 @@ NULL
         .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
         # Select columns used for plots
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
-    g2s <- detectOrganism(stats[["ensgene"]][[1]]) %>%
-        annotable(format = "gene2symbol")
-    stats <- left_join(stats, g2s, by = "ensgene")
+    if (isTRUE(gene2symbol)) {
+        organism <- pull(data, "ensgene") %>%
+            .[[1]] %>%
+            detectOrganism()
+        gene2symbol <- annotable(organism, format = "gene2symbol")
+    }
+    if (is.data.frame(gene2symbol)) {
+        labelCol <- "symbol"
+        checkGene2symbol(gene2symbol)
+        data <- left_join(data, gene2symbol, by = "ensgene")
+    } else {
+        labelCol <- "ensgene"
+    }
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
     if (isTRUE(padj)) {
-        stats <- stats %>%
+        data <- data %>%
             # Keep genes with an adjusted P value
             .[!is.na(.[["padj"]]), , drop = FALSE] %>%
             # log10 transform
             mutate(negLog10Pvalue = -log10(.data[["padj"]] + 1e-10))
-        pTitle <- "adj p value"
+        pvalTitle <- "adj p value"
     } else {
-        stats <- stats %>%
+        data <- data %>%
             mutate(negLog10Pvalue = -log10(.data[["pvalue"]] + 1e-10))
-        pTitle <- "p value"
+        pvalTitle <- "p value"
     }
 
-    stats <- stats %>%
-        # Calculate rank score
-        mutate(rankScore = .data[["negLog10Pvalue"]] *
-                   abs(.data[["log2FoldChange"]])) %>%
+    # Calculate rank score
+    data <- data %>%
+        mutate(
+            rankScore = .data[["negLog10Pvalue"]] *
+                abs(.data[["log2FoldChange"]])
+        ) %>%
         arrange(desc(!!sym("rankScore")))
 
-
-    # Text labels ====
+    # Text labels ==============================================================
     if (!is.null(genes)) {
-        volcanoText <- stats %>%
-            .[.[["symbol"]] %in% genes, , drop = FALSE]
+        volcanoText <- data %>%
+            .[.[["ensgene"]] %in% genes, , drop = FALSE]
     } else if (ntop > 0) {
-        volcanoText <- stats[1:ntop, , drop = FALSE]
+        volcanoText <- data[1:ntop, , drop = FALSE]
     } else {
         volcanoText <- NULL
     }
 
-
-    # Plot ranges ====
+    # Plot ranges ==============================================================
     # Get range of LFC and P values to set up plot borders
     rangeLFC <-
-        c(floor(min(na.omit(stats[["log2FoldChange"]]))),
-          ceiling(max(na.omit(stats[["log2FoldChange"]]))))
+        c(floor(min(na.omit(data[["log2FoldChange"]]))),
+          ceiling(max(na.omit(data[["log2FoldChange"]]))))
     rangeNegLog10Pvalue <-
-        c(floor(min(na.omit(stats[["negLog10Pvalue"]]))),
-          ceiling(max(na.omit(stats[["negLog10Pvalue"]]))))
+        c(floor(min(na.omit(data[["negLog10Pvalue"]]))),
+          ceiling(max(na.omit(data[["negLog10Pvalue"]]))))
 
-
-    # LFC density histogram ====
-    lfcDensity <- stats[["log2FoldChange"]] %>%
+    # LFC density histogram ====================================================
+    lfcDensity <- data[["log2FoldChange"]] %>%
         na.omit() %>%
         density()
     lfcDensityDf <- data.frame(
         x = lfcDensity[["x"]],
         y = lfcDensity[["y"]])
-    lfcHist <- stats %>%
-        ggplot(aes_(x = ~log2FoldChange)) +
+    lfcHist <- ggplot(
+        data,
+        mapping = aes_string(x = "log2FoldChange")
+    ) +
         geom_density() +
         scale_x_continuous(limits = rangeLFC) +
         labs(x = "log2 fold change",
@@ -147,7 +181,7 @@ NULL
             geom_ribbon(
                 data = lfcDensityDf %>%
                     .[.[["x"]] > lfc, ],
-                aes_(x = ~x, ymax = ~y),
+                mapping = aes_string(x = "x", ymax = "y"),
                 ymin = 0,
                 fill = shadeColor,
                 alpha = shadeAlpha)
@@ -157,42 +191,47 @@ NULL
             geom_ribbon(
                 data = lfcDensityDf %>%
                     .[.[["x"]] < -lfc, ],
-                aes_(x = ~x, ymax = ~y),
+                mapping = aes_string(x = "x", ymax = "y"),
                 ymin = 0,
                 fill = shadeColor,
                 alpha = shadeAlpha)
     }
 
-
-    # P value density plot ====
-    pvalueDensity <- stats[["negLog10Pvalue"]] %>%
+    # P value density plot =====================================================
+    pvalueDensity <- data[["negLog10Pvalue"]] %>%
         na.omit() %>%
         density()
     pvalueDensityDf <-
         data.frame(x = pvalueDensity[["x"]],
                    y = pvalueDensity[["y"]])
-    pvalueHist <- stats %>%
-        ggplot(aes_(x = ~negLog10Pvalue)) +
+    pvalueHist <- ggplot(
+        data,
+        mapping = aes_string(x = "negLog10Pvalue")
+    ) +
         geom_density() +
-        geom_ribbon(data = pvalueDensityDf %>%
-                        .[.[["x"]] > -log10(alpha + 1e-10), ],
-                    aes_(x = ~x, ymax = ~y),
-                    ymin = 0,
-                    fill = shadeColor,
-                    alpha = shadeAlpha) +
-        labs(x = paste("-log10", pTitle),
+        geom_ribbon(
+            data = pvalueDensityDf %>%
+                .[.[["x"]] > -log10(alpha + 1e-10), ],
+            mapping = aes_string(x = "x", ymax = "y"),
+            ymin = 0,
+            fill = shadeColor,
+            alpha = shadeAlpha
+        ) +
+        labs(x = paste("-log10", pvalTitle),
              y = "") +
         # Don't label density y-axis
         theme(axis.text.y = element_blank(),
               axis.ticks.y = element_blank())
 
-
-    # Volcano plot ====
-    volcano <- stats %>%
-        ggplot(aes_(x = ~log2FoldChange,
-                    y = ~negLog10Pvalue)) +
+    # Volcano plot =============================================================
+    volcano <- ggplot(
+        data,
+        mapping = aes_string(
+            x = "log2FoldChange",
+            y = "negLog10Pvalue")
+    ) +
         labs(x = "log2 fold change",
-             y = paste("-log10", pTitle)) +
+             y = paste("-log10", pvalTitle)) +
         geom_point(
             alpha = pointAlpha,
             color = pointOutlineColor,
@@ -204,61 +243,75 @@ NULL
         volcano <- volcano +
             geom_text_repel(
                 data = volcanoText,
-                aes_(x = ~log2FoldChange,
-                     y = ~negLog10Pvalue,
-                     label = ~symbol),
+                mapping = aes_string(
+                    x = "log2FoldChange",
+                    y = "negLog10Pvalue",
+                    label = labelCol),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
-                color = "black",
+                color = labelColor,
                 fontface = "bold",
                 force = 1,
                 point.padding = unit(0.75, "lines"),
-                segment.color = "gray",
+                segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
                 size = 4)
     }
     if (direction == "both" | direction == "up") {
-        volcanoPolyUp <- with(stats, data.frame(
-            x = as.numeric(c(
-                lfc,
-                lfc,
-                max(rangeLFC),
-                max(rangeLFC))),
-            y = as.numeric(c(
-                -log10(alpha + 1e-10),
-                max(rangeNegLog10Pvalue),
-                max(rangeNegLog10Pvalue),
-                -log10(alpha + 1e-10)))))
+        volcanoPolyUp <-
+            with(data,
+                 expr = data.frame(
+                     x = as.numeric(c(
+                         lfc,
+                         lfc,
+                         max(rangeLFC),
+                         max(rangeLFC)
+                     )),
+                     y = as.numeric(c(
+                         -log10(alpha + 1e-10),
+                         max(rangeNegLog10Pvalue),
+                         max(rangeNegLog10Pvalue),
+                         -log10(alpha + 1e-10)
+                     ))
+                 )
+            )
         volcano <- volcano +
             geom_polygon(
                 data = volcanoPolyUp,
-                aes_(x = ~x, y = ~y),
+                mapping = aes_string(x = "x", y = "y"),
                 fill = shadeColor,
                 alpha = shadeAlpha)
     }
     if (direction == "both" | direction == "down") {
-        volcanoPolyDown <- with(stats, data.frame(
-            x = as.numeric(c(
-                -lfc,
-                -lfc,
-                min(rangeLFC),
-                min(rangeLFC))),
-            y = as.numeric(c(
-                -log10(alpha + 1e-10),
-                max(rangeNegLog10Pvalue),
-                max(rangeNegLog10Pvalue),
-                -log10(alpha + 1e-10)))))
+        volcanoPolyDown <-
+            with(data,
+                 expr = data.frame(
+                     x = as.numeric(c(
+                         -lfc,
+                         -lfc,
+                         min(rangeLFC),
+                         min(rangeLFC)
+                     )),
+                     y = as.numeric(c(
+                         -log10(alpha + 1e-10),
+                         max(rangeNegLog10Pvalue),
+                         max(rangeNegLog10Pvalue),
+                         -log10(alpha + 1e-10)
+                     ))
+                 )
+            )
         volcano <- volcano +
             geom_polygon(
                 data = volcanoPolyDown,
-                aes_(x = ~x, y = ~y),
+                mapping = aes_string(
+                    x = "x",
+                    y = "y"),
                 fill = shadeColor,
                 alpha = shadeAlpha)
     }
 
-
-    # Grid layout ====
+    # Grid layout ==============================================================
     if (isTRUE(histograms)) {
         ggdraw() +
             # Coordinates are relative to lower left corner
@@ -271,25 +324,54 @@ NULL
             draw_plot(
                 volcano, x = 0, y = 0, width = 1, height = 0.7)
     } else {
-        volcano +
-            ggtitle("volcano")
+        volcano + ggtitle("volcano")
     }
 }
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotVolcano
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotVolcano",
     signature("DESeqResults"),
-    function(object, alpha = NULL, ...) {
-        if (is.null(alpha)) {
+    function(
+        object,
+        alpha,
+        padj = TRUE,
+        lfc = 1,
+        genes = NULL,
+        gene2symbol = TRUE,
+        ntop = 0,
+        direction = "both",
+        shadeColor = "green",
+        shadeAlpha = 0.25,
+        pointColor = "gray",
+        pointAlpha = 0.75,
+        pointOutlineColor = "darkgray",
+        labelColor = "black",
+        histograms = TRUE) {
+        if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }
-        .plotVolcano(object, alpha = alpha, ...)
+        .plotVolcano(
+            object = as.data.frame(object),
+            alpha = alpha,
+            padj = padj,
+            lfc = lfc,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            ntop = ntop,
+            direction = direction,
+            pointColor = pointColor,
+            pointAlpha = pointAlpha,
+            pointOutlineColor = pointOutlineColor,
+            shadeColor = shadeColor,
+            shadeAlpha = shadeAlpha,
+            labelColor = labelColor,
+            histograms = histograms)
     })
 
 

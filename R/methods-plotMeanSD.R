@@ -11,25 +11,29 @@
 #' @inheritParams AllGenerics
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
-#'   `vertical` (default).
+#'   `vertical`.
 #' @param showLegend Include the color bar legend. This is typically not that
 #'   informative and is disabled by default, to improve the plot appearance.
 #'
 #' @return [ggplot] grid.
 #'
 #' @examples
-#' # bcbioRNASeq
-#' plotMeanSD(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
+#' # bcbioRNASeq
 #' plotMeanSD(bcb, orientation = "horizontal")
+#' plotMeanSD(bcb, orientation = "vertical")
 #'
 #' # DESeqDataSet
-#' plotMeanSD(dds)
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' plotMeanSD(dds, orientation = "horizontal")
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 ggtitle theme xlab
 #' @importFrom vsn meanSdPlot
@@ -94,7 +98,7 @@ NULL
 }
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotMeanSD
 #' @export
 setMethod(

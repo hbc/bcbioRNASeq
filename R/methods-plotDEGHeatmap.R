@@ -17,25 +17,48 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "dds.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "res.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "rld.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # Use our stashed gene2symbol for better speed
+#' gene2symbol <- gene2symbol(bcb)
+#'
 #' # DESeqResults, DESeqTransform
-#' plotDEGHeatmap(res, rld)
+#' plotDEGHeatmap(
+#'     res,
+#'     counts = rld,
+#'     gene2symbol = gene2symbol)
 #'
 #' # DESeqResults, DESeqDataSet
-#' \dontrun{
-#' plotDEGHeatmap(res, dds)
-#' }
+#' # Using default ggplot2 colors
+#' plotDEGHeatmap(
+#'     res,
+#'     counts = dds,
+#'     gene2symbol = gene2symbol,
+#'     color = NULL,
+#'     legendColor = NULL)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump camel
 .plotDEGHeatmap <- function(
     results,
     counts,
     alpha = 0.01,
     lfc = 0,
-    title = TRUE,
+    title,
     ...) {
     results <- results %>%
         as.data.frame() %>%
@@ -52,13 +75,11 @@ NULL
         return(NULL)
     }
     genes <- rownames(results)
-    if (isTRUE(title)) {
-        title <- "deg"
-    } else if (is.character(title)) {
-        title <- paste("deg:", title)
-    }
     if (length(genes) < 2) {
-        message(paste(length(genes), "is too few to plot"))
+        warning(paste(
+            length(genes), "gene(s) is too few to plot"
+        ), call. = FALSE)
+        return(NULL)
     } else {
         plotHeatmap(
             counts,
@@ -70,7 +91,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotDEGHeatmap
 #' @importFrom S4Vectors metadata
 #' @export
@@ -82,11 +103,14 @@ setMethod(
         object,
         counts,
         lfc = 0,
+        title = TRUE,
         ...) {
         results <- as.data.frame(object)
         counts <- assay(counts)
         alpha <- metadata(object)[["alpha"]]
-        title <- .resContrastName(object)
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotDEGHeatmap(
             results = results,
             counts = counts,
@@ -116,7 +140,9 @@ setMethod(
         results <- as.data.frame(object)
         counts <- counts(counts, normalized = TRUE)
         alpha <- metadata(object)[["alpha"]]
-        title <- .resContrastName(object)
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotDEGHeatmap(
             results = results,
             counts = counts,

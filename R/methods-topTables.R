@@ -11,23 +11,52 @@
 #' @return Top table kables, for knit report.
 #'
 #' @examples
-#' resTbl <- resultsTables(res, write = FALSE)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "res.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' annotable <- annotable(bcb)
+#' resTbl <- resultsTables(
+#'     res,
+#'     annotable = annotable,
+#'     summary = FALSE,
+#'     write = FALSE)
 #' topTables(resTbl)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump fixNA
 #' @importFrom dplyr filter mutate rename
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames
-.subsetTop <- function(df, n, coding) {
+.subsetTop <- function(
+    df,
+    n = 50,
+    coding = FALSE) {
     if (isTRUE(coding)) {
+        if (!"broadClass" %in% colnames(df)) {
+            stop("'coding = TRUE' argument requires 'broadClass' column",
+                 call. = FALSE)
+        }
         df <- df %>%
             .[.[["broadClass"]] == "coding", , drop = FALSE]
     }
-    df <- df %>%
+    if (!nrow(df) | !is.data.frame(df)) {
+        return(NULL)
+    }
+    keepCols <- c(
+        "ensgene",
+        "baseMean",
+        "lfc",
+        "padj",
+        "symbol",
+        "description")
+    df %>%
         head(n = n) %>%
         rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
@@ -40,19 +69,14 @@ NULL
                 pattern = " \\[.+\\]$",
                 replacement = "")
         ) %>%
-        .[, c("ensgene",
-              "baseMean",
-              "lfc",
-              "padj",
-              "symbol",
-              "description")] %>%
+        .[, which(colnames(.) %in% keepCols)] %>%
         remove_rownames() %>%
         fixNA()
 }
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname topTables
 #' @importFrom knitr kable
 #' @export
@@ -63,15 +87,25 @@ setMethod(
         object,
         n = 50,
         coding = FALSE) {
-        up <- .subsetTop(object[["degLFCUp"]], n = n, coding = coding)
-        down <- .subsetTop(object[["degLFCDown"]], n = n, coding = coding)
+        up <- .subsetTop(
+            object[["degLFCUp"]],
+            n = n,
+            coding = coding)
+        down <- .subsetTop(
+            object[["degLFCDown"]],
+            n = n,
+            coding = coding)
         contrastName <- object[["contrast"]]
-        show(kable(
-            up,
-            caption = paste(contrastName, "(upregulated)")
-        ))
-        show(kable(
-            down,
-            caption = paste(contrastName, "(downregulated)")
-        ))
+        if (!is.null(up)) {
+            show(kable(
+                up,
+                caption = paste(contrastName, "(upregulated)")
+            ))
+        }
+        if (!is.null(down)) {
+            show(kable(
+                down,
+                caption = paste(contrastName, "(downregulated)")
+            ))
+        }
     })

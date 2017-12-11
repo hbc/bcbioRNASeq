@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotTotalReads}
 \alias{plotTotalReads}
+\alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
 \alias{plotTotalReads,data.frame-method}
 \title{Plot Total Reads}
@@ -10,12 +11,12 @@
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 20, warnLimit = 10,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotTotalReads}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,19 +47,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Total Reads
 }
 \examples{
-plotTotalReads(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotTotalReads(bcb)
 plotTotalReads(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-plotTotalReads(metrics(bcb))
-}
+df <- metrics(bcb)
+plotTotalReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -76,4 +78,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

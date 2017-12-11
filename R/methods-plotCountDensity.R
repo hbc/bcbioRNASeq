@@ -13,24 +13,26 @@
 #' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
-#' plotCountDensity(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # bcbioRNASeq
+#' plotCountDensity(bcb, style = "solid")
 #' plotCountDensity(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     style = "line",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
-#' \dontrun{
-#' meltLog10(bcb, normalized = "tmm") %>% plotCountDensity()
-#' }
+#' df <- meltLog10(bcb, normalized = "tmm")
+#' plotCountDensity(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
@@ -38,8 +40,8 @@ NULL
     object,
     interestingGroups = "sampleName",
     style = "solid",
-    color = scale_color_viridis(discrete = TRUE),
-    fill = scale_fill_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE)) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
@@ -73,9 +75,8 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotCountDensity
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -86,8 +87,8 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         style = "solid",
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
              interestingGroups <- basejump::interestingGroups(object)
         }

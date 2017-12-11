@@ -1,4 +1,4 @@
-#' `bcbioRNASeq` Additional Run Data Accessor
+#' bcbioRNASeq Additional Run Data Accessor
 #'
 #' This method is used to access alternative count matrices with differing
 #' dimensions from the primary counts stored as a `SummarizedExperiment`.
@@ -37,11 +37,19 @@
 #' @return [slot] object.
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # tximport list
 #' txi <- bcbio(bcb, "tximport")
 #' class(txi)
 #' length(txi)
 #' names(txi)
+#'
+#' # DESeqDataSet
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds
 #'
 #' # featureCounts matrix
 #' fc <- bcbio(bcb, "featureCounts")
@@ -52,7 +60,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname bcbio
 #' @export
 setMethod(
@@ -84,7 +92,7 @@ setMethod(
 
 
 
-# Legacy class support ====
+# Legacy classes ===============================================================
 # Package versions prior to 0.0.27 used `callers` to define the extra bcbio
 # slot. The structure of the object is otherwise the same.
 #' @rdname bcbio

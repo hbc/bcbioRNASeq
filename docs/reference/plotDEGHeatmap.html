@@ -87,9 +87,9 @@
     </div>
 
     
-    <p>This function is a simplified version of <code><a href='plotHeatmap.html'>plotHeatmap()</a></code> that is
+    <p>This function is a simplified version of <code>plotHeatmap()</code> that is
 optimized for handling a DESeqResults object rather a gene vector. All of
-the optional parameters for <code><a href='plotHeatmap.html'>plotHeatmap()</a></code> are also available to this
+the optional parameters for <code>plotHeatmap()</code> are also available to this
 function.</p>
     
 
@@ -97,7 +97,7 @@ function.</p>
 
 <span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>,
@@ -116,7 +116,7 @@ function.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough arguments to <code><a href='plotHeatmap.html'>plotHeatmap()</a></code>.</p></td>
+      <td><p>Passthrough arguments to <code>plotHeatmap()</code>.</p></td>
     </tr>
     <tr>
       <th>lfc</th>
@@ -134,18 +134,40 @@ function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Heatmaps: <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotHeatmap.html'>plotHeatmap</a></code></p>
+    <p>Other Heatmaps: <code>plotCorrelationHeatmap</code>,
+  <code>plotHeatmap</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults, DESeqTransform</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>rld</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-# DESeqResults, DESeqDataSet
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>res</span>, <span class='no'>dds</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"dds.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"rld.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Use our stashed gene2symbol for better speed</span>
+<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+
+<span class='co'># DESeqResults, DESeqTransform</span>
+<span class='fu'>plotDEGHeatmap</span>(
+    <span class='no'>res</span>,
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>rld</span>,
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqResults, DESeqDataSet</span>
+<span class='co'># Using default ggplot2 colors</span>
+<span class='fu'>plotDEGHeatmap</span>(
+    <span class='no'>res</span>,
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds</span>,
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
+    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: DESeqTransform for counts is recommended</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

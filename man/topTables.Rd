@@ -3,6 +3,7 @@
 \docType{methods}
 \name{topTables}
 \alias{topTables}
+\alias{topTables}
 \alias{topTables,list-method}
 \title{Top Tables of Differential Expression Results}
 \usage{
@@ -26,7 +27,19 @@ Top table kables, for knit report.
 Top Tables of Differential Expression Results
 }
 \examples{
-resTbl <- resultsTables(res, write = FALSE)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+
+annotable <- annotable(bcb)
+resTbl <- resultsTables(
+    res,
+    annotable = annotable,
+    summary = FALSE,
+    write = FALSE)
 topTables(resTbl)
 }
 \author{

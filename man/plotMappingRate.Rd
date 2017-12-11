@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotMappingRate}
 \alias{plotMappingRate}
+\alias{plotMappingRate}
 \alias{plotMappingRate,bcbioRNASeq-method}
 \alias{plotMappingRate,data.frame-method}
 \title{Plot Mapping Rate}
@@ -10,12 +11,12 @@
 plotMappingRate(object, ...)
 
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 90, warnLimit = 70, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 90, warnLimit = 70,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 90, warnLimit = 70,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,19 +47,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Mapping Rate
 }
 \examples{
-plotMappingRate(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotMappingRate(bcb)
 plotMappingRate(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-metrics(bcb) \%>\% plotMappingRate()
-}
+df <- metrics(bcb)
+plotMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -76,4 +78,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

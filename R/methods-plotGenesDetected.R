@@ -9,27 +9,37 @@
 #' @inheritParams plotGeneSaturation
 #'
 #' @examples
-#' plotGenesDetected(bcb, passLimit = NULL, warnLimit = NULL)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
-#' plotGenesDetected(bcb, interestingGroups = "group")
-#' }
+#' # bcbioRNASeq
+#' plotGenesDetected(
+#'     bcb,
+#'     passLimit = NULL,
+#'     warnLimit = NULL)
+#' plotGenesDetected(
+#'     bcb,
+#'     interestingGroups = "sampleName",
+#'     fill = NULL,
+#'     passLimit = NULL,
+#'     warnLimit = NULL)
 #'
 #' # data.frame, DESeqDataSet
-#' \dontrun{
-#' plotGenesDetected(metrics(bcb), counts = dds)
-#' }
+#' df <- metrics(bcb)
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' plotGenesDetected(df, counts = dds)
 #'
 #' # data.frame, matrix
-#' \dontrun{
-#' plotGenesDetected(metrics(bcb), counts = assay(dds))
-#' }
+#' counts <- counts(bcb, normalized = TRUE)
+#' plotGenesDetected(df, counts = counts)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
@@ -70,7 +80,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotGenesDetected
 #' @importFrom viridis scale_color_viridis
 #' @export

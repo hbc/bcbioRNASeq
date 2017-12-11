@@ -3,48 +3,77 @@
 \docType{methods}
 \name{plotHeatmap}
 \alias{plotHeatmap}
+\alias{plotHeatmap}
 \alias{plotHeatmap,bcbioRNASeq-method}
 \alias{plotHeatmap,DESeqDataSet-method}
 \alias{plotHeatmap,DESeqTransform-method}
 \alias{plotHeatmap,matrix-method}
-\title{Heatmap}
+\title{Plot Heatmap}
 \usage{
 plotHeatmap(object, ...)
 
-\S4method{plotHeatmap}{bcbioRNASeq}(object, genes = NULL, title = NULL,
-  color = inferno(256), legendColor = viridis, quiet = FALSE, ...)
+\S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
+  genes = NULL, scale = "row", color = viridis::viridis(256),
+  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{DESeqDataSet}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
+\S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
+  genes = NULL, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  title = NULL, quiet = FALSE, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  annotationCol = NULL, title = NULL, color = inferno(256),
-  legendColor = viridis, quiet = FALSE, ...)
+  gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  title = NULL, quiet = FALSE, ...)
 
-\S4method{plotHeatmap}{matrix}(object, genes = NULL, annotationCol = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis,
-  quiet = FALSE, ...)
+\S4method{plotHeatmap}{matrix}(object, genes = NULL, gene2symbol = TRUE,
+  annotationCol = NULL, scale = "row", color = viridis::viridis(256),
+  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
-\item{genes}{Character vector of specific gene identifiers to plot.}
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
+
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.}
+
+\item{scale}{Character indicating if the values should be centered and scaled
+in either the row direction or the column direction, or none. Corresponding
+values are "row", "column" and "none".}
+
+\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
+palette.}
+
+\item{legendColor}{Colors to use for legend labels. Defaults to the
+\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
 
 \item{title}{\emph{Optional}. Plot title.}
 
-\item{color}{Colors to use for plot. Defaults to \code{\link[=inferno]{inferno()}} palette.}
-
-\item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
-palette.}
-
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 
-\item{annotationCol}{\link{data.frame} that specifies the annotations shown on the
-right side of the heatmap. Each row of this \link{data.frame} defines the
-features of the heatmap columns.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
+
+\item{annotationCol}{\emph{Optional}. \link{data.frame} that specifies the annotations
+shown on the right side of the heatmap. Each row of this \link{data.frame}
+defines the features of the heatmap columns.}
 }
 \value{
 Graphical output only.
@@ -58,39 +87,34 @@ are sorted by the interesting groups (\code{interestingGroups}) specified in the
 \link{bcbioRNASeq} and then the sample names.
 }
 \examples{
-# Genes as Ensembl identifiers
-genes <- counts(bcb)[1:20, ] \%>\% rownames()
-plotHeatmap(bcb, genes = genes)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-# Flip the plot and legend palettes
+# Use Ensembl identifiers to define genes
+ensgene <- counts(bcb)[1:20, ] \%>\% rownames()
+plotHeatmap(bcb, genes = ensgene)
+
+# Use inferno color palette
 plotHeatmap(
     bcb,
-    genes = genes,
-    color = viridis(256),
-    legendColor = inferno)
+    genes = ensgene,
+    color = viridis::inferno(256),
+    legendColor = viridis::inferno)
 
-# Transcriptome heatmap
-\dontrun{
-plotHeatmap(bcb)
-}
-
-# Use default pheatmap color palette
-\dontrun{
+# Transcriptome heatmap with default pheatmap colors
 plotHeatmap(
     bcb,
     color = NULL,
     legendColor = NULL)
-}
 
 # DESeqDataSet
-\dontrun{
+dds <- bcbio(bcb, "DESeqDataSet")
 plotHeatmap(dds)
-}
 
 # DESeqTransform
-\dontrun{
+rld <- assays(bcb)[["rlog"]]
 plotHeatmap(rld)
-}
 }
 \seealso{
 \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
@@ -101,4 +125,3 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
 \author{
 Michael Steinbaugh
 }
-\concept{Heatmaps}

@@ -100,13 +100,20 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="upgrade-a-href-bcbiornaseq-class-html-bcbiornaseq-a-to-current-version"><a class="anchor" href="#upgrade-a-href-bcbiornaseq-class-html-bcbiornaseq-a-to-current-version"></a>Upgrade &lt;a href='bcbioRNASeq-class.html'&gt;bcbioRNASeq&lt;/a&gt; to current version</h2>
+    <h2 class="hasAnchor" id="upgrade-bcbiornaseq-to-current-version"><a class="anchor" href="#upgrade-bcbiornaseq-to-current-version"></a>Upgrade bcbioRNASeq to current version</h2>
 
-    <p>This method adds support
-for upgrading <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a> objects to the latest <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> class
-version. This should be backwards compatible to <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> version
-0.0.26. Previous objects saved using <code>bcbioRnaseq</code> (note case) will likely
-fail to load with newer versions of the package.</p>
+    
+    <p>This method adds support for upgrading <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a> objects to the
+latest <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> class version. This should be backwards compatible to
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> version 0.0.26. Previous objects saved using <code>bcbioRnaseq</code>
+(note case) will likely fail to load with newer versions of the package.</p>
+    
+    <h2 class="hasAnchor" id="bcbiornaseq-to-summarizedexperiment"><a class="anchor" href="#bcbiornaseq-to-summarizedexperiment"></a>bcbioRNASeq to SummarizedExperiment</h2>
+
+    
+    <p>Since <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> is an extension of SummarizedExperiment, this
+coercion method is very simple. Here we're simply dropping our <code>@bcbio</code> slot,
+which contains raw cellular barcodes and other bcbio-specific metadata.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -115,8 +122,8 @@ fail to load with newer versions of the package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># bcbioRNADataSet</span>
-<span class='no'>newClass</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>oldClass</span>, <span class='st'>"bcbioRNASeq"</span>)
+<span class='co'># Legacy bcbioRNADataSet class</span>
+<span class='no'>new</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>old</span>, <span class='st'>"bcbioRNASeq"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -124,7 +131,9 @@ fail to load with newer versions of the package.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#upgrade-a-href-bcbiornaseq-class-html-bcbiornaseq-a-to-current-version">Upgrade &lt;a href='bcbioRNASeq-class.html'&gt;bcbioRNASeq&lt;/a&gt; to current version</a></li>
+      <li><a href="#upgrade-bcbiornaseq-to-current-version">Upgrade bcbioRNASeq to current version</a></li>
+
+      <li><a href="#bcbiornaseq-to-summarizedexperiment">bcbioRNASeq to SummarizedExperiment</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

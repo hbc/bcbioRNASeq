@@ -1,0 +1,37 @@
+citHeader("To cite bcbioRNASeq in publications use:")
+
+citEntry(
+  entry        = "Article",
+  title        = "{bcbioRNASeq}: {R} package for bcbio {RNA-seq} analysis",
+  author       = as.person(c(
+                   "Michael J. Steinbaugh",
+                   "Lorena Pantano",
+                   "Rory D. Kirchner",
+                   "Victor Barrera",
+                   "Brad A. Chapman",
+                   "Mary E. Piper",
+                   "Meeta Mistry",
+                   "Radhika S. Khetani",
+                   "Kayleigh D. Rutherford",
+                   "Oliver Hoffman",
+                   "John N. Hutchinson",
+                   "Shannan J. Ho Sui"
+                 )),
+  journal      = "F1000Research",
+  volume       = "6",
+  month        = "nov",
+  year         = "2017",
+  number       = "1976",
+  url          = "https://f1000research.com/articles/6-1976/v1",
+  doi          = "10.12688/f1000research.12093.1",
+
+  textVersion  =
+  paste("Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA,",
+        "Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O,",
+        "Hutchinson JN, Ho Sui SJ.",
+        "(2017).",
+        "bcbioRNASeq: R package for bcbio RNA-seq analysis.",
+        "F1000Research, 6:1976.",
+        "URL https://f1000research.com/articles/6-1976/v1.",
+        "DOI 10.12688/f1000research.12093.1.")
+)

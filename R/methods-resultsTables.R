@@ -12,27 +12,43 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
+#' @param annotable Join Ensembl gene annotations to the results. Apply gene
+#'   identifier to symbol mappings. If `TRUE`, the function will attempt to
+#'   detect the organism from the gene identifiers (rownames; "ensgene" column)
+#'   and automatically obtain the latest annotations from Ensembl using
+#'   [basejump::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
+#'   not be added to the results. This is useful when working with a poorly
+#'   annotated genome. Alternatively, a previously saved annotable [data.frame]
+#'   can be passed in.
 #' @param summary Show summary statistics as a Markdown list.
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
-#' @param organism *Optional*. Override automatic genome detection. By
-#'   default the function matches the genome annotations based on the first
-#'   Ensembl gene identifier row in the object. If a custom FASTA spike-in
-#'   is provided, then this may need to be manually set.
 #'
-#' @return Results list.
+#' @return Results [list].
 #'
 #' @examples
-#' data(res)
-#' resTbl <- resultsTables(res, lfc = 0.25, write = FALSE)
-#' class(resTbl)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "res.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' annotable <- annotable(bcb)
+#'
+#' resTbl <- resultsTables(
+#'     res,
+#'     lfc = 0.25,
+#'     annotable = annotable,
+#'     summary = FALSE,
+#'     write = FALSE)
 #' names(resTbl)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' Markdown List of Results Files
 #'
 #' Enables looping of results contrast file links for RMarkdown.
@@ -67,7 +83,7 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel snake
+#' @importFrom basejump annotable camel sanitizeAnnotable snake
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
@@ -76,52 +92,60 @@ NULL
 .resultsTablesDESeqResults <- function(
     object,
     lfc = 0,
-    write = TRUE,
+    annotable = TRUE,
     summary = TRUE,
     headerLevel = 3,
+    write = FALSE,
     dir = file.path("results", "differential_expression"),
-    organism = NULL,
     quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
 
-    # Alpha level, from [DESeqResults]
+    # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]
-
-    # Match genome against the first gene identifier by default
-    if (is.null(organism)) {
-        organism <- rownames(object)[[1]] %>%
-            detectOrganism()
-    }
-    anno <- annotable(organism, quiet = quiet)
 
     all <- object %>%
         as.data.frame() %>%
         rownames_to_column("ensgene") %>%
         as("tibble") %>%
         camel(strict = FALSE) %>%
-        left_join(anno, by = "ensgene") %>%
         arrange(!!sym("ensgene"))
+
+    # Add Ensembl gene annotations (annotable), if desired
+    if (isTRUE(annotable)) {
+        # Match genome against the first gene identifier by default
+        organism <- rownames(object) %>%
+            .[[1]] %>%
+            detectOrganism()
+        annotable <- annotable(organism, quiet = quiet)
+    }
+    if (!is.null(annotable)) {
+        checkAnnotable(annotable)
+        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
+        # save when `write = TRUE`.
+        annotable <- sanitizeAnnotable(annotable)
+        all <- left_join(all, annotable, by = "ensgene")
+    }
 
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0, ]
+        .[.[["baseMean"]] > 0, , drop = FALSE]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1, ]
+        .[.[["baseMean"]] > 1, , drop = FALSE]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
-        .[!is.na(.[["padj"]]), ] %>%
-        .[.[["padj"]] < alpha, ] %>%
+        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+        .[.[["padj"]] < alpha, , drop = FALSE] %>%
         arrange(!!sym("padj"))
     degLFC <- deg %>%
         .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, ]
+              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0, ]
+        .[.[["log2FoldChange"]] > 0, , drop = FALSE]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0, ]
+        .[.[["log2FoldChange"]] < 0, , drop = FALSE]
 
     # File paths
     allFile <- paste(fileStem, "all.csv.gz", sep = "_")
@@ -146,19 +170,6 @@ NULL
         degLFCUpFile = degLFCUpFile,
         degLFCDownFile = degLFCDownFile)
 
-    if (isTRUE(write)) {
-        # Write the CSV files
-        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-
-        write_csv(all, file.path(dir, allFile))
-        write_csv(deg, file.path(dir, degFile))
-        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
-        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
-
-        # Output file information in Markdown format
-        .mdResultsTables(resTbl, dir)
-    }
-
     if (isTRUE(summary)) {
         if (!is.null(headerLevel)) {
             mdHeader(
@@ -178,12 +189,25 @@ NULL
             asis = TRUE)
     }
 
+    if (isTRUE(write)) {
+        # Write the CSV files
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+
+        write_csv(all, file.path(dir, allFile))
+        write_csv(deg, file.path(dir, degFile))
+        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
+        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+
+        # Output file information in Markdown format
+        .mdResultsTables(resTbl, dir)
+    }
+
     resTbl
 }
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname resultsTables
 #' @export
 setMethod(

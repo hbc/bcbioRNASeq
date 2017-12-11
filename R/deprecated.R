@@ -9,7 +9,7 @@ NULL
 
 
 
-# 0.0.25 ====
+# v0.0.25 ======================================================================
 #' @rdname deprecated
 #' @export
 download <- function() {
@@ -32,7 +32,7 @@ plotDispersion <- function(...) {
 
 
 
-# 0.0.27 ====
+# v0.0.27 ======================================================================
 #' @rdname deprecated
 #' @export
 loadRNASeqRun <- function(...) {
@@ -42,10 +42,20 @@ loadRNASeqRun <- function(...) {
 
 
 
-# 0.1.2 ====
+# v0.1.2 =======================================================================
 #' @rdname deprecated
 #' @export
 plotGeneHeatmap <- function(...) {
     .Deprecated("plotHeatmap")
     plotHeatmap(...)
+}
+
+
+
+# v0.1.3 =======================================================================
+#' @rdname deprecated
+#' @export
+txi <- function(object) {
+    .Deprecated("bcbio(object, \"tximport\")")
+    bcbio(object, "tximport")
 }

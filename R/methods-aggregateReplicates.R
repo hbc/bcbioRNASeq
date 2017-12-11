@@ -16,20 +16,30 @@
 #' @return Object of same class, with pooled technical replicates.
 #'
 #' @examples
-#' # matrix
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' \dontrun{
-#' aggregateReplicates(assay(bcb))
+#' aggregateReplicates(bcb)
 #' }
 #'
 #' # DESeqDataSet
 #' \dontrun{
 #' aggregateReplicates(dds)
 #' }
+#'
+#' # matrix
+#' \dontrun{
+#' counts <- counts(bcb)
+#' aggregateReplicates(counts)
+#' }
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom stats setNames
 .aggregateReplicatesMatrix <- function(
     object,
@@ -111,7 +121,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname aggregateReplicates
 #' @export
 setMethod(

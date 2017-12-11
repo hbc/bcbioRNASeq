@@ -22,20 +22,24 @@
 #' @return [ggplot].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
 #' plotDispEsts(bcb)
 #'
-#' \dontrun{
+#' # Custom colors, using DESeq2 parameters
 #' plotDispEsts(
 #'     bcb,
 #'     genecol = "gray",
 #'     fitcol = "purple",
 #'     finalcol = "orange")
-#' }
 NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotDispEsts
 #' @export
 setMethod(

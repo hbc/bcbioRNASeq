@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
+\alias{plotMappedReads}
 \alias{plotMappedReads,bcbioRNASeq-method}
 \alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
@@ -10,12 +11,12 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE)
+  passLimit = 20, warnLimit = 10,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,19 +47,20 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Mapped Reads
 }
 \examples{
-plotMappedReads(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotMappedReads(bcb)
 plotMappedReads(
     bcb,
-    interestingGroups = "group",
+    interestingGroups = "sampleName",
     fill = NULL)
-}
 
 # data.frame
-\dontrun{
-metrics(bcb) \%>\% plotMappedReads()
-}
+df <- metrics(bcb)
+plotMappedReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -76,4 +78,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

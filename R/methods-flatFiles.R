@@ -14,12 +14,16 @@
 #' @return [list].
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' flatFiles(bcb) %>% names()
 NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname flatFiles
 #' @importFrom S4Vectors metadata
 #' @export

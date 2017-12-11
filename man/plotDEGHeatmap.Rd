@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
+\alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \title{Differentially Expressed Gene Heatmap}
@@ -10,7 +11,7 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0, ...)
+  lfc = 0, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
   title = TRUE, ...)
@@ -36,13 +37,36 @@ the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also a
 function.
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
+
+# Use our stashed gene2symbol for better speed
+gene2symbol <- gene2symbol(bcb)
+
 # DESeqResults, DESeqTransform
-plotDEGHeatmap(res, rld)
+plotDEGHeatmap(
+    res,
+    counts = rld,
+    gene2symbol = gene2symbol)
 
 # DESeqResults, DESeqDataSet
-\dontrun{
-plotDEGHeatmap(res, dds)
-}
+# Using default ggplot2 colors
+plotDEGHeatmap(
+    res,
+    counts = dds,
+    gene2symbol = gene2symbol,
+    color = NULL,
+    legendColor = NULL)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
@@ -51,4 +75,3 @@ Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
 \author{
 Michael Steinbaugh
 }
-\concept{Heatmaps}

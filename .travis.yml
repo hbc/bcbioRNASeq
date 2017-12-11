@@ -7,13 +7,14 @@ cache: packages
 warnings_are_errors: false
 
 # Temporarily enable when caching Bioconductor packages
-script: true
+# script: true
 
 r:
   - bioc-release
   - bioc-devel
 r_packages:
   - covr
+  - rlang
 
 after_success:
   - Rscript -e 'covr::codecov()'
@@ -26,6 +27,7 @@ after_success:
   - Rscript -e 'install.packages("DT")'
   - Rscript -e 'install.packages("tidyverse")'
   - Rscript -e 'install.packages("formatR")'
+  - Rscript -e 'install.packages("hexbin")'
   - Rscript -e 'testthat::test_file("test_reports.R")'
   - cd report
   - mv de.html de-${TRAVIS_BRANCH}.html

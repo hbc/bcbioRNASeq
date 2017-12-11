@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotPCACovariates}
 \alias{plotPCACovariates}
+\alias{plotPCACovariates}
 \alias{plotPCACovariates,bcbioRNASeq-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
@@ -34,7 +35,11 @@ here as a character vector.}
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNASeq} object.
 }
 \examples{
-plotPCACovariates(bcb, metrics = TRUE)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 }
 \seealso{

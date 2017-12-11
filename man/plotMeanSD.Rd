@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
+\alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
@@ -21,7 +22,7 @@ plotMeanSD(object, ...)
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
-\code{vertical} (default).}
+\code{vertical}.}
 
 \item{showLegend}{Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.}
@@ -34,13 +35,17 @@ informative and is disabled by default, to improve the plot appearance.}
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-# bcbioRNASeq
-plotMeanSD(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
+# bcbioRNASeq
 plotMeanSD(bcb, orientation = "horizontal")
+plotMeanSD(bcb, orientation = "vertical")
 
 # DESeqDataSet
-plotMeanSD(dds)
+dds <- bcbio(bcb, "DESeqDataSet")
+plotMeanSD(dds, orientation = "horizontal")
 }
 \seealso{
 Other Differential Expression Utilities: \code{\link{alphaSummary}},
@@ -49,4 +54,3 @@ Other Differential Expression Utilities: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Differential Expression Utilities}

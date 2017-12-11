@@ -3,6 +3,7 @@
 \docType{methods}
 \name{meltLog10}
 \alias{meltLog10}
+\alias{meltLog10}
 \alias{meltLog10,bcbioRNASeq-method}
 \alias{meltLog10,DESeqDataSet-method}
 \alias{meltLog10,DESeqTransform-method}
@@ -31,14 +32,24 @@ log10 melted \link{data.frame}.
 Melt Count Matrix to Long Format and log10 Transform
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
+
 # bcbioRNASeq
-meltLog10(bcb) \%>\% str()
+meltLog10(bcb) \%>\% glimpse()
 
 # DESeqDataSet
-meltLog10(dds) \%>\% str()
+meltLog10(dds) \%>\% glimpse()
 
 # DESeqTransform
-meltLog10(rld) \%>\% str()
+meltLog10(rld) \%>\% glimpse()
 }
 \seealso{
 \code{\link[reshape2:melt]{reshape2::melt()}}.

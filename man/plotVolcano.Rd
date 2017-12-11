@@ -3,18 +3,24 @@
 \docType{methods}
 \name{plotVolcano}
 \alias{plotVolcano}
+\alias{plotVolcano}
 \alias{plotVolcano,DESeqResults-method}
 \alias{plotVolcano,data.frame-method}
 \title{Plot Volcano}
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha = NULL, ...)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1,
+  genes = NULL, gene2symbol = TRUE, ntop = 0, direction = "both",
+  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
+  pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
+  histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, ntop = 0, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", histograms = TRUE)
+  lfc = 1, genes = NULL, gene2symbol = TRUE, ntop = 0,
+  direction = "both", pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
+  labelColor = "black", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -27,7 +33,17 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{genes}{Character vector of gene symbols to label.}
+\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
+must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
+not the gene symbols.}
+
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{ntop}{Number of top genes to label.}
 
@@ -43,6 +59,8 @@ plotVolcano(object, ...)
 
 \item{pointOutlineColor}{Point outline color.}
 
+\item{labelColor}{Gene label color.}
+
 \item{histograms}{Show LFC and P value histograms.}
 }
 \value{
@@ -53,13 +71,30 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-# DESeqResults
-plotVolcano(res, genes = "Sulf1")
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "res.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# Use a defined gene2symbol data.frame for better speed
+gene2symbol <- gene2symbol(bcb)
+
+# Label the top genes
+plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+
+# Label specific genes
+ensgene <- rownames(res) \%>\% head()
+print(ensgene)
+plotVolcano(res, genes = ensgene, gene2symbol = gene2symbol)
+
+# Label with Ensembl gene identifiers
+plotVolcano(res, ntop = 1, gene2symbol = FALSE)
+
 # data.frame
-plotVolcano(as.data.frame(res))
-}
+df <- as.data.frame(res)
+plotVolcano(df)
 }
 \seealso{
 This function is an updated variant of
@@ -70,4 +105,3 @@ Other Differential Expression Plots: \code{\link{plotMA}}
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 }
-\concept{Differential Expression Plots}

@@ -7,7 +7,7 @@
 \alias{bcbio<-,bcbioRNASeq-method}
 \alias{bcbio,bcbioRNADataSet-method}
 \alias{bcbio<-,bcbioRNADataSet-method}
-\title{\code{bcbioRNASeq} Additional Run Data Accessor}
+\title{bcbioRNASeq Additional Run Data Accessor}
 \usage{
 \S4method{bcbio}{bcbioRNASeq}(object, type)
 
@@ -55,11 +55,19 @@ transformations of those original counts, including \code{\link[=tpm]{tpm()}}, \
 \code{\link[=tmm]{tmm()}} are stored alongside the raw counts.
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 # tximport list
 txi <- bcbio(bcb, "tximport")
 class(txi)
 length(txi)
 names(txi)
+
+# DESeqDataSet
+dds <- bcbio(bcb, "DESeqDataSet")
+dds
 
 # featureCounts matrix
 fc <- bcbio(bcb, "featureCounts")

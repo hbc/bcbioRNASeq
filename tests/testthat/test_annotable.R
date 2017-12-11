@@ -1,5 +1,9 @@
 context("annotable")
 
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
 test_that("annotable", {
     anno <- annotable(bcb)
     expect_is(anno, "data.frame")
@@ -22,6 +26,8 @@ test_that("annotable", {
              geneSeqEnd = "integer",
              seqName = "character",
              seqStrand = "integer",
-             seqCoordSystem = "character")
+             seqCoordSystem = "character",
+             # This is returning `AsIs` instead of `list`
+             entrez = "AsIs")
     )
 })

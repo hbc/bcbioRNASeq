@@ -4,6 +4,7 @@
 \docType{methods}
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
+\alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
 \title{Plot Correlation Heatmap}
 \usage{
@@ -11,7 +12,8 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  title = NULL, color = inferno(256), legendColor = viridis)
+  title = NULL, color = viridis::viridis(256),
+  legendColor = viridis::viridis)
 }
 \arguments{
 \item{object}{Object.}
@@ -39,10 +41,11 @@ plot.}
 
 \item{title}{\emph{Optional}. Plot title.}
 
-\item{color}{Colors to use for plot. Defaults to \code{\link[=inferno]{inferno()}} palette.}
-
-\item{legendColor}{Colors to use for legend labels. Defaults to \code{\link[=viridis]{viridis()}}
+\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
 palette.}
+
+\item{legendColor}{Colors to use for legend labels. Defaults to the
+\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
 }
 \value{
 Graphical output only.
@@ -55,27 +58,27 @@ input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
 }
 \examples{
-# Pearson correlation (default)
-plotCorrelationHeatmap(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# Pearson correlation
+plotCorrelationHeatmap(bcb, method = "pearson")
 
 # Spearman correlation
 plotCorrelationHeatmap(bcb, method = "spearman")
 
-# Flip the palettes used for plot and legend
-\dontrun{
+# Inferno palette
 plotCorrelationHeatmap(
     bcb,
-    color = viridis(256),
-    legendColor = inferno)
-}
+    color = viridis::inferno(256),
+    legendColor = viridis::inferno)
 
 # Default pheatmap palette
-\dontrun{
 plotCorrelationHeatmap(
     bcb,
     color = NULL,
     legendColor = NULL)
-}
 }
 \seealso{
 \itemize{
@@ -89,4 +92,3 @@ Other Heatmaps: \code{\link{plotDEGHeatmap}},
 \author{
 Michael Steinbaugh
 }
-\concept{Heatmaps}

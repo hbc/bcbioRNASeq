@@ -217,11 +217,3 @@ setGeneric("topTables", function(object, ...) {
 setGeneric("tpm", function(object) {
     standardGeneric("tpm")
 })
-
-
-
-#' @rdname txi
-#' @export
-setGeneric("txi", function(object) {
-    standardGeneric("txi")
-})

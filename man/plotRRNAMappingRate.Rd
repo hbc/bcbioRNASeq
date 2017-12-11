@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate}
+\alias{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate,bcbioRNASeq-method}
 \alias{plotRRNAMappingRate,data.frame-method}
 \title{Plot Ribosomal RNA (rRNA) Mapping Rate}
@@ -10,11 +11,12 @@
 plotRRNAMappingRate(object, ...)
 
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  warnLimit = 10, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  warnLimit = 10, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  flip = TRUE)
 
 \S4method{plotRRNAMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", warnLimit = 10,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -43,19 +45,21 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Ribosomal RNA (rRNA) Mapping Rate
 }
 \examples{
-plotRRNAMappingRate(bcb)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
-\dontrun{
+# bcbioRNASeq
+plotRRNAMappingRate(bcb)
 plotRRNAMappingRate(
     bcb,
-    interestingGroups = "group",
-    fill = NULL)
-}
+    interestingGroups = "sampleName",
+    fill = NULL,
+    warnLimit = NULL)
 
 # data.frame
-\dontrun{
-metrics(bcb) \%>\% plotRRNAMappingRate()
-}
+df <- metrics(bcb)
+plotRRNAMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
@@ -73,4 +77,3 @@ Other Quality Control Plots: \code{\link{plot53Bias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Plots}

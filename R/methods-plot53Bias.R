@@ -8,24 +8,25 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' plot53Bias(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # bcbioRNASeq
+#' plot53Bias(bcb)
 #' plot53Bias(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
-#' \dontrun{
-#' metrics(bcb) %>% plot53Bias()
-#' }
+#' df <- metrics(bcb)
+#' plot53Bias(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
@@ -33,7 +34,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 2,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -62,9 +63,8 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plot53Bias
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
@@ -74,7 +74,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 2,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
             return(NULL)

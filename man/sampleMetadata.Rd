@@ -26,14 +26,18 @@
 Returns the sample metadata.
 }
 \examples{
-data(bcb, dds, rld)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 # bcbioRNASeq
-sampleMetadata(bcb)
+sampleMetadata(bcb) \%>\% glimpse()
 
 # DESeqDataSet
-sampleMetadata(dds)
+dds <- bcbio(bcb, "DESeqDataSet")
+sampleMetadata(dds) \%>\% glimpse()
 
 # DESeqTransform
-sampleMetadata(dds)
+rld <- assays(bcb)[["rlog"]]
+sampleMetadata(rld) \%>\% glimpse()
 }

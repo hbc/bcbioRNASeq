@@ -32,7 +32,7 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -46,7 +46,7 @@
 <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -57,7 +57,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><div class="row">
   <div class="contents col-md-9">
     <div id="bcbiornaseq" class="section level1">
@@ -72,25 +72,11 @@
 <div id="bioconductor-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
-<p>Ensure that these dependencies install correctly:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="kw">c</span>(
-    <span class="st">"steinbaugh/basejump"</span>,
-    <span class="st">"lpantano/DEGreport"</span>,
-    <span class="st">"tidyverse"</span>,
-    <span class="st">"rmarkdown"</span>,
-    <span class="st">"knitr"</span>,
-    <span class="st">"formatR"</span>,
-    <span class="st">"GenomeInfoDbData"</span>
-))</code></pre></div>
-<p>Now you’re ready to install bcbioRNASeq:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
-<p>For the <em>Functional Analysis</em> R Markdown template, these additional libraries are required:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biocLite</span>(<span class="kw">c</span>(
-    <span class="st">"clusterProfiler"</span>,
-    <span class="st">"DOSE"</span>,
-    <span class="st">"pathview"</span>
-))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
+<span class="kw">biocLite</span>(
+    <span class="st">"hbc/bcbioRNASeq"</span>,
+    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
+)</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">
@@ -106,23 +92,34 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <li>
 <code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
 <li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>metadata(bcb)$interestingGroups &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="reference/colData.html">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
 </ul>
 <p>Consult <code>help("loadRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
 </div>
-<div id="rmarkdown-templates" class="section level2">
+<div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rmarkdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates</h2>
-<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates, including Quality Control and Differential Expression using <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
+<a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
+<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including Quality Control and Differential Expression using <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
 <div id="examples" class="section level3">
 <h3 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h3>
-<p>View example <a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default <a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates included in the package:</p>
+<p>View example <a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates included in the package:</p>
 <ul>
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
 </ul>
 </div>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
+<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). <a href="https://f1000research.com/articles/6-1976/v1">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>The papers and software cited in our workflows are available as a <a href="https://paperpile.com/shared/e1q8fn">shared library</a> on <a href="https://paperpile.com">Paperpile</a>.</p>
 </div>
 </div>
   </div>
@@ -137,6 +134,10 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 </ul>
 <h2>License</h2>
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing bcbioRNASeq</a></li>
+</ul>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>

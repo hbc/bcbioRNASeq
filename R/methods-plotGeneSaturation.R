@@ -14,29 +14,35 @@
 #'   plotting.
 #'
 #' @examples
-#' plotGeneSaturation(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
-#' plotGeneSaturation(bcb, interestingGroups = "group")
-#' }
+#' # bcbioRNASeq
+#' plotGeneSaturation(bcb)
+#' plotGeneSaturation(
+#'     bcb,
+#'     interestingGroups = "sampleName",
+#'     color = NULL)
 #'
 #' # data.frame, matrix
-#' \dontrun{
-#' plotGeneSaturation(metrics(bcb), assay(rld))
-#' }
+#' df <- metrics(bcb)
+#' counts <- counts(bcb, normalized = "rlog")
+#' plotGeneSaturation(df, counts = counts)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
     counts,
     interestingGroups = "sampleName",
     minCounts = 0,
-    color = scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE)) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -59,9 +65,8 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotGeneSaturation
-#' @importFrom S4Vectors metadata
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
@@ -73,7 +78,7 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         minCounts = 0,
-        color = scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE)) {
         if (is.null(metrics(object))) {
             return(NULL)
         }

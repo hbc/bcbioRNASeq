@@ -3,6 +3,7 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
+\alias{tpm}
 \alias{tpm,bcbioRNASeq-method}
 \title{Transcripts Per Million (TPM)}
 \usage{
@@ -20,6 +21,11 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
+
+# bcbioRNASeq
 tpm(bcb) \%>\% head()
 }
 \author{

@@ -16,7 +16,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname prepareRNASeqTemplate
 #' @export
 setMethod(

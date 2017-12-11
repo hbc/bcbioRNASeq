@@ -10,12 +10,17 @@
 #' @return [data.frame].
 #'
 #' @examples
-#' metrics(bcb) %>% str()
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
+#' metrics(bcb) %>% glimpse()
 NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname metrics
 #' @importFrom dplyr left_join mutate_if
 #' @importFrom S4Vectors metadata

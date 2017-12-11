@@ -15,27 +15,28 @@
 #' @export
 #'
 #' @examples
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq
 #' tmm(bcb) %>% summary()
 #'
 #' # DESeqDataSet
-#' \dontrun{
+#' dds <- bcbio(bcb, "DESeqDataSet")
 #' tmm(dds) %>% summary()
-#' }
 #'
 #' # matrix
-#' \dontrun{
-#' assay(bcb) %>%
-#'     tmm() %>%
-#'     summary()
-#' }
+#' counts <- counts(bcb)
+#' tmm(counts) %>% summary()
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom edgeR calcNormFactors cpm DGEList
 .tmm <- function(object) {
+    message("Performing trimmed mean of M-values (TMM) normalization")
     object %>%
         as.matrix() %>%
         DGEList() %>%
@@ -45,7 +46,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname tmm
 #' @export
 setMethod(

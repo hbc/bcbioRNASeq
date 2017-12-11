@@ -8,32 +8,34 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' plotMappingRate(bcb)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' \dontrun{
+#' # bcbioRNASeq
+#' plotMappingRate(bcb)
 #' plotMappingRate(
 #'     bcb,
-#'     interestingGroups = "group",
+#'     interestingGroups = "sampleName",
 #'     fill = NULL)
-#' }
 #'
 #' # data.frame
-#' \dontrun{
-#' metrics(bcb) %>% plotMappingRate()
-#' }
+#' df <- metrics(bcb)
+#' plotMappingRate(df)
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 90,
     warnLimit = 70,
-    fill = scale_fill_viridis(discrete = TRUE),
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
@@ -66,9 +68,9 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname plotMappingRate
-#' @importFrom S4Vectors metadata
+#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotMappingRate",
@@ -78,7 +80,7 @@ setMethod(
         interestingGroups,
         passLimit = 90,
         warnLimit = 70,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)

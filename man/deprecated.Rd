@@ -7,6 +7,7 @@
 \alias{plotDispersion}
 \alias{loadRNASeqRun}
 \alias{plotGeneHeatmap}
+\alias{txi}
 \title{Deprecated Functions}
 \usage{
 download()
@@ -18,9 +19,13 @@ plotDispersion(...)
 loadRNASeqRun(...)
 
 plotGeneHeatmap(...)
+
+txi(object)
 }
 \arguments{
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+
+\item{object}{Object.}
 }
 \value{
 No value.

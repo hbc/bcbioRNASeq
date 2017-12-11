@@ -12,21 +12,25 @@
 #' @return [data.frame].
 #'
 #' @examples
-#' data(bcb, dds, rld)
+#' load(system.file(
+#'     file.path("extdata", "bcb.rda"),
+#'     package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
-#' sampleMetadata(bcb)
+#' sampleMetadata(bcb) %>% glimpse()
 #'
 #' # DESeqDataSet
-#' sampleMetadata(dds)
+#' dds <- bcbio(bcb, "DESeqDataSet")
+#' sampleMetadata(dds) %>% glimpse()
 #'
 #' # DESeqTransform
-#' sampleMetadata(dds)
+#' rld <- assays(bcb)[["rlog"]]
+#' sampleMetadata(rld) %>% glimpse()
 NULL
 
 
 
-# Constructors ====
+# Constructors =================================================================
 #' @importFrom dplyr mutate_all
 #' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
@@ -38,7 +42,7 @@ NULL
 
 
 
-# Methods ====
+# Methods ======================================================================
 #' @rdname sampleMetadata
 #' @export
 setMethod(
