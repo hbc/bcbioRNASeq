@@ -40,33 +40,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom stats setNames
-.aggregateReplicatesMatrix <- function(
-    object,
-    pattern = "_L\\d+") {
-    # Obtain the unique pooled sample names
-    if (!all(grepl(pattern, colnames(object)))) {
-        stop("Lane pattern didn't match all samples")
-    }
-    stem <- gsub(x = colnames(object),
-                 pattern = pattern,
-                 replacement = "") %>%
-        unique() %>%
-        sort()
-    # Perform [rowSums()] on the matching columns per sample
-    lapply(seq_along(stem), function(a) {
-        object %>%
-            .[, grepl(paste0("^", stem[a], pattern), colnames(.))] %>%
-            rowSums()
-    }) %>%
-        setNames(stem) %>%
-        do.call(cbind, .) %>%
-        # [round()] here otherwise [DESeq()] will fail on this matrix
-        round()
-}
-
-
-
 #' @importFrom BiocGenerics design
 #' @importFrom DESeq2 DESeq DESeqDataSetFromMatrix
 #' @importFrom dplyr distinct mutate
@@ -80,7 +53,7 @@ NULL
     # Pool the lane split technical replicates
     message("Aggregating raw counts slotted in DESeqDataSet")
     countData <- counts(object, normalized = FALSE) %>%
-        aggregateReplicates()
+        aggregateReplicates(pattern = pattern)
 
     # Mutate the colData metadata to pooled samples
     colData <- colData(object) %>%
@@ -122,15 +95,6 @@ NULL
 
 
 # Methods ======================================================================
-#' @rdname aggregateReplicates
-#' @export
-setMethod(
-    "aggregateReplicates",
-    signature("matrix"),
-    .aggregateReplicatesMatrix)
-
-
-
 #' @rdname aggregateReplicates
 #' @note [DESeqDataSet] is returned using [DESeqDataSetFromMatrix()].
 #' @export
