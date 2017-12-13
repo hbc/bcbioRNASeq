@@ -57,8 +57,8 @@ NULL
     object,
     transform = "rlog",
     interestingGroups,
-    genes,
-    censorSamples,
+    genes = NULL,
+    censorSamples = NULL,
     color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
@@ -76,7 +76,7 @@ NULL
     checkInterestingGroups(colData(dt), interestingGroups)
 
     # Subset genes, if desired
-    if (missing(genes)) {
+    if (is.null(genes)) {
         # Recommended DESeq default
         ntop <- 500
     } else {
@@ -86,7 +86,7 @@ NULL
     }
 
     # Censor samples, if desired
-    if (!missing(censorSamples)) {
+    if (!is.null(censorSamples)) {
         samples <- setdiff(colnames(object), censorSamples)
         dt <- dt[, samples, drop = FALSE]
     } else {
