@@ -46,6 +46,6 @@ setMethod(
     "plotDispEsts",
     signature("bcbioRNASeq"),
     function(object, ...) {
-        bcbio(object, "DESeqDataSet") %>%
-            plotDispEsts(...)
+        dds <- bcbio(object, "DESeqDataSet")
+        plotDispEsts(dds, ...)
     })
