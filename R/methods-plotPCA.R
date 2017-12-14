@@ -51,6 +51,7 @@ NULL
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom viridis scale_color_viridis
 .plotPCA <- function(
     object,
