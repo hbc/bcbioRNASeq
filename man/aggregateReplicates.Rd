@@ -3,12 +3,9 @@
 \docType{methods}
 \name{aggregateReplicates}
 \alias{aggregateReplicates}
-\alias{aggregateReplicates,matrix-method}
 \alias{aggregateReplicates,DESeqDataSet-method}
 \title{Aggregate Lane-Split Technical Replicates}
 \usage{
-\S4method{aggregateReplicates}{matrix}(object, pattern = "_L\\\\d+")
-
 \S4method{aggregateReplicates}{DESeqDataSet}(object, pattern = "_L\\\\d+")
 }
 \arguments{
