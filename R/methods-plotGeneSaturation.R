@@ -42,7 +42,14 @@ NULL
     counts,
     interestingGroups = "sampleName",
     minCounts = 0,
-    color = viridis::scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "gene saturation"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -53,13 +60,15 @@ NULL
     ) +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
-        labs(title = "gene saturation",
+        labs(title = title,
              x = "mapped reads (million)",
              y = "genes",
              color = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(color)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + color
     }
+
     p
 }
 
@@ -78,10 +87,9 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         minCounts = 0,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -90,7 +98,8 @@ setMethod(
             counts = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             minCounts = minCounts,
-            color = color)
+            color = color,
+            title = title)
     })
 
 
