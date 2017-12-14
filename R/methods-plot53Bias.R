@@ -28,7 +28,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs theme
+#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 #' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
     object,
@@ -70,7 +70,7 @@ NULL
     }
 
     if (interestingGroups == "sampleName") {
-        p <- p + theme(legend.position = "none")
+        p <- p + guides(fill = FALSE)
     }
 
     p

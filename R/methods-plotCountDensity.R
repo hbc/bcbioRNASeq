@@ -34,7 +34,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_density ggplot labs theme
+#' @importFrom ggplot2 aes_string geom_density ggplot guides labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
@@ -83,7 +83,7 @@ NULL
     }
 
     if (interestingGroups == "sampleName") {
-        p <- p + theme(legend.position = "none")
+        p <- p + guides(fill = FALSE)
     }
 
     p

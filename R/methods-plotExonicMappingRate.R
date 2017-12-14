@@ -28,7 +28,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotExonicMappingRate <- function(
     object,
@@ -71,7 +71,7 @@ NULL
     }
 
     if (interestingGroups == "sampleName") {
-        p <- p + theme(legend.position = "none")
+        p <- p + guides(fill = FALSE)
     }
 
     p

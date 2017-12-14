@@ -28,7 +28,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
@@ -36,7 +36,14 @@ NULL
     passLimit = 90,
     warnLimit = 70,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "mapping rate"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -47,22 +54,30 @@ NULL
     ) +
         geom_bar(stat = "identity") +
         ylim(0, 100) +
-        labs(title = "mapping rate",
+        labs(title = title,
              x = "sample",
              y = "mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n"))
+
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (interestingGroups == "sampleName") {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -81,7 +96,8 @@ setMethod(
         passLimit = 90,
         warnLimit = 70,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
+        flip = TRUE,
+        title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -91,7 +107,8 @@ setMethod(
             passLimit = passLimit,
             warnLimit = warnLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 

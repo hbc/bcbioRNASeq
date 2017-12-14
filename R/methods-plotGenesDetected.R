@@ -39,7 +39,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 #' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
@@ -49,7 +49,14 @@ NULL
     warnLimit = 15000,
     minCounts = 0,
     fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "genes detected"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -59,22 +66,30 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "genes detected",
+        labs(title = title,
              x = "sample",
              y = "gene count",
              fill = paste(interestingGroups, collapse = ":\n"))
+
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (interestingGroups == "sampleName") {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -130,7 +145,8 @@ setMethod(
         warnLimit = 15000,
         minCounts = 0,
         fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
+        flip = TRUE,
+        title = TRUE) {
         .plotGenesDetected(
             object,
             counts = assay(counts),
@@ -139,7 +155,8 @@ setMethod(
             warnLimit = warnLimit,
             minCounts = minCounts,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 
