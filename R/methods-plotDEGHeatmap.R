@@ -12,7 +12,7 @@
 #'
 #' @inherit plotHeatmap
 #'
-#' @param results Primary object containing [DESeq2::results()] output.
+#' @param object Primary object containing [DESeq2::results()] output.
 #' @param counts Secondary object containing a normalized counts matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
@@ -58,13 +58,14 @@ NULL
 # Constructors =================================================================
 #' @importFrom basejump camel
 .plotDEGHeatmap <- function(
-    results,
+    object,
     counts,
     alpha = 0.01,
     lfc = 0,
     title,
     ...) {
-    results <- results %>%
+    counts <- as.matrix(counts)
+    results <- object %>%
         as.data.frame() %>%
         camel(strict = FALSE) %>%
         # Keep genes that pass alpha cutoff
@@ -95,63 +96,38 @@ NULL
 
 
 
+.plotDEGHeatmapDESeqResults <- function(
+    object,
+    counts,
+    lfc = 0,
+    title = TRUE,
+    ...) {
+    results <- as.data.frame(object)
+    if (is(counts, "DESeqDataSet") |
+        is(counts, "DESeqTransform")) {
+        counts <- assay(counts)
+    }
+    counts <- as.matrix(counts)
+    alpha <- metadata(object)[["alpha"]]
+    if (isTRUE(title)) {
+        title <- .resContrastName(object)
+    }
+    .plotDEGHeatmap(
+        object = results,
+        counts = counts,
+        alpha = alpha,
+        lfc = lfc,
+        title = title,
+        ...)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotDEGHeatmap
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(results = "DESeqResults",
-              counts = "DESeqTransform"),
-    function(
-        results,
-        counts,
-        lfc = 0,
-        title = TRUE,
-        ...) {
-        results <- as.data.frame(results)
-        counts <- assay(counts)
-        alpha <- metadata(results)[["alpha"]]
-        if (isTRUE(title)) {
-            title <- .resContrastName(results)
-        }
-        .plotDEGHeatmap(
-            results = results,
-            counts = counts,
-            alpha = alpha,
-            lfc = lfc,
-            title = title,
-            ...)
-    })
-
-
-
-#' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(results = "DESeqResults",
-              counts = "DESeqDataSet"),
-    function(
-        results,
-        counts,
-        lfc = 0,
-        title = TRUE,
-        ...) {
-        warning("DESeqTransform for counts is recommended",
-                call. = FALSE)
-        results <- as.data.frame(results)
-        counts <- counts(counts, normalized = TRUE)
-        alpha <- metadata(results)[["alpha"]]
-        if (isTRUE(title)) {
-            title <- .resContrastName(results)
-        }
-        .plotDEGHeatmap(
-            results = results,
-            counts = counts,
-            alpha = alpha,
-            lfc = lfc,
-            title = title,
-            ...)
-    })
+    signature(object = "DESeqResults"),
+    .plotDEGHeatmapDESeqResults)
