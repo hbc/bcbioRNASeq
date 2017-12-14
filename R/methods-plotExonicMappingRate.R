@@ -35,7 +35,14 @@ NULL
     interestingGroups = "sampleName",
     passLimit = 60,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "exonic mapping rate"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -45,20 +52,28 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "exonic mapping rate",
+        labs(title = title,
              x = "sample",
              y = "exonic mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
+
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + scale_fill_viridis(discrete = TRUE)
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (interestingGroups == "sampleName") {
+        p <- p + theme(legend.position = "none")
+    }
+
     p
 }
 
@@ -75,10 +90,9 @@ setMethod(
         interestingGroups,
         passLimit = 60,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        flip = TRUE,
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -87,7 +101,8 @@ setMethod(
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 
