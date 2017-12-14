@@ -52,17 +52,26 @@ NULL
     organism,
     metadata,
     countsAxisLabel = "counts",
-    color = viridis::scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "gender markers"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     # Load the relevant internal gender markers data
-    envir <- loadNamespace("bcbioRNASeq")
-    markers <- get("genderMarkers", envir = envir)
+    markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
+    if (!camel(organism) %in% names(markers)) {
+        warning(paste(
+            "Organism",
+            paste0("(", organism, ")"),
+            "is not supported"
+        ), call. = FALSE)
+        return(invisible(NULL))
+    }
     # Convert the organism name from full latin to shorthand (e.g. hsapiens)
-    organism <- gsub(
-        x = organism,
-        pattern = "^([A-Z])[a-z]+ ([a-z]+)$",
-        replacement = "\\L\\1\\2",
-        perl = TRUE)
-    markers <- markers[[organism]]
+    markers <- markers[[camel(organism)]]
 
     # Ensembl identifiers
     ensgene <- markers %>%
@@ -72,7 +81,8 @@ NULL
         unique()
 
     if (!all(ensgene %in% rownames(object))) {
-        return(warning("Missing gender markers in count matrix", call. = FALSE))
+        warning("Missing gender markers in count matrix", call. = FALSE)
+        return(invisible(NULL))
     }
 
     data <- object %>%
@@ -99,13 +109,15 @@ NULL
     ) +
         geom_jitter(size = 4) +
         expand_limits(y = 0) +
-        labs(title = "gender markers",
+        labs(title = title,
              x = "gene",
              y = countsAxisLabel,
              color = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(color)) {
+
+    if (is(color, "ScaleDiscrete")) {
         p <- p + color
     }
+
     p
 }
 
@@ -122,7 +134,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -132,7 +145,8 @@ setMethod(
             organism = metadata(object)[["organism"]],
             metadata = sampleMetadata(object),
             countsAxisLabel = "transcripts per million (tpm)",
-            color = color)
+            color = color,
+            title = title)
     })
 
 
@@ -148,7 +162,8 @@ setMethod(
         object,
         interestingGroups = "sampleName",
         organism,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {
             organism <- rownames(counts) %>%
@@ -161,7 +176,8 @@ setMethod(
             organism = organism,
             metadata = sampleMetadata(object),
             countsAxisLabel = "normalized counts",
-            color = color)
+            color = color,
+            title = title)
     })
 
 
