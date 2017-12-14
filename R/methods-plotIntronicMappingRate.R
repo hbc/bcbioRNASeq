@@ -28,14 +28,21 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 20,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "intronic mapping rate"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -45,20 +52,28 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "intronic mapping rate",
+        labs(title = title,
              x = "sample",
              y = "intronic mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
-    if (!is.null(warnLimit)) {
+
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (interestingGroups == "sampleName") {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -76,10 +91,9 @@ setMethod(
         interestingGroups,
         warnLimit = 20,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        flip = TRUE,
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
@@ -88,7 +102,8 @@ setMethod(
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 
