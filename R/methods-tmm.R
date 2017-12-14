@@ -53,7 +53,12 @@ setMethod(
     "tmm",
     signature("bcbioRNASeq"),
     function(object) {
-        assays(object)[["tmm"]]
+        tmm <- assays(object)[["tmm"]]
+        if (!is.matrix(tmm)) {
+            warning("tmm is not slotted into 'assays()'", call. = FALSE)
+            tmm <- tmm(assay(object))
+        }
+        tmm
     })
 
 
@@ -64,8 +69,7 @@ setMethod(
     "tmm",
     signature("DESeqDataSet"),
     function(object) {
-        assay(object) %>%
-            .tmm()
+        tmm(assay(object))
     })
 
 
