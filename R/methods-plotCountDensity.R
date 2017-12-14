@@ -34,14 +34,15 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_density ggplot labs
+#' @importFrom ggplot2 aes_string geom_density ggplot labs theme
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
     interestingGroups = "sampleName",
     style = "solid",
     color = viridis::scale_color_viridis(discrete = TRUE),
-    fill = viridis::scale_fill_viridis(discrete = TRUE)) {
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    title = TRUE) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         stop(paste(
@@ -49,6 +50,13 @@ NULL
             toString(validStyles)
         ), call. = FALSE)
     }
+
+    if (isTRUE(title)) {
+        title <- "count density"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
@@ -58,18 +66,26 @@ NULL
             color = "interestingGroups",
             fill = "interestingGroups")
     ) +
-        labs(title = "count density",
+        labs(title = title,
              x = "log10 counts per gene",
              fill = paste(interestingGroups, collapse = ":\n"))
+
     if (style == "line") {
-        p <- p +
-            geom_density(fill = NA) +
-            color
+        p <- p + geom_density(fill = NA)
+        if (is(color, "ScaleDiscrete")) {
+            p <- p + color
+        }
     } else if (style == "solid") {
-        p <- p +
-            geom_density(alpha = 0.75, color = NA) +
-            fill
+        p <- p + geom_density(alpha = 0.75, color = NA)
+        if (is(fill, "ScaleDiscrete")) {
+            p <- p + fill
+        }
     }
+
+    if (interestingGroups == "sampleName") {
+        p <- p + theme(legend.position = "none")
+    }
+
     p
 }
 
@@ -88,7 +104,8 @@ setMethod(
         normalized = "tmm",
         style = "solid",
         color = viridis::scale_color_viridis(discrete = TRUE),
-        fill = viridis::scale_fill_viridis(discrete = TRUE)) {
+        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        title = TRUE) {
         if (missing(interestingGroups)) {
              interestingGroups <- basejump::interestingGroups(object)
         }
@@ -97,7 +114,8 @@ setMethod(
             interestingGroups = interestingGroups,
             style = style,
             color = color,
-            fill = fill)
+            fill = fill,
+            title = title)
     })
 
 
