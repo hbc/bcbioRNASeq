@@ -17,11 +17,13 @@ plotGenesDetected(object, counts, ...)
 
 \S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
   interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
-  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 
 \S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
   interestingGroups = "sampleName", passLimit = 20000, warnLimit = 15000,
-  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  minCounts = 0, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -49,6 +51,8 @@ plotting.}
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Include plot title.}
 }
 \value{
 \link{ggplot}.

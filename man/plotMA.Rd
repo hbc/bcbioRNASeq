@@ -8,7 +8,8 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = TRUE,
-  pointColor = "darkgray", sigPointColor = "red", labelColor = "black")
+  pointColor = "darkgray", sigPointColor = "red", labelColor = "black",
+  title = TRUE)
 
 \S4method{plotMA}{data.frame}(object, alpha = 0.01, genes = NULL,
   gene2symbol = TRUE, pointColor = "darkgray", sigPointColor = "purple",
@@ -36,9 +37,9 @@ have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
-\item{alpha}{Alpha level cutoff (Adjusted P value).}
-
 \item{title}{\emph{Optional}. Plot title.}
+
+\item{alpha}{Alpha level cutoff (Adjusted P value).}
 }
 \value{
 \link{ggplot}.

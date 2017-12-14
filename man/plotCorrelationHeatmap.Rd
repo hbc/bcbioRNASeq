@@ -10,19 +10,25 @@
 \usage{
 plotCorrelationHeatmap(object, ...)
 
-\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
+\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis)
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
-\item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
-(\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
-inside the \link{bcbioRNASeq} object.}
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
 
 \item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
@@ -39,13 +45,13 @@ plot.}
 
 \item{samples}{\emph{Optional}. Character vector of specific samples.}
 
-\item{title}{\emph{Optional}. Plot title.}
-
 \item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
 palette.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
 \code{\link[viridis:viridis]{viridis::viridis()}} palette.}
+
+\item{title}{\emph{Optional}. Plot title.}
 }
 \value{
 Graphical output only.

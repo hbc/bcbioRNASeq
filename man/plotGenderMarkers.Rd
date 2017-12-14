@@ -12,15 +12,15 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
   organism, metadata, countsAxisLabel = "counts",
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}

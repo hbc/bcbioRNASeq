@@ -4,20 +4,28 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
+\alias{plotDEGHeatmap,DESeqResults,matrix-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
-plotDEGHeatmap(object, ...)
+plotDEGHeatmap(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults}(object, counts, lfc = 0,
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
+  title = TRUE, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
+  lfc = 0, title = TRUE, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, lfc = 0,
   title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
-
 \item{counts}{Secondary object containing a normalized counts matrix.}
+
+\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
