@@ -12,7 +12,6 @@
 #'
 #' @inherit plotHeatmap
 #'
-#' @param object Primary object containing [DESeq2::results()] output.
 #' @param counts Secondary object containing a normalized counts matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
