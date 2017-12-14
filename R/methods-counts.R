@@ -68,17 +68,12 @@ setMethod(
         # Check for slot presence
         if (!slot %in% names(assays(object))) {
             missingMsg <- paste(slot, "counts not defined")
-            if ("tmm" %in% names(assays(object))) {
-                warning(paste(
-                    paste0(missingMsg, "."),
-                    "Using log2 tmm counts instead."
-                ), call. = FALSE)
-                tmm <- assays(object)[["tmm"]]
-                return(log2(tmm + 1))
-            } else {
-                warning(missingMsg, call. = FALSE)
-                return(NULL)
-            }
+            warning(paste(
+                paste0(missingMsg, "."),
+                "Using log2 tmm counts instead."
+            ), call. = FALSE)
+            tmm <- tmm(object)
+            return(log2(tmm + 1))
         }
 
         counts <- assays(object)[[slot]]
