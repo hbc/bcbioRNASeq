@@ -106,7 +106,6 @@ NULL
         is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
-    counts <- as.matrix(counts)
     alpha <- metadata(object)[["alpha"]]
     if (isTRUE(title)) {
         title <- .resContrastName(object)
@@ -128,5 +127,28 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults"),
+    signature(object = "DESeqResults",
+              counts = "DESeqDataSet"),
+    .plotDEGHeatmapDESeqResults)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @importFrom S4Vectors metadata
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(object = "DESeqResults",
+              counts = "DESeqTransform"),
+    .plotDEGHeatmapDESeqResults)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @importFrom S4Vectors metadata
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(object = "DESeqResults",
+              counts = "matrix"),
     .plotDEGHeatmapDESeqResults)
