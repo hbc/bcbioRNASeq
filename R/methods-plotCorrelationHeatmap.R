@@ -12,11 +12,9 @@
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotHeatmap
+#' @inheritParams counts
 #' @inheritParams plotTotalReads
 #'
-#' @param transform String specifying `rlog` (**recommended**) or `vst`
-#'   (`varianceStabilizingTransformation`) [DESeqTransform] object slotted
-#'   inside the [bcbioRNASeq] object.
 #' @param method Correlation coefficient (or covariance) method to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
@@ -69,9 +67,9 @@ NULL
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    title = NULL,
     color = viridis::viridis(256),
-    legendColor = viridis::viridis) {
+    legendColor = viridis::viridis,
+    title = TRUE) {
     # Check for supported correlation method
     if (!method %in% c("pearson", "spearman")) {
         stop("Supported methods: pearson, spearman")
@@ -101,7 +99,7 @@ NULL
     }
 
     # Define colors for each annotation column, if desired
-    if (!is.null(annotationCol) & !is.null(legendColor)) {
+    if (is.data.frame(annotationCol) & is.character(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -118,15 +116,15 @@ NULL
         annotationColors <- NULL
     }
 
-    # Set heatmap title (`main` parameter)
-    if (!is.null(title)) {
-        main <- title
-    } else {
-        main <- paste(method, "correlation")
+    # Set heatmap title (`main` parameter in pheatmap)
+    if (isTRUE(title)) {
+        title <- paste(method, "correlation")
+    } else if (!is.character(title)) {
+        title <- NULL
     }
 
     # If `color = NULL`, use the pheatmap default
-    if (is.null(color)) {
+    if (!is.character(color)) {
         color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
     }
 
@@ -140,7 +138,7 @@ NULL
             clustering_distance_rows = "correlation",
             clustering_distance_cols = "correlation",
             color = color,
-            main = main,
+            main = title,
             show_colnames = TRUE,
             show_rownames = TRUE)
 }
@@ -157,37 +155,44 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        transform = "rlog",
+        normalized = "rlog",
         method = "pearson",
         interestingGroups,
         genes = NULL,
         samples = NULL,
-        title = NULL,
         color = viridis::viridis(256),
-        legendColor = viridis::viridis) {
-        if (!transform %in% c("rlog", "vst")) {
-            stop("DESeqTransform must be rlog or vst", call. = FALSE)
-        }
+        legendColor = viridis::viridis,
+        title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
+
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata(object),
             interestingGroups)
-        # Get count matrix from `assays` slot
-        counts <- assays(object) %>%
-            .[[transform]] %>%
-            assay()
-        annotationCol <- colData(object) %>%
-            .[, interestingGroups, drop = FALSE] %>%
-            as.data.frame()
+
+        counts <- counts(object, normalized = normalized)
+        if (is.null(counts)) return(NULL)
+
+        if (interestingGroups != "sampleName") {
+            annotationCol <- colData(object) %>%
+                as.data.frame() %>%
+                .[, interestingGroups, drop = FALSE]
+        } else {
+            annotationCol <- NULL
+        }
+
+        if (isTRUE(title) & is.character(normalized)) {
+            title <- paste(normalized, method, "correlation")
+        }
+
         .plotCorrelationHeatmap(
             counts = counts,
             method = method,
             annotationCol = annotationCol,
             genes = genes,
             samples = samples,
-            title = title,
             color = color,
-            legendColor = legendColor)
+            legendColor = legendColor,
+            title = title)
     })
