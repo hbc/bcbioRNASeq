@@ -71,9 +71,10 @@ setMethod(
             if ("tpm" %in% names(assays(object))) {
                 warning(paste(
                     paste0(missingMsg, "."),
-                    "Returning log2 tpm counts instead."
+                    "Returning log2 tmm counts instead."
                 ), call. = FALSE)
-                tpm <- assays(object)[["tpm"]]
+                tmm <- assays(object)[["tmm"]]
+                if (is.null(tmm)) return(NULL)
                 return(log2(tmm + 1))
             } else {
                 warning(missingMsg, call. = FALSE)
