@@ -1,3 +1,7 @@
+# FIXME Add an annotationCol dimension check?
+
+
+
 #' Plot Heatmap
 #'
 #' These functions facilitate heatmap plotting of a specified set of genes. By
@@ -94,8 +98,8 @@ NULL
     title = NULL,
     quiet = FALSE,
     ...) {
+    if (!is.matrix(object)) return(NULL)
     counts <- object
-    if (!is.matrix(counts)) return(NULL)
 
     # Check for missing genes
     if (!is.null(genes)) {
@@ -138,6 +142,13 @@ NULL
 
     # Prepare the annotation columns
     if (!is.null(annotationCol)) {
+        # Check for colnames mismatch
+        if (!identical(rownames(annotationCol), colnames(counts))) {
+            stop(paste(
+                "Name mismatch between counts matrix colnames",
+                "and 'annotationCol' rownames."
+            ), call. = FALSE)
+        }
         annotationCol <- annotationCol %>%
             as.data.frame() %>%
             rownames_to_column() %>%
@@ -146,7 +157,7 @@ NULL
     }
 
     # Define colors for each annotation column, if desired
-    if (!is.null(annotationCol) & !is.null(legendColor)) {
+    if (is.data.frame(annotationCol) & is.function(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -169,7 +180,7 @@ NULL
     }
 
     # If `color = NULL`, use the pheatmap default
-    if (is.null(color)) {
+    if (!is.character(color)) {
         color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
     }
 
