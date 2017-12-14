@@ -57,7 +57,7 @@ NULL
              y = "5'->3' bias",
              fill = paste(interestingGroups, collapse = ":\n"))
 
-    if (!is.null(warnLimit)) {
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 

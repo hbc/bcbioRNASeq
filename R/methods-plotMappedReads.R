@@ -58,10 +58,10 @@ NULL
              y = "mapped reads (million)",
              fill = paste(interestingGroups, collapse = ":\n"))
 
-    if (!is.null(passLimit)) {
+    if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (!is.null(warnLimit)) {
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 

@@ -58,7 +58,7 @@ NULL
              fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
 
-    if (!is.null(passLimit)) {
+    if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
 
