@@ -68,14 +68,9 @@ NULL
     # DESeqTransform
     dt <- assays(object)[[normalized]]
     if (!is(dt, "DESeqTransform")) {
-        warning(paste(
-            normalized, "counts not defined.",
-            "Using log2 tmm counts instead."
-        ), call. = FALSE)
-        tmm <- counts(object, normalized = "tmm")
-        if (is.null(tmm)) return(NULL)
+        counts <- counts(object, normalized = normalized)
         se <- SummarizedExperiment(
-            assays = log2(tmm + 1),
+            assays = counts,
             colData = colData(object))
         dt <- DESeqTransform(se)
     }

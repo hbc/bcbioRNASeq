@@ -7,14 +7,11 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotPCA
 #'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.
-#' @param transform String specifying [DESeqTransform] slotted inside the
-#'   [bcbioRNASeq] object:
-#'   - `rlog` (**recommended**).
-#'   - `vst`: variance stabilizing transformation.
 #' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
 #'
 #' @seealso
@@ -41,13 +38,9 @@ NULL
 .plotPCACovariates <- function(
     object,
     metrics = TRUE,
-    transform = "rlog",
+    normalized = "rlog",
     ...) {
-    # Check for valid transform argument
-    transformArgs <- c("rlog", "vst")
-    if (!transform %in% transformArgs) {
-        stop(paste("Valid transforms:", toString(transformArgs)))
-    }
+    counts <- counts(object, normalized = normalized)
 
     metadata <- metrics(object)
     factors <- select_if(metadata, is.factor)
@@ -83,12 +76,6 @@ NULL
     } else {
         stop("Failed to select valid 'metrics' for plot", call. = FALSE)
     }
-
-    # Counts
-    counts <- assays(object) %>%
-        .[[transform]] %>%
-        # Assay needed to get matrix from the slotted DESeqTransform
-        assay()
 
     degCovariates(
         counts = counts,
