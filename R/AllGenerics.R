@@ -67,7 +67,7 @@ setGeneric("plotCountsPerGene", function(object, ...) {
 
 #' @rdname plotDEGHeatmap
 #' @export
-setGeneric("plotDEGHeatmap", function(object, counts, ...) {
+setGeneric("plotDEGHeatmap", function(results, counts, ...) {
     standardGeneric("plotDEGHeatmap")
 })
 

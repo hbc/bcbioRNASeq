@@ -12,7 +12,8 @@
 #'
 #' @inherit plotHeatmap
 #'
-#' @param counts Secondary object containing a normalized count matrix.
+#' @param results Primary object containing [DESeq2::results()] output.
+#' @param counts Secondary object containing a normalized counts matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
@@ -32,12 +33,15 @@
 #'
 #' # Use our stashed gene2symbol for better speed
 #' gene2symbol <- gene2symbol(bcb)
+#' annotationCol <- sampleMetadata(bcb) %>%
+#'     .[, interestingGroups(bcb), drop = FALSE]
 #'
 #' # DESeqResults, DESeqTransform
 #' plotDEGHeatmap(
 #'     res,
 #'     counts = rld,
-#'     gene2symbol = gene2symbol)
+#'     gene2symbol = gene2symbol,
+#'     annotationCol = annotationCol)
 #'
 #' # DESeqResults, DESeqDataSet
 #' # Using default ggplot2 colors
@@ -97,19 +101,19 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
+    signature(results = "DESeqResults",
               counts = "DESeqTransform"),
     function(
-        object,
+        results,
         counts,
         lfc = 0,
         title = TRUE,
         ...) {
-        results <- as.data.frame(object)
+        results <- as.data.frame(results)
         counts <- assay(counts)
-        alpha <- metadata(object)[["alpha"]]
+        alpha <- metadata(results)[["alpha"]]
         if (isTRUE(title)) {
-            title <- .resContrastName(object)
+            title <- .resContrastName(results)
         }
         .plotDEGHeatmap(
             results = results,
@@ -127,21 +131,21 @@ setMethod(
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
+    signature(results = "DESeqResults",
               counts = "DESeqDataSet"),
     function(
-        object,
+        results,
         counts,
         lfc = 0,
         title = TRUE,
         ...) {
         warning("DESeqTransform for counts is recommended",
                 call. = FALSE)
-        results <- as.data.frame(object)
+        results <- as.data.frame(results)
         counts <- counts(counts, normalized = TRUE)
-        alpha <- metadata(object)[["alpha"]]
+        alpha <- metadata(results)[["alpha"]]
         if (isTRUE(title)) {
-            title <- .resContrastName(object)
+            title <- .resContrastName(results)
         }
         .plotDEGHeatmap(
             results = results,
