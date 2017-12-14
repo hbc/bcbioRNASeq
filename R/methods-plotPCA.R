@@ -10,10 +10,9 @@
 #' @importFrom BiocGenerics plotPCA
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams counts
 #' @inheritParams plotGene
 #'
-#' @param transform String specifying [rlog] (**recommended**) or [vst]
-#'   [DESeqTransform] slotted inside the [bcbioRNASeq] object.
 #' @param interestingGroups *Optional*. Interesting groups to use for point
 #'   appearance. If missing, color defaults to all `interestingGroups`
 #'   parameters set in the [bcbioRNASeq] object.
@@ -55,24 +54,31 @@ NULL
 #' @importFrom viridis scale_color_viridis
 .plotPCA <- function(
     object,
-    transform = "rlog",
+    normalized = "rlog",
     interestingGroups,
     genes = NULL,
     censorSamples = NULL,
     color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
-    if (!transform %in% c("rlog", "vst")) {
-        stop("DESeqTransform must be rlog or vst", call. = FALSE)
-    }
-
-    # Interesting groups
     if (missing(interestingGroups)) {
         interestingGroups <- basejump::interestingGroups(object)
     }
-    interestingGroupsName <- paste(interestingGroups, collapse = ":\n")
 
-    dt <- assays(object)[[transform]]
+    # DESeqTransform
+    dt <- assays(object)[[normalized]]
+    if (!is(dt, "DESeqTransform")) {
+        warning(paste(
+            normalized, "counts not defined.",
+            "Using log2 tmm counts instead."
+        ), call. = FALSE)
+        tmm <- counts(object, normalized = "tmm")
+        if (is.null(tmm)) return(NULL)
+        se <- SummarizedExperiment(
+            assays = log2(tmm + 1),
+            colData = colData(object))
+        dt <- DESeqTransform(se)
+    }
     checkInterestingGroups(colData(dt), interestingGroups)
 
     # Subset genes, if desired
@@ -118,9 +124,9 @@ NULL
         labs(title = "pca",
              x = paste0("pc1: ", percentVar[[1]], "% variance"),
              y = paste0("pc2: ", percentVar[[2]], "% variance"),
-             color = interestingGroupsName)
+             color = paste(interestingGroups, collapse = ":\n"))
 
-    if (!is.null(color)) {
+    if (is(color, "ScaleDiscrete")) {
         p <- p + color
     }
 
