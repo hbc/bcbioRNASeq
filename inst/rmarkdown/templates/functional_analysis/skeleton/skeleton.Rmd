@@ -15,6 +15,8 @@ params:
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
+# Last modified 2017-12-14
+
 # Organism params:
 # Mouse (default)
 #     organism: "Mm"
@@ -65,7 +67,11 @@ alpha <- metadata(res)$alpha
 # Directory paths
 faDir <- file.path(params$outputDir, "results", "functional_analysis")
 dataDir <- file.path(params$outputDir, "data")
-lapply(list(faDir, dataDir), dir.create, recursive = TRUE, showWarnings = FALSE) %>% invisible()
+invisible(mapply(
+    list(faDir, dataDir),
+    FUN = dir.create,
+    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+))
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}

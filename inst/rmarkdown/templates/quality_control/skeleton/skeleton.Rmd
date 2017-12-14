@@ -9,6 +9,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
+# Last modified 2017-12-14
 library(bcbioRNASeq)
 
 # Shared R Markdown settings
@@ -22,9 +23,13 @@ bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 
 # Directory paths
-outputDir <- params$outputDir
-dataDir <- file.path(outputDir, "data")
-countsDir <- file.path(outputDir, "results", "counts")
+dataDir <- file.path(params$outputDir, "data")
+countsDir <- file.path(params$outputDir, "results", "counts")
+invisible(mapply(
+    list(dataDir, countsDir),
+    FUN = dir.create,
+    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+))
 ```
 
 ```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
@@ -41,7 +46,7 @@ sampleMetadata(bcb)
 ```{r counts}
 rawCounts <- counts(bcb, normalized = FALSE)
 normalizedCounts <- counts(bcb, normalized = TRUE)
-tpm <- tpm(bcb)
+tpm <- counts(bcb, normalized = "tpm")
 saveData(rawCounts, normalizedCounts, tpm, dir = dataDir)
 writeCounts(rawCounts, normalizedCounts, tpm, dir = countsDir)
 ```
