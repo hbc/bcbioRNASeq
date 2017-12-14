@@ -23,3 +23,16 @@ test_that("plotCorrelationHeatmap", {
         "Supported methods: pearson, spearman"
     )
 })
+
+test_that("transformationLimit", {
+    skip <- bcb
+    assays(skip)[["rlog"]] <- NULL
+    expect_warning(
+        plotCorrelationHeatmap(skip, normalized = "rlog"),
+        "rlog counts not defined. Using log2 tmm counts instead."
+    )
+    p <- suppressWarnings(
+        plotCorrelationHeatmap(skip, normalized = "rlog")
+    )
+    expect_is(p, "list")
+})
