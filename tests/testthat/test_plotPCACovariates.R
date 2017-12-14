@@ -71,3 +71,18 @@ test_that("invalid parameters", {
         "'degCovariates\\(\\)' requires at least 2 metadata columns"
     )
 })
+
+test_that("transformationLimit", {
+    skip <- bcb
+    assays(skip)[["rlog"]] <- NULL
+    expect_warning(
+        suppressMessages(
+            plotPCACovariates(skip, normalized = "rlog")
+        ),
+        "rlog counts not defined. Using log2 tmm counts instead."
+    )
+    p <- suppressWarnings(suppressMessages(
+        plotPCA(skip, normalized = "rlog")
+    ))
+    expect_is(p, "ggplot")
+})
