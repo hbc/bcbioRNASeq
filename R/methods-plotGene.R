@@ -73,7 +73,7 @@ NULL
 #' @importFrom basejump uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
-#'   labs theme
+#'   guides labs theme
 #' @importFrom viridis scale_color_viridis
 #'
 #' @param object Counts matrix.
@@ -109,15 +109,17 @@ NULL
                 color = "interestingGroups")
         ) +
             geom_point(size = 4) +
-            theme(
-                axis.text.x = element_text(angle = 90)) +
+            theme(axis.text.x = element_text(angle = 90)) +
             labs(title = symbol,
                  x = "sample",
                  y = countsAxisLabel,
                  color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
-        if (!is.null(color)) {
+        if (is(color, "ScaleDiscrete")) {
             p <- p + color
+        }
+        if (interestingGroups == "sampleName") {
+            p <- p + guides(color = FALSE)
         }
         p
     })
