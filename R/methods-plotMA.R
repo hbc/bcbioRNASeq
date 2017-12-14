@@ -148,16 +148,22 @@ setMethod(
         gene2symbol = TRUE,
         pointColor = "darkgray",
         sigPointColor = "red",
-        labelColor = "black") {
+        labelColor = "black",
+        title = TRUE) {
+        results <- as.data.frame(object)
+        alpha <- metadata(object)[["alpha"]]
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotMA(
-            object = as.data.frame(object),
-            alpha = metadata(object)[["alpha"]],
+            object = results,
+            alpha = alpha,
             genes = genes,
             gene2symbol = gene2symbol,
             pointColor = pointColor,
             sigPointColor = sigPointColor,
             labelColor = labelColor,
-            title = .resContrastName(object)
+            title = title
         )
     })
 
