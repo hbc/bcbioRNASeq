@@ -1,15 +1,15 @@
 context("plotGenderMarkers")
 
-# Use F1000 workflow example data (GSE65267) for unit tests
-# https://github.com/hbc/bcbioRNASeq/tree/f1000v1
-loadRemoteData(
-    file.path("http://bcbiornaseq.seq.cloud",
-              "f1000v1",
-              "data",
-              "bcb.rda"),
-    quiet = TRUE)
+load(system.file(
+    file.path("extdata", "bcb.rda"),
+    package = "bcbioRNASeq"))
 
 test_that("plotGenderMarkers", {
-    p <- plotGenderMarkers(bcb)
-    expect_is(p, "ggplot")
+    # Current working example doesn't contain the dimorphic genes
+    expect_warning(
+        plotGenderMarkers(bcb),
+        "Missing gender markers in count matrix"
+    )
+    p <- suppressWarnings(plotGenderMarkers(bcb))
+    expect_is(p, "NULL")
 })
