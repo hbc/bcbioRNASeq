@@ -180,7 +180,6 @@ setMethod(
             annotationCol <- NULL
         } else {
             annotationCol <- colData(object) %>%
-                as.data.frame() %>%
                 .[, interestingGroups, drop = FALSE]
         }
 
