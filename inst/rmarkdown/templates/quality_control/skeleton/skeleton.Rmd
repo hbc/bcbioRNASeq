@@ -41,7 +41,7 @@ invisible(mapply(
 sampleMetadata(bcb)
 ```
 
-[bcbio][] run data was imported from **`r metadata(bcb)[["uploadDir"]]`**.
+[bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
 
 ```{r counts}
 rawCounts <- counts(bcb, normalized = FALSE)
