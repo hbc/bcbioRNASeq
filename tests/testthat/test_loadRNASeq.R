@@ -4,6 +4,7 @@ context("loadRNASeq")
 uploadDir <- system.file(
     file.path("extdata", "bcbio"),
     package = "bcbioRNASeq")
+
 # This should produce the following warnings:
 #   1: bcbio-nextgen.log missing
 #   2: bcbio-nextgen-commands.log missing
@@ -159,4 +160,23 @@ test_that("Example data dimensions", {
           "ENSMUSG00000005886",
           "ENSMUSG00000016918")
     )
+})
+
+test_that("transformationLimit", {
+    bcb <- suppressWarnings(suppressMessages(
+        loadRNASeq(uploadDir, transformationLimit = 0)
+    ))
+    expect_warning(
+        suppressMessages(loadRNASeq(uploadDir, transformationLimit = 0)),
+        paste("Dataset contains many samples.",
+              "Skipping DESeq2 variance stabilization.")
+    )
+    expect_identical(
+        names(assays(bcb)),
+        c("raw", "normalized", "tpm", "tmm")
+    )
+    expect_is(assays(bcb)[["rlog"]], "NULL")
+    expect_is(assays(bcb)[["vst"]], "NULL")
+    transformationLimit <- metadata(bcb)[["transformationLimit"]]
+    expect_equal(transformationLimit, 0)
 })
