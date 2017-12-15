@@ -71,8 +71,10 @@ NULL
     legendColor = viridis::viridis,
     title = TRUE) {
     # Check for supported correlation method
-    if (!method %in% c("pearson", "spearman")) {
-        stop("Supported methods: pearson, spearman")
+    validMethod <- c("pearson", "spearman")
+    if (!method %in% validMethod) {
+        stop(paste("Supported methods:", toString(validMethod)),
+             call. = FALSE)
     }
 
     # Subset counts matrix by input genes, if desired
@@ -82,7 +84,7 @@ NULL
 
     # Subset count matrix by input samples, if desired
     if (!is.null(samples)) {
-        counts <- counts[, samples]
+        counts <- counts[, samples, drop = FALSE]
         if (!is.null(annotationCol)) {
             annotationCol <- annotationCol[samples, , drop = FALSE]
         }
@@ -99,7 +101,7 @@ NULL
     }
 
     # Define colors for each annotation column, if desired
-    if (is.data.frame(annotationCol) & is.character(legendColor)) {
+    if (is.data.frame(annotationCol) & is.function(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -166,7 +168,6 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
-
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata(object),
             interestingGroups)
@@ -174,12 +175,13 @@ setMethod(
         counts <- counts(object, normalized = normalized)
         if (is.null(counts)) return(NULL)
 
-        if (interestingGroups != "sampleName") {
+        # Don't set annotation columns if we're only grouping by sample name
+        if (identical(interestingGroups, "sampleName")) {
+            annotationCol <- NULL
+        } else {
             annotationCol <- colData(object) %>%
                 as.data.frame() %>%
                 .[, interestingGroups, drop = FALSE]
-        } else {
-            annotationCol <- NULL
         }
 
         if (isTRUE(title) & is.character(normalized)) {
