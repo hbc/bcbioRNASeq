@@ -39,6 +39,8 @@ this is automatically determined by the metadata set inside the
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
+\item{title}{Include plot title.}
+
 \item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
