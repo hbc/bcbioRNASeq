@@ -117,6 +117,7 @@ test_that("metadata slot", {
              bcbioCommandsLog = "NULL",
              allSamples = "logical",
              design = "formula",
+             transformationLimit = "numeric",
              date = "Date",
              wd = "character",
              utilsSessionInfo = "sessionInfo",
