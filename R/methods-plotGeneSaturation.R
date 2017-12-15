@@ -65,7 +65,7 @@ NULL
              y = "genes",
              color = paste(interestingGroups, collapse = ":\n"))
 
-    if (is(fill, "ScaleDiscrete")) {
+    if (is(color, "ScaleDiscrete")) {
         p <- p + color
     }
 
