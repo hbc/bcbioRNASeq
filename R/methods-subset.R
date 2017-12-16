@@ -2,6 +2,8 @@
 #'
 #' Extract genes by row and samples by column from a [bcbioRNASeq] object. The
 #' internal [DESeqDataSet] and count transformations are rescaled automatically.
+#' DESeq2 transformations can be disabled on large subset operations by setting
+#' `transform = FALSE`.
 #'
 #' @rdname subset
 #' @name subset
@@ -34,8 +36,8 @@
 #' # Subset by both genes and samples
 #' bcb[ensgene, samples]
 #'
-#' # Skip normalization
-#' bcb[ensgene, samples, skipNorm = TRUE]
+#' # Skip DESeq2 transformations
+#' bcb[ensgene, samples, transform = FALSE]
 NULL
 
 
@@ -67,15 +69,8 @@ NULL
     if (identical(dim(x), c(length(i), length(j)))) return(x)
 
     dots <- list(...)
-    if (is.null(dots[["transformationLimit"]])) {
-        transformationLimit <- 50
-    } else {
-        transformationLimit <- dots[["transformationLimit"]]
-    }
-    if (is.null(dots[["skipNorm"]])) {
-        skipNorm <- FALSE
-    } else {
-        skipNorm <- dots[["skipNorm"]]
+    if (!identical(dots[["transform"]], FALSE)) {
+        transform <- TRUE
     }
 
     # Regenerate and subset SummarizedExperiment
@@ -114,8 +109,11 @@ NULL
     dds <- dds[genes, samples]
     colData(dds) <- colData
     # Skip normalization option, for large datasets
-    if (isTRUE(skipNorm) | nrow(colData) > transformationLimit) {
-        message("Skipping re-normalization, just selecting samples and genes")
+    if (!isTRUE(transform)) {
+        message(paste(
+            "Skipping DESeq2 transformations",
+            "just selecting samples and genes"
+        ))
         dds <- estimateSizeFactors(dds)
         vst <- NULL
         rlog <- NULL
