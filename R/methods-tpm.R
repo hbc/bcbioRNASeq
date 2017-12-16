@@ -4,6 +4,8 @@
 #' @name tpm
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump tpm
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [matrix].
@@ -14,7 +16,7 @@
 #'     package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
-#' tpm(bcb) %>% head()
+#' tpm(bcb) %>% glimpse()
 NULL
 
 

@@ -201,11 +201,3 @@ setGeneric("tmm", function(object) {
 setGeneric("topTables", function(object, ...) {
     standardGeneric("topTables")
 })
-
-
-
-#' @rdname tpm
-#' @export
-setGeneric("tpm", function(object) {
-    standardGeneric("tpm")
-})
