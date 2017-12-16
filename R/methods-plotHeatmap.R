@@ -1,7 +1,3 @@
-# FIXME Add an annotationCol dimension check?
-
-
-
 #' Plot Heatmap
 #'
 #' These functions facilitate heatmap plotting of a specified set of genes. By
@@ -16,8 +12,10 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @importFrom basejump plotHeatmap
+#'
 #' @inheritParams basejump::gene2symbol
+#' @inheritParams AllGenerics
 #' @inheritParams counts
 #'
 #' @param genes *Optional*. Character vector of gene identifiers to plot. These
