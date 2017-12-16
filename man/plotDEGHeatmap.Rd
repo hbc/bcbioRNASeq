@@ -32,13 +32,18 @@ plotDEGHeatmap(object, counts, ...)
 \item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-Graphical output only.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} ggplot return.
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
 optimized for handling a \link{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
+}
+\details{
+When column clustering is disabled, the columns are sorted by the interesting
+groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then the
+sample names.
 }
 \examples{
 load(system.file(

@@ -18,7 +18,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
 (\code{TRUE}), or additional normalization methods:
@@ -54,7 +54,7 @@ palette.}
 \item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-Graphical output only.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} ggplot return.
 }
 \description{
 This function calculates a correlation matrix based on gene expression per
@@ -62,6 +62,11 @@ sample. By default, this function processes all gene counts per sample to
 calculate the corrlation matrix. This behavior can be overrided with the
 input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
+}
+\details{
+When column clustering is disabled, the columns are sorted by the interesting
+groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then the
+sample names.
 }
 \examples{
 load(system.file(
