@@ -61,9 +61,16 @@ NULL
     counts,
     alpha = 0.01,
     lfc = 0,
+    gene2symbol = TRUE,
+    annotationCol = NULL,
+    scale = "row",
+    color = viridis::viridis(256),
+    legendColor = viridis::viridis,
     title,
     ...) {
-    counts <- as.matrix(counts)
+    if (!all(rownames(object) %in% rownames(counts))) {
+        stop("Rownames mismatch between results object and counts")
+    }
     results <- object %>%
         as.data.frame() %>%
         camel(strict = FALSE) %>%
@@ -72,33 +79,36 @@ NULL
         .[.[["padj"]] < alpha, , drop = FALSE] %>%
         # Keep genes that pass log2 fold change cutoff
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-        .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+        .[.[["log2FoldChange"]] > lfc | .[["log2FoldChange"]] < -lfc, ,
+          drop = FALSE]
     if (nrow(results) == 0) {
         warning("No genes passed significance cutoffs", call. = FALSE)
         return(NULL)
     }
-    genes <- rownames(results)
-    if (length(genes) < 2) {
-        warning(paste(
-            length(genes), "gene(s) is too few to plot"
-        ), call. = FALSE)
-        return(NULL)
-    } else {
-        plotHeatmap(
-            counts,
-            genes = genes,
-            title = title,
-            ...)
-    }
+    counts <- counts[rownames(results), , drop = FALSE]
+    .plotHeatmap(
+        object = counts,
+        gene2symbol = gene2symbol,
+        annotationCol = annotationCol,
+        scale = scale,
+        color = color,
+        legendColor = legendColor,
+        title = title,
+        ...)
 }
 
 
 
-.plotDEGHeatmapDESeqResults <- function(
+.plotDEGHeatmap.DESeqResults <- function(
     object,
     counts,
+    alpha,
     lfc = 0,
+    gene2symbol = TRUE,
+    annotationCol = NULL,
+    scale = "row",
+    color = viridis::viridis(256),
+    legendColor = viridis::viridis,
     title = TRUE,
     ...) {
     results <- as.data.frame(object)
@@ -106,7 +116,9 @@ NULL
         is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
-    alpha <- metadata(object)[["alpha"]]
+    if (missing(alpha)) {
+        alpha <- metadata(object)[["alpha"]]
+    }
     if (isTRUE(title)) {
         title <- .resContrastName(object)
     }
@@ -115,6 +127,11 @@ NULL
         counts = counts,
         alpha = alpha,
         lfc = lfc,
+        gene2symbol = gene2symbol,
+        annotationCol = annotationCol,
+        scale = scale,
+        color = color,
+        legendColor = legendColor,
         title = title,
         ...)
 }
@@ -129,7 +146,7 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqDataSet"),
-    .plotDEGHeatmapDESeqResults)
+    .plotDEGHeatmap.DESeqResults)
 
 
 
@@ -140,7 +157,7 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "DESeqTransform"),
-    .plotDEGHeatmapDESeqResults)
+    .plotDEGHeatmap.DESeqResults)
 
 
 
@@ -151,4 +168,4 @@ setMethod(
     "plotDEGHeatmap",
     signature(object = "DESeqResults",
               counts = "matrix"),
-    .plotDEGHeatmapDESeqResults)
+    .plotDEGHeatmap.DESeqResults)
