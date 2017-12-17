@@ -32,7 +32,7 @@ plotDEGHeatmap(object, counts, ...)
 \item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} ggplot return.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return \link{list}, containing \code{gtable}.
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is

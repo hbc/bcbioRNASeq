@@ -9,18 +9,19 @@
 \title{Plot Heatmap}
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  genes = NULL, scale = "row", color = viridis::viridis(256),
-  legendColor = viridis::viridis, title = NULL, quiet = FALSE, ...)
+  samples = NULL, genes = NULL, scale = "row",
+  color = viridis::viridis(256), legendColor = viridis::viridis,
+  title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
-  genes = NULL, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
-  title = NULL, quiet = FALSE, ...)
+  samples = NULL, genes = NULL, gene2symbol = FALSE,
+  annotationCol = NULL, scale = "row", color = viridis::viridis(256),
+  legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  gene2symbol = FALSE, annotationCol = NULL, scale = "row",
   color = viridis::viridis(256), legendColor = viridis::viridis,
-  title = NULL, quiet = FALSE, ...)
+  title = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -35,9 +36,11 @@
 (\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 
-\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
-must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
-not the gene symbols.}
+\item{samples}{\emph{Optional}. Samples (colnames) to plot.}
+
+\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+gene symbols.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the row direction or the column direction, or none. Corresponding
@@ -51,24 +54,22 @@ palette.}
 
 \item{title}{\emph{Optional}. Plot title.}
 
-\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
-
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
 the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then gene2symbol
-mapping will be disabled. This is useful when working with a poorly
-annotated genome. Alternatively, a gene2symbol \link{data.frame} can be passed
-in, and must contain the columns \code{ensgene} and \code{symbol}. then the Ensembl
-gene identifiers will be labeled in place of gene symbols.}
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{annotationCol}{\emph{Optional}. \link{data.frame} that specifies the annotations
 shown on the right side of the heatmap. Each row of this \link{data.frame}
 defines the features of the heatmap columns.}
 }
 \value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} ggplot return.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return \link{list}, containing \code{gtable}.
 }
 \description{
 Plot Heatmap
@@ -84,7 +85,7 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 # Use Ensembl identifiers to define genes
-ensgene <- counts(bcb)[1:20, ] \%>\% rownames()
+ensgene <- rownames(bcb)[1:20]
 plotHeatmap(bcb, genes = ensgene)
 
 # Use inferno color palette

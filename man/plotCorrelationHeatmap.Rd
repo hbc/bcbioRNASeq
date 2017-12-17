@@ -18,7 +18,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
 (\code{TRUE}), or additional normalization methods:
@@ -54,7 +54,7 @@ palette.}
 \item{title}{\emph{Optional}. Plot title.}
 }
 \value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} ggplot return.
+\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return \link{list}, containing \code{gtable}.
 }
 \description{
 This function calculates a correlation matrix based on gene expression per
