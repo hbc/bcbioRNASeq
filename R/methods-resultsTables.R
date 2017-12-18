@@ -40,7 +40,7 @@
 #'     res,
 #'     lfc = 0.25,
 #'     annotable = annotable,
-#'     summary = FALSE,
+#'     summary = TRUE,
 #'     write = FALSE)
 #' names(resTbl)
 NULL
@@ -169,27 +169,16 @@ NULL
         degLFCDownFile = degLFCDownFile)
 
     if (isTRUE(summary)) {
-        # FIXME Simplify this return in the `mdList()` code
-        mdList(
-            c(paste(nrow(all), "genes in count matrix"),
-              paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-              paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
-              paste("alpha cutoff:", alpha),
-              paste("lfc cutoff:", lfc, "(applied in tables only)"),
-              paste("deg pass alpha:", nrow(deg), "genes"),
-              paste("deg lfc up:", nrow(degLFCUp), "genes"),
-              paste("deg lfc down:", nrow(degLFCDown), "genes")),
-            asis = TRUE) %>%
-            # Strip the line breaks
-            gsub(x = .,
-                 pattern = "\n",
-                 replacement = "") %>%
-            as.character() %>%
-            # Indent by 2 spaces
-            paste0("  ", .) %>%
-            # Add header
+        c(paste(nrow(all), "genes in counts matrix"),
+          paste("Base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+          paste("Base mean > 1:", nrow(baseMeanGt1), "genes"),
+          paste("Alpha cutoff:", alpha),
+          paste("LFC cutoff:", lfc, "(applied in tables only)"),
+          paste("DEG pass alpha:", nrow(deg), "genes"),
+          paste("DEG LFC up:", nrow(degLFCUp), "genes"),
+          paste("DEG LFC down:", nrow(degLFCDown), "genes")) %>%
+            paste("  -", .) %>%
             c("Summary statistics:", .) %>%
-            # Print without line numbers
             cat(sep = "\n")
     }
 

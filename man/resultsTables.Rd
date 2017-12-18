@@ -61,7 +61,7 @@ resTbl <- resultsTables(
     res,
     lfc = 0.25,
     annotable = annotable,
-    summary = FALSE,
+    summary = TRUE,
     write = FALSE)
 names(resTbl)
 }
