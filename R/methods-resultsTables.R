@@ -88,7 +88,7 @@ NULL
 #' @importFrom rlang !! sym
 #' @importFrom S4Vectors metadata
 #' @importFrom tibble rownames_to_column
-.resultsTablesDESeqResults <- function(
+.resultsTables.DESeqResults <- function(
     object,
     lfc = 0,
     annotable = TRUE,
@@ -206,4 +206,4 @@ NULL
 setMethod(
     "resultsTables",
     signature("DESeqResults"),
-    .resultsTablesDESeqResults)
+    .resultsTables.DESeqResults)
