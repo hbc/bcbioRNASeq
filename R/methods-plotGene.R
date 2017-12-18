@@ -121,7 +121,7 @@ NULL
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
-        if (interestingGroups == "sampleName") {
+        if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(color = FALSE)
         }
         p

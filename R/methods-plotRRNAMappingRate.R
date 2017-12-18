@@ -82,7 +82,7 @@ NULL
         p <- p + coord_flip()
     }
 
-    if (interestingGroups == "sampleName") {
+    if (identical(interestingGroups, "sampleName")) {
         p <- p + guides(fill = FALSE)
     }
 
