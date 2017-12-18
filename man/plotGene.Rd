@@ -9,7 +9,8 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, format = "ensgene",
   normalized = "tpm", interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid")
+  color = viridis::scale_color_viridis(discrete = TRUE), headerLevel = 2,
+  return = "grid")
 
 \S4method{plotGene}{matrix}(object, genes, metadata,
   interestingGroups = "sampleName",
@@ -40,14 +41,14 @@ this is automatically determined by the metadata set inside the
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
+\item{headerLevel}{R Markdown header level. Only applies when
+\code{return = "markdown"}.}
+
 \item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
 
 \item{metadata}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
-
-\item{headerLevel}{R Markdown header level. Only applies when
-\code{return = "markdown"}.}
 }
 \value{
 \itemize{

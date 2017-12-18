@@ -161,6 +161,7 @@ setMethod(
         normalized = "tpm",
         interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE),
+        headerLevel = 2,
         return = "grid") {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
@@ -208,6 +209,7 @@ setMethod(
             interestingGroups = interestingGroups,
             color = color,
             countsAxisLabel = countsAxisLabel,
+            headerLevel = headerLevel,
             return = return)
     })
 
