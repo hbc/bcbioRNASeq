@@ -20,8 +20,7 @@
 #'   not be added to the results. This is useful when working with a poorly
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.
-#' @param summary Show summary statistics as a Markdown list.
-#' @param headerLevel Markdown header level.
+#' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
 #'
@@ -94,7 +93,6 @@ NULL
     lfc = 0,
     annotable = TRUE,
     summary = TRUE,
-    headerLevel = 3,
     write = FALSE,
     dir = file.path("results", "differential_expression"),
     quiet = FALSE) {
@@ -171,12 +169,7 @@ NULL
         degLFCDownFile = degLFCDownFile)
 
     if (isTRUE(summary)) {
-        if (!is.null(headerLevel)) {
-            mdHeader(
-                "Summary statistics",
-                level = headerLevel,
-                asis = TRUE)
-        }
+        # FIXME Simplify this return in the `mdList()` code
         mdList(
             c(paste(nrow(all), "genes in count matrix"),
               paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
@@ -186,7 +179,18 @@ NULL
               paste("deg pass alpha:", nrow(deg), "genes"),
               paste("deg lfc up:", nrow(degLFCUp), "genes"),
               paste("deg lfc down:", nrow(degLFCDown), "genes")),
-            asis = TRUE)
+            asis = TRUE) %>%
+            # Strip the line breaks
+            gsub(x = .,
+                 pattern = "\n",
+                 replacement = "") %>%
+            as.character() %>%
+            # Indent by 2 spaces
+            paste0("  ", .) %>%
+            # Add header
+            c("Summary statistics:", .) %>%
+            # Print without line numbers
+            cat(sep = "\n")
     }
 
     if (isTRUE(write)) {

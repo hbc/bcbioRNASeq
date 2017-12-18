@@ -10,8 +10,8 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
-  summary = TRUE, headerLevel = 3, write = FALSE,
-  dir = file.path("results", "differential_expression"), quiet = FALSE)
+  summary = TRUE, write = FALSE, dir = file.path("results",
+  "differential_expression"), quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -33,9 +33,7 @@ not be added to the results. This is useful when working with a poorly
 annotated genome. Alternatively, a previously saved annotable \link{data.frame}
 can be passed in.}
 
-\item{summary}{Show summary statistics as a Markdown list.}
-
-\item{headerLevel}{Markdown header level.}
+\item{summary}{Show summary statistics.}
 
 \item{write}{Write CSV files to disk.}
 
