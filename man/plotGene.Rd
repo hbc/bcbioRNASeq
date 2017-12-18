@@ -7,14 +7,14 @@
 \alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, interestingGroups,
-  normalized = "tpm", format = "ensgene",
-  color = viridis::scale_color_viridis(discrete = TRUE), returnList = FALSE)
+\S4method{plotGene}{bcbioRNASeq}(object, genes, format = "ensgene",
+  normalized = "tpm", interestingGroups,
+  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid")
 
 \S4method{plotGene}{matrix}(object, genes, metadata,
   interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", returnList = FALSE)
+  countsAxisLabel = "counts", headerLevel = 2, return = "grid")
 }
 \arguments{
 \item{object}{Object.}
@@ -22,17 +22,17 @@
 \item{genes}{Gene identifier(s). Can input multiple genes as a character
 vector.}
 
+\item{format}{Ensembl identifier format. Supports \code{ensgene} (\strong{recommended})
+or \code{symbol}.}
+
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
+
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
-
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
-
-\item{format}{Ensembl identifier format. Supports \code{ensgene} (\strong{recommended})
-or \code{symbol}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
@@ -40,17 +40,20 @@ or \code{symbol}.}
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{returnList}{Return the plotlist used to generate the paneled,
-multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
+\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
 
 \item{metadata}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
+
+\item{headerLevel}{R Markdown header level. Only applies when
+\code{return = "markdown"}.}
 }
 \value{
 \itemize{
-\item \code{returnList = FALSE}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{returnList = TRUE}: \link{list} of per gene \link{ggplot} objects.
+\item \code{grid}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
+\item \code{list}: Plot list, containing per gene \link{ggplot} objects.
+\item \code{markdown}: Tabset R Markdown output, tabbed per gene.
 }
 }
 \description{
