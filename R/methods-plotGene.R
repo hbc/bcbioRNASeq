@@ -135,9 +135,8 @@ NULL
     } else if (return == "list") {
         plots
     } else if (return == "markdown") {
-        mdHeader("Genes", level = headerLevel)
         pblapply(seq_along(plots), function(a) {
-            mdHeader(names(genes)[[a]], level = headerLevel + 1)
+            mdHeader(names(genes)[[a]], level = headerLevel)
             plots[[a]]
         }) %>%
             invisible()
