@@ -136,7 +136,9 @@ NULL
         plots
     } else if (return == "markdown") {
         pblapply(seq_along(plots), function(a) {
-            mdHeader(names(genes)[[a]], level = headerLevel)
+            if (is.numeric(headerLevel)) {
+                mdHeader(names(genes)[[a]], level = headerLevel, asis = TRUE)
+            }
             show(plots[[a]])
         }) %>%
             invisible()
