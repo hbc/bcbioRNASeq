@@ -27,9 +27,9 @@ NULL
     ...,
     transform = TRUE) {
     arguments <- list(...)
-    checkCharacter <- vapply(arguments, is.character, FUN.VALUE = logical(1))
-    if (!all(isTRUE(as.logical(checkCharacter)))) {
-        stop("'Arguments must be character")
+    checkArguments <- vapply(arguments, is.vector, FUN.VALUE = logical(1))
+    if (!all(isTRUE(as.logical(checkArguments)))) {
+        stop("'Arguments must be vectors")
     }
 
     # Match the arguments against the sample metadata
