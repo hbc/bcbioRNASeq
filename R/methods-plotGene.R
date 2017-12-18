@@ -102,7 +102,7 @@ NULL
         symbol <- names(genes)[[a]]
         data <- tibble(
             x = colnames(object),
-            y = object[ensgene, ],
+            y = object[ensgene, , drop = TRUE],
             interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
             data,
