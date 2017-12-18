@@ -23,6 +23,9 @@ Select Samples
 load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
+
+# bcbioRNASeq
+selectSamples(bcb, group = "ko")
 }
 \author{
 Michael Steinbaugh

@@ -4,6 +4,8 @@
 #' @name selectSamples
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump selectSamples
+#'
 #' @inheritParams AllGenerics
 #'
 #' @return [bcbioRNASeq].
@@ -12,12 +14,14 @@
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq
+#' selectSamples(bcb, group = "ko")
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom dplyr pull
 .selectSamples <- function(
     object,
     ...,
@@ -34,16 +38,18 @@ NULL
         column <- names(arguments)[[a]]
         argument <- arguments[[a]]
         match <- sampleMetadata %>%
-            .[.[[column]] %in% argument, , drop = FALSE]
+            .[.[[column]] %in% argument,
+              "sampleID",
+              drop = TRUE]
         # Check for match failure
-        if (!nrow(match)) {
+        if (!length(match)) {
             warning(paste(
                 "Match failure:",
                 paste(column, "=", argument)
             ), call. = FALSE)
             return(NULL)
         }
-        pull(match, "sampleID")
+        match
     })
     samples <- Reduce(f = intersect, x = list)
     if (!length(samples)) {
