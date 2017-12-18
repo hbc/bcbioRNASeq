@@ -33,6 +33,9 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
+\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
+use the alpha level defined in the object.}
+
 \item{lfc}{log2 fold change ratio cutoff.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},

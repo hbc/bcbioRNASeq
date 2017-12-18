@@ -22,7 +22,7 @@ test_that("plotlist", {
         bcb,
         genes = ensgene,
         format = "ensgene",
-        returnList = TRUE)
+        return = "list")
     expect_is(list, "list")
     expect_true(
         lapply(list, function(x) is(x, "ggplot")) %>%
