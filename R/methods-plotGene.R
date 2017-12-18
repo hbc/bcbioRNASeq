@@ -13,6 +13,7 @@
 #'   vector.
 #' @param format Ensembl identifier format. Supports `ensgene` (**recommended**)
 #'   or `symbol`.
+#' @param metadata Sample metadata [data.frame].
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @param color Desired ggplot color scale. Defaults to
@@ -21,13 +22,14 @@
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
 #' @param countsAxisLabel Text label of counts axis.
-#' @param returnList Return the plotlist used to generate the paneled,
-#'   multi-gene plot with [cowplot::plot_grid()].
-#' @param metadata Sample metadata [data.frame].
+#' @param headerLevel R Markdown header level. Only applies when
+#'   `return = "markdown"`.
+#' @param return Desired return type: `grid`, `list`, `markdown`.
 #'
 #' @return
-#' - `returnList = FALSE`: [cowplot::plot_grid()] graphical output.
-#' - `returnList = TRUE`: [list] of per gene [ggplot] objects.
+#' - `grid`: [cowplot::plot_grid()] graphical output.
+#' - `list`: Plot list, containing per gene [ggplot] objects.
+#' - `markdown`: Tabset R Markdown output, tabbed per gene.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -74,13 +76,13 @@ NULL
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
+#' @importFrom pbapply pblapply
+#' @importFrom tibble tibble
 #' @importFrom viridis scale_color_viridis
 #'
-#' @param object Counts matrix.
 #' @param genes Gene identifiers, as a named character vector. `ensgene` is
 #'   provided as the value and `symbol` as the name. This gets defined in the S4
 #'   method (see below).
-#' @param metadata Sample metadata [data.frame].
 #'
 #' @return [ggplot].
 .plotGene <- function(
@@ -90,19 +92,20 @@ NULL
     interestingGroups = "sampleName",
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
-    returnList = FALSE) {
+    headerLevel = 2,
+    return = "grid") {
     metadata <- metadata %>%
         as.data.frame() %>%
         uniteInterestingGroups(interestingGroups)
     plots <- lapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
         symbol <- names(genes)[[a]]
-        df <- data.frame(
+        data <- tibble(
             x = colnames(object),
             y = object[ensgene, ],
             interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
-            df,
+            data,
             mapping = aes_string(
                 x = "x",
                 y = "y",
@@ -123,10 +126,23 @@ NULL
         }
         p
     })
-    if (isTRUE(returnList)) {
-        plots
-    } else {
+    names(plots) <- genes
+
+    # Return
+    validReturn <- c("grid", "list", "markdown")
+    if (return == "grid") {
         plot_grid(plotlist = plots, labels = "AUTO")
+    } else if (return == "list") {
+        plots
+    } else if (return == "markdown") {
+        mdHeader("Genes", level = headerLevel)
+        pblapply(seq_along(plots), function(a) {
+            mdHeader(names(genes)[[a]], level = headerLevel + 1)
+            plots[[a]]
+        }) %>%
+            invisible()
+    } else {
+        stop(paste("Valid 'return':", toString(validReturn)))
     }
 }
 
@@ -142,11 +158,11 @@ setMethod(
     function(
         object,
         genes,
-        interestingGroups,
-        normalized = "tpm",
         format = "ensgene",
+        normalized = "tpm",
+        interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE),
-        returnList = FALSE) {
+        return = "grid") {
         if (!format %in% c("ensgene", "symbol")) {
             stop("Unsupported gene identifier format", call. = FALSE)
         }
@@ -193,7 +209,7 @@ setMethod(
             interestingGroups = interestingGroups,
             color = color,
             countsAxisLabel = countsAxisLabel,
-            returnList = returnList)
+            return = return)
     })
 
 
