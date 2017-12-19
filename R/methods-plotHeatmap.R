@@ -18,18 +18,9 @@
 #' @inheritParams counts
 #'
 #' @inheritParams gene2symbol
+#' @inheritParams plotGene
 #'
 #' @param samples *Optional*. Samples (colnames) to plot.
-#' @param genes *Optional*. Gene identifiers (rownames) to plot. These must be
-#'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-#'   gene symbols.
-#' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
-#'   the function will attempt to automatically map gene identifiers to symbols
-#'   from Ensembl using [basejump::annotable()]. If set `FALSE`/`NULL`, then
-#'   gene2symbol mapping will be disabled. This is useful when working with a
-#'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
-#'   passed in, and must contain the columns `ensgene` and `symbol`. then the
-#'   Ensembl gene identifiers will be labeled in place of gene symbols.
 #'
 #' @examples
 #' load(system.file(

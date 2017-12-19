@@ -9,8 +9,16 @@
 #'
 #' @inherit plotTotalReads
 #'
-#' @param genes Gene identifier(s). Can input multiple genes as a character
-#'   vector.
+#' @param genes *Optional*. Gene identifiers (rownames) to plot. These must be
+#'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+#'   gene symbols.
+#' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
+#'   the function will attempt to automatically map gene identifiers to symbols
+#'   from Ensembl using [basejump::annotable()]. If set `FALSE`/`NULL`, then
+#'   gene2symbol mapping will be disabled. This is useful when working with a
+#'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
+#'   passed in, and must contain the columns `ensgene` and `symbol`. then the
+#'   Ensembl gene identifiers will be labeled in place of gene symbols.
 #' @param metadata Sample metadata [data.frame].
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
@@ -37,26 +45,14 @@
 #'     package = "bcbioRNASeq"))
 #'
 #' # Gene identifiers
-#' ensgene <- rownames(bcb)[1:4]
-#' print(ensgene)
-#' plotGene(
-#'     bcb,
-#'     genes = ensgene,
-#'     format = "ensgene")
-#'
-#' # Gene symbols
-#' symbol <- rowData(bcb)[["symbol"]][1:4]
-#' print(symbol)
-#' plotGene(
-#'     bcb,
-#'     genes = symbol,
-#'     format = "symbol")
+#' genes <- rownames(bcb)[1:4]
+#' print(genes)
+#' plotGene(bcb, genes = genes)
 #'
 #' # Default ggplot2 color palette
 #' plotGene(
 #'     bcb,
-#'     genes = ensgene,
-#'     format = "ensgene",
+#'     genes = genes,
 #'     interestingGroups = "sampleName",
 #'     color = NULL)
 NULL

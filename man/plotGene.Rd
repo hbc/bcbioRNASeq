@@ -31,8 +31,9 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifier(s). Can input multiple genes as a character
-vector.}
+\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+gene symbols.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
@@ -54,6 +55,14 @@ definitions are desired, we recommend using
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
 
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
+
 \item{metadata}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
@@ -74,26 +83,14 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 # Gene identifiers
-ensgene <- rownames(bcb)[1:4]
-print(ensgene)
-plotGene(
-    bcb,
-    genes = ensgene,
-    format = "ensgene")
-
-# Gene symbols
-symbol <- rowData(bcb)[["symbol"]][1:4]
-print(symbol)
-plotGene(
-    bcb,
-    genes = symbol,
-    format = "symbol")
+genes <- rownames(bcb)[1:4]
+print(genes)
+plotGene(bcb, genes = genes)
 
 # Default ggplot2 color palette
 plotGene(
     bcb,
-    genes = ensgene,
-    format = "ensgene",
+    genes = genes,
     interestingGroups = "sampleName",
     color = NULL)
 }
