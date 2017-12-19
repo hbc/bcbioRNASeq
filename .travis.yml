@@ -11,7 +11,7 @@ warnings_are_errors: false
 
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
 r_packages:
   - covr
   - rlang
