@@ -4,27 +4,35 @@
 \name{plotGene}
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
+\alias{plotGene,DESeqDataSet-method}
+\alias{plotGene,DESeqTransform-method}
 \alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, format = "ensgene",
-  normalized = "tpm", interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE), headerLevel = 2,
-  return = "grid")
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
+  interestingGroups, color = viridis::scale_color_viridis(discrete = TRUE),
+  return = "grid", headerLevel = 2)
 
-\S4method{plotGene}{matrix}(object, genes, metadata,
+\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = TRUE,
+  normalized = TRUE, interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  headerLevel = 2)
+
+\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = TRUE,
+  interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  headerLevel = 2)
+
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = TRUE, metadata,
   interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", headerLevel = 2, return = "grid")
+  countsAxisLabel = "counts", return = "grid", headerLevel = 2)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{genes}{Gene identifier(s). Can input multiple genes as a character
 vector.}
-
-\item{format}{Ensembl identifier format. Supports \code{ensgene} (\strong{recommended})
-or \code{symbol}.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
@@ -41,10 +49,10 @@ this is automatically determined by the metadata set inside the
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
+\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
+
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
-
-\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
 
 \item{metadata}{Sample metadata \link{data.frame}.}
 

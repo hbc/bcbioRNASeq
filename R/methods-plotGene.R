@@ -11,8 +11,6 @@
 #'
 #' @param genes Gene identifier(s). Can input multiple genes as a character
 #'   vector.
-#' @param format Ensembl identifier format. Supports `ensgene` (**recommended**)
-#'   or `symbol`.
 #' @param metadata Sample metadata [data.frame].
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
@@ -22,9 +20,9 @@
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
 #' @param countsAxisLabel Text label of counts axis.
+#' @param return Desired return type: `grid`, `list`, `markdown`.
 #' @param headerLevel R Markdown header level. Only applies when
 #'   `return = "markdown"`.
-#' @param return Desired return type: `grid`, `list`, `markdown`.
 #'
 #' @return
 #' - `grid`: [cowplot::plot_grid()] graphical output.
@@ -72,7 +70,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom basejump annotable detectOrganism uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
@@ -88,18 +86,38 @@ NULL
 .plotGene <- function(
     object,
     genes,
+    gene2symbol = TRUE,
     metadata,
     interestingGroups = "sampleName",
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
-    headerLevel = 2,
-    return = "grid") {
+    return = "grid",
+    headerLevel = 2) {
+    # Gene to symbol mappings
+    if (isTRUE(gene2symbol)) {
+        organism <- rownames(object) %>%
+            .[[1]] %>%
+            detectOrganism()
+        gene2symbol <- annotable(organism, format = "gene2symbol")
+    }
+    if (is.data.frame(gene2symbol)) {
+        match <- match(x = genes, table = gene2symbol[["ensgene"]])
+        gene2symbol <- gene2symbol[match, , drop = FALSE]
+        genes <- gene2symbol[["ensgene"]]
+        names(genes) <- gene2symbol[["symbol"]]
+    }
+
+    # Prepare interesting groups column
     metadata <- metadata %>%
         as.data.frame() %>%
         uniteInterestingGroups(interestingGroups)
+
     plots <- lapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
         symbol <- names(genes)[[a]]
+        if (is.null(symbol)) {
+            symbol <- ensgene
+        }
         data <- tibble(
             x = colnames(object),
             y = object[ensgene, , drop = TRUE],
@@ -131,13 +149,18 @@ NULL
     # Return
     validReturn <- c("grid", "list", "markdown")
     if (return == "grid") {
-        plot_grid(plotlist = plots, labels = "AUTO")
+        plot_grid(plotlist = plots, labels = NULL)
     } else if (return == "list") {
         plots
     } else if (return == "markdown") {
         pblapply(seq_along(plots), function(a) {
             if (is.numeric(headerLevel)) {
-                mdHeader(names(genes)[[a]], level = headerLevel, asis = TRUE)
+                ensgene <- genes[[a]]
+                symbol <- names(genes)[[a]]
+                if (is.null(symbol)) {
+                    symbol <- ensgene
+                }
+                mdHeader(symbol, level = headerLevel, asis = TRUE)
             }
             show(plots[[a]])
         }) %>%
@@ -159,60 +182,97 @@ setMethod(
     function(
         object,
         genes,
-        format = "ensgene",
         normalized = "tpm",
         interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE),
-        headerLevel = 2,
-        return = "grid") {
-        if (!format %in% c("ensgene", "symbol")) {
-            stop("Unsupported gene identifier format", call. = FALSE)
-        }
-        supportedAssay <- c("tpm", "tmm", "rlog", "vst")
-        if (!normalized %in% supportedAssay) {
-            stop(paste(
-                "'normalized' argument requires:",
-                toString(supportedAssay)
-            ), call. = FALSE)
-        }
-        countsAxisLabel <- normalized
+        return = "grid",
+        headerLevel = 2) {
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         }
-
         counts <- counts(object, normalized = normalized)
-        metadata <- sampleMetadata(object)
-
-        # Match unique gene identifier with name (gene symbol) using the
-        # internally stored Ensembl annotations saved in the run object
+        countsAxisLabel <- normalized
         gene2symbol <- gene2symbol(object)
-
-        # Detect missing genes. This also handles `format` mismatch.
-        if (!all(genes %in% gene2symbol[[format]])) {
-            stop(paste(
-                "Missing genes:",
-                toString(setdiff(genes, gene2symbol[[format]]))
-            ), call. = FALSE)
-        }
-
-        # Now safe to prepare the named gene character vector. Here we're
-        # passing in the `ensgene` as the value and `symbol` as the name. This
-        # works with the constructor function to match the counts matrix by
-        # the ensgene, then use the symbol as the name.
-        match <- match(x = genes, table = gene2symbol[[format]])
-        gene2symbol <- gene2symbol[match, , drop = FALSE]
-        ensgene <- gene2symbol[["ensgene"]]
-        names(ensgene) <- gene2symbol[["symbol"]]
-
+        metadata <- sampleMetadata(object)
         .plotGene(
             object = counts,
-            genes = ensgene,
+            genes = genes,
+            gene2symbol = gene2symbol,
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
             countsAxisLabel = countsAxisLabel,
-            headerLevel = headerLevel,
-            return = return)
+            return = return,
+            headerLevel = headerLevel)
+    })
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        genes,
+        gene2symbol = TRUE,
+        normalized = TRUE,
+        interestingGroups = "sampleName",
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        return = "grid",
+        headerLevel = 2) {
+        counts <- counts(object, normalized = normalized)
+        if (isTRUE(normalized)) {
+            countsAxisLabel <- "normalized"
+        } else {
+            countsAxisLabel <- "counts"
+        }
+        metadata <- colData(object)
+        .plotGene(
+            object = counts,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            metadata = metadata,
+            interestingGroups = interestingGroups,
+            color = color,
+            countsAxisLabel = countsAxisLabel,
+            return = return,
+            headerLevel = headerLevel)
+    })
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("DESeqTransform"),
+    function(
+        object,
+        genes,
+        gene2symbol = TRUE,
+        interestingGroups = "sampleName",
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        return = "grid",
+        headerLevel = 2) {
+        counts <- assay(object)
+        metadata <- colData(object)
+        if ("rlogIntercept" %in% colnames(mcols(object))) {
+            countsAxisLabel <- "rlog"
+        } else {
+            countsAxisLabel <- "vst"
+        }
+        .plotGene(
+            object = counts,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            metadata = metadata,
+            interestingGroups = interestingGroups,
+            color = color,
+            countsAxisLabel = countsAxisLabel,
+            return = return,
+            headerLevel = headerLevel)
     })
 
 
