@@ -70,7 +70,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    hbc/bcbioBase
+    hbc/bcbioBase@develop
 biocViews:
     DataImport,
     DataRepresentation,
