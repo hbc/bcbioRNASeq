@@ -1,7 +1,7 @@
 .onLoad <- function(libname, pkgname) {
     packages <-
-        c("SummarizedExperiment",
-          "bcbioBase",
+        c("bcbioBase",
+          "SummarizedExperiment",
           "DESeq2",
           "DEGreport")
     lapply(seq_along(packages), function(a) {
