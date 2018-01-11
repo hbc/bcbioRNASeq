@@ -28,7 +28,7 @@ changes.}
 identifier to symbol mappings. If \code{TRUE}, the function will attempt to
 detect the organism from the gene identifiers (rownames; "ensgene" column)
 and automatically obtain the latest annotations from Ensembl using
-\code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then gene annotations will
+\code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then gene annotations will
 not be added to the results. This is useful when working with a poorly
 annotated genome. Alternatively, a previously saved annotable \link{data.frame}
 can be passed in.}
@@ -38,8 +38,6 @@ can be passed in.}
 \item{write}{Write CSV files to disk.}
 
 \item{dir}{Directory path where to write files.}
-
-\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
 Results \link{list}.
