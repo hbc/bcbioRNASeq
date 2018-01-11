@@ -14,11 +14,18 @@
 #'
 #' @inheritParams AllGenerics
 #' @inheritParams counts
-#'
 #' @inheritParams gene2symbol
 #' @inheritParams plotGene
 #'
 #' @param samples *Optional*. Samples (colnames) to plot.
+#' @param annotationCol *Optional*. [data.frame] that defines annotation
+#'   mappings for the columns.
+#' @param scale Character indicating if the values should be centered and scaled
+#'   in either the row direction or the column direction, or none. Corresponding
+#'   values are "row", "column" and "none".
+#' @param legendColor Colors to use for legend labels. Defaults to the
+#'   [viridis::viridis()].
+#' @param title Include plot title.
 #'
 #' @examples
 #' load(system.file(

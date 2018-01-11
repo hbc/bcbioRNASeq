@@ -38,6 +38,8 @@ can be passed in.}
 \item{write}{Write CSV files to disk.}
 
 \item{dir}{Directory path where to write files.}
+
+\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
 Results \link{list}.

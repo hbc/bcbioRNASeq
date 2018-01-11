@@ -18,7 +18,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
 \item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
 (\code{TRUE}), or additional normalization methods:
@@ -45,16 +45,16 @@ plot.}
 
 \item{samples}{\emph{Optional}. Character vector of specific samples.}
 
-\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
-palette.}
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
+\code{\link[viridis:viridis]{viridis::viridis()}}.}
 
-\item{title}{\emph{Optional}. Plot title.}
-}
-\value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return \link{list}, containing \code{gtable}.
+\item{title}{Include plot title.}
 }
 \description{
 This function calculates a correlation matrix based on gene expression per

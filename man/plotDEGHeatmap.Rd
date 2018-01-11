@@ -40,7 +40,7 @@ use the alpha level defined in the object.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
 the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
 gene2symbol mapping will be disabled. This is useful when working with a
 poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
 passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
@@ -53,16 +53,16 @@ mappings for the columns.}
 in either the row direction or the column direction, or none. Corresponding
 values are "row", "column" and "none".}
 
-\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
-palette.}
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
+\code{\link[viridis:viridis]{viridis::viridis()}}.}
 
-\item{title}{\emph{Optional}. Plot title.}
-}
-\value{
-\code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}} return \link{list}, containing \code{gtable}.
+\item{title}{Include plot title.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
