@@ -16,7 +16,7 @@ plotGeneDetectionSaturation(...)
 
 plotDispersion(...)
 
-loadRNASeqRun(...)
+loadRNASeqRun()
 
 plotGeneHeatmap(...)
 
