@@ -28,7 +28,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
 #' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
@@ -89,7 +89,7 @@ setMethod(
         flip = TRUE,
         title = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotCountsPerGene(
             meltLog10(object, normalized = normalized),

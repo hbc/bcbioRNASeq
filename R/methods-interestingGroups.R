@@ -3,7 +3,7 @@
 #' @rdname interestingGroups
 #' @name interestingGroups
 #'
-#' @importFrom basejump interestingGroups interestingGroups<-
+#' @importFrom bcbioBase interestingGroups interestingGroups<-
 #'
 #' @inheritParams AllGenerics
 #'
@@ -38,7 +38,7 @@ setMethod(
 
 
 #' @rdname interestingGroups
-#' @importFrom basejump checkInterestingGroups
+#' @importFrom bcbioBase checkInterestingGroups
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(

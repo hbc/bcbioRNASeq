@@ -34,7 +34,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
@@ -91,7 +91,7 @@ setMethod(
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGeneSaturation(
             metrics(object),

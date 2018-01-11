@@ -4,7 +4,7 @@
 #' @name tpm
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump tpm
+#' @importFrom bcbioBase tpm
 #'
 #' @inheritParams AllGenerics
 #'

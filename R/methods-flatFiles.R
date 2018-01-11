@@ -7,7 +7,7 @@
 #' @name flatFiles
 #' @author Michael Steinbaugh, Rory Kirchner
 #'
-#' @importFrom basejump flatFiles
+#' @importFrom bcbioBase flatFiles
 #'
 #' @inheritParams AllGenerics
 #'

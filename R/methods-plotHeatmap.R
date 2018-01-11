@@ -10,9 +10,9 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotHeatmap
+#' @importFrom bcbioBase plotHeatmap
 #'
-#' @inherit basejump::plotHeatmap
+#' @inherit bcbioBase::plotHeatmap
 #'
 #' @inheritParams AllGenerics
 #' @inheritParams counts

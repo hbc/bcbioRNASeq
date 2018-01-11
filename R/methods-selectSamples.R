@@ -4,7 +4,7 @@
 #' @name selectSamples
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump selectSamples
+#' @importFrom bcbioBase selectSamples
 #'
 #' @inheritParams AllGenerics
 #'

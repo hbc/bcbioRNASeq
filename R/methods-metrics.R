@@ -3,7 +3,7 @@
 #' @rdname metrics
 #' @name metrics
 #'
-#' @importFrom basejump metrics
+#' @importFrom bcbioBase metrics
 #'
 #' @inheritParams AllGenerics
 #'

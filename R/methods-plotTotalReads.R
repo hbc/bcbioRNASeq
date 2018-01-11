@@ -43,7 +43,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 #' @importFrom rlang !!! syms
 #' @importFrom tidyr unite
@@ -117,7 +117,7 @@ setMethod(
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotTotalReads(
             metrics(object),

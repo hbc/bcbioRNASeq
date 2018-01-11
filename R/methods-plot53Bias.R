@@ -27,7 +27,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 #' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
@@ -94,7 +94,7 @@ setMethod(
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plot53Bias(
             metrics(object),
