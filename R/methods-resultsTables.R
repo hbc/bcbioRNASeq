@@ -22,6 +22,7 @@
 #' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
+#' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #'
 #' @return Results [list].
 #'
@@ -81,7 +82,7 @@ NULL
 
 
 
-#' @importFrom bcbioBase annotable camel sanitizeAnnotable snake
+#' @importFrom bcbioBase annotable camel checkAnnotable sanitizeAnnotable snake
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
