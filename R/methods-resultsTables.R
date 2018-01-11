@@ -5,7 +5,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
-#' @inheritParams bcbioBase::annotable
 #'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -16,7 +15,7 @@
 #'   identifier to symbol mappings. If `TRUE`, the function will attempt to
 #'   detect the organism from the gene identifiers (rownames; "ensgene" column)
 #'   and automatically obtain the latest annotations from Ensembl using
-#'   [bcbioBase::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
+#'   [annotable()]. If set `FALSE`/`NULL`, then gene annotations will
 #'   not be added to the results. This is useful when working with a poorly
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.

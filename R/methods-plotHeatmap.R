@@ -12,8 +12,6 @@
 #'
 #' @importFrom bcbioBase plotHeatmap
 #'
-#' @inherit bcbioBase::plotHeatmap
-#'
 #' @inheritParams AllGenerics
 #' @inheritParams counts
 #'
