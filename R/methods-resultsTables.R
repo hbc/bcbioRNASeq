@@ -5,7 +5,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
-#' @inheritParams basejump::annotable
+#' @inheritParams bcbioBase::annotable
 #'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -16,7 +16,7 @@
 #'   identifier to symbol mappings. If `TRUE`, the function will attempt to
 #'   detect the organism from the gene identifiers (rownames; "ensgene" column)
 #'   and automatically obtain the latest annotations from Ensembl using
-#'   [basejump::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
+#'   [bcbioBase::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
 #'   not be added to the results. This is useful when working with a poorly
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.
@@ -82,7 +82,7 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel sanitizeAnnotable snake
+#' @importFrom bcbioBase annotable camel sanitizeAnnotable snake
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
@@ -145,12 +145,6 @@ NULL
     degLFCDown <- degLFC %>%
         .[.[["log2FoldChange"]] < 0, , drop = FALSE]
 
-    # File paths
-    allFile <- paste(fileStem, "all.csv.gz", sep = "_")
-    degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
-    degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
-    degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
-
     resTbl <- list(
         contrast = contrast,
         # Cutoffs
@@ -161,12 +155,7 @@ NULL
         deg = deg,
         degLFC = degLFC,
         degLFCUp = degLFCUp,
-        degLFCDown = degLFCDown,
-        # File paths
-        allFile = allFile,
-        degFile = degFile,
-        degLFCUpFile = degLFCUpFile,
-        degLFCDownFile = degLFCDownFile)
+        degLFCDown = degLFCDown)
 
     if (isTRUE(summary)) {
         c(paste(nrow(all), "genes in counts matrix"),
@@ -186,10 +175,22 @@ NULL
         # Write the CSV files
         dir.create(dir, recursive = TRUE, showWarnings = FALSE)
 
+        # File paths
+        allFile <- paste(fileStem, "all.csv.gz", sep = "_")
+        degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
+        degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
+        degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
+
         write_csv(all, file.path(dir, allFile))
         write_csv(deg, file.path(dir, degFile))
         write_csv(degLFCUp, file.path(dir, degLFCUpFile))
         write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+
+        # Update the resTbl list with the file paths
+        resTbl[["allFile"]] <- allFile
+        resTbl[["degFile"]] <- degFile
+        resTbl[["degLFCUpFile"]] <- degLFCUpFile
+        resTbl[["degLFCDownFile"]] <- degLFCDownFile
 
         # Output file information in Markdown format
         .mdResultsTables(resTbl, dir)

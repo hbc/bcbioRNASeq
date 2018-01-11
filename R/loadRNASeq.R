@@ -7,7 +7,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump annotable camel prepareSummarizedExperiment
+#' @importFrom bcbioBase annotable camel prepareSummarizedExperiment
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull
@@ -164,7 +164,7 @@ loadRNASeq <- function(
 
     # Gene and transcript annotations ==========================================
     if (missing(annotable)) {
-        annotable <- basejump::annotable(
+        annotable <- bcbioBase::annotable(
             organism,
             genomeBuild = genomeBuild,
             release = ensemblVersion)
