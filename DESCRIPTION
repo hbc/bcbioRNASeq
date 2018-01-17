@@ -37,7 +37,7 @@ Authors@R: c(
            email = "kayrut1@gmail.com",
            role = "aut"),
     person(given = "Oliver",
-           family = "Hoffman",
+           family = "Hoffmann",
            email = "ohofmann72@gmail.com",
            role = "aut"),
     person(given = "John",
