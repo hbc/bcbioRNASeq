@@ -123,30 +123,30 @@
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 4
-#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko</div><div class='input'>
+#&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
-#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko
-#&gt; $ sizeFactor  &lt;fctr&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908,...</div><div class='input'>
+#&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko
+#&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div><div class='input'>
 <span class='co'># DESeqTransform</span>
 <span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
-<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
-#&gt; $ sampleID    &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ sampleName  &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ description &lt;fctr&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ group       &lt;fctr&gt; ctrl, ctrl, ko, ko
-#&gt; $ sizeFactor  &lt;fctr&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908,...</div></pre>
+#&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko
+#&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -163,11 +163,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

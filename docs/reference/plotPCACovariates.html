@@ -87,14 +87,14 @@
     </div>
 
     
-    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/DEGreport/topics/degCovariates'>DEGreport::degCovariates()</a></code> wrapper supporting a bcbioRNASeq object.</p>
     
 
     <pre class="usage"><span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,18 +114,21 @@ include all metrics columns (<code>TRUE</code>), but desired columns can be spec
 here as a character vector.</p></td>
     </tr>
     <tr>
-      <th>transform</th>
-      <td><p>String specifying DESeqTransform slotted inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object:</p><ul>
-<li><p><code>rlog</code> (<strong>recommended</strong>).</p></li>
-<li><p><code>vst</code>: variance stabilizing transformation.</p></li>
+      <th>normalized</th>
+      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
+(<code>TRUE</code>), or additional normalization methods:</p><ul>
+<li><p><code>tpm</code>: Transcripts per million.</p></li>
+<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
+<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
+<li><p><code>vst</code>: Variance stabilizing transformation
+(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
 </ul></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p>ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -167,11 +170,11 @@ Lorena Pantano, Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

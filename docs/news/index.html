@@ -94,20 +94,20 @@
 <ul>
 <li>Combined examples (<code>bcb</code>, <code>dds</code>, <code>res</code>, etc.) into a single <code>examples</code> object. This helps avoid accidental use of example <code>bcb</code> in an analysis.</li>
 <li>Moved ggplot imports from <code>internal-ggplot.R</code> to above each function.</li>
-<li>Renamed <code>maxSamples</code> parameter in <code><a href="../reference/loadRNASeq.html">loadRNASeq()</a></code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays()</code>.</li>
-<li>Added a colData sanitization step in <code><a href="../reference/loadRNASeq.html">loadRNASeq()</a></code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport()</code> step. We’re also ensuring the factor levels get updated here.</li>
-<li>Now using <code><a href="http://www.rdocumentation.org/packages/tibble/topics/glimpse">glimpse()</a></code> instead of <code>str()</code> in examples, where applicable.</li>
-<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code><a href="../reference/bcbio.html">bcbio(object, "DESeqDataSet")</a></code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
+<li>Renamed <code>maxSamples</code> parameter in <code>loadRNASeq()</code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays()</code>.</li>
+<li>Added a colData sanitization step in <code>loadRNASeq()</code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport()</code> step. We’re also ensuring the factor levels get updated here.</li>
+<li>Now using <code>glimpse()</code> instead of <code>str()</code> in examples, where applicable.</li>
+<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object, "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
 <li>Initial assignment support for <code>design</code>, which will update the internal DESeqDataSet.</li>
-<li>Added method support for <code><a href="../reference/gene2symbol.html">gene2symbol()</a></code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
+<li>Added method support for <code>gene2symbol()</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
 <li>Added working example for <code>interestingGroups&lt;-</code> in the documentation.</li>
 <li>Added some code to improve factor releveling, where applicable. See <code>internal-meltLog10.R</code> for example.</li>
 <li>Now explicitly defining the custom color palettes (e.g. <code><a href="http://www.rdocumentation.org/packages/viridis/topics/scale_viridis">viridis::scale_fill_viridis(discrete = TRUE)</a></code>. This makes it clearer to the user in the documentation where these palettes are located.</li>
-<li>Improved axis label support in <code><a href="../reference/plotGene.html">plotGene()</a></code>.</li>
+<li>Improved axis label support in <code>plotGene()</code>.</li>
 <li>
 <code>plotHeatmap()</code> now uses internal <code>gene2symbol</code> mappings from stashed annotable, instead of always querying Ensembl. The user can define custom mappings with the <code>gene2symbol</code> argument, if desired.</li>
 <li>
-<code><a href="../reference/plotPCA.html">plotPCA()</a></code> now supports custom color palettes. The <code>shapes</code> parameter has been removed because it doesn’t work well and is limited to datasets with few samples. This behavior matches the PCA functionality in DESeq2.</li>
+<code>plotPCA()</code> now supports custom color palettes. The <code>shapes</code> parameter has been removed because it doesn’t work well and is limited to datasets with few samples. This behavior matches the PCA functionality in DESeq2.</li>
 <li>Improved internal code for <code>plotVolcano()</code>. Added support for <code>gene2symbol</code> argument, like in <code>plotHeatmap()</code>. If left missing, the function will query Ensembl for the gene2symbol mappings. We’re now using <code>data</code> instead of <code>stats</code> as the main data source.</li>
 <li>Improved legibility of subset method code.</li>
 <li>Added some additional reexports, which are used for the package documentation and website.</li>
@@ -121,7 +121,7 @@
 <ul>
 <li>Updated package imports to match Bioconductor 3.6.</li>
 <li>Added support for interesting groups assignment with <code>interestingGroups&lt;-</code>.</li>
-<li>Renamed <code><a href="../reference/deprecated.html">plotGeneHeatmap()</a></code> to simply <code>plotHeatmap()</code>.</li>
+<li>Renamed <code>plotGeneHeatmap()</code> to simply <code>plotHeatmap()</code>.</li>
 <li>Added gender marker support for <em>Homo sapiens</em>.</li>
 <li>Improved support for multiple interesting groups in quality control plots. Now interestingGroups is defined as a column in the metrics data.frame that is used to specify the plot color/fill. This matches the convention in the bcbioSingleCell 0.0.22 update.</li>
 <li>Sample metadata columns are now consistently set as factors.</li>
@@ -140,7 +140,7 @@
 <ul>
 <li>Updated version and author information to match the F1000 Research workflow.</li>
 <li>Added an <code>f1000v1</code> branch containing the reproducible code used to generate the figures in our workflow.</li>
-<li>Modified <code><a href="../reference/plotMA.html">plotMA()</a></code> to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.</li>
+<li>Modified <code>plotMA()</code> to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.</li>
 <li>Added custom color palette support to the quality control functions.</li>
 <li>Upgrading from <code>bcbioRNADataSet</code> (&lt; 0.1.0) to <code>bcbioRNASeq</code> class object is now possible using <code>as()</code> coercion method.</li>
 <li>Object oriented methods are now restricted to use <code>bcbioRNASeq</code> object. Legacy <code>bcbioRNADataSet</code> objects must be upgraded to <code>bcbioRNASeq</code> class.</li>
@@ -150,8 +150,8 @@
 <h1 class="hasAnchor">
 <a href="#bcbiornaseq-0-0-28-2017-10-17" class="anchor"></a>bcbioRNASeq 0.0.28 (2017-10-17)</h1>
 <ul>
-<li>Added support for output of unstructured data inside <code>bcbioRNASeq</code> S4 object using <code><a href="../reference/flatFiles.html">flatFiles()</a></code> function.</li>
-<li>Added <code>bcbioRNASeq</code> method support for <code><a href="../reference/annotable.html">annotable()</a></code> generic.</li>
+<li>Added support for output of unstructured data inside <code>bcbioRNASeq</code> S4 object using <code>flatFiles()</code> function.</li>
+<li>Added <code>bcbioRNASeq</code> method support for <code>annotable()</code> generic.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-27-2017-10-10" class="section level1">
@@ -159,9 +159,9 @@
 <a href="#bcbiornaseq-0-0-27-2017-10-10" class="anchor"></a>bcbioRNASeq 0.0.27 (2017-10-10)</h1>
 <ul>
 <li>Renamed <code>bcbioRNADataSet</code> S4 class to <code>bcbioRNASeq</code>. This matches the naming conventions in the <a href="https://github.com/hbc/bcbioSingleCell">bcbioSingleCell</a> package.</li>
-<li>Renamed <code><a href="../reference/deprecated.html">loadRNASeqRun()</a></code> to simply <code><a href="../reference/loadRNASeq.html">loadRNASeq()</a></code>.</li>
-<li>Switched <code><a href="../reference/loadRNASeq.html">loadRNASeq()</a></code> from using S4 dispatch to a standard function.</li>
-<li>Added a parameter argument to <code><a href="../reference/loadRNASeq.html">loadRNASeq()</a></code> that enables request of a specific Ensembl release version for gene annotations.</li>
+<li>Renamed <code>loadRNASeqRun()</code> to simply <code>loadRNASeq()</code>.</li>
+<li>Switched <code>loadRNASeq()</code> from using S4 dispatch to a standard function.</li>
+<li>Added a parameter argument to <code>loadRNASeq()</code> that enables request of a specific Ensembl release version for gene annotations.</li>
 <li>Renamed <code>interestingGroup</code> argument in quality control functions to <code>interestingGroups</code> for better consistency.</li>
 <li>Improved handling of sample metrics in <code>plotPCACovariates()</code>.</li>
 <li>Added functional analysis R Markdown template.</li>
@@ -274,7 +274,7 @@
 <li>Defaulted to loading run using project summary YAML file.</li>
 <li>Initial commit of <a href="http://rmarkdown.rstudio.com">RMarkdown</a> templates (e.g. quality control).</li>
 <li>Added support for dynamic file downloads from <a href="http://bioinformatics.sph.harvard.edu">HBC</a> website.</li>
-<li>Draft build of website using <code><a href="http://www.rdocumentation.org/packages/pkgdown/topics/build_site">pkgdown::build_site()</a></code>.</li>
+<li>Draft build of website using <code><a href="http://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-13-2017-05-08" class="section level1">
@@ -422,11 +422,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

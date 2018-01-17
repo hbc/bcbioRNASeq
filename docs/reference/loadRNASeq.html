@@ -94,7 +94,7 @@ program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>annotable</span>, <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -123,7 +123,7 @@ file.</p></td>
 "annotable"), which will be slotted into <code>rowData()</code>. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set <code>NULL</code>, then
-<code>rowData()</code> inside the resulting <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object will be left empty.
+<code>rowData()</code> inside the resulting bcbioRNASeq object will be left empty.
 This is recommended for projects dealing with genes or transcripts that are
 poorly annotated.</p></td>
     </tr>
@@ -150,7 +150,7 @@ Details.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
+    <p>bcbioRNASeq.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -170,7 +170,7 @@ run directory as a remote connection over
     <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcbio"</span>),
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 <span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>Unmasking 'select()'</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
@@ -213,7 +213,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  id = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in counts matrix (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
-#&gt; metadata(27): version uploadDir ... devtoolsSessionInfo
+#&gt; metadata(28): version uploadDir ... devtoolsSessionInfo
 #&gt;   unannotatedGenes
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
@@ -223,7 +223,7 @@ run directory as a remote connection over
 #&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
 <span class='co'># Load without gene annotations</span>
 <span class='co'># Advanced use only! Not generally recommended.</span>
-<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Loading run without gene annotable</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
@@ -266,7 +266,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  id = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
-#&gt; metadata(26): version uploadDir ... utilsSessionInfo
+#&gt; metadata(27): version uploadDir ... utilsSessionInfo
 #&gt;   devtoolsSessionInfo
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
@@ -298,11 +298,11 @@ Michael Steinbaugh, Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
