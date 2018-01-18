@@ -58,6 +58,7 @@
 #' uploadDir <- system.file(
 #'     file.path("extdata", "bcbio"),
 #'     package = "bcbioRNASeq")
+#'
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #' print(bcb)
 #'
