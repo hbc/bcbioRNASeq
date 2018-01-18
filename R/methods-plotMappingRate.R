@@ -27,7 +27,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
@@ -99,7 +99,7 @@ setMethod(
         flip = TRUE,
         title = TRUE) {
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotMappingRate(
             metrics(object),

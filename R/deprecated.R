@@ -35,9 +35,8 @@ plotDispersion <- function(...) {
 # v0.0.27 ======================================================================
 #' @rdname deprecated
 #' @export
-loadRNASeqRun <- function(...) {
+loadRNASeqRun <- function() {
     .Deprecated("loadRNASeq")
-    loadRNASeq(...)
 }
 
 

@@ -94,17 +94,17 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>organism</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for matrix</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
   <span class='no'>organism</span>, <span class='no'>metadata</span>, <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -122,7 +122,7 @@
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
+bcbioRNASeq object. When set to <code>NULL</code>, this will default to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
@@ -132,6 +132,10 @@ this is automatically determined by the metadata set inside the
 <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using
 <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>Include plot title.</p></td>
     </tr>
     <tr>
       <th>organism</th>
@@ -151,7 +155,7 @@ that is first alphabetically in the count matrix rownames.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p>ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -160,7 +164,7 @@ that is first alphabetically in the count matrix rownames.</p></td>
   <code>plotCountsPerGene</code>,
   <code>plotExonicMappingRate</code>,
   <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code>plotGenesDetected</code>, <code>plotGene</code>,
   <code>plotIntronicMappingRate</code>,
   <code>plotMappedReads</code>,
   <code>plotMappingRate</code>,
@@ -186,7 +190,7 @@ that is first alphabetically in the count matrix rownames.</p></td>
     <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenderMarkers-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>dds</span>)</div><div class='img'><img src='plotGenderMarkers-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -210,11 +214,11 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

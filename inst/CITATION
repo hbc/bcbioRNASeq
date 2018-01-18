@@ -1,7 +1,7 @@
 citHeader("To cite bcbioRNASeq in publications use:")
 
 citEntry(
-  entry        = "Article",
+  entry        = "article",
   title        = "{bcbioRNASeq}: {R} package for bcbio {RNA-seq} analysis",
   author       = as.person(c(
                    "Michael J. Steinbaugh",
@@ -13,7 +13,7 @@ citEntry(
                    "Meeta Mistry",
                    "Radhika S. Khetani",
                    "Kayleigh D. Rutherford",
-                   "Oliver Hoffman",
+                   "Oliver Hofmann",
                    "John N. Hutchinson",
                    "Shannan J. Ho Sui"
                  )),

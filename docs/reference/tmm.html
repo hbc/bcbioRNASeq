@@ -131,7 +131,7 @@ tool when plotting counts per gene.</p>
 #&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
 #&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
@@ -140,7 +140,7 @@ tool when plotting counts per gene.</p>
 #&gt;  3rd Qu.:    19.75   3rd Qu.:    17.3   3rd Qu.:    19.2   3rd Qu.:    17  
 #&gt;  Max.   :310393.35   Max.   :367094.0   Max.   :368116.4   Max.   :387262  </div><div class='input'>
 <span class='co'># matrix</span>
-<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)
+<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'>counts</span>(<span class='no'>bcb</span>)
 <span class='fu'>tmm</span>(<span class='no'>counts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
 #&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
@@ -168,11 +168,11 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -47,7 +47,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel checkInterestingGroups
+#' @importFrom bcbioBase camel checkInterestingGroups
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
@@ -63,7 +63,7 @@ NULL
     label = FALSE,
     returnData = FALSE) {
     if (missing(interestingGroups)) {
-        interestingGroups <- basejump::interestingGroups(object)
+        interestingGroups <- bcbioBase::interestingGroups(object)
     }
 
     # DESeqTransform

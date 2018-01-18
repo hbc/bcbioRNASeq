@@ -46,9 +46,9 @@ test_that("Minimal sample selection", {
 })
 
 test_that("Minimal gene selection", {
-    subset <- suppressMessages(
+    subset <- suppressWarnings(suppressMessages(
         bcb[1:2, , skipNorm = TRUE]
-    )
+    ))
     expect_equal(
         rownames(subset),
         c("ENSMUSG00000002459",

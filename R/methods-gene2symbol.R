@@ -4,7 +4,7 @@
 #' @name gene2symbol
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump gene2symbol
+#' @importFrom bcbioBase gene2symbol
 #'
 #' @inheritParams AllGenerics
 #'

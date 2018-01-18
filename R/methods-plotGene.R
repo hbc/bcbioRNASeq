@@ -5,7 +5,7 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotGene
+#' @importFrom bcbioBase plotGene
 #'
 #' @inherit plotTotalReads
 #'
@@ -14,7 +14,7 @@
 #'   gene symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
 #'   the function will attempt to automatically map gene identifiers to symbols
-#'   from Ensembl using [basejump::annotable()]. If set `FALSE`/`NULL`, then
+#'   from Ensembl using [annotable()]. If set `FALSE`/`NULL`, then
 #'   gene2symbol mapping will be disabled. This is useful when working with a
 #'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
 #'   passed in, and must contain the columns `ensgene` and `symbol`. then the
@@ -66,7 +66,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom basejump annotable detectOrganism uniteInterestingGroups
+#' @importFrom bcbioBase annotable detectOrganism uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
@@ -184,7 +184,7 @@ setMethod(
         return = "grid",
         headerLevel = 2) {
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         counts <- counts(object, normalized = normalized)
         countsAxisLabel <- normalized

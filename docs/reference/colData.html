@@ -87,7 +87,7 @@
     </div>
 
     
-    <p>Improved assignment method support for <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p>
+    <p>Improved assignment method support for bcbioRNASeq object.</p>
 <p>This method support will also update the <code>colData</code> inside the <code>bcbio</code> and
 <code>assays</code> slots.</p>
     
@@ -126,7 +126,7 @@
 <span class='no'>colData</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
 <span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='fu'>c</span>(<span class='fl'>14</span>, <span class='fl'>30</span>, <span class='fl'>14</span>, <span class='fl'>30</span>))
 <span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>colData</span>
-<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -139,7 +139,7 @@
 #&gt;   ..@ elementMetadata: NULL
 #&gt;   ..@ metadata       : list()</div><div class='input'>
 <span class='co'># These internal objects will also get updated</span>
-<span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+<span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -150,7 +150,7 @@
 #&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -161,7 +161,7 @@
 #&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -189,11 +189,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

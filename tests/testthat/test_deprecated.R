@@ -12,11 +12,8 @@ test_that("download", {
 })
 
 test_that("loadRNASeqRun", {
-    uploadDir <- system.file(
-        file.path("extdata", "bcbio"),
-        package = "bcbioRNASeq")
     expect_warning(
-        loadRNASeqRun(uploadDir),
+        loadRNASeqRun(),
         "Use 'loadRNASeq' instead."
     )
 })

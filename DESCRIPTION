@@ -3,19 +3,55 @@ Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
 Version: 0.1.4
-Authors@R: as.person(c(
-    "Michael Steinbaugh <mike@steinbaugh.com> [aut, cre]",
-    "Lorena Pantano <lorena.pantano@gmail.com> [aut]",
-    "Rory Kirchner <roryk@alum.mit.edu> [aut]",
-    "Victor Barrera <barrera.vic@gmail.com> [aut]",
-    "Mary Piper <mary.piper@gmail.com> [aut]",
-    "Meeta Mistry <meeta.mistry@gmail.com> [aut]",
-    "Radhika Khetani <rkhetani@hsph.harvard.edu> [aut]",
-    "Kayleigh Rutherford <kayrut1@gmail.com> [aut]",
-    "John Hutchinson <jnhutchinson@gmail.com> [aut]",
-    "Shannan Ho Sui <shosui@hsph.harvard.edu> [aut]",
-    "Harvard Chan Bioinformatics Core <bioinformatics@hsph.harvard.edu> [cph, fnd]"
-  ))
+Authors@R: c(
+    person(given = "Michael",
+           family = "Steinbaugh",
+           email = "mike@steinbaugh.com",
+           role = c("aut", "cre")),
+    person(given = "Lorena",
+           family = "Pantano",
+           email = "lorena.pantano@gmail.com",
+           role = "aut"),
+    person(given = "Rory",
+           family = "Kirchner",
+           email = "roryk@alum.mit.edu",
+           role = "aut"),
+    person(given = "Victor",
+           family = "Barrera",
+           email = "barrera.vic@gmail.com",
+           role = "aut"),
+    person(given = "Mary",
+           family = "Piper",
+           email = "mary.piper@gmail.com",
+           role = "aut"),
+    person(given = "Meeta",
+           family = "Mistry",
+           email = "meeta.mistry@gmail.com",
+           role = "aut"),
+    person(given = "Radhika",
+           family = "Khetani",
+           email = "rkhetani@hsph.harvard.edu",
+           role = "aut"),
+    person(given = "Kayleigh",
+           family = "Rutherford",
+           email = "kayrut1@gmail.com",
+           role = "aut"),
+    person(given = "Oliver",
+           family = "Hofmann",
+           email = "ohofmann72@gmail.com",
+           role = "aut"),
+    person(given = "John",
+           family = "Hutchinson",
+           email = "jnhutchinson@gmail.com",
+           role = "aut"),
+    person(given = "Shannan",
+           family = "Ho Sui",
+           email = "shosui@hsph.harvard.edu",
+           role = "aut"),
+    person(given = "Harvard Chan Bioinformatics Core",
+           email = "bioinformatics@hsph.harvard.edu",
+           role = c("cph", "fnd"))
+  )
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
     https://github.com/hbc/bcbioRNASeq
@@ -25,9 +61,9 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
+    bcbioBase (>= 0.0.1),
     SummarizedExperiment (>= 1.8.0)
 Imports:
-    basejump (>= 0.1.5),
     BiocGenerics (>= 0.24.0),
     cowplot (>= 0.8.0),
     DEGreport (>= 1.14.0),
@@ -70,7 +106,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    steinbaugh/basejump
+    hbc/bcbioBase
 biocViews:
     DataImport,
     DataRepresentation,

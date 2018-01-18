@@ -131,15 +131,15 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><em>Optional</em>. Character vector of gene identifiers to plot. These
-must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
-not the gene symbols.</p></td>
+      <td><p><em>Optional</em>. Gene identifiers (rownames) to plot. These must be
+the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+gene symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
       <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
 the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using <code><a href='http://www.rdocumentation.org/packages/basejump/topics/annotable'>basejump::annotable()</a></code>. If set <code>FALSE</code>/<code>NULL</code>, then
+from Ensembl using <code>annotable()</code>. If set <code>FALSE</code>/<code>NULL</code>, then
 gene2symbol mapping will be disabled. This is useful when working with a
 poorly annotated genome. Alternatively, a gene2symbol data.frame can be
 passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
@@ -186,13 +186,13 @@ Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Volcano plot arranged as grid (<code>grid = TRUE</code>), or <code>show()</code>
-individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> (<code>grid = FALSE</code>).</p>
+individual ggplot (<code>grid = FALSE</code>).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p>This function is an updated variant of
 <code>CHBUtils::volcano_density_plot()</code>.</p>
-<p>Other Differential Expression Plots: <code><a href='plotMA.html'>plotMA</a></code></p>
+<p>Other Differential Expression Plots: <code>plotMA</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -204,7 +204,7 @@ individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Use a defined gene2symbol data.frame for better speed</span>
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb</span>)
 
 <span class='co'># Label the top genes</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
@@ -217,7 +217,7 @@ individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot
 <span class='co'># data.frame</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
 <span class='fu'>plotVolcano</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>Unmasking 'select()'</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -240,11 +240,11 @@ John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -33,7 +33,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot guides labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
@@ -107,7 +107,7 @@ setMethod(
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         title = TRUE) {
         if (missing(interestingGroups)) {
-             interestingGroups <- basejump::interestingGroups(object)
+             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),
