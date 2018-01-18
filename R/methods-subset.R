@@ -131,7 +131,7 @@ NULL
     # featureCounts
     featureCounts <- bcbio(x, "featureCounts")
     if (is.matrix(featureCounts)) {
-        featureCounts <- featureCounts[genes, samples, drop = FALSE]
+        featureCounts <- featureCounts[, samples, drop = FALSE]
     } else {
         featureCounts <- NULL
     }
