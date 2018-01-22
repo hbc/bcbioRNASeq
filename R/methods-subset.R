@@ -131,7 +131,13 @@ NULL
     # featureCounts
     featureCounts <- bcbio(x, "featureCounts")
     if (is.matrix(featureCounts)) {
-        featureCounts <- featureCounts[, samples, drop = FALSE]
+        # Genes detected by pseudo-alignment (e.g. salmon) will differ from
+        # the genes detected by alignment with STAR/featureCounts. Need to
+        # obtain the intersect here to avoid a subset error. Note that these
+        # counts are only used to generate the quality control metrics for
+        # MultiQC and should not be used for analysis.
+        commonGenes <- intersect(rownames(featureCounts), genes)
+        featureCounts <- featureCounts[commonGenes, samples, drop = FALSE]
     } else {
         featureCounts <- NULL
     }
