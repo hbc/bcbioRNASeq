@@ -5,7 +5,7 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, annotable, ensemblVersion = NULL,
+  sampleMetadataFile = NULL, annotable = TRUE, ensemblVersion = NULL,
   transformationLimit = 50, ...)
 }
 \arguments{
@@ -64,6 +64,7 @@ run directory as a remote connection over
 uploadDir <- system.file(
     file.path("extdata", "bcbio"),
     package = "bcbioRNASeq")
+
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 print(bcb)
 

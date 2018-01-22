@@ -58,6 +58,7 @@
 #' uploadDir <- system.file(
 #'     file.path("extdata", "bcbio"),
 #'     package = "bcbioRNASeq")
+#'
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #' print(bcb)
 #'
@@ -70,7 +71,7 @@ loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
-    annotable,
+    annotable = TRUE,
     ensemblVersion = NULL,
     transformationLimit = 50,
     ...) {
@@ -163,13 +164,16 @@ loadRNASeq <- function(
     message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
 
     # Gene and transcript annotations ==========================================
-    if (missing(annotable)) {
-        annotable <- basejump::annotable(
+    if (isTRUE(annotable)) {
+        annotable <- annotable(
             organism,
             genomeBuild = genomeBuild,
             release = ensemblVersion)
     } else if (is.data.frame(annotable)) {
         annotable <- annotable(annotable)
+    } else {
+        warning("Loading run without gene annotable", call. = FALSE)
+        annotable <- NULL
     }
     tx2gene <- .tx2gene(
         projectDir,
