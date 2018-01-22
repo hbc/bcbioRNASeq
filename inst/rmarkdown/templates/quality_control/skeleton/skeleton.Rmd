@@ -23,8 +23,8 @@ bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 
 # Directory paths
-dataDir <- file.path(params$outputDir, "data")
-countsDir <- file.path(params$outputDir, "results", "counts")
+dataDir <- file.path(params$outputDir, "data", Sys.Date())
+countsDir <- file.path(params$outputDir, "results", Sys.Date(), "counts")
 invisible(mapply(
     list(dataDir, countsDir),
     FUN = dir.create,
