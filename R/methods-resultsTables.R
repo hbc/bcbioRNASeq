@@ -94,7 +94,7 @@ NULL
     annotable = TRUE,
     summary = TRUE,
     write = FALSE,
-    dir = file.path("results", "differential_expression"),
+    dir = file.path("results", Sys.Date(), "differential_expression"),
     quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
