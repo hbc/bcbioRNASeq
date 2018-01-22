@@ -12,6 +12,7 @@
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull
 #' @importFrom magrittr set_colnames
+#' @importFrom rlang is_string
 #' @importFrom stats formula
 #' @importFrom stringr str_match
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -31,10 +32,20 @@
 #'   [rowData()] inside the resulting [bcbioRNASeq] object will be left empty.
 #'   This is recommended for projects dealing with genes or transcripts that are
 #'   poorly annotated.
+#' @param organism *Optional*. Organism name. Use the full latin name (e.g.
+#'   "Homo sapiens"), since this will be input downstream to
+#'   AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
+#'   Normally this can be left `NULL`, and the function will attempt to detect
+#'   the organism automatically using [detectOrganism()].
 #' @param ensemblVersion *Optional*. Ensembl release version. If `NULL`,
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. This parameter can be useful for matching Ensembl annotations
 #'   against an outdated bcbio annotation build.
+#' @param genomeBuild *Optional*. Genome build. Normally this can be left `NULL`
+#'   and the build will be detected from the bcbio run data. This can be set
+#'   manually (e.g. "hg19" for the older *Homo sapiens* reference genome). Note
+#'   that this must match the genome build identifier on Ensembl for annotations
+#'   to download correctly.
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   It is not generally recommended to change this value. For large datasets,
@@ -71,9 +82,56 @@ loadRNASeq <- function(
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     annotable = TRUE,
+    organism = NULL,
     ensemblVersion = NULL,
+    genomeBuild = NULL,
     transformationLimit = 50,
     ...) {
+    # Parameter integrity checks ===============================================
+    if (!is_string(uploadDir)) {
+        stop("'uploadDir' must be string")
+    }
+    # sampleMetadataFile
+    if (!any(
+        is_string(sampleMetadataFile),
+        is.null(sampleMetadataFile)
+    )) {
+        stop("'sampleMetadataFile' must be string or NULL")
+    }
+    # interestingGroups
+    if (!is.character(interestingGroups)) {
+        stop("'interestingGroups' must be character")
+    }
+    # annotable
+    if (!any(
+        is.logical(annotable),
+        is.data.frame(annotable),
+        is.null(annotable)
+    )) {
+        stop("'annotable' must be logical, data.frame, or NULL")
+    }
+    # organism
+    if (!any(
+        is_string(organism),
+        is.null(organism)
+    )) {
+        stop("'organism' must be string or NULL")
+    }
+    # ensemblVersion
+    if (!any(
+        is.null(ensemblVersion),
+        is.numeric(ensemblVersion) && length(ensemblVersion) == 1
+    )) {
+        stop("'ensemblVersion' must be single numeric or NULL")
+    }
+    # genomeBuild
+    if (!any(
+        is_string(genomeBuild),
+        is.null(genomeBuild)
+    )) {
+        stop("'genomeBuild' must be string or NULL")
+    }
+
     # Directory paths ==========================================================
     # Check connection to final upload directory
     if (!dir.exists(uploadDir)) {
@@ -157,13 +215,19 @@ loadRNASeq <- function(
     }
 
     # Genome ===================================================================
-    # Use the genome build of the first sample to match
-    genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
-    organism <- detectOrganism(genomeBuild)
-    message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
+    # Genome build
+    if (!is_string(genomeBuild)) {
+        # If unspecified (default), detect from the bcbio run YAML
+        genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
+    }
+    # Organism
+    if (is.null(organism) & is_string(genomeBuild)) {
+        organism <- detectOrganism(genomeBuild)
+    }
+    message(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Gene and transcript annotations ==========================================
-    if (isTRUE(annotable)) {
+    if (isTRUE(annotable) & is_string(organism)) {
         annotable <- annotable(
             organism,
             genomeBuild = genomeBuild,
