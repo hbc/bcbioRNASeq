@@ -38,18 +38,21 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom dplyr left_join
-.joinMelt <- function(counts, metadata) {
+.joinMelt <- function(counts, colData) {
     if (!identical(
-            colnames(counts),
-            as.character(metadata[["sampleID"]])
-        )) {
+        colnames(counts),
+        as.character(colData[["sampleID"]])
+    )) {
         stop("Sample name mismatch between counts and metadata",
              call. = FALSE)
     }
     melted <- .meltLog10(counts)
-    metadata <- as.data.frame(metadata) %>%
+    colData <- colData %>%
+        as.data.frame() %>%
+        # Ensure `stringsAsFactors` in colData
+        mutate_if(is.character, as.factor) %>%
         mutate_if(is.factor, droplevels)
-    left_join(melted, metadata, by = "sampleID")
+    left_join(melted, colData, by = "sampleID")
 }
 
 
@@ -88,7 +91,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object))
+            colData = colData(object))
     })
 
 
@@ -103,7 +106,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object))
+            colData = colData(object))
     })
 
 
@@ -116,5 +119,5 @@ setMethod(
     function(object) {
         .joinMelt(
             counts = assay(object),
-            metadata = colData(object))
+            colData = colData(object))
     })
