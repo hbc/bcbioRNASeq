@@ -33,7 +33,7 @@ NULL
 .plotExonicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 60,
+    passLimit = 60L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -48,7 +48,7 @@ NULL
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~exonicRate * 100,
+            y = ~exonicRate * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
@@ -56,7 +56,7 @@ NULL
              x = "sample",
              y = "exonic mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n")) +
-        ylim(0, 100)
+        ylim(0L, 100L)
 
     if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
@@ -88,7 +88,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 60,
+        passLimit = 60L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

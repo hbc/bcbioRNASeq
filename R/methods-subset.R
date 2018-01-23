@@ -51,17 +51,17 @@ NULL
 .subset <- function(x, i, j, ..., drop = FALSE) {
     # Genes (rows)
     if (missing(i)) {
-        i <- 1:nrow(x)
+        i <- 1L:nrow(x)
     }
-    if (length(i) < 2) {
+    if (length(i) < 2L) {
         stop("At least 2 genes are required", call. = FALSE)
     }
 
     # Samples (columns)
     if (missing(j)) {
-        j <- 1:ncol(x)
+        j <- 1L:ncol(x)
     }
-    if (length(j) < 2) {
+    if (length(j) < 2L) {
         stop("At least 2 samples are required", call. = FALSE)
     }
 

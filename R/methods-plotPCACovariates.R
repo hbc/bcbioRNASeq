@@ -46,7 +46,7 @@ NULL
     factors <- select_if(metadata, is.factor)
     numerics <- select_if(metadata, is.numeric) %>%
         # Drop columns that are all zeroes (not useful to plot)
-        .[, colSums(.) > 0]
+        .[, colSums(.) > 0L]
     metadata <- cbind(factors, numerics)
 
     # Select the metrics to use for plot
@@ -64,7 +64,7 @@ NULL
     }
 
     # Stop on 1 column
-    if (length(col) == 1) {
+    if (length(col) == 1L) {
         stop(paste(
             "'degCovariates()' requires at least 2 metadata columns"
         ), call. = FALSE)

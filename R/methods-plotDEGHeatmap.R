@@ -62,11 +62,11 @@ NULL
     object,
     counts,
     alpha = 0.01,
-    lfc = 0,
+    lfc = 0L,
     gene2symbol = TRUE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256),
+    color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title,
     ...) {
@@ -83,7 +83,7 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc | .[["log2FoldChange"]] < -lfc, ,
           drop = FALSE]
-    if (nrow(results) == 0) {
+    if (nrow(results) == 0L) {
         warning("No genes passed significance cutoffs", call. = FALSE)
         return(NULL)
     }
@@ -101,15 +101,15 @@ NULL
 
 
 
-.plotDEGHeatmap.DESeqResults <- function(
+.plotDEGHeatmap.DESeqResults <- function(  # nolint
     object,
     counts,
     alpha,
-    lfc = 0,
+    lfc = 0L,
     gene2symbol = TRUE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256),
+    color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title = TRUE,
     ...) {

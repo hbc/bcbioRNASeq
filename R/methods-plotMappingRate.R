@@ -33,8 +33,8 @@ NULL
 .plotMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 90,
-    warnLimit = 70,
+    passLimit = 90L,
+    warnLimit = 70L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -49,11 +49,11 @@ NULL
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~mappedReads / totalReads * 100,
+            y = ~mappedReads / totalReads * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        ylim(0, 100) +
+        ylim(0L, 100L) +
         labs(title = title,
              x = "sample",
              y = "mapping rate (%)",
@@ -93,8 +93,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 90,
-        warnLimit = 70,
+        passLimit = 90L,
+        warnLimit = 70L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

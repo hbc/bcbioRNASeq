@@ -96,7 +96,7 @@ NULL
     if (!is.null(genes)) {
         if (isTRUE(gene2symbol)) {
             organism <- pull(data, "ensgene") %>%
-                .[[1]] %>%
+                .[[1L]] %>%
                 detectOrganism()
             gene2symbol <- annotable(organism, format = "gene2symbol")
         }
@@ -122,12 +122,12 @@ NULL
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
-                force = 1,
+                force = 1L,
                 point.padding = unit(0.75, "lines"),
                 segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4)
+                size = 4L)
     }
     p
 }

@@ -5,7 +5,7 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 test_that("plotHeatmap", {
-    genes <- counts(bcb)[1:20, ] %>%
+    genes <- counts(bcb)[1L:20L, ] %>%
         rownames()
     p <- plotHeatmap(bcb, genes = genes)
     expect_equal(

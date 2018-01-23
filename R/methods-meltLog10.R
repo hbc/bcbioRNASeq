@@ -65,12 +65,12 @@ NULL
     counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
         # Melt operation will define as factor. Let's set this manually later.
         mutate(sampleID = as.character(.data[["sampleID"]])) %>%
         # Remove zero counts
-        .[.[["counts"]] > 0, , drop = FALSE] %>%
+        .[.[["counts"]] > 0L, , drop = FALSE] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]])) %>%
         # Arrange by sampleID, to match factor levels

@@ -20,7 +20,7 @@
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sampleDirs[[1]],
+    subdirs <- list.dirs(sampleDirs[[1L]],
                          full.names = FALSE,
                          recursive = FALSE)
     if ("salmon" %in% subdirs) {

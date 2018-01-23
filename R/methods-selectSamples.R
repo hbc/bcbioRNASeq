@@ -30,7 +30,11 @@ NULL
     ...,
     transform = TRUE) {
     arguments <- list(...)
-    checkArguments <- vapply(arguments, is.vector, FUN.VALUE = logical(1))
+    checkArguments <- vapply(
+        X = arguments,
+        FUN = is.vector,
+        FUN.VALUE = logical(1L)
+    )
     if (!all(isTRUE(as.logical(checkArguments)))) {
         stop("'Arguments must be vectors")
     }

@@ -27,5 +27,3 @@ test_that("resultsTables", {
              "degLFCDown" = tibble)
     )
 })
-
-# FIXME Need to add unit test for `write = TRUE`, and unlink files

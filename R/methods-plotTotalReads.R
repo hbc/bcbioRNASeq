@@ -51,8 +51,8 @@ NULL
 .plotTotalReads <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 20,
-    warnLimit = 10,
+    passLimit = 20L,
+    warnLimit = 10L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -67,7 +67,7 @@ NULL
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~totalReads / 1e6,
+            y = ~totalReads / 1e6L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
@@ -110,8 +110,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 20,
-        warnLimit = 10,
+        passLimit = 20L,
+        warnLimit = 10L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

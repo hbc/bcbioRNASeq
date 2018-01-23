@@ -86,7 +86,7 @@ loadRNASeq <- function(
     organism = NULL,
     ensemblVersion = NULL,
     genomeBuild = NULL,
-    transformationLimit = 50,
+    transformationLimit = 50L,
     ...) {
     # Parameter integrity checks ===============================================
     if (!is_string(uploadDir)) {
@@ -121,7 +121,7 @@ loadRNASeq <- function(
     # ensemblVersion
     if (!any(
         is.null(ensemblVersion),
-        is.numeric(ensemblVersion) && length(ensemblVersion) == 1
+        is.numeric(ensemblVersion) && length(ensemblVersion) == 1L
     )) {
         stop("'ensemblVersion' must be single numeric or NULL")
     }
@@ -144,14 +144,14 @@ loadRNASeq <- function(
         pattern = projectDirPattern,
         full.names = FALSE,
         recursive = FALSE)
-    if (length(projectDir) != 1) {
+    if (length(projectDir) != 1L) {
         stop("Uncertain about project directory location", call. = FALSE)
     }
     message(projectDir)
     match <- str_match(projectDir, projectDirPattern)
-    runDate <- match[[2]] %>%
+    runDate <- match[[2L]] %>%
         as.Date()
-    template <- match[[3]]
+    template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
 
@@ -159,13 +159,13 @@ loadRNASeq <- function(
     lanePattern <- "_L(\\d{3})"
     if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
-            .[, 2] %>%
+            .[, 2L] %>%
             unique() %>%
             length()
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
-        lanes <- 1
+        lanes <- 1L
     }
 
     # Project summary YAML =====================================================
@@ -219,7 +219,10 @@ loadRNASeq <- function(
     # Genome build
     if (!is_string(genomeBuild)) {
         # If unspecified (default), detect from the bcbio run YAML
-        genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
+        genomeBuild <- yaml %>%
+            .[["samples"]] %>%
+            .[[1L]] %>%
+            .[["genome_build"]]
     }
     # Organism
     if (is.null(organism) & is_string(genomeBuild)) {
@@ -284,7 +287,7 @@ loadRNASeq <- function(
 
     # DESeqDataSet =============================================================
     message("Generating internal DESeqDataSet for quality control")
-    design <- formula(~1)
+    design <- formula(~1L)
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = colData,
@@ -365,7 +368,7 @@ loadRNASeq <- function(
         transformationLimit = transformationLimit)
     # Add user-defined custom metadata, if specified
     dots <- list(...)
-    if (length(dots) > 0) {
+    if (length(dots) > 0L) {
         metadata <- c(metadata, dots)
     }
 

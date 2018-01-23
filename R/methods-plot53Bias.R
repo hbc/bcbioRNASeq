@@ -33,7 +33,7 @@ NULL
 .plot53Bias <- function(
     object,
     interestingGroups = "sampleName",
-    warnLimit = 2,
+    warnLimit = 2L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -88,7 +88,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        warnLimit = 2,
+        warnLimit = 2L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

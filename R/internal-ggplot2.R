@@ -4,10 +4,10 @@
 lineColor <- "black"
 
 # Quality control plot colors
-qcColors <- viridis::inferno(3)
-qcPassColor <- qcColors[[1]]
-qcWarnColor <- qcColors[[2]]
-qcFailColor <- qcColors[[3]]
+qcColors <- viridis::inferno(3L)
+qcPassColor <- qcColors[[1L]]
+qcWarnColor <- qcColors[[2L]]
+qcFailColor <- qcColors[[3L]]
 qcCutoffColor <- "black"
 
 # Quality control label appearance
@@ -20,7 +20,7 @@ qcLabelSize <- NA
 
 # Quality control line appearance
 qcLineAlpha <- 0.75
-qcLineSize <- 1
+qcLineSize <- 1L
 qcLineType <- "dashed"
 
 # Plot label separator

@@ -88,11 +88,11 @@ NULL
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
     return = "grid",
-    headerLevel = 2) {
+    headerLevel = 2L) {
     # Gene to symbol mappings
     if (isTRUE(gene2symbol)) {
         organism <- rownames(object) %>%
-            .[[1]] %>%
+            .[[1L]] %>%
             detectOrganism()
         gene2symbol <- annotable(organism, format = "gene2symbol")
     }
@@ -125,13 +125,13 @@ NULL
                 y = "y",
                 color = "interestingGroups")
         ) +
-            geom_point(size = 4) +
-            theme(axis.text.x = element_text(angle = 90)) +
+            geom_point(size = 4L) +
+            theme(axis.text.x = element_text(angle = 90L)) +
             labs(title = symbol,
                  x = "sample",
                  y = countsAxisLabel,
                  color = paste(interestingGroups, collapse = ":\n")) +
-            expand_limits(y = 0)
+            expand_limits(y = 0L)
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
@@ -182,7 +182,7 @@ setMethod(
         interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
-        headerLevel = 2) {
+        headerLevel = 2L) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -217,7 +217,7 @@ setMethod(
         interestingGroups = "sampleName",
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
-        headerLevel = 2) {
+        headerLevel = 2L) {
         counts <- counts(object, normalized = normalized)
         if (isTRUE(normalized)) {
             countsAxisLabel <- "normalized"
@@ -251,7 +251,7 @@ setMethod(
         interestingGroups = "sampleName",
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
-        headerLevel = 2) {
+        headerLevel = 2L) {
         counts <- assay(object)
         metadata <- colData(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {

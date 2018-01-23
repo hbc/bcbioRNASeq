@@ -33,7 +33,7 @@ NULL
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    warnLimit = 20,
+    warnLimit = 20L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -48,7 +48,7 @@ NULL
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~intronicRate * 100,
+            y = ~intronicRate * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
@@ -56,7 +56,7 @@ NULL
              x = "sample",
              y = "intronic mapping rate (%)",
              fill = paste(interestingGroups, collapse = ":\n")) +
-        ylim(0, 100)
+        ylim(0L, 100L)
 
     if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
@@ -89,7 +89,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        warnLimit = 20,
+        warnLimit = 20L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

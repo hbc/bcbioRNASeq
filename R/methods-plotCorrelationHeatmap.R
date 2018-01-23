@@ -67,7 +67,7 @@ NULL
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    color = viridis::viridis(256),
+    color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title = TRUE) {
     # Check for supported correlation method
@@ -127,7 +127,9 @@ NULL
 
     # If `color = NULL`, use the pheatmap default
     if (!is.character(color)) {
-        color <- colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+        color <- colorRampPalette(rev(
+            brewer.pal(n = 7L, name = "RdYlBu")
+        ))(100L)
     }
 
     counts %>%
@@ -162,7 +164,7 @@ setMethod(
         interestingGroups,
         genes = NULL,
         samples = NULL,
-        color = viridis::viridis(256),
+        color = viridis::viridis(256L),
         legendColor = viridis::viridis,
         title = TRUE) {
         if (missing(interestingGroups)) {

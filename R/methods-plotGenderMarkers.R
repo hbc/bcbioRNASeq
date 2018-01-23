@@ -94,7 +94,7 @@ NULL
         rownames_to_column() %>%
         # For `melt()`, can also declare `measure.vars` here instead of using
         # `setNames()`. If you don't set `id`, function will output a message.
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
         left_join(metadata, by  = "sampleName") %>%
@@ -108,8 +108,8 @@ NULL
             color = "interestingGroups",
             shape = "chromosome")
     ) +
-        geom_jitter(size = 4) +
-        expand_limits(y = 0) +
+        geom_jitter(size = 4L) +
+        expand_limits(y = 0L) +
         labs(title = title,
              x = "gene",
              y = countsAxisLabel,
@@ -168,7 +168,7 @@ setMethod(
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {
             organism <- rownames(counts) %>%
-                .[[1]] %>%
+                .[[1L]] %>%
                 detectOrganism()
         }
         .plotGenderMarkers(

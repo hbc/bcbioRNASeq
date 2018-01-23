@@ -36,7 +36,7 @@ NULL
 #' @importFrom tibble remove_rownames
 .subsetTop <- function(
     df,
-    n = 50,
+    n = 50L,
     coding = FALSE) {
     if (isTRUE(coding)) {
         if (!"broadClass" %in% colnames(df)) {
@@ -61,8 +61,8 @@ NULL
         rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
             baseMean = round(.data[["baseMean"]]),
-            lfc = format(.data[["lfc"]], digits = 3),
-            padj = format(.data[["padj"]], digits = 3, scientific = TRUE),
+            lfc = format(.data[["lfc"]], digits = 3L),
+            padj = format(.data[["padj"]], digits = 3L, scientific = TRUE),
             # Remove symbol information in description, if present
             description = gsub(
                 x = .data[["description"]],
@@ -85,7 +85,7 @@ setMethod(
     signature("list"),
     function(
         object,
-        n = 50,
+        n = 50L,
         coding = FALSE) {
         up <- .subsetTop(
             object[["degLFCUp"]],

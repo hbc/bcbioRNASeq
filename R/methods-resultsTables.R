@@ -88,9 +88,9 @@ NULL
 #' @importFrom rlang !! sym
 #' @importFrom S4Vectors metadata
 #' @importFrom tibble rownames_to_column
-.resultsTables.DESeqResults <- function(
+.resultsTables.DESeqResults <- function(  # nolint
     object,
-    lfc = 0,
+    lfc = 0L,
     annotable = TRUE,
     summary = TRUE,
     write = FALSE,
@@ -113,7 +113,7 @@ NULL
     if (isTRUE(annotable)) {
         # Match genome against the first gene identifier by default
         organism <- rownames(object) %>%
-            .[[1]] %>%
+            .[[1L]] %>%
             detectOrganism()
         annotable <- annotable(organism, quiet = quiet)
     }
@@ -128,9 +128,9 @@ NULL
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0, , drop = FALSE]
+        .[.[["baseMean"]] > 0L, , drop = FALSE]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1, , drop = FALSE]
+        .[.[["baseMean"]] > 1L, , drop = FALSE]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
@@ -141,9 +141,9 @@ NULL
         .[.[["log2FoldChange"]] > lfc |
               .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0, , drop = FALSE]
+        .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0, , drop = FALSE]
+        .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
 
     resTbl <- list(
         contrast = contrast,

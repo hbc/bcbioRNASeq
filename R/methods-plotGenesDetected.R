@@ -45,9 +45,9 @@ NULL
     object,
     counts,
     interestingGroups = "sampleName",
-    passLimit = 20000,
-    warnLimit = 15000,
-    minCounts = 0,
+    passLimit = 20000L,
+    warnLimit = 15000L,
+    minCounts = 0L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -106,9 +106,9 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 20000,
-        warnLimit = 15000,
-        minCounts = 0,
+        passLimit = 20000L,
+        warnLimit = 15000L,
+        minCounts = 0L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
         if (is.null(metrics(object))) {
@@ -141,9 +141,9 @@ setMethod(
         object,
         counts,
         interestingGroups = "sampleName",
-        passLimit = 20000,
-        warnLimit = 15000,
-        minCounts = 0,
+        passLimit = 20000L,
+        warnLimit = 15000L,
+        minCounts = 0L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

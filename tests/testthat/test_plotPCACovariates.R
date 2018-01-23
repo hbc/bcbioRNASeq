@@ -33,9 +33,9 @@ test_that("default", {
     expect_equal(
         p[["effectsSignificantCovars"]] %>%
             na.omit() %>%
-            .[. > 0] %>%
+            .[. > 0L] %>%
             .[(sort(names(.)))] %>%
-            round(digits = 3),
+            round(digits = 3L),
         c(duplicationRateOfMapped = 0.610,
           exonicRate = 0.610,
           intergenicRate = 0.610,
@@ -53,7 +53,7 @@ test_that("defined metrics", {
         c("exonicRate", "intronicRate")
     )
     expect_equal(
-        round(p[["effectsSignificantCovars"]], digits = 3),
+        round(p[["effectsSignificantCovars"]], digits = 3L),
         c(exonicRate = 0.610,
           intronicRate = 0.610)
     )

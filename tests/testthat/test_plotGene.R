@@ -4,7 +4,7 @@ load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
-genes <- rownames(bcb)[1:3]
+genes <- rownames(bcb)[1L:3L]
 
 test_that("Ensembl gene identifiers", {
     p <- plotGene(bcb, genes = genes)

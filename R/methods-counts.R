@@ -73,7 +73,7 @@ setMethod(
                 "Using log2 tmm counts instead."
             ), call. = FALSE)
             tmm <- tmm(object)
-            return(log2(tmm + 1))
+            return(log2(tmm + 1L))
         }
 
         counts <- assays(object)[[slot]]

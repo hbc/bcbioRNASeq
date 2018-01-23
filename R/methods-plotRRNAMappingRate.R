@@ -34,7 +34,7 @@ NULL
 .plotRRNAMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    warnLimit = 10,
+    warnLimit = 10L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
@@ -61,7 +61,7 @@ NULL
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~rrnaRate * 100,
+            y = ~rrnaRate * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
@@ -101,7 +101,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        warnLimit = 10,
+        warnLimit = 10L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {

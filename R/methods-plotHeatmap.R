@@ -68,7 +68,7 @@ NULL
     gene2symbol = FALSE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256),
+    color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
@@ -112,7 +112,7 @@ setMethod(
         samples = NULL,
         genes = NULL,
         scale = "row",
-        color = viridis::viridis(256),
+        color = viridis::viridis(256L),
         legendColor = viridis::viridis,
         title = NULL,
         ...) {
@@ -149,7 +149,7 @@ setMethod(
         gene2symbol = FALSE,
         annotationCol = NULL,
         scale = "row",
-        color = viridis::viridis(256),
+        color = viridis::viridis(256L),
         legendColor = viridis::viridis,
         title = NULL,
         ...) {
@@ -178,7 +178,7 @@ setMethod(
         gene2symbol = FALSE,
         annotationCol = NULL,
         scale = "row",
-        color = viridis::viridis(256),
+        color = viridis::viridis(256L),
         legendColor = viridis::viridis,
         title = NULL,
         ...) {

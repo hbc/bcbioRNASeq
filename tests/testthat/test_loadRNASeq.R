@@ -148,14 +148,14 @@ test_that("bcbio slot", {
 test_that("Example data dimensions", {
     expect_equal(
         dim(bcb),
-        c(505, 4)
+        c(505L, 4L)
     )
     expect_equal(
         colnames(bcb),
         c("group1_1", "group1_2", "group2_1", "group2_2")
     )
     expect_equal(
-        rownames(bcb)[1:4],
+        rownames(bcb)[1L:4L],
         c("ENSMUSG00000002459",
           "ENSMUSG00000004768",
           "ENSMUSG00000005886",
@@ -165,10 +165,10 @@ test_that("Example data dimensions", {
 
 test_that("transformationLimit", {
     bcb <- suppressWarnings(suppressMessages(
-        loadRNASeq(uploadDir, transformationLimit = 0)
+        loadRNASeq(uploadDir, transformationLimit = 0L)
     ))
     expect_warning(
-        suppressMessages(loadRNASeq(uploadDir, transformationLimit = 0)),
+        suppressMessages(loadRNASeq(uploadDir, transformationLimit = 0L)),
         paste("Dataset contains many samples.",
               "Skipping DESeq2 variance stabilization.")
     )
@@ -179,5 +179,5 @@ test_that("transformationLimit", {
     expect_is(assays(bcb)[["rlog"]], "NULL")
     expect_is(assays(bcb)[["vst"]], "NULL")
     transformationLimit <- metadata(bcb)[["transformationLimit"]]
-    expect_equal(transformationLimit, 0)
+    expect_equal(transformationLimit, 0L)
 })

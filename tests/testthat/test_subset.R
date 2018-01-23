@@ -5,13 +5,13 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 test_that("Normal gene and sample selection", {
-    subset <- suppressMessages(bcb[1:100, 1:4])
+    subset <- suppressMessages(bcb[1L:100L, 1L:4L])
     expect_equal(
         dim(subset),
-        c(100, 4)
+        c(100L, 4L)
     )
     expect_equal(
-        rownames(subset)[[1]],
+        rownames(subset)[[1L]],
         "ENSMUSG00000002459"
     )
     expect_equal(
@@ -33,10 +33,10 @@ test_that("Normal gene and sample selection", {
 })
 
 test_that("Minimal sample selection", {
-    subset <- suppressMessages(bcb[, 1:2])
+    subset <- suppressMessages(bcb[, 1L:2L])
     expect_equal(
         dim(subset),
-        c(505, 2)
+        c(505L, 2L)
     )
     # Check that subsetting by name also works
     expect_equal(
@@ -47,7 +47,7 @@ test_that("Minimal sample selection", {
 
 test_that("Minimal gene selection", {
     subset <- suppressWarnings(suppressMessages(
-        bcb[1:2, , skipNorm = TRUE]
+        bcb[1L:2L, , transform = FALSE]
     ))
     expect_equal(
         rownames(subset),
@@ -67,24 +67,24 @@ test_that("Minimal gene selection", {
     expect_equal(
         suppressWarnings(suppressMessages(
             bcb[c("ENSMUSG00000002459",
-                  "ENSMUSG00000004768"), , skipNorm = TRUE]
+                  "ENSMUSG00000004768"), , transform = FALSE]
         )),
         subset
     )
     # Selecting fewer than 3 genes will generate a warning
     expect_warning(
-        suppressMessages(bcb[1:2, ]),
+        suppressMessages(bcb[1L:2L, ]),
         "Estimated rdf < 1.0; not estimating variance"
     )
 })
 
 test_that("Invalid ranges", {
     expect_error(
-        bcb[1, ],
+        bcb[1L, ],
         "At least 2 genes are required"
     )
     expect_error(
-        bcb[, 1],
+        bcb[, 1L],
         "At least 2 samples are required"
     )
 })

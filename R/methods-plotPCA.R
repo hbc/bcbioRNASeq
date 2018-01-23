@@ -80,7 +80,7 @@ NULL
     # Subset genes, if desired
     if (is.null(genes)) {
         # Recommended DESeq default
-        ntop <- 500
+        ntop <- 500L
     } else {
         dt <- dt[genes, , drop = FALSE]
         # Set ntop to the number of genes requested
@@ -103,7 +103,7 @@ NULL
         ntop = ntop) %>%
         camel(strict = FALSE)
 
-    percentVar <- round(100 * attr(data, "percentVar"))
+    percentVar <- round(100L * attr(data, "percentVar"))
 
     # Use `sampleName` for plot labels
     data[["label"]] <- colData(object)[samples, "sampleName"]
@@ -115,11 +115,11 @@ NULL
             y = "pc2",
             color = "group")
     ) +
-        geom_point(size = 4) +
+        geom_point(size = 4L) +
         coord_fixed() +
         labs(title = "pca",
-             x = paste0("pc1: ", percentVar[[1]], "% variance"),
-             y = paste0("pc2: ", percentVar[[2]], "% variance"),
+             x = paste0("pc1: ", percentVar[[1L]], "% variance"),
+             y = paste0("pc2: ", percentVar[[2L]], "% variance"),
              color = paste(interestingGroups, collapse = ":\n"))
 
     if (is(color, "ScaleDiscrete")) {
@@ -144,7 +144,7 @@ NULL
                 # Draw an arrow from the label to the data point
                 arrow = arrow(length = unit(0.01, "npc")),
                 # Strength of the repulsion force
-                force = 1,
+                force = 1L,
                 show.legend = FALSE)
     }
 
