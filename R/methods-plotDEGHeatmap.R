@@ -71,7 +71,7 @@ NULL
     title,
     ...) {
     if (!all(rownames(object) %in% rownames(counts))) {
-        stop("Rownames mismatch between results object and counts")
+        abort("Rownames mismatch between results object and counts")
     }
     results <- object %>%
         as.data.frame() %>%
@@ -84,7 +84,7 @@ NULL
         .[.[["log2FoldChange"]] > lfc | .[["log2FoldChange"]] < -lfc, ,
           drop = FALSE]
     if (nrow(results) == 0L) {
-        warning("No genes passed significance cutoffs", call. = FALSE)
+        warn("No genes passed significance cutoffs")
         return(NULL)
     }
     counts <- counts[rownames(results), , drop = FALSE]

@@ -64,11 +64,11 @@ NULL
     # Load the relevant internal gender markers data
     markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
     if (!camel(organism) %in% names(markers)) {
-        warning(paste(
+        warn(paste(
             "Organism",
             paste0("(", organism, ")"),
             "is not supported"
-        ), call. = FALSE)
+        ))
         return(invisible(NULL))
     }
     # Convert the organism name from full latin to shorthand (e.g. hsapiens)
@@ -82,7 +82,7 @@ NULL
         unique()
 
     if (!all(ensgene %in% rownames(object))) {
-        warning("Missing gender markers in count matrix", call. = FALSE)
+        warn("Missing gender markers in count matrix")
         return(invisible(NULL))
     }
 

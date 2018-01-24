@@ -36,7 +36,7 @@ NULL
         FUN.VALUE = logical(1L)
     )
     if (!all(isTRUE(as.logical(checkArguments)))) {
-        stop("'Arguments must be vectors")
+        abort("'Arguments must be vectors")
     }
 
     # Match the arguments against the sample metadata
@@ -50,17 +50,17 @@ NULL
               drop = TRUE]
         # Check for match failure
         if (!length(match)) {
-            warning(paste(
+            warn(paste(
                 "Match failure:",
                 paste(column, "=", argument)
-            ), call. = FALSE)
+            ))
             return(NULL)
         }
         match
     })
     samples <- Reduce(f = intersect, x = list)
     if (!length(samples)) {
-        warning("No samples matched", call. = FALSE)
+        warn("No samples matched")
         return(NULL)
     }
     samples <- sort(unique(samples))

@@ -59,22 +59,21 @@ NULL
     } else if (is.character(metrics)) {
         col <- metrics
     } else {
-        stop("'metrics' must be 'TRUE/FALSE' or character vector",
-             call. = FALSE)
+        abort("`metrics` must be a logical or character vector")
     }
 
     # Stop on 1 column
     if (length(col) == 1L) {
-        stop(paste(
-            "'degCovariates()' requires at least 2 metadata columns"
-        ), call. = FALSE)
+        abort(paste(
+            "`degCovariates()` requires at least 2 metadata columns"
+        ))
     }
 
     # Now select the columns to use for plotting
     if (all(col %in% colnames(metadata))) {
         metadata <- metadata[, col, drop = FALSE]
     } else {
-        stop("Failed to select valid 'metrics' for plot", call. = FALSE)
+        abort("Failed to select valid `metrics` columns for plot")
     }
 
     degCovariates(

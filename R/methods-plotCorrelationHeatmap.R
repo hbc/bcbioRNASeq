@@ -73,8 +73,9 @@ NULL
     # Check for supported correlation method
     validMethod <- c("pearson", "spearman")
     if (!method %in% validMethod) {
-        stop(paste("Supported methods:", toString(validMethod)),
-             call. = FALSE)
+        abort(paste(
+            "Supported methods:", toString(validMethod)
+        ))
     }
 
     # Subset counts matrix by input genes, if desired

@@ -40,8 +40,7 @@ NULL
     coding = FALSE) {
     if (isTRUE(coding)) {
         if (!"broadClass" %in% colnames(df)) {
-            stop("'coding = TRUE' argument requires 'broadClass' column",
-                 call. = FALSE)
+            abort("`coding = TRUE` argument requires `broadClass` column")
         }
         df <- df %>%
             .[.[["broadClass"]] == "coding", , drop = FALSE]

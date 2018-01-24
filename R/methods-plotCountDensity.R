@@ -45,10 +45,10 @@ NULL
     title = TRUE) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
-        stop(paste(
+        abort(paste(
             "Valid 'style' arguments:",
             toString(validStyles)
-        ), call. = FALSE)
+        ))
     }
 
     if (isTRUE(title)) {

@@ -86,7 +86,7 @@ NULL
     histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
-        stop("Direction must be both, up, or down", call. = FALSE)
+        abort("Direction must be both, up, or down")
     }
 
     # Generate data `tibble`

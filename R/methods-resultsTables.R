@@ -62,7 +62,7 @@ NULL
 #' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
-        stop("DE results directory missing", call. = FALSE)
+        abort("DE results directory missing")
     }
     all <- resTbl[["allFile"]]
     deg <- resTbl[["degFile"]]

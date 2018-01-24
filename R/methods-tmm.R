@@ -36,7 +36,7 @@ NULL
 # Constructors =================================================================
 #' @importFrom edgeR calcNormFactors cpm DGEList
 .tmm <- function(object) {
-    message("Performing trimmed mean of M-values (TMM) normalization")
+    inform("Performing trimmed mean of M-values (TMM) normalization")
     object %>%
         as.matrix() %>%
         DGEList() %>%
@@ -55,7 +55,7 @@ setMethod(
     function(object) {
         tmm <- assays(object)[["tmm"]]
         if (!is.matrix(tmm)) {
-            warning("tmm is not slotted into 'assays()'", call. = FALSE)
+            warn("tmm is not slotted into 'assays()'")
             tmm <- tmm(assay(object))
         }
         tmm

@@ -73,7 +73,7 @@ setMethod(
         if (type %in% names(slot(object, "bcbio"))) {
             slot(object, "bcbio")[[type]]
         } else {
-            stop(paste(type, "not found"))
+            abort(paste(type, "not found"))
         }
     })
 
@@ -107,7 +107,7 @@ setMethod(
         if (type %in% names(slot(object, "callers"))) {
             slot(object, "callers")[[type]]
         } else {
-            stop(paste(type, "not found"))
+            abort(paste(type, "not found"))
         }
     })
 

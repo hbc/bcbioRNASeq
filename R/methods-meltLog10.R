@@ -43,8 +43,7 @@ NULL
         colnames(counts),
         as.character(colData[["sampleID"]])
     )) {
-        stop("Sample name mismatch between counts and metadata",
-             call. = FALSE)
+        abort("Sample name mismatch between counts and metadata")
     }
     melted <- .meltLog10(counts)
     colData <- colData %>%

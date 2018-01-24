@@ -63,10 +63,10 @@ setMethod(
     "interestingGroups<-",
     signature(object = "bcbioRNASeq", value = "NULL"),
     function(object, value) {
-        warning(paste(
+        warn(paste(
             "'interestingGroups' is 'NULL'.",
             "Defaulting to 'sampleName'."
-        ), call. = FALSE)
+        ))
         metadata(object)[["interestingGroups"]] <- "sampleName"
         validObject(object)
         object

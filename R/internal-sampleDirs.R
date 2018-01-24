@@ -8,7 +8,7 @@
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
-#'   will [stop()] if no complete sample directories match.
+#'   will [abort()] if no complete sample directories match.
 #' @noRd
 .sampleDirs <- function(uploadDir) {
     subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
@@ -31,7 +31,7 @@
 
     # Return
     if (length(sampleDirs) == 0L) {
-        stop("No sample directories detected", call. = FALSE)
+        abort("No sample directories detected")
     } else {
         # Generate names from file paths and make valid
         names <- basename(sampleDirs) %>%
@@ -41,7 +41,7 @@
                  replacement = "_")
         sampleDirs <- normalizePath(sampleDirs) %>%
             setNames(names)
-        message(paste(length(sampleDirs), "samples detected"))
+        inform(paste(length(sampleDirs), "samples detected"))
     }
     sampleDirs
 }

@@ -27,10 +27,10 @@ NULL
     }
     cols <- c("ensgene", "symbol")
     if (!all(cols %in% colnames(annotable))) {
-        stop(paste(
+        abort(paste(
             toString(cols),
             "missing from internal annotable"
-        ), call. = FALSE)
+        ))
     }
     annotable[, cols]
 }

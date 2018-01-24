@@ -54,7 +54,7 @@ NULL
         i <- 1L:nrow(x)
     }
     if (length(i) < 2L) {
-        stop("At least 2 genes are required", call. = FALSE)
+        abort("At least 2 genes are required")
     }
 
     # Samples (columns)
@@ -62,7 +62,7 @@ NULL
         j <- 1L:ncol(x)
     }
     if (length(j) < 2L) {
-        stop("At least 2 samples are required", call. = FALSE)
+        abort("At least 2 samples are required")
     }
 
     # Early return if dimensions are unmodified
@@ -104,13 +104,13 @@ NULL
     txi[["length"]] <- txi[["length"]][genes, samples]
 
     # DESeqDataSet
-    message("Updating internal DESeqDataSet")
+    inform("Updating internal DESeqDataSet")
     dds <- bcbio(x, "DESeqDataSet")
     dds <- dds[genes, samples]
     colData(dds) <- colData
     # Skip normalization option, for large datasets
     if (!isTRUE(transform)) {
-        message(paste(
+        inform(paste(
             "Skipping DESeq2 transformations",
             "just selecting samples and genes"
         ))
@@ -120,9 +120,9 @@ NULL
     } else {
         # DESeq2 will warn about empty design formula, if set
         dds <- suppressWarnings(DESeq(dds))
-        message("Performing rlog transformation")
+        inform("Performing rlog transformation")
         rlog <- rlog(dds)
-        message("Performing variance stabilizing transformation")
+        inform("Performing variance stabilizing transformation")
         vst <- varianceStabilizingTransformation(dds)
     }
 

@@ -41,7 +41,7 @@ setMethod(
     signature(x = "bcbioRNASeq", value = "DataFrame"),
     function(x, ..., value) {
         if (nrow(value) != ncol(x)) {
-            stop("nrow of supplied 'colData' must equal ncol of object")
+            abort("nrow of supplied 'colData' must equal ncol of object")
         }
         if (!is.null(bcbio(x, "DESeqDataSet"))) {
             colData(bcbio(x, "DESeqDataSet")) <- value
