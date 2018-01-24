@@ -36,7 +36,7 @@ NULL
         FUN.VALUE = logical(1L)
     )
     if (!all(isTRUE(as.logical(checkArguments)))) {
-        abort("'Arguments must be vectors")
+        abort("Arguments must be vectors")
     }
 
     # Match the arguments against the sample metadata

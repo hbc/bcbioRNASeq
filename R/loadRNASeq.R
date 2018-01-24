@@ -90,18 +90,18 @@ loadRNASeq <- function(
     ...) {
     # Parameter integrity checks ===============================================
     if (!is_string(uploadDir)) {
-        abort("'uploadDir' must be string")
+        abort("`uploadDir` must be a string")
     }
     # sampleMetadataFile
     if (!any(
         is_string(sampleMetadataFile),
         is.null(sampleMetadataFile)
     )) {
-        abort("'sampleMetadataFile' must be string or NULL")
+        abort("`sampleMetadataFile` must be a string or NULL")
     }
     # interestingGroups
     if (!is.character(interestingGroups)) {
-        abort("'interestingGroups' must be character")
+        abort("`interestingGroups` must be a character vector")
     }
     # annotable
     if (!any(
@@ -109,28 +109,28 @@ loadRNASeq <- function(
         is.data.frame(annotable),
         is.null(annotable)
     )) {
-        abort("'annotable' must be logical, data.frame, or NULL")
+        abort("`annotable` must be a logical vector, data.frame, or NULL")
     }
     # organism
     if (!any(
         is_string(organism),
         is.null(organism)
     )) {
-        abort("'organism' must be string or NULL")
+        abort("`organism` must be a string or NULL")
     }
     # ensemblVersion
     if (!any(
         is.null(ensemblVersion),
         is.numeric(ensemblVersion) && length(ensemblVersion) == 1L
     )) {
-        abort("'ensemblVersion' must be single numeric or NULL")
+        abort("`ensemblVersion` must be a numeric string or NULL")
     }
     # genomeBuild
     if (!any(
         is_string(genomeBuild),
         is.null(genomeBuild)
     )) {
-        abort("'genomeBuild' must be string or NULL")
+        abort("`genomeBuild` must be a string or NULL")
     }
 
     # Directory paths ==========================================================
@@ -171,7 +171,7 @@ loadRNASeq <- function(
     # Project summary YAML =====================================================
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     if (!file.exists(yamlFile)) {
-        abort("'project-summary.yaml' file missing")
+        abort("`project-summary.yaml` file is missing")
     }
     yaml <- readYAML(yamlFile)
 
@@ -194,8 +194,8 @@ loadRNASeq <- function(
     # Default to `sampleName`
     if (is.null(interestingGroups)) {
         warn(paste(
-            "'interestingGroups' is 'NULL'.",
-            "Defaulting to 'sampleName'."
+            "`interestingGroups` argument is NULL",
+            "Defaulting to `sampleName`."
             ))
         interestingGroups <- "sampleName"
     }

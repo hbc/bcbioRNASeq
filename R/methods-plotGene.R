@@ -162,7 +162,7 @@ NULL
         }) %>%
             invisible()
     } else {
-        abort(paste("Valid 'return':", toString(validReturn)))
+        abort(paste("Valid `return`:", toString(validReturn)))
     }
 }
 

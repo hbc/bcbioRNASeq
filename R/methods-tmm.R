@@ -55,7 +55,7 @@ setMethod(
     function(object) {
         tmm <- assays(object)[["tmm"]]
         if (!is.matrix(tmm)) {
-            warn("tmm is not slotted into 'assays()'")
+            warn("tmm is not slotted into `assays()`")
             tmm <- tmm(assay(object))
         }
         tmm

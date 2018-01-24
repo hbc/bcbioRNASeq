@@ -37,7 +37,7 @@ NULL
     if (is.null(version)) {
         abort(paste(
             "Unknown bcbio object version.",
-            "Please reload with 'loadRNASeq()'."
+            "Please reload with `loadRNASeq()`."
         ))
     }
     inform(paste(

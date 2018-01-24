@@ -46,7 +46,7 @@ NULL
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
         abort(paste(
-            "Valid 'style' arguments:",
+            "Valid `style` arguments:",
             toString(validStyles)
         ))
     }
