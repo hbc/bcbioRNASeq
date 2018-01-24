@@ -287,7 +287,7 @@ loadRNASeq <- function(
 
     # DESeqDataSet =============================================================
     inform("Generating internal DESeqDataSet for quality control")
-    design <- formula(~1L)
+    design <- formula(~1)  # nolint
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = colData,

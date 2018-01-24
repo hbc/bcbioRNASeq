@@ -101,7 +101,7 @@ setMethod(
         ...) {
         dds <- bcbio(object, "DESeqDataSet")
         # Warn if empty design formula detected
-        if (design(dds) == formula(~1L)) {
+        if (design(dds) == formula(~1)) {  # nolint
             warn("Empty DESeqDataSet design formula detected")
         }
         .alphaSummary(
