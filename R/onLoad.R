@@ -2,6 +2,7 @@
     packages <-
         c("bcbioBase",
           "SummarizedExperiment",
+          "viridis",
           "DESeq2",
           "DEGreport")
     lapply(seq_along(packages), function(a) {
