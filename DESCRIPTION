@@ -61,7 +61,7 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    bcbioBase (>= 0.0.1),
+    bcbioBase (>= 0.0.3),
     SummarizedExperiment (>= 1.8.0)
 Imports:
     BiocGenerics (>= 0.24.0),
