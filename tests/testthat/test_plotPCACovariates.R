@@ -63,7 +63,7 @@ test_that("invalid parameters", {
     # Error on invalid column
     expect_error(
         plotPCACovariates(bcb, metrics = c("FOO", "BAR")),
-        "Failed to select valid 'metrics' for plot"
+        "Failed to select valid `metrics` columns to plot"
     )
     # More than 1 metric is required
     expect_error(

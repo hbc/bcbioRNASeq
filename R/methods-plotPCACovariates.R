@@ -73,7 +73,8 @@ NULL
     if (all(col %in% colnames(metadata))) {
         metadata <- metadata[, col, drop = FALSE]
     } else {
-        abort("Failed to select valid `metrics` columns for plot")
+        # FIXME Make this message more informative. Which metrics?
+        abort("Failed to select valid `metrics` columns to plot")
     }
 
     degCovariates(
