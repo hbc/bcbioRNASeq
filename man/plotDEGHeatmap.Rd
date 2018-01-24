@@ -12,18 +12,18 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
-  lfc = 0, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = TRUE, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha, lfc = 0,
-  gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = TRUE, ...)
 }
 \arguments{

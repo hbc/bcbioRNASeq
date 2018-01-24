@@ -12,11 +12,11 @@
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 60, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  passLimit = 60L, fill = viridis::scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 60,
+  interestingGroups = "sampleName", passLimit = 60L,
   fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
   title = TRUE)
 }

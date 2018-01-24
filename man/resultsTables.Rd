@@ -9,7 +9,7 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
   summary = TRUE, write = FALSE, dir = file.path("results", Sys.Date(),
   "differential_expression"), quiet = FALSE)
 }

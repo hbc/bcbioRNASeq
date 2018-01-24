@@ -12,7 +12,7 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = TRUE)
 }
 \arguments{

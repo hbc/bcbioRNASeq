@@ -11,12 +11,12 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10,
+  passLimit = 20L, warnLimit = 10L,
   fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
   title = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
+  interestingGroups = "sampleName", passLimit = 20L, warnLimit = 10L,
   fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
   title = TRUE)
 }

@@ -6,7 +6,7 @@
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
   sampleMetadataFile = NULL, annotable = TRUE, organism = NULL,
-  ensemblVersion = NULL, genomeBuild = NULL, transformationLimit = 50,
+  ensemblVersion = NULL, genomeBuild = NULL, transformationLimit = 50L,
   ...)
 }
 \arguments{

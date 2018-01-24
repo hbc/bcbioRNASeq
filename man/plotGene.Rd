@@ -11,22 +11,22 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
   interestingGroups, color = viridis::scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2)
+  return = "grid", headerLevel = 2L)
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = TRUE,
   normalized = TRUE, interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2)
+  headerLevel = 2L)
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = TRUE,
   interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2)
+  headerLevel = 2L)
 
 \S4method{plotGene}{matrix}(object, genes, gene2symbol = TRUE, metadata,
   interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", return = "grid", headerLevel = 2)
+  countsAxisLabel = "counts", return = "grid", headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}

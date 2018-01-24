@@ -10,17 +10,17 @@
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   samples = NULL, genes = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = FALSE,
-  annotationCol = NULL, scale = "row", color = viridis::viridis(256),
+  annotationCol = NULL, scale = "row", color = viridis::viridis(256L),
   legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
   gene2symbol = FALSE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256), legendColor = viridis::viridis,
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = NULL, ...)
 }
 \arguments{
