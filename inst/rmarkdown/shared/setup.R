@@ -1,4 +1,4 @@
-library(bcbioRNASeq)
+suppressPackageStartupMessages(library(bcbioRNASeq))
 library(knitr)
 library(tidyverse)
 
