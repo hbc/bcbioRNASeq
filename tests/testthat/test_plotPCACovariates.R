@@ -68,7 +68,7 @@ test_that("invalid parameters", {
     # More than 1 metric is required
     expect_error(
         plotPCACovariates(bcb, metrics = "exonicRate"),
-        "'degCovariates\\(\\)' requires at least 2 metadata columns"
+        "`degCovariates\\(\\)` requires at least 2 metadata columns"
     )
 })
 
