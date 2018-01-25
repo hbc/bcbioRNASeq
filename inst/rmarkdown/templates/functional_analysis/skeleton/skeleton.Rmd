@@ -27,7 +27,7 @@ params:
 
 # Organism database package
 # help("enrichGO", "clusterProfiler")
-orgDB <- paste("org", params$organism, "eg.db", sep = ".")
+orgDB <- paste("org.", params$organism, ".eg.db", sep = "")
 
 # Load the required libraries
 packages <- c(
