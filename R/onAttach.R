@@ -1,15 +1,14 @@
 .onAttach <- function(libname, pkgname) {
-    packages <- c(
+    imports <- c(
         "bcbioBase",
         "SummarizedExperiment",
         "viridis",
         "DESeq2",
         "DEGreport"
     )
-    lapply(packages, function(package) {
-        if (!package %in% (.packages())) {
-            attachNamespace(package)
-        }
-    })
-    invisible()
+    invisible(lapply(
+        X = imports,
+        FUN = require,
+        character.only = TRUE
+    ))
 }
