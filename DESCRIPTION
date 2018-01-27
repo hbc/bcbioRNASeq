@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: c(
     person(given = "Michael",
            family = "Steinbaugh",
