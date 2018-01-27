@@ -14,6 +14,8 @@
 #' - [BiocGenerics::design].
 #' - [DESeq2::design].
 #'
+#' @return [formula].
+#'
 #' @examples
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),
