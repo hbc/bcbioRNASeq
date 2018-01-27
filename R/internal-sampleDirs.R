@@ -14,17 +14,17 @@
     subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%
         paste0("^", ., "$")
-    sampleDirs <- list.files(subdirs,
-                             pattern = subdirPattern,
-                             full.names = TRUE,
-                             recursive = FALSE) %>%
+    sampleDirs <- list.files(
+        subdirs,
+        pattern = subdirPattern,
+        full.names = TRUE,
+        recursive = FALSE) %>%
         dirname() %>%
         sort() %>%
         unique()
 
     # Ensure removal of nested `projectDir`
-    if (any(grepl(x = basename(sampleDirs),
-                  pattern = projectDirPattern))) {
+    if (any(grepl(x = basename(sampleDirs), pattern = projectDirPattern))) {
         sampleDirs <- sampleDirs %>%
             .[!grepl(x = basename(.), pattern = projectDirPattern)]
     }
@@ -36,9 +36,7 @@
         # Generate names from file paths and make valid
         names <- basename(sampleDirs) %>%
             make.names(unique = TRUE) %>%
-            gsub(x = .,
-                 pattern = "\\.",
-                 replacement = "_")
+            gsub(x = ., pattern = "\\.", replacement = "_")
         sampleDirs <- normalizePath(sampleDirs) %>%
             setNames(names)
         message(paste(length(sampleDirs), "samples detected"))
