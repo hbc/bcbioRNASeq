@@ -25,13 +25,13 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4.0),
-    SummarizedExperiment (>= 1.8.0)
+    SummarizedExperiment (>= 1.8.0),
+    bcbioBase (>= 0.0.3),
+    DESeq2 (>= 1.18.0),
+    DEGreport (>= 1.14.0)
 Imports:
-    basejump (>= 0.1.5),
     BiocGenerics (>= 0.24.0),
     cowplot (>= 0.8.0),
-    DEGreport (>= 1.14.0),
-    DESeq2 (>= 1.18.0),
     dplyr (>= 0.7.4),
     edgeR (>= 3.20.0),
     ggplot2 (>= 2.2.1),
@@ -69,7 +69,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    steinbaugh/basejump
+    hbc/bcbioBase
 biocViews:
     DataImport,
     DataRepresentation,
