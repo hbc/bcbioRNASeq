@@ -9,9 +9,16 @@
 #' @return No value.
 #'
 #' @examples
-#' \dontrun{
 #' prepareRNASeqTemplate()
-#' }
+#'
+#' # Clean up
+#' unlink(c(
+#'     "_footer.Rmd",
+#'     "_header.Rmd",
+#'     "_output.yaml",
+#'     "bibliography.bib",
+#'     "setup.R"
+#' ))
 NULL
 
 

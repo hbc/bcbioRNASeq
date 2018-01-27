@@ -24,9 +24,16 @@ No value.
 Prepare RNA-Seq R Markdown Template
 }
 \examples{
-\dontrun{
 prepareRNASeqTemplate()
-}
+
+# Clean up
+unlink(c(
+    "_footer.Rmd",
+    "_header.Rmd",
+    "_output.yaml",
+    "bibliography.bib",
+    "setup.R"
+))
 }
 \author{
 Michael Steinbaugh
