@@ -45,10 +45,11 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "exonic mapping rate",
-             x = "sample",
-             y = "exonic mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n")) +
+        labs(
+            title = "exonic mapping rate",
+            x = "sample",
+            y = "exonic mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)

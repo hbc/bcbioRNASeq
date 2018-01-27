@@ -45,10 +45,11 @@ NULL
             fill = "interestingGroups")
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
-        labs(title = "counts per gene",
-             x = "sample",
-             y = "log10 counts per gene",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "counts per gene",
+            x = "sample",
+            y = "log10 counts per gene",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(fill)) {
         p <- p + fill
     }

@@ -115,10 +115,11 @@ NULL
     ) +
         geom_point(size = 4) +
         coord_fixed() +
-        labs(title = "pca",
-             x = paste0("pc1: ", percentVar[[1]], "% variance"),
-             y = paste0("pc2: ", percentVar[[2]], "% variance"),
-             color = interestingGroupsName)
+        labs(
+            title = "pca",
+            x = paste0("pc1: ", percentVar[[1]], "% variance"),
+            y = paste0("pc2: ", percentVar[[2]], "% variance"),
+            color = interestingGroupsName)
 
     if (!is.null(color)) {
         p <- p + color

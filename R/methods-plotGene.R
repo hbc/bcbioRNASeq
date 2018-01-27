@@ -111,10 +111,11 @@ NULL
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)) +
-            labs(title = symbol,
-                 x = "sample",
-                 y = countsAxisLabel,
-                 color = paste(interestingGroups, collapse = ":\n")) +
+            labs(
+                title = symbol,
+                x = "sample",
+                y = countsAxisLabel,
+                color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
             p <- p + color

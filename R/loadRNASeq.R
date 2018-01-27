@@ -254,9 +254,10 @@ loadRNASeq <- function(
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
             set_colnames(
-                gsub(x = make.names(colnames(.), unique = TRUE),
-                     pattern = "\\.",
-                     replacement = "_")
+                gsub(
+                    x = make.names(colnames(.), unique = TRUE),
+                    pattern = "\\.",
+                    replacement = "_")
             ) %>%
             column_to_rownames("id") %>%
             as.matrix()

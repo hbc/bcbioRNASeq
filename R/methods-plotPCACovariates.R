@@ -67,7 +67,7 @@ NULL
         col <- metrics
     } else {
         stop("'metrics' must be 'TRUE/FALSE' or character vector",
-             call. = FALSE)
+            call. = FALSE)
     }
 
     # Stop on 1 column

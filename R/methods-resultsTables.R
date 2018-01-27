@@ -72,14 +72,18 @@ NULL
     degLFCUp <- resTbl[["degLFCUpFile"]]
     degLFCDown <- resTbl[["degLFCDownFile"]]
     mdList(c(
-        paste0("[`", all, "`](", file.path(dir, all), "): ",
-               "All genes, sorted by Ensembl identifier."),
-        paste0("[`", deg, "`](", file.path(dir, deg), "): ",
-               "Genes that pass the alpha (FDR) cutoff."),
-        paste0("[`", degLFCUp, "`](", file.path(dir, degLFCUp), "): ",
-               "Upregulated DEG; positive log2 fold change."),
-        paste0("[`", degLFCDown, "`](", file.path(dir, degLFCDown), "): ",
-               "Downregulated DEG; negative log2 fold change.")
+        paste0(
+            "[`", all, "`](", file.path(dir, all), "): ",
+            "All genes, sorted by Ensembl identifier."),
+        paste0(
+            "[`", deg, "`](", file.path(dir, deg), "): ",
+            "Genes that pass the alpha (FDR) cutoff."),
+        paste0(
+            "[`", degLFCUp, "`](", file.path(dir, degLFCUp), "): ",
+            "Upregulated DEG; positive log2 fold change."),
+        paste0(
+            "[`", degLFCDown, "`](", file.path(dir, degLFCDown), "): ",
+            "Downregulated DEG; negative log2 fold change.")
     ))
 }
 
@@ -144,7 +148,7 @@ NULL
         arrange(!!sym("padj"))
     degLFC <- deg %>%
         .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+            .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     degLFCUp <- degLFC %>%
         .[.[["log2FoldChange"]] > 0, , drop = FALSE]
     degLFCDown <- degLFC %>%
@@ -180,16 +184,16 @@ NULL
                 level = headerLevel,
                 asis = TRUE)
         }
-        mdList(
-            c(paste(nrow(all), "genes in count matrix"),
-              paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-              paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
-              paste("alpha cutoff:", alpha),
-              paste("lfc cutoff:", lfc, "(applied in tables only)"),
-              paste("deg pass alpha:", nrow(deg), "genes"),
-              paste("deg lfc up:", nrow(degLFCUp), "genes"),
-              paste("deg lfc down:", nrow(degLFCDown), "genes")),
-            asis = TRUE)
+        mdList(c(
+            paste(nrow(all), "genes in count matrix"),
+            paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+            paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
+            paste("alpha cutoff:", alpha),
+            paste("lfc cutoff:", lfc, "(applied in tables only)"),
+            paste("deg pass alpha:", nrow(deg), "genes"),
+            paste("deg lfc up:", nrow(degLFCUp), "genes"),
+            paste("deg lfc down:", nrow(degLFCDown), "genes")
+        ), asis = TRUE)
     }
 
     if (isTRUE(write)) {

@@ -99,10 +99,11 @@ NULL
     ) +
         geom_jitter(size = 4) +
         expand_limits(y = 0) +
-        labs(title = "gender markers",
-             x = "gene",
-             y = countsAxisLabel,
-             color = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "gender markers",
+            x = "gene",
+            y = countsAxisLabel,
+            color = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(color)) {
         p <- p + color
     }

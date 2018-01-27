@@ -49,8 +49,9 @@ setMethod(
 #' @export
 setMethod(
     "design<-",
-    signature(object = "bcbioRNASeq",
-              value = "formula"),
+    signature(
+        object = "bcbioRNASeq",
+        value = "formula"),
     function(object, value) {
         dds <- bcbio(object, "DESeqDataSet")
         design(dds) <- value

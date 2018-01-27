@@ -46,10 +46,11 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "mapped reads",
-             x = "sample",
-             y = "mapped reads (million)",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "mapped reads",
+            x = "sample",
+            y = "mapped reads (million)",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }

@@ -45,10 +45,11 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "intronic mapping rate",
-             x = "sample",
-             y = "intronic mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n")) +
+        labs(
+            title = "intronic mapping rate",
+            x = "sample",
+            y = "intronic mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0, 100)
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
