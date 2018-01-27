@@ -38,6 +38,7 @@
 #' @param legendColor Colors to use for legend labels. Defaults to the
 #'   [viridis::viridis()] palette.
 #' @param title *Optional*. Plot title.
+#' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #' @param ... Passthrough arguments to [pheatmap::pheatmap()].
 #'
 #' @seealso [pheatmap::pheatmap()].

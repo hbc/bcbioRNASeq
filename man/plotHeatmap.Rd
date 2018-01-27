@@ -61,6 +61,8 @@ palette.}
 
 \item{title}{\emph{Optional}. Plot title.}
 
+\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
+
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
 the function will attempt to automatically map gene identifiers to symbols
 from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then

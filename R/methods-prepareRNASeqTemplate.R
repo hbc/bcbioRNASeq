@@ -18,6 +18,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname prepareRNASeqTemplate
+#' @importFrom bcbioBase prepareTemplate
 #' @export
 setMethod(
     "prepareRNASeqTemplate",
