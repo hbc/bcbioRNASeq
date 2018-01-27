@@ -52,7 +52,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
+#' @importFrom bcbioBase camel
 .plotDEGHeatmap <- function(
     results,
     counts,

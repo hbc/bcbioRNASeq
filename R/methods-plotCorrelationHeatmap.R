@@ -149,7 +149,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
-#' @importFrom basejump checkInterestingGroups
+#' @importFrom bcbioBase checkInterestingGroups
 #' @importFrom viridis viridis
 #' @export
 setMethod(
@@ -169,7 +169,7 @@ setMethod(
             stop("DESeqTransform must be rlog or vst", call. = FALSE)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata(object),

@@ -5,7 +5,7 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotGene
+#' @importFrom bcbioBase plotGene
 #'
 #' @inherit plotTotalReads
 #'
@@ -70,7 +70,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   labs theme
@@ -157,7 +157,7 @@ setMethod(
         }
         countsAxisLabel <- normalized
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
 
         counts <- counts(object, normalized = normalized)

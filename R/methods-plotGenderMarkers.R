@@ -124,7 +124,7 @@ setMethod(
         interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGenderMarkers(
             object = tpm(object),
@@ -138,7 +138,7 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
+#' @importFrom bcbioBase detectOrganism
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(

@@ -7,7 +7,7 @@
 #' @rdname aggregateReplicates
 #' @name aggregateReplicates
 #'
-#' @importFrom basejump aggregateReplicates
+#' @importFrom bcbioBase aggregateReplicates
 #'
 #' @inheritParams AllGenerics
 #'

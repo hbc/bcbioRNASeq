@@ -7,7 +7,7 @@
 #' @name bcbio
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @importFrom basejump bcbio bcbio<-
+#' @importFrom bcbioBase bcbio bcbio<-
 #'
 #' @inheritParams AllGenerics
 #'

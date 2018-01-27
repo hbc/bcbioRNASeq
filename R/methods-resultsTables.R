@@ -5,7 +5,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
-#' @inheritParams basejump::annotable
 #'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -16,7 +15,7 @@
 #'   identifier to symbol mappings. If `TRUE`, the function will attempt to
 #'   detect the organism from the gene identifiers (rownames; "ensgene" column)
 #'   and automatically obtain the latest annotations from Ensembl using
-#'   [basejump::annotable()]. If set `FALSE`/`NULL`, then gene annotations will
+#'   [annotable()]. If set `FALSE`/`NULL`, then gene annotations will
 #'   not be added to the results. This is useful when working with a poorly
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.
@@ -24,6 +23,7 @@
 #' @param headerLevel Markdown header level.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
+#' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #'
 #' @return Results [list].
 #'
@@ -83,7 +83,7 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel sanitizeAnnotable snake
+#' @importFrom bcbioBase annotable camel sanitizeAnnotable snake
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym

@@ -13,15 +13,16 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
-#' @inheritParams basejump::gene2symbol
 #' @inheritParams counts
+#' @inheritParams gene2symbol
+#' @inheritParams plotGene
 #'
 #' @param genes *Optional*. Character vector of gene identifiers to plot. These
 #'   must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
 #'   not the gene symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
 #'   the function will attempt to automatically map gene identifiers to symbols
-#'   from Ensembl using [basejump::annotable()]. If set `FALSE`/`NULL`, then
+#'   from Ensembl using [annotable()]. If set `FALSE`/`NULL`, then
 #'   gene2symbol mapping will be disabled. This is useful when working with a
 #'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
 #'   passed in, and must contain the columns `ensgene` and `symbol`. then the
@@ -77,7 +78,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump checkGene2symbol gene2symbol
+#' @importFrom bcbioBase checkGene2symbol gene2symbol
 #' @importFrom dplyr mutate_all
 #' @importFrom pheatmap pheatmap
 #' @importFrom stats setNames
