@@ -20,9 +20,10 @@
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sampleDirs[[1L]],
-                         full.names = FALSE,
-                         recursive = FALSE)
+    subdirs <- list.dirs(
+        sampleDirs[[1]],
+        full.names = FALSE,
+        recursive = FALSE)
     if ("salmon" %in% subdirs) {
         type <- "salmon"
     } else if ("sailfish" %in% subdirs) {
@@ -53,10 +54,11 @@
         countsFromAbundance <- "no"
     }
 
-    tximport(files = sampleFiles,
-             type = type,
-             tx2gene = as.data.frame(tx2gene),
-             importer = read_tsv,
-             countsFromAbundance = countsFromAbundance,
-             ignoreTxVersion = TRUE)
+    tximport(
+        files = sampleFiles,
+        type = type,
+        tx2gene = as.data.frame(tx2gene),
+        importer = read_tsv,
+        countsFromAbundance = countsFromAbundance,
+        ignoreTxVersion = TRUE)
 }

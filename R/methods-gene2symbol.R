@@ -8,6 +8,9 @@
 #'
 #' @inheritParams AllGenerics
 #'
+#' @return [data.frame] containing Ensembl gene identifier (`ensgene`) and
+#'   symbol (`symbol`) mappings.
+#'
 #' @examples
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),

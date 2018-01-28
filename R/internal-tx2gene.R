@@ -3,6 +3,7 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
+#' @importFrom bcbioBase tx2gene
 #' @importFrom dplyr arrange mutate
 #' @importFrom magrittr set_rownames
 #' @importFrom readr read_csv

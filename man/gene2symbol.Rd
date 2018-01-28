@@ -11,6 +11,10 @@
 \arguments{
 \item{object}{Object.}
 }
+\value{
+\link{data.frame} containing Ensembl gene identifier (\code{ensgene}) and
+symbol (\code{symbol}) mappings.
+}
 \description{
 Gene to Symbol Mappings
 }

@@ -65,10 +65,12 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = title,
-             x = "sample",
-             y = "rRNA mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = title,
+            x = "sample",
+            y = "rRNA mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)

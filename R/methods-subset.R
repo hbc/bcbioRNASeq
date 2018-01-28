@@ -194,9 +194,10 @@ NULL
 #' @export
 setMethod(
     "[",
-    signature(x = "bcbioRNASeq",
-              i = "ANY",
-              j = "ANY"),
+    signature(
+        x = "bcbioRNASeq",
+        i = "ANY",
+        j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
         .subset(x, i, j, ..., drop)
     })

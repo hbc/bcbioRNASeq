@@ -66,10 +66,12 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = title,
-             x = "sample",
-             y = "gene count",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = title,
+            x = "sample",
+            y = "gene count",
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
@@ -101,8 +103,9 @@ NULL
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "bcbioRNASeq",
-              counts = "missing"),
+    signature(
+        object = "bcbioRNASeq",
+        counts = "missing"),
     function(
         object,
         interestingGroups,
@@ -135,8 +138,9 @@ setMethod(
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "data.frame",
-              counts = "DESeqDataSet"),
+    signature(
+        object = "data.frame",
+        counts = "DESeqDataSet"),
     function(
         object,
         counts,
@@ -165,6 +169,7 @@ setMethod(
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "data.frame",
-              counts = "matrix"),
+    signature(
+        object = "data.frame",
+        counts = "matrix"),
     .plotGenesDetected)

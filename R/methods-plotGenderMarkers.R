@@ -110,10 +110,11 @@ NULL
     ) +
         geom_jitter(size = 4L) +
         expand_limits(y = 0L) +
-        labs(title = title,
-             x = "gene",
-             y = countsAxisLabel,
-             color = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = title,
+            x = "gene",
+            y = countsAxisLabel,
+            color = paste(interestingGroups, collapse = ":\n"))
 
     if (is(color, "ScaleDiscrete")) {
         p <- p + color

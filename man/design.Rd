@@ -17,6 +17,9 @@
 \item{value}{a \code{formula} used for estimating dispersion
 and fitting Negative Binomial GLMs}
 }
+\value{
+\link{formula}.
+}
 \description{
 Design Formula Accessor
 }

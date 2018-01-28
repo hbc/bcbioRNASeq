@@ -117,10 +117,12 @@ NULL
     ) +
         geom_point(size = 4L) +
         coord_fixed() +
-        labs(title = "pca",
-             x = paste0("pc1: ", percentVar[[1L]], "% variance"),
-             y = paste0("pc2: ", percentVar[[2L]], "% variance"),
-             color = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "pca",
+            x = paste0("pc1: ", percentVar[[1L]], "% variance"),
+            y = paste0("pc2: ", percentVar[[2L]], "% variance"),
+            color = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is(color, "ScaleDiscrete")) {
         p <- p + color

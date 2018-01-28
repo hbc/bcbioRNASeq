@@ -66,9 +66,10 @@ NULL
             color = "interestingGroups",
             fill = "interestingGroups")
     ) +
-        labs(title = title,
-             x = "log10 counts per gene",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "count density",
+            x = "log10 counts per gene",
+            fill = paste(interestingGroups, collapse = ":\n"))
 
     if (style == "line") {
         p <- p + geom_density(fill = NA)
@@ -107,7 +108,7 @@ setMethod(
         fill = viridis::scale_fill_viridis(discrete = TRUE),
         title = TRUE) {
         if (missing(interestingGroups)) {
-             interestingGroups <- bcbioBase::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),

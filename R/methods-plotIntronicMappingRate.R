@@ -52,10 +52,12 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = title,
-             x = "sample",
-             y = "intronic mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n")) +
+        labs(
+            title = title,
+            x = "sample",
+            y = "intronic mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n")
+        ) +
         ylim(0L, 100L)
 
     if (is.numeric(warnLimit)) {
