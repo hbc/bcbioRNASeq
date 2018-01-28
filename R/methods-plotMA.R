@@ -50,7 +50,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump annotable camel checkGene2symbol detectOrganism
+#' @importFrom bcbioBase annotable camel checkGene2symbol detectOrganism
 #' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10
@@ -82,16 +82,16 @@ NULL
         scale_x_log10() +
         annotation_logticks(sides = "b") +
         guides(color = FALSE) +
-        labs(title = title,
-             x = "mean expression across all samples",
-             y = "log2 fold change")
+        labs(
+            title = title,
+            x = "mean expression across all samples",
+            y = "log2 fold change")
     if (!is.null(pointColor) & !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
         p <- p +
             scale_color_manual(
-                values = c("FALSE" = pointColor,
-                           "TRUE" = sigPointColor))
+                values = c("FALSE" = pointColor, "TRUE" = sigPointColor))
     }
     if (!is.null(genes)) {
         if (isTRUE(gene2symbol)) {
@@ -115,9 +115,10 @@ NULL
         p <- p +
             geom_text_repel(
                 data = labels,
-                aes_string(x = "baseMean",
-                     y = "log2FoldChange",
-                     label = labelCol),
+                aes_string(
+                    x = "baseMean",
+                    y = "log2FoldChange",
+                    label = labelCol),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,

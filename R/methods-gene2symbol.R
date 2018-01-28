@@ -4,9 +4,12 @@
 #' @name gene2symbol
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump gene2symbol
+#' @importFrom bcbioBase gene2symbol
 #'
 #' @inheritParams AllGenerics
+#'
+#' @return [data.frame] containing Ensembl gene identifier (`ensgene`) and
+#'   symbol (`symbol`) mappings.
 #'
 #' @examples
 #' load(system.file(

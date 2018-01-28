@@ -33,7 +33,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot labs
 #' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
@@ -58,9 +58,10 @@ NULL
             color = "interestingGroups",
             fill = "interestingGroups")
     ) +
-        labs(title = "count density",
-             x = "log10 counts per gene",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "count density",
+            x = "log10 counts per gene",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (style == "line") {
         p <- p +
             geom_density(fill = NA) +
@@ -90,7 +91,7 @@ setMethod(
         color = viridis::scale_color_viridis(discrete = TRUE),
         fill = viridis::scale_fill_viridis(discrete = TRUE)) {
         if (missing(interestingGroups)) {
-             interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotCountDensity(
             meltLog10(object, normalized = normalized),

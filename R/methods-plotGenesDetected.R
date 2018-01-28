@@ -38,7 +38,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
@@ -59,10 +59,11 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "genes detected",
-             x = "sample",
-             y = "gene count",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "genes detected",
+            x = "sample",
+            y = "gene count",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
@@ -86,8 +87,9 @@ NULL
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "bcbioRNASeq",
-              counts = "missing"),
+    signature(
+        object = "bcbioRNASeq",
+        counts = "missing"),
     function(
         object,
         interestingGroups,
@@ -100,7 +102,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGenesDetected(
             metrics(object),
@@ -120,8 +122,9 @@ setMethod(
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "data.frame",
-              counts = "DESeqDataSet"),
+    signature(
+        object = "data.frame",
+        counts = "DESeqDataSet"),
     function(
         object,
         counts,
@@ -148,6 +151,7 @@ setMethod(
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(object = "data.frame",
-              counts = "matrix"),
+    signature(
+        object = "data.frame",
+        counts = "matrix"),
     .plotGenesDetected)

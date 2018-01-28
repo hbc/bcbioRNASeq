@@ -34,7 +34,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 #' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
@@ -53,10 +53,11 @@ NULL
     ) +
         geom_point(size = 3) +
         geom_smooth(method = "lm", se = FALSE) +
-        labs(title = "gene saturation",
-             x = "mapped reads (million)",
-             y = "genes",
-             color = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "gene saturation",
+            x = "mapped reads (million)",
+            y = "genes",
+            color = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(color)) {
         p <- p + color
     }
@@ -71,8 +72,9 @@ NULL
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(object = "bcbioRNASeq",
-              counts = "missing"),
+    signature(
+        object = "bcbioRNASeq",
+        counts = "missing"),
     function(
         object,
         interestingGroups,
@@ -83,7 +85,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGeneSaturation(
             metrics(object),
@@ -99,6 +101,7 @@ setMethod(
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(object = "data.frame",
-              counts = "matrix"),
+    signature(
+        object = "data.frame",
+        counts = "matrix"),
     .plotGeneSaturation)

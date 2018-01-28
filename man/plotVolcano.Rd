@@ -39,7 +39,7 @@ not the gene symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
 the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[basejump:annotable]{basejump::annotable()}}. If set \code{FALSE}/\code{NULL}, then
+from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
 gene2symbol mapping will be disabled. This is useful when working with a
 poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
 passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the

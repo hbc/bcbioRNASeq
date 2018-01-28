@@ -7,7 +7,7 @@
 #' @rdname aggregateReplicates
 #' @name aggregateReplicates
 #'
-#' @importFrom basejump aggregateReplicates
+#' @importFrom bcbioBase aggregateReplicates
 #'
 #' @inheritParams AllGenerics
 #'
@@ -48,9 +48,10 @@ NULL
     if (!all(grepl(pattern, colnames(object)))) {
         stop("Lane pattern didn't match all samples")
     }
-    stem <- gsub(x = colnames(object),
-                 pattern = pattern,
-                 replacement = "") %>%
+    stem <- gsub(
+        x = colnames(object),
+        pattern = pattern,
+        replacement = "") %>%
         unique() %>%
         sort()
     # Perform [rowSums()] on the matching columns per sample

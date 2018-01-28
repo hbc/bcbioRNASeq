@@ -5,7 +5,7 @@
 #' @rdname sampleMetadata
 #' @name sampleMetadata
 #'
-#' @importFrom basejump sampleMetadata
+#' @importFrom bcbioBase sampleMetadata
 #'
 #' @inheritParams AllGenerics
 #'

@@ -28,7 +28,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
@@ -58,10 +58,11 @@ NULL
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "rRNA mapping rate",
-             x = "sample",
-             y = "rRNA mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "rRNA mapping rate",
+            x = "sample",
+            y = "rRNA mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -93,7 +94,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotRRNAMappingRate(
             metrics(object),

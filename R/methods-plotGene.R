@@ -5,7 +5,7 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotGene
+#' @importFrom bcbioBase plotGene
 #'
 #' @inherit plotTotalReads
 #'
@@ -70,7 +70,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   labs theme
@@ -111,10 +111,11 @@ NULL
             geom_point(size = 4) +
             theme(
                 axis.text.x = element_text(angle = 90)) +
-            labs(title = symbol,
-                 x = "sample",
-                 y = countsAxisLabel,
-                 color = paste(interestingGroups, collapse = ":\n")) +
+            labs(
+                title = symbol,
+                x = "sample",
+                y = countsAxisLabel,
+                color = paste(interestingGroups, collapse = ":\n")) +
             expand_limits(y = 0)
         if (!is.null(color)) {
             p <- p + color
@@ -157,7 +158,7 @@ setMethod(
         }
         countsAxisLabel <- normalized
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
 
         counts <- counts(object, normalized = normalized)

@@ -27,7 +27,8 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump uniteInterestingGroups
+#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom dplyr rename
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs
 #' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
@@ -37,18 +38,26 @@ NULL
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE) {
     metrics <- uniteInterestingGroups(object, interestingGroups)
+
+    # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
+    # The internal camel method has been updated in basejump 0.1.11.
+    if ("x53Bias" %in% colnames(metrics)) {
+        metrics <- rename(metrics, "x5x3Bias" = "x53Bias")
+    }
+
     p <- ggplot(
         metrics,
         mapping = aes_string(
             x = "sampleName",
-            y = "x53Bias",
+            y = "x5x3Bias",
             fill = "interestingGroups")
     ) +
         geom_bar(stat = "identity") +
-        labs(title = "5'->3' bias",
-             x = "sample",
-             y = "5'->3' bias",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = "5'->3' bias",
+            x = "sample",
+            y = "5'->3' bias",
+            fill = paste(interestingGroups, collapse = ":\n"))
     if (!is.null(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
@@ -80,7 +89,7 @@ setMethod(
             return(NULL)
         }
         if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
+            interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plot53Bias(
             metrics(object),

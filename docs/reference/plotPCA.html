@@ -158,10 +158,10 @@ definitions are desired, we recommend using
 <span class='co'># bcbioRNASeq</span>
 <span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Default ggplot color palette</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='error'>Error in grid.Call.graphics(C_setviewport, vp, TRUE): non-finite location and/or size for viewport</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Censor samples</span>
 <span class='fu'>colnames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "group1_1" "group1_2" "group2_1" "group2_2"</div><div class='input'><span class='no'>censor</span> <span class='kw'>&lt;-</span> <span class='st'>"group1_1"</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='no'>censor</span>)</div><div class='img'><img src='plotPCA-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='no'>censor</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -184,11 +184,11 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

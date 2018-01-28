@@ -30,7 +30,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump fixNA
+#' @importFrom bcbioBase fixNA
 #' @importFrom dplyr filter mutate rename
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames
@@ -41,7 +41,7 @@ NULL
     if (isTRUE(coding)) {
         if (!"broadClass" %in% colnames(df)) {
             stop("'coding = TRUE' argument requires 'broadClass' column",
-                 call. = FALSE)
+                call. = FALSE)
         }
         df <- df %>%
             .[.[["broadClass"]] == "coding", , drop = FALSE]

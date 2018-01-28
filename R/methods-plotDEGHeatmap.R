@@ -52,7 +52,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
+#' @importFrom bcbioBase camel
 .plotDEGHeatmap <- function(
     results,
     counts,
@@ -69,7 +69,7 @@ NULL
         # Keep genes that pass log2 fold change cutoff
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+            .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     if (nrow(results) == 0) {
         warning("No genes passed significance cutoffs", call. = FALSE)
         return(NULL)
@@ -97,8 +97,9 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
-              counts = "DESeqTransform"),
+    signature(
+        object = "DESeqResults",
+        counts = "DESeqTransform"),
     function(
         object,
         counts,
@@ -127,16 +128,16 @@ setMethod(
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
-              counts = "DESeqDataSet"),
+    signature(
+        object = "DESeqResults",
+        counts = "DESeqDataSet"),
     function(
         object,
         counts,
         lfc = 0,
         title = TRUE,
         ...) {
-        warning("DESeqTransform for counts is recommended",
-                call. = FALSE)
+        warning("DESeqTransform for counts is recommended", call. = FALSE)
         results <- as.data.frame(object)
         counts <- counts(counts, normalized = TRUE)
         alpha <- metadata(object)[["alpha"]]

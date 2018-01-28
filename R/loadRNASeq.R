@@ -7,7 +7,9 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump annotable camel prepareSummarizedExperiment
+#' @importFrom bcbioBase annotable camel prepareSummarizedExperiment
+#'   readDataVersions readLogFile readProgramVersions readSampleMetadataFile
+#'   readYAML sampleYAMLMetadata sampleYAMLMetrics
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull
@@ -252,9 +254,10 @@ loadRNASeq <- function(
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
             set_colnames(
-                gsub(x = make.names(colnames(.), unique = TRUE),
-                     pattern = "\\.",
-                     replacement = "_")
+                gsub(
+                    x = make.names(colnames(.), unique = TRUE),
+                    pattern = "\\.",
+                    replacement = "_")
             ) %>%
             column_to_rownames("id") %>%
             as.matrix()
