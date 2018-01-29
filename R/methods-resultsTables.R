@@ -41,7 +41,8 @@
 #'     res,
 #'     lfc = 0.25,
 #'     annotable = annotable,
-#'     summary = FALSE,
+#'     summary = TRUE,
+#'     headerLevel = 2,
 #'     write = FALSE)
 #' names(resTbl)
 NULL
@@ -101,7 +102,7 @@ NULL
     lfc = 0,
     annotable = TRUE,
     summary = TRUE,
-    headerLevel = 3,
+    headerLevel = 2,
     write = FALSE,
     dir = getwd(),
     quiet = FALSE) {

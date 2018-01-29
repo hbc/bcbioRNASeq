@@ -10,7 +10,7 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
-  summary = TRUE, headerLevel = 3, write = FALSE, dir = getwd(),
+  summary = TRUE, headerLevel = 2, write = FALSE, dir = getwd(),
   quiet = FALSE)
 }
 \arguments{
@@ -63,7 +63,8 @@ resTbl <- resultsTables(
     res,
     lfc = 0.25,
     annotable = annotable,
-    summary = FALSE,
+    summary = TRUE,
+    headerLevel = 2,
     write = FALSE)
 names(resTbl)
 }
