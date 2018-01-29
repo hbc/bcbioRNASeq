@@ -103,7 +103,7 @@ NULL
     summary = TRUE,
     headerLevel = 3,
     write = FALSE,
-    dir = file.path("results", "differential_expression"),
+    dir = getwd(),
     quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)

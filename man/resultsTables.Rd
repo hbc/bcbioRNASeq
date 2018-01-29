@@ -10,8 +10,8 @@
 resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
-  summary = TRUE, headerLevel = 3, write = FALSE,
-  dir = file.path("results", "differential_expression"), quiet = FALSE)
+  summary = TRUE, headerLevel = 3, write = FALSE, dir = getwd(),
+  quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
