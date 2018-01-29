@@ -41,6 +41,7 @@
 #'     lfc = 0.25,
 #'     annotable = annotable,
 #'     summary = TRUE,
+#'     headerLevel = 2L,
 #'     write = FALSE)
 #' names(resTbl)
 NULL
@@ -100,8 +101,9 @@ NULL
     lfc = 0L,
     annotable = TRUE,
     summary = TRUE,
+    headerLevel = 2L,
     write = FALSE,
-    dir = file.path("results", Sys.Date(), "differential_expression"),
+    dir = getwd(),
     quiet = FALSE) {
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
