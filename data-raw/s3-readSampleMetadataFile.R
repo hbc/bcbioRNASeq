@@ -4,7 +4,12 @@ uploadDir <- system.file(
     package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir)
 meta <- sampleMetadata(bcb) %>%
-    # Add required `fileName` column
-    mutate(fileName = paste0(sampleID, ".fastq.gz")) %>%
+    mutate(
+        # Add required `fileName` column
+        fileName = paste0(sampleID, ".fastq.gz"),
+        # Ensure `sampleID` and `sampleName` aren't defined
+        sampleID = NULL,
+        sampleName = NULL
+    ) %>%
     select(fileName, everything())
 write_csv(meta, path = "~/Desktop/sample_metadata.csv")
