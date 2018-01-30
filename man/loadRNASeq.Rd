@@ -19,7 +19,7 @@ is used for PCA and heatmap QC functions.}
 
 \item{sampleMetadataFile}{\emph{Optional}. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file.}
+file. Remote URLs are supported.}
 
 \item{annotable}{\emph{Optional}. User-defined gene annotations (a.k.a.
 "annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should

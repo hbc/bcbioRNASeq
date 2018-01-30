@@ -26,7 +26,7 @@
 #'   is used for PCA and heatmap QC functions.
 #' @param sampleMetadataFile *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file.
+#'   file. Remote URLs are supported.
 #' @param annotable *Optional*. User-defined gene annotations (a.k.a.
 #'   "annotable"), which will be slotted into [rowData()]. Typically this should
 #'   be left undefined. By default, the function will automatically generate an
@@ -178,8 +178,11 @@ loadRNASeq <- function(
     yaml <- readYAML(yamlFile)
 
     # Sample metadata ==========================================================
-    if (!is.null(sampleMetadataFile)) {
-        sampleMetadataFile <- normalizePath(sampleMetadataFile)
+    if (is_string(sampleMetadataFile)) {
+        # Normalize the path of local files
+        if (file.exists(sampleMetadataFile)) {
+            sampleMetadataFile <- normalizePath(sampleMetadataFile)
+        }
         sampleMetadata <- readSampleMetadataFile(
             sampleMetadataFile,
             lanes = lanes)
