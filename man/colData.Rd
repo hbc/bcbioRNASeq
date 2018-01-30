@@ -15,6 +15,9 @@
 
 \item{value}{Value to assign.}
 }
+\value{
+\link{DataFrame}.
+}
 \description{
 Improved assignment method support for \link{bcbioRNASeq} object.
 

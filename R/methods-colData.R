@@ -14,6 +14,8 @@
 #' @seealso
 #' `help("colData", "SummarizedExperiment")`
 #'
+#' @return [DataFrame].
+#'
 #' @examples
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),

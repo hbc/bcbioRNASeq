@@ -24,7 +24,7 @@
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,7 +54,7 @@
         <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -64,12 +64,12 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
+
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -77,7 +77,7 @@
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
       </header>
 
       <div class="row">
@@ -86,9 +86,9 @@
     <h1>Plot Volcano</h1>
     </div>
 
-    
+
     <p>Plot Volcano</p>
-    
+
 
     <pre class="usage"><span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -105,7 +105,7 @@
   <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
   <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -139,7 +139,7 @@ gene symbols.</p></td>
       <th>gene2symbol</th>
       <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
 the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using <code>annotable()</code>. If set <code>FALSE</code>/<code>NULL</code>, then
+from Ensembl using <code><a href='annotable.html'>annotable()</a></code>. If set <code>FALSE</code>/<code>NULL</code>, then
 gene2symbol mapping will be disabled. This is useful when working with a
 poorly annotated genome. Alternatively, a gene2symbol data.frame can be
 passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
@@ -182,18 +182,18 @@ Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
       <td><p>Show LFC and P value histograms.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Volcano plot arranged as grid (<code>grid = TRUE</code>), or <code>show()</code>
 individual ggplot (<code>grid = FALSE</code>).</p>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p>This function is an updated variant of
 <code>CHBUtils::volcano_density_plot()</code>.</p>
 <p>Other Differential Expression Plots: <code>plotMA</code></p>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
@@ -223,16 +223,16 @@ individual ggplot (<code>grid = FALSE</code>).</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
+
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
+
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    
+
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
   </div>

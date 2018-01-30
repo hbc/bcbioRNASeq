@@ -45,9 +45,7 @@ NULL
         column <- names(arguments)[[a]]
         argument <- arguments[[a]]
         match <- sampleMetadata %>%
-            .[.[[column]] %in% argument,
-              "sampleID",
-              drop = TRUE]
+            .[.[[column]] %in% argument, "sampleID", drop = TRUE]
         # Check for match failure
         if (!length(match)) {
             warn(paste(

@@ -76,11 +76,13 @@ NULL
     }) %>%
         bind_cols() %>%
         set_colnames(alpha) %>%
-        set_rownames(c("LFC > 0 (up)",
-                       "LFC < 0 (down)",
-                       "outliers",
-                       "low counts",
-                       "cutoff")) %>%
+        set_rownames(c(
+            "LFC > 0 (up)",
+            "LFC < 0 (down)",
+            "outliers",
+            "low counts",
+            "cutoff"
+        )) %>%
         kable(caption = caption)
 }
 

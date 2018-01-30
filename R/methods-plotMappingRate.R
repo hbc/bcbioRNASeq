@@ -54,10 +54,12 @@ NULL
     ) +
         geom_bar(stat = "identity") +
         ylim(0L, 100L) +
-        labs(title = title,
-             x = "sample",
-             y = "mapping rate (%)",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = title,
+            x = "sample",
+            y = "mapping rate (%)",
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)

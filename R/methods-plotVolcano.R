@@ -151,12 +151,14 @@ NULL
 
     # Plot ranges ==============================================================
     # Get range of LFC and P values to set up plot borders
-    rangeLFC <-
-        c(floor(min(na.omit(data[["log2FoldChange"]]))),
-          ceiling(max(na.omit(data[["log2FoldChange"]]))))
-    rangeNegLog10Pvalue <-
-        c(floor(min(na.omit(data[["negLog10Pvalue"]]))),
-          ceiling(max(na.omit(data[["negLog10Pvalue"]]))))
+    rangeLFC <- c(
+        floor(min(na.omit(data[["log2FoldChange"]]))),
+        ceiling(max(na.omit(data[["log2FoldChange"]])))
+    )
+    rangeNegLog10Pvalue <- c(
+        floor(min(na.omit(data[["negLog10Pvalue"]]))),
+        ceiling(max(na.omit(data[["negLog10Pvalue"]])))
+    )
 
     # LFC density histogram ====================================================
     lfcDensity <- data[["log2FoldChange"]] %>%
@@ -171,11 +173,13 @@ NULL
     ) +
         geom_density() +
         scale_x_continuous(limits = rangeLFC) +
-        labs(x = "log2 fold change",
-             y = "") +
+        labs(
+            x = "log2 fold change",
+            y = "") +
         # Don't label density y-axis
-        theme(axis.text.y = element_blank(),
-              axis.ticks.y = element_blank())
+        theme(
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
     if (direction == "both" | direction == "up") {
         lfcHist <- lfcHist +
             geom_ribbon(
@@ -201,9 +205,9 @@ NULL
     pvalueDensity <- data[["negLog10Pvalue"]] %>%
         na.omit() %>%
         density()
-    pvalueDensityDf <-
-        data.frame(x = pvalueDensity[["x"]],
-                   y = pvalueDensity[["y"]])
+    pvalueDensityDf <- data.frame(
+        x = pvalueDensity[["x"]],
+        y = pvalueDensity[["y"]])
     pvalueHist <- ggplot(
         data,
         mapping = aes_string(x = "negLog10Pvalue")
@@ -217,11 +221,13 @@ NULL
             fill = shadeColor,
             alpha = shadeAlpha
         ) +
-        labs(x = paste("-log10", pvalTitle),
-             y = "") +
+        labs(
+            x = paste("-log10", pvalTitle),
+            y = "") +
         # Don't label density y-axis
-        theme(axis.text.y = element_blank(),
-              axis.ticks.y = element_blank())
+        theme(
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank())
 
     # Volcano plot =============================================================
     volcano <- ggplot(
@@ -230,8 +236,9 @@ NULL
             x = "log2FoldChange",
             y = "negLog10Pvalue")
     ) +
-        labs(x = "log2 fold change",
-             y = paste("-log10", pvalTitle)) +
+        labs(
+            x = "log2 fold change",
+            y = paste("-log10", pvalTitle)) +
         geom_point(
             alpha = pointAlpha,
             color = pointOutlineColor,
@@ -259,23 +266,23 @@ NULL
                 size = 4L)
     }
     if (direction == "both" | direction == "up") {
-        volcanoPolyUp <-
-            with(data,
-                 expr = data.frame(
-                     x = as.numeric(c(
-                         lfc,
-                         lfc,
-                         max(rangeLFC),
-                         max(rangeLFC)
-                     )),
-                     y = as.numeric(c(
-                         -log10(alpha + 1e-10),
-                         max(rangeNegLog10Pvalue),
-                         max(rangeNegLog10Pvalue),
-                         -log10(alpha + 1e-10)
-                     ))
-                 )
+        volcanoPolyUp <- with(
+            data,
+            expr = data.frame(
+                x = as.numeric(c(
+                    lfc,
+                    lfc,
+                    max(rangeLFC),
+                    max(rangeLFC)
+                )),
+                y = as.numeric(c(
+                    -log10(alpha + 1e-10),
+                    max(rangeNegLog10Pvalue),
+                    max(rangeNegLog10Pvalue),
+                    -log10(alpha + 1e-10)
+                ))
             )
+        )
         volcano <- volcano +
             geom_polygon(
                 data = volcanoPolyUp,
@@ -284,23 +291,23 @@ NULL
                 alpha = shadeAlpha)
     }
     if (direction == "both" | direction == "down") {
-        volcanoPolyDown <-
-            with(data,
-                 expr = data.frame(
-                     x = as.numeric(c(
-                         -lfc,
-                         -lfc,
-                         min(rangeLFC),
-                         min(rangeLFC)
-                     )),
-                     y = as.numeric(c(
-                         -log10(alpha + 1e-10),
-                         max(rangeNegLog10Pvalue),
-                         max(rangeNegLog10Pvalue),
-                         -log10(alpha + 1e-10)
-                     ))
-                 )
+        volcanoPolyDown <- with(
+            data,
+            expr = data.frame(
+                x = as.numeric(c(
+                    -lfc,
+                    -lfc,
+                    min(rangeLFC),
+                    min(rangeLFC)
+                )),
+                y = as.numeric(c(
+                    -log10(alpha + 1e-10),
+                    max(rangeNegLog10Pvalue),
+                    max(rangeNegLog10Pvalue),
+                    -log10(alpha + 1e-10)
+                ))
             )
+        )
         volcano <- volcano +
             geom_polygon(
                 data = volcanoPolyDown,

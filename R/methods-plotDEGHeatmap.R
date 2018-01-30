@@ -81,8 +81,8 @@ NULL
         .[.[["padj"]] < alpha, , drop = FALSE] %>%
         # Keep genes that pass log2 fold change cutoff
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-        .[.[["log2FoldChange"]] > lfc | .[["log2FoldChange"]] < -lfc, ,
-          drop = FALSE]
+        .[.[["log2FoldChange"]] > lfc |
+            .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     if (nrow(results) == 0L) {
         warn("No genes passed significance cutoffs")
         return(NULL)
@@ -146,8 +146,9 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
-              counts = "DESeqDataSet"),
+    signature(
+        object = "DESeqResults",
+        counts = "DESeqDataSet"),
     .plotDEGHeatmap.DESeqResults)
 
 
@@ -157,8 +158,9 @@ setMethod(
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
-              counts = "DESeqTransform"),
+    signature(
+        object = "DESeqResults",
+        counts = "DESeqTransform"),
     .plotDEGHeatmap.DESeqResults)
 
 
@@ -168,6 +170,7 @@ setMethod(
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(object = "DESeqResults",
-              counts = "matrix"),
+    signature(
+        object = "DESeqResults",
+        counts = "matrix"),
     .plotDEGHeatmap.DESeqResults)

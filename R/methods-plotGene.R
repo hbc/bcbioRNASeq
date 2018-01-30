@@ -127,10 +127,12 @@ NULL
         ) +
             geom_point(size = 4L) +
             theme(axis.text.x = element_text(angle = 90L)) +
-            labs(title = symbol,
-                 x = "sample",
-                 y = countsAxisLabel,
-                 color = paste(interestingGroups, collapse = ":\n")) +
+            labs(
+                title = symbol,
+                x = "sample",
+                y = countsAxisLabel,
+                color = paste(interestingGroups, collapse = ":\n")
+            ) +
             expand_limits(y = 0L)
         if (is(color, "ScaleDiscrete")) {
             p <- p + color

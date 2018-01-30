@@ -52,10 +52,11 @@ NULL
             fill = "interestingGroups")
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
-        labs(title = title,
-             x = "sample",
-             y = "log10 counts per gene",
-             fill = paste(interestingGroups, collapse = ":\n"))
+        labs(
+            title = title,
+            x = "sample",
+            y = "log10 counts per gene",
+            fill = paste(interestingGroups, collapse = ":\n"))
 
     if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
