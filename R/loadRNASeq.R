@@ -179,7 +179,7 @@ loadRNASeq <- function(
     if (!is.null(sampleMetadataFile)) {
         sampleMetadataFile <- normalizePath(sampleMetadataFile)
         sampleMetadata <- readSampleMetadataFile(
-            file = sampleMetadataFile,
+            sampleMetadataFile,
             lanes = lanes)
     } else {
         sampleMetadata <- sampleYAMLMetadata(yaml)
