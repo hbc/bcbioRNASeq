@@ -181,3 +181,17 @@ test_that("transformationLimit", {
     transformationLimit <- metadata(bcb)[["transformationLimit"]]
     expect_equal(transformationLimit, 0L)
 })
+
+test_that("User input sample metadata", {
+    sampleMetadataFile <- "http://bcbiornaseq.seq.cloud/sample_metadata.csv"
+    bcb <- suppressWarnings(suppressMessages(
+        loadRNASeq(
+        uploadDir = uploadDir,
+        sampleMetadataFile = sampleMetadataFile)
+    ))
+    expect_s4_class(bcb, "bcbioRNASeq")
+    expect_identical(
+        metadata(bcb)[["sampleMetadataFile"]],
+        sampleMetadataFile
+    )
+})
