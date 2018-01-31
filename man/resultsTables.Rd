@@ -35,6 +35,9 @@ can be passed in.}
 
 \item{summary}{Show summary statistics.}
 
+\item{headerLevel}{R Markdown header level. Applies only when
+\code{summary = TRUE}.}
+
 \item{write}{Write CSV files to disk.}
 
 \item{dir}{Directory path where to write files.}

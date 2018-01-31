@@ -20,6 +20,8 @@
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.
 #' @param summary Show summary statistics.
+#' @param headerLevel R Markdown header level. Applies only when
+#'   `summary = TRUE`.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
 #' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
