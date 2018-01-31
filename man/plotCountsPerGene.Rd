@@ -12,11 +12,12 @@ plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", fill = viridis::scale_fill_viridis(discrete = TRUE),
-  flip = TRUE)
+  flip = TRUE, title = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
   interestingGroups = "sampleName",
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,6 +39,8 @@ for more information.}
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Include plot title.}
 }
 \value{
 \link{ggplot}.

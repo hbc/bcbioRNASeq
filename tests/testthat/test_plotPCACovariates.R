@@ -33,9 +33,9 @@ test_that("default", {
     expect_equal(
         p[["effectsSignificantCovars"]] %>%
             na.omit() %>%
-            .[. > 0] %>%
+            .[. > 0L] %>%
             .[(sort(names(.)))] %>%
-            round(digits = 3),
+            round(digits = 3L),
         c(duplicationRateOfMapped = 0.610,
           exonicRate = 0.610,
           intergenicRate = 0.610,
@@ -53,7 +53,7 @@ test_that("defined metrics", {
         c("exonicRate", "intronicRate")
     )
     expect_equal(
-        round(p[["effectsSignificantCovars"]], digits = 3),
+        round(p[["effectsSignificantCovars"]], digits = 3L),
         c(exonicRate = 0.610,
           intronicRate = 0.610)
     )
@@ -63,11 +63,26 @@ test_that("invalid parameters", {
     # Error on invalid column
     expect_error(
         plotPCACovariates(bcb, metrics = c("FOO", "BAR")),
-        "Failed to select valid 'metrics' for plot"
+        "Failed to select valid `metrics` columns to plot"
     )
     # More than 1 metric is required
     expect_error(
         plotPCACovariates(bcb, metrics = "exonicRate"),
-        "'degCovariates\\(\\)' requires at least 2 metadata columns"
+        "`degCovariates\\(\\)` requires at least 2 metadata columns"
     )
+})
+
+test_that("transformationLimit", {
+    skip <- bcb
+    assays(skip)[["rlog"]] <- NULL
+    expect_warning(
+        suppressMessages(
+            plotPCACovariates(skip, normalized = "rlog")
+        ),
+        "rlog counts not defined. Using log2 tmm counts instead."
+    )
+    p <- suppressWarnings(suppressMessages(
+        plotPCA(skip, normalized = "rlog")
+    ))
+    expect_is(p, "ggplot")
 })

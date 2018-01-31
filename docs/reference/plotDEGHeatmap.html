@@ -95,12 +95,22 @@ function.</p>
 
     <pre class="usage"><span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults,DESeqTransform</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults,DESeqTransform</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults,matrix</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -112,25 +122,66 @@ function.</p>
     </tr>
     <tr>
       <th>counts</th>
-      <td><p>Secondary object containing a normalized count matrix.</p></td>
+      <td><p>Secondary object containing a normalized counts matrix.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Passthrough arguments to <code>plotHeatmap()</code>.</p></td>
     </tr>
     <tr>
+      <th>alpha</th>
+      <td><p><em>Optional</em> Alpha level cutoff. If missing, the function will
+use the alpha level defined in the object.</p></td>
+    </tr>
+    <tr>
       <th>lfc</th>
       <td><p>log2 fold change ratio cutoff.</p></td>
     </tr>
     <tr>
+      <th>gene2symbol</th>
+      <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using <code>annotable()</code>. If set <code>FALSE</code>/<code>NULL</code>, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol data.frame can be
+passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
+    </tr>
+    <tr>
+      <th>annotationCol</th>
+      <td><p><em>Optional</em>. data.frame that defines annotation
+mappings for the columns.</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>Character indicating if the values should be centered and scaled
+in either the row direction or the column direction, or none. Corresponding
+values are "row", "column" and "none".</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Desired ggplot color scale. Defaults to
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>viridis::scale_color_viridis()</a></code>. Must supply discrete values. When set to
+<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>legendColor</th>
+      <td><p>Colors to use for legend labels. Defaults to the
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>title</th>
-      <td><p><em>Optional</em>. Plot title.</p></td>
+      <td><p>Include plot title.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Graphical output only.</p>
+    <p>When column clustering is disabled, the columns are sorted by the interesting
+groups (<code>interestingGroups</code>) specified in the bcbioRNASeq and then the
+sample names.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -153,13 +204,16 @@ function.</p>
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Use our stashed gene2symbol for better speed</span>
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb</span>)
+<span class='no'>annotationCol</span> <span class='kw'>&lt;-</span> <span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
+    <span class='no'>.</span>[, <span class='fu'>interestingGroups</span>(<span class='no'>bcb</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]
 
 <span class='co'># DESeqResults, DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(
     <span class='no'>res</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>rld</span>,
-    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
+    <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='no'>annotationCol</span>)</div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqResults, DESeqDataSet</span>
 <span class='co'># Using default ggplot2 colors</span>
 <span class='fu'>plotDEGHeatmap</span>(
@@ -167,14 +221,14 @@ function.</p>
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds</span>,
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: DESeqTransform for counts is recommended</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

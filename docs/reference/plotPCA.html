@@ -92,9 +92,10 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='no'>interestingGroups</span>,
-  <span class='no'>genes</span>, <span class='no'>censorSamples</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>returnData</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
+  <span class='no'>interestingGroups</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>returnData</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -104,15 +105,21 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>transform</th>
-      <td><p>String specifying rlog (<strong>recommended</strong>) or vst
-DESeqTransform slotted inside the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
+      <th>normalized</th>
+      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
+(<code>TRUE</code>), or additional normalization methods:</p><ul>
+<li><p><code>tpm</code>: Transcripts per million.</p></li>
+<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
+<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
+<li><p><code>vst</code>: Variance stabilizing transformation
+(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
       <td><p><em>Optional</em>. Interesting groups to use for point
 appearance. If missing, color defaults to all <code>interestingGroups</code>
-parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
+parameters set in the bcbioRNASeq object.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -143,7 +150,7 @@ definitions are desired, we recommend using
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p>ggplot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

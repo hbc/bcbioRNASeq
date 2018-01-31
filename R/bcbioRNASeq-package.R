@@ -12,7 +12,7 @@
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #'
 #' @importFrom magrittr %>%
-#' @importFrom rlang .data
+#' @importFrom rlang .data abort inform warn
 NULL
 
 #' @importFrom utils globalVariables

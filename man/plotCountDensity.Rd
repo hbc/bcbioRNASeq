@@ -13,12 +13,12 @@ plotCountDensity(object, ...)
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", style = "solid",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE))
+  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotCountDensity}{data.frame}(object,
   interestingGroups = "sampleName", style = "solid",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE))
+  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,6 +46,8 @@ definitions are desired, we recommend using
 \code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+
+\item{title}{Include plot title.}
 }
 \value{
 \link{ggplot}.

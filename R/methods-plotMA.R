@@ -96,7 +96,7 @@ NULL
     if (!is.null(genes)) {
         if (isTRUE(gene2symbol)) {
             organism <- pull(data, "ensgene") %>%
-                .[[1]] %>%
+                .[[1L]] %>%
                 detectOrganism()
             gene2symbol <- annotable(organism, format = "gene2symbol")
         }
@@ -110,7 +110,7 @@ NULL
         labels <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
         if (!nrow(labels)) {
-            stop("Failed to label any gene identifiers")
+            abort("Failed to label any gene identifiers")
         }
         p <- p +
             geom_text_repel(
@@ -123,12 +123,12 @@ NULL
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
-                force = 1,
+                force = 1L,
                 point.padding = unit(0.75, "lines"),
                 segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4)
+                size = 4L)
     }
     p
 }
@@ -149,16 +149,22 @@ setMethod(
         gene2symbol = TRUE,
         pointColor = "darkgray",
         sigPointColor = "red",
-        labelColor = "black") {
+        labelColor = "black",
+        title = TRUE) {
+        results <- as.data.frame(object)
+        alpha <- metadata(object)[["alpha"]]
+        if (isTRUE(title)) {
+            title <- .resContrastName(object)
+        }
         .plotMA(
-            object = as.data.frame(object),
-            alpha = metadata(object)[["alpha"]],
+            object = results,
+            alpha = alpha,
             genes = genes,
             gene2symbol = gene2symbol,
             pointColor = pointColor,
             sigPointColor = sigPointColor,
             labelColor = labelColor,
-            title = .resContrastName(object)
+            title = title
         )
     })
 

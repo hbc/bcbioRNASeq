@@ -72,10 +72,10 @@ NULL
     object,
     alpha = 0.01,
     padj = TRUE,
-    lfc = 1,
+    lfc = 1L,
     genes = NULL,
     gene2symbol = TRUE,
-    ntop = 0,
+    ntop = 0L,
     direction = "both",
     pointColor = "gray",
     pointAlpha = 0.75,
@@ -85,8 +85,8 @@ NULL
     labelColor = "black",
     histograms = TRUE) {
     if (!any(direction %in% c("both", "down", "up")) |
-        length(direction) > 1) {
-        stop("Direction must be both, up, or down", call. = FALSE)
+        length(direction) > 1L) {
+        abort("Direction must be both, up, or down")
     }
 
     # Generate data `tibble`
@@ -95,7 +95,7 @@ NULL
         as_tibble() %>%
         camel(strict = FALSE) %>%
         # Keep genes with non-zero counts
-        .[.[["baseMean"]] > 0, , drop = FALSE] %>%
+        .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
         # Keep genes with a fold change
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         # Keep genes with a P value
@@ -104,7 +104,7 @@ NULL
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
     if (isTRUE(gene2symbol)) {
         organism <- pull(data, "ensgene") %>%
-            .[[1]] %>%
+            .[[1L]] %>%
             detectOrganism()
         gene2symbol <- annotable(organism, format = "gene2symbol")
     }
@@ -143,8 +143,8 @@ NULL
     if (!is.null(genes)) {
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-    } else if (ntop > 0) {
-        volcanoText <- data[1:ntop, , drop = FALSE]
+    } else if (ntop > 0L) {
+        volcanoText <- data[1L:ntop, , drop = FALSE]
     } else {
         volcanoText <- NULL
     }
@@ -186,7 +186,7 @@ NULL
                 data = lfcDensityDf %>%
                     .[.[["x"]] > lfc, ],
                 mapping = aes_string(x = "x", ymax = "y"),
-                ymin = 0,
+                ymin = 0L,
                 fill = shadeColor,
                 alpha = shadeAlpha)
     }
@@ -196,7 +196,7 @@ NULL
                 data = lfcDensityDf %>%
                     .[.[["x"]] < -lfc, ],
                 mapping = aes_string(x = "x", ymax = "y"),
-                ymin = 0,
+                ymin = 0L,
                 fill = shadeColor,
                 alpha = shadeAlpha)
     }
@@ -217,7 +217,7 @@ NULL
             data = pvalueDensityDf %>%
                 .[.[["x"]] > -log10(alpha + 1e-10), ],
             mapping = aes_string(x = "x", ymax = "y"),
-            ymin = 0,
+            ymin = 0L,
             fill = shadeColor,
             alpha = shadeAlpha
         ) +
@@ -243,7 +243,7 @@ NULL
             alpha = pointAlpha,
             color = pointOutlineColor,
             fill = pointColor,
-            pch = 21) +
+            pch = 21L) +
         theme(legend.position = "none") +
         scale_x_continuous(limits = rangeLFC)
     if (!is.null(volcanoText)) {
@@ -258,12 +258,12 @@ NULL
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
                 fontface = "bold",
-                force = 1,
+                force = 1L,
                 point.padding = unit(0.75, "lines"),
                 segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4)
+                size = 4L)
     }
     if (direction == "both" | direction == "up") {
         volcanoPolyUp <- with(
@@ -324,12 +324,12 @@ NULL
             # Coordinates are relative to lower left corner
             draw_plot(
                 lfcHist,
-                x = 0, y = 0.7, width = 0.5, height = 0.3) +
+                x = 0L, y = 0.7, width = 0.5, height = 0.3) +
             draw_plot(
                 pvalueHist,
                 x = 0.5, y = 0.7, width = 0.5, height = 0.3) +
             draw_plot(
-                volcano, x = 0, y = 0, width = 1, height = 0.7)
+                volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
     } else {
         volcano + ggtitle("volcano")
     }
@@ -348,10 +348,10 @@ setMethod(
         object,
         alpha,
         padj = TRUE,
-        lfc = 1,
+        lfc = 1L,
         genes = NULL,
         gene2symbol = TRUE,
-        ntop = 0,
+        ntop = 0L,
         direction = "both",
         shadeColor = "green",
         shadeAlpha = 0.25,

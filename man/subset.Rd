@@ -73,6 +73,8 @@
 \description{
 Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
 internal \link{DESeqDataSet} and count transformations are rescaled automatically.
+DESeq2 transformations can be disabled on large subset operations by setting
+\code{transform = FALSE}.
 }
 \examples{
 load(system.file(
@@ -93,8 +95,8 @@ bcb[ensgene, ]
 # Subset by both genes and samples
 bcb[ensgene, samples]
 
-# Skip normalization
-bcb[ensgene, samples, skipNorm = TRUE]
+# Skip DESeq2 transformations
+bcb[ensgene, samples, transform = FALSE]
 }
 \seealso{
 \code{help("[", "base")}.

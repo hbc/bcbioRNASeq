@@ -7,6 +7,7 @@
 #'
 #' @inheritParams AllGenerics
 #' @inheritParams plotGene
+#' @inheritParams plotTotalReads
 #'
 #' @param organism *Optional*. Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
@@ -52,17 +53,26 @@ NULL
     organism,
     metadata,
     countsAxisLabel = "counts",
-    color = viridis::scale_color_viridis(discrete = TRUE)) {
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "gender markers"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     # Load the relevant internal gender markers data
-    envir <- loadNamespace("bcbioRNASeq")
-    markers <- get("genderMarkers", envir = envir)
+    markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
+    if (!camel(organism) %in% names(markers)) {
+        warn(paste(
+            "Organism",
+            paste0("(", organism, ")"),
+            "is not supported"
+        ))
+        return(invisible(NULL))
+    }
     # Convert the organism name from full latin to shorthand (e.g. hsapiens)
-    organism <- gsub(
-        x = organism,
-        pattern = "^([A-Z])[a-z]+ ([a-z]+)$",
-        replacement = "\\L\\1\\2",
-        perl = TRUE)
-    markers <- markers[[organism]]
+    markers <- markers[[camel(organism)]]
 
     # Ensembl identifiers
     ensgene <- markers %>%
@@ -72,7 +82,8 @@ NULL
         unique()
 
     if (!all(ensgene %in% rownames(object))) {
-        return(warning("Missing gender markers in count matrix", call. = FALSE))
+        warn("Missing gender markers in count matrix")
+        return(invisible(NULL))
     }
 
     data <- object %>%
@@ -83,7 +94,7 @@ NULL
         rownames_to_column() %>%
         # For `melt()`, can also declare `measure.vars` here instead of using
         # `setNames()`. If you don't set `id`, function will output a message.
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         setNames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
         left_join(metadata, by  = "sampleName") %>%
@@ -97,16 +108,18 @@ NULL
             color = "interestingGroups",
             shape = "chromosome")
     ) +
-        geom_jitter(size = 4) +
-        expand_limits(y = 0) +
+        geom_jitter(size = 4L) +
+        expand_limits(y = 0L) +
         labs(
-            title = "gender markers",
+            title = title,
             x = "gene",
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(color)) {
+
+    if (is(color, "ScaleDiscrete")) {
         p <- p + color
     }
+
     p
 }
 
@@ -123,7 +136,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -133,7 +147,8 @@ setMethod(
             organism = metadata(object)[["organism"]],
             metadata = sampleMetadata(object),
             countsAxisLabel = "transcripts per million (tpm)",
-            color = color)
+            color = color,
+            title = title)
     })
 
 
@@ -149,11 +164,12 @@ setMethod(
         object,
         interestingGroups = "sampleName",
         organism,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {
             organism <- rownames(counts) %>%
-                .[[1]] %>%
+                .[[1L]] %>%
                 detectOrganism()
         }
         .plotGenderMarkers(
@@ -162,7 +178,8 @@ setMethod(
             organism = organism,
             metadata = sampleMetadata(object),
             countsAxisLabel = "normalized counts",
-            color = color)
+            color = color,
+            title = title)
     })
 
 

@@ -47,10 +47,10 @@ NULL
     xlab <- "rank (mean)"
     nonzero <- raw %>%
         rowSums() %>%
-        `>`(0)
+        `>`(0L)
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
-        `+`(1) %>%
+        `+`(1L) %>%
         log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
@@ -81,11 +81,11 @@ NULL
 
     # Return either horizontal or vertical
     if (orientation == "horizontal") {
-        ncol <- 3
-        nrow <- 1
+        ncol <- 3L
+        nrow <- 1L
     } else if (orientation == "vertical") {
-        ncol <- 1
-        nrow <- 3
+        ncol <- 1L
+        nrow <- 3L
     }
 
     plot_grid(

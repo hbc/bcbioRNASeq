@@ -14,6 +14,7 @@
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull
 #' @importFrom magrittr set_colnames
+#' @importFrom rlang is_string
 #' @importFrom stats formula
 #' @importFrom stringr str_match
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -25,7 +26,7 @@
 #'   is used for PCA and heatmap QC functions.
 #' @param sampleMetadataFile *Optional*. Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file.
+#'   file. Remote URLs are supported.
 #' @param annotable *Optional*. User-defined gene annotations (a.k.a.
 #'   "annotable"), which will be slotted into [rowData()]. Typically this should
 #'   be left undefined. By default, the function will automatically generate an
@@ -33,10 +34,20 @@
 #'   [rowData()] inside the resulting [bcbioRNASeq] object will be left empty.
 #'   This is recommended for projects dealing with genes or transcripts that are
 #'   poorly annotated.
+#' @param organism *Optional*. Organism name. Use the full latin name (e.g.
+#'   "Homo sapiens"), since this will be input downstream to
+#'   AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
+#'   Normally this can be left `NULL`, and the function will attempt to detect
+#'   the organism automatically using [detectOrganism()].
 #' @param ensemblVersion *Optional*. Ensembl release version. If `NULL`,
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. This parameter can be useful for matching Ensembl annotations
 #'   against an outdated bcbio annotation build.
+#' @param genomeBuild *Optional*. Genome build. Normally this can be left `NULL`
+#'   and the build will be detected from the bcbio run data. This can be set
+#'   manually (e.g. "hg19" for the older *Homo sapiens* reference genome). Note
+#'   that this must match the genome build identifier on Ensembl for annotations
+#'   to download correctly.
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   It is not generally recommended to change this value. For large datasets,
@@ -74,13 +85,60 @@ loadRNASeq <- function(
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     annotable = TRUE,
+    organism = NULL,
     ensemblVersion = NULL,
-    transformationLimit = 50,
+    genomeBuild = NULL,
+    transformationLimit = 50L,
     ...) {
+    # Parameter integrity checks ===============================================
+    if (!is_string(uploadDir)) {
+        abort("`uploadDir` must be a string")
+    }
+    # sampleMetadataFile
+    if (!any(
+        is_string(sampleMetadataFile),
+        is.null(sampleMetadataFile)
+    )) {
+        abort("`sampleMetadataFile` must be a string or NULL")
+    }
+    # interestingGroups
+    if (!is.character(interestingGroups)) {
+        abort("`interestingGroups` must be a character vector")
+    }
+    # annotable
+    if (!any(
+        is.logical(annotable),
+        is.data.frame(annotable),
+        is.null(annotable)
+    )) {
+        abort("`annotable` must be a logical vector, data.frame, or NULL")
+    }
+    # organism
+    if (!any(
+        is_string(organism),
+        is.null(organism)
+    )) {
+        abort("`organism` must be a string or NULL")
+    }
+    # ensemblVersion
+    if (!any(
+        is.null(ensemblVersion),
+        is.numeric(ensemblVersion) && length(ensemblVersion) == 1L
+    )) {
+        abort("`ensemblVersion` must be a numeric string or NULL")
+    }
+    # genomeBuild
+    if (!any(
+        is_string(genomeBuild),
+        is.null(genomeBuild)
+    )) {
+        abort("`genomeBuild` must be a string or NULL")
+    }
+
     # Directory paths ==========================================================
     # Check connection to final upload directory
     if (!dir.exists(uploadDir)) {
-        stop("Final upload directory failed to load", call. = FALSE)
+        abort("Final upload directory failed to load")
     }
     uploadDir <- normalizePath(uploadDir)
     projectDir <- dir(
@@ -88,14 +146,14 @@ loadRNASeq <- function(
         pattern = projectDirPattern,
         full.names = FALSE,
         recursive = FALSE)
-    if (length(projectDir) != 1) {
-        stop("Uncertain about project directory location", call. = FALSE)
+    if (length(projectDir) != 1L) {
+        abort("Uncertain about project directory location")
     }
-    message(projectDir)
+    inform(projectDir)
     match <- str_match(projectDir, projectDirPattern)
-    runDate <- match[[2]] %>%
+    runDate <- match[[2L]] %>%
         as.Date()
-    template <- match[[3]]
+    template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
 
@@ -103,33 +161,36 @@ loadRNASeq <- function(
     lanePattern <- "_L(\\d{3})"
     if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
-            .[, 2] %>%
+            .[, 2L] %>%
             unique() %>%
             length()
-        message(paste(
+        inform(paste(
             lanes, "sequencing lane detected", "(technical replicates)"))
     } else {
-        lanes <- 1
+        lanes <- 1L
     }
 
     # Project summary YAML =====================================================
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     if (!file.exists(yamlFile)) {
-        stop("'project-summary.yaml' file missing", call. = FALSE)
+        abort("`project-summary.yaml` file is missing")
     }
     yaml <- readYAML(yamlFile)
 
     # Sample metadata ==========================================================
-    if (!is.null(sampleMetadataFile)) {
-        sampleMetadataFile <- normalizePath(sampleMetadataFile)
+    if (is_string(sampleMetadataFile)) {
+        # Normalize the path of local files
+        if (file.exists(sampleMetadataFile)) {
+            sampleMetadataFile <- normalizePath(sampleMetadataFile)
+        }
         sampleMetadata <- readSampleMetadataFile(
-            file = sampleMetadataFile,
+            sampleMetadataFile,
             lanes = lanes)
     } else {
         sampleMetadata <- sampleYAMLMetadata(yaml)
     }
     if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
-        stop("Sample name mismatch", call. = FALSE)
+        abort("Sample name mismatch")
     }
 
     # Interesting groups =======================================================
@@ -137,36 +198,45 @@ loadRNASeq <- function(
     interestingGroups <- camel(interestingGroups, strict = FALSE)
     # Default to `sampleName`
     if (is.null(interestingGroups)) {
-        warning(paste(
-            "'interestingGroups' is 'NULL'.",
-            "Defaulting to 'sampleName'."
-            ), call. = FALSE)
+        warn(paste(
+            "`interestingGroups` argument is NULL",
+            "Defaulting to `sampleName`."
+            ))
         interestingGroups <- "sampleName"
     }
     # Check to ensure interesting groups are defined
     if (!all(interestingGroups %in% colnames(sampleMetadata))) {
-        stop("Interesting groups missing in sample metadata", call. = FALSE)
+        abort("Interesting groups missing in sample metadata")
     }
 
     # Subset sample directories by metadata ====================================
     if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
-        message("Loading a subset of samples, defined by the metadata file")
+        inform("Loading a subset of samples, defined by the metadata file")
         allSamples <- FALSE
         sampleDirs <- sampleDirs %>%
             .[names(sampleDirs) %in% sampleMetadata[["sampleID"]]]
-        message(paste(length(sampleDirs), "samples matched by metadata"))
+        inform(paste(length(sampleDirs), "samples matched by metadata"))
     } else {
         allSamples <- TRUE
     }
 
     # Genome ===================================================================
-    # Use the genome build of the first sample to match
-    genomeBuild <- yaml[["samples"]][[1]][["genome_build"]]
-    organism <- detectOrganism(genomeBuild)
-    message(paste0("Genome: ", organism, " (", genomeBuild, ")"))
+    # Genome build
+    if (!is_string(genomeBuild)) {
+        # If unspecified (default), detect from the bcbio run YAML
+        genomeBuild <- yaml %>%
+            .[["samples"]] %>%
+            .[[1L]] %>%
+            .[["genome_build"]]
+    }
+    # Organism
+    if (is.null(organism) & is_string(genomeBuild)) {
+        organism <- detectOrganism(genomeBuild)
+    }
+    inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Gene and transcript annotations ==========================================
-    if (isTRUE(annotable)) {
+    if (isTRUE(annotable) & is_string(organism)) {
         annotable <- annotable(
             organism,
             genomeBuild = genomeBuild,
@@ -174,7 +244,7 @@ loadRNASeq <- function(
     } else if (is.data.frame(annotable)) {
         annotable <- annotable(annotable)
     } else {
-        warning("Loading run without gene annotable", call. = FALSE)
+        warn("Loading run without gene annotable")
         annotable <- NULL
     }
     tx2gene <- .tx2gene(
@@ -186,11 +256,11 @@ loadRNASeq <- function(
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    message("Reading sample metrics")
+    inform("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
 
     # bcbio-nextgen run information ============================================
-    message("Reading bcbio run information")
+    inform("Reading bcbio run information")
     dataVersions <- readDataVersions(
         file.path(projectDir, "data_versions.csv"))
     programs <- readProgramVersions(
@@ -221,8 +291,8 @@ loadRNASeq <- function(
         as("DataFrame")
 
     # DESeqDataSet =============================================================
-    message("Generating internal DESeqDataSet for quality control")
-    design <- formula(~1)
+    inform("Generating internal DESeqDataSet for quality control")
+    design <- formula(~1)  # nolint
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = colData,
@@ -232,16 +302,16 @@ loadRNASeq <- function(
 
     # Variance stabilizing transformations =====================================
     if (nrow(sampleMetadata) > transformationLimit) {
-        warning(paste(
+        warn(paste(
             "Dataset contains many samples.",
             "Skipping DESeq2 variance stabilization."
-            ), call. = FALSE)
+            ))
         rlog <- NULL
         vst <- NULL
     } else {
-        message("Performing rlog transformation")
+        inform("Performing rlog transformation")
         rlog <- rlog(dds)
-        message("Performing variance stabilizing transformation")
+        inform("Performing variance stabilizing transformation")
         vst <- varianceStabilizingTransformation(dds)
     }
 
@@ -249,7 +319,7 @@ loadRNASeq <- function(
     # Aligned counts, used for summary metrics. Not generated for fast RNA-seq.
     featureCountsFile <- file.path(projectDir, "combined.counts")
     if (file.exists(featureCountsFile)) {
-        message("Reading STAR featureCounts aligned counts")
+        inform("Reading STAR featureCounts aligned counts")
         featureCounts <- read_tsv(featureCountsFile) %>%
             as.data.frame() %>%
             # Sanitize sampleIDs in colnames into valid names
@@ -300,10 +370,11 @@ loadRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        design = design)
+        design = design,
+        transformationLimit = transformationLimit)
     # Add user-defined custom metadata, if specified
     dots <- list(...)
-    if (length(dots) > 0) {
+    if (length(dots) > 0L) {
         metadata <- c(metadata, dots)
     }
 

@@ -10,7 +10,7 @@
 plotPCACovariates(object, ...)
 
 \S4method{plotPCACovariates}{bcbioRNASeq}(object, metrics = TRUE,
-  transform = "rlog", ...)
+  normalized = "rlog", ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,11 +21,14 @@ plotPCACovariates(object, ...)
 include all metrics columns (\code{TRUE}), but desired columns can be specified
 here as a character vector.}
 
-\item{transform}{String specifying \link{DESeqTransform} slotted inside the
-\link{bcbioRNASeq} object:
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
 \itemize{
-\item \code{rlog} (\strong{recommended}).
-\item \code{vst}: variance stabilizing transformation.
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 }
 \value{

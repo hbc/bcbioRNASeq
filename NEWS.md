@@ -1,3 +1,19 @@
+## bcbioRNASeq 0.1.5
+
+- Import shared dependency functions from bcbioBase instead of basejump.
+- Added method support for `selectSamples()`.
+- `organism` and `genomeBuild` parameters are now user-definable in the main `loadRNASeq()` import function.
+- Fixed gene subsetting method on S4 object, which handles genes using `intersect()` in the featureCounts matrix.
+- Removed internal `aggregateReplicates()` code. This needs to be reworked and added back in a future release.
+- Improve method for handling a missing normalized counts matrix in the assays slot. This can occur when the user opts to skip the CPU-intensive DESeq2 normalizations.
+- Improved internal code for the quality control functions. Improved the `if` statements to be more class specific.
+- Renamed `plotCorrelationHeatmap()` `transform` argument to `normalized`, for consistency with the `counts()` generic.
+- Added `title` support to plots, where applicable.
+- Updated internal code for `plotDEGHeatmap()`.
+- Updated internal marker handling code for `plotGenderMarkers()`.
+- `resulsTables()` function now defaults to `summary = TRUE`.
+
+
 ## bcbioRNASeq 0.1.4 (2018-11-27)
 
 - Migrated all basejump function imports to bcbioBase package.

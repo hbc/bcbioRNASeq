@@ -4,23 +4,39 @@
 \name{plotGene}
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
+\alias{plotGene,DESeqDataSet-method}
+\alias{plotGene,DESeqTransform-method}
 \alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, interestingGroups,
-  normalized = "tpm", format = "ensgene",
-  color = viridis::scale_color_viridis(discrete = TRUE), returnList = FALSE)
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
+  interestingGroups, color = viridis::scale_color_viridis(discrete = TRUE),
+  return = "grid", headerLevel = 2L)
 
-\S4method{plotGene}{matrix}(object, genes, metadata,
+\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = TRUE,
+  normalized = TRUE, interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  headerLevel = 2L)
+
+\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = TRUE,
+  interestingGroups = "sampleName",
+  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  headerLevel = 2L)
+
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = TRUE, metadata,
   interestingGroups = "sampleName",
   color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", returnList = FALSE)
+  countsAxisLabel = "counts", return = "grid", headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifier(s). Can input multiple genes as a character
-vector.}
+\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+gene symbols.}
+
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -28,20 +44,24 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
-
-\item{format}{Ensembl identifier format. Supports \code{ensgene} (\strong{recommended})
-or \code{symbol}.}
-
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{returnList}{Return the plotlist used to generate the paneled,
-multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
+\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
+
+\item{headerLevel}{R Markdown header level. Only applies when
+\code{return = "markdown"}.}
+
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{metadata}{Sample metadata \link{data.frame}.}
 
@@ -49,8 +69,9 @@ multi-gene plot with \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}.}
 }
 \value{
 \itemize{
-\item \code{returnList = FALSE}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{returnList = TRUE}: \link{list} of per gene \link{ggplot} objects.
+\item \code{grid}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
+\item \code{list}: Plot list, containing per gene \link{ggplot} objects.
+\item \code{markdown}: Tabset R Markdown output, tabbed per gene.
 }
 }
 \description{
@@ -62,26 +83,14 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 # Gene identifiers
-ensgene <- rownames(bcb)[1:4]
-print(ensgene)
-plotGene(
-    bcb,
-    genes = ensgene,
-    format = "ensgene")
-
-# Gene symbols
-symbol <- rowData(bcb)[["symbol"]][1:4]
-print(symbol)
-plotGene(
-    bcb,
-    genes = symbol,
-    format = "symbol")
+genes <- rownames(bcb)[1:4]
+print(genes)
+plotGene(bcb, genes = genes)
 
 # Default ggplot2 color palette
 plotGene(
     bcb,
-    genes = ensgene,
-    format = "ensgene",
+    genes = genes,
     interestingGroups = "sampleName",
     color = NULL)
 }

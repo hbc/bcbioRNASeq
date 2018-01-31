@@ -19,8 +19,7 @@
 #'   not be added to the results. This is useful when working with a poorly
 #'   annotated genome. Alternatively, a previously saved annotable [data.frame]
 #'   can be passed in.
-#' @param summary Show summary statistics as a Markdown list.
-#' @param headerLevel Markdown header level.
+#' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
 #' @param dir Directory path where to write files.
 #' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
@@ -42,7 +41,7 @@
 #'     lfc = 0.25,
 #'     annotable = annotable,
 #'     summary = TRUE,
-#'     headerLevel = 2,
+#'     headerLevel = 2L,
 #'     write = FALSE)
 #' names(resTbl)
 NULL
@@ -66,7 +65,7 @@ NULL
 #' @noRd
 .mdResultsTables <- function(resTbl, dir) {
     if (!dir.exists(dir)) {
-        stop("DE results directory missing", call. = FALSE)
+        abort("DE results directory missing")
     }
     all <- resTbl[["allFile"]]
     deg <- resTbl[["degFile"]]
@@ -97,12 +96,12 @@ NULL
 #' @importFrom rlang !! sym
 #' @importFrom S4Vectors metadata
 #' @importFrom tibble rownames_to_column
-.resultsTablesDESeqResults <- function(
+.resultsTables.DESeqResults <- function(  # nolint
     object,
-    lfc = 0,
+    lfc = 0L,
     annotable = TRUE,
     summary = TRUE,
-    headerLevel = 2,
+    headerLevel = 2L,
     write = FALSE,
     dir = getwd(),
     quiet = FALSE) {
@@ -123,7 +122,7 @@ NULL
     if (isTRUE(annotable)) {
         # Match genome against the first gene identifier by default
         organism <- rownames(object) %>%
-            .[[1]] %>%
+            .[[1L]] %>%
             detectOrganism()
         annotable <- annotable(organism, quiet = quiet)
     }
@@ -138,9 +137,9 @@ NULL
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
         arrange(desc(!!sym("baseMean"))) %>%
-        .[.[["baseMean"]] > 0, , drop = FALSE]
+        .[.[["baseMean"]] > 0L, , drop = FALSE]
     baseMeanGt1 <- baseMeanGt0 %>%
-        .[.[["baseMean"]] > 1, , drop = FALSE]
+        .[.[["baseMean"]] > 1L, , drop = FALSE]
 
     # All DEG tables are sorted by BH adjusted P value
     deg <- all %>%
@@ -151,15 +150,9 @@ NULL
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0, , drop = FALSE]
+        .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
     degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0, , drop = FALSE]
-
-    # File paths
-    allFile <- paste(fileStem, "all.csv.gz", sep = "_")
-    degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
-    degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
-    degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
+        .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
 
     resTbl <- list(
         contrast = contrast,
@@ -171,40 +164,44 @@ NULL
         deg = deg,
         degLFC = degLFC,
         degLFCUp = degLFCUp,
-        degLFCDown = degLFCDown,
-        # File paths
-        allFile = allFile,
-        degFile = degFile,
-        degLFCUpFile = degLFCUpFile,
-        degLFCDownFile = degLFCDownFile)
+        degLFCDown = degLFCDown)
 
     if (isTRUE(summary)) {
-        if (!is.null(headerLevel)) {
-            mdHeader(
-                "Summary statistics",
-                level = headerLevel,
-                asis = TRUE)
-        }
-        mdList(c(
-            paste(nrow(all), "genes in count matrix"),
-            paste("base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-            paste("base mean > 1:", nrow(baseMeanGt1), "genes"),
-            paste("alpha cutoff:", alpha),
-            paste("lfc cutoff:", lfc, "(applied in tables only)"),
-            paste("deg pass alpha:", nrow(deg), "genes"),
-            paste("deg lfc up:", nrow(degLFCUp), "genes"),
-            paste("deg lfc down:", nrow(degLFCDown), "genes")
-        ), asis = TRUE)
+        c(
+            paste(nrow(all), "genes in counts matrix"),
+            paste("Base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
+            paste("Base mean > 1:", nrow(baseMeanGt1), "genes"),
+            paste("Alpha cutoff:", alpha),
+            paste("LFC cutoff:", lfc, "(applied in tables only)"),
+            paste("DEG pass alpha:", nrow(deg), "genes"),
+            paste("DEG LFC up:", nrow(degLFCUp), "genes"),
+            paste("DEG LFC down:", nrow(degLFCDown), "genes")
+        ) %>%
+            paste("  -", .) %>%
+            c("Summary statistics:", .) %>%
+            cat(sep = "\n")
     }
 
     if (isTRUE(write)) {
         # Write the CSV files
         dir.create(dir, recursive = TRUE, showWarnings = FALSE)
 
+        # File paths
+        allFile <- paste(fileStem, "all.csv.gz", sep = "_")
+        degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
+        degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
+        degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
+
         write_csv(all, file.path(dir, allFile))
         write_csv(deg, file.path(dir, degFile))
         write_csv(degLFCUp, file.path(dir, degLFCUpFile))
         write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+
+        # Update the resTbl list with the file paths
+        resTbl[["allFile"]] <- allFile
+        resTbl[["degFile"]] <- degFile
+        resTbl[["degLFCUpFile"]] <- degLFCUpFile
+        resTbl[["degLFCDownFile"]] <- degLFCDownFile
 
         # Output file information in Markdown format
         .mdResultsTables(resTbl, dir)
@@ -221,4 +218,4 @@ NULL
 setMethod(
     "resultsTables",
     signature("DESeqResults"),
-    .resultsTablesDESeqResults)
+    .resultsTables.DESeqResults)

@@ -87,7 +87,7 @@
     </div>
 
     
-    <p>Improved assignment method support for <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p>
+    <p>Improved assignment method support for bcbioRNASeq object.</p>
 <p>This method support will also update the <code>colData</code> inside the <code>bcbio</code> and
 <code>assays</code> slots.</p>
     
@@ -130,7 +130,7 @@
 <span class='no'>colData</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
 <span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='fu'>c</span>(<span class='fl'>14</span>, <span class='fl'>30</span>, <span class='fl'>14</span>, <span class='fl'>30</span>))
 <span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>colData</span>
-<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -143,7 +143,7 @@
 #&gt;   ..@ elementMetadata: NULL
 #&gt;   ..@ metadata       : list()</div><div class='input'>
 <span class='co'># These internal objects will also get updated</span>
-<span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+<span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -154,7 +154,7 @@
 #&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5
@@ -165,7 +165,7 @@
 #&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
+#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
 #&gt;   ..@ nrows          : int 4
 #&gt;   ..@ listData       :List of 5

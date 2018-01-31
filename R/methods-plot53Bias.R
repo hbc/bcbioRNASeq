@@ -29,14 +29,21 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom dplyr rename
-#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot labs
+#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 #' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
     object,
     interestingGroups = "sampleName",
-    warnLimit = 2,
+    warnLimit = 2L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "5'->3' bias"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
 
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
@@ -58,15 +65,23 @@ NULL
             x = "sample",
             y = "5'->3' bias",
             fill = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(warnLimit)) {
+
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -82,12 +97,11 @@ setMethod(
     function(
         object,
         interestingGroups,
-        warnLimit = 2,
+        warnLimit = 2L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        flip = TRUE,
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -96,7 +110,8 @@ setMethod(
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 

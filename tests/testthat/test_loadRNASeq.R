@@ -4,6 +4,7 @@ context("loadRNASeq")
 uploadDir <- system.file(
     file.path("extdata", "bcbio"),
     package = "bcbioRNASeq")
+
 # This should produce the following warnings:
 #   1: bcbio-nextgen.log missing
 #   2: bcbio-nextgen-commands.log missing
@@ -106,7 +107,7 @@ test_that("metadata slot", {
              ensemblVersion = "NULL",
              annotable = "data.frame",
              tx2gene = "data.frame",
-             lanes = "numeric",
+             lanes = "integer",
              yaml = "list",
              metrics = "data.frame",
              sampleMetadataFile = "NULL",
@@ -116,6 +117,7 @@ test_that("metadata slot", {
              bcbioCommandsLog = "NULL",
              allSamples = "logical",
              design = "formula",
+             transformationLimit = "integer",
              date = "Date",
              wd = "character",
              utilsSessionInfo = "sessionInfo",
@@ -146,17 +148,50 @@ test_that("bcbio slot", {
 test_that("Example data dimensions", {
     expect_equal(
         dim(bcb),
-        c(505, 4)
+        c(505L, 4L)
     )
     expect_equal(
         colnames(bcb),
         c("group1_1", "group1_2", "group2_1", "group2_2")
     )
     expect_equal(
-        rownames(bcb)[1:4],
+        rownames(bcb)[1L:4L],
         c("ENSMUSG00000002459",
           "ENSMUSG00000004768",
           "ENSMUSG00000005886",
           "ENSMUSG00000016918")
+    )
+})
+
+test_that("transformationLimit", {
+    bcb <- suppressWarnings(suppressMessages(
+        loadRNASeq(uploadDir, transformationLimit = 0L)
+    ))
+    expect_warning(
+        suppressMessages(loadRNASeq(uploadDir, transformationLimit = 0L)),
+        paste("Dataset contains many samples.",
+              "Skipping DESeq2 variance stabilization.")
+    )
+    expect_identical(
+        names(assays(bcb)),
+        c("raw", "normalized", "tpm", "tmm")
+    )
+    expect_is(assays(bcb)[["rlog"]], "NULL")
+    expect_is(assays(bcb)[["vst"]], "NULL")
+    transformationLimit <- metadata(bcb)[["transformationLimit"]]
+    expect_equal(transformationLimit, 0L)
+})
+
+test_that("User input sample metadata", {
+    sampleMetadataFile <- "http://bcbiornaseq.seq.cloud/sample_metadata.csv"
+    bcb <- suppressWarnings(suppressMessages(
+        loadRNASeq(
+        uploadDir = uploadDir,
+        sampleMetadataFile = sampleMetadataFile)
+    ))
+    expect_s4_class(bcb, "bcbioRNASeq")
+    expect_identical(
+        metadata(bcb)[["sampleMetadataFile"]],
+        sampleMetadataFile
     )
 })

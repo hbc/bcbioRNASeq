@@ -10,7 +10,7 @@
 #'
 #' @return Contrast name string.
 .resContrastName <- function(res) {
-    mcols(res)[2, 2] %>%
+    mcols(res)[2L, 2L] %>%
         gsub(x = ., pattern = "^.*:\\s", replacement = "") %>%
         gsub(x = ., pattern = "_", replacement = " ") %>%
         # Improve appearance for difference of differences

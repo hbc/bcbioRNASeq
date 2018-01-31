@@ -123,7 +123,7 @@ file.</p></td>
 "annotable"), which will be slotted into <code>rowData()</code>. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set <code>NULL</code>, then
-<code>rowData()</code> inside the resulting <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object will be left empty.
+<code>rowData()</code> inside the resulting bcbioRNASeq object will be left empty.
 This is recommended for projects dealing with genes or transcripts that are
 poorly annotated.</p></td>
     </tr>
@@ -150,7 +150,7 @@ Details.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
+    <p>bcbioRNASeq.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -171,7 +171,7 @@ run directory as a remote connection over
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 
 <span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>Unmasking 'select()'</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
@@ -214,7 +214,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  id = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in counts matrix (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
-#&gt; metadata(27): version uploadDir ... devtoolsSessionInfo
+#&gt; metadata(28): version uploadDir ... devtoolsSessionInfo
 #&gt;   unannotatedGenes
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
@@ -267,7 +267,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  id = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
-#&gt; metadata(26): version uploadDir ... utilsSessionInfo
+#&gt; metadata(27): version uploadDir ... utilsSessionInfo
 #&gt;   devtoolsSessionInfo
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...

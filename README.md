@@ -53,6 +53,37 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 
 
+## Sample metadata
+
+For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into `loadRNASeq()` using the `sampleMetadataFile` parameter.
+
+### Minimal example
+
+The sample IDs in the bcbioRNASeq object map to the `description` column, which gets sanitized internally into a `sampleID` column. The sample names provided in the `description` column must be unique.
+
+| fileName            | description | genotype |
+|---------------------|-------------|----------|
+| sample1_R1.fastq.gz | sample1     | wildtype |
+| sample2_R1.fastq.gz | sample2     | knockout |
+| sample3_R1.fastq.gz | sample3     | wildtype |
+| sample4_R1.fastq.gz | sample4     | knockout |
+
+### Technical replicates
+
+Use `sampleNameAggregate` to assign groupings for technical replicates:
+
+| fileName                  | description   | sampleNameAggregate |
+|---------------------------|---------------|---------------------|
+| wildtype_L001_R1.fastq.gz | wildtype_L001 | wildtype            |
+| wildtype_L002_R1.fastq.gz | wildtype_L002 | wildtype            |
+| wildtype_L003_R1.fastq.gz | wildtype_L003 | wildtype            |
+| wildtype_L004_R1.fastq.gz | wildtype_L004 | wildtype            |
+| mutant_L001_R1.fastq.gz   | mutant_L001   | mutant              |
+| mutant_L002_R1.fastq.gz   | mutant_L002   | mutant              |
+| mutant_L003_R1.fastq.gz   | mutant_L003   | mutant              |
+| mutant_L004_R1.fastq.gz   | mutant_L004   | mutant              |
+
+
 ## Citation
 
 ```r

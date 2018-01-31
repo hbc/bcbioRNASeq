@@ -7,14 +7,11 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams AllGenerics
+#' @inheritParams plotPCA
 #'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.
-#' @param transform String specifying [DESeqTransform] slotted inside the
-#'   [bcbioRNASeq] object:
-#'   - `rlog` (**recommended**).
-#'   - `vst`: variance stabilizing transformation.
 #' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
 #'
 #' @seealso
@@ -41,19 +38,15 @@ NULL
 .plotPCACovariates <- function(
     object,
     metrics = TRUE,
-    transform = "rlog",
+    normalized = "rlog",
     ...) {
-    # Check for valid transform argument
-    transformArgs <- c("rlog", "vst")
-    if (!transform %in% transformArgs) {
-        stop(paste("Valid transforms:", toString(transformArgs)))
-    }
+    counts <- counts(object, normalized = normalized)
 
     metadata <- metrics(object)
     factors <- select_if(metadata, is.factor)
     numerics <- select_if(metadata, is.numeric) %>%
         # Drop columns that are all zeroes (not useful to plot)
-        .[, colSums(.) > 0]
+        .[, colSums(.) > 0L]
     metadata <- cbind(factors, numerics)
 
     # Select the metrics to use for plot
@@ -66,29 +59,23 @@ NULL
     } else if (is.character(metrics)) {
         col <- metrics
     } else {
-        stop("'metrics' must be 'TRUE/FALSE' or character vector",
-            call. = FALSE)
+        abort("`metrics` must be a logical or character vector")
     }
 
     # Stop on 1 column
-    if (length(col) == 1) {
-        stop(paste(
-            "'degCovariates()' requires at least 2 metadata columns"
-        ), call. = FALSE)
+    if (length(col) == 1L) {
+        abort(paste(
+            "`degCovariates()` requires at least 2 metadata columns"
+        ))
     }
 
     # Now select the columns to use for plotting
     if (all(col %in% colnames(metadata))) {
         metadata <- metadata[, col, drop = FALSE]
     } else {
-        stop("Failed to select valid 'metrics' for plot", call. = FALSE)
+        # FIXME Make this message more informative. Which metrics?
+        abort("Failed to select valid `metrics` columns to plot")
     }
-
-    # Counts
-    counts <- assays(object) %>%
-        .[[transform]] %>%
-        # Assay needed to get matrix from the slotted DESeqTransform
-        assay()
 
     degCovariates(
         counts = counts,

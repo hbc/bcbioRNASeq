@@ -9,8 +9,8 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0, annotable = TRUE,
-  summary = TRUE, headerLevel = 2, write = FALSE, dir = getwd(),
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
+  summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
   quiet = FALSE)
 }
 \arguments{
@@ -33,9 +33,7 @@ not be added to the results. This is useful when working with a poorly
 annotated genome. Alternatively, a previously saved annotable \link{data.frame}
 can be passed in.}
 
-\item{summary}{Show summary statistics as a Markdown list.}
-
-\item{headerLevel}{Markdown header level.}
+\item{summary}{Show summary statistics.}
 
 \item{write}{Write CSV files to disk.}
 
@@ -64,7 +62,7 @@ resTbl <- resultsTables(
     lfc = 0.25,
     annotable = annotable,
     summary = TRUE,
-    headerLevel = 2,
+    headerLevel = 2L,
     write = FALSE)
 names(resTbl)
 }

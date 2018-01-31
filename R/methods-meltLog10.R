@@ -38,17 +38,20 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom dplyr left_join
-.joinMelt <- function(counts, metadata) {
+.joinMelt <- function(counts, colData) {
     if (!identical(
-            colnames(counts),
-            as.character(metadata[["sampleID"]])
-        )) {
-        stop("Sample name mismatch between counts and metadata", call. = FALSE)
+        colnames(counts),
+        as.character(colData[["sampleID"]])
+    )) {
+        abort("Sample name mismatch between counts and metadata")
     }
     melted <- .meltLog10(counts)
-    metadata <- as.data.frame(metadata) %>%
+    colData <- colData %>%
+        as.data.frame() %>%
+        # Ensure `stringsAsFactors` in colData
+        mutate_if(is.character, as.factor) %>%
         mutate_if(is.factor, droplevels)
-    left_join(melted, metadata, by = "sampleID")
+    left_join(melted, colData, by = "sampleID")
 }
 
 
@@ -61,12 +64,12 @@ NULL
     counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
-        melt(id = 1) %>%
+        melt(id = 1L) %>%
         setNames(c("ensgene", "sampleID", "counts")) %>%
         # Melt operation will define as factor. Let's set this manually later.
         mutate(sampleID = as.character(.data[["sampleID"]])) %>%
         # Remove zero counts
-        .[.[["counts"]] > 0, , drop = FALSE] %>%
+        .[.[["counts"]] > 0L, , drop = FALSE] %>%
         # log10 transform the counts
         mutate(counts = log10(.data[["counts"]])) %>%
         # Arrange by sampleID, to match factor levels
@@ -87,7 +90,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object))
+            colData = colData(object))
     })
 
 
@@ -102,7 +105,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object))
+            colData = colData(object))
     })
 
 
@@ -115,5 +118,5 @@ setMethod(
     function(object) {
         .joinMelt(
             counts = assay(object),
-            metadata = colData(object))
+            colData = colData(object))
     })

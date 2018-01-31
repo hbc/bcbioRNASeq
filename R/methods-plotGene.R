@@ -9,10 +9,17 @@
 #'
 #' @inherit plotTotalReads
 #'
-#' @param genes Gene identifier(s). Can input multiple genes as a character
-#'   vector.
-#' @param format Ensembl identifier format. Supports `ensgene` (**recommended**)
-#'   or `symbol`.
+#' @param genes *Optional*. Gene identifiers (rownames) to plot. These must be
+#'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+#'   gene symbols.
+#' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
+#'   the function will attempt to automatically map gene identifiers to symbols
+#'   from Ensembl using [annotable()]. If set `FALSE`/`NULL`, then
+#'   gene2symbol mapping will be disabled. This is useful when working with a
+#'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
+#'   passed in, and must contain the columns `ensgene` and `symbol`. then the
+#'   Ensembl gene identifiers will be labeled in place of gene symbols.
+#' @param metadata Sample metadata [data.frame].
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @param color Desired ggplot color scale. Defaults to
@@ -21,13 +28,14 @@
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
 #' @param countsAxisLabel Text label of counts axis.
-#' @param returnList Return the plotlist used to generate the paneled,
-#'   multi-gene plot with [cowplot::plot_grid()].
-#' @param metadata Sample metadata [data.frame].
+#' @param return Desired return type: `grid`, `list`, `markdown`.
+#' @param headerLevel R Markdown header level. Only applies when
+#'   `return = "markdown"`.
 #'
 #' @return
-#' - `returnList = FALSE`: [cowplot::plot_grid()] graphical output.
-#' - `returnList = TRUE`: [list] of per gene [ggplot] objects.
+#' - `grid`: [cowplot::plot_grid()] graphical output.
+#' - `list`: Plot list, containing per gene [ggplot] objects.
+#' - `markdown`: Tabset R Markdown output, tabbed per gene.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -37,26 +45,14 @@
 #'     package = "bcbioRNASeq"))
 #'
 #' # Gene identifiers
-#' ensgene <- rownames(bcb)[1:4]
-#' print(ensgene)
-#' plotGene(
-#'     bcb,
-#'     genes = ensgene,
-#'     format = "ensgene")
-#'
-#' # Gene symbols
-#' symbol <- rowData(bcb)[["symbol"]][1:4]
-#' print(symbol)
-#' plotGene(
-#'     bcb,
-#'     genes = symbol,
-#'     format = "symbol")
+#' genes <- rownames(bcb)[1:4]
+#' print(genes)
+#' plotGene(bcb, genes = genes)
 #'
 #' # Default ggplot2 color palette
 #' plotGene(
 #'     bcb,
-#'     genes = ensgene,
-#'     format = "ensgene",
+#'     genes = genes,
 #'     interestingGroups = "sampleName",
 #'     color = NULL)
 NULL
@@ -70,62 +66,105 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase annotable detectOrganism uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
-#'   labs theme
+#'   guides labs theme
+#' @importFrom pbapply pblapply
+#' @importFrom tibble tibble
 #' @importFrom viridis scale_color_viridis
 #'
-#' @param object Counts matrix.
 #' @param genes Gene identifiers, as a named character vector. `ensgene` is
 #'   provided as the value and `symbol` as the name. This gets defined in the S4
 #'   method (see below).
-#' @param metadata Sample metadata [data.frame].
 #'
 #' @return [ggplot].
 .plotGene <- function(
     object,
     genes,
+    gene2symbol = TRUE,
     metadata,
     interestingGroups = "sampleName",
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
-    returnList = FALSE) {
+    return = "grid",
+    headerLevel = 2L) {
+    # Gene to symbol mappings
+    if (isTRUE(gene2symbol)) {
+        organism <- rownames(object) %>%
+            .[[1L]] %>%
+            detectOrganism()
+        gene2symbol <- annotable(organism, format = "gene2symbol")
+    }
+    if (is.data.frame(gene2symbol)) {
+        match <- match(x = genes, table = gene2symbol[["ensgene"]])
+        gene2symbol <- gene2symbol[match, , drop = FALSE]
+        genes <- gene2symbol[["ensgene"]]
+        names(genes) <- gene2symbol[["symbol"]]
+    }
+
+    # Prepare interesting groups column
     metadata <- metadata %>%
         as.data.frame() %>%
         uniteInterestingGroups(interestingGroups)
+
     plots <- lapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
         symbol <- names(genes)[[a]]
-        df <- data.frame(
+        if (is.null(symbol)) {
+            symbol <- ensgene
+        }
+        data <- tibble(
             x = colnames(object),
-            y = object[ensgene, ],
+            y = object[ensgene, , drop = TRUE],
             interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
-            df,
+            data,
             mapping = aes_string(
                 x = "x",
                 y = "y",
                 color = "interestingGroups")
         ) +
-            geom_point(size = 4) +
-            theme(
-                axis.text.x = element_text(angle = 90)) +
+            geom_point(size = 4L) +
+            theme(axis.text.x = element_text(angle = 90L)) +
             labs(
                 title = symbol,
                 x = "sample",
                 y = countsAxisLabel,
-                color = paste(interestingGroups, collapse = ":\n")) +
-            expand_limits(y = 0)
-        if (!is.null(color)) {
+                color = paste(interestingGroups, collapse = ":\n")
+            ) +
+            expand_limits(y = 0L)
+        if (is(color, "ScaleDiscrete")) {
             p <- p + color
+        }
+        if (identical(interestingGroups, "sampleName")) {
+            p <- p + guides(color = FALSE)
         }
         p
     })
-    if (isTRUE(returnList)) {
+    names(plots) <- genes
+
+    # Return
+    validReturn <- c("grid", "list", "markdown")
+    if (return == "grid") {
+        plot_grid(plotlist = plots, labels = NULL)
+    } else if (return == "list") {
         plots
+    } else if (return == "markdown") {
+        pblapply(seq_along(plots), function(a) {
+            if (is.numeric(headerLevel)) {
+                ensgene <- genes[[a]]
+                symbol <- names(genes)[[a]]
+                if (is.null(symbol)) {
+                    symbol <- ensgene
+                }
+                mdHeader(symbol, level = headerLevel, asis = TRUE)
+            }
+            show(plots[[a]])
+        }) %>%
+            invisible()
     } else {
-        plot_grid(plotlist = plots, labels = "AUTO")
+        abort(paste("Valid `return`:", toString(validReturn)))
     }
 }
 
@@ -141,58 +180,97 @@ setMethod(
     function(
         object,
         genes,
-        interestingGroups,
         normalized = "tpm",
-        format = "ensgene",
+        interestingGroups,
         color = viridis::scale_color_viridis(discrete = TRUE),
-        returnList = FALSE) {
-        if (!format %in% c("ensgene", "symbol")) {
-            stop("Unsupported gene identifier format", call. = FALSE)
-        }
-        supportedAssay <- c("tpm", "tmm", "rlog", "vst")
-        if (!normalized %in% supportedAssay) {
-            stop(paste(
-                "'normalized' argument requires:",
-                toString(supportedAssay)
-            ), call. = FALSE)
-        }
-        countsAxisLabel <- normalized
+        return = "grid",
+        headerLevel = 2L) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-
         counts <- counts(object, normalized = normalized)
-        metadata <- sampleMetadata(object)
-
-        # Match unique gene identifier with name (gene symbol) using the
-        # internally stored Ensembl annotations saved in the run object
+        countsAxisLabel <- normalized
         gene2symbol <- gene2symbol(object)
-
-        # Detect missing genes. This also handles `format` mismatch.
-        if (!all(genes %in% gene2symbol[[format]])) {
-            stop(paste(
-                "Missing genes:",
-                toString(setdiff(genes, gene2symbol[[format]]))
-            ), call. = FALSE)
-        }
-
-        # Now safe to prepare the named gene character vector. Here we're
-        # passing in the `ensgene` as the value and `symbol` as the name. This
-        # works with the constructor function to match the counts matrix by
-        # the ensgene, then use the symbol as the name.
-        match <- match(x = genes, table = gene2symbol[[format]])
-        gene2symbol <- gene2symbol[match, , drop = FALSE]
-        ensgene <- gene2symbol[["ensgene"]]
-        names(ensgene) <- gene2symbol[["symbol"]]
-
+        metadata <- sampleMetadata(object)
         .plotGene(
             object = counts,
-            genes = ensgene,
+            genes = genes,
+            gene2symbol = gene2symbol,
             metadata = metadata,
             interestingGroups = interestingGroups,
             color = color,
             countsAxisLabel = countsAxisLabel,
-            returnList = returnList)
+            return = return,
+            headerLevel = headerLevel)
+    })
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        genes,
+        gene2symbol = TRUE,
+        normalized = TRUE,
+        interestingGroups = "sampleName",
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        return = "grid",
+        headerLevel = 2L) {
+        counts <- counts(object, normalized = normalized)
+        if (isTRUE(normalized)) {
+            countsAxisLabel <- "normalized"
+        } else {
+            countsAxisLabel <- "counts"
+        }
+        metadata <- colData(object)
+        .plotGene(
+            object = counts,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            metadata = metadata,
+            interestingGroups = interestingGroups,
+            color = color,
+            countsAxisLabel = countsAxisLabel,
+            return = return,
+            headerLevel = headerLevel)
+    })
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("DESeqTransform"),
+    function(
+        object,
+        genes,
+        gene2symbol = TRUE,
+        interestingGroups = "sampleName",
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        return = "grid",
+        headerLevel = 2L) {
+        counts <- assay(object)
+        metadata <- colData(object)
+        if ("rlogIntercept" %in% colnames(mcols(object))) {
+            countsAxisLabel <- "rlog"
+        } else {
+            countsAxisLabel <- "vst"
+        }
+        .plotGene(
+            object = counts,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            metadata = metadata,
+            interestingGroups = interestingGroups,
+            color = color,
+            countsAxisLabel = countsAxisLabel,
+            return = return,
+            headerLevel = headerLevel)
     })
 
 

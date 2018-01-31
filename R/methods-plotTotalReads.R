@@ -19,6 +19,7 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
 #' @param flip Flip x and y axes.
+#' @param title Include plot title.
 #'
 #' @return [ggplot].
 #'
@@ -43,43 +44,59 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 #' @importFrom rlang !!! syms
 #' @importFrom tidyr unite
 #' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 20,
-    warnLimit = 10,
+    passLimit = 20L,
+    warnLimit = 10L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "total reads"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~totalReads / 1e6,
+            y = ~totalReads / 1e6L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(
-            title = "total reads",
+            title = title,
             x = "sample",
             y = "total reads (million)",
-            fill = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(passLimit)) {
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
+
+    if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (!is.null(warnLimit)) {
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -95,13 +112,12 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 20,
-        warnLimit = 10,
+        passLimit = 20L,
+        warnLimit = 10L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        flip = TRUE,
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -111,7 +127,8 @@ setMethod(
             passLimit = passLimit,
             warnLimit = warnLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 

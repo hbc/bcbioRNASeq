@@ -83,7 +83,7 @@
 <h2 class="hasAnchor">
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/loadRNASeq">loadRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
     <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
@@ -92,7 +92,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <li>
 <code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
 <li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="reference/colData.html">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/colData">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
 </ul>
 <p>Consult <code>help("loadRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
 </div>
@@ -108,6 +108,99 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
 <li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
 </ul>
+</div>
+</div>
+<div id="sample-metadata" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sample-metadata" class="anchor"></a>Sample metadata</h2>
+<p>For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/loadRNASeq">loadRNASeq()</a></code> using the <code>sampleMetadataFile</code> parameter.</p>
+<div id="minimal-example" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minimal-example" class="anchor"></a>Minimal example</h3>
+<p>The sample IDs in the bcbioRNASeq object map to the <code>description</code> column, which gets sanitized internally into a <code>sampleID</code> column. The sample names provided in the <code>description</code> column must be unique.</p>
+<table class="table">
+<thead><tr class="header">
+<th>fileName</th>
+<th>description</th>
+<th>genotype</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>sample1_R1.fastq.gz</td>
+<td>sample1</td>
+<td>wildtype</td>
+</tr>
+<tr class="even">
+<td>sample2_R1.fastq.gz</td>
+<td>sample2</td>
+<td>knockout</td>
+</tr>
+<tr class="odd">
+<td>sample3_R1.fastq.gz</td>
+<td>sample3</td>
+<td>wildtype</td>
+</tr>
+<tr class="even">
+<td>sample4_R1.fastq.gz</td>
+<td>sample4</td>
+<td>knockout</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="technical-replicates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#technical-replicates" class="anchor"></a>Technical replicates</h3>
+<p>Use <code>sampleNameAggregate</code> to assign groupings for technical replicates:</p>
+<table class="table">
+<thead><tr class="header">
+<th>fileName</th>
+<th>description</th>
+<th>sampleNameAggregate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>wildtype_L001_R1.fastq.gz</td>
+<td>wildtype_L001</td>
+<td>wildtype</td>
+</tr>
+<tr class="even">
+<td>wildtype_L002_R1.fastq.gz</td>
+<td>wildtype_L002</td>
+<td>wildtype</td>
+</tr>
+<tr class="odd">
+<td>wildtype_L003_R1.fastq.gz</td>
+<td>wildtype_L003</td>
+<td>wildtype</td>
+</tr>
+<tr class="even">
+<td>wildtype_L004_R1.fastq.gz</td>
+<td>wildtype_L004</td>
+<td>wildtype</td>
+</tr>
+<tr class="odd">
+<td>mutant_L001_R1.fastq.gz</td>
+<td>mutant_L001</td>
+<td>mutant</td>
+</tr>
+<tr class="even">
+<td>mutant_L002_R1.fastq.gz</td>
+<td>mutant_L002</td>
+<td>mutant</td>
+</tr>
+<tr class="odd">
+<td>mutant_L003_R1.fastq.gz</td>
+<td>mutant_L003</td>
+<td>mutant</td>
+</tr>
+<tr class="even">
+<td>mutant_L004_R1.fastq.gz</td>
+<td>mutant_L004</td>
+<td>mutant</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="citation" class="section level2">

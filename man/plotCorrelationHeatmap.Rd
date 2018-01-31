@@ -10,19 +10,25 @@
 \usage{
 plotCorrelationHeatmap(object, ...)
 
-\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, transform = "rlog",
+\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  title = NULL, color = viridis::viridis(256),
-  legendColor = viridis::viridis)
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{transform}{String specifying \code{rlog} (\strong{recommended}) or \code{vst}
-(\code{varianceStabilizingTransformation}) \link{DESeqTransform} object slotted
-inside the \link{bcbioRNASeq} object.}
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
 
 \item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
@@ -39,16 +45,16 @@ plot.}
 
 \item{samples}{\emph{Optional}. Character vector of specific samples.}
 
-\item{title}{\emph{Optional}. Plot title.}
-
-\item{color}{Colors to use for plot. Defaults to the \code{\link[viridis:viridis]{viridis::viridis()}}
-palette.}
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}} palette.}
-}
-\value{
-Graphical output only.
+\code{\link[viridis:viridis]{viridis::viridis()}}.}
+
+\item{title}{Include plot title.}
 }
 \description{
 This function calculates a correlation matrix based on gene expression per
@@ -56,6 +62,11 @@ sample. By default, this function processes all gene counts per sample to
 calculate the corrlation matrix. This behavior can be overrided with the
 input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
+}
+\details{
+When column clustering is disabled, the columns are sorted by the interesting
+groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then the
+sample names.
 }
 \examples{
 load(system.file(

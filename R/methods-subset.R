@@ -2,6 +2,8 @@
 #'
 #' Extract genes by row and samples by column from a [bcbioRNASeq] object. The
 #' internal [DESeqDataSet] and count transformations are rescaled automatically.
+#' DESeq2 transformations can be disabled on large subset operations by setting
+#' `transform = FALSE`.
 #'
 #' @rdname subset
 #' @name subset
@@ -34,8 +36,8 @@
 #' # Subset by both genes and samples
 #' bcb[ensgene, samples]
 #'
-#' # Skip normalization
-#' bcb[ensgene, samples, skipNorm = TRUE]
+#' # Skip DESeq2 transformations
+#' bcb[ensgene, samples, transform = FALSE]
 NULL
 
 
@@ -49,33 +51,26 @@ NULL
 .subset <- function(x, i, j, ..., drop = FALSE) {
     # Genes (rows)
     if (missing(i)) {
-        i <- 1:nrow(x)
+        i <- 1L:nrow(x)
     }
-    if (length(i) < 2) {
-        stop("At least 2 genes are required", call. = FALSE)
+    if (length(i) < 2L) {
+        abort("At least 2 genes are required")
     }
 
     # Samples (columns)
     if (missing(j)) {
-        j <- 1:ncol(x)
+        j <- 1L:ncol(x)
     }
-    if (length(j) < 2) {
-        stop("At least 2 samples are required", call. = FALSE)
+    if (length(j) < 2L) {
+        abort("At least 2 samples are required")
     }
 
     # Early return if dimensions are unmodified
     if (identical(dim(x), c(length(i), length(j)))) return(x)
 
     dots <- list(...)
-    if (is.null(dots[["transformationLimit"]])) {
-        transformationLimit <- 50
-    } else {
-        transformationLimit <- dots[["transformationLimit"]]
-    }
-    if (is.null(dots[["skipNorm"]])) {
-        skipNorm <- FALSE
-    } else {
-        skipNorm <- dots[["skipNorm"]]
+    if (!identical(dots[["transform"]], FALSE)) {
+        transform <- TRUE
     }
 
     # Regenerate and subset SummarizedExperiment
@@ -109,22 +104,25 @@ NULL
     txi[["length"]] <- txi[["length"]][genes, samples]
 
     # DESeqDataSet
-    message("Updating internal DESeqDataSet")
+    inform("Updating internal DESeqDataSet")
     dds <- bcbio(x, "DESeqDataSet")
     dds <- dds[genes, samples]
     colData(dds) <- colData
     # Skip normalization option, for large datasets
-    if (isTRUE(skipNorm) | nrow(colData) > transformationLimit) {
-        message("Skipping re-normalization, just selecting samples and genes")
+    if (!isTRUE(transform)) {
+        inform(paste(
+            "Skipping DESeq2 transformations",
+            "just selecting samples and genes"
+        ))
         dds <- estimateSizeFactors(dds)
         vst <- NULL
         rlog <- NULL
     } else {
         # DESeq2 will warn about empty design formula, if set
         dds <- suppressWarnings(DESeq(dds))
-        message("Performing rlog transformation")
+        inform("Performing rlog transformation")
         rlog <- rlog(dds)
-        message("Performing variance stabilizing transformation")
+        inform("Performing variance stabilizing transformation")
         vst <- varianceStabilizingTransformation(dds)
     }
 

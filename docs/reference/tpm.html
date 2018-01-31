@@ -90,9 +90,7 @@
     <p>Transcripts Per Million (TPM)</p>
     
 
-    <pre class="usage"><span class='fu'>tpm</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>tpm</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -115,13 +113,10 @@
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>tpm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()</div><div class='output co'>#&gt;                     group1_1 group1_2  group2_1  group2_2
-#&gt; ENSMUSG00000002459 0.3395880 0.096536 0.4342604 0.2195625
-#&gt; ENSMUSG00000004768 5.7355548 4.231738 4.8662113 2.8844117
-#&gt; ENSMUSG00000005886 8.6836434 7.501673 9.9260131 5.4510495
-#&gt; ENSMUSG00000016918 7.0050353 5.479443 3.9638329 2.4328215
-#&gt; ENSMUSG00000025774 0.0391648 0.000000 0.0000000 0.0000000
-#&gt; ENSMUSG00000025776 0.5503408 0.278789 0.3147271 0.3949477</div></pre>
+<span class='fu'>tpm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt;  num [1:505, 1:4] 0.3396 5.7356 8.6836 7.005 0.0392 ...
+#&gt;  - attr(*, "dimnames")=List of 2
+#&gt;   ..$ : chr [1:505] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886" "ENSMUSG00000016918" ...
+#&gt;   ..$ : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -12,15 +12,15 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
   organism, metadata, countsAxisLabel = "counts",
-  color = viridis::scale_color_viridis(discrete = TRUE))
+  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,6 +38,8 @@ this is automatically determined by the metadata set inside the
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{title}{Include plot title.}
 
 \item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
 unless a spike-in FASTA sequence is provided containing a gene identifier

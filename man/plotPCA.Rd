@@ -6,15 +6,23 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNASeq}(object, transform = "rlog", interestingGroups,
-  genes, censorSamples, color = viridis::scale_color_viridis(discrete = TRUE),
-  label = FALSE, returnData = FALSE)
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = "rlog",
+  interestingGroups, genes = NULL, censorSamples = NULL,
+  color = viridis::scale_color_viridis(discrete = TRUE), label = FALSE,
+  returnData = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{transform}{String specifying \link{rlog} (\strong{recommended}) or \link{vst}
-\link{DESeqTransform} slotted inside the \link{bcbioRNASeq} object.}
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
 
 \item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}

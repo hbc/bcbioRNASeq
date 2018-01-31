@@ -28,38 +28,53 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotExonicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 60,
+    passLimit = 60L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "exonic mapping rate"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~exonicRate * 100,
+            y = ~exonicRate * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
         labs(
-            title = "exonic mapping rate",
+            title = title,
             x = "sample",
             y = "exonic mapping rate (%)",
             fill = paste(interestingGroups, collapse = ":\n")) +
-        ylim(0, 100)
-    if (!is.null(passLimit)) {
+        ylim(0L, 100L)
+
+    if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + scale_fill_viridis(discrete = TRUE)
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -74,12 +89,11 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 60,
+        passLimit = 60L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        flip = TRUE,
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -88,7 +102,8 @@ setMethod(
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 

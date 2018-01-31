@@ -24,7 +24,7 @@
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,7 +54,7 @@
         <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -64,12 +64,12 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
+
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -77,7 +77,7 @@
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
       </header>
 
       <div class="row">
@@ -86,17 +86,17 @@
     <h1>Differential Expression Results Tables</h1>
     </div>
 
-    
+
     <p>Differential Expression Results Tables</p>
-    
+
 
     <pre class="usage"><span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"results"</span>, <span class='st'>"differential_expression"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"results"</span>,
+  <span class='st'>"differential_expression"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -129,11 +129,7 @@ can be passed in.</p></td>
     </tr>
     <tr>
       <th>summary</th>
-      <td><p>Show summary statistics as a Markdown list.</p></td>
-    </tr>
-    <tr>
-      <th>headerLevel</th>
-      <td><p>Markdown header level.</p></td>
+      <td><p>Show summary statistics.</p></td>
     </tr>
     <tr>
       <th>write</th>
@@ -148,11 +144,11 @@ can be passed in.</p></td>
       <td><p>If <code>TRUE</code>, suppress any status messages and/or progress bars.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Results list.</p>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
@@ -162,30 +158,36 @@ can be passed in.</p></td>
     <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='annotable.html'>annotable</a></span>(<span class='no'>bcb</span>)
+<span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'>annotable</span>(<span class='no'>bcb</span>)
 
 <span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
     <span class='no'>res</span>,
     <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
     <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='no'>annotable</span>,
-    <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt;  [1] "contrast"       "alpha"          "lfc"            "all"           
-#&gt;  [5] "deg"            "degLFC"         "degLFCUp"       "degLFCDown"    
-#&gt;  [9] "allFile"        "degFile"        "degLFCUpFile"   "degLFCDownFile"</div></pre>
+    <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Summary statistics:
+#&gt;   - 505 genes in counts matrix
+#&gt;   - Base mean &gt; 0: 304 genes (non-zero)
+#&gt;   - Base mean &gt; 1: 213 genes
+#&gt;   - Alpha cutoff: 0.1
+#&gt;   - LFC cutoff: 0.25 (applied in tables only)
+#&gt;   - DEG pass alpha: 4 genes
+#&gt;   - DEG LFC up: 2 genes
+#&gt;   - DEG LFC down: 2 genes</div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; [1] "contrast"   "alpha"      "lfc"        "all"        "deg"
+#&gt; [6] "degLFC"     "degLFCUp"   "degLFCDown"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
+
       <li><a href="#value">Value</a></li>
-      
+
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    
+
 Michael Steinbaugh
 
   </div>

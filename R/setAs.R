@@ -35,12 +35,12 @@ NULL
     # Check for version
     version <- metadata(from)[["version"]]
     if (is.null(version)) {
-        stop(paste(
+        abort(paste(
             "Unknown bcbio object version.",
-            "Please reload with 'loadRNASeq()'."
-        ), call. = FALSE)
+            "Please reload with `loadRNASeq()`."
+        ))
     }
-    message(paste(
+    inform(paste(
         paste("Upgrading from", version, "to", packageVersion),
         paste("Existing metadata:", toString(names(metadata(from)))),
         sep = "\n"

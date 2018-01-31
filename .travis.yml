@@ -11,10 +11,15 @@ warnings_are_errors: false
 
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
 r_packages:
   - covr
+  - DT
+  - formatR
+  - hexbin
   - rlang
+  - testthat
+  - tidyverse
 
 after_success:
   - Rscript -e 'covr::codecov()'
@@ -23,11 +28,6 @@ after_success:
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
   - cd bcbio_rnaseq_output_example
   - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
-  - Rscript -e 'devtools::install_github("lpantano/DEGreport")'
-  - Rscript -e 'install.packages("DT")'
-  - Rscript -e 'install.packages("tidyverse")'
-  - Rscript -e 'install.packages("formatR")'
-  - Rscript -e 'install.packages("hexbin")'
   - Rscript -e 'testthat::test_file("test_reports.R")'
   - cd report
   - mv de.html de-${TRAVIS_BRANCH}.html

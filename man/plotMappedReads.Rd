@@ -11,12 +11,14 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20, warnLimit = 10,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  passLimit = 20L, warnLimit = 10L,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 
 \S4method{plotMappedReads}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 20, warnLimit = 10,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  interestingGroups = "sampleName", passLimit = 20L, warnLimit = 10L,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -39,6 +41,8 @@ this is automatically determined by the metadata set inside the
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Include plot title.}
 }
 \value{
 \link{ggplot}.

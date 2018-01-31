@@ -29,7 +29,7 @@
     } else if ("sailfish" %in% subdirs) {
         type <- "sailfish"
     } else {
-        stop("Unsupported counts output format", call. = FALSE)
+        abort("Unsupported counts output format")
     }
 
     # Locate `quant.sf` file for salmon or sailfish output
@@ -45,7 +45,7 @@
     names(sampleFiles) <- names(sampleDirs)
 
     # Begin loading of selected counts
-    message(paste("Reading", type, "counts using tximport"))
+    inform(paste("Reading", type, "counts using tximport"))
 
     # Import the counts (https://goo.gl/h6fm15)
     if (type %in% c("salmon", "sailfish")) {

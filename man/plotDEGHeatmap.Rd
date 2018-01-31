@@ -4,37 +4,76 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
+\alias{plotDEGHeatmap,DESeqResults,matrix-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
+  title = TRUE, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0,
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
+  title = TRUE, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
+  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  color = viridis::viridis(256L), legendColor = viridis::viridis,
   title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Secondary object containing a normalized count matrix.}
+\item{counts}{Secondary object containing a normalized counts matrix.}
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
+\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
+use the alpha level defined in the object.}
+
 \item{lfc}{log2 fold change ratio cutoff.}
 
-\item{title}{\emph{Optional}. Plot title.}
-}
-\value{
-Graphical output only.
+\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
+the function will attempt to automatically map gene identifiers to symbols
+from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
+gene2symbol mapping will be disabled. This is useful when working with a
+poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
+passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
+Ensembl gene identifiers will be labeled in place of gene symbols.}
+
+\item{annotationCol}{\emph{Optional}. \link{data.frame} that defines annotation
+mappings for the columns.}
+
+\item{scale}{Character indicating if the values should be centered and scaled
+in either the row direction or the column direction, or none. Corresponding
+values are "row", "column" and "none".}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{legendColor}{Colors to use for legend labels. Defaults to the
+\code{\link[viridis:viridis]{viridis::viridis()}}.}
+
+\item{title}{Include plot title.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
 optimized for handling a \link{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
+}
+\details{
+When column clustering is disabled, the columns are sorted by the interesting
+groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then the
+sample names.
 }
 \examples{
 load(system.file(
@@ -52,12 +91,15 @@ load(system.file(
 
 # Use our stashed gene2symbol for better speed
 gene2symbol <- gene2symbol(bcb)
+annotationCol <- sampleMetadata(bcb) \%>\%
+    .[, interestingGroups(bcb), drop = FALSE]
 
 # DESeqResults, DESeqTransform
 plotDEGHeatmap(
     res,
     counts = rld,
-    gene2symbol = gene2symbol)
+    gene2symbol = gene2symbol,
+    annotationCol = annotationCol)
 
 # DESeqResults, DESeqDataSet
 # Using default ggplot2 colors

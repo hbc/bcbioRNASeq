@@ -13,6 +13,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
+# Last modified 2017-12-14
 library(DESeq2)
 library(bcbioRNASeq)
 
@@ -23,9 +24,14 @@ if (file.exists("setup.R")) {
 }
 
 # Directory paths
-dataDir <- file.path(params$outputDir, "data")
-countsDir <- file.path(params$outputDir, "results", "counts")
-deDir <- file.path(params$outputDir, "results", "differential_expression")
+dataDir <- file.path(params$outputDir, "data", Sys.Date())
+countsDir <- file.path(params$outputDir, "results", Sys.Date(), "counts")
+deDir <- file.path(params$outputDir, "results", Sys.Date(), "differential_expression")
+invisible(mapply(
+    list(dataDir, countsDir, deDir),
+    FUN = dir.create,
+    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+))
 
 # Load bcbioRNASeq object
 bcbName <- load(params$bcbFile)

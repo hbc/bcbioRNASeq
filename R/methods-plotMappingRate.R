@@ -28,42 +28,58 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot labs ylim
+#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 #' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
     interestingGroups = "sampleName",
-    passLimit = 90,
-    warnLimit = 70,
+    passLimit = 90L,
+    warnLimit = 70L,
     fill = viridis::scale_fill_viridis(discrete = TRUE),
-    flip = TRUE) {
+    flip = TRUE,
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "mapping rate"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
             x = ~sampleName,
-            y = ~mappedReads / totalReads * 100,
+            y = ~mappedReads / totalReads * 100L,
             fill = ~interestingGroups)
     ) +
         geom_bar(stat = "identity") +
-        ylim(0, 100) +
+        ylim(0L, 100L) +
         labs(
-            title = "mapping rate",
+            title = title,
             x = "sample",
             y = "mapping rate (%)",
-            fill = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(passLimit)) {
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
+
+    if (is.numeric(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (!is.null(warnLimit)) {
+    if (is.numeric(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
-    if (!is.null(fill)) {
+
+    if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
     }
+
     if (isTRUE(flip)) {
         p <- p + coord_flip()
     }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(fill = FALSE)
+    }
+
     p
 }
 
@@ -79,10 +95,11 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 90,
-        warnLimit = 70,
+        passLimit = 90L,
+        warnLimit = 70L,
         fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
+        flip = TRUE,
+        title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -92,7 +109,8 @@ setMethod(
             passLimit = passLimit,
             warnLimit = warnLimit,
             fill = fill,
-            flip = flip)
+            flip = flip,
+            title = title)
     })
 
 

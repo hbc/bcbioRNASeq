@@ -10,14 +10,14 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1,
-  genes = NULL, gene2symbol = TRUE, ntop = 0, direction = "both",
+\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1L,
+  genes = NULL, gene2symbol = TRUE, ntop = 0L, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
   histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1, genes = NULL, gene2symbol = TRUE, ntop = 0,
+  lfc = 1L, genes = NULL, gene2symbol = TRUE, ntop = 0L,
   direction = "both", pointColor = "gray", pointAlpha = 0.75,
   pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
   labelColor = "black", histograms = TRUE)
@@ -33,9 +33,9 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{genes}{\emph{Optional}. Character vector of gene identifiers to plot. These
-must be the stable identifiers (e.g. ENSG00000000003) used on Ensembl and
-not the gene symbols.}
+\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+gene symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
 the function will attempt to automatically map gene identifiers to symbols

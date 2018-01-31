@@ -67,17 +67,19 @@ setMethod(
 
         # Check for slot presence
         if (!slot %in% names(assays(object))) {
-            warning(paste(
-                paste0("'", slot, "'"),
-                "counts matrix not defined in 'assays()' slot"
-            ), call. = FALSE)
-            return(NULL)
+            missingMsg <- paste(slot, "counts not defined")
+            warn(paste(
+                paste0(missingMsg, "."),
+                "Using log2 tmm counts instead."
+            ))
+            tmm <- tmm(object)
+            return(log2(tmm + 1L))
         }
 
         counts <- assays(object)[[slot]]
 
-        # Return matrix from [DESeqTransform]
-        if (slot %in% c("rlog", "vst")) {
+        # Return the matrix from slotted DESeqTransform objects
+        if (is(counts, "DESeqTransform")) {
             counts <- assay(counts)
         }
 

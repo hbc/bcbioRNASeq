@@ -32,10 +32,10 @@
             set_rownames(.[["enstxp"]])
     } else {
         # Fall back to using annotable tx2gene
-        warning(paste(
+        warn(paste(
             "tx2gene.csv file missing.",
-            "Attempting to generate tx2gene from Ensembl instead."),
-            call. = FALSE)
+            "Attempting to generate tx2gene from Ensembl instead."
+        ))
         tx2gene(organism, release = release)
     }
 }

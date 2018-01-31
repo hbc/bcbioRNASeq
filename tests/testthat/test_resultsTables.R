@@ -10,23 +10,20 @@ test_that("resultsTables", {
         lfc = 0.25,
         summary = FALSE,
         write = FALSE)
-    expect_equal(
+    expect_identical(
         class(resTbl),
         "list"
     )
-    expect_equal(
-        names(resTbl),
-        c("contrast",
-          "alpha",
-          "lfc",
-          "all",
-          "deg",
-          "degLFC",
-          "degLFCUp",
-          "degLFCDown",
-          "allFile",
-          "degFile",
-          "degLFCUpFile",
-          "degLFCDownFile")
+    tibble <- c("tbl_df", "tbl", "data.frame")
+    expect_identical(
+        lapply(resTbl, class),
+        list("contrast" = "character",
+             "alpha" = "numeric",
+             "lfc" = "numeric",
+             "all" = tibble,
+             "deg" = tibble,
+             "degLFC" = tibble,
+             "degLFCUp" = tibble,
+             "degLFCDown" = tibble)
     )
 })

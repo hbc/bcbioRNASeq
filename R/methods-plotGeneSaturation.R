@@ -41,26 +41,36 @@ NULL
     object,
     counts,
     interestingGroups = "sampleName",
-    minCounts = 0,
-    color = viridis::scale_color_viridis(discrete = TRUE)) {
+    minCounts = 0L,
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    if (isTRUE(title)) {
+        title <- "gene saturation"
+    } else if (!is.character(title)) {
+        title <- NULL
+    }
+
     metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
         metrics,
         mapping = aes_(
-            x = ~mappedReads / 1e6,
+            x = ~mappedReads / 1e6L,
             y = colSums(counts > minCounts),
             color = ~interestingGroups)
     ) +
-        geom_point(size = 3) +
+        geom_point(size = 3L) +
         geom_smooth(method = "lm", se = FALSE) +
         labs(
-            title = "gene saturation",
+            title = title,
             x = "mapped reads (million)",
             y = "genes",
-            color = paste(interestingGroups, collapse = ":\n"))
-    if (!is.null(color)) {
+            color = paste(interestingGroups, collapse = ":\n")
+        )
+
+    if (is(color, "ScaleDiscrete")) {
         p <- p + color
     }
+
     p
 }
 
@@ -79,11 +89,10 @@ setMethod(
         object,
         interestingGroups,
         normalized = "tmm",
-        minCounts = 0,
-        color = viridis::scale_color_viridis(discrete = TRUE)) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
+        minCounts = 0L,
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
+        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -92,7 +101,8 @@ setMethod(
             counts = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             minCounts = minCounts,
-            color = color)
+            color = color,
+            title = title)
     })
 
 

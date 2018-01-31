@@ -12,12 +12,13 @@
 plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  warnLimit = 20, fill = viridis::scale_fill_viridis(discrete = TRUE),
-  flip = TRUE)
+  warnLimit = 20L, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  flip = TRUE, title = TRUE)
 
 \S4method{plotIntronicMappingRate}{data.frame}(object,
-  interestingGroups = "sampleName", warnLimit = 20,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  interestingGroups = "sampleName", warnLimit = 20L,
+  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,6 +39,8 @@ this is automatically determined by the metadata set inside the
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Include plot title.}
 }
 \value{
 \link{ggplot}.
