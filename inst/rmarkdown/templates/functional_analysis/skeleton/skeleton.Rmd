@@ -68,8 +68,8 @@ alpha <- metadata(res)$alpha
 dataDir <- file.path(params$outputDir, "data", Sys.Date())
 faDir <- file.path(params$outputDir, "results", Sys.Date(), "functional_analysis")
 invisible(mapply(
-    list(faDir, dataDir),
     FUN = dir.create,
+    list(faDir, dataDir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
 ```
