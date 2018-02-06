@@ -92,7 +92,6 @@ Imports:
     pbapply (>= 1.3),
     pheatmap (>= 1.0.8),
     RColorBrewer,
-    rdrop2 (>= 0.8.1),
     readr (>= 1.1.1),
     reshape2 (>= 1.4.2),
     rlang (>= 0.1.2),
