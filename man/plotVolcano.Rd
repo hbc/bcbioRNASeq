@@ -10,14 +10,14 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 1L,
+\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
   genes = NULL, gene2symbol = TRUE, ntop = 0L, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
   histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 1L, genes = NULL, gene2symbol = TRUE, ntop = 0L,
+  lfc = 0L, genes = NULL, gene2symbol = TRUE, ntop = 0L,
   direction = "both", pointColor = "gray", pointAlpha = 0.75,
   pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
   labelColor = "black", histograms = TRUE)
