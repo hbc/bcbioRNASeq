@@ -23,7 +23,11 @@
 #' @param headerLevel R Markdown header level. Applies only when
 #'   `summary = TRUE`.
 #' @param write Write CSV files to disk.
-#' @param dir Directory path where to write files.
+#' @param dir Local directory path where to write the results tables.
+#' @param dropboxDir Dropbox directory path where to archive the results tables
+#'   for permanent storage (e.g. Stem Cell Commons). When this option is
+#'   enabled, unique links per file are generated internally with the rdrop2
+#'   package.
 #' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #'
 #' @return Results [list].
@@ -67,30 +71,83 @@ NULL
 #' @noRd
 .mdResultsTables <- function(
     resTbl,
-    dir = getwd(),
     headerLevel = 2L) {
-    if (!dir.exists(dir)) {
-        abort("DE results directory missing")
+    # Prioritze `dropboxFiles` over `localFiles` for path return
+    if ("dropboxFiles" %in% names(resTbl)) {
+        paths <- vapply(
+            X = resTbl[["dropboxFiles"]],
+            FUN = function(x) {
+                x[["url"]]
+            },
+            FUN.VALUE = "character")
+        basenames <- basename(paths) %>%
+            gsub("\\?.*$", "", .)
+    } else if ("localFiles" %in% names(resTbl)) {
+        paths <- localFiles
+        basenames <- basename(paths)
+    } else {
+        abort("`resTbl` must contain `localFiles` or `dropboxFiles")
     }
-    all <- resTbl[["allFile"]]
-    deg <- resTbl[["degFile"]]
-    degLFCUp <- resTbl[["degLFCUpFile"]]
-    degLFCDown <- resTbl[["degLFCDownFile"]]
+    names(basenames) <- names(paths)
+
     mdHeader("Results tables", level = headerLevel, asis = TRUE)
     mdList(c(
         paste0(
-            "[`", all, "`](", file.path(dir, all), "): ",
+            "[`",basenames[["all"]], "`]",
+            "(", paths[["all"]], "): ",
             "All genes, sorted by Ensembl identifier."),
         paste0(
-            "[`", deg, "`](", file.path(dir, deg), "): ",
+            "[`", basenames[["deg"]], "`]",
+            "(", paths[["deg"]], "): ",
             "Genes that pass the alpha (FDR) cutoff."),
         paste0(
-            "[`", degLFCUp, "`](", file.path(dir, degLFCUp), "): ",
+            "[`", basenames[["degLFCUp"]], "`]",
+            "(", paths[["degLFCUp"]], "): ",
             "Upregulated DEG; positive log2 fold change."),
         paste0(
-            "[`", degLFCDown, "`](", file.path(dir, degLFCDown), "): ",
+            "[`", basenames[["degLFCDown"]], "`]",
+            "(", paths[["degLFCDown"]], "): ",
             "Downregulated DEG; negative log2 fold change.")
     ), asis = TRUE)
+}
+
+
+
+#' @importFrom rdrop2 drop_auth drop_delete drop_exists drop_share drop_upload
+.copyToDropbox <- function(files, dir) {
+    if (!(is.character(files) || is.list(files))) {
+        abort("`files` must be a character vector or list")
+    }
+    if (!is_string(dir)) {
+        abort("`dir` must be a string")
+    }
+
+    # Check that local files exist
+    if (!all(vapply(files, file.exists, logical(1L)))) {
+        missing <- !vapply(files, file.exists, logical(1L))
+        abort(paste(
+            "Missing local files:",
+            toString(basename(files[missing]))
+        ))
+    }
+
+    # Ensure user is authenticated with Dropbox
+    drop_auth()
+
+    # Loop across the files in list
+    invisible(lapply(files, function(file) {
+        dropboxFile <- file.path(dir, basename(file))
+        # Delete file if it exists already. Otherwise `drop_share()`
+        # is currently erroring out when we try to re-share an existing
+        # file.
+        if (drop_exists(dropboxFile)) {
+            drop_delete(dropboxFile)
+        }
+        drop_upload(file = file, path = dir)
+        drop_share(
+            path = dropboxFile,
+            requested_visibility = "public")
+    }))
 }
 
 
@@ -110,13 +167,49 @@ NULL
     headerLevel = 2L,
     write = FALSE,
     dir = getwd(),
+    dropboxDir = NULL,
     quiet = FALSE) {
+    # Parameter integrity checks ===============================================
+    # lfc
+    if (!(is.numeric(lfc) && length(lfc) == 1L)) {
+        abort("`lfc` must be a numeric string")
+    }
+    # annotable
+    if (!(is.logical(annotable) || is.data.frame(annotable))) {
+        abort("`annotable` must be a logical vector or data.frame")
+    }
+    # summary
+    if (!is.logical(summary)) {
+        abort("`summary` must be a logical vector")
+    }
+    # headerLevel
+    if (!(is.numeric(headerLevel) && length(headerLevel) == 1L)) {
+        abort("`headerLevel` must be a numeric string")
+    }
+    # write
+    if (!is.logical(write)) {
+        abort("`write` must be a logical vector")
+    }
+    # dir
+    if (!is_string(dir)) {
+        abort("`dir` must be a string")
+    }
+    # dropboxDir
+    if (!(is_string(dropboxDir) || is.null(dropboxDir))) {
+        abort("`dropboxDir` must be a string or NULL")
+    }
+    # quiet
+    if (!is.logical(quiet)) {
+        abort("`quiet` must be a logical vector")
+    }
+
+    # Extract internal parameters from DESeqResults object =====================
     contrast <- .resContrastName(object)
     fileStem <- snake(contrast)
-
     # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]
 
+    # Prepare the results tables ===============================================
     all <- object %>%
         as.data.frame() %>%
         rownames_to_column("ensgene") %>%
@@ -161,16 +254,16 @@ NULL
         .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
 
     resTbl <- list(
-        contrast = contrast,
+        "contrast" = contrast,
         # Cutoffs
-        alpha = alpha,
-        lfc = lfc,
+        "alpha" = alpha,
+        "lfc" = lfc,
         # Tibbles
-        all = all,
-        deg = deg,
-        degLFC = degLFC,
-        degLFCUp = degLFCUp,
-        degLFCDown = degLFCDown)
+        "all" = all,
+        "deg" = deg,
+        "degLFC" = degLFC,
+        "degLFCUp" = degLFCUp,
+        "degLFCDown" = degLFCDown)
 
     if (isTRUE(summary)) {
         mdHeader("Summary statistics", level = headerLevel, asis = TRUE)
@@ -187,28 +280,47 @@ NULL
     }
 
     if (isTRUE(write)) {
-        # Write the CSV files
+        tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
+
+        # Local files (required) ===============================================
+        # Standardize the output directory
         dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+        dir <- normalizePath(dir)
 
-        # File paths
-        allFile <- paste(fileStem, "all.csv.gz", sep = "_")
-        degFile <- paste(fileStem, "deg.csv.gz", sep = "_")
-        degLFCUpFile <- paste(fileStem, "deg_lfc_up.csv.gz", sep = "_")
-        degLFCDownFile <- paste(fileStem, "deg_lfc_down.csv.gz", sep = "_")
+        # Local file paths
+        localFiles <- file.path(
+            dir,
+            paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+        )
+        names(localFiles) <- tibbles
 
-        write_csv(all, file.path(dir, allFile))
-        write_csv(deg, file.path(dir, degFile))
-        write_csv(degLFCUp, file.path(dir, degLFCUpFile))
-        write_csv(degLFCDown, file.path(dir, degLFCDownFile))
+        # Write the results tibbles to local directory
+        invisible(lapply(
+            X = seq_along(localFiles),
+            FUN = function(a) {
+                write_csv(
+                    x = get(tibbles[[a]]),
+                    path = localFiles[[a]]
+                )
+            }
+        ))
+
+        # Check that writes were successful
+        if (!all(vapply(localFiles, file.exists, logical(1L)))) {
+            abort("Results table CSVs failed to write to disk")
+        }
 
         # Update the resTbl list with the file paths
-        resTbl[["allFile"]] <- allFile
-        resTbl[["degFile"]] <- degFile
-        resTbl[["degLFCUpFile"]] <- degLFCUpFile
-        resTbl[["degLFCDownFile"]] <- degLFCDownFile
+        resTbl[["localFiles"]] <- localFiles
+
+        # Copy to Dropbox (optional) ===========================================
+        if (is.character(dropboxDir)) {
+            dropboxFiles <- .copyToDropbox(localFiles, dir = dropboxDir)
+            resTbl[["dropboxFiles"]] <- dropboxFiles
+        }
 
         # Output file information in Markdown format
-        .mdResultsTables(resTbl, dir = dir, headerLevel = headerLevel)
+        .mdResultsTables(resTbl, headerLevel = headerLevel)
     }
 
     resTbl
