@@ -15,7 +15,7 @@ params:
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2017-12-14
+# Last modified 2018-02-06
 
 # Organism params:
 # Mouse (default)
@@ -66,7 +66,7 @@ alpha <- metadata(res)$alpha
 
 # Directory paths
 dataDir <- file.path(params$outputDir, "data", Sys.Date())
-faDir <- file.path(params$outputDir, "results", Sys.Date(), "functional_analysis")
+faDir <- file.path(params$outputDir, "results", "functional_analysis")
 invisible(mapply(
     FUN = dir.create,
     list(faDir, dataDir),
