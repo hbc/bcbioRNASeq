@@ -43,6 +43,10 @@ sampleMetadata(bcb)
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
 
+
+
+# Count matrices
+
 ```{r counts}
 rawCounts <- counts(bcb, normalized = FALSE)
 normalizedCounts <- counts(bcb, normalized = TRUE)
@@ -50,6 +54,12 @@ tpm <- counts(bcb, normalized = "tpm")
 saveData(rawCounts, normalizedCounts, tpm, dir = dataDir)
 writeCounts(rawCounts, normalizedCounts, tpm, dir = countsDir)
 ```
+
+The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
+
+- [`normalizedCounts.csv.gz`](`r file.path(countsDir, "normalizedCounts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`rawCounts.csv.gz`](`r file.path(countsDir, "rawCounts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 

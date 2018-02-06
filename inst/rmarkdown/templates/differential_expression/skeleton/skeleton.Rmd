@@ -24,7 +24,6 @@ if (file.exists("setup.R")) {
 
 # Directory paths
 dataDir <- file.path(params$outputDir, "data", Sys.Date())
-countsDir <- file.path(params$outputDir, "results", "counts")
 deDir <- file.path(params$outputDir, "results", "differential_expression")
 invisible(mapply(
     FUN = dir.create,
@@ -123,19 +122,7 @@ plotDEGHeatmap(res, counts = rld)
 
 
 
-# File downloads
-
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
-
-
-## Count matrices
-
-- [`normalizedCounts.csv.gz`](`r file.path(countsDir, "normalizedCounts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`rawCounts.csv.gz`](`r file.path(countsDir, "rawCounts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
-
-
-## Differentially expressed genes (DEG)
+# Results tables
 
 ```{r results_tables, results="asis"}
 resTbl <- resultsTables(
@@ -147,7 +134,7 @@ resTbl <- resultsTables(
     dir = deDir)
 ```
 
-DEG tables are sorted by BH-adjusted P value, and contain the following columns:
+Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
 
 - `ensgene`: [Ensembl][] gene identifier.
 - `baseMean`: Mean of the normalized counts per gene for all samples.
@@ -161,8 +148,7 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
 
-
-# Top tables
+## Top tables
 
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
