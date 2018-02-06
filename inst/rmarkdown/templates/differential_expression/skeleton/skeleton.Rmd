@@ -13,8 +13,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2017-12-14
-library(DESeq2)
+# Last modified 2018-02-05
 library(bcbioRNASeq)
 
 # Shared R Markdown settings
@@ -25,8 +24,8 @@ if (file.exists("setup.R")) {
 
 # Directory paths
 dataDir <- file.path(params$outputDir, "data", Sys.Date())
-countsDir <- file.path(params$outputDir, "results", Sys.Date(), "counts")
-deDir <- file.path(params$outputDir, "results", Sys.Date(), "differential_expression")
+countsDir <- file.path(params$outputDir, "results", "counts")
+deDir <- file.path(params$outputDir, "results", "differential_expression")
 invisible(mapply(
     FUN = dir.create,
     list(dataDir, countsDir, deDir),
