@@ -72,7 +72,7 @@ NULL
     object,
     alpha = 0.01,
     padj = TRUE,
-    lfc = 1L,
+    lfc = 0L,
     genes = NULL,
     gene2symbol = TRUE,
     ntop = 0L,
@@ -102,19 +102,6 @@ NULL
         .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
         # Select columns used for plots
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
-    if (isTRUE(gene2symbol)) {
-        organism <- pull(data, "ensgene") %>%
-            .[[1L]] %>%
-            detectOrganism()
-        gene2symbol <- annotable(organism, format = "gene2symbol")
-    }
-    if (is.data.frame(gene2symbol)) {
-        labelCol <- "symbol"
-        checkGene2symbol(gene2symbol)
-        data <- left_join(data, gene2symbol, by = "ensgene")
-    } else {
-        labelCol <- "ensgene"
-    }
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -139,12 +126,35 @@ NULL
         ) %>%
         arrange(desc(!!sym("rankScore")))
 
-    # Text labels ==============================================================
-    if (!is.null(genes)) {
+    # Gene text labels =========================================================
+    if (is.character(genes)) {
+        # Ensure all genes identifiers are present
+        if (!all(genes %in% data[["ensgene"]])) {
+            abort(paste(
+                "Missing genes:",
+                setdiff(genes, data[["ensgene"]])
+            ))
+        }
+    } else if (ntop > 0L) {
+        genes <- data[1L:ntop, "ensgene", drop = TRUE]
+    }
+    # Prepare `volcanoText` tibble containing text labels for ggplot
+    if (is.character(genes)) {
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-    } else if (ntop > 0L) {
-        volcanoText <- data[1L:ntop, , drop = FALSE]
+        if (isTRUE(gene2symbol)) {
+            organism <- pull(data, "ensgene") %>%
+                .[[1L]] %>%
+                detectOrganism()
+            gene2symbol <- annotable(organism, format = "gene2symbol")
+        }
+        if (is.data.frame(gene2symbol)) {
+            labelCol <- "symbol"
+            checkGene2symbol(gene2symbol)
+            volcanoText <- left_join(volcanoText, gene2symbol, by = "ensgene")
+        } else {
+            labelCol <- "ensgene"
+        }
     } else {
         volcanoText <- NULL
     }
@@ -348,7 +358,7 @@ setMethod(
         object,
         alpha,
         padj = TRUE,
-        lfc = 1L,
+        lfc = 0L,
         genes = NULL,
         gene2symbol = TRUE,
         ntop = 0L,
