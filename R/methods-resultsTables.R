@@ -65,7 +65,10 @@ NULL
 #'
 #' @return [writeLines()].
 #' @noRd
-.mdResultsTables <- function(resTbl, dir) {
+.mdResultsTables <- function(
+    resTbl,
+    dir = getwd(),
+    headerLevel = 2L) {
     if (!dir.exists(dir)) {
         abort("DE results directory missing")
     }
@@ -73,6 +76,7 @@ NULL
     deg <- resTbl[["degFile"]]
     degLFCUp <- resTbl[["degLFCUpFile"]]
     degLFCDown <- resTbl[["degLFCDownFile"]]
+    mdHeader("Results tables", level = headerLevel, asis = TRUE)
     mdList(c(
         paste0(
             "[`", all, "`](", file.path(dir, all), "): ",
@@ -86,7 +90,7 @@ NULL
         paste0(
             "[`", degLFCDown, "`](", file.path(dir, degLFCDown), "): ",
             "Downregulated DEG; negative log2 fold change.")
-    ))
+    ), asis = TRUE)
 }
 
 
@@ -169,7 +173,8 @@ NULL
         degLFCDown = degLFCDown)
 
     if (isTRUE(summary)) {
-        c(
+        mdHeader("Summary statistics", level = headerLevel, asis = TRUE)
+        mdList(c(
             paste(nrow(all), "genes in counts matrix"),
             paste("Base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
             paste("Base mean > 1:", nrow(baseMeanGt1), "genes"),
@@ -178,10 +183,7 @@ NULL
             paste("DEG pass alpha:", nrow(deg), "genes"),
             paste("DEG LFC up:", nrow(degLFCUp), "genes"),
             paste("DEG LFC down:", nrow(degLFCDown), "genes")
-        ) %>%
-            paste("  -", .) %>%
-            c("Summary statistics:", .) %>%
-            cat(sep = "\n")
+        ), asis = TRUE)
     }
 
     if (isTRUE(write)) {
@@ -206,7 +208,7 @@ NULL
         resTbl[["degLFCDownFile"]] <- degLFCDownFile
 
         # Output file information in Markdown format
-        .mdResultsTables(resTbl, dir)
+        .mdResultsTables(resTbl, dir = dir, headerLevel = headerLevel)
     }
 
     resTbl
