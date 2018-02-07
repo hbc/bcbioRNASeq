@@ -64,16 +64,9 @@ NULL
             ))
         }
         sampleMetadata %>%
-            .[which(.[[column]] %in% argument), "sampleID", drop = TRUE]
+            .[.[[column]] %in% argument, "sampleID", drop = TRUE]
     })
-    samples <- Reduce(f = intersect, x = list)
-    if (!length(samples)) {
-        abort("No samples matched")
-    }
-    samples %>%
-        as.character() %>%
-        unique() %>%
-        sort()
+    Reduce(f = intersect, x = list)
 }
 
 
