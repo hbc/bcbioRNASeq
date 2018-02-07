@@ -27,7 +27,7 @@ dataDir <- file.path(params$outputDir, "data", Sys.Date())
 deDir <- file.path(params$outputDir, "results", "differential_expression")
 invisible(mapply(
     FUN = dir.create,
-    list(dataDir, countsDir, deDir),
+    list(dataDir, deDir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
 
