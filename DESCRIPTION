@@ -86,7 +86,7 @@ Imports:
     ggrepel (>= 0.6.5),
     grid,
     grDevices,
-    knitr (>= 1.17),
+    knitr (>= 1.16),
     magrittr (>= 1.5),
     methods,
     pbapply (>= 1.3),
