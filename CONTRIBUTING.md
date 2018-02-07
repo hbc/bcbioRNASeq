@@ -38,7 +38,7 @@ BiocCheck::BiocCheck(getwd())
 
 ### Rebuild website
 
-```
+```r
 unlink("docs", recursive = TRUE)
 pkgdown::build_site()
 ```
