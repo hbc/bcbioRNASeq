@@ -29,9 +29,15 @@ Select Samples
 load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 selectSamples(bcb, group = "ko")
+
+# DESeqDataSet
+selectSamples(dds, group = c("ctrl", "ko"))
 }
 \author{
 Michael Steinbaugh

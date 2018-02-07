@@ -17,9 +17,15 @@
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "dds.rda"),
+#'     package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' selectSamples(bcb, group = "ko")
+#'
+#' # DESeqDataSet
+#' selectSamples(dds, group = c("ctrl", "ko"))
 NULL
 
 
@@ -43,23 +49,26 @@ NULL
     sampleMetadata <- sampleMetadata(object)
     list <- lapply(seq_along(arguments), function(a) {
         column <- names(arguments)[[a]]
-        argument <- arguments[[a]]
-        match <- sampleMetadata %>%
-            .[.[[column]] %in% argument, "sampleID", drop = TRUE]
-        # Check for match failure
-        if (!length(match)) {
-            warn(paste(
-                "Match failure:",
-                paste(column, "=", argument)
-            ))
-            return(NULL)
+        # Check that column is present
+        if (!column %in% colnames(sampleMetadata)) {
+            abort(paste(column, "isn't present in metadata colnames"))
         }
-        match
+        argument <- arguments[[a]]
+        # Check that all items in argument are present
+        if (!all(argument %in% sampleMetadata[[column]])) {
+            missing <- argument[which(!argument %in% sampleMetadata[[column]])]
+            abort(paste(
+                column,
+                "metadata column doesn't contain",
+                toString(missing)
+            ))
+        }
+        sampleMetadata %>%
+            .[which(.[[column]] %in% argument), "sampleID", drop = TRUE]
     })
     samples <- Reduce(f = intersect, x = list)
     if (!length(samples)) {
-        warn("No samples matched")
-        return(NULL)
+        abort("No samples matched")
     }
     samples %>%
         as.character() %>%
