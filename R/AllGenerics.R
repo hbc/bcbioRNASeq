@@ -73,6 +73,14 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 
+#' @rdname plotDEGenePCA
+#' @export
+setGeneric("plotDEGenePCA", function(object, counts, ...) {
+    standardGeneric("plotDEGenePCA")
+})
+
+
+
 #' @rdname plotExonicMappingRate
 #' @export
 setGeneric("plotExonicMappingRate", function(object, ...) {
