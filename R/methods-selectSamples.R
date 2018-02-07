@@ -81,10 +81,10 @@ NULL
 
 
 
-#' @importFrom DESeq2 DESeq
 .selectSamples.DESeqDataSet <- function(object, ...) {  # nolint
     samples <- .selectSamples(object, ...)
     object <- object[, samples]
+
     # Relevel the factors in colData
     colData <- colData(object)
     colData[] <- lapply(colData, function(x) {
@@ -95,7 +95,8 @@ NULL
         }
     })
     colData(object) <- colData
-    DESeq(object)
+
+    object
 }
 
 
