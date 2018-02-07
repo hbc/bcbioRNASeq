@@ -132,6 +132,7 @@ resTbl <- resultsTables(
     summary = TRUE,
     headerLevel = 3,
     dir = deDir)
+saveData(resTbl, dir = dataDir)
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:

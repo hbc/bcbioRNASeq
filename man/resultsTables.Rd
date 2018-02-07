@@ -11,7 +11,7 @@ resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
   summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  quiet = FALSE)
+  dropboxDir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -40,7 +40,12 @@ can be passed in.}
 
 \item{write}{Write CSV files to disk.}
 
-\item{dir}{Directory path where to write files.}
+\item{dir}{Local directory path where to write the results tables.}
+
+\item{dropboxDir}{Dropbox directory path where to archive the results tables
+for permanent storage (e.g. Stem Cell Commons). When this option is
+enabled, unique links per file are generated internally with the rdrop2
+package.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
