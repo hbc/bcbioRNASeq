@@ -4,9 +4,12 @@
 \name{selectSamples}
 \alias{selectSamples}
 \alias{selectSamples,bcbioRNASeq-method}
+\alias{selectSamples,DESeqDataSet-method}
 \title{Select Samples}
 \usage{
 \S4method{selectSamples}{bcbioRNASeq}(object, ..., transform = TRUE)
+
+\S4method{selectSamples}{DESeqDataSet}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
