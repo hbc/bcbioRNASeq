@@ -25,10 +25,10 @@ NULL
 
 
 # Constructors =================================================================
-.selectSamples <- function(
-    object,
-    ...,
-    transform = TRUE) {
+#' Select Samples Using Dot Arguments
+#' @return Character vector of sample identifiers (matching colnames).
+#' @noRd
+.selectSamples <- function(object, ...) {
     arguments <- list(...)
     checkArguments <- vapply(
         X = arguments,
@@ -61,8 +61,39 @@ NULL
         warn("No samples matched")
         return(NULL)
     }
-    samples <- sort(unique(samples))
+    samples %>%
+        as.character() %>%
+        unique() %>%
+        sort()
+}
+
+
+
+.selectSamples.bcbioRNASeq <- function(  # nolint
+    object,
+    ...,
+    transform = TRUE) {
+    samples <- .selectSamples(object, ...)
     object[, samples, transform = transform]
+}
+
+
+
+#' @importFrom DESeq2 DESeq
+.selectSamples.DESeqDataSet <- function(object, ...) {  # nolint
+    samples <- .selectSamples(object, ...)
+    object <- object[, samples]
+    # Relevel the factors in colData
+    colData <- colData(object)
+    colData[] <- lapply(colData, function(x) {
+        if (is.factor(x)) {
+            droplevels(x)
+        } else {
+            x
+        }
+    })
+    colData(object) <- colData
+    DESeq(object)
 }
 
 
@@ -73,4 +104,13 @@ NULL
 setMethod(
     "selectSamples",
     signature("bcbioRNASeq"),
-    .selectSamples)
+    .selectSamples.bcbioRNASeq)
+
+
+
+#' @rdname selectSamples
+#' @export
+setMethod(
+    "selectSamples",
+    signature("DESeqDataSet"),
+    .selectSamples.DESeqDataSet)
