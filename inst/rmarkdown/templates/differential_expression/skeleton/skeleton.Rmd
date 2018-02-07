@@ -130,7 +130,7 @@ resTbl <- resultsTables(
     lfc = params$lfc,
     write = TRUE,
     summary = TRUE,
-    headerLevel = 3,
+    headerLevel = 2,
     dir = deDir)
 saveData(resTbl, dir = dataDir)
 ```
