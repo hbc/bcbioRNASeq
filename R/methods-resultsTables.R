@@ -83,7 +83,7 @@ NULL
         basenames <- basename(paths) %>%
             gsub("\\?.*$", "", .)
     } else if ("localFiles" %in% names(resTbl)) {
-        paths <- localFiles
+        paths <- resTbl[["localFiles"]]
         basenames <- basename(paths)
     } else {
         abort("`resTbl` must contain `localFiles` or `dropboxFiles")
