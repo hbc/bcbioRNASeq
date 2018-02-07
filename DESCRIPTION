@@ -83,7 +83,7 @@ Imports:
     dplyr (>= 0.7.4),
     edgeR (>= 3.20.0),
     ggplot2 (>= 2.2.1),
-    ggrepel (>= 0.7.0),
+    ggrepel (>= 0.6.5),
     grid,
     grDevices,
     knitr (>= 1.17),
