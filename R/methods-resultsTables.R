@@ -136,8 +136,10 @@ NULL
         abort("`lfc` must be a numeric string")
     }
     # annotable
-    if (!(is.logical(annotable) || is.data.frame(annotable))) {
-        abort("`annotable` must be a logical vector or data.frame")
+    if (!(is.logical(annotable) ||
+          is.data.frame(annotable) ||
+          is.null(annotable))) {
+        abort("`annotable` must be a logical vector, data.frame, or NULL")
     }
     # summary
     if (!is.logical(summary)) {
@@ -186,7 +188,7 @@ NULL
             detectOrganism()
         annotable <- annotable(organism, quiet = quiet)
     }
-    if (!is.null(annotable)) {
+    if (is.data.frame(annotable)) {
         checkAnnotable(annotable)
         # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
         # save when `write = TRUE`.
