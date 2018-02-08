@@ -137,7 +137,7 @@ NULL
     write = FALSE,
     dir = getwd(),
     dropboxDir = NULL,
-    rdsToken = NA,
+    rdsToken = NULL,
     quiet = FALSE) {
     # Parameter integrity checks ===============================================
     # lfc
