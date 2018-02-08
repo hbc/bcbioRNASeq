@@ -7,11 +7,14 @@ load(system.file(
     file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
 
-test_that("resultsTables", {
+annotable <- annotable(bcb)
+lfc <- 0.25
+
+test_that("Default return with local files only", {
     resTbl <- suppressMessages(
         resultsTables(
         res,
-        lfc = 0.25,
+        lfc = lfc,
         summary = FALSE,
         write = FALSE)
     )
@@ -31,13 +34,12 @@ test_that("resultsTables", {
 })
 
 test_that("Summary and write support", {
-    annotable <- annotable(bcb)
     # This is also capturing the contents of the list return. Not sure how to
     # fix here for knitr asis_output
     output <- capture.output(
         resultsTables(
         res,
-        lfc = 0.25,
+        lfc = lfc,
         annotable = annotable,
         summary = TRUE,
         headerLevel = 2L,
@@ -104,4 +106,35 @@ test_that("Summary and write support", {
         )
     )
     unlink("resultsTables", recursive = TRUE)
+})
+
+test_that("Dropbox mode", {
+    resTbl <- resultsTables(
+        res,
+        lfc = lfc,
+        annotable = annotable,
+        summary = FALSE,
+        write = TRUE,
+        dir = "resultsTables",
+        dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
+        rdsToken = system.file("token.rds", package = "bcbioRNASeq")
+    )
+    expect_true("dropboxFiles" %in% names(resTbl))
+    # Check for Dropbox URLs
+    expect_true(all(vapply(
+        X = resTbl[["dropboxFiles"]],
+        FUN = function(file) {
+            grepl("^https://www.dropbox.com/s/", file[["url"]])
+        },
+        FUN.VALUE = logical(1L)
+    )))
+    unlink("resultsTables", recursive = TRUE)
+
+    # Now check the Markdown code
+    output <- capture.output(.mdResultsTables(resTbl))
+    # The function currently returns links to 4 DEG files
+    expect_identical(
+        length(which(grepl("https://www.dropbox.com/s/", output))),
+        4L
+    )
 })

@@ -65,6 +65,7 @@ load(system.file(
     file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
 
+# Can use a stashed annotable for improved speed
 annotable <- annotable(bcb)
 
 resTbl <- resultsTables(
@@ -73,8 +74,14 @@ resTbl <- resultsTables(
     annotable = annotable,
     summary = TRUE,
     headerLevel = 2L,
-    write = FALSE)
+    write = TRUE,
+    dir = "resultsTables",
+    dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
+    rdsToken = system.file("token.rds", package = "bcbioRNASeq")
+)
 names(resTbl)
+dir("resultsTables")
+unlink("resultsTables", recursive = TRUE)
 }
 \author{
 Michael Steinbaugh
