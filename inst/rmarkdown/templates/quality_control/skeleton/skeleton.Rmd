@@ -14,8 +14,13 @@ bcbioRNASeq::prepareRNASeqTemplate()
 source("setup.R")
 
 # Directory paths
+dataDir <- file.path(params$outputDir, "data", Sys.Date())
 resultsDir <- file.path(params$outputDir, "results", "counts")
-dir.create(resultsDir, recursive = TRUE, showWarnings = FALSE)
+invisible(mapply(
+    FUN = dir.create,
+    list(dataDir, resultsDir),
+    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+))
 
 # Load bcbioRNASeq object
 bcbName <- load(params$bcbFile)

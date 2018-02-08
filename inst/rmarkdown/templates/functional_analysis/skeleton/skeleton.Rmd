@@ -49,11 +49,12 @@ bcbioRNASeq::prepareRNASeqTemplate()
 source("setup.R")
 
 # Directory paths
+dataDir <- file.path(params$outputDir, "data", Sys.Date())
 resultsDir <- file.path(params$outputDir, "results", "functional_analysis")
 keggPlotsDir <- file.path(resultsDir, "kegg_plots")
 invisible(mapply(
-    list(resultsDir, keggPlotsDir),
     FUN = dir.create,
+    list(dataDir, resultsDir, keggPlotsDir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
 

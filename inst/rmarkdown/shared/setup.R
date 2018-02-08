@@ -1,4 +1,4 @@
-suppressPackageStartupMessages(library(bcbioRNASeq))
+library(bcbioRNASeq)
 library(knitr)
 library(tidyverse)
 
@@ -27,6 +27,3 @@ theme_set(
 theme_update(
     legend.justification = "center",
     legend.position = "bottom")
-
-dataDir <- file.path(params$outputDir, "data", Sys.Date())
-dir.create(dataDir, recursive = TRUE, showWarnings = FALSE)
