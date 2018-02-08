@@ -23,19 +23,25 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom viridis scale_color_viridis
 .plotDEGenePCA.DESeqResults <- function(
     object,
     counts,
-    alpha,
+    interestingGroups = "sampleName",
     lfc = 0L,
-    gene2symbol = TRUE,
-    color = viridis::viridis(256L)) {
-    if (missing(alpha)) {
-        alpha <- metadata(object)[["alpha"]]
+    color = viridis::scale_color_viridis(discrete = TRUE),
+    label = FALSE,
+    returnData = FALSE) {
+    # Passthrough: counts, interestingGroups, color, label, returnData
+    # lfc
+    if (!(is.numeric(lfc) && length(lfc) == 1L)) {
+        abort("`lfc` must be a numeric string")
     }
-    # FIXME resultsTables currently fails if annotable is FALSE
+
+    # Get the DE gene vector using `resultsTables()`
     resTbl <- resultsTables(
         res,
+        lfc = lfc,
         annotable = FALSE,
         summary = FALSE,
         write = FALSE)
@@ -43,11 +49,14 @@ NULL
         resTbl[["degLFCUp"]][["ensgene"]],
         resTbl[["degLFCDown"]][["ensgene"]]
     )
-    pcaCounts <- counts[genes, ]
-    # DESeqTransform method
-    plotPCA(counts, ntop = nrow(pcaCounts))
-    # FIXME Use `returnData = TRUE`
-    # stylize with the same settings as `plotPCA()`
+
+    .plotPCA.DESeqTransform(
+        counts,
+        interestingGroups = interestingGroups,
+        genes = genes,
+        color = color,
+        label = label,
+        returnData = returnData)
 }
 
 
