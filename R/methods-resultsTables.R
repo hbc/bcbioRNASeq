@@ -28,6 +28,7 @@
 #'   for permanent storage (e.g. Stem Cell Commons). When this option is
 #'   enabled, unique links per file are generated internally with the rdrop2
 #'   package.
+#' @param rdsToken RDS file token to use for Dropbox authentication.
 #' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #'
 #' @return Results [list].
@@ -129,6 +130,7 @@ NULL
     write = FALSE,
     dir = getwd(),
     dropboxDir = NULL,
+    rdsToken = NA,
     quiet = FALSE) {
     # Parameter integrity checks ===============================================
     # lfc
@@ -278,7 +280,10 @@ NULL
 
         # Copy to Dropbox (optional) ===========================================
         if (is.character(dropboxDir)) {
-            dropboxFiles <- copyToDropbox(localFiles, dir = dropboxDir)
+            dropboxFiles <- copyToDropbox(
+                files = localFiles,
+                dir = dropboxDir,
+                rdsToken = rdsToken)
             resTbl[["dropboxFiles"]] <- dropboxFiles
         }
 

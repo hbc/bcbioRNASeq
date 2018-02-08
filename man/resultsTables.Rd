@@ -11,7 +11,7 @@ resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
   summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  dropboxDir = NULL, quiet = FALSE)
+  dropboxDir = NULL, rdsToken = NA, quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,6 +46,8 @@ can be passed in.}
 for permanent storage (e.g. Stem Cell Commons). When this option is
 enabled, unique links per file are generated internally with the rdrop2
 package.}
+
+\item{rdsToken}{RDS file token to use for Dropbox authentication.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
