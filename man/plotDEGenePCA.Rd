@@ -13,8 +13,10 @@ plotDEGenePCA(object, counts, ...)
 
 plotDEGPCA(...)
 
-\S4method{plotDEGenePCA}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, color = viridis::viridis(256L))
+\S4method{plotDEGenePCA}{DESeqResults,DESeqTransform}(object, counts,
+  interestingGroups = "sampleName", lfc = 0L,
+  color = viridis::scale_color_viridis(discrete = TRUE), label = FALSE,
+  returnData = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -23,24 +25,21 @@ plotDEGPCA(...)
 
 \item{...}{\emph{Additional arguments (for the S4 generic definition).}}
 
-\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
-use the alpha level defined in the object.}
+\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
+appearance. If missing, color defaults to all \code{interestingGroups}
+parameters set in the \link{bcbioRNASeq} object.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
-
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+
+\item{returnData}{Return PCA loadings data instead of plotting.}
 }
 \description{
 Plot DEG PCA
