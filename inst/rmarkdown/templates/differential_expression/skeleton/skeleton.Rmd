@@ -10,33 +10,33 @@ params:
     alpha: 0.01
     lfc: 1
     outputDir: "."
+    dropboxDir: NULL
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-05
-library(bcbioRNASeq)
-
-# Shared R Markdown settings
-prepareRNASeqTemplate()
-if (file.exists("setup.R")) {
-    source("setup.R")
-}
+# Last modified 2018-02-08
+bcbioRNASeq::prepareRNASeqTemplate()
+source("setup.R")
 
 # Directory paths
-dataDir <- file.path(params$outputDir, "data", Sys.Date())
-deDir <- file.path(params$outputDir, "results", "differential_expression")
-invisible(mapply(
-    FUN = dir.create,
-    list(dataDir, deDir),
-    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
-))
+resultsDir <- file.path(params$outputDir, "results", "differential_expression")
+dir.create(resultsDir, recursive = TRUE, showWarnings = FALSE)
+
+# Dropbox paths
+if (is.character(params$dropboxDir)) {
+    # Delete `.httr-oauth` if you have trouble writing to Dropbox
+    dropboxDir <- file.path(
+        params$dropboxDir,
+        "results",
+        "differential_expression")
+}
 
 # Load bcbioRNASeq object
 bcbName <- load(params$bcbFile)
 bcb <- get(bcbName, inherits = FALSE)
 ```
 
-```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
+```{r header, child="_header.Rmd"}
 ```
 
 
@@ -85,7 +85,7 @@ resShrunken <- lfcShrink(
 
 # Use shrunken LFC values by default
 res <- resShrunken
-saveData(res, dir = dataDir)
+saveData(res, resShrunken, resUnshrunken, dir = dataDir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc`.
@@ -131,7 +131,7 @@ resTbl <- resultsTables(
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,
-    dir = deDir)
+    dir = resultsDir)
 saveData(resTbl, dir = dataDir)
 ```
 
@@ -159,5 +159,5 @@ topTables(resTbl)
 
 
 
-```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
+```{r footer, child="_footer.Rmd"}
 ```
