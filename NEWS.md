@@ -1,4 +1,10 @@
-## bcbioRNASeq 0.1.5
+## bcbioRNASeq 0.1.6 (2018-02-08)
+
+- Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with `plotDEGenePCA()`. There is a shorter alias of this function named `plotDEGPCA()` as well.
+- Added support for Dropbox shared links to `resultsTables()`, for use with the [Stem Cell Commons][] database.
+
+
+## bcbioRNASeq 0.1.5 (2018-01-31)
 
 - Import shared dependency functions from bcbioBase instead of basejump.
 - Added method support for `selectSamples()`.
@@ -256,6 +262,7 @@
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 [RDAVIDWebService]: https://bioconductor.org/packages/release/bioc/html/RDAVIDWebService.html
 [RMarkdown]: http://rmarkdown.rstudio.com
+[Stem Cell Commons]: http://stemcellcommons.org
 [testthat]: https://github.com/hadley/testthat
 [tidyeval]: http://dplyr.tidyverse.org/articles/programming.html
 [Travis-CI]: https://travis-ci.org
