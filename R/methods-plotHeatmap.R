@@ -65,13 +65,15 @@ NULL
     object,
     samples = NULL,
     genes = NULL,
-    gene2symbol = FALSE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
     color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
+    checkGene2symbol(gene2symbol)
+
     # Resize the counts matrix
     if (is.vector(samples)) {
         object <- object[, samples, drop = FALSE]
@@ -81,9 +83,7 @@ NULL
     }
 
     # Set the rownames to gene symbols
-    if (isTRUE(gene2symbol)) {
-        object <- gene2symbol(object)
-    } else if (is.data.frame(gene2symbol)) {
+    if (is.data.frame(gene2symbol)) {
         rownames(object) <- rownames(object) %>%
             gene2symbol[., "symbol", drop = TRUE] %>%
             make.names(unique = TRUE)
@@ -146,7 +146,7 @@ setMethod(
         normalized = TRUE,
         samples = NULL,
         genes = NULL,
-        gene2symbol = FALSE,
+        gene2symbol = NULL,
         annotationCol = NULL,
         scale = "row",
         color = viridis::viridis(256L),
@@ -175,7 +175,7 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol = FALSE,
+        gene2symbol = NULL,
         annotationCol = NULL,
         scale = "row",
         color = viridis::viridis(256L),

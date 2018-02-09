@@ -30,17 +30,14 @@
 #'
 #' gene2symbol <- gene2symbol(bcb)
 #'
-#' ensgene <- rownames(res) %>% head(n = 4)
-#' print(ensgene)
+#' genes <- rownames(res) %>% head(n = 4)
+#' print(genes)
 #'
 #' # DESeqResults
-#' plotMA(res, genes = ensgene, gene2symbol = TRUE)
+#' plotMA(res, genes = genes)
 #'
-#' # Use a stashed gene2symbol data.frame
-#' plotMA(res, genes = ensgene, gene2symbol = gene2symbol)
-#'
-#' # Label the Ensembl gene identifiers instead of symbols
-#' plotMA(res, genes = ensgene, gene2symbol = FALSE)
+#' # Label the points as gene symbols
+#' plotMA(res, genes = genes, gene2symbol = gene2symbol)
 #'
 #' # data.frame
 #' df <- as.data.frame(res)
@@ -61,16 +58,19 @@ NULL
     object,
     alpha = 0.01,
     genes = NULL,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     pointColor = "darkgray",
     sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
+    .checkGenes(genes, gene2symbol)
+
     data <- object %>%
         rownames_to_column("ensgene") %>%
         as_tibble() %>%
         camel(strict = FALSE) %>%
         filter(!is.na(.data[["padj"]]))
+
     p <- ggplot(
         data,
         mapping = aes_(
@@ -86,6 +86,7 @@ NULL
             title = title,
             x = "mean expression across all samples",
             y = "log2 fold change")
+
     if (!is.null(pointColor) & !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
@@ -93,13 +94,8 @@ NULL
             scale_color_manual(
                 values = c("FALSE" = pointColor, "TRUE" = sigPointColor))
     }
+
     if (!is.null(genes)) {
-        if (isTRUE(gene2symbol)) {
-            organism <- pull(data, "ensgene") %>%
-                .[[1L]] %>%
-                detectOrganism()
-            gene2symbol <- annotable(organism, format = "gene2symbol")
-        }
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
             checkGene2symbol(gene2symbol)
@@ -130,6 +126,7 @@ NULL
                 show.legend = FALSE,
                 size = 4L)
     }
+
     p
 }
 
@@ -146,11 +143,13 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol = TRUE,
+        gene2symbol = NULL,
         pointColor = "darkgray",
         sigPointColor = "red",
         labelColor = "black",
         title = TRUE) {
+        # Passthrough: genes, gene2symbol, pointColor, sigPointColor,
+        # labelColor
         results <- as.data.frame(object)
         alpha <- metadata(object)[["alpha"]]
         if (isTRUE(title)) {
@@ -164,8 +163,7 @@ setMethod(
             pointColor = pointColor,
             sigPointColor = sigPointColor,
             labelColor = labelColor,
-            title = title
-        )
+            title = title)
     })
 
 

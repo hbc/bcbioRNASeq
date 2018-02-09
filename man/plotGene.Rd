@@ -24,7 +24,7 @@
   color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{matrix}(object, genes, metadata, gene2symbol = NULL,
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, metadata,
   interestingGroups = "sampleName", stackReplicates = TRUE,
   color = viridis::scale_color_viridis(discrete = TRUE),
   countsAxisLabel = "counts", return = "grid", headerLevel = 2L)

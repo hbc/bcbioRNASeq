@@ -11,13 +11,13 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
-  genes = NULL, gene2symbol = TRUE, ntop = 0L, direction = "both",
+  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = "both",
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
   histograms = TRUE)
 
 \S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 0L, genes = NULL, gene2symbol = TRUE, ntop = 0L,
+  lfc = 0L, genes = NULL, gene2symbol = NULL, ntop = 0L,
   direction = "both", pointColor = "gray", pointAlpha = 0.75,
   pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
   labelColor = "black", histograms = TRUE)
@@ -37,13 +37,10 @@ plotVolcano(object, ...)
 the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
 gene symbols.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.}
 
 \item{ntop}{Number of top genes to label.}
 

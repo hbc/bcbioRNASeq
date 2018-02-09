@@ -32,7 +32,7 @@
 #'     file.path("extdata", "rld.rda"),
 #'     package = "bcbioRNASeq"))
 #'
-#' # Use our stashed gene2symbol for better speed
+#' # Use our stashed gene2symbol
 #' gene2symbol <- gene2symbol(bcb)
 #' annotationCol <- sampleMetadata(bcb) %>%
 #'     .[, interestingGroups(bcb), drop = FALSE]
@@ -63,16 +63,17 @@ NULL
     counts,
     alpha = 0.01,
     lfc = 0L,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
     color = viridis::viridis(256L),
     legendColor = viridis::viridis,
     title,
     ...) {
-    if (!all(rownames(object) %in% rownames(counts))) {
+    if (!identical(rownames(object), rownames(counts))) {
         abort("Rownames mismatch between results object and counts")
     }
+
     results <- object %>%
         as.data.frame() %>%
         camel(strict = FALSE) %>%
@@ -83,11 +84,17 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+
     if (nrow(results) == 0L) {
         warn("No genes passed significance cutoffs")
         return(NULL)
     }
-    counts <- counts[rownames(results), , drop = FALSE]
+
+    genes <- rownames(results)
+    .checkGenes(genes, gene2symbol)
+
+    counts <- counts[genes, , drop = FALSE]
+
     .plotHeatmap(
         object = counts,
         gene2symbol = gene2symbol,

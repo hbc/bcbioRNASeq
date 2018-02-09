@@ -74,7 +74,7 @@ NULL
     padj = TRUE,
     lfc = 0L,
     genes = NULL,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     ntop = 0L,
     direction = "both",
     pointColor = "gray",
@@ -84,6 +84,8 @@ NULL
     shadeAlpha = 0.25,
     labelColor = "black",
     histograms = TRUE) {
+    .checkGenes(genes, gene2symbol)
+
     if (!any(direction %in% c("both", "down", "up")) |
         length(direction) > 1L) {
         abort("Direction must be both, up, or down")
@@ -142,12 +144,6 @@ NULL
     if (is.character(genes)) {
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-        if (isTRUE(gene2symbol)) {
-            organism <- pull(data, "ensgene") %>%
-                .[[1L]] %>%
-                detectOrganism()
-            gene2symbol <- annotable(organism, format = "gene2symbol")
-        }
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
             checkGene2symbol(gene2symbol)
@@ -360,7 +356,7 @@ setMethod(
         padj = TRUE,
         lfc = 0L,
         genes = NULL,
-        gene2symbol = TRUE,
+        gene2symbol = NULL,
         ntop = 0L,
         direction = "both",
         shadeColor = "green",

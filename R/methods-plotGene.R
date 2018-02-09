@@ -79,27 +79,17 @@ NULL
 .plotGene <- function(
     object,
     genes,
-    metadata,
     gene2symbol = NULL,
+    metadata,
     interestingGroups = "sampleName",
     stackReplicates = TRUE,
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
     return = "grid",
     headerLevel = 2L) {
-    if (!(is.data.frame(gene2symbol) || is.null(gene2symbol))) {
-        abort("`gene2symbol` must be a data.frame or NULL")
-    }
 
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
-        checkGene2symbol(gene2symbol)
-        if (!all(genes %in% gene2symbol[["ensgene"]])) {
-            abort(paste(
-                "Genes missing in gene2symbol:",
-                setdiff(genes, gene2symbol[["ensgene"]])
-            ))
-        }
         match <- match(x = genes, table = gene2symbol[["ensgene"]])
         gene2symbol <- gene2symbol[match, , drop = FALSE]
         genes <- gene2symbol[["ensgene"]]
