@@ -80,6 +80,7 @@ NULL
 .mdResultsTables <- function(
     resTbl,
     headerLevel = 2L) {
+    # Passthrough: headerLevel
     # Prioritze `dropboxFiles` over `localFiles` for path return
     if ("dropboxFiles" %in% names(resTbl)) {
         paths <- vapply(
@@ -137,9 +138,10 @@ NULL
     write = FALSE,
     dir = getwd(),
     dropboxDir = NULL,
-    rdsToken = NULL,
+    rdsToken = NA,
     quiet = FALSE) {
     # Parameter integrity checks ===============================================
+    # Passthrough: headerLevel, dropboxDir, rdsToken, quiet
     # lfc
     if (!(is.numeric(lfc) && length(lfc) == 1L)) {
         abort("`lfc` must be a numeric string")
@@ -154,10 +156,6 @@ NULL
     if (!is.logical(summary)) {
         abort("`summary` must be a logical vector")
     }
-    # headerLevel
-    if (!(is.numeric(headerLevel) && length(headerLevel) == 1L)) {
-        abort("`headerLevel` must be a numeric string")
-    }
     # write
     if (!is.logical(write)) {
         abort("`write` must be a logical vector")
@@ -165,14 +163,6 @@ NULL
     # dir
     if (!is_string(dir)) {
         abort("`dir` must be a string")
-    }
-    # dropboxDir
-    if (!(is_string(dropboxDir) || is.null(dropboxDir))) {
-        abort("`dropboxDir` must be a string or NULL")
-    }
-    # quiet
-    if (!is.logical(quiet)) {
-        abort("`quiet` must be a logical vector")
     }
 
     # Extract internal parameters from DESeqResults object =====================
