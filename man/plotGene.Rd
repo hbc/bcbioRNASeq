@@ -10,21 +10,22 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
-  interestingGroups, color = viridis::scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2L)
-
-\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = TRUE,
-  normalized = TRUE, interestingGroups = "sampleName",
+  log2 = TRUE, interestingGroups, stackReplicates = TRUE,
   color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = TRUE,
-  interestingGroups = "sampleName",
+\S4method{plotGene}{DESeqDataSet}(object, genes, log2 = TRUE,
+  gene2symbol = NULL, interestingGroups = "sampleName",
+  stackReplicates = TRUE, color = viridis::scale_color_viridis(discrete =
+  TRUE), return = "grid", headerLevel = 2L)
+
+\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
+  interestingGroups = "sampleName", stackReplicates = TRUE,
   color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = TRUE, metadata,
-  interestingGroups = "sampleName",
+\S4method{plotGene}{matrix}(object, genes, metadata, gene2symbol = NULL,
+  interestingGroups = "sampleName", stackReplicates = TRUE,
   color = viridis::scale_color_viridis(discrete = TRUE),
   countsAxisLabel = "counts", return = "grid", headerLevel = 2L)
 }
@@ -38,11 +39,16 @@ gene symbols.}
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
 
+\item{log2}{Apply \code{log2(x + 1)} transformation to normalized counts.}
+
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
+
+\item{stackReplicates}{Stack replicate points into a single tick on the
+sample axis.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
@@ -55,13 +61,10 @@ definitions are desired, we recommend using
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.}
 
 \item{metadata}{Sample metadata \link{data.frame}.}
 

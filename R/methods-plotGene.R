@@ -12,16 +12,13 @@
 #' @param genes *Optional*. Gene identifiers (rownames) to plot. These must be
 #'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
 #'   gene symbols.
-#' @param gene2symbol Apply gene identifier to symbol mappings. If set `TRUE`,
-#'   the function will attempt to automatically map gene identifiers to symbols
-#'   from Ensembl using [annotable()]. If set `FALSE`/`NULL`, then
-#'   gene2symbol mapping will be disabled. This is useful when working with a
-#'   poorly annotated genome. Alternatively, a gene2symbol [data.frame] can be
-#'   passed in, and must contain the columns `ensgene` and `symbol`. then the
-#'   Ensembl gene identifiers will be labeled in place of gene symbols.
+#' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
+#'   [data.frame] can be passed in, and must contain the columns `ensgene` and
+#'   `symbol`. then the Ensembl gene identifiers will be labeled in place of
+#'   gene symbols.
 #' @param metadata Sample metadata [data.frame].
-#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
-#'   `rlog`, or `vst`.
+#' @param stackReplicates Stack replicate points into a single tick on the
+#'   sample axis.
 #' @param color Desired ggplot color scale. Defaults to
 #'   [viridis::scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
@@ -82,21 +79,27 @@ NULL
 .plotGene <- function(
     object,
     genes,
-    gene2symbol = TRUE,
     metadata,
+    gene2symbol = NULL,
     interestingGroups = "sampleName",
+    stackReplicates = TRUE,
     color = viridis::scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
     return = "grid",
     headerLevel = 2L) {
-    # Gene to symbol mappings
-    if (isTRUE(gene2symbol)) {
-        organism <- rownames(object) %>%
-            .[[1L]] %>%
-            detectOrganism()
-        gene2symbol <- annotable(organism, format = "gene2symbol")
+    if (!(is.data.frame(gene2symbol) || is.null(gene2symbol))) {
+        abort("`gene2symbol` must be a data.frame or NULL")
     }
+
+    # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
+        checkGene2symbol(gene2symbol)
+        if (!all(genes %in% gene2symbol[["ensgene"]])) {
+            abort(paste(
+                "Genes missing in gene2symbol:",
+                setdiff(genes, gene2symbol[["ensgene"]])
+            ))
+        }
         match <- match(x = genes, table = gene2symbol[["ensgene"]])
         gene2symbol <- gene2symbol[match, , drop = FALSE]
         genes <- gene2symbol[["ensgene"]]
@@ -111,11 +114,22 @@ NULL
     plots <- lapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
         symbol <- names(genes)[[a]]
-        if (is.null(symbol)) {
-            symbol <- ensgene
+        if (!is.null(symbol)) {
+            title <- symbol
+            subtitle <- ensgene
+        } else {
+            title <- ensgene
+            subtitle <- NULL
+        }
+        if (isTRUE(stackReplicates)) {
+            x <- metadata[["interestingGroups"]]
+            xlab <- paste(interestingGroups, collapse = ":")
+        } else {
+            x <- colnames(object)
+            xlab <- "sample"
         }
         data <- tibble(
-            x = colnames(object),
+            x = x,
             y = object[ensgene, , drop = TRUE],
             interestingGroups = metadata[["interestingGroups"]])
         p <- ggplot(
@@ -128,8 +142,9 @@ NULL
             geom_point(size = 4L) +
             theme(axis.text.x = element_text(angle = 90L)) +
             labs(
-                title = symbol,
-                x = "sample",
+                title = title,
+                subtitle = subtitle,
+                x = xlab,
                 y = countsAxisLabel,
                 color = paste(interestingGroups, collapse = ":\n")
             ) +
@@ -164,7 +179,7 @@ NULL
         }) %>%
             invisible()
     } else {
-        abort(paste("Valid `return`:", toString(validReturn)))
+        abort(paste("`return` must contain:", toString(validReturn)))
     }
 }
 
@@ -173,6 +188,8 @@ NULL
 # Methods ======================================================================
 #' @rdname plotGene
 #' @importFrom viridis scale_color_viridis
+#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
+#'   `rlog`, or `vst`.
 #' @export
 setMethod(
     "plotGene",
@@ -181,15 +198,32 @@ setMethod(
         object,
         genes,
         normalized = "tpm",
+        log2 = TRUE,
         interestingGroups,
+        stackReplicates = TRUE,
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
+        if (identical(normalized, FALSE)) {
+            abort(paste(
+                "Raw counts are not library size adjusted and therefore",
+                "not recommended to use for gene plots"
+            ))
+        }
+        # Passthrough: stackReplicates, color, return, headerLevel
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         counts <- counts(object, normalized = normalized)
-        countsAxisLabel <- normalized
+        if (isTRUE(normalized)) {
+            countsAxisLabel <- "normalized counts"
+            if (isTRUE(log2)) {
+                counts <- log2(counts + 1L)
+                countsAxisLabel <- c("log2", countsAxisLabel)
+            }
+        } else {
+            countsAxisLabel <- normalized
+        }
         gene2symbol <- gene2symbol(object)
         metadata <- sampleMetadata(object)
         .plotGene(
@@ -207,6 +241,7 @@ setMethod(
 
 
 #' @rdname plotGene
+#' @param log2 Apply `log2(x + 1)` transformation to normalized counts.
 #' @export
 setMethod(
     "plotGene",
@@ -214,17 +249,20 @@ setMethod(
     function(
         object,
         genes,
-        gene2symbol = TRUE,
-        normalized = TRUE,
+        log2 = TRUE,
+        gene2symbol = NULL,
         interestingGroups = "sampleName",
+        stackReplicates = TRUE,
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
-        counts <- counts(object, normalized = normalized)
-        if (isTRUE(normalized)) {
-            countsAxisLabel <- "normalized"
-        } else {
-            countsAxisLabel <- "counts"
+        # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
+        # color, return, headerLevel
+        counts <- counts(object, normalized = TRUE)
+        countsAxisLabel <- "normalized counts"
+        if (isTRUE(log2)) {
+            counts <- log2(counts + 1L)
+            countsAxisLabel <- paste("log2", countsAxisLabel)
         }
         metadata <- colData(object)
         .plotGene(
@@ -233,6 +271,7 @@ setMethod(
             gene2symbol = gene2symbol,
             metadata = metadata,
             interestingGroups = interestingGroups,
+            stackReplicates = stackReplicates,
             color = color,
             countsAxisLabel = countsAxisLabel,
             return = return,
@@ -249,13 +288,16 @@ setMethod(
     function(
         object,
         genes,
-        gene2symbol = TRUE,
+        gene2symbol = NULL,
         interestingGroups = "sampleName",
+        stackReplicates = TRUE,
         color = viridis::scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
         counts <- assay(object)
         metadata <- colData(object)
+        # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
+        # color, return, headerLevel
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             countsAxisLabel <- "rlog"
         } else {
@@ -267,6 +309,7 @@ setMethod(
             gene2symbol = gene2symbol,
             metadata = metadata,
             interestingGroups = interestingGroups,
+            stackReplicates = stackReplicates,
             color = color,
             countsAxisLabel = countsAxisLabel,
             return = return,
