@@ -28,7 +28,8 @@ biocLite(
 library(bcbioRNASeq)
 bcb <- loadRNASeq(
     uploadDir = file.path("bcbio_rnaseq_run", "final"),
-    interestingGroups = c("genotype", "treatment"))
+    interestingGroups = c("genotype", "treatment")
+)
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
