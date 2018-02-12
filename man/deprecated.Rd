@@ -23,7 +23,7 @@ plotGeneHeatmap(...)
 txi(object)
 }
 \arguments{
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{object}{Object.}
 }

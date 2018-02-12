@@ -6,7 +6,7 @@
 #'
 #' @importFrom bcbioBase gene2symbol
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame] containing Ensembl gene identifier (`ensgene`) and
 #'   symbol (`symbol`) mappings.

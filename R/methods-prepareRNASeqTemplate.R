@@ -4,7 +4,7 @@
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return No value.
 #'

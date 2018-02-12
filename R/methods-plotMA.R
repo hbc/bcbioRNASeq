@@ -6,7 +6,7 @@
 #' @family Differential Expression Plots
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotHeatmap
 #'
 #' @importFrom BiocGenerics plotMA

@@ -6,7 +6,7 @@
 #'
 #' @importFrom bcbioBase annotable
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame]
 #'

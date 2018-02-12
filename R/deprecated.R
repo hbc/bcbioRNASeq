@@ -3,7 +3,7 @@
 #' @rdname deprecated
 #' @name deprecated
 #' @keywords internal
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @return No value.
 NULL
 

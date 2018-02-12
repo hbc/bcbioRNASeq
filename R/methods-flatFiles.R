@@ -9,7 +9,7 @@
 #'
 #' @importFrom bcbioBase flatFiles
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [list].
 #'

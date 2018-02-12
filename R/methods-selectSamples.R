@@ -6,7 +6,7 @@
 #'
 #' @importFrom bcbioBase selectSamples
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param transform Apply CPU-intensive DESeq2 transformations. This can
 #'   take a long time for large datasets.

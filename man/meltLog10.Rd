@@ -20,7 +20,7 @@ meltLog10(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts (\code{tmm}).}

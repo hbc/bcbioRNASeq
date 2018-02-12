@@ -9,7 +9,7 @@
 #'
 #' @importFrom bcbioBase bcbio bcbio<-
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param type Type of data to retrieve.
 #'

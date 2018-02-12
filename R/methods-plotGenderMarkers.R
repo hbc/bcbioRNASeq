@@ -5,7 +5,7 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotGene
 #' @inheritParams plotTotalReads
 #'

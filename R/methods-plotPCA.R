@@ -9,7 +9,7 @@
 #'
 #' @importFrom BiocGenerics plotPCA
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams counts
 #' @inheritParams plotGene
 #'

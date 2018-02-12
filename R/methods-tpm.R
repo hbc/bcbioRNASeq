@@ -6,7 +6,7 @@
 #'
 #' @importFrom bcbioBase tpm
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [matrix].
 #'

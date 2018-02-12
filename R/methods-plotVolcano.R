@@ -5,7 +5,7 @@
 #' @family Differential Expression Plots
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotHeatmap
 #'
 #' @param alpha Alpha level cutoff used for coloring.

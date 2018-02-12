@@ -5,7 +5,7 @@
 #'
 #' @importFrom bcbioBase metrics
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame].
 #'

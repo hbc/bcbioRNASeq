@@ -10,7 +10,7 @@
 #'
 #' @importFrom BiocGenerics counts
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:

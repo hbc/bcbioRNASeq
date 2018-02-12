@@ -18,7 +18,7 @@ plotCorrelationHeatmap(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
 (\code{TRUE}), or additional normalization methods:

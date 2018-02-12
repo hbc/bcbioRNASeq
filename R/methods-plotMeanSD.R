@@ -8,7 +8,7 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
 #'   `vertical`.

@@ -6,7 +6,7 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotPCA
 #'
 #' @param metrics Include sample summary metrics as covariates. Defaults to

@@ -17,7 +17,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 }
 \value{
 \link{data.frame}.

@@ -23,7 +23,7 @@ plotDEGPCA(...)
 
 \item{counts}{Secondary object containing a normalized counts matrix.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}

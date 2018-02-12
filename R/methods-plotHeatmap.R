@@ -12,7 +12,7 @@
 #'
 #' @importFrom bcbioBase plotHeatmap
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams counts
 #' @inheritParams gene2symbol
 #' @inheritParams plotGene

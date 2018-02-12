@@ -5,7 +5,7 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param interestingGroups Category to use to group samples. In the plotting
 #'   functions, this will define color and shape, where applicable. If unset,

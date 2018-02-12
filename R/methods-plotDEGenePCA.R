@@ -4,7 +4,7 @@
 #' @name plotDEGenePCA
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotPCA
 #' @inheritParams plotDEGHeatmap
 #'

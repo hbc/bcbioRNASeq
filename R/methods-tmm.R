@@ -9,7 +9,7 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [matrix].
 #' @export

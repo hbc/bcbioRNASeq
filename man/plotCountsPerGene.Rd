@@ -22,7 +22,7 @@ plotCountsPerGene(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,

@@ -8,7 +8,7 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams DESeq2::results
 #'
 #' @param alpha Numeric vector of desired alpha cutoffs.

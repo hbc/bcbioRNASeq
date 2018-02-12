@@ -7,7 +7,7 @@
 #'
 #' @importFrom bcbioBase sampleMetadata
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame].
 #'

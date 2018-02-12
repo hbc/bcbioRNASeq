@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{value}{Value to assign.}
 }

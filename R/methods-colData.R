@@ -9,7 +9,7 @@
 #' @rdname colData
 #' @name colData
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @seealso
 #' `help("colData", "SummarizedExperiment")`

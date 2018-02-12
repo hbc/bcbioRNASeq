@@ -57,7 +57,7 @@ definitions are desired, we recommend using
 
 \item{title}{Include plot title.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
 \link{data.frame} can be passed in, and must contain the columns \code{ensgene} and

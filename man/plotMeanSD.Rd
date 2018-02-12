@@ -19,7 +19,7 @@ plotMeanSD(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
 \code{vertical}.}
