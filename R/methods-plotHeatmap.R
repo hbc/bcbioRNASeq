@@ -71,8 +71,12 @@ NULL
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
+    assert_is_matrix(object)
     # Passthrough: color, legendColor
     .assert_gene2symbol(object, genes, gene2symbol)
+    # TODO Migrate to `assert_formal_color_function`
+    assert_is_any_of(color, c("function", "NULL"))
+    assert_is_any_of(legendColor, c("function", "NULL"))
 
     # Resize the counts matrix
     if (is.vector(samples)) {
@@ -105,13 +109,14 @@ NULL
 
 
 
+#' @importFrom viridis viridis
 .plotHeatmap.bcbioRNASeq <- function(  # nolint
     object,
     normalized = "rlog",
     samples = NULL,
     genes = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
@@ -134,6 +139,7 @@ NULL
 
 
 
+#' @importFrom viridis viridis
 .plotHeatmap.DESeqDataSet <- function(
     object,
     normalized = TRUE,
@@ -159,6 +165,7 @@ NULL
 
 
 
+#' @importFrom viridis viridis
 .plotHeatmap.DESeqTransform <- function(  # nolint
     object,
     genes = NULL,
@@ -186,7 +193,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotHeatmap
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -196,7 +202,6 @@ setMethod(
 
 
 #' @rdname plotHeatmap
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -206,7 +211,6 @@ setMethod(
 
 
 #' @rdname plotHeatmap
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",

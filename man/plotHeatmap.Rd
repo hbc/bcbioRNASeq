@@ -9,9 +9,8 @@
 \title{Plot Heatmap}
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  samples = NULL, genes = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = NULL, ...)
+  samples = NULL, genes = NULL, scale = "row", color = viridis::viridis,
+  legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = NULL,
