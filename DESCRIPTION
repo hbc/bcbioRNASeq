@@ -78,6 +78,7 @@ Depends:
     DESeq2 (>= 1.18.0),
     DEGreport (>= 1.14.0)
 Imports:
+    assertive,
     BiocGenerics (>= 0.24.0),
     cowplot (>= 0.8.0),
     dplyr (>= 0.7.4),
