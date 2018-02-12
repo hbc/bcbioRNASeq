@@ -16,7 +16,6 @@
 #' @param sigPointColor Color for points corresponding to significant genes that
 #'   have passed alpha level cutoffs.
 #' @param labelColor Text label color.
-#' @param title *Optional*. Plot title.
 #'
 #' @return [ggplot].
 #'
@@ -63,14 +62,7 @@ NULL
     sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
-    assert_is_any_of(genes, c("character", "NULL"))
-    if (is.character(genes)) {
-        assert_is_subset(genes, rownames(object))
-    }
-    assert_is_any_of(gene2symbol, c("data.frame", "NULL"))
-    if (is.data.frame(gene2symbol)) {
-        assert_is_subset(rownames(object), rownames(gene2symbol))
-    }
+    .assert_gene2symbol(object, genes, gene2symbol)
 
     data <- object %>%
         rownames_to_column("ensgene") %>%

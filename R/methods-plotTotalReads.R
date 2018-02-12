@@ -19,7 +19,6 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
 #' @param flip Flip x and y axes.
-#' @param title Include plot title.
 #'
 #' @return [ggplot].
 #'

@@ -66,16 +66,17 @@ NULL
     gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title,
     ...) {
-    if (!identical(rownames(object), rownames(counts))) {
-        abort("Rownames mismatch between results object and counts")
-    }
+    # Passthrough: color, legendColor
+    assert_is_data.frame(object)
+    .assert_gene2symbol(object, genes, gene2symbol)
+    assert_are_identical(rownames(object), rownames(counts))
+    # FIXME Add assertive check for color functions
 
     results <- object %>%
-        as.data.frame() %>%
         camel(strict = FALSE) %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
@@ -116,7 +117,7 @@ NULL
     gene2symbol = TRUE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = TRUE,
     ...) {
@@ -149,7 +150,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -161,7 +161,6 @@ setMethod(
 
 
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -173,7 +172,6 @@ setMethod(
 
 
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",

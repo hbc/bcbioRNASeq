@@ -25,7 +25,6 @@
 #'   values are "row", "column" and "none".
 #' @param legendColor Colors to use for legend labels. Defaults to the
 #'   [viridis::viridis()].
-#' @param title Include plot title.
 #'
 #' @examples
 #' load(system.file(
@@ -68,11 +67,12 @@ NULL
     gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
-    checkGene2symbol(gene2symbol)
+    # Passthrough: color, legendColor
+    .assert_gene2symbol(object, genes, gene2symbol)
 
     # Resize the counts matrix
     if (is.vector(samples)) {
@@ -89,6 +89,11 @@ NULL
             make.names(unique = TRUE)
     }
 
+    # TODO Safe to remove once basejump is updated
+    if (is.function(color)) {
+        color <- color(256L)
+    }
+
     plotHeatmap(
         object = object,
         annotationCol = annotationCol,
@@ -99,6 +104,86 @@ NULL
 }
 
 
+
+.plotHeatmap.bcbioRNASeq <- function(  # nolint
+    object,
+    normalized = "rlog",
+    samples = NULL,
+    genes = NULL,
+    scale = "row",
+    color = viridis::viridis(256L),
+    legendColor = viridis::viridis,
+    title = NULL,
+    ...) {
+    counts <- counts(object, normalized = normalized)
+    gene2symbol <- gene2symbol(object)
+    annotationCol <- colData(object) %>%
+        .[colnames(counts), interestingGroups(object), drop = FALSE]
+    .plotHeatmap(
+        object = counts,
+        samples = samples,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        annotationCol = annotationCol,
+        scale = scale,
+        color = color,
+        legendColor = legendColor,
+        title = title,
+        ...)
+}
+
+
+
+.plotHeatmap.DESeqDataSet <- function(
+    object,
+    normalized = TRUE,
+    samples = NULL,
+    genes = NULL,
+    gene2symbol = NULL,
+    annotationCol = NULL,
+    scale = "row",
+    color = viridis::viridis,
+    legendColor = viridis::viridis,
+    title = NULL,
+    ...) {
+    counts <- counts(object, normalized = normalized)
+    .plotHeatmap(
+        object = counts,
+        annotationCol = annotationCol,
+        scale = scale,
+        color = color,
+        legendColor = legendColor,
+        title = title,
+        ...)
+}
+
+
+
+.plotHeatmap.DESeqTransform <- function(  # nolint
+    object,
+    genes = NULL,
+    gene2symbol = NULL,
+    annotationCol = NULL,
+    scale = "row",
+    color = viridis::viridis(256L),
+    legendColor = viridis::viridis,
+    title = NULL,
+    ...) {
+    counts <- assay(object)
+    .plotHeatmap(
+        object = counts,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        annotationCol = annotationCol,
+        scale = scale,
+        color = color,
+        legendColor = legendColor,
+        title = title,
+        ...)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotHeatmap
 #' @importFrom viridis viridis
@@ -106,32 +191,7 @@ NULL
 setMethod(
     "plotHeatmap",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = "rlog",
-        samples = NULL,
-        genes = NULL,
-        scale = "row",
-        color = viridis::viridis(256L),
-        legendColor = viridis::viridis,
-        title = NULL,
-        ...) {
-        counts <- counts(object, normalized = normalized)
-        gene2symbol <- gene2symbol(object)
-        annotationCol <- colData(object) %>%
-            .[colnames(counts), interestingGroups(object), drop = FALSE]
-        .plotHeatmap(
-            object = counts,
-            samples = samples,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            annotationCol = annotationCol,
-            scale = scale,
-            color = color,
-            legendColor = legendColor,
-            title = title,
-            ...)
-    })
+    .plotHeatmap.bcbioRNASeq)
 
 
 
@@ -141,28 +201,7 @@ setMethod(
 setMethod(
     "plotHeatmap",
     signature("DESeqDataSet"),
-    function(
-        object,
-        normalized = TRUE,
-        samples = NULL,
-        genes = NULL,
-        gene2symbol = NULL,
-        annotationCol = NULL,
-        scale = "row",
-        color = viridis::viridis(256L),
-        legendColor = viridis::viridis,
-        title = NULL,
-        ...) {
-        counts <- counts(object, normalized = normalized)
-        .plotHeatmap(
-            object = counts,
-            annotationCol = annotationCol,
-            scale = scale,
-            color = color,
-            legendColor = legendColor,
-            title = title,
-            ...)
-    })
+    .plotHeatmap.DESeqDataSet)
 
 
 
@@ -172,25 +211,4 @@ setMethod(
 setMethod(
     "plotHeatmap",
     signature("DESeqTransform"),
-    function(
-        object,
-        genes = NULL,
-        gene2symbol = NULL,
-        annotationCol = NULL,
-        scale = "row",
-        color = viridis::viridis(256L),
-        legendColor = viridis::viridis,
-        title = NULL,
-        ...) {
-        counts <- assay(object)
-        .plotHeatmap(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            annotationCol = annotationCol,
-            scale = scale,
-            color = color,
-            legendColor = legendColor,
-            title = title,
-            ...)
-    })
+    .plotHeatmap.DESeqTransform)

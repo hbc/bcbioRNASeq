@@ -84,12 +84,9 @@ NULL
     shadeAlpha = 0.25,
     labelColor = "black",
     histograms = TRUE) {
-    .checkGenes(genes, gene2symbol)
-
-    if (!any(direction %in% c("both", "down", "up")) |
-        length(direction) > 1L) {
-        abort("Direction must be both, up, or down")
-    }
+    .assert_gene2symbol(object, genes, gene2symbol)
+    assert_is_a_string(direction)
+    assert_is_subset(direction, c("both", "up", "down"))
 
     # Generate data `tibble`
     data <- object %>%
