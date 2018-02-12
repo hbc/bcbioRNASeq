@@ -4,16 +4,18 @@
 \alias{general}
 \title{General Arguments}
 \arguments{
+\item{i}{An integer or numeric scalar.}
+
 \item{object}{Object.}
 
-\item{x}{Object.}
-
-\item{i}{An integer or numeric scalar.}
+\item{title}{Title.}
 
 \item{value}{Value to assign.}
 
 \item{withDimnames}{A \code{logical}, indicating whether dimnames should be
 applied to extracted assay elements.}
+
+\item{x}{Object.}
 
 \item{...}{Additional arguments.}
 }

@@ -13,18 +13,18 @@ plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
   lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = TRUE, ...)
+  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
+  ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
   lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = TRUE, ...)
+  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
+  ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
   lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = TRUE, ...)
+  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -59,7 +59,7 @@ definitions are desired, we recommend using
 \item{legendColor}{Colors to use for legend labels. Defaults to the
 \code{\link[viridis:viridis]{viridis::viridis()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is

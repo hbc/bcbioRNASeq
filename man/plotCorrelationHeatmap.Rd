@@ -54,7 +54,7 @@ definitions are desired, we recommend using
 \item{legendColor}{Colors to use for legend labels. Defaults to the
 \code{\link[viridis:viridis]{viridis::viridis()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \description{
 This function calculates a correlation matrix based on gene expression per

@@ -15,7 +15,7 @@
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = NULL,
-  annotationCol = NULL, scale = "row", color = viridis::viridis(256L),
+  annotationCol = NULL, scale = "row", color = viridis::viridis,
   legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
@@ -55,7 +55,7 @@ definitions are desired, we recommend using
 \item{legendColor}{Colors to use for legend labels. Defaults to the
 \code{\link[viridis:viridis]{viridis::viridis()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 
 \item{...}{Additional arguments.}
 

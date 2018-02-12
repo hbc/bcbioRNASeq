@@ -38,7 +38,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 
 \item{flip}{Flip x and y axes.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.

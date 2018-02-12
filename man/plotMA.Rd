@@ -34,7 +34,7 @@ have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
-\item{title}{\emph{Optional}. Plot title.}
+\item{title}{Title.}
 
 \item{alpha}{Alpha level cutoff (Adjusted P value).}
 }

@@ -43,7 +43,7 @@ plotting.}
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
