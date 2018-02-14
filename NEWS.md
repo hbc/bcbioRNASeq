@@ -1,4 +1,9 @@
-## bcbioRNASeq 0.1.5
+## bcbioRNASeq 0.1.6 (2018-02-13)
+
+- Bug fix for gene-to-symbol mappings in `plotDEGHeatmap()`.
+
+
+## bcbioRNASeq 0.1.5 (2018-01-31)
 
 - Import shared dependency functions from bcbioBase instead of basejump.
 - Added method support for `selectSamples()`.
