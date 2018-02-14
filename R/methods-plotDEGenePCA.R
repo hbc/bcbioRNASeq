@@ -70,3 +70,12 @@ setMethod(
         object = "DESeqResults",
         counts = "DESeqTransform"),
     .plotDEGenePCA.DESeqResults)
+
+
+
+# Aliases ======================================================================
+#' @rdname plotDEGenePCA
+#' @export
+plotDEGPCA <- function(...) {
+    plotDEGenePCA(...)
+}
