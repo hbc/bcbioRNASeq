@@ -66,7 +66,7 @@ NULL
     gene2symbol = TRUE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title,
     ...) {
@@ -109,7 +109,7 @@ NULL
     gene2symbol = TRUE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = TRUE,
     ...) {

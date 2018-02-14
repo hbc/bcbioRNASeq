@@ -19,8 +19,8 @@ library(bcbioRNASeq)
 
 # Shared R Markdown settings
 prepareRNASeqTemplate()
-if (file.exists("setup.R")) {
-    source("setup.R")
+if (file.exists("_setup.R")) {
+    source("_setup.R")
 }
 
 # Directory paths
