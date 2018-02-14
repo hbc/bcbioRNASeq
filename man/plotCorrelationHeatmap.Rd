@@ -12,8 +12,7 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = TRUE)
+  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -82,7 +81,7 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 # Inferno palette
 plotCorrelationHeatmap(
     bcb,
-    color = viridis::inferno(256),
+    color = viridis::inferno,
     legendColor = viridis::inferno)
 
 # Default pheatmap palette

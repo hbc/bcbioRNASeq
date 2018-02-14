@@ -9,19 +9,18 @@
 \title{Plot Heatmap}
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  samples = NULL, genes = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = NULL, ...)
+  samples = NULL, genes = NULL, scale = "row", color = viridis::viridis,
+  legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = FALSE,
-  annotationCol = NULL, scale = "row", color = viridis::viridis(256L),
+  annotationCol = NULL, scale = "row", color = viridis::viridis,
   legendColor = viridis::viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
   gene2symbol = FALSE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = NULL, ...)
+  color = viridis::viridis, legendColor = viridis::viridis, title = NULL,
+  ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -91,7 +90,7 @@ plotHeatmap(bcb, genes = ensgene)
 plotHeatmap(
     bcb,
     genes = ensgene,
-    color = viridis::inferno(256),
+    color = viridis::inferno,
     legendColor = viridis::inferno)
 
 # Transcriptome heatmap with default pheatmap colors
