@@ -24,7 +24,7 @@
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
-
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,7 +54,7 @@
         <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-
+     
   </a>
 </li>
 <li>
@@ -64,12 +64,12 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
-
+     
   </a>
 </li>
       </ul>
@@ -77,7 +77,7 @@
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-
+      
       </header>
 
       <div class="row">
@@ -86,26 +86,26 @@
     <h1>Plot Volcano</h1>
     </div>
 
-
+    
     <p>Plot Volcano</p>
-
+    
 
     <pre class="usage"><span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
+<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
   <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
   <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
   <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for data.frame</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
   <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
   <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -182,18 +182,18 @@ Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
       <td><p>Show LFC and P value histograms.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Volcano plot arranged as grid (<code>grid = TRUE</code>), or <code>show()</code>
-individual ggplot (<code>grid = FALSE</code>).</p>
-
+individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> (<code>grid = FALSE</code>).</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p>This function is an updated variant of
 <code>CHBUtils::volcano_density_plot()</code>.</p>
-<p>Other Differential Expression Plots: <code>plotMA</code></p>
-
+<p>Other Differential Expression Plots: <code><a href='plotMA.html'>plotMA</a></code></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
@@ -204,7 +204,7 @@ individual ggplot (<code>grid = FALSE</code>).</p>
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Use a defined gene2symbol data.frame for better speed</span>
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb</span>)
+<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'># Label the top genes</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
@@ -217,22 +217,22 @@ individual ggplot (<code>grid = FALSE</code>).</p>
 <span class='co'># data.frame</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
 <span class='fu'>plotVolcano</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>Unmasking 'select()'</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-
+      
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-
+    
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
   </div>

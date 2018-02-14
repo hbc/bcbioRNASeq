@@ -94,8 +94,9 @@ program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -115,7 +116,7 @@ is used for PCA and heatmap QC functions.</p></td>
       <th>sampleMetadataFile</th>
       <td><p><em>Optional</em>. Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file.</p></td>
+file. Remote URLs are supported.</p></td>
     </tr>
     <tr>
       <th>annotable</th>
@@ -123,9 +124,17 @@ file.</p></td>
 "annotable"), which will be slotted into <code>rowData()</code>. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set <code>NULL</code>, then
-<code>rowData()</code> inside the resulting bcbioRNASeq object will be left empty.
+<code>rowData()</code> inside the resulting <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object will be left empty.
 This is recommended for projects dealing with genes or transcripts that are
 poorly annotated.</p></td>
+    </tr>
+    <tr>
+      <th>organism</th>
+      <td><p><em>Optional</em>. Organism name. Use the full latin name (e.g.
+"Homo sapiens"), since this will be input downstream to
+AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
+Normally this can be left <code>NULL</code>, and the function will attempt to detect
+the organism automatically using <code>detectOrganism()</code>.</p></td>
     </tr>
     <tr>
       <th>ensemblVersion</th>
@@ -133,6 +142,14 @@ poorly annotated.</p></td>
 defaults to current release, and does not typically need to be
 user-defined. This parameter can be useful for matching Ensembl annotations
 against an outdated bcbio annotation build.</p></td>
+    </tr>
+    <tr>
+      <th>genomeBuild</th>
+      <td><p><em>Optional</em>. Genome build. Normally this can be left <code>NULL</code>
+and the build will be detected from the bcbio run data. This can be set
+manually (e.g. "hg19" for the older <em>Homo sapiens</em> reference genome). Note
+that this must match the genome build identifier on Ensembl for annotations
+to download correctly.</p></td>
     </tr>
     <tr>
       <th>transformationLimit</th>
@@ -150,7 +167,7 @@ Details.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>bcbioRNASeq.</p>
+    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -171,7 +188,7 @@ run directory as a remote connection over
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 
 <span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>Unmasking 'select()'</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
@@ -212,7 +229,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  .default = col_integer(),</span>
 #&gt; <span class='message'>  id = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in counts matrix (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in assay (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
 #&gt; metadata(28): version uploadDir ... devtoolsSessionInfo
 #&gt;   unannotatedGenes
@@ -265,7 +282,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  .default = col_integer(),</span>
 #&gt; <span class='message'>  id = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Summarizing experiment without row data (e.g. gene annotations)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
 #&gt; metadata(27): version uploadDir ... utilsSessionInfo
 #&gt;   devtoolsSessionInfo

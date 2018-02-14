@@ -61,6 +61,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom bcbioBase convertGenesToSymbols
 .plotHeatmap <- function(
     object,
     samples = NULL,
@@ -82,7 +83,7 @@ NULL
 
     # Set the rownames to gene symbols
     if (isTRUE(gene2symbol)) {
-        object <- gene2symbol(object)
+        object <- convertGenesToSymbols(object)
     } else if (is.data.frame(gene2symbol)) {
         rownames(object) <- rownames(object) %>%
             gene2symbol[., "symbol", drop = TRUE] %>%
