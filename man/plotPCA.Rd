@@ -24,13 +24,13 @@
 (\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 
-\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
+\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}
 parameters set in the \link{bcbioRNASeq} object.}
 
-\item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
+\item{genes}{\emph{Optional.} Character vector of gene identifiers to use.}
 
-\item{censorSamples}{\emph{Optional}. Samples to exclude from the PCA plot.
+\item{censorSamples}{\emph{Optional.} Samples to exclude from the PCA plot.
 Supply them as a character vector. These should match \code{colnames(object)}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
@@ -39,7 +39,7 @@ Supply them as a character vector. These should match \code{colnames(object)}.}
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
 \item{returnData}{Return PCA loadings data instead of plotting.}
 }

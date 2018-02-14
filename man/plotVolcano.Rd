@@ -33,7 +33,7 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
 
-\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+\item{genes}{\emph{Optional.} Gene identifiers (rownames) to plot. These must be
 the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
 gene symbols.}
 

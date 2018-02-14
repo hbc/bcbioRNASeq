@@ -25,7 +25,7 @@ plotDEGPCA(...)
 
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
+\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}
 parameters set in the \link{bcbioRNASeq} object.}
 
@@ -37,7 +37,7 @@ parameters set in the \link{bcbioRNASeq} object.}
 definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
 \item{returnData}{Return PCA loadings data instead of plotting.}
 }

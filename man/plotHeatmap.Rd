@@ -35,9 +35,9 @@
 (\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 
-\item{samples}{\emph{Optional}. Samples (colnames) to plot.}
+\item{samples}{\emph{Optional.} Samples (colnames) to plot.}
 
-\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
+\item{genes}{\emph{Optional.} Gene identifiers (rownames) to plot. These must be
 the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
 gene symbols.}
 
@@ -63,7 +63,7 @@ definitions are desired, we recommend using
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{annotationCol}{\emph{Optional}. \link{data.frame} that defines annotation
+\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
 mappings for the columns.}
 }
 \description{

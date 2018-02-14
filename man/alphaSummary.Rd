@@ -19,12 +19,12 @@ alphaSummary(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Optional}. Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
+\item{...}{\emph{Optional.} Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
 either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{caption}{\emph{Optional}. Character vector to add as caption to the table.}
+\item{caption}{\emph{Optional.} Character vector to add as caption to the table.}
 }
 \value{
 \link{kable}.

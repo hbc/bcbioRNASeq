@@ -40,10 +40,10 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{genes}{\emph{Optional}. Character vector of specific gene identifiers to
+\item{genes}{\emph{Optional.} Character vector of specific gene identifiers to
 plot.}
 
-\item{samples}{\emph{Optional}. Character vector of specific samples.}
+\item{samples}{\emph{Optional.} Character vector of specific samples.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to

@@ -43,7 +43,7 @@ use the alpha level defined in the object.}
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{annotationCol}{\emph{Optional}. \link{data.frame} that defines annotation
+\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
 mappings for the columns.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
