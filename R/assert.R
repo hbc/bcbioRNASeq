@@ -7,6 +7,7 @@
 #' @importFrom assertive assert_has_dimnames
 #' @importFrom assertive assert_is_a_bool
 #' @importFrom assertive assert_is_a_string
+#' @importFrom assertive assert_is_all_of
 #' @importFrom assertive assert_is_any_of
 #' @importFrom assertive assert_is_character
 #' @importFrom assertive assert_is_data.frame
