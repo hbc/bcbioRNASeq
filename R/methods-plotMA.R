@@ -46,7 +46,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase annotable camel checkGene2symbol detectOrganism
+#' @importFrom basejump annotable camel detectOrganism
 #' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10
@@ -62,7 +62,7 @@ NULL
     sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
-    .assert_gene2symbol(object, genes, gene2symbol)
+    assert_formal_gene2symbol(object, genes, gene2symbol)
 
     data <- object %>%
         rownames_to_column("ensgene") %>%
@@ -97,7 +97,7 @@ NULL
     if (!is.null(genes)) {
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
-            checkGene2symbol(gene2symbol)
+            assert_is_gene2symbol(gene2symbol)
             data <- left_join(data, gene2symbol, by = "ensgene")
         } else {
             labelCol <- "ensgene"

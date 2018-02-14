@@ -63,7 +63,8 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom bcbioBase annotable detectOrganism uniteInterestingGroups
+#' @importFrom basejump annotable detectOrganism
+#' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme

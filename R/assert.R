@@ -19,6 +19,7 @@
 #'
 #' @importFrom basejump assert_formal_gene2symbol
 #' @importFrom basejump assert_is_a_string_or_null
+#' @importFrom basejump assert_is_annotable
 #' @importFrom basejump assert_is_gene2symbol
 #' @importFrom basejump assert_is_implicit_integer
 #'

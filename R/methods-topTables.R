@@ -32,7 +32,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase fixNA
+#' @importFrom basejump fixNA
 #' @importFrom dplyr filter mutate rename
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames

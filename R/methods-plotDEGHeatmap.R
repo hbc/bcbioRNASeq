@@ -57,7 +57,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase camel
+#' @importFrom basejump camel
 .plotDEGHeatmap <- function(
     object,
     counts,
@@ -97,6 +97,7 @@ NULL
     }
 
     genes <- rownames(results)
+    # FIXME Change method
     .checkGenes(genes, gene2symbol)
 
     counts <- counts[genes, , drop = FALSE]

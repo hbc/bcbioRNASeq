@@ -7,10 +7,10 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump annotable camel
+#' @importFrom basejump annotable camel readYAML
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
-#'   readLogFile readProgramVersions readSampleMetadataFile readYAML
-#'   sampleYAMLMetadata sampleYAMLMetrics
+#'   readLogFile readProgramVersions readSampleMetadataFile sampleYAMLMetadata
+#'   sampleYAMLMetrics
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull

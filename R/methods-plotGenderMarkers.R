@@ -42,6 +42,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump camel
 #' @importFrom dplyr filter left_join pull
 #' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
 #' @importFrom stats setNames
@@ -154,7 +155,7 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom bcbioBase detectOrganism
+#' @importFrom basejump detectOrganism
 #' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
