@@ -80,13 +80,13 @@ load(system.file(
     package = "bcbioRNASeq"))
 
 # Use Ensembl identifiers to define genes
-ensgene <- rownames(bcb)[1:20]
-plotHeatmap(bcb, genes = ensgene)
+genes <- rownames(bcb)[1:20]
+plotHeatmap(bcb, genes = genes)
 
 # Use inferno color palette
 plotHeatmap(
     bcb,
-    genes = ensgene,
+    genes = genes,
     color = viridis::inferno,
     legendColor = viridis::inferno)
 
