@@ -122,7 +122,7 @@ setMethod(
         gene2symbol <- gene2symbol(object)
         annotationCol <- colData(object) %>%
             .[colnames(counts), interestingGroups(object), drop = FALSE] %>%
-            as.data.frame(stringsAsFactors = TRUE)
+            as.data.frame()
         .plotHeatmap(
             object = counts,
             samples = samples,

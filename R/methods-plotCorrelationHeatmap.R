@@ -69,7 +69,8 @@ NULL
     samples = NULL,
     color = viridis::viridis,
     legendColor = viridis::viridis,
-    title = TRUE) {
+    title = TRUE,
+    ...) {
     # Check for supported correlation method
     validMethod <- c("pearson", "spearman")
     if (!method %in% validMethod) {
@@ -145,7 +146,8 @@ NULL
             color = color,
             main = title,
             show_colnames = TRUE,
-            show_rownames = TRUE)
+            show_rownames = TRUE,
+            ...)
 }
 
 
@@ -167,7 +169,8 @@ setMethod(
         samples = NULL,
         color = viridis::viridis,
         legendColor = viridis::viridis,
-        title = TRUE) {
+        title = TRUE,
+        ...) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -184,7 +187,7 @@ setMethod(
         } else {
             annotationCol <- colData(object) %>%
                 .[, interestingGroups, drop = FALSE] %>%
-                as.data.frame(stringsAsFactors = TRUE)
+                as.data.frame()
         }
 
         if (isTRUE(title) & is.character(normalized)) {
@@ -199,5 +202,6 @@ setMethod(
             samples = samples,
             color = color,
             legendColor = legendColor,
-            title = title)
+            title = title,
+            ...)
     })
