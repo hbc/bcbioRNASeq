@@ -18,8 +18,8 @@
 #' @param method Correlation coefficient (or covariance) method to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
-#' @param samples *Optional*. Character vector of specific samples.
-#' @param genes *Optional*. Character vector of specific gene identifiers to
+#' @param samples *Optional.* Character vector of specific samples.
+#' @param genes *Optional.* Character vector of specific gene identifiers to
 #'   plot.
 #'
 #' @seealso

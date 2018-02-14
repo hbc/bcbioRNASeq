@@ -9,7 +9,7 @@
 #'
 #' @inherit plotTotalReads
 #'
-#' @param genes *Optional*. Gene identifiers (rownames) to plot. These must be
+#' @param genes *Optional.* Gene identifiers (rownames) to plot. These must be
 #'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
 #'   gene symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol

@@ -17,8 +17,8 @@
 #' @inheritParams gene2symbol
 #' @inheritParams plotGene
 #'
-#' @param samples *Optional*. Samples (colnames) to plot.
-#' @param annotationCol *Optional*. [data.frame] that defines annotation
+#' @param samples *Optional.* Samples (colnames) to plot.
+#' @param annotationCol *Optional.* [data.frame] that defines annotation
 #'   mappings for the columns.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the row direction or the column direction, or none. Corresponding
