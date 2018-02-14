@@ -6,6 +6,7 @@
 \alias{plot53Bias}
 \alias{plot53Bias,bcbioRNASeq-method}
 \alias{plot53Bias,data.frame-method}
+\alias{plot5x3Bias}
 \title{Plot 5'->3' Bias}
 \usage{
 plot53Bias(object, ...)
@@ -17,6 +18,8 @@ plot53Bias(object, ...)
 \S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
   warnLimit = 2L, fill = viridis::scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
+
+plot5x3Bias(...)
 }
 \arguments{
 \item{object}{Object.}
