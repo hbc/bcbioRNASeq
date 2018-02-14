@@ -96,7 +96,8 @@ NULL
         scale = scale,
         color = color,
         legendColor = legendColor,
-        title = title)
+        title = title,
+        ...)
 }
 
 
