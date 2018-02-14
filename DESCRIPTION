@@ -79,6 +79,7 @@ Depends:
     DEGreport (>= 1.14.0)
 Imports:
     assertive,
+    basejump (>= 0.3.0),
     BiocGenerics (>= 0.24.0),
     cowplot (>= 0.8.0),
     dplyr (>= 0.7.4),

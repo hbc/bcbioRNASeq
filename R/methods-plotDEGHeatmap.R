@@ -72,9 +72,14 @@ NULL
     ...) {
     # Passthrough: color, legendColor
     assert_is_data.frame(object)
-    .assert_gene2symbol(object, genes, gene2symbol)
     assert_are_identical(rownames(object), rownames(counts))
-    # FIXME Add assertive check for color functions
+    assert_is_numeric(alpha)
+    assert_is_scalar(alpha)
+    assert_is_implicit_integer(lfc)
+    assert_is_scalar(lfc)
+    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assert_formal_color_function(color)
+    assert_formal_color_function(legendColor)
 
     results <- object %>%
         camel(strict = FALSE) %>%
