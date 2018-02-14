@@ -17,7 +17,7 @@
 #'     "_header.Rmd",
 #'     "_output.yaml",
 #'     "_setup.R",
-#'     "bibliography.bib",
+#'     "bibliography.bib"
 #' ))
 NULL
 

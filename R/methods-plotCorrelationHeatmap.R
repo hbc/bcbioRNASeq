@@ -40,7 +40,7 @@
 #' # Inferno palette
 #' plotCorrelationHeatmap(
 #'     bcb,
-#'     color = viridis::inferno(256),
+#'     color = viridis::inferno,
 #'     legendColor = viridis::inferno)
 #'
 #' # Default pheatmap palette
@@ -67,9 +67,10 @@ NULL
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
-    title = TRUE) {
+    title = TRUE,
+    ...) {
     # Check for supported correlation method
     validMethod <- c("pearson", "spearman")
     if (!method %in% validMethod) {
@@ -145,7 +146,8 @@ NULL
             color = color,
             main = title,
             show_colnames = TRUE,
-            show_rownames = TRUE)
+            show_rownames = TRUE,
+            ...)
 }
 
 
@@ -165,9 +167,10 @@ setMethod(
         interestingGroups,
         genes = NULL,
         samples = NULL,
-        color = viridis::viridis(256L),
+        color = viridis::viridis,
         legendColor = viridis::viridis,
-        title = TRUE) {
+        title = TRUE,
+        ...) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -183,7 +186,8 @@ setMethod(
             annotationCol <- NULL
         } else {
             annotationCol <- colData(object) %>%
-                .[, interestingGroups, drop = FALSE]
+                .[, interestingGroups, drop = FALSE] %>%
+                as.data.frame()
         }
 
         if (isTRUE(title) & is.character(normalized)) {
@@ -198,5 +202,6 @@ setMethod(
             samples = samples,
             color = color,
             legendColor = legendColor,
-            title = title)
+            title = title,
+            ...)
     })

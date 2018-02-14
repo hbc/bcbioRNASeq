@@ -87,7 +87,7 @@ plotHeatmap(bcb, genes = ensgene)
 plotHeatmap(
     bcb,
     genes = ensgene,
-    color = viridis::inferno(256),
+    color = viridis::inferno,
     legendColor = viridis::inferno)
 
 # Transcriptome heatmap with default pheatmap colors
