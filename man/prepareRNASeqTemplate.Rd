@@ -31,8 +31,8 @@ unlink(c(
     "_footer.Rmd",
     "_header.Rmd",
     "_output.yaml",
+    "_setup.R",
     "bibliography.bib",
-    "setup.R"
 ))
 }
 \author{
