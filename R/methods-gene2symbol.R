@@ -4,7 +4,7 @@
 #' @name gene2symbol
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase gene2symbol
+#' @importFrom basejump gene2symbol
 #'
 #' @inheritParams general
 #'
@@ -23,19 +23,14 @@ NULL
 
 
 # Constructors =================================================================
-.gene2symbol <- function(object) {
+.gene2symbol.bcbioRNASeq <- function(object) {  # nolint
     annotable <- annotable(object)
+    assert_is_data.frame(annotable, severity = "warning")
     if (is.null(annotable)) {
-        return(NULL)
+        return(invisible())
     }
-    cols <- c("ensgene", "symbol")
-    if (!all(cols %in% colnames(annotable))) {
-        abort(paste(
-            toString(cols),
-            "missing from internal annotable"
-        ))
-    }
-    annotable[, cols]
+    assert_is_subset(c("ensgene", "symbol"), colnames(annotable))
+    annotable[, cols, drop = FALSE]
 }
 
 
@@ -45,4 +40,4 @@ NULL
 setMethod(
     "gene2symbol",
     signature("bcbioRNASeq"),
-    .gene2symbol)
+    .gene2symbol.bcbioRNASeq)
