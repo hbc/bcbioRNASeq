@@ -128,7 +128,9 @@ NULL
     }
 
     # If `color = NULL`, use the pheatmap default
-    if (!is.character(color)) {
+    if (is.function(color)) {
+        color <- color(256L)
+    } else if (!is.character(color)) {
         color <- colorRampPalette(rev(
             brewer.pal(n = 7L, name = "RdYlBu")
         ))(100L)

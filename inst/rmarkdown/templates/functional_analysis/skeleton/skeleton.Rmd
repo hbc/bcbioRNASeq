@@ -4,115 +4,112 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcbFile: "data/bcb.rda"
-    resFile: "data/res.rda"
+    bcb_file: "data/YYYY-MM-DD/bcb.rda"
+    res_file: "data/YYYY-MM-DD/res.rda"
     organism: "Mm"
     gspecies: "mmu"
     species: "mouse"
     lfc: 0
-    goOnt: "BP"
-    outputDir: "."
+    go_class: "BP"
+    output_dir: "."
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2017-12-14
-
-# Organism params:
+# Last modified 2018-02-08
 # Mouse (default)
-#     organism: "Mm"
-#     gspecies: "mmu"
-#     species: "mouse"
+# - organism: "Mm"
+# - gspecies: "mmu"
+# - species: "mouse"
 # Human
-#     organism: "Hs"
-#     gspecies: "hsa"
-#     species: "human"
+# - organism: "Hs"
+# - gspecies: "hsa"
+# - species: "human"
 
-# Organism database package
-# help("enrichGO", "clusterProfiler")
-orgDB <- paste("org", params$organism, "eg", "db", sep = ".")
-
-# Load the required libraries
+# Load the required enrichment-specific packages first
+org_db <- paste("org", params$organism, "eg", "db", sep = ".")
 packages <- c(
-    orgDB,
-    "lpantano/DEGreport",
-    "hbc/bcbioRNASeq",
-    "tidyverse",
-    "DT",
+    org_db,
     "clusterProfiler",
     "DOSE",
     "pathview"
 )
 if (!all(basename(packages) %in% rownames(installed.packages()))) {
-    source("https://bioconductor.org/biocLite.R")
     notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
+    source("https://bioconductor.org/biocLite.R")
     biocLite(pkgs = notInstalled)
 }
-invisible(lapply(basename(packages), library, character.only = TRUE))
-    
-# Shared R Markdown settings
-prepareRNASeqTemplate()
-if (file.exists("_setup.R")) {
-    source("_setup.R")
-}
+invisible(lapply(
+    X = basename(packages),
+    FUN = library,
+    character.only = TRUE
+))
 
-# Load bcbioRNASeq object
-bcbName <- load(params$bcbFile)
-bcb <- get(bcbName, inherits = FALSE)
-
-resName <- load(params$resFile)
-res <- get(resName, inherits = FALSE) %>%
-    .[!is.na(.$padj), , drop = FALSE]
-alpha <- metadata(res)$alpha
+# Now load the shared R Markdown setup script
+bcbioRNASeq::prepareRNASeqTemplate()
+source("_setup.R")
 
 # Directory paths
-dataDir <- file.path(params$outputDir, "data", Sys.Date())
-faDir <- file.path(params$outputDir, "results", Sys.Date(), "functional_analysis")
+data_dir <- file.path(params$output_dir, "data", Sys.Date())
+results_dir <- file.path(params$output_dir, "results", "functional_analysis")
+kegg_plots_dir <- file.path(results_dir, "kegg_plots")
 invisible(mapply(
-    list(faDir, dataDir),
     FUN = dir.create,
+    list(data_dir, results_dir, kegg_plots_dir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
+
+# Load bcbioRNASeq and DESeqResults objects
+bcb_name <- load(params$bcb_file)
+bcb <- get(bcb_name, inherits = FALSE)
+
+res_name <- load(params$res_file)
+res <- get(res_name, inherits = FALSE) %>%
+    .[!is.na(.$padj), , drop = FALSE]
+alpha <- metadata(res)$alpha
 ```
 
-```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
+```{r header, child="_header.Rmd"}
 ```
 
 
 
 ```{r identifiers, message=FALSE, warning=FALSE}
-allGenes <- rownames(res) %>%
+# FIXME Remove the bitr code here
+all_genes <- rownames(res) %>%
     as.character()
-sigGenes <- significants(
+sig_genes <- significants(
     res,
     fc = params$lfc,
     padj = alpha)
 # Convert Ensembl gene identifiers to Entrez
 ensembl2entrez <- bitr(
-    allGenes,
+    all_genes,
     fromType = "ENSEMBL",
     toType = "ENTREZID",
-    OrgDb = orgDB) %>%
+    OrgDb = org_db) %>%
     camel()
-allEntrez <- unique(ensembl2entrez$entrezid)
-sigEntrez <- bitr(
-    sigGenes,
+all_entrez <- unique(ensembl2entrez$entrezid)
+sig_entrez <- bitr(
+    sig_genes,
     fromType = "ENSEMBL",
     toType = "ENTREZID",
-    OrgDb = orgDB) %>%
+    OrgDb = org_db) %>%
     camel() %>%
     .$entrezid %>%
     unique()
 ```
 
 ```{r sig_tables}
-sigResults <- as.data.frame(res)[sigGenes, ]
-
-foldChanges <- sigResults$log2FoldChange
-names(foldChanges) <- rownames(sigResults)
-
-fdrOrdered <- res %>%
+sig_results <- res %>%
     as.data.frame() %>%
-    .[order(.$padj), ]
+    .[sig_genes, , drop = FALSE]
+
+fold_changes <- sig_results$log2FoldChange
+names(fold_changes) <- rownames(sig_results)
+
+fdr_ordered <- res %>%
+    as.data.frame() %>%
+    .[order(.$padj), , drop = FALSE]
 ```
 
 
@@ -123,36 +120,34 @@ Gene Ontology (GO) term enrichment is a technique for interpreting sets of genes
 
 ```{r enrich_go}
 # Run GO enrichment analysis
-ego <- enrichGO(
-    sigGenes,
+enrich_go <- enrichGO(
+    sig_genes,
     "ENSEMBL",
-    universe = allGenes,
-    OrgDb = orgDB,
-    ont = params$goOnt,
+    universe = all_genes,
+    OrgDb = org_db,
+    ont = params$go_class,
     pAdjustMethod = "BH",
     qvalueCutoff = 0.05,
     readable = TRUE)
-saveData(ego, dir = dataDir)
+saveData(enrich_go, dir = data_dir)
 
 # Show summary data.frame
-egoSummary <- slot(ego, "result") %>%
+enrich_go_summary <- slot(enrich_go, "result") %>%
     as_tibble() %>%
     camel()
 write_csv(
-    egoSummary,
-    path = file.path(
-        faDir,
-        paste0(
-            paste("go",
-                  tolower(params$goOnt),
-                  "clusterprofiler",
-                  "padj",
-                  alpha,
-                  "lfc",
-                  params$lfc,
-                  sep = "_"),
-            ".csv.gz")))
-egoSummary %>% datatable()
+    enrich_go_summary,
+    path = file.path(results_dir, paste0(paste(
+        "go",
+        tolower(params$go_class),
+        "clusterprofiler",
+        "padj",
+        alpha,
+        "lfc",
+        params$lfc,
+        sep = "_"),
+        ".csv.gz")))
+enrich_go_summary
 ```
 
 
@@ -161,7 +156,7 @@ egoSummary %>% datatable()
 
 ```{r dotplot, fig.width=8}
 # Dotplot of top 25
-dotplot(ego, showCategory = 25)
+dotplot(enrich_go, showCategory = 25)
 ```
 
 
@@ -170,7 +165,7 @@ dotplot(ego, showCategory = 25)
 
 ```{r enrich_map, fig.width=8, fig.height=8}
 # Enrichment plot of top 25
-enrichMap(ego, n = 25, vertex.label.cex = 0.5)
+enrichMap(enrich_go, n = 25, vertex.label.cex = 0.5)
 ```
 
 
@@ -183,10 +178,10 @@ In order to consider the potentially biological complexities in which a gene may
 # Cnet plot with genes colored by fold changes for top 5 most significant GO
 # processes
 cnetplot(
-    ego,
+    enrich_go,
     categorySize = "pvalue",
     showCategory = 5,
-    foldChange = foldChanges,
+    foldChange = fold_changes,
     vertex.label.cex = 0.5)
 ```
 
@@ -196,30 +191,27 @@ cnetplot(
 
 ```{r enrich_kegg}
 kegg <- enrichKEGG(
-    gene = sigEntrez,
-    universe = allEntrez,
+    gene = sig_entrez,
+    universe = all_entrez,
     organism = params$species)
-saveData(kegg, dir = dataDir)
+saveData(kegg, dir = data_dir)
 
 # Show KEGG summary data.frame
-keggSummary <- slot(kegg, "result") %>%
+kegg_summary <- slot(kegg, "result") %>%
     as_tibble() %>%
     camel()
 write_csv(
-    keggSummary,
-    path = file.path(
-        faDir,
-        paste0(
-            paste(
-                "kegg",
-                "clusterprofiler",
-                "padj",
-                alpha,
-                "lfc",
-                params$lfc,
-                sep = "_"),
-            ".csv.gz")))
-keggSummary %>% datatable()
+    kegg_summary,
+    path = file.path(results_dir,paste0(paste(
+        "kegg",
+        "clusterprofiler",
+        "padj",
+        alpha,
+        "lfc",
+        params$lfc,
+        sep = "_"),
+        ".csv.gz")))
+kegg_summary
 ```
 
 
@@ -228,44 +220,41 @@ keggSummary %>% datatable()
 
 A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. Gene Set Enrichment Analysis (GSEA) directly addresses this limitation. All genes can be used in GSEA; GSEA aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
-```{r gse_go}
+```{r gsea_go}
 # Prepare the gene list
-geneList <- 1 - fdrOrdered$padj
-names(geneList) <- row.names(fdrOrdered)
-geneList <- geneList[!is.na(geneList)]
+gene_list <- 1 - fdr_ordered$padj
+names(gene_list) <- row.names(fdr_ordered)
+gene_list <- gene_list[!is.na(gene_list)]
 
 # Now run GSEA
-gse <- gseGO(
-    geneList = geneList,
-    OrgDb = orgDB,
-    ont = params$goOnt,
+gsea_go <- gseGO(
+    geneList = gene_list,
+    OrgDb = org_db,
+    ont = params$go_class,
     keyType = "ENSEMBL",
     nPerm = 1000,
     minGSSize = 100,
     maxGSSize = 500,
     pvalueCutoff = 0.05,
     verbose = FALSE)
-saveData(gse, dir = dataDir)
+saveData(gsea_go, dir = data_dir)
 
 # Write out summary data.frame
-gseSummary <- slot(gse, "result") %>%
+gsea_go_summary <- slot(gsea_go, "result") %>%
     as_tibble() %>%
     camel()
 write_csv(
-    gseSummary,
-    path = file.path(
-        faDir,
-        paste0(
-            paste(
-                "gsea",
-                "clusterprofiler",
-                "padj",
-                alpha,
-                "lfc",
-                params$lfc,
-                sep = "_"),
-            ".csv.gz")))
-gseSummary %>% datatable()
+    gsea_go_summary,
+    path = file.path(results_dir, paste0(paste(
+        "gsea",
+        "clusterprofiler",
+        "padj",
+        alpha,
+        "lfc",
+        params$lfc,
+        sep = "_"),
+        ".csv.gz")))
+gsea_go_summary
 ```
 
 
@@ -275,7 +264,7 @@ gseSummary %>% datatable()
 We can also perform GSEA analysis with clusterProfiler using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
 
 ```{r kegg_gsea}
-resTblEntrez <- res %>%
+res_tbl_entrez <- res %>%
     as.data.frame() %>%
     rownames_to_column("ensembl") %>%
     as_tibble() %>%
@@ -286,70 +275,65 @@ resTblEntrez <- res %>%
     filter(!duplicated(entrezid))
 
 # Extract the fold changes
-foldChanges <- resTblEntrez$log2FoldChange
-names(foldChanges) <- resTblEntrez$entrezid
-foldChanges <- sort(foldChanges, decreasing = TRUE)
+fold_changes <- res_tbl_entrez$log2FoldChange
+names(fold_changes) <- res_tbl_entrez$entrezid
+fold_changes <- sort(fold_changes, decreasing = TRUE)
 
 # GSEA using gene sets from KEGG pathways
-gseaKEGG <- gseKEGG(
-    geneList = foldChanges,
+gsea_kegg <- gseKEGG(
+    geneList = fold_changes,
     organism = tolower(params$gspecies),
     nPerm = 1000,
     minGSSize = 120,
     pvalueCutoff = 0.05,
     verbose = FALSE)
-saveData(gseKEGG, dir = dataDir)
+saveData(gsea_kegg, dir = data_dir)
 
 # Extract the GSEA results
-gseaKEGGSummary <- slot(gseaKEGG, "result") %>% as_tibble()
+gsea_kegg_summary <- slot(gsea_kegg, "result") %>% as_tibble()
 write_csv(
-    gseaKEGGSummary,
-    path = file.path(faDir, "gsea_kegg_clusterprofiler.csv.gz"))
-gseaKEGGSummary %>% datatable()
+    gsea_kegg_summary,
+    path = file.path(results_dir, "gsea_kegg_clusterprofiler.csv.gz"))
+gsea_kegg_summary
 ```
 
 ```{r kegg_plots, message=FALSE, results='asis'}
 # dplyr must be unloaded at this step for pathview to work
-suppressWarnings(detach("package:dplyr", unload = TRUE))
+suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
 
 # If there is an error at this step, there may be a pathway that is not found by
 # pathview package. In this case, you may need to run the pathview command above
 # by specifying the index of the pathways you would like to print out in place
 # of `x`.
-pathways <- gseaKEGGSummary$ID
-
-keggPlotsDir <- file.path(faDir, "kegg_plots")
-dir.create(keggPlotsDir, recursive = TRUE, showWarnings = FALSE)
+pathways <- gsea_kegg_summary$ID
 
 # There is currently no way to set the output path of the pathview PNG files.
 # We're using tryCatch here to return to the user pathways that didn't output
 # graphics correctly.
-current <- getwd() %>% normalizePath()
-setwd(keggPlotsDir)
-lapply(seq_along(pathways), function(a) {
-    pathway <- pathways[[a]]
+wd <- getwd()
+setwd(kegg_plots_dir)
+invisible(lapply(pathways, function(pathway) {
     tryCatch(
         pathview(
-            gene.data = foldChanges,
+            gene.data = fold_changes,
             pathway.id = pathway,
             species = tolower(params$gspecies), 
             limit = list(gene = 2, cpd = 1)),
         error = function(e) {
+            # Return a warning instead of an error
             warning(paste(pathway, "failed to plot"), call. = FALSE)
         }
     )
-}) %>%
-    invisible()
-setwd(current)
+}))
+setwd(wd)
 
-figures <- list.files(keggPlotsDir, pattern = "pathview", full.names = TRUE)
-invisible(lapply(seq_along(figures), function(a) {
-    figure <- figures[[a]]
+figures <- list.files(kegg_plots_dir, pattern = "pathview", full.names = TRUE)
+invisible(lapply(figures, function(figure) {
     cat(paste0("<img src=\"", figure, "\">\n"))
 }))
 ```
 
 
 
-```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
+```{r footer, child="_footer.Rmd"}
 ```
