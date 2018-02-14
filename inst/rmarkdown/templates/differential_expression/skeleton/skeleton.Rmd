@@ -4,41 +4,44 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcbFile: "data/bcb.rda"
+    bcb_file: "data/YYYY-MM-DD/bcb.rda"
     design: !r formula(~genotype)
     contrast: !r c("genotype", "mutant", "wildtype")
     alpha: 0.01
     lfc: 1
-    outputDir: "."
+    output_dir: "."
+    dropbox_dir: NULL
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2017-12-14
-library(DESeq2)
-library(bcbioRNASeq)
-
-# Shared R Markdown settings
-prepareRNASeqTemplate()
-if (file.exists("_setup.R")) {
-    source("_setup.R")
-}
+# Last modified 2018-02-14
+bcbioRNASeq::prepareRNASeqTemplate()
+source("_setup.R")
 
 # Directory paths
-dataDir <- file.path(params$outputDir, "data", Sys.Date())
-countsDir <- file.path(params$outputDir, "results", Sys.Date(), "counts")
-deDir <- file.path(params$outputDir, "results", Sys.Date(), "differential_expression")
+data_dir <- file.path(params$output_dir, "data", Sys.Date())
+results_dir <- file.path(params$output_dir, "results", "differential_expression")
 invisible(mapply(
-    list(dataDir, countsDir, deDir),
     FUN = dir.create,
+    list(data_dir, results_dir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
 
+# Dropbox paths
+if (is.character(params$dropbox_dir)) {
+    # Delete `.httr-oauth` if you have trouble writing to Dropbox
+    dropbox_dir <- file.path(
+        params$dropbox_dir,
+        "results",
+        "differential_expression")
+}
+
 # Load bcbioRNASeq object
-bcbName <- load(params$bcbFile)
-bcb <- get(bcbName, inherits = FALSE)
+bcb_name <- load(params$bcb_file)
+bcb <- get(bcb_name, inherits = FALSE)
 ```
 
-```{r header, child="_header.Rmd", eval=file.exists("_header.Rmd")}
+```{r header, child="_header.Rmd"}
 ```
 
 
@@ -70,7 +73,7 @@ alphaSummary(dds)
 #   1. Design matrix factor of interest.
 #   2. Numerator for LFC (expt).
 #   3. Denominator for LFC (control).
-resUnshrunken <- results(
+res_unshrunken <- results(
     dds,
     contrast = params$contrast,
     alpha = params$alpha)
@@ -79,15 +82,15 @@ resUnshrunken <- results(
 # help("lfcShrink", "DESeq2")
 # Only `coef` or `contrast` can be specified, not both
 # Use the correct `coef` number to modify from `resultsNames(dds)`
-resShrunken <- lfcShrink(
+res_shrunken <- lfcShrink(
     dds = dds,
     # coef = 2,
     contrast = params$contrast,
-    res = resUnshrunken)
+    res = res_unshrunken)
 
 # Use shrunken LFC values by default
-res <- resShrunken
-saveData(res, dir = dataDir)
+res <- res_shrunken
+saveData(res, res_shrunken, res_unshrunken, dir = data_dir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc`.
@@ -124,31 +127,20 @@ plotDEGHeatmap(res, counts = rld)
 
 
 
-# File downloads
-
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
-
-
-## Count matrices
-
-- [`normalizedCounts.csv.gz`](`r file.path(countsDir, "normalizedCounts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](`r file.path(countsDir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`rawCounts.csv.gz`](`r file.path(countsDir, "rawCounts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
-
-
-## Differentially expressed genes (DEG)
+# Results tables
 
 ```{r results_tables, results="asis"}
-resTbl <- resultsTables(
+res_tbl <- resultsTables(
     res,
     lfc = params$lfc,
     write = TRUE,
     summary = TRUE,
-    headerLevel = 3,
-    dir = deDir)
+    headerLevel = 2,
+    dir = results_dir)
+saveData(res_tbl, dir = data_dir)
 ```
 
-DEG tables are sorted by BH-adjusted P value, and contain the following columns:
+Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
 
 - `ensgene`: [Ensembl][] gene identifier.
 - `baseMean`: Mean of the normalized counts per gene for all samples.
@@ -162,16 +154,15 @@ DEG tables are sorted by BH-adjusted P value, and contain the following columns:
 - `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
 
-
-# Top tables
+## Top tables
 
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
 ```{r top_tables, results="asis"}
-topTables(resTbl)
+topTables(res_tbl)
 ```
 
 
 
-```{r footer, child="_footer.Rmd", eval=file.exists("_footer.Rmd")}
+```{r footer, child="_footer.Rmd"}
 ```
