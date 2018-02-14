@@ -40,7 +40,10 @@ NULL
 #' @export
 setMethod(
     "colData<-",
-    signature(x = "bcbioRNASeq", value = "DataFrame"),
+    signature(
+        x = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
     function(x, ..., value) {
         if (nrow(value) != ncol(x)) {
             abort("nrow of supplied 'colData' must equal ncol of object")
@@ -56,4 +59,5 @@ setMethod(
         }
         slot(x, "colData") <- value
         x
-    })
+    }
+)

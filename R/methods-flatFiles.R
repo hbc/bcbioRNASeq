@@ -23,19 +23,23 @@ NULL
 
 
 
+# Constructors =================================================================
+.flatFiles.bcbioRNASeq <- function(object) {  # nolint
+    list(
+        assays = assays(object),
+        rowData = rowData(object),
+        colData = colData(object),
+        metadata = metadata(object),
+        bcbio = bcbio(object)
+    )
+}
+
+
+
 # Methods ======================================================================
 #' @rdname flatFiles
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "flatFiles",
     signature("bcbioRNASeq"),
-    function(object) {
-        list(
-            assays = assays(object),
-            rowData = rowData(object),
-            colData = colData(object),
-            metadata = metadata(object),
-            bcbio = bcbio(object)
-        )
-    })
+    .flatFiles.bcbioRNASeq)

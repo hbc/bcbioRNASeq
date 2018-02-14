@@ -88,30 +88,48 @@ NULL
 
 
 
-# Methods ======================================================================
-#' @rdname alphaSummary
 #' @importFrom BiocGenerics design
 #' @importFrom stats formula
+.alphaSummary.bcbioRNASeq <- function(  # nolint
+    object,
+    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+    caption = NULL,
+    ...) {
+    dds <- bcbio(object, "DESeqDataSet")
+    # Warn if empty design formula detected
+    if (design(dds) == formula(~1)) {  # nolint
+        warn("Empty DESeqDataSet design formula detected")
+    }
+    .alphaSummary(
+        dds = dds,
+        alpha = alpha,
+        caption = caption,
+        ...)
+}
+
+
+
+.alphaSummary.DESeqDataSet <- function(  # nolint
+    object,
+    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+    caption = NULL,
+    ...) {
+    .alphaSummary(
+        dds = object,
+        alpha = alpha,
+        caption = caption,
+        ...)
+}
+
+
+
+# Methods ======================================================================
+#' @rdname alphaSummary
 #' @export
 setMethod(
     "alphaSummary",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...) {
-        dds <- bcbio(object, "DESeqDataSet")
-        # Warn if empty design formula detected
-        if (design(dds) == formula(~1)) {  # nolint
-            warn("Empty DESeqDataSet design formula detected")
-        }
-        .alphaSummary(
-            dds = dds,
-            alpha = alpha,
-            caption = caption,
-            ...)
-    })
+    .alphaSummary.bcbioRNASeq)
 
 
 
@@ -120,14 +138,4 @@ setMethod(
 setMethod(
     "alphaSummary",
     signature("DESeqDataSet"),
-    function(
-        object,
-        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...) {
-        .alphaSummary(
-            dds = object,
-            alpha = alpha,
-            caption = caption,
-            ...)
-    })
+    .alphaSummary.DESeqDataSet)

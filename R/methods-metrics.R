@@ -20,6 +20,19 @@ NULL
 
 
 
+# Constructors =================================================================
+.metrics.bcbioRNASeq <- function(object) {  # nolint
+    metrics <- metadata(object)[["metrics"]]
+    assert_is_data.frame(metrics)
+    metrics <- mutate_if(metrics, is.character, as.factor)
+    metadata <- sampleMetadata(object)
+    metrics <- left_join(metrics, metadata, by = metadataPriorityCols)
+    rownames(metrics) <- metrics[["sampleID"]]
+    metrics
+}
+
+
+
 # Methods ======================================================================
 #' @rdname metrics
 #' @importFrom dplyr left_join mutate_if
@@ -28,11 +41,4 @@ NULL
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object) {
-        metrics <- metadata(object)[["metrics"]] %>%
-            mutate_if(is.character, as.factor)
-        metadata <- sampleMetadata(object)
-        metrics <- left_join(metrics, metadata, by = metadataPriorityCols)
-        rownames(metrics) <- metrics[["sampleID"]]
-        metrics
-    })
+    .metrics.bcbioRNASeq)

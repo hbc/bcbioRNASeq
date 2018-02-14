@@ -39,12 +39,10 @@ NULL
 # Constructors =================================================================
 #' @importFrom dplyr left_join
 .joinMelt <- function(counts, colData) {
-    if (!identical(
+    assert_are_identical(
         colnames(counts),
         as.character(colData[["sampleID"]])
-    )) {
-        abort("Sample name mismatch between counts and metadata")
-    }
+    )
     melted <- .meltLog10(counts)
     colData <- colData %>%
         as.data.frame() %>%
@@ -61,6 +59,7 @@ NULL
 #' @importFrom stats setNames
 #' @importFrom tibble rownames_to_column
 .meltLog10 <- function(counts) {
+    assert_is_matrix(counts)
     counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
@@ -79,19 +78,44 @@ NULL
 
 
 
+.meltLog10.bcbioRNASeq <- function(  # nolint
+    object,
+    normalized = TRUE) {
+    .joinMelt(
+        counts = counts(object, normalized = normalized),
+        colData = colData(object)
+    )
+}
+
+
+
+.meltLog10.DESeqDataSet <- function(  # nolint
+    object,
+    normalized = TRUE) {
+    .joinMelt(
+        counts = counts(object, normalized = normalized),
+        colData = colData(object)
+    )
+}
+
+
+
+.meltLog10.DESeqTransform <- function(object) {  # nolint
+    .joinMelt(
+        counts = assay(object),
+        colData = colData(object)
+    )
+}
+
+
+
 # Methods ======================================================================
 #' @rdname meltLog10
 #' @export
 setMethod(
     "meltLog10",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = TRUE) {
-        .joinMelt(
-            counts = counts(object, normalized = normalized),
-            colData = colData(object))
-    })
+    .meltLog10.bcbioRNASeq)
 
 
 
@@ -100,13 +124,7 @@ setMethod(
 setMethod(
     "meltLog10",
     signature("DESeqDataSet"),
-    function(
-        object,
-        normalized = TRUE) {
-        .joinMelt(
-            counts = counts(object, normalized = normalized),
-            colData = colData(object))
-    })
+    .meltLog10.DESeqDataSet)
 
 
 
@@ -115,8 +133,4 @@ setMethod(
 setMethod(
     "meltLog10",
     signature("DESeqTransform"),
-    function(object) {
-        .joinMelt(
-            counts = assay(object),
-            colData = colData(object))
-    })
+    .meltLog10.DESeqTransform)

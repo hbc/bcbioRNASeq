@@ -38,22 +38,29 @@ NULL
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
-    if (isTRUE(title)) {
-        title <- "5'->3' bias"
-    } else if (!is.character(title)) {
-        title <- NULL
-    }
+    assert_is_data.frame(object)
+    assert_is_character(interestingGroups)
+    assert_is_implicit_integer(warnLimit)
+    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
+    assert_is_a_bool(flip)
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
 
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
     # The internal camel method has been updated in basejump 0.1.11.
-    if ("x53Bias" %in% colnames(metrics)) {
-        metrics <- rename(metrics, "x5x3Bias" = "x53Bias")
+    if ("x53Bias" %in% colnames(data)) {
+        data <- rename(data, "x5x3Bias" = "x53Bias")
+    }
+
+    ylab <- "5'->3' bias"
+    if (isTRUE(title)) {
+        title <- ylab
+    } else if (!is_a_string(title)) {
+        title <- NULL
     }
 
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_string(
             x = "sampleName",
             y = "x5x3Bias",
@@ -61,9 +68,9 @@ NULL
     ) +
         geom_bar(stat = "identity") +
         labs(
-            title = "5'->3' bias",
+            title = title,
             x = "sample",
-            y = "5'->3' bias",
+            y = ylab,
             fill = paste(interestingGroups, collapse = ":\n"))
 
     if (is.numeric(warnLimit)) {
@@ -87,32 +94,36 @@ NULL
 
 
 
+#' @importFrom viridis scale_fill_viridis
+.plot53Bias.bcbioRNASeq <- function(
+    object,
+    interestingGroups,
+    warnLimit = 2L,
+    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    flip = TRUE,
+    title = TRUE) {
+    # Passthrough: warnLimit, fill, flip, title
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plot53Bias(
+        object = metrics(object),
+        interestingGroups = interestingGroups,
+        warnLimit = warnLimit,
+        fill = fill,
+        flip = flip,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plot53Bias
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plot53Bias",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        warnLimit = 2L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plot53Bias(
-            metrics(object),
-            interestingGroups = interestingGroups,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plot53Bias.bcbioRNASeq)
 
 
 
@@ -122,3 +133,12 @@ setMethod(
     "plot53Bias",
     signature("data.frame"),
     .plot53Bias)
+
+
+
+# Aliases ======================================================================
+#' @rdname plot53Bias
+#' @export
+plot5x3Bias <- function(...) {
+    plot53Bias(...)
+}

@@ -4,7 +4,7 @@
 #' @name annotable
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase annotable
+#' @importFrom basejump annotable
 #'
 #' @inheritParams general
 #'
@@ -21,6 +21,15 @@ NULL
 
 
 
+# Constructors =================================================================
+.annotable.bcbioRNASeq <- function(object) {  # nolint
+    data <- rowData(object)
+    rownames(data) <- slot(object, "NAMES")
+    as.data.frame(data)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname annotable
 #' @importFrom S4Vectors metadata
@@ -28,8 +37,4 @@ NULL
 setMethod(
     "annotable",
     signature("bcbioRNASeq"),
-    function(object) {
-        annotable <- as.data.frame(rowData(object))
-        rownames(annotable) <- slot(object, "NAMES")
-        annotable
-    })
+    .annotable.bcbioRNASeq)
