@@ -51,8 +51,8 @@ invisible(lapply(basename(packages), library, character.only = TRUE))
     
 # Shared R Markdown settings
 prepareRNASeqTemplate()
-if (file.exists("setup.R")) {
-    source("setup.R")
+if (file.exists("_setup.R")) {
+    source("_setup.R")
 }
 
 # Load bcbioRNASeq object

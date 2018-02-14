@@ -6,7 +6,7 @@ test_that("prepareRNASeqTemplate", {
         "_header.Rmd",
         "_output.yaml",
         "bibliography.bib",
-        "setup.R")
+        "_setup.R")
     expect_silent(prepareRNASeqTemplate())
     expect_true(all(file.exists(files)))
     unlink(files)

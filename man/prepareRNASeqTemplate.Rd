@@ -32,7 +32,7 @@ unlink(c(
     "_header.Rmd",
     "_output.yaml",
     "bibliography.bib",
-    "setup.R"
+    "_setup.R"
 ))
 }
 \author{
