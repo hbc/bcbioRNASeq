@@ -18,7 +18,10 @@ test_that("assignment", {
     # Interesting group must be in the metadata
     expect_error(
         interestingGroups(bcb) <- "XXX",
-        "Interesting groups not defined in metadata: XXX"
+        paste(
+            "is_subset :",
+            "The element 'XXX' in interestingGroups is not in",
+            "colnames\\(object\\)."
+        )
     )
-
 })

@@ -92,26 +92,27 @@
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>,
-  <span class='no'>interestingGroups</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='kw'>log2</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>interestingGroups</span>, <span class='kw'>stackReplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>,
+  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>,
-  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>log2</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+  <span class='kw'>stackReplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span>
+  <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>stackReplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>,
-  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>metadata</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>metadata</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>stackReplicates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+  <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -132,12 +133,21 @@ gene symbols.</p></td>
 <code>rlog</code>, or <code>vst</code>.</p></td>
     </tr>
     <tr>
+      <th>log2</th>
+      <td><p>Apply <code>log2(x + 1)</code> transformation to normalized counts.</p></td>
+    </tr>
+    <tr>
       <th>interestingGroups</th>
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
-bcbioRNASeq object. When set to <code>NULL</code>, this will default to
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
 <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>stackReplicates</th>
+      <td><p>Stack replicate points into a single tick on the
+sample axis.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -158,13 +168,10 @@ definitions are desired, we recommend using
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p>Apply gene identifier to symbol mappings. If set <code>TRUE</code>,
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using <code>annotable()</code>. If set <code>FALSE</code>/<code>NULL</code>, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol data.frame can be
-passed in, and must contain the columns <code>ensgene</code> and <code>symbol</code>. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
+      <td><p>Apply gene identifier to symbol mappings. A gene2symbol
+data.frame can be passed in, and must contain the columns <code>ensgene</code> and
+<code>symbol</code>. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
@@ -181,7 +188,7 @@ Ensembl gene identifiers will be labeled in place of gene symbols.</p></td>
     
 <ul>
 <li><p><code>grid</code>: <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code> graphical output.</p></li>
-<li><p><code>list</code>: Plot list, containing per gene ggplot objects.</p></li>
+<li><p><code>list</code>: Plot list, containing per gene <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> objects.</p></li>
 <li><p><code>markdown</code>: Tabset R Markdown output, tabbed per gene.</p></li>
 </ul>
 

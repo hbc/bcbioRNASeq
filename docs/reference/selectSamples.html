@@ -91,7 +91,10 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>selectSamples</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>selectSamples</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>selectSamples</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -113,24 +116,29 @@ take a long time for large datasets.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>bcbioRNASeq.</p>
+    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
     <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(
+    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"dds.rda"</span>),
+    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
 <span class='fu'>selectSamples</span>(<span class='no'>bcb</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"ko"</span>)</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 2 
-#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
+#&gt; metadata(30): version uploadDir ... subset originalVersion
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000105982 ENSMUSG00000109048
 #&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
 #&gt; colnames(2): group2_1 group2_2
-#&gt; colData names(4): sampleID sampleName description group</div></pre>
+#&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
+<span class='co'># DESeqDataSet</span>
+<span class='fu'>selectSamples</span>(<span class='no'>dds</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ctrl"</span>, <span class='st'>"ko"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in x[, j, drop = FALSE]: no 'dimnames' attribute for array</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

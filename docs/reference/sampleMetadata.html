@@ -123,15 +123,15 @@
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 4
 #&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko</div><div class='input'>
 <span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbio</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
 #&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
@@ -140,7 +140,7 @@
 #&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div><div class='input'>
 <span class='co'># DESeqTransform</span>
 <span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
-<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 4
+<span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
 #&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2

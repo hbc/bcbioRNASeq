@@ -24,7 +24,7 @@
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
-
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,7 +54,7 @@
         <li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-
+     
   </a>
 </li>
 <li>
@@ -64,12 +64,12 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
     <span class="fa fa-github fa-lg"></span>
-
+     
   </a>
 </li>
       </ul>
@@ -77,7 +77,7 @@
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-
+      
       </header>
 
       <div class="row">
@@ -86,17 +86,17 @@
     <h1>Differential Expression Results Tables</h1>
     </div>
 
-
+    
     <p>Differential Expression Results Tables</p>
-
+    
 
     <pre class="usage"><span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"results"</span>,
-  <span class='st'>"differential_expression"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-
+<span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),
+  <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -132,23 +132,39 @@ can be passed in.</p></td>
       <td><p>Show summary statistics.</p></td>
     </tr>
     <tr>
+      <th>headerLevel</th>
+      <td><p>R Markdown header level. Applies only when
+<code>summary = TRUE</code>.</p></td>
+    </tr>
+    <tr>
       <th>write</th>
       <td><p>Write CSV files to disk.</p></td>
     </tr>
     <tr>
       <th>dir</th>
-      <td><p>Directory path where to write files.</p></td>
+      <td><p>Local directory path where to write the results tables.</p></td>
+    </tr>
+    <tr>
+      <th>dropboxDir</th>
+      <td><p>Dropbox directory path where to archive the results tables
+for permanent storage (e.g. Stem Cell Commons). When this option is
+enabled, unique links per file are generated internally with the rdrop2
+package.</p></td>
+    </tr>
+    <tr>
+      <th>rdsToken</th>
+      <td><p>RDS file token to use for Dropbox authentication.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
       <td><p>If <code>TRUE</code>, suppress any status messages and/or progress bars.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Results list.</p>
-
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
@@ -158,36 +174,52 @@ can be passed in.</p></td>
     <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'>annotable</span>(<span class='no'>bcb</span>)
+<span class='co'># Can use a stashed annotable for improved speed</span>
+<span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='annotable.html'>annotable</a></span>(<span class='no'>bcb</span>)
 
 <span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
     <span class='no'>res</span>,
     <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
     <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='no'>annotable</span>,
     <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Summary statistics:
-#&gt;   - 505 genes in counts matrix
-#&gt;   - Base mean &gt; 0: 304 genes (non-zero)
-#&gt;   - Base mean &gt; 1: 213 genes
-#&gt;   - Alpha cutoff: 0.1
-#&gt;   - LFC cutoff: 0.25 (applied in tables only)
-#&gt;   - DEG pass alpha: 4 genes
-#&gt;   - DEG LFC up: 2 genes
-#&gt;   - DEG LFC down: 2 genes</div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; [1] "contrast"   "alpha"      "lfc"        "all"        "deg"
-#&gt; [6] "degLFC"     "degLFCUp"   "degLFCDown"</div></pre>
+    <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"resultsTables"</span>,
+    <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"bcbioRNASeq_examples"</span>, <span class='st'>"resultsTables"</span>),
+    <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>"token.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
+)</div><div class='output co'>#&gt; 
+#&gt; 
+#&gt; ## Summary statistics
+#&gt; 
+#&gt; 
+#&gt; - 505 genes in counts matrix
+#&gt; - Base mean &gt; 0: 304 genes (non-zero)
+#&gt; - Base mean &gt; 1: 213 genes
+#&gt; - Alpha cutoff: 0.1
+#&gt; - LFC cutoff: 0.25 (applied in tables only)
+#&gt; - DEG pass alpha: 4 genes
+#&gt; - DEG LFC up: 2 genes
+#&gt; - DEG LFC down: 2 genes
+#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in copyToDropbox(files = localFiles, dir = dropboxDir, rdsToken = rdsToken): is_existing_file : Some or all of the files specified by rdsToken do not exist.</span>
+#&gt; <span class='error'>There was 1 failure:</span>
+#&gt; <span class='error'>  Position Value       Cause</span>
+#&gt; <span class='error'>1        1       nonexistent</span></div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'resTbl' not found</span></div><div class='input'><span class='fu'>dir</span>(<span class='st'>"resultsTables"</span>)</div><div class='output co'>#&gt; [1] "group_ko_vs_ctrl_all.csv.gz"         
+#&gt; [2] "group_ko_vs_ctrl_deg_lfc_down.csv.gz"
+#&gt; [3] "group_ko_vs_ctrl_deg_lfc_up.csv.gz"  
+#&gt; [4] "group_ko_vs_ctrl_deg.csv.gz"         </div><div class='input'><span class='fu'>unlink</span>(<span class='st'>"resultsTables"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-
+      
       <li><a href="#value">Value</a></li>
-
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-
+    
 Michael Steinbaugh
 
   </div>
