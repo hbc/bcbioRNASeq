@@ -40,7 +40,7 @@
 #' # Inferno palette
 #' plotCorrelationHeatmap(
 #'     bcb,
-#'     color = viridis::inferno(256),
+#'     color = viridis::inferno,
 #'     legendColor = viridis::inferno)
 #'
 #' # Default pheatmap palette
@@ -67,7 +67,7 @@ NULL
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = TRUE) {
     # Check for supported correlation method
@@ -165,7 +165,7 @@ setMethod(
         interestingGroups,
         genes = NULL,
         samples = NULL,
-        color = viridis::viridis(256L),
+        color = viridis::viridis,
         legendColor = viridis::viridis,
         title = TRUE) {
         if (missing(interestingGroups)) {
@@ -183,7 +183,8 @@ setMethod(
             annotationCol <- NULL
         } else {
             annotationCol <- colData(object) %>%
-                .[, interestingGroups, drop = FALSE]
+                .[, interestingGroups, drop = FALSE] %>%
+                as.data.frame(stringsAsFactors = TRUE)
         }
 
         if (isTRUE(title) & is.character(normalized)) {

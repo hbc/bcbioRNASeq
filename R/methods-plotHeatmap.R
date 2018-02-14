@@ -40,7 +40,7 @@
 #' plotHeatmap(
 #'     bcb,
 #'     genes = ensgene,
-#'     color = viridis::inferno(256),
+#'     color = viridis::inferno,
 #'     legendColor = viridis::inferno)
 #'
 #' # Transcriptome heatmap with default pheatmap colors
@@ -69,7 +69,7 @@ NULL
     gene2symbol = FALSE,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis(256L),
+    color = viridis::viridis,
     legendColor = viridis::viridis,
     title = NULL,
     ...) {
@@ -113,7 +113,7 @@ setMethod(
         samples = NULL,
         genes = NULL,
         scale = "row",
-        color = viridis::viridis(256L),
+        color = viridis::viridis,
         legendColor = viridis::viridis,
         title = NULL,
         ...) {
@@ -151,7 +151,7 @@ setMethod(
         gene2symbol = FALSE,
         annotationCol = NULL,
         scale = "row",
-        color = viridis::viridis(256L),
+        color = viridis::viridis,
         legendColor = viridis::viridis,
         title = NULL,
         ...) {
@@ -180,7 +180,7 @@ setMethod(
         gene2symbol = FALSE,
         annotationCol = NULL,
         scale = "row",
-        color = viridis::viridis(256L),
+        color = viridis::viridis,
         legendColor = viridis::viridis,
         title = NULL,
         ...) {
