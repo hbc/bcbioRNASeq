@@ -83,16 +83,17 @@
 <h2 class="hasAnchor">
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/loadRNASeq">loadRNASeq</a></span>(
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
-    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
+    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>)
+)</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
 <li>
 <code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
 <li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/colData">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="reference/colData.html">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
 </ul>
 <p>Consult <code>help("loadRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
 </div>
@@ -113,7 +114,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocument
 <div id="sample-metadata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h2>
-<p>For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="http://www.rdocumentation.org/packages/bcbioRNASeq/topics/loadRNASeq">loadRNASeq()</a></code> using the <code>sampleMetadataFile</code> parameter.</p>
+<p>For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/loadRNASeq.html">loadRNASeq()</a></code> using the <code>sampleMetadataFile</code> parameter.</p>
 <div id="minimal-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minimal-example" class="anchor"></a>Minimal example</h3>

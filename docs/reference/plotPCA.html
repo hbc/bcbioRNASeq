@@ -119,7 +119,7 @@
       <th>interestingGroups</th>
       <td><p><em>Optional</em>. Interesting groups to use for point
 appearance. If missing, color defaults to all <code>interestingGroups</code>
-parameters set in the bcbioRNASeq object.</p></td>
+parameters set in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -150,7 +150,7 @@ definitions are desired, we recommend using
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot.</p>
+    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -163,12 +163,12 @@ definitions are desired, we recommend using
     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes (default)</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes (default)</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Default ggplot color palette</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='error'>Error in grid.Call.graphics(C_setviewport, vp, TRUE): non-finite location and/or size for viewport</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes (default)</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Censor samples</span>
 <span class='fu'>colnames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "group1_1" "group1_2" "group2_1" "group2_2"</div><div class='input'><span class='no'>censor</span> <span class='kw'>&lt;-</span> <span class='st'>"group1_1"</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='no'>censor</span>)</div></pre>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='no'>censor</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes (default)</span></div><div class='img'><img src='plotPCA-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

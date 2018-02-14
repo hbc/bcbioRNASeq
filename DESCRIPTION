@@ -74,7 +74,7 @@ LazyData: true
 Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.8.0),
-    bcbioBase (>= 0.0.4),
+    bcbioBase (>= 0.1.0),
     DESeq2 (>= 1.18.0),
     DEGreport (>= 1.14.0)
 Imports:
@@ -84,10 +84,10 @@ Imports:
     dplyr (>= 0.7.4),
     edgeR (>= 3.20.0),
     ggplot2 (>= 2.2.1),
-    ggrepel (>= 0.7.0),
+    ggrepel (>= 0.6.5),
     grid,
     grDevices,
-    knitr (>= 1.17),
+    knitr (>= 1.16),
     magrittr (>= 1.5),
     methods,
     pbapply (>= 1.3),
@@ -100,7 +100,7 @@ Imports:
     stats,
     stringr (>= 1.2.0),
     tibble (>= 1.3.4),
-    tidyr (>= 0.7.2),
+    tidyr (>= 0.7.1),
     tximport (>= 1.6.0),
     utils,
     viridis (>= 0.4.0),
