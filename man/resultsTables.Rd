@@ -9,7 +9,7 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = NULL,
   summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
   dropboxDir = NULL, rdsToken = NA, quiet = FALSE)
 }

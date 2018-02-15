@@ -4,12 +4,14 @@
 #' @name assert
 #'
 #' @importFrom assertive assert_all_are_dirs
+#' @importFrom assertive assert_all_are_existing_files
 #' @importFrom assertive assert_are_identical
 #' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_colnames
 #' @importFrom assertive assert_has_dimnames
 #' @importFrom assertive assert_has_rows
 #' @importFrom assertive assert_is_a_bool
+#' @importFrom assertive assert_is_a_number
 #' @importFrom assertive assert_is_a_string
 #' @importFrom assertive assert_is_all_of
 #' @importFrom assertive assert_is_any_of

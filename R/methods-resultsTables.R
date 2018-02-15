@@ -77,25 +77,31 @@ NULL
 #'
 #' @return [writeLines()].
 #' @noRd
-.markdownResultsTables <- function(
-    resTbl,
-    headerLevel = 2L) {
-    # Passthrough: headerLevel
+.markdownResultsTables <- function(list, headerLevel = 2L) {
+    assert_is_list(list)
+    assert_is_subset(
+        c("all", "deg", "degLFCDown", "degLFCUP"),
+        names(list)
+    )
+    assert_is_implicit_integer(headerLevel)
+
     # Prioritze `dropboxFiles` over `localFiles` for path return
-    if ("dropboxFiles" %in% names(resTbl)) {
+    assert_are_intersecting_sets(
+        c("dropboxFiles", "localFiles"),
+        names(list)
+    )
+    if ("dropboxFiles" %in% names(list)) {
         paths <- vapply(
-            X = resTbl[["dropboxFiles"]],
+            X = list[["dropboxFiles"]],
             FUN = function(x) {
                 x[["url"]]
             },
             FUN.VALUE = "character")
         basenames <- basename(paths) %>%
             gsub("\\?.*$", "", .)
-    } else if ("localFiles" %in% names(resTbl)) {
-        paths <- resTbl[["localFiles"]]
+    } else if ("localFiles" %in% names(list)) {
+        paths <- list[["localFiles"]]
         basenames <- basename(paths)
-    } else {
-        abort("`resTbl` must contain `localFiles` or `dropboxFiles")
     }
     names(basenames) <- names(paths)
 
@@ -122,8 +128,8 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel markdownHeader markdownList
-#'   sanitizeAnnotable snake
+#' @importFrom basejump annotable camel initializeDirectory markdownHeader
+#'   markdownList sanitizeAnnotable snake
 #' @importFrom bcbioBase copyToDropbox
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
@@ -133,7 +139,7 @@ NULL
 .resultsTables.DESeqResults <- function(  # nolint
     object,
     lfc = 0L,
-    annotable = TRUE,
+    annotable = NULL,
     summary = TRUE,
     headerLevel = 2L,
     write = FALSE,
@@ -141,36 +147,20 @@ NULL
     dropboxDir = NULL,
     rdsToken = NA,
     quiet = FALSE) {
-    # Parameter integrity checks ===============================================
     # Passthrough: headerLevel, dropboxDir, rdsToken, quiet
-    # lfc
-    if (!(is.numeric(lfc) && length(lfc) == 1L)) {
-        abort("`lfc` must be a numeric string")
-    }
-    # annotable
-    if (!(is.logical(annotable) ||
-          is.data.frame(annotable) ||
-          is.null(annotable))) {
-        abort("`annotable` must be a logical vector, data.frame, or NULL")
-    }
-    # summary
-    if (!is.logical(summary)) {
-        abort("`summary` must be a logical vector")
-    }
-    # write
-    if (!is.logical(write)) {
-        abort("`write` must be a logical vector")
-    }
-    # dir
-    if (!is_a_string(dir)) {
-        abort("`dir` must be a string")
-    }
+    assert_is_all_of(object, "DESeqResults")
+    assert_is_implicit_integer_scalar(lfc)
+    assert_is_any_of(annotable, c("data.frame", "NULL"))
+    assert_is_a_bool(summary)
+    assert_is_a_bool(write)
+    dir <- initializeDirectory(dir)
 
     # Extract internal parameters from DESeqResults object =====================
     contrast <- .contrastName.DESeqResults(object)
     fileStem <- snake(contrast)
     # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]
+    assert_is_a_number(alpha)
 
     # Prepare the results tables ===============================================
     all <- object %>%
@@ -181,13 +171,6 @@ NULL
         arrange(!!sym("ensgene"))
 
     # Add Ensembl gene annotations (annotable), if desired
-    if (isTRUE(annotable)) {
-        # Match genome against the first gene identifier by default
-        organism <- rownames(object) %>%
-            .[[1L]] %>%
-            detectOrganism()
-        annotable <- annotable(organism, quiet = quiet)
-    }
     if (is.data.frame(annotable)) {
         assert_is_annotable(annotable)
         # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
@@ -216,7 +199,7 @@ NULL
     degLFCDown <- degLFC %>%
         .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
 
-    resTbl <- list(
+    list <- list(
         "contrast" = contrast,
         # Cutoffs
         "alpha" = alpha,
@@ -246,10 +229,6 @@ NULL
         tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
 
         # Local files (required) ===============================================
-        # Standardize the output directory
-        dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-        dir <- normalizePath(dir)
-
         # Local file paths
         localFiles <- file.path(
             dir,
@@ -269,12 +248,10 @@ NULL
         ))
 
         # Check that writes were successful
-        if (!all(vapply(localFiles, file.exists, logical(1L)))) {
-            abort("Results table CSVs failed to write to disk")
-        }
+        assert_all_are_existing_files(localFiles)
 
-        # Update the resTbl list with the file paths
-        resTbl[["localFiles"]] <- localFiles
+        # Update the list with the file paths
+        list[["localFiles"]] <- localFiles
 
         # Copy to Dropbox (optional) ===========================================
         if (is.character(dropboxDir)) {
@@ -282,14 +259,15 @@ NULL
                 files = localFiles,
                 dir = dropboxDir,
                 rdsToken = rdsToken)
-            resTbl[["dropboxFiles"]] <- dropboxFiles
+            assert_is_list(dropboxFiles)
+            list[["dropboxFiles"]] <- dropboxFiles
         }
 
         # Output file information in Markdown format
-        .markdownResultsTables(resTbl, headerLevel = headerLevel)
+        .markdownResultsTables(list, headerLevel = headerLevel)
     }
 
-    resTbl
+    list
 }
 
 
