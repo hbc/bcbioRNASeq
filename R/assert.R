@@ -22,6 +22,7 @@
 #' @importFrom assertive assert_is_scalar
 #' @importFrom assertive assert_is_subset
 #' @importFrom assertive assert_is_tbl_df
+#' @importFrom assertive assert_is_vector
 #' @importFrom assertive is_a_string
 #'
 #' @importFrom basejump assert_formal_gene2symbol
