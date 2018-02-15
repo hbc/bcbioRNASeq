@@ -138,8 +138,7 @@ loadRNASeq <- function(
     } else {
         lanes <- 1L
     }
-    assert_is_integer(lanes)
-    assert_is_scalar(lanes)
+    assert_is_an_integer(lanes)
 
     # Project summary YAML =====================================================
     yamlFile <- file.path(projectDir, "project-summary.yaml")

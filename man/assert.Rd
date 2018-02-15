@@ -3,6 +3,9 @@
 \name{assert}
 \alias{assert}
 \title{Assert Checks}
+\value{
+Stop on error.
+}
 \description{
 Assert Checks
 }

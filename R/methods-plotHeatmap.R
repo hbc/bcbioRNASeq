@@ -72,11 +72,9 @@ NULL
     title = NULL,
     ...) {
     assert_is_matrix(object)
-    # Passthrough: color, legendColor
-    .assert_gene2symbol(object, genes, gene2symbol)
-    # TODO Migrate to `assert_formal_color_function`
-    assert_is_any_of(color, c("function", "NULL"))
-    assert_is_any_of(legendColor, c("function", "NULL"))
+    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assert_formal_color_function(color)
+    assert_formal_color_function(legendColor)
 
     # Resize the counts matrix
     if (is.vector(samples)) {
