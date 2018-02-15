@@ -38,37 +38,17 @@ setMethod(
 
 
 #' @rdname interestingGroups
-#' @importFrom bcbioBase checkInterestingGroups
+#' @importFrom bcbioBase assert_formal_interesting_groups
 #' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups<-",
     signature(object = "bcbioRNASeq", value = "character"),
     function(object, value) {
-        sampleMetadata <- sampleMetadata(object)
-        # TODO Migrate to assert check method
-        interestingGroups <- checkInterestingGroups(
-            object = sampleMetadata,
+        assert_formal_interesting_groups(
+            object = sampleMetadata(object),
             interestingGroups = value)
-        metadata(object)[["interestingGroups"]] <- interestingGroups
+        metadata(object)[["interestingGroups"]] <- value
         validObject(object)
         object
     })
-
-
-
-#' @rdname interestingGroups
-#' @export
-setMethod(
-    "interestingGroups<-",
-    signature(object = "bcbioRNASeq", value = "NULL"),
-    function(object, value) {
-        warn(paste(
-            "`interestingGroups` argument is NULL.",
-            "Defaulting to `sampleName`."
-        ))
-        metadata(object)[["interestingGroups"]] <- "sampleName"
-        validObject(object)
-        object
-    })
-#'

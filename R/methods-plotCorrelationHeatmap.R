@@ -156,7 +156,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
-#' @importFrom bcbioBase checkInterestingGroups
+#' @importFrom bcbioBase assert_formal_interesting_groups
 #' @importFrom viridis viridis
 #' @export
 setMethod(
@@ -176,9 +176,9 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        interestingGroups <- checkInterestingGroups(
+        assert_formal_interesting_groups(
             object = sampleMetadata(object),
-            interestingGroups)
+            interestingGroups = interestingGroups)
 
         counts <- counts(object, normalized = normalized)
         if (is.null(counts)) return(NULL)

@@ -48,7 +48,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump camel
-#' @importFrom bcbioBase checkInterestingGroups
+#' @importFrom bcbioBase assert_formal_interesting_groups
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
@@ -60,8 +60,9 @@ NULL
     color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
-    # TODO Rename to assert_formal_interesting_groups
-    checkInterestingGroups(colData(object), interestingGroups)
+    assert_formal_interesting_groups(
+        object = colData(object),
+        interestingGroups = interestingGroups)
     # genes
     if (!(is.character(genes) || is.null(genes))) {
         abort("`genes` must be a character vector or NULL")
