@@ -91,6 +91,7 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     transformationLimit = 50L,
     ...) {
+    assert_all_are_dirs(uploadDir)
     # Parameter integrity checks ===============================================
     if (!is_string(uploadDir)) {
         abort("`uploadDir` must be a string")
