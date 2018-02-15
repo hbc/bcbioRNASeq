@@ -39,6 +39,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         dds <- bcbio(object, "DESeqDataSet")
+        assert_is_all_of(dds, "DESeqDataSet")
         design(dds)
     })
 
@@ -54,6 +55,7 @@ setMethod(
         value = "formula"),
     function(object, value) {
         dds <- bcbio(object, "DESeqDataSet")
+        assert_is_all_of(dds, "DESeqDataSet")
         design(dds) <- value
         dds <- DESeq(dds)
         bcbio(object, "DESeqDataSet") <- dds
