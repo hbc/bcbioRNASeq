@@ -77,36 +77,40 @@ NULL
 
 
 
+#' @importFrom knitr kable
+.topTables.list <- function(  # nolint
+    object,
+    n = 50L,
+    coding = FALSE) {
+    up <- .subsetTop(
+        object[["degLFCUp"]],
+        n = n,
+        coding = coding)
+    down <- .subsetTop(
+        object[["degLFCDown"]],
+        n = n,
+        coding = coding)
+    contrastName <- object[["contrast"]]
+    if (!is.null(up)) {
+        show(kable(
+            up,
+            caption = paste(contrastName, "(upregulated)")
+        ))
+    }
+    if (!is.null(down)) {
+        show(kable(
+            down,
+            caption = paste(contrastName, "(downregulated)")
+        ))
+    }
+}
+
+
+
 # Methods ======================================================================
 #' @rdname topTables
-#' @importFrom knitr kable
 #' @export
 setMethod(
     "topTables",
     signature("list"),
-    function(
-        object,
-        n = 50L,
-        coding = FALSE) {
-        up <- .subsetTop(
-            object[["degLFCUp"]],
-            n = n,
-            coding = coding)
-        down <- .subsetTop(
-            object[["degLFCDown"]],
-            n = n,
-            coding = coding)
-        contrastName <- object[["contrast"]]
-        if (!is.null(up)) {
-            show(kable(
-                up,
-                caption = paste(contrastName, "(upregulated)")
-            ))
-        }
-        if (!is.null(down)) {
-            show(kable(
-                down,
-                caption = paste(contrastName, "(downregulated)")
-            ))
-        }
-    })
+    .topTables.list)
