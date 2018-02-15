@@ -22,6 +22,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom S4Vectors metadata
 .annotable.bcbioRNASeq <- function(object) {  # nolint
     data <- rowData(object)
     assert_is_non_empty(data)
@@ -33,7 +34,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname annotable
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "annotable",
