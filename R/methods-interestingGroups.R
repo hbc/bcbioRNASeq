@@ -46,6 +46,7 @@ setMethod(
     signature(object = "bcbioRNASeq", value = "character"),
     function(object, value) {
         sampleMetadata <- sampleMetadata(object)
+        # TODO Migrate to assert check method
         interestingGroups <- checkInterestingGroups(
             object = sampleMetadata,
             interestingGroups = value)
@@ -57,7 +58,6 @@ setMethod(
 
 
 #' @rdname interestingGroups
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups<-",
