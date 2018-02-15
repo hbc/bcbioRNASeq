@@ -50,6 +50,7 @@ bcbioRNASeq <- setClass(
 # Validity =====================================================================
 #' @importFrom S4Vectors metadata
 setValidity("bcbioRNASeq", function(object) {
+    # SummarizedExperiment internal structure
     assert_is_all_of(object, "SummarizedExperiment")
     assert_has_dimnames(object)
     stopifnot(all(vapply(
@@ -66,6 +67,13 @@ setValidity("bcbioRNASeq", function(object) {
         },
         FUN.VALUE = logical(1L)
     )))
+
+    # Required count matrices
+    # Note that `rlog` and `vst` DESeqTransform objects are optional
+    assert_is_subset(
+        c("raw", "normalized", "tpm", "tmm"),
+        names(assays(object))
+    )
 
     # Metadata
     metadata <- metadata(object)
