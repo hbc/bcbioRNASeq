@@ -60,22 +60,35 @@ NULL
 
 
 
+# Constructors =================================================================
+.bcbio.bcbioRNASeq <- function(object, type) {  # nolint
+    if (missing(type)) {
+        return(slot(object, "bcbio"))
+    }
+    if (type %in% names(slot(object, "bcbio"))) {
+        slot(object, "bcbio")[[type]]
+    } else {
+        abort(paste(type, "not found"))
+    }
+}
+
+
+
+`.bcbio<-.bcbioRNASeq` <- function(object, type, value) {
+    slot(object, "bcbio")[[type]] <- value
+    validObject(object)
+    object
+}
+
+
+
 # Methods ======================================================================
 #' @rdname bcbio
 #' @export
 setMethod(
     "bcbio",
     signature("bcbioRNASeq"),
-    function(object, type) {
-        if (missing(type)) {
-            return(slot(object, "bcbio"))
-        }
-        if (type %in% names(slot(object, "bcbio"))) {
-            slot(object, "bcbio")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
-    })
+    .bcbio.bcbioRNASeq)
 
 
 
@@ -83,43 +96,8 @@ setMethod(
 #' @export
 setMethod(
     "bcbio<-",
-    signature(object = "bcbioRNASeq", value = "ANY"),
-    function(object, type, value) {
-        slot(object, "bcbio")[[type]] <- value
-        validObject(object)
-        object
-    })
-
-
-
-# Legacy classes ===============================================================
-# Package versions prior to 0.0.27 used `callers` to define the extra bcbio
-# slot. The structure of the object is otherwise the same.
-#' @rdname bcbio
-#' @export
-setMethod(
-    "bcbio",
-    signature("bcbioRNADataSet"),
-    function(object, type) {
-        if (missing(type)) {
-            return(slot(object, "callers"))
-        }
-        if (type %in% names(slot(object, "callers"))) {
-            slot(object, "callers")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
-    })
-
-
-
-#' @rdname bcbio
-#' @export
-setMethod(
-    "bcbio<-",
-    signature(object = "bcbioRNADataSet", value = "ANY"),
-    function(object, type, value) {
-        slot(object, "callers")[[type]] <- value
-        validObject(object)
-        object
-    })
+    signature(
+        object = "bcbioRNASeq",
+        value = "ANY"
+    ),
+    `.bcbio<-.bcbioRNASeq`)

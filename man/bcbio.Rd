@@ -5,17 +5,11 @@
 \alias{bcbio}
 \alias{bcbio,bcbioRNASeq-method}
 \alias{bcbio<-,bcbioRNASeq-method}
-\alias{bcbio,bcbioRNADataSet-method}
-\alias{bcbio<-,bcbioRNADataSet-method}
 \title{bcbioRNASeq Additional Run Data Accessor}
 \usage{
 \S4method{bcbio}{bcbioRNASeq}(object, type)
 
 \S4method{bcbio}{bcbioRNASeq}(object, type) <- value
-
-\S4method{bcbio}{bcbioRNADataSet}(object, type)
-
-\S4method{bcbio}{bcbioRNADataSet}(object, type) <- value
 }
 \arguments{
 \item{object}{Object.}
