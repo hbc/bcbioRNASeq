@@ -367,7 +367,8 @@ loadRNASeq <- function(
             vst = vst),
         rowData = annotable,
         colData = colData,
-        metadata = metadata)
+        metadata = metadata
+    )
     bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
