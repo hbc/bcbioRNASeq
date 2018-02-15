@@ -31,6 +31,8 @@ labelSep <- ": "
 # Line functions ===============================================================
 #' @importFrom ggplot2 geom_hline
 qcPassLine <- function(intercept) {
+    assert_is_numeric(intercept)
+    assert_is_scalar(intercept)
     geom_hline(
         alpha = qcLineAlpha,
         color = qcPassColor,
@@ -41,6 +43,8 @@ qcPassLine <- function(intercept) {
 
 #' @importFrom ggplot2 geom_hline
 qcWarnLine <- function(intercept) {
+    assert_is_numeric(intercept)
+    assert_is_scalar(intercept)
     geom_hline(
         alpha = qcLineAlpha,
         color = qcWarnColor,

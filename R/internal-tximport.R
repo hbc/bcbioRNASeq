@@ -19,6 +19,9 @@
 #'
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
+    assert_all_are_dirs(sampleDirs)
+    assert_is_tx2gene(tx2gene)
+
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
         sampleDirs[[1]],
@@ -40,6 +43,7 @@
             full.names = TRUE,
             recursive = TRUE)
     }
+    assert_all_are_existing_files(sampleFiles)
 
     # Assign names to sample files
     names(sampleFiles) <- names(sampleDirs)
