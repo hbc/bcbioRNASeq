@@ -162,7 +162,7 @@ NULL
         abort("`write` must be a logical vector")
     }
     # dir
-    if (!is_string(dir)) {
+    if (!is_a_string(dir)) {
         abort("`dir` must be a string")
     }
 

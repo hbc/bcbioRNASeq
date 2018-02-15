@@ -15,7 +15,6 @@
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_if pull
 #' @importFrom magrittr set_colnames
-#' @importFrom rlang is_string
 #' @importFrom stats formula
 #' @importFrom stringr str_match
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -54,6 +53,8 @@
 #'   It is not generally recommended to change this value. For large datasets,
 #'   DESeq2 will take a really long time applying variance stabilization. See
 #'   Details.
+#' @param design DESeq2 design formula. Empty by default. Can be updated after
+#'   initial data loading using the [design()] function.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -90,74 +91,43 @@ loadRNASeq <- function(
     ensemblVersion = NULL,
     genomeBuild = NULL,
     transformationLimit = 50L,
+    design = NULL,
     ...) {
     assert_all_are_dirs(uploadDir)
-    # Parameter integrity checks ===============================================
-    if (!is_string(uploadDir)) {
-        abort("`uploadDir` must be a string")
+    assert_is_any_of(sampleMetadataFile, c("character", "NULL"))
+    if (is.character(sampleMetadataFile)) {
+        assert_is_a_string(sampleMetadataFile)
+        assert_are_existing_files(sampleMetadataFile)
     }
-    # sampleMetadataFile
-    if (!any(
-        is_string(sampleMetadataFile),
-        is.null(sampleMetadataFile)
-    )) {
-        abort("`sampleMetadataFile` must be a string or NULL")
+    assert_is_character(interestingGroups)
+    assert_is_any_of(annotable, c("data.frame", "logical", "NULL"))
+    assert_is_a_string_or_null(organism)
+    # TODO assert_is_implicit_integer_scalar_or_null
+    assert_is_numeric_scalar_or_null(ensemblVersion)
+    if (is.numeric(ensemblVersion)) {
+        assert_is_implicit_integer(ensemblVersion)
     }
-    # interestingGroups
-    if (!is.character(interestingGroups)) {
-        abort("`interestingGroups` must be a character vector")
-    }
-    # annotable
-    if (!any(
-        is.logical(annotable),
-        is.data.frame(annotable),
-        is.null(annotable)
-    )) {
-        abort("`annotable` must be a logical vector, data.frame, or NULL")
-    }
-    # organism
-    if (!any(
-        is_string(organism),
-        is.null(organism)
-    )) {
-        abort("`organism` must be a string or NULL")
-    }
-    # ensemblVersion
-    if (!any(
-        is.null(ensemblVersion),
-        is.numeric(ensemblVersion) && length(ensemblVersion) == 1L
-    )) {
-        abort("`ensemblVersion` must be a numeric string or NULL")
-    }
-    # genomeBuild
-    if (!any(
-        is_string(genomeBuild),
-        is.null(genomeBuild)
-    )) {
-        abort("`genomeBuild` must be a string or NULL")
-    }
+    assert_is_a_string_or_null(genomeBuild)
+    assert_is_numeric(transformationLimit)  # Allow Inf
+    assert_is_scalar(transformationLimit)
+    assert_is_any_of(design, c("formula", "NULL"))
 
     # Directory paths ==========================================================
-    # Check connection to final upload directory
-    if (!dir.exists(uploadDir)) {
-        abort("Final upload directory failed to load")
-    }
     uploadDir <- normalizePath(uploadDir)
     projectDir <- dir(
         uploadDir,
         pattern = projectDirPattern,
         full.names = FALSE,
         recursive = FALSE)
-    if (length(projectDir) != 1L) {
-        abort("Uncertain about project directory location")
-    }
+    assert_is_a_string(projectDir)
     inform(projectDir)
     match <- str_match(projectDir, projectDirPattern)
-    runDate <- match[[2L]] %>%
-        as.Date()
+    runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
+    assert_all_are_dirs(projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
+    assert_all_are_dirs(sampleDirs)
 
     # Sequencing lanes =========================================================
     lanePattern <- "_L(\\d{3})"
@@ -167,49 +137,34 @@ loadRNASeq <- function(
             unique() %>%
             length()
         inform(paste(
-            lanes, "sequencing lane detected", "(technical replicates)"))
+            lanes, "sequencing lane detected", "(technical replicates)"
+        ))
     } else {
         lanes <- 1L
     }
+    assert_is_integer(lanes)
+    assert_is_scalar(lanes)
 
     # Project summary YAML =====================================================
     yamlFile <- file.path(projectDir, "project-summary.yaml")
-    if (!file.exists(yamlFile)) {
-        abort("`project-summary.yaml` file is missing")
-    }
+    assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
+    assert_is_list(yaml)
 
     # Sample metadata ==========================================================
-    if (is_string(sampleMetadataFile)) {
-        # Normalize the path of local files
-        if (file.exists(sampleMetadataFile)) {
-            sampleMetadataFile <- normalizePath(sampleMetadataFile)
-        }
+    if (is_a_string(sampleMetadataFile)) {
+        sampleMetadataFile <- normalizePath(sampleMetadataFile)
         sampleMetadata <- readSampleMetadataFile(
             sampleMetadataFile,
             lanes = lanes)
     } else {
         sampleMetadata <- sampleYAMLMetadata(yaml)
     }
-    if (!all(sampleMetadata[["sampleID"]] %in% names(sampleDirs))) {
-        abort("Sample name mismatch")
-    }
+    assert_are_set_equal(sampleMetadata[["sampleID"]], names(sampleDirs))
 
     # Interesting groups =======================================================
-    # Ensure internal formatting in camelCase
-    interestingGroups <- camel(interestingGroups, strict = FALSE)
-    # Default to `sampleName`
-    if (is.null(interestingGroups)) {
-        warn(paste(
-            "`interestingGroups` argument is NULL",
-            "Defaulting to `sampleName`."
-            ))
-        interestingGroups <- "sampleName"
-    }
-    # Check to ensure interesting groups are defined
-    if (!all(interestingGroups %in% colnames(sampleMetadata))) {
-        abort("Interesting groups missing in sample metadata")
-    }
+    interestingGroups <- camel(interestingGroups)
+    assert_is_subset(interestingGroups, colnames(sampleMetadata))
 
     # Subset sample directories by metadata ====================================
     if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
@@ -224,21 +179,24 @@ loadRNASeq <- function(
 
     # Genome ===================================================================
     # Genome build
-    if (!is_string(genomeBuild)) {
-        # If unspecified (default), detect from the bcbio run YAML
+    if (!is_a_string(genomeBuild)) {
+        # Detect from the bcbio project summary YAML
         genomeBuild <- yaml %>%
             .[["samples"]] %>%
             .[[1L]] %>%
             .[["genome_build"]]
     }
+    assert_is_a_string(genomeBuild)
     # Organism
-    if (is.null(organism) & is_string(genomeBuild)) {
+    if (is.null(organism) && is_a_string(genomeBuild)) {
+        inform("Detecting organism from genome build")
         organism <- detectOrganism(genomeBuild)
     }
+    assert_is_a_string(organism)
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Gene and transcript annotations ==========================================
-    if (isTRUE(annotable) & is_string(organism)) {
+    if (isTRUE(annotable) && is_a_string(organism)) {
         annotable <- annotable(
             organism,
             genomeBuild = genomeBuild,
@@ -246,7 +204,7 @@ loadRNASeq <- function(
     } else if (is.data.frame(annotable)) {
         annotable <- annotable(annotable)
     } else {
-        warn("Loading run without gene annotable")
+        warn("Loading run without gene annotable (not recommended)")
         annotable <- NULL
     }
     tx2gene <- .tx2gene(
@@ -260,23 +218,38 @@ loadRNASeq <- function(
     # counts generated with STAR.
     inform("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
+    assert_is_data.frame(metrics)
 
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
     dataVersions <- readDataVersions(
-        file.path(projectDir, "data_versions.csv"))
+        file = file.path(projectDir, "data_versions.csv")
+    )
+    assert_is_tbl_df(dataVersions)
+    # TODO Rename to `programVersions`?
     programs <- readProgramVersions(
-        file.path(projectDir, "programs.txt"))
+        file.path(projectDir, "programs.txt")
+    )
+    assert_is_tbl_df(programs)
     bcbioLog <- readLogFile(
-        file.path(projectDir, "bcbio-nextgen.log"))
+        file.path(projectDir, "bcbio-nextgen.log")
+    )
+    # Allowing NULL here for minimal example
+    assert_is_any_of(bcbioLog, c("character", "NULL"))
     bcbioCommandsLog <- readLogFile(
-        file.path(projectDir, "bcbio-nextgen-commands.log"))
+        file.path(projectDir, "bcbio-nextgen-commands.log")
+    )
+    # Allowing NULL here for minimal example
+    assert_is_any_of(bcbioCommandsLog, c("character", "NULL"))
 
     # tximport =================================================================
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
+    assert_is_list(txi)
     rawCounts <- txi[["counts"]]
+    assert_is_matrix(rawCounts)
     tmm <- tmm(rawCounts)
     tpm <- txi[["abundance"]]
+    assert_is_matrix(tpm)
 
     # colData ==================================================================
     # This step is necessary for samples have been sanitized with
@@ -286,19 +259,22 @@ loadRNASeq <- function(
     # `txi$counts` colnames / colData rownames mismatch.
     colData <- sampleMetadata %>%
         as.data.frame() %>%
-        .[colnames(rawCounts), ] %>%
+        .[colnames(rawCounts), , drop = FALSE] %>%
         rownames_to_column() %>%
         mutate_if(is.factor, droplevels) %>%
         column_to_rownames() %>%
         as("DataFrame")
 
     # DESeqDataSet =============================================================
-    inform("Generating internal DESeqDataSet for quality control")
-    design <- formula(~1)  # nolint
+    inform("Generating internal DESeqDataSet")
+    if (!is.formula(design)) {
+        design <- formula(~1)  # nolint
+    }
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = colData,
         design = design)
+    # Suppressing warnings here for empty design formula
     dds <- suppressWarnings(DESeq(dds))
     normalizedCounts <- counts(dds, normalized = TRUE)
 

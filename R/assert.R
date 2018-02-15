@@ -5,6 +5,7 @@
 #'
 #' @importFrom assertive assert_all_are_dirs
 #' @importFrom assertive assert_are_identical
+#' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_dimnames
 #' @importFrom assertive assert_is_a_bool
 #' @importFrom assertive assert_is_a_string
@@ -17,6 +18,7 @@
 #' @importFrom assertive assert_is_numeric
 #' @importFrom assertive assert_is_scalar
 #' @importFrom assertive assert_is_subset
+#' @importFrom assertive assert_is_tbl_df
 #' @importFrom assertive is_a_string
 #'
 #' @importFrom basejump assert_formal_gene2symbol

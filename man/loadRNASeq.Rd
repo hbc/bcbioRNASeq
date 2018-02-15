@@ -7,7 +7,7 @@
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
   sampleMetadataFile = NULL, annotable = TRUE, organism = NULL,
   ensemblVersion = NULL, genomeBuild = NULL, transformationLimit = 50L,
-  ...)
+  design = NULL, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -51,6 +51,9 @@ to download correctly.}
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
 Details.}
+
+\item{design}{DESeq2 design formula. Empty by default. Can be updated after
+initial data loading using the \code{\link[=design]{design()}} function.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
