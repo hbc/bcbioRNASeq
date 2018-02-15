@@ -77,7 +77,7 @@ resTbl <- resultsTables(
     write = TRUE,
     dir = "resultsTables",
     dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-    rdsToken = system.file("token.rds", package = "bcbioRNASeq")
+    rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
 )
 names(resTbl)
 dir("resultsTables")
