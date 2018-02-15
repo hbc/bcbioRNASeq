@@ -30,16 +30,97 @@
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#' bcb <- loadRNASeq(uploadDir)
+#'
+#' # We're suppressing warnings about missing log files in our minimal
+#' # dataset, which end up in the Travis CI logs. This isn't recommended
+#' # for a typical bcbio run.
+#' bcb <- suppressWarnings(loadRNASeq(uploadDir))
+#' bcb
+#'
+#' # Check validity
+#' validObject(bcb)
 bcbioRNASeq <- setClass(
     "bcbioRNASeq",
     contains = "SummarizedExperiment",
     slots = c(bcbio = "SimpleList")
 )
-setValidity("bcbioRNASeq", function(object) TRUE)
 
 
 
+# Validity =====================================================================
+#' @importFrom S4Vectors metadata
+setValidity("bcbioRNASeq", function(object) {
+    assert_is_all_of(object, "SummarizedExperiment")
+    assert_has_dimnames(object)
+    stopifnot(all(vapply(
+        X = c(
+            "assays",
+            "bcbio",
+            "colData",
+            "elementMetadata",
+            "metadata",
+            "NAMES"
+        ),
+        FUN = function(slot) {
+            .hasSlot(object, slot)
+        },
+        FUN.VALUE = logical(1L)
+    )))
+
+    # Metadata
+    metadata <- metadata(object)
+    requiredMetadata <- list(
+        "version" = "package_version",
+        "uploadDir" = "character",
+        "sampleDirs" = "character",
+        "projectDir" = "character",
+        "template" = "character",
+        "runDate" = "Date",
+        "interestingGroups" = "character",
+        "organism" = "character",
+        "genomeBuild" = "character",
+        # TODO Enforce version in future update
+        "ensemblVersion" = c("numeric", "NULL"),
+        # TODO Require data.frame in future update
+        "annotable" = c("data.frame", "NULL"),
+        "tx2gene" = "data.frame",
+        "lanes" = c("integer", "numeric"),
+        "yaml" = "list",
+        "metrics" = "data.frame",
+        "sampleMetadataFile" = c("character", "NULL"),
+        "dataVersions" = "tbl_df",
+        "programs" = "tbl_df",
+        # Allowing `NULL` here for minimal working example
+        # Otherwise Travis CI outputs the contents of log files
+        "bcbioLog" = c("character", "NULL"),
+        "bcbioCommandsLog" = c("character", "NULL"),
+        "allSamples" = "logical",
+        "design" = "formula",
+        "transformationLimit" = c("integer", "numeric"),
+        "date" = "Date",
+        "wd" = "character",
+        "utilsSessionInfo" = "sessionInfo",
+        "devtoolsSessionInfo" = "session_info",
+        "unannotatedGenes" = c("character", "NULL")
+    )
+    invisible(lapply(seq_along(requiredMetadata), function(a) {
+        name <- names(requiredMetadata)[[a]]
+        class <- requiredMetadata[[a]]
+        assert_is_any_of(metadata[[name]], class)
+    }))
+    annotable <- metadata[["annotable"]]
+    if (!is.null(annotable)) {
+        assert_is_annotable(annotable)
+    }
+    tx2gene <- metadata[["tx2gene"]]
+    assert_is_tx2gene(tx2gene)
+
+    TRUE
+})
+
+
+
+# Legacy =======================================================================
 #' bcbioRNADataSet Legacy Object Class
 #'
 #' This class has been superceded by [bcbioRNASeq] and will be formally
