@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{ggplot}
 \alias{reexports}
+\alias{\%>\%}
+\alias{reexports}
 \alias{glimpse}
 \alias{reexports}
 \alias{inferno}
@@ -22,6 +24,8 @@ below to see their documentation.
 
 \describe{
   \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}}
 

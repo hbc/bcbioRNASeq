@@ -4,6 +4,12 @@ ggplot2::ggplot
 
 
 
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
+
+
 #' @importFrom tibble glimpse
 #' @export
 tibble::glimpse
