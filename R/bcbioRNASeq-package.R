@@ -11,7 +11,6 @@
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #'
-#' @importFrom magrittr %>%
 #' @importFrom rlang .data abort inform warn
 NULL
 
