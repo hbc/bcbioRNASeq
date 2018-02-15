@@ -50,7 +50,12 @@ NULL
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     caption = NULL,
     ...) {
+    assert_is_all_of(dds, "DESeqDataSet")
+    assert_is_numeric(alpha)
+    assert_is_a_string_or_null(caption)
     dots <- list(...)
+
+    # Generate an automatic caption
     if (is.null(caption)) {
         if (!is.null(dots[["contrast"]])) {
             caption <- dots[["contrast"]] %>%
@@ -59,21 +64,22 @@ NULL
             caption <- dots[["name"]]
         }
     }
-    lapply(seq_along(alpha), function(a) {
-        info <- capture.output(
-            summary(results(dds, ..., alpha = alpha[a]))
-        ) %>%
-            # Get the lines of interest from summary
-            .[4L:8L]
-        parse <- info[1L:5L] %>%
-            # Extract the values after the colon in summary
-            vapply(function(a) {
+
+    dflist <- lapply(seq_along(alpha), function(a) {
+        output <- capture.output(summary(results(dds, ..., alpha = alpha[a])))
+        # Subset the lines of interest from summary
+        output <- output[4L:8L]
+        # Extract the values after the colon in summary
+        values <- vapply(
+            X = output,
+            FUN = function(a) {
                 gsub("^.+\\:\\s(.+)\\s$", "\\1", a)
-            }, FUN.VALUE = "character") %>%
-            # Coerce to character here to remove names
-            as.character()
-        data.frame(alpha = parse)
-    }) %>%
+            },
+            FUN.VALUE = "character")
+        data.frame(alpha = values)
+    })
+
+    dflist %>%
         bind_cols() %>%
         set_colnames(alpha) %>%
         set_rownames(c(
@@ -98,7 +104,7 @@ NULL
     dds <- bcbio(object, "DESeqDataSet")
     # Warn if empty design formula detected
     if (design(dds) == formula(~1)) {  # nolint
-        warn("Empty DESeqDataSet design formula detected")
+        warn("Internal DESeqDataSet has an empty design formula")
     }
     .alphaSummary(
         dds = dds,
