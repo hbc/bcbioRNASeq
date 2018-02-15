@@ -91,11 +91,6 @@ NULL
             make.names(unique = TRUE)
     }
 
-    # TODO Safe to remove once basejump is updated
-    if (is.function(color)) {
-        color <- color(256L)
-    }
-
     plotHeatmap(
         object = object,
         annotationCol = annotationCol,

@@ -352,6 +352,7 @@ loadRNASeq <- function(
     }
 
     # Return ===================================================================
+    # TODO Consider storing DESeqDataSet inside the SummarizedExperiment
     se <- prepareSummarizedExperiment(
         assays = list(
             raw = rawCounts,

@@ -36,36 +36,21 @@ NULL
 #' @noRd
 .selectSamples <- function(object, ...) {
     arguments <- list(...)
-    checkArguments <- vapply(
-        X = arguments,
-        FUN = is.vector,
-        FUN.VALUE = logical(1L)
-    )
-    if (!all(isTRUE(as.logical(checkArguments)))) {
-        abort("Arguments must be vectors")
-    }
+    invisible(lapply(arguments, assert_is_vector))
 
     # Match the arguments against the sample metadata
-    sampleMetadata <- sampleMetadata(object)
+    metadata <- sampleMetadata(object)
+    assert_is_data.frame(metadata)
+
     list <- lapply(seq_along(arguments), function(a) {
         column <- names(arguments)[[a]]
-        # Check that column is present
-        if (!column %in% colnames(sampleMetadata)) {
-            abort(paste(column, "isn't present in metadata colnames"))
-        }
+        assert_is_subset(column, colnames(metadata))
         argument <- arguments[[a]]
-        # Check that all items in argument are present
-        if (!all(argument %in% sampleMetadata[[column]])) {
-            missing <- argument[which(!argument %in% sampleMetadata[[column]])]
-            abort(paste(
-                column,
-                "metadata column doesn't contain",
-                toString(missing)
-            ))
-        }
-        sampleMetadata %>%
+        assert_is_subset(argument, metadata[[column]])
+        metadata %>%
             .[.[[column]] %in% argument, "sampleID", drop = TRUE]
     })
+
     Reduce(f = intersect, x = list)
 }
 

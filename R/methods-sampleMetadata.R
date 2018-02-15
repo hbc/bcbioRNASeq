@@ -34,7 +34,10 @@ NULL
 #' @importFrom dplyr mutate_all
 #' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
-    colData(object) %>%
+    data <- colData(object)
+    assert_is_all_of(data, "DataFrame")
+    assert_is_subset("sampleID", colnames(data))
+    data %>%
         as.data.frame() %>%
         mutate_all(as.factor) %>%
         set_rownames(.[["sampleID"]])

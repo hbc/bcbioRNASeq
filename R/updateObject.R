@@ -35,7 +35,6 @@ NULL
     se <- as(object, "SummarizedExperiment")
     to <- new("bcbioRNASeq", se)
     bcbio(to) <- bcbio(object)
-    validObject(to)
 
     # Update the automatic metadata slots
     metadata(to)[["version"]] <- packageVersion
@@ -48,6 +47,7 @@ NULL
         metadata(to)[["gtf"]] <- NULL
     }
 
+    validObject(to)
     to
 }
 

@@ -97,10 +97,8 @@ NULL
     }
 
     genes <- rownames(results)
-    # FIXME Change method
-    .checkGenes(genes, gene2symbol)
-
     counts <- counts[genes, , drop = FALSE]
+    assert_formal_gene2symbol(counts, genes, gene2symbol)
 
     .plotHeatmap(
         object = counts,

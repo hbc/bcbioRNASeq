@@ -47,21 +47,17 @@ NULL
 
 
 .tmm.bcbioRNASeq <- function(object) {  # nolint
-    tmm <- assays(object)[["tmm"]]
+    data <- assays(object)[["tmm"]]
+    assert_is_matrix(data, severity = "warning")
     if (!is.matrix(tmm)) {
         warn(paste(
             "TMM counts are not stashed in `assays()`.",
-            "Recalculating on the fly."
+            "Recalculating on the fly.",
+            "It is recomended that you restash these values in `assays()`."
         ))
-        tmm <- tmm(assay(object))
+        tmm <- tmm(counts(object, normalized = FALSE))
     }
     tmm
-}
-
-
-
-.tmm.DESeqDataSet <- function(object) {  # nolint
-    tmm(assay(object))
 }
 
 
@@ -81,7 +77,9 @@ setMethod(
 setMethod(
     "tmm",
     signature("DESeqDataSet"),
-    .tmm.DESeqDataSet)
+    function(object) {
+        tmm(assay(object))
+    })
 
 
 

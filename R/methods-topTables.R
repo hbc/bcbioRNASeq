@@ -37,27 +37,37 @@ NULL
 #' @importFrom S4Vectors head
 #' @importFrom tibble remove_rownames
 .subsetTop <- function(
-    df,
+    object,
     n = 50L,
     coding = FALSE) {
-    if (isTRUE(coding)) {
-        if (!"broadClass" %in% colnames(df)) {
-            abort("`coding = TRUE` argument requires `broadClass` column")
-        }
-        df <- df %>%
-            .[.[["broadClass"]] == "coding", , drop = FALSE]
-    }
-    if (!nrow(df) | !is.data.frame(df)) {
-        return(NULL)
-    }
+    assert_is_data.frame(object)
+    assert_has_colnames(object)
+    assert_has_rows(object)
+    assert_is_implicit_integer(n)
+    assert_is_a_bool(coding)
+
     keepCols <- c(
         "ensgene",
         "baseMean",
         "lfc",
         "padj",
         "symbol",
-        "description")
-    df %>%
+        "description",
+        "broadClass"
+    )
+    assert_is_subset(keepCols, colnames(object))
+
+    if (isTRUE(coding)) {
+        assert_is_subset("broadClass", colnames(object))
+        object <- object %>%
+            .[.[["broadClass"]] == "coding", , drop = FALSE]
+    }
+
+    if (!nrow(object)) {
+        return(NULL)
+    }
+
+    object %>%
         head(n = n) %>%
         rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
@@ -82,6 +92,7 @@ NULL
     object,
     n = 50L,
     coding = FALSE) {
+    # Passthrough: n, coding
     up <- .subsetTop(
         object[["degLFCUp"]],
         n = n,

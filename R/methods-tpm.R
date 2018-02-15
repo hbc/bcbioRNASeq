@@ -28,5 +28,7 @@ setMethod(
     "tpm",
     signature("bcbioRNASeq"),
     function(object) {
-        assays(object)[["tpm"]]
+        data <- assays(object)[["tpm"]]
+        assert_is_matrix(data)
+        data
     })
