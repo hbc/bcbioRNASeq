@@ -131,7 +131,7 @@ test_that("Dropbox mode", {
     unlink("resultsTables", recursive = TRUE)
 
     # Now check the Markdown code
-    output <- capture.output(.mdResultsTables(resTbl))
+    output <- capture.output(.markdownResultsTables(resTbl))
     # The function currently returns links to 4 DEG files
     expect_identical(
         length(which(grepl("https://www.dropbox.com/s/", output))),
