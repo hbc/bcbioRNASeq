@@ -24,14 +24,15 @@ NULL
 
 # Constructors =================================================================
 .gene2symbol.bcbioRNASeq <- function(object) {  # nolint
-    annotable <- annotable(object)
-    assert_is_data.frame(annotable, severity = "warning")
-    if (is.null(annotable)) {
-        return(invisible())
-    }
-    assert_is_subset(c("ensgene", "symbol"), colnames(annotable))
-    annotable[, cols, drop = FALSE]
+    data <- annotable(object)
+    assert_is_annotable(data)
+    cols <- c("ensgene", "symbol")
+    assert_is_subset(cols, colnames(data))
+    data <- data[, cols, drop = FALSE]
+    assert_is_gene2symbol(data)
+    data
 }
+
 
 
 # Methods ======================================================================
