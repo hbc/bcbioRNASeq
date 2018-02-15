@@ -24,6 +24,7 @@ NULL
 # Constructors =================================================================
 .annotable.bcbioRNASeq <- function(object) {  # nolint
     data <- rowData(object)
+    assert_is_non_empty(data)
     rownames(data) <- slot(object, "NAMES")
     as.data.frame(data)
 }
