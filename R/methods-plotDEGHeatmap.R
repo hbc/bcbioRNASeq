@@ -136,7 +136,7 @@ NULL
         alpha <- metadata(object)[["alpha"]]
     }
     if (isTRUE(title)) {
-        title <- .resContrastName(object)
+        title <- .contrastName.DESeqResults(object)
     }
     .plotDEGHeatmap(
         object = results,

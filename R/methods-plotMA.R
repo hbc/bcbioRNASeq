@@ -152,7 +152,7 @@ setMethod(
         results <- as.data.frame(object)
         alpha <- metadata(object)[["alpha"]]
         if (isTRUE(title)) {
-            title <- .resContrastName(object)
+            title <- .contrastName.DESeqResults(object)
         }
         .plotMA(
             object = results,

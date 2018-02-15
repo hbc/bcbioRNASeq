@@ -167,7 +167,7 @@ NULL
     }
 
     # Extract internal parameters from DESeqResults object =====================
-    contrast <- .resContrastName(object)
+    contrast <- .contrastName.DESeqResults(object)
     fileStem <- snake(contrast)
     # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]
