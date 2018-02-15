@@ -72,7 +72,10 @@ NULL
     ...) {
     # Passthrough: color, legendColor
     assert_is_data.frame(object)
+    assert_is_matrix(counts)
     assert_are_identical(rownames(object), rownames(counts))
+    genes <- rownames(counts)
+    counts <- counts[genes, , drop = FALSE]
     assert_is_numeric(alpha)
     assert_is_scalar(alpha)
     assert_is_implicit_integer(lfc)
@@ -80,6 +83,7 @@ NULL
     assert_formal_gene2symbol(object, genes, gene2symbol)
     assert_formal_color_function(color)
     assert_formal_color_function(legendColor)
+    assert_is_a_string(title)
 
     results <- object %>%
         camel(strict = FALSE) %>%
@@ -90,15 +94,7 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-
-    if (nrow(results) == 0L) {
-        warn("No genes passed significance cutoffs")
-        return(NULL)
-    }
-
-    genes <- rownames(results)
-    counts <- counts[genes, , drop = FALSE]
-    assert_formal_gene2symbol(counts, genes, gene2symbol)
+    assert_has_rows(results)
 
     .plotHeatmap(
         object = counts,
@@ -125,9 +121,7 @@ NULL
     legendColor = viridis::viridis,
     title = TRUE,
     ...) {
-    results <- as.data.frame(object)
-    if (is(counts, "DESeqDataSet") |
-        is(counts, "DESeqTransform")) {
+    if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
     if (missing(alpha)) {
@@ -137,7 +131,7 @@ NULL
         title <- .contrastName.DESeqResults(object)
     }
     .plotDEGHeatmap(
-        object = results,
+        object = as.data.frame(object),
         counts = counts,
         alpha = alpha,
         lfc = lfc,

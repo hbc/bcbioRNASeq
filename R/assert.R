@@ -5,6 +5,7 @@
 #'
 #' @importFrom assertive assert_all_are_dirs
 #' @importFrom assertive assert_all_are_existing_files
+#' @importFrom assertive assert_all_are_greater_than
 #' @importFrom assertive assert_are_identical
 #' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_colnames
@@ -34,6 +35,7 @@
 #' @importFrom basejump assert_is_a_string_or_null
 #' @importFrom basejump assert_is_an_implicit_integer_or_null
 #' @importFrom basejump assert_is_annotable
+#' @importFrom basejump assert_is_character_or_null
 #' @importFrom basejump assert_is_gene2symbol
 #' @importFrom basejump assert_is_implicit_integer
 #' @importFrom basejump assert_is_tx2gene
