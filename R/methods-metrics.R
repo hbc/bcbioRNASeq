@@ -21,22 +21,23 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom dplyr left_join mutate_if
+#' @importFrom S4Vectors metadata
 .metrics.bcbioRNASeq <- function(object) {  # nolint
-    metrics <- metadata(object)[["metrics"]]
-    assert_is_data.frame(metrics)
-    metrics <- mutate_if(metrics, is.character, as.factor)
+    data <- metadata(object)[["metrics"]]
+    assert_is_data.frame(data)
+    data <- mutate_if(data, is.character, as.factor)
     metadata <- sampleMetadata(object)
-    metrics <- left_join(metrics, metadata, by = metadataPriorityCols)
-    rownames(metrics) <- metrics[["sampleID"]]
-    metrics
+    assert_is_data.frame(metadata)
+    data <- left_join(data, metadata, by = metadataPriorityCols)
+    rownames(data) <- data[["sampleID"]]
+    data
 }
 
 
 
 # Methods ======================================================================
 #' @rdname metrics
-#' @importFrom dplyr left_join mutate_if
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "metrics",
