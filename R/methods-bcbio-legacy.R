@@ -12,35 +12,22 @@ NULL
 
 
 
-# Constructors =================================================================
-.bcbio.bcbioRNADataSet <- function(object, type) {  # nolint
-    if (missing(type)) {
-        return(slot(object, "callers"))
-    }
-    if (type %in% names(slot(object, "callers"))) {
-        slot(object, "callers")[[type]]
-    } else {
-        abort(paste(type, "not found"))
-    }
-}
-
-
-
-`.bcbio<-.bcbioRNADataSet` <- function(object, type, value) {
-    slot(object, "callers")[[type]] <- value
-    validObject(object)
-    object
-}
-
-
-
 # Methods ======================================================================
 #' @rdname bcbio-legacy
 #' @export
 setMethod(
     "bcbio",
     signature("bcbioRNADataSet"),
-    .bcbio.bcbioRNADataSet)
+    function(object, type) {
+        if (missing(type)) {
+            return(slot(object, "callers"))
+        }
+        if (type %in% names(slot(object, "callers"))) {
+            slot(object, "callers")[[type]]
+        } else {
+            abort(paste(type, "not found"))
+        }
+    })
 
 
 
@@ -52,4 +39,8 @@ setMethod(
         object = "bcbioRNADataSet",
         value = "ANY"
     ),
-    `.bcbio<-.bcbioRNADataSet`)
+    function(object, type, value) {
+        slot(object, "callers")[[type]] <- value
+        validObject(object)
+        object
+    })

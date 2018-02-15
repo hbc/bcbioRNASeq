@@ -60,35 +60,22 @@ NULL
 
 
 
-# Constructors =================================================================
-.bcbio.bcbioRNASeq <- function(object, type) {  # nolint
-    if (missing(type)) {
-        return(slot(object, "bcbio"))
-    }
-    if (type %in% names(slot(object, "bcbio"))) {
-        slot(object, "bcbio")[[type]]
-    } else {
-        abort(paste(type, "not found"))
-    }
-}
-
-
-
-`.bcbio<-.bcbioRNASeq` <- function(object, type, value) {
-    slot(object, "bcbio")[[type]] <- value
-    validObject(object)
-    object
-}
-
-
-
 # Methods ======================================================================
 #' @rdname bcbio
 #' @export
 setMethod(
     "bcbio",
     signature("bcbioRNASeq"),
-    .bcbio.bcbioRNASeq)
+    function(object, type) {
+        if (missing(type)) {
+            return(slot(object, "bcbio"))
+        }
+        if (type %in% names(slot(object, "bcbio"))) {
+            slot(object, "bcbio")[[type]]
+        } else {
+            abort(paste(type, "not found"))
+        }
+    })
 
 
 
@@ -100,4 +87,8 @@ setMethod(
         object = "bcbioRNASeq",
         value = "ANY"
     ),
-    `.bcbio<-.bcbioRNASeq`)
+    function(object, type, value) {
+        slot(object, "bcbio")[[type]] <- value
+        validObject(object)
+        object
+    })
