@@ -22,6 +22,7 @@
 #' @importFrom basejump assert_is_annotable
 #' @importFrom basejump assert_is_gene2symbol
 #' @importFrom basejump assert_is_implicit_integer
+#' @importFrom basejump assert_is_tx2gene
 #'
 #' @inheritParams general
 NULL
