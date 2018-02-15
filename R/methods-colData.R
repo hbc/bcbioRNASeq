@@ -45,9 +45,7 @@ setMethod(
         value = "DataFrame"
     ),
     function(x, ..., value) {
-        if (nrow(value) != ncol(x)) {
-            abort("nrow of supplied 'colData' must equal ncol of object")
-        }
+        assert_are_identical(ncol(x), nrow(value))
         if (!is.null(bcbio(x, "DESeqDataSet"))) {
             colData(bcbio(x, "DESeqDataSet")) <- value
         }
@@ -59,5 +57,4 @@ setMethod(
         }
         slot(x, "colData") <- value
         x
-    }
-)
+    })
