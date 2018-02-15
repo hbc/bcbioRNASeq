@@ -10,7 +10,7 @@ load(system.file(
 test_that("bcbioRNASeq", {
     expect_warning(
         alphaSummary(bcb),
-        "Empty DESeqDataSet design formula detected"
+        "Internal DESeqDataSet has an empty design formula"
     )
     expect_is(suppressWarnings(alphaSummary(bcb)), "knitr_kable")
 })

@@ -51,7 +51,10 @@ test_that("transformationLimit", {
     assays(skip)[["rlog"]] <- NULL
     expect_warning(
         counts(skip, normalized = "rlog"),
-        "rlog counts not defined. Using log2 tmm counts instead."
+        paste(
+            "rlog counts not defined.",
+            "Calculating and using log2 tmm counts on the fly instead."
+        )
     )
     counts <- suppressWarnings(
         counts(skip, normalized = "rlog")

@@ -12,6 +12,7 @@
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #'
 #' @importFrom rlang .data abort inform warn
+#' @importFrom S4Vectors metadata
 #' @importFrom utils globalVariables packageVersion
 NULL
 

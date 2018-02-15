@@ -102,11 +102,7 @@ loadRNASeq <- function(
     assert_is_character(interestingGroups)
     assert_is_any_of(annotable, c("data.frame", "logical", "NULL"))
     assert_is_a_string_or_null(organism)
-    # TODO assert_is_implicit_integer_scalar_or_null
-    assert_is_numeric_scalar_or_null(ensemblVersion)
-    if (is.numeric(ensemblVersion)) {
-        assert_is_implicit_integer(ensemblVersion)
-    }
+    assert_is_an_implicit_integer_or_null(ensemblVersion)
     assert_is_a_string_or_null(genomeBuild)
     assert_is_numeric(transformationLimit)  # Allow Inf
     assert_is_scalar(transformationLimit)

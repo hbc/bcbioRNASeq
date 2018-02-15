@@ -60,7 +60,6 @@ NULL
 #' @importFrom stats setNames
 #' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
-#' @importFrom viridis viridis
 .plotCorrelationHeatmap <- function(
     counts,
     method,
@@ -156,8 +155,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
-#' @importFrom bcbioBase checkInterestingGroups
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -176,12 +173,11 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        interestingGroups <- checkInterestingGroups(
-            object = sampleMetadata(object),
-            interestingGroups)
+        assert_formal_interesting_groups(
+            sampleMetadata(object), interestingGroups)
 
         counts <- counts(object, normalized = normalized)
-        if (is.null(counts)) return(NULL)
+        assert_is_matrix(counts)
 
         # Don't set annotation columns if we're only grouping by sample name
         if (identical(interestingGroups, "sampleName")) {

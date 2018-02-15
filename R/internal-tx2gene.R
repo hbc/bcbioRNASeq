@@ -18,8 +18,7 @@
 .tx2gene <- function(projectDir, organism, release = NULL) {
     assert_all_are_dirs(projectDir)
     assert_is_a_string(organism)
-    # TODO Change to implicit integer
-    assert_is_numeric_scalar_or_null(release)
+    assert_is_an_implicit_integer_or_null(release)
     file <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(file)) {
         # bcbio tx2gene
