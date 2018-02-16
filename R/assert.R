@@ -33,6 +33,7 @@
 #' @importFrom basejump assert_formal_gene2symbol
 #' @importFrom basejump assert_is_a_number_or_null
 #' @importFrom basejump assert_is_a_string_or_null
+#' @importFrom basejump assert_is_an_implicit_integer
 #' @importFrom basejump assert_is_an_implicit_integer_or_null
 #' @importFrom basejump assert_is_annotable
 #' @importFrom basejump assert_is_character_or_null

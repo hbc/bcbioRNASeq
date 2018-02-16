@@ -12,17 +12,17 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
   color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
   ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
   color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
   ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
   color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
   ...)
 }

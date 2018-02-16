@@ -114,7 +114,7 @@ NULL
     counts,
     alpha,
     lfc = 0L,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
     color = viridis::viridis,
