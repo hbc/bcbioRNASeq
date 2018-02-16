@@ -4,7 +4,7 @@ load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
 
-test_that("default", {
+test_that("Default", {
     p <- suppressWarnings(suppressMessages(
         plotPCACovariates(bcb)
     ))
@@ -44,7 +44,7 @@ test_that("default", {
     )
 })
 
-test_that("defined metrics", {
+test_that("Defined metrics", {
     p <- plotPCACovariates(
         bcb,
         metrics = c("exonicRate", "intronicRate"))
@@ -59,16 +59,22 @@ test_that("defined metrics", {
     )
 })
 
-test_that("invalid parameters", {
+test_that("Invalid parameters", {
     # Error on invalid column
     expect_error(
         plotPCACovariates(bcb, metrics = c("FOO", "BAR")),
-        "Failed to select valid `metrics` columns to plot"
+        paste(
+            "is_subset :",
+            "The elements 'FOO', 'BAR' in col are not in",
+            "colnames\\(metadata\\)."
+        )
     )
     # More than 1 metric is required
     expect_error(
         plotPCACovariates(bcb, metrics = "exonicRate"),
-        "`degCovariates\\(\\)` requires at least 2 metadata columns"
+        paste(
+            "is_greater_than : length\\(col\\) are not all greater than 1L."
+        )
     )
 })
 
