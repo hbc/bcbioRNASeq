@@ -44,10 +44,16 @@ NULL
     vst,
     orientation = "vertical",
     showLegend = FALSE) {
+    assert_is_matrix(raw)
+    assert_is_matrix(normalized)
+    assert_is_matrix(vst)
+    assert_is_a_string(orientation)
+    assert_is_subset(orientation, c("horizontal", "vertical"))
+    assert_is_a_bool(showLegend)
+
     xlab <- "rank (mean)"
-    nonzero <- raw %>%
-        rowSums() %>%
-        `>`(0L)
+    nonzero <- rowSums(raw) > 0L
+
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
