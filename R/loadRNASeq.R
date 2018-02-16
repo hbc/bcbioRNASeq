@@ -262,7 +262,7 @@ loadRNASeq <- function(
 
     # DESeqDataSet =============================================================
     inform("Generating internal DESeqDataSet")
-    if (!is.formula(design)) {
+    if (!is(design, "formula")) {
         design <- formula(~1)  # nolint
     }
     dds <- DESeqDataSetFromTximport(
@@ -278,7 +278,7 @@ loadRNASeq <- function(
         warn(paste(
             "Dataset contains many samples.",
             "Skipping DESeq2 variance stabilization."
-            ))
+        ))
         rlog <- NULL
         vst <- NULL
     } else {
@@ -312,7 +312,7 @@ loadRNASeq <- function(
             featureCounts <- featureCounts %>%
                 .[, gsub(x = make.names(pull(metrics, "name"), unique = TRUE),
                         pattern = "\\.",
-                        replacement = "_"), drop = FALSE] %>%
+                        replacement = "_"), drop = FALSE]
                 # Ensure column names match tximport
                 set_colnames(colnames(rawCounts))
         }
@@ -363,8 +363,7 @@ loadRNASeq <- function(
             vst = vst),
         rowData = annotable,
         colData = colData,
-        metadata = metadata
-    )
+        metadata = metadata)
     bcbio <- SimpleList(
         tximport = txi,
         DESeqDataSet = dds,
