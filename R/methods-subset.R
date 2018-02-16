@@ -53,13 +53,13 @@ NULL
     if (missing(i)) {
         i <- 1L:nrow(x)
     }
-    assert_all_are_greater_than(i, 1L)
+    assert_all_are_greater_than(length(i), 1L)
 
     # Samples (columns)
     if (missing(j)) {
         j <- 1L:ncol(x)
     }
-    assert_all_are_greater_than(j, 1L)
+    assert_all_are_greater_than(length(j), 1L)
 
     # Early return if dimensions are unmodified
     if (identical(dim(x), c(length(i), length(j)))) {

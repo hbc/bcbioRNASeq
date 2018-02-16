@@ -47,8 +47,8 @@ NULL
 
 
 .tmm.bcbioRNASeq <- function(object) {  # nolint
-    data <- assays(object)[["tmm"]]
-    assert_is_matrix(data, severity = "warning")
+    tmm <- assays(object)[["tmm"]]
+    assert_is_matrix(tmm, severity = "warning")
     if (!is.matrix(tmm)) {
         warn(paste(
             "TMM counts are not stashed in `assays()`.",

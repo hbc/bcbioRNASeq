@@ -81,10 +81,10 @@ test_that("Minimal gene selection", {
 test_that("Invalid ranges", {
     expect_error(
         bcb[1L, ],
-        "At least 2 genes are required"
+        "is_greater_than : length\\(i\\) are not all greater than 1L."
     )
     expect_error(
         bcb[, 1L],
-        "At least 2 samples are required"
+        "is_greater_than : length\\(j\\) are not all greater than 1L."
     )
 })
