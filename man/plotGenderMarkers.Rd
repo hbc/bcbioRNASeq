@@ -13,7 +13,7 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tpm", color = scale_color_viridis(discrete = TRUE),
+  normalized = "rlog", color = scale_color_viridis(discrete = TRUE),
   title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,

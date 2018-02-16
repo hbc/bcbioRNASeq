@@ -124,7 +124,7 @@ NULL
 .plotGenderMarkers.bcbioRNASeq <- function(  # nolint
     object,
     interestingGroups,
-    normalized = "tpm",
+    normalized = "rlog",
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_a_string(normalized)

@@ -189,7 +189,7 @@ NULL
 .plotGene.bcbioRNASeq <- function(  # nolint
     object,
     genes,
-    normalized = "tpm",
+    normalized = "rlog",
     interestingGroups,
     stackReplicates = TRUE,
     color = scale_color_viridis(discrete = TRUE),

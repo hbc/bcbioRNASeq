@@ -9,7 +9,7 @@
 \alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
   interestingGroups, stackReplicates = TRUE,
   color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
