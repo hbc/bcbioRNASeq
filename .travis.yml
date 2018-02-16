@@ -23,6 +23,8 @@ r_packages:
   - rlang
   - testthat
   - tidyverse
+r_github_packages:
+  - karthik/rdrop2
 
 after_success:
   - Rscript -e 'covr::codecov()'
