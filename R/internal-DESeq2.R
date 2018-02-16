@@ -4,8 +4,6 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom S4Vectors mcols
-#'
 #' @param object [DESeqResults].
 #'
 #' @return Contrast name string.

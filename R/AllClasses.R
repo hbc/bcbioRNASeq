@@ -48,7 +48,6 @@ bcbioRNASeq <- setClass(
 
 
 # Validity =====================================================================
-#' @importFrom S4Vectors metadata
 setValidity("bcbioRNASeq", function(object) {
     # SummarizedExperiment internal structure
     assert_is_all_of(object, "SummarizedExperiment")

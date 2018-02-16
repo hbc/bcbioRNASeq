@@ -58,7 +58,6 @@ NULL
 #' @importFrom magrittr set_names
 #' @importFrom pheatmap pheatmap
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
 .plotCorrelationHeatmap <- function(
     counts,

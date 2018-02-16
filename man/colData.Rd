@@ -3,9 +3,12 @@
 \docType{methods}
 \name{colData}
 \alias{colData}
+\alias{colData<-,bcbioRNASeq,data.frame-method}
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \title{Column Data}
 \usage{
+\S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
+
 \S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
 }
 \arguments{
@@ -31,7 +34,8 @@ load(system.file(
 
 # Assignment support
 colData <- colData(bcb)
-colData[["age"]] <- factor(c(14, 30, 14, 30))
+# All columns will be coerced to factors
+colData[["age"]] <- c(14L, 30L, 14L, 30L)
 colData(bcb) <- colData
 colData(bcb) \%>\% glimpse()
 

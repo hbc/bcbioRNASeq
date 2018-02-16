@@ -130,7 +130,6 @@ NULL
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
-#' @importFrom S4Vectors metadata
 #' @importFrom tibble rownames_to_column
 .resultsTables.DESeqResults <- function(  # nolint
     object,

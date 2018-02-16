@@ -22,7 +22,6 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom dplyr left_join mutate_if
-#' @importFrom S4Vectors metadata
 .metrics.bcbioRNASeq <- function(object) {  # nolint
     data <- metadata(object)[["metrics"]]
     assert_is_data.frame(data)

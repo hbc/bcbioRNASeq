@@ -48,6 +48,7 @@ NULL
         }
     ) %>%
         as("DataFrame")
+    assert_has_dimnames(value)
 
     if (!is.null(bcbio(x, "DESeqDataSet"))) {
         colData(bcbio(x, "DESeqDataSet")) <- value

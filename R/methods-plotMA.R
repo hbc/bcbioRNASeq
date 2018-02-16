@@ -166,8 +166,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotMA
-#' @importFrom ggplot2 scale_color_manual
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMA",

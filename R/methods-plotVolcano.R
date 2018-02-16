@@ -58,7 +58,6 @@ NULL
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom rlang !! sym
-#' @importFrom S4Vectors na.omit
 #' @importFrom tibble as_tibble rownames_to_column
 .plotVolcano <- function(
     object,
@@ -326,7 +325,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotVolcano
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotVolcano",

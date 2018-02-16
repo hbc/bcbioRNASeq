@@ -45,8 +45,6 @@ NULL
 # Constructors =================================================================
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
-#' @importFrom dplyr mutate_if
-#' @importFrom S4Vectors metadata SimpleList
 #' @importFrom tibble column_to_rownames rownames_to_column
 .subset <- function(x, i, j, ..., drop = FALSE) {
     # Genes (rows)
@@ -86,12 +84,13 @@ NULL
     # Column data ==============================================================
     colData <- colData(se)
     assert_is_non_empty(colData)
-    colData <- colData %>%
-        as.data.frame() %>%
-        rownames_to_column() %>%
-        mutate_if(is.character, as.factor) %>%
-        mutate_if(is.factor, droplevels) %>%
-        column_to_rownames() %>%
+    # Sanitize all columns as factors
+    colData <- lapply(
+        X = colData,
+        FUN = function(x) {
+            droplevels(as.factor(x))
+        }
+    ) %>%
         as("DataFrame")
 
     # bcbio ====================================================================
