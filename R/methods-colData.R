@@ -46,6 +46,16 @@ setMethod(
     ),
     function(x, ..., value) {
         assert_are_identical(ncol(x), nrow(value))
+
+        # Sanitize all columns as factors
+        value <- lapply(
+            X = value,
+            FUN = function(x) {
+                droplevels(as.factor(x))
+            }
+        ) %>%
+            as("DataFrame")
+
         if (!is.null(bcbio(x, "DESeqDataSet"))) {
             colData(bcbio(x, "DESeqDataSet")) <- value
         }
@@ -55,6 +65,7 @@ setMethod(
         if (!is.null(assays(x)[["vst"]])) {
             colData(assays(x)[["vst"]]) <- value
         }
+
         slot(x, "colData") <- value
         x
     })
