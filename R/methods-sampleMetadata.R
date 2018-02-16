@@ -16,18 +16,23 @@
 #'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
 #'
-#' # bcbioRNASeq
+#' # bcbioRNASeq ====
 #' sampleMetadata(bcb) %>% glimpse()
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
 #' sampleMetadata(dds) %>% glimpse()
 #'
-#' # DESeqTransform
+#' # DESeqTransform ====
 #' rld <- assays(bcb)[["rlog"]]
 #' sampleMetadata(rld) %>% glimpse()
 #'
-#' # Assignment support
+#' # Assignment method ====
+#' data <- sampleMetadata(bcb)
+#' # All columns will be coerced to factors
+#' data[["age"]] <- c(14L, 30L, 14L, 30L)
+#' sampleMetadata(bcb) <- data
+#' sampleMetadata(bcb) %>% glimpse()
 NULL
 
 
