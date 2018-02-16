@@ -174,6 +174,86 @@ NULL
 
 
 
+.plotGene.bcbioRNASeq <- function(  # nolint
+    object,
+    genes,
+    normalized = "tpm",
+    log2 = TRUE,
+    interestingGroups,
+    stackReplicates = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
+    return = "grid",
+    headerLevel = 2L) {
+    if (identical(normalized, FALSE)) {
+        abort(paste(
+            "Raw counts are not library size adjusted and therefore",
+            "not recommended to use for gene plots"
+        ))
+    }
+    # Passthrough: stackReplicates, color, return, headerLevel
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    counts <- counts(object, normalized = normalized)
+    if (isTRUE(normalized)) {
+        countsAxisLabel <- "normalized counts"
+        if (isTRUE(log2)) {
+            counts <- log2(counts + 1L)
+            countsAxisLabel <- c("log2", countsAxisLabel)
+        }
+    } else {
+        countsAxisLabel <- normalized
+    }
+    gene2symbol <- gene2symbol(object)
+    metadata <- sampleMetadata(object)
+    .plotGene(
+        object = counts,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        metadata = metadata,
+        interestingGroups = interestingGroups,
+        color = color,
+        countsAxisLabel = countsAxisLabel,
+        return = return,
+        headerLevel = headerLevel)
+}
+
+
+
+.plotGene.DESeqDataSet <- function(  # nolint
+    object,
+    genes,
+    log2 = TRUE,
+    gene2symbol = NULL,
+    interestingGroups = "sampleName",
+    stackReplicates = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
+    return = "grid",
+    headerLevel = 2L) {
+    # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
+    # color, return, headerLevel
+    counts <- counts(object, normalized = TRUE)
+    countsAxisLabel <- "normalized counts"
+    if (isTRUE(log2)) {
+        counts <- log2(counts + 1L)
+        countsAxisLabel <- paste("log2", countsAxisLabel)
+    }
+    metadata <- colData(object)
+    .plotGene(
+        object = counts,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        metadata = metadata,
+        interestingGroups = interestingGroups,
+        stackReplicates = stackReplicates,
+        color = color,
+        countsAxisLabel = countsAxisLabel,
+        return = return,
+        headerLevel = headerLevel)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotGene
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
@@ -182,49 +262,7 @@ NULL
 setMethod(
     "plotGene",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        genes,
-        normalized = "tpm",
-        log2 = TRUE,
-        interestingGroups,
-        stackReplicates = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L) {
-        if (identical(normalized, FALSE)) {
-            abort(paste(
-                "Raw counts are not library size adjusted and therefore",
-                "not recommended to use for gene plots"
-            ))
-        }
-        # Passthrough: stackReplicates, color, return, headerLevel
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        counts <- counts(object, normalized = normalized)
-        if (isTRUE(normalized)) {
-            countsAxisLabel <- "normalized counts"
-            if (isTRUE(log2)) {
-                counts <- log2(counts + 1L)
-                countsAxisLabel <- c("log2", countsAxisLabel)
-            }
-        } else {
-            countsAxisLabel <- normalized
-        }
-        gene2symbol <- gene2symbol(object)
-        metadata <- sampleMetadata(object)
-        .plotGene(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            metadata = metadata,
-            interestingGroups = interestingGroups,
-            color = color,
-            countsAxisLabel = countsAxisLabel,
-            return = return,
-            headerLevel = headerLevel)
-    })
+    .plotGene.bcbioRNASeq)
 
 
 
@@ -234,37 +272,7 @@ setMethod(
 setMethod(
     "plotGene",
     signature("DESeqDataSet"),
-    function(
-        object,
-        genes,
-        log2 = TRUE,
-        gene2symbol = NULL,
-        interestingGroups = "sampleName",
-        stackReplicates = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L) {
-        # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
-        # color, return, headerLevel
-        counts <- counts(object, normalized = TRUE)
-        countsAxisLabel <- "normalized counts"
-        if (isTRUE(log2)) {
-            counts <- log2(counts + 1L)
-            countsAxisLabel <- paste("log2", countsAxisLabel)
-        }
-        metadata <- colData(object)
-        .plotGene(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            metadata = metadata,
-            interestingGroups = interestingGroups,
-            stackReplicates = stackReplicates,
-            color = color,
-            countsAxisLabel = countsAxisLabel,
-            return = return,
-            headerLevel = headerLevel)
-    })
+    .plotGene.DESeqDataSet)
 
 
 

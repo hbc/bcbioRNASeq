@@ -39,7 +39,7 @@ NULL
     assert_is_data.frame(object)
     assert_formal_interesting_groups(object, interestingGroups)
     assert_is_an_implicit_integer(passLimit)
-    .assert_formal_discrete_scale(fill)
+    .assert_formal_scale_discrete(fill)
     assert_is_a_bool(flip)
     .assert_formal_title(title)
 

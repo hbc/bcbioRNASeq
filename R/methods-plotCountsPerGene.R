@@ -38,7 +38,7 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_formal_interesting_groups(object, interestingGroups)
-    .assert_formal_discrete_scale(fill)
+    .assert_formal_scale_discrete(fill)
     assert_is_a_bool(flip)
     .assert_formal_title(title)
     

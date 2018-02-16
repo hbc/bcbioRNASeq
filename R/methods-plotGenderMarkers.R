@@ -60,7 +60,7 @@ NULL
     assert_is_a_string(organism)
     assert_is_data.frame(metadata)
     assert_is_a_string(countsAxisLabel)
-    .assert_formal_discrete_scale(color)
+    .assert_formal_scale_discrete(color)
     .assert_formal_title(title)
     
     if (isTRUE(title)) {

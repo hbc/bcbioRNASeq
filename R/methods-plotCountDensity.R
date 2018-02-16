@@ -46,8 +46,8 @@ NULL
     assert_formal_interesting_groups(object, interestingGroups)
     assert_is_a_string(style)
     assert_is_subset(style, c("line", "solid"))
-    .assert_formal_discrete_scale(color)
-    .assert_formal_discrete_scale(fill)
+    .assert_formal_scale_discrete(color)
+    .assert_formal_scale_discrete(fill)
     .assert_formal_title(title)
     
     data <- uniteInterestingGroups(object, interestingGroups)
