@@ -25,7 +25,7 @@
 #' selectSamples(bcb, group = "ko")
 #'
 #' # DESeqDataSet
-#' selectSamples(dds, group = c("ctrl", "ko"))
+#' selectSamples(dds, group = "ko")
 NULL
 
 
