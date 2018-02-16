@@ -36,6 +36,7 @@ test_that("Default return with local files only", {
 test_that("Summary and write support", {
     # This is also capturing the contents of the list return. Not sure how to
     # fix here for knitr asis_output
+    dir <- file.path(getwd(), "resultsTables")
     output <- capture.output(
         resultsTables(
         res,
@@ -73,22 +74,30 @@ test_that("Summary and write support", {
             "",
             paste0(
                 "- [`group_ko_vs_ctrl_all.csv.gz`]",
-                "(resultsTables/group_ko_vs_ctrl_all.csv.gz): ",
+                "(",
+                file.path(dir, "group_ko_vs_ctrl_all.csv.gz"),
+                "): ",
                 "All genes, sorted by Ensembl identifier."
             ),
             paste0(
                 "- [`group_ko_vs_ctrl_deg.csv.gz`]",
-                "(resultsTables/group_ko_vs_ctrl_deg.csv.gz): ",
+                "(",
+                file.path(dir, "group_ko_vs_ctrl_deg.csv.gz"),
+                "): ",
                 "Genes that pass the alpha (FDR) cutoff."
             ),
             paste0(
                 "- [`group_ko_vs_ctrl_deg_lfc_up.csv.gz`]",
-                "(resultsTables/group_ko_vs_ctrl_deg_lfc_up.csv.gz): ",
+                "(",
+                file.path(dir, "group_ko_vs_ctrl_deg_lfc_up.csv.gz"),
+                "): ",
                 "Upregulated DEG; positive log2 fold change."
             ),
             paste0(
                 "- [`group_ko_vs_ctrl_deg_lfc_down.csv.gz`]",
-                "(resultsTables/group_ko_vs_ctrl_deg_lfc_down.csv.gz): ",
+                "(",
+                file.path(dir, "group_ko_vs_ctrl_deg_lfc_down.csv.gz"),
+                "): ",
                 "Downregulated DEG; negative log2 fold change."
             ),
             ""
