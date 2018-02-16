@@ -97,7 +97,7 @@ loadRNASeq <- function(
     assert_is_any_of(sampleMetadataFile, c("character", "NULL"))
     if (is.character(sampleMetadataFile)) {
         assert_is_a_string(sampleMetadataFile)
-        assert_are_existing_files(sampleMetadataFile)
+        assert_all_are_existing_files(sampleMetadataFile)
     }
     assert_is_character(interestingGroups)
     assert_is_any_of(annotable, c("data.frame", "logical", "NULL"))

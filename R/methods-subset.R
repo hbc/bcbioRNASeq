@@ -80,12 +80,12 @@ NULL
 
     # Row data =================================================================
     rowData <- rowData(se)
-    assert_has_length(rowData)
+    assert_is_non_empty(rowData)
     rownames(rowData) <- slot(se, "NAMES")
 
     # Column data ==============================================================
     colData <- colData(se)
-    assert_has_length(colData)
+    assert_is_non_empty(colData)
     colData <- colData %>%
         as.data.frame() %>%
         rownames_to_column() %>%
