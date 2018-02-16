@@ -79,18 +79,11 @@ load(system.file(
 gene2symbol <- gene2symbol(bcb)
 
 # Label the top genes
-plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
 
 # Label specific genes
 genes <- rownames(res) \%>\% head()
 plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
-
-# Label with Ensembl gene identifiers
-plotVolcano(res, ntop = 3L)
-
-# data.frame
-df <- as.data.frame(res)
-plotVolcano(df)
 }
 \seealso{
 This function is an updated variant of

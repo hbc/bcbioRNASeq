@@ -39,18 +39,11 @@
 #' gene2symbol <- gene2symbol(bcb)
 #'
 #' # Label the top genes
-#' plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+#' plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
 #'
 #' # Label specific genes
 #' genes <- rownames(res) %>% head()
 #' plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
-#'
-#' # Label with Ensembl gene identifiers
-#' plotVolcano(res, ntop = 3L)
-#'
-#' # data.frame
-#' df <- as.data.frame(res)
-#' plotVolcano(df)
 NULL
 
 
@@ -125,19 +118,11 @@ NULL
         arrange(desc(!!sym("rankScore")))
 
     # Gene text labels =========================================================
-    if (is.character(genes)) {
-        # Ensure all genes identifiers are present
-        if (!all(genes %in% data[["ensgene"]])) {
-            abort(paste(
-                "Missing genes:",
-                setdiff(genes, data[["ensgene"]])
-            ))
-        }
-    } else if (ntop > 0L) {
+    if (is.null(genes) && is_positive(ntop)) {
         genes <- data[1L:ntop, "ensgene", drop = TRUE]
     }
-    # Prepare `volcanoText` tibble containing text labels for ggplot
     if (is.character(genes)) {
+        assert_is_subset(genes, data[["ensgene"]])
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
         if (is.data.frame(gene2symbol)) {
