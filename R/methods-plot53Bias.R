@@ -30,7 +30,6 @@ NULL
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom dplyr rename
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plot53Bias <- function(
     object,
     interestingGroups = "sampleName",
@@ -40,9 +39,10 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_is_character(interestingGroups)
-    assert_is_implicit_integer(warnLimit)
+    assert_is_an_implicit_integer(warnLimit)
     assert_is_any_of(fill, c("ScaleDiscrete", NULL))
     assert_is_a_bool(flip)
+    assert_is_any_of(title, c("character", "NULL"))
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
@@ -94,7 +94,6 @@ NULL
 
 
 
-#' @importFrom viridis scale_fill_viridis
 .plot53Bias.bcbioRNASeq <- function(
     object,
     interestingGroups,
@@ -102,7 +101,6 @@ NULL
     fill = viridis::scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
-    # Passthrough: warnLimit, fill, flip, title
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }
