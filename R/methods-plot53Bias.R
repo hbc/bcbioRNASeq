@@ -74,7 +74,7 @@ NULL
             y = ylab,
             fill = paste(interestingGroups, collapse = ":\n"))
 
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 

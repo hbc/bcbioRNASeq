@@ -86,10 +86,10 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 

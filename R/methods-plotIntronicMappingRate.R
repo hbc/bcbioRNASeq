@@ -68,7 +68,7 @@ NULL
         ) +
         ylim(0L, 100L)
 
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 

@@ -30,6 +30,7 @@
 #' @importFrom assertive assert_is_tbl_df
 #' @importFrom assertive assert_is_vector
 #' @importFrom assertive is_a_string
+#' @importFrom assertive is_positive
 #'
 #' @importFrom basejump assert_formal_annotation_col
 #' @importFrom basejump assert_formal_color_function
