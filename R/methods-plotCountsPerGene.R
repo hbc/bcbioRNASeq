@@ -36,15 +36,22 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
+    assert_is_a_bool(flip)
+    assert_is_any_of(title, c("character", "logical", "NULL"))
+
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     if (isTRUE(title)) {
         title <- "counts per gene"
     } else if (!is.character(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_string(
             x = "sampleName",
             y = "counts",
@@ -74,29 +81,35 @@ NULL
 
 
 
+.plotCountsPerGene.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    normalized = "tmm",
+    fill = scale_fill_viridis(discrete = TRUE),
+    flip = TRUE,
+    title = TRUE) {
+    # Passthrough: fill, flip, title
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    assert_is_a_string(normalized)
+    .plotCountsPerGene(
+        meltLog10(object, normalized = normalized),
+        interestingGroups = interestingGroups,
+        fill = fill,
+        flip = flip,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotCountsPerGene
 #' @export
 setMethod(
     "plotCountsPerGene",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        normalized = "tmm",
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotCountsPerGene(
-            meltLog10(object, normalized = normalized),
-            interestingGroups = interestingGroups,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plotCountsPerGene.bcbioRNASeq)
 
 
 

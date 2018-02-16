@@ -42,13 +42,15 @@ NULL
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE),
     title = TRUE) {
-    validStyles <- c("line", "solid")
-    if (!style %in% validStyles) {
-        abort(paste(
-            "Valid `style` arguments:",
-            toString(validStyles)
-        ))
-    }
+    assert_is_data.frame(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_a_string(style)
+    assert_is_subset(style, c("line", "solid"))
+    assert_is_any_of(color, c("ScaleDiscrete", NULL))
+    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
+    assert_is_any_of(title, c("character", "logical", "NULL"))
+
+    data <- uniteInterestingGroups(object, interestingGroups)
 
     if (isTRUE(title)) {
         title <- "count density"
@@ -56,9 +58,8 @@ NULL
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_string(
             x = "counts",
             group = "interestingGroups",
@@ -66,7 +67,7 @@ NULL
             fill = "interestingGroups")
     ) +
         labs(
-            title = "count density",
+            title = title,
             x = "log10 counts per gene",
             fill = paste(interestingGroups, collapse = ":\n"))
 
@@ -91,31 +92,35 @@ NULL
 
 
 
+.plotCountDensity.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    normalized = "tmm",
+    style = "solid",
+    color = scale_color_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
+    title = TRUE) {
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plotCountDensity(
+        meltLog10(object, normalized = normalized),
+        interestingGroups = interestingGroups,
+        style = style,
+        color = color,
+        fill = fill,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotCountDensity
 #' @export
 setMethod(
     "plotCountDensity",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        normalized = "tmm",
-        style = "solid",
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE),
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotCountDensity(
-            meltLog10(object, normalized = normalized),
-            interestingGroups = interestingGroups,
-            style = style,
-            color = color,
-            fill = fill,
-            title = title)
-    })
+    .plotCountDensity.bcbioRNASeq)
 
 
 
