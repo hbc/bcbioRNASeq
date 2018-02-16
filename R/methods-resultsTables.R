@@ -80,7 +80,7 @@ NULL
 .markdownResultsTables <- function(list, headerLevel = 2L) {
     assert_is_list(list)
     assert_is_subset(
-        c("all", "deg", "degLFCDown", "degLFCUP"),
+        c("all", "deg", "degLFCDown", "degLFCUp"),
         names(list)
     )
     assert_is_implicit_integer(headerLevel)
