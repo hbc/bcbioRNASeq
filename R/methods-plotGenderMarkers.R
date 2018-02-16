@@ -143,7 +143,6 @@ NULL
 
 
 
-# TODO Use log2 + 1 for DESeqDataSet by default?
 #' @importFrom basejump detectOrganism
 .plotGenderMarkers.DESeqDataSet <- function(  # nolint
     object,
@@ -152,7 +151,7 @@ NULL
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     # Passthrough: interestingGroups, color, title
-    counts <- counts(object, normalized = TRUE)
+    counts <- log2(counts(object, normalized = TRUE) + 1L)
     if (missing(organism)) {
         organism <- detectOrganism(counts)
     }
@@ -161,7 +160,7 @@ NULL
         interestingGroups = interestingGroups,
         organism = organism,
         metadata = sampleMetadata(object),
-        countsAxisLabel = "normalized counts",
+        countsAxisLabel = "log2 normalized counts",
         color = color,
         title = title)
 }
