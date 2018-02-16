@@ -22,45 +22,6 @@ NULL
 
 
 
-# Constructors =================================================================
-#' @importFrom viridis scale_color_viridis
-.plotDEGenePCA.DESeqResults <- function(
-    object,
-    counts,
-    interestingGroups = "sampleName",
-    lfc = 0L,
-    color = viridis::scale_color_viridis(discrete = TRUE),
-    label = FALSE,
-    returnData = FALSE) {
-    # Passthrough: counts, interestingGroups, color, label, returnData
-    # lfc
-    if (!(is.numeric(lfc) && length(lfc) == 1L)) {
-        abort("`lfc` must be a numeric string")
-    }
-
-    # Get the DE gene vector using `resultsTables()`
-    resTbl <- resultsTables(
-        res,
-        lfc = lfc,
-        annotable = FALSE,
-        summary = FALSE,
-        write = FALSE)
-    genes <- c(
-        resTbl[["degLFCUp"]][["ensgene"]],
-        resTbl[["degLFCDown"]][["ensgene"]]
-    )
-
-    .plotPCA.DESeqTransform(
-        counts,
-        interestingGroups = interestingGroups,
-        genes = genes,
-        color = color,
-        label = label,
-        returnData = returnData)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotDEGenePCA
 #' @export
@@ -69,7 +30,36 @@ setMethod(
     signature(
         object = "DESeqResults",
         counts = "DESeqTransform"),
-    .plotDEGenePCA.DESeqResults)
+    function(
+        object,
+        counts,
+        interestingGroups = "sampleName",
+        lfc = 0L,
+        color = viridis::scale_color_viridis(discrete = TRUE),
+        label = FALSE,
+        returnData = FALSE) {
+        # Passthrough: interestingGroups, color, label, returnData
+        assert_is_a_number(lfc)
+        assert_all_are_non_negative(lfc)
+
+        # Get the DE gene vector using `resultsTables()`
+        list <- resultsTables(
+            object,
+            lfc = lfc,
+            summary = FALSE,
+            write = FALSE)
+        genes <- c(
+            list[["degLFCUp"]][["ensgene"]],
+            list[["degLFCDown"]][["ensgene"]])
+
+        .plotPCA.DESeqTransform(
+            object = counts,
+            interestingGroups = interestingGroups,
+            genes = genes,
+            color = color,
+            label = label,
+            returnData = returnData)
+    })
 
 
 

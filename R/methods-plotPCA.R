@@ -59,9 +59,10 @@ NULL
     color = viridis::scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
+    assert_is_all_of(object, "DESeqTransform")
     assert_formal_interesting_groups(colData(object), interestingGroups)
     assert_is_character_or_null(genes)
-    assert_formal_color_function(color)
+    assert_is_any_of(color, c("ScaleDiscrete", "NULL"))
     assert_is_a_bool(label)
     assert_is_a_bool(returnData)
 
@@ -197,8 +198,7 @@ NULL
         genes = genes,
         color = color,
         label = label,
-        returnData = returnData
-    )
+        returnData = returnData)
 }
 
 

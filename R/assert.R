@@ -6,6 +6,7 @@
 #' @importFrom assertive assert_all_are_dirs
 #' @importFrom assertive assert_all_are_existing_files
 #' @importFrom assertive assert_all_are_greater_than
+#' @importFrom assertive assert_all_are_non_negative
 #' @importFrom assertive assert_are_identical
 #' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_colnames

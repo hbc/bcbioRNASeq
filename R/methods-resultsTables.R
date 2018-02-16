@@ -149,7 +149,8 @@ NULL
     quiet = FALSE) {
     # Passthrough: headerLevel, dropboxDir, rdsToken, quiet
     assert_is_all_of(object, "DESeqResults")
-    assert_is_an_implicit_integer(lfc)
+    assert_is_a_number(lfc)
+    assert_all_are_non_negative(lfc)
     assert_is_any_of(annotable, c("data.frame", "NULL"))
     assert_is_a_bool(summary)
     assert_is_a_bool(write)
