@@ -57,7 +57,7 @@ plotRRNAMappingRate(
     bcb,
     interestingGroups = "sampleName",
     fill = NULL,
-    warnLimit = NULL)
+    warnLimit = 0L)
 
 # data.frame
 df <- metrics(bcb)
