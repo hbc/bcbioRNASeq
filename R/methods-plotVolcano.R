@@ -248,7 +248,7 @@ NULL
             pch = 21L) +
         theme(legend.position = "none") +
         scale_x_continuous(limits = rangeLFC)
-    if (!is.null(volcanoText)) {
+    if (is.data.frame(volcanoText)) {
         volcano <- volcano +
             geom_text_repel(
                 data = volcanoText,
