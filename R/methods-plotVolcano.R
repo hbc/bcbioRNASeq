@@ -42,9 +42,8 @@
 #' plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
 #'
 #' # Label specific genes
-#' ensgene <- rownames(res) %>% head()
-#' print(ensgene)
-#' plotVolcano(res, genes = ensgene, gene2symbol = gene2symbol)
+#' genes <- rownames(res) %>% head()
+#' plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
 #'
 #' # Label with Ensembl gene identifiers
 #' plotVolcano(res, ntop = 1, gene2symbol = FALSE)
