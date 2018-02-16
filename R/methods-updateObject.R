@@ -27,8 +27,9 @@
 #'
 #' metadata(bcb)[["version"]]
 #'
-#' new <- updateObject(bcb)
-#' metadata(new)[["version"]]
+#' updated <- updateObject(bcb)
+#' metadata(updated)[["version"]]
+#' metadata(updated)[["previousVersion"]]
 NULL
 
 
