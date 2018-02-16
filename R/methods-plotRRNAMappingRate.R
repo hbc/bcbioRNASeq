@@ -37,6 +37,14 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_an_implicit_integer(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    .assert_formal_scale_discrete(fill)
+    assert_is_a_bool(flip)
+    .assert_formal_title(title)
+
     if (isTRUE(title)) {
         title <- "rRNA mapping rate"
     } else if (!is.character(title)) {
@@ -55,9 +63,10 @@ NULL
         object[[col]] <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100L,
@@ -71,7 +80,7 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -92,31 +101,34 @@ NULL
 
 
 
+.plotRRNAMappingRate.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    warnLimit = 10L,
+    fill = scale_fill_viridis(discrete = TRUE),
+    flip = TRUE,
+    title = TRUE) {
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plotRRNAMappingRate(
+        object = metrics(object),
+        interestingGroups = interestingGroups,
+        warnLimit = warnLimit,
+        fill = fill,
+        flip = flip,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotRRNAMappingRate
 #' @export
 setMethod(
     "plotRRNAMappingRate",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        warnLimit = 10L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotRRNAMappingRate(
-            metrics(object),
-            interestingGroups = interestingGroups,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plotRRNAMappingRate.bcbioRNASeq)
 
 
 
