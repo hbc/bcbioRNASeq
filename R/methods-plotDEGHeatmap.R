@@ -74,13 +74,11 @@ NULL
     assert_is_data.frame(object)
     assert_is_matrix(counts)
     assert_are_identical(rownames(object), rownames(counts))
-    genes <- rownames(counts)
-    counts <- counts[genes, , drop = FALSE]
     assert_is_numeric(alpha)
     assert_is_scalar(alpha)
     assert_is_implicit_integer(lfc)
     assert_is_scalar(lfc)
-    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assert_formal_gene2symbol(object, rownames(counts), gene2symbol)
     assert_formal_color_function(color)
     assert_formal_color_function(legendColor)
     assert_is_a_string(title)
@@ -95,6 +93,7 @@ NULL
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
     assert_has_rows(results)
+    counts <- counts[rownames(results), , drop = FALSE]
 
     .plotHeatmap(
         object = counts,
@@ -121,6 +120,14 @@ NULL
     legendColor = viridis::viridis,
     title = TRUE,
     ...) {
+    # Passthrough: lfc, gene2symbol, annotationCol, scale, color, legendColor
+    assert_is_all_of(object, "DESeqResults")
+    assert_is_any_of(
+        x = counts,
+        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
+    )
+    assert_is_any_of(title, c("character", "logical"))
+
     if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
@@ -130,6 +137,7 @@ NULL
     if (isTRUE(title)) {
         title <- .contrastName.DESeqResults(object)
     }
+
     .plotDEGHeatmap(
         object = as.data.frame(object),
         counts = counts,
