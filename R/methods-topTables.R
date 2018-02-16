@@ -45,17 +45,9 @@ NULL
     assert_has_rows(object)
     assert_is_implicit_integer(n)
     assert_is_a_bool(coding)
-
-    keepCols <- c(
-        "ensgene",
-        "baseMean",
-        "lfc",
-        "padj",
-        "symbol",
-        "description",
-        "broadClass"
-    )
-    assert_is_subset(keepCols, colnames(object))
+    # Note that `symbol` and `description` columns are optional
+    requiredCols <- c("ensgene", "baseMean", "log2FoldChange", "padj")
+    assert_is_subset(requiredCols, colnames(object))
 
     if (isTRUE(coding)) {
         assert_is_subset("broadClass", colnames(object))
@@ -67,22 +59,28 @@ NULL
         return(NULL)
     }
 
-    object %>%
+    keepCols <- c(requiredCols, c("symbol", "description", "biotype"))
+    return <- object %>%
+        as_tibble() %>%
+        remove_rownames() %>%
         head(n = n) %>%
-        rename(lfc = .data[["log2FoldChange"]]) %>%
         mutate(
             baseMean = round(.data[["baseMean"]]),
-            lfc = format(.data[["lfc"]], digits = 3L),
-            padj = format(.data[["padj"]], digits = 3L, scientific = TRUE),
-            # Remove symbol information in description, if present
-            description = gsub(
-                x = .data[["description"]],
-                pattern = " \\[.+\\]$",
-                replacement = "")
+            log2FoldChange = format(.data[["log2FoldChange"]], digits = 3L),
+            padj = format(.data[["padj"]], digits = 3L, scientific = TRUE)
         ) %>%
-        .[, which(colnames(.) %in% keepCols)] %>%
-        remove_rownames() %>%
-        fixNA()
+        .[, which(colnames(.) %in% keepCols)]
+
+    # Sanitize the description, if necessary
+    if ("description" %in% colnames(return)) {
+        # Remove symbol information in description, if present
+        return[["description"]] <- gsub(
+            " \\[.+\\]$", "", return[["description"]])
+    }
+
+    return %>%
+        # Shorten `log2FoldChange` to `lfc`
+        rename(lfc = .data[["log2FoldChange"]])
 }
 
 
@@ -93,6 +91,12 @@ NULL
     n = 50L,
     coding = FALSE) {
     # Passthrough: n, coding
+    assert_is_list(object)
+    assert_is_subset(
+        c("all", "deg", "degLFCDown", "degLFCUp"),
+        names(object)
+    )
+
     up <- .subsetTop(
         object[["degLFCUp"]],
         n = n,
