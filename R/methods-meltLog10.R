@@ -55,8 +55,8 @@ NULL
 
 
 #' @importFrom dplyr mutate
+#' @importFrom magrittr set_colnames
 #' @importFrom reshape2 melt
-#' @importFrom stats setNames
 #' @importFrom tibble rownames_to_column
 .meltLog10 <- function(counts) {
     assert_is_matrix(counts)
@@ -64,7 +64,7 @@ NULL
         as.data.frame() %>%
         rownames_to_column() %>%
         melt(id = 1L) %>%
-        setNames(c("ensgene", "sampleID", "counts")) %>%
+        set_colnames(c("ensgene", "sampleID", "counts")) %>%
         # Melt operation will define as factor. Let's set this manually later.
         mutate(sampleID = as.character(.data[["sampleID"]])) %>%
         # Remove zero counts

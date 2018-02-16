@@ -45,7 +45,7 @@ NULL
 #' @importFrom basejump camel
 #' @importFrom dplyr filter left_join pull
 #' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
-#' @importFrom stats setNames
+#' @importFrom magrittr set_colnames
 #' @importFrom tibble rownames_to_column
 #' @importFrom viridis scale_color_viridis
 .plotGenderMarkers <- function(
@@ -93,10 +93,9 @@ NULL
         # this to `ensgene` after melting the counts.
         as.data.frame() %>%
         rownames_to_column() %>%
-        # For `melt()`, can also declare `measure.vars` here instead of using
-        # `setNames()`. If you don't set `id`, function will output a message.
+        # For `melt()` can also declare `measure.vars` here instead
         melt(id = 1L) %>%
-        setNames(c("ensgene", "sampleName", "counts")) %>%
+        set_colnames(c("ensgene", "sampleName", "counts")) %>%
         left_join(markers, by = "ensgene") %>%
         left_join(metadata, by  = "sampleName") %>%
         uniteInterestingGroups(interestingGroups)

@@ -55,9 +55,9 @@ NULL
 # Constructors =================================================================
 #' @importFrom dplyr mutate_all
 #' @importFrom grDevices colorRampPalette
+#' @importFrom magrittr set_names
 #' @importFrom pheatmap pheatmap
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom stats setNames
 #' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
 .plotCorrelationHeatmap <- function(
@@ -114,7 +114,7 @@ NULL
                 names(colors) <- col
                 colors
             }) %>%
-            setNames(colnames(annotationCol))
+            set_names(colnames(annotationCol))
     } else {
         annotationColors <- NULL
     }
