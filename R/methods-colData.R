@@ -23,7 +23,8 @@
 #'
 #' # Assignment support
 #' colData <- colData(bcb)
-#' colData[["age"]] <- factor(c(14, 30, 14, 30))
+#' # All columns will be coerced to factors
+#' colData[["age"]] <- c(14L, 30L, 14L, 30L)
 #' colData(bcb) <- colData
 #' colData(bcb) %>% glimpse()
 #'
@@ -35,7 +36,48 @@ NULL
 
 
 
-# Methods ======================================================================
+# Constructors =================================================================
+`.colData<-` <- function(x, ..., value) {
+    assert_are_identical(colnames(x), rownames(value))
+
+    # Sanitize all columns as factors
+    value <- lapply(
+        X = value,
+        FUN = function(x) {
+            droplevels(as.factor(x))
+        }
+    ) %>%
+        as("DataFrame")
+
+    if (!is.null(bcbio(x, "DESeqDataSet"))) {
+        colData(bcbio(x, "DESeqDataSet")) <- value
+    }
+    if (!is.null(assays(x)[["rlog"]])) {
+        colData(assays(x)[["rlog"]]) <- value
+    }
+    if (!is.null(assays(x)[["vst"]])) {
+        colData(assays(x)[["vst"]]) <- value
+    }
+
+    slot(x, "colData") <- value
+    x
+}
+
+
+
+# Assignment Methods ===========================================================
+#' @rdname colData
+#' @export
+setMethod(
+    "colData<-",
+    signature(
+        x = "bcbioRNASeq",
+        value = "data.frame"
+    ),
+    `.colData<-`)
+
+
+
 #' @rdname colData
 #' @export
 setMethod(
@@ -44,28 +86,4 @@ setMethod(
         x = "bcbioRNASeq",
         value = "DataFrame"
     ),
-    function(x, ..., value) {
-        assert_are_identical(ncol(x), nrow(value))
-
-        # Sanitize all columns as factors
-        value <- lapply(
-            X = value,
-            FUN = function(x) {
-                droplevels(as.factor(x))
-            }
-        ) %>%
-            as("DataFrame")
-
-        if (!is.null(bcbio(x, "DESeqDataSet"))) {
-            colData(bcbio(x, "DESeqDataSet")) <- value
-        }
-        if (!is.null(assays(x)[["rlog"]])) {
-            colData(assays(x)[["rlog"]]) <- value
-        }
-        if (!is.null(assays(x)[["vst"]])) {
-            colData(assays(x)[["vst"]]) <- value
-        }
-
-        slot(x, "colData") <- value
-        x
-    })
+    `.colData<-`)
