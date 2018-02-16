@@ -5,7 +5,7 @@
 #' @rdname sampleMetadata
 #' @name sampleMetadata
 #'
-#' @importFrom bcbioBase sampleMetadata
+#' @importFrom bcbioBase sampleMetadata sampleMetadata<-
 #'
 #' @inheritParams general
 #'
@@ -26,21 +26,22 @@
 #' # DESeqTransform
 #' rld <- assays(bcb)[["rlog"]]
 #' sampleMetadata(rld) %>% glimpse()
+#'
+#' # Assignment support
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom dplyr mutate_all
-#' @importFrom magrittr set_rownames
 .sampleMetadata <- function(object, ...) {
-    data <- colData(object)
-    assert_is_all_of(data, "DataFrame")
-    assert_is_subset("sampleID", colnames(data))
-    data %>%
-        as.data.frame() %>%
-        mutate_all(as.factor) %>%
-        set_rownames(.[["sampleID"]])
+    as.data.frame(colData(object))
+}
+
+
+
+`.sampleMetadata<-` <- function(object, ..., value) {
+    colData(object) <- value
+    object
 }
 
 
@@ -70,3 +71,77 @@ setMethod(
     "sampleMetadata",
     signature("DESeqTransform"),
     .sampleMetadata)
+
+
+
+# Assignment Methods ===========================================================
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqDataSet",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqDataSet",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqTransform",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqTransform",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)
