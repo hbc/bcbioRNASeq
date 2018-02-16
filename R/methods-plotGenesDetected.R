@@ -50,15 +50,26 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_is_matrix(counts)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_an_implicit_integer(passLimit)
+    assert_is_an_implicit_integer(warnLimit)
+    assert_is_an_implicit_integer(minCounts)
+    .assert_formal_scale_discrete(fill)
+    assert_is_a_bool(flip)
+    .assert_formal_title(title)
+
     if (isTRUE(title)) {
         title <- "genes detected"
     } else if (!is.character(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
@@ -112,14 +123,11 @@ setMethod(
         minCounts = 0L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGenesDetected(
-            metrics(object),
+            object = metrics(object),
             counts = assay(object),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
@@ -151,7 +159,7 @@ setMethod(
         .plotGenesDetected(
             object,
             counts = assay(counts),
-            interestingGroups = "sampleName",
+            interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
             minCounts = minCounts,
