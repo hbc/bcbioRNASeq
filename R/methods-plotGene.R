@@ -62,7 +62,7 @@ NULL
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom basejump annotable detectOrganism
+#' @importFrom basejump annotable detectOrganism markdownHeader
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
@@ -162,7 +162,7 @@ NULL
                 if (is.null(symbol)) {
                     symbol <- ensgene
                 }
-                mdHeader(symbol, level = headerLevel, asis = TRUE)
+                markdownHeader(symbol, level = headerLevel, asis = TRUE)
             }
             show(plots[[a]])
         }) %>%

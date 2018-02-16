@@ -78,7 +78,7 @@ NULL
     assert_is_character_or_null(samples)
     assert_formal_color_function(color)
     assert_formal_color_function(legendColor)
-    assert_is_any_of(title, c("character", "logical"))
+    .assert_formal_title(title)
 
     if (is.character(genes)) {
         counts <- counts[genes, , drop = FALSE]
@@ -171,7 +171,7 @@ NULL
     }
     assert_formal_interesting_groups(
         sampleMetadata(object), interestingGroups)
-    assert_is_any_of(title, c("character", "logical"))
+    .assert_formal_title(title)
 
     # Don't set annotation columns if we're only grouping by sample name
     if (identical(interestingGroups, "sampleName")) {

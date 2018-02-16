@@ -60,9 +60,9 @@ NULL
     assert_is_a_string(organism)
     assert_is_data.frame(metadata)
     assert_is_a_string(countsAxisLabel)
-    assert_is_any_of(color, c("ScaleDiscrete", NULL))
-    assert_is_any_of(title, c("character", "logical", "NULL"))
-
+    .assert_formal_discrete_scale(color)
+    .assert_formal_title(title)
+    
     if (isTRUE(title)) {
         title <- "gender markers"
     } else if (!is.character(title)) {

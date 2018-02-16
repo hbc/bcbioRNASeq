@@ -8,6 +8,7 @@
 #' @importFrom assertive assert_all_are_greater_than
 #' @importFrom assertive assert_all_are_non_negative
 #' @importFrom assertive assert_are_identical
+#' @importFrom assertive assert_are_intersecting_sets
 #' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_colnames
 #' @importFrom assertive assert_has_dimnames
@@ -48,5 +49,30 @@
 #'
 #' @inheritParams general
 #'
+#' @param severity How severe should the consequences of the assertion be?
+#'   Either "`stop`", "`warning`", "`message`", or "`none`".
+#'
 #' @return Stop on error.
 NULL
+
+
+
+.assert_formal_scale_discrete <- function(  # nolint
+    x,
+    severity = "stop") {
+    assert_is_any_of(
+        x = x,
+        classes = c("ScaleDiscrete", "NULL"),
+        severity = severity)
+}
+
+
+
+.assert_formal_title <- function(  # nolint
+    x,
+    severity = "stop") {
+    assert_is_any_of(
+        x = x,
+        classes = c("character", "logical", "NULL"),
+        severity = severity)
+}

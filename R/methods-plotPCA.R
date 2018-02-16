@@ -61,7 +61,7 @@ NULL
     assert_is_all_of(object, "DESeqTransform")
     assert_formal_interesting_groups(colData(object), interestingGroups)
     assert_is_character_or_null(genes)
-    assert_is_any_of(color, c("ScaleDiscrete", "NULL"))
+    .assert_formal_discrete_scale(color)
     assert_is_a_bool(label)
     assert_is_a_bool(returnData)
 

@@ -46,10 +46,10 @@ NULL
     assert_formal_interesting_groups(object, interestingGroups)
     assert_is_a_string(style)
     assert_is_subset(style, c("line", "solid"))
-    assert_is_any_of(color, c("ScaleDiscrete", NULL))
-    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
-    assert_is_any_of(title, c("character", "logical", "NULL"))
-
+    .assert_formal_discrete_scale(color)
+    .assert_formal_discrete_scale(fill)
+    .assert_formal_title(title)
+    
     data <- uniteInterestingGroups(object, interestingGroups)
 
     if (isTRUE(title)) {

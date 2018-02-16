@@ -6,16 +6,17 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams general
+#'
 #' @importFrom BiocGenerics updateObject
 #'
 #' @note The previous bcbioRnaseq package (note lowercase "c") must be
 #'   reinstalled to load objects from versions <= 0.0.24.
 #'
 #' @return [bcbioRNASeq].
-#'
-#' @examples
-#' # FIXME Needs working example
 NULL
+
+# TODO Add working example
 
 
 

@@ -8,6 +8,9 @@
 \usage{
 \S4method{updateObject}{bcbioRNADataSet}(object)
 }
+\arguments{
+\item{object}{Object.}
+}
 \value{
 \link{bcbioRNASeq}.
 }
@@ -26,9 +29,6 @@ latest \link{bcbioRNASeq} class version. This should be backwards compatible to
 (note case) will likely fail to load with newer versions of the package.
 }
 
-\examples{
-# FIXME Needs working example
-}
 \author{
 Michael Steinbaugh
 }

@@ -126,7 +126,7 @@ NULL
         x = counts,
         classes = c("DESeqDataSet", "DESeqTransform", "matrix")
     )
-    assert_is_any_of(title, c("character", "logical"))
+    .assert_formal_title(title)
 
     if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)

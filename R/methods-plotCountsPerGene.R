@@ -38,10 +38,10 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_formal_interesting_groups(object, interestingGroups)
-    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
+    .assert_formal_discrete_scale(fill)
     assert_is_a_bool(flip)
-    assert_is_any_of(title, c("character", "logical", "NULL"))
-
+    .assert_formal_title(title)
+    
     data <- uniteInterestingGroups(object, interestingGroups)
 
     if (isTRUE(title)) {
