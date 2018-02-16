@@ -37,15 +37,26 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_an_implicit_integer(passLimit)
+    assert_all_are_non_negative(passLimit)
+    assert_is_an_implicit_integer(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    .assert_formal_scale_discrete(fill)
+    assert_is_a_bool(flip)
+    .assert_formal_title(title)
+
     if (isTRUE(title)) {
         title <- "mapping rate"
     } else if (!is.character(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / totalReads * 100L,
@@ -60,10 +71,10 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -84,32 +95,36 @@ NULL
 
 
 
+.plotMappingRate.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    passLimit = 90L,
+    warnLimit = 70L,
+    fill = scale_fill_viridis(discrete = TRUE),
+    flip = TRUE,
+    title = TRUE) {
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plotMappingRate(
+        object = metrics(object),
+        interestingGroups = interestingGroups,
+        passLimit = passLimit,
+        warnLimit = warnLimit,
+        fill = fill,
+        flip = flip,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotMappingRate
 #' @export
 setMethod(
     "plotMappingRate",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        passLimit = 90L,
-        warnLimit = 70L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotMappingRate(
-            metrics(object),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plotMappingRate.bcbioRNASeq)
 
 
 
