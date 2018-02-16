@@ -35,11 +35,14 @@ NULL
 # Constructors =================================================================
 #' @importFrom DEGreport degCovariates
 #' @importFrom dplyr select_if
-.plotPCACovariates <- function(
+.plotPCACovariates.bcbioRNASeq <- function(  # nolint
     object,
     metrics = TRUE,
     normalized = "rlog",
     ...) {
+    assert_is_any_of(metrics, c("character", "logical"))
+    assert_is_a_string(normalized)
+
     counts <- counts(object, normalized = normalized)
 
     metadata <- metrics(object)
@@ -58,24 +61,12 @@ NULL
         col <- interestingGroups(object)
     } else if (is.character(metrics)) {
         col <- metrics
-    } else {
-        abort("`metrics` must be a logical or character vector")
     }
 
-    # Stop on 1 column
-    if (length(col) == 1L) {
-        abort(paste(
-            "`degCovariates()` requires at least 2 metadata columns"
-        ))
-    }
-
-    # Now select the columns to use for plotting
-    if (all(col %in% colnames(metadata))) {
-        metadata <- metadata[, col, drop = FALSE]
-    } else {
-        # FIXME Make this message more informative. Which metrics?
-        abort("Failed to select valid `metrics` columns to plot")
-    }
+    # Stop on 1 metrics column
+    assert_all_are_greater_than(length(col), 1L)
+    assert_is_subset(col, colnames(metadata))
+    metadata <- metadata[, col, drop = FALSE]
 
     degCovariates(
         counts = counts,
@@ -91,4 +82,4 @@ NULL
 setMethod(
     "plotPCACovariates",
     signature("bcbioRNASeq"),
-    .plotPCACovariates)
+    .plotPCACovariates.bcbioRNASeq)
