@@ -52,6 +52,7 @@ NULL
 .counts.bcbioRNASeq <- function(  # nolint
     object,
     normalized = FALSE) {
+    assert_is_any_of(normalized, c("character", "logical"))
     if (normalized == FALSE) {
         slot <- "raw"
     } else if (normalized == TRUE) {

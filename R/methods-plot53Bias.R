@@ -38,11 +38,11 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_is_character(interestingGroups)
+    assert_formal_interesting_groups(object, interestingGroups)
     assert_is_an_implicit_integer(warnLimit)
     assert_is_any_of(fill, c("ScaleDiscrete", NULL))
     assert_is_a_bool(flip)
-    assert_is_any_of(title, c("character", "NULL"))
+    assert_is_any_of(title, c("character", "logical", "NULL"))
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
