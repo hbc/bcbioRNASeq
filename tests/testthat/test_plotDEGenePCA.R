@@ -7,7 +7,7 @@ load(system.file(
     file.path("extdata", "rld.rda"),
     package = "bcbioRNASeq"))
 
-test_that("DESeqResults, DESeqTransform" {
+test_that("DESeqResults, DESeqTransform", {
     p <- suppressMessages(
         plotDEGenePCA(res, counts = rld)
     )
