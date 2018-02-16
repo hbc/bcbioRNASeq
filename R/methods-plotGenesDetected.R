@@ -40,7 +40,6 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
     counts,

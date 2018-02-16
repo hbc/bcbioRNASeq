@@ -34,7 +34,7 @@ NULL
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -86,7 +86,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = "tmm",
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (missing(interestingGroups)) {

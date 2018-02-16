@@ -20,7 +20,7 @@
 #' @param stackReplicates Stack replicate points into a single tick on the
 #'   sample axis.
 #' @param color Desired ggplot color scale. Defaults to
-#'   [viridis::scale_color_viridis()]. Must supply discrete values. When set to
+#'   [scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
@@ -84,7 +84,7 @@ NULL
     metadata,
     interestingGroups = "sampleName",
     stackReplicates = TRUE,
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
     return = "grid",
     headerLevel = 2L) {
@@ -178,7 +178,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGene
-#' @importFrom viridis scale_color_viridis
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @export
@@ -192,7 +191,7 @@ setMethod(
         log2 = TRUE,
         interestingGroups,
         stackReplicates = TRUE,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
         if (identical(normalized, FALSE)) {
@@ -244,7 +243,7 @@ setMethod(
         gene2symbol = NULL,
         interestingGroups = "sampleName",
         stackReplicates = TRUE,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
         # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
@@ -282,7 +281,7 @@ setMethod(
         gene2symbol = NULL,
         interestingGroups = "sampleName",
         stackReplicates = TRUE,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         return = "grid",
         headerLevel = 2L) {
         counts <- assay(object)

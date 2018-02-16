@@ -34,7 +34,7 @@ NULL
     object,
     interestingGroups = "sampleName",
     warnLimit = 2L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
@@ -98,7 +98,7 @@ NULL
     object,
     interestingGroups,
     warnLimit = 2L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (missing(interestingGroups)) {

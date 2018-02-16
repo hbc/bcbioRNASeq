@@ -35,13 +35,12 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot guides labs
-#' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
     interestingGroups = "sampleName",
     style = "solid",
-    color = viridis::scale_color_viridis(discrete = TRUE),
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     title = TRUE) {
     validStyles <- c("line", "solid")
     if (!style %in% validStyles) {
@@ -94,7 +93,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCountDensity
-#' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotCountDensity",
@@ -104,8 +102,8 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         style = "solid",
-        color = viridis::scale_color_viridis(discrete = TRUE),
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)

@@ -66,8 +66,8 @@ NULL
     gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title,
     ...) {
     # Passthrough: color, legendColor
@@ -116,8 +116,8 @@ NULL
     gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title = TRUE,
     ...) {
     # Passthrough: lfc, gene2symbol, annotationCol, scale, color, legendColor

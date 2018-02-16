@@ -35,7 +35,7 @@ setMethod(
         counts,
         interestingGroups = "sampleName",
         lfc = 0L,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
         returnData = FALSE) {
         # Passthrough: interestingGroups, color, label, returnData

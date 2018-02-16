@@ -54,7 +54,7 @@ NULL
     organism,
     metadata,
     countsAxisLabel = "counts",
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     if (isTRUE(title)) {
         title <- "gender markers"
@@ -127,8 +127,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGenderMarkers
-#' @importFrom S4Vectors metadata
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -136,7 +134,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -155,7 +153,6 @@ setMethod(
 
 #' @rdname plotGenderMarkers
 #' @importFrom basejump detectOrganism
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -164,7 +161,7 @@ setMethod(
         object,
         interestingGroups = "sampleName",
         organism,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
         counts <- counts(object, normalized = TRUE)
         if (missing(organism)) {

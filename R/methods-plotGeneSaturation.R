@@ -36,13 +36,12 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
-#' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
     counts,
     interestingGroups = "sampleName",
     minCounts = 0L,
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     if (isTRUE(title)) {
         title <- "gene saturation"
@@ -78,7 +77,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGeneSaturation
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGeneSaturation",
@@ -90,7 +88,7 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         minCounts = 0L,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {

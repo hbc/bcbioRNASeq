@@ -29,12 +29,11 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
-#' @importFrom viridis scale_fill_viridis
 .plotExonicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 60L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -90,7 +89,7 @@ setMethod(
         object,
         interestingGroups,
         passLimit = 60L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
