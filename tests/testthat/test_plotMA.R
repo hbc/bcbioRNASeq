@@ -3,9 +3,11 @@ context("plotMA")
 load(system.file(
     file.path("extdata", "res.rda"),
     package = "bcbioRNASeq"))
+genes <- head(rownames(res))
 
-test_that("plotMA", {
+test_that("DESeqResults", {
     p <- plotMA(res)
+    expect_is(p, "ggplot")
 
     # Check geom classes
     geomtype <- sapply(p[["layers"]], function(x) class(x[["geom"]])[[1L]])
@@ -19,4 +21,9 @@ test_that("plotMA", {
     expect_identical(
         p[["labels"]][["x"]],
         "mean expression across all samples")
+})
+
+test_that("Gene labels", {
+    p <- plotMA(res, genes = genes)
+    expect_is(p, "ggplot")
 })
