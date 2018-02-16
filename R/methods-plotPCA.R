@@ -156,16 +156,10 @@ NULL
     label = FALSE,
     returnData = FALSE) {
     # Passthrough: genes, color, label, returnData
-    # interestingGroups
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }
-    # censorSamples
-    if (!(is.character(censorSamples) ||
-          is.factor(censorSamples) ||
-          is.null(censorSamples))) {
-        abort("`censorSamples` must be a character vector, factor, or NULL")
-    }
+    assert_is_any_of(censorSamples, c("character", "factor", "NULL"))
 
     # Obtain internal DESeqTransform
     dt <- assays(object)[[normalized]]
@@ -180,12 +174,7 @@ NULL
 
     # Censor samples, if desired
     if (!is.null(censorSamples)) {
-        # Check that `censorSamples` are present
-        if (!all(censorSamples %in% colnames(object))) {
-            # FIXME Improve this error message, telling the user which ones
-            # are missing
-            abort("`censorSamples` missing in object")
-        }
+        assert_is_subset(censorSamples, colnames(object))
         samples <- setdiff(colnames(object), censorSamples)
         dt <- dt[, samples, drop = FALSE]
     }
