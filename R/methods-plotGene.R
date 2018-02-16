@@ -9,14 +9,16 @@
 #'
 #' @inherit plotTotalReads
 #'
-#' @param genes *Optional.* Gene identifiers (rownames) to plot. These must be
-#'   the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-#'   gene symbols.
+#' @param genes Gene identifiers (rownames) to plot. These must be the stable
+#'   identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+#'   symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
 #'   [data.frame] can be passed in, and must contain the columns `ensgene` and
 #'   `symbol`. then the Ensembl gene identifiers will be labeled in place of
 #'   gene symbols.
 #' @param metadata Sample metadata [data.frame].
+#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
+#'   `rlog`, or `vst`.
 #' @param stackReplicates Stack replicate points into a single tick on the
 #'   sample axis.
 #' @param color Desired ggplot color scale. Defaults to
@@ -70,9 +72,7 @@ NULL
 #' @importFrom pbapply pblapply
 #' @importFrom tibble tibble
 #'
-#' @param genes Gene identifiers, as a named character vector. `ensgene` is
-#'   provided as the value and `symbol` as the name. This gets defined in the S4
-#'   method (see below).
+
 #'
 #' @return [ggplot].
 .plotGene <- function(
@@ -86,6 +86,17 @@ NULL
     countsAxisLabel = "counts",
     return = "grid",
     headerLevel = 2L) {
+    assert_is_character(genes)
+    assert_is_data.frame(metadata)
+    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assert_is_data.frame(metadata)
+    assert_formal_interesting_groups(metadata, interestingGroups)
+    assert_is_a_bool(stackReplicates)
+    .assert_formal_scale_discrete(color)
+    assert_is_a_string(countsAxisLabel)
+    assert_is_a_string(return)
+    assert_is_subset(return, c("grid", "list", "markdown"))
+    assert_formal_header_level(headerLevel)
 
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
@@ -96,9 +107,7 @@ NULL
     }
 
     # Prepare interesting groups column
-    metadata <- metadata %>%
-        as.data.frame() %>%
-        uniteInterestingGroups(interestingGroups)
+    metadata <- uniteInterestingGroups(metadata, interestingGroups)
 
     plots <- lapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
@@ -117,12 +126,14 @@ NULL
             x <- colnames(object)
             xlab <- "sample"
         }
+
         data <- tibble(
             x = x,
             y = object[ensgene, , drop = TRUE],
             interestingGroups = metadata[["interestingGroups"]])
+
         p <- ggplot(
-            data,
+            data = data,
             mapping = aes_string(
                 x = "x",
                 y = "y",
@@ -138,18 +149,20 @@ NULL
                 color = paste(interestingGroups, collapse = ":\n")
             ) +
             expand_limits(y = 0L)
+
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
+
         if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(color = FALSE)
         }
+
         p
     })
     names(plots) <- genes
 
     # Return
-    validReturn <- c("grid", "list", "markdown")
     if (return == "grid") {
         plot_grid(plotlist = plots, labels = NULL)
     } else if (return == "list") {
@@ -167,8 +180,6 @@ NULL
             show(plots[[a]])
         }) %>%
             invisible()
-    } else {
-        abort(paste("`return` must contain:", toString(validReturn)))
     }
 }
 
@@ -178,42 +189,24 @@ NULL
     object,
     genes,
     normalized = "tpm",
-    log2 = TRUE,
     interestingGroups,
     stackReplicates = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     return = "grid",
     headerLevel = 2L) {
-    if (identical(normalized, FALSE)) {
-        abort(paste(
-            "Raw counts are not library size adjusted and therefore",
-            "not recommended to use for gene plots"
-        ))
-    }
     # Passthrough: stackReplicates, color, return, headerLevel
+    assert_is_a_string(normalized)
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }
-    counts <- counts(object, normalized = normalized)
-    if (isTRUE(normalized)) {
-        countsAxisLabel <- "normalized counts"
-        if (isTRUE(log2)) {
-            counts <- log2(counts + 1L)
-            countsAxisLabel <- c("log2", countsAxisLabel)
-        }
-    } else {
-        countsAxisLabel <- normalized
-    }
-    gene2symbol <- gene2symbol(object)
-    metadata <- sampleMetadata(object)
     .plotGene(
-        object = counts,
+        object = counts(object, normalized = normalized),
         genes = genes,
-        gene2symbol = gene2symbol,
-        metadata = metadata,
+        gene2symbol = gene2symbol(object),
+        metadata = sampleMetadata(object),
         interestingGroups = interestingGroups,
         color = color,
-        countsAxisLabel = countsAxisLabel,
+        countsAxisLabel = normalized,
         return = return,
         headerLevel = headerLevel)
 }
@@ -223,7 +216,6 @@ NULL
 .plotGene.DESeqDataSet <- function(  # nolint
     object,
     genes,
-    log2 = TRUE,
     gene2symbol = NULL,
     interestingGroups = "sampleName",
     stackReplicates = TRUE,
@@ -232,18 +224,42 @@ NULL
     headerLevel = 2L) {
     # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
     # color, return, headerLevel
-    counts <- counts(object, normalized = TRUE)
-    countsAxisLabel <- "normalized counts"
-    if (isTRUE(log2)) {
-        counts <- log2(counts + 1L)
-        countsAxisLabel <- paste("log2", countsAxisLabel)
-    }
-    metadata <- colData(object)
     .plotGene(
-        object = counts,
+        object = log2(counts(object, normalized = TRUE) + 1L),
         genes = genes,
         gene2symbol = gene2symbol,
-        metadata = metadata,
+        metadata = sampleMetadata(object),
+        interestingGroups = interestingGroups,
+        stackReplicates = stackReplicates,
+        color = color,
+        countsAxisLabel = "log2 normalized counts",
+        return = return,
+        headerLevel = headerLevel)
+}
+
+
+
+.plotGene.DESeqTransform <- function(  # nolint
+    object,
+    genes,
+    gene2symbol = NULL,
+    interestingGroups = "sampleName",
+    stackReplicates = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
+    return = "grid",
+    headerLevel = 2L) {
+    # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
+    # color, return, headerLevel
+    if ("rlogIntercept" %in% colnames(mcols(object))) {
+        countsAxisLabel <- "rlog"
+    } else {
+        countsAxisLabel <- "vst"
+    }
+    .plotGene(
+        object = assay(object),
+        genes = genes,
+        gene2symbol = gene2symbol,
+        metadata = sampleMetadata(object),
         interestingGroups = interestingGroups,
         stackReplicates = stackReplicates,
         color = color,
@@ -256,8 +272,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGene
-#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
-#'   `rlog`, or `vst`.
 #' @export
 setMethod(
     "plotGene",
@@ -267,7 +281,6 @@ setMethod(
 
 
 #' @rdname plotGene
-#' @param log2 Apply `log2(x + 1)` transformation to normalized counts.
 #' @export
 setMethod(
     "plotGene",
@@ -281,36 +294,7 @@ setMethod(
 setMethod(
     "plotGene",
     signature("DESeqTransform"),
-    function(
-        object,
-        genes,
-        gene2symbol = NULL,
-        interestingGroups = "sampleName",
-        stackReplicates = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L) {
-        counts <- assay(object)
-        metadata <- colData(object)
-        # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
-        # color, return, headerLevel
-        if ("rlogIntercept" %in% colnames(mcols(object))) {
-            countsAxisLabel <- "rlog"
-        } else {
-            countsAxisLabel <- "vst"
-        }
-        .plotGene(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            metadata = metadata,
-            interestingGroups = interestingGroups,
-            stackReplicates = stackReplicates,
-            color = color,
-            countsAxisLabel = countsAxisLabel,
-            return = return,
-            headerLevel = headerLevel)
-    })
+    .plotGene.DESeqTransform)
 
 
 
