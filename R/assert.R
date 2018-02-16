@@ -34,6 +34,7 @@
 #' @importFrom basejump assert_formal_annotation_col
 #' @importFrom basejump assert_formal_color_function
 #' @importFrom basejump assert_formal_gene2symbol
+#' @importFrom basejump assert_formal_header_level
 #' @importFrom basejump assert_is_a_number_or_null
 #' @importFrom basejump assert_is_a_string_or_null
 #' @importFrom basejump assert_is_an_implicit_integer
