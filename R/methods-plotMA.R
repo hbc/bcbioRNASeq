@@ -62,7 +62,14 @@ NULL
     sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
+    assert_is_data.frame(object)
+    assert_is_a_number(alpha)
+    assert_all_are_positive(alpha)
     assert_formal_gene2symbol(object, genes, gene2symbol)
+    assert_is_a_string(pointColor)
+    assert_is_a_string(sigPointColor)
+    assert_is_a_string(labelColor)
+    .assert_formal_title(title)
 
     data <- object %>%
         rownames_to_column("ensgene") %>%
@@ -71,7 +78,7 @@ NULL
         filter(!is.na(.data[["padj"]]))
 
     p <- ggplot(
-        data,
+        data = data,
         mapping = aes_(
             x = ~baseMean,
             y = ~log2FoldChange,
@@ -86,7 +93,7 @@ NULL
             x = "mean expression across all samples",
             y = "log2 fold change")
 
-    if (!is.null(pointColor) & !is.null(sigPointColor)) {
+    if (!is.null(pointColor) && !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
         p <- p +
@@ -94,7 +101,7 @@ NULL
                 values = c("FALSE" = pointColor, "TRUE" = sigPointColor))
     }
 
-    if (!is.null(genes)) {
+    if (is.character(genes)) {
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
             assert_is_gene2symbol(gene2symbol)
@@ -131,6 +138,32 @@ NULL
 
 
 
+.plotMA.DESeqResults <- function(  # nolint
+    object,
+    genes = NULL,
+    gene2symbol = NULL,
+    pointColor = "darkgray",
+    sigPointColor = "red",
+    labelColor = "black",
+    title = TRUE) {
+    # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
+    .assert_formal_title(title)
+    if (isTRUE(title)) {
+        title <- .contrastName.DESeqResults(object)
+    }
+    .plotMA(
+        object = as.data.frame(object),
+        alpha = metadata(object)[["alpha"]],
+        genes = genes,
+        gene2symbol = gene2symbol,
+        pointColor = pointColor,
+        sigPointColor = sigPointColor,
+        labelColor = labelColor,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotMA
 #' @importFrom ggplot2 scale_color_manual
@@ -139,31 +172,7 @@ NULL
 setMethod(
     "plotMA",
     signature("DESeqResults"),
-    function(
-        object,
-        genes = NULL,
-        gene2symbol = NULL,
-        pointColor = "darkgray",
-        sigPointColor = "red",
-        labelColor = "black",
-        title = TRUE) {
-        # Passthrough: genes, gene2symbol, pointColor, sigPointColor,
-        # labelColor
-        results <- as.data.frame(object)
-        alpha <- metadata(object)[["alpha"]]
-        if (isTRUE(title)) {
-            title <- .contrastName.DESeqResults(object)
-        }
-        .plotMA(
-            object = results,
-            alpha = alpha,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            pointColor = pointColor,
-            sigPointColor = sigPointColor,
-            labelColor = labelColor,
-            title = title)
-    })
+    .plotMA.DESeqResults)
 
 
 
