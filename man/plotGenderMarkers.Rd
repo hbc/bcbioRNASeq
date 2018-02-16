@@ -19,8 +19,8 @@ plotGenderMarkers(object, ...)
   interestingGroups = "sampleName", organism,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
-\S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
-  organism, metadata, countsAxisLabel = "counts",
+\S4method{plotGenderMarkers}{matrix}(object, metadata,
+  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{

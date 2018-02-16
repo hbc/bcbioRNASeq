@@ -10,14 +10,14 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
-  log2 = TRUE, interestingGroups, stackReplicates = TRUE,
+  interestingGroups, stackReplicates = TRUE,
   color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{DESeqDataSet}(object, genes, log2 = TRUE,
-  gene2symbol = NULL, interestingGroups = "sampleName",
-  stackReplicates = TRUE, color = scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2L)
+\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
+  interestingGroups = "sampleName", stackReplicates = TRUE,
+  color = scale_color_viridis(discrete = TRUE), return = "grid",
+  headerLevel = 2L)
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", stackReplicates = TRUE,
@@ -32,14 +32,12 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\emph{Optional.} Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-gene symbols.}
+\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
-
-\item{log2}{Apply \code{log2(x + 1)} transformation to normalized counts.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,

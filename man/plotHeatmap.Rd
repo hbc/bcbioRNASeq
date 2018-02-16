@@ -36,9 +36,9 @@
 
 \item{samples}{\emph{Optional.} Samples (colnames) to plot.}
 
-\item{genes}{\emph{Optional.} Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-gene symbols.}
+\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the row direction or the column direction, or none. Corresponding
