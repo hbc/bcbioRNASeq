@@ -46,7 +46,7 @@
 #' plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
 #'
 #' # Label with Ensembl gene identifiers
-#' plotVolcano(res, ntop = 1, gene2symbol = FALSE)
+#' plotVolcano(res, ntop = 3L)
 #'
 #' # data.frame
 #' df <- as.data.frame(res)
