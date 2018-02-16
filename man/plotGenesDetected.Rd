@@ -68,14 +68,14 @@ load(system.file(
 # bcbioRNASeq
 plotGenesDetected(
     bcb,
-    passLimit = NULL,
-    warnLimit = NULL)
+    passLimit = 0L,
+    warnLimit = 0L)
 plotGenesDetected(
     bcb,
     interestingGroups = "sampleName",
     fill = NULL,
-    passLimit = NULL,
-    warnLimit = NULL)
+    passLimit = 0L,
+    warnLimit = 0L)
 
 # data.frame, DESeqDataSet
 df <- metrics(bcb)
