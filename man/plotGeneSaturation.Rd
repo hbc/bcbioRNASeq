@@ -11,11 +11,11 @@
 plotGeneSaturation(object, counts, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0L, color = scale_color_viridis(discrete
-  = TRUE), title = TRUE)
+  normalized = "tmm", minCounts = 0L, trendline = TRUE,
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroups = "sampleName", minCounts = 0L,
+  interestingGroups = "sampleName", minCounts = 0L, trendline = TRUE,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
@@ -36,6 +36,8 @@ for more information.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}
+
+\item{trendline}{Include a trendline for each group.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
