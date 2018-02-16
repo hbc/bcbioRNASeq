@@ -48,6 +48,7 @@ NULL
     assert_is_data.frame(object)
     assert_formal_interesting_groups(object, interestingGroups)
     assert_is_an_implicit_integer(minCounts)
+    assert_all_are_non_negative(minCounts)
     assert_is_a_bool(trendline)
     .assert_formal_scale_discrete(color)
     .assert_formal_title(title)
