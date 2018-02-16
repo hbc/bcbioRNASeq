@@ -312,7 +312,7 @@ loadRNASeq <- function(
             featureCounts <- featureCounts %>%
                 .[, gsub(x = make.names(pull(metrics, "name"), unique = TRUE),
                         pattern = "\\.",
-                        replacement = "_"), drop = FALSE]
+                        replacement = "_"), drop = FALSE] %>%
                 # Ensure column names match tximport
                 set_colnames(colnames(rawCounts))
         }
