@@ -12,7 +12,8 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = scale_color_viridis(discrete = TRUE), title = TRUE)
+  normalized = "tpm", color = scale_color_viridis(discrete = TRUE),
+  title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
@@ -32,6 +33,9 @@ functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
+
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to

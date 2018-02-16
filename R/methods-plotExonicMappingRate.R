@@ -36,15 +36,23 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_an_implicit_integer(passLimit)
+    assert_is_any_of(fill, c("ScaleDiscrete", NULL))
+    assert_is_a_bool(flip)
+    assert_is_any_of(title, c("character", "logical", "NULL"))
+
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     if (isTRUE(title)) {
         title <- "exonic mapping rate"
     } else if (!is.character(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~exonicRate * 100L,
@@ -79,31 +87,34 @@ NULL
 
 
 
+.plotExonicMappingRate.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    passLimit = 60L,
+    fill = scale_fill_viridis(discrete = TRUE),
+    flip = TRUE,
+    title = TRUE) {
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plotExonicMappingRate(
+        object = metrics(object),
+        interestingGroups = interestingGroups,
+        passLimit = passLimit,
+        fill = fill,
+        flip = flip,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotExonicMappingRate
 #' @export
 setMethod(
     "plotExonicMappingRate",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        passLimit = 60L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotExonicMappingRate(
-            metrics(object),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plotExonicMappingRate.bcbioRNASeq)
 
 
 

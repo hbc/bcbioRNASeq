@@ -47,5 +47,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, ...) {
         dds <- bcbio(object, "DESeqDataSet")
+        assert_is_all_of(dds, "DESeqDataSet")
         plotDispEsts(dds, ...)
     })

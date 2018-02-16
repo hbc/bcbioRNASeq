@@ -55,6 +55,14 @@ NULL
     countsAxisLabel = "counts",
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
+    assert_is_matrix(object)
+    assert_formal_interesting_groups(object, interestingGroups)
+    assert_is_a_string(organism)
+    assert_is_data.frame(metadata)
+    assert_is_a_string(countsAxisLabel)
+    assert_is_any_of(color, c("ScaleDiscrete", NULL))
+    assert_is_any_of(title, c("character", "logical", "NULL"))
+
     if (isTRUE(title)) {
         title <- "gender markers"
     } else if (!is.character(title)) {
@@ -63,28 +71,15 @@ NULL
 
     # Load the relevant internal gender markers data
     markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
-    if (!camel(organism) %in% names(markers)) {
-        warn(paste(
-            "Organism",
-            paste0("(", organism, ")"),
-            "is not supported"
-        ))
-        return(invisible(NULL))
-    }
-    # Convert the organism name from full latin to shorthand (e.g. hsapiens)
+    assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
     # Ensembl identifiers
     ensgene <- markers %>%
-        filter(.data[["include"]] == TRUE) %>%
-        pull("ensgene") %>%
+        .[.[["include"]] == TRUE, "ensgene", drop = TRUE] %>%
         sort() %>%
         unique()
-
-    if (!all(ensgene %in% rownames(object))) {
-        warn("Missing gender markers in count matrix")
-        return(invisible(NULL))
-    }
+    assert_is_subset(ensgene, rownames(object))
 
     data <- object %>%
         .[ensgene, , drop = FALSE] %>%
@@ -100,7 +95,7 @@ NULL
         uniteInterestingGroups(interestingGroups)
 
     p <- ggplot(
-        data,
+        data = data,
         mapping = aes_string(
             x = "symbol",
             y = "counts",
@@ -124,29 +119,58 @@ NULL
 
 
 
+.plotGenderMarkers.bcbioRNASeq <- function(  # nolint
+    object,
+    interestingGroups,
+    normalized = "tpm",
+    color = scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    assert_is_a_string(normalized)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    .plotGenderMarkers(
+        object = counts(object, normalized = normalized),
+        interestingGroups = interestingGroups,
+        organism = metadata(object)[["organism"]],
+        metadata = sampleMetadata(object),
+        countsAxisLabel = normalized,
+        color = color,
+        title = title)
+}
+
+
+
+.plotGenderMarkers.DESeqDataSet <- function(  # nolint
+    object,
+    interestingGroups = "sampleName",
+    organism,
+    color = scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    # Passthrough: interestingGroups, color, title
+    counts <- counts(object, normalized = TRUE)
+    if (missing(organism)) {
+        organism <- detectOrganism(counts)
+    }
+    .plotGenderMarkers(
+        object = counts,
+        interestingGroups = interestingGroups,
+        organism = organism,
+        metadata = sampleMetadata(object),
+        countsAxisLabel = "normalized counts",
+        color = color,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
     "plotGenderMarkers",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotGenderMarkers(
-            object = tpm(object),
-            interestingGroups = interestingGroups,
-            organism = metadata(object)[["organism"]],
-            metadata = sampleMetadata(object),
-            countsAxisLabel = "transcripts per million (tpm)",
-            color = color,
-            title = title)
-    })
+    .plotGenderMarkers.bcbioRNASeq)
 
 
 
@@ -156,27 +180,7 @@ setMethod(
 setMethod(
     "plotGenderMarkers",
     signature("DESeqDataSet"),
-    function(
-        object,
-        interestingGroups = "sampleName",
-        organism,
-        color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
-        counts <- counts(object, normalized = TRUE)
-        if (missing(organism)) {
-            organism <- rownames(counts) %>%
-                .[[1L]] %>%
-                detectOrganism()
-        }
-        .plotGenderMarkers(
-            counts,
-            interestingGroups = interestingGroups,
-            organism = organism,
-            metadata = sampleMetadata(object),
-            countsAxisLabel = "normalized counts",
-            color = color,
-            title = title)
-    })
+    .plotGenderMarkers.DESeqDataSet)
 
 
 
