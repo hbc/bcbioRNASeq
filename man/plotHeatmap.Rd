@@ -17,7 +17,7 @@
   annotationCol = NULL, scale = "row", color = viridis,
   legendColor = viridis, title = NULL, ...)
 
-\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
+\S4method{plotHeatmap}{DESeqTransform}(object, samples = NULL, genes = NULL,
   gene2symbol = NULL, annotationCol = NULL, scale = "row",
   color = viridis, legendColor = viridis, title = NULL, ...)
 }

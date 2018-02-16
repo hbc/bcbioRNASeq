@@ -30,31 +30,34 @@
 #' load(system.file(
 #'     file.path("extdata", "bcb.rda"),
 #'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "dds.rda"),
+#'     package = "bcbioRNASeq"))
+#' load(system.file(
+#'     file.path("extdata", "rld.rda"),
+#'     package = "bcbioRNASeq"))
 #'
-#' # Use Ensembl identifiers to define genes
-#' genes <- rownames(bcb)[1:20]
-#' plotHeatmap(bcb, genes = genes)
+#' gene2symbol <- gene2symbol(bcb)
 #'
-#' # Use inferno color palette
-#' plotHeatmap(
-#'     bcb,
-#'     genes = genes,
-#'     color = inferno,
-#'     legendColor = inferno)
+#' # bcbioRNASeq ====
+#' plotHeatmap(bcb, genes = head(rownames(bcb), 20L))
 #'
-#' # Transcriptome heatmap with default pheatmap colors
-#' plotHeatmap(
-#'     bcb,
-#'     color = NULL,
-#'     legendColor = NULL)
+#' # Full transcriptome heatmap with default pheatmap colors
+#' plotHeatmap(bcb, color = inferno, legendColor = inferno)
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotHeatmap(dds)
+#' plotHeatmap(
+#'     dds,
+#'     genes = head(rownames(dds), 20L),
+#'     gene2symbol = gene2symbol)
 #'
-#' # DESeqTransform
+#' # DESeqTransform ====
 #' rld <- assays(bcb)[["rlog"]]
-#' plotHeatmap(rld)
+#' plotHeatmap(
+#'     rld,
+#'     genes = head(rownames(dds), 20L),
+#'     gene2symbol = gene2symbol)
 NULL
 
 
@@ -150,6 +153,9 @@ NULL
     ...) {
     .plotHeatmap(
         object = counts(object, normalized = normalized),
+        samples = samples,
+        genes = genes,
+        gene2symbol = gene2symbol,
         annotationCol = annotationCol,
         scale = scale,
         color = color,
@@ -162,6 +168,7 @@ NULL
 
 .plotHeatmap.DESeqTransform <- function(  # nolint
     object,
+    samples = NULL,
     genes = NULL,
     gene2symbol = NULL,
     annotationCol = NULL,
@@ -172,6 +179,7 @@ NULL
     ...) {
     .plotHeatmap(
         object = assay(object),
+        samples = samples,
         genes = genes,
         gene2symbol = gene2symbol,
         annotationCol = annotationCol,

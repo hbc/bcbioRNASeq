@@ -3,13 +3,24 @@ context("plotHeatmap")
 load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
 
-test_that("plotHeatmap", {
-    genes <- counts(bcb)[1L:20L, ] %>%
-        rownames()
+gene2symbol <- gene2symbol(bcb)
+plotlist <- c("tree_row", "tree_col", "kmeans", "gtable")
+
+test_that("bcbioRNASeq", {
+    genes <- head(rownames(bcb), n = 20L)
     p <- plotHeatmap(bcb, genes = genes)
-    expect_equal(
-        names(p),
-        c("tree_row", "tree_col", "kmeans", "gtable")
-    )
+    expect_is(p, "list")
+    expect_identical(names(p), plotlist)
+})
+
+test_that("DESeqDataSet", {
+    genes <- head(rownames(dds), n = 20L)
+    p <- plotHeatmap(dds, genes = genes, gene2symbol = gene2symbol)
 })
