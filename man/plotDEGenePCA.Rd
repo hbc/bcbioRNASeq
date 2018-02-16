@@ -50,7 +50,7 @@ load(system.file(
     file.path("extdata", "rld.rda"),
     package = "bcbioRNASeq"))
 
-# DESeqResults + rlog counts
+# DESeqResults, DESeqTransform
 plotDEGenePCA(res, counts = rld)
 }
 \author{

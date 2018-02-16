@@ -16,7 +16,7 @@
 #'     file.path("extdata", "rld.rda"),
 #'     package = "bcbioRNASeq"))
 #'
-#' # DESeqResults + rlog counts
+#' # DESeqResults, DESeqTransform
 #' plotDEGenePCA(res, counts = rld)
 NULL
 
@@ -67,5 +67,5 @@ setMethod(
 #' @rdname plotDEGenePCA
 #' @export
 plotDEGPCA <- function(...) {
-    plotDEGenePCA(...)
+    plotDEGenePCA(...)  # nocov
 }
