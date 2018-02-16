@@ -67,7 +67,8 @@ NULL
 
 
 .selectSamples.DESeqDataSet <- function(object, ...) {  # nolint
-    samples <- .selectSamples(object, ...)
+    samples <- .selectSamples(object, ...) %>%
+        as.character()
     object <- object[, samples]
 
     # Relevel the factors in colData
