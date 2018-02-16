@@ -81,18 +81,29 @@ Plot Individual Genes
 load(system.file(
     file.path("extdata", "bcb.rda"),
     package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "dds.rda"),
+    package = "bcbioRNASeq"))
+load(system.file(
+    file.path("extdata", "rld.rda"),
+    package = "bcbioRNASeq"))
 
 # Gene identifiers
 genes <- rownames(bcb)[1:4]
-print(genes)
-plotGene(bcb, genes = genes)
 
-# Default ggplot2 color palette
+# bcbioRNASeq
+plotGene(bcb, genes = genes)
 plotGene(
     bcb,
     genes = genes,
     interestingGroups = "sampleName",
     color = NULL)
+
+# DESeqDataSet
+plotGene(dds, genes = genes, interestingGroups = "group")
+
+# DESeqTransform
+plotGene(rld, genes = genes, interestingGroups = "group")
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
