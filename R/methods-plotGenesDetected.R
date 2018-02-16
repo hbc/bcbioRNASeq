@@ -98,7 +98,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGenesDetected
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenesDetected",
@@ -133,7 +132,6 @@ setMethod(
 
 
 #' @rdname plotGenesDetected
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenesDetected",

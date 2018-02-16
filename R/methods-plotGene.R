@@ -22,8 +22,7 @@
 #' @param color Desired ggplot color scale. Defaults to
 #'   [scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
-#'   definitions are desired, we recommend using
-#'   [ggplot2::scale_color_manual()].
+#'   definitions are desired, we recommend using [scale_color_manual()].
 #' @param countsAxisLabel Text label of counts axis.
 #' @param return Desired return type: `grid`, `list`, `markdown`.
 #' @param headerLevel R Markdown header level. Only applies when
@@ -70,7 +69,6 @@ NULL
 #'   guides labs theme
 #' @importFrom pbapply pblapply
 #' @importFrom tibble tibble
-#' @importFrom viridis scale_color_viridis
 #'
 #' @param genes Gene identifiers, as a named character vector. `ensgene` is
 #'   provided as the value and `symbol` as the name. This gets defined in the S4

@@ -12,15 +12,15 @@
 plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
   organism, metadata, countsAxisLabel = "counts",
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -34,10 +34,9 @@ this is automatically determined by the metadata set inside the
 \code{sampleName}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{title}{Title.}
 

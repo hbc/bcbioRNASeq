@@ -30,12 +30,11 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 10L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -95,7 +94,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotRRNAMappingRate
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotRRNAMappingRate",
@@ -104,7 +102,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 10L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)

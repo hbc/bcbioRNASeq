@@ -12,12 +12,11 @@
 plot53Bias(object, ...)
 
 \S4method{plot53Bias}{bcbioRNASeq}(object, interestingGroups, warnLimit = 2L,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 
 \S4method{plot53Bias}{data.frame}(object, interestingGroups = "sampleName",
-  warnLimit = 2L, fill = viridis::scale_fill_viridis(discrete = TRUE),
-  flip = TRUE, title = TRUE)
+  warnLimit = 2L, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = TRUE)
 
 plot5x3Bias(...)
 }
@@ -35,9 +34,9 @@ this is automatically determined by the metadata set inside the
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 

@@ -12,13 +12,13 @@ plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", style = "solid",
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE),
+  fill = scale_fill_viridis(discrete = TRUE), title = TRUE)
 
 \S4method{plotCountDensity}{data.frame}(object,
   interestingGroups = "sampleName", style = "solid",
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE),
+  fill = scale_fill_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -37,15 +37,14 @@ for more information.}
 \item{style}{Desired plot style (\code{line} or \code{solid}).}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{title}{Title.}
 }

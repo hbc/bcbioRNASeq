@@ -51,12 +51,11 @@ NULL
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
-#' @importFrom viridis scale_color_viridis
 .plotPCA.DESeqTransform <- function(  # nolint
     object,
     interestingGroups = "sampleName",
     genes = NULL,
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
     assert_is_all_of(object, "DESeqTransform")
@@ -147,14 +146,13 @@ NULL
 
 
 #' @importFrom SummarizedExperiment SummarizedExperiment
-#' @importFrom viridis scale_color_viridis
 .plotPCA.bcbioRNASeq <- function(  # nolint
     object,
     normalized = "rlog",
     interestingGroups,
     genes = NULL,
     censorSamples = NULL,
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
     label = FALSE,
     returnData = FALSE) {
     # Passthrough: genes, color, label, returnData

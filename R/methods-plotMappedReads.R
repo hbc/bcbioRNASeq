@@ -29,13 +29,12 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotMappedReads <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 20L,
     warnLimit = 10L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -96,7 +95,7 @@ setMethod(
         interestingGroups,
         passLimit = 20L,
         warnLimit = 10L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)

@@ -15,9 +15,9 @@
 #' @param passLimit Threshold to plot pass color marker.
 #' @param warnLimit Threshold to plot warning color marker.
 #' @param fill Desired ggplot fill scale. Defaults to
-#'   [viridis::scale_fill_viridis()]. Must supply discrete values. When set to
+#'   [scale_fill_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
-#'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
+#'   definitions are desired, we recommend using [scale_fill_manual()].
 #' @param flip Flip x and y axes.
 #'
 #' @return [ggplot].
@@ -46,13 +46,12 @@ NULL
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 #' @importFrom rlang !!! syms
 #' @importFrom tidyr unite
-#' @importFrom viridis scale_fill_viridis
 .plotTotalReads <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 20L,
     warnLimit = 10L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -103,7 +102,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotTotalReads
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotTotalReads",
@@ -113,7 +111,7 @@ setMethod(
         interestingGroups,
         passLimit = 20L,
         warnLimit = 10L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)

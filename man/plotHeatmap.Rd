@@ -9,18 +9,17 @@
 \title{Plot Heatmap}
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  samples = NULL, genes = NULL, scale = "row", color = viridis::viridis,
-  legendColor = viridis::viridis, title = NULL, ...)
+  samples = NULL, genes = NULL, scale = "row", color = viridis,
+  legendColor = viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = NULL,
-  annotationCol = NULL, scale = "row", color = viridis::viridis,
-  legendColor = viridis::viridis, title = NULL, ...)
+  annotationCol = NULL, scale = "row", color = viridis,
+  legendColor = viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
   gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis::viridis(256L), legendColor = viridis::viridis,
-  title = NULL, ...)
+  color = viridis, legendColor = viridis, title = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,13 +45,12 @@ in either the row direction or the column direction, or none. Corresponding
 values are "row", "column" and "none".}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}}.}
+\code{\link[=viridis]{viridis()}}.}
 
 \item{title}{Title.}
 
@@ -87,8 +85,8 @@ plotHeatmap(bcb, genes = genes)
 plotHeatmap(
     bcb,
     genes = genes,
-    color = viridis::inferno,
-    legendColor = viridis::inferno)
+    color = inferno,
+    legendColor = inferno)
 
 # Transcriptome heatmap with default pheatmap colors
 plotHeatmap(

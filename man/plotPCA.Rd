@@ -8,7 +8,7 @@
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = "rlog",
   interestingGroups, genes = NULL, censorSamples = NULL,
-  color = viridis::scale_color_viridis(discrete = TRUE), label = FALSE,
+  color = scale_color_viridis(discrete = TRUE), label = FALSE,
   returnData = FALSE)
 }
 \arguments{
@@ -34,10 +34,9 @@ parameters set in the \link{bcbioRNASeq} object.}
 Supply them as a character vector. These should match \code{colnames(object)}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 

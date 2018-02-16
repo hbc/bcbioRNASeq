@@ -2,6 +2,10 @@
 #' @export
 ggplot2::ggplot
 
+#' @importFrom ggplot2 scale_fill_manual
+#' @export
+ggplot2::scale_fill_manual
+
 
 
 #' @importFrom magrittr %>%

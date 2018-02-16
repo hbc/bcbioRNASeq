@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{ggplot}
 \alias{reexports}
+\alias{scale_fill_manual}
+\alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
 \alias{glimpse}
@@ -23,7 +25,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}}
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{scale_fill_manual}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 

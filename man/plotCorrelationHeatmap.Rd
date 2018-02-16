@@ -12,8 +12,7 @@ plotCorrelationHeatmap(object, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
-  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
-  ...)
+  color = viridis, legendColor = viridis, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -46,13 +45,12 @@ plot.}
 \item{samples}{\emph{Optional.} Character vector of specific samples.}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}}.}
+\code{\link[=viridis]{viridis()}}.}
 
 \item{title}{Title.}
 }
@@ -82,8 +80,8 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 # Inferno palette
 plotCorrelationHeatmap(
     bcb,
-    color = viridis::inferno,
-    legendColor = viridis::inferno)
+    color = inferno,
+    legendColor = inferno)
 
 # Default pheatmap palette
 plotCorrelationHeatmap(

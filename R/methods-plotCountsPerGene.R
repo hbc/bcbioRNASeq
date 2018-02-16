@@ -30,7 +30,6 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotCountsPerGene <- function(
     object,
     interestingGroups = "sampleName",
@@ -77,7 +76,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCountsPerGene
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotCountsPerGene",

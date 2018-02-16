@@ -11,13 +11,12 @@
 plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", fill = viridis::scale_fill_viridis(discrete = TRUE),
+  normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
 
 \S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroups = "sampleName",
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
+  interestingGroups = "sampleName", fill = scale_fill_viridis(discrete =
+  TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -34,9 +33,9 @@ this is automatically determined by the metadata set inside the
 for more information.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 

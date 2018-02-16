@@ -47,7 +47,6 @@ NULL
 #' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
 #' @importFrom magrittr set_colnames
 #' @importFrom tibble rownames_to_column
-#' @importFrom viridis scale_color_viridis
 .plotGenderMarkers <- function(
     object,
     interestingGroups = "sampleName",

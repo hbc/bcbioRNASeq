@@ -11,23 +11,23 @@
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
   log2 = TRUE, interestingGroups, stackReplicates = TRUE,
-  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, log2 = TRUE,
   gene2symbol = NULL, interestingGroups = "sampleName",
-  stackReplicates = TRUE, color = viridis::scale_color_viridis(discrete =
-  TRUE), return = "grid", headerLevel = 2L)
+  stackReplicates = TRUE, color = scale_color_viridis(discrete = TRUE),
+  return = "grid", headerLevel = 2L)
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", stackReplicates = TRUE,
-  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+  color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
 \S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, metadata,
   interestingGroups = "sampleName", stackReplicates = TRUE,
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", return = "grid", headerLevel = 2L)
+  color = scale_color_viridis(discrete = TRUE), countsAxisLabel = "counts",
+  return = "grid", headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}
@@ -51,10 +51,9 @@ this is automatically determined by the metadata set inside the
 sample axis.}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
 

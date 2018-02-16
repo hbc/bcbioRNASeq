@@ -12,13 +12,12 @@
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 60L, fill = viridis::scale_fill_viridis(discrete = TRUE),
+  passLimit = 60L, fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
 
 \S4method{plotExonicMappingRate}{data.frame}(object,
   interestingGroups = "sampleName", passLimit = 60L,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -34,9 +33,9 @@ this is automatically determined by the metadata set inside the
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 

@@ -29,12 +29,11 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
-#' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 20L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
     if (isTRUE(title)) {
@@ -83,7 +82,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotIntronicMappingRate
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotIntronicMappingRate",
@@ -92,7 +90,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 20L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (is.null(metrics(object))) return(NULL)
