@@ -6,6 +6,7 @@
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
+\alias{plotGenderMarkers,DESeqTransform-method}
 \alias{plotGenderMarkers,matrix-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
@@ -16,6 +17,10 @@ plotGenderMarkers(object, ...)
   title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
+  interestingGroups = "sampleName", organism,
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
+
+\S4method{plotGenderMarkers}{DESeqTransform}(object,
   interestingGroups = "sampleName", organism,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
@@ -59,15 +64,13 @@ that is first alphabetically in the count matrix rownames.}
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
-# bcbioRNASeq
-# Use F1000 workflow example dataset
-# The minimal example inside the package doesn't have dimorphic genes
+dir <- "http://bcbiornaseq.seq.cloud/f1000v1/data"
 loadRemoteData(
-    file.path(
-        "http://bcbiornaseq.seq.cloud",
-        "f1000v1",
-        "data",
-        "bcb.rda"),
+    c(
+        file.path(dir, "bcb.rda"),
+        file.path(dir, "rld.rda"),
+        file.path(dir, "vst.rda")
+    ),
     quiet = TRUE)
 
 # bcbioRNASeq
@@ -79,7 +82,11 @@ plotGenderMarkers(
 
 # DESeqDataSet
 dds <- bcbio(bcb, "DESeqDataSet")
-plotGenderMarkers(dds)
+plotGenderMarkers(dds, interestingGroups = "group")
+
+# DESeqTransform
+plotGenderMarkers(rld, interestingGroups = "group")
+plotGenderMarkers(vst, interestingGroups = "group")
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

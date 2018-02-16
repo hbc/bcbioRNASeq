@@ -1,18 +1,27 @@
 context("plotGenderMarkers")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+dir <- "http://bcbiornaseq.seq.cloud/f1000v1/data"
+loadRemoteData(
+    c(
+        file.path(dir, "bcb.rda"),
+        file.path(dir, "rld.rda"),
+        file.path(dir, "vst.rda")
+    ),
+    quiet = TRUE)
+dds <- bcbio(bcb, "DESeqDataSet")
 
-# TODO Improve working example to include dimorphic genes
+test_that("bcbioRNASeq", {
+    p <- plotGenderMarkers(bcb)
+    expect_is(p, "ggplot")
+})
 
-test_that("Missing markers in minimal example", {
-    # Current working example doesn't contain the dimorphic genes
-    expect_error(
-        plotGenderMarkers(bcb),
-        paste(
-            "is_subset :",
-            "The elements 'ENSMUSG00000056673'"
-        )
-    )
+test_that("DESeqDataSet", {
+    p <- plotGenderMarkers(dds, interestingGroups = "group")
+})
+
+test_that("DESeqTransform", {
+    p <- plotGenderMarkers(rld, interestingGroups = "group")
+    expect_is(p, "ggplot")
+    p <- plotGenderMarkers(vst, interestingGroups = "group")
+    expect_is(p, "ggplot")
 })

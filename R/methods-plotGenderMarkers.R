@@ -16,15 +16,13 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' # bcbioRNASeq
-#' # Use F1000 workflow example dataset
-#' # The minimal example inside the package doesn't have dimorphic genes
+#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1/data"
 #' loadRemoteData(
-#'     file.path(
-#'         "http://bcbiornaseq.seq.cloud",
-#'         "f1000v1",
-#'         "data",
-#'         "bcb.rda"),
+#'     c(
+#'         file.path(dir, "bcb.rda"),
+#'         file.path(dir, "rld.rda"),
+#'         file.path(dir, "vst.rda")
+#'     ),
 #'     quiet = TRUE)
 #'
 #' # bcbioRNASeq
@@ -36,7 +34,11 @@
 #'
 #' # DESeqDataSet
 #' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotGenderMarkers(dds)
+#' plotGenderMarkers(dds, interestingGroups = "group")
+#'
+#' # DESeqTransform
+#' plotGenderMarkers(rld, interestingGroups = "group")
+#' plotGenderMarkers(vst, interestingGroups = "group")
 NULL
 
 
@@ -141,6 +143,8 @@ NULL
 
 
 
+# TODO Use log2 + 1 for DESeqDataSet by default?
+#' @importFrom basejump detectOrganism
 .plotGenderMarkers.DESeqDataSet <- function(  # nolint
     object,
     interestingGroups = "sampleName",
@@ -164,6 +168,35 @@ NULL
 
 
 
+#' @importFrom basejump detectOrganism
+.plotGenderMarkers.DESeqTransform <- function(  # nolint
+    object,
+    interestingGroups = "sampleName",
+    organism,
+    color = scale_color_viridis(discrete = TRUE),
+    title = TRUE) {
+    # Passthrough: interestingGroups, color, title
+    counts <- assay(object)
+    if (missing(organism)) {
+        organism <- detectOrganism(counts)
+    }
+    if ("rlogIntercept" %in% colnames(mcols(object))) {
+        countsAxisLabel <- "rlog"
+    } else {
+        countsAxisLabel <- "vst"
+    }
+    .plotGenderMarkers(
+        object = counts,
+        interestingGroups = interestingGroups,
+        organism = organism,
+        metadata = sampleMetadata(object),
+        countsAxisLabel = countsAxisLabel,
+        color = color,
+        title = title)
+}
+
+
+
 # Methods ======================================================================
 #' @rdname plotGenderMarkers
 #' @export
@@ -175,12 +208,20 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
     signature("DESeqDataSet"),
     .plotGenderMarkers.DESeqDataSet)
+
+
+
+#' @rdname plotGenderMarkers
+#' @export
+setMethod(
+    "plotGenderMarkers",
+    signature("DESeqTransform"),
+    .plotGenderMarkers.DESeqTransform)
 
 
 
