@@ -13,6 +13,8 @@ NULL
 
 
 # Methods ======================================================================
+# nocov start
+
 #' @rdname bcbio-legacy
 #' @export
 setMethod(
@@ -44,3 +46,5 @@ setMethod(
         validObject(object)
         object
     })
+
+# nocov end
