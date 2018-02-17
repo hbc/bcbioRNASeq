@@ -112,7 +112,7 @@ test_that("metadata slot", {
              metrics = "data.frame",
              sampleMetadataFile = "NULL",
              dataVersions = c("tbl_df", "tbl", "data.frame"),
-             programs = c("tbl_df", "tbl", "data.frame"),
+             programVersions = c("tbl_df", "tbl", "data.frame"),
              bcbioLog = "NULL",
              bcbioCommandsLog = "NULL",
              allSamples = "logical",
