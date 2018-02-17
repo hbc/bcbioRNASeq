@@ -15,7 +15,9 @@
 \link{bcbioRNASeq}.
 }
 \description{
-Update old objects created by the bcbioRNASeq package.
+Update old objects created by the bcbioRNASeq package. The session
+information metadata is preserved from the time when the bcbio data was
+originally loaded into R.
 }
 \note{
 The previous bcbioRnaseq package (note lowercase "c") must be

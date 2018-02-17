@@ -1,6 +1,8 @@
 #' Update Object
 #'
-#' Update old objects created by the bcbioRNASeq package.
+#' Update old objects created by the bcbioRNASeq package. The session
+#' information metadata is preserved from the time when the bcbio data was
+#' originally loaded into R.
 #'
 #' @section Upgrade bcbioRNADataSet to bcbioRNASeq object:
 #' This method adds support for upgrading [bcbioRNADataSet] objects to the
