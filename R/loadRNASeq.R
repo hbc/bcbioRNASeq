@@ -13,10 +13,10 @@
 #'   sampleYAMLMetrics
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
-#' @importFrom dplyr mutate_if pull
+#' @importFrom dplyr mutate_all pull
 #' @importFrom magrittr set_colnames
 #' @importFrom stats formula
-#' @importFrom stringr str_match
+#' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
 #'
 #' @param uploadDir Path to final upload directory. This path is set when
@@ -26,7 +26,11 @@
 #'   is used for PCA and heatmap QC functions.
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file. Remote URLs are supported.
+#'   file. Remote URLs are supported. Typically this can be left `NULL`.
+#' @param samples *Optional.* Specify a subset of samples to load. The names
+#'   must match the `description` specified in the bcbio YAML metadata. If a
+#'   `sampleMetadataFile` is provided, that will take priority for sample
+#'   selection. Typically this can be left `NULL`.
 #' @param annotable *Optional.* User-defined gene annotations (a.k.a.
 #'   "annotable"), which will be slotted into [rowData()]. Typically this should
 #'   be left undefined. By default, the function will automatically generate an
@@ -52,7 +56,7 @@
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   It is not generally recommended to change this value. For large datasets,
 #'   DESeq2 will take a really long time applying variance stabilization. See
-#'   Details.
+#'   Details. Use `Inf` if you'd like to disable this cutoff.
 #' @param design DESeq2 design formula. Empty by default. Can be updated after
 #'   initial data loading using the [design()] function.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
@@ -70,9 +74,7 @@
 #' @export
 #'
 #' @examples
-#' uploadDir <- system.file(
-#'     file.path("extdata", "bcbio"),
-#'     package = "bcbioRNASeq")
+#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #' print(bcb)
@@ -86,6 +88,7 @@ loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
+    samples = NULL,
     annotable = TRUE,
     organism = NULL,
     ensemblVersion = NULL,
@@ -94,18 +97,15 @@ loadRNASeq <- function(
     design = NULL,
     ...) {
     assert_all_are_dirs(uploadDir)
-    assert_is_any_of(sampleMetadataFile, c("character", "NULL"))
-    if (is.character(sampleMetadataFile)) {
-        assert_is_a_string(sampleMetadataFile)
-        # We're allowing for remote URL input, so don't check if exists here
-    }
     assert_is_character(interestingGroups)
+    assert_is_a_string_or_null(sampleMetadataFile)
+    assert_is_character_or_null(samples)
     assert_is_any_of(annotable, c("data.frame", "logical", "NULL"))
     assert_is_a_string_or_null(organism)
     assert_is_an_implicit_integer_or_null(ensemblVersion)
     assert_is_a_string_or_null(genomeBuild)
-    assert_is_numeric(transformationLimit)  # Allow Inf
-    assert_is_scalar(transformationLimit)
+    assert_is_an_implicit_integer(transformationLimit)
+    assert_all_are_positive(transformationLimit)
     assert_is_any_of(design, c("formula", "NULL"))
 
     # Directory paths ==========================================================
@@ -154,20 +154,29 @@ loadRNASeq <- function(
             lanes = lanes)
     } else {
         sampleMetadata <- sampleYAMLMetadata(yaml)
+        if (is.character(samples)) {
+            assert_is_subset(samples, sampleMetadata[["description"]])
+            sampleMetadata <- sampleMetadata %>%
+                .[which(samples %in% .[["description"]]), , drop = FALSE]
+        }
     }
-    assert_are_set_equal(sampleMetadata[["sampleID"]], names(sampleDirs))
 
     # Interesting groups =======================================================
     interestingGroups <- camel(interestingGroups)
     assert_is_subset(interestingGroups, colnames(sampleMetadata))
 
     # Subset sample directories by metadata ====================================
-    if (length(sampleMetadata[["sampleID"]]) < length(sampleDirs)) {
-        inform("Loading a subset of samples, defined by the metadata file")
+    samples <- sampleMetadata[["sampleID"]]
+    assert_are_intersecting_sets(samples, names(sampleDirs))
+    if (length(samples) < length(sampleDirs)) {
+        inform(paste(
+            "Loading a subset of samples:",
+            str_trunc(toString(samples), width = 80L),
+            sep = "\n"
+        ))
         allSamples <- FALSE
         sampleDirs <- sampleDirs %>%
-            .[names(sampleDirs) %in% sampleMetadata[["sampleID"]]]
-        inform(paste(length(sampleDirs), "samples matched by metadata"))
+            .[names(.) %in% samples]
     } else {
         allSamples <- TRUE
     }
@@ -182,6 +191,7 @@ loadRNASeq <- function(
             .[["genome_build"]]
     }
     assert_is_a_string(genomeBuild)
+
     # Organism
     if (is.null(organism) && is_a_string(genomeBuild)) {
         inform("Detecting organism from genome build")
@@ -203,7 +213,7 @@ loadRNASeq <- function(
         annotable <- NULL
     }
     tx2gene <- .tx2gene(
-        projectDir,
+        projectDir = projectDir,
         organism = organism,
         release = ensemblVersion)
 
@@ -218,24 +228,32 @@ loadRNASeq <- function(
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
     dataVersions <- readDataVersions(
-        file = file.path(projectDir, "data_versions.csv")
-    )
+        file = file.path(projectDir, "data_versions.csv"))
     assert_is_tbl_df(dataVersions)
-    # TODO Rename to `programVersions`?
-    programs <- readProgramVersions(
-        file.path(projectDir, "programs.txt")
-    )
-    assert_is_tbl_df(programs)
-    bcbioLog <- readLogFile(
-        file.path(projectDir, "bcbio-nextgen.log")
-    )
-    # Allowing NULL here for minimal example
-    assert_is_any_of(bcbioLog, c("character", "NULL"))
-    bcbioCommandsLog <- readLogFile(
-        file.path(projectDir, "bcbio-nextgen-commands.log")
-    )
-    # Allowing NULL here for minimal example
-    assert_is_any_of(bcbioCommandsLog, c("character", "NULL"))
+
+    programVersions <- readProgramVersions(
+        file.path(projectDir, "programs.txt"))
+    assert_is_tbl_df(programVersions)
+
+    bcbioLogFile <- list.files(
+        path = projectDir,
+        pattern = "bcbio-nextgen.log",
+        full.names = TRUE,
+        recursive = FALSE)
+    assert_is_a_string(bcbioLogFile)
+    inform(basename(bcbioLogFile))
+    bcbioLog <- readLogFile(bcbioLogFile)
+    assert_is_character(bcbioLog)
+
+    bcbioCommandsLogFile <- list.files(
+        path = projectDir,
+        pattern = "bcbio-nextgen-commands.log",
+        full.names = TRUE,
+        recursive = FALSE)
+    assert_is_a_string(bcbioCommandsLogFile)
+    inform(basename(bcbioCommandsLogFile))
+    bcbioCommandsLog <- readLogFile(bcbioCommandsLogFile)
+    assert_is_character(bcbioCommandsLog)
 
     # tximport =================================================================
     txi <- .tximport(sampleDirs, tx2gene = tx2gene)
@@ -256,7 +274,8 @@ loadRNASeq <- function(
         as.data.frame() %>%
         .[colnames(rawCounts), , drop = FALSE] %>%
         rownames_to_column() %>%
-        mutate_if(is.factor, droplevels) %>%
+        mutate_all(as.factor) %>%
+        mutate_all(droplevels) %>%
         column_to_rownames() %>%
         as("DataFrame")
 
@@ -339,7 +358,7 @@ loadRNASeq <- function(
         metrics = metrics,
         sampleMetadataFile = sampleMetadataFile,
         dataVersions = dataVersions,
-        programs = programs,
+        programVersions = programVersions,
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,

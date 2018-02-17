@@ -19,6 +19,7 @@
     assert_all_are_dirs(projectDir)
     assert_is_a_string(organism)
     assert_is_an_implicit_integer_or_null(release)
+    inform("Obtaining transcript-to-gene mappings")
     file <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(file)) {
         # bcbio tx2gene

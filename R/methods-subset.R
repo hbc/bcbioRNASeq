@@ -83,15 +83,7 @@ NULL
 
     # Column data ==============================================================
     colData <- colData(se)
-    assert_is_non_empty(colData)
-    # Sanitize all columns as factors
-    colData <- lapply(
-        X = colData,
-        FUN = function(x) {
-            droplevels(as.factor(x))
-        }
-    ) %>%
-        as("DataFrame")
+    colData <- sanitizeColData(colData)
 
     # bcbio ====================================================================
     # tximport

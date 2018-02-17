@@ -5,9 +5,9 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, annotable = TRUE, organism = NULL,
-  ensemblVersion = NULL, genomeBuild = NULL, transformationLimit = 50L,
-  design = NULL, ...)
+  sampleMetadataFile = NULL, samples = NULL, annotable = TRUE,
+  organism = NULL, ensemblVersion = NULL, genomeBuild = NULL,
+  transformationLimit = 50L, design = NULL, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -19,7 +19,12 @@ is used for PCA and heatmap QC functions.}
 
 \item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported.}
+file. Remote URLs are supported. Typically this can be left \code{NULL}.}
+
+\item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
+must match the \code{description} specified in the bcbio YAML metadata. If a
+\code{sampleMetadataFile} is provided, that will take priority for sample
+selection. Typically this can be left \code{NULL}.}
 
 \item{annotable}{\emph{Optional.} User-defined gene annotations (a.k.a.
 "annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should
@@ -50,7 +55,7 @@ to download correctly.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
-Details.}
+Details. Use \code{Inf} if you'd like to disable this cutoff.}
 
 \item{design}{DESeq2 design formula. Empty by default. Can be updated after
 initial data loading using the \code{\link[=design]{design()}} function.}
@@ -77,9 +82,7 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \examples{
-uploadDir <- system.file(
-    file.path("extdata", "bcbio"),
-    package = "bcbioRNASeq")
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 print(bcb)

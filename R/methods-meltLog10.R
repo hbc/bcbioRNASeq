@@ -37,6 +37,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump sanitizeColData
 #' @importFrom dplyr left_join
 .joinMelt <- function(counts, colData) {
     assert_are_identical(
@@ -44,11 +45,7 @@ NULL
         as.character(colData[["sampleID"]])
     )
     melted <- .meltLog10(counts)
-    colData <- colData %>%
-        as.data.frame() %>%
-        # Ensure `stringsAsFactors` in colData
-        mutate_if(is.character, as.factor) %>%
-        mutate_if(is.factor, droplevels)
+    colData <- sanitizeColData(colData)
     left_join(melted, colData, by = "sampleID")
 }
 

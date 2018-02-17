@@ -37,17 +37,12 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump sanitizeColData
 `.colData<-` <- function(x, ..., value) {
     assert_are_identical(colnames(x), rownames(value))
 
     # Sanitize all columns as factors
-    value <- lapply(
-        X = value,
-        FUN = function(x) {
-            droplevels(as.factor(x))
-        }
-    ) %>%
-        as("DataFrame")
+    value <- sanitizeColData(value)
     assert_has_dimnames(value)
 
     if (!is.null(bcbio(x, "DESeqDataSet"))) {
