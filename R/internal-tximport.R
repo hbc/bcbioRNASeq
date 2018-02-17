@@ -27,12 +27,13 @@
         sampleDirs[[1]],
         full.names = FALSE,
         recursive = FALSE)
+
+    assert_are_intersecting_sets(c("salmon", "sailfish"), subdirs)
+    # Salmon takes priority over sailfish
     if ("salmon" %in% subdirs) {
         type <- "salmon"
     } else if ("sailfish" %in% subdirs) {
         type <- "sailfish"
-    } else {
-        abort("Unsupported counts output format")
     }
 
     # Locate `quant.sf` file for salmon or sailfish output

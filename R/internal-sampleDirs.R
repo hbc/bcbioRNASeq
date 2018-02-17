@@ -6,7 +6,7 @@
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
-#'   will [abort()] if no complete sample directories match.
+#'   will abort if no sample directories match.
 #' @noRd
 .sampleDirs <- function(uploadDir) {
     assert_all_are_dirs(uploadDir)
