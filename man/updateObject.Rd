@@ -31,12 +31,8 @@ latest \link{bcbioRNASeq} class version. This should be backwards compatible to
 }
 
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-
+loadRemoteData("http://bcbiornaseq.seq.cloud/v0.1.4/bcb.rda")
 metadata(bcb)[["version"]]
-
 updated <- updateObject(bcb)
 metadata(updated)[["version"]]
 metadata(updated)[["previousVersion"]]
