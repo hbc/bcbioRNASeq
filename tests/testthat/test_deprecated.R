@@ -32,6 +32,13 @@ test_that("plotDispersion", {
     )
 })
 
+test_that("plotGeneHeatmap", {
+    expect_warning(
+        plotDispersion(bcb),
+        "Use 'plotHeatmap' instead."
+    )
+})
+
 test_that("txi", {
     expect_warning(
         txi(bcb),
