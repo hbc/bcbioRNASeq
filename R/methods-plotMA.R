@@ -111,9 +111,7 @@ NULL
         }
         labels <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-        if (!nrow(labels)) {
-            abort("Failed to label any gene identifiers")
-        }
+        assert_is_non_empty(labels)
         p <- p +
             geom_text_repel(
                 data = labels,
