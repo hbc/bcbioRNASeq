@@ -70,11 +70,8 @@ setMethod(
         if (missing(type)) {
             return(slot(object, "bcbio"))
         }
-        if (type %in% names(slot(object, "bcbio"))) {
-            slot(object, "bcbio")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
+        assert_is_subset(type, names(slot(object, "bcbio")))
+        slot(object, "bcbio")[[type]]
     })
 
 

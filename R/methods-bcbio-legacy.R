@@ -24,11 +24,8 @@ setMethod(
         if (missing(type)) {
             return(slot(object, "callers"))
         }
-        if (type %in% names(slot(object, "callers"))) {
-            slot(object, "callers")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
+        assert_is_subset(type, names(slot(object, "callers")))
+        slot(object, "callers")[[type]]
     })
 
 
