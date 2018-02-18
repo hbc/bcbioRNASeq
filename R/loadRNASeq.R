@@ -56,7 +56,7 @@
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   It is not generally recommended to change this value. For large datasets,
 #'   DESeq2 will take a really long time applying variance stabilization. See
-#'   Details. Use `Inf` if you'd like to disable this cutoff.
+#'   Details. Use `Inf` to always apply transformations and `0` to always skip.
 #' @param design DESeq2 design formula. Empty by default. Can be updated after
 #'   initial data loading using the [design()] function.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
@@ -99,7 +99,7 @@ loadRNASeq <- function(
     assert_is_an_implicit_integer_or_null(ensemblVersion)
     assert_is_a_string_or_null(genomeBuild)
     assert_is_a_number(transformationLimit)
-    assert_all_are_positive(transformationLimit)
+    assert_all_are_non_negative(transformationLimit)
     assert_is_any_of(design, c("formula", "NULL"))
 
     # Directory paths ==========================================================

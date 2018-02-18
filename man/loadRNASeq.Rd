@@ -55,7 +55,7 @@ to download correctly.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
-Details. Use \code{Inf} if you'd like to disable this cutoff.}
+Details. Use \code{Inf} to always apply transformations and \code{0} to always skip.}
 
 \item{design}{DESeq2 design formula. Empty by default. Can be updated after
 initial data loading using the \code{\link[=design]{design()}} function.}
