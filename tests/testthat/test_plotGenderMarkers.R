@@ -17,6 +17,7 @@ test_that("bcbioRNASeq", {
 
 test_that("DESeqDataSet", {
     p <- plotGenderMarkers(dds, interestingGroups = "group")
+    expect_is(p, "ggplot")
 })
 
 test_that("DESeqTransform", {

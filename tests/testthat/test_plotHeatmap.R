@@ -17,4 +17,6 @@ test_that("bcbioRNASeq", {
 test_that("DESeqDataSet", {
     genes <- head(rownames(dds), n = 20L)
     p <- plotHeatmap(dds, genes = genes, gene2symbol = gene2symbol)
+    expect_is(p, "list")
+    expect_identical(names(p), plotlist)
 })
