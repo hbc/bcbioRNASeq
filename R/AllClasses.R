@@ -96,7 +96,8 @@ setValidity("bcbioRNASeq", function(object) {
         "metrics" = "data.frame",
         "sampleMetadataFile" = c("character", "NULL"),
         "dataVersions" = "tbl_df",
-        "programs" = "tbl_df",
+        # Previously named `programs` until v0.1.6
+        "programVersions" = "tbl_df",
         # Allowing `NULL` here for minimal working example
         # Otherwise Travis CI outputs the contents of log files
         "bcbioLog" = c("character", "NULL"),
