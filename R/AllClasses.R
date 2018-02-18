@@ -49,6 +49,11 @@ bcbioRNASeq <- setClass(
 
 # Validity =====================================================================
 setValidity("bcbioRNASeq", function(object) {
+    updateMsg <- paste(
+        "Run `updateObject()` to update your bcbioRNASeq object",
+        "to the latest version."
+    )
+
     # SummarizedExperiment internal structure
     assert_is_all_of(object, "SummarizedExperiment")
     assert_has_dimnames(object)
@@ -86,24 +91,20 @@ setValidity("bcbioRNASeq", function(object) {
         "interestingGroups" = "character",
         "organism" = "character",
         "genomeBuild" = "character",
-        # TODO Enforce version in future update
-        "ensemblVersion" = c("numeric", "NULL"),
-        # TODO Require data.frame in future update
+        "ensemblVersion" = c("integer", "NULL"),
         "annotable" = c("data.frame", "NULL"),
         "tx2gene" = "data.frame",
-        "lanes" = c("integer", "numeric"),
+        "lanes" = "integer",
         "yaml" = "list",
         "metrics" = "data.frame",
         "sampleMetadataFile" = c("character", "NULL"),
         "dataVersions" = "tbl_df",
-        # Previously named `programs` until v0.1.6
         "programVersions" = "tbl_df",
-        # Allowing `NULL` here for minimal working example
-        # Otherwise Travis CI outputs the contents of log files
-        "bcbioLog" = c("character", "NULL"),
-        "bcbioCommandsLog" = c("character", "NULL"),
+        "bcbioLog" = "character",
+        "bcbioCommandsLog" = "character",
         "allSamples" = "logical",
         "design" = "formula",
+        # Allow user to set `Inf`, which isn't an integer
         "transformationLimit" = c("integer", "numeric"),
         "date" = "Date",
         "wd" = "character",
@@ -113,22 +114,47 @@ setValidity("bcbioRNASeq", function(object) {
     )
 
     # Inform the user about renamed metadata slots
-    setdiff <- setdiff(names(metadata(object)), names(requiredMetadata))
-    if (length(setdiff) > 0L) {
+    legacyMetadata <- c(
+        "gtf",
+        "missingGenes",
+        "programs"
+    )
+    intersect <- intersect(names(metadata), legacyMetadata)
+    if (length(intersect) > 0L) {
         abort(paste(
-            toString(sort(setdiff)), "in `metadata()` are legacy slots",
-            "and need to be renamed.",
-            "Run `updateObject()` to update your bcbioRNASeq object",
-            "to the latest version."
+            paste(
+                "Legacy metadata slots:",
+                toString(sort(intersect))
+            ),
+            updateMsg,
+            sep = "\n"
         ))
     }
 
     # Integrity check the classes of required metadata
-    invisible(lapply(seq_along(requiredMetadata), function(a) {
-        name <- names(requiredMetadata)[[a]]
-        class <- requiredMetadata[[a]]
-        assert_is_any_of(metadata[[name]], class)
-    }))
+    classChecks <- invisible(vapply(
+        X = seq_along(requiredMetadata),
+        FUN = function(a) {
+            name <- names(requiredMetadata)[[a]]
+            print(name)
+            actual <- class(metadata[[name]])
+            expected <- requiredMetadata[[a]]
+            if (!length(intersect(expected, actual))) {
+                warn(paste(
+                    name, "is not", toString(expected)
+                ))
+                FALSE
+            } else {
+                TRUE
+            }
+        },
+        FUN.VALUE = logical(1L),
+        USE.NAMES = FALSE
+    ))
+    if (!all(isTRUE(classChecks))) {
+        abort(paste("Metadata class checks failed.", updateMsg, sep = "\n"))
+    }
+
     annotable <- metadata[["annotable"]]
     if (!is.null(annotable)) {
         assert_is_annotable(annotable)

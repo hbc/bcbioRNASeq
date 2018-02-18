@@ -23,7 +23,7 @@
 #' @return [bcbioRNASeq].
 #'
 #' @examples
-#' loadRemoteData("http://bcbiornaseq.seq.cloud/v0.1.4/bcb.rda")
+#' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda", quiet = TRUE)
 #' metadata(bcb)[["version"]]
 #' updated <- updateObject(bcb)
 #' metadata(updated)[["version"]]
@@ -36,28 +36,71 @@ NULL
 .updateObject.bcbioRNASeq <- function(object) {
     version <- metadata(object)[["version"]]
     assert_is_all_of(version, c("package_version", "numeric_version"))
+    if (identical(version, packageVersion)) {
+        inform("bcbioRNASeq object is already current")
+        return(object)
+    }
+
     inform(paste("Upgrading from", version, "to", packageVersion))
 
     # Regenerate the bcbioRNASeq object
     se <- as(object, "SummarizedExperiment")
-    to <- new("bcbioRNASeq", se)
+
+    # Upgrade the metadata
+    metadata <- metadata(se)
+    assert_is_non_empty(names(metadata))
+
+    # ensemblVersion
+    if (is.character(metadata[["ensemblVersion"]])) {
+        inform("Setting ensemblVersion to NULL")
+        metadata[["ensemblVersion"]] <- NULL
+    } else if (
+        !is.integer(metadata[["ensemblVersion"]]) &&
+        is.numeric(metadata[["ensemblVersion"]])) {
+        inform("Coercing ensemblVersion to integer")
+        metadata[["ensemblVersion"]] <- as.integer(metadata[["ensemblVersion"]])
+    }
+
+    # gtf
+    if ("gtf" %in% names(metadata)) {
+        inform("Removing stashed GTF")
+        metadata <- metadata[setdiff(names(metadata), "gtf")]
+    }
+
+    # lanes
+    if (!is.integer(metadata[["lanes"]]) &&
+        is.numeric(metadata[["lanes"]])) {
+        inform("Coercing lanes to integer")
+        metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
+    }
+
+    # programVersions
+    if (!"programVersions" %in% names(metadata) &&
+        "programs" %in% names(metadata)) {
+        inform("Renaming programs to programVersions")
+        metadata[["programVersions"]] <- metadata[["programs"]]
+        metadata <- metadata[setdiff(names(metadata), "programs")]
+    }
+
+    # unannotatedGenes
+    if (!"unannotatedGenes" %in% names(metadata) &&
+        "missingGenes" %in% names(metadata)) {
+        inform("Renaming missingGenes to unannotatedGenes")
+        metadata[["unannotatedGenes"]] <- metadata[["missingGenes"]]
+        metadata <- metadata[setdiff(names(metadata), "missingGenes")]
+    }
+
+    # Update the automatic metadata slots
+    metadata[["version"]] <- packageVersion
+    metadata[["previousVersion"]] <- metadata(object)[["version"]]
+    metadata[["upgradeDate"]] <- Sys.Date()
+    metadata(se) <- metadata
 
     # Upgrade the bcbio slot
     bcbio <- bcbio(object)
     assert_is_all_of(bcbio, "SimpleList")
-    slot(to, "bcbio") <- bcbio
 
-    # Update the automatic metadata slots
-    metadata(to)[["version"]] <- packageVersion
-    metadata(to)[["previousVersion"]] <- metadata(object)[["version"]]
-    metadata(to)[["upgradeDate"]] <- Sys.Date()
-
-    # Version-specific modifications
-    if (version <= package_version("0.0.26")) {
-        # Remove GTF file, if present (too large)
-        metadata(to)[["gtf"]] <- NULL
-    }
-
+    to <- new("bcbioRNASeq", se, bcbio = bcbio)
     validObject(to)
     to
 }
