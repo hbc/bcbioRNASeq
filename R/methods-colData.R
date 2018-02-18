@@ -38,6 +38,7 @@ NULL
 #' @importFrom basejump sanitizeColData
 `.colData<-` <- function(x, ..., value) {
     assert_are_identical(colnames(x), rownames(value))
+    value <- as(value, "DataFrame")
 
     # Sanitize all columns as factors
     value <- sanitizeColData(value)

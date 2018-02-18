@@ -5,24 +5,19 @@ load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 test_that("bcbioRNASeq", {
+    expect_true(all(lapply(sampleMetadata(bcb), is.factor)))
     expect_identical(
-        as.data.frame(colData(bcb)),
-        sampleMetadata(bcb)
+        sampleMetadata(bcb),
+        as.data.frame(colData(bcb))
     )
 })
 
 test_that("DESeqDataSet", {
-    expect_identical(
-        as.data.frame(colData(dds)),
-        sampleMetadata(dds)
-    )
+    expect_true(all(lapply(sampleMetadata(dds), is.factor)))
 })
 
 test_that("DESeqTransform", {
-    expect_identical(
-        as.data.frame(colData(rld)),
-        sampleMetadata(rld)
-    )
+    expect_true(all(lapply(sampleMetadata(rld), is.factor)))
 })
 
 test_that("Assignment method", {
