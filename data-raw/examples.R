@@ -1,11 +1,11 @@
 devtools::load_all()
 
-extdataDir <- file.path("inst", "extdata")
+extdata_dir <- file.path("inst", "extdata")
 
 bcb <- loadRNASeq(
-    uploadDir = file.path(extdataDir, "bcbio"),
+    uploadDir = file.path(extdata_dir, "bcbio"),
     interestingGroups = "group",
-    ensemblVersion = 90)
+    ensemblVersion = 90L)
 
 dds <- bcbio(bcb, "DESeqDataSet")
 design(dds) <- formula(~group)
@@ -19,6 +19,6 @@ saveData(
     dds,
     rld,
     res,
-    dir = extdataDir,
+    dir = extdata_dir,
     compress = "xz",
     overwrite = TRUE)
