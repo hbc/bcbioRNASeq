@@ -100,10 +100,7 @@ NULL
     colData(dds) <- colData
     # Skip normalization option, for large datasets
     if (!isTRUE(transform)) {
-        inform(paste(
-            "Skipping DESeq2 transformations",
-            "just selecting samples and genes"
-        ))
+        inform("Skipping DESeq2 transformations")
         dds <- estimateSizeFactors(dds)
         vst <- NULL
         rlog <- NULL
