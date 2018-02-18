@@ -78,12 +78,6 @@
 #'
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #' print(bcb)
-#'
-#' # Load without gene annotations
-#' # Advanced use only! Not generally recommended.
-#' bcb <- loadRNASeq(uploadDir, annotable = NULL)
-#' print(bcb)
-#' rowData(bcb)
 loadRNASeq <- function(
     uploadDir,
     interestingGroups = "sampleName",

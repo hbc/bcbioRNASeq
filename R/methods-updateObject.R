@@ -50,9 +50,15 @@ NULL
     metadata <- metadata(se)
     assert_is_non_empty(names(metadata))
 
+    # design
+    if (is.null(metadata[["design"]])) {
+        inform("Setting design as empty formula")
+        metadata[["design"]] <- formula(~1)  # nolint
+    }
+
     # ensemblVersion
     if (is.character(metadata[["ensemblVersion"]])) {
-        inform("Setting ensemblVersion to NULL")
+        inform("Setting ensemblVersion as NULL")
         metadata[["ensemblVersion"]] <- NULL
     } else if (
         !is.integer(metadata[["ensemblVersion"]]) &&
@@ -70,7 +76,7 @@ NULL
     # lanes
     if (!is.integer(metadata[["lanes"]]) &&
         is.numeric(metadata[["lanes"]])) {
-        inform("Coercing lanes to integer")
+        inform("Setting lanes as integer")
         metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
     }
 
@@ -80,6 +86,12 @@ NULL
         inform("Renaming programs to programVersions")
         metadata[["programVersions"]] <- metadata[["programs"]]
         metadata <- metadata[setdiff(names(metadata), "programs")]
+    }
+
+    # transformationLimit
+    if (is.null(metadata[["transformationLimit"]])) {
+        inform("Setting transformationLimit as Inf")
+        metadata[["transformationLimit"]] <- Inf
     }
 
     # unannotatedGenes
