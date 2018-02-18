@@ -31,40 +31,40 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump sanitizeColData
 #' @importFrom dplyr left_join
-.joinMelt <- function(counts, colData) {
+.joinMelt <- function(counts, metadata) {
     assert_are_identical(
         colnames(counts),
-        as.character(colData[["sampleID"]])
+        as.character(metadata[["sampleID"]])
     )
     melted <- .meltLog10(counts)
-    colData <- sanitizeColData(colData)
-    left_join(melted, colData, by = "sampleID")
+    assert_is_tbl_df(melted)
+    assert_is_data.frame(metadata)
+    left_join(melted, metadata, by = "sampleID")
 }
 
 
 
-#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by mutate
 #' @importFrom magrittr set_colnames
 #' @importFrom reshape2 melt
-#' @importFrom tibble rownames_to_column
+#' @importFrom rlang !! !!! sym syms
+#' @importFrom tibble as_tibble rownames_to_column
 .meltLog10 <- function(counts) {
     assert_is_matrix(counts)
     counts %>%
         as.data.frame() %>%
-        rownames_to_column() %>%
+        rownames_to_column("ensgene") %>%
         melt(id = 1L) %>%
+        as_tibble() %>%
         set_colnames(c("ensgene", "sampleID", "counts")) %>%
-        # Melt operation will define as factor. Let's set this manually later.
-        mutate(sampleID = as.character(.data[["sampleID"]])) %>%
+        .[, c("sampleID", "ensgene", "counts")] %>%
+        arrange(!!!syms(c("sampleID", "ensgene"))) %>%
+        group_by(!!sym("sampleID")) %>%
         # Remove zero counts
         .[.[["counts"]] > 0L, , drop = FALSE] %>%
         # log10 transform the counts
-        mutate(counts = log10(.data[["counts"]])) %>%
-        # Arrange by sampleID, to match factor levels
-        arrange(.data[["sampleID"]]) %>%
-        mutate(sampleID = as.factor(.data[["sampleID"]]))
+        mutate(counts = log10(.data[["counts"]]))
 }
 
 
@@ -74,7 +74,7 @@ NULL
     normalized = TRUE) {
     .joinMelt(
         counts = counts(object, normalized = normalized),
-        colData = colData(object)
+        metadata = sampleMetadata(object)
     )
 }
 
@@ -85,7 +85,7 @@ NULL
     normalized = TRUE) {
     .joinMelt(
         counts = counts(object, normalized = normalized),
-        colData = colData(object)
+        metadata = sampleMetadata(object)
     )
 }
 
@@ -94,7 +94,7 @@ NULL
 .meltLog10.DESeqTransform <- function(object) {  # nolint
     .joinMelt(
         counts = assay(object),
-        colData = colData(object)
+        metadata = sampleMetadata(object)
     )
 }
 
