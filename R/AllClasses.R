@@ -111,6 +111,19 @@ setValidity("bcbioRNASeq", function(object) {
         "devtoolsSessionInfo" = "session_info",
         "unannotatedGenes" = c("character", "NULL")
     )
+
+    # Inform the user about renamed metadata slots
+    setdiff <- setdiff(names(metadata(object)), names(requiredMetadata))
+    if (length(setdiff) > 0L) {
+        abort(paste(
+            toString(sort(setdiff)), "in `metadata()` are legacy slots",
+            "and need to be renamed.",
+            "Run `updateObject()` to update your bcbioRNASeq object",
+            "to the latest version."
+        ))
+    }
+
+    # Integrity check the classes of required metadata
     invisible(lapply(seq_along(requiredMetadata), function(a) {
         name <- names(requiredMetadata)[[a]]
         class <- requiredMetadata[[a]]
