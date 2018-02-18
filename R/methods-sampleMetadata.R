@@ -36,8 +36,11 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump sanitizeColData
 .sampleMetadata <- function(object, ...) {
-    as.data.frame(colData(object))
+    colData(object) %>%
+        sanitizeColData() %>%
+        as.data.frame()
 }
 
 

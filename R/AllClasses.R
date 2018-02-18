@@ -79,6 +79,24 @@ setValidity("bcbioRNASeq", function(object) {
         names(assays(object))
     )
 
+    # Column data
+    colDataFactor <- vapply(
+        X = colData(object),
+        FUN = is.factor,
+        FUN.VALUE = logical(1L),
+        USE.NAMES = TRUE
+    )
+    if (any(!colDataFactor)) {
+        abort(paste(
+            paste(
+                "Non-factor colData columns:",
+                toString(names(colDataFactor[!colDataFactor]))
+            ),
+            updateMsg,
+            sep = "\n"
+        ))
+    }
+
     # Metadata
     metadata <- metadata(object)
     requiredMetadata <- list(

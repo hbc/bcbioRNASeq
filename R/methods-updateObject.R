@@ -46,6 +46,9 @@ NULL
     # Regenerate the bcbioRNASeq object
     se <- as(object, "SummarizedExperiment")
 
+    # Sanitize the colData
+    colData(se) <- sanitizeColData(colData(se))
+
     # Upgrade the metadata
     metadata <- metadata(se)
 
