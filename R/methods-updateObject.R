@@ -48,7 +48,18 @@ NULL
 
     # Upgrade the metadata
     metadata <- metadata(se)
-    assert_is_non_empty(names(metadata))
+
+    # bcbioLog
+    if (is.null(metadata[["bcbioLog"]])) {
+        message("Setting bcbioLog as empty character")
+        metadata[["bcbioLog"]] <- ""
+    }
+
+    # bcbioCommandsLog
+    if (is.null(metadata[["bcbioCommandsLog"]])) {
+        message("Setting bcbioCommands as empty character")
+        metadata[["bcbioCommandsLog"]] <- ""
+    }
 
     # design
     if (is.null(metadata[["design"]])) {
