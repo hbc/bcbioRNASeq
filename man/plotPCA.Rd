@@ -50,9 +50,7 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotPCA(bcb, label = TRUE)

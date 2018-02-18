@@ -1,8 +1,6 @@
 context("design")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("bcbioRNASeq", {
     expect_equal(design(bcb), formula(~1))

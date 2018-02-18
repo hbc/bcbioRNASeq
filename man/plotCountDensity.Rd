@@ -55,9 +55,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot Count Density
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotCountDensity(bcb, style = "solid")

@@ -23,9 +23,7 @@ which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotDispEsts(bcb)

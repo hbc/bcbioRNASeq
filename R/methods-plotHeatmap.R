@@ -27,15 +27,9 @@
 #'   [viridis()].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "dds.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "rld.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
 #' gene2symbol <- gene2symbol(bcb)
 #'

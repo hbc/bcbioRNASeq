@@ -54,12 +54,8 @@ Results \link{list}.
 Differential Expression Results Tables
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 
 # Can use a stashed annotable for improved speed
 annotable <- annotable(bcb)

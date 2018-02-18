@@ -14,12 +14,8 @@
 #' @return [bcbioRNASeq].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "dds.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' selectSamples(bcb, group = "ko")

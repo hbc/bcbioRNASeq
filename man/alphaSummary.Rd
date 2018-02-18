@@ -37,12 +37,8 @@ Print Summary Statistics of Alpha Level Cutoffs
 object contains an internal \link{DESeqDataSet} with an empty design formula.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 alphaSummary(bcb)

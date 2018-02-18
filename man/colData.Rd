@@ -28,9 +28,7 @@ This method support will also update the \code{colData} inside the \code{bcbio} 
 \code{assays} slots.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # Assignment support
 colData <- colData(bcb)

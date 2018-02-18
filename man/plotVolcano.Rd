@@ -68,12 +68,8 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 
 # Use a defined gene2symbol data.frame for better speed
 gene2symbol <- gene2symbol(bcb)

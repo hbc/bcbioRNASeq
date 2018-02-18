@@ -49,9 +49,7 @@ transformations of those original counts, including \code{\link[=tpm]{tpm()}}, \
 \code{\link[=tmm]{tmm()}} are stored alongside the raw counts.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # tximport list
 txi <- bcbio(bcb, "tximport")

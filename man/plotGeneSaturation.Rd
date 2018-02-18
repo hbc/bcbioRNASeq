@@ -53,9 +53,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot Gene Detection Saturation
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotGeneSaturation(bcb)

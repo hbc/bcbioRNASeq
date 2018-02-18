@@ -11,9 +11,7 @@
 #' @return [data.frame]
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' annotable(bcb) %>% glimpse()

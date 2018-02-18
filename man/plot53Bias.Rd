@@ -49,9 +49,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot 5'->3' Bias
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plot53Bias(bcb)

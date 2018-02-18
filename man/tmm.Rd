@@ -29,9 +29,7 @@ of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 tmm(bcb) \%>\% summary()

@@ -67,9 +67,7 @@ groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then t
 sample names.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # Pearson correlation
 plotCorrelationHeatmap(bcb, method = "pearson")

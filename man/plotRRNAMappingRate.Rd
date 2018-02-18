@@ -47,9 +47,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot Ribosomal RNA (rRNA) Mapping Rate
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotRRNAMappingRate(bcb)

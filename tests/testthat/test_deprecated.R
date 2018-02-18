@@ -1,8 +1,6 @@
 context("deprecated")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("download", {
     expect_warning(
@@ -34,7 +32,7 @@ test_that("plotDispersion", {
 
 test_that("plotGeneHeatmap", {
     expect_warning(
-        plotDispersion(bcb),
+        plotGeneHeatmap(bcb),
         "Use 'plotHeatmap' instead."
     )
 })

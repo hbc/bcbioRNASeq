@@ -17,9 +17,7 @@
 #' @return [DataFrame].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # Assignment support
 #' colData <- colData(bcb)

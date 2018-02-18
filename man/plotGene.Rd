@@ -78,15 +78,9 @@ gene symbols.}
 Plot Individual Genes
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "rld.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # Gene identifiers
 genes <- rownames(bcb)[1:4]

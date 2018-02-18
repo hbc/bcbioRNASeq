@@ -43,12 +43,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot DEG PCA
 }
 \examples{
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "rld.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # DESeqResults, DESeqTransform
 plotDEGenePCA(res, counts = rld)

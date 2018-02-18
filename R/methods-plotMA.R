@@ -20,12 +20,8 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "res.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 #'
 #' gene2symbol <- gene2symbol(bcb)
 #'

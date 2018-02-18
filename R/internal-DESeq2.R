@@ -9,9 +9,7 @@
 #' @return Contrast name string.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "res.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 #' .contrastName.DESeqResults(res)
 .contrastName.DESeqResults <- function(object) {  # nolint
     assert_is_all_of(object, "DESeqResults")

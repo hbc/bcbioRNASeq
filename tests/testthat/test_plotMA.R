@@ -1,8 +1,6 @@
 context("plotMA")
 
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 genes <- head(rownames(res))
 
 test_that("DESeqResults", {
