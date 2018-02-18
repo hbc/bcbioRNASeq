@@ -16,7 +16,7 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1/data"
+#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
 #' loadRemoteData(
 #'     c(
 #'         file.path(dir, "bcb.rda"),
