@@ -136,7 +136,6 @@ setValidity("bcbioRNASeq", function(object) {
         X = seq_along(requiredMetadata),
         FUN = function(a) {
             name <- names(requiredMetadata)[[a]]
-            print(name)
             actual <- class(metadata[[name]])
             expected <- requiredMetadata[[a]]
             if (!length(intersect(expected, actual))) {
@@ -151,7 +150,7 @@ setValidity("bcbioRNASeq", function(object) {
         FUN.VALUE = logical(1L),
         USE.NAMES = FALSE
     ))
-    if (!all(isTRUE(classChecks))) {
+    if (!all(classChecks)) {
         abort(paste("Metadata class checks failed.", updateMsg, sep = "\n"))
     }
 
