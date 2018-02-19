@@ -1,7 +1,7 @@
 #' Plot DEG PCA
 #'
-#' @rdname plotDEGenePCA
-#' @name plotDEGenePCA
+#' @rdname plotDEGPCA
+#' @name plotDEGPCA
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
@@ -13,16 +13,16 @@
 #' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
 #' # DESeqResults, DESeqTransform
-#' plotDEGenePCA(res, counts = rld)
+#' plotDEGPCA(res, counts = rld)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotDEGenePCA
+#' @rdname plotDEGPCA
 #' @export
 setMethod(
-    "plotDEGenePCA",
+    "plotDEGPCA",
     signature(
         object = "DESeqResults",
         counts = "DESeqTransform"),
@@ -56,12 +56,3 @@ setMethod(
             label = label,
             returnData = returnData)
     })
-
-
-
-# Aliases ======================================================================
-#' @rdname plotDEGenePCA
-#' @export
-plotDEGPCA <- function(...) {
-    plotDEGenePCA(...)  # nocov
-}

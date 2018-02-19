@@ -54,10 +54,10 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 
 
-#' @rdname plotDEGenePCA
+#' @rdname plotDEGPCA
 #' @export
-setGeneric("plotDEGenePCA", function(object, counts, ...) {
-    standardGeneric("plotDEGenePCA")
+setGeneric("plotDEGPCA", function(object, counts, ...) {
+    standardGeneric("plotDEGPCA")
 })
 
 
