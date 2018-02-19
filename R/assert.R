@@ -56,25 +56,3 @@
 #'
 #' @return Stop on error.
 NULL
-
-
-
-.assert_formal_scale_discrete <- function(  # nolint
-    x,
-    severity = "stop") {
-    assert_is_any_of(
-        x = x,
-        classes = c("ScaleDiscrete", "NULL"),
-        severity = severity)
-}
-
-
-
-.assert_formal_title <- function(  # nolint
-    x,
-    severity = "stop") {
-    assert_is_any_of(
-        x = x,
-        classes = c("character", "logical", "NULL"),
-        severity = severity)
-}
