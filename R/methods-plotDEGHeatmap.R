@@ -71,8 +71,8 @@ NULL
     assertIsAnImplicitInteger(lfc)
     assert_all_are_non_negative(lfc)
     assertFormalGene2symbol(object, rownames(counts), gene2symbol)
-    assertFormalColorFunction(color)
-    assertFormalColorFunction(legendColor)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
     assert_is_a_string(title)
 
     results <- object %>%

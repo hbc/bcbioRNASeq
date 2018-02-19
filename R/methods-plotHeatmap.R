@@ -73,8 +73,8 @@ NULL
     assertIsCharacterOrNULL(genes)
     assertFormalGene2symbol(object, genes, gene2symbol)
     assertFormalAnnotationCol(object, annotationCol)
-    assertFormalColorFunction(color)
-    assertFormalColorFunction(legendColor)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
     assertIsAStringOrNULL(title)
 
     # Resize the counts matrix

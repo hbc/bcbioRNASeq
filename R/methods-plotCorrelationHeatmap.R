@@ -73,8 +73,8 @@ NULL
     assertFormalAnnotationCol(counts, annotationCol)
     assertIsCharacterOrNULL(genes)
     assertIsCharacterOrNULL(samples)
-    assertFormalColorFunction(color)
-    assertFormalColorFunction(legendColor)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
     
     # Title
     if (isTRUE(title)) {

@@ -35,7 +35,7 @@
 #' @importFrom assertive is_positive
 #'
 #' @importFrom basejump assertFormalAnnotationCol
-#' @importFrom basejump assertFormalColorFunction
+#' @importFrom basejump assertIsHexColorFunctionOrNULL
 #' @importFrom basejump assertFormalGene2symbol
 #' @importFrom basejump assertFormalHeaderLevel
 #' @importFrom basejump assertIsAStringOrNULL
