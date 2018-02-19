@@ -49,11 +49,6 @@ bcbioRNASeq <- setClass(
 
 # Validity =====================================================================
 setValidity("bcbioRNASeq", function(object) {
-    updateMsg <- paste(
-        "Run `updateObject()` to update your bcbioRNASeq object",
-        "to the latest version."
-    )
-
     # SummarizedExperiment internal structure
     assert_is_all_of(object, "SummarizedExperiment")
     assert_has_dimnames(object)
