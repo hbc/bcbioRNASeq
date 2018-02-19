@@ -330,7 +330,7 @@ loadRNASeq <- function(
                 set_colnames(colnames(rawCounts))
         }
     } else {
-        featureCounts <- NULL
+        featureCounts <- NULL  # nocov
     }
 
     # Metadata =================================================================
