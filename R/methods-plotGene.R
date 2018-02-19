@@ -91,7 +91,7 @@ NULL
     assert_is_a_string(countsAxisLabel)
     assert_is_a_string(return)
     assert_is_subset(return, c("grid", "list", "markdown"))
-    assertFormalHeaderLevel(headerLevel)
+    assertIsAHeaderLevel(headerLevel)
 
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
