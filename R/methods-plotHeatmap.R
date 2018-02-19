@@ -69,13 +69,13 @@ NULL
     title = NULL,
     ...) {
     assert_is_matrix(object)
-    assert_is_character_or_null(samples)
-    assert_is_character_or_null(genes)
-    assert_formal_gene2symbol(object, genes, gene2symbol)
-    assert_formal_annotation_col(object, annotationCol)
-    assert_formal_color_function(color)
-    assert_formal_color_function(legendColor)
-    assert_is_a_string_or_null(title)
+    assertIsCharacterOrNULL(samples)
+    assertIsCharacterOrNULL(genes)
+    assertFormalGene2symbol(object, genes, gene2symbol)
+    assertFormalAnnotationCol(object, annotationCol)
+    assertFormalColorFunction(color)
+    assertFormalColorFunction(legendColor)
+    assertIsAStringOrNULL(title)
 
     # Resize the counts matrix
     if (is.vector(samples)) {

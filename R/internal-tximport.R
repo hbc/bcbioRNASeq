@@ -20,7 +20,7 @@
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
     assert_all_are_dirs(sampleDirs)
-    assert_is_tx2gene(tx2gene)
+    assertIsTx2gene(tx2gene)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(

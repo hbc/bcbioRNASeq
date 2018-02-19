@@ -71,7 +71,7 @@ NULL
     shadeAlpha = 0.25,
     labelColor = "black",
     histograms = TRUE) {
-    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assertFormalGene2symbol(object, genes, gene2symbol)
     assert_is_a_string(direction)
     assert_is_subset(direction, c("both", "up", "down"))
 

@@ -174,10 +174,10 @@ setValidity("bcbioRNASeq", function(object) {
 
     annotable <- metadata[["annotable"]]
     if (!is.null(annotable)) {
-        assert_is_annotable(annotable)
+        assertIsAnnotable(annotable)
     }
     tx2gene <- metadata[["tx2gene"]]
-    assert_is_tx2gene(tx2gene)
+    assertIsTx2gene(tx2gene)
 
     TRUE
 })

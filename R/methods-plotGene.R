@@ -83,7 +83,7 @@ NULL
     headerLevel = 2L) {
     assert_is_character(genes)
     assert_is_data.frame(metadata)
-    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assertFormalGene2symbol(object, genes, gene2symbol)
     assert_is_data.frame(metadata)
     assert_formal_interesting_groups(metadata, interestingGroups)
     assert_is_a_bool(stackReplicates)
@@ -91,7 +91,7 @@ NULL
     assert_is_a_string(countsAxisLabel)
     assert_is_a_string(return)
     assert_is_subset(return, c("grid", "list", "markdown"))
-    assert_formal_header_level(headerLevel)
+    assertFormalHeaderLevel(headerLevel)
 
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {

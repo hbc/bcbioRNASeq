@@ -48,7 +48,7 @@ NULL
     ...) {
     assert_is_all_of(dds, "DESeqDataSet")
     assert_is_numeric(alpha)
-    assert_is_a_string_or_null(caption)
+    assertIsAStringOrNULL(caption)
     dots <- list(...)
 
     # Generate an automatic caption

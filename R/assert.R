@@ -35,22 +35,18 @@
 #' @importFrom assertive is_a_string
 #' @importFrom assertive is_positive
 #'
-#' @importFrom basejump assert_formal_annotation_col
-#' @importFrom basejump assert_formal_color_function
-#' @importFrom basejump assert_formal_gene2symbol
-#' @importFrom basejump assert_formal_header_level
-#' @importFrom basejump assert_is_a_number_or_null
-#' @importFrom basejump assert_is_a_string_or_null
-#' @importFrom basejump assert_is_an_implicit_integer
-#' @importFrom basejump assert_is_an_implicit_integer_or_null
-#' @importFrom basejump assert_is_annotable
-#' @importFrom basejump assert_is_character_or_null
-#' @importFrom basejump assert_is_data.frame_or_null
-#' @importFrom basejump assert_is_gene2symbol
-#' @importFrom basejump assert_is_implicit_integer
-#' @importFrom basejump assert_is_tx2gene
+#' @importFrom basejump assertFormalAnnotationCol
+#' @importFrom basejump assertFormalColorFunction
+#' @importFrom basejump assertFormalGene2symbol
+#' @importFrom basejump assertFormalHeaderLevel
+#' @importFrom basejump assertIsAStringOrNULL
+#' @importFrom basejump assertIsAnImplicitIntegerOrNULL
+#' @importFrom basejump assertIsAnnotable
+#' @importFrom basejump assertIsCharacterOrNULL
+#' @importFrom basejump assertIsGene2symbol
+#' @importFrom basejump assertIsTx2gene
 #'
-#' @importFrom bcbioBase assert_formal_interesting_groups
+#' @importFrom bcbioBase assertFormalInterestingGroups
 #'
 #' @inheritParams general
 #'

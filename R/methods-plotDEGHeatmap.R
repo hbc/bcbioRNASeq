@@ -70,9 +70,9 @@ NULL
     assert_is_scalar(alpha)
     assert_is_implicit_integer(lfc)
     assert_is_scalar(lfc)
-    assert_formal_gene2symbol(object, rownames(counts), gene2symbol)
-    assert_formal_color_function(color)
-    assert_formal_color_function(legendColor)
+    assertFormalGene2symbol(object, rownames(counts), gene2symbol)
+    assertFormalColorFunction(color)
+    assertFormalColorFunction(legendColor)
     assert_is_a_string(title)
 
     results <- object %>%

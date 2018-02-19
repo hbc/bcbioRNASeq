@@ -61,7 +61,7 @@ NULL
     assert_is_data.frame(object)
     assert_is_a_number(alpha)
     assert_all_are_positive(alpha)
-    assert_formal_gene2symbol(object, genes, gene2symbol)
+    assertFormalGene2symbol(object, genes, gene2symbol)
     assert_is_a_string(pointColor)
     assert_is_a_string(sigPointColor)
     assert_is_a_string(labelColor)

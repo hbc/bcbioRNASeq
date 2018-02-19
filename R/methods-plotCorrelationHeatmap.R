@@ -70,11 +70,11 @@ NULL
     assert_is_matrix(counts)
     assert_is_a_string(method)
     assert_is_subset(method, c("pearson", "spearman"))
-    assert_formal_annotation_col(counts, annotationCol)
-    assert_is_character_or_null(genes)
-    assert_is_character_or_null(samples)
-    assert_formal_color_function(color)
-    assert_formal_color_function(legendColor)
+    assertFormalAnnotationCol(counts, annotationCol)
+    assertIsCharacterOrNULL(genes)
+    assertIsCharacterOrNULL(samples)
+    assertFormalColorFunction(color)
+    assertFormalColorFunction(legendColor)
     .assert_formal_title(title)
 
     if (is.character(genes)) {

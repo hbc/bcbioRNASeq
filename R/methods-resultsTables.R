@@ -164,7 +164,7 @@ NULL
 
     # Add Ensembl gene annotations (annotable), if desired
     if (is.data.frame(annotable)) {
-        assert_is_annotable(annotable)
+        assertIsAnnotable(annotable)
         # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
         # save when `write = TRUE`.
         annotable <- sanitizeAnnotable(annotable)
