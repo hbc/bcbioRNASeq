@@ -110,7 +110,6 @@ test_that("Summary and write support", {
             "group_ko_vs_ctrl_deg.csv.gz"
         )
     )
-    unlink("resultsTables", recursive = TRUE)
 })
 
 test_that("Dropbox mode", {
@@ -133,7 +132,6 @@ test_that("Dropbox mode", {
         },
         FUN.VALUE = logical(1L)
     )))
-    unlink("resultsTables", recursive = TRUE)
 
     # Now check the Markdown code
     output <- capture.output(.markdownResultsTables(resTbl))
@@ -143,3 +141,5 @@ test_that("Dropbox mode", {
         4L
     )
 })
+
+unlink("resultsTables", recursive = TRUE)

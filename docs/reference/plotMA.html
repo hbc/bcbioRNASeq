@@ -109,9 +109,9 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><em>Optional</em>. Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-gene symbols.</p></td>
+      <td><p>Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
@@ -135,7 +135,7 @@ have passed alpha level cutoffs.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><em>Optional</em>. Plot title.</p></td>
+      <td><p>Title.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -153,12 +153,8 @@ have passed alpha level cutoffs.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
 
@@ -171,7 +167,7 @@ have passed alpha level cutoffs.</p></td>
 <span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># data.frame</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
-<span class='fu'>plotMA</span>(<span class='no'>df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; <span class='error'>Error: `genes` must be a character vector</span></div></pre>
+<span class='fu'>plotMA</span>(<span class='no'>df</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='plotMA-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

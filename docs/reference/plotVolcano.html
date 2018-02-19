@@ -115,7 +115,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -131,9 +131,9 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><em>Optional</em>. Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-gene symbols.</p></td>
+      <td><p>Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
@@ -193,27 +193,17 @@ individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Use a defined gene2symbol data.frame for better speed</span>
 <span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'># Label the top genes</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='output co'>#&gt; <span class='error'>Error: `genes` must be a character vector</span></div><div class='input'>
+<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Label specific genes</span>
-<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()
-<span class='fu'>print</span>(<span class='no'>ensgene</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886"
-#&gt; [4] "ENSMUSG00000016918" "ENSMUSG00000025774" "ENSMUSG00000025776"</div><div class='input'><span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>ensgene</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># Label with Ensembl gene identifiers</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error: `genes` must be a character vector</span></div><div class='input'>
-<span class='co'># data.frame</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>as.data.frame</span>(<span class='no'>res</span>)
-<span class='fu'>plotVolcano</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; <span class='error'>Error: `genes` must be a character vector</span></div></pre>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()
+<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

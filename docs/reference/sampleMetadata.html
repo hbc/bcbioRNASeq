@@ -97,7 +97,25 @@
 <span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq,data.frame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for DESeqDataSet,data.frame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for DESeqDataSet,DataFrame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for DESeqTransform,data.frame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for DESeqTransform,DataFrame</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -108,7 +126,11 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+      <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Value to assign.</p></td>
     </tr>
     </table>
     
@@ -118,18 +140,16 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
+<span class='co'># bcbioRNASeq ====</span>
 <span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 4
 #&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko</div><div class='input'>
-<span class='co'># DESeqDataSet</span>
+<span class='co'># DESeqDataSet ====</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>sampleMetadata</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
@@ -138,7 +158,7 @@
 #&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko
 #&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div><div class='input'>
-<span class='co'># DESeqTransform</span>
+<span class='co'># DESeqTransform ====</span>
 <span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
 <span class='fu'>sampleMetadata</span>(<span class='no'>rld</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
 #&gt; Variables: 5
@@ -146,7 +166,19 @@
 #&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko
-#&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div></pre>
+#&gt; $ sizeFactor  &lt;fct&gt; 0.909065432053506, 1.02789752352872, 1.04640556301908, ...</div><div class='input'>
+<span class='co'># Assignment method ====</span>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>)
+<span class='co'># All columns will be coerced to factors</span>
+<span class='no'>data</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>14L</span>, <span class='fl'>30L</span>, <span class='fl'>14L</span>, <span class='fl'>30L</span>)
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>data</span>
+<span class='fu'>sampleMetadata</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
+#&gt; Variables: 5
+#&gt; $ sampleID    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ sampleName  &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ description &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group       &lt;fct&gt; ctrl, ctrl, ko, ko
+#&gt; $ age         &lt;fct&gt; 14, 30, 14, 30</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

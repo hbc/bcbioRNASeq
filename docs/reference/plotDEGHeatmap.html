@@ -97,21 +97,18 @@ function.</p>
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256L</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256L</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,matrix</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>(<span class='fl'>256L</span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -146,7 +143,7 @@ gene symbols.</p></td>
     </tr>
     <tr>
       <th>annotationCol</th>
-      <td><p><em>Optional</em>. data.frame that defines annotation
+      <td><p><em>Optional.</em> data.frame that defines annotation
 mappings for the columns.</p></td>
     </tr>
     <tr>
@@ -158,19 +155,18 @@ values are "row", "column" and "none".</p></td>
     <tr>
       <th>color</th>
       <td><p>Desired ggplot color scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>viridis::scale_color_viridis()</a></code>. Must supply discrete values. When set to
+<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis()</a></code>. Must supply discrete values. When set to
 <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+definitions are desired, we recommend using <code>scale_color_manual()</code>.</p></td>
     </tr>
     <tr>
       <th>legendColor</th>
       <td><p>Colors to use for legend labels. Defaults to the
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code>.</p></td>
+<code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Include plot title.</p></td>
+      <td><p>Title.</p></td>
     </tr>
     </table>
     
@@ -187,18 +183,10 @@ sample names.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"dds.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"res.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"rld.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/rld.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Use our stashed gene2symbol</span>
 <span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)

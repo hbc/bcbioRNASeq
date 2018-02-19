@@ -92,7 +92,10 @@
 <code>assays</code> slots.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq,data.frame</span>
+<span class='fu'>colData</span>(<span class='no'>x</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+
+<span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
 <span class='fu'>colData</span>(<span class='no'>x</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -104,7 +107,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p><em>Additional arguments (for the S4 generic definition).</em></p></td>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -122,13 +125,12 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># Assignment support</span>
 <span class='no'>colData</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
-<span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>factor</span>(<span class='fu'>c</span>(<span class='fl'>14</span>, <span class='fl'>30</span>, <span class='fl'>14</span>, <span class='fl'>30</span>))
+<span class='co'># All columns will be coerced to factors</span>
+<span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>14L</span>, <span class='fl'>30L</span>, <span class='fl'>14L</span>, <span class='fl'>30L</span>)
 <span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>colData</span>
 <span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"

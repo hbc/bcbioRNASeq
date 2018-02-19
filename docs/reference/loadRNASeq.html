@@ -94,9 +94,9 @@ program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
-  <span class='no'>...</span>)</pre>
+  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ensemblVersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,13 +114,20 @@ is used for PCA and heatmap QC functions.</p></td>
     </tr>
     <tr>
       <th>sampleMetadataFile</th>
-      <td><p><em>Optional</em>. Custom metadata file containing
+      <td><p><em>Optional.</em> Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported.</p></td>
+file. Remote URLs are supported. Typically this can be left <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>samples</th>
+      <td><p><em>Optional.</em> Specify a subset of samples to load. The names
+must match the <code>description</code> specified in the bcbio YAML metadata. If a
+<code>sampleMetadataFile</code> is provided, that will take priority for sample
+selection. Typically this can be left <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>annotable</th>
-      <td><p><em>Optional</em>. User-defined gene annotations (a.k.a.
+      <td><p><em>Optional.</em> User-defined gene annotations (a.k.a.
 "annotable"), which will be slotted into <code>rowData()</code>. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set <code>NULL</code>, then
@@ -130,7 +137,7 @@ poorly annotated.</p></td>
     </tr>
     <tr>
       <th>organism</th>
-      <td><p><em>Optional</em>. Organism name. Use the full latin name (e.g.
+      <td><p><em>Optional.</em> Organism name. Use the full latin name (e.g.
 "Homo sapiens"), since this will be input downstream to
 AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
 Normally this can be left <code>NULL</code>, and the function will attempt to detect
@@ -138,14 +145,14 @@ the organism automatically using <code>detectOrganism()</code>.</p></td>
     </tr>
     <tr>
       <th>ensemblVersion</th>
-      <td><p><em>Optional</em>. Ensembl release version. If <code>NULL</code>,
+      <td><p><em>Optional.</em> Ensembl release version. If <code>NULL</code>,
 defaults to current release, and does not typically need to be
 user-defined. This parameter can be useful for matching Ensembl annotations
 against an outdated bcbio annotation build.</p></td>
     </tr>
     <tr>
       <th>genomeBuild</th>
-      <td><p><em>Optional</em>. Genome build. Normally this can be left <code>NULL</code>
+      <td><p><em>Optional.</em> Genome build. Normally this can be left <code>NULL</code>
 and the build will be detected from the bcbio run data. This can be set
 manually (e.g. "hg19" for the older <em>Homo sapiens</em> reference genome). Note
 that this must match the genome build identifier on Ensembl for annotations
@@ -157,7 +164,12 @@ to download correctly.</p></td>
 <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code> and <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code> matrix.
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
-Details.</p></td>
+Details. Use <code>Inf</code> to always apply transformations and <code>0</code> to always skip.</p></td>
+    </tr>
+    <tr>
+      <th>design</th>
+      <td><p>DESeq2 design formula. Empty by default. Can be updated after
+initial data loading using the <code><a href='design.html'>design()</a></code> function.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -183,12 +195,10 @@ run directory as a remote connection over
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcbio"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
+    <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 
-<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
-#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Detecting organism from genome build</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='message'>Loading Ensembl annotations from AnnotationHub</span>
+#&gt; <span class='message'>2017-10-27</span></div><div class='output co'>#&gt; <span class='message'>EnsDB AH57770: Mus musculus Ensembl 90</span></div><div class='output co'>#&gt; <span class='message'>Obtaining transcript-to-gene mappings</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  enstxp = col_character(),</span>
 #&gt; <span class='message'>  ensgene = col_character()</span>
@@ -197,7 +207,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  genome = col_character(),</span>
 #&gt; <span class='message'>  resource = col_character(),</span>
 #&gt; <span class='message'>  version = col_datetime(format = "")</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen.log missing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen-commands.log missing</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log.txt</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log.txt</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  Name = col_character(),</span>
 #&gt; <span class='message'>  Length = col_integer(),</span>
@@ -225,7 +235,7 @@ run directory as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; <span class='message'>Generating internal DESeqDataSet for quality control</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; <span class='message'>Generating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  .default = col_integer(),</span>
 #&gt; <span class='message'>  id = col_character()</span>
@@ -238,60 +248,7 @@ run directory as a remote connection over
 #&gt;   ENSMUSG00000105982 ENSMUSG00000109048
 #&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
-#&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
-<span class='co'># Load without gene annotations</span>
-<span class='co'># Advanced use only! Not generally recommended.</span>
-<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Genome: Mus musculus (mm10)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Loading run without gene annotable</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  enstxp = col_character(),</span>
-#&gt; <span class='message'>  ensgene = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio run information</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  genome = col_character(),</span>
-#&gt; <span class='message'>  resource = col_character(),</span>
-#&gt; <span class='message'>  version = col_datetime(format = "")</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen.log missing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio-nextgen-commands.log missing</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  Name = col_character(),</span>
-#&gt; <span class='message'>  Length = col_integer(),</span>
-#&gt; <span class='message'>  EffectiveLength = col_double(),</span>
-#&gt; <span class='message'>  TPM = col_double(),</span>
-#&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; <span class='message'>Generating internal DESeqDataSet for quality control</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  .default = col_integer(),</span>
-#&gt; <span class='message'>  id = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Summarizing experiment without row data (e.g. gene annotations)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 505 4 
-#&gt; metadata(27): version uploadDir ... utilsSessionInfo
-#&gt;   devtoolsSessionInfo
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000105982 ENSMUSG00000109048
-#&gt; rowData names(0):
-#&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
-#&gt; colData names(4): sampleID sampleName description group</div><div class='input'><span class='fu'>rowData</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; DataFrame with 505 rows and 0 columns</div></pre>
+#&gt; colData names(4): sampleID sampleName description group</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
