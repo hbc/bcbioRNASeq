@@ -50,14 +50,14 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_is_matrix(counts)
-    assertFormalIntersectingGroups(object, interestingGroups)
+    assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsAnImplicitInteger(minCounts)
     assert_all_are_non_negative(minCounts)
-    assertIsScaleFillDiscreteOrNULL(fill)
+    assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
     
     # Title

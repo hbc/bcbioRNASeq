@@ -166,7 +166,7 @@ NULL
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }
-    assertFormalIntersectingGroups(
+    assertFormalInterestingGroups(
         x = sampleMetadata(object),
         interestingGroups = interestingGroups)
 

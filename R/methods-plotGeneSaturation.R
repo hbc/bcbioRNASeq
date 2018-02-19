@@ -44,11 +44,11 @@ NULL
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_data.frame(object)
-    assertFormalIntersectingGroups(object, interestingGroups)
+    assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(minCounts)
     assert_all_are_non_negative(minCounts)
     assert_is_a_bool(trendline)
-    assertIsScaleColorDiscreteOrNULL(color)
+    assertIsColorScaleDiscreteOrNULL(color)
     
     # Title
     if (isTRUE(title)) {

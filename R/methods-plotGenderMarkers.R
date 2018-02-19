@@ -59,10 +59,10 @@ NULL
     title = TRUE) {
     assert_is_matrix(object)
     assert_is_data.frame(metadata)
-    assertFormalIntersectingGroups(metadata, interestingGroups)
+    assertFormalInterestingGroups(metadata, interestingGroups)
     assert_is_a_string(organism)
     assert_is_a_string(countsAxisLabel)
-    assertIsScaleColorDiscreteOrNULL(color)
+    assertIsColorScaleDiscreteOrNULL(color)
     
     # Title
     if (isTRUE(title)) {

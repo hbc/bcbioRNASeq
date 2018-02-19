@@ -41,11 +41,11 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_data.frame(object)
-    assertFormalIntersectingGroups(object, interestingGroups)
+    assertFormalInterestingGroups(object, interestingGroups)
     assert_is_a_string(style)
     assert_is_subset(style, c("line", "solid"))
-    assertIsScaleColorDiscreteOrNULL(color)
-    assertIsScaleFillDiscreteOrNULL(fill)
+    assertIsColorScaleDiscreteOrNULL(color)
+    assertIsFillScaleDiscreteOrNULL(fill)
     
     # Title
     if (isTRUE(title)) {

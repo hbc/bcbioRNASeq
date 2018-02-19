@@ -35,8 +35,8 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assertFormalIntersectingGroups(object, interestingGroups)
-    assertIsScaleFillDiscreteOrNULL(fill)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
     
     # Title

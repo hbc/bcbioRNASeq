@@ -35,10 +35,10 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assertFormalIntersectingGroups(object, interestingGroups)
+    assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
-    assertIsScaleFillDiscreteOrNULL(fill)
+    assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
     
     # Title
