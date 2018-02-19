@@ -122,7 +122,7 @@ NULL
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
-            assert_is_gene2symbol(gene2symbol)
+            assertIsGene2symbol(gene2symbol)
             volcanoText <- left_join(volcanoText, gene2symbol, by = "ensgene")
         } else {
             labelCol <- "ensgene"

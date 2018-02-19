@@ -36,7 +36,7 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_formal_interesting_groups(object, interestingGroups)
-    assert_is_an_implicit_integer(warnLimit)
+    assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     .assert_formal_scale_discrete(fill)
     assert_is_a_bool(flip)

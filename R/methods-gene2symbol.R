@@ -27,7 +27,7 @@ NULL
     cols <- c("ensgene", "symbol")
     assert_is_subset(cols, colnames(data))
     data <- data[, cols, drop = FALSE]
-    assert_is_gene2symbol(data)
+    assertIsGene2symbol(data)
     data
 }
 
