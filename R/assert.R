@@ -43,6 +43,7 @@
 #' @importFrom basejump assertIsAnImplicitIntegerOrNULL
 #' @importFrom basejump assertIsAnnotable
 #' @importFrom basejump assertIsCharacterOrNULL
+#' @importFrom basejump assertIsImplicitInteger
 #' @importFrom basejump assertIsGene2symbol
 #' @importFrom basejump assertIsTx2gene
 #'

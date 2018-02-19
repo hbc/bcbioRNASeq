@@ -38,7 +38,7 @@ NULL
     assert_is_data.frame(object)
     assert_has_colnames(object)
     assert_has_rows(object)
-    assert_is_implicit_integer(n)
+    assertIsImplicitInteger(n)
     assert_is_a_bool(coding)
     # Note that `symbol` and `description` columns are optional
     requiredCols <- c("ensgene", "baseMean", "log2FoldChange", "padj")

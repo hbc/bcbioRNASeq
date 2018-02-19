@@ -75,7 +75,7 @@ NULL
         c("all", "deg", "degLFCDown", "degLFCUp"),
         names(object)
     )
-    assert_is_implicit_integer(headerLevel)
+    assertIsImplicitInteger(headerLevel)
 
     # Prioritze `dropboxFiles` over `localFiles` for path return
     assert_are_intersecting_sets(
