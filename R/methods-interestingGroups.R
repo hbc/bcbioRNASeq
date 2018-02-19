@@ -40,7 +40,7 @@ setMethod(
     "interestingGroups<-",
     signature(object = "bcbioRNASeq", value = "character"),
     function(object, value) {
-        assert_formal_interesting_groups(
+        assertFormalIntersectingGroups(
             sampleMetadata(object),
             interestingGroups = value)
         metadata(object)[["interestingGroups"]] <- value

@@ -35,20 +35,20 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
-    .assert_formal_scale_discrete(fill)
+    assertIsScaleFillDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    .assert_formal_title(title)
-
-    data <- uniteInterestingGroups(object, interestingGroups)
-
+    
+    # Title
     if (isTRUE(title)) {
         title <- "exonic mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
+
+    data <- uniteInterestingGroups(object, interestingGroups)
 
     p <- ggplot(
         data = data,

@@ -44,16 +44,16 @@ NULL
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(minCounts)
     assert_all_are_non_negative(minCounts)
     assert_is_a_bool(trendline)
-    .assert_formal_scale_discrete(color)
-    .assert_formal_title(title)
-
+    assertIsScaleColorDiscreteOrNULL(color)
+    
+    # Title
     if (isTRUE(title)) {
         title <- "gene saturation"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 

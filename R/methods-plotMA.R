@@ -65,7 +65,7 @@ NULL
     assert_is_a_string(pointColor)
     assert_is_a_string(sigPointColor)
     assert_is_a_string(labelColor)
-    .assert_formal_title(title)
+    assertIsAStringOrNULL(title)
 
     data <- object %>%
         rownames_to_column("ensgene") %>%
@@ -141,9 +141,10 @@ NULL
     labelColor = "black",
     title = TRUE) {
     # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
-    .assert_formal_title(title)
     if (isTRUE(title)) {
         title <- .contrastName.DESeqResults(object)
+    } else if (!is_a_string(title)) {
+        title <- NULL
     }
     .plotMA(
         object = as.data.frame(object),

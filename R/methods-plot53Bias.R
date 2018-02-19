@@ -36,26 +36,30 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
-    .assert_formal_scale_discrete(fill)
+    assertIsScaleFillDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    .assert_formal_title(title)
+    
+    # Title
+    ylab <- "5'->3' bias"
+    if (isTRUE(title)) {
+        title <- ylab
+    } else if (!is_a_string(title)) {
+        title <- NULL
+    }
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
     # The internal camel method has been updated in basejump 0.1.11.
     if ("x53Bias" %in% colnames(data)) {
+        warn(paste(
+            "Legacy `x53Bias` column detected in `metrics()`.",
+            updateMsg
+        ))
         data <- rename(data, "x5x3Bias" = "x53Bias")
-    }
-
-    ylab <- "5'->3' bias"
-    if (isTRUE(title)) {
-        title <- ylab
-    } else if (!is_a_string(title)) {
-        title <- NULL
     }
 
     p <- ggplot(

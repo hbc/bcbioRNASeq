@@ -75,8 +75,15 @@ NULL
     assertIsCharacterOrNULL(samples)
     assertFormalColorFunction(color)
     assertFormalColorFunction(legendColor)
-    .assert_formal_title(title)
+    
+    # Title
+    if (isTRUE(title)) {
+        title <- paste(method, "correlation")
+    } else if (!is_a_string(title)) {
+        title <- NULL
+    }
 
+    # Subset the counts matrix
     if (is.character(genes)) {
         counts <- counts[genes, , drop = FALSE]
     }
@@ -112,13 +119,6 @@ NULL
             set_names(colnames(annotationCol))
     } else {
         annotationColors <- NULL
-    }
-
-    # Set heatmap title (`main` parameter in pheatmap)
-    if (isTRUE(title)) {
-        title <- paste(method, "correlation")
-    } else if (!is.character(title)) {
-        title <- NULL
     }
 
     # If `color = NULL`, use the pheatmap default
@@ -166,9 +166,9 @@ NULL
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }
-    assert_formal_interesting_groups(
-        sampleMetadata(object), interestingGroups)
-    .assert_formal_title(title)
+    assertFormalIntersectingGroups(
+        x = sampleMetadata(object),
+        interestingGroups = interestingGroups)
 
     # Don't set annotation columns if we're only grouping by sample name
     if (identical(interestingGroups, "sampleName")) {

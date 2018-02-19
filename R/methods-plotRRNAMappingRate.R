@@ -36,25 +36,28 @@ NULL
     flip = TRUE,
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
-    .assert_formal_scale_discrete(fill)
+    assertIsScaleFillDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    .assert_formal_title(title)
-
+    
+    # Title
     if (isTRUE(title)) {
         title <- "rRNA mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
     # Fix for legacy camel variant mismatch (e.g. rRnaRate).
     if (!"rrnaRate" %in% colnames(object)) {
-        # grep match the outdated camel variant
+        warn(paste(
+            "`rrnaRate` is missing from `metrics()` slot.",
+            updateMsg
+        ))
         col <- grep(
-            x = colnames(object),
             pattern = "rrnarate",
+            x = colnames(object),
             ignore.case = TRUE,
             value = TRUE)
         object[["rrnaRate"]] <- object[[col]]

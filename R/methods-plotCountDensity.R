@@ -41,20 +41,20 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_data.frame(object)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assert_is_a_string(style)
     assert_is_subset(style, c("line", "solid"))
-    .assert_formal_scale_discrete(color)
-    .assert_formal_scale_discrete(fill)
-    .assert_formal_title(title)
+    assertIsScaleColorDiscreteOrNULL(color)
+    assertIsScaleFillDiscreteOrNULL(fill)
     
-    data <- uniteInterestingGroups(object, interestingGroups)
-
+    # Title
     if (isTRUE(title)) {
         title <- "count density"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
+    
+    data <- uniteInterestingGroups(object, interestingGroups)
 
     p <- ggplot(
         data = data,

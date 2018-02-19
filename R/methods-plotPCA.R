@@ -57,9 +57,9 @@ NULL
     label = FALSE,
     returnData = FALSE) {
     assert_is_all_of(object, "DESeqTransform")
-    assert_formal_interesting_groups(colData(object), interestingGroups)
+    assertFormalIntersectingGroups(colData(object), interestingGroups)
     assertIsCharacterOrNULL(genes)
-    .assert_formal_scale_discrete(color)
+    assertIsScaleColorDiscreteOrNULL(color)
     assert_is_a_bool(label)
     assert_is_a_bool(returnData)
 

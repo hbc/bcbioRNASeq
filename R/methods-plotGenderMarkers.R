@@ -59,15 +59,15 @@ NULL
     title = TRUE) {
     assert_is_matrix(object)
     assert_is_data.frame(metadata)
-    assert_formal_interesting_groups(metadata, interestingGroups)
+    assertFormalIntersectingGroups(metadata, interestingGroups)
     assert_is_a_string(organism)
     assert_is_a_string(countsAxisLabel)
-    .assert_formal_scale_discrete(color)
-    .assert_formal_title(title)
-
+    assertIsScaleColorDiscreteOrNULL(color)
+    
+    # Title
     if (isTRUE(title)) {
         title <- "gender markers"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 

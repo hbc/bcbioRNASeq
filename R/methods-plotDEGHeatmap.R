@@ -118,7 +118,6 @@ NULL
         x = counts,
         classes = c("DESeqDataSet", "DESeqTransform", "matrix")
     )
-    .assert_formal_title(title)
 
     if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)

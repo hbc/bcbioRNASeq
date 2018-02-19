@@ -50,20 +50,20 @@ NULL
     title = TRUE) {
     assert_is_data.frame(object)
     assert_is_matrix(counts)
-    assert_formal_interesting_groups(object, interestingGroups)
+    assertFormalIntersectingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsAnImplicitInteger(minCounts)
     assert_all_are_non_negative(minCounts)
-    .assert_formal_scale_discrete(fill)
+    assertIsScaleFillDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    .assert_formal_title(title)
-
+    
+    # Title
     if (isTRUE(title)) {
         title <- "genes detected"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
