@@ -172,12 +172,6 @@ setValidity("bcbioRNASeq", function(object) {
         abort(paste("Metadata class checks failed.", updateMsg, sep = "\n"))
     }
 
-    # Check for empty bcbio logs
-    assert_all_are_non_empty_character(c(
-        metadata[["bcbioLog"]],
-        metadata[["bcbioCommandsLog"]]
-    ))
-
     annotable <- metadata[["annotable"]]
     if (!is.null(annotable)) {
         assert_is_annotable(annotable)
