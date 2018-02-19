@@ -6,7 +6,7 @@ test_that("v0.1.4", {
         metadata(bcb)[["version"]],
         package_version("0.1.4")
     )
-    updated <- updateObject(bcb)
+    updated <- suppressMessages(updateObject(bcb))
     expect_identical(
         metadata(updated)[["version"]],
         packageVersion
