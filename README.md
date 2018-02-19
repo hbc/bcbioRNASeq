@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRNASeq)
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
 Quality control and differential expression for [bcbio][] RNA-seq experiments.
 
@@ -19,6 +20,12 @@ biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
 )
+```
+
+### [conda][] method
+
+```bash
+conda install -c bioconda r-bcbiornaseq
 ```
 
 
@@ -101,6 +108,7 @@ The papers and software cited in our workflows are available as a [shared librar
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [Bioconductor]: https://bioconductor.org
+[conda]: https://conda.io
 [DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
