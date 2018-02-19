@@ -45,6 +45,8 @@
 #' @importFrom basejump assertIsCharacterOrNULL
 #' @importFrom basejump assertIsImplicitInteger
 #' @importFrom basejump assertIsGene2symbol
+#' @importFrom basejump assertIsScaleColorDiscreteOrNULL
+#' @importFrom basejump assertIsScaleFillDiscreteOrNULL
 #' @importFrom basejump assertIsTx2gene
 #'
 #' @importFrom bcbioBase assertFormalInterestingGroups
