@@ -4,14 +4,17 @@
 \name{selectSamples}
 \alias{selectSamples}
 \alias{selectSamples,bcbioRNASeq-method}
+\alias{selectSamples,DESeqDataSet-method}
 \title{Select Samples}
 \usage{
 \S4method{selectSamples}{bcbioRNASeq}(object, ..., transform = TRUE)
+
+\S4method{selectSamples}{DESeqDataSet}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{transform}{Apply CPU-intensive DESeq2 transformations. This can
 take a long time for large datasets.}
@@ -23,12 +26,14 @@ take a long time for large datasets.}
 Select Samples
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 selectSamples(bcb, group = "ko")
+
+# DESeqDataSet ====
+selectSamples(dds, group = "ko")
 }
 \author{
 Michael Steinbaugh

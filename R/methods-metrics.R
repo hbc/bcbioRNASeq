@@ -5,14 +5,12 @@
 #'
 #' @importFrom bcbioBase metrics
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' metrics(bcb) %>% glimpse()
@@ -23,16 +21,38 @@ NULL
 # Methods ======================================================================
 #' @rdname metrics
 #' @importFrom dplyr left_join mutate_if
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object) {
-        metrics <- metadata(object)[["metrics"]] %>%
-            mutate_if(is.character, as.factor)
+    function(object) {  # nolint
+        metrics <- metadata(object)[["metrics"]]
+        assert_is_data.frame(metrics)
+        assert_are_identical(colnames(object), rownames(metrics))
+
         metadata <- sampleMetadata(object)
-        metrics <- left_join(metrics, metadata, by = metadataPriorityCols)
-        rownames(metrics) <- metrics[["sampleID"]]
-        metrics
+        assert_is_data.frame(metadata)
+        assert_are_identical(rownames(metrics), rownames(metadata))
+
+        if (length(intersect(
+            x = colnames(metrics),
+            y = legacyMetricsCols
+        ))) {
+            warn(paste(
+                paste(
+                    "Metrics slot contains legacy columns:",
+                    toString(intersect(colnames(metrics), legacyMetricsCols))
+                ),
+                updateMsg,
+                sep = "\n"
+            ))
+            metrics <- metrics %>%
+                .[, setdiff(colnames(.), legacyMetricsCols), drop = FALSE]
+        }
+        assert_are_disjoint_sets(colnames(metrics), colnames(metadata))
+
+        cbind(metadata, metrics) %>%
+            rownames_to_column() %>%
+            mutate_if(is.character, as.factor) %>%
+            column_to_rownames()
     })

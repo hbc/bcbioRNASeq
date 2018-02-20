@@ -3,40 +3,44 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
+\alias{plotGene,matrix-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
-\alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "tpm",
-  interestingGroups, color = viridis::scale_color_viridis(discrete = TRUE),
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
+  interestingGroups = "sampleName", countsAxisLabel = "counts",
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
   return = "grid", headerLevel = 2L)
 
-\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = TRUE,
-  normalized = TRUE, interestingGroups = "sampleName",
-  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
+  interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
+  = TRUE), return = "grid", headerLevel = 2L)
+
+\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
+  interestingGroups = "sampleName", medianLine = TRUE,
+  color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = TRUE,
-  interestingGroups = "sampleName",
-  color = viridis::scale_color_viridis(discrete = TRUE), return = "grid",
+\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
+  interestingGroups = "sampleName", medianLine = TRUE,
+  color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
-
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = TRUE, metadata,
-  interestingGroups = "sampleName",
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  countsAxisLabel = "counts", return = "grid", headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
+\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.}
+
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -44,28 +48,23 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\item{countsAxisLabel}{Text label of counts axis.}
 
-\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
+\item{medianLine}{Include median line for each group. Disabled when samples
+are grouped by \code{sampleName}.}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+
+\item{return}{Desired return type: \code{grid}, \code{wide}, \code{list}, or \code{markdown}.}
 
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
-
-\item{metadata}{Sample metadata \link{data.frame}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 }
 \value{
 \itemize{
@@ -78,21 +77,22 @@ Ensembl gene identifiers will be labeled in place of gene symbols.}
 Plot Individual Genes
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # Gene identifiers
-genes <- rownames(bcb)[1:4]
-print(genes)
-plotGene(bcb, genes = genes)
+genes <- head(rownames(bcb), 4L)
 
-# Default ggplot2 color palette
-plotGene(
-    bcb,
-    genes = genes,
-    interestingGroups = "sampleName",
-    color = NULL)
+# bcbioRNASeq ====
+plotGene(bcb, genes = genes, return = "grid")
+plotGene(bcb, genes = genes, return = "wide")
+
+# DESeqDataSet ====
+plotGene(dds, genes = genes, interestingGroups = "group")
+
+# DESeqTransform ====
+plotGene(rld, genes = genes, interestingGroups = "group")
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

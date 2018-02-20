@@ -5,39 +5,49 @@
 #' @rdname sampleMetadata
 #' @name sampleMetadata
 #'
-#' @importFrom bcbioBase sampleMetadata
+#' @importFrom bcbioBase sampleMetadata sampleMetadata<-
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
-#' # bcbioRNASeq
+#' # bcbioRNASeq ====
 #' sampleMetadata(bcb) %>% glimpse()
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
 #' sampleMetadata(dds) %>% glimpse()
 #'
-#' # DESeqTransform
+#' # DESeqTransform ====
 #' rld <- assays(bcb)[["rlog"]]
 #' sampleMetadata(rld) %>% glimpse()
+#'
+#' # Assignment method ====
+#' data <- sampleMetadata(bcb)
+#' # All columns will be coerced to factors
+#' data[["age"]] <- c(14L, 30L, 14L, 30L)
+#' sampleMetadata(bcb) <- data
+#' sampleMetadata(bcb) %>% glimpse()
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom dplyr mutate_all
-#' @importFrom magrittr set_rownames
+#' @importFrom basejump sanitizeColData
 .sampleMetadata <- function(object, ...) {
     colData(object) %>%
-        as.data.frame() %>%
-        mutate_all(as.factor) %>%
-        set_rownames(.[["sampleID"]])
+        sanitizeColData() %>%
+        as.data.frame()
+}
+
+
+
+`.sampleMetadata<-` <- function(object, ..., value) {
+    colData(object) <- value
+    object
 }
 
 
@@ -67,3 +77,77 @@ setMethod(
     "sampleMetadata",
     signature("DESeqTransform"),
     .sampleMetadata)
+
+
+
+# Assignment Methods ===========================================================
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqDataSet",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqDataSet",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqTransform",
+        value = "data.frame"
+    ),
+    `.sampleMetadata<-`)
+
+
+
+#' @rdname sampleMetadata
+#' @export
+setMethod(
+    "sampleMetadata<-",
+    signature(
+        object = "DESeqTransform",
+        value = "DataFrame"
+    ),
+    `.sampleMetadata<-`)

@@ -5,25 +5,18 @@
 \alias{plotTotalReads}
 \alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
-\alias{plotTotalReads,data.frame-method}
 \title{Plot Total Reads}
 \usage{
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20L, warnLimit = 10L,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
-
-\S4method{plotTotalReads}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 20L, warnLimit = 10L,
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
+  passLimit = 20L, warnLimit = 10L, fill = scale_fill_viridis(discrete =
+  TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -36,13 +29,13 @@ this is automatically determined by the metadata set inside the
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
@@ -51,20 +44,8 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Total Reads
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-
-# bcbioRNASeq
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotTotalReads(bcb)
-plotTotalReads(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotTotalReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

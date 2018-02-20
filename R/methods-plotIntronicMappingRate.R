@@ -8,20 +8,8 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotIntronicMappingRate(bcb)
-#' plotIntronicMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotIntronicMappingRate(df)
 NULL
 
 
@@ -29,23 +17,31 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
-#' @importFrom viridis scale_fill_viridis
 .plotIntronicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 20L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "intronic mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~intronicRate * 100L,
@@ -60,7 +56,7 @@ NULL
         ) +
         ylim(0L, 100L)
 
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -83,7 +79,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotIntronicMappingRate
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotIntronicMappingRate",
@@ -92,27 +87,17 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 20L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotIntronicMappingRate(
-            metrics(object),
+            object = metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             fill = fill,
             flip = flip,
             title = title)
     })
-
-
-
-#' @rdname plotIntronicMappingRate
-#' @export
-setMethod(
-    "plotIntronicMappingRate",
-    signature("data.frame"),
-    .plotIntronicMappingRate)

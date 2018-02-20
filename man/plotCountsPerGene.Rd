@@ -5,24 +5,18 @@
 \alias{plotCountsPerGene}
 \alias{plotCountsPerGene}
 \alias{plotCountsPerGene,bcbioRNASeq-method}
-\alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
 \usage{
 plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", fill = viridis::scale_fill_viridis(discrete = TRUE),
+  normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
-
-\S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroups = "sampleName",
-  fill = viridis::scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -34,13 +28,13 @@ this is automatically determined by the metadata set inside the
 for more information.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
@@ -49,20 +43,8 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Counts Per Gene
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-
-# bcbioRNASeq
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotCountsPerGene(bcb)
-plotCountsPerGene(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- meltLog10(bcb, normalized = "tmm")
-plotCountsPerGene(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

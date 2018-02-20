@@ -1,8 +1,6 @@
 context("plot53Bias")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("plot53Bias", {
     p <- plot53Bias(bcb)

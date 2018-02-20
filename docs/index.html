@@ -78,6 +78,11 @@
     <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
 )</code></pre></div>
 </div>
+<div id="conda-method" class="section level3">
+<h3 class="hasAnchor">
+<a href="#conda-method" class="anchor"></a><a href="https://conda.io">conda</a> method</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
+</div>
 </div>
 <div id="load-bcbio-run" class="section level2">
 <h2 class="hasAnchor">
@@ -85,7 +90,8 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
 bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),
-    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>))</code></pre></div>
+    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>)
+)</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
@@ -263,6 +269,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq
 <li><a href="https://travis-ci.org/hbc/bcbioRNASeq"><img src="https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active - The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://codecov.io/gh/hbc/bcbioRNASeq"><img src="https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://anaconda.org/bioconda/r-bcbiornaseq"><img src="https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg" alt="Anaconda-Server Badge"></a></li>
 </ul>
 </div>
 </div>

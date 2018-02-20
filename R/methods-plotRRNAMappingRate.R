@@ -8,21 +8,8 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotRRNAMappingRate(bcb)
-#' plotRRNAMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL,
-#'     warnLimit = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotRRNAMappingRate(df)
 NULL
 
 
@@ -30,35 +17,47 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotRRNAMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 10L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "rRNA mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
     # Fix for legacy camel variant mismatch (e.g. rRnaRate).
     if (!"rrnaRate" %in% colnames(object)) {
-        # grep match the outdated camel variant
+        warn(paste(
+            "`rrnaRate` is missing from `metrics()` slot.",
+            updateMsg
+        ))
         col <- grep(
-            x = colnames(object),
             pattern = "rrnarate",
+            x = colnames(object),
             ignore.case = TRUE,
             value = TRUE)
+        assert_is_a_string(col)
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100L,
@@ -72,7 +71,7 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -95,7 +94,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotRRNAMappingRate
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotRRNAMappingRate",
@@ -104,27 +102,17 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 10L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotRRNAMappingRate(
-            metrics(object),
+            object = metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             fill = fill,
             flip = flip,
             title = title)
     })
-
-
-
-#' @rdname plotRRNAMappingRate
-#' @export
-setMethod(
-    "plotRRNAMappingRate",
-    signature("data.frame"),
-    .plotRRNAMappingRate)

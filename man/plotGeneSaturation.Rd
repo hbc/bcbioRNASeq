@@ -4,26 +4,19 @@
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
 \alias{plotGeneSaturation}
-\alias{plotGeneSaturation,bcbioRNASeq,missing-method}
-\alias{plotGeneSaturation,data.frame,matrix-method}
+\alias{plotGeneSaturation,bcbioRNASeq-method}
 \title{Plot Gene Detection Saturation}
 \usage{
-plotGeneSaturation(object, counts, ...)
+plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0L,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
-
-\S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroups = "sampleName", minCounts = 0L,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
+  normalized = "tmm", minCounts = 0L, trendline = TRUE,
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Object containing a count matrix.}
-
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -37,13 +30,14 @@ for more information.}
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\item{trendline}{Include a trendline for each group.}
 
-\item{title}{Include plot title.}
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
@@ -52,21 +46,8 @@ definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-
-# bcbioRNASeq
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotGeneSaturation(bcb)
-plotGeneSaturation(
-    bcb,
-    interestingGroups = "sampleName",
-    color = NULL)
-
-# data.frame, matrix
-df <- metrics(bcb)
-counts <- counts(bcb, normalized = "rlog")
-plotGeneSaturation(df, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

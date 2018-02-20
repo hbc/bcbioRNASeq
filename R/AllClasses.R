@@ -30,31 +30,156 @@
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+#'
+#' # We're suppressing warnings about missing log files in our minimal
+#' # dataset, which end up in the Travis CI logs. This isn't recommended
+#' # for a typical bcbio run.
 #' bcb <- loadRNASeq(uploadDir)
+#' print(bcb)
+#'
+#' # Check validity
+#' validObject(bcb)
 bcbioRNASeq <- setClass(
     "bcbioRNASeq",
     contains = "SummarizedExperiment",
     slots = c(bcbio = "SimpleList")
 )
-setValidity("bcbioRNASeq", function(object) TRUE)
 
 
 
-#' bcbioRNADataSet Legacy Object Class
-#'
-#' This class has been superceded by [bcbioRNASeq] and will be formally
-#' deprecated in a future release.
-#'
-#' @author Lorena Pantano, Michael Steinbaugh
-#' @keywords internal
-#'
-#' @slot callers [SimpleList] containing additional bcbio run data with
-#'   dimensions that don't match the count matrix.
-#'
-#' @export
-bcbioRNADataSet <- setClass(
-    "bcbioRNADataSet",
-    contains = "SummarizedExperiment",
-    slots = c(callers = "SimpleList")
-)
-setValidity("bcbioRNADataSet", function(object) TRUE)
+# Validity =====================================================================
+setValidity("bcbioRNASeq", function(object) {
+    # SummarizedExperiment internal structure
+    assert_is_all_of(object, "SummarizedExperiment")
+    assert_has_dimnames(object)
+    stopifnot(all(vapply(
+        X = c(
+            "assays",
+            "bcbio",
+            "colData",
+            "elementMetadata",
+            "metadata",
+            "NAMES"
+        ),
+        FUN = function(slot) {
+            .hasSlot(object, slot)
+        },
+        FUN.VALUE = logical(1L)
+    )))
+
+    # Required count matrices
+    # Note that `rlog` and `vst` DESeqTransform objects are optional
+    assert_is_subset(
+        c("raw", "normalized", "tpm", "tmm"),
+        names(assays(object))
+    )
+
+    # Column data
+    colDataFactor <- vapply(
+        X = colData(object),
+        FUN = is.factor,
+        FUN.VALUE = logical(1L),
+        USE.NAMES = TRUE
+    )
+    if (any(!colDataFactor)) {
+        abort(paste(
+            paste(
+                "Non-factor colData columns:",
+                toString(names(colDataFactor[!colDataFactor]))
+            ),
+            updateMsg,
+            sep = "\n"
+        ))
+    }
+
+    # Metadata
+    requiredMetadata <- list(
+        "version" = "package_version",
+        "uploadDir" = "character",
+        "sampleDirs" = "character",
+        "projectDir" = "character",
+        "template" = "character",
+        "runDate" = "Date",
+        "interestingGroups" = "character",
+        "organism" = "character",
+        "genomeBuild" = "character",
+        "ensemblVersion" = c("integer", "NULL"),
+        "annotable" = c("data.frame", "NULL"),
+        "tx2gene" = "data.frame",
+        "lanes" = "integer",
+        "yaml" = "list",
+        "metrics" = "data.frame",
+        "sampleMetadataFile" = c("character", "NULL"),
+        "dataVersions" = "tbl_df",
+        "programVersions" = "tbl_df",
+        "bcbioLog" = "character",
+        "bcbioCommandsLog" = "character",
+        "allSamples" = "logical",
+        "design" = "formula",
+        # Allow user to set `Inf`, which isn't an integer
+        "transformationLimit" = c("integer", "numeric"),
+        "date" = "Date",
+        "wd" = "character",
+        "utilsSessionInfo" = "sessionInfo",
+        "devtoolsSessionInfo" = "session_info",
+        "unannotatedGenes" = c("character", "NULL")
+    )
+
+    # Inform the user about renamed metadata slots
+    legacyMetadata <- c(
+        "gtf",
+        "missingGenes",
+        "programs"
+    )
+    intersect <- intersect(names(metadata(object)), legacyMetadata)
+    if (length(intersect)) {
+        abort(paste(
+            paste(
+                "Legacy metadata slots:",
+                toString(sort(intersect))
+            ),
+            updateMsg,
+            sep = "\n"
+        ))
+    }
+
+    # Integrity check the classes of required metadata
+    classChecks <- invisible(vapply(
+        X = seq_along(requiredMetadata),
+        FUN = function(a) {
+            name <- names(requiredMetadata)[[a]]
+            actual <- class(metadata(object)[[name]])
+            expected <- requiredMetadata[[a]]
+            if (!length(intersect(expected, actual))) {
+                warn(paste(
+                    name, "is not", toString(expected)
+                ))
+                FALSE
+            } else {
+                TRUE
+            }
+        },
+        FUN.VALUE = logical(1L),
+        USE.NAMES = FALSE
+    ))
+    if (!all(classChecks)) {
+        abort(paste("Metadata class checks failed.", updateMsg, sep = "\n"))
+    }
+
+    # Metrics
+    assert_are_disjoint_sets(
+        x = colnames(metadata(object)[["metrics"]]),
+        y = legacyMetricsCols)
+
+    # Annotable
+    annotable <- metadata(object)[["annotable"]]
+    if (!is.null(annotable)) {
+        assertIsAnnotable(annotable)
+    }
+
+    # Transcript to gene mappings
+    tx2gene <- metadata(object)[["tx2gene"]]
+    assertIsTx2gene(tx2gene)
+
+    TRUE
+})

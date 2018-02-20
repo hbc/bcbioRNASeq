@@ -3,15 +3,18 @@
 \docType{methods}
 \name{colData}
 \alias{colData}
+\alias{colData<-,bcbioRNASeq,data.frame-method}
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \title{Column Data}
 \usage{
+\S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
+
 \S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
 }
 \arguments{
 \item{x}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{value}{Value to assign.}
 }
@@ -25,13 +28,12 @@ This method support will also update the \code{colData} inside the \code{bcbio} 
 \code{assays} slots.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # Assignment support
 colData <- colData(bcb)
-colData[["age"]] <- factor(c(14, 30, 14, 30))
+# All columns will be coerced to factors
+colData[["age"]] <- c(14L, 30L, 14L, 30L)
 colData(bcb) <- colData
 colData(bcb) \%>\% glimpse()
 

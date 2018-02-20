@@ -9,7 +9,7 @@
 #'
 #' @importFrom bcbioBase bcbio bcbio<-
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param type Type of data to retrieve.
 #'
@@ -37,9 +37,7 @@
 #' @return [slot] object.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # tximport list
 #' txi <- bcbio(bcb, "tximport")
@@ -70,11 +68,8 @@ setMethod(
         if (missing(type)) {
             return(slot(object, "bcbio"))
         }
-        if (type %in% names(slot(object, "bcbio"))) {
-            slot(object, "bcbio")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
+        assert_is_subset(type, names(slot(object, "bcbio")))
+        slot(object, "bcbio")[[type]]
     })
 
 
@@ -83,43 +78,12 @@ setMethod(
 #' @export
 setMethod(
     "bcbio<-",
-    signature(object = "bcbioRNASeq", value = "ANY"),
+    signature(
+        object = "bcbioRNASeq",
+        value = "ANY"
+    ),
     function(object, type, value) {
         slot(object, "bcbio")[[type]] <- value
-        validObject(object)
-        object
-    })
-
-
-
-# Legacy classes ===============================================================
-# Package versions prior to 0.0.27 used `callers` to define the extra bcbio
-# slot. The structure of the object is otherwise the same.
-#' @rdname bcbio
-#' @export
-setMethod(
-    "bcbio",
-    signature("bcbioRNADataSet"),
-    function(object, type) {
-        if (missing(type)) {
-            return(slot(object, "callers"))
-        }
-        if (type %in% names(slot(object, "callers"))) {
-            slot(object, "callers")[[type]]
-        } else {
-            abort(paste(type, "not found"))
-        }
-    })
-
-
-
-#' @rdname bcbio
-#' @export
-setMethod(
-    "bcbio<-",
-    signature(object = "bcbioRNADataSet", value = "ANY"),
-    function(object, type, value) {
-        slot(object, "callers")[[type]] <- value
         validObject(object)
         object
     })

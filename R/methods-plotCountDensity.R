@@ -13,21 +13,9 @@
 #' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotCountDensity(bcb, style = "solid")
-#' plotCountDensity(
-#'     bcb,
-#'     style = "line",
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- meltLog10(bcb, normalized = "tmm")
-#' plotCountDensity(df)
+#' plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
 NULL
 
 
@@ -35,31 +23,31 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot guides labs
-#' @importFrom viridis scale_color_viridis scale_fill_viridis
 .plotCountDensity <- function(
     object,
     interestingGroups = "sampleName",
     style = "solid",
-    color = viridis::scale_color_viridis(discrete = TRUE),
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    color = scale_color_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     title = TRUE) {
-    validStyles <- c("line", "solid")
-    if (!style %in% validStyles) {
-        abort(paste(
-            "Valid `style` arguments:",
-            toString(validStyles)
-        ))
-    }
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assert_is_a_string(style)
+    assert_is_subset(style, c("line", "solid"))
+    assertIsColorScaleDiscreteOrNULL(color)
+    assertIsFillScaleDiscreteOrNULL(fill)
 
+    # Title
     if (isTRUE(title)) {
         title <- "count density"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_string(
             x = "counts",
             group = "interestingGroups",
@@ -67,7 +55,7 @@ NULL
             fill = "interestingGroups")
     ) +
         labs(
-            title = "count density",
+            title = title,
             x = "log10 counts per gene",
             fill = paste(interestingGroups, collapse = ":\n"))
 
@@ -94,7 +82,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCountDensity
-#' @importFrom viridis scale_color_viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotCountDensity",
@@ -104,26 +91,17 @@ setMethod(
         interestingGroups,
         normalized = "tmm",
         style = "solid",
-        color = viridis::scale_color_viridis(discrete = TRUE),
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotCountDensity(
-            meltLog10(object, normalized = normalized),
+            object = meltLog10(object, normalized = normalized),
             interestingGroups = interestingGroups,
             style = style,
             color = color,
             fill = fill,
             title = title)
     })
-
-
-
-#' @rdname plotCountDensity
-#' @export
-setMethod(
-    "plotCountDensity",
-    signature("data.frame"),
-    .plotCountDensity)

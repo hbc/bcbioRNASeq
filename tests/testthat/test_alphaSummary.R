@@ -1,16 +1,12 @@
 context("alphaSummary")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
 test_that("bcbioRNASeq", {
     expect_warning(
         alphaSummary(bcb),
-        "Empty DESeqDataSet design formula detected"
+        "Internal DESeqDataSet has an empty design formula"
     )
     expect_is(suppressWarnings(alphaSummary(bcb)), "knitr_kable")
 })

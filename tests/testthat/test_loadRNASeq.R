@@ -1,17 +1,11 @@
 context("loadRNASeq")
 
 # Load the minimal example bcbio run saved in the package
-uploadDir <- system.file(
-    file.path("extdata", "bcbio"),
-    package = "bcbioRNASeq")
-
-# This should produce the following warnings:
-#   1: bcbio-nextgen.log missing
-#   2: bcbio-nextgen-commands.log missing
-#   3: Unannotated genes detected in counts matrix
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- suppressWarnings(suppressMessages(
     loadRNASeq(uploadDir)
 ))
+annotable <- annotable(bcb)
 
 test_that("Class definition", {
     expect_equal(
@@ -33,8 +27,7 @@ test_that("Class definition", {
     )
     expect_equal(
         slot(bcb, "assays") %>% class(),
-        structure("ShallowSimpleListAssays",
-                  package = "SummarizedExperiment")
+        structure("ShallowSimpleListAssays", package = "SummarizedExperiment")
     )
     expect_equal(
         slot(bcb, "NAMES") %>% class(),
@@ -51,7 +44,7 @@ test_that("Class definition", {
     )
 })
 
-test_that("assays slot", {
+test_that("Assays", {
     expect_equal(
         lapply(assays(bcb), class),
         list(raw = "matrix",
@@ -64,7 +57,7 @@ test_that("assays slot", {
     )
 })
 
-test_that("colData slot", {
+test_that("Column data", {
     expect_equal(
         lapply(colData(bcb), class),
         list(sampleID = "factor",
@@ -75,7 +68,7 @@ test_that("colData slot", {
 })
 
 # Ensembl annotations from AnnotationHub, using ensembldb
-test_that("rowData slot", {
+test_that("Row data", {
     expect_equal(
         lapply(rowData(bcb), class),
         list(ensgene = "character",
@@ -92,7 +85,7 @@ test_that("rowData slot", {
     )
 })
 
-test_that("metadata slot", {
+test_that("Metadata", {
     expect_equal(
         lapply(metadata(bcb), class),
         list(version = c("package_version", "numeric_version"),
@@ -112,9 +105,9 @@ test_that("metadata slot", {
              metrics = "data.frame",
              sampleMetadataFile = "NULL",
              dataVersions = c("tbl_df", "tbl", "data.frame"),
-             programs = c("tbl_df", "tbl", "data.frame"),
-             bcbioLog = "NULL",
-             bcbioCommandsLog = "NULL",
+             programVersions = c("tbl_df", "tbl", "data.frame"),
+             bcbioLog = "character",
+             bcbioCommandsLog = "character",
              allSamples = "logical",
              design = "formula",
              transformationLimit = "integer",
@@ -136,7 +129,7 @@ test_that("metadata slot", {
     )
 })
 
-test_that("bcbio slot", {
+test_that("bcbio", {
     expect_equal(
         lapply(slot(bcb, "bcbio"), class),
         list(tximport = "list",
@@ -164,22 +157,38 @@ test_that("Example data dimensions", {
 })
 
 test_that("transformationLimit", {
-    bcb <- suppressWarnings(suppressMessages(
-        loadRNASeq(uploadDir, transformationLimit = 0L)
+    skip <- suppressWarnings(suppressMessages(
+        loadRNASeq(
+            uploadDir = uploadDir,
+            annotable = annotable,
+            transformationLimit = 0L)
     ))
-    expect_warning(
-        suppressMessages(loadRNASeq(uploadDir, transformationLimit = 0L)),
-        paste("Dataset contains many samples.",
-              "Skipping DESeq2 variance stabilization.")
-    )
     expect_identical(
-        names(assays(bcb)),
+        names(assays(skip)),
         c("raw", "normalized", "tpm", "tmm")
     )
-    expect_is(assays(bcb)[["rlog"]], "NULL")
-    expect_is(assays(bcb)[["vst"]], "NULL")
-    transformationLimit <- metadata(bcb)[["transformationLimit"]]
-    expect_equal(transformationLimit, 0L)
+    expect_identical(metadata(skip)[["transformationLimit"]], 0L)
+    expect_warning(
+        suppressMessages(
+            loadRNASeq(
+                uploadDir = uploadDir,
+                annotable = annotable,
+                transformationLimit = 0L)
+        ),
+        paste(
+            "Dataset contains many samples.",
+            "Skipping DESeq2 variance stabilization."
+        )
+    )
+    expect_message(
+        suppressWarnings(
+            loadRNASeq(
+                uploadDir = uploadDir,
+                annotable = annotable,
+                transformationLimit = Inf)
+        ),
+        "Performing rlog transformation"
+    )
 })
 
 test_that("User input sample metadata", {

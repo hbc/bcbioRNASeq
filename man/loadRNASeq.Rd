@@ -5,9 +5,9 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, annotable = TRUE, organism = NULL,
-  ensemblVersion = NULL, genomeBuild = NULL, transformationLimit = 50L,
-  ...)
+  sampleMetadataFile = NULL, samples = NULL, annotable = TRUE,
+  organism = NULL, ensemblVersion = NULL, genomeBuild = NULL,
+  transformationLimit = 50L, design = NULL, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -17,11 +17,16 @@ running \code{bcbio_nextgen -w template}.}
 is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.}
 
-\item{sampleMetadataFile}{\emph{Optional}. Custom metadata file containing
+\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported.}
+file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
-\item{annotable}{\emph{Optional}. User-defined gene annotations (a.k.a.
+\item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
+must match the \code{description} specified in the bcbio YAML metadata. If a
+\code{sampleMetadataFile} is provided, that will take priority for sample
+selection. Typically this can be left \code{NULL}.}
+
+\item{annotable}{\emph{Optional.} User-defined gene annotations (a.k.a.
 "annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should
 be left undefined. By default, the function will automatically generate an
 annotable from the annotations available on Ensembl. If set \code{NULL}, then
@@ -29,18 +34,18 @@ annotable from the annotations available on Ensembl. If set \code{NULL}, then
 This is recommended for projects dealing with genes or transcripts that are
 poorly annotated.}
 
-\item{organism}{\emph{Optional}. Organism name. Use the full latin name (e.g.
+\item{organism}{\emph{Optional.} Organism name. Use the full latin name (e.g.
 "Homo sapiens"), since this will be input downstream to
 AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
 Normally this can be left \code{NULL}, and the function will attempt to detect
 the organism automatically using \code{\link[=detectOrganism]{detectOrganism()}}.}
 
-\item{ensemblVersion}{\emph{Optional}. Ensembl release version. If \code{NULL},
+\item{ensemblVersion}{\emph{Optional.} Ensembl release version. If \code{NULL},
 defaults to current release, and does not typically need to be
 user-defined. This parameter can be useful for matching Ensembl annotations
 against an outdated bcbio annotation build.}
 
-\item{genomeBuild}{\emph{Optional}. Genome build. Normally this can be left \code{NULL}
+\item{genomeBuild}{\emph{Optional.} Genome build. Normally this can be left \code{NULL}
 and the build will be detected from the bcbio run data. This can be set
 manually (e.g. "hg19" for the older \emph{Homo sapiens} reference genome). Note
 that this must match the genome build identifier on Ensembl for annotations
@@ -50,7 +55,10 @@ to download correctly.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
-Details.}
+Details. Use \code{Inf} to always apply transformations and \code{0} to always skip.}
+
+\item{design}{DESeq2 design formula. Empty by default. Can be updated after
+initial data loading using the \code{\link[=design]{design()}} function.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
@@ -74,18 +82,9 @@ run directory as a remote connection over
 \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}.
 }
 \examples{
-uploadDir <- system.file(
-    file.path("extdata", "bcbio"),
-    package = "bcbioRNASeq")
-
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 print(bcb)
-
-# Load without gene annotations
-# Advanced use only! Not generally recommended.
-bcb <- loadRNASeq(uploadDir, annotable = NULL)
-print(bcb)
-rowData(bcb)
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

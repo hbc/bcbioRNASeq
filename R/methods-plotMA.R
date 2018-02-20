@@ -6,51 +6,33 @@
 #' @family Differential Expression Plots
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotHeatmap
 #'
 #' @importFrom BiocGenerics plotMA
 #'
-#' @param alpha Alpha level cutoff (Adjusted P value).
 #' @param pointColor Default point color for the plot.
 #' @param sigPointColor Color for points corresponding to significant genes that
 #'   have passed alpha level cutoffs.
 #' @param labelColor Text label color.
-#' @param title *Optional*. Plot title.
 #'
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "res.rda"),
-#'     package = "bcbioRNASeq"))
-#'
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 #' gene2symbol <- gene2symbol(bcb)
 #'
-#' ensgene <- rownames(res) %>% head(n = 4)
-#' print(ensgene)
-#'
-#' # DESeqResults
-#' plotMA(res, genes = ensgene, gene2symbol = TRUE)
-#'
-#' # Use a stashed gene2symbol data.frame
-#' plotMA(res, genes = ensgene, gene2symbol = gene2symbol)
-#'
-#' # Label the Ensembl gene identifiers instead of symbols
-#' plotMA(res, genes = ensgene, gene2symbol = FALSE)
-#'
-#' # data.frame
-#' df <- as.data.frame(res)
-#' plotMA(df, alpha = 0.01)
+#' # DESeqResults ====
+#' genes <- head(rownames(res), 4L)
+#' plotMA(res, genes = genes, gene2symbol = NULL)
+#' plotMA(res, genes = genes, gene2symbol = gene2symbol)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase annotable camel checkGene2symbol detectOrganism
+#' @importFrom basejump annotable camel detectOrganism
 #' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10
@@ -61,18 +43,28 @@ NULL
     object,
     alpha = 0.01,
     genes = NULL,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     pointColor = "darkgray",
     sigPointColor = "purple",
     labelColor = "black",
     title = NULL) {
+    assert_is_data.frame(object)
+    assert_is_a_number(alpha)
+    assert_all_are_positive(alpha)
+    assertFormalGene2symbol(object, genes, gene2symbol)
+    assert_is_a_string(pointColor)
+    assert_is_a_string(sigPointColor)
+    assert_is_a_string(labelColor)
+    assertIsAStringOrNULL(title)
+
     data <- object %>%
         rownames_to_column("ensgene") %>%
         as_tibble() %>%
         camel(strict = FALSE) %>%
         filter(!is.na(.data[["padj"]]))
+
     p <- ggplot(
-        data,
+        data = data,
         mapping = aes_(
             x = ~baseMean,
             y = ~log2FoldChange,
@@ -86,32 +78,26 @@ NULL
             title = title,
             x = "mean expression across all samples",
             y = "log2 fold change")
-    if (!is.null(pointColor) & !is.null(sigPointColor)) {
+
+    if (!is.null(pointColor) && !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
         p <- p +
             scale_color_manual(
                 values = c("FALSE" = pointColor, "TRUE" = sigPointColor))
     }
-    if (!is.null(genes)) {
-        if (isTRUE(gene2symbol)) {
-            organism <- pull(data, "ensgene") %>%
-                .[[1L]] %>%
-                detectOrganism()
-            gene2symbol <- annotable(organism, format = "gene2symbol")
-        }
+
+    if (is.character(genes)) {
         if (is.data.frame(gene2symbol)) {
             labelCol <- "symbol"
-            checkGene2symbol(gene2symbol)
+            assertIsGene2symbol(gene2symbol)
             data <- left_join(data, gene2symbol, by = "ensgene")
         } else {
             labelCol <- "ensgene"
         }
         labels <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-        if (!nrow(labels)) {
-            abort("Failed to label any gene identifiers")
-        }
+        assert_is_non_empty(labels)
         p <- p +
             geom_text_repel(
                 data = labels,
@@ -130,6 +116,7 @@ NULL
                 show.legend = FALSE,
                 size = 4L)
     }
+
     p
 }
 
@@ -137,8 +124,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotMA
-#' @importFrom ggplot2 scale_color_manual
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMA",
@@ -146,33 +131,24 @@ setMethod(
     function(
         object,
         genes = NULL,
-        gene2symbol = TRUE,
+        gene2symbol = NULL,
         pointColor = "darkgray",
         sigPointColor = "red",
         labelColor = "black",
         title = TRUE) {
-        results <- as.data.frame(object)
-        alpha <- metadata(object)[["alpha"]]
+        # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
         if (isTRUE(title)) {
-            title <- .resContrastName(object)
+            title <- .contrastName.DESeqResults(object)
+        } else if (!is_a_string(title)) {
+            title <- NULL
         }
         .plotMA(
-            object = results,
-            alpha = alpha,
+            object = as.data.frame(object),
+            alpha = metadata(object)[["alpha"]],
             genes = genes,
             gene2symbol = gene2symbol,
             pointColor = pointColor,
             sigPointColor = sigPointColor,
             labelColor = labelColor,
-            title = title
-        )
+            title = title)
     })
-
-
-
-#' @rdname plotMA
-#' @export
-setMethod(
-    "plotMA",
-    signature("data.frame"),
-    .plotMA)

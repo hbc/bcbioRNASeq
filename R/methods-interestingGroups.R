@@ -5,14 +5,12 @@
 #'
 #' @importFrom bcbioBase interestingGroups interestingGroups<-
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return Character vector.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' interestingGroups(bcb)
@@ -26,7 +24,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname interestingGroups
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups",
@@ -38,37 +35,17 @@ setMethod(
 
 
 #' @rdname interestingGroups
-#' @importFrom bcbioBase checkInterestingGroups
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "interestingGroups<-",
-    signature(object = "bcbioRNASeq", value = "character"),
+    signature(
+        object = "bcbioRNASeq",
+        value = "character"),
     function(object, value) {
-        sampleMetadata <- sampleMetadata(object)
-        interestingGroups <- checkInterestingGroups(
-            object = sampleMetadata,
+        assertFormalInterestingGroups(
+            x = sampleMetadata(object),
             interestingGroups = value)
-        metadata(object)[["interestingGroups"]] <- interestingGroups
+        metadata(object)[["interestingGroups"]] <- value
         validObject(object)
         object
     })
-
-
-
-#' @rdname interestingGroups
-#' @importFrom S4Vectors metadata
-#' @export
-setMethod(
-    "interestingGroups<-",
-    signature(object = "bcbioRNASeq", value = "NULL"),
-    function(object, value) {
-        warn(paste(
-            "`interestingGroups` argument is NULL.",
-            "Defaulting to `sampleName`."
-        ))
-        metadata(object)[["interestingGroups"]] <- "sampleName"
-        validObject(object)
-        object
-    })
-#'

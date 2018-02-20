@@ -9,30 +9,8 @@
 #' @inheritParams plotGeneSaturation
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotGenesDetected(
-#'     bcb,
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
-#' plotGenesDetected(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL,
-#'     passLimit = NULL,
-#'     warnLimit = NULL)
-#'
-#' # data.frame, DESeqDataSet
-#' df <- metrics(bcb)
-#' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotGenesDetected(df, counts = dds)
-#'
-#' # data.frame, matrix
-#' counts <- counts(bcb, normalized = TRUE)
-#' plotGenesDetected(df, counts = counts)
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
 NULL
 
 
@@ -40,7 +18,6 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotGenesDetected <- function(
     object,
     counts,
@@ -51,15 +28,29 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assert_is_matrix(counts)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(passLimit)
+    assert_all_are_non_negative(passLimit)
+    assertIsAnImplicitInteger(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    assertIsAnImplicitInteger(minCounts)
+    assert_all_are_non_negative(minCounts)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "genes detected"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
@@ -73,10 +64,10 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -99,13 +90,10 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGenesDetected
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(
-        object = "bcbioRNASeq",
-        counts = "missing"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
@@ -114,15 +102,12 @@ setMethod(
         minCounts = 0L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE) {
-        if (is.null(metrics(object))) {
-            return(NULL)
-        }
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGenesDetected(
-            metrics(object),
-            counts = assay(object),
+            object = metrics(object),
+            counts = counts(object, normalized = FALSE),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
@@ -130,46 +115,3 @@ setMethod(
             fill = fill,
             flip = flip)
     })
-
-
-
-#' @rdname plotGenesDetected
-#' @importFrom viridis scale_color_viridis
-#' @export
-setMethod(
-    "plotGenesDetected",
-    signature(
-        object = "data.frame",
-        counts = "DESeqDataSet"),
-    function(
-        object,
-        counts,
-        interestingGroups = "sampleName",
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        .plotGenesDetected(
-            object,
-            counts = assay(counts),
-            interestingGroups = "sampleName",
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            minCounts = minCounts,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
-
-
-
-#' @rdname plotGenesDetected
-#' @export
-setMethod(
-    "plotGenesDetected",
-    signature(
-        object = "data.frame",
-        counts = "matrix"),
-    .plotGenesDetected)

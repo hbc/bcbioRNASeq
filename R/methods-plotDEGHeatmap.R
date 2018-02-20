@@ -19,35 +19,27 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "dds.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "res.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "rld.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
-#' # Use our stashed gene2symbol for better speed
+#' # Use our stashed gene2symbol
 #' gene2symbol <- gene2symbol(bcb)
 #' annotationCol <- sampleMetadata(bcb) %>%
 #'     .[, interestingGroups(bcb), drop = FALSE]
 #'
-#' # DESeqResults, DESeqTransform
+#' # DESeqResults, DESeqTransform ====
 #' plotDEGHeatmap(
-#'     res,
+#'     object = res,
 #'     counts = rld,
 #'     gene2symbol = gene2symbol,
 #'     annotationCol = annotationCol)
 #'
-#' # DESeqResults, DESeqDataSet
+#' # DESeqResults, DESeqDataSet ====
 #' # Using default ggplot2 colors
 #' plotDEGHeatmap(
-#'     res,
+#'     object = res,
 #'     counts = dds,
 #'     gene2symbol = gene2symbol,
 #'     color = NULL,
@@ -57,24 +49,33 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase camel
-.plotDEGHeatmap <- function(
+#' @importFrom basejump camel
+.plotDEGHeatmap.dataFrame <- function(  # nolint
     object,
     counts,
     alpha = 0.01,
     lfc = 0L,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title,
     ...) {
-    if (!all(rownames(object) %in% rownames(counts))) {
-        abort("Rownames mismatch between results object and counts")
-    }
+    # Passthrough: color, legendColor
+    assert_is_data.frame(object)
+    assert_is_matrix(counts)
+    assert_are_identical(rownames(object), rownames(counts))
+    assert_is_a_number(alpha)
+    assert_all_are_positive(alpha)
+    assertIsAnImplicitInteger(lfc)
+    assert_all_are_non_negative(lfc)
+    assertFormalGene2symbol(object, rownames(counts), gene2symbol)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
+    assert_is_a_string(title)
+
     results <- object %>%
-        as.data.frame() %>%
         camel(strict = FALSE) %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
@@ -83,12 +84,10 @@ NULL
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    if (nrow(results) == 0L) {
-        warn("No genes passed significance cutoffs")
-        return(NULL)
-    }
+    assert_has_rows(results)
     counts <- counts[rownames(results), , drop = FALSE]
-    .plotHeatmap(
+
+    plotHeatmap(
         object = counts,
         gene2symbol = gene2symbol,
         annotationCol = annotationCol,
@@ -106,26 +105,32 @@ NULL
     counts,
     alpha,
     lfc = 0L,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title = TRUE,
     ...) {
-    results <- as.data.frame(object)
-    if (is(counts, "DESeqDataSet") |
-        is(counts, "DESeqTransform")) {
+    # Passthrough: lfc, gene2symbol, annotationCol, scale, color, legendColor
+    assert_is_all_of(object, "DESeqResults")
+    assert_is_any_of(
+        x = counts,
+        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
+    )
+
+    if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
     if (missing(alpha)) {
         alpha <- metadata(object)[["alpha"]]
     }
     if (isTRUE(title)) {
-        title <- .resContrastName(object)
+        title <- .contrastName.DESeqResults(object)
     }
-    .plotDEGHeatmap(
-        object = results,
+
+    .plotDEGHeatmap.dataFrame(
+        object = as.data.frame(object),
         counts = counts,
         alpha = alpha,
         lfc = lfc,
@@ -142,7 +147,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -154,7 +158,6 @@ setMethod(
 
 
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",
@@ -166,7 +169,6 @@ setMethod(
 
 
 #' @rdname plotDEGHeatmap
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotDEGHeatmap",

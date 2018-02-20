@@ -10,69 +10,73 @@
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase plotHeatmap
+#' @importFrom basejump plotHeatmap
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams counts
 #' @inheritParams gene2symbol
 #' @inheritParams plotGene
 #'
-#' @param samples *Optional*. Samples (colnames) to plot.
-#' @param annotationCol *Optional*. [data.frame] that defines annotation
+#' @param samples *Optional.* Samples (colnames) to plot.
+#' @param annotationCol *Optional.* [data.frame] that defines annotation
 #'   mappings for the columns.
 #' @param scale Character indicating if the values should be centered and scaled
 #'   in either the row direction or the column direction, or none. Corresponding
 #'   values are "row", "column" and "none".
 #' @param legendColor Colors to use for legend labels. Defaults to the
-#'   [viridis::viridis()].
-#' @param title Include plot title.
+#'   [viridis()].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
-#' # Use Ensembl identifiers to define genes
-#' genes <- rownames(bcb)[1:20]
-#' plotHeatmap(bcb, genes = genes)
+#' gene2symbol <- gene2symbol(bcb)
 #'
-#' # Use inferno color palette
-#' plotHeatmap(
-#'     bcb,
-#'     genes = genes,
-#'     color = viridis::inferno,
-#'     legendColor = viridis::inferno)
+#' # bcbioRNASeq ====
+#' plotHeatmap(bcb, genes = head(rownames(bcb), 20L))
 #'
-#' # Transcriptome heatmap with default pheatmap colors
-#' plotHeatmap(
-#'     bcb,
-#'     color = NULL,
-#'     legendColor = NULL)
+#' # Full transcriptome heatmap with default pheatmap colors
+#' plotHeatmap(bcb, color = inferno, legendColor = inferno)
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotHeatmap(dds)
+#' plotHeatmap(
+#'     object = dds,
+#'     genes = head(rownames(dds), 20L),
+#'     gene2symbol = gene2symbol)
 #'
-#' # DESeqTransform
+#' # DESeqTransform ====
 #' rld <- assays(bcb)[["rlog"]]
-#' plotHeatmap(rld)
+#' plotHeatmap(
+#'     object = rld,
+#'     genes = head(rownames(rld), 20L),
+#'     gene2symbol = gene2symbol)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase convertGenesToSymbols
 .plotHeatmap <- function(
     object,
     samples = NULL,
     genes = NULL,
-    gene2symbol = FALSE,
+    gene2symbol = NULL,
     annotationCol = NULL,
     scale = "row",
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title = NULL,
     ...) {
+    assert_is_matrix(object)
+    assertIsCharacterOrNULL(samples)
+    assertIsCharacterOrNULL(genes)
+    assertFormalGene2symbol(object, genes, gene2symbol)
+    assertFormalAnnotationCol(object, annotationCol)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
+    assertIsAStringOrNULL(title)
+
     # Resize the counts matrix
     if (is.vector(samples)) {
         object <- object[, samples, drop = FALSE]
@@ -82,15 +86,13 @@ NULL
     }
 
     # Set the rownames to gene symbols
-    if (isTRUE(gene2symbol)) {
-        object <- convertGenesToSymbols(object)
-    } else if (is.data.frame(gene2symbol)) {
+    if (is.data.frame(gene2symbol)) {
         rownames(object) <- rownames(object) %>%
             gene2symbol[., "symbol", drop = TRUE] %>%
             make.names(unique = TRUE)
     }
 
-    plotHeatmap(
+    basejump::plotHeatmap(
         object = object,
         annotationCol = annotationCol,
         scale = scale,
@@ -101,9 +103,9 @@ NULL
 }
 
 
+
 # Methods ======================================================================
 #' @rdname plotHeatmap
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
@@ -114,17 +116,48 @@ setMethod(
         samples = NULL,
         genes = NULL,
         scale = "row",
-        color = viridis::viridis,
-        legendColor = viridis::viridis,
+        color = viridis,
+        legendColor = viridis,
         title = NULL,
         ...) {
         counts <- counts(object, normalized = normalized)
-        gene2symbol <- gene2symbol(object)
         annotationCol <- colData(object) %>%
             .[colnames(counts), interestingGroups(object), drop = FALSE] %>%
             as.data.frame()
         .plotHeatmap(
             object = counts,
+            samples = samples,
+            genes = genes,
+            gene2symbol = gene2symbol(object),
+            annotationCol = annotationCol,
+            scale = scale,
+            color = color,
+            legendColor = legendColor,
+            title = title,
+            ...)
+    })
+
+
+
+#' @rdname plotHeatmap
+#' @export
+setMethod(
+    "plotHeatmap",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        normalized = TRUE,
+        samples = NULL,
+        genes = NULL,
+        gene2symbol = NULL,
+        annotationCol = NULL,
+        scale = "row",
+        color = viridis,
+        legendColor = viridis,
+        title = NULL,
+        ...) {
+        .plotHeatmap(
+            object = counts(object, normalized = normalized),
             samples = samples,
             genes = genes,
             gene2symbol = gene2symbol,
@@ -139,55 +172,24 @@ setMethod(
 
 
 #' @rdname plotHeatmap
-#' @importFrom viridis viridis
-#' @export
-setMethod(
-    "plotHeatmap",
-    signature("DESeqDataSet"),
-    function(
-        object,
-        normalized = TRUE,
-        samples = NULL,
-        genes = NULL,
-        gene2symbol = FALSE,
-        annotationCol = NULL,
-        scale = "row",
-        color = viridis::viridis,
-        legendColor = viridis::viridis,
-        title = NULL,
-        ...) {
-        counts <- counts(object, normalized = normalized)
-        .plotHeatmap(
-            object = counts,
-            annotationCol = annotationCol,
-            scale = scale,
-            color = color,
-            legendColor = legendColor,
-            title = title,
-            ...)
-    })
-
-
-
-#' @rdname plotHeatmap
-#' @importFrom viridis viridis
 #' @export
 setMethod(
     "plotHeatmap",
     signature("DESeqTransform"),
     function(
         object,
+        samples = NULL,
         genes = NULL,
-        gene2symbol = FALSE,
+        gene2symbol = NULL,
         annotationCol = NULL,
         scale = "row",
-        color = viridis::viridis,
-        legendColor = viridis::viridis,
+        color = viridis,
+        legendColor = viridis,
         title = NULL,
         ...) {
-        counts <- assay(object)
         .plotHeatmap(
-            object = counts,
+            object = assay(object),
+            samples = samples,
             genes = genes,
             gene2symbol = gene2symbol,
             annotationCol = annotationCol,

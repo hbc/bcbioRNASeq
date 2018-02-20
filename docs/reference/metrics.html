@@ -108,18 +108,17 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq</span>
 <span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
-#&gt; Variables: 21
+#&gt; Variables: 20
 #&gt; $ sampleID                      &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ sampleName                    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
 #&gt; $ description                   &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
+#&gt; $ group                         &lt;fct&gt; ctrl, ctrl, ko, ko
 #&gt; $ xGC                           &lt;dbl&gt; 48, 48, 47, 48
-#&gt; $ x53Bias                       &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
+#&gt; $ x5x3Bias                      &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
 #&gt; $ averageInsertSize             &lt;dbl&gt; 0, 0, 0, 0
 #&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0
 #&gt; $ duplicationRateOfMapped       &lt;dbl&gt; 0.5574675, 0.5890465, 0.5772400, 0.58...
@@ -128,14 +127,12 @@
 #&gt; $ intronicRate                  &lt;dbl&gt; 0.0747, 0.0581, 0.0707, 0.0652
 #&gt; $ mappedPairedReads             &lt;dbl&gt; 0, 0, 0, 0
 #&gt; $ mappedReads                   &lt;dbl&gt; 22062337, 25852621, 25172084, 25100941
-#&gt; $ name                          &lt;fct&gt; ctrl_f_1, ctrl_f_4, ko_f_1, ko_f_6
 #&gt; $ qualityFormat                 &lt;fct&gt; standard, standard, standard, standard
 #&gt; $ sequenceLength                &lt;fct&gt; 25-75, 25-75, 25-75, 25-75
 #&gt; $ sequencesFlaggedAsPoorQuality &lt;dbl&gt; 0, 0, 0, 0
 #&gt; $ totalReads                    &lt;dbl&gt; 22339941, 26168288, 25490090, 25399483
 #&gt; $ rrna                          &lt;dbl&gt; 42218.64, 48275.49, 38893.78, 40831.69
-#&gt; $ rrnaRate                      &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623...
-#&gt; $ group                         &lt;fct&gt; ctrl, ctrl, ko, ko</div></pre>
+#&gt; $ rrnaRate                      &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

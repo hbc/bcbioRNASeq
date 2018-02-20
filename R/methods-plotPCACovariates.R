@@ -6,7 +6,7 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotPCA
 #'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
@@ -22,9 +22,7 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
@@ -32,63 +30,49 @@ NULL
 
 
 
-# Constructors =================================================================
-#' @importFrom DEGreport degCovariates
-#' @importFrom dplyr select_if
-.plotPCACovariates <- function(
-    object,
-    metrics = TRUE,
-    normalized = "rlog",
-    ...) {
-    counts <- counts(object, normalized = normalized)
-
-    metadata <- metrics(object)
-    factors <- select_if(metadata, is.factor)
-    numerics <- select_if(metadata, is.numeric) %>%
-        # Drop columns that are all zeroes (not useful to plot)
-        .[, colSums(.) > 0L]
-    metadata <- cbind(factors, numerics)
-
-    # Select the metrics to use for plot
-    if (identical(metrics, TRUE)) {
-        # Sort columns alphabetically
-        col <- sort(colnames(metadata))
-    } else if (identical(metrics, FALSE)) {
-        # Use the defined interesting groups
-        col <- interestingGroups(object)
-    } else if (is.character(metrics)) {
-        col <- metrics
-    } else {
-        abort("`metrics` must be a logical or character vector")
-    }
-
-    # Stop on 1 column
-    if (length(col) == 1L) {
-        abort(paste(
-            "`degCovariates()` requires at least 2 metadata columns"
-        ))
-    }
-
-    # Now select the columns to use for plotting
-    if (all(col %in% colnames(metadata))) {
-        metadata <- metadata[, col, drop = FALSE]
-    } else {
-        # FIXME Make this message more informative. Which metrics?
-        abort("Failed to select valid `metrics` columns to plot")
-    }
-
-    degCovariates(
-        counts = counts,
-        metadata = metadata,
-        ...)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotPCACovariates
+#' @importFrom DEGreport degCovariates
+#' @importFrom dplyr select_if
 #' @export
 setMethod(
     "plotPCACovariates",
     signature("bcbioRNASeq"),
-    .plotPCACovariates)
+    function(
+        object,
+        metrics = TRUE,
+        normalized = "rlog",
+        ...) {
+        assert_is_any_of(metrics, c("character", "logical"))
+        assert_is_a_string(normalized)
+
+        counts <- counts(object, normalized = normalized)
+
+        metadata <- metrics(object)
+        factors <- select_if(metadata, is.factor)
+        numerics <- select_if(metadata, is.numeric) %>%
+            # Drop columns that are all zeroes (not useful to plot)
+            .[, colSums(.) > 0L]
+        metadata <- cbind(factors, numerics)
+
+        # Select the metrics to use for plot
+        if (identical(metrics, TRUE)) {
+            # Sort columns alphabetically
+            col <- sort(colnames(metadata))
+        } else if (identical(metrics, FALSE)) {
+            # Use the defined interesting groups
+            col <- interestingGroups(object)
+        } else if (is.character(metrics)) {
+            col <- metrics
+        }
+
+        # Stop on 1 metrics column
+        assert_all_are_greater_than(length(col), 1L)
+        assert_is_subset(col, colnames(metadata))
+        metadata <- metadata[, col, drop = FALSE]
+
+        degCovariates(
+            counts = counts,
+            metadata = metadata,
+            ...)
+    })

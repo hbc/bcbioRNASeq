@@ -8,20 +8,8 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotMappedReads(bcb)
-#' plotMappedReads(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotMappedReads(df)
 NULL
 
 
@@ -29,24 +17,34 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom viridis scale_fill_viridis
 .plotMappedReads <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 20L,
     warnLimit = 10L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(passLimit)
+    assert_all_are_non_negative(passLimit)
+    assertIsAnImplicitInteger(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "mapped reads"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / 1e6L,
@@ -60,10 +58,10 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -86,7 +84,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotMappedReads
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMappedReads",
@@ -96,15 +93,14 @@ setMethod(
         interestingGroups,
         passLimit = 20L,
         warnLimit = 10L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotMappedReads(
-            metrics(object),
+            object = metrics(object),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
@@ -112,12 +108,3 @@ setMethod(
             flip = flip,
             title = title)
     })
-
-
-
-#' @rdname plotMappedReads
-#' @export
-setMethod(
-    "plotMappedReads",
-    signature("data.frame"),
-    .plotMappedReads)

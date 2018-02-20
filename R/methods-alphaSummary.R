@@ -8,12 +8,12 @@
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams DESeq2::results
 #'
 #' @param alpha Numeric vector of desired alpha cutoffs.
-#' @param caption *Optional*. Character vector to add as caption to the table.
-#' @param ... *Optional*. Passthrough arguments to [DESeq2::results()]. Use
+#' @param caption *Optional.* Character vector to add as caption to the table.
+#' @param ... *Optional.* Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
 #'
 #' @return [kable].
@@ -21,12 +21,8 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "dds.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' alphaSummary(bcb)
@@ -46,11 +42,16 @@ NULL
 #' @importFrom magrittr set_colnames set_rownames
 #' @importFrom utils capture.output
 .alphaSummary <- function(
-    dds,
+    object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     caption = NULL,
     ...) {
+    assert_is_all_of(object, "DESeqDataSet")
+    assert_is_numeric(alpha)
+    assertIsAStringOrNULL(caption)
     dots <- list(...)
+
+    # Generate an automatic caption
     if (is.null(caption)) {
         if (!is.null(dots[["contrast"]])) {
             caption <- dots[["contrast"]] %>%
@@ -59,21 +60,24 @@ NULL
             caption <- dots[["name"]]
         }
     }
-    lapply(seq_along(alpha), function(a) {
-        info <- capture.output(
-            summary(results(dds, ..., alpha = alpha[a]))
-        ) %>%
-            # Get the lines of interest from summary
-            .[4L:8L]
-        parse <- info[1L:5L] %>%
-            # Extract the values after the colon in summary
-            vapply(function(a) {
+
+    dflist <- lapply(seq_along(alpha), function(a) {
+        output <- capture.output(summary(
+            results(object, ..., alpha = alpha[a])
+        ))
+        # Subset the lines of interest from summary
+        output <- output[4L:8L]
+        # Extract the values after the colon in summary
+        values <- vapply(
+            X = output,
+            FUN = function(a) {
                 gsub("^.+\\:\\s(.+)\\s$", "\\1", a)
-            }, FUN.VALUE = "character") %>%
-            # Coerce to character here to remove names
-            as.character()
-        data.frame(alpha = parse)
-    }) %>%
+            },
+            FUN.VALUE = "character")
+        data.frame(alpha = values)
+    })
+
+    dflist %>%
         bind_cols() %>%
         set_colnames(alpha) %>%
         set_rownames(c(
@@ -90,6 +94,15 @@ NULL
 
 # Methods ======================================================================
 #' @rdname alphaSummary
+#' @export
+setMethod(
+    "alphaSummary",
+    signature("DESeqDataSet"),
+    .alphaSummary)
+
+
+
+#' @rdname alphaSummary
 #' @importFrom BiocGenerics design
 #' @importFrom stats formula
 #' @export
@@ -104,29 +117,10 @@ setMethod(
         dds <- bcbio(object, "DESeqDataSet")
         # Warn if empty design formula detected
         if (design(dds) == formula(~1)) {  # nolint
-            warn("Empty DESeqDataSet design formula detected")
+            warn("Internal DESeqDataSet has an empty design formula")
         }
-        .alphaSummary(
-            dds = dds,
-            alpha = alpha,
-            caption = caption,
-            ...)
-    })
-
-
-
-#' @rdname alphaSummary
-#' @export
-setMethod(
-    "alphaSummary",
-    signature("DESeqDataSet"),
-    function(
-        object,
-        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...) {
-        .alphaSummary(
-            dds = object,
+        alphaSummary(
+            object = dds,
             alpha = alpha,
             caption = caption,
             ...)

@@ -4,7 +4,7 @@
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return No value.
 #'
@@ -22,7 +22,6 @@
 NULL
 
 
-
 # Methods ======================================================================
 #' @rdname prepareRNASeqTemplate
 #' @importFrom bcbioBase prepareTemplate
@@ -32,6 +31,15 @@ setMethod(
     signature("missing"),
     function(object) {
         prepareTemplate(
-            sourceDir = system.file("rmarkdown/shared",
-                                    package = "bcbioRNASeq"))
+            c(
+                "_footer.Rmd",
+                "_header.Rmd",
+                "_output.yaml",
+                "_setup.R",
+                "bibliography.bib"
+            ),
+            sourceDir = system.file(
+                "rmarkdown/shared",
+                package = "bcbioRNASeq")
+        )
     })

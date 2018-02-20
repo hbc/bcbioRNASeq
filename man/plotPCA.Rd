@@ -8,7 +8,7 @@
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = "rlog",
   interestingGroups, genes = NULL, censorSamples = NULL,
-  color = viridis::scale_color_viridis(discrete = TRUE), label = FALSE,
+  color = scale_color_viridis(discrete = TRUE), label = FALSE,
   returnData = FALSE)
 }
 \arguments{
@@ -24,22 +24,21 @@
 (\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 
-\item{interestingGroups}{\emph{Optional}. Interesting groups to use for point
+\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}
 parameters set in the \link{bcbioRNASeq} object.}
 
-\item{genes}{\emph{Optional}. Character vector of gene identifiers to use.}
+\item{genes}{\emph{Optional.} Character vector of gene identifiers to use.}
 
-\item{censorSamples}{\emph{Optional}. Samples to exclude from the PCA plot.
+\item{censorSamples}{\emph{Optional.} Samples to exclude from the PCA plot.
 Supply them as a character vector. These should match \code{colnames(object)}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
-\item{label}{\emph{Optional}. Superimpose sample text labels on the plot.}
+\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
 \item{returnData}{Return PCA loadings data instead of plotting.}
 }
@@ -51,9 +50,7 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotPCA(bcb, label = TRUE)

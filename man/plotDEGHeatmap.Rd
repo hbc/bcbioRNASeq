@@ -12,19 +12,16 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
-  ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
+  color = viridis, legendColor = viridis, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
-  ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
+  color = viridis, legendColor = viridis, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
-  lfc = 0L, gene2symbol = TRUE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis, legendColor = viridis::viridis, title = TRUE,
-  ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
+  color = viridis, legendColor = viridis, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,15 +35,12 @@ use the alpha level defined in the object.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.}
 
-\item{annotationCol}{\emph{Optional}. \link{data.frame} that defines annotation
+\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
 mappings for the columns.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
@@ -54,15 +48,14 @@ in either the row direction or the column direction, or none. Corresponding
 values are "row", "column" and "none".}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}}.}
+\code{\link[=viridis]{viridis()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
@@ -76,35 +69,27 @@ groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then t
 sample names.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "rld.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
-# Use our stashed gene2symbol for better speed
+# Use our stashed gene2symbol
 gene2symbol <- gene2symbol(bcb)
 annotationCol <- sampleMetadata(bcb) \%>\%
     .[, interestingGroups(bcb), drop = FALSE]
 
-# DESeqResults, DESeqTransform
+# DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
-    res,
+    object = res,
     counts = rld,
     gene2symbol = gene2symbol,
     annotationCol = annotationCol)
 
-# DESeqResults, DESeqDataSet
+# DESeqResults, DESeqDataSet ====
 # Using default ggplot2 colors
 plotDEGHeatmap(
-    res,
+    object = res,
     counts = dds,
     gene2symbol = gene2symbol,
     color = NULL,

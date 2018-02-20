@@ -18,8 +18,8 @@
 #' @param method Correlation coefficient (or covariance) method to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
-#' @param samples *Optional*. Character vector of specific samples.
-#' @param genes *Optional*. Character vector of specific gene identifiers to
+#' @param samples *Optional.* Character vector of specific samples.
+#' @param genes *Optional.* Character vector of specific gene identifiers to
 #'   plot.
 #'
 #' @seealso
@@ -27,9 +27,7 @@
 #' - [stats::hclust()].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # Pearson correlation
 #' plotCorrelationHeatmap(bcb, method = "pearson")
@@ -40,8 +38,8 @@
 #' # Inferno palette
 #' plotCorrelationHeatmap(
 #'     bcb,
-#'     color = viridis::inferno,
-#'     legendColor = viridis::inferno)
+#'     color = inferno,
+#'     legendColor = inferno)
 #'
 #' # Default pheatmap palette
 #' plotCorrelationHeatmap(
@@ -55,55 +53,58 @@ NULL
 # Constructors =================================================================
 #' @importFrom dplyr mutate_all
 #' @importFrom grDevices colorRampPalette
+#' @importFrom magrittr set_names
 #' @importFrom pheatmap pheatmap
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom stats setNames
-#' @importFrom S4Vectors cor
 #' @importFrom tibble column_to_rownames rownames_to_column
-#' @importFrom viridis viridis
 .plotCorrelationHeatmap <- function(
-    counts,
+    object,
     method,
     annotationCol = NULL,
     genes = NULL,
     samples = NULL,
-    color = viridis::viridis,
-    legendColor = viridis::viridis,
+    color = viridis,
+    legendColor = viridis,
     title = TRUE,
     ...) {
-    # Check for supported correlation method
-    validMethod <- c("pearson", "spearman")
-    if (!method %in% validMethod) {
-        abort(paste(
-            "Supported methods:", toString(validMethod)
-        ))
+    assert_is_matrix(object)
+    assert_is_a_string(method)
+    assert_is_subset(method, c("pearson", "spearman"))
+    assertFormalAnnotationCol(object, annotationCol)
+    assertIsCharacterOrNULL(genes)
+    assertIsCharacterOrNULL(samples)
+    assertIsHexColorFunctionOrNULL(color)
+    assertIsHexColorFunctionOrNULL(legendColor)
+
+    # Title
+    if (isTRUE(title)) {
+        title <- paste(method, "correlation")
+    } else if (!is_a_string(title)) {
+        title <- NULL
     }
 
-    # Subset counts matrix by input genes, if desired
-    if (!is.null(genes)) {
-        counts <- counts[genes, , drop = FALSE]
+    # Subset the counts matrix
+    if (is.character(genes)) {
+        object <- object[genes, , drop = FALSE]
     }
-
-    # Subset count matrix by input samples, if desired
-    if (!is.null(samples)) {
-        counts <- counts[, samples, drop = FALSE]
-        if (!is.null(annotationCol)) {
+    if (is.character(samples)) {
+        object <- object[, samples, drop = FALSE]
+        if (is.data.frame(annotationCol)) {
             annotationCol <- annotationCol[samples, , drop = FALSE]
         }
     }
 
     # Prepare the annotation columns
-    if (!is.null(annotationCol)) {
+    if (is.data.frame(annotationCol)) {
         # Coerce annotation columns to factors
         annotationCol <- annotationCol %>%
-            as.data.frame() %>%
             rownames_to_column() %>%
             mutate_all(factor) %>%
             column_to_rownames()
     }
 
     # Define colors for each annotation column, if desired
-    if (is.data.frame(annotationCol) & is.function(legendColor)) {
+    if (is.data.frame(annotationCol) && is.function(legendColor)) {
         annotationColors <- lapply(
             seq_along(colnames(annotationCol)), function(a) {
                 col <- annotationCol[[a]] %>%
@@ -115,16 +116,9 @@ NULL
                 names(colors) <- col
                 colors
             }) %>%
-            setNames(colnames(annotationCol))
+            set_names(colnames(annotationCol))
     } else {
         annotationColors <- NULL
-    }
-
-    # Set heatmap title (`main` parameter in pheatmap)
-    if (isTRUE(title)) {
-        title <- paste(method, "correlation")
-    } else if (!is.character(title)) {
-        title <- NULL
     }
 
     # If `color = NULL`, use the pheatmap default
@@ -136,7 +130,7 @@ NULL
         ))(100L)
     }
 
-    counts %>%
+    object %>%
         cor(method = method) %>%
         pheatmap(
             annotation_col = annotationCol,
@@ -156,8 +150,15 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
-#' @importFrom bcbioBase checkInterestingGroups
-#' @importFrom viridis viridis
+#' @export
+setMethod(
+    "plotCorrelationHeatmap",
+    signature("matrix"),
+    .plotCorrelationHeatmap)
+
+
+
+#' @rdname plotCorrelationHeatmap
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -169,19 +170,20 @@ setMethod(
         interestingGroups,
         genes = NULL,
         samples = NULL,
-        color = viridis::viridis,
-        legendColor = viridis::viridis,
+        color = viridis,
+        legendColor = viridis,
         title = TRUE,
         ...) {
+        # Passthrough: method, genes, samples, color, legendColor
+        assert_is_a_string(normalized)
+        counts <- counts(object, normalized = normalized)
+        assert_is_matrix(counts)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        interestingGroups <- checkInterestingGroups(
-            object = sampleMetadata(object),
-            interestingGroups)
-
-        counts <- counts(object, normalized = normalized)
-        if (is.null(counts)) return(NULL)
+        assertFormalInterestingGroups(
+            x = sampleMetadata(object),
+            interestingGroups = interestingGroups)
 
         # Don't set annotation columns if we're only grouping by sample name
         if (identical(interestingGroups, "sampleName")) {
@@ -192,12 +194,12 @@ setMethod(
                 as.data.frame()
         }
 
-        if (isTRUE(title) & is.character(normalized)) {
+        if (isTRUE(title)) {
             title <- paste(normalized, method, "correlation")
         }
 
-        .plotCorrelationHeatmap(
-            counts = counts,
+        plotCorrelationHeatmap(
+            object = counts,
             method = method,
             annotationCol = annotationCol,
             genes = genes,

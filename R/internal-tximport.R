@@ -19,17 +19,21 @@
 #'
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(sampleDirs, tx2gene) {
+    assert_all_are_dirs(sampleDirs)
+    assertIsTx2gene(tx2gene)
+
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
         sampleDirs[[1]],
         full.names = FALSE,
         recursive = FALSE)
+
+    assert_are_intersecting_sets(c("salmon", "sailfish"), subdirs)
+    # Salmon takes priority over sailfish
     if ("salmon" %in% subdirs) {
         type <- "salmon"
     } else if ("sailfish" %in% subdirs) {
         type <- "sailfish"
-    } else {
-        abort("Unsupported counts output format")
     }
 
     # Locate `quant.sf` file for salmon or sailfish output
@@ -40,6 +44,7 @@
             full.names = TRUE,
             recursive = TRUE)
     }
+    assert_all_are_existing_files(sampleFiles)
 
     # Assign names to sample files
     names(sampleFiles) <- names(sampleDirs)

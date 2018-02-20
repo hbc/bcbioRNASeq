@@ -1,8 +1,6 @@
 context("plotCorrelationHeatmap")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("plotCorrelationHeatmap", {
     # Pearson (default)
@@ -20,7 +18,11 @@ test_that("plotCorrelationHeatmap", {
     # Bad method
     expect_error(
         plotCorrelationHeatmap(bcb, method = "XXX"),
-        "Supported methods: pearson, spearman"
+        paste(
+            "is_subset :",
+            "The element 'XXX' in method is not in",
+            "c\\(\"pearson\", \"spearman\"\\)."
+        )
     )
 })
 
@@ -29,7 +31,10 @@ test_that("transformationLimit", {
     assays(skip)[["rlog"]] <- NULL
     expect_warning(
         plotCorrelationHeatmap(skip, normalized = "rlog"),
-        "rlog counts not defined. Using log2 tmm counts instead."
+        paste(
+            "rlog counts not defined.",
+            "Calculating and using log2 tmm counts on the fly instead."
+        )
     )
     p <- suppressWarnings(
         plotCorrelationHeatmap(skip, normalized = "rlog")

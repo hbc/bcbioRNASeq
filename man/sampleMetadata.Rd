@@ -6,6 +6,12 @@
 \alias{sampleMetadata,bcbioRNASeq-method}
 \alias{sampleMetadata,DESeqDataSet-method}
 \alias{sampleMetadata,DESeqTransform-method}
+\alias{sampleMetadata<-,bcbioRNASeq,data.frame-method}
+\alias{sampleMetadata<-,bcbioRNASeq,DataFrame-method}
+\alias{sampleMetadata<-,DESeqDataSet,data.frame-method}
+\alias{sampleMetadata<-,DESeqDataSet,DataFrame-method}
+\alias{sampleMetadata<-,DESeqTransform,data.frame-method}
+\alias{sampleMetadata<-,DESeqTransform,DataFrame-method}
 \title{Sample Metadata}
 \usage{
 \S4method{sampleMetadata}{bcbioRNASeq}(object, ...)
@@ -13,11 +19,25 @@
 \S4method{sampleMetadata}{DESeqDataSet}(object, ...)
 
 \S4method{sampleMetadata}{DESeqTransform}(object, ...)
+
+\S4method{sampleMetadata}{bcbioRNASeq,data.frame}(object, ...) <- value
+
+\S4method{sampleMetadata}{bcbioRNASeq,DataFrame}(object, ...) <- value
+
+\S4method{sampleMetadata}{DESeqDataSet,data.frame}(object, ...) <- value
+
+\S4method{sampleMetadata}{DESeqDataSet,DataFrame}(object, ...) <- value
+
+\S4method{sampleMetadata}{DESeqTransform,data.frame}(object, ...) <- value
+
+\S4method{sampleMetadata}{DESeqTransform,DataFrame}(object, ...) <- value
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
+
+\item{value}{Value to assign.}
 }
 \value{
 \link{data.frame}.
@@ -26,18 +46,23 @@
 Returns the sample metadata.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 sampleMetadata(bcb) \%>\% glimpse()
 
-# DESeqDataSet
+# DESeqDataSet ====
 dds <- bcbio(bcb, "DESeqDataSet")
 sampleMetadata(dds) \%>\% glimpse()
 
-# DESeqTransform
+# DESeqTransform ====
 rld <- assays(bcb)[["rlog"]]
 sampleMetadata(rld) \%>\% glimpse()
+
+# Assignment method ====
+data <- sampleMetadata(bcb)
+# All columns will be coerced to factors
+data[["age"]] <- c(14L, 30L, 14L, 30L)
+sampleMetadata(bcb) <- data
+sampleMetadata(bcb) \%>\% glimpse()
 }

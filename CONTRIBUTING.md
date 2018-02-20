@@ -31,9 +31,16 @@ For all package updates, run these commands prior to a pull request:
 ```r
 lintr::lint_package()
 devtools::document()
-devtools::check()
+devtools::run_examples()
 devtools::test()
+devtools::check()
 BiocCheck::BiocCheck(getwd())
+```
+
+### Rebuild website
+
+```r
+unlink("docs", recursive = TRUE)
 pkgdown::build_site()
 ```
 

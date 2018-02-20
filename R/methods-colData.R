@@ -9,7 +9,7 @@
 #' @rdname colData
 #' @name colData
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @seealso
 #' `help("colData", "SummarizedExperiment")`
@@ -17,13 +17,12 @@
 #' @return [DataFrame].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # Assignment support
 #' colData <- colData(bcb)
-#' colData[["age"]] <- factor(c(14, 30, 14, 30))
+#' # All columns will be coerced to factors
+#' colData[["age"]] <- c(14L, 30L, 14L, 30L)
 #' colData(bcb) <- colData
 #' colData(bcb) %>% glimpse()
 #'
@@ -35,25 +34,51 @@ NULL
 
 
 
-# Methods ======================================================================
+# Constructors =================================================================
+#' @importFrom basejump sanitizeColData
+`.colData<-` <- function(x, ..., value) {
+    assert_are_identical(colnames(x), rownames(value))
+    value <- as(value, "DataFrame")
+
+    # Sanitize all columns as factors
+    value <- sanitizeColData(value)
+    assert_has_dimnames(value)
+
+    if (!is.null(bcbio(x, "DESeqDataSet"))) {
+        colData(bcbio(x, "DESeqDataSet")) <- value
+    }
+    if (!is.null(assays(x)[["rlog"]])) {
+        colData(assays(x)[["rlog"]]) <- value
+    }
+    if (!is.null(assays(x)[["vst"]])) {
+        colData(assays(x)[["vst"]]) <- value
+    }
+
+    slot(x, "colData") <- value
+    x
+}
+
+
+
+# Assignment Methods ===========================================================
 #' @rdname colData
 #' @export
 setMethod(
     "colData<-",
-    signature(x = "bcbioRNASeq", value = "DataFrame"),
-    function(x, ..., value) {
-        if (nrow(value) != ncol(x)) {
-            abort("nrow of supplied 'colData' must equal ncol of object")
-        }
-        if (!is.null(bcbio(x, "DESeqDataSet"))) {
-            colData(bcbio(x, "DESeqDataSet")) <- value
-        }
-        if (!is.null(assays(x)[["rlog"]])) {
-            colData(assays(x)[["rlog"]]) <- value
-        }
-        if (!is.null(assays(x)[["vst"]])) {
-            colData(assays(x)[["vst"]]) <- value
-        }
-        slot(x, "colData") <- value
-        x
-    })
+    signature(
+        x = "bcbioRNASeq",
+        value = "data.frame"
+    ),
+    `.colData<-`)
+
+
+
+#' @rdname colData
+#' @export
+setMethod(
+    "colData<-",
+    signature(
+        x = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
+    `.colData<-`)

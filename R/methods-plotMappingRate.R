@@ -8,20 +8,8 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotMappingRate(bcb)
-#' plotMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotMappingRate(df)
 NULL
 
 
@@ -29,24 +17,34 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
-#' @importFrom viridis scale_fill_viridis
 .plotMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 90L,
     warnLimit = 70L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(passLimit)
+    assert_all_are_non_negative(passLimit)
+    assertIsAnImplicitInteger(warnLimit)
+    assert_all_are_non_negative(warnLimit)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / totalReads * 100L,
@@ -61,10 +59,10 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
-    if (is.numeric(warnLimit)) {
+    if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
     }
 
@@ -87,7 +85,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotMappingRate
-#' @importFrom viridis scale_fill_viridis
 #' @export
 setMethod(
     "plotMappingRate",
@@ -97,14 +94,14 @@ setMethod(
         interestingGroups,
         passLimit = 90L,
         warnLimit = 70L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotMappingRate(
-            metrics(object),
+            object = metrics(object),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
@@ -112,12 +109,3 @@ setMethod(
             flip = flip,
             title = title)
     })
-
-
-
-#' @rdname plotMappingRate
-#' @export
-setMethod(
-    "plotMappingRate",
-    signature("data.frame"),
-    .plotMappingRate)

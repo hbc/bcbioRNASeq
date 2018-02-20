@@ -5,14 +5,11 @@
 \alias{interestingGroups}
 \alias{interestingGroups,bcbioRNASeq-method}
 \alias{interestingGroups<-,bcbioRNASeq,character-method}
-\alias{interestingGroups<-,bcbioRNASeq,NULL-method}
 \title{Interesting Groups}
 \usage{
 \S4method{interestingGroups}{bcbioRNASeq}(object)
 
 \S4method{interestingGroups}{bcbioRNASeq,character}(object) <- value
-
-\S4method{interestingGroups}{bcbioRNASeq,`NULL`}(object) <- value
 }
 \arguments{
 \item{object}{Object.}
@@ -26,9 +23,7 @@ Character vector.
 Interesting Groups
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 interestingGroups(bcb)

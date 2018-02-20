@@ -10,7 +10,7 @@
 #'
 #' @importFrom BiocGenerics counts
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
 #'   (`TRUE`), or additional normalization methods:
@@ -23,9 +23,7 @@
 #' @return [matrix].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # Raw counts (from tximport)
 #' counts(bcb, normalized = FALSE) %>% summary()
@@ -57,6 +55,7 @@ setMethod(
     function(
         object,
         normalized = FALSE) {
+        assert_is_any_of(normalized, c("character", "logical"))
         if (normalized == FALSE) {
             slot <- "raw"
         } else if (normalized == TRUE) {
@@ -67,10 +66,9 @@ setMethod(
 
         # Check for slot presence
         if (!slot %in% names(assays(object))) {
-            missingMsg <- paste(slot, "counts not defined")
             warn(paste(
-                paste0(missingMsg, "."),
-                "Using log2 tmm counts instead."
+                slot, "counts not defined.",
+                "Calculating and using log2 tmm counts on the fly instead."
             ))
             tmm <- tmm(object)
             return(log2(tmm + 1L))

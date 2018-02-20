@@ -9,18 +9,17 @@
 \title{Plot Heatmap}
 \usage{
 \S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  samples = NULL, genes = NULL, scale = "row", color = viridis::viridis,
-  legendColor = viridis::viridis, title = NULL, ...)
+  samples = NULL, genes = NULL, scale = "row", color = viridis,
+  legendColor = viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
-  samples = NULL, genes = NULL, gene2symbol = FALSE,
-  annotationCol = NULL, scale = "row", color = viridis::viridis,
-  legendColor = viridis::viridis, title = NULL, ...)
+  samples = NULL, genes = NULL, gene2symbol = NULL,
+  annotationCol = NULL, scale = "row", color = viridis,
+  legendColor = viridis, title = NULL, ...)
 
-\S4method{plotHeatmap}{DESeqTransform}(object, genes = NULL,
-  gene2symbol = FALSE, annotationCol = NULL, scale = "row",
-  color = viridis::viridis, legendColor = viridis::viridis, title = NULL,
-  ...)
+\S4method{plotHeatmap}{DESeqTransform}(object, samples = NULL, genes = NULL,
+  gene2symbol = NULL, annotationCol = NULL, scale = "row",
+  color = viridis, legendColor = viridis, title = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -35,38 +34,34 @@
 (\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
 }}
 
-\item{samples}{\emph{Optional}. Samples (colnames) to plot.}
+\item{samples}{\emph{Optional.} Samples (colnames) to plot.}
 
-\item{genes}{\emph{Optional}. Gene identifiers (rownames) to plot. These must be
-the stable identifiers (e.g. ENSG00000000003) used on Ensembl and not the
-gene symbols.}
+\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
+identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+symbols.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the row direction or the column direction, or none. Corresponding
 values are "row", "column" and "none".}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[viridis:viridis]{viridis::viridis()}}.}
+\code{\link[=viridis]{viridis()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. If set \code{TRUE},
-the function will attempt to automatically map gene identifiers to symbols
-from Ensembl using \code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then
-gene2symbol mapping will be disabled. This is useful when working with a
-poorly annotated genome. Alternatively, a gene2symbol \link{data.frame} can be
-passed in, and must contain the columns \code{ensgene} and \code{symbol}. then the
-Ensembl gene identifiers will be labeled in place of gene symbols.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.}
 
-\item{annotationCol}{\emph{Optional}. \link{data.frame} that defines annotation
+\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
 mappings for the columns.}
 }
 \description{
@@ -78,34 +73,31 @@ groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then t
 sample names.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
-# Use Ensembl identifiers to define genes
-genes <- rownames(bcb)[1:20]
-plotHeatmap(bcb, genes = genes)
+gene2symbol <- gene2symbol(bcb)
 
-# Use inferno color palette
-plotHeatmap(
-    bcb,
-    genes = genes,
-    color = viridis::inferno,
-    legendColor = viridis::inferno)
+# bcbioRNASeq ====
+plotHeatmap(bcb, genes = head(rownames(bcb), 20L))
 
-# Transcriptome heatmap with default pheatmap colors
-plotHeatmap(
-    bcb,
-    color = NULL,
-    legendColor = NULL)
+# Full transcriptome heatmap with default pheatmap colors
+plotHeatmap(bcb, color = inferno, legendColor = inferno)
 
-# DESeqDataSet
+# DESeqDataSet ====
 dds <- bcbio(bcb, "DESeqDataSet")
-plotHeatmap(dds)
+plotHeatmap(
+    object = dds,
+    genes = head(rownames(dds), 20L),
+    gene2symbol = gene2symbol)
 
-# DESeqTransform
+# DESeqTransform ====
 rld <- assays(bcb)[["rlog"]]
-plotHeatmap(rld)
+plotHeatmap(
+    object = rld,
+    genes = head(rownames(rld), 20L),
+    gene2symbol = gene2symbol)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},

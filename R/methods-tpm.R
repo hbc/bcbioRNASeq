@@ -6,14 +6,12 @@
 #'
 #' @importFrom bcbioBase tpm
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [matrix].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' tpm(bcb) %>% glimpse()
@@ -28,5 +26,7 @@ setMethod(
     "tpm",
     signature("bcbioRNASeq"),
     function(object) {
-        assays(object)[["tpm"]]
+        data <- assays(object)[["tpm"]]
+        assert_is_matrix(data)
+        data
     })

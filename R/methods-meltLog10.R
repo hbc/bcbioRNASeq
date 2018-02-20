@@ -4,7 +4,7 @@
 #' @name meltLog10
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).
@@ -14,15 +14,9 @@
 #' @return log10 melted [data.frame].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "dds.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "rld.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' meltLog10(bcb) %>% glimpse()
@@ -38,43 +32,39 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom dplyr left_join
-.joinMelt <- function(counts, colData) {
-    if (!identical(
+.joinMelt <- function(counts, metadata) {
+    assert_are_identical(
         colnames(counts),
-        as.character(colData[["sampleID"]])
-    )) {
-        abort("Sample name mismatch between counts and metadata")
-    }
+        as.character(metadata[["sampleID"]])
+    )
     melted <- .meltLog10(counts)
-    colData <- colData %>%
-        as.data.frame() %>%
-        # Ensure `stringsAsFactors` in colData
-        mutate_if(is.character, as.factor) %>%
-        mutate_if(is.factor, droplevels)
-    left_join(melted, colData, by = "sampleID")
+    assert_is_tbl_df(melted)
+    assert_is_data.frame(metadata)
+    left_join(melted, metadata, by = "sampleID")
 }
 
 
 
-#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by mutate
+#' @importFrom magrittr set_colnames
 #' @importFrom reshape2 melt
-#' @importFrom stats setNames
-#' @importFrom tibble rownames_to_column
+#' @importFrom rlang !! !!! sym syms
+#' @importFrom tibble as_tibble rownames_to_column
 .meltLog10 <- function(counts) {
+    assert_is_matrix(counts)
     counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
         melt(id = 1L) %>%
-        setNames(c("ensgene", "sampleID", "counts")) %>%
-        # Melt operation will define as factor. Let's set this manually later.
-        mutate(sampleID = as.character(.data[["sampleID"]])) %>%
+        as_tibble() %>%
+        set_colnames(c("ensgene", "sampleID", "counts")) %>%
+        .[, c("sampleID", "ensgene", "counts")] %>%
+        arrange(!!!syms(c("sampleID", "ensgene"))) %>%
+        group_by(!!sym("sampleID")) %>%
         # Remove zero counts
         .[.[["counts"]] > 0L, , drop = FALSE] %>%
         # log10 transform the counts
-        mutate(counts = log10(.data[["counts"]])) %>%
-        # Arrange by sampleID, to match factor levels
-        arrange(.data[["sampleID"]]) %>%
-        mutate(sampleID = as.factor(.data[["sampleID"]]))
+        mutate(counts = log10(.data[["counts"]]))
 }
 
 
@@ -90,7 +80,8 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            colData = colData(object))
+            metadata = sampleMetadata(object)
+        )
     })
 
 
@@ -105,7 +96,8 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            colData = colData(object))
+            metadata = sampleMetadata(object)
+        )
     })
 
 
@@ -118,5 +110,6 @@ setMethod(
     function(object) {
         .joinMelt(
             counts = assay(object),
-            colData = colData(object))
+            metadata = sampleMetadata(object)
+        )
     })

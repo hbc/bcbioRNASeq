@@ -5,25 +5,19 @@
 \alias{plotCountDensity}
 \alias{plotCountDensity}
 \alias{plotCountDensity,bcbioRNASeq-method}
-\alias{plotCountDensity,data.frame-method}
 \title{Plot Count Density}
 \usage{
 plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", style = "solid",
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
-
-\S4method{plotCountDensity}{data.frame}(object,
-  interestingGroups = "sampleName", style = "solid",
-  color = viridis::scale_color_viridis(discrete = TRUE),
-  fill = viridis::scale_fill_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE),
+  fill = scale_fill_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -37,17 +31,16 @@ for more information.}
 \item{style}{Desired plot style (\code{line} or \code{solid}).}
 
 \item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[viridis:scale_fill_viridis]{viridis::scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
-\item{title}{Include plot title.}
+\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
@@ -56,21 +49,9 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Count Density
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-
-# bcbioRNASeq
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotCountDensity(bcb, style = "solid")
-plotCountDensity(
-    bcb,
-    style = "line",
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- meltLog10(bcb, normalized = "tmm")
-plotCountDensity(df)
+plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

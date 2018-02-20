@@ -32,7 +32,15 @@ featureCounts aligned counts.}
 
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+
+# We're suppressing warnings about missing log files in our minimal
+# dataset, which end up in the Travis CI logs. This isn't recommended
+# for a typical bcbio run.
 bcb <- loadRNASeq(uploadDir)
+print(bcb)
+
+# Check validity
+validObject(bcb)
 }
 \seealso{
 \itemize{

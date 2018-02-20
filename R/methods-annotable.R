@@ -4,16 +4,14 @@
 #' @name annotable
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase annotable
+#' @importFrom basejump annotable
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame]
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' annotable(bcb) %>% glimpse()
@@ -23,13 +21,13 @@ NULL
 
 # Methods ======================================================================
 #' @rdname annotable
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "annotable",
     signature("bcbioRNASeq"),
     function(object) {
-        annotable <- as.data.frame(rowData(object))
-        rownames(annotable) <- slot(object, "NAMES")
-        annotable
+        data <- rowData(object)
+        assert_is_non_empty(data)
+        rownames(data) <- slot(object, "NAMES")
+        as.data.frame(data)
     })

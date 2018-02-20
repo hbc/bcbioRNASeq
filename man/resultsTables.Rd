@@ -9,14 +9,14 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = TRUE,
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = NULL,
   summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  quiet = FALSE)
+  dropboxDir = NULL, rdsToken = NA, quiet = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
 statistical hypothesis testing, only gene filtering in the results tables.
@@ -25,21 +25,25 @@ See \code{\link[=results]{results()}} for additional information about using \co
 changes.}
 
 \item{annotable}{Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. If \code{TRUE}, the function will attempt to
-detect the organism from the gene identifiers (rownames; "ensgene" column)
-and automatically obtain the latest annotations from Ensembl using
-\code{\link[=annotable]{annotable()}}. If set \code{FALSE}/\code{NULL}, then gene annotations will
-not be added to the results. This is useful when working with a poorly
-annotated genome. Alternatively, a previously saved annotable \link{data.frame}
-can be passed in.}
+identifier to symbol mappings. A previously saved annotable \link{data.frame}
+is recommended. Alternatively if set \code{NULL}, then gene annotations will
+not be added to the results.}
 
 \item{summary}{Show summary statistics.}
 
-\item{headerLevel}{Markdown header level.}
+\item{headerLevel}{R Markdown header level. Applies only when
+\code{summary = TRUE}.}
 
 \item{write}{Write CSV files to disk.}
 
-\item{dir}{Directory path where to write files.}
+\item{dir}{Local directory path where to write the results tables.}
+
+\item{dropboxDir}{Dropbox directory path where to archive the results tables
+for permanent storage (e.g. Stem Cell Commons). When this option is
+enabled, unique links per file are generated internally with the rdrop2
+package.}
+
+\item{rdsToken}{RDS file token to use for Dropbox authentication.}
 
 \item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
@@ -50,23 +54,27 @@ Results \link{list}.
 Differential Expression Results Tables
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
-
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 annotable <- annotable(bcb)
 
-resTbl <- resultsTables(
+# DESeqResults ====
+resTbl <- suppressMessages(resultsTables(
     res,
     lfc = 0.25,
     annotable = annotable,
     summary = TRUE,
     headerLevel = 2L,
-    write = FALSE)
+    write = TRUE,
+    dir = "resultsTables",
+    dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
+    rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
+))
 names(resTbl)
+
+# Clean up ====
+dir("resultsTables")
+unlink("resultsTables", recursive = TRUE)
 }
 \author{
 Michael Steinbaugh

@@ -4,39 +4,20 @@
 #' @name gene2symbol
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase gene2symbol
+#' @importFrom basejump gene2symbol
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [data.frame] containing Ensembl gene identifier (`ensgene`) and
 #'   symbol (`symbol`) mappings.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' gene2symbol(bcb) %>% head()
 NULL
 
-
-
-# Constructors =================================================================
-.gene2symbol <- function(object) {
-    annotable <- annotable(object)
-    if (is.null(annotable)) {
-        return(NULL)
-    }
-    cols <- c("ensgene", "symbol")
-    if (!all(cols %in% colnames(annotable))) {
-        abort(paste(
-            toString(cols),
-            "missing from internal annotable"
-        ))
-    }
-    annotable[, cols]
-}
 
 
 # Methods ======================================================================
@@ -45,4 +26,12 @@ NULL
 setMethod(
     "gene2symbol",
     signature("bcbioRNASeq"),
-    .gene2symbol)
+    function(object) {
+        data <- annotable(object)
+        assertIsAnnotable(data)
+        cols <- c("ensgene", "symbol")
+        assert_is_subset(cols, colnames(data))
+        data <- data[, cols, drop = FALSE]
+        assertIsGene2symbol(data)
+        data
+    })

@@ -9,15 +9,13 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [matrix].
 #' @export
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' tmm(bcb) %>% summary()
@@ -35,10 +33,10 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom edgeR calcNormFactors cpm DGEList
-.tmm <- function(object) {
+.tmm.matrix <- function(object) {  # nolint
+    assert_is_matrix(object)
     inform("Performing trimmed mean of M-values (TMM) normalization")
     object %>%
-        as.matrix() %>%
         DGEList() %>%
         calcNormFactors() %>%
         cpm(normalized.lib.sizes = TRUE)
@@ -53,12 +51,9 @@ setMethod(
     "tmm",
     signature("bcbioRNASeq"),
     function(object) {
-        tmm <- assays(object)[["tmm"]]
-        if (!is.matrix(tmm)) {
-            warn("tmm is not slotted into `assays()`")
-            tmm <- tmm(assay(object))
-        }
-        tmm
+        data <- assays(object)[["tmm"]]
+        assert_is_matrix(data)
+        data
     })
 
 
@@ -79,4 +74,4 @@ setMethod(
 setMethod(
     "tmm",
     signature("matrix"),
-    .tmm)
+    .tmm.matrix)

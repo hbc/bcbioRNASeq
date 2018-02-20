@@ -12,14 +12,19 @@
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #'
 #' @importFrom rlang .data abort inform warn
+#' @importFrom S4Vectors cor head mcols metadata na.omit SimpleList
+#' @importFrom utils globalVariables packageVersion
 NULL
 
-#' @importFrom utils globalVariables
+
+
 globalVariables(".")
-
-#' @importFrom utils packageVersion
 packageVersion <- packageVersion("bcbioRNASeq")
-
-projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 metadataPriorityCols <- c("sampleID", "description", "sampleName")
+legacyMetricsCols <- c(
+    metadataPriorityCols,
+    "name",
+    "x53Bias")
 perSampleDirs <- c("sailfish", "salmon")
+projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
+updateMsg <- "Run `updateObject()` to update your object"

@@ -19,7 +19,7 @@ plotMeanSD(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
 \code{vertical}.}
@@ -35,9 +35,7 @@ informative and is disabled by default, to improve the plot appearance.}
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 plotMeanSD(bcb, orientation = "horizontal")

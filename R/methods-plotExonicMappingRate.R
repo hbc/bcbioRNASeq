@@ -8,20 +8,8 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotExonicMappingRate(bcb)
-#' plotExonicMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotExonicMappingRate(df)
 NULL
 
 
@@ -29,23 +17,31 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
-#' @importFrom viridis scale_fill_viridis
 .plotExonicMappingRate <- function(
     object,
     interestingGroups = "sampleName",
     passLimit = 60L,
-    fill = viridis::scale_fill_viridis(discrete = TRUE),
+    fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(passLimit)
+    assert_all_are_non_negative(passLimit)
+    assertIsFillScaleDiscreteOrNULL(fill)
+    assert_is_a_bool(flip)
+
+    # Title
     if (isTRUE(title)) {
         title <- "exonic mapping rate"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~sampleName,
             y = ~exonicRate * 100L,
@@ -59,7 +55,7 @@ NULL
             fill = paste(interestingGroups, collapse = ":\n")) +
         ylim(0L, 100L)
 
-    if (is.numeric(passLimit)) {
+    if (is_positive(passLimit)) {
         p <- p + qcPassLine(passLimit)
     }
 
@@ -90,27 +86,17 @@ setMethod(
         object,
         interestingGroups,
         passLimit = 60L,
-        fill = viridis::scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotExonicMappingRate(
-            metrics(object),
+            object = metrics(object),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             fill = fill,
             flip = flip,
             title = title)
     })
-
-
-
-#' @rdname plotExonicMappingRate
-#' @export
-setMethod(
-    "plotExonicMappingRate",
-    signature("data.frame"),
-    .plotExonicMappingRate)

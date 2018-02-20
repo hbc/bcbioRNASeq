@@ -20,7 +20,7 @@ meltLog10(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
 
 \item{normalized}{Select normalized counts (\code{TRUE}), raw counts (\code{FALSE}),
 or specifically request TMM-normalized counts (\code{tmm}).}
@@ -32,15 +32,9 @@ log10 melted \link{data.frame}.
 Melt Count Matrix to Long Format and log10 Transform
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "rld.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 meltLog10(bcb) \%>\% glimpse()

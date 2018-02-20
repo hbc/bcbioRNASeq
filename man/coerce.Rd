@@ -2,7 +2,6 @@
 % Please edit documentation in R/setAs.R
 \name{coerce}
 \alias{coerce}
-\alias{upgrade-bcbioRNASeq}
 \alias{coerce-bcbioRNASeq-SummarizedExperiment}
 \title{Coerce Object}
 \arguments{
@@ -11,14 +10,6 @@
 \description{
 Coerce Object
 }
-\section{Upgrade bcbioRNASeq to current version}{
-
-This method adds support for upgrading \link{bcbioRNADataSet} objects to the
-latest \link{bcbioRNASeq} class version. This should be backwards compatible to
-\link{bcbioRNASeq} version 0.0.26. Previous objects saved using \code{bcbioRnaseq}
-(note case) will likely fail to load with newer versions of the package.
-}
-
 \section{bcbioRNASeq to SummarizedExperiment}{
 
 Since \link{bcbioRNASeq} is an extension of \link{SummarizedExperiment}, this
@@ -27,10 +18,9 @@ which contains raw cellular barcodes and other bcbio-specific metadata.
 }
 
 \examples{
-\dontrun{
-# Legacy bcbioRNADataSet class
-new <- as(old, "bcbioRNASeq")
-}
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+se <- as(bcb, "SummarizedExperiment")
+print(se)
 }
 \seealso{
 \code{help(topic = "coerce", package = "methods")}.

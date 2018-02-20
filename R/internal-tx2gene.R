@@ -3,7 +3,7 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom bcbioBase tx2gene
+#' @importFrom basejump tx2gene
 #' @importFrom dplyr arrange mutate
 #' @importFrom magrittr set_rownames
 #' @importFrom readr read_csv
@@ -15,11 +15,15 @@
 #'
 #' @return [data.frame], with unique rownames.
 #' @noRd
-.tx2gene <- function(projectDir, organism, release = "current") {
-    filePath <- file.path(projectDir, "tx2gene.csv")
-    if (file.exists(filePath)) {
+.tx2gene <- function(projectDir, organism, release = NULL) {
+    assert_all_are_dirs(projectDir)
+    assert_is_a_string(organism)
+    assertIsAnImplicitIntegerOrNULL(release)
+    inform("Obtaining transcript-to-gene mappings")
+    file <- file.path(projectDir, "tx2gene.csv")
+    if (file.exists(file)) {
         # bcbio tx2gene
-        read_csv(filePath, col_names = c("enstxp", "ensgene")) %>%
+        data <- read_csv(file, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%
             as.data.frame() %>%
             # Ensure transcript versions are removed
@@ -36,6 +40,8 @@
             "tx2gene.csv file missing.",
             "Attempting to generate tx2gene from Ensembl instead."
         ))
-        tx2gene(organism, release = release)
+        data <- tx2gene(organism, release = release)
     }
+    assertIsTx2gene(data)
+    data
 }

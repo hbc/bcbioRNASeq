@@ -9,26 +9,13 @@
 #' @inheritParams plotCountDensity
 #' @inheritParams plotGene
 #'
-#' @param counts Object containing a count matrix.
 #' @param minCounts Numeric value for filtering the counts matrix before
 #'   plotting.
+#' @param trendline Include a trendline for each group.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' plotGeneSaturation(bcb)
-#' plotGeneSaturation(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     color = NULL)
-#'
-#' # data.frame, matrix
-#' df <- metrics(bcb)
-#' counts <- counts(bcb, normalized = "rlog")
-#' plotGeneSaturation(df, counts = counts)
 NULL
 
 
@@ -36,36 +23,48 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
-#' @importFrom viridis scale_color_viridis
 .plotGeneSaturation <- function(
     object,
     counts,
     interestingGroups = "sampleName",
     minCounts = 0L,
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    trendline = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
+    assert_is_data.frame(object)
+    assertFormalInterestingGroups(object, interestingGroups)
+    assertIsAnImplicitInteger(minCounts)
+    assert_all_are_non_negative(minCounts)
+    assert_is_a_bool(trendline)
+    assertIsColorScaleDiscreteOrNULL(color)
+
+    # Title
     if (isTRUE(title)) {
         title <- "gene saturation"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    metrics <- uniteInterestingGroups(object, interestingGroups)
+    data <- uniteInterestingGroups(object, interestingGroups)
+
     p <- ggplot(
-        metrics,
+        data = data,
         mapping = aes_(
             x = ~mappedReads / 1e6L,
             y = colSums(counts > minCounts),
             color = ~interestingGroups)
     ) +
         geom_point(size = 3L) +
-        geom_smooth(method = "lm", se = FALSE) +
         labs(
             title = title,
             x = "mapped reads (million)",
             y = "genes",
             color = paste(interestingGroups, collapse = ":\n")
         )
+
+    if (isTRUE(trendline)) {
+        p <- p + geom_smooth(method = "lm", se = FALSE)
+    }
 
     if (is(color, "ScaleDiscrete")) {
         p <- p + color
@@ -78,40 +77,28 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGeneSaturation
-#' @importFrom viridis scale_color_viridis
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(
-        object = "bcbioRNASeq",
-        counts = "missing"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         normalized = "tmm",
         minCounts = 0L,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        trendline = TRUE,
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
-        if (is.null(metrics(object))) return(NULL)
+        assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         .plotGeneSaturation(
-            metrics(object),
+            object = metrics(object),
             counts = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             minCounts = minCounts,
+            trendline = trendline,
             color = color,
             title = title)
     })
-
-
-
-#' @rdname plotGeneSaturation
-#' @export
-setMethod(
-    "plotGeneSaturation",
-    signature(
-        object = "data.frame",
-        counts = "matrix"),
-    .plotGeneSaturation)

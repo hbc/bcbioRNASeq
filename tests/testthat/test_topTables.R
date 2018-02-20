@@ -1,8 +1,6 @@
 context("topTables")
 
-load(system.file(
-    file.path("extdata", "res.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 
 test_that("topTables", {
     resTbl <- resultsTables(

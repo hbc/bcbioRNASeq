@@ -5,7 +5,7 @@
 #' @family Differential Expression Plots
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotHeatmap
 #'
 #' @param alpha Alpha level cutoff used for coloring.
@@ -28,36 +28,23 @@
 #'   individual [ggplot] (`grid = FALSE`).
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
-#' load(system.file(
-#'     file.path("extdata", "res.rda"),
-#'     package = "bcbioRNASeq"))
-#'
-#' # Use a defined gene2symbol data.frame for better speed
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 #' gene2symbol <- gene2symbol(bcb)
 #'
+#' # DESeqResults ====
 #' # Label the top genes
-#' plotVolcano(res, ntop = 5, gene2symbol = gene2symbol)
+#' plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
 #'
 #' # Label specific genes
-#' ensgene <- rownames(res) %>% head()
-#' print(ensgene)
-#' plotVolcano(res, genes = ensgene, gene2symbol = gene2symbol)
-#'
-#' # Label with Ensembl gene identifiers
-#' plotVolcano(res, ntop = 1, gene2symbol = FALSE)
-#'
-#' # data.frame
-#' df <- as.data.frame(res)
-#' plotVolcano(df)
+#' genes <- rownames(res) %>% head()
+#' plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase annotable camel
+#' @importFrom basejump annotable camel
 #' @importFrom BiocGenerics density
 #' @importFrom cowplot draw_plot ggdraw
 #' @importFrom dplyr arrange desc left_join mutate pull
@@ -66,15 +53,14 @@ NULL
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom rlang !! sym
-#' @importFrom S4Vectors na.omit
 #' @importFrom tibble as_tibble rownames_to_column
 .plotVolcano <- function(
     object,
     alpha = 0.01,
     padj = TRUE,
-    lfc = 1L,
+    lfc = 0L,
     genes = NULL,
-    gene2symbol = TRUE,
+    gene2symbol = NULL,
     ntop = 0L,
     direction = "both",
     pointColor = "gray",
@@ -84,10 +70,9 @@ NULL
     shadeAlpha = 0.25,
     labelColor = "black",
     histograms = TRUE) {
-    if (!any(direction %in% c("both", "down", "up")) |
-        length(direction) > 1L) {
-        abort("Direction must be both, up, or down")
-    }
+    assertFormalGene2symbol(object, genes, gene2symbol)
+    assert_is_a_string(direction)
+    assert_is_subset(direction, c("both", "up", "down"))
 
     # Generate data `tibble`
     data <- object %>%
@@ -102,19 +87,6 @@ NULL
         .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
         # Select columns used for plots
         .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
-    if (isTRUE(gene2symbol)) {
-        organism <- pull(data, "ensgene") %>%
-            .[[1L]] %>%
-            detectOrganism()
-        gene2symbol <- annotable(organism, format = "gene2symbol")
-    }
-    if (is.data.frame(gene2symbol)) {
-        labelCol <- "symbol"
-        checkGene2symbol(gene2symbol)
-        data <- left_join(data, gene2symbol, by = "ensgene")
-    } else {
-        labelCol <- "ensgene"
-    }
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -139,12 +111,21 @@ NULL
         ) %>%
         arrange(desc(!!sym("rankScore")))
 
-    # Text labels ==============================================================
-    if (!is.null(genes)) {
+    # Gene text labels =========================================================
+    if (is.null(genes) && is_positive(ntop)) {
+        genes <- data[1L:ntop, "ensgene", drop = TRUE]
+    }
+    if (is.character(genes)) {
+        assert_is_subset(genes, data[["ensgene"]])
         volcanoText <- data %>%
             .[.[["ensgene"]] %in% genes, , drop = FALSE]
-    } else if (ntop > 0L) {
-        volcanoText <- data[1L:ntop, , drop = FALSE]
+        if (is.data.frame(gene2symbol)) {
+            labelCol <- "symbol"
+            assertIsGene2symbol(gene2symbol)
+            volcanoText <- left_join(volcanoText, gene2symbol, by = "ensgene")
+        } else {
+            labelCol <- "ensgene"
+        }
     } else {
         volcanoText <- NULL
     }
@@ -246,7 +227,7 @@ NULL
             pch = 21L) +
         theme(legend.position = "none") +
         scale_x_continuous(limits = rangeLFC)
-    if (!is.null(volcanoText)) {
+    if (is.data.frame(volcanoText)) {
         volcano <- volcano +
             geom_text_repel(
                 data = volcanoText,
@@ -339,7 +320,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotVolcano
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotVolcano",
@@ -348,9 +328,9 @@ setMethod(
         object,
         alpha,
         padj = TRUE,
-        lfc = 1L,
+        lfc = 0L,
         genes = NULL,
-        gene2symbol = TRUE,
+        gene2symbol = NULL,
         ntop = 0L,
         direction = "both",
         shadeColor = "green",
@@ -380,12 +360,3 @@ setMethod(
             labelColor = labelColor,
             histograms = histograms)
     })
-
-
-
-#' @rdname plotVolcano
-#' @export
-setMethod(
-    "plotVolcano",
-    signature("data.frame"),
-    .plotVolcano)

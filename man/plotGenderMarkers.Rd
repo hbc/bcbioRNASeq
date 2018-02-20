@@ -4,28 +4,37 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers}
+\alias{plotGenderMarkers,matrix-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
-\alias{plotGenderMarkers,matrix-method}
+\alias{plotGenderMarkers,DESeqTransform-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
 plotGenderMarkers(object, ...)
 
+\S4method{plotGenderMarkers}{matrix}(object, colData,
+  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
+  title = TRUE)
+
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+  normalized = "rlog", color = scale_color_viridis(discrete = TRUE),
+  title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
-\S4method{plotGenderMarkers}{matrix}(object, interestingGroups = "sampleName",
-  organism, metadata, countsAxisLabel = "counts",
-  color = viridis::scale_color_viridis(discrete = TRUE), title = TRUE)
+\S4method{plotGenderMarkers}{DESeqTransform}(object,
+  interestingGroups = "sampleName", organism,
+  color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Additional arguments (for the S4 generic definition).}}
+\item{...}{Additional arguments.}
+
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -33,21 +42,24 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[viridis:scale_color_viridis]{viridis::scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
-
-\item{title}{Include plot title.}
-
-\item{organism}{\emph{Optional}. Organism name. Should be detected automatically,
+\item{organism}{\emph{Optional.} Organism name. Should be detected automatically,
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
 
-\item{metadata}{Sample metadata \link{data.frame}.}
-
 \item{countsAxisLabel}{Text label of counts axis.}
+
+\item{medianLine}{Include median line for each group. Disabled when samples
+are grouped by \code{sampleName}.}
+
+\item{color}{Desired ggplot color scale. Defaults to
+\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+
+\item{title}{Title.}
+
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 }
 \value{
 \link{ggplot}.
@@ -56,27 +68,29 @@ that is first alphabetically in the count matrix rownames.}
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
-# bcbioRNASeq
-# Use F1000 workflow example dataset
-# The minimal example inside the package doesn't have dimorphic genes
+dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
 loadRemoteData(
-    file.path(
-        "http://bcbiornaseq.seq.cloud",
-        "f1000v1",
-        "data",
-        "bcb.rda"),
+    c(
+        file.path(dir, "bcb.rda"),
+        file.path(dir, "rld.rda"),
+        file.path(dir, "vst.rda")
+    ),
     quiet = TRUE)
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 plotGenderMarkers(bcb)
 plotGenderMarkers(
     bcb,
     interestingGroups = "sampleName",
     color = NULL)
 
-# DESeqDataSet
+# DESeqDataSet ====
 dds <- bcbio(bcb, "DESeqDataSet")
-plotGenderMarkers(dds)
+plotGenderMarkers(dds, interestingGroups = "group")
+
+# DESeqTransform ====
+plotGenderMarkers(rld, interestingGroups = "group")
+plotGenderMarkers(vst, interestingGroups = "group")
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

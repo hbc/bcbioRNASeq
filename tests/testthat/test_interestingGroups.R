@@ -1,17 +1,15 @@
 context("interestingGroups")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
-test_that("accessor", {
+test_that("Accessor", {
     expect_equal(
         interestingGroups(bcb),
         "group"
     )
 })
 
-test_that("assignment", {
+test_that("Assignment", {
     expect_silent(
         interestingGroups(bcb) <- "sampleName"
     )
@@ -21,7 +19,7 @@ test_that("assignment", {
         paste(
             "is_subset :",
             "The element 'XXX' in interestingGroups is not in",
-            "colnames\\(object\\)."
+            "colnames\\(x\\)."
         )
     )
 })

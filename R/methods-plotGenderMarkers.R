@@ -5,130 +5,124 @@
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #' @inheritParams plotGene
 #' @inheritParams plotTotalReads
 #'
-#' @param organism *Optional*. Organism name. Should be detected automatically,
+#' @param organism *Optional.* Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.
 #'
 #' @return [ggplot].
 #'
 #' @examples
-#' # bcbioRNASeq
-#' # Use F1000 workflow example dataset
-#' # The minimal example inside the package doesn't have dimorphic genes
+#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
 #' loadRemoteData(
-#'     file.path(
-#'         "http://bcbiornaseq.seq.cloud",
-#'         "f1000v1",
-#'         "data",
-#'         "bcb.rda"),
+#'     c(
+#'         file.path(dir, "bcb.rda"),
+#'         file.path(dir, "rld.rda"),
+#'         file.path(dir, "vst.rda")
+#'     ),
 #'     quiet = TRUE)
 #'
-#' # bcbioRNASeq
+#' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb)
 #' plotGenderMarkers(
 #'     bcb,
 #'     interestingGroups = "sampleName",
 #'     color = NULL)
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotGenderMarkers(dds)
+#' plotGenderMarkers(dds, interestingGroups = "group")
+#'
+#' # DESeqTransform ====
+#' plotGenderMarkers(rld, interestingGroups = "group")
+#' plotGenderMarkers(vst, interestingGroups = "group")
 NULL
 
 
 
 # Constructors =================================================================
+#' @importFrom basejump camel
 #' @importFrom dplyr filter left_join pull
-#' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
-#' @importFrom stats setNames
+#' @importFrom ggplot2 aes_string element_text expand_limits geom_jitter ggplot
+#'   ggtitle labs theme
+#' @importFrom magrittr set_colnames set_rownames
 #' @importFrom tibble rownames_to_column
-#' @importFrom viridis scale_color_viridis
 .plotGenderMarkers <- function(
     object,
+    colData,
     interestingGroups = "sampleName",
     organism,
-    metadata,
     countsAxisLabel = "counts",
-    color = viridis::scale_color_viridis(discrete = TRUE),
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
+    assert_is_matrix(object)
+    assertFormalAnnotationCol(object, colData)
+    assertFormalInterestingGroups(colData, interestingGroups)
+    assert_is_a_string(organism)
+    assert_is_a_string(countsAxisLabel)
+    assert_is_a_bool(medianLine)
+    assertIsColorScaleDiscreteOrNULL(color)
+
+    # Title
     if (isTRUE(title)) {
         title <- "gender markers"
-    } else if (!is.character(title)) {
+    } else if (!is_a_string(title)) {
         title <- NULL
     }
 
+    colData <- uniteInterestingGroups(colData, interestingGroups)
+
     # Load the relevant internal gender markers data
     markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
-    if (!camel(organism) %in% names(markers)) {
-        warn(paste(
-            "Organism",
-            paste0("(", organism, ")"),
-            "is not supported"
-        ))
-        return(invisible(NULL))
-    }
-    # Convert the organism name from full latin to shorthand (e.g. hsapiens)
+    assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
     # Ensembl identifiers
-    ensgene <- markers %>%
-        filter(.data[["include"]] == TRUE) %>%
-        pull("ensgene") %>%
-        sort() %>%
-        unique()
-
-    if (!all(ensgene %in% rownames(object))) {
-        warn("Missing gender markers in count matrix")
-        return(invisible(NULL))
-    }
-
-    data <- object %>%
-        .[ensgene, , drop = FALSE] %>%
-        # This will coerce rownames to a column named `rowname`. We will rename
-        # this to `ensgene` after melting the counts.
+    gene2symbol <- markers %>%
+        .[.[["include"]] == TRUE, , drop = FALSE] %>%
+        mutate(
+            symbol = paste(
+                .data[["chromosome"]],
+                .data[["symbol"]],
+                sep = " : ")
+        ) %>%
+        .[, c("ensgene", "symbol")] %>%
         as.data.frame() %>%
-        rownames_to_column() %>%
-        # For `melt()`, can also declare `measure.vars` here instead of using
-        # `setNames()`. If you don't set `id`, function will output a message.
-        melt(id = 1L) %>%
-        setNames(c("ensgene", "sampleName", "counts")) %>%
-        left_join(markers, by = "ensgene") %>%
-        left_join(metadata, by  = "sampleName") %>%
-        uniteInterestingGroups(interestingGroups)
+        set_rownames(.[["ensgene"]])
+    assertIsGene2symbol(gene2symbol)
+    genes <- gene2symbol[["ensgene"]]
+    assert_is_subset(genes, rownames(object))
 
-    p <- ggplot(
-        data,
-        mapping = aes_string(
-            x = "symbol",
-            y = "counts",
-            color = "interestingGroups",
-            shape = "chromosome")
-    ) +
-        geom_jitter(size = 4L) +
-        expand_limits(y = 0L) +
-        labs(
-            title = title,
-            x = "gene",
-            y = countsAxisLabel,
-            color = paste(interestingGroups, collapse = ":\n"))
-
-    if (is(color, "ScaleDiscrete")) {
-        p <- p + color
-    }
-
-    p
+    plotGene(
+        object = object,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        colData = colData,
+        interestingGroups = interestingGroups,
+        countsAxisLabel = countsAxisLabel,
+        medianLine = medianLine,
+        color = color,
+        return = "wide") +
+        ggtitle(title)
 }
 
 
 
 # Methods ======================================================================
 #' @rdname plotGenderMarkers
-#' @importFrom S4Vectors metadata
-#' @importFrom viridis scale_color_viridis
+#' @export
+setMethod(
+    "plotGenderMarkers",
+    signature("matrix"),
+    .plotGenderMarkers)
+
+
+
+#' @rdname plotGenderMarkers
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -136,17 +130,19 @@ setMethod(
     function(
         object,
         interestingGroups,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        normalized = "rlog",
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
+        assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        .plotGenderMarkers(
-            object = tpm(object),
+        plotGenderMarkers(
+            object = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
-            metadata = sampleMetadata(object),
-            countsAxisLabel = "transcripts per million (tpm)",
+            colData = sampleMetadata(object),
+            countsAxisLabel = normalized,
             color = color,
             title = title)
     })
@@ -154,8 +150,7 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom bcbioBase detectOrganism
-#' @importFrom viridis scale_color_viridis
+#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -164,20 +159,18 @@ setMethod(
         object,
         interestingGroups = "sampleName",
         organism,
-        color = viridis::scale_color_viridis(discrete = TRUE),
+        color = scale_color_viridis(discrete = TRUE),
         title = TRUE) {
-        counts <- counts(object, normalized = TRUE)
+        counts <- log2(counts(object, normalized = TRUE) + 1L)
         if (missing(organism)) {
-            organism <- rownames(counts) %>%
-                .[[1L]] %>%
-                detectOrganism()
+            organism <- detectOrganism(counts)
         }
-        .plotGenderMarkers(
-            counts,
+        plotGenderMarkers(
+            object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            metadata = sampleMetadata(object),
-            countsAxisLabel = "normalized counts",
+            colData = sampleMetadata(object),
+            countsAxisLabel = "log2 normalized counts",
             color = color,
             title = title)
     })
@@ -185,8 +178,33 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
+#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
-    signature("matrix"),
-    .plotGenderMarkers)
+    signature("DESeqTransform"),
+    function(
+        object,
+        interestingGroups = "sampleName",
+        organism,
+        color = scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
+        # Passthrough: interestingGroups, color, title
+        counts <- assay(object)
+        if (missing(organism)) {
+            organism <- detectOrganism(counts)
+        }
+        if ("rlogIntercept" %in% colnames(mcols(object))) {
+            countsAxisLabel <- "rlog"
+        } else {
+            countsAxisLabel <- "vst"
+        }
+        plotGenderMarkers(
+            object = counts,
+            interestingGroups = interestingGroups,
+            organism = organism,
+            colData = sampleMetadata(object),
+            countsAxisLabel = countsAxisLabel,
+            color = color,
+            title = title)
+    })

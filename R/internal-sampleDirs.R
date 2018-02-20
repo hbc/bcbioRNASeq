@@ -3,14 +3,13 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom stats setNames
-#'
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
-#'   will [abort()] if no complete sample directories match.
+#'   will abort if no sample directories match.
 #' @noRd
 .sampleDirs <- function(uploadDir) {
+    assert_all_are_dirs(uploadDir)
     subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%
         paste0("^", ., "$")
@@ -18,28 +17,28 @@
         subdirs,
         pattern = subdirPattern,
         full.names = TRUE,
-        recursive = FALSE) %>%
+        recursive = FALSE)
+    assert_is_non_empty(sampleDirs)
+    sampleDirs <- sampleDirs %>%
         dirname() %>%
         sort() %>%
         unique()
 
     # Ensure removal of nested `projectDir`
-    if (any(grepl(x = basename(sampleDirs), pattern = projectDirPattern))) {
+    if (any(grepl(projectDirPattern, basename(sampleDirs)))) {
         sampleDirs <- sampleDirs %>%
-            .[!grepl(x = basename(.), pattern = projectDirPattern)]
+            .[!grepl(projectDirPattern, basename(.))]
+        assert_is_non_empty(sampleDirs)
     }
 
-    # Return
-    if (length(sampleDirs) == 0L) {
-        abort("No sample directories detected")
-    } else {
-        # Generate names from file paths and make valid
-        names <- basename(sampleDirs) %>%
-            make.names(unique = TRUE) %>%
-            gsub(x = ., pattern = "\\.", replacement = "_")
-        sampleDirs <- normalizePath(sampleDirs) %>%
-            setNames(names)
-        inform(paste(length(sampleDirs), "samples detected"))
-    }
+    # Generate names from file paths and make valid
+    names <- basename(sampleDirs) %>%
+        make.names(unique = TRUE) %>%
+        gsub("\\.", "_", .)
+    sampleDirs <- normalizePath(sampleDirs)
+    names(sampleDirs) <- names
+
+    inform(paste(length(sampleDirs), "samples detected"))
+
     sampleDirs
 }

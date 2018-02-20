@@ -4,27 +4,27 @@
 \name{alphaSummary}
 \alias{alphaSummary}
 \alias{alphaSummary}
-\alias{alphaSummary,bcbioRNASeq-method}
 \alias{alphaSummary,DESeqDataSet-method}
+\alias{alphaSummary,bcbioRNASeq-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
 alphaSummary(object, ...)
 
-\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
-  1e-06), caption = NULL, ...)
-
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
   0.001, 1e-06), caption = NULL, ...)
+
+\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
+  1e-06), caption = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Optional}. Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
+\item{...}{\emph{Optional.} Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
 either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{caption}{\emph{Optional}. Character vector to add as caption to the table.}
+\item{caption}{\emph{Optional.} Character vector to add as caption to the table.}
 }
 \value{
 \link{kable}.
@@ -37,12 +37,8 @@ Print Summary Statistics of Alpha Level Cutoffs
 object contains an internal \link{DESeqDataSet} with an empty design formula.
 }
 \examples{
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
-load(system.file(
-    file.path("extdata", "dds.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
 # bcbioRNASeq
 alphaSummary(bcb)

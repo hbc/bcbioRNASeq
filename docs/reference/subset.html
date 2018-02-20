@@ -166,9 +166,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(
-    <span class='fu'>file.path</span>(<span class='st'>"extdata"</span>, <span class='st'>"bcb.rda"</span>),
-    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>50</span>]
 <span class='fu'>head</span>(<span class='no'>ensgene</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886"
@@ -177,7 +175,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 <span class='co'># Subset by sample name</span>
 <span class='no'>bcb</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 2 
-#&gt; metadata(30): version uploadDir ... subset originalVersion
+#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000105982 ENSMUSG00000109048
@@ -187,7 +185,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 <span class='co'># Subset by gene list</span>
 <span class='no'>bcb</span>[<span class='no'>ensgene</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 50 4 
-#&gt; metadata(30): version uploadDir ... subset originalVersion
+#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000026154 ENSMUSG00000026155
@@ -197,7 +195,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 <span class='co'># Subset by both genes and samples</span>
 <span class='no'>bcb</span>[<span class='no'>ensgene</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 50 2 
-#&gt; metadata(30): version uploadDir ... subset originalVersion
+#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
 #&gt; assays(6): raw normalized ... rlog vst
 #&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000026154 ENSMUSG00000026155
@@ -205,9 +203,9 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; colnames(2): group1_1 group1_2
 #&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
 <span class='co'># Skip DESeq2 transformations</span>
-<span class='no'>bcb</span>[<span class='no'>ensgene</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations just selecting samples and genes</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
+<span class='no'>bcb</span>[<span class='no'>ensgene</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 50 2 
-#&gt; metadata(30): version uploadDir ... subset originalVersion
+#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
 #&gt; assays(4): raw normalized tpm tmm
 #&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
 #&gt;   ENSMUSG00000026154 ENSMUSG00000026155

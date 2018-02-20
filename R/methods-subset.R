@@ -18,9 +18,7 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' ensgene <- rownames(bcb)[1:50]
 #' head(ensgene)
@@ -45,28 +43,24 @@ NULL
 # Constructors =================================================================
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
-#' @importFrom dplyr mutate_if
-#' @importFrom S4Vectors metadata SimpleList
 #' @importFrom tibble column_to_rownames rownames_to_column
-.subset <- function(x, i, j, ..., drop = FALSE) {
+.subset.bcbioRNASeq <- function(x, i, j, ..., drop = FALSE) {  # nolint
     # Genes (rows)
     if (missing(i)) {
         i <- 1L:nrow(x)
     }
-    if (length(i) < 2L) {
-        abort("At least 2 genes are required")
-    }
+    assert_all_are_greater_than(length(i), 1L)
 
     # Samples (columns)
     if (missing(j)) {
         j <- 1L:ncol(x)
     }
-    if (length(j) < 2L) {
-        abort("At least 2 samples are required")
-    }
+    assert_all_are_greater_than(length(j), 1L)
 
     # Early return if dimensions are unmodified
-    if (identical(dim(x), c(length(i), length(j)))) return(x)
+    if (identical(dim(x), c(length(i), length(j)))) {
+        return(x)
+    }
 
     dots <- list(...)
     if (!identical(dots[["transform"]], FALSE)) {
@@ -82,23 +76,18 @@ NULL
 
     # Row data =================================================================
     rowData <- rowData(se)
-    if (!is.null(rowData)) {
-        rownames(rowData) <- slot(se, "NAMES")
-    }
+    assert_is_non_empty(rowData)
+    rownames(rowData) <- slot(se, "NAMES")
 
     # Column data ==============================================================
-    # Better base R approach here to relevel factors?
-    colData <- colData(se) %>%
-        as.data.frame() %>%
-        rownames_to_column() %>%
-        mutate_if(is.character, as.factor) %>%
-        mutate_if(is.factor, droplevels) %>%
-        column_to_rownames() %>%
-        as("DataFrame")
+    colData <- colData(se)
+    colData <- sanitizeColData(colData)
 
     # bcbio ====================================================================
     # tximport
     txi <- bcbio(x, "tximport")
+    assert_is_list(txi)
+    assert_is_subset(c("abundance", "counts", "length"), names(txi))
     txi[["abundance"]] <- txi[["abundance"]][genes, samples]
     txi[["counts"]] <- txi[["counts"]][genes, samples]
     txi[["length"]] <- txi[["length"]][genes, samples]
@@ -106,14 +95,12 @@ NULL
     # DESeqDataSet
     inform("Updating internal DESeqDataSet")
     dds <- bcbio(x, "DESeqDataSet")
+    assert_is_all_of(dds, "DESeqDataSet")
     dds <- dds[genes, samples]
     colData(dds) <- colData
     # Skip normalization option, for large datasets
     if (!isTRUE(transform)) {
-        inform(paste(
-            "Skipping DESeq2 transformations",
-            "just selecting samples and genes"
-        ))
+        inform("Skipping DESeq2 transformations")
         dds <- estimateSizeFactors(dds)
         vst <- NULL
         rlog <- NULL
@@ -178,13 +165,13 @@ NULL
         column_to_rownames()
 
     # Return ===================================================================
-    new("bcbioRNASeq",
-        SummarizedExperiment(
-            assays = assays,
-            rowData = rowData,
-            colData = colData,
-            metadata = metadata),
-        bcbio = bcbio)
+    se <- SummarizedExperiment(
+        assays = assays,
+        rowData = rowData,
+        colData = colData,
+        metadata = metadata
+    )
+    new("bcbioRNASeq", se, bcbio = bcbio)
 }
 
 
@@ -199,5 +186,10 @@ setMethod(
         i = "ANY",
         j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
-        .subset(x, i, j, ..., drop)
+        .subset.bcbioRNASeq(
+            x = x,
+            i = i,
+            j = j,
+            ...,
+            drop = drop)
     })

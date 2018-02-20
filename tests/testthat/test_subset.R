@@ -1,8 +1,6 @@
 context("subset")
 
-load(system.file(
-    file.path("extdata", "bcb.rda"),
-    package = "bcbioRNASeq"))
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("Normal gene and sample selection", {
     subset <- suppressMessages(bcb[1L:100L, 1L:4L])
@@ -81,10 +79,10 @@ test_that("Minimal gene selection", {
 test_that("Invalid ranges", {
     expect_error(
         bcb[1L, ],
-        "At least 2 genes are required"
+        "is_greater_than : length\\(i\\) are not all greater than 1L."
     )
     expect_error(
         bcb[, 1L],
-        "At least 2 samples are required"
+        "is_greater_than : length\\(j\\) are not all greater than 1L."
     )
 })

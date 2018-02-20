@@ -29,8 +29,20 @@ labelSep <- ": "
 
 
 # Line functions ===============================================================
+#' @importFrom ggplot2 stat_summary
+geneMedianLine <- stat_summary(
+    fun.y = median,
+    fun.ymin = median,
+    fun.ymax = median,
+    geom = "crossbar",
+    show.legend = FALSE,
+    width = 0.67)
+
+
 #' @importFrom ggplot2 geom_hline
 qcPassLine <- function(intercept) {
+    assert_is_a_number(intercept)
+    assert_all_are_non_negative(intercept)
     geom_hline(
         alpha = qcLineAlpha,
         color = qcPassColor,
@@ -41,6 +53,8 @@ qcPassLine <- function(intercept) {
 
 #' @importFrom ggplot2 geom_hline
 qcWarnLine <- function(intercept) {
+    assert_is_a_number(intercept)
+    assert_all_are_non_negative(intercept)
     geom_hline(
         alpha = qcLineAlpha,
         color = qcWarnColor,

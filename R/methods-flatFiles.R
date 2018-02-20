@@ -9,14 +9,12 @@
 #'
 #' @importFrom bcbioBase flatFiles
 #'
-#' @inheritParams AllGenerics
+#' @inheritParams general
 #'
 #' @return [list].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' flatFiles(bcb) %>% names()
 NULL
@@ -25,7 +23,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname flatFiles
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "flatFiles",

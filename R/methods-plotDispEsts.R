@@ -22,9 +22,7 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file(
-#'     file.path("extdata", "bcb.rda"),
-#'     package = "bcbioRNASeq"))
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq
 #' plotDispEsts(bcb)
@@ -47,5 +45,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, ...) {
         dds <- bcbio(object, "DESeqDataSet")
+        assert_is_all_of(dds, "DESeqDataSet")
         plotDispEsts(dds, ...)
     })
