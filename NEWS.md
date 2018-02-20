@@ -4,6 +4,7 @@
 - Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with `plotDEGPCA()`.
 - Added support for Dropbox shared links to `resultsTables()`, for use with the [Stem Cell Commons][] database.
 - Added assert checks internally for all functions.
+- Improved internal code for `plotGene()` and `plotGenderMarkers()` to run faster.
 
 
 ## bcbioRNASeq 0.1.5 (2018-01-31)
