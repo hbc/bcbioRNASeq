@@ -20,7 +20,8 @@
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
 #' @param countsAxisLabel Text label of counts axis.
-#' @param medianLine Include median line for each group.
+#' @param medianLine Include median line for each group. Disabled when samples
+#'   are grouped by `sampleName`.
 #' @param color Desired ggplot color scale. Defaults to
 #'   [scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
@@ -87,14 +88,6 @@ NULL
     assert_is_subset(return, c("grid", "list", "markdown", "wide"))
     assertIsAHeaderLevel(headerLevel)
 
-    # Gene to symbol mappings
-    if (is.data.frame(gene2symbol)) {
-        match <- match(x = genes, table = gene2symbol[["ensgene"]])
-        symbols <- gene2symbol[match, "symbol", drop = TRUE]
-    } else {
-        symbols <- NULL
-    }
-
     # Add `interestingGroups` column to colData
     colData <- uniteInterestingGroups(colData, interestingGroups)
 
@@ -102,7 +95,7 @@ NULL
         plots <- .plotGeneList(
             object = object,
             genes = genes,
-            symbols = symbols,
+            gene2symbol = gene2symbol,
             colData = colData,
             interestingGroups = interestingGroups,
             countsAxisLabel = countsAxisLabel,
@@ -134,22 +127,33 @@ NULL
 
 
 
+#' @importFrom BiocParallel bpmapply
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
 #' @importFrom tibble tibble
 .plotGeneList <- function(
     object,
     genes,
-    symbols = NULL,
+    gene2symbol = NULL,
     colData,
     interestingGroups = "sampleName",
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE)) {
     assert_is_subset(genes, rownames(object))
-    mapply(
+    object <- object[genes, , drop = FALSE]
+
+    # Gene to symbol mappings
+    if (is.data.frame(gene2symbol)) {
+        assert_is_subset(genes, gene2symbol[["ensgene"]])
+        match <- match(x = genes, table = gene2symbol[["ensgene"]])
+        symbols <- gene2symbol[match, "symbol", drop = TRUE]
+        rownames(object) <- symbols
+        genes <- symbols
+    }
+
+    bpmapply(
         gene = genes,
-        symbol = symbols,
         MoreArgs = list(
             object = object,
             colData = colData,
@@ -161,19 +165,12 @@ NULL
         FUN = function(
             object,
             gene,
-            symbol,
             colData,
             interestingGroups,
             countsAxisLabel,
             medianLine,
             color
         ) {
-            if (is_a_string(symbol)) {
-                title <- symbol
-            } else {
-                title <- gene
-            }
-
             data <- tibble(
                 x = colData[["interestingGroups"]],
                 y = object[gene, , drop = TRUE],
@@ -189,14 +186,17 @@ NULL
                 geom_point(size = 4L) +
                 theme(axis.text.x = element_text(angle = 90L)) +
                 labs(
-                    title = title,
+                    title = gene,
                     x = paste(interestingGroups, collapse = ":"),
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
                 expand_limits(y = 0L)
 
-            if (isTRUE(medianLine)) {
+            if (
+                isTRUE(medianLine) &&
+                !identical(interestingGroups, "sampleName")
+            ) {
                 p <- p + geneMedianLine
             }
 
@@ -235,6 +235,7 @@ NULL
     title = NULL) {
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
+        assert_is_subset(genes, gene2symbol[["ensgene"]])
         match <- match(x = genes, table = gene2symbol[["ensgene"]])
         symbols <- gene2symbol[match, "symbol", drop = TRUE]
         rownames(object) <- symbols
@@ -268,7 +269,7 @@ NULL
         ) +
         expand_limits(y = 0L)
 
-    if (isTRUE(medianLine)) {
+    if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
         p <- p + geneMedianLine
     }
 
@@ -319,7 +320,7 @@ setMethod(
             gene2symbol = gene2symbol(object),
             colData = sampleMetadata(object),
             interestingGroups = interestingGroups,
-            countsAxisLabel = normalized,
+            countsAxisLabel = paste(normalized, "counts"),
             medianLine = medianLine,
             color = color,
             return = return,
@@ -348,7 +349,7 @@ setMethod(
             gene2symbol = gene2symbol,
             colData = sampleMetadata(object),
             interestingGroups = interestingGroups,
-            countsAxisLabel = "log2 normalized counts",
+            countsAxisLabel = "log2 counts",
             medianLine = medianLine,
             color = color,
             return = return,
@@ -372,9 +373,9 @@ setMethod(
         return = "grid",
         headerLevel = 2L) {
         if ("rlogIntercept" %in% colnames(mcols(object))) {
-            countsAxisLabel <- "rlog"
+            normalized <- "rlog"
         } else {
-            countsAxisLabel <- "vst"
+            normalized <- "vst"
         }
         plotGene(
             object = assay(object),
@@ -382,7 +383,7 @@ setMethod(
             gene2symbol = gene2symbol,
             colData = sampleMetadata(object),
             interestingGroups = interestingGroups,
-            countsAxisLabel = countsAxisLabel,
+            countsAxisLabel = paste(normalized, "counts"),
             medianLine = medianLine,
             color = color,
             return = return,

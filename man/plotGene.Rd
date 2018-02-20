@@ -50,7 +50,8 @@ this is automatically determined by the metadata set inside the
 
 \item{countsAxisLabel}{Text label of counts axis.}
 
-\item{medianLine}{Include median line for each group.}
+\item{medianLine}{Include median line for each group. Disabled when samples
+are grouped by \code{sampleName}.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
