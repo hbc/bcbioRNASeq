@@ -123,7 +123,7 @@ take a long time for large datasets.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 <span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
+<span class='co'># bcbioRNASeq ====</span>
 <span class='fu'>selectSamples</span>(<span class='no'>bcb</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"ko"</span>)</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 2 
 #&gt; metadata(29): version uploadDir ... unannotatedGenes subset
@@ -133,7 +133,7 @@ take a long time for large datasets.</p></td>
 #&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
 #&gt; colnames(2): group2_1 group2_2
 #&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
-<span class='co'># DESeqDataSet</span>
+<span class='co'># DESeqDataSet ====</span>
 <span class='fu'>selectSamples</span>(<span class='no'>dds</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"ko"</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 505 2 
 #&gt; metadata(1): version

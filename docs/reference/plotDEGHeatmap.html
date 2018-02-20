@@ -193,16 +193,16 @@ sample names.</p>
 <span class='no'>annotationCol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sampleMetadata.html'>sampleMetadata</a></span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
     <span class='no'>.</span>[, <span class='fu'><a href='interestingGroups.html'>interestingGroups</a></span>(<span class='no'>bcb</span>), <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]
 
-<span class='co'># DESeqResults, DESeqTransform</span>
+<span class='co'># DESeqResults, DESeqTransform ====</span>
 <span class='fu'>plotDEGHeatmap</span>(
-    <span class='no'>res</span>,
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>rld</span>,
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
     <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='no'>annotationCol</span>)</div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqResults, DESeqDataSet</span>
+<span class='co'># DESeqResults, DESeqDataSet ====</span>
 <span class='co'># Using default ggplot2 colors</span>
 <span class='fu'>plotDEGHeatmap</span>(
-    <span class='no'>res</span>,
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds</span>,
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,

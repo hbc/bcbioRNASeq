@@ -97,14 +97,7 @@
   <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
   <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
   <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'># S4 method for data.frame</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -195,10 +188,9 @@ individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 <span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># Use a defined gene2symbol data.frame for better speed</span>
 <span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
 
+<span class='co'># DESeqResults ====</span>
 <span class='co'># Label the top genes</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Label specific genes</span>

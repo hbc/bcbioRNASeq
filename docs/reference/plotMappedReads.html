@@ -95,12 +95,7 @@
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotMappedReads</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10L</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span>
-  <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'># S4 method for data.frame</span>
-<span class='fu'>plotMappedReads</span>(<span class='no'>object</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10L</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -167,15 +162,7 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotMappedReads</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMappedReads-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotMappedReads</span>(
-    <span class='no'>bcb</span>,
-    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-    <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotMappedReads-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># data.frame</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotMappedReads</span>(<span class='no'>df</span>)</div><div class='img'><img src='plotMappedReads-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotMappedReads</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMappedReads-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

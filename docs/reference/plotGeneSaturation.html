@@ -90,16 +90,11 @@
     <p>Plot Gene Detection Saturation</p>
     
 
-    <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeq,missing</span>
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'># S4 method for data.frame,matrix</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -108,10 +103,6 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>counts</th>
-      <td><p>Object containing a count matrix.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -150,6 +141,10 @@ definitions are desired, we recommend using <code>scale_color_manual()</code>.</
       <th>title</th>
       <td><p>Title.</p></td>
     </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>Object containing a count matrix.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -173,16 +168,7 @@ definitions are desired, we recommend using <code>scale_color_manual()</code>.</
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGeneSaturation</span>(
-    <span class='no'>bcb</span>,
-    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-    <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># data.frame, matrix</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='metrics.html'>metrics</a></span>(<span class='no'>bcb</span>)
-<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>)
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>df</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>counts</span>)</div><div class='img'><img src='plotGeneSaturation-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

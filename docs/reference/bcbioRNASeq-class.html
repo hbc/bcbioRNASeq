@@ -167,9 +167,12 @@ featureCounts aligned counts.</p></dd>
 #&gt; <span class='message'>  NumReads = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; <span class='message'>Generating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Reading STAR featureCounts aligned counts</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  .default = col_integer(),</span>
-#&gt; <span class='message'>  id = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>See spec(...) for full column specifications.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in assay (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
+#&gt; <span class='message'>  id = col_character(),</span>
+#&gt; <span class='message'>  group1_1 = col_integer(),</span>
+#&gt; <span class='message'>  group1_2 = col_integer(),</span>
+#&gt; <span class='message'>  group2_1 = col_integer(),</span>
+#&gt; <span class='message'>  group2_2 = col_integer()</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unannotated genes detected in assay (0.594%)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; class: bcbioRNASeq 
 #&gt; dim: 505 4 
 #&gt; metadata(28): version uploadDir ... devtoolsSessionInfo
 #&gt;   unannotatedGenes

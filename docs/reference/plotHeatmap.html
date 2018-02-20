@@ -200,14 +200,14 @@ sample names.</p>
 <span class='co'># DESeqDataSet ====</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>plotHeatmap</span>(
-    <span class='no'>dds</span>,
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>dds</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>dds</span>), <span class='fl'>20L</span>),
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform ====</span>
 <span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
 <span class='fu'>plotHeatmap</span>(
-    <span class='no'>rld</span>,
-    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>dds</span>), <span class='fl'>20L</span>),
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>rld</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>rld</span>), <span class='fl'>20L</span>),
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -96,6 +96,11 @@ desired genes will be used to calculate the correlation matrix.</p>
 
     <pre class="usage"><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
+<span class='co'># S4 method for matrix</span>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>method</span>,
+  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>,
+  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='no'>interestingGroups</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -113,29 +118,15 @@ desired genes will be used to calculate the correlation matrix.</p>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
-(<code>TRUE</code>), or additional normalization methods:</p><ul>
-<li><p><code>tpm</code>: Transcripts per million.</p></li>
-<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
-<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
-<li><p><code>vst</code>: Variance stabilizing transformation
-(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
-</ul></td>
-    </tr>
-    <tr>
       <th>method</th>
       <td><p>Correlation coefficient (or covariance) method to be computed.
 Defaults to <code>pearson</code> but <code>spearman</code> can also be used. Consult the
 <code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code> documentation for more information.</p></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
+      <th>annotationCol</th>
+      <td><p><em>Optional.</em> data.frame that defines annotation
+mappings for the columns.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -161,6 +152,25 @@ definitions are desired, we recommend using <code>scale_color_manual()</code>.</
     <tr>
       <th>title</th>
       <td><p>Title.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
+(<code>TRUE</code>), or additional normalization methods:</p><ul>
+<li><p><code>tpm</code>: Transcripts per million.</p></li>
+<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
+<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
+<li><p><code>vst</code>: Variance stabilizing transformation
+(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>interestingGroups</th>
+      <td><p>Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
+<code>sampleName</code>.</p></td>
     </tr>
     </table>
     

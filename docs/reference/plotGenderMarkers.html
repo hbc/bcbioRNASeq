@@ -92,6 +92,12 @@
 
     <pre class="usage"><span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
+<span class='co'># S4 method for matrix</span>
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>colData</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>organism</span>, <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
+  <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
@@ -105,11 +111,6 @@
 <span class='co'># S4 method for DESeqTransform</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>organism</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'># S4 method for matrix</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>metadata</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>organism</span>, <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -124,6 +125,10 @@
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
+      <th>colData</th>
+      <td><p>Sample metadata data.frame.</p></td>
+    </tr>
+    <tr>
       <th>interestingGroups</th>
       <td><p>Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -132,9 +137,19 @@ this is automatically determined by the metadata set inside the
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p>Normalization method. Supports <code>tpm</code> (<strong>default</strong>), <code>tmm</code>,
-<code>rlog</code>, or <code>vst</code>.</p></td>
+      <th>organism</th>
+      <td><p><em>Optional.</em> Organism name. Should be detected automatically,
+unless a spike-in FASTA sequence is provided containing a gene identifier
+that is first alphabetically in the count matrix rownames.</p></td>
+    </tr>
+    <tr>
+      <th>countsAxisLabel</th>
+      <td><p>Text label of counts axis.</p></td>
+    </tr>
+    <tr>
+      <th>medianLine</th>
+      <td><p>Include median line for each group. Disabled when samples
+are grouped by <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -148,18 +163,9 @@ definitions are desired, we recommend using <code>scale_color_manual()</code>.</
       <td><p>Title.</p></td>
     </tr>
     <tr>
-      <th>organism</th>
-      <td><p><em>Optional.</em> Organism name. Should be detected automatically,
-unless a spike-in FASTA sequence is provided containing a gene identifier
-that is first alphabetically in the count matrix rownames.</p></td>
-    </tr>
-    <tr>
-      <th>metadata</th>
-      <td><p>Sample metadata data.frame.</p></td>
-    </tr>
-    <tr>
-      <th>countsAxisLabel</th>
-      <td><p>Text label of counts axis.</p></td>
+      <th>normalized</th>
+      <td><p>Normalization method. Supports <code>tpm</code> (<strong>default</strong>), <code>tmm</code>,
+<code>rlog</code>, or <code>vst</code>.</p></td>
     </tr>
     </table>
     
@@ -192,15 +198,15 @@ that is first alphabetically in the count matrix rownames.</p></td>
     ),
     <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># bcbioRNASeq</span>
+<span class='co'># bcbioRNASeq ====</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenderMarkers</span>(
     <span class='no'>bcb</span>,
     <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotGenderMarkers-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqDataSet</span>
+<span class='co'># DESeqDataSet ====</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>dds</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGenderMarkers-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqTransform</span>
+<span class='co'># DESeqTransform ====</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>rld</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGenderMarkers-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotGenderMarkers</span>(<span class='no'>vst</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGenderMarkers-5.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
