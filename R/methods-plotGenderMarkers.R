@@ -117,6 +117,15 @@ NULL
 #' @export
 setMethod(
     "plotGenderMarkers",
+    signature("matrix"),
+    .plotGenderMarkers)
+
+
+
+#' @rdname plotGenderMarkers
+#' @export
+setMethod(
+    "plotGenderMarkers",
     signature("bcbioRNASeq"),
     function(
         object,
@@ -199,12 +208,3 @@ setMethod(
             color = color,
             title = title)
     })
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("matrix"),
-    .plotGenderMarkers)
