@@ -56,10 +56,9 @@ Differential Expression Results Tables
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-
-# Can use a stashed annotable for improved speed
 annotable <- annotable(bcb)
 
+# DESeqResults ====
 resTbl <- resultsTables(
     res,
     lfc = 0.25,
@@ -72,6 +71,8 @@ resTbl <- resultsTables(
     rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
 )
 names(resTbl)
+
+# Clean up ====
 dir("resultsTables")
 unlink("resultsTables", recursive = TRUE)
 }

@@ -6,7 +6,6 @@
 \alias{plotExonicMappingRate}
 \alias{plotExonicMappingRate}
 \alias{plotExonicMappingRate,bcbioRNASeq-method}
-\alias{plotExonicMappingRate,data.frame-method}
 \title{Plot Exonic Mapping Rate}
 \usage{
 plotExonicMappingRate(object, ...)
@@ -14,10 +13,6 @@ plotExonicMappingRate(object, ...)
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 60L, fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
-
-\S4method{plotExonicMappingRate}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 60L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -49,17 +44,7 @@ Plot Exonic Mapping Rate
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotExonicMappingRate(bcb)
-plotExonicMappingRate(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotExonicMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

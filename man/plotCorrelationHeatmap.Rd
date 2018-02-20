@@ -5,10 +5,15 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
+\alias{plotCorrelationHeatmap,matrix-method}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
 \title{Plot Correlation Heatmap}
 \usage{
 plotCorrelationHeatmap(object, ...)
+
+\S4method{plotCorrelationHeatmap}{matrix}(object, method,
+  annotationCol = NULL, genes = NULL, samples = NULL, color = viridis,
+  legendColor = viridis, title = TRUE, ...)
 
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
   method = "pearson", interestingGroups, genes = NULL, samples = NULL,
@@ -19,25 +24,12 @@ plotCorrelationHeatmap(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
-\itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
-}}
-
 \item{method}{Correlation coefficient (or covariance) method to be computed.
 Defaults to \code{pearson} but \code{spearman} can also be used. Consult the
 \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
 
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
+\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
+mappings for the columns.}
 
 \item{genes}{\emph{Optional.} Character vector of specific gene identifiers to
 plot.}
@@ -53,6 +45,22 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \code{\link[=viridis]{viridis()}}.}
 
 \item{title}{Title.}
+
+\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
+(\code{TRUE}), or additional normalization methods:
+\itemize{
+\item \code{tpm}: Transcripts per million.
+\item \code{tmm}: Trimmed mean of M-values (edgeR).
+\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
+\item \code{vst}: Variance stabilizing transformation
+(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+}}
+
+\item{interestingGroups}{Category to use to group samples. In the plotting
+functions, this will define color and shape, where applicable. If unset,
+this is automatically determined by the metadata set inside the
+\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
+\code{sampleName}.}
 }
 \description{
 This function calculates a correlation matrix based on gene expression per

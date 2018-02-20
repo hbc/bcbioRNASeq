@@ -5,7 +5,6 @@
 \alias{plotMappedReads}
 \alias{plotMappedReads}
 \alias{plotMappedReads,bcbioRNASeq-method}
-\alias{plotMappedReads,data.frame-method}
 \title{Plot Mapped Reads}
 \usage{
 plotMappedReads(object, ...)
@@ -13,10 +12,6 @@ plotMappedReads(object, ...)
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20L, warnLimit = 10L, fill = scale_fill_viridis(discrete =
   TRUE), flip = TRUE, title = TRUE)
-
-\S4method{plotMappedReads}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 20L, warnLimit = 10L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -50,17 +45,7 @@ Plot Mapped Reads
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotMappedReads(bcb)
-plotMappedReads(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotMappedReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

@@ -18,10 +18,9 @@ which contains raw cellular barcodes and other bcbio-specific metadata.
 }
 
 \examples{
-\dontrun{
-# Legacy bcbioRNADataSet class
-new <- as(old, "bcbioRNASeq")
-}
+load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+se <- as(bcb, "SummarizedExperiment")
+print(se)
 }
 \seealso{
 \code{help(topic = "coerce", package = "methods")}.

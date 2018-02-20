@@ -83,7 +83,6 @@ run directory as a remote connection over
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-
 bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 print(bcb)
 }

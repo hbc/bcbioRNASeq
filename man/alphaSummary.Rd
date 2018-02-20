@@ -4,17 +4,17 @@
 \name{alphaSummary}
 \alias{alphaSummary}
 \alias{alphaSummary}
-\alias{alphaSummary,bcbioRNASeq-method}
 \alias{alphaSummary,DESeqDataSet-method}
+\alias{alphaSummary,bcbioRNASeq-method}
 \title{Print Summary Statistics of Alpha Level Cutoffs}
 \usage{
 alphaSummary(object, ...)
 
-\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
-  1e-06), caption = NULL, ...)
-
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
   0.001, 1e-06), caption = NULL, ...)
+
+\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
+  1e-06), caption = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}

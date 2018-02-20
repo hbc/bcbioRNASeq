@@ -4,24 +4,17 @@
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
 \alias{plotGeneSaturation}
-\alias{plotGeneSaturation,bcbioRNASeq,missing-method}
-\alias{plotGeneSaturation,data.frame,matrix-method}
+\alias{plotGeneSaturation,bcbioRNASeq-method}
 \title{Plot Gene Detection Saturation}
 \usage{
-plotGeneSaturation(object, counts, ...)
+plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq,missing}(object, interestingGroups,
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", minCounts = 0L, trendline = TRUE,
-  color = scale_color_viridis(discrete = TRUE), title = TRUE)
-
-\S4method{plotGeneSaturation}{data.frame,matrix}(object, counts,
-  interestingGroups = "sampleName", minCounts = 0L, trendline = TRUE,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{counts}{Object containing a count matrix.}
 
 \item{...}{Additional arguments.}
 
@@ -45,6 +38,8 @@ plotting.}
 definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{title}{Title.}
+
+\item{counts}{Object containing a count matrix.}
 }
 \value{
 \link{ggplot}.
@@ -54,18 +49,7 @@ Plot Gene Detection Saturation
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotGeneSaturation(bcb)
-plotGeneSaturation(
-    bcb,
-    interestingGroups = "sampleName",
-    color = NULL)
-
-# data.frame, matrix
-df <- metrics(bcb)
-counts <- counts(bcb, normalized = "rlog")
-plotGeneSaturation(df, counts = counts)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

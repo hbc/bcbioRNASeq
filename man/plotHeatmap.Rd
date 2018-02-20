@@ -88,15 +88,15 @@ plotHeatmap(bcb, color = inferno, legendColor = inferno)
 # DESeqDataSet ====
 dds <- bcbio(bcb, "DESeqDataSet")
 plotHeatmap(
-    dds,
+    object = dds,
     genes = head(rownames(dds), 20L),
     gene2symbol = gene2symbol)
 
 # DESeqTransform ====
 rld <- assays(bcb)[["rlog"]]
 plotHeatmap(
-    rld,
-    genes = head(rownames(dds), 20L),
+    object = rld,
+    genes = head(rownames(rld), 20L),
     gene2symbol = gene2symbol)
 }
 \seealso{

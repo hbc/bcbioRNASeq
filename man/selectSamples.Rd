@@ -29,10 +29,10 @@ Select Samples
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 selectSamples(bcb, group = "ko")
 
-# DESeqDataSet
+# DESeqDataSet ====
 selectSamples(dds, group = "ko")
 }
 \author{

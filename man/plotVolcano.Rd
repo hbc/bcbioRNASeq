@@ -5,7 +5,6 @@
 \alias{plotVolcano}
 \alias{plotVolcano}
 \alias{plotVolcano,DESeqResults-method}
-\alias{plotVolcano,data.frame-method}
 \title{Plot Volcano}
 \usage{
 plotVolcano(object, ...)
@@ -15,12 +14,6 @@ plotVolcano(object, ...)
   shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
   pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
   histograms = TRUE)
-
-\S4method{plotVolcano}{data.frame}(object, alpha = 0.01, padj = TRUE,
-  lfc = 0L, genes = NULL, gene2symbol = NULL, ntop = 0L,
-  direction = "both", pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
-  labelColor = "black", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -70,10 +63,9 @@ Plot Volcano
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-
-# Use a defined gene2symbol data.frame for better speed
 gene2symbol <- gene2symbol(bcb)
 
+# DESeqResults ====
 # Label the top genes
 plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
 

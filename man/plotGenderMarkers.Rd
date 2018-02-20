@@ -4,13 +4,18 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers}
+\alias{plotGenderMarkers,matrix-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,DESeqTransform-method}
-\alias{plotGenderMarkers,matrix-method}
 \title{Plot Sexually Dimorphic Gender Markers}
 \usage{
 plotGenderMarkers(object, ...)
+
+\S4method{plotGenderMarkers}{matrix}(object, colData,
+  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
+  title = TRUE)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
   normalized = "rlog", color = scale_color_viridis(discrete = TRUE),
@@ -23,16 +28,13 @@ plotGenderMarkers(object, ...)
 \S4method{plotGenderMarkers}{DESeqTransform}(object,
   interestingGroups = "sampleName", organism,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
-
-\S4method{plotGenderMarkers}{matrix}(object, colData,
-  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
+
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -40,8 +42,13 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{organism}{\emph{Optional.} Organism name. Should be detected automatically,
+unless a spike-in FASTA sequence is provided containing a gene identifier
+that is first alphabetically in the count matrix rownames.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
+
+\item{medianLine}{Include median line for each group.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
@@ -50,15 +57,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 
 \item{title}{Title.}
 
-\item{organism}{\emph{Optional.} Organism name. Should be detected automatically,
-unless a spike-in FASTA sequence is provided containing a gene identifier
-that is first alphabetically in the count matrix rownames.}
-
-\item{colData}{Sample metadata \link{data.frame}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
-
-\item{medianLine}{Include median line for each group.}
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 }
 \value{
 \link{ggplot}.
@@ -76,18 +76,18 @@ loadRemoteData(
     ),
     quiet = TRUE)
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 plotGenderMarkers(bcb)
 plotGenderMarkers(
     bcb,
     interestingGroups = "sampleName",
     color = NULL)
 
-# DESeqDataSet
+# DESeqDataSet ====
 dds <- bcbio(bcb, "DESeqDataSet")
 plotGenderMarkers(dds, interestingGroups = "group")
 
-# DESeqTransform
+# DESeqTransform ====
 plotGenderMarkers(rld, interestingGroups = "group")
 plotGenderMarkers(vst, interestingGroups = "group")
 }

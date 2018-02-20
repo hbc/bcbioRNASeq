@@ -4,16 +4,11 @@
 \name{plotMA}
 \alias{plotMA}
 \alias{plotMA,DESeqResults-method}
-\alias{plotMA,data.frame-method}
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = NULL,
   pointColor = "darkgray", sigPointColor = "red", labelColor = "black",
   title = TRUE)
-
-\S4method{plotMA}{data.frame}(object, alpha = 0.01, genes = NULL,
-  gene2symbol = NULL, pointColor = "darkgray", sigPointColor = "purple",
-  labelColor = "black", title = NULL)
 }
 \arguments{
 \item{object}{Object.}
@@ -47,21 +42,12 @@ Plot Mean Average
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-
 gene2symbol <- gene2symbol(bcb)
 
-genes <- rownames(res) \%>\% head(n = 4)
-print(genes)
-
-# DESeqResults
-plotMA(res, genes = genes)
-
-# Label the points as gene symbols
+# DESeqResults ====
+genes <- head(rownames(res), 4L)
+plotMA(res, genes = genes, gene2symbol = NULL)
 plotMA(res, genes = genes, gene2symbol = gene2symbol)
-
-# data.frame
-df <- as.data.frame(res)
-plotMA(df, alpha = 0.01)
 }
 \seealso{
 Other Differential Expression Plots: \code{\link{plotVolcano}}

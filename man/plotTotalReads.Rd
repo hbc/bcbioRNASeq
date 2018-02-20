@@ -5,7 +5,6 @@
 \alias{plotTotalReads}
 \alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
-\alias{plotTotalReads,data.frame-method}
 \title{Plot Total Reads}
 \usage{
 plotTotalReads(object, ...)
@@ -13,10 +12,6 @@ plotTotalReads(object, ...)
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20L, warnLimit = 10L, fill = scale_fill_viridis(discrete =
   TRUE), flip = TRUE, title = TRUE)
-
-\S4method{plotTotalReads}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 20L, warnLimit = 10L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -50,17 +45,7 @@ Plot Total Reads
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotTotalReads(bcb)
-plotTotalReads(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotTotalReads(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

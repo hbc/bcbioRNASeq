@@ -3,12 +3,17 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
+\alias{plotGene,matrix-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
-\alias{plotGene,matrix-method}
 \title{Plot Individual Genes}
 \usage{
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
+  interestingGroups = "sampleName", countsAxisLabel = "counts",
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
+  return = "grid", headerLevel = 2L)
+
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
   interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
   = TRUE), return = "grid", headerLevel = 2L)
@@ -22,11 +27,6 @@
   interestingGroups = "sampleName", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
-
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
-  interestingGroups = "sampleName", countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}
@@ -35,14 +35,20 @@
 identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
 symbols.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
+\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
+gene symbols.}
+
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
 
 \item{medianLine}{Include median line for each group.}
 
@@ -56,14 +62,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
-\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.}
-
-\item{colData}{Sample metadata \link{data.frame}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
+\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
+\code{rlog}, or \code{vst}.}
 }
 \value{
 \itemize{
@@ -83,14 +83,14 @@ load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 # Gene identifiers
 genes <- head(rownames(bcb), 4L)
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 plotGene(bcb, genes = genes, return = "grid")
 plotGene(bcb, genes = genes, return = "wide")
 
-# DESeqDataSet
+# DESeqDataSet ====
 plotGene(dds, genes = genes, interestingGroups = "group")
 
-# DESeqTransform
+# DESeqTransform ====
 plotGene(rld, genes = genes, interestingGroups = "group")
 }
 \seealso{

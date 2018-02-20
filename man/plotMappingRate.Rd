@@ -5,7 +5,6 @@
 \alias{plotMappingRate}
 \alias{plotMappingRate}
 \alias{plotMappingRate,bcbioRNASeq-method}
-\alias{plotMappingRate,data.frame-method}
 \title{Plot Mapping Rate}
 \usage{
 plotMappingRate(object, ...)
@@ -13,10 +12,6 @@ plotMappingRate(object, ...)
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 90L, warnLimit = 70L, fill = scale_fill_viridis(discrete =
   TRUE), flip = TRUE, title = TRUE)
-
-\S4method{plotMappingRate}{data.frame}(object,
-  interestingGroups = "sampleName", passLimit = 90L, warnLimit = 70L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -50,17 +45,7 @@ Plot Mapping Rate
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotMappingRate(bcb)
-plotMappingRate(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

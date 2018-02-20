@@ -4,31 +4,17 @@
 \name{plotGenesDetected}
 \alias{plotGenesDetected}
 \alias{plotGenesDetected}
-\alias{plotGenesDetected,bcbioRNASeq,missing-method}
-\alias{plotGenesDetected,data.frame,DESeqDataSet-method}
-\alias{plotGenesDetected,data.frame,matrix-method}
+\alias{plotGenesDetected,bcbioRNASeq-method}
 \title{Plot Genes Detected}
 \usage{
-plotGenesDetected(object, counts, ...)
+plotGenesDetected(object, ...)
 
-\S4method{plotGenesDetected}{bcbioRNASeq,missing}(object, interestingGroups,
+\S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L,
   fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
-
-\S4method{plotGenesDetected}{data.frame,DESeqDataSet}(object, counts,
-  interestingGroups = "sampleName", passLimit = 20000L,
-  warnLimit = 15000L, minCounts = 0L, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE, title = TRUE)
-
-\S4method{plotGenesDetected}{data.frame,matrix}(object, counts,
-  interestingGroups = "sampleName", passLimit = 20000L,
-  warnLimit = 15000L, minCounts = 0L, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{counts}{Object containing a count matrix.}
 
 \item{...}{Additional arguments.}
 
@@ -51,8 +37,6 @@ plotting.}
 definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
-
-\item{title}{Title.}
 }
 \value{
 \link{ggplot}.
@@ -62,27 +46,7 @@ Plot Genes Detected
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
-plotGenesDetected(
-    bcb,
-    passLimit = 0L,
-    warnLimit = 0L)
-plotGenesDetected(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL,
-    passLimit = 0L,
-    warnLimit = 0L)
-
-# data.frame, DESeqDataSet
-df <- metrics(bcb)
-dds <- bcbio(bcb, "DESeqDataSet")
-plotGenesDetected(df, counts = dds)
-
-# data.frame, matrix
-counts <- counts(bcb, normalized = TRUE)
-plotGenesDetected(df, counts = counts)
+plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

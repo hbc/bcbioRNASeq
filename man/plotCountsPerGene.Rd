@@ -5,7 +5,6 @@
 \alias{plotCountsPerGene}
 \alias{plotCountsPerGene}
 \alias{plotCountsPerGene,bcbioRNASeq-method}
-\alias{plotCountsPerGene,data.frame-method}
 \title{Plot Counts Per Gene}
 \usage{
 plotCountsPerGene(object, ...)
@@ -13,10 +12,6 @@ plotCountsPerGene(object, ...)
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
   normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
-
-\S4method{plotCountsPerGene}{data.frame}(object,
-  interestingGroups = "sampleName", fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -49,17 +44,7 @@ Plot Counts Per Gene
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotCountsPerGene(bcb)
-plotCountsPerGene(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- meltLog10(bcb, normalized = "tmm")
-plotCountsPerGene(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

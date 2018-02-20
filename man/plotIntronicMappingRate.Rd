@@ -6,7 +6,6 @@
 \alias{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate}
 \alias{plotIntronicMappingRate,bcbioRNASeq-method}
-\alias{plotIntronicMappingRate,data.frame-method}
 \title{Plot Intronic Mapping Rate}
 \usage{
 plotIntronicMappingRate(object, ...)
@@ -14,10 +13,6 @@ plotIntronicMappingRate(object, ...)
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object, interestingGroups,
   warnLimit = 20L, fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
-
-\S4method{plotIntronicMappingRate}{data.frame}(object,
-  interestingGroups = "sampleName", warnLimit = 20L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE, title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -49,17 +44,7 @@ Plot Intronic Mapping Rate
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
 plotIntronicMappingRate(bcb)
-plotIntronicMappingRate(
-    bcb,
-    interestingGroups = "sampleName",
-    fill = NULL)
-
-# data.frame
-df <- metrics(bcb)
-plotIntronicMappingRate(df)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},

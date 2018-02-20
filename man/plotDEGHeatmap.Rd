@@ -79,17 +79,17 @@ gene2symbol <- gene2symbol(bcb)
 annotationCol <- sampleMetadata(bcb) \%>\%
     .[, interestingGroups(bcb), drop = FALSE]
 
-# DESeqResults, DESeqTransform
+# DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
-    res,
+    object = res,
     counts = rld,
     gene2symbol = gene2symbol,
     annotationCol = annotationCol)
 
-# DESeqResults, DESeqDataSet
+# DESeqResults, DESeqDataSet ====
 # Using default ggplot2 colors
 plotDEGHeatmap(
-    res,
+    object = res,
     counts = dds,
     gene2symbol = gene2symbol,
     color = NULL,
