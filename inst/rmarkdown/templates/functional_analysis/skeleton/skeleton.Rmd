@@ -62,12 +62,12 @@ invisible(mapply(
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
-validObject(bcb)
+invisible(validObject(bcb))
 
 res_name <- load(params$res_file)
 res <- get(res_name, inherits = FALSE)
 stopifnot(is(res, "DESeqResults"))
-validObject(res)
+invisible(validObject(res))
 res <- res[!is.na(res$padj), , drop = FALSE]
 alpha <- metadata(res)$alpha
 ```

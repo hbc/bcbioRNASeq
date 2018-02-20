@@ -26,7 +26,7 @@ invisible(mapply(
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
-validObject(bcb)
+invisible(validObject(bcb))
 ```
 
 ```{r header, child="_header.Rmd"}
