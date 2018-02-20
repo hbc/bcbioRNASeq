@@ -218,6 +218,7 @@ loadRNASeq <- function(
     inform("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
     assert_is_data.frame(metrics)
+    # FIXME Simply output a data frame with the sampleID as rownames
 
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
@@ -317,18 +318,8 @@ loadRNASeq <- function(
             ) %>%
             column_to_rownames("id") %>%
             as.matrix()
-        if (!identical(colnames(rawCounts), colnames(featureCounts))) {
-            # Look for column name mismatch and attempt fix.
-            # This is an error fix for the current bcb example dataset.
-            # Safe to remove in a future update.
-            # Subset columns by matching STAR sample name in metrics.
-            featureCounts <- featureCounts %>%
-                .[, gsub(x = make.names(pull(metrics, "name"), unique = TRUE),
-                        pattern = "\\.",
-                        replacement = "_"), drop = FALSE] %>%
-                # Ensure column names match tximport
-                set_colnames(colnames(rawCounts))
-        }
+        assert_is_subset(colnames(featureCounts), colnames(rawCounts))
+        featureCounts <- featureCounts[, colnames(rawCounts), drop = FALSE]
     } else {
         featureCounts <- NULL  # nocov
     }
