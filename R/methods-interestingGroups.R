@@ -38,10 +38,12 @@ setMethod(
 #' @export
 setMethod(
     "interestingGroups<-",
-    signature(object = "bcbioRNASeq", value = "character"),
+    signature(
+        object = "bcbioRNASeq",
+        value = "character"),
     function(object, value) {
         assertFormalInterestingGroups(
-            sampleMetadata(object),
+            x = sampleMetadata(object),
             interestingGroups = value)
         metadata(object)[["interestingGroups"]] <- value
         validObject(object)

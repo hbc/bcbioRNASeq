@@ -44,7 +44,7 @@ NULL
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
 #' @importFrom tibble column_to_rownames rownames_to_column
-.subset <- function(x, i, j, ..., drop = FALSE) {
+.subset.bcbioRNASeq <- function(x, i, j, ..., drop = FALSE) {  # nolint
     # Genes (rows)
     if (missing(i)) {
         i <- 1L:nrow(x)
@@ -186,5 +186,10 @@ setMethod(
         i = "ANY",
         j = "ANY"),
     function(x, i, j, ..., drop = FALSE) {
-        .subset(x, i, j, ..., drop)
+        .subset.bcbioRNASeq(
+            x = x,
+            i = i,
+            j = j,
+            ...,
+            drop = drop)
     })

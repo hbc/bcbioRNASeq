@@ -18,25 +18,41 @@ NULL
 
 
 
-# Constructors =================================================================
-#' @importFrom dplyr left_join mutate_if
-.metrics.bcbioRNASeq <- function(object) {  # nolint
-    data <- metadata(object)[["metrics"]]
-    assert_is_data.frame(data)
-    data <- mutate_if(data, is.character, as.factor)
-    metadata <- sampleMetadata(object)
-    assert_is_data.frame(metadata)
-    data <- left_join(data, metadata, by = metadataPriorityCols)
-    rownames(data) <- data[["sampleID"]]
-    data
-}
-
-
-
 # Methods ======================================================================
 #' @rdname metrics
+#' @importFrom dplyr left_join mutate_if
 #' @export
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    .metrics.bcbioRNASeq)
+    function(object) {  # nolint
+        metrics <- metadata(object)[["metrics"]]
+        assert_is_data.frame(metrics)
+        assert_are_identical(colnames(object), rownames(metrics))
+
+        metadata <- sampleMetadata(object)
+        assert_is_data.frame(metadata)
+        assert_are_identical(rownames(metrics), rownames(metadata))
+
+        if (length(intersect(
+            x = colnames(metrics),
+            y = legacyMetricsCols
+        ))) {
+            warn(paste(
+                paste(
+                    "Metrics slot contains legacy columns:",
+                    toString(intersect(colnames(metrics), legacyMetricsCols))
+                ),
+                updateMsg,
+                sep = "\n"
+            ))
+            metrics <- metrics %>%
+                .[, setdiff(colnames(.), legacyMetricsCols), drop = FALSE]
+        }
+        assert_are_disjoint_sets(colnames(metrics), colnames(metadata))
+
+        cbind(metadata, metrics) %>%
+            rownames_to_column() %>%
+            mutate_if(is.character, as.factor) %>%
+            column_to_rownames()
+    })

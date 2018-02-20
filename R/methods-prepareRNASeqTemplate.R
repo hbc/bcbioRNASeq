@@ -22,24 +22,6 @@
 NULL
 
 
-
-# Constructors =================================================================
-.prepareRNASeqTemplate <- function(object) {
-    prepareTemplate(
-        c(
-            "_footer.Rmd",
-            "_header.Rmd",
-            "_output.yaml",
-            "_setup.R",
-            "bibliography.bib"
-        ),
-        sourceDir = system.file(
-            "rmarkdown/shared",
-            package = "bcbioRNASeq")
-    )
-}
-
-
 # Methods ======================================================================
 #' @rdname prepareRNASeqTemplate
 #' @importFrom bcbioBase prepareTemplate
@@ -47,4 +29,17 @@ NULL
 setMethod(
     "prepareRNASeqTemplate",
     signature("missing"),
-    .prepareRNASeqTemplate)
+    function(object) {
+        prepareTemplate(
+            c(
+                "_footer.Rmd",
+                "_header.Rmd",
+                "_output.yaml",
+                "_setup.R",
+                "bibliography.bib"
+            ),
+            sourceDir = system.file(
+                "rmarkdown/shared",
+                package = "bcbioRNASeq")
+        )
+    })

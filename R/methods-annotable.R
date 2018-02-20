@@ -19,20 +19,15 @@ NULL
 
 
 
-# Constructors =================================================================
-.annotable.bcbioRNASeq <- function(object) {  # nolint
-    data <- rowData(object)
-    assert_is_non_empty(data)
-    rownames(data) <- slot(object, "NAMES")
-    as.data.frame(data)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname annotable
 #' @export
 setMethod(
     "annotable",
     signature("bcbioRNASeq"),
-    .annotable.bcbioRNASeq)
+    function(object) {
+        data <- rowData(object)
+        assert_is_non_empty(data)
+        rownames(data) <- slot(object, "NAMES")
+        as.data.frame(data)
+    })

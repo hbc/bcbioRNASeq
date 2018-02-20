@@ -69,44 +69,20 @@ NULL
 
 
 
-.meltLog10.bcbioRNASeq <- function(  # nolint
-    object,
-    normalized = TRUE) {
-    .joinMelt(
-        counts = counts(object, normalized = normalized),
-        metadata = sampleMetadata(object)
-    )
-}
-
-
-
-.meltLog10.DESeqDataSet <- function(  # nolint
-    object,
-    normalized = TRUE) {
-    .joinMelt(
-        counts = counts(object, normalized = normalized),
-        metadata = sampleMetadata(object)
-    )
-}
-
-
-
-.meltLog10.DESeqTransform <- function(object) {  # nolint
-    .joinMelt(
-        counts = assay(object),
-        metadata = sampleMetadata(object)
-    )
-}
-
-
-
 # Methods ======================================================================
 #' @rdname meltLog10
 #' @export
 setMethod(
     "meltLog10",
     signature("bcbioRNASeq"),
-    .meltLog10.bcbioRNASeq)
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = sampleMetadata(object)
+        )
+    })
 
 
 
@@ -115,7 +91,14 @@ setMethod(
 setMethod(
     "meltLog10",
     signature("DESeqDataSet"),
-    .meltLog10.DESeqDataSet)
+    function(
+        object,
+        normalized = TRUE) {
+        .joinMelt(
+            counts = counts(object, normalized = normalized),
+            metadata = sampleMetadata(object)
+        )
+    })
 
 
 
@@ -124,4 +107,9 @@ setMethod(
 setMethod(
     "meltLog10",
     signature("DESeqTransform"),
-    .meltLog10.DESeqTransform)
+    function(object) {
+        .joinMelt(
+            counts = assay(object),
+            metadata = sampleMetadata(object)
+        )
+    })

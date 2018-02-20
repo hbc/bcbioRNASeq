@@ -42,11 +42,11 @@ NULL
 #' @importFrom magrittr set_colnames set_rownames
 #' @importFrom utils capture.output
 .alphaSummary <- function(
-    dds,
+    object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     caption = NULL,
     ...) {
-    assert_is_all_of(dds, "DESeqDataSet")
+    assert_is_all_of(object, "DESeqDataSet")
     assert_is_numeric(alpha)
     assertIsAStringOrNULL(caption)
     dots <- list(...)
@@ -62,7 +62,9 @@ NULL
     }
 
     dflist <- lapply(seq_along(alpha), function(a) {
-        output <- capture.output(summary(results(dds, ..., alpha = alpha[a])))
+        output <- capture.output(summary(
+            results(object, ..., alpha = alpha[a])
+        ))
         # Subset the lines of interest from summary
         output <- output[4L:8L]
         # Extract the values after the colon in summary
@@ -90,54 +92,36 @@ NULL
 
 
 
-#' @importFrom BiocGenerics design
-#' @importFrom stats formula
-.alphaSummary.bcbioRNASeq <- function(  # nolint
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    dds <- bcbio(object, "DESeqDataSet")
-    # Warn if empty design formula detected
-    if (design(dds) == formula(~1)) {  # nolint
-        warn("Internal DESeqDataSet has an empty design formula")
-    }
-    .alphaSummary(
-        dds = dds,
-        alpha = alpha,
-        caption = caption,
-        ...)
-}
-
-
-
-.alphaSummary.DESeqDataSet <- function(  # nolint
-    object,
-    alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-    caption = NULL,
-    ...) {
-    .alphaSummary(
-        dds = object,
-        alpha = alpha,
-        caption = caption,
-        ...)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname alphaSummary
 #' @export
 setMethod(
     "alphaSummary",
-    signature("bcbioRNASeq"),
-    .alphaSummary.bcbioRNASeq)
+    signature("DESeqDataSet"),
+    .alphaSummary)
 
 
 
 #' @rdname alphaSummary
+#' @importFrom BiocGenerics design
+#' @importFrom stats formula
 #' @export
 setMethod(
     "alphaSummary",
-    signature("DESeqDataSet"),
-    .alphaSummary.DESeqDataSet)
+    signature("bcbioRNASeq"),
+    function(
+        object,
+        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
+        caption = NULL,
+        ...) {
+        dds <- bcbio(object, "DESeqDataSet")
+        # Warn if empty design formula detected
+        if (design(dds) == formula(~1)) {  # nolint
+            warn("Internal DESeqDataSet has an empty design formula")
+        }
+        alphaSummary(
+            object = dds,
+            alpha = alpha,
+            caption = caption,
+            ...)
+    })

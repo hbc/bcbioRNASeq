@@ -20,23 +20,18 @@ NULL
 
 
 
-# Constructors =================================================================
-.gene2symbol.bcbioRNASeq <- function(object) {  # nolint
-    data <- annotable(object)
-    assertIsAnnotable(data)
-    cols <- c("ensgene", "symbol")
-    assert_is_subset(cols, colnames(data))
-    data <- data[, cols, drop = FALSE]
-    assertIsGene2symbol(data)
-    data
-}
-
-
-
 # Methods ======================================================================
 #' @rdname gene2symbol
 #' @export
 setMethod(
     "gene2symbol",
     signature("bcbioRNASeq"),
-    .gene2symbol.bcbioRNASeq)
+    function(object) {
+        data <- annotable(object)
+        assertIsAnnotable(data)
+        cols <- c("ensgene", "symbol")
+        assert_is_subset(cols, colnames(data))
+        data <- data[, cols, drop = FALSE]
+        assertIsGene2symbol(data)
+        data
+    })

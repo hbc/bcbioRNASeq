@@ -46,44 +46,40 @@ NULL
 
 
 
-# Constructors =================================================================
-.counts.bcbioRNASeq <- function(  # nolint
-    object,
-    normalized = FALSE) {
-    assert_is_any_of(normalized, c("character", "logical"))
-    if (normalized == FALSE) {
-        slot <- "raw"
-    } else if (normalized == TRUE) {
-        slot <- "normalized"
-    } else {
-        slot <- normalized
-    }
-
-    # Check for slot presence
-    if (!slot %in% names(assays(object))) {
-         warn(paste(
-            slot, "counts not defined.",
-            "Calculating and using log2 tmm counts on the fly instead."
-        ))
-        tmm <- tmm(object)
-        return(log2(tmm + 1L))
-    }
-
-    counts <- assays(object)[[slot]]
-
-    # Return the matrix from slotted DESeqTransform objects
-    if (is(counts, "DESeqTransform")) {
-        counts <- assay(counts)
-    }
-
-    counts
-}
-
-
 # Methods ======================================================================
 #' @rdname counts
 #' @export
 setMethod(
     "counts",
     signature("bcbioRNASeq"),
-    .counts.bcbioRNASeq)
+    function(
+        object,
+        normalized = FALSE) {
+        assert_is_any_of(normalized, c("character", "logical"))
+        if (normalized == FALSE) {
+            slot <- "raw"
+        } else if (normalized == TRUE) {
+            slot <- "normalized"
+        } else {
+            slot <- normalized
+        }
+
+        # Check for slot presence
+        if (!slot %in% names(assays(object))) {
+            warn(paste(
+                slot, "counts not defined.",
+                "Calculating and using log2 tmm counts on the fly instead."
+            ))
+            tmm <- tmm(object)
+            return(log2(tmm + 1L))
+        }
+
+        counts <- assays(object)[[slot]]
+
+        # Return the matrix from slotted DESeqTransform objects
+        if (is(counts, "DESeqTransform")) {
+            counts <- assay(counts)
+        }
+
+        counts
+    })

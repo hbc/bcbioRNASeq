@@ -33,7 +33,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom edgeR calcNormFactors cpm DGEList
-.tmm <- function(object) {
+.tmm.matrix <- function(object) {  # nolint
     assert_is_matrix(object)
     inform("Performing trimmed mean of M-values (TMM) normalization")
     object %>%
@@ -44,29 +44,17 @@ NULL
 
 
 
-.tmm.bcbioRNASeq <- function(object) {  # nolint
-    tmm <- assays(object)[["tmm"]]
-    assert_is_matrix(tmm, severity = "warning")
-    if (!is.matrix(tmm)) {
-        warn(paste(
-            "TMM counts are not stashed in `assays()`.",
-            "Recalculating on the fly.",
-            "It is recomended that you restash these values in `assays()`."
-        ))
-        tmm <- tmm(counts(object, normalized = FALSE))
-    }
-    tmm
-}
-
-
-
 # Methods ======================================================================
 #' @rdname tmm
 #' @export
 setMethod(
     "tmm",
     signature("bcbioRNASeq"),
-    .tmm.bcbioRNASeq)
+    function(object) {
+        data <- assays(object)[["tmm"]]
+        assert_is_matrix(data)
+        data
+    })
 
 
 
@@ -86,4 +74,4 @@ setMethod(
 setMethod(
     "tmm",
     signature("matrix"),
-    .tmm)
+    .tmm.matrix)
