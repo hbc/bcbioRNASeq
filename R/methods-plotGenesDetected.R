@@ -10,27 +10,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotGenesDetected(
-#'     bcb,
-#'     passLimit = 0L,
-#'     warnLimit = 0L)
-#' plotGenesDetected(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL,
-#'     passLimit = 0L,
-#'     warnLimit = 0L)
-#'
-#' # data.frame, DESeqDataSet
-#' df <- metrics(bcb)
-#' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotGenesDetected(df, counts = dds)
-#'
-#' # data.frame, matrix
-#' counts <- counts(bcb, normalized = TRUE)
-#' plotGenesDetected(df, counts = counts)
+#' plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
 NULL
 
 
@@ -59,7 +39,7 @@ NULL
     assert_all_are_non_negative(minCounts)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "genes detected"
@@ -113,9 +93,7 @@ NULL
 #' @export
 setMethod(
     "plotGenesDetected",
-    signature(
-        object = "bcbioRNASeq",
-        counts = "missing"),
+    signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
@@ -129,7 +107,7 @@ setMethod(
         }
         .plotGenesDetected(
             object = metrics(object),
-            counts = assay(object),
+            counts = counts(object, normalized = FALSE),
             interestingGroups = interestingGroups,
             passLimit = passLimit,
             warnLimit = warnLimit,
@@ -137,45 +115,3 @@ setMethod(
             fill = fill,
             flip = flip)
     })
-
-
-
-#' @rdname plotGenesDetected
-#' @export
-setMethod(
-    "plotGenesDetected",
-    signature(
-        object = "data.frame",
-        counts = "DESeqDataSet"),
-    function(
-        object,
-        counts,
-        interestingGroups = "sampleName",
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        .plotGenesDetected(
-            object,
-            counts = assay(counts),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            minCounts = minCounts,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
-
-
-
-#' @rdname plotGenesDetected
-#' @export
-setMethod(
-    "plotGenesDetected",
-    signature(
-        object = "data.frame",
-        counts = "matrix"),
-    .plotGenesDetected)

@@ -16,18 +16,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotGeneSaturation(bcb)
-#' plotGeneSaturation(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     color = NULL)
-#'
-#' # data.frame, matrix
-#' df <- metrics(bcb)
-#' counts <- counts(bcb, normalized = "rlog")
-#' plotGeneSaturation(df, counts = counts)
 NULL
 
 
@@ -49,7 +38,7 @@ NULL
     assert_all_are_non_negative(minCounts)
     assert_is_a_bool(trendline)
     assertIsColorScaleDiscreteOrNULL(color)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "gene saturation"
@@ -87,47 +76,30 @@ NULL
 
 
 
-.plotGeneSaturation.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    normalized = "tmm",
-    minCounts = 0L,
-    trendline = TRUE,
-    color = scale_color_viridis(discrete = TRUE),
-    title = TRUE) {
-    assert_is_a_string(normalized)
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotGeneSaturation(
-        object = metrics(object),
-        counts = counts(object, normalized = normalized),
-        interestingGroups = interestingGroups,
-        minCounts = minCounts,
-        trendline = trendline,
-        color = color,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotGeneSaturation
 #' @export
 setMethod(
     "plotGeneSaturation",
-    signature(
-        object = "bcbioRNASeq",
-        counts = "missing"),
-    .plotGeneSaturation.bcbioRNASeq)
-
-
-
-#' @rdname plotGeneSaturation
-#' @export
-setMethod(
-    "plotGeneSaturation",
-    signature(
-        object = "data.frame",
-        counts = "matrix"),
-    .plotGeneSaturation)
+    signature("bcbioRNASeq"),
+    function(
+        object,
+        interestingGroups,
+        normalized = "tmm",
+        minCounts = 0L,
+        trendline = TRUE,
+        color = scale_color_viridis(discrete = TRUE),
+        title = TRUE) {
+        assert_is_a_string(normalized)
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotGeneSaturation(
+            object = metrics(object),
+            counts = counts(object, normalized = normalized),
+            interestingGroups = interestingGroups,
+            minCounts = minCounts,
+            trendline = trendline,
+            color = color,
+            title = title)
+    })

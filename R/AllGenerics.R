@@ -82,7 +82,7 @@ setGeneric("plotGenderMarkers", function(object, ...) {
 #' @export
 setGeneric(
     "plotGeneSaturation",
-    function(object, counts, ...) {
+    function(object, ...) {
         standardGeneric("plotGeneSaturation")
     })
 
@@ -90,7 +90,7 @@ setGeneric(
 
 #' @rdname plotGenesDetected
 #' @export
-setGeneric("plotGenesDetected", function(object, counts, ...) {
+setGeneric("plotGenesDetected", function(object, ...) {
     standardGeneric("plotGenesDetected")
 })
 
