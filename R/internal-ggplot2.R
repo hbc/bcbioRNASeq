@@ -36,7 +36,7 @@ geneMedianLine <- stat_summary(
     fun.ymax = median,
     geom = "crossbar",
     show.legend = FALSE,
-    width = 0.67)
+    width = 0.5)
 
 
 
