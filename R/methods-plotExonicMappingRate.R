@@ -9,17 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotExonicMappingRate(bcb)
-#' plotExonicMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotExonicMappingRate(df)
 NULL
 
 
@@ -40,7 +30,7 @@ NULL
     assert_all_are_non_negative(passLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "exonic mapping rate"
@@ -86,40 +76,27 @@ NULL
 
 
 
-.plotExonicMappingRate.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    passLimit = 60L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotExonicMappingRate(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        passLimit = passLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotExonicMappingRate
 #' @export
 setMethod(
     "plotExonicMappingRate",
     signature("bcbioRNASeq"),
-    .plotExonicMappingRate.bcbioRNASeq)
-
-
-
-#' @rdname plotExonicMappingRate
-#' @export
-setMethod(
-    "plotExonicMappingRate",
-    signature("data.frame"),
-    .plotExonicMappingRate)
+    function(
+        object,
+        interestingGroups,
+        passLimit = 60L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotExonicMappingRate(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })

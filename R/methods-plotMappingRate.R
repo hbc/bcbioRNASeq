@@ -9,17 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotMappingRate(bcb)
-#' plotMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotMappingRate(df)
 NULL
 
 
@@ -43,7 +33,7 @@ NULL
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "mapping rate"
@@ -93,42 +83,29 @@ NULL
 
 
 
-.plotMappingRate.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    passLimit = 90L,
-    warnLimit = 70L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotMappingRate(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotMappingRate
 #' @export
 setMethod(
     "plotMappingRate",
     signature("bcbioRNASeq"),
-    .plotMappingRate.bcbioRNASeq)
-
-
-
-#' @rdname plotMappingRate
-#' @export
-setMethod(
-    "plotMappingRate",
-    signature("data.frame"),
-    .plotMappingRate)
+    function(
+        object,
+        interestingGroups,
+        passLimit = 90L,
+        warnLimit = 70L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotMappingRate(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })

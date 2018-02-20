@@ -9,18 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotRRNAMappingRate(bcb)
-#' plotRRNAMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL,
-#'     warnLimit = 0L)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotRRNAMappingRate(df)
 NULL
 
 
@@ -41,7 +30,7 @@ NULL
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "rRNA mapping rate"
@@ -60,6 +49,7 @@ NULL
             x = colnames(object),
             ignore.case = TRUE,
             value = TRUE)
+        assert_is_a_string(col)
         object[["rrnaRate"]] <- object[[col]]
         object[[col]] <- NULL
     }
@@ -102,40 +92,27 @@ NULL
 
 
 
-.plotRRNAMappingRate.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    warnLimit = 10L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotRRNAMappingRate(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        warnLimit = warnLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotRRNAMappingRate
 #' @export
 setMethod(
     "plotRRNAMappingRate",
     signature("bcbioRNASeq"),
-    .plotRRNAMappingRate.bcbioRNASeq)
-
-
-
-#' @rdname plotRRNAMappingRate
-#' @export
-setMethod(
-    "plotRRNAMappingRate",
-    signature("data.frame"),
-    .plotRRNAMappingRate)
+    function(
+        object,
+        interestingGroups,
+        warnLimit = 10L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotRRNAMappingRate(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            warnLimit = warnLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })

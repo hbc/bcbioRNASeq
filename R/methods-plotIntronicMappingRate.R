@@ -9,17 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotIntronicMappingRate(bcb)
-#' plotIntronicMappingRate(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotIntronicMappingRate(df)
 NULL
 
 
@@ -87,40 +77,27 @@ NULL
 
 
 
-.plotIntronicMappingRate.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    warnLimit = 20L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotIntronicMappingRate(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        warnLimit = warnLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotIntronicMappingRate
 #' @export
 setMethod(
     "plotIntronicMappingRate",
     signature("bcbioRNASeq"),
-    .plotIntronicMappingRate.bcbioRNASeq)
-
-
-
-#' @rdname plotIntronicMappingRate
-#' @export
-setMethod(
-    "plotIntronicMappingRate",
-    signature("data.frame"),
-    .plotIntronicMappingRate)
+    function(
+        object,
+        interestingGroups,
+        warnLimit = 20L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotIntronicMappingRate(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            warnLimit = warnLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })

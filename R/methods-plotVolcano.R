@@ -30,10 +30,9 @@
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#'
-#' # Use a defined gene2symbol data.frame for better speed
 #' gene2symbol <- gene2symbol(bcb)
 #'
+#' # DESeqResults ====
 #' # Label the top genes
 #' plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
 #'
@@ -361,12 +360,3 @@ setMethod(
             labelColor = labelColor,
             histograms = histograms)
     })
-
-
-
-#' @rdname plotVolcano
-#' @export
-setMethod(
-    "plotVolcano",
-    signature("data.frame"),
-    .plotVolcano)

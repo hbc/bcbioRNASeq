@@ -10,17 +10,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotCountsPerGene(bcb)
-#' plotCountsPerGene(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- meltLog10(bcb, normalized = "tmm")
-#' plotCountsPerGene(df)
 NULL
 
 
@@ -38,14 +28,14 @@ NULL
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "counts per gene"
     } else if (!is_a_string(title)) {
         title <- NULL
     }
-    
+
     data <- uniteInterestingGroups(object, interestingGroups)
 
     p <- ggplot(
@@ -79,41 +69,28 @@ NULL
 
 
 
-.plotCountsPerGene.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    normalized = "tmm",
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    # Passthrough: fill, flip, title
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    assert_is_a_string(normalized)
-    .plotCountsPerGene(
-        meltLog10(object, normalized = normalized),
-        interestingGroups = interestingGroups,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotCountsPerGene
 #' @export
 setMethod(
     "plotCountsPerGene",
     signature("bcbioRNASeq"),
-    .plotCountsPerGene.bcbioRNASeq)
-
-
-
-#' @rdname plotCountsPerGene
-#' @export
-setMethod(
-    "plotCountsPerGene",
-    signature("data.frame"),
-    .plotCountsPerGene)
+    function(
+        object,
+        interestingGroups,
+        normalized = "tmm",
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        # Passthrough: fill, flip, title
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        assert_is_a_string(normalized)
+        .plotCountsPerGene(
+            object = meltLog10(object, normalized = normalized),
+            interestingGroups = interestingGroups,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })

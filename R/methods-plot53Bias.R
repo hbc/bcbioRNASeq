@@ -9,17 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plot53Bias(bcb)
-#' plot53Bias(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plot53Bias(df)
 NULL
 
 
@@ -41,7 +31,7 @@ NULL
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-    
+
     # Title
     ylab <- "5'->3' bias"
     if (isTRUE(title)) {
@@ -55,10 +45,6 @@ NULL
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
     # The internal camel method has been updated in basejump 0.1.11.
     if ("x53Bias" %in% colnames(data)) {
-        warn(paste(
-            "Legacy `x53Bias` column detected in `metrics()`.",
-            updateMsg
-        ))
         data <- rename(data, "x5x3Bias" = "x53Bias")
     }
 
@@ -97,43 +83,30 @@ NULL
 
 
 
-.plot53Bias.bcbioRNASeq <- function(
-    object,
-    interestingGroups,
-    warnLimit = 2L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plot53Bias(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        warnLimit = warnLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plot53Bias
 #' @export
 setMethod(
     "plot53Bias",
     signature("bcbioRNASeq"),
-    .plot53Bias.bcbioRNASeq)
-
-
-
-#' @rdname plot53Bias
-#' @export
-setMethod(
-    "plot53Bias",
-    signature("data.frame"),
-    .plot53Bias)
+    function(
+        object,
+        interestingGroups,
+        warnLimit = 2L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plot53Bias(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            warnLimit = warnLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })
 
 
 

@@ -9,17 +9,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
 #' plotMappedReads(bcb)
-#' plotMappedReads(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     fill = NULL)
-#'
-#' # data.frame
-#' df <- metrics(bcb)
-#' plotMappedReads(df)
 NULL
 
 
@@ -92,43 +82,29 @@ NULL
 
 
 
-.plotMappedReads.bcbioRNASeq <- function(  # nolint
-    object,
-    interestingGroups,
-    passLimit = 20L,
-    warnLimit = 10L,
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    .plotMappedReads(
-        object = metrics(object),
-        interestingGroups = interestingGroups,
-        passLimit = passLimit,
-        warnLimit = warnLimit,
-        fill = fill,
-        flip = flip,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotMappedReads
-#' @importFrom S4Vectors metadata
 #' @export
 setMethod(
     "plotMappedReads",
     signature("bcbioRNASeq"),
-    .plotMappedReads.bcbioRNASeq)
-
-
-
-#' @rdname plotMappedReads
-#' @export
-setMethod(
-    "plotMappedReads",
-    signature("data.frame"),
-    .plotMappedReads)
+    function(
+        object,
+        interestingGroups,
+        passLimit = 20L,
+        warnLimit = 10L,
+        fill = scale_fill_viridis(discrete = TRUE),
+        flip = TRUE,
+        title = TRUE) {
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        .plotMappedReads(
+            object = metrics(object),
+            interestingGroups = interestingGroups,
+            passLimit = passLimit,
+            warnLimit = warnLimit,
+            fill = fill,
+            flip = flip,
+            title = title)
+    })
