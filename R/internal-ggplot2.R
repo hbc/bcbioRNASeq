@@ -42,7 +42,7 @@ geneMedianLine <- stat_summary(
 
 # geom functions ==============================================================
 #' @importFrom ggplot2 position_jitterdodge
-genePoint <- function(size = 3L, alpha = 0.7) {
+genePoint <- function(size = 3L, alpha = 1L) {
     geom_point(
         size = size,
         alpha = alpha,
