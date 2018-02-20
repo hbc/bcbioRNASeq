@@ -75,7 +75,6 @@
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#'
 #' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
 #' print(bcb)
 loadRNASeq <- function(
@@ -218,7 +217,6 @@ loadRNASeq <- function(
     inform("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
     assert_is_data.frame(metrics)
-    # FIXME Simply output a data frame with the sampleID as rownames
 
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
