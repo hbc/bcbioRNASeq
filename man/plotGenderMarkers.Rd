@@ -24,9 +24,10 @@ plotGenderMarkers(object, ...)
   interestingGroups = "sampleName", organism,
   color = scale_color_viridis(discrete = TRUE), title = TRUE)
 
-\S4method{plotGenderMarkers}{matrix}(object, metadata,
+\S4method{plotGenderMarkers}{matrix}(object, colData,
   interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
-  color = scale_color_viridis(discrete = TRUE), title = TRUE)
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
+  title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -53,9 +54,11 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
 
-\item{metadata}{Sample metadata \link{data.frame}.}
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
+
+\item{medianLine}{Include median line for each group.}
 }
 \value{
 \link{ggplot}.

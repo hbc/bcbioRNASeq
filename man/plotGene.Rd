@@ -10,23 +10,22 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
-  interestingGroups, stackReplicates = TRUE,
-  color = scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2L)
+  interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
+  = TRUE), return = "grid", headerLevel = 2L)
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
-  interestingGroups = "sampleName", stackReplicates = TRUE,
+  interestingGroups = "sampleName", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
-  interestingGroups = "sampleName", stackReplicates = TRUE,
+  interestingGroups = "sampleName", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), return = "grid",
   headerLevel = 2L)
 
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, metadata,
-  interestingGroups = "sampleName", stackReplicates = TRUE,
-  color = scale_color_viridis(discrete = TRUE), countsAxisLabel = "counts",
+\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
+  interestingGroups = "sampleName", countsAxisLabel = "counts",
+  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
   return = "grid", headerLevel = 2L)
 }
 \arguments{
@@ -45,8 +44,7 @@ this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
 
-\item{stackReplicates}{Stack replicate points into a single tick on the
-sample axis.}
+\item{medianLine}{Include median line for each group.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
@@ -63,7 +61,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{metadata}{Sample metadata \link{data.frame}.}
+\item{colData}{Sample metadata \link{data.frame}.}
 
 \item{countsAxisLabel}{Text label of counts axis.}
 }
@@ -83,15 +81,11 @@ load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # Gene identifiers
-genes <- rownames(bcb)[1:4]
+genes <- head(rownames(bcb), 4L)
 
 # bcbioRNASeq
-plotGene(bcb, genes = genes)
-plotGene(
-    bcb,
-    genes = genes,
-    interestingGroups = "sampleName",
-    color = NULL)
+plotGene(bcb, genes = genes, return = "grid")
+plotGene(bcb, genes = genes, return = "wide")
 
 # DESeqDataSet
 plotGene(dds, genes = genes, interestingGroups = "group")

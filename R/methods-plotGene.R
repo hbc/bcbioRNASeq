@@ -16,16 +16,15 @@
 #'   [data.frame] can be passed in, and must contain the columns `ensgene` and
 #'   `symbol`. then the Ensembl gene identifiers will be labeled in place of
 #'   gene symbols.
-#' @param metadata Sample metadata [data.frame].
+#' @param colData Sample metadata [data.frame].
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
-#' @param stackReplicates Stack replicate points into a single tick on the
-#'   sample axis.
+#' @param countsAxisLabel Text label of counts axis.
+#' @param medianLine Include median line for each group.
 #' @param color Desired ggplot color scale. Defaults to
 #'   [scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [scale_color_manual()].
-#' @param countsAxisLabel Text label of counts axis.
 #' @param return Desired return type: `grid`, `wide`, `list`, or `markdown`.
 #' @param headerLevel R Markdown header level. Only applies when
 #'   `return = "markdown"`.
@@ -43,15 +42,11 @@
 #' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 #'
 #' # Gene identifiers
-#' genes <- rownames(bcb)[1:4]
+#' genes <- head(rownames(bcb), 4L)
 #'
 #' # bcbioRNASeq
-#' plotGene(bcb, genes = genes)
-#' plotGene(
-#'     bcb,
-#'     genes = genes,
-#'     interestingGroups = "sampleName",
-#'     color = NULL)
+#' plotGene(bcb, genes = genes, return = "grid")
+#' plotGene(bcb, genes = genes, return = "wide")
 #'
 #' # DESeqDataSet
 #' plotGene(dds, genes = genes, interestingGroups = "group")
@@ -63,32 +58,112 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump annotable detectOrganism markdownHeader
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom BiocParallel bplapply
-#' @importFrom cowplot plot_grid
+#' @importFrom BiocParallel bplapply bpmapply
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
 #' @importFrom tibble tibble
+.genePlotlist <- function(
+    object,
+    genes,
+    symbols = NULL,
+    colData,
+    interestingGroups = "sampleName",
+    countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE)) {
+    assert_is_subset(genes, rownames(object))
+    bpmapply(
+        gene = genes,
+        symbol = symbols,
+        MoreArgs = list(
+            object = object,
+            colData = colData,
+            interestingGroups = interestingGroups,
+            countsAxisLabel = countsAxisLabel,
+            medianLine = medianLine,
+            color = color
+        ),
+        FUN = function(
+            object,
+            gene,
+            symbol,
+            colData,
+            interestingGroups,
+            countsAxisLabel,
+            medianLine,
+            color
+        ) {
+            if (is_a_string(symbol)) {
+                title <- symbol
+            } else {
+                title <- gene
+            }
+
+            data <- tibble(
+                x = colData[["interestingGroups"]],
+                y = object[gene, , drop = TRUE],
+                interestingGroups = colData[["interestingGroups"]])
+
+            p <- ggplot(
+                data = data,
+                mapping = aes_string(
+                    x = "x",
+                    y = "y",
+                    color = "interestingGroups")
+            ) +
+                geom_point(size = 4L) +
+                theme(axis.text.x = element_text(angle = 90L)) +
+                labs(
+                    title = title,
+                    x = paste(interestingGroups, collapse = ":"),
+                    y = countsAxisLabel,
+                    color = paste(interestingGroups, collapse = ":\n")
+                ) +
+                expand_limits(y = 0L)
+
+            if (isTRUE(medianLine)) {
+                p <- p + geneMedianLine
+            }
+
+            if (is(color, "ScaleDiscrete")) {
+                p <- p + color
+            }
+
+            if (identical(interestingGroups, "sampleName")) {
+                p <- p + guides(color = FALSE)
+            }
+
+            p
+        },
+        SIMPLIFY = FALSE,
+        USE.NAMES = TRUE)
+}
+
+
+
+#' @importFrom basejump markdownPlotlist
+#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom cowplot plot_grid
 .plotGene <- function(
     object,
     genes,
     gene2symbol = NULL,
-    metadata,
+    colData,
     interestingGroups = "sampleName",
-    stackReplicates = TRUE,
-    color = scale_color_viridis(discrete = TRUE),
     countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE),
     return = "grid",
     headerLevel = 2L) {
+    assert_is_matrix(object)
+    assert_has_dimnames(object)
     assert_is_character(genes)
-    assert_is_data.frame(metadata)
     assertFormalGene2symbol(object, genes, gene2symbol)
-    assert_is_data.frame(metadata)
-    assertFormalInterestingGroups(metadata, interestingGroups)
-    assert_is_a_bool(stackReplicates)
-    assertIsColorScaleDiscreteOrNULL(color)
+    assertFormalAnnotationCol(object, colData)
+    assertFormalInterestingGroups(colData, interestingGroups)
     assert_is_a_string(countsAxisLabel)
+    assert_is_a_bool(medianLine)
+    assertIsColorScaleDiscreteOrNULL(color)
     assert_is_a_string(return)
     assert_is_subset(return, c("grid", "list", "markdown", "wide"))
     assertIsAHeaderLevel(headerLevel)
@@ -96,85 +171,45 @@ NULL
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
         match <- match(x = genes, table = gene2symbol[["ensgene"]])
-        gene2symbol <- gene2symbol[match, , drop = FALSE]
-        genes <- gene2symbol[["ensgene"]]
-        names(genes) <- gene2symbol[["symbol"]]
+        symbols <- gene2symbol[match, "symbol", drop = TRUE]
+    } else {
+        symbols <- NULL
     }
 
-    # Prepare interesting groups column
-    metadata <- uniteInterestingGroups(metadata, interestingGroups)
+    # Add `interestingGroups` column to colData
+    colData <- uniteInterestingGroups(colData, interestingGroups)
 
-    plots <- bplapply(seq_along(genes), function(a) {
-        ensgene <- genes[[a]]
-        symbol <- names(genes)[[a]]
-        if (!is.null(symbol)) {
-            title <- symbol
-            subtitle <- ensgene
-        } else {
-            title <- ensgene
-            subtitle <- NULL
-        }
-        if (isTRUE(stackReplicates)) {
-            x <- metadata[["interestingGroups"]]
-            xlab <- paste(interestingGroups, collapse = ":")
-        } else {
-            x <- colnames(object)
-            xlab <- "sample"
-        }
+    if (return != "wide") {
+        plots <- .genePlotlist(
+            object = object,
+            genes = genes,
+            symbols = symbols,
+            colData = colData,
+            interestingGroups = interestingGroups,
+            countsAxisLabel = countsAxisLabel,
+            medianLine = medianLine,
+            color = color)
+    }
 
-        data <- tibble(
-            x = x,
-            y = object[ensgene, , drop = TRUE],
-            interestingGroups = metadata[["interestingGroups"]])
-
-        p <- ggplot(
-            data = data,
-            mapping = aes_string(
-                x = "x",
-                y = "y",
-                color = "interestingGroups")
-        ) +
-            geom_point(size = 4L) +
-            theme(axis.text.x = element_text(angle = 90L)) +
-            labs(
-                title = title,
-                subtitle = subtitle,
-                x = xlab,
-                y = countsAxisLabel,
-                color = paste(interestingGroups, collapse = ":\n")
-            ) +
-            expand_limits(y = 0L)
-
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
-
-        if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(color = FALSE)
-        }
-
-        p
-    })
-    names(plots) <- genes
-
-    # Return
     if (return == "grid") {
-        plot_grid(plotlist = plots, labels = NULL)
+        plot_grid(plotlist = plots, labels = "AUTO")
+    } else if (return == "wide") {
+        .plotGeneWide(
+            object = object,
+            genes = genes,
+            gene2symbol = gene2symbol,
+            colData = colData,
+            interestingGroups = interestingGroups,
+            countsAxisLabel = countsAxisLabel,
+            medianLine = medianLine,
+            color = color)
     } else if (return == "list") {
         plots
     } else if (return == "markdown") {
-        bplapply(seq_along(plots), function(a) {
-            if (is.numeric(headerLevel)) {
-                ensgene <- genes[[a]]
-                symbol <- names(genes)[[a]]
-                if (is.null(symbol)) {
-                    symbol <- ensgene
-                }
-                markdownHeader(symbol, level = headerLevel, asis = TRUE)
-            }
-            show(plots[[a]])
-        }) %>%
-            invisible()
+        if (is.character(symbols)) {
+            names(plots) <- symbols
+        }
+        markdownPlotlist(plots, headerLevel = headerLevel)
     }
 }
 
@@ -185,11 +220,10 @@ NULL
     genes,
     normalized = "rlog",
     interestingGroups,
-    stackReplicates = TRUE,
+    medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     return = "grid",
     headerLevel = 2L) {
-    # Passthrough: stackReplicates, color, return, headerLevel
     assert_is_a_string(normalized)
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
@@ -198,10 +232,11 @@ NULL
         object = counts(object, normalized = normalized),
         genes = genes,
         gene2symbol = gene2symbol(object),
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         interestingGroups = interestingGroups,
-        color = color,
         countsAxisLabel = normalized,
+        medianLine = medianLine,
+        color = color,
         return = return,
         headerLevel = headerLevel)
 }
@@ -213,21 +248,19 @@ NULL
     genes,
     gene2symbol = NULL,
     interestingGroups = "sampleName",
-    stackReplicates = TRUE,
+    medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     return = "grid",
     headerLevel = 2L) {
-    # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
-    # color, return, headerLevel
     .plotGene(
         object = log2(counts(object, normalized = TRUE) + 1L),
         genes = genes,
         gene2symbol = gene2symbol,
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         interestingGroups = interestingGroups,
-        stackReplicates = stackReplicates,
-        color = color,
         countsAxisLabel = "log2 normalized counts",
+        medianLine = medianLine,
+        color = color,
         return = return,
         headerLevel = headerLevel)
 }
@@ -239,12 +272,10 @@ NULL
     genes,
     gene2symbol = NULL,
     interestingGroups = "sampleName",
-    stackReplicates = TRUE,
+    medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     return = "grid",
     headerLevel = 2L) {
-    # Passthrough: genes, gene2symbol, interestingGroups, stackReplicates,
-    # color, return, headerLevel
     if ("rlogIntercept" %in% colnames(mcols(object))) {
         countsAxisLabel <- "rlog"
     } else {
@@ -254,11 +285,11 @@ NULL
         object = assay(object),
         genes = genes,
         gene2symbol = gene2symbol,
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         interestingGroups = interestingGroups,
-        stackReplicates = stackReplicates,
-        color = color,
         countsAxisLabel = countsAxisLabel,
+        medianLine = medianLine,
+        color = color,
         return = return,
         headerLevel = headerLevel)
 }

@@ -29,6 +29,16 @@ labelSep <- ": "
 
 
 # Line functions ===============================================================
+#' @importFrom ggplot2 stat_summary
+geneMedianLine <- stat_summary(
+    fun.y = median,
+    fun.ymin = median,
+    fun.ymax = median,
+    geom = "crossbar",
+    show.legend = FALSE,
+    width = 0.67)
+
+
 #' @importFrom ggplot2 geom_hline
 qcPassLine <- function(intercept) {
     assert_is_a_number(intercept)

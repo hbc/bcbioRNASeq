@@ -46,24 +46,27 @@ NULL
 # Constructors =================================================================
 #' @importFrom basejump camel
 #' @importFrom dplyr filter left_join pull
-#' @importFrom ggplot2 aes_string expand_limits geom_jitter ggplot labs
-#' @importFrom magrittr set_colnames
+#' @importFrom ggplot2 aes_string element_text expand_limits geom_jitter ggplot
+#'   labs theme
+#' @importFrom magrittr set_colnames set_rownames
 #' @importFrom tibble rownames_to_column
 .plotGenderMarkers <- function(
     object,
-    metadata,
+    colData,
     interestingGroups = "sampleName",
     organism,
     countsAxisLabel = "counts",
+    medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     title = TRUE) {
     assert_is_matrix(object)
-    assert_is_data.frame(metadata)
-    assertFormalInterestingGroups(metadata, interestingGroups)
+    assertFormalAnnotationCol(object, colData)
+    assertFormalInterestingGroups(colData, interestingGroups)
     assert_is_a_string(organism)
     assert_is_a_string(countsAxisLabel)
+    assert_is_a_bool(medianLine)
     assertIsColorScaleDiscreteOrNULL(color)
-    
+
     # Title
     if (isTRUE(title)) {
         title <- "gender markers"
@@ -71,52 +74,40 @@ NULL
         title <- NULL
     }
 
+    colData <- uniteInterestingGroups(colData, interestingGroups)
+
     # Load the relevant internal gender markers data
     markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
     assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
     # Ensembl identifiers
-    ensgene <- markers %>%
-        .[.[["include"]] == TRUE, "ensgene", drop = TRUE] %>%
-        sort() %>%
-        unique()
-    assert_is_subset(ensgene, rownames(object))
-
-    data <- object %>%
-        .[ensgene, , drop = FALSE] %>%
-        # This will coerce rownames to a column named `rowname`. We will rename
-        # this to `ensgene` after melting the counts.
+    gene2symbol <- markers %>%
+        .[.[["include"]] == TRUE, , drop = FALSE] %>%
+        mutate(
+            symbol = paste(
+                .data[["chromosome"]],
+                .data[["symbol"]],
+                sep = " : ")
+        ) %>%
+        .[, c("ensgene", "symbol")] %>%
         as.data.frame() %>%
-        rownames_to_column() %>%
-        # For `melt()` can also declare `measure.vars` here instead
-        melt(id = 1L) %>%
-        set_colnames(c("ensgene", "sampleName", "counts")) %>%
-        left_join(markers, by = "ensgene") %>%
-        left_join(metadata, by  = "sampleName") %>%
-        uniteInterestingGroups(interestingGroups)
+        set_rownames(.[["ensgene"]])
+    assertIsGene2symbol(gene2symbol)
+    genes <- gene2symbol[["ensgene"]]
+    assert_is_subset(genes, rownames(object))
 
-    p <- ggplot(
-        data = data,
-        mapping = aes_string(
-            x = "symbol",
-            y = "counts",
-            color = "interestingGroups",
-            shape = "chromosome")
-    ) +
-        geom_jitter(size = 4L) +
-        expand_limits(y = 0L) +
-        labs(
-            title = title,
-            x = "gene",
-            y = countsAxisLabel,
-            color = paste(interestingGroups, collapse = ":\n"))
-
-    if (is(color, "ScaleDiscrete")) {
-        p <- p + color
-    }
-
-    p
+    .plotGeneWide(
+        object = object,
+        genes = genes,
+        gene2symbol = gene2symbol,
+        colData = colData,
+        interestingGroups = interestingGroups,
+        countsAxisLabel = countsAxisLabel,
+        medianLine = medianLine,
+        color = color,
+        title = title
+    )
 }
 
 
@@ -135,7 +126,7 @@ NULL
         object = counts(object, normalized = normalized),
         interestingGroups = interestingGroups,
         organism = metadata(object)[["organism"]],
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         countsAxisLabel = normalized,
         color = color,
         title = title)
@@ -159,7 +150,7 @@ NULL
         object = counts,
         interestingGroups = interestingGroups,
         organism = organism,
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         countsAxisLabel = "log2 normalized counts",
         color = color,
         title = title)
@@ -188,7 +179,7 @@ NULL
         object = counts,
         interestingGroups = interestingGroups,
         organism = organism,
-        metadata = sampleMetadata(object),
+        colData = sampleMetadata(object),
         countsAxisLabel = countsAxisLabel,
         color = color,
         title = title)

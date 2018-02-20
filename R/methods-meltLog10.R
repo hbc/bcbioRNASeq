@@ -54,7 +54,7 @@ NULL
     assert_is_matrix(counts)
     counts %>%
         as.data.frame() %>%
-        rownames_to_column("ensgene") %>%
+        rownames_to_column() %>%
         melt(id = 1L) %>%
         as_tibble() %>%
         set_colnames(c("ensgene", "sampleID", "counts")) %>%
