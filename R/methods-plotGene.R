@@ -180,7 +180,7 @@ NULL
                     y = "y",
                     color = "interestingGroups")
             ) +
-                geom_point(size = 4L) +
+                genePoint() +
                 theme(axis.text.x = element_text(angle = 90L)) +
                 labs(
                     title = gene,
@@ -256,7 +256,7 @@ NULL
             y = "counts",
             color = "interestingGroups")
     ) +
-        geom_point(size = 4L) +
+        genePoint() +
         theme(axis.text.x = element_text(angle = 90L, hjust = 1L)) +
         labs(
             title = title,

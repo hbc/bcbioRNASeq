@@ -28,7 +28,7 @@ labelSep <- ": "
 
 
 
-# Line functions ===============================================================
+# ggproto objects ==============================================================
 #' @importFrom ggplot2 stat_summary
 geneMedianLine <- stat_summary(
     fun.y = median,
@@ -37,6 +37,19 @@ geneMedianLine <- stat_summary(
     geom = "crossbar",
     show.legend = FALSE,
     width = 0.67)
+
+
+
+# geom functions ==============================================================
+#' @importFrom ggplot2 position_jitterdodge
+genePoint <- function(size = 3L, alpha = 0.7) {
+    geom_point(
+        size = size,
+        alpha = alpha,
+        position = position_jitterdodge(dodge.width = 0.9)
+    )
+}
+
 
 
 #' @importFrom ggplot2 geom_hline
@@ -50,6 +63,8 @@ qcPassLine <- function(intercept) {
         size = qcLineSize,
         yintercept = intercept)
 }
+
+
 
 #' @importFrom ggplot2 geom_hline
 qcWarnLine <- function(intercept) {
