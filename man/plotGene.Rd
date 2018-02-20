@@ -53,7 +53,7 @@ sample axis.}
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
-\item{return}{Desired return type: \code{grid}, \code{list}, \code{markdown}.}
+\item{return}{Desired return type: \code{grid}, \code{wide}, \code{list}, or \code{markdown}.}
 
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}

@@ -26,7 +26,7 @@
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [scale_color_manual()].
 #' @param countsAxisLabel Text label of counts axis.
-#' @param return Desired return type: `grid`, `list`, `markdown`.
+#' @param return Desired return type: `grid`, `wide`, `list`, or `markdown`.
 #' @param headerLevel R Markdown header level. Only applies when
 #'   `return = "markdown"`.
 #'
@@ -65,10 +65,10 @@ NULL
 # Constructors =================================================================
 #' @importFrom basejump annotable detectOrganism markdownHeader
 #' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom BiocParallel bplapply
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
 #'   guides labs theme
-#' @importFrom pbapply pblapply
 #' @importFrom tibble tibble
 .plotGene <- function(
     object,
@@ -90,7 +90,7 @@ NULL
     assertIsColorScaleDiscreteOrNULL(color)
     assert_is_a_string(countsAxisLabel)
     assert_is_a_string(return)
-    assert_is_subset(return, c("grid", "list", "markdown"))
+    assert_is_subset(return, c("grid", "list", "markdown", "wide"))
     assertIsAHeaderLevel(headerLevel)
 
     # Gene to symbol mappings
@@ -104,7 +104,7 @@ NULL
     # Prepare interesting groups column
     metadata <- uniteInterestingGroups(metadata, interestingGroups)
 
-    plots <- lapply(seq_along(genes), function(a) {
+    plots <- bplapply(seq_along(genes), function(a) {
         ensgene <- genes[[a]]
         symbol <- names(genes)[[a]]
         if (!is.null(symbol)) {
@@ -163,7 +163,7 @@ NULL
     } else if (return == "list") {
         plots
     } else if (return == "markdown") {
-        pblapply(seq_along(plots), function(a) {
+        bplapply(seq_along(plots), function(a) {
             if (is.numeric(headerLevel)) {
                 ensgene <- genes[[a]]
                 symbol <- names(genes)[[a]]
