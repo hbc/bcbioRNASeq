@@ -189,7 +189,7 @@ NULL
                 theme(axis.text.x = element_text(angle = 90L)) +
                 labs(
                     title = gene,
-                    x = paste(interestingGroups, collapse = ":"),
+                    x = NULL,
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
@@ -262,7 +262,7 @@ NULL
         theme(axis.text.x = element_text(angle = 90L, hjust = 1L)) +
         labs(
             title = title,
-            x = "gene",
+            x = NULL,
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
         ) +
