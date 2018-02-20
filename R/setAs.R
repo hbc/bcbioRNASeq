@@ -11,10 +11,9 @@
 #' @seealso `help(topic = "coerce", package = "methods")`.
 #'
 #' @examples
-#' \dontrun{
-#' # Legacy bcbioRNADataSet class
-#' new <- as(old, "bcbioRNASeq")
-#' }
+#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' se <- as(bcb, "SummarizedExperiment")
+#' print(se)
 NULL
 
 
