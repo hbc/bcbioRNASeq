@@ -92,7 +92,7 @@ NULL
     colData <- uniteInterestingGroups(colData, interestingGroups)
 
     if (return != "wide") {
-        plots <- .plotGeneList(
+        plotlist <- .plotGeneList(
             object = object,
             genes = genes,
             gene2symbol = gene2symbol,
@@ -109,7 +109,7 @@ NULL
         } else {
             labels <- NULL
         }
-        plot_grid(plotlist = plots, labels = labels)
+        plot_grid(plotlist = plotlist, labels = labels)
     } else if (return == "wide") {
         .plotGeneWide(
             object = object,
@@ -121,9 +121,9 @@ NULL
             medianLine = medianLine,
             color = color)
     } else if (return == "list") {
-        plots
+        plotlist
     } else if (return == "markdown") {
-        markdownPlotlist(plots, headerLevel = headerLevel)
+        markdownPlotlist(plotlist, headerLevel = headerLevel)
     }
 }
 
