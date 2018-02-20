@@ -104,7 +104,12 @@ NULL
     }
 
     if (return == "grid") {
-        plot_grid(plotlist = plots, labels = "AUTO")
+        if (length(plotlist) > 1L) {
+            labels <- "AUTO"
+        } else {
+            labels <- NULL
+        }
+        plot_grid(plotlist = plots, labels = labels)
     } else if (return == "wide") {
         .plotGeneWide(
             object = object,
@@ -188,7 +193,8 @@ NULL
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
-                expand_limits(y = 0L)
+                expand_limits(y = 0L) +
+                theme(legend.position = "none")
 
             if (
                 isTRUE(medianLine) &&
@@ -199,10 +205,6 @@ NULL
 
             if (is(color, "ScaleDiscrete")) {
                 p <- p + color
-            }
-
-            if (identical(interestingGroups, "sampleName")) {
-                p <- p + guides(color = FALSE)
             }
 
             p
