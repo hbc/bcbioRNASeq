@@ -33,7 +33,7 @@ NULL
 
 
 # Constructors =================================================================
-.updateObject.bcbioRNASeq <- function(object) {
+.updateObject.bcbioRNASeq <- function(object) {  # nolint
     version <- metadata(object)[["version"]]
     assert_is_all_of(version, c("package_version", "numeric_version"))
     inform(paste("Upgrading from", version, "to", packageVersion))
