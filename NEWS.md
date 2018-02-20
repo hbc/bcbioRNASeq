@@ -1,10 +1,11 @@
-## bcbioRNASeq 0.1.6 (2018-02-16)
+## bcbioRNASeq 0.1.6 (2018-02-20)
 
 - Bug fix for gene-to-symbol mappings in `plotDEGHeatmap()`.
 - Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with `plotDEGPCA()`.
 - Added support for Dropbox shared links to `resultsTables()`, for use with the [Stem Cell Commons][] database.
 - Added assert checks internally for all functions.
 - Improved internal code for `plotGene()` and `plotGenderMarkers()` to run faster.
+- Deprecated data frame methods based on metrics for QC functions.
 
 
 ## bcbioRNASeq 0.1.5 (2018-01-31)
