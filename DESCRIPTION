@@ -81,7 +81,6 @@ Imports:
     assertive,
     basejump (>= 0.3.1),
     BiocGenerics (>= 0.24.0),
-    BiocParallel,
     cowplot (>= 0.8.0),
     dplyr (>= 0.7.4),
     edgeR (>= 3.20.0),
