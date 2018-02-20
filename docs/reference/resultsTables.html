@@ -165,11 +165,10 @@ package.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 <span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># Can use a stashed annotable for improved speed</span>
 <span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='annotable.html'>annotable</a></span>(<span class='no'>bcb</span>)
 
-<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
+<span class='co'># DESeqResults ====</span>
+<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>suppressMessages</span>(<span class='fu'>resultsTables</span>(
     <span class='no'>res</span>,
     <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
     <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='no'>annotable</span>,
@@ -179,7 +178,7 @@ package.</p></td>
     <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"resultsTables"</span>,
     <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"bcbioRNASeq_examples"</span>, <span class='st'>"resultsTables"</span>),
     <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/token.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
-)</div><div class='output co'>#&gt; 
+))</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; ## Summary statistics
 #&gt; 
@@ -192,17 +191,20 @@ package.</p></td>
 #&gt; - DEG pass alpha: 4 genes
 #&gt; - DEG LFC up: 2 genes
 #&gt; - DEG LFC down: 2 genes
-#&gt; </div><div class='output co'>#&gt; <span class='message'>Dropbox: Michael Steinbaugh &lt;mjsteinbaugh@protonmail.com&gt;</span></div><div class='output co'>#&gt; <span class='message'>/bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_all.csv.gz was successfully deleted</span></div><div class='output co'>#&gt; <span class='message'>File /Users/mike/GitHub/hbc/bcbioRNASeq/docs/reference/resultsTables/group_ko_vs_ctrl_all.csv.gz uploaded as /bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_all.csv.gz successfully at 2018-02-19T22:15:51Z</span></div><div class='output co'>#&gt; <span class='message'>/bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg.csv.gz was successfully deleted</span></div><div class='output co'>#&gt; <span class='message'>File /Users/mike/GitHub/hbc/bcbioRNASeq/docs/reference/resultsTables/group_ko_vs_ctrl_deg.csv.gz uploaded as /bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg.csv.gz successfully at 2018-02-19T22:15:54Z</span></div><div class='output co'>#&gt; <span class='message'>/bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg_lfc_up.csv.gz was successfully deleted</span></div><div class='output co'>#&gt; <span class='message'>File /Users/mike/GitHub/hbc/bcbioRNASeq/docs/reference/resultsTables/group_ko_vs_ctrl_deg_lfc_up.csv.gz uploaded as /bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg_lfc_up.csv.gz successfully at 2018-02-19T22:15:58Z</span></div><div class='output co'>#&gt; <span class='message'>/bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg_lfc_down.csv.gz was successfully deleted</span></div><div class='output co'>#&gt; <span class='message'>File /Users/mike/GitHub/hbc/bcbioRNASeq/docs/reference/resultsTables/group_ko_vs_ctrl_deg_lfc_down.csv.gz uploaded as /bcbioRNASeq_examples/resultsTables/group_ko_vs_ctrl_deg_lfc_down.csv.gz successfully at 2018-02-19T22:16:03Z</span></div><div class='output co'>#&gt; 
+#&gt; 
+#&gt; 
 #&gt; 
 #&gt; ## Results tables
 #&gt; 
 #&gt; 
-#&gt; - [`group_ko_vs_ctrl_all.csv.gz`](https://www.dropbox.com/s/upev0uc9e9qj0ny/group_ko_vs_ctrl_all.csv.gz?dl=0): All genes, sorted by Ensembl identifier.
-#&gt; - [`group_ko_vs_ctrl_deg.csv.gz`](https://www.dropbox.com/s/4416e9a7422g7yx/group_ko_vs_ctrl_deg.csv.gz?dl=0): Genes that pass the alpha (FDR) cutoff.
-#&gt; - [`group_ko_vs_ctrl_deg_lfc_up.csv.gz`](https://www.dropbox.com/s/mdr0h0ofbc68nbo/group_ko_vs_ctrl_deg_lfc_up.csv.gz?dl=0): Upregulated DEG; positive log2 fold change.
-#&gt; - [`group_ko_vs_ctrl_deg_lfc_down.csv.gz`](https://www.dropbox.com/s/dj2inosd3y1aln4/group_ko_vs_ctrl_deg_lfc_down.csv.gz?dl=0): Downregulated DEG; negative log2 fold change.
+#&gt; - [`group_ko_vs_ctrl_all.csv.gz`](https://www.dropbox.com/s/4hgyi22pmgyt0sk/group_ko_vs_ctrl_all.csv.gz?dl=0): All genes, sorted by Ensembl identifier.
+#&gt; - [`group_ko_vs_ctrl_deg.csv.gz`](https://www.dropbox.com/s/wazygj8nhdyn2ce/group_ko_vs_ctrl_deg.csv.gz?dl=0): Genes that pass the alpha (FDR) cutoff.
+#&gt; - [`group_ko_vs_ctrl_deg_lfc_up.csv.gz`](https://www.dropbox.com/s/jifrumxjeqb0pun/group_ko_vs_ctrl_deg_lfc_up.csv.gz?dl=0): Upregulated DEG; positive log2 fold change.
+#&gt; - [`group_ko_vs_ctrl_deg_lfc_down.csv.gz`](https://www.dropbox.com/s/3aqdezjm7bzsuv2/group_ko_vs_ctrl_deg_lfc_down.csv.gz?dl=0): Downregulated DEG; negative log2 fold change.
 #&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt;  [1] "contrast"     "alpha"        "lfc"          "all"          "deg"         
-#&gt;  [6] "degLFC"       "degLFCUp"     "degLFCDown"   "localFiles"   "dropboxFiles"</div><div class='input'><span class='fu'>dir</span>(<span class='st'>"resultsTables"</span>)</div><div class='output co'>#&gt; [1] "group_ko_vs_ctrl_all.csv.gz"         
+#&gt;  [6] "degLFC"       "degLFCUp"     "degLFCDown"   "localFiles"   "dropboxFiles"</div><div class='input'>
+<span class='co'># Clean up ====</span>
+<span class='fu'>dir</span>(<span class='st'>"resultsTables"</span>)</div><div class='output co'>#&gt; [1] "group_ko_vs_ctrl_all.csv.gz"         
 #&gt; [2] "group_ko_vs_ctrl_deg_lfc_down.csv.gz"
 #&gt; [3] "group_ko_vs_ctrl_deg_lfc_up.csv.gz"  
 #&gt; [4] "group_ko_vs_ctrl_deg.csv.gz"         </div><div class='input'><span class='fu'>unlink</span>(<span class='st'>"resultsTables"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
