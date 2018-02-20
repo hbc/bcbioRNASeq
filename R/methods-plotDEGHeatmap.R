@@ -29,17 +29,17 @@
 #' annotationCol <- sampleMetadata(bcb) %>%
 #'     .[, interestingGroups(bcb), drop = FALSE]
 #'
-#' # DESeqResults, DESeqTransform
+#' # DESeqResults, DESeqTransform ====
 #' plotDEGHeatmap(
-#'     res,
+#'     object = res,
 #'     counts = rld,
 #'     gene2symbol = gene2symbol,
 #'     annotationCol = annotationCol)
 #'
-#' # DESeqResults, DESeqDataSet
+#' # DESeqResults, DESeqDataSet ====
 #' # Using default ggplot2 colors
 #' plotDEGHeatmap(
-#'     res,
+#'     object = res,
 #'     counts = dds,
 #'     gene2symbol = gene2symbol,
 #'     color = NULL,
@@ -50,7 +50,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump camel
-.plotDEGHeatmap <- function(
+.plotDEGHeatmap.dataFrame <- function(  # nolint
     object,
     counts,
     alpha = 0.01,
@@ -87,7 +87,7 @@ NULL
     assert_has_rows(results)
     counts <- counts[rownames(results), , drop = FALSE]
 
-    .plotHeatmap(
+    plotHeatmap(
         object = counts,
         gene2symbol = gene2symbol,
         annotationCol = annotationCol,
@@ -129,7 +129,7 @@ NULL
         title <- .contrastName.DESeqResults(object)
     }
 
-    .plotDEGHeatmap(
+    .plotDEGHeatmap.dataFrame(
         object = as.data.frame(object),
         counts = counts,
         alpha = alpha,
