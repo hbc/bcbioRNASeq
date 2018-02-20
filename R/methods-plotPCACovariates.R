@@ -30,54 +30,49 @@ NULL
 
 
 
-# Constructors =================================================================
-#' @importFrom DEGreport degCovariates
-#' @importFrom dplyr select_if
-.plotPCACovariates.bcbioRNASeq <- function(  # nolint
-    object,
-    metrics = TRUE,
-    normalized = "rlog",
-    ...) {
-    assert_is_any_of(metrics, c("character", "logical"))
-    assert_is_a_string(normalized)
-
-    counts <- counts(object, normalized = normalized)
-
-    metadata <- metrics(object)
-    factors <- select_if(metadata, is.factor)
-    numerics <- select_if(metadata, is.numeric) %>%
-        # Drop columns that are all zeroes (not useful to plot)
-        .[, colSums(.) > 0L]
-    metadata <- cbind(factors, numerics)
-
-    # Select the metrics to use for plot
-    if (identical(metrics, TRUE)) {
-        # Sort columns alphabetically
-        col <- sort(colnames(metadata))
-    } else if (identical(metrics, FALSE)) {
-        # Use the defined interesting groups
-        col <- interestingGroups(object)
-    } else if (is.character(metrics)) {
-        col <- metrics
-    }
-
-    # Stop on 1 metrics column
-    assert_all_are_greater_than(length(col), 1L)
-    assert_is_subset(col, colnames(metadata))
-    metadata <- metadata[, col, drop = FALSE]
-
-    degCovariates(
-        counts = counts,
-        metadata = metadata,
-        ...)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotPCACovariates
+#' @importFrom DEGreport degCovariates
+#' @importFrom dplyr select_if
 #' @export
 setMethod(
     "plotPCACovariates",
     signature("bcbioRNASeq"),
-    .plotPCACovariates.bcbioRNASeq)
+    function(
+        object,
+        metrics = TRUE,
+        normalized = "rlog",
+        ...) {
+        assert_is_any_of(metrics, c("character", "logical"))
+        assert_is_a_string(normalized)
+
+        counts <- counts(object, normalized = normalized)
+
+        metadata <- metrics(object)
+        factors <- select_if(metadata, is.factor)
+        numerics <- select_if(metadata, is.numeric) %>%
+            # Drop columns that are all zeroes (not useful to plot)
+            .[, colSums(.) > 0L]
+        metadata <- cbind(factors, numerics)
+
+        # Select the metrics to use for plot
+        if (identical(metrics, TRUE)) {
+            # Sort columns alphabetically
+            col <- sort(colnames(metadata))
+        } else if (identical(metrics, FALSE)) {
+            # Use the defined interesting groups
+            col <- interestingGroups(object)
+        } else if (is.character(metrics)) {
+            col <- metrics
+        }
+
+        # Stop on 1 metrics column
+        assert_all_are_greater_than(length(col), 1L)
+        assert_is_subset(col, colnames(metadata))
+        metadata <- metadata[, col, drop = FALSE]
+
+        degCovariates(
+            counts = counts,
+            metadata = metadata,
+            ...)
+    })

@@ -68,7 +68,7 @@ NULL
         # Recommended DESeq default
         ntop <- 500L
         inform(paste(
-            "Plotting PCA using top", ntop, "most variable genes (default)"
+            "Plotting PCA using top", ntop, "most variable genes"
         ))
     } else if (is.character(genes)) {
         object <- object[genes, , drop = FALSE]
@@ -143,55 +143,51 @@ NULL
 
 
 
-#' @importFrom SummarizedExperiment SummarizedExperiment
-.plotPCA.bcbioRNASeq <- function(  # nolint
-    object,
-    normalized = "rlog",
-    interestingGroups,
-    genes = NULL,
-    censorSamples = NULL,
-    color = scale_color_viridis(discrete = TRUE),
-    label = FALSE,
-    returnData = FALSE) {
-    # Passthrough: genes, color, label, returnData
-    if (missing(interestingGroups)) {
-        interestingGroups <- bcbioBase::interestingGroups(object)
-    }
-    assert_is_any_of(censorSamples, c("character", "factor", "NULL"))
-
-    # Obtain internal DESeqTransform
-    dt <- assays(object)[[normalized]]
-    if (!is(dt, "DESeqTransform")) {
-        inform("Generating DESeqTransform from counts")
-        counts <- counts(object, normalized = normalized)
-        se <- SummarizedExperiment(
-            assays = counts,
-            colData = colData(object))
-        dt <- DESeqTransform(se)
-    }
-
-    # Censor samples, if desired
-    if (!is.null(censorSamples)) {
-        assert_is_subset(censorSamples, colnames(object))
-        samples <- setdiff(colnames(object), censorSamples)
-        dt <- dt[, samples, drop = FALSE]
-    }
-
-    .plotPCA.DESeqTransform(
-        dt,
-        interestingGroups = interestingGroups,
-        genes = genes,
-        color = color,
-        label = label,
-        returnData = returnData)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotPCA
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @export
 setMethod(
     "plotPCA",
     signature("bcbioRNASeq"),
-    .plotPCA.bcbioRNASeq)
+    function(
+        object,
+        normalized = "rlog",
+        interestingGroups,
+        genes = NULL,
+        censorSamples = NULL,
+        color = scale_color_viridis(discrete = TRUE),
+        label = FALSE,
+        returnData = FALSE) {
+        # Passthrough: genes, color, label, returnData
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        }
+        assert_is_any_of(censorSamples, c("character", "factor", "NULL"))
+
+        # Obtain internal DESeqTransform
+        dt <- assays(object)[[normalized]]
+        if (!is(dt, "DESeqTransform")) {
+            inform("Generating DESeqTransform from counts")
+            counts <- counts(object, normalized = normalized)
+            se <- SummarizedExperiment(
+                assays = counts,
+                colData = colData(object))
+            dt <- DESeqTransform(se)
+        }
+
+        # Censor samples, if desired
+        if (!is.null(censorSamples)) {
+            assert_is_subset(censorSamples, colnames(object))
+            samples <- setdiff(colnames(object), censorSamples)
+            dt <- dt[, samples, drop = FALSE]
+        }
+
+        .plotPCA.DESeqTransform(
+            dt,
+            interestingGroups = interestingGroups,
+            genes = genes,
+            color = color,
+            label = label,
+            returnData = returnData)
+    })
