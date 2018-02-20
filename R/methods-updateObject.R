@@ -36,11 +36,6 @@ NULL
 .updateObject.bcbioRNASeq <- function(object) {
     version <- metadata(object)[["version"]]
     assert_is_all_of(version, c("package_version", "numeric_version"))
-    if (identical(version, packageVersion)) {
-        inform("bcbioRNASeq object is already current")
-        return(object)
-    }
-
     inform(paste("Upgrading from", version, "to", packageVersion))
 
     # Regenerate the bcbioRNASeq object
@@ -92,6 +87,45 @@ NULL
         is.numeric(metadata[["lanes"]])) {
         inform("Setting lanes as integer")
         metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
+    }
+
+    # metrics
+    if (length(intersect(
+        x = colnames(metadata[["metrics"]]),
+        y = legacyMetricsCols
+    ))) {
+        metrics <- metadata[["metrics"]]
+        assert_is_data.frame(metrics)
+
+        # Drop sample name columns
+        legacyNameCols <- c(metadataPriorityCols, "name")
+        if (length(intersect(colnames(metrics), legacyNameCols))) {
+            inform("Dropping legacy sample names from metrics")
+            metrics <- metrics %>%
+                .[, setdiff(colnames(.), legacyNameCols), drop = FALSE]
+        }
+
+        # Rename 5'3' bias
+        if ("x53Bias" %in% colnames(metrics)) {
+            inform("Renaming x53Bias to x5x3Bias")
+            metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
+            metrics[["x53Bias"]] <- NULL
+        }
+
+        # Rename rRNA rate
+        if (!"rrnaRate" %in% colnames(metrics)) {
+            col <- grep(
+                pattern = "rrnarate",
+                x = colnames(metrics),
+                ignore.case = TRUE,
+                value = TRUE)
+            assert_is_a_string(col)
+            inform(paste("Renaming", col, "to rrnaRate"))
+            metrics[["rrnaRate"]] <- metrics[[col]]
+            metrics[[col]] <- NULL
+        }
+
+        metadata[["metrics"]] <- metrics
     }
 
     # programVersions

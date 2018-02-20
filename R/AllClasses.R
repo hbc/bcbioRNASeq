@@ -93,7 +93,6 @@ setValidity("bcbioRNASeq", function(object) {
     }
 
     # Metadata
-    metadata <- metadata(object)
     requiredMetadata <- list(
         "version" = "package_version",
         "uploadDir" = "character",
@@ -132,8 +131,8 @@ setValidity("bcbioRNASeq", function(object) {
         "missingGenes",
         "programs"
     )
-    intersect <- intersect(names(metadata), legacyMetadata)
-    if (length(intersect) > 0L) {
+    intersect <- intersect(names(metadata(object)), legacyMetadata)
+    if (length(intersect)) {
         abort(paste(
             paste(
                 "Legacy metadata slots:",
@@ -149,7 +148,7 @@ setValidity("bcbioRNASeq", function(object) {
         X = seq_along(requiredMetadata),
         FUN = function(a) {
             name <- names(requiredMetadata)[[a]]
-            actual <- class(metadata[[name]])
+            actual <- class(metadata(object)[[name]])
             expected <- requiredMetadata[[a]]
             if (!length(intersect(expected, actual))) {
                 warn(paste(
@@ -167,11 +166,19 @@ setValidity("bcbioRNASeq", function(object) {
         abort(paste("Metadata class checks failed.", updateMsg, sep = "\n"))
     }
 
-    annotable <- metadata[["annotable"]]
+    # Metrics
+    assert_are_disjoint_sets(
+        x = colnames(metadata(object)[["metrics"]]),
+        y = legacyMetricsCols)
+
+    # Annotable
+    annotable <- metadata(object)[["annotable"]]
     if (!is.null(annotable)) {
         assertIsAnnotable(annotable)
     }
-    tx2gene <- metadata[["tx2gene"]]
+
+    # Transcript to gene mappings
+    tx2gene <- metadata(object)[["tx2gene"]]
     assertIsTx2gene(tx2gene)
 
     TRUE
