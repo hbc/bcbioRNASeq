@@ -124,7 +124,11 @@ plotVolcano(res, lfc = params$lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
-plotDEGHeatmap(res, counts = rld)
+# help("pheatmap", "pheatmap")
+plotDEGHeatmap(
+    res,
+    counts = rld,
+    clustering_method = "ward.D2")
 ```
 
 
