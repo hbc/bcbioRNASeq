@@ -22,21 +22,12 @@
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#'
 #' gene2symbol <- gene2symbol(bcb)
 #'
-#' genes <- rownames(res) %>% head(n = 4)
-#' print(genes)
-#'
-#' # DESeqResults
-#' plotMA(res, genes = genes)
-#'
-#' # Label the points as gene symbols
+#' # DESeqResults ====
+#' genes <- head(rownames(res), 4L)
+#' plotMA(res, genes = genes, gene2symbol = NULL)
 #' plotMA(res, genes = genes, gene2symbol = gene2symbol)
-#'
-#' # data.frame
-#' df <- as.data.frame(res)
-#' plotMA(df, alpha = 0.01)
 NULL
 
 
@@ -132,46 +123,33 @@ NULL
 
 
 
-.plotMA.DESeqResults <- function(  # nolint
-    object,
-    genes = NULL,
-    gene2symbol = NULL,
-    pointColor = "darkgray",
-    sigPointColor = "red",
-    labelColor = "black",
-    title = TRUE) {
-    # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
-    if (isTRUE(title)) {
-        title <- .contrastName.DESeqResults(object)
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-    .plotMA(
-        object = as.data.frame(object),
-        alpha = metadata(object)[["alpha"]],
-        genes = genes,
-        gene2symbol = gene2symbol,
-        pointColor = pointColor,
-        sigPointColor = sigPointColor,
-        labelColor = labelColor,
-        title = title)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotMA
 #' @export
 setMethod(
     "plotMA",
     signature("DESeqResults"),
-    .plotMA.DESeqResults)
-
-
-
-#' @rdname plotMA
-#' @export
-setMethod(
-    "plotMA",
-    signature("data.frame"),
-    .plotMA)
+    function(
+        object,
+        genes = NULL,
+        gene2symbol = NULL,
+        pointColor = "darkgray",
+        sigPointColor = "red",
+        labelColor = "black",
+        title = TRUE) {
+        # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
+        if (isTRUE(title)) {
+            title <- .contrastName.DESeqResults(object)
+        } else if (!is_a_string(title)) {
+            title <- NULL
+        }
+        .plotMA(
+            object = as.data.frame(object),
+            alpha = metadata(object)[["alpha"]],
+            genes = genes,
+            gene2symbol = gene2symbol,
+            pointColor = pointColor,
+            sigPointColor = sigPointColor,
+            labelColor = labelColor,
+            title = title)
+    })
