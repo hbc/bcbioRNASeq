@@ -18,9 +18,3 @@ test_that("DESeqResults", {
     p <- plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
 })
-
-test_that("Data frame", {
-    df <- as.data.frame(res)
-    p <- plotVolcano(df)
-    expect_is(p, "ggplot")
-})

@@ -14,11 +14,12 @@ test_that("Data frame", {
 })
 
 test_that("Legacy rRnaRate column", {
-    data <- metrics(bcb)
+    data <- metadata(bcb)[["metrics"]]
     data[["rRnaRate"]] <- data[["rrnaRate"]]
     data[["rrnaRate"]] <- NULL
+    metadata(bcb)[["metrics"]] <- data
     expect_warning(
-        plotRRNAMappingRate(data),
+        plotRRNAMappingRate(bcb),
         "`rrnaRate` is missing from `metrics\\(\\)`"
     )
 })
