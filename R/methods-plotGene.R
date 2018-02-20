@@ -44,14 +44,14 @@
 #' # Gene identifiers
 #' genes <- head(rownames(bcb), 4L)
 #'
-#' # bcbioRNASeq
+#' # bcbioRNASeq ====
 #' plotGene(bcb, genes = genes, return = "grid")
 #' plotGene(bcb, genes = genes, return = "wide")
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' plotGene(dds, genes = genes, interestingGroups = "group")
 #'
-#' # DESeqTransform
+#' # DESeqTransform ====
 #' plotGene(rld, genes = genes, interestingGroups = "group")
 NULL
 
