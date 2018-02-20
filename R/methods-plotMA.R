@@ -11,7 +11,6 @@
 #'
 #' @importFrom BiocGenerics plotMA
 #'
-#' @param alpha Alpha level cutoff (Adjusted P value).
 #' @param pointColor Default point color for the plot.
 #' @param sigPointColor Color for points corresponding to significant genes that
 #'   have passed alpha level cutoffs.

@@ -9,7 +9,6 @@
 #' @inheritParams plotCountDensity
 #' @inheritParams plotGene
 #'
-#' @param counts Object containing a count matrix.
 #' @param minCounts Numeric value for filtering the counts matrix before
 #'   plotting.
 #' @param trendline Include a trendline for each group.

@@ -38,8 +38,6 @@ plotting.}
 definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
 \item{title}{Title.}
-
-\item{counts}{Object containing a count matrix.}
 }
 \value{
 \link{ggplot}.

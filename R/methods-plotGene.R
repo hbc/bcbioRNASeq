@@ -118,9 +118,6 @@ NULL
     } else if (return == "list") {
         plots
     } else if (return == "markdown") {
-        if (is.character(symbols)) {
-            names(plots) <- symbols
-        }
         markdownPlotlist(plots, headerLevel = headerLevel)
     }
 }

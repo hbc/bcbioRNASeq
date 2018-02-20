@@ -74,7 +74,7 @@ LazyData: true
 Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.8.0),
-    bcbioBase (>= 0.1.3),
+    bcbioBase (>= 0.1.4),
     DESeq2 (>= 1.18.0),
     DEGreport (>= 1.14.0)
 Imports:
