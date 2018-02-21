@@ -70,9 +70,26 @@ NULL
     shadeAlpha = 0.25,
     labelColor = "black",
     histograms = TRUE) {
+    assert_is_data.frame(object)
+    assert_is_a_number(alpha)
+    assert_is_a_bool(padj)
+    assert_is_a_number(lfc)
+    assert_all_are_non_negative(lfc)
     assertFormalGene2symbol(object, genes, gene2symbol)
+    assertIsImplicitInteger(ntop)
+    assert_all_are_non_negative(ntop)
     assert_is_a_string(direction)
     assert_is_subset(direction, c("both", "up", "down"))
+    assert_is_a_string(pointColor)
+    assert_is_a_number(pointAlpha)
+    assert_is_a_string(pointOutlineColor)
+    assert_is_a_string(shadeColor)
+    assert_is_a_number(shadeAlpha)
+    assert_all_are_in_left_open_range(
+        x = c(pointAlpha, shadeAlpha),
+        lower = 0L, upper = 1L)
+    assert_is_a_string(labelColor)
+    assert_is_a_bool(histograms)
 
     # Generate data `tibble`
     data <- object %>%

@@ -6,6 +6,7 @@
 #' @importFrom assertive assert_all_are_dirs
 #' @importFrom assertive assert_all_are_existing_files
 #' @importFrom assertive assert_all_are_greater_than
+#' @importFrom assertive assert_all_are_in_left_open_range
 #' @importFrom assertive assert_all_are_non_empty_character
 #' @importFrom assertive assert_all_are_non_negative
 #' @importFrom assertive assert_all_are_positive
