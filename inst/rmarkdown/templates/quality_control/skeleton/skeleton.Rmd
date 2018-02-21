@@ -4,23 +4,18 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "data/YYYY-MM-DD/bcb.rda"
-    output_dir: "."
+    bcb_file: "bcb.rda"
+    data_dir: "."
+    results_dir: "results/counts"
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-14
+# Last modified 2018-02-21
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
 # Directory paths
-data_dir <- file.path(params$output_dir, "data", Sys.Date())
-results_dir <- file.path(params$output_dir, "results", "counts")
-invisible(mapply(
-    FUN = dir.create,
-    list(data_dir, results_dir),
-    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
-))
+dir.create(params$results_dir, recursive = TRUE, showWarnings = FALSE)
 
 # Load bcbioRNASeq object
 bcb_name <- load(params$bcb_file)
@@ -48,15 +43,15 @@ sampleMetadata(bcb)
 raw_counts <- counts(bcb, normalized = FALSE)
 normalized_counts <- counts(bcb, normalized = TRUE)
 tpm <- counts(bcb, normalized = "tpm")
-saveData(raw_counts, normalized_counts, tpm, dir = data_dir)
-writeCounts(raw_counts, normalized_counts, tpm, dir = results_dir)
+saveData(raw_counts, normalized_counts, tpm, dir = params$data_dir)
+writeCounts(raw_counts, normalized_counts, tpm, dir = params$results_dir)
 ```
 
 The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
 
-- [`normalized_counts.csv.gz`](`r file.path(results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](`r file.path(results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](`r file.path(results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
+- [`normalized_counts.csv.gz`](`r file.path(params$results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`tpm.csv.gz`](`r file.path(params$results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`raw_counts.csv.gz`](`r file.path(params$results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 

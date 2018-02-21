@@ -4,22 +4,25 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "data/YYYY-MM-DD/bcb.rda"
-    res_file: "data/YYYY-MM-DD/res.rda"
+    bcb_file: "bcb.rda"
+    res_file: "res.rda"
     organism: "Mm"
     gspecies: "mmu"
     species: "mouse"
     lfc: 0
     go_class: "BP"
-    output_dir: "."
+    data_dir: "."
+    results_dir: "results/functional_analysis"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2018-02-08
+# Last modified 2018-02-21
+# 
 # Mouse (default)
 # - organism: "Mm"
 # - gspecies: "mmu"
 # - species: "mouse"
+# 
 # Human
 # - organism: "Hs"
 # - gspecies: "hsa"
@@ -49,12 +52,10 @@ bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
 # Directory paths
-data_dir <- file.path(params$output_dir, "data", Sys.Date())
-results_dir <- file.path(params$output_dir, "results", "functional_analysis")
-kegg_plots_dir <- file.path(results_dir, "kegg_plots")
+kegg_plots_dir <- file.path(params$results_dir, "kegg_plots")
 invisible(mapply(
     FUN = dir.create,
-    list(data_dir, results_dir, kegg_plots_dir),
+    list(params$results_dir, kegg_plots_dir),
     MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
 ))
 
@@ -133,7 +134,7 @@ enrich_go <- enrichGO(
     pAdjustMethod = "BH",
     qvalueCutoff = 0.05,
     readable = TRUE)
-saveData(enrich_go, dir = data_dir)
+saveData(enrich_go, dir = params$data_dir)
 
 # Show summary data.frame
 enrich_go_summary <- slot(enrich_go, "result") %>%
@@ -141,7 +142,7 @@ enrich_go_summary <- slot(enrich_go, "result") %>%
     camel()
 write_csv(
     enrich_go_summary,
-    path = file.path(results_dir, paste0(paste(
+    path = file.path(params$results_dir, paste0(paste(
         "go",
         tolower(params$go_class),
         "clusterprofiler",
@@ -198,7 +199,7 @@ kegg <- enrichKEGG(
     gene = sig_entrez,
     universe = all_entrez,
     organism = params$species)
-saveData(kegg, dir = data_dir)
+saveData(kegg, dir = params$data_dir)
 
 # Show KEGG summary data.frame
 kegg_summary <- slot(kegg, "result") %>%
@@ -206,7 +207,7 @@ kegg_summary <- slot(kegg, "result") %>%
     camel()
 write_csv(
     kegg_summary,
-    path = file.path(results_dir,paste0(paste(
+    path = file.path(params$results_dir, paste0(paste(
         "kegg",
         "clusterprofiler",
         "padj",
@@ -241,7 +242,7 @@ gsea_go <- gseGO(
     maxGSSize = 500,
     pvalueCutoff = 0.05,
     verbose = FALSE)
-saveData(gsea_go, dir = data_dir)
+saveData(gsea_go, dir = params$data_dir)
 
 # Write out summary data.frame
 gsea_go_summary <- slot(gsea_go, "result") %>%
@@ -249,7 +250,7 @@ gsea_go_summary <- slot(gsea_go, "result") %>%
     camel()
 write_csv(
     gsea_go_summary,
-    path = file.path(results_dir, paste0(paste(
+    path = file.path(params$results_dir, paste0(paste(
         "gsea",
         "clusterprofiler",
         "padj",
@@ -291,13 +292,13 @@ gsea_kegg <- gseKEGG(
     minGSSize = 120,
     pvalueCutoff = 0.05,
     verbose = FALSE)
-saveData(gsea_kegg, dir = data_dir)
+saveData(gsea_kegg, dir = params$data_dir)
 
 # Extract the GSEA results
 gsea_kegg_summary <- slot(gsea_kegg, "result") %>% as_tibble()
 write_csv(
     gsea_kegg_summary,
-    path = file.path(results_dir, "gsea_kegg_clusterprofiler.csv.gz"))
+    path = file.path(params$results_dir, "gsea_kegg_clusterprofiler.csv.gz"))
 gsea_kegg_summary
 ```
 
