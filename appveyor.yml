@@ -18,6 +18,8 @@ cache:
 build_script:
   - travis-tool.sh install_github Bioconductor/GenomeInfoDbData
   - travis-tool.sh install_deps
+  - travis-tool.sh install_github mikelove/tximport
+  - travis-tool.sh install_github mikelove/DESeq2
 
 test_script:
   - travis-tool.sh run_tests
