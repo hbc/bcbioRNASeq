@@ -93,6 +93,7 @@ setValidity("bcbioRNASeq", function(object) {
     }
 
     # Metadata
+    # TODO Check for `fs_path` in a future update
     requiredMetadata <- list(
         "version" = "package_version",
         "uploadDir" = "character",
