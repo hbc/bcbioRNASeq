@@ -3,7 +3,7 @@ context("subset")
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("Normal gene and sample selection", {
-    subset <- suppressMessages(bcb[1L:100L, 1L:4L])
+    subset <- bcb[1L:100L, 1L:4L]
     expect_identical(
         dim(subset),
         c(100L, 4L)
@@ -31,26 +31,24 @@ test_that("Normal gene and sample selection", {
 })
 
 test_that("Minimal sample selection", {
-    subset <- suppressMessages(bcb[, 1L:2L])
+    subset <- bcb[, 1L:2L]
     expect_identical(
         dim(subset),
         c(505L, 2L)
     )
     # Check that subsetting by name also works
-    expect_identical(
-        suppressMessages(bcb[, c("group1_1", "group1_2")]),
+    # TODO Any way to make this return idential?
+    expect_equal(
+        bcb[, c("group1_1", "group1_2")],
         subset
     )
 })
 
 test_that("Minimal gene selection", {
-    subset <- suppressWarnings(suppressMessages(
-        bcb[1L:2L, , transform = FALSE]
-    ))
+    subset <- bcb[1L:2L, , transform = FALSE]
     expect_identical(
         rownames(subset),
-        c("ENSMUSG00000002459",
-          "ENSMUSG00000004768")
+        c("ENSMUSG00000002459", "ENSMUSG00000004768")
     )
     # Check that the internal DESeqDataSet gets updated
     expect_identical(
@@ -63,15 +61,12 @@ test_that("Minimal gene selection", {
     )
     # Check that subsetting by name also works
     expect_identical(
-        suppressWarnings(suppressMessages(
-            bcb[c("ENSMUSG00000002459",
-                  "ENSMUSG00000004768"), , transform = FALSE]
-        )),
+        bcb[c("ENSMUSG00000002459", "ENSMUSG00000004768"), , transform = FALSE],
         subset
     )
     # Selecting fewer than 3 genes will generate a warning
     expect_warning(
-        suppressMessages(bcb[1L:2L, ]),
+        bcb[1L:2L, ],
         "Estimated rdf < 1.0; not estimating variance"
     )
 })

@@ -54,8 +54,6 @@ test_that("transformationLimit", {
             "Calculating and using log2 tmm counts on the fly instead."
         )
     )
-    counts <- suppressWarnings(
-        counts(skip, normalized = "rlog")
-    )
+    counts <- suppressWarnings(counts(skip, normalized = "rlog"))
     expect_is(counts, "matrix")
 })

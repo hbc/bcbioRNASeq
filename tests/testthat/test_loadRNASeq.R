@@ -2,9 +2,7 @@ context("loadRNASeq")
 
 # Load the minimal example bcbio run saved in the package
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-# Suppress the warning about unannotated genes
-# TODO Safe to remove this suppression call when example dataset is updated
-bcb <- suppressWarnings(loadRNASeq(uploadDir))
+bcb <- loadRNASeq(uploadDir)
 annotable <- annotable(bcb)
 
 test_that("Class definition", {
@@ -157,24 +155,23 @@ test_that("Example data dimensions", {
 })
 
 test_that("transformationLimit", {
-    skip <- suppressWarnings(suppressMessages(
+    # TODO Remove warning suppression when example dataset is updated
+    skip <- suppressWarnings(
         loadRNASeq(
             uploadDir = uploadDir,
             annotable = annotable,
             transformationLimit = 0L)
-    ))
+    )
     expect_identical(
         names(assays(skip)),
         c("raw", "normalized", "tpm", "tmm")
     )
     expect_identical(metadata(skip)[["transformationLimit"]], 0L)
     expect_warning(
-        suppressMessages(
             loadRNASeq(
                 uploadDir = uploadDir,
                 annotable = annotable,
-                transformationLimit = 0L)
-        ),
+                transformationLimit = 0L),
         paste(
             "Dataset contains many samples.",
             "Skipping DESeq2 variance stabilization."
@@ -193,11 +190,9 @@ test_that("transformationLimit", {
 
 test_that("Metadata from the cloud", {
     sampleMetadataFile <- "http://bcbiornaseq.seq.cloud/sample_metadata.csv"
-    # TODO Safe to remove suppress warnings call with new example dataset
-    bcb <- suppressWarnings(loadRNASeq(
+    bcb <- loadRNASeq(
         uploadDir = uploadDir,
         sampleMetadataFile = sampleMetadataFile)
-    )
     expect_s4_class(bcb, "bcbioRNASeq")
     expect_identical(
         metadata(bcb)[["sampleMetadataFile"]],

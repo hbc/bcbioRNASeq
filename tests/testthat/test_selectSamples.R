@@ -6,13 +6,9 @@ load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 dim <- c(505L, 2L)
 
 test_that("bcbioRNASeq", {
-    x <- suppressMessages(
-        selectSamples(bcb, group = "ko", transform = TRUE)
-    )
+    x <- selectSamples(bcb, group = "ko", transform = TRUE)
     expect_identical(dim(x), dim)
-    x <- suppressMessages(
-        selectSamples(bcb, group = "ko", transform = FALSE)
-    )
+    x <- selectSamples(bcb, group = "ko", transform = FALSE)
     expect_identical(dim(x), dim)
 })
 

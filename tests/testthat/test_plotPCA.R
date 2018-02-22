@@ -17,8 +17,6 @@ test_that("transformationLimit", {
             "Calculating and using log2 tmm counts on the fly instead."
         )
     )
-    p <- suppressWarnings(
-        plotPCA(skip, normalized = "rlog")
-    )
+    p <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
     expect_is(p, "ggplot")
 })

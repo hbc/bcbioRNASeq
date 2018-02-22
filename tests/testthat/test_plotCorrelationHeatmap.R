@@ -36,8 +36,6 @@ test_that("transformationLimit", {
             "Calculating and using log2 tmm counts on the fly instead."
         )
     )
-    p <- suppressWarnings(
-        plotCorrelationHeatmap(skip, normalized = "rlog")
-    )
+    p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
     expect_is(p, "list")
 })

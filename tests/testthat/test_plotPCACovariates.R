@@ -3,9 +3,7 @@ context("plotPCACovariates")
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("Default", {
-    p <- suppressWarnings(suppressMessages(
-        plotPCACovariates(bcb)
-    ))
+    p <- plotPCACovariates(bcb)
     expect_is(p, "list")
     expect_identical(
         names(p),
@@ -80,16 +78,12 @@ test_that("transformationLimit", {
     skip <- bcb
     assays(skip)[["rlog"]] <- NULL
     expect_warning(
-        suppressMessages(
-            plotPCACovariates(skip, normalized = "rlog")
-        ),
+        plotPCACovariates(skip, normalized = "rlog"),
         paste(
             "rlog counts not defined.",
             "Calculating and using log2 tmm counts on the fly instead."
         )
     )
-    p <- suppressWarnings(suppressMessages(
-        plotPCA(skip, normalized = "rlog")
-    ))
+    p <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
     expect_is(p, "ggplot")
 })

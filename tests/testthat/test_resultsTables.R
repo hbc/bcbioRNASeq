@@ -7,13 +7,11 @@ annotable <- annotable(bcb)
 lfc <- 0.25
 
 test_that("Default return with local files only", {
-    resTbl <- suppressMessages(
-        resultsTables(
+    resTbl <- resultsTables(
         res,
         lfc = lfc,
         summary = FALSE,
         write = FALSE)
-    )
     expect_identical(class(resTbl), "list")
     tibble <- c("tbl_df", "tbl", "data.frame")
     expect_identical(
