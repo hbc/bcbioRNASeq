@@ -16,10 +16,12 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
-#' loadRemoteData(
-#'     c(path(dir, "bcb.rda"), path(dir, "rld.rda"), path(dir, "vst.rda"))
-#' )
+#' url <- "http://bcbiornaseq.seq.cloud/f1000v1"
+#' loadRemoteData(c(
+#'     paste(url, "bcb.rda", sep = "/"),
+#'     paste(url, "rld.rda", sep = "/"),
+#'     paste(url, "vst.rda", sep = "/)
+#' ))
 #'
 #' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb)

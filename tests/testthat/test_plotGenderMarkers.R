@@ -1,9 +1,11 @@
 context("plotGenderMarkers")
 
-dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
-loadRemoteData(
-    c(path(dir, "bcb.rda"), path(dir, "rld.rda"), path(dir, "vst.rda"))
-)
+url <- "http://bcbiornaseq.seq.cloud/f1000v1"
+loadRemoteData(c(
+    paste(url, "bcb.rda", sep = "/"),
+    paste(url, "rld.rda", sep = "/"),
+    path(url, "vst.rda", sep = "/")
+))
 dds <- bcbio(bcb, "DESeqDataSet")
 
 test_that("bcbioRNASeq", {

@@ -67,27 +67,6 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \description{
 Plot Sexually Dimorphic Gender Markers
 }
-\examples{
-dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
-loadRemoteData(
-    c(path(dir, "bcb.rda"), path(dir, "rld.rda"), path(dir, "vst.rda"))
-)
-
-# bcbioRNASeq ====
-plotGenderMarkers(bcb)
-plotGenderMarkers(
-    bcb,
-    interestingGroups = "sampleName",
-    color = NULL)
-
-# DESeqDataSet ====
-dds <- bcbio(bcb, "DESeqDataSet")
-plotGenderMarkers(dds, interestingGroups = "group")
-
-# DESeqTransform ====
-plotGenderMarkers(rld, interestingGroups = "group")
-plotGenderMarkers(vst, interestingGroups = "group")
-}
 \seealso{
 Other Quality Control Plots: \code{\link{plot53Bias}},
   \code{\link{plotCountDensity}},
