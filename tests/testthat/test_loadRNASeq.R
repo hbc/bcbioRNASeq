@@ -8,12 +8,13 @@ annotable <- annotable(bcb)
 test_that("Class definition", {
     expect_identical(
         slotNames(bcb),
-        c("bcbio",
-          "colData",
-          "assays",
-          "NAMES",
-          "elementMetadata",
-          "metadata")
+        c(
+            "bcbio",
+            "colData",
+            "assays",
+            "NAMES",
+            "elementMetadata",
+            "metadata")
     )
     expect_identical(
         slot(bcb, "bcbio") %>% class(),
@@ -45,12 +46,13 @@ test_that("Class definition", {
 test_that("Assays", {
     expect_identical(
         lapply(assays(bcb), class),
-        list(raw = "matrix",
-             normalized = "matrix",
-             tpm = "matrix",
-             tmm = "matrix",
-             rlog = structure("DESeqTransform", package = "DESeq2"),
-             vst = structure("DESeqTransform", package = "DESeq2")
+        list(
+            raw = "matrix",
+            normalized = "matrix",
+            tpm = "matrix",
+            tmm = "matrix",
+            rlog = structure("DESeqTransform", package = "DESeq2"),
+            vst = structure("DESeqTransform", package = "DESeq2")
         )
     )
 })
@@ -58,10 +60,11 @@ test_that("Assays", {
 test_that("Column data", {
     expect_identical(
         lapply(colData(bcb), class),
-        list(sampleID = "factor",
-             sampleName = "factor",
-             description = "factor",
-             group = "factor")
+        list(
+            sampleID = "factor",
+            sampleName = "factor",
+            description = "factor",
+            group = "factor")
     )
 })
 
@@ -69,51 +72,55 @@ test_that("Column data", {
 test_that("Row data", {
     expect_identical(
         lapply(rowData(bcb), class),
-        list(ensgene = "character",
-             symbol = "character",
-             description = "character",
-             biotype = "character",
-             broadClass = "character",
-             geneSeqStart = "integer",
-             geneSeqEnd = "integer",
-             seqName = "character",
-             seqStrand = "integer",
-             seqCoordSystem = "character",
-             entrez = "list")
+        list(
+            ensgene = "character",
+            symbol = "character",
+            description = "character",
+            biotype = "character",
+            broadClass = "character",
+            geneSeqStart = "integer",
+            geneSeqEnd = "integer",
+            seqName = "character",
+            seqStrand = "integer",
+            seqCoordSystem = "character",
+            entrez = "list")
     )
 })
 
 test_that("Metadata", {
+    tibble <- c("tbl_df", "tbl", "data.frame")
+    path <- c("fs_path", "character")
     expect_identical(
         lapply(metadata(bcb), class),
-        list(version = c("package_version", "numeric_version"),
-             uploadDir = "character",
-             sampleDirs = "character",
-             projectDir = "character",
-             template = "character",
-             runDate = "Date",
-             interestingGroups = "character",
-             organism = "character",
-             genomeBuild = "character",
-             ensemblVersion = "NULL",
-             annotable = "data.frame",
-             tx2gene = "data.frame",
-             lanes = "integer",
-             yaml = "list",
-             metrics = "data.frame",
-             sampleMetadataFile = "NULL",
-             dataVersions = c("tbl_df", "tbl", "data.frame"),
-             programVersions = c("tbl_df", "tbl", "data.frame"),
-             bcbioLog = "character",
-             bcbioCommandsLog = "character",
-             allSamples = "logical",
-             design = "formula",
-             transformationLimit = "integer",
-             date = "Date",
-             wd = "character",
-             utilsSessionInfo = "sessionInfo",
-             devtoolsSessionInfo = "session_info",
-             unannotatedGenes = "character")
+        list(
+            version = c("package_version", "numeric_version"),
+            uploadDir = path,
+            sampleDirs = path,
+            projectDir = path,
+            template = "character",
+            runDate = "Date",
+            interestingGroups = "character",
+            organism = "character",
+            genomeBuild = "character",
+            ensemblVersion = "NULL",
+            annotable = "data.frame",
+            tx2gene = "data.frame",
+            lanes = "integer",
+            yaml = "list",
+            metrics = "data.frame",
+            sampleMetadataFile = "NULL",
+            dataVersions = tibble,
+            programVersions = tibble,
+            bcbioLog = "character",
+            bcbioCommandsLog = "character",
+            allSamples = "logical",
+            design = "formula",
+            transformationLimit = "integer",
+            date = "Date",
+            wd = path,
+            utilsSessionInfo = "sessionInfo",
+            devtoolsSessionInfo = "session_info",
+            unannotatedGenes = "character")
     )
     # Interesting groups should default to `sampleName`
     expect_identical(
