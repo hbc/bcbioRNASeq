@@ -114,7 +114,7 @@ test_that("Summary and write support", {
 
 # Don't run this test on AppVeyor CI yet
 # Sys.getenv("APPVEYOR")
-if (!file.exists("token.rds")) {
+if (file.exists("token.rds")) {
     test_that("Dropbox mode", {
         resTbl <- resultsTables(
             res,
