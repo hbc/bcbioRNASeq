@@ -23,7 +23,7 @@
 #' @return [bcbioRNASeq].
 #'
 #' @examples
-#' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda", quiet = TRUE)
+#' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
 #' metadata(bcb)[["version"]]
 #' updated <- updateObject(bcb)
 #' metadata(updated)[["version"]]

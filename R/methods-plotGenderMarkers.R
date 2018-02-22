@@ -18,12 +18,8 @@
 #' @examples
 #' dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
 #' loadRemoteData(
-#'     c(
-#'         file.path(dir, "bcb.rda"),
-#'         file.path(dir, "rld.rda"),
-#'         file.path(dir, "vst.rda")
-#'     ),
-#'     quiet = TRUE)
+#'     c(path(dir, "bcb.rda"), path(dir, "rld.rda"), path(dir, "vst.rda"))
+#' )
 #'
 #' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb)

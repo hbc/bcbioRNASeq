@@ -123,6 +123,7 @@ NULL
 #'   markdownList sanitizeAnnotable snake
 #' @importFrom bcbioBase copyToDropbox
 #' @importFrom dplyr arrange desc left_join
+#' @importFrom fs path
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
 #' @importFrom tibble rownames_to_column
@@ -221,9 +222,7 @@ NULL
 
         # Local files (required) ===============================================
         # Local file paths
-        localFiles <- file.path(
-            dir,
-            paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+        localFiles <- path(dir, paste0(fileStem, "_", snake(tibbles), ".csv.gz")
         )
         names(localFiles) <- tibbles
 

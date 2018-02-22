@@ -14,6 +14,7 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_all pull
+#' @importFrom fs file_exists path path_real
 #' @importFrom magrittr set_colnames
 #' @importFrom stats formula
 #' @importFrom stringr str_match str_trunc
@@ -102,7 +103,7 @@ loadRNASeq <- function(
     assert_is_any_of(design, c("formula", "NULL"))
 
     # Directory paths ==========================================================
-    uploadDir <- normalizePath(uploadDir)
+    uploadDir <- path_real(uploadDir)
     projectDir <- dir(
         uploadDir,
         pattern = projectDirPattern,
@@ -113,7 +114,7 @@ loadRNASeq <- function(
     match <- str_match(projectDir, projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
-    projectDir <- file.path(uploadDir, projectDir)
+    projectDir <- path(uploadDir, projectDir)
     assert_all_are_dirs(projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
     assert_all_are_dirs(sampleDirs)
@@ -134,14 +135,14 @@ loadRNASeq <- function(
     assert_is_an_integer(lanes)
 
     # Project summary YAML =====================================================
-    yamlFile <- file.path(projectDir, "project-summary.yaml")
+    yamlFile <- path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
     assert_is_list(yaml)
 
     # Sample metadata ==========================================================
     if (is_a_string(sampleMetadataFile)) {
-        sampleMetadataFile <- normalizePath(sampleMetadataFile)
+        sampleMetadataFile <- path_real(sampleMetadataFile)
         sampleMetadata <- readSampleMetadataFile(
             sampleMetadataFile,
             lanes = lanes)
@@ -221,11 +222,11 @@ loadRNASeq <- function(
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
     dataVersions <- readDataVersions(
-        file = file.path(projectDir, "data_versions.csv"))
+        file = path(projectDir, "data_versions.csv"))
     assert_is_tbl_df(dataVersions)
 
     programVersions <- readProgramVersions(
-        file.path(projectDir, "programs.txt"))
+        path(projectDir, "programs.txt"))
     assert_is_tbl_df(programVersions)
 
     bcbioLogFile <- list.files(
@@ -302,8 +303,8 @@ loadRNASeq <- function(
 
     # STAR/featureCounts aligned counts matrix =================================
     # Aligned counts, used for summary metrics. Not generated for fast RNA-seq.
-    featureCountsFile <- file.path(projectDir, "combined.counts")
-    if (file.exists(featureCountsFile)) {
+    featureCountsFile <- path(projectDir, "combined.counts")
+    if (file_exists(featureCountsFile)) {
         inform("Reading STAR featureCounts aligned counts")
         featureCounts <- read_tsv(featureCountsFile) %>%
             as.data.frame() %>%

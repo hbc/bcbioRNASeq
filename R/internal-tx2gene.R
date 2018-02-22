@@ -5,6 +5,7 @@
 #'
 #' @importFrom basejump tx2gene
 #' @importFrom dplyr arrange mutate
+#' @importFrom fs file_exists path
 #' @importFrom magrittr set_rownames
 #' @importFrom readr read_csv
 #' @importFrom rlang !! sym
@@ -20,8 +21,8 @@
     assert_is_a_string(organism)
     assertIsAnImplicitIntegerOrNULL(release)
     inform("Obtaining transcript-to-gene mappings")
-    file <- file.path(projectDir, "tx2gene.csv")
-    if (file.exists(file)) {
+    file <- path(projectDir, "tx2gene.csv")
+    if (file_exists(file)) {
         # bcbio tx2gene
         data <- read_csv(file, col_names = c("enstxp", "ensgene")) %>%
             arrange(!!sym("enstxp")) %>%

@@ -8,6 +8,7 @@
 #' @keywords internal
 #' @noRd
 #'
+#' @importFrom fs path
 #' @importFrom readr read_tsv
 #' @importFrom tximport tximport
 #'
@@ -39,7 +40,7 @@
     # Locate `quant.sf` file for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
         sampleFiles <- list.files(
-            file.path(sampleDirs, type),
+            path(sampleDirs, type),
             pattern = "quant.sf",
             full.names = TRUE,
             recursive = TRUE)

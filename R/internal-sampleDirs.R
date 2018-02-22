@@ -3,6 +3,8 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
+#' @importFrom fs path_real
+#'
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
@@ -35,7 +37,7 @@
     names <- basename(sampleDirs) %>%
         make.names(unique = TRUE) %>%
         gsub("\\.", "_", .)
-    sampleDirs <- normalizePath(sampleDirs)
+    sampleDirs <- path_real(sampleDirs)
     names(sampleDirs) <- names
 
     inform(paste(length(sampleDirs), "samples detected"))
