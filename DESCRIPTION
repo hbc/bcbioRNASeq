@@ -75,7 +75,7 @@ Depends:
     R (>= 3.4.0),
     SummarizedExperiment (>= 1.6.5),
     bcbioBase (>= 0.1.4),
-    DESeq2 (>= 1.18.0),
+    DESeq2 (>= 1.16.1),
     DEGreport (>= 1.14.0)
 Imports:
     assertive,
