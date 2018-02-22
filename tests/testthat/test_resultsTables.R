@@ -121,8 +121,7 @@ test_that("Dropbox mode", {
         write = TRUE,
         dir = "resultsTables",
         dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-        rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
-    )
+        rdsToken = "token.rds")
     expect_true("dropboxFiles" %in% names(resTbl))
     # Check for Dropbox URLs
     expect_true(all(vapply(

@@ -35,7 +35,7 @@
 #' annotable <- annotable(bcb)
 #'
 #' # DESeqResults ====
-#' resTbl <- suppressMessages(resultsTables(
+#' resTbl <- resultsTables(
 #'     res,
 #'     lfc = 0.25,
 #'     annotable = annotable,
@@ -43,9 +43,7 @@
 #'     headerLevel = 2L,
 #'     write = TRUE,
 #'     dir = "resultsTables",
-#'     dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-#'     rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
-#' ))
+#' )
 #' names(resTbl)
 #'
 #' # Clean up ====
