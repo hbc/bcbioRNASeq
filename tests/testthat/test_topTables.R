@@ -5,7 +5,6 @@ load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 test_that("topTables", {
     resTbl <- resultsTables(
         res,
-        quiet = TRUE,
         summary = FALSE,
         write = FALSE)
     # Capture the knitr table output

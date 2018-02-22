@@ -11,7 +11,7 @@ resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = NULL,
   summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  dropboxDir = NULL, rdsToken = NA, quiet = FALSE)
+  dropboxDir = NULL, rdsToken = NA)
 }
 \arguments{
 \item{object}{Object.}
@@ -44,8 +44,6 @@ enabled, unique links per file are generated internally with the rdrop2
 package.}
 
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
-
-\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
 Results \link{list}.

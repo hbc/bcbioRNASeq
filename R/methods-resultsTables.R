@@ -25,7 +25,6 @@
 #'   enabled, unique links per file are generated internally with the rdrop2
 #'   package.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
-#' @param quiet If `TRUE`, suppress any status messages and/or progress bars.
 #'
 #' @return Results [list].
 #'
@@ -136,9 +135,8 @@ NULL
     write = FALSE,
     dir = getwd(),
     dropboxDir = NULL,
-    rdsToken = NA,
-    quiet = FALSE) {
-    # Passthrough: headerLevel, dropboxDir, rdsToken, quiet
+    rdsToken = NA) {
+    # Passthrough: headerLevel, dropboxDir, rdsToken
     assert_is_all_of(object, "DESeqResults")
     assert_is_a_number(lfc)
     assert_all_are_non_negative(lfc)
