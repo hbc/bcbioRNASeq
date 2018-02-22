@@ -142,7 +142,6 @@ loadRNASeq <- function(
 
     # Sample metadata ==========================================================
     if (is_a_string(sampleMetadataFile)) {
-        sampleMetadataFile <- path_real(sampleMetadataFile)
         sampleMetadata <- readSampleMetadataFile(
             sampleMetadataFile,
             lanes = lanes)

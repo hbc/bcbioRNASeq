@@ -2,13 +2,13 @@ context("loadRNASeq")
 
 # Load the minimal example bcbio run saved in the package
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- suppressWarnings(suppressMessages(
-    loadRNASeq(uploadDir)
-))
+# Suppress the warning about unannotated genes
+# TODO Safe to remove this suppression call when example dataset is updated
+bcb <- suppressWarnings(loadRNASeq(uploadDir))
 annotable <- annotable(bcb)
 
 test_that("Class definition", {
-    expect_equal(
+    expect_identical(
         slotNames(bcb),
         c("bcbio",
           "colData",
@@ -17,35 +17,35 @@ test_that("Class definition", {
           "elementMetadata",
           "metadata")
     )
-    expect_equal(
+    expect_identical(
         slot(bcb, "bcbio") %>% class(),
         structure("SimpleList", package = "S4Vectors")
     )
-    expect_equal(
+    expect_identical(
         slot(bcb, "colData") %>% class(),
         structure("DataFrame", package = "S4Vectors")
     )
-    expect_equal(
+    expect_identical(
         slot(bcb, "assays") %>% class(),
         structure("ShallowSimpleListAssays", package = "SummarizedExperiment")
     )
-    expect_equal(
+    expect_identical(
         slot(bcb, "NAMES") %>% class(),
         "character"
     )
-    expect_equal(
+    expect_identical(
         slot(bcb, "elementMetadata") %>% class(),
         structure("DataFrame", package = "S4Vectors")
     )
     # Switch this structure to SimpleList?
-    expect_equal(
+    expect_identical(
         slot(bcb, "metadata") %>% class(),
         "list"
     )
 })
 
 test_that("Assays", {
-    expect_equal(
+    expect_identical(
         lapply(assays(bcb), class),
         list(raw = "matrix",
              normalized = "matrix",
@@ -58,7 +58,7 @@ test_that("Assays", {
 })
 
 test_that("Column data", {
-    expect_equal(
+    expect_identical(
         lapply(colData(bcb), class),
         list(sampleID = "factor",
              sampleName = "factor",
@@ -69,7 +69,7 @@ test_that("Column data", {
 
 # Ensembl annotations from AnnotationHub, using ensembldb
 test_that("Row data", {
-    expect_equal(
+    expect_identical(
         lapply(rowData(bcb), class),
         list(ensgene = "character",
              symbol = "character",
@@ -86,7 +86,7 @@ test_that("Row data", {
 })
 
 test_that("Metadata", {
-    expect_equal(
+    expect_identical(
         lapply(metadata(bcb), class),
         list(version = c("package_version", "numeric_version"),
              uploadDir = "character",
@@ -118,19 +118,19 @@ test_that("Metadata", {
              unannotatedGenes = "character")
     )
     # Interesting groups should default to `sampleName`
-    expect_equal(
+    expect_identical(
         metadata(bcb)[["interestingGroups"]],
         "sampleName"
     )
     # Ensembl metadata version should default to `NULL`
-    expect_equal(
+    expect_identical(
         metadata(bcb)[["ensemblVersion"]],
         NULL
     )
 })
 
 test_that("bcbio", {
-    expect_equal(
+    expect_identical(
         lapply(slot(bcb, "bcbio"), class),
         list(tximport = "list",
              DESeqDataSet = structure("DESeqDataSet", package = "DESeq2"),
@@ -139,15 +139,15 @@ test_that("bcbio", {
 })
 
 test_that("Example data dimensions", {
-    expect_equal(
+    expect_identical(
         dim(bcb),
         c(505L, 4L)
     )
-    expect_equal(
+    expect_identical(
         colnames(bcb),
         c("group1_1", "group1_2", "group2_1", "group2_2")
     )
-    expect_equal(
+    expect_identical(
         rownames(bcb)[1L:4L],
         c("ENSMUSG00000002459",
           "ENSMUSG00000004768",
@@ -191,13 +191,13 @@ test_that("transformationLimit", {
     )
 })
 
-test_that("User input sample metadata", {
+test_that("Metadata from the cloud", {
     sampleMetadataFile <- "http://bcbiornaseq.seq.cloud/sample_metadata.csv"
-    bcb <- suppressWarnings(suppressMessages(
-        loadRNASeq(
+    # TODO Safe to remove suppress warnings call with new example dataset
+    bcb <- suppressWarnings(loadRNASeq(
         uploadDir = uploadDir,
         sampleMetadataFile = sampleMetadataFile)
-    ))
+    )
     expect_s4_class(bcb, "bcbioRNASeq")
     expect_identical(
         metadata(bcb)[["sampleMetadataFile"]],
