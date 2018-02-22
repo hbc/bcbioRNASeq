@@ -20,7 +20,7 @@
 #' loadRemoteData(c(
 #'     paste(url, "bcb.rda", sep = "/"),
 #'     paste(url, "rld.rda", sep = "/"),
-#'     paste(url, "vst.rda", sep = "/)
+#'     paste(url, "vst.rda", sep = "/")
 #' ))
 #'
 #' # bcbioRNASeq ====

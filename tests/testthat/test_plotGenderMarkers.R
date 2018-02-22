@@ -4,7 +4,7 @@ url <- "http://bcbiornaseq.seq.cloud/f1000v1"
 loadRemoteData(c(
     paste(url, "bcb.rda", sep = "/"),
     paste(url, "rld.rda", sep = "/"),
-    path(url, "vst.rda", sep = "/")
+    paste(url, "vst.rda", sep = "/")
 ))
 dds <- bcbio(bcb, "DESeqDataSet")
 
