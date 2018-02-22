@@ -4,15 +4,15 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("Normal gene and sample selection", {
     subset <- suppressMessages(bcb[1L:100L, 1L:4L])
-    expect_equal(
+    expect_identical(
         dim(subset),
         c(100L, 4L)
     )
-    expect_equal(
+    expect_identical(
         rownames(subset)[[1L]],
         "ENSMUSG00000002459"
     )
-    expect_equal(
+    expect_identical(
         colnames(subset),
         c("group1_1",
           "group1_2",
@@ -20,11 +20,11 @@ test_that("Normal gene and sample selection", {
           "group2_2")
     )
     # Check that the internal DESeqDataSet gets updated
-    expect_equal(
+    expect_identical(
         dim(subset),
         dim(bcbio(subset, "DESeqDataSet"))
     )
-    expect_equal(
+    expect_identical(
         colnames(subset),
         colnames(bcbio(subset, "DESeqDataSet"))
     )
@@ -32,12 +32,12 @@ test_that("Normal gene and sample selection", {
 
 test_that("Minimal sample selection", {
     subset <- suppressMessages(bcb[, 1L:2L])
-    expect_equal(
+    expect_identical(
         dim(subset),
         c(505L, 2L)
     )
     # Check that subsetting by name also works
-    expect_equal(
+    expect_identical(
         suppressMessages(bcb[, c("group1_1", "group1_2")]),
         subset
     )
@@ -47,22 +47,22 @@ test_that("Minimal gene selection", {
     subset <- suppressWarnings(suppressMessages(
         bcb[1L:2L, , transform = FALSE]
     ))
-    expect_equal(
+    expect_identical(
         rownames(subset),
         c("ENSMUSG00000002459",
           "ENSMUSG00000004768")
     )
     # Check that the internal DESeqDataSet gets updated
-    expect_equal(
+    expect_identical(
         dim(subset),
         dim(bcbio(subset, "DESeqDataSet"))
     )
-    expect_equal(
+    expect_identical(
         rownames(subset),
         rownames(bcbio(subset, "DESeqDataSet"))
     )
     # Check that subsetting by name also works
-    expect_equal(
+    expect_identical(
         suppressWarnings(suppressMessages(
             bcb[c("ENSMUSG00000002459",
                   "ENSMUSG00000004768"), , transform = FALSE]

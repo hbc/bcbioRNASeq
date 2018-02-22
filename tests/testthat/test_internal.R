@@ -6,5 +6,5 @@ test_that("tx2gene", {
         package = "bcbioRNASeq")
     file <- file.path(uploadDir, "2017-05-23_rnaseq")
     df <- .tx2gene(file, organism = "hg19")
-    expect_equal(ncol(df), 2L)
+    expect_identical(ncol(df), 2L)
 })

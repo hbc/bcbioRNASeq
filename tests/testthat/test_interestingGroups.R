@@ -3,7 +3,7 @@ context("interestingGroups")
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
 test_that("Accessor", {
-    expect_equal(
+    expect_identical(
         interestingGroups(bcb),
         "group"
     )

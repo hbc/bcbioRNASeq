@@ -5,7 +5,7 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 test_that("flatFiles", {
     flat <- flatFiles(bcb)
     expect_is(flat, "list")
-    expect_equal(
+    expect_identical(
         names(flat),
         c("assays",
           "rowData",

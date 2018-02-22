@@ -5,13 +5,13 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 test_that("plotCorrelationHeatmap", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb)
-    expect_equal(
+    expect_identical(
         names(p),
         c("tree_row", "tree_col", "kmeans", "gtable")
     )
     # Spearman
     p <- plotCorrelationHeatmap(bcb, method = "spearman")
-    expect_equal(
+    expect_identical(
         names(p),
         c("tree_row", "tree_col", "kmeans", "gtable")
     )

@@ -6,7 +6,7 @@ load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 test_that("plotDEGHeatmap", {
     p <- plotDEGHeatmap(object = res, counts = rld)
     expect_is(p, "list")
-    expect_equal(
+    expect_identical(
         names(p),
         c("tree_row", "tree_col", "kmeans", "gtable")
     )

@@ -14,5 +14,5 @@ test_that("topTables", {
     # Check for ensgene column in header
     expect_true(grepl("^\\|ensgene", output[[3L]]))
     # Check the output length
-    expect_equal(length(output), 12L)
+    expect_identical(length(output), 12L)
 })

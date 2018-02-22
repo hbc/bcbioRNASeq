@@ -5,15 +5,15 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 test_that("annotable", {
     anno <- annotable(bcb)
     expect_is(anno, "data.frame")
-    expect_equal(
+    expect_identical(
         nrow(anno),
         nrow(bcb)
     )
-    expect_equal(
+    expect_identical(
         rownames(anno),
         rownames(bcb)
     )
-    expect_equal(
+    expect_identical(
         lapply(anno, class),
         list(ensgene = "character",
              symbol = "character",

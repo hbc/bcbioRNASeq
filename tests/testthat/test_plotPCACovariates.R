@@ -7,7 +7,7 @@ test_that("Default", {
         plotPCACovariates(bcb)
     ))
     expect_is(p, "list")
-    expect_equal(
+    expect_identical(
         names(p),
         c("significantCovars",
           "plot",
@@ -17,7 +17,7 @@ test_that("Default", {
           "effectsSignificantCovars")
     )
     # Check significant covariates
-    expect_equal(
+    expect_identical(
         p[["significantCovars"]] %>%
             na.omit() %>%
             as.character() %>%
@@ -28,7 +28,7 @@ test_that("Default", {
           "intronicRate",
           "rrna")
     )
-    expect_equal(
+    expect_identical(
         p[["effectsSignificantCovars"]] %>%
             na.omit() %>%
             .[. > 0L] %>%
@@ -46,11 +46,11 @@ test_that("Defined metrics", {
     p <- plotPCACovariates(
         bcb,
         metrics = c("exonicRate", "intronicRate"))
-    expect_equal(
+    expect_identical(
         as.character(p[["significantCovars"]]),
         c("exonicRate", "intronicRate")
     )
-    expect_equal(
+    expect_identical(
         round(p[["effectsSignificantCovars"]], digits = 3L),
         c(exonicRate = 0.610,
           intronicRate = 0.610)
