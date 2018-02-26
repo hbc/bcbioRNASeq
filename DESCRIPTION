@@ -111,13 +111,13 @@ Imports:
 Suggests:
     BiocStyle,
     clusterProfiler,
-    devtools,
     DOSE,
     formatR,
     lintr,
     pathview,
     rmarkdown,
     roxygen2,
+    sessioninfo,
     testthat,
     tidyverse
 Remotes:

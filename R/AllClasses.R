@@ -121,6 +121,7 @@ setValidity("bcbioRNASeq", function(object) {
         "transformationLimit" = c("integer", "numeric"),
         "date" = "Date",
         "wd" = "character",
+        # TODO Switch to simply `sessioninfo::session_info()`
         "utilsSessionInfo" = "sessionInfo",
         "devtoolsSessionInfo" = "session_info",
         "unannotatedGenes" = c("character", "NULL")
