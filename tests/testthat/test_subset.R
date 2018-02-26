@@ -60,7 +60,7 @@ test_that("Minimal gene selection", {
         rownames(bcbio(subset, "DESeqDataSet"))
     )
     # Check that subsetting by name also works
-    expect_identical(
+    expect_equal(
         bcb[c("ENSMUSG00000002459", "ENSMUSG00000004768"), , transform = FALSE],
         subset
     )
