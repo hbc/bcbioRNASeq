@@ -49,98 +49,58 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
-.plotDEGHeatmap.dataFrame <- function(  # nolint
+.plotDEGHeatmap.DESeqResults <- function(  # nolint
     object,
     counts,
-    alpha = 0.01,
     lfc = 0L,
     gene2symbol = NULL,
-    annotationCol = NULL,
-    scale = "row",
-    color = viridis,
-    legendColor = viridis,
-    title,
+    title = TRUE,
     ...) {
-    # Passthrough: color, legendColor
-    assert_is_data.frame(object)
+    assert_is_any_of(
+        x = counts,
+        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
+    )
+    if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
+        counts <- assay(counts)
+    }
     assert_is_matrix(counts)
     assert_are_identical(rownames(object), rownames(counts))
-    assert_is_a_number(alpha)
-    assert_all_are_positive(alpha)
-    assertIsAnImplicitInteger(lfc)
+    assert_is_a_number(lfc)
     assert_all_are_non_negative(lfc)
     assertFormalGene2symbol(object, rownames(counts), gene2symbol)
-    assertIsHexColorFunctionOrNULL(color)
-    assertIsHexColorFunctionOrNULL(legendColor)
-    assert_is_a_string(title)
 
-    results <- object %>%
-        camel(strict = FALSE) %>%
+    # Title
+    if (isTRUE(title)) {
+        title <- .contrastName.DESeqResults(object)
+    } else if (!is_a_string(title)) {
+        title <- NULL
+    }
+
+    # Alpha level
+    alpha <- metadata(object)[["alpha"]]
+    assert_is_a_number(alpha)
+
+    data <- object %>%
+        as.data.frame() %>%
+        camel() %>%
         # Keep genes that pass alpha cutoff
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
         .[.[["padj"]] < alpha, , drop = FALSE] %>%
         # Keep genes that pass log2 fold change cutoff
         .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
         .[.[["log2FoldChange"]] > lfc |
-            .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    assert_has_rows(results)
-    counts <- counts[rownames(results), , drop = FALSE]
+              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+    assert_has_rows(data)
+    counts <- counts[rownames(data), , drop = FALSE]
 
-    plotHeatmap(
-        object = counts,
-        gene2symbol = gene2symbol,
-        annotationCol = annotationCol,
-        scale = scale,
-        color = color,
-        legendColor = legendColor,
-        title = title,
-        ...)
-}
-
-
-
-.plotDEGHeatmap.DESeqResults <- function(  # nolint
-    object,
-    counts,
-    alpha,
-    lfc = 0L,
-    gene2symbol = NULL,
-    annotationCol = NULL,
-    scale = "row",
-    color = viridis,
-    legendColor = viridis,
-    title = TRUE,
-    ...) {
-    # Passthrough: lfc, gene2symbol, annotationCol, scale, color, legendColor
-    assert_is_all_of(object, "DESeqResults")
-    assert_is_any_of(
-        x = counts,
-        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
-    )
-
-    if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
-        counts <- assay(counts)
-    }
-    if (missing(alpha)) {
-        alpha <- metadata(object)[["alpha"]]
-    }
-    if (isTRUE(title)) {
-        title <- .contrastName.DESeqResults(object)
+    # Remap gene identifier rows to symbols
+    if (is.data.frame(gene2symbol)) {
+        rownames(counts) <- convertGenesToSymbols(
+            rownames(counts),
+            gene2symbol = gene2symbol)
     }
 
-    .plotDEGHeatmap.dataFrame(
-        object = as.data.frame(object),
-        counts = counts,
-        alpha = alpha,
-        lfc = lfc,
-        gene2symbol = gene2symbol,
-        annotationCol = annotationCol,
-        scale = scale,
-        color = color,
-        legendColor = legendColor,
-        title = title,
-        ...)
+    plotHeatmap(object = counts, title = title, ...)
 }
 
 

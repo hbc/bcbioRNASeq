@@ -11,17 +11,14 @@
 \usage{
 plotDEGHeatmap(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0L,
+  gene2symbol = NULL, title = TRUE, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
+  lfc = 0L, gene2symbol = NULL, title = TRUE, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, lfc = 0L,
+  gene2symbol = NULL, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -30,9 +27,6 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
-\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
-use the alpha level defined in the object.}
-
 \item{lfc}{log2 fold change ratio cutoff.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
@@ -40,22 +34,10 @@ use the alpha level defined in the object.}
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
-mappings for the columns.}
-
-\item{scale}{Character indicating if the values should be centered and scaled
-in either the row direction or the column direction, or none. Corresponding
-values are "row", "column" and "none".}
-
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
-
-\item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[=viridis]{viridis()}}.}
-
 \item{title}{Title.}
+
+\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
+use the alpha level defined in the object.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
