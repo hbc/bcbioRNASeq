@@ -87,9 +87,9 @@ NULL
 
     # Set the rownames to gene symbols
     if (is.data.frame(gene2symbol)) {
-        rownames(object) <- rownames(object) %>%
-            gene2symbol[., "symbol", drop = TRUE] %>%
-            make.names(unique = TRUE)
+        rownames(object) <- convertGenesToSymbols(
+            rownames(object),
+            gene2symbol = gene2symbol)
     }
 
     basejump::plotHeatmap(
