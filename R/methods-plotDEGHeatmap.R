@@ -49,6 +49,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump convertGenesToSymbols plotHeatmap
 .plotDEGHeatmap.DESeqResults <- function(  # nolint
     object,
     counts,
@@ -100,7 +101,7 @@ NULL
             gene2symbol = gene2symbol)
     }
 
-    plotHeatmap(object = counts, title = title, ...)
+    plotHeatmap(counts, title = title, ...)
 }
 
 

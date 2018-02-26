@@ -57,6 +57,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump convertGenesToSymbols plotHeatmap
 .plotHeatmap <- function(
     object,
     samples = NULL,
@@ -92,7 +93,7 @@ NULL
             gene2symbol = gene2symbol)
     }
 
-    basejump::plotHeatmap(
+    plotHeatmap(
         object = object,
         annotationCol = annotationCol,
         scale = scale,
