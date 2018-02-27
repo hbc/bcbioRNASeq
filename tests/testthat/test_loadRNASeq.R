@@ -1,9 +1,7 @@
 context("loadRNASeq")
 
 # Example dataset currently warns about missing genes (expected)
-bcb <- suppressWarnings(
-    loadRNASeq(uploadDir, ensemblVersion = ensemblVersion)
-)
+bcb <- loadRNASeq(uploadDir, ensemblVersion = ensemblVersion)
 
 test_that("Class definition", {
     expect_identical(
