@@ -1,7 +1,5 @@
 context("plotPCACovariates")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("Default", {
     p <- plotPCACovariates(bcb)
     expect_is(p, "list")

@@ -1,7 +1,5 @@
 context("plotExonicMappingRate")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("plotExonicMappingRate", {
     p <- plotExonicMappingRate(bcb)
     expect_is(p, "ggplot")

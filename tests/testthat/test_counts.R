@@ -1,7 +1,5 @@
 context("counts")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("raw", {
     counts <- counts(bcb, normalized = FALSE)
     expect_identical(

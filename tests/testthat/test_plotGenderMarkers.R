@@ -1,6 +1,7 @@
 context("plotGenderMarkers")
 
-url <- "http://bcbiornaseq.seq.cloud/f1000v1"
+# TODO Migrate to using this example dataset as the main unit test set
+url <- paste(cacheURL, "f1000v1", sep = "/")
 loadRemoteData(c(
     paste(url, "bcb.rda", sep = "/"),
     paste(url, "rld.rda", sep = "/"),

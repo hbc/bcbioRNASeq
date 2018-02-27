@@ -1,6 +1,6 @@
 context("plotMA")
 
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
+# TODO Define as a global
 genes <- head(rownames(res))
 
 test_that("DESeqResults", {

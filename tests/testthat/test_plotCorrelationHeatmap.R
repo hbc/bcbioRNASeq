@@ -1,7 +1,5 @@
 context("plotCorrelationHeatmap")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("plotCorrelationHeatmap", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb)

@@ -1,10 +1,5 @@
 context("loadRNASeq")
 
-# Load the minimal example bcbio run saved in the package
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- loadRNASeq(uploadDir)
-annotable <- annotable(bcb)
-
 test_that("Class definition", {
     expect_identical(
         slotNames(bcb),
@@ -166,7 +161,7 @@ test_that("transformationLimit", {
     skip <- suppressWarnings(
         loadRNASeq(
             uploadDir = uploadDir,
-            annotable = annotable,
+            annotable = anno,
             transformationLimit = 0L)
     )
     expect_identical(
@@ -177,7 +172,7 @@ test_that("transformationLimit", {
     expect_warning(
             loadRNASeq(
                 uploadDir = uploadDir,
-                annotable = annotable,
+                annotable = anno,
                 transformationLimit = 0L),
         paste(
             "Dataset contains many samples.",
@@ -188,15 +183,14 @@ test_that("transformationLimit", {
         suppressWarnings(
             loadRNASeq(
                 uploadDir = uploadDir,
-                annotable = annotable,
+                annotable = anno,
                 transformationLimit = Inf)
         ),
         "Performing rlog transformation"
     )
 })
 
-test_that("Metadata from the cloud", {
-    sampleMetadataFile <- "http://bcbiornaseq.seq.cloud/sample_metadata.csv"
+test_that("User-defined sample metadata", {
     bcb <- loadRNASeq(
         uploadDir = uploadDir,
         sampleMetadataFile = sampleMetadataFile)

@@ -1,8 +1,6 @@
 context("plotVolcano")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-
+# TODO Define as global
 gene2symbol <- gene2symbol(bcb)
 
 test_that("DESeqResults", {

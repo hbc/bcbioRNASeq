@@ -1,6 +1,6 @@
 context("deprecated")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+# TODO Simplify these tests, using the method in basejump
 
 test_that("download", {
     expect_warning(

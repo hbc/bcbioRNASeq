@@ -1,8 +1,5 @@
 context("plotDEGHeatmap")
 
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
 test_that("plotDEGHeatmap", {
     p <- plotDEGHeatmap(res, counts = rld)
     expect_is(p, "list")

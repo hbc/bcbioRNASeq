@@ -1,9 +1,6 @@
 context("plotGene")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
+# TODO Define these as globals
 genes <- rownames(bcb)[1L:4L]
 gene2symbol <- gene2symbol(bcb)
 

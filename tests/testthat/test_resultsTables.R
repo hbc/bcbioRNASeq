@@ -1,11 +1,5 @@
 context("resultsTables")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-
-annotable <- annotable(bcb)
-lfc <- 0.25
-
 test_that("Default return with local files only", {
     resTbl <- resultsTables(
         res,
@@ -35,7 +29,7 @@ test_that("Summary and write support", {
         resultsTables(
         res,
         lfc = lfc,
-        annotable = annotable,
+        annotable = anno,
         summary = TRUE,
         headerLevel = 2L,
         write = TRUE,
@@ -117,7 +111,7 @@ if (file.exists("token.rds")) {
         resTbl <- resultsTables(
             res,
             lfc = lfc,
-            annotable = annotable,
+            annotable = anno,
             summary = FALSE,
             write = TRUE,
             dir = "resultsTables",

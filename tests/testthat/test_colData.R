@@ -1,7 +1,5 @@
 context("colData")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("bcbioRNASeq", {
     data <- colData(bcb)
     data[["batch"]] <- c(1L, 2L, 1L, 2L)

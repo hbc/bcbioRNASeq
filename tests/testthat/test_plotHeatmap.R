@@ -1,11 +1,7 @@
 context("plotHeatmap")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
+# TODO Define as globals
 gene2symbol <- gene2symbol(bcb)
-plotlist <- c("tree_row", "tree_col", "kmeans", "gtable")
 
 test_that("bcbioRNASeq", {
     genes <- head(rownames(bcb), n = 20L)

@@ -1,8 +1,6 @@
 context("selectSamples")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-
+# TODO Define this as a global
 dim <- c(505L, 2L)
 
 test_that("bcbioRNASeq", {

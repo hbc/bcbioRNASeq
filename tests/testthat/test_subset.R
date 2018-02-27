@@ -1,7 +1,5 @@
 context("subset")
 
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 test_that("Normal gene and sample selection", {
     subset <- bcb[1L:100L, 1L:4L]
     expect_identical(
