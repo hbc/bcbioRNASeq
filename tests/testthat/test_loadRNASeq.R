@@ -1,5 +1,10 @@
 context("loadRNASeq")
 
+# Example dataset currently warns about missing genes (expected)
+bcb <- suppressWarnings(
+    loadRNASeq(uploadDir, ensemblVersion = ensemblVersion)
+)
+
 test_that("Class definition", {
     expect_identical(
         slotNames(bcb),
@@ -83,7 +88,7 @@ test_that("Row data", {
 })
 
 test_that("Metadata", {
-    tibble <- c("tbl_df", "tbl", "data.frame")
+    tbl_df <- c("tbl_df", "tbl", "data.frame")
     path <- c("fs_path", "character")
     expect_identical(
         lapply(metadata(bcb), class),
@@ -97,15 +102,15 @@ test_that("Metadata", {
             interestingGroups = "character",
             organism = "character",
             genomeBuild = "character",
-            ensemblVersion = "NULL",
+            ensemblVersion = "integer",
             annotable = "data.frame",
             tx2gene = "data.frame",
             lanes = "integer",
             yaml = "list",
             metrics = "data.frame",
             sampleMetadataFile = "NULL",
-            dataVersions = tibble,
-            programVersions = tibble,
+            dataVersions = tbl_df,
+            programVersions = tbl_df,
             bcbioLog = "character",
             bcbioCommandsLog = "character",
             allSamples = "logical",
@@ -125,7 +130,7 @@ test_that("Metadata", {
     # Ensembl metadata version should default to `NULL`
     expect_identical(
         metadata(bcb)[["ensemblVersion"]],
-        NULL
+        ensemblVersion
     )
 })
 
