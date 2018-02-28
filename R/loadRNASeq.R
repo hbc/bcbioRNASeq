@@ -329,7 +329,6 @@ loadRNASeq <- function(
 
     # Metadata =================================================================
     # TODO Stash AnnotationHub ID
-    # txi[["countsFromAbundance"]]
     metadata <- list(
         version = packageVersion,
         uploadDir = uploadDir,
@@ -342,6 +341,7 @@ loadRNASeq <- function(
         genomeBuild = genomeBuild,
         ensemblRelease = ensemblRelease,
         tx2gene = tx2gene,
+        countsFromAbundance = countsFromAbundance,
         lanes = lanes,
         yaml = yaml,
         metrics = metrics,
