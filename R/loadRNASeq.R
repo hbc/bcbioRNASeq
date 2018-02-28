@@ -10,7 +10,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump genes readYAML transcripts
+#' @importFrom basejump ensembl readYAML transcripts
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
 #'   readLogFile readProgramVersions readSampleMetadataFile sampleYAMLMetadata
 #'   sampleYAMLMetrics
@@ -214,17 +214,32 @@ loadRNASeq <- function(
 
     # Row data: Gene and transcript annotations ================================
     # TODO Add transcript-level support (for splicing/sleuth analysis)
+    # format = "transcripts"
     if (isTRUE(rowData) && is_a_string(organism)) {
-        # Use GRanges by default
-        rowData <- genes(
+        # ah = AnnotationHub
+        ah <- ensembl(
             organism = organism,
+            format = "genes",
             genomeBuild = genomeBuild,
-            release = ensemblRelease)
+            release = ensemblRelease,
+            return = "GRanges",
+            metadata = TRUE)
+        assert_is_list(ah)
+        assert_are_identical(names(ah), c("data", "metadata"))
+        rowData <- ah[["data"]]
+        assert_is_all_of(rowData, "GRanges")
+        ahMeta <- ah[["metadata"]]
+        assert_all_are_matching_regex(
+            x = ahMeta[["id"]],
+            pattern = "^AH\\d+$"
+        )
     } else if (is.data.frame(rowData)) {
         rowData <- genes(rowData)
+        ahMeta <- NULL
     } else {
         warn("Loading run without annotations")
         rowData <- NULL
+        ahMeta <- NULL
     }
 
     # Sample metrics ===========================================================
@@ -328,7 +343,6 @@ loadRNASeq <- function(
     }
 
     # Metadata =================================================================
-    # TODO Stash AnnotationHub ID
     metadata <- list(
         version = packageVersion,
         uploadDir = uploadDir,
@@ -340,6 +354,7 @@ loadRNASeq <- function(
         organism = organism,
         genomeBuild = genomeBuild,
         ensemblRelease = ensemblRelease,
+        annotationHub = ahMeta,
         tx2gene = tx2gene,
         countsFromAbundance = countsFromAbundance,
         lanes = lanes,

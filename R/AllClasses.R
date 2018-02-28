@@ -104,6 +104,7 @@ setValidity("bcbioRNASeq", function(object) {
         "organism" = "character",
         "genomeBuild" = "character",
         "ensemblVersion" = c("integer", "NULL"),
+        "annotationHub" = c("list", "NULL"),
         "tx2gene" = "data.frame",
         "lanes" = "integer",
         "yaml" = "list",
