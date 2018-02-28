@@ -18,10 +18,13 @@
 #' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 #'
 #' # bcbioRNASeq ====
-#' selectSamples(bcb, group = "ko")
+#' subset <- selectSamples(bcb, group = "ko")
+#' print(subset)
+#' metrics(subset) %>% glimpse()
 #'
 #' # DESeqDataSet ====
-#' selectSamples(dds, group = "ko")
+#' subset <- selectSamples(dds, group = "ko")
+#' print(subset)
 NULL
 
 
