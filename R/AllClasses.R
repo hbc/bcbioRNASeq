@@ -93,7 +93,6 @@ setValidity("bcbioRNASeq", function(object) {
     }
 
     # Metadata
-    # TODO Check for `fs_path` in a future update
     requiredMetadata <- list(
         "version" = "package_version",
         "uploadDir" = "character",
@@ -121,7 +120,6 @@ setValidity("bcbioRNASeq", function(object) {
         "transformationLimit" = c("integer", "numeric"),
         "date" = "Date",
         "wd" = "character",
-        # TODO Switch to simply `sessioninfo::session_info()`
         "utilsSessionInfo" = "sessionInfo",
         "devtoolsSessionInfo" = "session_info",
         "unannotatedGenes" = c("character", "NULL")
@@ -172,6 +170,7 @@ setValidity("bcbioRNASeq", function(object) {
     assert_are_disjoint_sets(
         x = colnames(metadata(object)[["metrics"]]),
         y = legacyMetricsCols)
+    assert_has_rows(metadata(object)[["metrics"]])
 
     # Annotable
     annotable <- metadata(object)[["annotable"]]
