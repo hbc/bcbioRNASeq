@@ -22,6 +22,7 @@
 .tximport <- function(sampleDirs, tx2gene) {
     assert_all_are_dirs(sampleDirs)
     assertIsTx2gene(tx2gene)
+    tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
@@ -63,7 +64,7 @@
     tximport(
         files = sampleFiles,
         type = type,
-        tx2gene = as.data.frame(tx2gene),
+        tx2gene = tx2gene,
         importer = read_tsv,
         countsFromAbundance = countsFromAbundance,
         ignoreTxVersion = TRUE)
