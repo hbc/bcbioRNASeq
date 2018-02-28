@@ -1,3 +1,5 @@
+# TODO Switch to fs methods
+
 #' Import RNA-Seq Counts
 #'
 #' Import RNA-seq counts using [tximport()]. Currently supports
@@ -12,21 +14,26 @@
 #' @importFrom readr read_tsv
 #' @importFrom tximport tximport
 #'
+#' @inheritParams tximport::tximport
+#'
 #' @param sampleDirs Sample directories to import.
-#' @param tx2gene Transcript to gene annotations.
 #'
 #' @seealso
 #' - [tximport::tximport()].
 #'
 #' @return Counts saved in [tximport] list object.
-.tximport <- function(sampleDirs, tx2gene) {
+.tximport <- function(
+    sampleDirs,
+    txIn = TRUE,
+    txOut = FALSE,
+    tx2gene) {
     assert_all_are_dirs(sampleDirs)
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
-        sampleDirs[[1]],
+        path = sampleDirs[[1]],
         full.names = FALSE,
         recursive = FALSE)
 
@@ -38,18 +45,16 @@
         type <- "sailfish"
     }
 
-    # Locate `quant.sf` file for salmon or sailfish output
+    # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        sampleFiles <- list.files(
+        files <- list.files(
             path(sampleDirs, type),
             pattern = "quant.sf",
             full.names = TRUE,
             recursive = TRUE)
     }
-    assert_all_are_existing_files(sampleFiles)
-
-    # Assign names to sample files
-    names(sampleFiles) <- names(sampleDirs)
+    assert_all_are_existing_files(files)
+    names(files) <- names(sampleDirs)
 
     # Begin loading of selected counts
     inform(paste("Reading", type, "counts using tximport"))
@@ -62,10 +67,12 @@
     }
 
     tximport(
-        files = sampleFiles,
+        files = files,
         type = type,
-        tx2gene = tx2gene,
-        importer = read_tsv,
+        txIn = txIn,
+        txOut = txOut,
         countsFromAbundance = countsFromAbundance,
-        ignoreTxVersion = TRUE)
+        tx2gene = tx2gene,
+        ignoreTxVersion = TRUE,
+        importer = read_tsv)
 }
