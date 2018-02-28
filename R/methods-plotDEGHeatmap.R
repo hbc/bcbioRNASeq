@@ -13,8 +13,6 @@
 #' @inherit plotHeatmap
 #'
 #' @param counts Secondary object containing a normalized counts matrix.
-#' @param alpha *Optional* Alpha level cutoff. If missing, the function will
-#'   use the alpha level defined in the object.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
