@@ -95,16 +95,15 @@ setValidity("bcbioRNASeq", function(object) {
     # Metadata
     requiredMetadata <- list(
         "version" = "package_version",
-        "uploadDir" = "character",
-        "sampleDirs" = "character",
-        "projectDir" = "character",
+        "uploadDir" = c("fs_path", "character"),
+        "sampleDirs" = c("fs_path", "character"),
+        "projectDir" = c("fs_path", "character"),
         "template" = "character",
         "runDate" = "Date",
         "interestingGroups" = "character",
         "organism" = "character",
         "genomeBuild" = "character",
         "ensemblVersion" = c("integer", "NULL"),
-        "annotable" = c("data.frame", "NULL"),
         "tx2gene" = "data.frame",
         "lanes" = "integer",
         "yaml" = "list",
@@ -116,10 +115,8 @@ setValidity("bcbioRNASeq", function(object) {
         "bcbioCommandsLog" = "character",
         "allSamples" = "logical",
         "design" = "formula",
-        # Allow user to set `Inf`, which isn't an integer
-        "transformationLimit" = c("integer", "numeric"),
         "date" = "Date",
-        "wd" = "character",
+        "wd" = c("fs_path", "character"),
         "utilsSessionInfo" = "sessionInfo",
         "devtoolsSessionInfo" = "session_info",
         "unannotatedGenes" = c("character", "NULL")
@@ -167,16 +164,15 @@ setValidity("bcbioRNASeq", function(object) {
     }
 
     # Metrics
-    assert_are_disjoint_sets(
-        x = colnames(metadata(object)[["metrics"]]),
-        y = legacyMetricsCols)
-    assert_has_rows(metadata(object)[["metrics"]])
+    metrics <- metadata(object)[["metrics"]]
+    assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
+    assert_has_rows(metrics)
 
-    # Annotable
-    annotable <- metadata(object)[["annotable"]]
-    if (!is.null(annotable)) {
+    # rowData
+    rowData <- rowData(object)
+    if (!is.null(rowData)) {
         # Relax stringency for minimal example
-        assert_is_subset(c("ensgene", "symbol"), colnames(annotable))
+        assert_is_subset(c("ensgene", "symbol"), colnames(rowData))
     }
 
     # Transcript to gene mappings
