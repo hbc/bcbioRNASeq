@@ -112,34 +112,36 @@ test_that("Summary and write support", {
     )
 })
 
-test_that("Dropbox mode", {
-    resTbl <- resultsTables(
-        res,
-        lfc = lfc,
-        annotable = annotable,
-        summary = FALSE,
-        write = TRUE,
-        dir = "resultsTables",
-        dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-        rdsToken = system.file("extdata/token.rds", package = "bcbioRNASeq")
-    )
-    expect_true("dropboxFiles" %in% names(resTbl))
-    # Check for Dropbox URLs
-    expect_true(all(vapply(
-        X = resTbl[["dropboxFiles"]],
-        FUN = function(file) {
-            grepl("^https://www.dropbox.com/s/", file[["url"]])
-        },
-        FUN.VALUE = logical(1L)
-    )))
+if (file.exists("token.rds")) {
+    test_that("Dropbox mode", {
+        resTbl <- resultsTables(
+            res,
+            lfc = lfc,
+            annotable = annotable,
+            summary = FALSE,
+            write = TRUE,
+            dir = "resultsTables",
+            dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
+            rdsToken = "token.rds"
+        )
+        expect_true("dropboxFiles" %in% names(resTbl))
+        # Check for Dropbox URLs
+        expect_true(all(vapply(
+            X = resTbl[["dropboxFiles"]],
+            FUN = function(file) {
+                grepl("^https://www.dropbox.com/s/", file[["url"]])
+            },
+            FUN.VALUE = logical(1L)
+        )))
 
-    # Now check the Markdown code
-    output <- capture.output(.markdownResultsTables(resTbl))
-    # The function currently returns links to 4 DEG files
-    expect_identical(
-        length(which(grepl("https://www.dropbox.com/s/", output))),
-        4L
-    )
-})
+        # Now check the Markdown code
+        output <- capture.output(.markdownResultsTables(resTbl))
+        # The function currently returns links to 4 DEG files
+        expect_identical(
+            length(which(grepl("https://www.dropbox.com/s/", output))),
+            4L
+        )
+    })
+}
 
 unlink("resultsTables", recursive = TRUE)
