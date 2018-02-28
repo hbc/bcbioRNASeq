@@ -19,6 +19,8 @@ build_script:
   - travis-tool.sh bioc_install GenomeInfoDbData
   - travis-tool.sh install_deps
   - travis-tool.sh install_github mikelove/tximport
+  - travis-tool.sh install_github hbc/bcbioBase@develop
+  - travis-tool.sh install_github steinbaugh/basejump@develop
 
 test_script:
   - travis-tool.sh run_tests
