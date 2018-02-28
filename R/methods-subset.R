@@ -158,7 +158,7 @@ NULL
     }
     # Metrics
     metadata[["metrics"]] <- metadata[["metrics"]] %>%
-        .[.[["sampleID"]] %in% samples, , drop = FALSE] %>%
+        .[samples, , drop = FALSE] %>%
         rownames_to_column() %>%
         mutate_if(is.character, as.factor) %>%
         mutate_if(is.factor, droplevels) %>%
