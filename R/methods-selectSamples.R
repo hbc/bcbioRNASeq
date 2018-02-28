@@ -36,7 +36,6 @@ NULL
 
     # Match the arguments against the sample metadata
     metadata <- sampleMetadata(object)
-    assert_is_data.frame(metadata)
 
     list <- lapply(seq_along(arguments), function(a) {
         column <- names(arguments)[[a]]
