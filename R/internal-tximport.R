@@ -1,5 +1,3 @@
-# TODO Switch to fs methods
-
 #' Import RNA-Seq Counts
 #'
 #' Import RNA-seq counts using [tximport()]. Currently supports
@@ -10,13 +8,15 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom fs path
+#' @importFrom fs dir_ls path
 #' @importFrom readr read_tsv
 #' @importFrom tximport tximport
 #'
 #' @inheritParams tximport::tximport
 #'
 #' @param sampleDirs Sample directories to import.
+#' @param type *Optional.* Manually specify the expression caller to use.
+#'   If `NULL`, if defaults to our preferred priority.
 #'
 #' @seealso
 #' - [tximport::tximport()].
@@ -24,33 +24,46 @@
 #' @return Counts saved in [tximport] list object.
 .tximport <- function(
     sampleDirs,
+    type = NULL,
     txIn = TRUE,
     txOut = FALSE,
     tx2gene) {
     assert_all_are_dirs(sampleDirs)
+    assertIsAStringOrNULL(type)
+    if (is_a_string(type)) {
+        assert_is_subset(type, validCallers)
+    }
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(
+    subdirs <- dir_ls(
         path = sampleDirs[[1]],
-        full.names = FALSE,
+        type = "directory",
         recursive = FALSE)
+    assert_are_intersecting_sets(basename(subdirs), validCallers)
 
-    assert_are_intersecting_sets(c("salmon", "sailfish"), subdirs)
-    # Salmon takes priority over sailfish
-    if ("salmon" %in% subdirs) {
-        type <- "salmon"
-    } else if ("sailfish" %in% subdirs) {
-        type <- "sailfish"
+    # Set the default priority if caller isn't specified
+    if (!is_a_string(type)) {
+        if ("salmon" %in% basename(subdirs)) {
+            type <- "salmon"
+        } else if ("kallisto" %in% basename(subdirs)) {
+            type <- "kallisto"
+        } else if ("sailfish" %in% basename(subdirs)) {
+            type <- "sailfish"
+        }
     }
 
     # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        files <- list.files(
-            path(sampleDirs, type),
+        files <- dir_ls(
+            path = path(sampleDirs, type),
             pattern = "quant.sf",
-            full.names = TRUE,
+            recursive = TRUE)
+    } else if (type == "kallisto") {
+        files <- dir_ls(
+            path = path(sampleDirs, type),
+            pattern = "abundance.h5",
             recursive = TRUE)
     }
     assert_all_are_existing_files(files)
@@ -59,12 +72,9 @@
     # Begin loading of selected counts
     inform(paste("Reading", type, "counts using tximport"))
 
-    # Import the counts (https://goo.gl/h6fm15)
-    if (type %in% c("salmon", "sailfish")) {
-        countsFromAbundance <- "lengthScaledTPM"
-    } else {
-        countsFromAbundance <- "no"
-    }
+    # Import the counts as length-scaled transcripts per million
+    # https://goo.gl/h6fm15
+    countsFromAbundance <- "lengthScaledTPM"
 
     tximport(
         files = files,
