@@ -175,7 +175,8 @@ setValidity("bcbioRNASeq", function(object) {
     # Annotable
     annotable <- metadata(object)[["annotable"]]
     if (!is.null(annotable)) {
-        assertIsAnnotable(annotable)
+        # Relax stringency for minimal example
+        assert_is_subset(c("ensgene", "symbol"), colnames(annotable))
     }
 
     # Transcript to gene mappings
