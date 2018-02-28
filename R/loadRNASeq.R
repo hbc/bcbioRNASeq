@@ -1,6 +1,3 @@
-# TODO Add support for transcript-level, aligner (e.g. STAR), and GRanges.
-# Consider upgrading to RangedSummarizedExperiment.
-
 #' Load bcbio RNA-Seq Data
 #'
 #' Simply point to the final upload directory output by
@@ -21,9 +18,11 @@
 #' @importFrom stats formula
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
+#' @importFrom utils packageVersion
 #'
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
+#' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
@@ -63,6 +62,9 @@
 #'   Details. Use `Inf` to always apply transformations and `0` to always skip.
 #' @param design DESeq2 design formula. Empty by default. Can be updated after
 #'   initial data loading using the [design()] function.
+#' @param caller *Optional.* If multiple expression callers were used in the
+#'   bcbio run, the desired one can be manually specified here. Supports
+#'   "`salmon`" (default), "`kallisto`", or "`sailfish`".
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -79,10 +81,17 @@
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#' bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+#'
+#' # Gene level
+#' bcb <- loadRNASeq(uploadDir, level = "genes")
+#' print(bcb)
+#'
+#' # Transcript level
+#' bcb <- loadRNASeq(uploadDir, level = "transcripts")
 #' print(bcb)
 loadRNASeq <- function(
     uploadDir,
+    level = "genes",
     interestingGroups = "sampleName",
     sampleMetadataFile = NULL,
     samples = NULL,
@@ -92,6 +101,7 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     transformationLimit = 50L,
     design = NULL,
+    caller = NULL,
     ...) {
     dots <- list(...)
 
@@ -112,6 +122,8 @@ loadRNASeq <- function(
 
     # Assert checks ============================================================
     assert_all_are_dirs(uploadDir)
+    assert_is_a_string(level)
+    assert_is_subset(level, c("genes", "transcripts"))
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
@@ -122,6 +134,10 @@ loadRNASeq <- function(
     assert_is_a_number(transformationLimit)
     assert_all_are_non_negative(transformationLimit)
     assert_is_any_of(design, c("formula", "NULL"))
+    assertIsAStringOrNULL(caller)
+    if (is_a_string(caller)) {
+        assert_is_subset(caller, validCallers)
+    }
 
     # Directory paths ==========================================================
     uploadDir <- path_real(uploadDir)
@@ -213,13 +229,11 @@ loadRNASeq <- function(
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Row data: Gene and transcript annotations ================================
-    # TODO Add transcript-level support (for splicing/sleuth analysis)
-    # format = "transcripts"
     if (isTRUE(rowData) && is_a_string(organism)) {
         # ah = AnnotationHub
         ah <- ensembl(
             organism = organism,
-            format = "genes",
+            format = level,
             genomeBuild = genomeBuild,
             release = ensemblRelease,
             return = "GRanges",
@@ -234,7 +248,9 @@ loadRNASeq <- function(
             pattern = "^AH\\d+$"
         )
     } else if (is.data.frame(rowData)) {
-        rowData <- genes(rowData)
+        # Get the `genes()` or `transcripts()` function
+        fxn <- get(level, inherits = FALSE, envir = asNamespace("basejump"))
+        rowData <- fxn(rowData, format = level)
         ahMeta <- NULL
     } else {
         warn("Loading run without annotations")
@@ -281,12 +297,22 @@ loadRNASeq <- function(
     assert_is_character(bcbioCommandsLog)
 
     # tximport =================================================================
+    if (level == "transcripts") {
+        txOut = TRUE
+    } else {
+        txOut = FALSE
+    }
     # Attempt to use `tx2gene.csv` saved in project directory
     tx2gene <- .tx2gene(
         projectDir = projectDir,
         organism = organism,
         release = ensemblRelease)
-    txi <- .tximport(sampleDirs, tx2gene = tx2gene)
+    txi <- .tximport(
+        sampleDirs = sampleDirs,
+        type = caller,
+        txIn = TRUE,
+        txOut = txOut,
+        tx2gene = tx2gene)
     # abundance = transcripts per million (TPM)
     # counts = raw counts
     # length = average transcript length
@@ -314,32 +340,39 @@ loadRNASeq <- function(
         mutate_all(droplevels) %>%
         column_to_rownames()
 
-    # DESeqDataSet =============================================================
-    inform("Generating internal DESeqDataSet")
-    if (!is(design, "formula")) {
-        design <- formula(~1)  # nolint
-    }
-    dds <- DESeqDataSetFromTximport(
-        txi = txi,
-        colData = colData,
-        design = design)
-    # Suppressing warnings here for empty design formula
-    dds <- suppressWarnings(DESeq(dds))
-    normalizedCounts <- counts(dds, normalized = TRUE)
-
-    # Variance stabilizing transformations =====================================
-    if (nrow(colData) > transformationLimit) {
-        warn(paste(
-            "Dataset contains many samples.",
-            "Skipping DESeq2 variance stabilization."
+    # Gene-level specific calculations =========================================
+    if (level == "genes") {
+        inform(paste(
+            "Generating internal DESeqDataSet using DESeq2",
+            packageVersion("DESeq2")
         ))
+        if (!is(design, "formula")) {
+            design <- formula(~1)  # nolint
+        }
+        dds <- DESeqDataSetFromTximport(
+            txi = txi,
+            colData = colData,
+            design = design)
+        # Suppressing warnings here for empty design formula (`~1`)
+        dds <- suppressWarnings(DESeq(dds))
+        # Variance stabilizing transformations
+        if (nrow(colData) > transformationLimit) {
+            warn(paste(
+                "Dataset contains many samples.",
+                "Skipping variance stabilizing transformations."
+            ))
+            rlog <- NULL
+            vst <- NULL
+        } else {
+            inform("Performing rlog transformation")
+            rlog <- rlog(dds)
+            inform("Performing variance stabilizing transformation")
+            vst <- varianceStabilizingTransformation(dds)
+        }
+    } else {
+        dds <- NULL
         rlog <- NULL
         vst <- NULL
-    } else {
-        inform("Performing rlog transformation")
-        rlog <- rlog(dds)
-        inform("Performing variance stabilizing transformation")
-        vst <- varianceStabilizingTransformation(dds)
     }
 
     # Metadata =================================================================
@@ -373,14 +406,16 @@ loadRNASeq <- function(
     }
 
     # Prepare SummarizedExperiment =============================================
+    assays = list(
+        raw = counts,
+        tpm = tpm,
+        length = length,
+        dds = dds,
+        rlog = rlog,
+        vst = vst)
+    # NULL assays will be dropped automatically in the prepare call below
     se <- prepareSummarizedExperiment(
-        assays = list(
-            raw = counts,
-            tpm = tpm,
-            length = length,
-            dds = dds,
-            rlog = rlog,
-            vst = vst),
+        assays = assays,
         rowData = rowData,
         colData = colData,
         metadata = metadata)

@@ -4,14 +4,16 @@
 \alias{loadRNASeq}
 \title{Load bcbio RNA-Seq Data}
 \usage{
-loadRNASeq(uploadDir, interestingGroups = "sampleName",
+loadRNASeq(uploadDir, level = "genes", interestingGroups = "sampleName",
   sampleMetadataFile = NULL, samples = NULL, rowData = TRUE,
   organism = NULL, ensemblRelease = NULL, genomeBuild = NULL,
-  transformationLimit = 50L, design = NULL, ...)
+  transformationLimit = 50L, design = NULL, caller = NULL, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
 running \code{bcbio_nextgen -w template}.}
+
+\item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 
 \item{interestingGroups}{Character vector of interesting groups. First entry
 is used for plot colors during quality control (QC) analysis. Entire vector
@@ -61,6 +63,10 @@ Details. Use \code{Inf} to always apply transformations and \code{0} to always s
 \item{design}{DESeq2 design formula. Empty by default. Can be updated after
 initial data loading using the \code{\link[=design]{design()}} function.}
 
+\item{caller}{\emph{Optional.} If multiple expression callers were used in the
+bcbio run, the desired one can be manually specified here. Supports
+"\code{salmon}" (default), "\code{kallisto}", or "\code{sailfish}".}
+
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
@@ -84,7 +90,13 @@ run directory as a remote connection over
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
+
+# Gene level
+bcb <- loadRNASeq(uploadDir, level = "genes")
+print(bcb)
+
+# Transcript level
+bcb <- loadRNASeq(uploadDir, level = "transcripts")
 print(bcb)
 }
 \author{
