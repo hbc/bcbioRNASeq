@@ -75,7 +75,7 @@ NULL
     colData <- uniteInterestingGroups(colData, interestingGroups)
 
     # Load the relevant internal gender markers data
-    markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
+    markers <- bcbioRNASeq::genderMarkers
     assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
@@ -92,8 +92,9 @@ NULL
         as.data.frame() %>%
         set_rownames(.[["ensgene"]])
     assertIsGene2symbol(gene2symbol)
-    genes <- gene2symbol[["ensgene"]]
-    assert_is_subset(genes, rownames(object))
+    genes <- gene2symbol[["ensgene"]] %>%
+        .[. %in% rownames(object)]
+    assert_is_non_empty(genes)
 
     plotGene(
         object = object,
