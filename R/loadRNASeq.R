@@ -137,7 +137,8 @@ loadRNASeq <- function(
     # Project summary YAML =====================================================
     yamlFile <- path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
-    yaml <- readYAML(yamlFile)
+    # TODO Safe to remove `as.character` once basejump is updated
+    yaml <- readYAML(as.character(yamlFile))
     assert_is_list(yaml)
 
     # Sample metadata ==========================================================
