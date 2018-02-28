@@ -35,9 +35,6 @@ plotDEGHeatmap(object, counts, ...)
 gene symbols.}
 
 \item{title}{Title.}
-
-\item{alpha}{\emph{Optional} Alpha level cutoff. If missing, the function will
-use the alpha level defined in the object.}
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
