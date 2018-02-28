@@ -8,7 +8,7 @@ files <- c(
 mapply(
     FUN = function(cacheURL, file, envir) {
         # Download file to testthat directory
-        if (!file_exists(file)) {
+        if (!file.exists(file)) {
             download.file(
                 url = paste(cacheURL, file, sep = "/"),
                 destfile = file)
