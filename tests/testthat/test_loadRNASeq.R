@@ -1,7 +1,7 @@
 context("loadRNASeq")
 
 # Example dataset currently warns about missing genes (expected)
-bcb <- loadRNASeq(uploadDir, ensemblVersion = ensemblVersion)
+bcb <- loadRNASeq(uploadDir, ensemblRelease = ensemblRelease)
 
 test_that("Class definition", {
     expect_identical(
@@ -100,7 +100,7 @@ test_that("Metadata", {
             interestingGroups = "character",
             organism = "character",
             genomeBuild = "character",
-            ensemblVersion = "integer",
+            ensemblRelease = "integer",
             annotable = "data.frame",
             tx2gene = "data.frame",
             lanes = "integer",
@@ -127,17 +127,20 @@ test_that("Metadata", {
     )
     # Ensembl metadata version should default to `NULL`
     expect_identical(
-        metadata(bcb)[["ensemblVersion"]],
-        ensemblVersion
+        metadata(bcb)[["ensemblRelease"]],
+        ensemblRelease
     )
 })
 
+# FIXME We're sunsetting the bcbio slot in favor of picking the caller on load
 test_that("bcbio", {
     expect_identical(
         lapply(slot(bcb, "bcbio"), class),
-        list(tximport = "list",
-             DESeqDataSet = structure("DESeqDataSet", package = "DESeq2"),
-             featureCounts = "matrix")
+        list(
+            tximport = "list",
+            DESeqDataSet = structure("DESeqDataSet", package = "DESeq2"),
+            featureCounts = "matrix"
+        )
     )
 })
 
