@@ -121,7 +121,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    lpantano/DEGreport
+    lpantano/DEGreport,
     hbc/bcbioBase@develop,
     steinbaugh/basejump@develop
 biocViews:
