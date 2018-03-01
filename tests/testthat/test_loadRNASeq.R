@@ -118,7 +118,7 @@ test_that("Metadata", {
             wd = path,
             utilsSessionInfo = "sessionInfo",
             devtoolsSessionInfo = "session_info",
-            unannotatedGenes = "character")
+            unannotatedRows = "character")
     )
     # Interesting groups should default to `sampleName`
     expect_identical(

@@ -120,7 +120,7 @@ setValidity("bcbioRNASeq", function(object) {
         "wd" = c("fs_path", "character"),
         "utilsSessionInfo" = "sessionInfo",
         "devtoolsSessionInfo" = "session_info",
-        "unannotatedGenes" = c("character", "NULL")
+        "unannotatedRows" = c("character", "NULL")
     )
 
     # Inform the user about renamed metadata slots
