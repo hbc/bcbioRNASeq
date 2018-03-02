@@ -8,6 +8,7 @@
 \alias{loadRNASeqRun}
 \alias{plotGeneHeatmap}
 \alias{txi}
+\alias{annotable}
 \title{Deprecated Functions}
 \usage{
 download()
@@ -21,6 +22,8 @@ loadRNASeqRun()
 plotGeneHeatmap(...)
 
 txi(object)
+
+annotable(...)
 }
 \arguments{
 \item{...}{Additional arguments.}

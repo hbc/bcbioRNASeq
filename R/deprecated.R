@@ -58,3 +58,13 @@ txi <- function(object) {
     .Deprecated("bcbio(object, \"tximport\")")
     bcbio(object, "tximport")
 }
+
+
+
+# v0.2.0 =======================================================================
+#' @rdname deprecated
+#' @export
+annotable <- function(...) {
+    .Deprecated("rowData")
+    rowData(...)
+}
