@@ -36,6 +36,7 @@
 #' @importFrom assertive is_a_string
 #' @importFrom assertive is_positive
 #'
+#' @importFrom basejump assertAreGeneAnnotations
 #' @importFrom basejump assertFormalAnnotationCol
 #' @importFrom basejump assertIsHexColorFunctionOrNULL
 #' @importFrom basejump assertFormalGene2symbol
@@ -43,7 +44,6 @@
 #' @importFrom basejump assertIsAStringOrNULL
 #' @importFrom basejump assertIsAnImplicitInteger
 #' @importFrom basejump assertIsAnImplicitIntegerOrNULL
-#' @importFrom basejump assertIsAnnotable
 #' @importFrom basejump assertIsCharacterOrNULL
 #' @importFrom basejump assertIsImplicitInteger
 #' @importFrom basejump assertIsGene2symbol
