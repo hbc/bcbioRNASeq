@@ -11,10 +11,10 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
-#' @param annotable Join Ensembl gene annotations to the results. Apply gene
-#'   identifier to symbol mappings. A previously saved annotable [data.frame]
-#'   is recommended. Alternatively if set `NULL`, then gene annotations will
-#'   not be added to the results.
+#' @param rowData Join Ensembl gene/transcript annotations to the results. Apply
+#'   gene identifier to symbol mappings. A previously saved rowData data frame
+#'   is recommended. Alternatively if set `NULL`, then gene annotations will not
+#'   be added to the results.
 #' @param summary Show summary statistics.
 #' @param headerLevel R Markdown header level. Applies only when
 #'   `summary = TRUE`.
@@ -31,13 +31,13 @@
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' annotable <- annotable(bcb)
+#' rowData <- rowData(bcb)
 #'
 #' # DESeqResults ====
 #' resTbl <- resultsTables(
 #'     res,
 #'     lfc = 0.25,
-#'     annotable = annotable,
+#'     rowData = rowData,
 #'     summary = TRUE,
 #'     headerLevel = 2L,
 #'     write = TRUE,
@@ -118,8 +118,8 @@ NULL
 
 
 
-#' @importFrom basejump annotable camel initializeDirectory markdownHeader
-#'   markdownList sanitizeAnnotable snake
+#' @importFrom basejump camel initializeDirectory markdownHeader markdownList
+#'   sanitizeRowData snake
 #' @importFrom bcbioBase copyToDropbox
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom fs path
@@ -129,7 +129,7 @@ NULL
 .resultsTables.DESeqResults <- function(  # nolint
     object,
     lfc = 0L,
-    annotable = NULL,
+    rowData = NULL,
     summary = TRUE,
     headerLevel = 2L,
     write = FALSE,
@@ -140,7 +140,7 @@ NULL
     assert_is_all_of(object, "DESeqResults")
     assert_is_a_number(lfc)
     assert_all_are_non_negative(lfc)
-    assert_is_any_of(annotable, c("data.frame", "NULL"))
+    assert_is_any_of(rowData, c("data.frame", "NULL"))
     assert_is_a_bool(summary)
     assert_is_a_bool(write)
     dir <- initializeDirectory(dir)
@@ -160,13 +160,10 @@ NULL
         camel(strict = FALSE) %>%
         arrange(!!sym("ensgene"))
 
-    # Add Ensembl gene annotations (annotable), if desired
-    if (is.data.frame(annotable)) {
-        assertIsAnnotable(annotable)
-        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
-        # save when `write = TRUE`.
-        annotable <- sanitizeAnnotable(annotable)
-        all <- left_join(all, annotable, by = "ensgene")
+    # Add Ensembl gene/transcript annotations (rowData), if desired
+    if (!is.null(rowData)) {
+        rowData <- sanitizeRowData(sanitizeRowData)
+        all <- left_join(all, rowData, by = "ensgene")
     }
 
     # Check for overall gene expression with base mean

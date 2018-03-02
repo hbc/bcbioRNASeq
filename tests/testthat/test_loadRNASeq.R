@@ -1,6 +1,5 @@
 context("loadRNASeq")
 
-# Example dataset currently warns about missing genes (expected)
 bcb <- loadRNASeq(uploadDir, ensemblRelease = ensemblRelease)
 
 test_that("Class definition", {
@@ -101,7 +100,6 @@ test_that("Metadata", {
             organism = "character",
             genomeBuild = "character",
             ensemblRelease = "integer",
-            annotable = "data.frame",
             tx2gene = "data.frame",
             lanes = "integer",
             yaml = "list",
@@ -167,7 +165,7 @@ test_that("transformationLimit", {
     skip <- suppressWarnings(
         loadRNASeq(
             uploadDir = uploadDir,
-            annotable = anno,
+            rowData = rowData(bcb),
             transformationLimit = 0L)
     )
     expect_identical(
@@ -178,7 +176,7 @@ test_that("transformationLimit", {
     expect_warning(
             loadRNASeq(
                 uploadDir = uploadDir,
-                annotable = anno,
+                rowData = rowData(bcb),
                 transformationLimit = 0L),
         paste(
             "Dataset contains many samples.",
@@ -189,7 +187,7 @@ test_that("transformationLimit", {
         suppressWarnings(
             loadRNASeq(
                 uploadDir = uploadDir,
-                annotable = anno,
+                rowData = rowData(bcb),
                 transformationLimit = Inf)
         ),
         "Performing rlog transformation"

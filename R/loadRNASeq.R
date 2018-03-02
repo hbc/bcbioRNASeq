@@ -105,7 +105,7 @@ loadRNASeq <- function(
     ...) {
     dots <- list(...)
 
-    # Remap arguments ==========================================================
+    # Remap legacy arguments ===================================================
     # annotable = rowData
     if ("annotable" %in% names(dots)) {
         warn("`annotable` is deprecated in favor of `rowData`")

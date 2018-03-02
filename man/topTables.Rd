@@ -30,12 +30,13 @@ Top Tables of Differential Expression Results
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
 
-annotable <- annotable(bcb)
+rowData <- rowData(bcb)
 resTbl <- resultsTables(
     res,
-    annotable = annotable,
+    rowData = rowData,
     summary = FALSE,
     write = FALSE)
+
 topTables(resTbl)
 }
 \author{

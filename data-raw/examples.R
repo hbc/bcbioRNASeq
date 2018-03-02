@@ -7,6 +7,7 @@ loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v2/bcb_all.rda")
 bcb <- selectSamples(bcb_all, day = c(0L, 7L))
 
 # Fix metadata slots that take up too much disk space
+# TODO Switch to GenomicRanges
 metadata(bcb)$annotable <- metadata(bcb)$annotable[, c("ensgene", "symbol")]
 metadata(bcb)$bcbioCommandsLog <- ""
 metadata(bcb)$bcbioLog <- ""

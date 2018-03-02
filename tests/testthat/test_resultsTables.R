@@ -29,7 +29,7 @@ test_that("Summary and write support", {
         resultsTables(
         res,
         lfc = lfc,
-        annotable = anno,
+        rowData = rowData(bcb),
         summary = TRUE,
         headerLevel = 2L,
         write = TRUE,
@@ -111,7 +111,7 @@ if (file.exists("token.rds")) {
         resTbl <- resultsTables(
             res,
             lfc = lfc,
-            annotable = anno,
+            rowData = rowData(bcb),
             summary = FALSE,
             write = TRUE,
             dir = "resultsTables",

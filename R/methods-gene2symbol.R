@@ -27,11 +27,10 @@ setMethod(
     "gene2symbol",
     signature("bcbioRNASeq"),
     function(object) {
-        data <- annotable(object)
-        assertIsAnnotable(data)
+        x <- rowData(object)
         cols <- c("ensgene", "symbol")
-        assert_is_subset(cols, colnames(data))
-        data <- data[, cols, drop = FALSE]
-        assertIsGene2symbol(data)
-        data
+        assert_is_subset(cols, colnames(x))
+        x <- x[, cols, drop = FALSE]
+        assertIsGene2symbol(x)
+        x
     })
