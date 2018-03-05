@@ -33,6 +33,7 @@
 #' @importFrom assertive assert_is_subset
 #' @importFrom assertive assert_is_tbl_df
 #' @importFrom assertive assert_is_vector
+#' @importFrom assertive has_dims
 #' @importFrom assertive is_a_string
 #' @importFrom assertive is_positive
 #'
