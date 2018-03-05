@@ -1,20 +1,19 @@
 #' Column Data
 #'
-#' @description
-#' Improved assignment method support for [bcbioRNASeq] object.
+#' Improved assignment method support for a `bcbioRNASeq` object.
 #'
-#' This method support will also update the `colData` inside the `bcbio` and
-#' `assays` slots.
+#' This method support will also update the nested [colData()] inside the
+#' `assays` slot.
 #'
-#' @rdname colData
 #' @name colData
+#'
+#' @importFrom SummarizedExperiment colData colData<-
 #'
 #' @inheritParams general
 #'
-#' @seealso
-#' `help("colData", "SummarizedExperiment")`
+#' @seealso `help("colData", "SummarizedExperiment")`
 #'
-#' @return `DataFrame`.
+#' @return `DataFrame` or `data.frame`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -30,7 +29,6 @@
 #' colData(bcb) %>% glimpse()
 #'
 #' # These internal objects will also get updated
-#' bcbio(bcb, "DESeqDataSet") %>% colData() %>% glimpse()
 #' assays(bcb)[["rlog"]] %>% colData() %>% glimpse()
 #' assays(bcb)[["vst"]] %>% colData() %>% glimpse()
 NULL
