@@ -11,9 +11,12 @@
 }
 \arguments{
 \item{x}{Object.}
+
+\item{return}{Return as "\code{DataFrame}", "\code{data.frame}", or unmodified
+("\code{AsIs}").}
 }
 \value{
-\code{DataFrame} or \code{data.frame}.
+Data describing the rows of the object.
 }
 \description{
 Row Data

@@ -17,12 +17,14 @@
 \arguments{
 \item{x}{Object.}
 
+\item{return}{Return as "\code{DataFrame}" or "\code{data.frame}".}
+
 \item{...}{Additional arguments.}
 
 \item{value}{Value to assign.}
 }
 \value{
-\code{DataFrame} or \code{data.frame}.
+Data describing the columns of the object.
 }
 \description{
 Improved assignment method support for a \code{bcbioRNASeq} object.

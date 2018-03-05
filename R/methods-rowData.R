@@ -6,9 +6,12 @@
 #'
 #' @inheritParams general
 #'
-#' @seealso `help("rowData", "SummarizedExperiment")`
+#' @param return Return as "`DataFrame`", "`data.frame`", or unmodified
+#'   ("`AsIs`").
 #'
-#' @return `DataFrame` or `data.frame`.
+#' @return Data describing the rows of the object.
+#'
+#' @seealso `help("rowData", "SummarizedExperiment")`
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
