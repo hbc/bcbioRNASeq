@@ -11,10 +11,10 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
-#' @param annotable Join Ensembl gene annotations to the results. Apply gene
-#'   identifier to symbol mappings. A previously saved annotable [data.frame]
-#'   is recommended. Alternatively if set `NULL`, then gene annotations will
-#'   not be added to the results.
+#' @param rowData Join Ensembl gene annotations to the results. Apply gene
+#'   identifier to symbol mappings. A previously saved `data.frame` is
+#'   recommended. Alternatively if set `NULL`, then gene annotations will not be
+#'   added to the results.
 #' @param summary Show summary statistics.
 #' @param headerLevel R Markdown header level. Applies only when
 #'   `summary = TRUE`.
@@ -26,18 +26,18 @@
 #'   package.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
-#' @return Results [list].
+#' @return Results `list`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' annotable <- annotable(bcb)
+#' rowData <- rowData(bcb)
 #'
 #' # DESeqResults ====
 #' resTbl <- resultsTables(
 #'     res,
 #'     lfc = 0.25,
-#'     annotable = annotable,
+#'     rowData = rowData,
 #'     summary = TRUE,
 #'     headerLevel = 2L,
 #'     write = TRUE,
@@ -86,7 +86,8 @@ NULL
             FUN = function(x) {
                 x[["url"]]
             },
-            FUN.VALUE = "character")
+            FUN.VALUE = "character"
+        )
         basenames <- basename(paths) %>%
             gsub("\\?.*$", "", .)
     } else if ("localFiles" %in% names(object)) {
@@ -100,26 +101,30 @@ NULL
         paste0(
             "[`",basenames[["all"]], "`]",
             "(", paths[["all"]], "): ",
-            "All genes, sorted by Ensembl identifier."),
+            "All genes, sorted by Ensembl identifier."
+        ),
         paste0(
             "[`", basenames[["deg"]], "`]",
             "(", paths[["deg"]], "): ",
-            "Genes that pass the alpha (FDR) cutoff."),
+            "Genes that pass the alpha (FDR) cutoff."
+        ),
         paste0(
             "[`", basenames[["degLFCUp"]], "`]",
             "(", paths[["degLFCUp"]], "): ",
-            "Upregulated DEG; positive log2 fold change."),
+            "Upregulated DEG; positive log2 fold change."
+        ),
         paste0(
             "[`", basenames[["degLFCDown"]], "`]",
             "(", paths[["degLFCDown"]], "): ",
-            "Downregulated DEG; negative log2 fold change.")
+            "Downregulated DEG; negative log2 fold change."
+        )
     ), asis = TRUE)
 }
 
 
 
-#' @importFrom basejump annotable camel initializeDirectory markdownHeader
-#'   markdownList sanitizeAnnotable snake
+#' @importFrom basejump camel initializeDirectory markdownHeader markdownList
+#'   sanitizeRowData snake
 #' @importFrom bcbioBase copyToDropbox
 #' @importFrom dplyr arrange desc left_join
 #' @importFrom fs path
@@ -129,18 +134,23 @@ NULL
 .resultsTables.DESeqResults <- function(  # nolint
     object,
     lfc = 0L,
-    annotable = NULL,
+    rowData = NULL,
     summary = TRUE,
     headerLevel = 2L,
     write = FALSE,
-    dir = getwd(),
+    dir = ".",
     dropboxDir = NULL,
-    rdsToken = NA) {
+    rdsToken = NULL
+) {
+    # Legacy parameters ========================================================
+    # FIXME Catch `annotable` and pass to `rowData`
+
+    # Assert checks ============================================================
     # Passthrough: headerLevel, dropboxDir, rdsToken
     assert_is_all_of(object, "DESeqResults")
     assert_is_a_number(lfc)
     assert_all_are_non_negative(lfc)
-    assert_is_any_of(annotable, c("data.frame", "NULL"))
+    assert_is_any_of(rowData, c("data.frame", "NULL"))
     assert_is_a_bool(summary)
     assert_is_a_bool(write)
     dir <- initializeDirectory(dir)
@@ -160,13 +170,16 @@ NULL
         camel(strict = FALSE) %>%
         arrange(!!sym("ensgene"))
 
-    # Add Ensembl gene annotations (annotable), if desired
-    if (is.data.frame(annotable)) {
-        assertIsAnnotable(annotable)
-        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail to
-        # save when `write = TRUE`.
-        annotable <- sanitizeAnnotable(annotable)
-        all <- left_join(all, annotable, by = "ensgene")
+    # Add Ensembl gene annotations (rowData), if desired
+    if (has_dims(rowData)) {
+        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail
+        # to save when `write = TRUE`.
+        rowData <- sanitizeRowData(rowData)
+        all <- left_join(
+            x = all,
+            y = as.data.frame(rowData),
+            by = "ensgene"
+        )
     }
 
     # Check for overall gene expression with base mean
@@ -199,7 +212,8 @@ NULL
         "deg" = deg,
         "degLFC" = degLFC,
         "degLFCUp" = degLFCUp,
-        "degLFCDown" = degLFCDown)
+        "degLFCDown" = degLFCDown
+    )
 
     if (isTRUE(summary)) {
         markdownHeader("Summary statistics", level = headerLevel, asis = TRUE)
@@ -219,8 +233,9 @@ NULL
         tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
 
         # Local files (required) ===============================================
-        # Local file paths
-        localFiles <- path(dir, paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+        localFiles <- path(
+            dir,
+            paste0(fileStem, "_", snake(tibbles), ".csv.gz")
         )
         names(localFiles) <- tibbles
 
@@ -246,7 +261,8 @@ NULL
             dropboxFiles <- copyToDropbox(
                 files = localFiles,
                 dir = dropboxDir,
-                rdsToken = rdsToken)
+                rdsToken = rdsToken
+            )
             assert_is_list(dropboxFiles)
             list[["dropboxFiles"]] <- dropboxFiles
         }
@@ -266,4 +282,5 @@ NULL
 setMethod(
     "resultsTables",
     signature("DESeqResults"),
-    .resultsTables.DESeqResults)
+    .resultsTables.DESeqResults
+)
