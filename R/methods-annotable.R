@@ -25,7 +25,7 @@ NULL
 setMethod(
     "annotable",
     signature("bcbioRNASeq"),
-    function(object) {
+    function(object, ...) {
         .Deprecated("rowData")
-        rowData(object)
+        rowData(x = object, ...)
     })
