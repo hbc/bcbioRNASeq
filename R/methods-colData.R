@@ -14,10 +14,13 @@
 #' @seealso
 #' `help("colData", "SummarizedExperiment")`
 #'
-#' @return [DataFrame].
+#' @return `DataFrame`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#'
+#' # Return as data.frame
+#' colData(bcb, return = "data.frame")
 #'
 #' # Assignment support
 #' colData <- colData(bcb)
@@ -35,6 +38,14 @@ NULL
 
 
 # Constructors =================================================================
+.colData <- function(x, return = c("DataFrame", "data.frame")) {
+    return <- match.arg(return)
+    slot(x, "colData") %>%
+        as(return)
+}
+
+
+
 #' @importFrom basejump sanitizeColData
 `.colData<-` <- function(x, ..., value) {
     assert_are_identical(colnames(x), rownames(value))
@@ -60,6 +71,17 @@ NULL
 
 
 
+# Methods ======================================================================
+#' @rdname colData
+#' @export
+setMethod(
+    "colData",
+    signature("bcbioRNASeq"),
+    .colData
+)
+
+
+
 # Assignment Methods ===========================================================
 #' @rdname colData
 #' @export
@@ -69,7 +91,8 @@ setMethod(
         x = "bcbioRNASeq",
         value = "data.frame"
     ),
-    `.colData<-`)
+    `.colData<-`
+)
 
 
 
@@ -81,4 +104,5 @@ setMethod(
         x = "bcbioRNASeq",
         value = "DataFrame"
     ),
-    `.colData<-`)
+    `.colData<-`
+)

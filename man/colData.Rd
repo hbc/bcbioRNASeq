@@ -3,10 +3,13 @@
 \docType{methods}
 \name{colData}
 \alias{colData}
+\alias{colData,bcbioRNASeq-method}
 \alias{colData<-,bcbioRNASeq,data.frame-method}
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \title{Column Data}
 \usage{
+\S4method{colData}{bcbioRNASeq}(x, return = c("DataFrame", "data.frame"))
+
 \S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
 
 \S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
@@ -19,7 +22,7 @@
 \item{value}{Value to assign.}
 }
 \value{
-\link{DataFrame}.
+\code{DataFrame}.
 }
 \description{
 Improved assignment method support for \link{bcbioRNASeq} object.
@@ -29,6 +32,9 @@ This method support will also update the \code{colData} inside the \code{bcbio} 
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+
+# Return as data.frame
+colData(bcb, return = "data.frame")
 
 # Assignment support
 colData <- colData(bcb)
