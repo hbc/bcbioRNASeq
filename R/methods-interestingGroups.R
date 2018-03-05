@@ -30,7 +30,8 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         metadata(object)[["interestingGroups"]]
-    })
+    }
+)
 
 
 
@@ -40,12 +41,14 @@ setMethod(
     "interestingGroups<-",
     signature(
         object = "bcbioRNASeq",
-        value = "character"),
+        value = "character"
+    ),
     function(object, value) {
         assertFormalInterestingGroups(
-            x = sampleMetadata(object),
+            x = colData(object),
             interestingGroups = value)
         metadata(object)[["interestingGroups"]] <- value
         validObject(object)
         object
-    })
+    }
+)

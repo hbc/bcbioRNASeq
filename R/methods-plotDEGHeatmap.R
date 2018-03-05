@@ -24,7 +24,7 @@
 #'
 #' # Use our stashed gene2symbol
 #' gene2symbol <- gene2symbol(bcb)
-#' annotationCol <- sampleMetadata(bcb) %>%
+#' annotationCol <- colData(bcb) %>%
 #'     .[, interestingGroups(bcb), drop = FALSE]
 #'
 #' # DESeqResults, DESeqTransform ====

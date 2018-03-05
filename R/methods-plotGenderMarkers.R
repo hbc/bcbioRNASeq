@@ -140,7 +140,7 @@ setMethod(
             object = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
-            colData = sampleMetadata(object),
+            colData = colData(object),
             countsAxisLabel = normalized,
             color = color,
             title = title)
@@ -168,7 +168,7 @@ setMethod(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = sampleMetadata(object),
+            colData = colData(object),
             countsAxisLabel = "log2 normalized counts",
             color = color,
             title = title)
@@ -202,7 +202,7 @@ setMethod(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = sampleMetadata(object),
+            colData = colData(object),
             countsAxisLabel = countsAxisLabel,
             color = color,
             title = title)
