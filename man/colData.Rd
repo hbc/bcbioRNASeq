@@ -22,13 +22,14 @@
 \item{value}{Value to assign.}
 }
 \value{
-\code{DataFrame}.
+\code{DataFrame} or \code{data.frame}.
 }
 \description{
-Improved assignment method support for \link{bcbioRNASeq} object.
-
-This method support will also update the \code{colData} inside the \code{bcbio} and
-\code{assays} slots.
+Improved assignment method support for a \code{bcbioRNASeq} object.
+}
+\details{
+This method support will also update the nested \code{\link[=colData]{colData()}} inside the
+\code{assays} slot.
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -44,7 +45,6 @@ colData(bcb) <- colData
 colData(bcb) \%>\% glimpse()
 
 # These internal objects will also get updated
-bcbio(bcb, "DESeqDataSet") \%>\% colData() \%>\% glimpse()
 assays(bcb)[["rlog"]] \%>\% colData() \%>\% glimpse()
 assays(bcb)[["vst"]] \%>\% colData() \%>\% glimpse()
 }

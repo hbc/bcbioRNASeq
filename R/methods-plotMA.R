@@ -32,7 +32,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump annotable camel detectOrganism
+#' @importFrom basejump camel detectOrganism
 #' @importFrom dplyr filter pull
 #' @importFrom ggplot2 aes_ annotation_logticks geom_point ggtitle guides labs
 #'   scale_color_manual scale_x_log10

@@ -44,7 +44,7 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump annotable camel
+#' @importFrom basejump camel
 #' @importFrom BiocGenerics density
 #' @importFrom cowplot draw_plot ggdraw
 #' @importFrom dplyr arrange desc left_join mutate pull

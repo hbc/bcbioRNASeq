@@ -9,9 +9,9 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = NULL,
-  summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  dropboxDir = NULL, rdsToken = NA)
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, rowData = NULL,
+  summary = TRUE, headerLevel = 2L, write = FALSE, dir = ".",
+  dropboxDir = NULL, rdsToken = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,10 +24,10 @@ See \code{\link[=results]{results()}} for additional information about using \co
 \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.}
 
-\item{annotable}{Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved annotable \link{data.frame}
-is recommended. Alternatively if set \code{NULL}, then gene annotations will
-not be added to the results.}
+\item{rowData}{Join Ensembl gene annotations to the results. Apply gene
+identifier to symbol mappings. A previously saved \code{data.frame} is
+recommended. Alternatively if set \code{NULL}, then gene annotations will not be
+added to the results.}
 
 \item{summary}{Show summary statistics.}
 
@@ -46,7 +46,7 @@ package.}
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
 }
 \value{
-Results \link{list}.
+Results \code{list}.
 }
 \description{
 Differential Expression Results Tables
@@ -54,13 +54,13 @@ Differential Expression Results Tables
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-annotable <- annotable(bcb)
+rowData <- rowData(bcb)
 
 # DESeqResults ====
 resTbl <- resultsTables(
     res,
     lfc = 0.25,
-    annotable = annotable,
+    rowData = rowData,
     summary = TRUE,
     headerLevel = 2L,
     write = TRUE,

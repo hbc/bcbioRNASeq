@@ -36,7 +36,7 @@
             ) %>%
             set_rownames(.[["enstxp"]])
     } else {
-        # Fall back to using annotable tx2gene
+        # Fall back to querying Ensembl
         warn(paste(
             "tx2gene.csv file missing.",
             "Attempting to generate tx2gene from Ensembl instead."
