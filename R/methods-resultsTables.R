@@ -140,10 +140,16 @@ NULL
     write = FALSE,
     dir = ".",
     dropboxDir = NULL,
-    rdsToken = NULL
+    rdsToken = NULL,
+    ...
 ) {
-    # Legacy parameters ========================================================
-    # FIXME Catch `annotable` and pass to `rowData`
+    # Legacy argument matches ==================================================
+    call <- match.call(expand.dots = TRUE)
+    # rowData : annotable
+    if ("annotable" %in% names(call)) {
+        warn("Use `rowData` instead of `annotable`")
+        rowData <- call[["annotable"]]
+    }
 
     # Assert checks ============================================================
     # Passthrough: headerLevel, dropboxDir, rdsToken
