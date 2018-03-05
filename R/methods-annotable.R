@@ -26,8 +26,6 @@ setMethod(
     "annotable",
     signature("bcbioRNASeq"),
     function(object) {
-        data <- rowData(object)
-        assert_is_non_empty(data)
-        rownames(data) <- slot(object, "NAMES")
-        as.data.frame(data)
+        .Deprecated("rowData")
+        rowData(object)
     })
