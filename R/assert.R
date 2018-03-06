@@ -1,6 +1,5 @@
 #' Assert Checks
 #'
-#' @rdname assert
 #' @name assert
 #'
 #' @importFrom assertive assert_all_are_dirs
@@ -26,6 +25,7 @@
 #' @importFrom assertive assert_is_character
 #' @importFrom assertive assert_is_data.frame
 #' @importFrom assertive assert_is_factor
+#' @importFrom assertive assert_is_formula
 #' @importFrom assertive assert_is_list
 #' @importFrom assertive assert_is_matrix
 #' @importFrom assertive assert_is_non_empty
