@@ -23,16 +23,19 @@
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
+#' @param caller *Optional.* If multiple expression callers were used in the
+#'   bcbio run, the desired one can be manually specified here. Supports
+#'   "`salmon`" (default), "`kallisto`", or "`sailfish`".
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
-#' @param sampleMetadataFile *Optional.* Custom metadata file containing
-#'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file. Remote URLs are supported. Typically this can be left `NULL`.
 #' @param samples *Optional.* Specify a subset of samples to load. The names
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
 #'   selection. Typically this can be left `NULL`.
+#' @param sampleMetadataFile *Optional.* Custom metadata file containing
+#'   sample information. Otherwise defaults to sample metadata saved in the YAML
+#'   file. Remote URLs are supported. Typically this can be left `NULL`.
 #' @param rowData *Recommended.* User-defined gene or transcript annotations
 #'   that match the rownames of the counts matrix. If set `TRUE` (default), the
 #'   annotations will be obtained automatically fron Ensembl using AnnotationHub
@@ -40,6 +43,8 @@
 #'   If set `NULL`, then [rowData()] inside the resulting [bcbioRNASeq] object
 #'   will be left empty. This is recommended for projects dealing with genes or
 #'   transcripts that are poorly annotated.
+#' @param isSpike Genes or transcripts corresponding to FASTA spike-in
+#'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
 #' @param organism *Optional.* Organism name. Use the full latin name (e.g.
 #'   "Homo sapiens"). Normally this can be left `NULL`, and the function will
 #'   detect the organism from the gene identifiers present in the rownames of
@@ -55,16 +60,13 @@
 #'   manually (e.g. "GRCh37" for the older *Homo sapiens* reference genome).
 #'   Note that this must match the genome build identifier on Ensembl for
 #'   annotations to download correctly.
+#' @param design DESeq2 design formula. Empty by default. Can be updated after
+#'   initial data loading using the [design()] function.
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   It is not generally recommended to change this value. For large datasets,
 #'   DESeq2 will take a really long time applying variance stabilization. See
 #'   Details. Use `Inf` to always apply transformations and `0` to always skip.
-#' @param design DESeq2 design formula. Empty by default. Can be updated after
-#'   initial data loading using the [design()] function.
-#' @param caller *Optional.* If multiple expression callers were used in the
-#'   bcbio run, the desired one can be manually specified here. Supports
-#'   "`salmon`" (default), "`kallisto`", or "`sailfish`".
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -91,17 +93,18 @@
 #' print(bcb)
 loadRNASeq <- function(
     uploadDir,
-    level = "genes",
+    level = c("genes", "transcripts"),
+    caller = c("salmon", "kallisto", "sailfish"),
     interestingGroups = "sampleName",
-    sampleMetadataFile = NULL,
     samples = NULL,
+    sampleMetadataFile = NULL,
     rowData = TRUE,
+    isSpike = NULL,
     organism = NULL,
     ensemblRelease = NULL,
     genomeBuild = NULL,
+    design = formula(~1),
     transformationLimit = 50L,
-    design = NULL,
-    caller = NULL,
     ...) {
     dots <- list(...)
 
@@ -122,18 +125,18 @@ loadRNASeq <- function(
 
     # Assert checks ============================================================
     assert_all_are_dirs(uploadDir)
-    assert_is_a_string(level)
-    assert_is_subset(level, c("genes", "transcripts"))
+    level <- match.arg(level, choices = c("genes", "transcripts"))
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
     assert_is_any_of(rowData, c("data.frame", "logical", "NULL"))
+    assertIsCharacterOrNULL(isSpike)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
     assert_is_a_number(transformationLimit)
     assert_all_are_non_negative(transformationLimit)
-    assert_is_any_of(design, c("formula", "NULL"))
+    assert_is_formula(design)
     assertIsAStringOrNULL(caller)
     if (is_a_string(caller)) {
         assert_is_subset(caller, validCallers)
