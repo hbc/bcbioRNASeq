@@ -4,10 +4,12 @@
 \alias{loadRNASeq}
 \title{Load bcbio RNA-Seq Data}
 \usage{
-loadRNASeq(uploadDir, level = "genes", interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, samples = NULL, rowData = TRUE,
+loadRNASeq(uploadDir, level = c("genes", "transcripts"),
+  caller = c("salmon", "kallisto", "sailfish"),
+  interestingGroups = "sampleName", samples = NULL,
+  sampleMetadataFile = NULL, rowData = TRUE, isSpike = NULL,
   organism = NULL, ensemblRelease = NULL, genomeBuild = NULL,
-  transformationLimit = 50L, design = NULL, caller = NULL, ...)
+  design = formula(~1), transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -15,18 +17,22 @@ running \code{bcbio_nextgen -w template}.}
 
 \item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 
+\item{caller}{\emph{Optional.} If multiple expression callers were used in the
+bcbio run, the desired one can be manually specified here. Supports
+"\code{salmon}" (default), "\code{kallisto}", or "\code{sailfish}".}
+
 \item{interestingGroups}{Character vector of interesting groups. First entry
 is used for plot colors during quality control (QC) analysis. Entire vector
 is used for PCA and heatmap QC functions.}
-
-\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
-sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
 selection. Typically this can be left \code{NULL}.}
+
+\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
 \item{rowData}{\emph{Recommended.} User-defined gene or transcript annotations
 that match the rownames of the counts matrix. If set \code{TRUE} (default), the
@@ -35,6 +41,9 @@ and ensembleb. These values are accessible with the \code{\link[=rowData]{rowDat
 If set \code{NULL}, then \code{\link[=rowData]{rowData()}} inside the resulting \link{bcbioRNASeq} object
 will be left empty. This is recommended for projects dealing with genes or
 transcripts that are poorly annotated.}
+
+\item{isSpike}{Genes or transcripts corresponding to FASTA spike-in
+sequences (e.g. ERCCs, EGFP, TDTOMATO).}
 
 \item{organism}{\emph{Optional.} Organism name. Use the full latin name (e.g.
 "Homo sapiens"). Normally this can be left \code{NULL}, and the function will
@@ -54,18 +63,14 @@ manually (e.g. "GRCh37" for the older \emph{Homo sapiens} reference genome).
 Note that this must match the genome build identifier on Ensembl for
 annotations to download correctly.}
 
+\item{design}{DESeq2 design formula. Empty by default. Can be updated after
+initial data loading using the \code{\link[=design]{design()}} function.}
+
 \item{transformationLimit}{Maximum number of samples to calculate
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
 It is not generally recommended to change this value. For large datasets,
 DESeq2 will take a really long time applying variance stabilization. See
 Details. Use \code{Inf} to always apply transformations and \code{0} to always skip.}
-
-\item{design}{DESeq2 design formula. Empty by default. Can be updated after
-initial data loading using the \code{\link[=design]{design()}} function.}
-
-\item{caller}{\emph{Optional.} If multiple expression callers were used in the
-bcbio run, the desired one can be manually specified here. Supports
-"\code{salmon}" (default), "\code{kallisto}", or "\code{sailfish}".}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
