@@ -36,7 +36,8 @@ geneMedianLine <- stat_summary(
     fun.ymax = median,
     geom = "crossbar",
     show.legend = FALSE,
-    width = 0.5)
+    width = 0.5
+)
 
 
 
@@ -61,7 +62,8 @@ qcPassLine <- function(intercept) {
         color = qcPassColor,
         linetype = qcLineType,
         size = qcLineSize,
-        yintercept = intercept)
+        yintercept = intercept
+    )
 }
 
 
@@ -75,5 +77,6 @@ qcWarnLine <- function(intercept) {
         color = qcWarnColor,
         linetype = qcLineType,
         size = qcLineSize,
-        yintercept = intercept)
+        yintercept = intercept
+    )
 }
