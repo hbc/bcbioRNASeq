@@ -17,7 +17,7 @@
 #' - Server run paths.
 #' - R local environment information, including [sessionInfo()].
 #'
-#' @slot bcbio [SimpleList] containing additional bcbio run data with dimensions
+#' @slot bcbio `SimpleList` containing additional bcbio run data with dimensions
 #' that don't match the count matrix. This is currently used to store STAR
 #' featureCounts aligned counts.
 #'
@@ -31,9 +31,6 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
-#' # We're suppressing warnings about missing log files in our minimal
-#' # dataset, which end up in the Travis CI logs. This isn't recommended
-#' # for a typical bcbio run.
 #' bcb <- loadRNASeq(uploadDir)
 #' print(bcb)
 #'
@@ -42,7 +39,7 @@
 bcbioRNASeq <- setClass(
     "bcbioRNASeq",
     contains = "SummarizedExperiment",
-    slots = c(bcbio = "SimpleList")
+    slots = c("bcbio" = "SimpleList")
 )
 
 
