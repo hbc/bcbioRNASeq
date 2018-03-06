@@ -21,13 +21,14 @@
 #' @seealso
 #' - [tximport::tximport()].
 #'
-#' @return Counts saved in [tximport] list object.
+#' @return `list` containing count matrices.
 .tximport <- function(
     sampleDirs,
     type = NULL,
     txIn = TRUE,
     txOut = FALSE,
-    tx2gene) {
+    tx2gene
+) {
     assert_all_are_dirs(sampleDirs)
     assertIsAStringOrNULL(type)
     if (is_a_string(type)) {
@@ -40,7 +41,8 @@
     subdirs <- dir_ls(
         path = sampleDirs[[1]],
         type = "directory",
-        recursive = FALSE)
+        recursive = FALSE
+    )
     assert_are_intersecting_sets(basename(subdirs), validCallers)
 
     # Set the default priority if caller isn't specified
@@ -58,13 +60,17 @@
     if (type %in% c("salmon", "sailfish")) {
         files <- dir_ls(
             path = path(sampleDirs, type),
-            pattern = "quant.sf",
-            recursive = TRUE)
+            recursive = TRUE,
+            type = "file",
+            glob = "quant.sf"
+        )
     } else if (type == "kallisto") {
         files <- dir_ls(
             path = path(sampleDirs, type),
-            pattern = "abundance.h5",
-            recursive = TRUE)
+            recursive = TRUE,
+            type = "file",
+            glob = "abundance.h5"
+        )
     }
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
@@ -84,5 +90,6 @@
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
         ignoreTxVersion = TRUE,
-        importer = read_tsv)
+        importer = read_tsv
+    )
 }

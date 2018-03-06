@@ -3,7 +3,7 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom fs path_real
+#' @importFrom fs dir_ls path_real
 #'
 #' @param uploadDir Upload directory.
 #'
@@ -12,14 +12,18 @@
 #' @noRd
 .sampleDirs <- function(uploadDir) {
     assert_all_are_dirs(uploadDir)
-    subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
+    subdirs <- dir_ls(
+        path = uploadDir,
+        type = "directory",
+        recursive = FALSE
+    )
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%
         paste0("^", ., "$")
-    sampleDirs <- list.files(
-        subdirs,
-        pattern = subdirPattern,
-        full.names = TRUE,
-        recursive = FALSE)
+    sampleDirs <- dir_ls(
+        path = subdirs,
+        recursive = FALSE,
+        regexp = subdirPattern
+    )
     assert_is_non_empty(sampleDirs)
     sampleDirs <- sampleDirs %>%
         dirname() %>%
