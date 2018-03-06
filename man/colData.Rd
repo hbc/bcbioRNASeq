@@ -3,10 +3,13 @@
 \docType{methods}
 \name{colData}
 \alias{colData}
+\alias{colData,bcbioRNASeq-method}
 \alias{colData<-,bcbioRNASeq,data.frame-method}
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \title{Column Data}
 \usage{
+\S4method{colData}{bcbioRNASeq}(x, return = c("DataFrame", "data.frame"))
+
 \S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
 
 \S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
@@ -14,21 +17,27 @@
 \arguments{
 \item{x}{Object.}
 
+\item{return}{Return as "\code{DataFrame}" or "\code{data.frame}".}
+
 \item{...}{Additional arguments.}
 
 \item{value}{Value to assign.}
 }
 \value{
-\link{DataFrame}.
+Data describing the columns of the object.
 }
 \description{
-Improved assignment method support for \link{bcbioRNASeq} object.
-
-This method support will also update the \code{colData} inside the \code{bcbio} and
-\code{assays} slots.
+Improved assignment method support for a \code{bcbioRNASeq} object.
+}
+\details{
+This method support will also update the nested \code{\link[=colData]{colData()}} inside the
+\code{assays} slot.
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+
+# Return as data.frame
+colData(bcb, return = "data.frame")
 
 # Assignment support
 colData <- colData(bcb)
@@ -38,7 +47,6 @@ colData(bcb) <- colData
 colData(bcb) \%>\% glimpse()
 
 # These internal objects will also get updated
-bcbio(bcb, "DESeqDataSet") \%>\% colData() \%>\% glimpse()
 assays(bcb)[["rlog"]] \%>\% colData() \%>\% glimpse()
 assays(bcb)[["vst"]] \%>\% colData() \%>\% glimpse()
 }

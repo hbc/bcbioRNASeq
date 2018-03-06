@@ -35,8 +35,8 @@ resTbl <- resultsTables(
     res,
     rowData = rowData,
     summary = FALSE,
-    write = FALSE)
-
+    write = FALSE
+)
 topTables(resTbl)
 }
 \author{

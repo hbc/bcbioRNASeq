@@ -30,7 +30,7 @@ setMethod(
         assert_is_data.frame(metrics)
         assert_are_identical(colnames(object), rownames(metrics))
 
-        metadata <- sampleMetadata(object)
+        metadata <- colData(object)
         assert_is_data.frame(metadata)
         assert_are_identical(rownames(metrics), rownames(metadata))
 

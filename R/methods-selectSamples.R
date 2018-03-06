@@ -38,7 +38,7 @@ NULL
     invisible(lapply(arguments, assert_is_vector))
 
     # Match the arguments against the sample metadata
-    metadata <- sampleMetadata(object)
+    metadata <- colData(object)
 
     list <- lapply(seq_along(arguments), function(a) {
         column <- names(arguments)[[a]]

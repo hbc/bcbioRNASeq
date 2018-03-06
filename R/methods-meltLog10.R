@@ -80,7 +80,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = sampleMetadata(object)
+            metadata = colData(object)
         )
     })
 
@@ -96,7 +96,7 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = sampleMetadata(object)
+            metadata = colData(object)
         )
     })
 
@@ -110,6 +110,6 @@ setMethod(
     function(object) {
         .joinMelt(
             counts = assay(object),
-            metadata = sampleMetadata(object)
+            metadata = colData(object)
         )
     })

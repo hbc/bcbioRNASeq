@@ -6,13 +6,13 @@
 \alias{bcbioRNADataSet}
 \title{bcbioRNADataSet Object Class (Legacy)}
 \description{
-This class has been superceded by \link{bcbioRNASeq} and will be formally
+This class has been superceded by \code{bcbioRNASeq} and will be formally
 deprecated in a future release.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{callers}}{\link{SimpleList} containing additional bcbio run data with
+\item{\code{callers}}{\code{SimpleList} containing additional bcbio run data with
 dimensions that don't match the count matrix.}
 }}
 

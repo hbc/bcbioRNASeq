@@ -108,17 +108,18 @@ loadRNASeq <- function(
     ...) {
     dots <- list(...)
 
-    # Remap legacy arguments ===================================================
-    # annotable = rowData
-    if ("annotable" %in% names(dots)) {
-        warn("`annotable` is deprecated in favor of `rowData`")
-        rowData <- dots[["annotable"]]
+    # Legacy argument matches ==================================================
+    call <- match.call(expand.dots = TRUE)
+    # rowData : annotable
+    if ("annotable" %in% names(call)) {
+        warn("Use `rowData` instead of `annotable`")
+        rowData <- call[["annotable"]]
         dots[["annotable"]] <- NULL
     }
-    # ensemblVersion = ensemblRelease
-    if ("ensemblVersion" %in% names(dots)) {
-        warn("`ensemblVersion` is deprecated in favor of `ensemblRelease`")
-        ensemblRelease <- dots[["ensemblVersion"]]
+    # ensemblRelease : ensemblVersion
+    if ("ensemblVersion" %in% names(call)) {
+        warn("Use `ensemblRelease` instead of `ensemblVersion`")
+        ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
     dots <- Filter(Negate(is.null), dots)

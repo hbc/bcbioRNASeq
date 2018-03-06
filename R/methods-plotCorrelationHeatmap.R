@@ -182,7 +182,7 @@ setMethod(
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         assertFormalInterestingGroups(
-            x = sampleMetadata(object),
+            x = colData(object),
             interestingGroups = interestingGroups)
 
         # Don't set annotation columns if we're only grouping by sample name

@@ -21,8 +21,8 @@
 #'     res,
 #'     rowData = rowData,
 #'     summary = FALSE,
-#'     write = FALSE)
-#'
+#'     write = FALSE
+#' )
 #' topTables(resTbl)
 NULL
 
@@ -35,7 +35,8 @@ NULL
 .subsetTop <- function(
     object,
     n = 50L,
-    coding = FALSE) {
+    coding = FALSE
+) {
     assert_is_data.frame(object)
     assert_has_colnames(object)
     assert_has_rows(object)
@@ -71,7 +72,10 @@ NULL
     if ("description" %in% colnames(return)) {
         # Remove symbol information in description, if present
         return[["description"]] <- gsub(
-            " \\[.+\\]$", "", return[["description"]])
+            pattern = " \\[.+\\]$",
+            replacement = "",
+            x = return[["description"]]
+        )
     }
 
     return %>%
@@ -85,7 +89,8 @@ NULL
 .topTables.list <- function(  # nolint
     object,
     n = 50L,
-    coding = FALSE) {
+    coding = FALSE
+) {
     # Passthrough: n, coding
     assert_is_list(object)
     assert_is_subset(
@@ -96,11 +101,13 @@ NULL
     up <- .subsetTop(
         object[["degLFCUp"]],
         n = n,
-        coding = coding)
+        coding = coding
+    )
     down <- .subsetTop(
         object[["degLFCDown"]],
         n = n,
-        coding = coding)
+        coding = coding
+    )
     contrastName <- object[["contrast"]]
     if (!is.null(up)) {
         show(kable(
@@ -124,4 +131,5 @@ NULL
 setMethod(
     "topTables",
     signature("list"),
-    .topTables.list)
+    .topTables.list
+)

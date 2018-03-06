@@ -27,10 +27,11 @@ setMethod(
     "gene2symbol",
     signature("bcbioRNASeq"),
     function(object) {
-        x <- rowData(object)
+        data <- rowData(object, return = "data.frame")
         cols <- c("ensgene", "symbol")
-        assert_is_subset(cols, colnames(x))
-        x <- x[, cols, drop = FALSE]
-        assertIsGene2symbol(x)
-        x
-    })
+        assert_is_subset(cols, colnames(data))
+        data[, cols, drop = FALSE]
+        assertIsGene2symbol(data)
+        data
+    }
+)

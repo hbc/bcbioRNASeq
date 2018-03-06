@@ -25,7 +25,7 @@ The \code{metadata} accessor contains:
 \section{Slots}{
 
 \describe{
-\item{\code{bcbio}}{\link{SimpleList} containing additional bcbio run data with dimensions
+\item{\code{bcbio}}{\code{SimpleList} containing additional bcbio run data with dimensions
 that don't match the count matrix. This is currently used to store STAR
 featureCounts aligned counts.}
 }}
@@ -33,9 +33,6 @@ featureCounts aligned counts.}
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
-# We're suppressing warnings about missing log files in our minimal
-# dataset, which end up in the Travis CI logs. This isn't recommended
-# for a typical bcbio run.
 bcb <- loadRNASeq(uploadDir)
 print(bcb)
 

@@ -11,10 +11,10 @@
 #'   See [results()] for additional information about using `lfcThreshold` and
 #'   `altHypothesis` to set an alternative hypothesis based on expected fold
 #'   changes.
-#' @param rowData Join Ensembl gene/transcript annotations to the results. Apply
-#'   gene identifier to symbol mappings. A previously saved rowData data frame
-#'   is recommended. Alternatively if set `NULL`, then gene annotations will not
-#'   be added to the results.
+#' @param rowData Join Ensembl gene annotations to the results. Apply gene
+#'   identifier to symbol mappings. A previously saved `data.frame` is
+#'   recommended. Alternatively if set `NULL`, then gene annotations will not be
+#'   added to the results.
 #' @param summary Show summary statistics.
 #' @param headerLevel R Markdown header level. Applies only when
 #'   `summary = TRUE`.
@@ -26,7 +26,7 @@
 #'   package.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
-#' @return Results [list].
+#' @return Results `list`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -86,7 +86,8 @@ NULL
             FUN = function(x) {
                 x[["url"]]
             },
-            FUN.VALUE = "character")
+            FUN.VALUE = "character"
+        )
         basenames <- basename(paths) %>%
             gsub("\\?.*$", "", .)
     } else if ("localFiles" %in% names(object)) {
@@ -100,19 +101,23 @@ NULL
         paste0(
             "[`",basenames[["all"]], "`]",
             "(", paths[["all"]], "): ",
-            "All genes, sorted by Ensembl identifier."),
+            "All genes, sorted by Ensembl identifier."
+        ),
         paste0(
             "[`", basenames[["deg"]], "`]",
             "(", paths[["deg"]], "): ",
-            "Genes that pass the alpha (FDR) cutoff."),
+            "Genes that pass the alpha (FDR) cutoff."
+        ),
         paste0(
             "[`", basenames[["degLFCUp"]], "`]",
             "(", paths[["degLFCUp"]], "): ",
-            "Upregulated DEG; positive log2 fold change."),
+            "Upregulated DEG; positive log2 fold change."
+        ),
         paste0(
             "[`", basenames[["degLFCDown"]], "`]",
             "(", paths[["degLFCDown"]], "): ",
-            "Downregulated DEG; negative log2 fold change.")
+            "Downregulated DEG; negative log2 fold change."
+        )
     ), asis = TRUE)
 }
 
@@ -133,9 +138,20 @@ NULL
     summary = TRUE,
     headerLevel = 2L,
     write = FALSE,
-    dir = getwd(),
+    dir = ".",
     dropboxDir = NULL,
-    rdsToken = NA) {
+    rdsToken = NULL,
+    ...
+) {
+    # Legacy argument matches ==================================================
+    call <- match.call(expand.dots = TRUE)
+    # rowData : annotable
+    if ("annotable" %in% names(call)) {
+        warn("Use `rowData` instead of `annotable`")
+        rowData <- call[["annotable"]]
+    }
+
+    # Assert checks ============================================================
     # Passthrough: headerLevel, dropboxDir, rdsToken
     assert_is_all_of(object, "DESeqResults")
     assert_is_a_number(lfc)
@@ -160,10 +176,16 @@ NULL
         camel(strict = FALSE) %>%
         arrange(!!sym("ensgene"))
 
-    # Add Ensembl gene/transcript annotations (rowData), if desired
-    if (!is.null(rowData)) {
-        rowData <- sanitizeRowData(sanitizeRowData)
-        all <- left_join(all, rowData, by = "ensgene")
+    # Add Ensembl gene annotations (rowData), if desired
+    if (has_dims(rowData)) {
+        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail
+        # to save when `write = TRUE`.
+        rowData <- sanitizeRowData(rowData)
+        all <- left_join(
+            x = all,
+            y = as.data.frame(rowData),
+            by = "ensgene"
+        )
     }
 
     # Check for overall gene expression with base mean
@@ -196,7 +218,8 @@ NULL
         "deg" = deg,
         "degLFC" = degLFC,
         "degLFCUp" = degLFCUp,
-        "degLFCDown" = degLFCDown)
+        "degLFCDown" = degLFCDown
+    )
 
     if (isTRUE(summary)) {
         markdownHeader("Summary statistics", level = headerLevel, asis = TRUE)
@@ -216,8 +239,9 @@ NULL
         tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
 
         # Local files (required) ===============================================
-        # Local file paths
-        localFiles <- path(dir, paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+        localFiles <- path(
+            dir,
+            paste0(fileStem, "_", snake(tibbles), ".csv.gz")
         )
         names(localFiles) <- tibbles
 
@@ -243,7 +267,8 @@ NULL
             dropboxFiles <- copyToDropbox(
                 files = localFiles,
                 dir = dropboxDir,
-                rdsToken = rdsToken)
+                rdsToken = rdsToken
+            )
             assert_is_list(dropboxFiles)
             list[["dropboxFiles"]] <- dropboxFiles
         }
@@ -263,4 +288,5 @@ NULL
 setMethod(
     "resultsTables",
     signature("DESeqResults"),
-    .resultsTables.DESeqResults)
+    .resultsTables.DESeqResults
+)
