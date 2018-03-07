@@ -6,6 +6,14 @@ setGeneric("alphaSummary", function(object, ...) {
 
 
 
+#' @rdname contrastName
+#' @export
+setGeneric("contrastName", function(object, ...) {
+    standardGeneric("contrastName")
+})
+
+
+
 #' @rdname meltLog10
 #' @export
 setGeneric("meltLog10", function(object, ...) {
