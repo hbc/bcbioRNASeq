@@ -1,14 +1,17 @@
-#' Detect Sample Directories
+#' Sample Directories
 #'
 #' @author Michael Steinbaugh
-#' @keywords internal
 #'
-#' @param uploadDir Upload directory.
+#' @param uploadDir bcbio run upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
 #'   will abort if no sample directories match.
-#' @noRd
-.sampleDirs <- function(uploadDir) {
+#' @export
+#'
+#' @examples
+#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+#' sampleDirs(uploadDir)
+sampleDirs <- function(uploadDir) {
     assert_all_are_dirs(uploadDir)
     subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%

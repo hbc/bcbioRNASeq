@@ -155,7 +155,7 @@ loadRNASeq <- function(
     template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
     assert_all_are_dirs(projectDir)
-    sampleDirs <- .sampleDirs(uploadDir)
+    sampleDirs <- sampleDirs(uploadDir)
     assert_all_are_dirs(sampleDirs)
 
     # Sequencing lanes =========================================================
