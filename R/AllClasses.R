@@ -92,9 +92,9 @@ setValidity("bcbioRNASeq", function(object) {
     # Metadata
     requiredMetadata <- list(
         "version" = "package_version",
-        "uploadDir" = c("fs_path", "character"),
-        "sampleDirs" = c("fs_path", "character"),
-        "projectDir" = c("fs_path", "character"),
+        "uploadDir" = "character",
+        "sampleDirs" = "character",
+        "projectDir" = "character",
         "template" = "character",
         "runDate" = "Date",
         "interestingGroups" = "character",
@@ -114,7 +114,7 @@ setValidity("bcbioRNASeq", function(object) {
         "allSamples" = "logical",
         "design" = "formula",
         "date" = "Date",
-        "wd" = c("fs_path", "character"),
+        "wd" = "character",
         "utilsSessionInfo" = "sessionInfo",
         "devtoolsSessionInfo" = "session_info",
         "unannotatedRows" = c("character", "NULL")

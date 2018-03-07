@@ -8,7 +8,6 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom fs dir_ls path
 #' @importFrom readr read_tsv
 #' @importFrom tximport tximport
 #'
@@ -38,11 +37,7 @@
     tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
-    subdirs <- dir_ls(
-        path = sampleDirs[[1]],
-        type = "directory",
-        recursive = FALSE
-    )
+    subdirs <- list.dirs(sampleDirs[[1]], full.names = TRUE, recursive = FALSE)
     assert_are_intersecting_sets(basename(subdirs), validCallers)
 
     # Set the default priority if caller isn't specified
@@ -58,18 +53,18 @@
 
     # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        files <- dir_ls(
-            path = path(sampleDirs, type),
-            recursive = TRUE,
-            type = "file",
-            glob = "quant.sf"
+        files <- list.files(
+            path = file.path(sampleDirs, type),
+            pattern = "quant.sf",
+            full.names = TRUE,
+            recursive = TRUE
         )
     } else if (type == "kallisto") {
-        files <- dir_ls(
-            path = path(sampleDirs, type),
-            recursive = TRUE,
-            type = "file",
-            glob = "abundance.h5"
+        files <- list.files(
+            path = file.path(sampleDirs, type),
+            pattern = "abundance.h5",
+            full.names = TRUE,
+            recursive = TRUE
         )
     }
     assert_all_are_existing_files(files)

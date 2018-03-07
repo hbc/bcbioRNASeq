@@ -14,7 +14,6 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_all pull
-#' @importFrom fs file_exists path path_real
 #' @importFrom stats formula
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -105,7 +104,8 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     design = formula(~1),
     transformationLimit = 50L,
-    ...) {
+    ...
+) {
     dots <- list(...)
 
     # Legacy argument matches ==================================================
@@ -144,18 +144,19 @@ loadRNASeq <- function(
     }
 
     # Directory paths ==========================================================
-    uploadDir <- path_real(uploadDir)
-    projectDir <- dir(
-        uploadDir,
+    uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
+    projectDir <- list.files(
+        path = uploadDir,
         pattern = projectDirPattern,
         full.names = FALSE,
-        recursive = FALSE)
+        recursive = FALSE
+    )
     assert_is_a_string(projectDir)
     inform(projectDir)
     match <- str_match(projectDir, projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
-    projectDir <- path(uploadDir, projectDir)
+    projectDir <- file.path(uploadDir, projectDir)
     assert_all_are_dirs(projectDir)
     sampleDirs <- .sampleDirs(uploadDir)
     assert_all_are_dirs(sampleDirs)
@@ -176,7 +177,7 @@ loadRNASeq <- function(
     assert_is_an_integer(lanes)
 
     # Project summary YAML =====================================================
-    yamlFile <- path(projectDir, "project-summary.yaml")
+    yamlFile <- file.path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
     assert_is_list(yaml)
@@ -241,7 +242,8 @@ loadRNASeq <- function(
             genomeBuild = genomeBuild,
             release = ensemblRelease,
             return = "GRanges",
-            metadata = TRUE)
+            metadata = TRUE
+        )
         assert_is_list(ah)
         assert_are_identical(names(ah), c("data", "metadata"))
         rowData <- ah[["data"]]
@@ -273,18 +275,21 @@ loadRNASeq <- function(
     # bcbio-nextgen run information ============================================
     inform("Reading bcbio run information")
     dataVersions <- readDataVersions(
-        file = path(projectDir, "data_versions.csv"))
+        file = file.path(projectDir, "data_versions.csv")
+    )
     assert_is_tbl_df(dataVersions)
 
     programVersions <- readProgramVersions(
-        path(projectDir, "programs.txt"))
+        file = file.path(projectDir, "programs.txt")
+    )
     assert_is_tbl_df(programVersions)
 
     bcbioLogFile <- list.files(
         path = projectDir,
         pattern = "bcbio-nextgen.log",
         full.names = TRUE,
-        recursive = FALSE)
+        recursive = FALSE
+    )
     assert_is_a_string(bcbioLogFile)
     inform(basename(bcbioLogFile))
     bcbioLog <- readLogFile(bcbioLogFile)
@@ -294,7 +299,8 @@ loadRNASeq <- function(
         path = projectDir,
         pattern = "bcbio-nextgen-commands.log",
         full.names = TRUE,
-        recursive = FALSE)
+        recursive = FALSE
+    )
     assert_is_a_string(bcbioCommandsLogFile)
     inform(basename(bcbioCommandsLogFile))
     bcbioCommandsLog <- readLogFile(bcbioCommandsLogFile)
@@ -310,13 +316,15 @@ loadRNASeq <- function(
     tx2gene <- .tx2gene(
         projectDir = projectDir,
         organism = organism,
-        release = ensemblRelease)
+        release = ensemblRelease
+    )
     txi <- .tximport(
         sampleDirs = sampleDirs,
         type = caller,
         txIn = TRUE,
         txOut = txOut,
-        tx2gene = tx2gene)
+        tx2gene = tx2gene
+    )
     # abundance = transcripts per million (TPM)
     # counts = raw counts
     # length = average transcript length
@@ -356,7 +364,8 @@ loadRNASeq <- function(
         dds <- DESeqDataSetFromTximport(
             txi = txi,
             colData = colData,
-            design = design)
+            design = design
+        )
         # Suppressing warnings here for empty design formula (`~1`)
         dds <- suppressWarnings(DESeq(dds))
         # Variance stabilizing transformations
@@ -403,7 +412,8 @@ loadRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        design = design)
+        design = design
+    )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {
         metadata <- c(metadata, dots)
@@ -416,12 +426,14 @@ loadRNASeq <- function(
         length = length,
         dds = dds,
         rlog = rlog,
-        vst = vst)
+        vst = vst
+    )
     # NULL assays will be dropped automatically in the prepare call below
     se <- prepareSummarizedExperiment(
         assays = assays,
         rowData = rowData,
         colData = colData,
-        metadata = metadata)
+        metadata = metadata
+    )
     new("bcbioRNASeq", se)
 }

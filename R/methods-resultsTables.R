@@ -127,7 +127,6 @@ NULL
 #'   sanitizeRowData snake
 #' @importFrom bcbioBase copyToDropbox
 #' @importFrom dplyr arrange desc left_join
-#' @importFrom fs path
 #' @importFrom readr write_csv
 #' @importFrom rlang !! sym
 #' @importFrom tibble rownames_to_column
@@ -239,7 +238,7 @@ NULL
         tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
 
         # Local files (required) ===============================================
-        localFiles <- path(
+        localFiles <- file.path(
             dir,
             paste0(fileStem, "_", snake(tibbles), ".csv.gz")
         )

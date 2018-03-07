@@ -3,8 +3,6 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom fs dir_ls path_real
-#'
 #' @param uploadDir Upload directory.
 #'
 #' @return Named character vector containing sample directory paths. Function
@@ -12,11 +10,7 @@
 #' @noRd
 .sampleDirs <- function(uploadDir) {
     assert_all_are_dirs(uploadDir)
-    subdirs <- dir_ls(
-        path = uploadDir,
-        type = "directory",
-        recursive = FALSE
-    )
+    subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%
         paste0("^", ., "$")
     sampleDirs <- dir_ls(
@@ -41,7 +35,7 @@
     names <- basename(sampleDirs) %>%
         make.names(unique = TRUE) %>%
         gsub("\\.", "_", .)
-    sampleDirs <- path_real(sampleDirs)
+    sampleDirs <- normalizePath(sampleDirs, winslash = "/", mustWork = TRUE)
     names(sampleDirs) <- names
 
     inform(paste(length(sampleDirs), "samples detected"))
