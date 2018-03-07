@@ -37,16 +37,14 @@
 #' # Check validity
 #' validObject(bcb)
 bcbioRNASeq <- setClass(
-    "bcbioRNASeq",
-    contains = "SummarizedExperiment",
-    slots = c("bcbio" = "SimpleList")
+    Class = "bcbioRNASeq",
+    contains = "SummarizedExperiment"
 )
 
 
 
 # Validity =====================================================================
 setValidity("bcbioRNASeq", function(object) {
-    # SummarizedExperiment internal structure
     assert_is_all_of(object, "SummarizedExperiment")
     assert_has_dimnames(object)
     stopifnot(all(vapply(
