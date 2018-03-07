@@ -21,10 +21,7 @@ NULL
 globalVariables(".")
 packageVersion <- packageVersion("bcbioRNASeq")
 metadataPriorityCols <- c("sampleID", "description", "sampleName")
-legacyMetricsCols <- c(
-    metadataPriorityCols,
-    "name",
-    "x53Bias")
+legacyMetricsCols <- c(metadataPriorityCols, "name", "x53Bias")
 perSampleDirs <- c("sailfish", "salmon")
 projectDirPattern <- "^(\\d{4}-\\d{2}-\\d{2})_([^/]+)$"
 updateMsg <- "Run `updateObject()` to update your object"

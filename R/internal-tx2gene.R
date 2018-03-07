@@ -13,7 +13,7 @@
 #' @param genomeBuild Genome build.
 #' @param release Ensembl release version.
 #'
-#' @return [data.frame], with unique rownames.
+#' @return `data.frame` with unique rownames.
 #' @noRd
 .tx2gene <- function(projectDir, organism, release = NULL) {
     assert_all_are_dirs(projectDir)
@@ -31,7 +31,8 @@
                 enstxp = gsub(
                     x = .data[["enstxp"]],
                     pattern = "\\.\\d+",
-                    replacement = "")
+                    replacement = ""
+                )
             ) %>%
             set_rownames(.[["enstxp"]])
     } else {
