@@ -126,7 +126,8 @@ loadRNASeq <- function(
 
     # Assert checks ============================================================
     assert_all_are_dirs(uploadDir)
-    level <- match.arg(level, choices = c("genes", "transcripts"))
+    level <- match.arg(level)
+    caller <- match.arg(caller)
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
@@ -138,10 +139,6 @@ loadRNASeq <- function(
     assert_is_a_number(transformationLimit)
     assert_all_are_non_negative(transformationLimit)
     assert_is_formula(design)
-    assertIsAStringOrNULL(caller)
-    if (is_a_string(caller)) {
-        assert_is_subset(caller, validCallers)
-    }
 
     # Directory paths ==========================================================
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
