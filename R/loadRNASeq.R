@@ -9,8 +9,8 @@
 #'
 #' @importFrom basejump ensembl readYAML transcripts
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
-#'   readLogFile readProgramVersions readSampleMetadataFile sampleYAMLMetadata
-#'   sampleYAMLMetrics
+#'   readLogFile readProgramVersions readSampleMetadataFile sampleDirs
+#'   sampleYAMLMetadata sampleYAMLMetrics
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_all pull
