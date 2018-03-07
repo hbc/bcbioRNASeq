@@ -72,6 +72,8 @@ setMethod(
         slot(object, "bcbio")[[type]]
     })
 
+# TODO Add support for returning tximport list
+
 
 
 #' @rdname bcbio
@@ -83,7 +85,5 @@ setMethod(
         value = "ANY"
     ),
     function(object, type, value) {
-        slot(object, "bcbio")[[type]] <- value
-        validObject(object)
-        object
+        .Defunct("metadata")
     })

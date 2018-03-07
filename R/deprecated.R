@@ -1,9 +1,10 @@
-#' Deprecated Functions
+#' Defunct or Deprecated Functions
 #'
-#' @rdname deprecated
 #' @name deprecated
 #' @keywords internal
+#'
 #' @inheritParams general
+#'
 #' @return No value.
 NULL
 

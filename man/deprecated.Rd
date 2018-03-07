@@ -9,7 +9,7 @@
 \alias{plotGeneHeatmap}
 \alias{txi}
 \alias{annotable}
-\title{Deprecated Functions}
+\title{Defunct or Deprecated Functions}
 \usage{
 download()
 
@@ -34,6 +34,6 @@ annotable(...)
 No value.
 }
 \description{
-Deprecated Functions
+Defunct or Deprecated Functions
 }
 \keyword{internal}
