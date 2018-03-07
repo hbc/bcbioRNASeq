@@ -1,3 +1,7 @@
+# TODO Add `isSpike support`
+
+
+
 #' Load bcbio RNA-Seq Data
 #'
 #' Simply point to the final upload directory output by
