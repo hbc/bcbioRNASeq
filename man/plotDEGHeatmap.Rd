@@ -30,7 +30,7 @@ plotDEGHeatmap(object, counts, ...)
 \item{lfc}{log2 fold change ratio cutoff.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{data.frame} can be passed in, and must contain the columns \code{ensgene} and
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 

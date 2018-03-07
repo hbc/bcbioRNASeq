@@ -31,7 +31,7 @@ identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
 symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{data.frame} can be passed in, and must contain the columns \code{ensgene} and
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 

@@ -36,11 +36,11 @@ identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
 symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
+\code{data.frame} can be passed in, and must contain the columns \code{ensgene} and
 \code{symbol}. then the Ensembl gene identifiers will be labeled in place of
 gene symbols.}
 
-\item{colData}{Sample metadata \link{data.frame}.}
+\item{colData}{Sample metadata \code{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
@@ -58,7 +58,8 @@ are grouped by \code{sampleName}.}
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
-\item{return}{Desired return type: \code{grid}, \code{wide}, \code{list}, or \code{markdown}.}
+\item{return}{Desired return type: "\code{grid}", "\code{wide}", "\code{list}", or
+"\code{markdown}".}
 
 \item{headerLevel}{R Markdown header level. Only applies when
 \code{return = "markdown"}.}
@@ -69,7 +70,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \value{
 \itemize{
 \item \code{grid}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{list}: Plot list, containing per gene \link{ggplot} objects.
+\item \code{list}: Plot \code{list}, containing per gene \code{ggplot} objects.
 \item \code{markdown}: Tabset R Markdown output, tabbed per gene.
 }
 }

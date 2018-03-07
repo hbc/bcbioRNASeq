@@ -34,7 +34,7 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{colData}{Sample metadata \link{data.frame}.}
+\item{colData}{Sample metadata \code{data.frame}.}
 
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
