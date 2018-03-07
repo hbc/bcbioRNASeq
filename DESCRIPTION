@@ -8,62 +8,74 @@ Authors@R: c(
         given = "Michael",
         family = "Steinbaugh",
         email = "mike@steinbaugh.com",
-        role = c("aut", "cre")),
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-2403-2221")
+    ),
     person(
         given = "Lorena",
         family = "Pantano",
         email = "lorena.pantano@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Rory",
         family = "Kirchner",
         email = "roryk@alum.mit.edu",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Victor",
         family = "Barrera",
         email = "barrera.vic@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Mary",
         family = "Piper",
         email = "mary.piper@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Meeta",
         family = "Mistry",
         email = "meeta.mistry@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Radhika",
         family = "Khetani",
         email = "rkhetani@hsph.harvard.edu",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Kayleigh",
         family = "Rutherford",
         email = "kayrut1@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Oliver",
         family = "Hofmann",
         email = "ohofmann72@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "John",
         family = "Hutchinson",
         email = "jnhutchinson@gmail.com",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Shannan",
         family = "Ho Sui",
         email = "shosui@hsph.harvard.edu",
-        role = "aut"),
+        role = "aut"
+    ),
     person(
         given = "Harvard Chan Bioinformatics Core",
         email = "bioinformatics@hsph.harvard.edu",
-        role = c("cph", "fnd"))
-    )
+        role = c("cph", "fnd")
+    ))
 URL:
     http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
     https://github.com/hbc/bcbioRNASeq
@@ -72,42 +84,41 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.4.0),
+    R (>= 3.4),
     SummarizedExperiment (>= 1.6.5),
     bcbioBase (>= 0.1.4),
     DESeq2 (>= 1.16.1),
-    DEGreport (>= 1.14.0)
+    DEGreport (>= 1.14)
 Imports:
     assertive,
     basejump (>= 0.3.1),
-    BiocGenerics (>= 0.22.1),
-    BiocParallel (>= 1.10.1),
-    cowplot (>= 0.8.0),
-    dplyr (>= 0.7.4),
+    BiocGenerics,
+    BiocParallel,
+    cowplot,
+    dplyr (>= 0.7),
     edgeR (>= 3.18.1),
-    fs (>= 1.0.0),
     ggplot2 (>= 2.2.1),
-    ggrepel (>= 0.6.5),
+    ggrepel,
     grid,
     grDevices,
-    knitr (>= 1.16),
-    magrittr (>= 1.5),
+    knitr,
+    magrittr,
     methods,
-    pbapply (>= 1.3),
-    pheatmap (>= 1.0.8),
+    pbapply,
+    pheatmap,
     RColorBrewer,
-    readr (>= 1.1.1),
-    reshape2 (>= 1.4.2),
-    rlang (>= 0.1.2),
-    S4Vectors (>= 0.14.7),
+    readr,
+    reshape2,
+    rlang,
+    S4Vectors,
     stats,
-    stringr (>= 1.2.0),
-    tibble (>= 1.3.4),
-    tidyr (>= 0.7.1),
-    tximport (>= 1.6.0),
+    stringr,
+    tibble,
+    tidyr (>= 0.8),
+    tximport (>= 1.6),
     utils,
-    viridis (>= 0.4.0),
-    vsn (>= 3.44.0)
+    viridis,
+    vsn
 Suggests:
     BiocStyle,
     clusterProfiler,
