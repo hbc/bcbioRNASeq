@@ -1,9 +1,9 @@
 #' Print Summary Statistics of Alpha Level Cutoffs
 #'
-#' @note [bcbioRNASeq] does not support contrast definitions, since the
-#'   object contains an internal [DESeqDataSet] with an empty design formula.
+#' @note `bcbioRNASeq` class does currently support contrast definitions, since
+#'   the object contains an internal `DESeqDataSet` with an empty design
+#'   formula.
 #'
-#' @rdname alphaSummary
 #' @name alphaSummary
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
@@ -16,7 +16,7 @@
 #' @param ... *Optional.* Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
 #'
-#' @return [kable].
+#' @return `kable`.
 #'
 #' @seealso [DESeq2::results()].
 #'
@@ -46,7 +46,8 @@ NULL
     object,
     alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
     caption = NULL,
-    ...) {
+    ...
+) {
     assert_is_all_of(object, "DESeqDataSet")
     assert_is_numeric(alpha)
     assertIsAStringOrNULL(caption)
@@ -55,13 +56,13 @@ NULL
     # Generate an automatic caption
     if (is.null(caption)) {
         if (!is.null(dots[["contrast"]])) {
-            caption <- dots[["contrast"]] %>%
-                paste(collapse = " ")
+            caption <- paste(dots[["contrast"]], collapse = " ")
         } else if (!is.null(dots[["name"]])) {
             caption <- dots[["name"]]
         }
     }
 
+    # TODO Switch to mapply call
     dflist <- lapply(seq_along(alpha), function(a) {
         output <- capture.output(summary(
             results(object, ..., alpha = alpha[a])
@@ -99,7 +100,8 @@ NULL
 setMethod(
     "alphaSummary",
     signature("DESeqDataSet"),
-    .alphaSummary)
+    .alphaSummary
+)
 
 
 
@@ -114,7 +116,8 @@ setMethod(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
         caption = NULL,
-        ...) {
+        ...
+    ) {
         dds <- bcbio(object, "DESeqDataSet")
         # Warn if empty design formula detected
         if (design(dds) == formula(~1)) {  # nolint
@@ -124,5 +127,7 @@ setMethod(
             object = dds,
             alpha = alpha,
             caption = caption,
-            ...)
-    })
+            ...
+        )
+    }
+)
