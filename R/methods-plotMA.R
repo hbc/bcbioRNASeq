@@ -138,7 +138,7 @@ setMethod(
         title = TRUE) {
         # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
         if (isTRUE(title)) {
-            title <- .contrastName.DESeqResults(object)
+            title <- contrastName(object)
         } else if (!is_a_string(title)) {
             title <- NULL
         }

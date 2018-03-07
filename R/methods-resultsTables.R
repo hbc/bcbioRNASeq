@@ -161,7 +161,7 @@ NULL
     dir <- initializeDirectory(dir)
 
     # Extract internal parameters from DESeqResults object =====================
-    contrast <- .contrastName.DESeqResults(object)
+    contrast <- contrastName(object)
     fileStem <- snake(contrast)
     # Alpha level, slotted in `DESeqResults` metadata
     alpha <- metadata(object)[["alpha"]]

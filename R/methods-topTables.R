@@ -108,17 +108,17 @@ NULL
         n = n,
         coding = coding
     )
-    contrastName <- object[["contrast"]]
+    contrast <- object[["contrast"]]
     if (!is.null(up)) {
         show(kable(
             up,
-            caption = paste(contrastName, "(upregulated)")
+            caption = paste(contrast, "(upregulated)")
         ))
     }
     if (!is.null(down)) {
         show(kable(
             down,
-            caption = paste(contrastName, "(downregulated)")
+            caption = paste(contrast, "(downregulated)")
         ))
     }
 }
