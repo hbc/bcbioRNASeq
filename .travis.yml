@@ -2,7 +2,6 @@
 # https://docs.travis-ci.com/user/languages/r
 
 language: r
-sudo: false
 cache: packages
 warnings_are_errors: false
 
@@ -12,9 +11,15 @@ before_install:
 # Temporarily enable when caching Bioconductor packages
 script: true
 
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
 r:
   - bioc-release
-  # - bioc-devel
+  - bioc-devel
+
 r_packages:
   - covr
   - DT
@@ -23,9 +28,12 @@ r_packages:
   - rlang
   - testthat
   - tidyverse
+bioc_packages:
+  - BiocCheck
 
 after_success:
   - Rscript -e 'covr::codecov()'
+  - R CMD BiocCheck .
   - pwd
   - cd ..
   - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
