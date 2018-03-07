@@ -13,10 +13,11 @@
     subdirs <- list.dirs(uploadDir, full.names = TRUE, recursive = FALSE)
     subdirPattern <- paste0(perSampleDirs, collapse = "|") %>%
         paste0("^", ., "$")
-    sampleDirs <- dir_ls(
+    sampleDirs <- list.files(
         path = subdirs,
-        recursive = FALSE,
-        regexp = subdirPattern
+        pattern = subdirPattern,
+        full.names = TRUE,
+        recursive = FALSE
     )
     assert_is_non_empty(sampleDirs)
     sampleDirs <- sampleDirs %>%
