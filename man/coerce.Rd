@@ -12,8 +12,8 @@ Coerce Object
 }
 \section{bcbioRNASeq to SummarizedExperiment}{
 
-Since \link{bcbioRNASeq} is an extension of \link{SummarizedExperiment}, this
-coercion method is very simple. Here we're simply dropping our \code{@bcbio} slot,
+Since \code{bcbioRNASeq} is an extension of \code{SummarizedExperiment}, this
+coercion method is very simple. Here we're simply dropping the \code{bcbio} slot,
 which contains raw cellular barcodes and other bcbio-specific metadata.
 }
 
