@@ -28,9 +28,10 @@
 #' alphaSummary(bcb)
 #'
 #' # DESeqDataSet
+#' resultsNames(dds)
 #' alphaSummary(dds)
-#' alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
-#' alphaSummary(dds, name = "group_ko_vs_ctrl")
+#' alphaSummary(dds, contrast = c("day", "7", "0"))
+#' alphaSummary(dds, name = "day_7_vs_0")
 NULL
 
 
