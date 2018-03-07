@@ -67,7 +67,7 @@ setValidity("bcbioRNASeq", function(object) {
     # Required count matrices
     # Note that `rlog` and `vst` DESeqTransform objects are optional
     assert_is_subset(
-        c("raw", "normalized", "tpm", "tmm"),
+        c("raw", "tpm", "length", "dds"),
         names(assays(object))
     )
 
