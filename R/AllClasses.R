@@ -47,13 +47,16 @@ setValidity(
     function(object) {
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
+
+        # Required slots
         stopifnot(all(vapply(
             X = c(
                 "assays",
                 "colData",
                 "elementMetadata",
                 "metadata",
-                "NAMES"
+                "NAMES",
+                "rowRanges"
             ),
             FUN = function(slot) {
                 .hasSlot(object, slot)
@@ -61,14 +64,27 @@ setValidity(
             FUN.VALUE = logical(1L)
         )))
 
-        # Required count matrices
+        # Required assays (count matrices)
         # Note that `rlog` and `vst` DESeqTransform objects are optional
         assert_is_subset(
-            c("raw", "tpm", "length", "dds"),
-            names(assays(object))
+            x = c("raw", "tpm", "length", "dds"),
+            y = names(assays(object))
         )
 
-        # Column data
+        # rowRanges must contain genomic ranges, if set
+        if (!is.null(rowRanges(object))) {
+            assert_is_all_of(rowRanges(object), "GRanges")
+        }
+
+        # rowData must contain ensgene and symbol, if set
+        if (!is.null(rowData(object))) {
+            assert_is_subset(
+                x = c("ensgene", "symbol"),
+                y = colnames(rowData(object))
+            )
+        }
+
+        # Column data must contain factors
         colDataFactor <- vapply(
             X = colData(object),
             FUN = is.factor,
@@ -114,7 +130,7 @@ setValidity(
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
             "devtoolsSessionInfo" = "session_info",
-            "unannotatedRows" = c("character", "NULL")
+            "unannotatedRows" = "character"
         )
 
         # Inform the user about renamed metadata slots
@@ -164,13 +180,6 @@ setValidity(
         metrics <- metadata(object)[["metrics"]]
         assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
         assert_has_rows(metrics)
-
-        # rowData
-        rowData <- rowData(object)
-        if (!is.null(rowData)) {
-            # Relax stringency for minimal example
-            assert_is_subset(c("ensgene", "symbol"), colnames(rowData))
-        }
 
         # Transcript to gene mappings
         tx2gene <- metadata(object)[["tx2gene"]]
