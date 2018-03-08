@@ -47,13 +47,13 @@
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left `NULL`.
-#' @param rowData *Recommended.* User-defined gene or transcript annotations
-#'   that match the rownames of the counts matrix. If set `TRUE` (default), the
+#' @param rowRanges *Recommended.* User-defined genomic ranges (`GRanges`) that
+#'   match the rownames of the counts matrix. If set `TRUE` (default), the
 #'   annotations will be obtained automatically fron Ensembl using AnnotationHub
-#'   and ensembleb. These values are accessible with the [rowData()] function.
-#'   If set `NULL`, then [rowData()] inside the resulting [bcbioRNASeq] object
-#'   will be left empty. This is recommended for projects dealing with genes or
-#'   transcripts that are poorly annotated.
+#'   and ensembleb. These values are also accessible with the [rowData()]
+#'   function. If set `NULL`, then [rowRanges()] inside the resulting
+#'   `bcbioRNASeq` object will be left empty. This is recommended for projects
+#'   dealing with genes or transcripts that are poorly annotated.
 #' @param isSpike Genes or transcripts corresponding to FASTA spike-in
 #'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
 #' @param organism *Optional.* Organism name. Use the full latin name (e.g.
@@ -102,7 +102,7 @@ loadRNASeq <- function(
     interestingGroups = "sampleName",
     samples = NULL,
     sampleMetadataFile = NULL,
-    rowData = TRUE,
+    rowRanges = TRUE,
     isSpike = NULL,
     organism = NULL,
     ensemblRelease = NULL,
@@ -115,10 +115,10 @@ loadRNASeq <- function(
 
     # Legacy argument matches ==================================================
     call <- match.call(expand.dots = TRUE)
-    # rowData : annotable
+    # rowRanges : annotable
     if ("annotable" %in% names(call)) {
-        warn("Use `rowData` instead of `annotable`")
-        rowData <- call[["annotable"]]
+        warn("Use `rowRanges` instead of `annotable`")
+        rowRanges <- call[["annotable"]]
         dots[["annotable"]] <- NULL
     }
     # ensemblRelease : ensemblVersion
@@ -136,7 +136,7 @@ loadRNASeq <- function(
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
-    assert_is_any_of(rowData, c("data.frame", "logical", "NULL"))
+    assert_is_any_of(rowRanges, c("logical", "GRanges", "NULL"))
     assertIsCharacterOrNULL(isSpike)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
@@ -236,7 +236,7 @@ loadRNASeq <- function(
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Row data: Gene and transcript annotations ================================
-    if (isTRUE(rowData) && is_a_string(organism)) {
+    if (isTRUE(rowRanges) && is_a_string(organism)) {
         # ah = AnnotationHub
         ah <- ensembl(
             organism = organism,
@@ -248,21 +248,18 @@ loadRNASeq <- function(
         )
         assert_is_list(ah)
         assert_are_identical(names(ah), c("data", "metadata"))
-        rowData <- ah[["data"]]
-        assert_is_all_of(rowData, "GRanges")
+        rowRanges <- ah[["data"]]
+        assert_is_all_of(rowRanges, "GRanges")
         ahMeta <- ah[["metadata"]]
         assert_all_are_matching_regex(
             x = ahMeta[["id"]],
             pattern = "^AH\\d+$"
         )
-    } else if (is.data.frame(rowData)) {
-        # Get the `genes()` or `transcripts()` function
-        fxn <- get(level, inherits = FALSE, envir = asNamespace("basejump"))
-        rowData <- fxn(rowData, format = level)
-        ahMeta <- NULL
-    } else {
-        warn("Loading run without annotations")
+    } else if (identical(rowData, FALSE)) {
         rowData <- NULL
+    }
+    if (is.null(rowData)) {
+        warn("Loading run without row annotations")
         ahMeta <- NULL
     }
 
@@ -423,19 +420,18 @@ loadRNASeq <- function(
 
     # Prepare SummarizedExperiment =============================================
     assays = list(
-        raw = counts,
-        tpm = tpm,
-        length = length,
-        dds = dds,
-        rlog = rlog,
-        vst = vst
+        "raw" = counts,
+        "tpm" = tpm,
+        "length" = length,
+        "dds" = dds,
+        "rlog" = rlog,
+        "vst" = vst
     )
-    # NULL assays will be dropped automatically in the prepare call below
-    se <- prepareSummarizedExperiment(
+    rse <- prepareSummarizedExperiment(
         assays = assays,
-        rowData = rowData,
+        rowRanges = rowRanges,
         colData = colData,
         metadata = metadata
     )
-    new("bcbioRNASeq", se)
+    new("bcbioRNASeq", rse)
 }
