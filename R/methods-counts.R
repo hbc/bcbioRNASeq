@@ -54,32 +54,54 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = FALSE) {
+        normalized = FALSE
+) {
+        validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
-        if (normalized == FALSE) {
-            slot <- "raw"
-        } else if (normalized == TRUE) {
-            slot <- "normalized"
-        } else {
-            slot <- normalized
+
+        if (is.logical(normalized)) {
+            if (isTRUE(normalized)) {
+                # DESeq2 normalized counts
+                dds <- assays(object)[["dds"]]
+                assert_is_all_of(dds, "DESeqDataSet")
+                validObject(dds)
+                counts <- counts(dds, normalized = TRUE)
+            } else {
+                # Raw counts from tximport
+                counts <- assays(object)[["raw"]]
+            }
+        } else if (is.character(normalized)) {
+            assert_is_a_string(normalized)
+            assert_is_subset(
+                normalized,
+                c(
+                    "tpm",
+                    "tmm",
+                    "rlog",
+                    "vst"
+                )
+            )
+            counts <- assays(object)[[normalized]]
+
+            # Return the matrix from slotted DESeqTransform
+            if (is(counts, "DESeqTransform")) {
+                counts <- assay(counts)
+            }
+
+            # Return log2 TMM if assay is NULL.
+            # This helps support skipping CPU-intensive DESeq2 variance
+            # stabilization calculations on large datasets.
+            if (is.null(counts)) {
+                warn(paste(
+                    normalized, "counts not defined.",
+                    "Calculating and using log2 tmm counts on the fly instead."
+                ))
+                counts <- tmm(object)
+                counts <- log2(counts + 1L)
+            }
         }
 
-        # Check for slot presence
-        if (!slot %in% names(assays(object))) {
-            warn(paste(
-                slot, "counts not defined.",
-                "Calculating and using log2 tmm counts on the fly instead."
-            ))
-            tmm <- tmm(object)
-            return(log2(tmm + 1L))
-        }
-
-        counts <- assays(object)[[slot]]
-
-        # Return the matrix from slotted DESeqTransform objects
-        if (is(counts, "DESeqTransform")) {
-            counts <- assay(counts)
-        }
-
+        assert_is_matrix(counts)
         counts
-    })
+    }
+)
