@@ -3,14 +3,12 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
-#' @rdname bcbioRNASeq-package
 #' @name bcbioRNASeq-package
 #'
 #' @import methods SummarizedExperiment
-#'
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
-#' @importClassesFrom SummarizedExperiment SummarizedExperiment
-#'
+#' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
+#'   SummarizedExperiment
 #' @importFrom rlang .data abort inform warn
 #' @importFrom S4Vectors cor head mcols metadata na.omit SimpleList
 #' @importFrom utils globalVariables packageVersion
