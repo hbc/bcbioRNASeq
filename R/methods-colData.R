@@ -7,10 +7,9 @@
 #'
 #' @name colData
 #'
-#' @importFrom SummarizedExperiment colData colData<-
+#' @importFrom SummarizedExperiment colData<-
 #'
 #' @inheritParams general
-#'
 #' @param return Return as "`DataFrame`" or "`data.frame`".
 #'
 #' @return Data describing the columns of the object.
@@ -20,10 +19,7 @@
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
-#' # Return as data.frame
-#' colData(bcb, return = "data.frame")
-#'
-#' # Assignment support
+#' # Assignment method support
 #' colData <- colData(bcb)
 #' # All columns will be coerced to factors
 #' colData[["age"]] <- c(14L, 30L, 14L, 30L)
@@ -38,14 +34,6 @@ NULL
 
 
 # Constructors =================================================================
-.colData <- function(x, return = c("DataFrame", "data.frame")) {
-    return <- match.arg(return)
-    slot(x, "colData") %>%
-        as(return)
-}
-
-
-
 #' @importFrom basejump sanitizeColData
 `.colData<-` <- function(x, ..., value) {
     validObject(x)
@@ -70,17 +58,6 @@ NULL
     slot(x, "colData") <- value
     x
 }
-
-
-
-# Methods ======================================================================
-#' @rdname colData
-#' @export
-setMethod(
-    "colData",
-    signature("bcbioRNASeq"),
-    .colData
-)
 
 
 
