@@ -1,27 +1,25 @@
 #' Bracket-Based Subsetting
 #'
-#' Extract genes by row and samples by column from a [bcbioRNASeq] object. The
-#' internal [DESeqDataSet] and count transformations are rescaled automatically.
+#' Extract genes by row and samples by column from a `bcbioRNASeq` object. The
+#' internal `DESeqDataSet` and count transformations are rescaled automatically.
 #' DESeq2 transformations can be disabled on large subset operations by setting
 #' `transform = FALSE`.
 #'
-#' @rdname subset
 #' @name subset
-#'
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`
 #' @param ... Additional arguments.
 #'
-#' @return [bcbioRNASeq].
+#' @return `bcbioRNASeq`.
 #'
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
-#' ensgene <- rownames(bcb)[1:50]
-#' head(ensgene)
+#' genes <- rownames(bcb)[1:50]
+#' head(genes)
 #' samples <- colnames(bcb)[1:2]
 #' head(samples)
 #'
@@ -45,6 +43,8 @@ NULL
 #'   varianceStabilizingTransformation
 #' @importFrom tibble column_to_rownames rownames_to_column
 .subset.bcbioRNASeq <- function(x, i, j, ..., drop = FALSE) {  # nolint
+    validObject(x)
+
     # Genes (rows)
     if (missing(i)) {
         i <- 1L:nrow(x)
@@ -67,85 +67,53 @@ NULL
         transform <- TRUE
     }
 
-    # Regenerate and subset SummarizedExperiment
-    se <- as(x, "SummarizedExperiment")
-    se <- se[i, j, drop = drop]
+    # Regenerate RangedSummarizedExperiment
+    rse <- as(x, "RangedSummarizedExperiment")
+    rse <- rse[i, j, drop = drop]
 
-    genes <- rownames(se)
-    samples <- colnames(se)
+    genes <- rownames(rse)
+    samples <- colnames(rse)
 
-    # Row data =================================================================
-    rowData <- rowData(se)
-    assert_is_non_empty(rowData)
-    rownames(rowData) <- slot(se, "NAMES")
+    # Row ranges ===============================================================
+    rowRanges <- rowRanges(rse)
 
     # Column data ==============================================================
-    colData <- colData(se)
+    colData <- colData(rse)
     colData <- sanitizeColData(colData)
 
-    # bcbio ====================================================================
-    # tximport
-    txi <- bcbio(x, "tximport")
-    assert_is_list(txi)
-    assert_is_subset(c("abundance", "counts", "length"), names(txi))
-    txi[["abundance"]] <- txi[["abundance"]][genes, samples]
-    txi[["counts"]] <- txi[["counts"]][genes, samples]
-    txi[["length"]] <- txi[["length"]][genes, samples]
-
-    # DESeqDataSet
-    inform("Updating internal DESeqDataSet")
-    dds <- bcbio(x, "DESeqDataSet")
-    assert_is_all_of(dds, "DESeqDataSet")
-    dds <- dds[genes, samples]
-    colData(dds) <- colData
-    # Skip normalization option, for large datasets
-    if (!isTRUE(transform)) {
-        inform("Skipping DESeq2 transformations")
-        dds <- estimateSizeFactors(dds)
-        vst <- NULL
-        rlog <- NULL
-    } else {
-        # DESeq2 will warn about empty design formula, if set
-        dds <- suppressWarnings(DESeq(dds))
-        inform("Performing rlog transformation")
-        rlog <- rlog(dds)
-        inform("Performing variance stabilizing transformation")
-        vst <- varianceStabilizingTransformation(dds)
-    }
-
-    # featureCounts
-    featureCounts <- bcbio(x, "featureCounts")
-    if (is.matrix(featureCounts)) {
-        # Genes detected by pseudo-alignment (e.g. salmon) will differ from
-        # the genes detected by alignment with STAR/featureCounts. Need to
-        # obtain the intersect here to avoid a subset error. Note that these
-        # counts are only used to generate the quality control metrics for
-        # MultiQC and should not be used for analysis.
-        commonGenes <- intersect(rownames(featureCounts), genes)
-        featureCounts <- featureCounts[commonGenes, samples, drop = FALSE]
-    } else {
-        featureCounts <- NULL
-    }
-
-    bcbio <- SimpleList(
-        tximport = txi,
-        DESeqDataSet = dds,
-        featureCounts = featureCounts)
-
     # Assays ===================================================================
-    raw <- txi[["counts"]]
-    normalized <- counts(dds, normalized = TRUE)
-    tpm <- txi[["abundance"]]
-    tmm <- tmm(raw)
-    assays <- SimpleList(
-        raw = raw,
-        normalized = normalized,
-        tpm = tpm,
-        tmm = tmm,
-        rlog = rlog,
-        vst = vst)
-    # Drop `NULL` assay slots, if necessary. We need this step if rlog and vst
-    # transformations are skipped above.
+    assays <- assays(rse)
+
+    # Update the colData in nested DESeq objects
+    message("Updating colData in assays slot")
+    colData(assays[["dds"]]) <- colData
+    if (is(assays[["rlog"]], "DESeqTransform")) {
+        colData(assays[["rlog"]]) <- colData
+    }
+    if (is(assays[["vst"]], "DESeqTransform")) {
+        colData(assays[["vst"]]) <- colData
+    }
+
+    # Update DESeqTransform objects
+    if (identical(transform, TRUE)) {
+        inform("Updating internal DESeqDataSet")
+        # DESeq2 will warn about empty design formula, if set
+        assays[["dds"]] <- suppressWarnings(DESeq(assays[["dds"]]))
+        inform("Performing rlog transformation")
+        assays[["rlog"]] <- rlog(assays[["dds"]])
+        inform("Performing variance stabilizing transformation")
+        assays[["vst"]] <- varianceStabilizingTransformation(assays[["dds"]])
+    } else if (identical(transform, FALSE)) {
+        # Skip normalization option, for large datasets.
+        # Not generally recommended.
+        inform("Updating size factors for internal DESeqDataset")
+        assays[["dds"]] <- estimateSizeFactors(assays[["dds"]])
+        inform("Skipping DESeq2 transformations")
+        assays[["vst"]] <- NULL
+        assays[["rlog"]] <- NULL
+    }
+
+    # Drop any NULL items in assays list
     assays <- Filter(Negate(is.null), assays)
 
     # Metadata =================================================================
@@ -165,13 +133,14 @@ NULL
         column_to_rownames()
 
     # Return ===================================================================
-    se <- SummarizedExperiment(
+    rse <- SummarizedExperiment(
         assays = assays,
-        rowData = rowData,
+        rowRanges = rowRanges,
         colData = colData,
         metadata = metadata
     )
-    new("bcbioRNASeq", se, bcbio = bcbio)
+    assert_is_all_of(rse, "RangedSummarizedExperiment")
+    new("bcbioRNASeq", rse)
 }
 
 
@@ -184,12 +153,15 @@ setMethod(
     signature(
         x = "bcbioRNASeq",
         i = "ANY",
-        j = "ANY"),
+        j = "ANY"
+    ),
     function(x, i, j, ..., drop = FALSE) {
         .subset.bcbioRNASeq(
             x = x,
             i = i,
             j = j,
             ...,
-            drop = drop)
-    })
+            drop = drop
+        )
+    }
+)
