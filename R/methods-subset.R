@@ -24,16 +24,22 @@
 #' head(samples)
 #'
 #' # Subset by sample name
-#' bcb[, samples]
+#' subset <- bcb[, samples]
+#' summary(subset)
 #'
 #' # Subset by gene list
-#' bcb[ensgene, ]
+#' subset <- bcb[genes, ]
+#' summary(subset)
 #'
 #' # Subset by both genes and samples
-#' bcb[ensgene, samples]
+#' subset <- bcb[genes, samples]
+#' summary(subset)
+#' names(assays(subset))
 #'
 #' # Skip DESeq2 transformations
-#' bcb[ensgene, samples, transform = FALSE]
+#' subset <- bcb[genes, samples, transform = FALSE]
+#' summary(subset)
+#' names(assays(subset))
 NULL
 
 
@@ -42,37 +48,28 @@ NULL
 #' @importFrom DESeq2 DESeq estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
 #' @importFrom tibble column_to_rownames rownames_to_column
-.subset.bcbioRNASeq <- function(x, i, j, ..., drop = FALSE) {  # nolint
+.subset.bcbioRNASeq <- function(x, i, j, ..., drop) {  # nolint
     validObject(x)
 
     # Genes (rows)
     if (missing(i)) {
         i <- 1L:nrow(x)
     }
-    assert_all_are_greater_than(length(i), 1L)
 
     # Samples (columns)
     if (missing(j)) {
         j <- 1L:ncol(x)
     }
-    assert_all_are_greater_than(length(j), 1L)
+    assert_all_are_in_left_open_range(c(length(i), length(j)), lower = 1L)
 
     # Early return if dimensions are unmodified
     if (identical(dim(x), c(length(i), length(j)))) {
         return(x)
     }
 
-    dots <- list(...)
-    if (!identical(dots[["transform"]], FALSE)) {
-        transform <- TRUE
-    }
-
     # Regenerate RangedSummarizedExperiment
     rse <- as(x, "RangedSummarizedExperiment")
     rse <- rse[i, j, drop = drop]
-
-    genes <- rownames(rse)
-    samples <- colnames(rse)
 
     # Row ranges ===============================================================
     rowRanges <- rowRanges(rse)
@@ -83,6 +80,13 @@ NULL
 
     # Assays ===================================================================
     assays <- assays(rse)
+
+    # Drop the DESeqTransform objects, if desired
+    if (!isTRUE(transform)) {
+        inform("Skipping DESeq2 transformations")
+        assays[["vst"]] <- NULL
+        assays[["rlog"]] <- NULL
+    }
 
     # Update the colData in nested DESeq objects
     message("Updating colData in assays slot")
@@ -95,7 +99,7 @@ NULL
     }
 
     # Update DESeqTransform objects
-    if (identical(transform, TRUE)) {
+    if (isTRUE(transform)) {
         inform("Updating internal DESeqDataSet")
         # DESeq2 will warn about empty design formula, if set
         assays[["dds"]] <- suppressWarnings(DESeq(assays[["dds"]]))
@@ -103,14 +107,11 @@ NULL
         assays[["rlog"]] <- rlog(assays[["dds"]])
         inform("Performing variance stabilizing transformation")
         assays[["vst"]] <- varianceStabilizingTransformation(assays[["dds"]])
-    } else if (identical(transform, FALSE)) {
+    } else {
         # Skip normalization option, for large datasets.
         # Not generally recommended.
         inform("Updating size factors for internal DESeqDataset")
         assays[["dds"]] <- estimateSizeFactors(assays[["dds"]])
-        inform("Skipping DESeq2 transformations")
-        assays[["vst"]] <- NULL
-        assays[["rlog"]] <- NULL
     }
 
     # Drop any NULL items in assays list
@@ -126,7 +127,7 @@ NULL
     }
     # Metrics
     metadata[["metrics"]] <- metadata[["metrics"]] %>%
-        .[samples, , drop = FALSE] %>%
+        .[colnames(rse), , drop = FALSE] %>%
         rownames_to_column() %>%
         mutate_if(is.character, as.factor) %>%
         mutate_if(is.factor, droplevels) %>%
@@ -153,7 +154,8 @@ setMethod(
     signature(
         x = "bcbioRNASeq",
         i = "ANY",
-        j = "ANY"
+        j = "ANY",
+        drop = "ANY"  # don't use logical here
     ),
     function(x, i, j, ..., drop = FALSE) {
         .subset.bcbioRNASeq(
