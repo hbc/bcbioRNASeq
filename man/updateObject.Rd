@@ -12,22 +12,24 @@
 \item{object}{Object.}
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
 Update old objects created by the bcbioRNASeq package. The session
 information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
-\note{
-The previous bcbioRnaseq package (note lowercase "c") must be
-reinstalled to load objects from versions <= 0.0.24.
-}
-\section{Upgrade bcbioRNADataSet to bcbioRNASeq object}{
+\section{Legacy \code{bcbioRNADataSet} class}{
 
-This method adds support for upgrading \link{bcbioRNADataSet} objects to the
-latest \link{bcbioRNASeq} class version. This should be backwards compatible to
-\link{bcbioRNASeq} version 0.0.26.
+Support for \code{bcbioRNADataSet} objects was dropped in v0.2.0 of the package.
+If you need to load one of these objects, please install an older release.
+}
+
+\section{Legacy objects created with \code{bcbioRnaseq}}{
+
+The previous \code{bcbioRnaseq} package (note case) must be reinstalled to load
+objects from versions <= 0.0.20. We changed the name of the package to
+\code{bcbioRNASeq} starting in v0.0.21.
 }
 
 \examples{

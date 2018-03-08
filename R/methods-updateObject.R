@@ -4,15 +4,15 @@
 #' information metadata is preserved from the time when the bcbio data was
 #' originally loaded into R.
 #'
-#' @section Upgrade bcbioRNADataSet to bcbioRNASeq object:
-#' This method adds support for upgrading [bcbioRNADataSet] objects to the
-#' latest [bcbioRNASeq] class version. This should be backwards compatible to
-#' [bcbioRNASeq] version 0.0.26.
+#' @section Legacy `bcbioRNADataSet` class:
+#' Support for `bcbioRNADataSet` objects was dropped in v0.2.0 of the package.
+#' If you need to load one of these objects, please install an older release.
 #'
-#' @note The previous bcbioRnaseq package (note lowercase "c") must be
-#'   reinstalled to load objects from versions <= 0.0.24.
+#' @section Legacy objects created with `bcbioRnaseq`:
+#' The previous `bcbioRnaseq` package (note case) must be reinstalled to load
+#' objects from versions <= 0.0.20. We changed the name of the package to
+#' `bcbioRNASeq` starting in v0.0.21.
 #'
-#' @rdname updateObject
 #' @name updateObject
 #' @author Michael Steinbaugh
 #'
@@ -20,7 +20,7 @@
 #'
 #' @inheritParams general
 #'
-#' @return [bcbioRNASeq].
+#' @return `bcbioRNASeq`.
 #'
 #' @examples
 #' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
@@ -118,7 +118,8 @@ NULL
                 pattern = "rrnarate",
                 x = colnames(metrics),
                 ignore.case = TRUE,
-                value = TRUE)
+                value = TRUE
+            )
             assert_is_a_string(col)
             inform(paste("Renaming", col, "to rrnaRate"))
             metrics[["rrnaRate"]] <- metrics[[col]]
@@ -173,4 +174,5 @@ NULL
 setMethod(
     "updateObject",
     signature("bcbioRNASeq"),
-    .updateObject.bcbioRNASeq)
+    .updateObject.bcbioRNASeq
+)
