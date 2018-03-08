@@ -32,15 +32,15 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom dplyr left_join
-.joinMelt <- function(counts, metadata) {
+.joinMelt <- function(counts, colData) {
+    colData <- as.data.frame(colData)
     assert_are_identical(
         colnames(counts),
-        as.character(metadata[["sampleID"]])
+        as.character(colData[["sampleID"]])
     )
     melted <- .meltLog10(counts)
     assert_is_tbl_df(melted)
-    assert_is_data.frame(metadata)
-    left_join(melted, metadata, by = "sampleID")
+    left_join(melted, colData, by = "sampleID")
 }
 
 
@@ -80,9 +80,10 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object)
+            colData = colData(object)
         )
-    })
+    }
+)
 
 
 
@@ -96,9 +97,10 @@ setMethod(
         normalized = TRUE) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
-            metadata = colData(object)
+            colData = colData(object)
         )
-    })
+    }
+)
 
 
 
@@ -110,6 +112,7 @@ setMethod(
     function(object) {
         .joinMelt(
             counts = assay(object),
-            metadata = colData(object)
+            colData = colData(object)
         )
-    })
+    }
+)
