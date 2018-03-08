@@ -48,6 +48,7 @@ NULL
 
 #' @importFrom basejump sanitizeColData
 `.colData<-` <- function(x, ..., value) {
+    validObject(x)
     assert_are_identical(colnames(x), rownames(value))
     value <- as(value, "DataFrame")
 
@@ -55,9 +56,10 @@ NULL
     value <- sanitizeColData(value)
     assert_has_dimnames(value)
 
-    if (!is.null(bcbio(x, "DESeqDataSet"))) {
-        colData(bcbio(x, "DESeqDataSet")) <- value
-    }
+    # Required DESeqDataSet
+    colData(assays(x)[["dds"]]) <- value
+
+    # Optional DESeqTransform
     if (!is.null(assays(x)[["rlog"]])) {
         colData(assays(x)[["rlog"]]) <- value
     }
