@@ -19,7 +19,7 @@
 #' tmm(bcb) %>% summary()
 #'
 #' # DESeqDataSet ====
-#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds <- assays(bcb)[["dds"]]
 #' tmm(dds) %>% summary()
 #'
 #' # matrix ====
