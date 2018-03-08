@@ -6,8 +6,7 @@
 #'
 #' @inheritParams general
 #'
-#' @param return Return as "`DataFrame`", "`data.frame`", or unmodified
-#'   ("`AsIs`").
+#' @param return Return as "`DataFrame`" or "`data.frame`".
 #'
 #' @return Data describing the rows of the object.
 #'
@@ -16,25 +15,18 @@
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
-#' # Return as data.frame
-#' rowData(bcb, return = "data.frame")
+#' rowData(bcb, return = "DataFrame") %>% glimpse()
+#' rowData(bcb, return = "data.frame") %>% glimpse()
 NULL
 
 
 
 # Constructors =================================================================
-.rowData <- function(x, return = c("DataFrame", "data.frame", "AsIs")) {
+.rowData <- function(x, return = c("DataFrame", "data.frame")) {
     return <- match.arg(return)
     data <- slot(x, "elementMetadata")
-    if (return != "AsIs") {
-        data <- as(data, return)
-    }
-    names <- slot(x, "NAMES")
-    if (has_dims(data)) {
-        rownames(data) <- names
-    } else if (has_names(data)) {
-        names(data) <- names
-    }
+    data <- as(data, return)
+    rownames(data) <- slot(x, "NAMES")
     data
 }
 
