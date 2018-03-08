@@ -1,7 +1,6 @@
 #' Plot 5'->3' Bias
 #'
-#' @rdname plot53Bias
-#' @name plot53Bias
+#' @name plot5x3Bias
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
@@ -9,7 +8,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plot53Bias(bcb)
+#' plot5x3Bias(bcb)
 NULL
 
 
@@ -18,13 +17,14 @@ NULL
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom dplyr rename
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
-.plot53Bias <- function(
+.plot5x3Bias <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 2L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(warnLimit)
@@ -53,14 +53,16 @@ NULL
         mapping = aes_string(
             x = "sampleName",
             y = "x5x3Bias",
-            fill = "interestingGroups")
+            fill = "interestingGroups"
+        )
     ) +
         geom_bar(stat = "identity") +
         labs(
             title = title,
             x = "sample",
             y = ylab,
-            fill = paste(interestingGroups, collapse = ":\n"))
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is_positive(warnLimit)) {
         p <- p + qcWarnLine(warnLimit)
@@ -84,10 +86,10 @@ NULL
 
 
 # Methods ======================================================================
-#' @rdname plot53Bias
+#' @rdname plot5x3Bias
 #' @export
 setMethod(
-    "plot53Bias",
+    "plot5x3Bias",
     signature("bcbioRNASeq"),
     function(
         object,
@@ -99,20 +101,13 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        .plot53Bias(
+        .plot5x3Bias(
             object = metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,
             fill = fill,
             flip = flip,
-            title = title)
-    })
-
-
-
-# Aliases ======================================================================
-#' @rdname plot53Bias
-#' @export
-plot5x3Bias <- function(...) {
-    plot53Bias(...)
-}
+            title = title
+        )
+    }
+)

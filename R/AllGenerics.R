@@ -22,10 +22,10 @@ setGeneric("meltLog10", function(object, ...) {
 
 
 
-#' @rdname plot53Bias
+#' @rdname plot5x3Bias
 #' @export
-setGeneric("plot53Bias", function(object, ...) {
-    standardGeneric("plot53Bias")
+setGeneric("plot5x3Bias", function(object, ...) {
+    standardGeneric("plot5x3Bias")
 })
 
 
@@ -164,14 +164,6 @@ setGeneric("plotTotalReads", function(object, ...) {
 #' @export
 setGeneric("plotVolcano", function(object, ...) {
     standardGeneric("plotVolcano")
-})
-
-
-
-#' @rdname prepareRNASeqTemplate
-#' @export
-setGeneric("prepareRNASeqTemplate", function(object, ...) {
-    standardGeneric("prepareRNASeqTemplate")
 })
 
 

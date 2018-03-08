@@ -69,3 +69,10 @@ annotable <- function(...) {
     .Deprecated("rowData")
     rowData(...)
 }
+
+#' @rdname deprecated
+#' @export
+plot53Bias <- function(...) {
+    .Deprecated("plot5x3Bias")
+    plot5x3Bias(...)
+}
