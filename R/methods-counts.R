@@ -20,7 +20,7 @@
 #'   - `vst`: Variance stabilizing transformation
 #'     ([DESeq2::varianceStabilizingTransformation()]).
 #'
-#' @return [matrix].
+#' @return `matrix`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -37,11 +37,11 @@
 #' # rlog (from DESeq2)
 #' counts(bcb, normalized = "rlog") %>% summary()
 #'
-#' # TMM (from edgeR)
-#' counts(bcb, normalized = "tmm") %>% summary()
-#'
 #' # VST (from DESeq2)
 #' counts(bcb, normalized = "vst") %>% summary()
+#'
+#' # TMM (from edgeR)
+#' counts(bcb, normalized = "tmm") %>% summary()
 NULL
 
 
@@ -60,15 +60,15 @@ setMethod(
         assert_is_any_of(normalized, c("character", "logical"))
 
         if (is.logical(normalized)) {
-            if (isTRUE(normalized)) {
+            if (identical(normalized, FALSE)) {
+                # Raw counts from tximport (default)
+                counts <- assays(object)[["raw"]]
+            } else if (identical(normalized, TRUE)) {
                 # DESeq2 normalized counts
                 dds <- assays(object)[["dds"]]
                 assert_is_all_of(dds, "DESeqDataSet")
                 validObject(dds)
                 counts <- counts(dds, normalized = TRUE)
-            } else {
-                # Raw counts from tximport
-                counts <- assays(object)[["raw"]]
             }
         } else if (is.character(normalized)) {
             assert_is_a_string(normalized)
@@ -81,23 +81,29 @@ setMethod(
                     "vst"
                 )
             )
-            counts <- assays(object)[[normalized]]
 
-            # Return the matrix from slotted DESeqTransform
-            if (is(counts, "DESeqTransform")) {
-                counts <- assay(counts)
+            if (normalized == "tmm") {
+                # Calculate TMM on the fly
+                counts <- tmm(assays(object)[["raw"]])
+            } else {
+                # Use matrices slotted into `assays()`
+                counts <- assays(object)[[normalized]]
             }
 
-            # Return log2 TMM if assay is NULL.
-            # This helps support skipping CPU-intensive DESeq2 variance
-            # stabilization calculations on large datasets.
-            if (is.null(counts)) {
-                warn(paste(
-                    normalized, "counts not defined.",
-                    "Calculating and using log2 tmm counts on the fly instead."
-                ))
-                counts <- tmm(object)
-                counts <- log2(counts + 1L)
+            # Dynamic handling of optional DESeqTransform objects
+            if (normalized %in% c("rlog", "vst")) {
+                if (is(counts, "DESeqTransform")) {
+                    # Get matrix from slotted transforms
+                    counts <- assay(counts)
+                } else {
+                    warn(paste(
+                        "DESeq transformations were skipped.",
+                        "Calculating log2 TMM counts on the fly instead."
+                    ))
+                    counts <- tmm(assays(object)[["raw"]])
+                    inform("Applying log2 transformation to TMM values")
+                    counts <- log2(counts + 1L)
+                }
             }
         }
 
