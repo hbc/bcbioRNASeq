@@ -61,5 +61,5 @@
 #' @param severity How severe should the consequences of the assertion be?
 #'   Either "`stop`", "`warning`", "`message`", or "`none`".
 #'
-#' @return Stop on error.
+#' @return Silent on success. Stop on error.
 NULL
