@@ -1,4 +1,4 @@
-# TODO Add `isSpike support`
+# TODO Finish adding `isSpike` support
 
 
 
@@ -6,8 +6,17 @@
 #'
 #' Simply point to the final upload directory output by
 #' [bcbio](https://bcbio-nextgen.readthedocs.io/), and this function will take
-#' care of the rest. It automatically imports RNA-seq counts, metadata, and
+#' care of the rest. It automatically imports RNA-seq counts, metadata, and the
 #' program versions used.
+#'
+#' When the number of samples is bigger than the `transformationLimit`, `rlog`
+#' and `vst` counts will not be slotted into `assays()`. In this case, we
+#' recommend visualization using `tmm` counts, which are automatically
+#' calculated by [edgeR::tmm()].
+#'
+#' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
+#'   run directory as a remote connection over
+#'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
@@ -26,9 +35,8 @@
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
-#' @param caller *Optional.* If multiple expression callers were used in the
-#'   bcbio run, the desired one can be manually specified here. Supports
-#'   "`salmon`" (default), "`kallisto`", or "`sailfish`".
+#' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
+#'   or "`sailfish`".
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
@@ -72,17 +80,10 @@
 #'   Details. Use `Inf` to always apply transformations and `0` to always skip.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
-#' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
-#'   run directory as a remote connection over
-#'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
-#'
-#' @details
-#' When number of samples is bigger than `transformationLimit`, `rlog` and `vst`
-#' counts will not be slotted into `assays()`. In this case, we recommend
-#' visualization using [edgeR::tmm()].
-#'
-#' @return [bcbioRNASeq].
+#' @return `bcbioRNASeq`.
 #' @export
+#'
+#' @seealso `help("bcbioRNASeq-class", "bcbioRNASeq")`.
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -148,13 +149,13 @@ loadRNASeq <- function(
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
     projectDir <- list.files(
         path = uploadDir,
-        pattern = projectDirPattern,
+        pattern = bcbioBase::projectDirPattern,
         full.names = FALSE,
         recursive = FALSE
     )
     assert_is_a_string(projectDir)
     inform(projectDir)
-    match <- str_match(projectDir, projectDirPattern)
+    match <- str_match(projectDir, bcbioBase::projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
