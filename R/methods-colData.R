@@ -7,10 +7,10 @@
 #'
 #' @name colData
 #'
-#' @importFrom SummarizedExperiment colData<-
+#' @importFrom SummarizedExperiment colData colData<-
 #'
 #' @inheritParams general
-#' @param return Return as "`DataFrame`" or "`data.frame`".
+#' @param return Return as "`data.frame`" or "`DataFrame`".
 #'
 #' @return Data describing the columns of the object.
 #'
@@ -58,6 +58,21 @@ NULL
     slot(x, "colData") <- value
     x
 }
+
+
+
+# Methods ======================================================================
+#' @rdname colData
+#' @export
+setMethod(
+    "colData",
+    signature("bcbioRNASeq"),
+    function(x, return = c("data.frame", "DataFrame")) {
+        return <- match.arg(return)
+        data <- slot(x, "colData")
+        as(data, return)
+    }
+)
 
 
 

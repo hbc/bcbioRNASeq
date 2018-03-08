@@ -1,34 +1,16 @@
 #' Row Data
 #'
 #' @name rowData
+#' @author Michael Steinbaugh
 #'
-#' @importFrom SummarizedExperiment rowData rowData<-
-#'
-#' @inheritParams general
-#'
-#' @param return Return as "`DataFrame`" or "`data.frame`".
+#' @param return Return as "`data.frame`" or "`DataFrame`".
 #'
 #' @return Data describing the rows of the object.
 #'
-#' @seealso `help("rowData", "SummarizedExperiment")`
-#'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' rowData(bcb, return = "DataFrame") %>% glimpse()
-#' rowData(bcb, return = "data.frame") %>% glimpse()
+#' rowData(bcb) %>% glimpse()
 NULL
-
-
-
-# Constructors =================================================================
-.rowData <- function(x, return = c("DataFrame", "data.frame")) {
-    return <- match.arg(return)
-    data <- slot(x, "elementMetadata")
-    data <- as(data, return)
-    rownames(data) <- slot(x, "NAMES")
-    data
-}
 
 
 
@@ -38,5 +20,10 @@ NULL
 setMethod(
     "rowData",
     signature("bcbioRNASeq"),
-    .rowData
+    function(x, return = c("data.frame", "DataFrame")) {
+        return <- match.arg(return)
+        data <- mcols(rowRanges(x))
+        rownames(data) <- names(rowRanges(x))
+        as(data, return)
+    }
 )
