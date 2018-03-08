@@ -4,43 +4,28 @@
 #' of genes are not differentially expressed. We use this as a quality control
 #' tool when plotting counts per gene.
 #'
-#' @rdname tmm
 #' @name tmm
 #' @author Michael Steinbaugh
-#' @keywords internal
 #'
 #' @inheritParams general
 #'
-#' @return [matrix].
+#' @return `matrix`.
 #' @export
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 #'
-#' # bcbioRNASeq
+#' # bcbioRNASeq ====
 #' tmm(bcb) %>% summary()
 #'
-#' # DESeqDataSet
+#' # DESeqDataSet ====
 #' dds <- bcbio(bcb, "DESeqDataSet")
 #' tmm(dds) %>% summary()
 #'
-#' # matrix
+#' # matrix ====
 #' counts <- counts(bcb)
 #' tmm(counts) %>% summary()
 NULL
-
-
-
-# Constructors =================================================================
-#' @importFrom edgeR calcNormFactors cpm DGEList
-.tmm.matrix <- function(object) {  # nolint
-    assert_is_matrix(object)
-    inform("Performing trimmed mean of M-values (TMM) normalization")
-    object %>%
-        DGEList() %>%
-        calcNormFactors() %>%
-        cpm(normalized.lib.sizes = TRUE)
-}
 
 
 
@@ -51,10 +36,9 @@ setMethod(
     "tmm",
     signature("bcbioRNASeq"),
     function(object) {
-        data <- assays(object)[["tmm"]]
-        assert_is_matrix(data)
-        data
-    })
+        tmm(assay(object))
+    }
+)
 
 
 
@@ -65,13 +49,22 @@ setMethod(
     signature("DESeqDataSet"),
     function(object) {
         tmm(assay(object))
-    })
+    }
+)
 
 
 
 #' @rdname tmm
+#' @importFrom edgeR calcNormFactors cpm DGEList
 #' @export
 setMethod(
     "tmm",
     signature("matrix"),
-    .tmm.matrix)
+    function(object) {
+        inform("Performing trimmed mean of M-values (TMM) normalization")
+        object %>%
+            DGEList() %>%
+            calcNormFactors() %>%
+            cpm(normalized.lib.sizes = TRUE)
+    }
+)
