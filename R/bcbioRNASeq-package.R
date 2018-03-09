@@ -5,12 +5,14 @@
 #'
 #' @name bcbioRNASeq-package
 #'
-#' @import methods SummarizedExperiment
+#' @import methods
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
 #' @importFrom rlang .data abort inform warn
 #' @importFrom S4Vectors cor head mcols metadata na.omit SimpleList
+#' @importFrom SummarizedExperiment assay assayNames assays colData rowData
+#'   rowRanges
 #' @importFrom utils globalVariables packageVersion
 NULL
 
