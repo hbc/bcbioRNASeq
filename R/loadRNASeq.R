@@ -1,7 +1,3 @@
-# TODO Finish adding `isSpike` support
-
-
-
 #' Load bcbio RNA-Seq Data
 #'
 #' Simply point to the final upload directory output by
@@ -89,12 +85,10 @@
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' bcb <- loadRNASeq(uploadDir, level = "genes")
-#' print(bcb)
+#' loadRNASeq(uploadDir, level = "genes")
 #'
 #' # Transcript level
-#' bcb <- loadRNASeq(uploadDir, level = "transcripts")
-#' print(bcb)
+#' loadRNASeq(uploadDir, level = "transcripts")
 loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -395,7 +389,10 @@ loadRNASeq <- function(
         projectDir = projectDir,
         template = template,
         runDate = runDate,
+        level = level,
+        caller = caller,
         interestingGroups = interestingGroups,
+        isSpike = isSpike,
         organism = organism,
         genomeBuild = genomeBuild,
         ensemblRelease = ensemblRelease,
@@ -418,7 +415,7 @@ loadRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
-    # Prepare SummarizedExperiment =============================================
+    # Return =============================================
     assays = list(
         "raw" = counts,
         "tpm" = tpm,
@@ -431,7 +428,9 @@ loadRNASeq <- function(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
-        metadata = metadata
+        metadata = metadata,
+        isSpike = isSpike
     )
+    assert_is_all_of(rse, "RangedSummarizedExperiment")
     new("bcbioRNASeq", rse)
 }
