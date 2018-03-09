@@ -45,30 +45,14 @@ bcbioRNASeq <- setClass(
 setValidity(
     "bcbioRNASeq",
     function(object) {
-        assert_is_all_of(object, "RangedSummarizedExperiment")
+        assert_is_all_of(object, "SummarizedExperiment")
         assert_has_dimnames(object)
-
-        # Required slots
-        stopifnot(all(vapply(
-            X = c(
-                "assays",
-                "colData",
-                "elementMetadata",
-                "metadata",
-                "NAMES",
-                "rowRanges"
-            ),
-            FUN = function(slot) {
-                .hasSlot(object, slot)
-            },
-            FUN.VALUE = logical(1L)
-        )))
 
         # Required assays (count matrices)
         # Note that `rlog` and `vst` DESeqTransform objects are optional
         assert_is_subset(
             x = c("raw", "tpm", "length", "dds"),
-            y = names(assays(object))
+            y = assayNames(object)
         )
 
         # rowRanges must contain genomic ranges, if set
@@ -110,7 +94,10 @@ setValidity(
             "projectDir" = "character",
             "template" = "character",
             "runDate" = "Date",
+            "level" = "character",
+            "caller" = "character",
             "interestingGroups" = "character",
+            "isSpike" = c("character", "NULL"),
             "organism" = "character",
             "genomeBuild" = "character",
             "ensemblVersion" = c("integer", "NULL"),
@@ -178,8 +165,8 @@ setValidity(
 
         # Metrics
         metrics <- metadata(object)[["metrics"]]
+        assert_are_identical(colnames(object), rownames(metrics))
         assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
-        assert_has_rows(metrics)
 
         # Transcript to gene mappings
         tx2gene <- metadata(object)[["tx2gene"]]
