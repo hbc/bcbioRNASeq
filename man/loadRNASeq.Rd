@@ -7,9 +7,9 @@
 loadRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"),
   interestingGroups = "sampleName", samples = NULL,
-  sampleMetadataFile = NULL, rowRanges = TRUE, isSpike = NULL,
-  organism = NULL, ensemblRelease = NULL, genomeBuild = NULL,
-  design = formula(~1), transformationLimit = 50L, ...)
+  sampleMetadataFile = NULL, rowRanges, isSpike = NULL, organism = NULL,
+  ensemblRelease = NULL, genomeBuild = NULL, design = formula(~1),
+  transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -33,13 +33,10 @@ selection. Typically this can be left \code{NULL}.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
-\item{rowRanges}{\emph{Recommended.} User-defined genomic ranges (\code{GRanges}) that
-match the rownames of the counts matrix. If set \code{TRUE} (default), the
-annotations will be obtained automatically fron Ensembl using AnnotationHub
-and ensembleb. These values are also accessible with the \code{\link[=rowData]{rowData()}}
-function. If set \code{NULL}, then \code{\link[=rowRanges]{rowRanges()}} inside the resulting
-\code{bcbioRNASeq} object will be left empty. This is recommended for projects
-dealing with genes or transcripts that are poorly annotated.}
+\item{rowRanges}{\emph{Required.} Genomic ranges (\code{GRanges}) that match the
+rownames of the counts matrix. If left missing (default), the annotations
+will be obtained automatically fron Ensembl using AnnotationHub and
+ensembldb. These values are also accessible with the \code{\link[=rowData]{rowData()}} function.}
 
 \item{isSpike}{Genes or transcripts corresponding to FASTA spike-in
 sequences (e.g. ERCCs, EGFP, TDTOMATO).}
