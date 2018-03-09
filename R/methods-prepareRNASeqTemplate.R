@@ -1,12 +1,14 @@
 #' Prepare RNA-Seq R Markdown Template
 #'
-#' @rdname prepareRNASeqTemplate
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
+#'
+#' @importFrom bcbioBase prepareTemplate
 #'
 #' @inheritParams general
 #'
 #' @return No value.
+#' @export
 #'
 #' @examples
 #' prepareRNASeqTemplate()
@@ -19,27 +21,18 @@
 #'     "_setup.R",
 #'     "bibliography.bib"
 #' ))
-NULL
-
-
-# Methods ======================================================================
-#' @rdname prepareRNASeqTemplate
-#' @importFrom bcbioBase prepareTemplate
-#' @export
-setMethod(
-    "prepareRNASeqTemplate",
-    signature("missing"),
-    function(object) {
-        prepareTemplate(
-            c(
-                "_footer.Rmd",
-                "_header.Rmd",
-                "_output.yaml",
-                "_setup.R",
-                "bibliography.bib"
-            ),
-            sourceDir = system.file(
-                "rmarkdown/shared",
-                package = "bcbioRNASeq")
+prepareRNASeqTemplate <- function() {
+    prepareTemplate(
+        c(
+            "_footer.Rmd",
+            "_header.Rmd",
+            "_output.yaml",
+            "_setup.R",
+            "bibliography.bib"
+        ),
+        sourceDir = system.file(
+            "rmarkdown/shared",
+            package = "bcbioRNASeq"
         )
-    })
+    )
+}
