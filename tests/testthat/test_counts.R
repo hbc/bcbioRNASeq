@@ -44,7 +44,8 @@ test_that("vst", {
 
 test_that("transformationLimit", {
     skip <- bcb
-    assays(skip)[["rlog"]] <- NULL
+    # Using `assays<-` will coerce bcbioRNASeq to SummarizedExperiment
+    slot(skip, "assays")[["rlog"]] <- NULL
     expect_warning(
         counts(skip, normalized = "rlog"),
         paste(
