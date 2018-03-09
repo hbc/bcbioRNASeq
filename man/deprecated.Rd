@@ -8,7 +8,6 @@
 \alias{loadRNASeqRun}
 \alias{plotGeneHeatmap}
 \alias{txi}
-\alias{annotable}
 \alias{plot53Bias}
 \title{Defunct or Deprecated Functions}
 \usage{
@@ -23,8 +22,6 @@ loadRNASeqRun(...)
 plotGeneHeatmap(...)
 
 txi(...)
-
-annotable(...)
 
 plot53Bias(...)
 }

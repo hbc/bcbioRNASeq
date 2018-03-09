@@ -2,7 +2,6 @@
 
 export("%>%")
 export(alphaSummary)
-export(annotable)
 export(contrastName)
 export(download)
 export(ggplot)

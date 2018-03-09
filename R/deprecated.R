@@ -63,12 +63,7 @@ txi <- function(...) {
 
 
 # v0.2.0 =======================================================================
-#' @rdname deprecated
-#' @export
-annotable <- function(...) {
-    .Deprecated("rowData")
-    rowData(...)
-}
+# `annotable()` made defunct in basejump
 
 #' @rdname deprecated
 #' @export
