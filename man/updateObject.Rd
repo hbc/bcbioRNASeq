@@ -6,10 +6,14 @@
 \alias{updateObject,bcbioRNASeq-method}
 \title{Update Object}
 \usage{
-\S4method{updateObject}{bcbioRNASeq}(object)
+\S4method{updateObject}{bcbioRNASeq}(object, rowRanges)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{rowRanges}{\code{GRanges} object that defines the row annotations. Since
+we converted to \code{RangedSummarizedExperiment} in v0.2.0, this option had
+to be added to enable updating of newly required \code{\link[=rowRanges]{rowRanges()}} slot.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -35,7 +39,9 @@ objects from versions <= 0.0.20. We changed the name of the package to
 \examples{
 loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
 metadata(bcb)[["version"]]
-updated <- updateObject(bcb)
+organism <- metadata(bcb)[["organism"]]
+rowRanges <- genes(organism)
+updated <- updateObject(bcb, rowRanges = rowRanges)
 metadata(updated)[["version"]]
 metadata(updated)[["previousVersion"]]
 }

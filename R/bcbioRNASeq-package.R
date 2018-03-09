@@ -20,7 +20,9 @@ NULL
 
 globalVariables(".")
 packageVersion <- packageVersion("bcbioRNASeq")
+lanePattern <- "_L(\\d{3})"
 metadataPriorityCols <- c("sampleID", "description", "sampleName")
 legacyMetricsCols <- c(metadataPriorityCols, "name", "x53Bias")
 updateMsg <- "Run `updateObject()` to update your object"
 validCallers <- c("salmon", "kallisto", "sailfish")
+requiredAssays <- c("raw", "tpm", "length", "dds")

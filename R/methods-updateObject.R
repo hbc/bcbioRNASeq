@@ -19,13 +19,18 @@
 #' @importFrom BiocGenerics updateObject
 #'
 #' @inheritParams general
+#' @param rowRanges `GRanges` object that defines the row annotations. Since
+#'   we converted to `RangedSummarizedExperiment` in v0.2.0, this option had
+#'   to be added to enable updating of newly required [rowRanges()] slot.
 #'
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
 #' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
 #' metadata(bcb)[["version"]]
-#' updated <- updateObject(bcb)
+#' organism <- metadata(bcb)[["organism"]]
+#' rowRanges <- genes(organism)
+#' updated <- updateObject(bcb, rowRanges = rowRanges)
 #' metadata(updated)[["version"]]
 #' metadata(updated)[["previousVersion"]]
 NULL
@@ -33,47 +38,106 @@ NULL
 
 
 # Constructors =================================================================
-.updateObject.bcbioRNASeq <- function(object) {  # nolint
+.updateObject.bcbioRNASeq <- function(  # nolint
+    object,
+    rowRanges
+) {
     version <- metadata(object)[["version"]]
     assert_is_all_of(version, c("package_version", "numeric_version"))
     inform(paste("Upgrading from", version, "to", packageVersion))
 
-    # Regenerate the bcbioRNASeq object
-    se <- as(object, "SummarizedExperiment")
+    # RangedSummarizedExperiment
+    rse <- as(object, "RangedSummarizedExperiment")
+    assays <- slot(rse, "assays")
+    if (.hasSlot(rse, "rowRanges")) {
+        rowRanges <- slot(rse, "rowRanges")
+    }
+    if (missing(rowRanges)) {
+        rowRanges <- NULL
+    }
+    colData <- colData(rse)
+    metadata <- metadata(rse)
 
-    # Sanitize the colData
-    colData(se) <- sanitizeColData(colData(se))
+    # Assays ===================================================================
+    if (!all(assayNames(rse) %in% requiredAssays)) {
+        # Ensure assays is a standard list
+        assays <- lapply(seq_along(assays), function(a) {
+            assays[[a]]
+        })
+        names(assays) <- assayNames(rse)
+        if (!"dds" %in% assayNames(rse)) {
+            # DESeqDataSet
+            dds <- slot(object, "bcbio")[["DESeqDataSet"]]
+            assert_is_all_of(dds, "DESeqDataSet")
+            validObject(dds)
+            assays[["dds"]] <- dds
+        }
+        if (!"length" %in% assayNames(rse)) {
+            # tximport length
+            length <- slot(object, "bcbio")[["tximport"]][["length"]]
+            assert_is_matrix(length)
+            assays[["length"]] <- length
+        }
+        if ("normalized" %in% assayNames(rse)) {
+            # Legacy DESeq2 normalized counts
+            inform("Dropping normalized from assays")
+            assays[["normalized"]] <- NULL
+        }
+        if ("tmm" %in% assayNames(rse)) {
+            # Calculate TMM on the fly instead
+            inform("Dropping tmm from assays")
+            assays[["tmm"]] <- NULL
+        }
+        assays <- Filter(Negate(is.null), assays)
+        assays <- assays[unique(c(requiredAssays, names(assays)))]
+        assert_is_subset(requiredAssays, names(assays))
+    }
 
-    # Upgrade the metadata
-    metadata <- metadata(se)
+    # Metadata upgrades ========================================================
+    metadata <- metadata(rse)
+
+    # annotationHub
+    if (!"annotationHub" %in% names(metadata)) {
+        inform("Setting annotationHub as empty list")
+        metadata[["annotationHub"]] <- list()
+    }
 
     # bcbioLog
     if (is.null(metadata[["bcbioLog"]])) {
-        message("Setting bcbioLog as empty character")
-        metadata[["bcbioLog"]] <- ""
+        inform("Setting bcbioLog as empty character")
+        metadata[["bcbioLog"]] <- character()
     }
 
     # bcbioCommandsLog
     if (is.null(metadata[["bcbioCommandsLog"]])) {
         message("Setting bcbioCommands as empty character")
-        metadata[["bcbioCommandsLog"]] <- ""
+        metadata[["bcbioCommandsLog"]] <- character()
     }
-
-    # design
     if (is.null(metadata[["design"]])) {
         inform("Setting design as empty formula")
         metadata[["design"]] <- formula(~1)  # nolint
     }
 
-    # ensemblVersion
-    if (is.character(metadata[["ensemblVersion"]])) {
-        inform("Setting ensemblVersion as NULL")
+    # caller
+    if (!"caller" %in% names(metadata)) {
+        message("Setting caller as empty character (probably salmon)")
+        metadata[["caller"]] <- character()
+    }
+
+    # ensemblRelease
+    if ("ensemblVersion" %in% names(metadata)) {
+        # Renamed in v0.2.0
+        inform("Renaming ensemblVersion to ensemblRelease")
+        metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
         metadata[["ensemblVersion"]] <- NULL
-    } else if (
-        !is.integer(metadata[["ensemblVersion"]]) &&
-        is.numeric(metadata[["ensemblVersion"]])) {
-        inform("Coercing ensemblVersion to integer")
-        metadata[["ensemblVersion"]] <- as.integer(metadata[["ensemblVersion"]])
+    }
+    if (is.character(metadata[["ensemblRelease"]])) {
+        inform("Setting ensemblRelease as NULL")
+        metadata[["ensemblRelease"]] <- NULL
+    }
+    if (!is.integer(metadata[["ensemblRelease"]])) {
+        inform("Setting ensemblRelease as integer")
+        metadata[["ensemblRelease"]] <- as.integer(metadata[["ensemblRelease"]])
     }
 
     # gtf
@@ -83,17 +147,19 @@ NULL
     }
 
     # lanes
-    if (!is.integer(metadata[["lanes"]]) &&
-        is.numeric(metadata[["lanes"]])) {
+    if (!is.integer(metadata[["lanes"]])) {
         inform("Setting lanes as integer")
         metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
     }
 
+    # level
+    if (!"level" %in% names(metadata)) {
+        inform("Setting level as genes")
+        metadata[["level"]] <- "genes"
+    }
+
     # metrics
-    if (length(intersect(
-        x = colnames(metadata[["metrics"]]),
-        y = legacyMetricsCols
-    ))) {
+    if (length(intersect(colnames(metadata[["metrics"]]), legacyMetricsCols))) {
         metrics <- metadata[["metrics"]]
         assert_is_data.frame(metrics)
 
@@ -137,6 +203,12 @@ NULL
         metadata <- metadata[setdiff(names(metadata), "programs")]
     }
 
+    # sampleMetadataFile
+    if (is.null(metadata[["sampleMetadataFile"]])) {
+        inform("Setting sampleMetadataFile as empty character")
+        metadata[["sampleMetadataFile"]] <- character()
+    }
+
     # transformationLimit
     if (is.null(metadata[["transformationLimit"]])) {
         inform("Setting transformationLimit as Inf")
@@ -144,24 +216,29 @@ NULL
     }
 
     # unannotatedGenes
-    if (!"unannotatedGenes" %in% names(metadata) &&
-        "missingGenes" %in% names(metadata)) {
+    if ("missingGenes" %in% names(metadata)) {
         inform("Renaming missingGenes to unannotatedGenes")
         metadata[["unannotatedGenes"]] <- metadata[["missingGenes"]]
-        metadata <- metadata[setdiff(names(metadata), "missingGenes")]
+        metadata[["missingGenes"]] <- NULL
     }
 
-    # Update the automatic metadata slots
     metadata[["version"]] <- packageVersion
     metadata[["previousVersion"]] <- metadata(object)[["version"]]
     metadata[["upgradeDate"]] <- Sys.Date()
-    metadata(se) <- metadata
+    metadata <- Filter(Negate(is.null), metadata)
 
-    # Upgrade the bcbio slot
-    bcbio <- bcbio(object)
-    assert_is_all_of(bcbio, "SimpleList")
+    # Regenerate RSE ===========================================================
+    # This will resize rows for us dynamically
+    rse <- prepareSummarizedExperiment(
+        assays = assays,
+        rowRanges = rowRanges,
+        colData = colData,
+        metadata = metadata
+    )
+    validObject(rse)
 
-    to <- new("bcbioRNASeq", se, bcbio = bcbio)
+    # Return ===================================================================
+    to <- new("bcbioRNASeq", rse)
     validObject(to)
     to
 }

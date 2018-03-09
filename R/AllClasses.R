@@ -9,7 +9,7 @@
 #' be loaded at gene (default) or transcript level.
 #'
 #' DESeq2 is run automatically when [loadRNASeq()] is called, and variance
-#' stabilized counts are slotted into [assays()]
+#' stabilized counts are slotted into [assays()].
 #'
 #' The [metadata()] accessor contains:
 #'
@@ -50,14 +50,11 @@ setValidity(
 
         # Assays ===============================================================
         # Note that `rlog` and `vst` DESeqTransform objects are optional
-        assert_is_subset(
-            x = c("raw", "tpm", "length", "dds"),
-            y = assayNames(object)
-        )
+        assert_is_subset(requiredAssays, assayNames(object))
 
         # Row data =============================================================
         assert_is_all_of(rowRanges(object), "GRanges")
-        assert_is_all_of(rowData(object), "DataFrame")
+        assert_is_all_of(rowData(object), "data.frame")
         assert_is_subset(
             x = c("ensgene", "symbol"),
             y = colnames(rowData(object))
