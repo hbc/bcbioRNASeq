@@ -43,13 +43,10 @@
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left `NULL`.
-#' @param rowRanges *Recommended.* User-defined genomic ranges (`GRanges`) that
-#'   match the rownames of the counts matrix. If set `TRUE` (default), the
-#'   annotations will be obtained automatically fron Ensembl using AnnotationHub
-#'   and ensembleb. These values are also accessible with the [rowData()]
-#'   function. If set `NULL`, then [rowRanges()] inside the resulting
-#'   `bcbioRNASeq` object will be left empty. This is recommended for projects
-#'   dealing with genes or transcripts that are poorly annotated.
+#' @param rowRanges *Required.* Genomic ranges (`GRanges`) that match the
+#'   rownames of the counts matrix. If left missing (default), the annotations
+#'   will be obtained automatically fron Ensembl using AnnotationHub and
+#'   ensembldb. These values are also accessible with the [rowData()] function.
 #' @param isSpike Genes or transcripts corresponding to FASTA spike-in
 #'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
 #' @param organism *Optional.* Organism name. Use the full latin name (e.g.
@@ -96,7 +93,7 @@ loadRNASeq <- function(
     interestingGroups = "sampleName",
     samples = NULL,
     sampleMetadataFile = NULL,
-    rowRanges = TRUE,
+    rowRanges,
     isSpike = NULL,
     organism = NULL,
     ensemblRelease = NULL,
@@ -130,7 +127,9 @@ loadRNASeq <- function(
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
-    assert_is_any_of(rowRanges, c("logical", "GRanges", "NULL"))
+    if (!missing(rowRanges)) {
+        assert_is_all_of(rowRanges, "GRanges")
+    }
     assertIsCharacterOrNULL(isSpike)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
@@ -230,7 +229,7 @@ loadRNASeq <- function(
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Row data: Gene and transcript annotations ================================
-    if (isTRUE(rowRanges) && is_a_string(organism)) {
+    if (missing(rowRanges) && is_a_string(organism)) {
         # ah = AnnotationHub
         ah <- ensembl(
             organism = organism,
@@ -249,10 +248,10 @@ loadRNASeq <- function(
             x = ahMeta[["id"]],
             pattern = "^AH\\d+$"
         )
-    } else if (identical(rowData, FALSE)) {
-        rowData <- NULL
+    } else if (identical(rowRanges, FALSE)) {
+        rowRanges <- NULL
     }
-    if (is.null(rowData)) {
+    if (is.null(rowRanges)) {
         warn("Loading run without row annotations")
         ahMeta <- NULL
     }
@@ -383,33 +382,33 @@ loadRNASeq <- function(
 
     # Metadata =================================================================
     metadata <- list(
-        version = packageVersion,
-        uploadDir = uploadDir,
-        sampleDirs = sampleDirs,
-        projectDir = projectDir,
-        template = template,
-        runDate = runDate,
-        level = level,
-        caller = caller,
-        interestingGroups = interestingGroups,
-        isSpike = isSpike,
-        organism = organism,
-        genomeBuild = genomeBuild,
-        ensemblRelease = ensemblRelease,
-        annotationHub = ahMeta,
-        tx2gene = tx2gene,
-        countsFromAbundance = countsFromAbundance,
-        lanes = lanes,
-        yaml = yaml,
-        metrics = metrics,
-        sampleMetadataFile = sampleMetadataFile,
-        dataVersions = dataVersions,
-        programVersions = programVersions,
-        bcbioLog = bcbioLog,
-        bcbioCommandsLog = bcbioCommandsLog,
-        allSamples = allSamples,
-        design = design,
-        call = match.call()
+        "version" = packageVersion,
+        "uploadDir" = uploadDir,
+        "sampleDirs" = sampleDirs,
+        "projectDir" = projectDir,
+        "template" = template,
+        "runDate" = runDate,
+        "level" = level,
+        "caller" = caller,
+        "interestingGroups" = interestingGroups,
+        "isSpike" = as.character(isSpike),
+        "organism" = organism,
+        "genomeBuild" = genomeBuild,
+        "ensemblRelease" = as.integer(ensemblRelease),
+        "annotationHub" = as.list(ahMeta),
+        "tx2gene" = tx2gene,
+        "countsFromAbundance" = countsFromAbundance,
+        "lanes" = lanes,
+        "yaml" = yaml,
+        "metrics" = metrics,
+        "sampleMetadataFile" = as.character(sampleMetadataFile),
+        "dataVersions" = dataVersions,
+        "programVersions" = programVersions,
+        "bcbioLog" = bcbioLog,
+        "bcbioCommandsLog" = bcbioCommandsLog,
+        "allSamples" = allSamples,
+        "design" = design,
+        "loadRNASeq" = match.call()
     )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {
