@@ -4,7 +4,6 @@
 #' transcripts per million (TPM) can be accessed using the `normalized`
 #' argument.
 #'
-#' @rdname counts
 #' @name counts
 #' @author Michael Steinbaugh
 #'
@@ -62,7 +61,7 @@ setMethod(
         if (is.logical(normalized)) {
             if (identical(normalized, FALSE)) {
                 # Raw counts from tximport (default)
-                counts <- assays(object)[["raw"]]
+                counts <- assay(object)
             } else if (identical(normalized, TRUE)) {
                 # DESeq2 normalized counts
                 dds <- assays(object)[["dds"]]
@@ -75,6 +74,7 @@ setMethod(
             assert_is_subset(
                 normalized,
                 c(
+                    "raw",
                     "tpm",
                     "tmm",
                     "rlog",
@@ -84,7 +84,7 @@ setMethod(
 
             if (normalized == "tmm") {
                 # Calculate TMM on the fly
-                counts <- tmm(assays(object)[["raw"]])
+                counts <- tmm(assay(object))
             } else {
                 # Use matrices slotted into `assays()`
                 counts <- assays(object)[[normalized]]
@@ -100,7 +100,7 @@ setMethod(
                         "DESeq transformations were skipped.",
                         "Calculating log2 TMM counts on the fly instead."
                     ))
-                    counts <- tmm(assays(object)[["raw"]])
+                    counts <- tmm(assay(object))
                     inform("Applying log2 transformation to TMM values")
                     counts <- log2(counts + 1L)
                 }
