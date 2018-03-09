@@ -127,8 +127,8 @@ plotRRNAMappingRate(bcb)
 
 ## 5'->3' bias
 
-```{r plot_53_bias}
-plot53Bias(bcb)
+```{r plot_5_3_bias}
+plot5x3Bias(bcb)
 ```
 
 
