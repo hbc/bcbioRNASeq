@@ -41,9 +41,7 @@ loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
 metadata(bcb)[["version"]]
 organism <- metadata(bcb)[["organism"]]
 rowRanges <- genes(organism)
-updated <- updateObject(bcb, rowRanges = rowRanges)
-metadata(updated)[["version"]]
-metadata(updated)[["previousVersion"]]
+updateObject(bcb, rowRanges = rowRanges)
 }
 \author{
 Michael Steinbaugh
