@@ -228,7 +228,7 @@ loadRNASeq <- function(
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
     # Row data =================================================================
-    if (missing(rowRanges) && is_a_string(organism)) {
+    if (missing(rowRanges)) {
         # ah = AnnotationHub
         ah <- ensembl(
             organism = organism,
@@ -247,11 +247,7 @@ loadRNASeq <- function(
             x = ahMeta[["id"]],
             pattern = "^AH\\d+$"
         )
-    } else if (identical(rowRanges, FALSE)) {
-        rowRanges <- NULL
-    }
-    if (is.null(rowRanges)) {
-        warn("Loading run without row annotations")
+    } else {
         ahMeta <- NULL
     }
 
