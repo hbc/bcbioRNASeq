@@ -49,7 +49,7 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot5x3Bias}},
+Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},

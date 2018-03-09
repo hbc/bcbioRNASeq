@@ -1,6 +1,6 @@
 #' Plot 5'->3' Bias
 #'
-#' @name plot5x3Bias
+#' @name plot5Prime3PrimeBias
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
 #'
@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plot5x3Bias(bcb)
+#' plot5Prime3PrimeBias(bcb)
 NULL
 
 
@@ -17,7 +17,7 @@ NULL
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom dplyr rename
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
-.plot5x3Bias <- function(
+.plot5Prime3PrimeBias <- function(
     object,
     interestingGroups = "sampleName",
     warnLimit = 2L,
@@ -86,10 +86,10 @@ NULL
 
 
 # Methods ======================================================================
-#' @rdname plot5x3Bias
+#' @rdname plot5Prime3PrimeBias
 #' @export
 setMethod(
-    "plot5x3Bias",
+    "plot5Prime3PrimeBias",
     signature("bcbioRNASeq"),
     function(
         object,
@@ -101,7 +101,7 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        .plot5x3Bias(
+        .plot5Prime3PrimeBias(
             object = metrics(object),
             interestingGroups = interestingGroups,
             warnLimit = warnLimit,

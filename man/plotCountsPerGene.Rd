@@ -47,7 +47,7 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotCountsPerGene(bcb)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot5x3Bias}},
+Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},

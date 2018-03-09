@@ -22,10 +22,10 @@ setGeneric("meltLog10", function(object, ...) {
 
 
 
-#' @rdname plot5x3Bias
+#' @rdname plot5Prime3PrimeBias
 #' @export
-setGeneric("plot5x3Bias", function(object, ...) {
-    standardGeneric("plot5x3Bias")
+setGeneric("plot5Prime3PrimeBias", function(object, ...) {
+    standardGeneric("plot5Prime3PrimeBias")
 })
 
 
