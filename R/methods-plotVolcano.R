@@ -87,7 +87,9 @@ NULL
     assert_is_a_number(shadeAlpha)
     assert_all_are_in_left_open_range(
         x = c(pointAlpha, shadeAlpha),
-        lower = 0L, upper = 1L)
+        lower = 0L,
+        upper = 1L
+    )
     assert_is_a_string(labelColor)
     assert_is_a_bool(histograms)
 
@@ -164,31 +166,35 @@ NULL
         density()
     lfcDensityDf <- data.frame(
         x = lfcDensity[["x"]],
-        y = lfcDensity[["y"]])
+        y = lfcDensity[["y"]]
+    )
     lfcHist <- ggplot(
         data,
         mapping = aes_string(x = "log2FoldChange")
     ) +
         geom_density() +
         scale_x_continuous(limits = rangeLFC) +
+        # Don't label density y-axis
         labs(
             x = "log2 fold change",
-            y = "") +
-        # Don't label density y-axis
+            y = ""
+        ) +
         theme(
             axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
-    if (direction == "both" | direction == "up") {
+            axis.ticks.y = element_blank()
+        )
+    if (direction == "both" || direction == "up") {
         lfcHist <- lfcHist +
             geom_ribbon(
                 data = lfcDensityDf %>%
-                    .[.[["x"]] > lfc, ],
+                    .[.[["x"]] > lfc, , drop = FALSE],
                 mapping = aes_string(x = "x", ymax = "y"),
                 ymin = 0L,
                 fill = shadeColor,
-                alpha = shadeAlpha)
+                alpha = shadeAlpha
+            )
     }
-    if (direction == "both" | direction == "down") {
+    if (direction == "both" || direction == "down") {
         lfcHist <- lfcHist +
             geom_ribbon(
                 data = lfcDensityDf %>%
@@ -196,7 +202,8 @@ NULL
                 mapping = aes_string(x = "x", ymax = "y"),
                 ymin = 0L,
                 fill = shadeColor,
-                alpha = shadeAlpha)
+                alpha = shadeAlpha
+            )
     }
 
     # P value density plot =====================================================
@@ -205,7 +212,8 @@ NULL
         density()
     pvalueDensityDf <- data.frame(
         x = pvalueDensity[["x"]],
-        y = pvalueDensity[["y"]])
+        y = pvalueDensity[["y"]]
+    )
     pvalueHist <- ggplot(
         data,
         mapping = aes_string(x = "negLog10Pvalue")
@@ -219,29 +227,34 @@ NULL
             fill = shadeColor,
             alpha = shadeAlpha
         ) +
+        # Don't label density y-axis
         labs(
             x = paste("-log10", pvalTitle),
-            y = "") +
-        # Don't label density y-axis
+            y = ""
+        ) +
         theme(
             axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
+            axis.ticks.y = element_blank()
+        )
 
     # Volcano plot =============================================================
     volcano <- ggplot(
         data,
         mapping = aes_string(
             x = "log2FoldChange",
-            y = "negLog10Pvalue")
+            y = "negLog10Pvalue"
+        )
     ) +
         labs(
             x = "log2 fold change",
-            y = paste("-log10", pvalTitle)) +
+            y = paste("-log10", pvalTitle)
+        ) +
         geom_point(
             alpha = pointAlpha,
             color = pointOutlineColor,
             fill = pointColor,
-            pch = 21L) +
+            pch = 21L
+        ) +
         theme(legend.position = "none") +
         scale_x_continuous(limits = rangeLFC)
     if (is.data.frame(volcanoText)) {
@@ -251,7 +264,8 @@ NULL
                 mapping = aes_string(
                     x = "log2FoldChange",
                     y = "negLog10Pvalue",
-                    label = labelCol),
+                    label = labelCol
+                ),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
@@ -261,9 +275,10 @@ NULL
                 segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4L)
+                size = 4L
+            )
     }
-    if (direction == "both" | direction == "up") {
+    if (direction == "both" || direction == "up") {
         volcanoPolyUp <- with(
             data,
             expr = data.frame(
@@ -286,9 +301,10 @@ NULL
                 data = volcanoPolyUp,
                 mapping = aes_string(x = "x", y = "y"),
                 fill = shadeColor,
-                alpha = shadeAlpha)
+                alpha = shadeAlpha
+            )
     }
-    if (direction == "both" | direction == "down") {
+    if (direction == "both" || direction == "down") {
         volcanoPolyDown <- with(
             data,
             expr = data.frame(
@@ -313,7 +329,8 @@ NULL
                     x = "x",
                     y = "y"),
                 fill = shadeColor,
-                alpha = shadeAlpha)
+                alpha = shadeAlpha
+            )
     }
 
     # Grid layout ==============================================================
@@ -376,5 +393,7 @@ setMethod(
             shadeColor = shadeColor,
             shadeAlpha = shadeAlpha,
             labelColor = labelColor,
-            histograms = histograms)
-    })
+            histograms = histograms
+        )
+    }
+)
