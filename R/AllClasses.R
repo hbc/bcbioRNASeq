@@ -48,27 +48,22 @@ setValidity(
         assert_is_all_of(object, "SummarizedExperiment")
         assert_has_dimnames(object)
 
-        # Required assays (count matrices)
+        # Assays ===============================================================
         # Note that `rlog` and `vst` DESeqTransform objects are optional
         assert_is_subset(
             x = c("raw", "tpm", "length", "dds"),
             y = assayNames(object)
         )
 
-        # rowRanges must contain genomic ranges, if set
-        if (!is.null(rowRanges(object))) {
-            assert_is_all_of(rowRanges(object), "GRanges")
-        }
+        # Row data =============================================================
+        assert_is_all_of(rowRanges(object), "GRanges")
+        assert_is_all_of(rowData(object), "DataFrame")
+        assert_is_subset(
+            x = c("ensgene", "symbol"),
+            y = colnames(rowData(object))
+        )
 
-        # rowData must contain ensgene and symbol, if set
-        if (!is.null(rowData(object))) {
-            assert_is_subset(
-                x = c("ensgene", "symbol"),
-                y = colnames(rowData(object))
-            )
-        }
-
-        # Column data must contain factors
+        # Column data ==========================================================
         colDataFactor <- vapply(
             X = colData(object),
             FUN = is.factor,
@@ -86,42 +81,7 @@ setValidity(
             ))
         }
 
-        # Metadata
-        requiredMetadata <- list(
-            "version" = "package_version",
-            "uploadDir" = "character",
-            "sampleDirs" = "character",
-            "projectDir" = "character",
-            "template" = "character",
-            "runDate" = "Date",
-            "level" = "character",
-            "caller" = "character",
-            "interestingGroups" = "character",
-            "isSpike" = c("character", "NULL"),
-            "organism" = "character",
-            "genomeBuild" = "character",
-            "ensemblVersion" = c("integer", "NULL"),
-            "annotationHub" = c("list", "NULL"),
-            "tx2gene" = "data.frame",
-            "lanes" = "integer",
-            "yaml" = "list",
-            "metrics" = "data.frame",
-            "sampleMetadataFile" = c("character", "NULL"),
-            "dataVersions" = "tbl_df",
-            "programVersions" = "tbl_df",
-            "bcbioLog" = "character",
-            "bcbioCommandsLog" = "character",
-            "allSamples" = "logical",
-            "design" = "formula",
-            "call" = "call",
-            "date" = "Date",
-            "wd" = "character",
-            "utilsSessionInfo" = "sessionInfo",
-            "devtoolsSessionInfo" = "session_info",
-            "unannotatedRows" = "character"
-        )
-
-        # Inform the user about renamed metadata slots
+        # Legacy metadata ======================================================
         legacyMetadata <- c(
             "gtf",
             "missingGenes",
@@ -139,7 +99,41 @@ setValidity(
             ))
         }
 
-        # Integrity check the classes of required metadata
+        # Metadata classes =====================================================
+        # New metadata as of v0.2.0
+        # loadRNASeq = call
+        requiredMetadata <- list(
+            "version" = "package_version",
+            "uploadDir" = "character",
+            "sampleDirs" = "character",
+            "projectDir" = "character",
+            "template" = "character",
+            "runDate" = "Date",
+            "level" = "character",
+            "caller" = "character",
+            "interestingGroups" = "character",
+            "isSpike" = "character",
+            "organism" = "character",
+            "genomeBuild" = "character",
+            "ensemblRelease" = "integer",
+            "annotationHub" = "list",
+            "tx2gene" = "data.frame",
+            "lanes" = "integer",
+            "yaml" = "list",
+            "metrics" = "data.frame",
+            "sampleMetadataFile" = "character",
+            "dataVersions" = "tbl_df",
+            "programVersions" = "tbl_df",
+            "bcbioLog" = "character",
+            "bcbioCommandsLog" = "character",
+            "allSamples" = "logical",
+            "design" = "formula",
+            "date" = "Date",
+            "wd" = "character",
+            "utilsSessionInfo" = "sessionInfo",
+            "devtoolsSessionInfo" = "session_info",
+            "unannotatedRows" = "character"
+        )
         classChecks <- invisible(vapply(
             X = seq_along(requiredMetadata),
             FUN = function(a) {
@@ -164,6 +158,7 @@ setValidity(
             ))
         }
 
+        # Metadata objects =====================================================
         # Metrics
         metrics <- metadata(object)[["metrics"]]
         assert_are_identical(colnames(object), rownames(metrics))
