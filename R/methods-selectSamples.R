@@ -1,6 +1,5 @@
 #' Select Samples
 #'
-#' @rdname selectSamples
 #' @name selectSamples
 #' @author Michael Steinbaugh
 #'
@@ -11,7 +10,7 @@
 #' @param transform Apply CPU-intensive DESeq2 transformations. This can
 #'   take a long time for large datasets.
 #'
-#' @return [bcbioRNASeq].
+#' @return `bcbioRNASeq`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -49,38 +48,8 @@ NULL
             .[.[[column]] %in% argument, "sampleID", drop = TRUE]
     })
 
-    Reduce(f = intersect, x = list)
-}
-
-
-
-.selectSamples.bcbioRNASeq <- function(  # nolint
-    object,
-    ...,
-    transform = TRUE) {
-    samples <- .selectSamples(object, ...)
-    object[, samples, transform = transform]
-}
-
-
-
-.selectSamples.DESeqDataSet <- function(object, ...) {  # nolint
-    samples <- .selectSamples(object, ...) %>%
+    Reduce(f = intersect, x = list) %>%
         as.character()
-    object <- object[, samples]
-
-    # Relevel the factors in colData
-    colData <- colData(object)
-    colData[] <- lapply(colData, function(x) {
-        if (is.factor(x)) {
-            droplevels(x)
-        } else {
-            x
-        }
-    })
-    colData(object) <- colData
-
-    object
 }
 
 
@@ -91,7 +60,15 @@ NULL
 setMethod(
     "selectSamples",
     signature("bcbioRNASeq"),
-    .selectSamples.bcbioRNASeq)
+    function(
+        object,
+        ...,
+        transform = TRUE
+    ) {
+        samples <- .selectSamples(object, ...)
+        object[, samples, transform = transform]
+    }
+)
 
 
 
@@ -100,4 +77,21 @@ setMethod(
 setMethod(
     "selectSamples",
     signature("DESeqDataSet"),
-    .selectSamples.DESeqDataSet)
+    function(object, ...) {
+        samples <- .selectSamples(object, ...)
+        object <- object[, samples]
+
+        # Relevel the factors in colData
+        colData <- colData(object)
+        colData[] <- lapply(colData, function(x) {
+            if (is.factor(x)) {
+                droplevels(x)
+            } else {
+                x
+            }
+        })
+        colData(object) <- colData
+
+        object
+    }
+)
