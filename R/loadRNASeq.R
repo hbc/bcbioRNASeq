@@ -408,7 +408,8 @@ loadRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        design = design
+        design = design,
+        call = match.call()
     )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {

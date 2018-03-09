@@ -113,6 +113,7 @@ setValidity(
             "bcbioCommandsLog" = "character",
             "allSamples" = "logical",
             "design" = "formula",
+            "call" = "call",
             "date" = "Date",
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
