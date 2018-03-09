@@ -28,7 +28,7 @@ plotMeanSD(object, ...)
 informative and is disabled by default, to improve the plot appearance.}
 }
 \value{
-\link{ggplot} grid.
+\code{ggplot} grid.
 }
 \description{
 \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots \code{\link[=log2]{log2()}}, \code{\link[=rlog]{rlog()}}, and

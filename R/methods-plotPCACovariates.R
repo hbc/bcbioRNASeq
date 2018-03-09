@@ -18,7 +18,7 @@
 #' - [DESeq2::rlog()].
 #' - [DESeq2::varianceStabilizingTransformation()].
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -41,7 +41,8 @@ setMethod(
         object,
         metrics = TRUE,
         normalized = "rlog",
-        ...) {
+        ...
+    ) {
         assert_is_any_of(metrics, c("character", "logical"))
         assert_is_a_string(normalized)
 
@@ -51,7 +52,7 @@ setMethod(
         factors <- select_if(metadata, is.factor)
         numerics <- select_if(metadata, is.numeric) %>%
             # Drop columns that are all zeroes (not useful to plot)
-            .[, colSums(.) > 0L]
+            .[, colSums(.) > 0L, drop = FALSE]
         metadata <- cbind(factors, numerics)
 
         # Select the metrics to use for plot
@@ -73,5 +74,7 @@ setMethod(
         degCovariates(
             counts = counts,
             metadata = metadata,
-            ...)
-    })
+            ...
+        )
+    }
+)

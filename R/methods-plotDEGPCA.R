@@ -24,7 +24,8 @@ setMethod(
     "plotDEGPCA",
     signature(
         object = "DESeqResults",
-        counts = "DESeqTransform"),
+        counts = "DESeqTransform"
+    ),
     function(
         object,
         counts,
@@ -32,7 +33,8 @@ setMethod(
         lfc = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
-        returnData = FALSE) {
+        returnData = FALSE
+    ) {
         # Passthrough: interestingGroups, color, label, returnData
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
@@ -42,10 +44,12 @@ setMethod(
             object,
             lfc = lfc,
             summary = FALSE,
-            write = FALSE)
+            write = FALSE
+        )
         genes <- c(
             list[["degLFCUp"]][["ensgene"]],
-            list[["degLFCDown"]][["ensgene"]])
+            list[["degLFCDown"]][["ensgene"]]
+        )
 
         .plotPCA.DESeqTransform(
             object = counts,
@@ -53,5 +57,6 @@ setMethod(
             genes = genes,
             color = color,
             label = label,
-            returnData = returnData)
+            returnData = returnData
+        )
     })

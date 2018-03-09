@@ -23,7 +23,8 @@ NULL
     warnLimit = 10L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
@@ -47,7 +48,8 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / 1e6L,
-            fill = ~interestingGroups)
+            fill = ~interestingGroups
+        )
     ) +
         geom_bar(stat = "identity") +
         labs(
@@ -94,7 +96,8 @@ setMethod(
         warnLimit = 10L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
-        title = TRUE) {
+        title = TRUE
+    ) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -105,5 +108,7 @@ setMethod(
             warnLimit = warnLimit,
             fill = fill,
             flip = flip,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

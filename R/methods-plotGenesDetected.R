@@ -26,7 +26,8 @@ NULL
     minCounts = 0L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assert_is_matrix(counts)
     assertFormalInterestingGroups(object, interestingGroups)
@@ -100,7 +101,8 @@ setMethod(
         warnLimit = 15000L,
         minCounts = 0L,
         fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE) {
+        flip = TRUE
+    ) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -112,5 +114,7 @@ setMethod(
             warnLimit = warnLimit,
             minCounts = minCounts,
             fill = fill,
-            flip = flip)
-    })
+            flip = flip
+        )
+    }
+)

@@ -29,7 +29,8 @@ NULL
     minCounts = 0L,
     trendline = TRUE,
     color = scale_color_viridis(discrete = TRUE),
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(minCounts)
@@ -51,7 +52,8 @@ NULL
         mapping = aes_(
             x = ~mappedReads / 1e6L,
             y = colSums(counts > minCounts),
-            color = ~interestingGroups)
+            color = ~interestingGroups
+        )
     ) +
         geom_point(size = 3L) +
         labs(
@@ -87,7 +89,8 @@ setMethod(
         minCounts = 0L,
         trendline = TRUE,
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -99,5 +102,7 @@ setMethod(
             minCounts = minCounts,
             trendline = trendline,
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

@@ -9,7 +9,7 @@
 #' @inherit plotTotalReads
 #'
 #' @param genes Gene identifiers (rownames) to plot. These must be the stable
-#'   identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+#'   identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
 #'   symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
 #'   `data.frame` can be passed in, and must contain the columns `ensgene` and

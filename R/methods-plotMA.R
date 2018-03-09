@@ -77,14 +77,16 @@ NULL
         labs(
             title = title,
             x = "mean expression across all samples",
-            y = "log2 fold change")
+            y = "log2 fold change"
+        )
 
     if (!is.null(pointColor) && !is.null(sigPointColor)) {
         # `FALSE`: Genes that don't pass alpha
         # `TRUE`: Significant genes that do pass alpha
         p <- p +
             scale_color_manual(
-                values = c("FALSE" = pointColor, "TRUE" = sigPointColor))
+                values = c("FALSE" = pointColor, "TRUE" = sigPointColor)
+            )
     }
 
     if (is.character(genes)) {
@@ -104,7 +106,8 @@ NULL
                 aes_string(
                     x = "baseMean",
                     y = "log2FoldChange",
-                    label = labelCol),
+                    label = labelCol
+                ),
                 arrow = arrow(length = unit(0.01, "npc")),
                 box.padding = unit(0.5, "lines"),
                 color = labelColor,
@@ -114,7 +117,8 @@ NULL
                 segment.color = labelColor,
                 segment.size = 0.5,
                 show.legend = FALSE,
-                size = 4L)
+                size = 4L
+            )
     }
 
     p
@@ -135,7 +139,8 @@ setMethod(
         pointColor = "darkgray",
         sigPointColor = "red",
         labelColor = "black",
-        title = TRUE) {
+        title = TRUE
+    ) {
         # Passthrough: genes, gene2symbol, pointColor, sigPointColor, labelColor
         if (isTRUE(title)) {
             title <- contrastName(object)
@@ -150,5 +155,7 @@ setMethod(
             pointColor = pointColor,
             sigPointColor = sigPointColor,
             labelColor = labelColor,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

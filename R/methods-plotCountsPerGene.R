@@ -23,7 +23,8 @@ NULL
     interestingGroups = "sampleName",
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsFillScaleDiscreteOrNULL(fill)
@@ -43,14 +44,16 @@ NULL
         mapping = aes_string(
             x = "sampleName",
             y = "counts",
-            fill = "interestingGroups")
+            fill = "interestingGroups"
+        )
     ) +
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(
             title = title,
             x = "sample",
             y = "log10 counts per gene",
-            fill = paste(interestingGroups, collapse = ":\n"))
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (is(fill, "ScaleDiscrete")) {
         p <- p + fill
@@ -81,7 +84,8 @@ setMethod(
         normalized = "tmm",
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
-        title = TRUE) {
+        title = TRUE
+    ) {
         # Passthrough: fill, flip, title
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -92,5 +96,6 @@ setMethod(
             interestingGroups = interestingGroups,
             fill = fill,
             flip = flip,
-            title = title)
+            title = title
+        )
     })

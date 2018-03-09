@@ -43,7 +43,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 \item{title}{Title.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Count Density

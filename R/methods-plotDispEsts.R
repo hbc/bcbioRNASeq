@@ -31,7 +31,8 @@
 #'     bcb,
 #'     genecol = "gray",
 #'     fitcol = "purple",
-#'     finalcol = "orange")
+#'     finalcol = "orange"
+#' )
 NULL
 
 

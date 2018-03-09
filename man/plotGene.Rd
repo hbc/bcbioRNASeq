@@ -32,7 +32,7 @@
 \item{object}{Object.}
 
 \item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
+identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
 symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol

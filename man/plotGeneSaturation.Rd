@@ -40,7 +40,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \item{title}{Title.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Gene Detection Saturation

@@ -32,7 +32,7 @@ here as a character vector.}
 }}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNASeq} object.

@@ -39,7 +39,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 \item{flip}{Flip x and y axes.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Genes Detected

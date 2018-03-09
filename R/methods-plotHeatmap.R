@@ -123,7 +123,8 @@ setMethod(
         color = viridis,
         legendColor = viridis,
         title = NULL,
-        ...) {
+        ...
+    ) {
         counts <- counts(object, normalized = normalized)
         annotationCol <- colData(object) %>%
             .[colnames(counts), interestingGroups(object), drop = FALSE] %>%
@@ -138,8 +139,10 @@ setMethod(
             color = color,
             legendColor = legendColor,
             title = title,
-            ...)
-    })
+            ...
+        )
+    }
+)
 
 
 
@@ -159,7 +162,8 @@ setMethod(
         color = viridis,
         legendColor = viridis,
         title = NULL,
-        ...) {
+        ...
+    ) {
         .plotHeatmap(
             object = counts(object, normalized = normalized),
             samples = samples,
@@ -170,8 +174,10 @@ setMethod(
             color = color,
             legendColor = legendColor,
             title = title,
-            ...)
-    })
+            ...
+        )
+    }
+)
 
 
 
@@ -190,7 +196,8 @@ setMethod(
         color = viridis,
         legendColor = viridis,
         title = NULL,
-        ...) {
+        ...
+    ) {
         .plotHeatmap(
             object = assay(object),
             samples = samples,
@@ -201,5 +208,7 @@ setMethod(
             color = color,
             legendColor = legendColor,
             title = title,
-            ...)
-    })
+            ...
+        )
+    }
+)

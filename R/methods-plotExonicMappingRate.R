@@ -22,7 +22,8 @@ NULL
     passLimit = 60L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsAnImplicitInteger(passLimit)
@@ -44,14 +45,16 @@ NULL
         mapping = aes_(
             x = ~sampleName,
             y = ~exonicRate * 100L,
-            fill = ~interestingGroups)
+            fill = ~interestingGroups
+        )
     ) +
         geom_bar(stat = "identity") +
         labs(
             title = title,
             x = "sample",
             y = "exonic mapping rate (%)",
-            fill = paste(interestingGroups, collapse = ":\n")) +
+            fill = paste(interestingGroups, collapse = ":\n")
+        ) +
         ylim(0L, 100L)
 
     if (is_positive(passLimit)) {
@@ -87,7 +90,8 @@ setMethod(
         passLimit = 60L,
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
-        title = TRUE) {
+        title = TRUE
+    ) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -97,5 +101,7 @@ setMethod(
             passLimit = passLimit,
             fill = fill,
             flip = flip,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

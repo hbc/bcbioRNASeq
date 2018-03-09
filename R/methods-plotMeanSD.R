@@ -14,7 +14,7 @@
 #' @param showLegend Include the color bar legend. This is typically not that
 #'   informative and is disabled by default, to improve the plot appearance.
 #'
-#' @return [ggplot] grid.
+#' @return `ggplot` grid.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -40,7 +40,8 @@ NULL
     rlog,
     vst,
     orientation = "vertical",
-    showLegend = FALSE) {
+    showLegend = FALSE
+) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
     assert_is_matrix(vst)
@@ -97,7 +98,8 @@ NULL
         ggvst,
         labels = "AUTO",
         ncol = ncol,
-        nrow = nrow)
+        nrow = nrow
+    )
 }
 
 
@@ -110,15 +112,18 @@ setMethod(
     function(
         object,
         orientation = "vertical",
-        showLegend = FALSE) {
+        showLegend = FALSE
+    ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = counts(object, normalized = "rlog"),
             vst = counts(object, normalized = "vst"),
             orientation = orientation,
-            showLegend = showLegend)
-    })
+            showLegend = showLegend
+        )
+    }
+)
 
 
 
@@ -131,7 +136,8 @@ setMethod(
     function(
         object,
         orientation = "vertical",
-        showLegend = FALSE) {
+        showLegend = FALSE
+    ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
@@ -139,4 +145,5 @@ setMethod(
             vst = assay(varianceStabilizingTransformation(object)),
             orientation = orientation,
             showLegend = showLegend)
-    })
+    }
+)

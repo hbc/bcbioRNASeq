@@ -33,7 +33,8 @@ plotDispEsts(
     bcb,
     genecol = "gray",
     fitcol = "purple",
-    finalcol = "orange")
+    finalcol = "orange"
+)
 }
 \seealso{
 \itemize{

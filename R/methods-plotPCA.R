@@ -54,7 +54,8 @@ NULL
     genes = NULL,
     color = scale_color_viridis(discrete = TRUE),
     label = FALSE,
-    returnData = FALSE) {
+    returnData = FALSE
+) {
     assert_is_all_of(object, "DESeqTransform")
     assertFormalInterestingGroups(colData(object), interestingGroups)
     assertIsCharacterOrNULL(genes)
@@ -83,7 +84,8 @@ NULL
         object,
         intgroup = interestingGroups,
         returnData = TRUE,
-        ntop = ntop) %>%
+        ntop = ntop
+    ) %>%
         camel()
 
     percentVar <- round(100L * attr(data, "percentVar"))
@@ -96,7 +98,8 @@ NULL
         mapping = aes_string(
             x = "pc1",
             y = "pc2",
-            color = "group")
+            color = "group"
+        )
     ) +
         geom_point(size = 4L) +
         coord_fixed() +
@@ -130,7 +133,8 @@ NULL
                 arrow = arrow(length = unit(0.01, "npc")),
                 # Strength of the repulsion force
                 force = 1L,
-                show.legend = FALSE)
+                show.legend = FALSE
+            )
     }
 
     if (isTRUE(returnData)) {
@@ -156,7 +160,8 @@ setMethod(
         censorSamples = NULL,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
-        returnData = FALSE) {
+        returnData = FALSE
+    ) {
         # Passthrough: genes, color, label, returnData
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -170,7 +175,8 @@ setMethod(
             counts <- counts(object, normalized = normalized)
             se <- SummarizedExperiment(
                 assays = counts,
-                colData = colData(object))
+                colData = colData(object)
+            )
             dt <- DESeqTransform(se)
         }
 
