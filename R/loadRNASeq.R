@@ -391,7 +391,6 @@ loadRNASeq <- function(
         "level" = level,
         "caller" = caller,
         "interestingGroups" = interestingGroups,
-        "isSpike" = as.character(isSpike),
         "organism" = organism,
         "genomeBuild" = genomeBuild,
         "ensemblRelease" = as.integer(ensemblRelease),
