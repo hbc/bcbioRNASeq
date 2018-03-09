@@ -1,6 +1,5 @@
 #' Top Tables of Differential Expression Results
 #'
-#' @rdname topTables
 #' @name topTables
 #' @author Michael Steinbaugh
 #'
@@ -10,7 +9,7 @@
 #' @param n Number genes to report.
 #' @param coding Whether to only return coding genes.
 #'
-#' @return Top table kables, for knit report.
+#' @return `kable`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))

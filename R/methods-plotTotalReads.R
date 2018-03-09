@@ -1,6 +1,5 @@
 #' Plot Total Reads
 #'
-#' @rdname plotTotalReads
 #' @name plotTotalReads
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

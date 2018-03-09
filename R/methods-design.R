@@ -1,6 +1,5 @@
 #' Design Formula Accessor
 #'
-#' @rdname design
 #' @name design
 #' @author Michael Steinbaugh
 #'
@@ -36,10 +35,13 @@ setMethod(
     "design",
     signature("bcbioRNASeq"),
     function(object) {
-        dds <- bcbio(object, "DESeqDataSet")
+        validObject(object)
+        dds <- assays(object)[["dds"]]
         assert_is_all_of(dds, "DESeqDataSet")
+        validObject(dds)
         design(dds)
-    })
+    }
+)
 
 
 
@@ -50,13 +52,16 @@ setMethod(
     "design<-",
     signature(
         object = "bcbioRNASeq",
-        value = "formula"),
+        value = "formula"
+    ),
     function(object, value) {
-        dds <- bcbio(object, "DESeqDataSet")
+        dds <- assays(object)[["dds"]]
         assert_is_all_of(dds, "DESeqDataSet")
         design(dds) <- value
         dds <- DESeq(dds)
-        bcbio(object, "DESeqDataSet") <- dds
+        validObject(dds)
+        assays(object)[["dds"]] <- dds
         validObject(object)
         object
-    })
+    }
+)

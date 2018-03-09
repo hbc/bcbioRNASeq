@@ -1,6 +1,5 @@
 #' Plot Volcano
 #'
-#' @rdname plotVolcano
 #' @name plotVolcano
 #' @family Differential Expression Plots
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
@@ -69,7 +68,8 @@ NULL
     shadeColor = "green",
     shadeAlpha = 0.25,
     labelColor = "black",
-    histograms = TRUE) {
+    histograms = TRUE
+) {
     assert_is_data.frame(object)
     assert_is_a_number(alpha)
     assert_is_a_bool(padj)
@@ -356,7 +356,8 @@ setMethod(
         pointAlpha = 0.75,
         pointOutlineColor = "darkgray",
         labelColor = "black",
-        histograms = TRUE) {
+        histograms = TRUE
+    ) {
         if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }

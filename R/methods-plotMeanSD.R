@@ -3,7 +3,6 @@
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
-#' @rdname plotMeanSD
 #' @name plotMeanSD
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh, Lorena Patano
@@ -25,7 +24,7 @@
 #' plotMeanSD(bcb, orientation = "vertical")
 #'
 #' # DESeqDataSet
-#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds <- assays(bcb)[["dds"]]
 #' plotMeanSD(dds, orientation = "horizontal")
 NULL
 

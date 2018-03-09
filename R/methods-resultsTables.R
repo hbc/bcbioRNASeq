@@ -1,6 +1,5 @@
 #' Differential Expression Results Tables
 #'
-#' @rdname resultsTables
 #' @name resultsTables
 #' @author Michael Steinbaugh
 #'

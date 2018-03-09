@@ -1,13 +1,12 @@
 #' Sample Metrics
 #'
-#' @rdname metrics
 #' @name metrics
 #'
 #' @importFrom bcbioBase metrics
 #'
 #' @inheritParams general
 #'
-#' @return [data.frame].
+#' @return `data.frame`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -25,19 +24,13 @@ NULL
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object) {  # nolint
+    function(object) {
+        validObject(object)
         metrics <- metadata(object)[["metrics"]]
-        assert_is_data.frame(metrics)
-        assert_are_identical(colnames(object), rownames(metrics))
-
-        metadata <- colData(object)
-        assert_is_data.frame(metadata)
+        metadata <- colData(object, return = "data.frame")
         assert_are_identical(rownames(metrics), rownames(metadata))
 
-        if (length(intersect(
-            x = colnames(metrics),
-            y = legacyMetricsCols
-        ))) {
+        if (length(intersect(colnames(metrics), legacyMetricsCols))) {
             warn(paste(
                 paste(
                     "Metrics slot contains legacy columns:",
@@ -55,4 +48,5 @@ setMethod(
             rownames_to_column() %>%
             mutate_if(is.character, as.factor) %>%
             column_to_rownames()
-    })
+    }
+)

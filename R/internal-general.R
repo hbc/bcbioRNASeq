@@ -1,6 +1,5 @@
 #' General Arguments
 #'
-#' @rdname general
 #' @name general
 #' @keywords internal
 #'

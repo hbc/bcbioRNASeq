@@ -1,6 +1,5 @@
 #' Plot Mean Average
 #'
-#' @rdname plotMA
 #' @name plotMA
 #'
 #' @family Differential Expression Plots
@@ -47,7 +46,8 @@ NULL
     pointColor = "darkgray",
     sigPointColor = "purple",
     labelColor = "black",
-    title = NULL) {
+    title = NULL
+) {
     assert_is_data.frame(object)
     assert_is_a_number(alpha)
     assert_all_are_positive(alpha)

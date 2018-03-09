@@ -1,6 +1,5 @@
 #' Plot Sexually Dimorphic Gender Markers
 #'
-#' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh
@@ -13,7 +12,7 @@
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
 #' url <- "http://bcbiornaseq.seq.cloud/f1000v1"
@@ -31,7 +30,7 @@
 #'     color = NULL)
 #'
 #' # DESeqDataSet ====
-#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds <- assays(bcb)[["dds"]]
 #' plotGenderMarkers(dds, interestingGroups = "group")
 #'
 #' # DESeqTransform ====
@@ -56,7 +55,8 @@ NULL
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_matrix(object)
     assertFormalAnnotationCol(object, colData)
     assertFormalInterestingGroups(colData, interestingGroups)
@@ -105,7 +105,8 @@ NULL
         countsAxisLabel = countsAxisLabel,
         medianLine = medianLine,
         color = color,
-        return = "wide") +
+        return = "wide"
+    ) +
         ggtitle(title)
 }
 
@@ -117,7 +118,8 @@ NULL
 setMethod(
     "plotGenderMarkers",
     signature("matrix"),
-    .plotGenderMarkers)
+    .plotGenderMarkers
+)
 
 
 
@@ -131,7 +133,8 @@ setMethod(
         interestingGroups,
         normalized = "rlog",
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -143,8 +146,10 @@ setMethod(
             colData = colData(object),
             countsAxisLabel = normalized,
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)
 
 
 
@@ -159,7 +164,8 @@ setMethod(
         interestingGroups = "sampleName",
         organism,
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         if (missing(organism)) {
             organism <- detectOrganism(counts)
@@ -171,8 +177,10 @@ setMethod(
             colData = colData(object),
             countsAxisLabel = "log2 normalized counts",
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)
 
 
 
@@ -187,7 +195,8 @@ setMethod(
         interestingGroups = "sampleName",
         organism,
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         # Passthrough: interestingGroups, color, title
         counts <- assay(object)
         if (missing(organism)) {
@@ -205,5 +214,7 @@ setMethod(
             colData = colData(object),
             countsAxisLabel = countsAxisLabel,
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

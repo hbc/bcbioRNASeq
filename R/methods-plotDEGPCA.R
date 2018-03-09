@@ -1,6 +1,5 @@
 #' Plot DEG PCA
 #'
-#' @rdname plotDEGPCA
 #' @name plotDEGPCA
 #' @author Michael Steinbaugh
 #'

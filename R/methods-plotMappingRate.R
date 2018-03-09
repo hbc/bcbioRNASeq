@@ -1,6 +1,5 @@
 #' Plot Mapping Rate
 #'
-#' @rdname plotMappingRate
 #' @name plotMappingRate
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

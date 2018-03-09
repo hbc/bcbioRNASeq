@@ -5,7 +5,6 @@
 #' which already has method support for plotting dispersion, provided by
 #' the DESeq2 package.
 #'
-#' @rdname plotDispEsts
 #' @name plotDispEsts
 #' @family Differential Expression Utilities
 #' @author Michael Steinbaugh
@@ -19,7 +18,7 @@
 #' - [DESeq2::plotDispEsts()].
 #' - `getMethod("plotDispEsts", "DESeqDataSet")`.
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -44,7 +43,9 @@ setMethod(
     "plotDispEsts",
     signature("bcbioRNASeq"),
     function(object, ...) {
-        dds <- bcbio(object, "DESeqDataSet")
+        validObject(object)
+        dds <- assays(object)[["dds"]]
         assert_is_all_of(dds, "DESeqDataSet")
         plotDispEsts(dds, ...)
-    })
+    }
+)

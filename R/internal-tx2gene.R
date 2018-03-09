@@ -2,6 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
+#' @noRd
 #'
 #' @importFrom basejump tx2gene
 #' @importFrom dplyr arrange mutate
@@ -14,7 +15,6 @@
 #' @param release Ensembl release version.
 #'
 #' @return `data.frame` with unique rownames.
-#' @noRd
 .tx2gene <- function(projectDir, organism, release = NULL) {
     assert_all_are_dirs(projectDir)
     assert_is_a_string(organism)

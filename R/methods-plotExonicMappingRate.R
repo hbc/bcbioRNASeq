@@ -1,6 +1,5 @@
 #' Plot Exonic Mapping Rate
 #'
-#' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

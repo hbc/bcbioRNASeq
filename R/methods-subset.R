@@ -24,22 +24,20 @@
 #' head(samples)
 #'
 #' # Subset by sample name
-#' subset <- bcb[, samples]
-#' summary(subset)
+#' bcb[, samples]
 #'
 #' # Subset by gene list
-#' subset <- bcb[genes, ]
-#' summary(subset)
+#' bcb[genes, ]
 #'
 #' # Subset by both genes and samples
 #' subset <- bcb[genes, samples]
-#' summary(subset)
-#' names(assays(subset))
+#' print(subset)
+#' assayNames(subset)
 #'
 #' # Skip DESeq2 transformations
 #' subset <- bcb[genes, samples, transform = FALSE]
-#' summary(subset)
-#' names(assays(subset))
+#' print(subset)
+#' assayNames(subset)
 NULL
 
 

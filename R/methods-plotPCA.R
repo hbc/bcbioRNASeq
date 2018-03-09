@@ -3,7 +3,6 @@
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
 #' (PCA) sample coloring and labeling.
 #'
-#' @rdname plotPCA
 #' @name plotPCA
 #' @author Michael Steinbaugh
 #'
@@ -145,7 +144,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotPCA
-#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @export
 setMethod(
     "plotPCA",
@@ -189,5 +187,7 @@ setMethod(
             genes = genes,
             color = color,
             label = label,
-            returnData = returnData)
-    })
+            returnData = returnData
+        )
+    }
+)

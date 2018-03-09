@@ -1,6 +1,5 @@
 #' Melt Count Matrix to Long Format and log10 Transform
 #'
-#' @rdname meltLog10
 #' @name meltLog10
 #' @author Michael Steinbaugh
 #'
@@ -77,7 +76,8 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = TRUE) {
+        normalized = TRUE
+    ) {
         .joinMelt(
             counts = counts(object, normalized = normalized),
             colData = colData(object)

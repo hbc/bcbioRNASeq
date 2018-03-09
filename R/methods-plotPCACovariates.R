@@ -2,7 +2,6 @@
 #'
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
 #'
-#' @rdname plotPCACovariates
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh
 #'

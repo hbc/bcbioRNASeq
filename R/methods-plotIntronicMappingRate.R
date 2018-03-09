@@ -1,6 +1,5 @@
 #' Plot Intronic Mapping Rate
 #'
-#' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

@@ -6,15 +6,14 @@
 #' input of `gene` identifier vector. In this case, only the expression of the
 #' desired genes will be used to calculate the correlation matrix.
 #'
-#' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
 #' @family Heatmaps
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotHeatmap
+#'
 #' @inheritParams counts
 #' @inheritParams plotTotalReads
-#'
 #' @param method Correlation coefficient (or covariance) method to be computed.
 #'   Defaults to `pearson` but `spearman` can also be used. Consult the
 #'   [stats::cor()] documentation for more information.
@@ -39,13 +38,15 @@
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = inferno,
-#'     legendColor = inferno)
+#'     legendColor = inferno
+#' )
 #'
 #' # Default pheatmap palette
 #' plotCorrelationHeatmap(
 #'     bcb,
 #'     color = NULL,
-#'     legendColor = NULL)
+#'     legendColor = NULL
+#' )
 NULL
 
 
@@ -66,7 +67,8 @@ NULL
     color = viridis,
     legendColor = viridis,
     title = TRUE,
-    ...) {
+    ...
+) {
     assert_is_matrix(object)
     assert_is_a_string(method)
     assert_is_subset(method, c("pearson", "spearman"))
@@ -143,7 +145,8 @@ NULL
             main = title,
             show_colnames = TRUE,
             show_rownames = TRUE,
-            ...)
+            ...
+        )
 }
 
 
@@ -154,7 +157,8 @@ NULL
 setMethod(
     "plotCorrelationHeatmap",
     signature("matrix"),
-    .plotCorrelationHeatmap)
+    .plotCorrelationHeatmap
+)
 
 
 
@@ -173,7 +177,8 @@ setMethod(
         color = viridis,
         legendColor = viridis,
         title = TRUE,
-        ...) {
+        ...
+    ) {
         # Passthrough: method, genes, samples, color, legendColor
         assert_is_a_string(normalized)
         counts <- counts(object, normalized = normalized)
@@ -183,7 +188,8 @@ setMethod(
         }
         assertFormalInterestingGroups(
             x = colData(object),
-            interestingGroups = interestingGroups)
+            interestingGroups = interestingGroups
+        )
 
         # Don't set annotation columns if we're only grouping by sample name
         if (identical(interestingGroups, "sampleName")) {
@@ -207,5 +213,7 @@ setMethod(
             color = color,
             legendColor = legendColor,
             title = title,
-            ...)
-    })
+            ...
+        )
+    }
+)

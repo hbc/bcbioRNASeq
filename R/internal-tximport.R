@@ -1,8 +1,9 @@
 #' Import RNA-Seq Counts
 #'
-#' Import RNA-seq counts using [tximport()]. Currently supports
-#' [salmon](https://combine-lab.github.io/salmon/) (**recommended**) and
-#' [sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/).
+#' Import RNA-seq counts using [tximport::tximport()].
+#'
+#' Normalized counts are loaded as length-scaled transcripts per million.
+#' https://goo.gl/h6fm15
 #'
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
@@ -12,13 +13,11 @@
 #' @importFrom tximport tximport
 #'
 #' @inheritParams tximport::tximport
-#'
 #' @param sampleDirs Sample directories to import.
 #' @param type *Optional.* Manually specify the expression caller to use.
 #'   If `NULL`, if defaults to our preferred priority.
 #'
-#' @seealso
-#' - [tximport::tximport()].
+#' @seealso [tximport::tximport()].
 #'
 #' @return `list` containing count matrices.
 .tximport <- function(
@@ -73,16 +72,12 @@
     # Begin loading of selected counts
     inform(paste("Reading", type, "counts using tximport"))
 
-    # Import the counts as length-scaled transcripts per million
-    # https://goo.gl/h6fm15
-    countsFromAbundance <- "lengthScaledTPM"
-
     tximport(
         files = files,
         type = type,
         txIn = txIn,
         txOut = txOut,
-        countsFromAbundance = countsFromAbundance,
+        countsFromAbundance = "lengthScaledTPM",
         tx2gene = tx2gene,
         ignoreTxVersion = TRUE,
         importer = read_tsv

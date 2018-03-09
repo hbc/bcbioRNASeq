@@ -23,6 +23,7 @@ setMethod(
     "contrastName",
     signature("DESeqResults"),
     function(object) {
+        validObject(object)
         contrast <- mcols(object)[2L, 2L]
         assert_is_character(contrast)
         contrast %>%

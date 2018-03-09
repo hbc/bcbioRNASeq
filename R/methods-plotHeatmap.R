@@ -5,7 +5,6 @@
 #' groups (`interestingGroups`) specified in the [bcbioRNASeq] and then the
 #' sample names.
 #'
-#' @rdname plotHeatmap
 #' @name plotHeatmap
 #' @family Heatmaps
 #' @author Michael Steinbaugh
@@ -14,7 +13,6 @@
 #'
 #' @inheritParams general
 #' @inheritParams counts
-#' @inheritParams gene2symbol
 #' @inheritParams plotGene
 #'
 #' @param samples *Optional.* Samples (colnames) to plot.
@@ -40,18 +38,20 @@
 #' plotHeatmap(bcb, color = inferno, legendColor = inferno)
 #'
 #' # DESeqDataSet ====
-#' dds <- bcbio(bcb, "DESeqDataSet")
+#' dds <- assays(bcb)[["dds"]]
 #' plotHeatmap(
 #'     object = dds,
 #'     genes = head(rownames(dds), 20L),
-#'     gene2symbol = gene2symbol)
+#'     gene2symbol = gene2symbol
+#' )
 #'
 #' # DESeqTransform ====
 #' rld <- assays(bcb)[["rlog"]]
 #' plotHeatmap(
 #'     object = rld,
 #'     genes = head(rownames(rld), 20L),
-#'     gene2symbol = gene2symbol)
+#'     gene2symbol = gene2symbol
+#' )
 NULL
 
 
@@ -68,7 +68,8 @@ NULL
     color = viridis,
     legendColor = viridis,
     title = NULL,
-    ...) {
+    ...
+) {
     assert_is_matrix(object)
     assertIsCharacterOrNULL(samples)
     assertIsCharacterOrNULL(genes)
@@ -90,7 +91,8 @@ NULL
     if (is.data.frame(gene2symbol)) {
         rownames(object) <- convertGenesToSymbols(
             rownames(object),
-            gene2symbol = gene2symbol)
+            gene2symbol = gene2symbol
+        )
     }
 
     plotHeatmap(
@@ -100,7 +102,8 @@ NULL
         color = color,
         legendColor = legendColor,
         title = title,
-        ...)
+        ...
+    )
 }
 
 

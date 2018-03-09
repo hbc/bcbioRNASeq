@@ -5,7 +5,6 @@
 #' the optional parameters for [plotHeatmap()] are also available to this
 #' function.
 #'
-#' @rdname plotDEGHeatmap
 #' @name plotDEGHeatmap
 #' @family Heatmaps
 #' @author Michael Steinbaugh
@@ -24,15 +23,15 @@
 #'
 #' # Use our stashed gene2symbol
 #' gene2symbol <- gene2symbol(bcb)
-#' annotationCol <- colData(bcb) %>%
-#'     .[, interestingGroups(bcb), drop = FALSE]
+#' annotationCol <- colData(bcb)[, interestingGroups(bcb), drop = FALSE]
 #'
 #' # DESeqResults, DESeqTransform ====
 #' plotDEGHeatmap(
 #'     object = res,
 #'     counts = rld,
 #'     gene2symbol = gene2symbol,
-#'     annotationCol = annotationCol)
+#'     annotationCol = annotationCol
+#' )
 #'
 #' # DESeqResults, DESeqDataSet ====
 #' # Using default ggplot2 colors
@@ -41,7 +40,8 @@
 #'     counts = dds,
 #'     gene2symbol = gene2symbol,
 #'     color = NULL,
-#'     legendColor = NULL)
+#'     legendColor = NULL
+#' )
 NULL
 
 
@@ -54,7 +54,8 @@ NULL
     lfc = 0L,
     gene2symbol = NULL,
     title = TRUE,
-    ...) {
+    ...
+) {
     assert_is_any_of(
         x = counts,
         classes = c("DESeqDataSet", "DESeqTransform", "matrix")
@@ -96,7 +97,8 @@ NULL
     if (is.data.frame(gene2symbol)) {
         rownames(counts) <- convertGenesToSymbols(
             rownames(counts),
-            gene2symbol = gene2symbol)
+            gene2symbol = gene2symbol
+        )
     }
 
     plotHeatmap(counts, title = title, ...)
@@ -112,7 +114,8 @@ setMethod(
     signature(
         object = "DESeqResults",
         counts = "DESeqDataSet"),
-    .plotDEGHeatmap.DESeqResults)
+    .plotDEGHeatmap.DESeqResults
+)
 
 
 
@@ -123,7 +126,8 @@ setMethod(
     signature(
         object = "DESeqResults",
         counts = "DESeqTransform"),
-    .plotDEGHeatmap.DESeqResults)
+    .plotDEGHeatmap.DESeqResults
+)
 
 
 
@@ -134,4 +138,5 @@ setMethod(
     signature(
         object = "DESeqResults",
         counts = "matrix"),
-    .plotDEGHeatmap.DESeqResults)
+    .plotDEGHeatmap.DESeqResults
+)

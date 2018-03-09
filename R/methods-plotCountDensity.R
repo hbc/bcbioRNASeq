@@ -1,6 +1,5 @@
 #' Plot Count Density
 #'
-#' @rdname plotCountDensity
 #' @name plotCountDensity
 #' @family Quality Control Plots
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
@@ -29,7 +28,8 @@ NULL
     style = "solid",
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE),
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assert_is_a_string(style)
@@ -52,12 +52,14 @@ NULL
             x = "counts",
             group = "interestingGroups",
             color = "interestingGroups",
-            fill = "interestingGroups")
+            fill = "interestingGroups"
+        )
     ) +
         labs(
             title = title,
             x = "log10 counts per gene",
-            fill = paste(interestingGroups, collapse = ":\n"))
+            fill = paste(interestingGroups, collapse = ":\n")
+        )
 
     if (style == "line") {
         p <- p + geom_density(fill = NA)
@@ -93,7 +95,8 @@ setMethod(
         style = "solid",
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -103,5 +106,7 @@ setMethod(
             style = style,
             color = color,
             fill = fill,
-            title = title)
-    })
+            title = title
+        )
+    }
+)
