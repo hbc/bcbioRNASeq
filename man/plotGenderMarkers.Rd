@@ -62,7 +62,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 \code{rlog}, or \code{vst}.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Sexually Dimorphic Gender Markers
@@ -83,7 +83,7 @@ plotGenderMarkers(
     color = NULL)
 
 # DESeqDataSet ====
-dds <- bcbio(bcb, "DESeqDataSet")
+dds <- assays(bcb)[["dds"]]
 plotGenderMarkers(dds, interestingGroups = "group")
 
 # DESeqTransform ====
@@ -91,7 +91,7 @@ plotGenderMarkers(rld, interestingGroups = "group")
 plotGenderMarkers(vst, interestingGroups = "group")
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Plots: \code{\link{plot5x3Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},

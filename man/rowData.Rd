@@ -6,14 +6,10 @@
 \alias{rowData,bcbioRNASeq-method}
 \title{Row Data}
 \usage{
-\S4method{rowData}{bcbioRNASeq}(x, return = c("DataFrame", "data.frame",
-  "AsIs"))
+\S4method{rowData}{bcbioRNASeq}(x, return = c("data.frame", "DataFrame"))
 }
 \arguments{
-\item{x}{Object.}
-
-\item{return}{Return as "\code{DataFrame}", "\code{data.frame}", or unmodified
-("\code{AsIs}").}
+\item{return}{Return as "\code{data.frame}" or "\code{DataFrame}".}
 }
 \value{
 Data describing the rows of the object.
@@ -23,10 +19,8 @@ Row Data
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# Return as data.frame
-rowData(bcb, return = "data.frame")
+rowData(bcb) \%>\% glimpse()
 }
-\seealso{
-\code{help("rowData", "SummarizedExperiment")}
+\author{
+Michael Steinbaugh
 }

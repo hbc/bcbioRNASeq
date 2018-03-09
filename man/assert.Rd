@@ -8,7 +8,7 @@
 Either "\code{stop}", "\code{warning}", "\code{message}", or "\code{none}".}
 }
 \value{
-Stop on error.
+Silent on success. Stop on error.
 }
 \description{
 Assert Checks

@@ -42,7 +42,7 @@ plotMeanSD(bcb, orientation = "horizontal")
 plotMeanSD(bcb, orientation = "vertical")
 
 # DESeqDataSet
-dds <- bcbio(bcb, "DESeqDataSet")
+dds <- assays(bcb)[["dds"]]
 plotMeanSD(dds, orientation = "horizontal")
 }
 \seealso{

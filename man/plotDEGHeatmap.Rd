@@ -55,15 +55,15 @@ load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
 
 # Use our stashed gene2symbol
 gene2symbol <- gene2symbol(bcb)
-annotationCol <- colData(bcb) \%>\%
-    .[, interestingGroups(bcb), drop = FALSE]
+annotationCol <- colData(bcb)[, interestingGroups(bcb), drop = FALSE]
 
 # DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
     object = res,
     counts = rld,
     gene2symbol = gene2symbol,
-    annotationCol = annotationCol)
+    annotationCol = annotationCol
+)
 
 # DESeqResults, DESeqDataSet ====
 # Using default ggplot2 colors
@@ -72,7 +72,8 @@ plotDEGHeatmap(
     counts = dds,
     gene2symbol = gene2symbol,
     color = NULL,
-    legendColor = NULL)
+    legendColor = NULL
+)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},

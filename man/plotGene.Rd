@@ -98,7 +98,7 @@ plotGene(rld, genes = genes, interestingGroups = "group")
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
 
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Plots: \code{\link{plot5x3Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},

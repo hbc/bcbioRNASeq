@@ -22,7 +22,7 @@
 }}
 }
 \value{
-\link{matrix}.
+\code{matrix}.
 }
 \description{
 By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
@@ -44,11 +44,11 @@ counts(bcb, normalized = TRUE) \%>\% summary()
 # rlog (from DESeq2)
 counts(bcb, normalized = "rlog") \%>\% summary()
 
-# TMM (from edgeR)
-counts(bcb, normalized = "tmm") \%>\% summary()
-
 # VST (from DESeq2)
 counts(bcb, normalized = "vst") \%>\% summary()
+
+# TMM (from edgeR)
+counts(bcb, normalized = "tmm") \%>\% summary()
 }
 \author{
 Michael Steinbaugh

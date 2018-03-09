@@ -21,7 +21,7 @@ topTables(object, ...)
 \item{coding}{Whether to only return coding genes.}
 }
 \value{
-Top table kables, for knit report.
+\code{kable}.
 }
 \description{
 Top Tables of Differential Expression Results

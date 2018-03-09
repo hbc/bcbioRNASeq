@@ -48,7 +48,7 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 plotMappedReads(bcb)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Plots: \code{\link{plot5x3Bias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},

@@ -87,13 +87,15 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 plotCorrelationHeatmap(
     bcb,
     color = inferno,
-    legendColor = inferno)
+    legendColor = inferno
+)
 
 # Default pheatmap palette
 plotCorrelationHeatmap(
     bcb,
     color = NULL,
-    legendColor = NULL)
+    legendColor = NULL
+)
 }
 \seealso{
 \itemize{

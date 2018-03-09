@@ -68,19 +68,19 @@
   }
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
-internal \link{DESeqDataSet} and count transformations are rescaled automatically.
+Extract genes by row and samples by column from a \code{bcbioRNASeq} object. The
+internal \code{DESeqDataSet} and count transformations are rescaled automatically.
 DESeq2 transformations can be disabled on large subset operations by setting
 \code{transform = FALSE}.
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
-ensgene <- rownames(bcb)[1:50]
-head(ensgene)
+genes <- rownames(bcb)[1:50]
+head(genes)
 samples <- colnames(bcb)[1:2]
 head(samples)
 
@@ -88,13 +88,17 @@ head(samples)
 bcb[, samples]
 
 # Subset by gene list
-bcb[ensgene, ]
+bcb[genes, ]
 
 # Subset by both genes and samples
-bcb[ensgene, samples]
+subset <- bcb[genes, samples]
+print(subset)
+assayNames(subset)
 
 # Skip DESeq2 transformations
-bcb[ensgene, samples, transform = FALSE]
+subset <- bcb[genes, samples, transform = FALSE]
+print(subset)
+assayNames(subset)
 }
 \seealso{
 \code{help("[", "base")}.

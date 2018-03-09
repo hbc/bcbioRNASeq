@@ -6,7 +6,7 @@
 \alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
 \alias{alphaSummary,bcbioRNASeq-method}
-\title{Print Summary Statistics of Alpha Level Cutoffs}
+\title{Alpha Level Cutoff Summary Statistics}
 \usage{
 alphaSummary(object, ...)
 
@@ -27,23 +27,24 @@ either \code{contrast} or \code{name} arguments to define the desired contrast.}
 \item{caption}{\emph{Optional.} Character vector to add as caption to the table.}
 }
 \value{
-\link{kable}.
+\code{kable}.
 }
 \description{
-Print Summary Statistics of Alpha Level Cutoffs
+Alpha Level Cutoff Summary Statistics
 }
 \note{
-\link{bcbioRNASeq} does not support contrast definitions, since the
-object contains an internal \link{DESeqDataSet} with an empty design formula.
+\code{bcbioRNASeq} class does currently support contrast definitions, since
+the object contains an internal \code{DESeqDataSet} with an empty design
+formula.
 }
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 alphaSummary(bcb)
 
-# DESeqDataSet
+# DESeqDataSet ====
 resultsNames(dds)
 alphaSummary(dds)
 alphaSummary(dds, contrast = c("day", "7", "0"))

@@ -9,26 +9,27 @@
 \alias{plotGeneHeatmap}
 \alias{txi}
 \alias{annotable}
+\alias{plot53Bias}
 \title{Defunct or Deprecated Functions}
 \usage{
-download()
+download(...)
 
 plotGeneDetectionSaturation(...)
 
 plotDispersion(...)
 
-loadRNASeqRun()
+loadRNASeqRun(...)
 
 plotGeneHeatmap(...)
 
-txi(object)
+txi(...)
 
 annotable(...)
+
+plot53Bias(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
-
-\item{object}{Object.}
 }
 \value{
 No value.

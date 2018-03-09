@@ -1,3 +1,7 @@
+# TODO Add support for RangedSummarizedExperiment coercion
+
+
+
 #' Coerce Object
 #'
 #' @name coerce
@@ -9,6 +13,12 @@
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#'
+#' # RangedSummarizedExperiment ====
+#' rse <- as(bcb, "RangedSummarizedExperiment")
+#' print(rse)
+#'
+#' # SummarizedExperiment ====
 #' se <- as(bcb, "SummarizedExperiment")
 #' print(se)
 NULL

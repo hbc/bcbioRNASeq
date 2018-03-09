@@ -12,7 +12,7 @@
 \item{object}{Object.}
 }
 \value{
-\link{matrix}.
+\code{matrix}.
 }
 \description{
 Transcripts Per Million (TPM)

@@ -14,7 +14,7 @@
 \item{...}{Passthrough arguments to \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Method support for plotting the dispersion of counts stored in a

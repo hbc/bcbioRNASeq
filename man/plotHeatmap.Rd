@@ -86,18 +86,20 @@ plotHeatmap(bcb, genes = head(rownames(bcb), 20L))
 plotHeatmap(bcb, color = inferno, legendColor = inferno)
 
 # DESeqDataSet ====
-dds <- bcbio(bcb, "DESeqDataSet")
+dds <- assays(bcb)[["dds"]]
 plotHeatmap(
     object = dds,
     genes = head(rownames(dds), 20L),
-    gene2symbol = gene2symbol)
+    gene2symbol = gene2symbol
+)
 
 # DESeqTransform ====
 rld <- assays(bcb)[["rlog"]]
 plotHeatmap(
     object = rld,
     genes = head(rownames(rld), 20L),
-    gene2symbol = gene2symbol)
+    gene2symbol = gene2symbol
+)
 }
 \seealso{
 Other Heatmaps: \code{\link{plotCorrelationHeatmap}},

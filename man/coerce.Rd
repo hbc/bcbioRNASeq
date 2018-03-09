@@ -19,6 +19,12 @@ which contains raw cellular barcodes and other bcbio-specific metadata.
 
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+
+# RangedSummarizedExperiment ====
+rse <- as(bcb, "RangedSummarizedExperiment")
+print(rse)
+
+# SummarizedExperiment ====
 se <- as(bcb, "SummarizedExperiment")
 print(se)
 }

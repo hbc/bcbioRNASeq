@@ -54,7 +54,7 @@ plotCountDensity(bcb, style = "solid")
 plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Plots: \code{\link{plot5x3Bias}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},

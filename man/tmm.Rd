@@ -21,7 +21,7 @@ tmm(object)
 \item{object}{Object.}
 }
 \value{
-\link{matrix}.
+\code{matrix}.
 }
 \description{
 TMM normalization is recommended for RNA-seq data generally when the majority
@@ -31,18 +31,17 @@ tool when plotting counts per gene.
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
-# bcbioRNASeq
+# bcbioRNASeq ====
 tmm(bcb) \%>\% summary()
 
-# DESeqDataSet
-dds <- bcbio(bcb, "DESeqDataSet")
+# DESeqDataSet ====
+dds <- assays(bcb)[["dds"]]
 tmm(dds) \%>\% summary()
 
-# matrix
+# matrix ====
 counts <- counts(bcb)
 tmm(counts) \%>\% summary()
 }
 \author{
 Michael Steinbaugh
 }
-\keyword{internal}

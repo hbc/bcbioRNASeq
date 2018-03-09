@@ -7,7 +7,7 @@
 loadRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"),
   interestingGroups = "sampleName", samples = NULL,
-  sampleMetadataFile = NULL, rowData = TRUE, isSpike = NULL,
+  sampleMetadataFile = NULL, rowRanges = TRUE, isSpike = NULL,
   organism = NULL, ensemblRelease = NULL, genomeBuild = NULL,
   design = formula(~1), transformationLimit = 50L, ...)
 }
@@ -17,9 +17,8 @@ running \code{bcbio_nextgen -w template}.}
 
 \item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 
-\item{caller}{\emph{Optional.} If multiple expression callers were used in the
-bcbio run, the desired one can be manually specified here. Supports
-"\code{salmon}" (default), "\code{kallisto}", or "\code{sailfish}".}
+\item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
+or "\code{sailfish}".}
 
 \item{interestingGroups}{Character vector of interesting groups. First entry
 is used for plot colors during quality control (QC) analysis. Entire vector
@@ -34,13 +33,13 @@ selection. Typically this can be left \code{NULL}.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
-\item{rowData}{\emph{Recommended.} User-defined gene or transcript annotations
-that match the rownames of the counts matrix. If set \code{TRUE} (default), the
+\item{rowRanges}{\emph{Recommended.} User-defined genomic ranges (\code{GRanges}) that
+match the rownames of the counts matrix. If set \code{TRUE} (default), the
 annotations will be obtained automatically fron Ensembl using AnnotationHub
-and ensembleb. These values are accessible with the \code{\link[=rowData]{rowData()}} function.
-If set \code{NULL}, then \code{\link[=rowData]{rowData()}} inside the resulting \link{bcbioRNASeq} object
-will be left empty. This is recommended for projects dealing with genes or
-transcripts that are poorly annotated.}
+and ensembleb. These values are also accessible with the \code{\link[=rowData]{rowData()}}
+function. If set \code{NULL}, then \code{\link[=rowRanges]{rowRanges()}} inside the resulting
+\code{bcbioRNASeq} object will be left empty. This is recommended for projects
+dealing with genes or transcripts that are poorly annotated.}
 
 \item{isSpike}{Genes or transcripts corresponding to FASTA spike-in
 sequences (e.g. ERCCs, EGFP, TDTOMATO).}
@@ -75,18 +74,19 @@ Details. Use \code{Inf} to always apply transformations and \code{0} to always s
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
 Simply point to the final upload directory output by
 \href{https://bcbio-nextgen.readthedocs.io/}{bcbio}, and this function will take
-care of the rest. It automatically imports RNA-seq counts, metadata, and
+care of the rest. It automatically imports RNA-seq counts, metadata, and the
 program versions used.
 }
 \details{
-When number of samples is bigger than \code{transformationLimit}, \code{rlog} and \code{vst}
-counts will not be slotted into \code{assays()}. In this case, we recommend
-visualization using \code{\link[edgeR:tmm]{edgeR::tmm()}}.
+When the number of samples is bigger than the \code{transformationLimit}, \code{rlog}
+and \code{vst} counts will not be slotted into \code{assays()}. In this case, we
+recommend visualization using \code{tmm} counts, which are automatically
+calculated by \code{\link[edgeR:tmm]{edgeR::tmm()}}.
 }
 \note{
 When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -97,12 +97,13 @@ run directory as a remote connection over
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-bcb <- loadRNASeq(uploadDir, level = "genes")
-print(bcb)
+loadRNASeq(uploadDir, level = "genes")
 
 # Transcript level
-bcb <- loadRNASeq(uploadDir, level = "transcripts")
-print(bcb)
+loadRNASeq(uploadDir, level = "transcripts")
+}
+\seealso{
+\code{help("bcbioRNASeq-class", "bcbioRNASeq")}.
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

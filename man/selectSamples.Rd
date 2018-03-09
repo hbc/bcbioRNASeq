@@ -20,7 +20,7 @@
 take a long time for large datasets.}
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
 Select Samples

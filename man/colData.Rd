@@ -8,7 +8,7 @@
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \title{Column Data}
 \usage{
-\S4method{colData}{bcbioRNASeq}(x, return = c("DataFrame", "data.frame"))
+\S4method{colData}{bcbioRNASeq}(x, return = c("data.frame", "DataFrame"))
 
 \S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
 
@@ -17,7 +17,7 @@
 \arguments{
 \item{x}{Object.}
 
-\item{return}{Return as "\code{DataFrame}" or "\code{data.frame}".}
+\item{return}{Return as "\code{data.frame}" or "\code{DataFrame}".}
 
 \item{...}{Additional arguments.}
 
@@ -36,10 +36,7 @@ This method support will also update the nested \code{\link[=colData]{colData()}
 \examples{
 load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 
-# Return as data.frame
-colData(bcb, return = "data.frame")
-
-# Assignment support
+# Assignment method support
 colData <- colData(bcb)
 # All columns will be coerced to factors
 colData[["age"]] <- c(14L, 30L, 14L, 30L)
