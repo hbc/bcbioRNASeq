@@ -1,3 +1,5 @@
+# nocov start
+
 #' Defunct or Deprecated Functions
 #'
 #' @name deprecated
@@ -71,3 +73,5 @@ plot53Bias <- function(...) {
     .Deprecated("plot5Prime3PrimeBias")
     plot5Prime3PrimeBias(...)
 }
+
+# nocov end
