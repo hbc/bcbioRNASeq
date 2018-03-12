@@ -47,8 +47,8 @@ setMethod(
             write = FALSE
         )
         genes <- c(
-            list[["degLFCUp"]][["ensgene"]],
-            list[["degLFCDown"]][["ensgene"]]
+            list[["degLFCUp"]][["geneID"]],
+            list[["degLFCDown"]][["geneID"]]
         )
 
         .plotPCA.DESeqTransform(

@@ -33,9 +33,6 @@
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
 #'   or "`sailfish`".
-#' @param interestingGroups Character vector of interesting groups. First entry
-#'   is used for plot colors during quality control (QC) analysis. Entire vector
-#'   is used for PCA and heatmap QC functions.
 #' @param samples *Optional.* Specify a subset of samples to load. The names
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
@@ -43,6 +40,9 @@
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left `NULL`.
+#' @param interestingGroups Character vector of interesting groups. First entry
+#'   is used for plot colors during quality control (QC) analysis. Entire vector
+#'   is used for PCA and heatmap QC functions.
 #' @param rowRanges *Required.* Genomic ranges (`GRanges`) that match the
 #'   rownames of the counts matrix. If left missing (default), the annotations
 #'   will be obtained automatically fron Ensembl using AnnotationHub and
@@ -90,9 +90,9 @@ loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
-    interestingGroups = "sampleName",
     samples = NULL,
     sampleMetadataFile = NULL,
+    interestingGroups = "sampleName",
     rowRanges,
     isSpike = NULL,
     organism = NULL,
@@ -104,7 +104,7 @@ loadRNASeq <- function(
 ) {
     dots <- list(...)
 
-    # Legacy argument matches ==================================================
+    # Legacy arguments =========================================================
     call <- match.call(expand.dots = TRUE)
     # rowRanges : annotable
     if ("annotable" %in% names(call)) {
@@ -227,7 +227,7 @@ loadRNASeq <- function(
     assert_is_a_string(organism)
     inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
 
-    # Row data =================================================================
+    # Gene/transcript annotations ==============================================
     if (missing(rowRanges)) {
         # ah = AnnotationHub
         ah <- ensembl(
@@ -243,10 +243,7 @@ loadRNASeq <- function(
         rowRanges <- ah[["data"]]
         assert_is_all_of(rowRanges, "GRanges")
         ahMeta <- ah[["metadata"]]
-        assert_all_are_matching_regex(
-            x = ahMeta[["id"]],
-            pattern = "^AH\\d+$"
-        )
+        assert_all_are_matching_regex(ahMeta[["id"]], "^AH\\d+$")
     } else {
         ahMeta <- NULL
     }

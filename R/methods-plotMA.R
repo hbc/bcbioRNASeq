@@ -58,7 +58,7 @@ NULL
     assertIsAStringOrNULL(title)
 
     data <- object %>%
-        rownames_to_column("ensgene") %>%
+        rownames_to_column("geneID") %>%
         as_tibble() %>%
         camel(strict = FALSE) %>%
         filter(!is.na(.data[["padj"]]))
@@ -91,14 +91,14 @@ NULL
 
     if (is.character(genes)) {
         if (is.data.frame(gene2symbol)) {
-            labelCol <- "symbol"
+            labelCol <- "geneName"
             assertIsGene2symbol(gene2symbol)
-            data <- left_join(data, gene2symbol, by = "ensgene")
+            data <- left_join(data, gene2symbol, by = "geneID")
         } else {
-            labelCol <- "ensgene"
+            labelCol <- "geneID"
         }
         labels <- data %>%
-            .[.[["ensgene"]] %in% genes, , drop = FALSE]
+            .[.[["geneID"]] %in% genes, , drop = FALSE]
         assert_is_non_empty(labels)
         p <- p +
             geom_text_repel(

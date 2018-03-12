@@ -5,10 +5,9 @@
 #' @noRd
 #'
 #' @importFrom basejump tx2gene
-#' @importFrom dplyr arrange mutate
+#' @importFrom dplyr mutate
 #' @importFrom magrittr set_rownames
 #' @importFrom readr read_csv
-#' @importFrom rlang !! sym
 #'
 #' @param projectDir Project directory.
 #' @param genomeBuild Genome build.
@@ -23,18 +22,18 @@
     file <- file.path(projectDir, "tx2gene.csv")
     if (file.exists(file)) {
         # bcbio tx2gene
-        data <- read_csv(file, col_names = c("enstxp", "ensgene")) %>%
-            arrange(!!sym("enstxp")) %>%
+        data <- read_csv(file, col_names = c("txID", "geneID")) %>%
+            .[order(.[["txID"]]), ] %>%
             as.data.frame() %>%
             # Ensure transcript versions are removed
             mutate(
-                enstxp = gsub(
-                    x = .data[["enstxp"]],
+                txID = gsub(
+                    x = .data[["txID"]],
                     pattern = "\\.\\d+",
                     replacement = ""
                 )
             ) %>%
-            set_rownames(.[["enstxp"]])
+            set_rownames(.[["txID"]])
     } else {
         # Fall back to querying Ensembl
         warn(paste(

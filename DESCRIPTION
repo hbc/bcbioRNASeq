@@ -86,30 +86,30 @@ LazyData: true
 Depends:
     R (>= 3.4),
     SummarizedExperiment (>= 1.6.5),
-    bcbioBase (>= 0.1.4),
+    bcbioBase (>= 0.2),
     DESeq2 (>= 1.16.1),
     DEGreport (>= 1.14)
 Imports:
-    assertive,
-    basejump (>= 0.3.1),
     BiocGenerics,
+    RColorBrewer,
+    S4Vectors,
+    assertive,
+    basejump (>= 0.4),
     cowplot,
     dplyr (>= 0.7),
     edgeR (>= 3.18.1),
     ggplot2 (>= 2.2.1),
     ggrepel,
-    grid,
     grDevices,
+    grid,
     knitr,
     magrittr,
     methods,
     parallel,
     pheatmap,
-    RColorBrewer,
     readr,
     reshape2,
     rlang,
-    S4Vectors,
     stats,
     stringr,
     tibble,
@@ -131,7 +131,6 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    lpantano/DEGreport,
     hbc/bcbioBase@develop,
     steinbaugh/basejump@develop
 biocViews:

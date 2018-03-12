@@ -1,7 +1,5 @@
 library(tidyverse)
-uploadDir <- system.file(
-    file.path("extdata", "bcbio"),
-    package = "bcbioRNASeq")
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- loadRNASeq(uploadDir)
 meta <- sampleMetadata(bcb) %>%
     mutate(
@@ -12,4 +10,4 @@ meta <- sampleMetadata(bcb) %>%
         sampleName = NULL
     ) %>%
     select(fileName, everything())
-write_csv(meta, path = "~/Desktop/sample_metadata.csv")
+write_csv(meta, path = "tests/testthat/sample_metadata.csv")

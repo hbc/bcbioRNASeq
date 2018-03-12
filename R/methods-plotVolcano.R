@@ -95,7 +95,7 @@ NULL
 
     # Generate data `tibble`
     data <- object %>%
-        rownames_to_column("ensgene") %>%
+        rownames_to_column("geneID") %>%
         as_tibble() %>%
         camel(strict = FALSE) %>%
         # Keep genes with non-zero counts
@@ -105,7 +105,7 @@ NULL
         # Keep genes with a P value
         .[!is.na(.[["pvalue"]]), , drop = FALSE] %>%
         # Select columns used for plots
-        .[, c("ensgene", "log2FoldChange", "pvalue", "padj")]
+        .[, c("geneID", "log2FoldChange", "pvalue", "padj")]
 
     # Negative log10 transform the P values
     # Add `1e-10` here to prevent `Inf` values resulting from `log10()`
@@ -132,18 +132,18 @@ NULL
 
     # Gene text labels =========================================================
     if (is.null(genes) && is_positive(ntop)) {
-        genes <- data[1L:ntop, "ensgene", drop = TRUE]
+        genes <- data[1L:ntop, "geneID", drop = TRUE]
     }
     if (is.character(genes)) {
-        assert_is_subset(genes, data[["ensgene"]])
+        assert_is_subset(genes, data[["geneID"]])
         volcanoText <- data %>%
-            .[.[["ensgene"]] %in% genes, , drop = FALSE]
+            .[.[["geneID"]] %in% genes, , drop = FALSE]
         if (is.data.frame(gene2symbol)) {
-            labelCol <- "symbol"
+            labelCol <- "geneName"
             assertIsGene2symbol(gene2symbol)
-            volcanoText <- left_join(volcanoText, gene2symbol, by = "ensgene")
+            volcanoText <- left_join(volcanoText, gene2symbol, by = "geneID")
         } else {
-            labelCol <- "ensgene"
+            labelCol <- "geneID"
         }
     } else {
         volcanoText <- NULL

@@ -59,7 +59,7 @@ setValidity(
         assert_is_all_of(rowRanges(object), "GRanges")
         assert_is_all_of(rowData(object), "data.frame")
         assert_is_subset(
-            x = c("ensgene", "symbol"),
+            x = c("geneID", "geneName"),
             y = colnames(rowData(object))
         )
 

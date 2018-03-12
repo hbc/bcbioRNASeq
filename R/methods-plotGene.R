@@ -12,9 +12,8 @@
 #'   identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
 #'   symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
-#'   `data.frame` can be passed in, and must contain the columns `ensgene` and
-#'   `symbol`. then the Ensembl gene identifiers will be labeled in place of
-#'   gene symbols.
+#'   `data.frame` can be passed in, and must contain the columns `geneID` and
+#'   `geneName`.
 #' @param colData Sample metadata `data.frame`.
 #' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
 #'   `rlog`, or `vst`.
@@ -151,9 +150,9 @@ NULL
 
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
-        assert_is_subset(genes, gene2symbol[["ensgene"]])
-        match <- match(x = genes, table = gene2symbol[["ensgene"]])
-        symbols <- gene2symbol[match, "symbol", drop = TRUE]
+        assert_is_subset(genes, gene2symbol[["geneID"]])
+        match <- match(x = genes, table = gene2symbol[["geneID"]])
+        symbols <- gene2symbol[match, "geneName", drop = TRUE]
         rownames(object) <- symbols
         genes <- symbols
     }
@@ -242,9 +241,9 @@ NULL
 ) {
     # Gene to symbol mappings
     if (is.data.frame(gene2symbol)) {
-        assert_is_subset(genes, gene2symbol[["ensgene"]])
-        match <- match(x = genes, table = gene2symbol[["ensgene"]])
-        symbols <- gene2symbol[match, "symbol", drop = TRUE]
+        assert_is_subset(genes, gene2symbol[["geneID"]])
+        match <- match(x = genes, table = gene2symbol[["geneID"]])
+        symbols <- gene2symbol[match, "geneName", drop = TRUE]
         rownames(object) <- symbols
     }
 

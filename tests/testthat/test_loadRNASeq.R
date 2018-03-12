@@ -70,17 +70,18 @@ test_that("Row data", {
     expect_identical(
         lapply(rowData(bcb), class),
         list(
-            ensgene = "character",
-            symbol = "character",
-            description = "character",
-            biotype = "character",
-            broadClass = "character",
-            geneSeqStart = "integer",
-            geneSeqEnd = "integer",
-            seqName = "character",
-            seqStrand = "integer",
-            seqCoordSystem = "character",
-            entrez = "list")
+            "geneID" = "character",
+            "geneName" = "character",
+            "geneBiotype" = "factor",
+            "description" = "character",
+            "geneSeqStart" = "integer",
+            "geneSeqEnd" = "integer",
+            "seqName" = "factor",
+            "seqStrand" = "factor",
+            "seqCoordSystem" = "factor",
+            "entrezID" = "list",
+            "broadClass" = "factor"
+        )
     )
 })
 

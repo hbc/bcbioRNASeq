@@ -56,9 +56,9 @@ NULL
         rownames_to_column() %>%
         melt(id = 1L) %>%
         as_tibble() %>%
-        set_colnames(c("ensgene", "sampleID", "counts")) %>%
-        .[, c("sampleID", "ensgene", "counts")] %>%
-        arrange(!!!syms(c("sampleID", "ensgene"))) %>%
+        set_colnames(c("geneID", "sampleID", "counts")) %>%
+        .[, c("sampleID", "geneID", "counts")] %>%
+        arrange(!!!syms(c("sampleID", "geneID"))) %>%
         group_by(!!sym("sampleID")) %>%
         # Remove zero counts
         .[.[["counts"]] > 0L, , drop = FALSE] %>%

@@ -83,16 +83,16 @@ NULL
     gene2symbol <- markers %>%
         .[.[["include"]] == TRUE, , drop = FALSE] %>%
         mutate(
-            symbol = paste(
+            "geneName" = paste(
                 .data[["chromosome"]],
-                .data[["symbol"]],
+                .data[["geneName"]],
                 sep = " : ")
         ) %>%
-        .[, c("ensgene", "symbol")] %>%
+        .[, c("geneID", "geneName")] %>%
         as.data.frame() %>%
-        set_rownames(.[["ensgene"]])
+        set_rownames(.[["geneID"]])
     assertIsGene2symbol(gene2symbol)
-    genes <- gene2symbol[["ensgene"]] %>%
+    genes <- gene2symbol[["geneID"]] %>%
         .[. %in% rownames(object)]
     assert_is_non_empty(genes)
 

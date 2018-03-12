@@ -41,8 +41,8 @@ NULL
     assert_has_rows(object)
     assertIsImplicitInteger(n)
     assert_is_a_bool(coding)
-    # Note that `symbol` and `description` columns are optional
-    requiredCols <- c("ensgene", "baseMean", "log2FoldChange", "padj")
+    # Note that `geneName` and `description` columns are optional
+    requiredCols <- c("geneID", "baseMean", "log2FoldChange", "padj")
     assert_is_subset(requiredCols, colnames(object))
 
     if (isTRUE(coding)) {
@@ -55,7 +55,7 @@ NULL
         return(NULL)
     }
 
-    keepCols <- c(requiredCols, c("symbol", "description", "biotype"))
+    keepCols <- c(requiredCols, c("geneName", "geneBiotype", "description"))
     return <- object %>%
         as_tibble() %>%
         remove_rownames() %>%

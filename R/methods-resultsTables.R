@@ -122,12 +122,13 @@ NULL
 
 
 
+# FIXME Use merge instead of left_join
+
 #' @importFrom basejump camel initializeDirectory markdownHeader markdownList
 #'   sanitizeRowData snake
 #' @importFrom bcbioBase copyToDropbox
-#' @importFrom dplyr arrange desc left_join
+#' @importFrom dplyr left_join
 #' @importFrom readr write_csv
-#' @importFrom rlang !! sym
 #' @importFrom tibble rownames_to_column
 .resultsTables.DESeqResults <- function(  # nolint
     object,
@@ -141,7 +142,7 @@ NULL
     rdsToken = NULL,
     ...
 ) {
-    # Legacy argument matches ==================================================
+    # Legacy arguments =========================================================
     call <- match.call(expand.dots = TRUE)
     # rowData : annotable
     if ("annotable" %in% names(call)) {
@@ -169,26 +170,26 @@ NULL
     # Prepare the results tables ===============================================
     all <- object %>%
         as.data.frame() %>%
-        rownames_to_column("ensgene") %>%
+        rownames_to_column("geneID") %>%
         as("tibble") %>%
         camel(strict = FALSE) %>%
-        arrange(!!sym("ensgene"))
+        .[order(.[["geneID"]]), , drop = FALSE]
 
     # Add Ensembl gene annotations (rowData), if desired
     if (has_dims(rowData)) {
-        # Drop the nested lists (e.g. entrez), otherwise the CSVs will fail
+        # Drop the nested lists (e.g. entrezID), otherwise the CSVs will fail
         # to save when `write = TRUE`.
         rowData <- sanitizeRowData(rowData)
         all <- left_join(
             x = all,
             y = as.data.frame(rowData),
-            by = "ensgene"
+            by = "geneID"
         )
     }
 
     # Check for overall gene expression with base mean
     baseMeanGt0 <- all %>%
-        arrange(desc(!!sym("baseMean"))) %>%
+        .[order(.[["baseMean"]], decreasing = TRUE), , drop = FALSE] %>%
         .[.[["baseMean"]] > 0L, , drop = FALSE]
     baseMeanGt1 <- baseMeanGt0 %>%
         .[.[["baseMean"]] > 1L, , drop = FALSE]
@@ -197,7 +198,7 @@ NULL
     deg <- all %>%
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
         .[.[["padj"]] < alpha, , drop = FALSE] %>%
-        arrange(!!sym("padj"))
+        .[order(.[["padj"]]), , drop = FALSE]
     degLFC <- deg %>%
         .[.[["log2FoldChange"]] > lfc |
             .[["log2FoldChange"]] < -lfc, , drop = FALSE]
