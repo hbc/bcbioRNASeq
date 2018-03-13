@@ -7,8 +7,8 @@
 loadRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
   sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
-  ensemblRelease = NULL, genomeBuild = NULL, gffFile = NULL,
-  isSpike = NULL, design = formula(~1), transformationLimit = 50L, ...)
+  ensemblRelease = NULL, genomeBuild = NULL, isSpike = NULL,
+  gffFile = NULL, design = formula(~1), transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -45,6 +45,9 @@ unless \code{gffFile} is set.}
 This will be passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
 
+\item{isSpike}{\emph{Optional.} Gene names corresponding to FASTA spike-in
+sequences (e.g. ERCCs, EGFP, TDTOMATO).}
+
 \item{gffFile}{\emph{Optional, not recommended.} By default, we recommend leaving
 this \code{NULL} for genomes that are supported on Ensembl. In this case, the
 row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically from Ensembl
@@ -55,9 +58,6 @@ Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
 possible, although all GFF formats are supported. The function will
 internally generate a \code{TxDb} containing transcript-to-gene mappings and
 construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
-
-\item{isSpike}{\emph{Optional.} Gene names corresponding to FASTA spike-in
-sequences (e.g. ERCCs, EGFP, TDTOMATO).}
 
 \item{design}{DESeq2 design formula. Empty by default. Can be updated after
 initial data loading using the \code{\link[=design]{design()}} function.}
@@ -94,7 +94,7 @@ run directory as a remote connection over
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-loadRNASeq(uploadDir, level = "genes")
+loadRNASeq(uploadDir, level = "genes", organism = "Mus musculus")
 
 # Transcript level
 loadRNASeq(uploadDir, level = "transcripts")
