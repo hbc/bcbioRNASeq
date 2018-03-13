@@ -57,9 +57,9 @@ setMethod(
         assertIsAStringOrNULL(caption)
         dots <- list(...)
 
-        # Warn on empty design formula
+        # Abort on empty design formula
         if (design(object) == formula(~1)) {  # nolint
-            warn("Empty design formula detected")
+            abort("Empty design formula detected")
         }
 
         # Generate an automatic caption
@@ -72,9 +72,9 @@ setMethod(
         }
 
         dflist <- lapply(alpha, function(x) {
-            output <- capture.output(summary(
-                results(object, ..., alpha = x)
-            ))
+            output <- capture.output(
+                summary(results(object, ..., alpha = x))
+            )
             # Subset the lines of interest from summary
             output <- output[4L:8L]
             # Extract the values after the colon in summary
@@ -117,7 +117,7 @@ setMethod(
         caption = NULL,
         ...
     ) {
-        validObject(bcb)
+        validObject(object)
         dds <- assays(object)[["dds"]]
         assert_is_all_of(dds, "DESeqDataSet")
         alphaSummary(
