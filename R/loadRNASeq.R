@@ -411,6 +411,7 @@ loadRNASeq <- function(
         assert_are_disjoint_sets(metadata, dots)
         metadata <- c(metadata, dots)
     }
+    metadata <- Filter(Negate(is.null), metadata)
 
     # Return =============================================
     assays = list(
