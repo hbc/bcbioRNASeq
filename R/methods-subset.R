@@ -49,6 +49,11 @@ NULL
 .subset.bcbioRNASeq <- function(x, i, j, ..., drop) {  # nolint
     validObject(x)
 
+    dots <- list(...)
+    if (!identical(dots[["transform"]], FALSE)) {
+        transform <- TRUE
+    }
+
     # Genes (rows)
     if (missing(i)) {
         i <- 1L:nrow(x)
