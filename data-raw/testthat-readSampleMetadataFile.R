@@ -1,7 +1,6 @@
 library(tidyverse)
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- loadRNASeq(uploadDir)
-meta <- sampleMetadata(bcb) %>%
+devtools::load_all()
+meta <- colData(bcb_small) %>%
     mutate(
         # Add required `fileName` column
         fileName = paste0(sampleID, ".fastq.gz"),
