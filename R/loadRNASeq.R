@@ -99,7 +99,7 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     isSpike = NULL,
     gffFile = NULL,
-    design = ~1,
+    design = ~ 1,
     transformationLimit = 50L,
     ...
 ) {
@@ -208,7 +208,6 @@ loadRNASeq <- function(
     }
 
     # Row data =================================================================
-    # TODO Consolidate this code with bcbioSingleCell
     rowRangesMetadata <- NULL
     txdb <- NULL
     tx2gene <- NULL
@@ -345,14 +344,14 @@ loadRNASeq <- function(
         ))
         if (!is(design, "formula")) {
             # Note that use of `formula()` blows up memory inside the object
-            design <- ~1  # nolint
+            design <- ~ 1  # nolint
         }
         dds <- DESeqDataSetFromTximport(
             txi = txi,
             colData = colData,
             design = design
         )
-        # Suppressing warnings here for empty design formula (`~1`)
+        # Suppressing warnings here for empty design formula (`~ 1`)
         dds <- suppressWarnings(DESeq(dds))
         # Variance stabilizing transformations
         if (nrow(colData) > transformationLimit) {

@@ -58,7 +58,7 @@ setMethod(
         dots <- list(...)
 
         # Abort on empty design formula
-        if (design(object) == ~1) {  # nolint
+        if (design(object) == ~ 1) {  # nolint
             abort("Empty design formula detected")
         }
 
