@@ -18,7 +18,7 @@
 and fitting Negative Binomial GLMs}
 }
 \value{
-\link{formula}.
+\code{formula}.
 }
 \description{
 Design Formula Accessor
@@ -30,7 +30,7 @@ load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
 design(bcb) \%>\% print(showEnv = FALSE)
 
 # Assignment support
-design(bcb) <- formula(~group)
+design(bcb) <- ~group
 design(bcb) \%>\% print(showEnv = FALSE)
 }
 \seealso{

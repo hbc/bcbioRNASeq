@@ -8,7 +8,7 @@ loadRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
   sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
   ensemblRelease = NULL, genomeBuild = NULL, isSpike = NULL,
-  gffFile = NULL, design = formula(~1), transformationLimit = 50L, ...)
+  gffFile = NULL, design = ~1, transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
