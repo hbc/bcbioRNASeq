@@ -15,7 +15,6 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom dplyr rename
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 .plot5Prime3PrimeBias <- function(
     object,
@@ -45,7 +44,7 @@ NULL
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
     # The internal camel method has been updated in basejump 0.1.11.
     if ("x53Bias" %in% colnames(data)) {
-        data <- rename(data, "x5x3Bias" = "x53Bias")
+        data <- dplyr::rename(data, "x5x3Bias" = "x53Bias")
     }
 
     p <- ggplot(

@@ -29,7 +29,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump fixNA
-#' @importFrom dplyr filter mutate rename
+#' @importFrom dplyr filter mutate
 #' @importFrom tibble remove_rownames
 .subsetTop <- function(
     object,
@@ -79,7 +79,7 @@ NULL
 
     return %>%
         # Shorten `log2FoldChange` to `lfc`
-        rename(lfc = .data[["log2FoldChange"]])
+        dplyr::rename(lfc = .data[["log2FoldChange"]])
 }
 
 
