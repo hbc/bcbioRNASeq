@@ -2,7 +2,7 @@ context("alphaSummary")
 
 test_that("bcbioRNASeq", {
     expect_warning(
-        alphaSummary(bcb),
+        alphaSummary(bcb_small),
         "Internal DESeqDataSet has an empty design formula"
     )
     expect_is(suppressWarnings(alphaSummary(bcb)), "knitr_kable")

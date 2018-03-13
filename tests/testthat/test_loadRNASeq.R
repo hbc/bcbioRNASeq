@@ -111,7 +111,6 @@ test_that("Metadata", {
             bcbioLog = "character",
             bcbioCommandsLog = "character",
             allSamples = "logical",
-            design = "formula",
             transformationLimit = "integer",
             date = "Date",
             wd = path,
