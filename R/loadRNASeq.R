@@ -395,7 +395,6 @@ loadRNASeq <- function(
         "txdb" = txdb,
         "tx2gene" = tx2gene,
         "lanes" = lanes,
-        "yamlFile" = yamlFile,
         "yaml" = yaml,
         "metrics" = metrics,
         "dataVersions" = dataVersions,
@@ -403,7 +402,6 @@ loadRNASeq <- function(
         "bcbioLog" = bcbioLog,
         "bcbioCommandsLog" = bcbioCommandsLog,
         "allSamples" = allSamples,
-        "design" = design,
         "loadRNASeq" = match.call()
     )
     # Add user-defined custom metadata, if specified
