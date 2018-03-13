@@ -391,7 +391,6 @@ loadRNASeq <- function(
         "genomeBuild" = as.character(genomeBuild),
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
-        "isSpike" = as.character(isSpike),
         "gffFile" = as.character(gffFile),
         "txdb" = txdb,
         "tx2gene" = tx2gene,

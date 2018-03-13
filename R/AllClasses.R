@@ -118,7 +118,6 @@ setValidity(
             "genomeBuild" = "character",
             "ensemblRelease" = "integer",
             "rowRangesMetadata" = "data.frame",
-            "isSpike" = "character",
             "gffFile" = "character",
             # txdb = "TxDb",  # optional
             "tx2gene" = "data.frame",
@@ -137,6 +136,7 @@ setValidity(
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
             "devtoolsSessionInfo" = "session_info",
+            "isSpike" = "character",
             "unannotatedRows" = "character"
         )
         classChecks <- invisible(vapply(
