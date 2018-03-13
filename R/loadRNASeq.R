@@ -84,7 +84,7 @@
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' loadRNASeq(uploadDir, level = "genes")
+#' loadRNASeq(uploadDir, level = "genes", organism = "Mus musculus")
 #'
 #' # Transcript level
 #' loadRNASeq(uploadDir, level = "transcripts")
@@ -98,8 +98,8 @@ loadRNASeq <- function(
     organism,
     ensemblRelease = NULL,
     genomeBuild = NULL,
-    gffFile = NULL,
     isSpike = NULL,
+    gffFile = NULL,
     design = formula(~1),
     transformationLimit = 50L,
     ...
@@ -388,16 +388,17 @@ loadRNASeq <- function(
         "runDate" = runDate,
         "interestingGroups" = interestingGroups,
         "organism" = organism,
-        "genomeBuild" = genomeBuild,
+        "genomeBuild" = as.character(genomeBuild),
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
+        "isSpike" <- as.character(isSpike),
         "gffFile" = as.character(gffFile),
         "txdb" = txdb,
         "tx2gene" = tx2gene,
         "lanes" = lanes,
-        "metrics" = metrics,
         "yamlFile" = yamlFile,
         "yaml" = yaml,
+        "metrics" = metrics,
         "dataVersions" = dataVersions,
         "programVersions" = programVersions,
         "bcbioLog" = bcbioLog,
