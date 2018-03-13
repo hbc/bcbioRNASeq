@@ -21,7 +21,7 @@
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
-#' @author Lorena Pantano, Michael Steinbaugh
+#' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
 #' @seealso
@@ -117,7 +117,6 @@ setValidity(
             # txdb = "TxDb",  # optional
             "tx2gene" = "data.frame",
             "lanes" = "integer",
-            "yamlFile" = "character",
             "yaml" = "list",
             "metrics" = "data.frame",
             "dataVersions" = "tbl_df",
@@ -125,7 +124,6 @@ setValidity(
             "bcbioLog" = "character",
             "bcbioCommandsLog" = "character",
             "allSamples" = "logical",
-            "design" = "formula",
             # loadRNASeq = "call",  # optional
             "date" = "Date",
             "wd" = "character",
