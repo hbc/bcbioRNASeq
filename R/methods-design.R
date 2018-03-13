@@ -13,7 +13,7 @@
 #' - [BiocGenerics::design].
 #' - [DESeq2::design].
 #'
-#' @return [formula].
+#' @return `formula`.
 #'
 #' @examples
 #' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
@@ -22,7 +22,7 @@
 #' design(bcb) %>% print(showEnv = FALSE)
 #'
 #' # Assignment support
-#' design(bcb) <- formula(~group)
+#' design(bcb) <- ~group
 #' design(bcb) %>% print(showEnv = FALSE)
 NULL
 

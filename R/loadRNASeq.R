@@ -24,7 +24,6 @@
 #'   readLogFile readProgramVersions readSampleMetadataFile sampleDirs
 #'   sampleYAMLMetadata sampleYAMLMetrics
 #' @importFrom dplyr mutate_all pull
-#' @importFrom stats formula
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom utils packageVersion
@@ -100,7 +99,7 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     isSpike = NULL,
     gffFile = NULL,
-    design = formula(~1),
+    design = ~1,
     transformationLimit = 50L,
     ...
 ) {
@@ -345,7 +344,8 @@ loadRNASeq <- function(
             packageVersion("DESeq2")
         ))
         if (!is(design, "formula")) {
-            design <- formula(~1)  # nolint
+            # Note that use of `formula()` blows up memory inside the object
+            design <- ~1  # nolint
         }
         dds <- DESeqDataSetFromTximport(
             txi = txi,

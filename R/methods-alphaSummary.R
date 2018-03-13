@@ -58,7 +58,7 @@ setMethod(
         dots <- list(...)
 
         # Abort on empty design formula
-        if (design(object) == formula(~1)) {  # nolint
+        if (design(object) == ~1) {  # nolint
             abort("Empty design formula detected")
         }
 
@@ -106,7 +106,6 @@ setMethod(
 
 #' @rdname alphaSummary
 #' @importFrom BiocGenerics design
-#' @importFrom stats formula
 #' @export
 setMethod(
     "alphaSummary",
