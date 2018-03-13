@@ -5,11 +5,10 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, level = c("genes", "transcripts"),
-  caller = c("salmon", "kallisto", "sailfish"),
-  interestingGroups = "sampleName", samples = NULL,
-  sampleMetadataFile = NULL, rowRanges, isSpike = NULL, organism = NULL,
-  ensemblRelease = NULL, genomeBuild = NULL, design = formula(~1),
-  transformationLimit = 50L, ...)
+  caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
+  sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
+  ensemblRelease = NULL, genomeBuild = NULL, rowRanges, isSpike = NULL,
+  design = formula(~1), transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -20,10 +19,6 @@ running \code{bcbio_nextgen -w template}.}
 \item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
 or "\code{sailfish}".}
 
-\item{interestingGroups}{Character vector of interesting groups. First entry
-is used for plot colors during quality control (QC) analysis. Entire vector
-is used for PCA and heatmap QC functions.}
-
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
@@ -33,13 +28,9 @@ selection. Typically this can be left \code{NULL}.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
-\item{rowRanges}{\emph{Required.} Genomic ranges (\code{GRanges}) that match the
-rownames of the counts matrix. If left missing (default), the annotations
-will be obtained automatically fron Ensembl using AnnotationHub and
-ensembldb. These values are also accessible with the \code{\link[=rowData]{rowData()}} function.}
-
-\item{isSpike}{Genes or transcripts corresponding to FASTA spike-in
-sequences (e.g. ERCCs, EGFP, TDTOMATO).}
+\item{interestingGroups}{Character vector of interesting groups. First entry
+is used for plot colors during quality control (QC) analysis. Entire vector
+is used for PCA and heatmap QC functions.}
 
 \item{organism}{\emph{Optional.} Organism name. Use the full latin name (e.g.
 "Homo sapiens"). Normally this can be left \code{NULL}, and the function will
@@ -58,6 +49,14 @@ and the build will be detected from the bcbio run data. This can be set
 manually (e.g. "GRCh37" for the older \emph{Homo sapiens} reference genome).
 Note that this must match the genome build identifier on Ensembl for
 annotations to download correctly.}
+
+\item{rowRanges}{\emph{Required.} Genomic ranges (\code{GRanges}) that match the
+rownames of the counts matrix. If left missing (default), the annotations
+will be obtained automatically fron Ensembl using AnnotationHub and
+ensembldb. These values are also accessible with the \code{\link[=rowData]{rowData()}} function.}
+
+\item{isSpike}{Genes or transcripts corresponding to FASTA spike-in
+sequences (e.g. ERCCs, EGFP, TDTOMATO).}
 
 \item{design}{DESeq2 design formula. Empty by default. Can be updated after
 initial data loading using the \code{\link[=design]{design()}} function.}

@@ -18,9 +18,8 @@ identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
 symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{ensgene} and
-\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.}
+\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
+\code{geneName}.}
 
 \item{pointColor}{Default point color for the plot.}
 
