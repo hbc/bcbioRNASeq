@@ -31,13 +31,8 @@ The \code{\link[=metadata]{metadata()}} accessor contains:
 migrated to \code{RangedSummarizedExperiment}.
 }
 \examples{
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-
-bcb <- loadRNASeq(uploadDir)
-print(bcb)
-
-# Check validity
-validObject(bcb)
+bcb_small
+validObject(bcb_small)
 }
 \seealso{
 \itemize{
@@ -47,5 +42,5 @@ validObject(bcb)
 }
 }
 \author{
-Lorena Pantano, Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 }
