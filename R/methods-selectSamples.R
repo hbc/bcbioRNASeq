@@ -60,11 +60,7 @@ NULL
 setMethod(
     "selectSamples",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        ...,
-        transform = TRUE
-    ) {
+    function(object, ..., transform = TRUE) {
         samples <- .selectSamples(object, ...)
         object[, samples, transform = transform]
     }
