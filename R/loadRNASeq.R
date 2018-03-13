@@ -16,12 +16,13 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom basejump ensembl readYAML transcripts
+#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
+#'  varianceStabilizingTransformation
+#' @importFrom GenomicFeatures exonsBy makeTxDbFromGFF
+#' @importFrom basejump camel ensembl readYAML
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
 #'   readLogFile readProgramVersions readSampleMetadataFile sampleDirs
 #'   sampleYAMLMetadata sampleYAMLMetrics
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
-#'  varianceStabilizingTransformation
 #' @importFrom dplyr mutate_all pull
 #' @importFrom stats formula
 #' @importFrom stringr str_match str_trunc
@@ -43,27 +44,28 @@
 #' @param interestingGroups Character vector of interesting groups. First entry
 #'   is used for plot colors during quality control (QC) analysis. Entire vector
 #'   is used for PCA and heatmap QC functions.
-#' @param rowRanges *Required.* Genomic ranges (`GRanges`) that match the
-#'   rownames of the counts matrix. If left missing (default), the annotations
-#'   will be obtained automatically fron Ensembl using AnnotationHub and
-#'   ensembldb. These values are also accessible with the [rowData()] function.
-#' @param isSpike Genes or transcripts corresponding to FASTA spike-in
-#'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
-#' @param organism *Optional.* Organism name. Use the full latin name (e.g.
-#'   "Homo sapiens"). Normally this can be left `NULL`, and the function will
-#'   detect the organism from the gene identifiers present in the rownames of
-#'   the counts matrix using [detectOrganism()]. Alternatively, automatic
-#'   organism detection can be overriden here, and the argument will be passed
-#'   to AnnotationHub.
+#' @param organism Organism name. Use the full latin name (e.g.
+#'   "Homo sapiens"), since this will be input downstream to
+#'   AnnotationHub and ensembldb, unless `gffFile` is set.
+#' @param genomeBuild *Optional.* Ensembl genome build name (e.g. "GRCh38").
+#'   This will be passed to AnnotationHub for `EnsDb` annotation matching,
+#'   unless `gffFile` is set.
 #' @param ensemblRelease *Optional.* Ensembl release version. If `NULL`,
 #'   defaults to current release, and does not typically need to be
-#'   user-defined. This parameter can be useful for matching Ensembl annotations
-#'   against an outdated bcbio annotation build.
-#' @param genomeBuild *Optional.* Genome build. Normally this can be left `NULL`
-#'   and the build will be detected from the bcbio run data. This can be set
-#'   manually (e.g. "GRCh37" for the older *Homo sapiens* reference genome).
-#'   Note that this must match the genome build identifier on Ensembl for
-#'   annotations to download correctly.
+#'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
+#'   unless `gffFile` is set.
+#' @param isSpike *Optional.* Gene names corresponding to FASTA spike-in
+#'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
+#' @param gffFile *Optional, not recommended.* By default, we recommend leaving
+#'   this `NULL` for genomes that are supported on Ensembl. In this case, the
+#'   row annotations ([rowRanges()]) will be obtained automatically from Ensembl
+#'   by passing the `organism`, `genomeBuild`, and `ensemblRelease` arguments to
+#'   AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
+#'   and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
+#'   Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
+#'   possible, although all GFF formats are supported. The function will
+#'   internally generate a `TxDb` containing transcript-to-gene mappings and
+#'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
 #' @param design DESeq2 design formula. Empty by default. Can be updated after
 #'   initial data loading using the [design()] function.
 #' @param transformationLimit Maximum number of samples to calculate
@@ -93,11 +95,11 @@ loadRNASeq <- function(
     samples = NULL,
     sampleMetadataFile = NULL,
     interestingGroups = "sampleName",
-    rowRanges,
-    isSpike = NULL,
-    organism = NULL,
+    organism,
     ensemblRelease = NULL,
     genomeBuild = NULL,
+    gffFile = NULL,
+    isSpike = NULL,
     design = formula(~1),
     transformationLimit = 50L,
     ...
@@ -106,13 +108,11 @@ loadRNASeq <- function(
 
     # Legacy arguments =========================================================
     call <- match.call(expand.dots = TRUE)
-    # rowRanges : annotable
+    # annotable
     if ("annotable" %in% names(call)) {
-        warn("Use `rowRanges` instead of `annotable`")
-        rowRanges <- call[["annotable"]]
-        dots[["annotable"]] <- NULL
+        abort("`annotable` is defunct. Consider using `gffFile` instead.")
     }
-    # ensemblRelease : ensemblVersion
+    # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
         warn("Use `ensemblRelease` instead of `ensemblVersion`")
         ensemblRelease <- call[["ensemblVersion"]]
@@ -124,19 +124,20 @@ loadRNASeq <- function(
     assert_all_are_dirs(uploadDir)
     level <- match.arg(level)
     caller <- match.arg(caller)
-    assert_is_character(interestingGroups)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
-    if (!missing(rowRanges)) {
-        assert_is_all_of(rowRanges, "GRanges")
-    }
-    assertIsCharacterOrNULL(isSpike)
-    assertIsAStringOrNULL(organism)
+    assert_is_character(interestingGroups)
+    assert_is_a_string(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
+    assertIsCharacterOrNULL(isSpike)
+    assertIsAStringOrNULL(gffFile)
+    if (is_a_string(gffFile)) {
+        assert_all_are_existing_files(gffFile)
+    }
+    assert_is_formula(design)
     assert_is_a_number(transformationLimit)
     assert_all_are_non_negative(transformationLimit)
-    assert_is_formula(design)
 
     # Directory paths ==========================================================
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
@@ -194,7 +195,7 @@ loadRNASeq <- function(
 
     # Subset sample directories by metadata ====================================
     samples <- colData[["sampleID"]]
-    assert_are_intersecting_sets(samples, names(sampleDirs))
+    assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
         inform(paste(
             "Loading a subset of samples:",
@@ -202,33 +203,28 @@ loadRNASeq <- function(
             sep = "\n"
         ))
         allSamples <- FALSE
-        sampleDirs <- sampleDirs %>%
-            .[names(.) %in% samples]
+        sampleDirs <- sampleDirs[samples]
     } else {
         allSamples <- TRUE
     }
 
-    # Genome ===================================================================
-    # Genome build
-    if (!is_a_string(genomeBuild)) {
-        # Detect from the bcbio project summary YAML
-        genomeBuild <- yaml %>%
-            .[["samples"]] %>%
-            .[[1L]] %>%
-            .[["genome_build"]]
-    }
-    assert_is_a_string(genomeBuild)
-
-    # Organism
-    if (is.null(organism) && is_a_string(genomeBuild)) {
-        inform("Detecting organism from genome build")
-        organism <- detectOrganism(genomeBuild)
-    }
-    assert_is_a_string(organism)
-    inform(paste("Genome:", organism, paste0("(", genomeBuild, ")")))
-
-    # Gene/transcript annotations ==============================================
-    if (missing(rowRanges)) {
+    # Row data =================================================================
+    # TODO Consolidate this code with bcbioSingleCell
+    rowRangesMetadata <- NULL
+    txdb <- NULL
+    tx2gene <- NULL
+    if (is_a_string(gffFile)) {
+        txdb <- makeTxDbFromGFF(gffFile)
+        rowRanges <- genes(txdb)
+        # Transcript-to-gene mappings
+        if (level == "transcripts") {
+            transcripts <- transcripts(txdb, columns = c("tx_name", "gene_id"))
+            tx2gene <- mcols(transcripts) %>%
+                as.data.frame() %>%
+                set_colnames(c("txID", "geneID")) %>%
+                set_rownames(.[["txID"]])
+        }
+    } else {
         # ah = AnnotationHub
         ah <- ensembl(
             organism = organism,
@@ -242,10 +238,16 @@ loadRNASeq <- function(
         assert_are_identical(names(ah), c("data", "metadata"))
         rowRanges <- ah[["data"]]
         assert_is_all_of(rowRanges, "GRanges")
-        ahMeta <- ah[["metadata"]]
-        assert_all_are_matching_regex(ahMeta[["id"]], "^AH\\d+$")
-    } else {
-        ahMeta <- NULL
+        rowRangesMetadata <- ah[["metadata"]]
+        assert_is_data.frame(rowRangesMetadata)
+        # Transcript-to-gene mappings
+        if (level == "transcripts") {
+            tx2gene <- tx2gene(
+                organism,
+                genomeBuild = genomeBuild,
+                release = release
+            )
+        }
     }
 
     # Sample metrics ===========================================================
@@ -375,24 +377,27 @@ loadRNASeq <- function(
     # Metadata =================================================================
     metadata <- list(
         "version" = packageVersion,
+        "level" = level,
+        "caller" = caller,
+        "countsFromAbundance" = countsFromAbundance,
         "uploadDir" = uploadDir,
         "sampleDirs" = sampleDirs,
+        "sampleMetadataFile" = as.character(sampleMetadataFile),
         "projectDir" = projectDir,
         "template" = template,
         "runDate" = runDate,
-        "level" = level,
-        "caller" = caller,
         "interestingGroups" = interestingGroups,
         "organism" = organism,
         "genomeBuild" = genomeBuild,
         "ensemblRelease" = as.integer(ensemblRelease),
-        "annotationHub" = as.list(ahMeta),
+        "rowRangesMetadata" = rowRangesMetadata,
+        "gffFile" = as.character(gffFile),
+        "txdb" = txdb,
         "tx2gene" = tx2gene,
-        "countsFromAbundance" = countsFromAbundance,
         "lanes" = lanes,
-        "yaml" = yaml,
         "metrics" = metrics,
-        "sampleMetadataFile" = as.character(sampleMetadataFile),
+        "yamlFile" = yamlFile,
+        "yaml" = yaml,
         "dataVersions" = dataVersions,
         "programVersions" = programVersions,
         "bcbioLog" = bcbioLog,
@@ -403,6 +408,7 @@ loadRNASeq <- function(
     )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {
+        assert_are_disjoint_sets(metadata, dots)
         metadata <- c(metadata, dots)
     }
 

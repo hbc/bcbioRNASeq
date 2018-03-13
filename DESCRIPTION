@@ -91,6 +91,7 @@ Depends:
     DEGreport (>= 1.14)
 Imports:
     BiocGenerics,
+    GenomicFeatures,
     RColorBrewer,
     S4Vectors,
     assertive,
