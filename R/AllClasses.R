@@ -53,12 +53,14 @@ setValidity(
         # Row data =============================================================
         assert_is_all_of(rowRanges(object), "GRanges")
         assert_is_all_of(rowData(object), "data.frame")
+        # Require gene-to-symbol mappings
         assert_is_subset(
             x = c("geneID", "geneName"),
             y = colnames(rowData(object))
         )
 
         # Column data ==========================================================
+        # Check that all of the columns are factors
         colDataFactor <- vapply(
             X = colData(object),
             FUN = is.factor,
@@ -76,11 +78,16 @@ setValidity(
             ))
         }
 
-        # Legacy metadata ======================================================
+        # Metadata =============================================================
+        # Detect legacy slots
         legacyMetadata <- c(
+            "design",
+            "ensemblVersion",
             "gtf",
+            "gtfFile",
             "missingGenes",
-            "programs"
+            "programs",
+            "yamlFile"
         )
         intersect <- intersect(names(metadata(object)), legacyMetadata)
         if (length(intersect)) {
@@ -94,43 +101,44 @@ setValidity(
             ))
         }
 
-        # Metadata classes =====================================================
-        # New metadata as of v0.2.0
-        # loadRNASeq = call
+        # New optional metadata
+        # v0.2.0
+        # - "loadRNASeq" = "call"
+        # - "txdb" = "TxDb"
+
+        # Class checks (order independent)
         requiredMetadata <- list(
-            "version" = "package_version",
-            "level" = "character",
+            "allSamples" = "logical",
+            "bcbioCommandsLog" = "character",
+            "bcbioLog" = "character",
             "caller" = "character",
             "countsFromAbundance" = "character",
-            "uploadDir" = "character",
+            "dataVersions" = "tbl_df",
+            "date" = "Date",
+            "devtoolsSessionInfo" = "session_info",
+            "ensemblRelease" = "integer",
+            "genomeBuild" = "character",
+            "gffFile" = "character",
+            "interestingGroups" = "character",
+            "isSpike" = "character",
+            "lanes" = "integer",
+            "level" = "character",
+            "metrics" = "data.frame",
+            "organism" = "character",
+            "programVersions" = "tbl_df",
+            "projectDir" = "character",
+            "rowRangesMetadata" = "tbl_df",
+            "runDate" = "Date",
             "sampleDirs" = "character",
             "sampleMetadataFile" = "character",
-            "projectDir" = "character",
             "template" = "character",
-            "runDate" = "Date",
-            "interestingGroups" = "character",
-            "organism" = "character",
-            "genomeBuild" = "character",
-            "ensemblRelease" = "integer",
-            "rowRangesMetadata" = "tbl_df",
-            "gffFile" = "character",
-            # txdb = "TxDb",  # optional
             "tx2gene" = "data.frame",
-            "lanes" = "integer",
-            "yaml" = "list",
-            "metrics" = "data.frame",
-            "dataVersions" = "tbl_df",
-            "programVersions" = "tbl_df",
-            "bcbioLog" = "character",
-            "bcbioCommandsLog" = "character",
-            "allSamples" = "logical",
-            # loadRNASeq = "call",  # optional
-            "date" = "Date",
-            "wd" = "character",
+            "unannotatedRows" = "character",
+            "uploadDir" = "character",
             "utilsSessionInfo" = "sessionInfo",
-            "devtoolsSessionInfo" = "session_info",
-            "isSpike" = "character",
-            "unannotatedRows" = "character"
+            "version" = "package_version",
+            "wd" = "character",
+            "yaml" = "list"
         )
         classChecks <- invisible(vapply(
             X = seq_along(requiredMetadata),
@@ -156,13 +164,22 @@ setValidity(
             ))
         }
 
-        # Metadata objects =====================================================
-        # Metrics
+        # Additional assert checks
+        # caller
+        assert_is_subset(
+            x = metadata(object)[["caller"]],
+            y = c("salmon", "kallisto", "sailfish")
+        )
+        # level
+        assert_is_subset(
+            x = metadata(object)[["level"]],
+            y = c("genes", "transcripts")
+        )
+        # metrics
         metrics <- metadata(object)[["metrics"]]
         assert_are_identical(colnames(object), rownames(metrics))
         assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
-
-        # Transcript to gene mappings
+        # tx2gene
         tx2gene <- metadata(object)[["tx2gene"]]
         assertIsTx2gene(tx2gene)
 

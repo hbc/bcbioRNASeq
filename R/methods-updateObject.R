@@ -50,9 +50,7 @@ NULL
     if (.hasSlot(rse, "rowRanges")) {
         rowRanges <- slot(rse, "rowRanges")
     }
-    if (missing(rowRanges)) {
-        rowRanges <- NULL
-    }
+    assert_is_all_of(rowRanges, "GRanges")
     colData <- colData(rse)
     metadata <- metadata(rse)
 
@@ -94,12 +92,6 @@ NULL
     # Metadata upgrades ========================================================
     metadata <- metadata(rse)
 
-    # annotationHub
-    if (!"annotationHub" %in% names(metadata)) {
-        inform("Setting annotationHub as empty list")
-        metadata[["annotationHub"]] <- list()
-    }
-
     # bcbioLog
     if (is.null(metadata[["bcbioLog"]])) {
         inform("Setting bcbioLog as empty character")
@@ -111,15 +103,25 @@ NULL
         message("Setting bcbioCommands as empty character")
         metadata[["bcbioCommandsLog"]] <- character()
     }
-    if (is.null(metadata[["design"]])) {
-        inform("Setting design as empty formula")
-        metadata[["design"]] <- formula(~1)  # nolint
-    }
 
     # caller
     if (!"caller" %in% names(metadata)) {
-        message("Setting caller as empty character (probably salmon)")
-        metadata[["caller"]] <- character()
+        message("Setting caller as salmon")
+        metadata[["caller"]] <- "salmon"
+    }
+
+    # countsFromAbundance
+    if (!"countsFromAbundance" %in% names(metadata)) {
+        message("Setting countsFromAbundance as lengthScaledTPM")
+        metadata[["countsFromAbundance"]] <- "lengthScaledTPM"
+    }
+
+    # design
+    if (!"design" %in% names(metadata)) {
+        # This should only be stashed inside DESeqDataSet.
+        # Formulas inside the metadata slot blow up memory and disk usage in R.
+        inform("Dropping design formula inside metadata")
+        metadata[["design"]] <- NULL
     }
 
     # ensemblRelease
@@ -129,19 +131,38 @@ NULL
         metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
         metadata[["ensemblVersion"]] <- NULL
     }
-    if (is.character(metadata[["ensemblRelease"]])) {
-        inform("Setting ensemblRelease as NULL")
-        metadata[["ensemblRelease"]] <- NULL
-    }
     if (!is.integer(metadata[["ensemblRelease"]])) {
         inform("Setting ensemblRelease as integer")
         metadata[["ensemblRelease"]] <- as.integer(metadata[["ensemblRelease"]])
+    }
+
+    # genomeBuild
+    if (!is.character(metadata[["genomeBuild"]])) {
+        inform("Setting genomeBuild as empty character")
+        metadata[["genomeBuild"]] <- character()
+    }
+
+    # gffFile
+    if (!"gffFile" %in% names(metadata)) {
+        inform("Setting gffFile as empty character")
+        metadata[["gffFile"]] <- character()
+    }
+    if (!"gtfFile" %in% names(metadata)) {
+        inform("Setting gffFile as gtfFile")
+        metadata[["gffFile"]] <- metadata[["gtfFile"]]
+        metadata[["gtfFile"]] <- NULL
     }
 
     # gtf
     if ("gtf" %in% names(metadata)) {
         inform("Removing stashed GTF")
         metadata <- metadata[setdiff(names(metadata), "gtf")]
+    }
+
+    # isSpike
+    if (!is.character(metadata[["isSpike"]])) {
+        inform("Setting isSpike as empty character")
+        metadata[["isSpike"]] <- character()
     }
 
     # lanes
@@ -201,14 +222,20 @@ NULL
         metadata <- metadata[setdiff(names(metadata), "programs")]
     }
 
+    # rowRangesMetadata
+    if (!"rowRangesMetadata" %in% names(metadata)) {
+        inform("Setting rowRangesMetadata as empty tibble")
+        metadata[["rowRangesMetadata"]] <- tibble()
+    }
+
     # sampleMetadataFile
-    if (is.null(metadata[["sampleMetadataFile"]])) {
+    if (!is.character(metadata[["sampleMetadataFile"]])) {
         inform("Setting sampleMetadataFile as empty character")
         metadata[["sampleMetadataFile"]] <- character()
     }
 
     # transformationLimit
-    if (is.null(metadata[["transformationLimit"]])) {
+    if (!is.numeric(metadata[["transformationLimit"]])) {
         inform("Setting transformationLimit as Inf")
         metadata[["transformationLimit"]] <- Inf
     }
@@ -220,13 +247,21 @@ NULL
         metadata[["missingGenes"]] <- NULL
     }
 
+    # yamlFile
+    if ("yamlFile" %in% names(metadata)) {
+        inform("Dropping yamlFile path")
+        metadata[["yamlFile"]] <- NULL
+    }
+
     metadata[["version"]] <- packageVersion
-    metadata[["previousVersion"]] <- metadata(object)[["version"]]
+    metadata[["previousVersion"]] <- metadata[["version"]]
     metadata[["upgradeDate"]] <- Sys.Date()
+
+    # Drop any NULL legacy metadata slots
     metadata <- Filter(Negate(is.null), metadata)
 
-    # Regenerate RSE ===========================================================
-    # This will resize rows for us dynamically
+    # Return ===================================================================
+    # Generate RangedSummarizedExperiment. Resizes rowRanges dynamically.
     rse <- prepareSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
