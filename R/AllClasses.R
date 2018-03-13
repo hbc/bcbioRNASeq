@@ -30,13 +30,8 @@
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
-#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#'
-#' bcb <- loadRNASeq(uploadDir)
-#' print(bcb)
-#'
-#' # Check validity
-#' validObject(bcb)
+#' bcb_small
+#' validObject(bcb_small)
 bcbioRNASeq <- setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
@@ -117,7 +112,7 @@ setValidity(
             "organism" = "character",
             "genomeBuild" = "character",
             "ensemblRelease" = "integer",
-            "rowRangesMetadata" = "data.frame",
+            "rowRangesMetadata" = "tbl_df",
             "gffFile" = "character",
             # txdb = "TxDb",  # optional
             "tx2gene" = "data.frame",
