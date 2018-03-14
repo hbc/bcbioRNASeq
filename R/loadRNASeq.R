@@ -65,13 +65,11 @@
 #'   possible, although all GFF formats are supported. The function will
 #'   internally generate a `TxDb` containing transcript-to-gene mappings and
 #'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
-#' @param design DESeq2 design formula. Empty by default. Can be updated after
-#'   initial data loading using the [design()] function.
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
-#'   It is not generally recommended to change this value. For large datasets,
-#'   DESeq2 will take a really long time applying variance stabilization. See
-#'   Details. Use `Inf` to always apply transformations and `0` to always skip.
+#'   For large datasets, DESeq2 is slow to apply variance stabilization. In this
+#'   case, we recommend loading up the dataset in a high-performance computing
+#'   environment. Use `Inf` to always apply and `-Inf` to always skip.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @return `bcbioRNASeq`.
@@ -83,10 +81,18 @@
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' loadRNASeq(uploadDir, level = "genes", organism = "Mus musculus")
+#' loadRNASeq(
+#'     uploadDir = uploadDir,
+#'     level = "genes",
+#'     organism = "Mus musculus"
+#' )
 #'
 #' # Transcript level
-#' loadRNASeq(uploadDir, level = "transcripts")
+#' loadRNASeq(
+#'     uploadDir = uploadDir,
+#'     level = "transcripts",
+#'     organism = "Mus musculus"
+#' )
 loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -99,7 +105,6 @@ loadRNASeq <- function(
     genomeBuild = NULL,
     isSpike = NULL,
     gffFile = NULL,
-    design = ~ 1,
     transformationLimit = 50L,
     ...
 ) {
@@ -134,9 +139,7 @@ loadRNASeq <- function(
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
-    assert_is_formula(design)
     assert_is_a_number(transformationLimit)
-    assert_all_are_non_negative(transformationLimit)
 
     # Directory paths ==========================================================
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
@@ -336,41 +339,33 @@ loadRNASeq <- function(
         mutate_all(droplevels) %>%
         column_to_rownames()
 
-    # Gene-level specific calculations =========================================
+    # Gene-level variance stabilization ========================================
     if (level == "genes") {
-        inform(paste(
-            "Generating internal DESeqDataSet using DESeq2",
-            packageVersion("DESeq2")
-        ))
-        if (!is(design, "formula")) {
-            # Note that use of `formula()` blows up memory inside the object
-            design <- ~ 1  # nolint
-        }
-        dds <- DESeqDataSetFromTximport(
-            txi = txi,
-            colData = colData,
-            design = design
-        )
-        # Suppressing warnings here for empty design formula (`~ 1`)
-        dds <- suppressWarnings(DESeq(dds))
-        # Variance stabilizing transformations
-        if (nrow(colData) > transformationLimit) {
+        if (nrow(colData) <= transformationLimit) {
+            inform(paste(
+                "Calculating variance stabilizations using DESeq2",
+                packageVersion("DESeq2")
+            ))
+            dds <- DESeqDataSetFromTximport(
+                txi = txi,
+                colData = colData,
+                # Use an empty design formula
+                design = ~ 1  # nolint
+            )
+            # Suppress warning about empty design formula
+            dds <- suppressWarnings(DESeq(dds))
+            inform("Applying rlog transformation")
+            rlog <- assay(rlog(dds))
+            inform("Applying variance stabilizing transformation")
+            vst <- assay(varianceStabilizingTransformation(dds))
+        } else {
             warn(paste(
                 "Dataset contains many samples.",
                 "Skipping variance stabilizing transformations."
             ))
             rlog <- NULL
             vst <- NULL
-        } else {
-            inform("Performing rlog transformation")
-            rlog <- rlog(dds)
-            inform("Performing variance stabilizing transformation")
-            vst <- varianceStabilizingTransformation(dds)
         }
-    } else {
-        dds <- NULL
-        rlog <- NULL
-        vst <- NULL
     }
 
     # Metadata =================================================================
@@ -415,7 +410,6 @@ loadRNASeq <- function(
         "raw" = counts,
         "tpm" = tpm,
         "length" = length,
-        "dds" = dds,
         "rlog" = rlog,
         "vst" = vst
     )
