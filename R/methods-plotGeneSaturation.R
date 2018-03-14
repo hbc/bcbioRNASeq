@@ -13,8 +13,8 @@
 #' @param trendline Include a trendline for each group.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotGeneSaturation(bcb)
+#' # Minimal exampe distorts the y-axis
+#' plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
 NULL
 
 
