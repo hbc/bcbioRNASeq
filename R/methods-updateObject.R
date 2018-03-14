@@ -132,7 +132,7 @@ NULL
     }
 
     # design
-    if (!"design" %in% names(metadata)) {
+    if ("design" %in% names(metadata)) {
         # This should only be stashed inside DESeqDataSet.
         # Formulas inside the metadata slot blow up memory and disk usage in R.
         inform("Dropping design formula")
