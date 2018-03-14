@@ -92,6 +92,29 @@ setMethod(
 
 #' @rdname deprecated
 #' @export
+setMethod(
+    "design",
+    signature("bcbioRNASeq"),
+    function(object, ...) {
+        .Defunct()
+    }
+)
+
+#' @rdname deprecated
+#' @export
+setMethod(
+    "design<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "formula"
+    ),
+    function(object, ..., value) {
+        .Defunct()
+    }
+)
+
+#' @rdname deprecated
+#' @export
 plot53Bias <- function(...) {
     .Deprecated("plot5Prime3PrimeBias")
     plot5Prime3PrimeBias(...)
