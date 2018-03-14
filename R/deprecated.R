@@ -68,6 +68,19 @@ txi <- function(...) {
 # annotable deprecation for SummarizedExperiment added to bcbioBase v0.2.0
 
 #' @rdname deprecated
+#' @export
+meltLog10 <- function(object, ...) {
+    .Defunct()
+}
+
+#' @rdname deprecated
+#' @export
+plot53Bias <- function(...) {
+    .Deprecated("plot5Prime3PrimeBias")
+    plot5Prime3PrimeBias(...)
+}
+
+#' @rdname deprecated
 #' @importFrom bcbioBase bcbio
 #' @export
 setMethod(
@@ -116,12 +129,5 @@ setMethod(
         .Defunct()
     }
 )
-
-#' @rdname deprecated
-#' @export
-plot53Bias <- function(...) {
-    .Deprecated("plot5Prime3PrimeBias")
-    plot5Prime3PrimeBias(...)
-}
 
 # nocov end

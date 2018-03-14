@@ -14,14 +14,6 @@ setGeneric("contrastName", function(object, ...) {
 
 
 
-#' @rdname meltLog10
-#' @export
-setGeneric("meltLog10", function(object, ...) {
-    standardGeneric("meltLog10")
-})
-
-
-
 #' @rdname plot5Prime3PrimeBias
 #' @export
 setGeneric("plot5Prime3PrimeBias", function(object, ...) {

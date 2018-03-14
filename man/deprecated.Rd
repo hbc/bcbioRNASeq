@@ -9,11 +9,12 @@
 \alias{loadRNASeqRun}
 \alias{plotGeneHeatmap}
 \alias{txi}
+\alias{meltLog10}
+\alias{plot53Bias}
 \alias{bcbio,bcbioRNASeq-method}
 \alias{bcbio<-,bcbioRNASeq-method}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
-\alias{plot53Bias}
 \title{Defunct or Deprecated Functions}
 \usage{
 download(...)
@@ -28,6 +29,10 @@ plotGeneHeatmap(...)
 
 txi(...)
 
+meltLog10(object, ...)
+
+plot53Bias(...)
+
 \S4method{bcbio}{bcbioRNASeq}(object, ...)
 
 \S4method{bcbio}{bcbioRNASeq}(object, ...) <- value
@@ -35,8 +40,6 @@ txi(...)
 \S4method{design}{bcbioRNASeq}(object, ...)
 
 \S4method{design}{bcbioRNASeq,formula}(object, ...) <- value
-
-plot53Bias(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
