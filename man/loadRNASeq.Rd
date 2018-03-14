@@ -8,7 +8,7 @@ loadRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
   sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
   ensemblRelease = NULL, genomeBuild = NULL, isSpike = NULL,
-  gffFile = NULL, design = ~1, transformationLimit = 50L, ...)
+  gffFile = NULL, transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -59,14 +59,11 @@ possible, although all GFF formats are supported. The function will
 internally generate a \code{TxDb} containing transcript-to-gene mappings and
 construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
-\item{design}{DESeq2 design formula. Empty by default. Can be updated after
-initial data loading using the \code{\link[=design]{design()}} function.}
-
 \item{transformationLimit}{Maximum number of samples to calculate
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
-It is not generally recommended to change this value. For large datasets,
-DESeq2 will take a really long time applying variance stabilization. See
-Details. Use \code{Inf} to always apply transformations and \code{0} to always skip.}
+For large datasets, DESeq2 is slow to apply variance stabilization. In this
+case, we recommend loading up the dataset in a high-performance computing
+environment. Use \code{Inf} to always apply and \code{-Inf} to always skip.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
@@ -94,10 +91,18 @@ run directory as a remote connection over
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-loadRNASeq(uploadDir, level = "genes", organism = "Mus musculus")
+loadRNASeq(
+    uploadDir = uploadDir,
+    level = "genes",
+    organism = "Mus musculus"
+)
 
 # Transcript level
-loadRNASeq(uploadDir, level = "transcripts")
+loadRNASeq(
+    uploadDir = uploadDir,
+    level = "transcripts",
+    organism = "Mus musculus"
+)
 }
 \seealso{
 \code{help("bcbioRNASeq-class", "bcbioRNASeq")}.

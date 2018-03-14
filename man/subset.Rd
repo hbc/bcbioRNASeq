@@ -77,26 +77,24 @@ DESeq2 transformations can be disabled on large subset operations by setting
 \code{transform = FALSE}.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-genes <- rownames(bcb)[1:50]
+genes <- rownames(bcb_small)[1:50]
 head(genes)
-samples <- colnames(bcb)[1:2]
+samples <- colnames(bcb_small)[1:2]
 head(samples)
 
 # Subset by sample name
-bcb[, samples]
+bcb_small[, samples]
 
 # Subset by gene list
-bcb[genes, ]
+bcb_small[genes, ]
 
 # Subset by both genes and samples
-subset <- bcb[genes, samples]
+subset <- bcb_small[genes, samples]
 print(subset)
 assayNames(subset)
 
-# Skip DESeq2 transformations
-subset <- bcb[genes, samples, transform = FALSE]
+# Skip DESeq2 variance stabilizing transformations
+subset <- bcb_small[genes, samples, transform = FALSE]
 print(subset)
 assayNames(subset)
 }
