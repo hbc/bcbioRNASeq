@@ -246,7 +246,7 @@ loadRNASeq <- function(
             tx2gene <- tx2gene(
                 organism,
                 genomeBuild = genomeBuild,
-                release = release
+                release = ensemblRelease
             )
         }
     }
@@ -340,6 +340,8 @@ loadRNASeq <- function(
         column_to_rownames()
 
     # Gene-level variance stabilization ========================================
+    rlog <- NULL
+    vst <- NULL
     if (level == "genes") {
         if (nrow(colData) <= transformationLimit) {
             inform(paste(
@@ -363,8 +365,6 @@ loadRNASeq <- function(
                 "Dataset contains many samples.",
                 "Skipping variance stabilizing transformations."
             ))
-            rlog <- NULL
-            vst <- NULL
         }
     }
 
@@ -406,13 +406,14 @@ loadRNASeq <- function(
     metadata <- Filter(Negate(is.null), metadata)
 
     # Return =============================================
-    assays = list(
+    assays <- list(
         "raw" = counts,
         "tpm" = tpm,
         "length" = length,
         "rlog" = rlog,
         "vst" = vst
     )
+    assays <- Filter(Negate(is.null), assays)
     rse <- prepareSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
