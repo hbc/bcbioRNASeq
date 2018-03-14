@@ -69,6 +69,29 @@ txi <- function(...) {
 
 #' @rdname deprecated
 #' @export
+setMethod(
+    "bcbio",
+    signature("bcbioRNASeq"),
+    function(object, ...) {
+        .Defunct()
+    }
+)
+
+#' @rdname deprecated
+#' @export
+setMethod(
+    "bcbio<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "ANY"
+    ),
+    function(object, ..., value) {
+        .Defunct()
+    }
+)
+
+#' @rdname deprecated
+#' @export
 plot53Bias <- function(...) {
     .Deprecated("plot5Prime3PrimeBias")
     plot5Prime3PrimeBias(...)
