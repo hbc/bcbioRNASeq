@@ -83,3 +83,15 @@
         importer = read_tsv
     )
 }
+
+
+
+.regenerateTximportList <- function(object) {
+    assert_is_all_of(object, "bcbioRNASeq")
+    list(
+        "abundance" = assays(object)[["tpm"]],
+        "counts" = assays(object)[["raw"]],
+        "length" = assays(object)[["length"]],
+        "countsFromAbundance" = metadata(object)[["countsFromAbundance"]]
+    )
+}
