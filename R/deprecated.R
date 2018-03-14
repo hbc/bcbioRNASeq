@@ -68,6 +68,7 @@ txi <- function(...) {
 # `annotable()` made defunct in basejump
 
 #' @rdname deprecated
+#' @importFrom bcbioBase bcbio
 #' @export
 setMethod(
     "bcbio",
@@ -78,6 +79,7 @@ setMethod(
 )
 
 #' @rdname deprecated
+#' @importFrom bcbioBase bcbio<-
 #' @export
 setMethod(
     "bcbio<-",
