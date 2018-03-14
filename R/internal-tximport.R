@@ -87,7 +87,12 @@
 
 
 .regenerateTximportList <- function(object) {
-    assert_is_all_of(object, "bcbioRNASeq")
+    assert_is_any_of(
+        x = object,
+        classes = c("bcbioRNASeq", "RangedSummarizedExperiment")
+    )
+    assert_is_subset(c("tpm", "raw", "length"), names(assays(object)))
+    assert_is_subset("countsFromAbundance", names(metadata(object)))
     list(
         "abundance" = assays(object)[["tpm"]],
         "counts" = assays(object)[["raw"]],
