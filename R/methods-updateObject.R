@@ -44,6 +44,11 @@ NULL
     assert_is_all_of(version, c("package_version", "numeric_version"))
     inform(paste("Upgrading from", version, "to", packageVersion))
 
+    # Check for legacy bcbio slot
+    if (.hasSlot(object, "bcbio")) {
+        message("Legacy bcbio slot detected")
+    }
+
     # RangedSummarizedExperiment
     rse <- as(object, "RangedSummarizedExperiment")
     assays <- slot(rse, "assays")
@@ -56,35 +61,45 @@ NULL
 
     # Assays ===================================================================
     if (!all(assayNames(rse) %in% requiredAssays)) {
-        # Ensure assays is a standard list
+        # Coerce assays to a standard list
         assays <- lapply(seq_along(assays), function(a) {
             assays[[a]]
         })
         names(assays) <- assayNames(rse)
-        if (!"dds" %in% assayNames(rse)) {
-            # DESeqDataSet
-            dds <- slot(object, "bcbio")[["DESeqDataSet"]]
-            assert_is_all_of(dds, "DESeqDataSet")
-            validObject(dds)
-            assays[["dds"]] <- dds
+        # DESeqDataSet (only on develop branch, safe to remove later)
+        if ("dds" %in% names(assays)) {
+            inform("Dropping legacy DESeqDataSet from assays")
+            assays[["dds"]] <- NULL
         }
-        if (!"length" %in% assayNames(rse)) {
-            # tximport length
+        # length (from tximport)
+        if (!"length" %in% names(assays)) {
+            inform("Moving length matrix from legacy bcbio slot to assays")
             length <- slot(object, "bcbio")[["tximport"]][["length"]]
             assert_is_matrix(length)
             assays[["length"]] <- length
         }
-        if ("normalized" %in% assayNames(rse)) {
-            # Legacy DESeq2 normalized counts
-            inform("Dropping normalized from assays")
+        # DESeq2 normalized counts
+        if ("normalized" %in% names(assays)) {
+            inform("Dropping legacy DESeq2 normalized counts from assays")
             assays[["normalized"]] <- NULL
         }
-        if ("tmm" %in% assayNames(rse)) {
-            # Calculate TMM on the fly instead
-            inform("Dropping tmm from assays")
+        # rlog
+        if (is(assays[["rlog"]], "DESeqTransform")) {
+            inform("Coercing rlog DESeqTransform to matrix in assays")
+            assays[["rlog"]] <- assay(assays[["rlog"]])
+        }
+        # tmm
+        if ("tmm" %in% names(assays)) {
+            inform("Dropping tmm from assays. Now calculated on the fly.")
             assays[["tmm"]] <- NULL
         }
+        # vst
+        if (is(assays[["vst"]], "DESeqTransform")) {
+            inform("Coercing vst DESeqTransform to matrix in assays")
+            assays[["vst"]] <- assay(assays[["vst"]])
+        }
         assays <- Filter(Negate(is.null), assays)
+        # Put the required assays first, in order
         assays <- assays[unique(c(requiredAssays, names(assays)))]
         assert_is_subset(requiredAssays, names(assays))
     }
@@ -120,7 +135,7 @@ NULL
     if (!"design" %in% names(metadata)) {
         # This should only be stashed inside DESeqDataSet.
         # Formulas inside the metadata slot blow up memory and disk usage in R.
-        inform("Dropping design formula inside metadata")
+        inform("Dropping design formula")
         metadata[["design"]] <- NULL
     }
 
@@ -143,14 +158,14 @@ NULL
     }
 
     # gffFile
+    if ("gtfFile" %in% names(metadata)) {
+        inform("Renaming gtfFile to gffFile")
+        metadata[["gffFile"]] <- metadata[["gtfFile"]]
+        metadata[["gtfFile"]] <- NULL
+    }
     if (!"gffFile" %in% names(metadata)) {
         inform("Setting gffFile as empty character")
         metadata[["gffFile"]] <- character()
-    }
-    if (!"gtfFile" %in% names(metadata)) {
-        inform("Setting gffFile as gtfFile")
-        metadata[["gffFile"]] <- metadata[["gtfFile"]]
-        metadata[["gtfFile"]] <- NULL
     }
 
     # gtf
