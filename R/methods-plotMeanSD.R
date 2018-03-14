@@ -114,11 +114,15 @@ setMethod(
         orientation = "vertical",
         showLegend = FALSE
     ) {
+        rlog <- assays(object)[["rlog"]]
+        assert_is_matrix(rlog)
+        vst <- assays(object)[["vst"]]
+        assert_is_matrix(vst)
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
-            rlog = counts(object, normalized = "rlog"),
-            vst = counts(object, normalized = "vst"),
+            rlog = rlog,
+            vst = vst,
             orientation = orientation,
             showLegend = showLegend
         )
