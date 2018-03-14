@@ -168,7 +168,7 @@ setMethod(
         # Obtain internal DESeqTransform
         dt <- assays(object)[[normalized]]
         if (!is(dt, "DESeqTransform")) {
-            inform("Generating DESeqTransform from counts matrix")
+            # Use DESeqTransform methods to plot PCA
             counts <- counts(object, normalized = normalized)
             se <- SummarizedExperiment(
                 assays = counts,
