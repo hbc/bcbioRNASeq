@@ -49,6 +49,23 @@ setValidity(
         # Assays ===============================================================
         # Note that `rlog` and `vst` DESeqTransform objects are optional
         assert_is_subset(requiredAssays, assayNames(object))
+        # Check that all assays are matrices
+        assayCheck <- vapply(
+            X = assays(object),
+            FUN = is.matrix,
+            FUN.VALUE = logical(1L),
+            USE.NAMES = TRUE
+        )
+        if (any(!assayCheck)) {
+            abort(paste(
+                paste(
+                    "Assays that are not matrix:",
+                    toString(names(assayCheck[!assayCheck]))
+                ),
+                updateMsg,
+                sep = "\n"
+            ))
+        }
 
         # Row data =============================================================
         assert_is_all_of(rowRanges(object), "GRanges")
@@ -61,17 +78,17 @@ setValidity(
 
         # Column data ==========================================================
         # Check that all of the columns are factors
-        colDataFactor <- vapply(
+        colDataCheck <- vapply(
             X = colData(object),
             FUN = is.factor,
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (any(!colDataFactor)) {
+        if (any(!colDataCheck)) {
             abort(paste(
                 paste(
                     "Non-factor colData columns:",
-                    toString(names(colDataFactor[!colDataFactor]))
+                    toString(names(colDataCheck[!colDataCheck]))
                 ),
                 updateMsg,
                 sep = "\n"
