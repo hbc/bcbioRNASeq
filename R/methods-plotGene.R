@@ -37,22 +37,18 @@
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-#'
 #' # Gene identifiers
-#' genes <- head(rownames(bcb), 4L)
+#' genes <- head(rownames(bcb_small), 8L)
 #'
 #' # bcbioRNASeq ====
-#' plotGene(bcb, genes = genes, return = "grid")
-#' plotGene(bcb, genes = genes, return = "wide")
+#' plotGene(bcb_small, genes = genes, return = "grid")
+#' plotGene(bcb_small, genes = genes, return = "wide")
 #'
 #' # DESeqDataSet ====
-#' plotGene(dds, genes = genes, interestingGroups = "group")
+#' plotGene(dds_small, genes = genes, interestingGroups = "group")
 #'
 #' # DESeqTransform ====
-#' plotGene(rld, genes = genes, interestingGroups = "group")
+#' plotGene(rld_small, genes = genes, interestingGroups = "group")
 NULL
 
 
@@ -198,7 +194,7 @@ NULL
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
-                expand_limits(y = 0L) +
+                # expand_limits(y = 0L) +
                 theme(legend.position = "none")
 
             if (
@@ -273,8 +269,8 @@ NULL
             x = NULL,
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
-        ) +
-        expand_limits(y = 0L)
+        )
+        # expand_limits(y = 0L)
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
         p <- p + geneMedianLine
