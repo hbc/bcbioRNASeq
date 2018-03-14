@@ -8,7 +8,7 @@
 #' @name subset
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport rlog
+#' @importFrom DESeq2 DESeq DESeqFromTximport rlog
 #'   varianceStabilizingTransformation
 #'
 #' @inheritParams base::`[`
@@ -87,13 +87,7 @@ NULL
             "Calculating variance stabilizations using DESeq2",
             packageVersion("DESeq2")
         ))
-        # Regenerate tximport list
-        txi <- list(
-            "abundance" = assays[["tpm"]],
-            "counts" = assays[["raw"]],
-            "length" = assays[["length"]],
-            "countsFromAbundance" = metadata(x)[["countsFromAbundance"]]
-        )
+        txi <- .regenerateTximportList(rse)
         dds <- DESeqDataSetFromTximport(
             txi = txi,
             colData = colData,
@@ -102,6 +96,8 @@ NULL
         )
         # Suppress warning about empty design formula
         dds <- suppressWarnings(DESeq(dds))
+        validObject(dds)
+        # FIXME This isn't using the correct dimensions
         inform("Applying rlog transformation")
         assays[["rlog"]] <- assay(rlog(dds))
         inform("Applying variance stabilizing transformation")
