@@ -56,7 +56,7 @@ setValidity(
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (any(!assayCheck)) {
+        if (!all(assayCheck)) {
             abort(paste(
                 paste(
                     "Assays that are not matrix:",
@@ -84,7 +84,7 @@ setValidity(
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (any(!colDataCheck)) {
+        if (!all(colDataCheck)) {
             abort(paste(
                 paste(
                     "Non-factor colData columns:",
@@ -96,6 +96,8 @@ setValidity(
         }
 
         # Metadata =============================================================
+        metadata <- metadata(object)
+
         # Detect legacy slots
         legacyMetadata <- c(
             "design",
@@ -106,7 +108,7 @@ setValidity(
             "programs",
             "yamlFile"
         )
-        intersect <- intersect(names(metadata(object)), legacyMetadata)
+        intersect <- intersect(names(metadata), legacyMetadata)
         if (length(intersect)) {
             abort(paste(
                 paste(
@@ -161,7 +163,7 @@ setValidity(
             X = seq_along(requiredMetadata),
             FUN = function(a) {
                 name <- names(requiredMetadata)[[a]]
-                actual <- class(metadata(object)[[name]])
+                actual <- class(metadata[[name]])
                 expected <- requiredMetadata[[a]]
                 if (!length(intersect(expected, actual))) {
                     warn(paste(
@@ -184,20 +186,20 @@ setValidity(
         # Additional assert checks
         # caller
         assert_is_subset(
-            x = metadata(object)[["caller"]],
+            x = metadata[["caller"]],
             y = c("salmon", "kallisto", "sailfish")
         )
         # level
         assert_is_subset(
-            x = metadata(object)[["level"]],
+            x = metadata[["level"]],
             y = c("genes", "transcripts")
         )
         # metrics
-        metrics <- metadata(object)[["metrics"]]
+        metrics <- metadata[["metrics"]]
         assert_are_identical(colnames(object), rownames(metrics))
         assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
         # tx2gene
-        tx2gene <- metadata(object)[["tx2gene"]]
+        tx2gene <- metadata[["tx2gene"]]
         assertIsTx2gene(tx2gene)
 
         TRUE
