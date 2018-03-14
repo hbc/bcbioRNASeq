@@ -31,7 +31,8 @@ NULL
     style = "solid",
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE),
-    title = TRUE
+    title = TRUE,
+    xlab = "counts"
 ) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
@@ -60,7 +61,7 @@ NULL
     ) +
         labs(
             title = title,
-            x = "log10 counts per gene",
+            x = xlab,
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
@@ -94,7 +95,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = "tmm",
+        normalized = "rlog",
         style = "solid",
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
@@ -103,13 +104,24 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
+        assert_is_a_string(normalized)
+        if (normalized %in% c("rlog", "vst")) {
+            fxn <- .meltCounts
+        } else {
+            fxn <- .meltLog2Counts
+        }
+        melt <- fxn(
+            counts(object, normalized = normalized),
+            colData = colData(object)
+        )
         .plotCountDensity(
-            object = meltLog10(object, normalized = normalized),
+            object = melt,
             interestingGroups = interestingGroups,
             style = style,
             color = color,
             fill = fill,
-            title = title
+            title = title,
+            xlab = paste("log2", normalized, "counts")
         )
     }
 )

@@ -10,7 +10,7 @@
 plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", fill = scale_fill_viridis(discrete = TRUE),
+  normalized = "rlog", fill = scale_fill_viridis(discrete = TRUE),
   flip = TRUE, title = TRUE)
 }
 \arguments{
