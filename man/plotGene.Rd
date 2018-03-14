@@ -10,7 +10,7 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
-  interestingGroups = "sampleName", countsAxisLabel = "log2 counts",
+  interestingGroups = "sampleName", countsAxisLabel = "counts",
   medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
   return = "grid", headerLevel = 2L)
 

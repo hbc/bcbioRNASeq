@@ -60,7 +60,7 @@ resTbl <- resultsTables(
     summary = TRUE,
     headerLevel = 2L,
     write = TRUE,
-    dir = "resultsTables",
+    dir = "resultsTables"
 )
 names(resTbl)
 
