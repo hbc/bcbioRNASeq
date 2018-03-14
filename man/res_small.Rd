@@ -4,12 +4,16 @@
 \name{res_small}
 \alias{res_small}
 \title{Minimal \code{DESeqResults} Example}
-\format{An object of class \code{DESeqResults} with 100 rows and 6 columns.}
+\format{An object of class \code{DESeqResults} with 500 rows and 6 columns.}
 \usage{
 res_small
 }
 \description{
-GSE65267
+Minimal \code{DESeqResults} Example
+}
+\seealso{
+Other GSE65267: \code{\link{bcb_small}},
+  \code{\link{dds_small}}, \code{\link{rld_small}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

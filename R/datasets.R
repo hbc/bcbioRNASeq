@@ -1,10 +1,20 @@
 #' Minimal `bcbioRNASeq` Example
 #'
-#' GSE65267
+#' @family GSE65267
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @keywords internal
 "bcb_small"
+
+
+
+#' Minimal `DESeqDataSet` Example
+#'
+#' @family GSE65267
+#'
+#' @author Michael Steinbaugh, Lorena Pantano
+#' @keywords internal
+"dds_small"
 
 
 
@@ -18,8 +28,18 @@
 
 #' Minimal `DESeqResults` Example
 #'
-#' GSE65267
+#' @family GSE65267
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @keywords internal
 "res_small"
+
+
+
+#' Minimal `DESeqTransform` Example
+#'
+#' @family GSE65267
+#'
+#' @author Michael Steinbaugh, Lorena Pantano
+#' @keywords internal
+"rld_small"
