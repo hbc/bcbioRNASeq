@@ -65,7 +65,7 @@ txi <- function(...) {
 
 
 # v0.2.0 =======================================================================
-# `annotable()` made defunct in basejump
+# annotable deprecation for SummarizedExperiment added to bcbioBase v0.2.0
 
 #' @rdname deprecated
 #' @importFrom bcbioBase bcbio
