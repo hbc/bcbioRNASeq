@@ -22,25 +22,23 @@
 #' @return `matrix`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
 #' # Raw counts (from tximport)
-#' counts(bcb, normalized = FALSE) %>% summary()
+#' counts(bcb_small, normalized = FALSE) %>% summary()
 #'
 #' # TPM (from tximport)
-#' counts(bcb, normalized = "tpm") %>% summary()
+#' counts(bcb_small, normalized = "tpm") %>% summary()
 #'
 #' # Normalized counts (from DESeq2)
-#' counts(bcb, normalized = TRUE) %>% summary()
+#' counts(bcb_small, normalized = TRUE) %>% summary()
 #'
 #' # rlog (from DESeq2)
-#' counts(bcb, normalized = "rlog") %>% summary()
+#' counts(bcb_small, normalized = "rlog") %>% summary()
 #'
 #' # VST (from DESeq2)
-#' counts(bcb, normalized = "vst") %>% summary()
+#' counts(bcb_small, normalized = "vst") %>% summary()
 #'
 #' # TMM (from edgeR)
-#' counts(bcb, normalized = "tmm") %>% summary()
+#' counts(bcb_small, normalized = "tmm") %>% summary()
 NULL
 
 
@@ -64,7 +62,7 @@ setMethod(
                 counts <- assay(object)
             } else if (identical(normalized, TRUE)) {
                 # DESeq2 normalized counts
-                dds <- assays(object)[["dds"]]
+                dds <- as(object, "DESeqDataSet")
                 assert_is_all_of(dds, "DESeqDataSet")
                 validObject(dds)
                 counts <- counts(dds, normalized = TRUE)
@@ -72,16 +70,9 @@ setMethod(
         } else if (is.character(normalized)) {
             assert_is_a_string(normalized)
             assert_is_subset(
-                normalized,
-                c(
-                    "raw",
-                    "tpm",
-                    "tmm",
-                    "rlog",
-                    "vst"
-                )
+                x = normalized,
+                y = c("raw", "tpm", "rlog", "vst", "tmm")
             )
-
             if (normalized == "tmm") {
                 # Calculate TMM on the fly
                 counts <- tmm(assay(object))
@@ -89,21 +80,14 @@ setMethod(
                 # Use matrices slotted into `assays()`
                 counts <- assays(object)[[normalized]]
             }
-
-            # Dynamic handling of optional DESeqTransform objects
-            if (normalized %in% c("rlog", "vst")) {
-                if (is(counts, "DESeqTransform")) {
-                    # Get matrix from slotted transforms
-                    counts <- assay(counts)
-                } else {
-                    warn(paste(
-                        "DESeq transformations were skipped.",
-                        "Calculating log2 TMM counts on the fly instead."
-                    ))
-                    counts <- tmm(assay(object))
-                    inform("Applying log2 transformation to TMM values")
-                    counts <- log2(counts + 1L)
-                }
+            if (!is.matrix(counts)) {
+                warn(paste(
+                    normalized, "not present in assays.",
+                    "Calculating log2 TMM counts instead."
+                ))
+                counts <- tmm(assay(object))
+                inform("Applying log2 transformation to TMM values")
+                counts <- log2(counts + 1L)
             }
         }
 
