@@ -8,7 +8,7 @@
 #' @name subset
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @importFrom DESeq2 DESeq DESeqFromTximport rlog
+#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport rlog
 #'   varianceStabilizingTransformation
 #'
 #' @inheritParams base::`[`
