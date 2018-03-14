@@ -39,22 +39,8 @@ NULL
     validObject(x)
     assert_are_identical(colnames(x), rownames(value))
     value <- as(value, "DataFrame")
-
-    # Sanitize all columns as factors
     value <- sanitizeColData(value)
     assert_has_dimnames(value)
-
-    # Required DESeqDataSet
-    colData(assays(x)[["dds"]]) <- value
-
-    # Optional DESeqTransform
-    if (!is.null(assays(x)[["rlog"]])) {
-        colData(assays(x)[["rlog"]]) <- value
-    }
-    if (!is.null(assays(x)[["vst"]])) {
-        colData(assays(x)[["vst"]]) <- value
-    }
-
     slot(x, "colData") <- value
     x
 }
