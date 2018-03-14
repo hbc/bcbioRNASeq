@@ -122,6 +122,10 @@ loadRNASeq <- function(
         ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
+    # organism missing
+    if (!"organism" %in% names(call)) {
+        abort("`organism` is now required")
+    }
     dots <- Filter(Negate(is.null), dots)
 
     # Assert checks ============================================================
