@@ -24,6 +24,12 @@ res_small <- results(
         denominator = "control"
     )
 )
+# Shrink log2 fold changes
+res_small <- lfcShrink(
+    dds = dds_small,
+    coef = 2L,
+    res = res_small
+)
 validObject(res_small)
 
 use_data(dds_small, rld_small, res_small, overwrite = TRUE, compress = "xz")
