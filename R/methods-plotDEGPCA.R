@@ -44,6 +44,7 @@ setMethod(
         list <- resultsTables(
             object,
             lfc = lfc,
+            rowData = NULL,
             summary = FALSE,
             write = FALSE
         )
