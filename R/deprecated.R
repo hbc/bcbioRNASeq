@@ -91,6 +91,7 @@ setMethod(
 )
 
 #' @rdname deprecated
+#' @importFrom DESeq2 design
 #' @export
 setMethod(
     "design",
@@ -101,6 +102,7 @@ setMethod(
 )
 
 #' @rdname deprecated
+#' @importFrom DESeq2 design<-
 #' @export
 setMethod(
     "design<-",
