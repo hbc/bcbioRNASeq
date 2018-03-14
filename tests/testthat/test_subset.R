@@ -1,7 +1,7 @@
 context("subset")
 
 test_that("Normal gene and sample selection", {
-    subset <- bcb[1L:100L, 1L:4L]
+    subset <- bcb_small[1L:100L, 1L:4L]
     expect_identical(
         dim(subset),
         c(100L, 4L)
@@ -29,7 +29,7 @@ test_that("Normal gene and sample selection", {
 })
 
 test_that("Minimal sample selection", {
-    subset <- bcb[, 1L:2L]
+    subset <- bcb_small[, 1L:2L]
     expect_identical(
         dim(subset),
         c(505L, 2L)
@@ -37,13 +37,13 @@ test_that("Minimal sample selection", {
     # Check that subsetting by name also works
     # TODO Any way to make this return idential?
     expect_equal(
-        bcb[, c("group1_1", "group1_2")],
+        bcb_small[, c("group1_1", "group1_2")],
         subset
     )
 })
 
 test_that("Minimal gene selection", {
-    subset <- bcb[1L:2L, , transform = FALSE]
+    subset <- bcb_small[1L:2L, , transform = FALSE]
     expect_identical(
         rownames(subset),
         c("ENSMUSG00000002459", "ENSMUSG00000004768")
@@ -59,23 +59,23 @@ test_that("Minimal gene selection", {
     )
     # Check that subsetting by name also works
     expect_equal(
-        bcb[c("ENSMUSG00000002459", "ENSMUSG00000004768"), , transform = FALSE],
+        bcb_small[c("ENSMUSG00000002459", "ENSMUSG00000004768"), , transform = FALSE],
         subset
     )
     # Selecting fewer than 3 genes will generate a warning
     expect_warning(
-        bcb[1L:2L, ],
+        bcb_small[1L:2L, ],
         "Estimated rdf < 1.0; not estimating variance"
     )
 })
 
 test_that("Invalid ranges", {
     expect_error(
-        bcb[1L, ],
+        bcb_small[1L, ],
         "is_greater_than : length\\(i\\) are not all greater than 1L."
     )
     expect_error(
-        bcb[, 1L],
+        bcb_small[, 1L],
         "is_greater_than : length\\(j\\) are not all greater than 1L."
     )
 })

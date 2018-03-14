@@ -1,7 +1,7 @@
 context("plotDEGHeatmap")
 
 test_that("plotDEGHeatmap", {
-    p <- plotDEGHeatmap(res, counts = rld)
+    p <- plotDEGHeatmap(res_small, counts = rld_small)
     expect_is(p, "list")
     expect_identical(
         names(p),

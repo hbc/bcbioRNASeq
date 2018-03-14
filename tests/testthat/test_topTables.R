@@ -2,7 +2,7 @@ context("topTables")
 
 test_that("topTables", {
     resTbl <- resultsTables(
-        res,
+        res_small,
         summary = FALSE,
         write = FALSE
     )

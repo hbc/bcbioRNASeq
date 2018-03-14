@@ -1,16 +1,16 @@
 context("plotGene")
 
 # TODO Define these as globals
-genes <- rownames(bcb)[1L:4L]
-gene2symbol <- gene2symbol(bcb)
+genes <- rownames(bcb_small)[1L:4L]
+gene2symbol <- gene2symbol(bcb_small)
 
 test_that("bcbioRNASeq", {
-    p <- plotGene(bcb, genes = genes)
+    p <- plotGene(bcb_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
 test_that("List return", {
-    list <- plotGene(bcb, genes = genes, return = "list")
+    list <- plotGene(bcb_small, genes = genes, return = "list")
     expect_is(list, "list")
     expect_true(
         lapply(list, function(x) is(x, "ggplot")) %>%
@@ -21,17 +21,17 @@ test_that("List return", {
 
 test_that("Markdown return", {
     output <- capture.output(
-        plotGene(bcb, genes = genes, return = "markdown")
+        plotGene(bcb_small, genes = genes, return = "markdown")
     )
     expect_identical(output[[3L]], "## Rgs20")
 })
 
 test_that("DESeqDataSet", {
-    p <- plotGene(dds, genes = genes, gene2symbol = gene2symbol)
+    p <- plotGene(dds_small, genes = genes, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
 })
 
 test_that("DESeqTransform", {
-    p <- plotGene(rld, genes = genes, gene2symbol = gene2symbol)
+    p <- plotGene(rld_small, genes = genes, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
 })

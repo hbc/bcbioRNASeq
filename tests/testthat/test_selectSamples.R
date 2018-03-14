@@ -4,13 +4,13 @@ context("selectSamples")
 dim <- c(505L, 2L)
 
 test_that("bcbioRNASeq", {
-    x <- selectSamples(bcb, group = "ko", transform = TRUE)
+    x <- selectSamples(bcb_small, group = "ko", transform = TRUE)
     expect_identical(dim(x), dim)
-    x <- selectSamples(bcb, group = "ko", transform = FALSE)
+    x <- selectSamples(bcb_small, group = "ko", transform = FALSE)
     expect_identical(dim(x), dim)
 })
 
 test_that("DESeqDataSet", {
-    x <- selectSamples(dds, group = "ko")
+    x <- selectSamples(dds_small, group = "ko")
     expect_identical(dim(x), dim)
 })

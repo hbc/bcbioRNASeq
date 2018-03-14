@@ -2,7 +2,7 @@ context("resultsTables")
 
 test_that("Default return with local files only", {
     resTbl <- resultsTables(
-        res,
+        res_small,
         lfc = lfc,
         summary = FALSE,
         write = FALSE)
@@ -27,9 +27,9 @@ test_that("Summary and write support", {
     dir <- file.path(getwd(), "resultsTables")
     output <- capture.output(
         resultsTables(
-        res,
+        res_small,
         lfc = lfc,
-        rowData = rowData(bcb),
+        rowData = rowData(bcb_small),
         summary = TRUE,
         headerLevel = 2L,
         write = TRUE,
@@ -109,9 +109,9 @@ test_that("Summary and write support", {
 if (file.exists("token.rds")) {
     test_that("Dropbox mode", {
         resTbl <- resultsTables(
-            res,
+            res_small,
             lfc = lfc,
-            rowData = rowData(bcb),
+            rowData = rowData(bcb_small),
             summary = FALSE,
             write = TRUE,
             dir = "resultsTables",

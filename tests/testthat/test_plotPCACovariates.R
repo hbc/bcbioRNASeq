@@ -1,7 +1,7 @@
 context("plotPCACovariates")
 
 test_that("Default", {
-    p <- plotPCACovariates(bcb)
+    p <- plotPCACovariates(bcb_small)
     expect_is(p, "list")
     expect_identical(
         names(p),
@@ -40,7 +40,7 @@ test_that("Default", {
 
 test_that("Defined metrics", {
     p <- plotPCACovariates(
-        bcb,
+        bcb_small,
         metrics = c("exonicRate", "intronicRate"))
     expect_identical(
         as.character(p[["significantCovars"]]),
@@ -56,7 +56,7 @@ test_that("Defined metrics", {
 test_that("Invalid parameters", {
     # Error on invalid column
     expect_error(
-        plotPCACovariates(bcb, metrics = c("FOO", "BAR")),
+        plotPCACovariates(bcb_small, metrics = c("FOO", "BAR")),
         paste(
             "is_subset :",
             "The elements 'FOO', 'BAR' in col are not in",
@@ -65,7 +65,7 @@ test_that("Invalid parameters", {
     )
     # More than 1 metric is required
     expect_error(
-        plotPCACovariates(bcb, metrics = "exonicRate"),
+        plotPCACovariates(bcb_small, metrics = "exonicRate"),
         paste(
             "is_greater_than : length\\(col\\) are not all greater than 1L."
         )
@@ -73,7 +73,7 @@ test_that("Invalid parameters", {
 })
 
 test_that("transformationLimit", {
-    skip <- bcb
+    skip <- bcb_small
     assays(skip)[["rlog"]] <- NULL
     expect_warning(
         plotPCACovariates(skip, normalized = "rlog"),

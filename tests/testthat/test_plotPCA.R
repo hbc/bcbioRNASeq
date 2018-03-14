@@ -1,12 +1,12 @@
 context("plotPCA")
 
 test_that("plotPCA", {
-    p <- plotPCA(bcb)
+    p <- plotPCA(bcb_small)
     expect_is(p, "ggplot")
 })
 
 test_that("transformationLimit", {
-    skip <- bcb
+    skip <- bcb_small
     assays(skip)[["rlog"]] <- NULL
     expect_warning(
         plotPCA(skip, normalized = "rlog"),

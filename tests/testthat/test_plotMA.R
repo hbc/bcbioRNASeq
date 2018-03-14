@@ -1,10 +1,10 @@
 context("plotMA")
 
 # TODO Define as a global
-genes <- head(rownames(res))
+genes <- head(rownames(res_small))
 
 test_that("DESeqResults", {
-    p <- plotMA(res)
+    p <- plotMA(res_small)
     expect_is(p, "ggplot")
 
     # Check geom classes
@@ -22,6 +22,6 @@ test_that("DESeqResults", {
 })
 
 test_that("Gene labels", {
-    p <- plotMA(res, genes = genes)
+    p <- plotMA(res_small, genes = genes)
     expect_is(p, "ggplot")
 })

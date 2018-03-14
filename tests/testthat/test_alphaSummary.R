@@ -3,35 +3,43 @@ context("alphaSummary")
 test_that("bcbioRNASeq", {
     expect_warning(
         alphaSummary(bcb_small),
-        "Internal DESeqDataSet has an empty design formula"
+        "Empty design formula detected"
     )
-    expect_is(suppressWarnings(alphaSummary(bcb)), "knitr_kable")
+    expect_is(suppressWarnings(alphaSummary(bcb_small)), "knitr_kable")
 })
 
 test_that("DESeqData", {
-    x <- alphaSummary(dds)
+    x <- alphaSummary(dds_small)
     expect_is(x, "knitr_kable")
     expect_true(grepl("1e-06", x[[1L]]))
     # Upregulated genes
     expect_identical(
         x[[3L]],
-        paste0(
-            "|LFC > 0 (up)   |",
-            "2, 0.66%         |",
-            "0, 0%            |",
-            "0, 0%            |",
-            "0, 0%            |",
-            "0, 0%            |")
+        paste(
+            "",
+            "LFC > 0 (up)   ",
+            "131, 26%          ",
+            "112, 22%          ",
+            "77, 15%           ",
+            "40, 8%             ",
+            "21, 4.2%          ",
+            "",
+            sep = "|"
+        )
     )
     # Downregulated genes
     expect_identical(
         x[[4L]],
-        paste0(
-            "|LFC < 0 (down) |",
-            "2, 0.66%         |",
-            "0, 0%            |",
-            "0, 0%            |",
-            "0, 0%            |",
-            "0, 0%            |")
+        paste(
+            "",
+            "LFC < 0 (down) ",
+            "146, 29%          ",
+            "128, 26%          ",
+            "104, 21%          ",
+            "67, 13%            ",
+            "16, 3.2%          ",
+            "",
+            sep = "|"
+        )
     )
 })
