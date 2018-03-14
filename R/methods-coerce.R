@@ -6,7 +6,17 @@
 #' @return Object of new class.
 #'
 #' @examples
+#' # DESeqDataSet ====
 #' dds <- as(bcb_small, "DESeqDataSet")
+#' show(dds)
+#'
+#' # RangedSummarizedExperiment ====
+#' rse <- as(bcb_small, "RangedSummarizedExperiment")
+#' show(rse)
+#'
+#' # SummarizedExperiment ====
+#' se <- as(bcb_small, "SummarizedExperiment")
+#' show(se)
 NULL
 
 
