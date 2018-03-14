@@ -38,9 +38,16 @@
         .[, c("sampleID", "geneID", "counts")] %>%
         arrange(!!!syms(c("sampleID", "geneID"))) %>%
         group_by(!!sym("sampleID")) %>%
-        # Remove zero counts
-        .[.[["counts"]] > 0L, , drop = FALSE] %>%
-        # log10 transform the counts
-        mutate(counts = log10(.data[["counts"]])) %>%
         left_join(as.data.frame(colData), by = "sampleID")
+}
+
+
+
+.meltLog2Counts <- function(object, colData) {
+    x <- .meltCounts(object, colData)
+    # Remove zero counts
+    # x <- x[x[["counts"]] > 0L, , drop = FALSE]
+    # log10 transform the counts
+    x[["counts"]] <- log2(x[["counts"]] + 1L)
+    x
 }
