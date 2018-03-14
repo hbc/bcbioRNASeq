@@ -44,8 +44,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot Mapped Reads
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotMappedReads(bcb)
+plotMappedReads(bcb_small)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},

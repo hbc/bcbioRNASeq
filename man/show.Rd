@@ -32,8 +32,7 @@ complete, original object, with misleading results.  See the
 the discussion in \code{\link{setIs}} for the general concept.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-show(bcb)
+show(bcb_small)
 }
 \seealso{
 \code{\link{showMethods}} prints all the methods for one or more

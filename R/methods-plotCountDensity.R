@@ -12,9 +12,12 @@
 #' @param style Desired plot style (`line` or `solid`).
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotCountDensity(bcb, style = "solid")
-#' plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
+#' plotCountDensity(bcb_small)
+#' plotCountDensity(
+#'     object = bcb_small,
+#'     style = "line",
+#'     interestingGroups = "sampleName"
+#' )
 NULL
 
 

@@ -17,15 +17,11 @@
 #' @return `ggplot` grid.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' # bcbioRNASeq ====
+#' plotMeanSD(bcb_small)
 #'
-#' # bcbioRNASeq
-#' plotMeanSD(bcb, orientation = "horizontal")
-#' plotMeanSD(bcb, orientation = "vertical")
-#'
-#' # DESeqDataSet
-#' dds <- assays(bcb)[["dds"]]
-#' plotMeanSD(dds, orientation = "horizontal")
+#' # DESeqDataSet ====
+#' plotMeanSD(dds_small)
 NULL
 
 

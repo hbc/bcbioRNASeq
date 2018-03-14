@@ -23,14 +23,12 @@ which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq
-plotDispEsts(bcb)
+plotDispEsts(bcb_small)
 
 # Custom colors, using DESeq2 parameters
 plotDispEsts(
-    bcb,
+    bcb_small,
     genecol = "gray",
     fitcol = "purple",
     finalcol = "orange"

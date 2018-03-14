@@ -18,14 +18,13 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' gene2symbol <- gene2symbol(bcb)
-#'
 #' # DESeqResults ====
-#' genes <- head(rownames(res), 4L)
-#' plotMA(res, genes = genes, gene2symbol = NULL)
-#' plotMA(res, genes = genes, gene2symbol = gene2symbol)
+#' plotMA(res_small)
+#' plotMA(
+#'     object = res_small,
+#'     genes = head(rownames(res_small), 4L),
+#'     gene2symbol = gene2symbol(bcb_small)
+#' )
 NULL
 
 

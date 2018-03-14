@@ -16,19 +16,15 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-#'
 #' # Use our stashed gene2symbol
-#' gene2symbol <- gene2symbol(bcb)
-#' annotationCol <- colData(bcb)[, interestingGroups(bcb), drop = FALSE]
+#' gene2symbol <- gene2symbol(bcb_small)
+#' annotationCol <- colData(bcb_small) %>%
+#'     .[, interestingGroups(bcb_small), drop = FALSE]
 #'
 #' # DESeqResults, DESeqTransform ====
 #' plotDEGHeatmap(
-#'     object = res,
-#'     counts = rld,
+#'     object = res_small,
+#'     counts = rld_small,
 #'     gene2symbol = gene2symbol,
 #'     annotationCol = annotationCol
 #' )
@@ -36,8 +32,8 @@
 #' # DESeqResults, DESeqDataSet ====
 #' # Using default ggplot2 colors
 #' plotDEGHeatmap(
-#'     object = res,
-#'     counts = dds,
+#'     object = res_small,
+#'     counts = dds_small,
 #'     gene2symbol = gene2symbol,
 #'     color = NULL,
 #'     legendColor = NULL

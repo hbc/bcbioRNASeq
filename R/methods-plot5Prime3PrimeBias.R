@@ -7,8 +7,7 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plot5Prime3PrimeBias(bcb)
+#' plot5Prime3PrimeBias(bcb_small)
 NULL
 
 

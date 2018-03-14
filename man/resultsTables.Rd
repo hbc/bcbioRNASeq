@@ -52,15 +52,11 @@ Results \code{list}.
 Differential Expression Results Tables
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-rowData <- rowData(bcb)
-
 # DESeqResults ====
 resTbl <- resultsTables(
-    res,
+    object = res_small,
     lfc = 0.25,
-    rowData = rowData,
+    rowData = rowData(bcb_small),
     summary = TRUE,
     headerLevel = 2L,
     write = TRUE,

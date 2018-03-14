@@ -40,11 +40,12 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot DEG PCA
 }
 \examples{
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
-# DESeqResults, DESeqTransform
-plotDEGPCA(res, counts = rld)
+# DESeqResults, DESeqTransform ====
+plotDEGPCA(
+    object = res_small,
+    counts = rld_small,
+    interestingGroups = interestingGroups(bcb_small)
+)
 }
 \author{
 Michael Steinbaugh

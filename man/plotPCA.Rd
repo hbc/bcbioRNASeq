@@ -50,19 +50,16 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 (PCA) sample coloring and labeling.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
-plotPCA(bcb, label = TRUE)
-plotPCA(bcb, label = FALSE)
-
-# Default ggplot color palette
-plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
+# bcbioRNASeq ====
+plotPCA(bcb_small, label = TRUE)
+plotPCA(bcb_small, label = FALSE)
 
 # Censor samples
-colnames(bcb)
-censor <- "group1_1"
-plotPCA(bcb, censorSamples = censor)
+plotPCA(
+    object = bcb_small,
+    censorSamples = colnames(bcb_small)[1L:2L],
+    label = TRUE
+)
 }
 \seealso{
 \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.

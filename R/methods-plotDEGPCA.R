@@ -8,11 +8,12 @@
 #' @inheritParams plotDEGHeatmap
 #'
 #' @examples
-#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-#'
-#' # DESeqResults, DESeqTransform
-#' plotDEGPCA(res, counts = rld)
+#' # DESeqResults, DESeqTransform ====
+#' plotDEGPCA(
+#'     object = res_small,
+#'     counts = rld_small,
+#'     interestingGroups = interestingGroups(bcb_small)
+#' )
 NULL
 
 

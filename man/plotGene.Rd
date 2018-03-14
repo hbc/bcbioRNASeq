@@ -77,22 +77,18 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot Individual Genes
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
 # Gene identifiers
-genes <- head(rownames(bcb), 4L)
+genes <- head(rownames(bcb_small), 8L)
 
 # bcbioRNASeq ====
-plotGene(bcb, genes = genes, return = "grid")
-plotGene(bcb, genes = genes, return = "wide")
+plotGene(bcb_small, genes = genes, return = "grid")
+plotGene(bcb_small, genes = genes, return = "wide")
 
 # DESeqDataSet ====
-plotGene(dds, genes = genes, interestingGroups = "group")
+plotGene(dds_small, genes = genes, interestingGroups = "group")
 
 # DESeqTransform ====
-plotGene(rld, genes = genes, interestingGroups = "group")
+plotGene(rld_small, genes = genes, interestingGroups = "group")
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

@@ -75,24 +75,22 @@ groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then t
 sample names.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 # Pearson correlation
-plotCorrelationHeatmap(bcb, method = "pearson")
+plotCorrelationHeatmap(bcb_small, method = "pearson")
 
 # Spearman correlation
-plotCorrelationHeatmap(bcb, method = "spearman")
+plotCorrelationHeatmap(bcb_small, method = "spearman")
 
 # Inferno palette
 plotCorrelationHeatmap(
-    bcb,
+    bcb_small,
     color = inferno,
     legendColor = inferno
 )
 
 # Default pheatmap palette
 plotCorrelationHeatmap(
-    bcb,
+    bcb_small,
     color = NULL,
     legendColor = NULL
 )

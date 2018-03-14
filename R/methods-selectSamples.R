@@ -13,17 +13,15 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
-#' subset <- selectSamples(bcb, group = "ko")
-#' print(subset)
-#' metrics(subset) %>% glimpse()
+#' x <- selectSamples(bcb_small, day = 7L)
+#' show(x)
+#' colnames(x)
 #'
 #' # DESeqDataSet ====
-#' subset <- selectSamples(dds, group = "ko")
-#' print(subset)
+#' x <- selectSamples(dds_small, day = 7L)
+#' show(x)
+#' colnames(x)
 NULL
 
 

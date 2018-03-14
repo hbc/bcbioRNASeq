@@ -9,8 +9,7 @@
 #' @inheritParams plotCountDensity
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotCountsPerGene(bcb)
+#' plotCountsPerGene(bcb_small)
 NULL
 
 

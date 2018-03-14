@@ -10,21 +10,17 @@
 #'
 #' @seealso [reshape2::melt()].
 #'
-#' @return log10 melted [data.frame].
+#' @return log10 melted `data.frame`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
+#' # bcbioRNASeq ====
+#' meltLog10(bcb_small) %>% glimpse()
 #'
-#' # bcbioRNASeq
-#' meltLog10(bcb) %>% glimpse()
+#' # DESeqDataSet ====
+#' meltLog10(dds_small) %>% glimpse()
 #'
-#' # DESeqDataSet
-#' meltLog10(dds) %>% glimpse()
-#'
-#' # DESeqTransform
-#' meltLog10(rld) %>% glimpse()
+#' # DESeqTransform ====
+#' meltLog10(rld_small) %>% glimpse()
 NULL
 
 

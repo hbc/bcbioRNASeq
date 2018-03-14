@@ -11,7 +11,17 @@ Object of new class.
 Coerce Object
 }
 \examples{
+# DESeqDataSet ====
 dds <- as(bcb_small, "DESeqDataSet")
+show(dds)
+
+# RangedSummarizedExperiment ====
+rse <- as(bcb_small, "RangedSummarizedExperiment")
+show(rse)
+
+# SummarizedExperiment ====
+se <- as(bcb_small, "SummarizedExperiment")
+show(se)
 }
 \author{
 Michael Steinbaugh

@@ -46,8 +46,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot Gene Detection Saturation
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotGeneSaturation(bcb)
+# Minimal exampe distorts the y-axis
+plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},

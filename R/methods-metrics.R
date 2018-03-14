@@ -9,10 +9,7 @@
 #' @return `data.frame`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' metrics(bcb) %>% glimpse()
+#' metrics(bcb_small) %>% glimpse()
 NULL
 
 

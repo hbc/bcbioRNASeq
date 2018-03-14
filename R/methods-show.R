@@ -6,8 +6,7 @@
 #' @inherit methods::show
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' show(bcb)
+#' show(bcb_small)
 NULL
 
 

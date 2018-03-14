@@ -17,18 +17,14 @@
 #' @seealso `help("colData", "SummarizedExperiment")`
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
 #' # Assignment method support
-#' colData <- colData(bcb)
 #' # All columns will be coerced to factors
-#' colData[["age"]] <- c(14L, 30L, 14L, 30L)
-#' colData(bcb) <- colData
-#' colData(bcb) %>% glimpse()
+#' colData(bcb_small)[["age"]] <- c(14L, 30L, 14L, 30L, 14L, 30L)
+#' colData(bcb_small) %>% glimpse()
 #'
 #' # These internal objects will also get updated
-#' assays(bcb)[["rlog"]] %>% colData() %>% glimpse()
-#' assays(bcb)[["vst"]] %>% colData() %>% glimpse()
+#' assays(bcb_small)[["rlog"]] %>% colData() %>% glimpse()
+#' assays(bcb_small)[["vst"]] %>% colData() %>% glimpse()
 NULL
 
 

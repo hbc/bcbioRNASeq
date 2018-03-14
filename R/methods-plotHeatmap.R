@@ -25,32 +25,24 @@
 #'   [viridis()].
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-#'
-#' gene2symbol <- gene2symbol(bcb)
-#'
 #' # bcbioRNASeq ====
-#' plotHeatmap(bcb, genes = head(rownames(bcb), 20L))
+#' plotHeatmap(bcb_small, genes = head(rownames(bcb_small), 20L))
 #'
 #' # Full transcriptome heatmap with default pheatmap colors
-#' plotHeatmap(bcb, color = inferno, legendColor = inferno)
+#' plotHeatmap(bcb_small, color = inferno, legendColor = inferno)
 #'
 #' # DESeqDataSet ====
-#' dds <- assays(bcb)[["dds"]]
 #' plotHeatmap(
-#'     object = dds,
-#'     genes = head(rownames(dds), 20L),
-#'     gene2symbol = gene2symbol
+#'     object = dds_small,
+#'     genes = head(rownames(dds_small), 20L),
+#'     gene2symbol = gene2symbol(bcb_small)
 #' )
 #'
 #' # DESeqTransform ====
-#' rld <- assays(bcb)[["rlog"]]
 #' plotHeatmap(
-#'     object = rld,
-#'     genes = head(rownames(rld), 20L),
-#'     gene2symbol = gene2symbol
+#'     object = rld_small,
+#'     genes = head(rownames(rld_small), 20L),
+#'     gene2symbol = gene2symbol(bcb_small)
 #' )
 NULL
 

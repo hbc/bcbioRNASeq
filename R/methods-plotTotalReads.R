@@ -22,8 +22,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotTotalReads(bcb)
+#' plotTotalReads(bcb_small)
 NULL
 
 

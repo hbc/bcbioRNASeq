@@ -43,8 +43,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot Counts Per Gene
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotCountsPerGene(bcb)
+plotCountsPerGene(bcb_small)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},

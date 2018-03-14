@@ -13,18 +13,14 @@
 #' @export
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
-#' tmm(bcb) %>% summary()
+#' tmm(bcb_small) %>% summary()
 #'
 #' # DESeqDataSet ====
-#' dds <- assays(bcb)[["dds"]]
-#' tmm(dds) %>% summary()
+#' tmm(dds_small) %>% summary()
 #'
 #' # matrix ====
-#' counts <- counts(bcb)
-#' tmm(counts) %>% summary()
+#' counts(bcb_small) %>% tmm() %>% summary()
 NULL
 
 
@@ -61,7 +57,7 @@ setMethod(
     "tmm",
     signature("matrix"),
     function(object) {
-        inform("Performing trimmed mean of M-values (TMM) normalization")
+        inform("Applying trimmed mean of M-values (TMM) normalization")
         object %>%
             DGEList() %>%
             calcNormFactors() %>%

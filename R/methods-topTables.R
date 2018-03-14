@@ -12,13 +12,9 @@
 #' @return `kable`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#'
-#' rowData <- rowData(bcb)
 #' resTbl <- resultsTables(
-#'     res,
-#'     rowData = rowData,
+#'     object = res_small,
+#'     rowData = rowData(bcb_small),
 #'     summary = FALSE,
 #'     write = FALSE
 #' )

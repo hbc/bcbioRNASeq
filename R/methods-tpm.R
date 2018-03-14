@@ -10,10 +10,7 @@
 #' @return `matrix`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' tpm(bcb) %>% glimpse()
+#' tpm(bcb_small) %>% glimpse()
 NULL
 
 

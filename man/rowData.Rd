@@ -18,8 +18,7 @@ Data describing the rows of the object.
 Row Data
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-rowData(bcb) \%>\% glimpse()
+rowData(bcb_small) \%>\% glimpse()
 }
 \author{
 Michael Steinbaugh

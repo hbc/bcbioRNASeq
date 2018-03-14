@@ -49,9 +49,12 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot Count Density
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotCountDensity(bcb, style = "solid")
-plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
+plotCountDensity(bcb_small)
+plotCountDensity(
+    object = bcb_small,
+    style = "line",
+    interestingGroups = "sampleName"
+)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},

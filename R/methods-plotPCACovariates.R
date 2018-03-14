@@ -21,10 +21,10 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
+#' plotPCACovariates(
+#'     object = bcb_small,
+#'     metrics = c("exonicRate", "intronicRate")
+#' )
 NULL
 
 

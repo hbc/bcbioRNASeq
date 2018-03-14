@@ -38,17 +38,14 @@ the object contains an internal \code{DESeqDataSet} with an empty design
 formula.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq ====
-alphaSummary(bcb)
+alphaSummary(bcb_small)
 
 # DESeqDataSet ====
-resultsNames(dds)
-alphaSummary(dds)
-alphaSummary(dds, contrast = c("day", "7", "0"))
-alphaSummary(dds, name = "day_7_vs_0")
+resultsNames(dds_small)
+alphaSummary(dds_small)
+alphaSummary(dds_small, contrast = c("day", "7", "0"))
+alphaSummary(dds_small, name = "day_7_vs_0")
 }
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.

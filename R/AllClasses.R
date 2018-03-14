@@ -30,7 +30,7 @@
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
-#' bcb_small
+#' show(bcb_small)
 #' validObject(bcb_small)
 bcbioRNASeq <- setClass(
     Class = "bcbioRNASeq",

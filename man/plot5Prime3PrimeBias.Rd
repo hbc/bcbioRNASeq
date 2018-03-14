@@ -42,8 +42,7 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 Plot 5'->3' Bias
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plot5Prime3PrimeBias(bcb)
+plot5Prime3PrimeBias(bcb_small)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plotCountDensity}},

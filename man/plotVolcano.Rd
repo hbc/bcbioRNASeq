@@ -60,17 +60,12 @@ individual \link{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-gene2symbol <- gene2symbol(bcb)
-
 # DESeqResults ====
-# Label the top genes
-plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
-
-# Label specific genes
-genes <- rownames(res) \%>\% head()
-plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
+plotVolcano(
+    object = res_small,
+    ntop = 5L,
+    gene2symbol = gene2symbol(bcb_small)
+)
 }
 \seealso{
 This function is an updated variant of

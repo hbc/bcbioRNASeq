@@ -8,8 +8,8 @@
 #' @inheritParams plotGeneSaturation
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
+#' # Minimal example with fewer genes, so disable limits
+#' plotGenesDetected(bcb_small, passLimit = 0L, warnLimit = 0L)
 NULL
 
 

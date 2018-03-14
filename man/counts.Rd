@@ -30,25 +30,23 @@ transcripts per million (TPM) can be accessed using the \code{normalized}
 argument.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
 # Raw counts (from tximport)
-counts(bcb, normalized = FALSE) \%>\% summary()
+counts(bcb_small, normalized = FALSE) \%>\% summary()
 
 # TPM (from tximport)
-counts(bcb, normalized = "tpm") \%>\% summary()
+counts(bcb_small, normalized = "tpm") \%>\% summary()
 
 # Normalized counts (from DESeq2)
-counts(bcb, normalized = TRUE) \%>\% summary()
+counts(bcb_small, normalized = TRUE) \%>\% summary()
 
 # rlog (from DESeq2)
-counts(bcb, normalized = "rlog") \%>\% summary()
+counts(bcb_small, normalized = "rlog") \%>\% summary()
 
 # VST (from DESeq2)
-counts(bcb, normalized = "vst") \%>\% summary()
+counts(bcb_small, normalized = "vst") \%>\% summary()
 
 # TMM (from edgeR)
-counts(bcb, normalized = "tmm") \%>\% summary()
+counts(bcb_small, normalized = "tmm") \%>\% summary()
 }
 \author{
 Michael Steinbaugh

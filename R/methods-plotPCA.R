@@ -26,19 +26,16 @@
 #' @return [ggplot].
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotPCA(bcb, label = TRUE)
-#' plotPCA(bcb, label = FALSE)
-#'
-#' # Default ggplot color palette
-#' plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
+#' # bcbioRNASeq ====
+#' plotPCA(bcb_small, label = TRUE)
+#' plotPCA(bcb_small, label = FALSE)
 #'
 #' # Censor samples
-#' colnames(bcb)
-#' censor <- "group1_1"
-#' plotPCA(bcb, censorSamples = censor)
+#' plotPCA(
+#'     object = bcb_small,
+#'     censorSamples = colnames(bcb_small)[1L:2L],
+#'     label = TRUE
+#' )
 NULL
 
 
@@ -171,7 +168,7 @@ setMethod(
         # Obtain internal DESeqTransform
         dt <- assays(object)[[normalized]]
         if (!is(dt, "DESeqTransform")) {
-            inform("Generating DESeqTransform from counts")
+            inform("Generating DESeqTransform from counts matrix")
             counts <- counts(object, normalized = normalized)
             se <- SummarizedExperiment(
                 assays = counts,

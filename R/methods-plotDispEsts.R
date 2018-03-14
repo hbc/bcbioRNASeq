@@ -21,14 +21,12 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq
-#' plotDispEsts(bcb)
+#' plotDispEsts(bcb_small)
 #'
 #' # Custom colors, using DESeq2 parameters
 #' plotDispEsts(
-#'     bcb,
+#'     bcb_small,
 #'     genecol = "gray",
 #'     fitcol = "purple",
 #'     finalcol = "orange"
@@ -45,8 +43,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, ...) {
         validObject(object)
-        dds <- assays(object)[["dds"]]
-        assert_is_all_of(dds, "DESeqDataSet")
+        dds <- as(object, "DESeqDataSet")
         plotDispEsts(dds, ...)
     }
 )

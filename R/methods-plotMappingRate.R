@@ -7,8 +7,7 @@
 #' @inherit plotTotalReads
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotMappingRate(bcb)
+#' plotMappingRate(bcb_small)
 NULL
 
 

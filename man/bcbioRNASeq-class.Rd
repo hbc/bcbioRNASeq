@@ -31,7 +31,7 @@ The \code{\link[=metadata]{metadata()}} accessor contains:
 migrated to \code{RangedSummarizedExperiment}.
 }
 \examples{
-bcb_small
+show(bcb_small)
 validObject(bcb_small)
 }
 \seealso{

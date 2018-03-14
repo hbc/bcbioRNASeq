@@ -68,27 +68,14 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
-url <- "http://bcbiornaseq.seq.cloud/f1000v1"
-loadRemoteData(c(
-    paste(url, "bcb.rda", sep = "/"),
-    paste(url, "rld.rda", sep = "/"),
-    paste(url, "vst.rda", sep = "/")
-))
-
 # bcbioRNASeq ====
-plotGenderMarkers(bcb)
-plotGenderMarkers(
-    bcb,
-    interestingGroups = "sampleName",
-    color = NULL)
+plotGenderMarkers(bcb_small)
 
 # DESeqDataSet ====
-dds <- assays(bcb)[["dds"]]
-plotGenderMarkers(dds, interestingGroups = "group")
+plotGenderMarkers(dds_small)
 
 # DESeqTransform ====
-plotGenderMarkers(rld, interestingGroups = "group")
-plotGenderMarkers(vst, interestingGroups = "group")
+plotGenderMarkers(rld_small)
 }
 \seealso{
 Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},
