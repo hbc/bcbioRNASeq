@@ -8,6 +8,9 @@
 #' @name subset
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
+#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport rlog
+#'   varianceStabilizingTransformation
+#'
 #' @inheritParams base::`[`
 #' @param ... Additional arguments.
 #'
@@ -16,26 +19,24 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' genes <- rownames(bcb)[1:50]
+#' genes <- rownames(bcb_small)[1:50]
 #' head(genes)
-#' samples <- colnames(bcb)[1:2]
+#' samples <- colnames(bcb_small)[1:2]
 #' head(samples)
 #'
 #' # Subset by sample name
-#' bcb[, samples]
+#' bcb_small[, samples]
 #'
 #' # Subset by gene list
-#' bcb[genes, ]
+#' bcb_small[genes, ]
 #'
 #' # Subset by both genes and samples
-#' subset <- bcb[genes, samples]
+#' subset <- bcb_small[genes, samples]
 #' print(subset)
 #' assayNames(subset)
 #'
-#' # Skip DESeq2 transformations
-#' subset <- bcb[genes, samples, transform = FALSE]
+#' # Skip DESeq2 variance stabilizing transformations
+#' subset <- bcb_small[genes, samples, transform = FALSE]
 #' print(subset)
 #' assayNames(subset)
 NULL
@@ -74,47 +75,42 @@ NULL
     rse <- as(x, "RangedSummarizedExperiment")
     rse <- rse[i, j, drop = drop]
 
-    # Row ranges ===============================================================
+    # Row and column data ======================================================
     rowRanges <- rowRanges(rse)
-
-    # Column data ==============================================================
     colData <- colData(rse)
-    colData <- sanitizeColData(colData)
 
     # Assays ===================================================================
     assays <- assays(rse)
 
-    # Drop the DESeqTransform objects, if desired
-    if (!isTRUE(transform)) {
+    if (isTRUE(transform)) {
+        inform(paste(
+            "Calculating variance stabilizations using DESeq2",
+            packageVersion("DESeq2")
+        ))
+        # Regenerate tximport list
+        txi <- list(
+            "abundance" = assays[["tpm"]],
+            "counts" = assays[["raw"]],
+            "length" = assays[["length"]],
+            "countsFromAbundance" = metadata(x)[["countsFromAbundance"]]
+        )
+        dds <- DESeqDataSetFromTximport(
+            txi = txi,
+            colData = colData,
+            # Use an empty design formula
+            design = ~ 1  # nolint
+        )
+        # Suppress warning about empty design formula
+        dds <- suppressWarnings(DESeq(dds))
+        inform("Applying rlog transformation")
+        assays[["rlog"]] <- assay(rlog(dds))
+        inform("Applying variance stabilizing transformation")
+        assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
+    } else {
         inform("Skipping DESeq2 transformations")
+        # Ensure existing transformations get dropped
         assays[["vst"]] <- NULL
         assays[["rlog"]] <- NULL
-    }
-
-    # Update the colData in nested DESeq objects
-    message("Updating colData in assays slot")
-    colData(assays[["dds"]]) <- colData
-    if (is(assays[["rlog"]], "DESeqTransform")) {
-        colData(assays[["rlog"]]) <- colData
-    }
-    if (is(assays[["vst"]], "DESeqTransform")) {
-        colData(assays[["vst"]]) <- colData
-    }
-
-    # Update DESeqTransform objects
-    if (isTRUE(transform)) {
-        inform("Updating internal DESeqDataSet")
-        # DESeq2 will warn about empty design formula, if set
-        assays[["dds"]] <- suppressWarnings(DESeq(assays[["dds"]]))
-        inform("Performing rlog transformation")
-        assays[["rlog"]] <- rlog(assays[["dds"]])
-        inform("Performing variance stabilizing transformation")
-        assays[["vst"]] <- varianceStabilizingTransformation(assays[["dds"]])
-    } else {
-        # Skip normalization option, for large datasets.
-        # Not generally recommended.
-        inform("Updating size factors for internal DESeqDataset")
-        assays[["dds"]] <- estimateSizeFactors(assays[["dds"]])
     }
 
     # Drop any NULL items in assays list
