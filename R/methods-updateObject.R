@@ -26,11 +26,7 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda")
-#' metadata(bcb)[["version"]]
-#' organism <- metadata(bcb)[["organism"]]
-#' rowRanges <- genes(organism)
-#' updateObject(bcb, rowRanges = rowRanges)
+#' updateObject(bcb_small)
 NULL
 
 
