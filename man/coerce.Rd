@@ -3,6 +3,7 @@
 \name{coerce}
 \alias{coerce}
 \alias{coerce-bcbioRNASeq-DESeqDataSet}
+\alias{coerce-bcbioRNASeq-list}
 \title{Coerce Object}
 \value{
 Object of new class.
@@ -17,11 +18,12 @@ show(dds)
 
 # RangedSummarizedExperiment ====
 rse <- as(bcb_small, "RangedSummarizedExperiment")
+slotNames(rse)
 show(rse)
 
-# SummarizedExperiment ====
-se <- as(bcb_small, "SummarizedExperiment")
-show(se)
+# list ====
+list <- as(bcb_small, "list")
+names(list)
 }
 \author{
 Michael Steinbaugh

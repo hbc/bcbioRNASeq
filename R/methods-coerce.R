@@ -12,11 +12,12 @@
 #'
 #' # RangedSummarizedExperiment ====
 #' rse <- as(bcb_small, "RangedSummarizedExperiment")
+#' slotNames(rse)
 #' show(rse)
 #'
-#' # SummarizedExperiment ====
-#' se <- as(bcb_small, "SummarizedExperiment")
-#' show(se)
+#' # list ====
+#' list <- as(bcb_small, "list")
+#' names(list)
 NULL
 
 
@@ -46,6 +47,26 @@ setAs(
         # Suppress warning about empty design formula
         to <- suppressWarnings(DESeq(dds))
         validObject(to)
+        to
+    }
+)
+
+
+
+#' @rdname coerce
+#' @name coerce-bcbioRNASeq-list
+setAs(
+    from = "bcbioRNASeq",
+    to = "list",
+    function(from) {
+        to <- lapply(slotNames(from), function(slot) {
+            if (.hasSlot(from, slot)) {
+                slot(from, slot)
+            } else {
+                NULL
+            }
+        })
+        names(to) <- slotNames(from)
         to
     }
 )
