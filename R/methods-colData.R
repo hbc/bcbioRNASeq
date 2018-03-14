@@ -17,14 +17,12 @@
 #' @seealso `help("colData", "SummarizedExperiment")`
 #'
 #' @examples
+#' colData(bcb_small) %>% glimpse()
+#'
 #' # Assignment method support
 #' # All columns will be coerced to factors
 #' colData(bcb_small)[["age"]] <- c(14L, 30L, 14L, 30L, 14L, 30L)
 #' colData(bcb_small) %>% glimpse()
-#'
-#' # These internal objects will also get updated
-#' assays(bcb_small)[["rlog"]] %>% colData() %>% glimpse()
-#' assays(bcb_small)[["vst"]] %>% colData() %>% glimpse()
 NULL
 
 
