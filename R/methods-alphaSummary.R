@@ -25,9 +25,8 @@
 #'
 #' # DESeqDataSet ====
 #' resultsNames(dds_small)
-#' alphaSummary(dds_small)
-#' alphaSummary(dds_small, contrast = c("day", "7", "0"))
-#' alphaSummary(dds_small, name = "day_7_vs_0")
+#' alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
+#' alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
 NULL
 
 
