@@ -10,7 +10,7 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
-  interestingGroups = "sampleName", countsAxisLabel = "counts",
+  interestingGroups = "sampleName", countsAxisLabel = "log2 counts",
   medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
   return = "grid", headerLevel = 2L)
 
@@ -85,10 +85,10 @@ plotGene(bcb_small, genes = genes, return = "grid")
 plotGene(bcb_small, genes = genes, return = "wide")
 
 # DESeqDataSet ====
-plotGene(dds_small, genes = genes, interestingGroups = "group")
+plotGene(dds_small, genes = genes)
 
 # DESeqTransform ====
-plotGene(rld_small, genes = genes, interestingGroups = "group")
+plotGene(rld_small, genes = genes)
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

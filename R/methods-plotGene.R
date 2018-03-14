@@ -48,10 +48,10 @@
 #' plotGene(bcb_small, genes = genes, return = "wide")
 #'
 #' # DESeqDataSet ====
-#' plotGene(dds_small, genes = genes, interestingGroups = "group")
+#' plotGene(dds_small, genes = genes)
 #'
 #' # DESeqTransform ====
-#' plotGene(rld_small, genes = genes, interestingGroups = "group")
+#' plotGene(rld_small, genes = genes)
 NULL
 
 
@@ -140,7 +140,7 @@ NULL
     gene2symbol = NULL,
     colData,
     interestingGroups = "sampleName",
-    countsAxisLabel = "counts",
+    countsAxisLabel = "log2 counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE)
 ) {
@@ -233,7 +233,7 @@ NULL
     gene2symbol = NULL,
     colData,
     interestingGroups = "sampleName",
-    countsAxisLabel = "counts",
+    countsAxisLabel = "log2 counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
     title = NULL
@@ -318,17 +318,21 @@ setMethod(
         return = "grid",
         headerLevel = 2L
     ) {
-        assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
+        assert_is_a_string(normalized)
+        counts <- counts(object, normalized = normalized)
+        if (!normalized %in% c("rlog", "vst")) {
+            counts <- log2(counts + 1L)
+        }
         plotGene(
-            object = counts(object, normalized = normalized),
+            object = counts,
             genes = genes,
             gene2symbol = gene2symbol(object),
             colData = colData(object),
             interestingGroups = interestingGroups,
-            countsAxisLabel = paste(normalized, "counts"),
+            countsAxisLabel = paste("log2", normalized, "counts"),
             medianLine = medianLine,
             color = color,
             return = return,
@@ -354,13 +358,15 @@ setMethod(
         return = "grid",
         headerLevel = 2L
     ) {
+        colData <- colData(object)
+        colData[["sizeFactor"]] <- NULL
         plotGene(
             object = log2(counts(object, normalized = TRUE) + 1L),
             genes = genes,
             gene2symbol = gene2symbol,
-            colData = colData(object),
+            colData = colData,
             interestingGroups = interestingGroups,
-            countsAxisLabel = "log2 counts",
+            countsAxisLabel = "log2 normalized counts",
             medianLine = medianLine,
             color = color,
             return = return,
@@ -391,13 +397,15 @@ setMethod(
         } else {
             normalized <- "vst"
         }
+        colData <- colData(object)
+        colData[["sizeFactor"]] <- NULL
         plotGene(
             object = assay(object),
             genes = genes,
             gene2symbol = gene2symbol,
-            colData = colData(object),
+            colData = colData,
             interestingGroups = interestingGroups,
-            countsAxisLabel = paste(normalized, "counts"),
+            countsAxisLabel = paste("log2", normalized),
             medianLine = medianLine,
             color = color,
             return = return,
