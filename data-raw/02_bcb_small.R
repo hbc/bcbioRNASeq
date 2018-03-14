@@ -26,9 +26,13 @@ gse65267 <- loadRNASeq(
 # Too large to save in the package
 saveData(gse65267, dir = "~")
 
-# Use day 0 and 7 in minimal example
 # F1000 paper: days 0, 1, 3, 7
-bcb_small <- selectSamples(gse65267, day = c(0L, 7L))
+# Working example: days 0, 7
+bcb_small <- selectSamples(gse65267, day = c(0L, 7L), transform = FALSE)
+stopifnot(identical(
+    names(assays(bcb_small)),
+    c("raw", "tpm", "length")
+))
 
 # Minimize metadata slots that take up disk space
 metadata(bcb_small)$bcbioCommandsLog <- character()
@@ -49,44 +53,34 @@ dimorphic <- genderMarkers$musMusculus %>%
     pull(geneID) %>%
     sort() %>%
     intersect(rownames(bcb_small))
-# Subset to include 100 genes
+# Subset to include only the top genes of interest
 genes <- c(dimorphic, abundance) %>%
     unique() %>%
-    head(100L)
-bcb_small <- bcb_small[genes, ]
-
-# DESeq2 doesn't like spaces in design factors, so fix that first
-bcb_small$treatment <- snake(bcb_small$treatment)
-validObject(bcb_small)
-
-# Check the object size
-object.size(bcb_small) %>% format(units = "auto")
-pryr::object_size(bcb_small)
+    head(500L)
+bcb_small <- bcb_small[genes, , transform = TRUE]
+stopifnot(identical(
+    names(assays(bcb_small)),
+    c("raw", "tpm", "length", "rlog", "vst")
+))
 
 # Update the interesting groups and design formula
 interestingGroups(bcb_small) <- "treatment"
-design(bcb_small) <- formula(~treatment)
+
+# DESeq2 doesn't like spaces in design factors, so fix that in colData
+bcb_small$treatment <- snake(bcb_small$treatment)
+
+# Check that object is valid
 validObject(bcb_small)
 
-# Check sizes
+# Check the object size
+pryr::object_size(bcb_small)
+format(object.size(bcb_small), units = "auto")
+
+# Check sizes in slots
+lapply(assays(bcb_small), pryr::object_size)
+lapply(metadata(bcb_small), pryr::object_size)
+
 lapply(assays(bcb_small), object.size)
 lapply(metadata(bcb_small), object.size)
 
-dds_small <- assays(bcb_small)[["dds"]]
-stopifnot(design(dds_small) == formula(~treatment))
-stopifnot(identical(
-    resultsNames(dds_small),
-    c("Intercept", "treatment_folic_acid_vs_control")
-))
-
-# Include an example where metadata has a space, sanitized with `make.names()`
-res_small <- results(
-    dds_small,
-    contrast = c(
-        factor = "treatment",
-        numerator = "folic_acid",
-        denominator = "control"
-    )
-)
-
-use_data(bcb_small, res_small, overwrite = TRUE, compress = "xz")
+use_data(bcb_small, overwrite = TRUE, compress = "xz")
