@@ -4,7 +4,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#'
 #' @param lfc Log fold change ratio (base 2) cutoff. Does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
 #'   See [results()] for additional information about using `lfcThreshold` and
@@ -36,7 +35,7 @@
 #'     summary = TRUE,
 #'     headerLevel = 2L,
 #'     write = TRUE,
-#'     dir = "resultsTables",
+#'     dir = "resultsTables"
 #' )
 #' names(resTbl)
 #'
@@ -140,7 +139,7 @@ NULL
 ) {
     # Legacy arguments =========================================================
     call <- match.call(expand.dots = TRUE)
-    # rowData : annotable
+    # annotable
     if ("annotable" %in% names(call)) {
         warn("Use `rowData` instead of `annotable`")
         rowData <- call[["annotable"]]
