@@ -249,12 +249,6 @@ NULL
         metadata[["sampleMetadataFile"]] <- character()
     }
 
-    # transformationLimit
-    if (!is.numeric(metadata[["transformationLimit"]])) {
-        inform("Setting transformationLimit as Inf")
-        metadata[["transformationLimit"]] <- Inf
-    }
-
     # unannotatedGenes
     if ("missingGenes" %in% names(metadata)) {
         inform("Renaming missingGenes to unannotatedGenes")
