@@ -160,11 +160,14 @@ setMethod(
         if (missing(organism)) {
             organism <- detectOrganism(counts)
         }
+        colData <- colData(object)
+        # Drop the numeric sizeFactor column
+        colData[["sizeFactor"]] <- NULL
         plotGenderMarkers(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = colData(object),
+            colData = colData,
             countsAxisLabel = "log2 normalized counts",
             color = color,
             title = title
@@ -192,6 +195,9 @@ setMethod(
         if (missing(organism)) {
             organism <- detectOrganism(counts)
         }
+        colData <- colData(object)
+        # Drop the numeric sizeFactor column
+        colData[["sizeFactor"]] <- NULL
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             countsAxisLabel <- "rlog"
         } else {
@@ -201,7 +207,7 @@ setMethod(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = colData(object),
+            colData = colData,
             countsAxisLabel = countsAxisLabel,
             color = color,
             title = title

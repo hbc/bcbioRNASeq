@@ -1,3 +1,6 @@
+# TODO Add support for `facet` wrapped genes
+# TODO Consider adding an option to enforce y intercept at 0
+
 #' Plot Individual Genes
 #'
 #' @name plotGene
@@ -252,7 +255,7 @@ NULL
         set_colnames(c("gene", "sampleID", "counts")) %>%
         arrange(!!!syms(c("gene", "sampleID"))) %>%
         group_by(!!sym("gene")) %>%
-        left_join(colData, by = "sampleID")
+        left_join(as.data.frame(colData), by = "sampleID")
 
     p <- ggplot(
         data = data,
