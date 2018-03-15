@@ -6,7 +6,7 @@
 #' the DESeq2 package.
 #'
 #' @name plotDispEsts
-#' @family Differential Expression Functions
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics plotDispEsts
