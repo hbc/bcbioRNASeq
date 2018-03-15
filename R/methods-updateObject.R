@@ -269,8 +269,8 @@ NULL
         metadata[["yamlFile"]] <- NULL
     }
 
-    metadata[["version"]] <- packageVersion
     metadata[["previousVersion"]] <- metadata[["version"]]
+    metadata[["version"]] <- packageVersion
     metadata[["upgradeDate"]] <- Sys.Date()
 
     # Drop any NULL legacy metadata slots
