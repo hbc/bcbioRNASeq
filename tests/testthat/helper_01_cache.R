@@ -1,5 +1,6 @@
 cacheURL <- "http://bcbiornaseq.seq.cloud"
 files <- c(
+    "bcb_invalid.rda",
     "sample_metadata.csv"
 )
 mapply(
