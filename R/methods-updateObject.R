@@ -245,6 +245,17 @@ NULL
         metadata[["sampleMetadataFile"]] <- character()
     }
 
+    # tx2gene
+    if (any(c("enstxp", "ensgene") %in% colnames(metadata[["tx2gene"]]))) {
+        inform("Renaming enstxp, ensgene to txID, geneID")
+        x <- metadata[["tx2gene"]]
+        x[["txID"]] <- x[["enstxp"]]
+        x[["enstxp"]] <- NULL
+        x[["geneID"]] <- x[["ensgene"]]
+        x[["ensgene"]] <- NULL
+        metadata[["tx2gene"]] <- x
+    }
+
     # unannotatedGenes
     if ("missingGenes" %in% names(metadata)) {
         inform("Renaming missingGenes to unannotatedGenes")
