@@ -18,7 +18,7 @@ notifications:
 
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
 
 r_packages:
   - covr
