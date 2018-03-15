@@ -18,7 +18,7 @@
 #'
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
-#' @importFrom GenomicFeatures genes transcripts
+#' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom basejump camel ensembl readYAML
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
 #'   readLogFile readProgramVersions readSampleMetadataFile sampleDirs
