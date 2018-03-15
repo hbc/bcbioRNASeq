@@ -134,7 +134,7 @@ setMethod(
             counts <- log2(counts + 1L)
         }
         plotGenderMarkers(
-            object = counts(object, normalized = normalized),
+            object = counts,
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
             colData = colData(object),
