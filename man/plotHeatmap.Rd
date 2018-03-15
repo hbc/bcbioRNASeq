@@ -93,8 +93,8 @@ plotHeatmap(
 )
 }
 \seealso{
-Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotDEGHeatmap}}
+Other Gene Expression Functions: \code{\link{plotGenderMarkers}},
+  \code{\link{plotGene}}
 }
 \author{
 Michael Steinbaugh

@@ -1,6 +1,7 @@
 #' Differential Expression Results Tables
 #'
 #' @name resultsTables
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

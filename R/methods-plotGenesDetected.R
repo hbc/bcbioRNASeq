@@ -1,7 +1,7 @@
 #' Plot Genes Detected
 #'
 #' @name plotGenesDetected
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads

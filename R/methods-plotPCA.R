@@ -4,6 +4,7 @@
 #' (PCA) sample coloring and labeling.
 #'
 #' @name plotPCA
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics plotPCA

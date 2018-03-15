@@ -1,7 +1,7 @@
 #' Plot Volcano
 #'
 #' @name plotVolcano
-#' @family Differential Expression Plots
+#' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams general

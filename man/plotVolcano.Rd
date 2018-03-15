@@ -71,7 +71,10 @@ plotVolcano(
 This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
 
-Other Differential Expression Plots: \code{\link{plotMA}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
+  \code{\link{plotMA}}, \code{\link{resultsTables}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano

@@ -101,8 +101,19 @@ plotCorrelationHeatmap(
 \item \code{\link[stats:hclust]{stats::hclust()}}.
 }
 
-Other Heatmaps: \code{\link{plotDEGHeatmap}},
-  \code{\link{plotHeatmap}}
+Other Quality Control Functions: \code{\link{metrics}},
+  \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

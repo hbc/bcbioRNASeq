@@ -38,6 +38,11 @@ tmm(dds_small) \%>\% summary()
 # matrix ====
 counts(bcb_small) \%>\% tmm() \%>\% summary()
 }
+\seealso{
+Other Data Functions: \code{\link{colData}},
+  \code{\link{counts}}, \code{\link{rowData}},
+  \code{\link{selectSamples}}, \code{\link{tpm}}
+}
 \author{
 Michael Steinbaugh
 }

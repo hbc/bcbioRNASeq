@@ -1,7 +1,7 @@
 #' Plot Ribosomal RNA (rRNA) Mapping Rate
 #'
 #' @name plotRRNAMappingRate
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads

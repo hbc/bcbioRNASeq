@@ -1,7 +1,7 @@
 #' Plot 5'->3' Bias
 #'
 #' @name plot5Prime3PrimeBias
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotTotalReads

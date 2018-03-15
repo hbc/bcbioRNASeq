@@ -43,4 +43,11 @@ colData(bcb_small) \%>\% glimpse()
 }
 \seealso{
 \code{help("colData", "SummarizedExperiment")}
+
+Other Data Functions: \code{\link{counts}},
+  \code{\link{rowData}}, \code{\link{selectSamples}},
+  \code{\link{tmm}}, \code{\link{tpm}}
+}
+\author{
+Michael Steinbaugh
 }

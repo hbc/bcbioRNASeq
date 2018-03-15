@@ -6,7 +6,7 @@
 #' the DESeq2 package.
 #'
 #' @name plotDispEsts
-#' @family Differential Expression Utilities
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics plotDispEsts

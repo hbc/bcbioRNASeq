@@ -1,6 +1,7 @@
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

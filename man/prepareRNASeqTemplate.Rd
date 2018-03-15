@@ -24,6 +24,9 @@ unlink(c(
     "bibliography.bib"
 ))
 }
+\seealso{
+Other R Markdown Functions: \code{\link{topTables}}
+}
 \author{
 Michael Steinbaugh
 }

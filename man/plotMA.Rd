@@ -46,7 +46,10 @@ plotMA(
 )
 }
 \seealso{
-Other Differential Expression Plots: \code{\link{plotVolcano}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
+  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
 }
 \author{
 Rory Kirchner, Michael Steinbaugh

@@ -6,6 +6,8 @@
 #' `assays` slot.
 #'
 #' @name colData
+#' @family Data Functions
+#' @author Michael Steinbaugh
 #'
 #' @importFrom SummarizedExperiment colData colData<-
 #'

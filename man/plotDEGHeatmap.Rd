@@ -71,8 +71,10 @@ plotDEGHeatmap(
 )
 }
 \seealso{
-Other Heatmaps: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotHeatmap}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
+  \code{\link{plotDispEsts}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh

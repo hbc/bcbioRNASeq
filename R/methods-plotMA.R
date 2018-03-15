@@ -1,8 +1,7 @@
 #' Plot Mean Average
 #'
 #' @name plotMA
-#'
-#' @family Differential Expression Plots
+#' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
 #' @inheritParams general

@@ -6,7 +6,7 @@
 #' function.
 #'
 #' @name plotDEGHeatmap
-#' @family Heatmaps
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotHeatmap

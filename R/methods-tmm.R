@@ -5,6 +5,7 @@
 #' tool when plotting counts per gene.
 #'
 #' @name tmm
+#' @family Data Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

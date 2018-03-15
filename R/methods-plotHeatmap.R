@@ -6,7 +6,7 @@
 #' sample names.
 #'
 #' @name plotHeatmap
-#' @family Heatmaps
+#' @family Gene Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom basejump plotHeatmap

@@ -93,18 +93,8 @@ plotGene(rld_small, genes = genes)
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
 
-Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCountDensity}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+Other Gene Expression Functions: \code{\link{plotGenderMarkers}},
+  \code{\link{plotHeatmap}}
 }
 \author{
 Michael Steinbaugh

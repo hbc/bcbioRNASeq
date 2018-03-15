@@ -68,6 +68,12 @@ names(resTbl)
 dir("resultsTables")
 unlink("resultsTables", recursive = TRUE)
 }
+\seealso{
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
+  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+}
 \author{
 Michael Steinbaugh
 }

@@ -26,6 +26,12 @@ Contrast Name
 # DESeqResults ====
 contrastName(res_small)
 }
+\seealso{
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
+  \code{\link{plotDispEsts}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
+}
 \author{
 Michael Steinbaugh
 }

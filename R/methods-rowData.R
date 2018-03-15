@@ -1,6 +1,7 @@
 #' Row Data
 #'
 #' @name rowData
+#' @family Data Functions
 #' @author Michael Steinbaugh
 #'
 #' @param return Return as "`data.frame`" or "`DataFrame`".

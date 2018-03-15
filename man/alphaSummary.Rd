@@ -49,8 +49,10 @@ alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.
 
-Other Differential Expression Utilities: \code{\link{plotDispEsts}},
-  \code{\link{plotMeanSD}}
+Other Differential Expression Functions: \code{\link{contrastName}},
+  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
+  \code{\link{plotDispEsts}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

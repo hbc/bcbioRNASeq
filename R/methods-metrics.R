@@ -1,6 +1,8 @@
 #' Sample Metrics
 #'
 #' @name metrics
+#' @family Quality Control Functions
+#' @author Michael Steinbaugh
 #'
 #' @importFrom bcbioBase metrics
 #'

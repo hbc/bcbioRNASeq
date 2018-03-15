@@ -7,7 +7,7 @@
 #' desired genes will be used to calculate the correlation matrix.
 #'
 #' @name plotCorrelationHeatmap
-#' @family Heatmaps
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotHeatmap

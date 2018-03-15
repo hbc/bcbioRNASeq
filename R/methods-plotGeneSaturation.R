@@ -1,7 +1,7 @@
 #' Plot Gene Detection Saturation
 #'
 #' @name plotGeneSaturation
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads

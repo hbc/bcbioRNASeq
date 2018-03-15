@@ -1,6 +1,7 @@
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables
+#' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

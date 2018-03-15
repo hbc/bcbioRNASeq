@@ -40,8 +40,10 @@ plotDispEsts(
 \item \code{getMethod("plotDispEsts", "DESeqDataSet")}.
 }
 
-Other Differential Expression Utilities: \code{\link{alphaSummary}},
-  \code{\link{plotMeanSD}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh

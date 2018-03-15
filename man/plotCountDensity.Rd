@@ -57,15 +57,17 @@ plotCountDensity(
 )
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot5Prime3PrimeBias}},
+Other Quality Control Functions: \code{\link{metrics}},
+  \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }

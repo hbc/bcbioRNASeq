@@ -4,7 +4,7 @@
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
 #' @name plotMeanSD
-#' @family Differential Expression Utilities
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams general

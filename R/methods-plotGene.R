@@ -4,7 +4,7 @@
 #' Plot Individual Genes
 #'
 #' @name plotGene
-#' @family Quality Control Plots
+#' @family Gene Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom bcbioBase plotGene

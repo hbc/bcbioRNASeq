@@ -36,6 +36,11 @@ x <- selectSamples(dds_small, day = 7L)
 show(x)
 colnames(x)
 }
+\seealso{
+Other Data Functions: \code{\link{colData}},
+  \code{\link{counts}}, \code{\link{rowData}},
+  \code{\link{tmm}}, \code{\link{tpm}}
+}
 \author{
 Michael Steinbaugh
 }

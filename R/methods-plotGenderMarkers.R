@@ -4,7 +4,7 @@
 #' Plot Sexually Dimorphic Gender Markers
 #'
 #' @name plotGenderMarkers
-#' @family Quality Control Plots
+#' @family Gene Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

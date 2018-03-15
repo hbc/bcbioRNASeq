@@ -3,6 +3,7 @@
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
 #'
 #' @name plotPCACovariates
+#' @family Quality Control Functions
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams general

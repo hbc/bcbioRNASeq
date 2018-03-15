@@ -1,7 +1,7 @@
 #' Plot Mapped Reads
 #'
 #' @name plotMappedReads
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit plotTotalReads

@@ -5,7 +5,7 @@
 #'   formula.
 #'
 #' @name alphaSummary
-#' @family Differential Expression Utilities
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams general

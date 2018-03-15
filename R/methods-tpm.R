@@ -1,6 +1,7 @@
 #' Transcripts Per Million (TPM)
 #'
 #' @name tpm
+#' @family Data Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom bcbioBase tpm
