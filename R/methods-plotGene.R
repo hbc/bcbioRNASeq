@@ -318,10 +318,10 @@ setMethod(
         return = "grid",
         headerLevel = 2L
     ) {
+        assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assert_is_a_string(normalized)
         counts <- counts(object, normalized = normalized)
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
@@ -405,7 +405,7 @@ setMethod(
             gene2symbol = gene2symbol,
             colData = colData,
             interestingGroups = interestingGroups,
-            countsAxisLabel = paste("log2", normalized),
+            countsAxisLabel = paste("log2", normalized, "counts"),
             medianLine = medianLine,
             color = color,
             return = return,

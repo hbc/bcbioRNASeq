@@ -129,12 +129,16 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
+        counts <- counts(object, normalized = normalized)
+        if (!normalized %in% c("rlog", "vst")) {
+            counts <- log2(counts + 1L)
+        }
         plotGenderMarkers(
             object = counts(object, normalized = normalized),
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
             colData = colData(object),
-            countsAxisLabel = normalized,
+            countsAxisLabel = paste("log2", normalized, "counts"),
             color = color,
             title = title
         )
@@ -199,16 +203,16 @@ setMethod(
         # Drop the numeric sizeFactor column
         colData[["sizeFactor"]] <- NULL
         if ("rlogIntercept" %in% colnames(mcols(object))) {
-            countsAxisLabel <- "rlog"
+            normalized <- "rlog"
         } else {
-            countsAxisLabel <- "vst"
+            normalized <- "vst"
         }
         plotGenderMarkers(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
             colData = colData,
-            countsAxisLabel = countsAxisLabel,
+            countsAxisLabel = paste("log2", normalized, "counts"),
             color = color,
             title = title
         )
