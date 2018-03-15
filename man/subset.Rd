@@ -77,9 +77,10 @@ DESeq2 transformations can be disabled on large subset operations by setting
 \code{transform = FALSE}.
 }
 \examples{
-genes <- rownames(bcb_small)[1:50]
+# Minimum of 100 genes, 2 samples
+genes <- head(rownames(bcb_small), 100L)
 head(genes)
-samples <- colnames(bcb_small)[1:2]
+samples <- head(colnames(bcb_small), 2L)
 head(samples)
 
 # Subset by sample name
