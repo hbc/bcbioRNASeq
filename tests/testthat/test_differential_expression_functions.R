@@ -1,6 +1,7 @@
-context("alphaSummary")
+context("Differential Expression Functions")
 
-test_that("bcbioRNASeq", {
+# alphaSummary =================================================================
+test_that("alphaSummary : bcbioRNASeq", {
     expect_warning(
         alphaSummary(bcb_small),
         "Empty design formula detected"
@@ -8,7 +9,7 @@ test_that("bcbioRNASeq", {
     expect_is(suppressWarnings(alphaSummary(bcb_small)), "knitr_kable")
 })
 
-test_that("DESeqData", {
+test_that("alphaSummary : DESeqDataSet", {
     x <- alphaSummary(dds_small)
     expect_is(x, "knitr_kable")
     expect_true(grepl("1e-06", x[[1L]]))
