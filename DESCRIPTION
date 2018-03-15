@@ -87,10 +87,10 @@ Depends:
     R (>= 3.4),
     SummarizedExperiment (>= 1.6.5),
     bcbioBase (>= 0.2),
-    DESeq2 (>= 1.16.1),
-    DEGreport (>= 1.15)
+    DESeq2 (>= 1.16.1)
 Imports:
     BiocGenerics,
+    DEGreport (>= 1.15),
     GenomicFeatures,
     RColorBrewer,
     S4Vectors,
