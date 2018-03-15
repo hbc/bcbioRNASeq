@@ -23,8 +23,9 @@ test_that("DESeqDataSet", {
 })
 
 test_that("DESeqTransform", {
+    x <- suppressWarnings(sampleMetadata(rld_small))
     expect_true(all(vapply(
-        X = sampleMetadata(rld_small),
+        X = x,
         FUN = is.factor,
         FUN.VALUE = logical(1L)
     )))
