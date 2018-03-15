@@ -50,8 +50,8 @@ plotDEGPCA(
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDispEsts}}, \code{\link{plotMA}},
-  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh

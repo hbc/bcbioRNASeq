@@ -71,8 +71,8 @@ unlink("resultsTables", recursive = TRUE)
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh

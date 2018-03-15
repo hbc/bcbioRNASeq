@@ -48,8 +48,8 @@ plotMA(
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
-  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
+  \code{\link{plotDEGPCA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Rory Kirchner, Michael Steinbaugh

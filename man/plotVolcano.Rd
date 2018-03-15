@@ -73,8 +73,8 @@ This function is an updated variant of
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotDispEsts}},
-  \code{\link{plotMA}}, \code{\link{resultsTables}}
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{resultsTables}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano

@@ -51,8 +51,8 @@ alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
 
 Other Differential Expression Functions: \code{\link{contrastName}},
   \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotDispEsts}}, \code{\link{plotMA}},
-  \code{\link{plotVolcano}}, \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano
