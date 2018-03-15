@@ -9,9 +9,6 @@
 #' @family Data Functions
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport rlog
-#'   varianceStabilizingTransformation
-#'
 #' @inheritParams base::`[`
 #' @param ... Additional arguments.
 #'
@@ -45,8 +42,9 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom DESeq2 DESeq estimateSizeFactors rlog
+#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom tibble column_to_rownames rownames_to_column
 .subset.bcbioRNASeq <- function(x, i, j, ..., drop) {  # nolint
     validObject(x)
@@ -102,7 +100,6 @@ NULL
         # Suppress warning about empty design formula
         dds <- suppressWarnings(DESeq(dds))
         validObject(dds)
-        # FIXME This isn't using the correct dimensions
         inform("Applying rlog transformation")
         assays[["rlog"]] <- assay(rlog(dds))
         inform("Applying variance stabilizing transformation")

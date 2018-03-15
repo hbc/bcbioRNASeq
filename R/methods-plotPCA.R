@@ -146,6 +146,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotPCA
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @export
 setMethod(
     "plotPCA",

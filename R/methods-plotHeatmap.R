@@ -102,6 +102,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotHeatmap
+#' @importFrom bcbioBase gene2symbol interestingGroups
 #' @export
 setMethod(
     "plotHeatmap",

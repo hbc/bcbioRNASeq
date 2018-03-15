@@ -79,8 +79,8 @@ program versions used.
 \details{
 When the number of samples is bigger than the \code{transformationLimit}, \code{rlog}
 and \code{vst} counts will not be slotted into \code{assays()}. In this case, we
-recommend visualization using \code{tmm} counts, which are automatically
-calculated by \code{\link[edgeR:tmm]{edgeR::tmm()}}.
+recommend visualization using \code{\link[=tmm]{tmm()}} counts, which are automatically
+calculated using edgeR.
 }
 \note{
 When working in RStudio, we recommend connecting to the bcbio-nextgen

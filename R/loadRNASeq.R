@@ -7,8 +7,8 @@
 #'
 #' When the number of samples is bigger than the `transformationLimit`, `rlog`
 #' and `vst` counts will not be slotted into `assays()`. In this case, we
-#' recommend visualization using `tmm` counts, which are automatically
-#' calculated by [edgeR::tmm()].
+#' recommend visualization using [tmm()] counts, which are automatically
+#' calculated using edgeR.
 #'
 #' @note When working in RStudio, we recommend connecting to the bcbio-nextgen
 #'   run directory as a remote connection over
@@ -18,7 +18,7 @@
 #'
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
-#' @importFrom GenomicFeatures exonsBy makeTxDbFromGFF
+#' @importFrom GenomicFeatures genes transcripts
 #' @importFrom basejump camel ensembl readYAML
 #' @importFrom bcbioBase prepareSummarizedExperiment readDataVersions
 #'   readLogFile readProgramVersions readSampleMetadataFile sampleDirs
@@ -221,6 +221,7 @@ loadRNASeq <- function(
     if (is_a_string(gffFile)) {
         txdb <- makeTxDbFromGFF(gffFile)
         rowRanges <- genes(txdb)
+        # FIXME Need to sanitize rowRanges here
         # Transcript-to-gene mappings
         if (level == "transcripts") {
             transcripts <- transcripts(txdb, columns = c("tx_name", "gene_id"))

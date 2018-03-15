@@ -4,6 +4,7 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
+#' @inheritParams general
 #' @param return Return as "`data.frame`" or "`DataFrame`".
 #'
 #' @return Data describing the rows of the object.

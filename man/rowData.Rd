@@ -9,6 +9,8 @@
 \S4method{rowData}{bcbioRNASeq}(x, return = c("data.frame", "DataFrame"))
 }
 \arguments{
+\item{x}{Object.}
+
 \item{return}{Return as "\code{data.frame}" or "\code{DataFrame}".}
 }
 \value{

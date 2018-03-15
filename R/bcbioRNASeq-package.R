@@ -25,6 +25,7 @@
 #' @importFrom assertive assert_are_set_equal
 #' @importFrom assertive assert_has_colnames
 #' @importFrom assertive assert_has_dimnames
+#' @importFrom assertive assert_has_dims
 #' @importFrom assertive assert_has_rows
 #' @importFrom assertive assert_is_a_bool
 #' @importFrom assertive assert_is_a_number

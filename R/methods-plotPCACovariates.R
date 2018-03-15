@@ -32,6 +32,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotPCACovariates
+#' @importFrom bcbioBase interestingGroups
 #' @importFrom DEGreport degCovariates
 #' @importFrom dplyr select_if
 #' @export

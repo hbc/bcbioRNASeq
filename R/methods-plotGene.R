@@ -304,6 +304,7 @@ setMethod(
 
 
 #' @rdname plotGene
+#' @importFrom bcbioBase gene2symbol
 #' @export
 setMethod(
     "plotGene",
