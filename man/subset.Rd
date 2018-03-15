@@ -100,6 +100,11 @@ assayNames(subset)
 }
 \seealso{
 \code{help("[", "base")}.
+
+Other Data Functions: \code{\link{colData}},
+  \code{\link{counts}}, \code{\link{rowData}},
+  \code{\link{selectSamples}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

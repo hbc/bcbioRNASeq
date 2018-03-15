@@ -51,7 +51,8 @@ counts(bcb_small, normalized = "tmm") \%>\% summary()
 \seealso{
 Other Data Functions: \code{\link{colData}},
   \code{\link{rowData}}, \code{\link{selectSamples}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+  \code{\link{subset}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh

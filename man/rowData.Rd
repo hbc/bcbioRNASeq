@@ -23,7 +23,8 @@ rowData(bcb_small) \%>\% glimpse()
 \seealso{
 Other Data Functions: \code{\link{colData}},
   \code{\link{counts}}, \code{\link{selectSamples}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+  \code{\link{subset}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh

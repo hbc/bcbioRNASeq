@@ -41,7 +41,8 @@ counts(bcb_small) \%>\% tmm() \%>\% summary()
 \seealso{
 Other Data Functions: \code{\link{colData}},
   \code{\link{counts}}, \code{\link{rowData}},
-  \code{\link{selectSamples}}, \code{\link{tpm}}
+  \code{\link{selectSamples}}, \code{\link{subset}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
