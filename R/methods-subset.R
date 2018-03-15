@@ -6,6 +6,7 @@
 #' `transform = FALSE`.
 #'
 #' @name subset
+#' @family Data Functions
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport rlog
@@ -59,12 +60,16 @@ NULL
     if (missing(i)) {
         i <- 1L:nrow(x)
     }
+    # Require at least 100 genes
+    assert_all_are_in_left_open_range(length(i), lower = 99L)
 
     # Samples (columns)
     if (missing(j)) {
         j <- 1L:ncol(x)
     }
-    assert_all_are_in_left_open_range(c(length(i), length(j)), lower = 1L)
+    # Require at least 2 samples
+    assert_all_are_in_left_open_range(length(j), lower = 1L)
+
 
     # Early return if dimensions are unmodified
     if (identical(dim(x), c(length(i), length(j)))) {
