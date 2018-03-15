@@ -15,6 +15,13 @@
 #' slotNames(rse)
 #' show(rse)
 #'
+#' # SummarizedExperiment ====
+#' # Coerced to RangedSummarizedExperiment first.
+#' # Otherwise, rowData will be NULL.
+#' se <- as(rse, "SummarizedExperiment")
+#' slotNames(se)
+#' show(se)
+#'
 #' # list ====
 #' list <- as(bcb_small, "list")
 #' names(list)
