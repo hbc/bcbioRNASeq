@@ -14,14 +14,14 @@ params:
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
-# Directory paths
+# Directory paths ==============================================================
 invisible(mapply(
     FUN = dir.create,
     path = c(data_dir, results_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
-# Load bcbioRNASeq object
+# Load object ==================================================================
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))

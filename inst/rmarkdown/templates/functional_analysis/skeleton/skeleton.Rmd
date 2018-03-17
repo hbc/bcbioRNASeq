@@ -18,17 +18,19 @@ params:
 ```{r setup, message=FALSE}
 # Last modified 2018-03-17
 # 
-# Mouse (default)
-# - organism: "Mm"
-# - gspecies: "mmu"
-# - species: "mouse"
-# 
 # Human
 # - organism: "Hs"
 # - gspecies: "hsa"
 # - species: "human"
+# 
+# Mouse
+# - organism: "Mm"
+# - gspecies: "mmu"
+# - species: "mouse"
+bcbioRNASeq::prepareRNASeqTemplate()
+source("_setup.R")
 
-# Load the required enrichment-specific packages first
+# Additional required packages =================================================
 org_db <- paste("org", params$organism, "eg", "db", sep = ".")
 packages <- c(
     org_db,
@@ -36,8 +38,8 @@ packages <- c(
     "DOSE",
     "pathview"
 )
-if (!all(basename(packages) %in% rownames(installed.packages()))) {
-    notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
+notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
+if (length(notInstalled)) {
     source("https://bioconductor.org/biocLite.R")
     biocLite(pkgs = notInstalled)
 }
@@ -47,11 +49,7 @@ invisible(lapply(
     character.only = TRUE
 ))
 
-# Now load the shared R Markdown setup script
-bcbioRNASeq::prepareRNASeqTemplate()
-source("_setup.R")
-
-# Directory paths
+# Directory paths ==============================================================
 kegg_plots_dir <- file.path(params$results_dir, "kegg_plots")
 invisible(mapply(
     FUN = dir.create,
@@ -59,7 +57,7 @@ invisible(mapply(
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
-# Load bcbioRNASeq and DESeqResults objects
+# Load objects =================================================================
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
@@ -69,6 +67,7 @@ res_name <- load(params$res_file)
 res <- get(res_name, inherits = FALSE)
 stopifnot(is(res, "DESeqResults"))
 invisible(validObject(res))
+# Subset NA adjusted P values
 res <- res[!is.na(res$padj), , drop = FALSE]
 alpha <- metadata(res)$alpha
 ```
