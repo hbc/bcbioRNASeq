@@ -22,15 +22,8 @@ r:
 
 r_packages:
   - covr
-  - DT
-  - formatR
-  - hexbin
-  - rlang
-  - testthat
-  - tidyverse
 bioc_packages:
   - BiocCheck
-  - ensembldb
 
 after_success:
   - Rscript -e 'covr::codecov()'
