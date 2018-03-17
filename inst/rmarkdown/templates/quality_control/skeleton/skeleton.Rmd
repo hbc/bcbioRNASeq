@@ -10,12 +10,16 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-21
+# Last modified 2018-03-17
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
 # Directory paths
-dir.create(params$results_dir, recursive = TRUE, showWarnings = FALSE)
+invisible(mapply(
+    FUN = dir.create,
+    path = c(data_dir, results_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
+))
 
 # Load bcbioRNASeq object
 bcb_name <- load(params$bcb_file)
@@ -41,7 +45,9 @@ sampleMetadata(bcb)
 
 ```{r counts}
 raw_counts <- counts(bcb, normalized = FALSE)
+# DESeq2 normalized counts
 normalized_counts <- counts(bcb, normalized = TRUE)
+# Transcripts per million
 tpm <- counts(bcb, normalized = "tpm")
 saveData(raw_counts, normalized_counts, tpm, dir = params$data_dir)
 writeCounts(raw_counts, normalized_counts, tpm, dir = params$results_dir)
