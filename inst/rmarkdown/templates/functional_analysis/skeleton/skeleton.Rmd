@@ -88,7 +88,7 @@ sig_genes <- significants(res, fc = params$lfc, padj = alpha)
 # All genes containing a P value, ordered by FDR
 res_df <- res %>%
     as("DataFrame") %>%
-    .[order(.[["padj"]]), c("log2FoldChange", "padj")]
+    .[order(.$padj), c("log2FoldChange", "padj")]
 
 # Significant genes 
 sig_res_df <- res_df %>%
@@ -261,7 +261,7 @@ sig_entrez <- significants(entrez_res, fc = params$lfc, padj = alpha)
 # All genes containing a P value, ordered by FDR
 entrez_res_df <- entrez_res %>%
     as("DataFrame") %>%
-    .[order(.[["padj"]]), c("log2FoldChange", "padj")]
+    .[order(.$padj), c("log2FoldChange", "padj")]
 
 # Significant genes 
 sig_entrez_res_df <- entrez_res_df %>%
