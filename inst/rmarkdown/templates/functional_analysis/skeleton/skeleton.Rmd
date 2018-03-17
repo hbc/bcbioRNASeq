@@ -15,8 +15,8 @@ params:
     results_dir: "results/functional_analysis"
 ---
 
-```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2018-02-21
+```{r setup, message=FALSE}
+# Last modified 2018-03-17
 # 
 # Mouse (default)
 # - organism: "Mm"
@@ -55,8 +55,8 @@ source("_setup.R")
 kegg_plots_dir <- file.path(params$results_dir, "kegg_plots")
 invisible(mapply(
     FUN = dir.create,
-    list(params$results_dir, kegg_plots_dir),
-    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+    path = c(data_dir, results_dir, kegg_plots_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
 # Load bcbioRNASeq and DESeqResults objects
@@ -85,13 +85,15 @@ all_genes <- rownames(res) %>%
 sig_genes <- significants(
     res,
     fc = params$lfc,
-    padj = alpha)
+    padj = alpha
+)
 # Convert Ensembl gene identifiers to Entrez
 ensembl2entrez <- bitr(
     all_genes,
     fromType = "ENSEMBL",
     toType = "ENTREZID",
-    OrgDb = org_db) %>%
+    OrgDb = org_db
+) %>%
     camel()
 all_entrez <- unique(ensembl2entrez$entrezid)
 sig_entrez <- bitr(
