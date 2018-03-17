@@ -17,7 +17,7 @@ source("_setup.R")
 # Directory paths ==============================================================
 invisible(mapply(
     FUN = dir.create,
-    path = c(data_dir, results_dir),
+    path = c(params$data_dir, params$results_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
