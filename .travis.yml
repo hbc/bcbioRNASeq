@@ -30,6 +30,7 @@ r_packages:
   - tidyverse
 bioc_packages:
   - BiocCheck
+  - ensembldb
 
 after_success:
   - Rscript -e 'covr::codecov()'
