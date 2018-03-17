@@ -104,7 +104,7 @@ lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 
 # GO enrichment analysis
 
-Gene Ontology (GO) term enrichment is a technique for interpreting sets of genes making use of the Gene Ontology system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
+[Gene Ontology (GO)][GO] term enrichment is a technique for interpreting sets of genes making use of the [Gene Ontology][GO] system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
 
 ```{r enrich_go}
 # help("enrichGO", "clusterProfiler")
@@ -166,7 +166,7 @@ enrichMap(enrich_go, n = 25, vertex.label.cex = 0.5)
 
 In order to consider the potentially biological complexities in which a gene may belong to multiple annotation categories, and provide information of numeric changes if available.
 
-Here we are plotting genes colored by LFC for top 5 most significant GO terms.
+Here we are plotting genes colored by LFC for top 5 most significant [GO][] terms.
 
 ```{r cnetplot, fig.width=8, fig.height=8}
 # help("cnetplot", "clusterProfiler")
@@ -180,7 +180,7 @@ cnetplot(
 
 ## GO GSEA analysis
 
-A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. Gene Set Enrichment Analysis (GSEA) directly addresses this limitation. All genes can be used in GSEA; GSEA aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
+A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. [Gene Set Enrichment Analysis (GSEA)][GSEA] directly addresses this limitation. All genes can be used in [GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
 ```{r gsea_go, results="hide"}
 # Prepare the gene list. Here we're subtracting the adjusted P value from 1.
@@ -230,7 +230,7 @@ gsea_go_result
 
 ## Map gene IDs to Entrez IDs
 
-Entrez IDs are required for KEGG analysis. Here we are defining 1:1 mappings of the Ensembl gene IDs to Entrez IDs. For genes that map to multiple Entrez IDs, we are using the oldest Entrez ID to define the 1:1 mapping.
+[Entrez][] IDs are required for [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the [Ensembl][] gene IDs to [Entrez][] IDs. For genes that map to multiple [Entrez][] IDs, we are using the oldest [Entrez][] ID to define the 1:1 mapping.
 
 ```{r entrez}
 # Entrez IDs here are obtained from AnnotationHub using ensembldb
@@ -315,13 +315,19 @@ kegg_result
 
 ## KEGG GSEA analysis
 
-We can also perform GSEA analysis with clusterProfiler using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
+[GSEA][] analysis is performed with the [clusterProfiler][] tool using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
+
+Gene set enrichment analysis tools use ranked lists of genes (here ranked by log2FC) without using a threshold. This allows the tools to use more information to identify enriched biological processes. The [introduction to gene set enrichment analysis](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896) goes into more detail about some of the advantages of this approach. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the [pathview][] tool.
+
+The significantly dysregulated pathways (q-value (FDR) < 0.05) are displayed below in the pathway images, which show the degree of dysregulation of the genes (the minus direction (green) is down-regulated, while the positive direction (red) is up-regulated).
+
+When performing [GSEA][] analysis it may be useful to adjust the minGSSize and/or maxGSSize parameter based on the pathways you would like to search for significance. If you are interested in smaller pathways, such as phototransduction, which has a gene set size of 24 genes, then you would want to adjust the minGSSize to less than 24. If you are only interested in larger pathways, then you would want to adjust the GSSize to a larger number. The fewer pathways tested, the less we need to correct for multiple test correction, so by adjusting the minGSSize and maxGSSize parameters you can test fewer pathways and limit testing to the pathways of interest.
 
 ```{r kegg_gsea}
+# help("gseKEGG", "clusterProfiler")
 gsea_kegg <- gseKEGG(
     geneList = entrez_lfc_vec,
-    organism = tolower(params$gspecies),
-    minGSSize = 120
+    organism = tolower(params$gspecies)
 )
 gsea_kegg_result <- gsea_kegg %>%
     slot("result") %>%
@@ -381,3 +387,13 @@ if (length(pathways)) {
 
 ```{r footer, child="_footer.Rmd"}
 ```
+
+
+
+[clusterProfiler]: https://doi.org/doi:10.18129/B9.bioc.clusterProfiler
+[Ensembl]: https://www.ensembl.org
+[Entrez]: https://www.ncbi.nlm.nih.gov/gquery
+[GO]: http://www.geneontology.org
+[GSEA]: http://software.broadinstitute.org/gsea
+[KEGG]: http://www.genome.jp/kegg
+[pathview]: https://doi.org/doi:10.18129/B9.bioc.pathview
