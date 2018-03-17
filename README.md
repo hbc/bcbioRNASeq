@@ -72,12 +72,12 @@ For a normal bcbio RNA-seq run, the sample metadata will be imported automatical
 
 The sample IDs in the bcbioRNASeq object map to the `description` column, which gets sanitized internally into a `sampleID` column. The sample names provided in the `description` column must be unique.
 
-| fileName            | description | genotype |
-|---------------------|-------------|----------|
-| sample1_R1.fastq.gz | sample1     | wildtype |
-| sample2_R1.fastq.gz | sample2     | knockout |
-| sample3_R1.fastq.gz | sample3     | wildtype |
-| sample4_R1.fastq.gz | sample4     | knockout |
+| fileName             | description | genotype |
+|----------------------|-------------|----------|
+| sample_1_R1.fastq.gz | sample_1    | wildtype |
+| sample_2_R1.fastq.gz | sample_2    | knockout |
+| sample_3_R1.fastq.gz | sample_3    | wildtype |
+| sample_4_R1.fastq.gz | sample_4    | knockout |
 
 ### Technical replicates
 
