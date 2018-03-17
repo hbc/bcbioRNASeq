@@ -5,8 +5,8 @@ date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
     bcb_file: "bcb.rda"
-    design: !r formula(~genotype)
-    contrast: !r c("genotype", "mutant", "wildtype")
+    design: !r ~ treatment
+    contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
     lfc: 1
     data_dir: "."
@@ -15,12 +15,19 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-21
+# Last modified 2018-03-17
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
+# Assert checks
+stopifnot(is.formula(params$design))
+
 # Directory paths
-dir.create(params$results_dir, recursive = TRUE, showWarnings = FALSE)
+invisible(mapply(
+    FUN = dir.create,
+    path = c(data_dir, results_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
+))
 
 # Load bcbioRNASeq object
 bcb_name <- load(params$bcb_file)
@@ -35,7 +42,7 @@ invisible(validObject(bcb))
 
 
 ```{r dds, results="hide"}
-dds <- bcbio(bcb, "DESeqDataSet")
+dds <- as(bcb, "DESeqDataSet")
 design(dds) <- params$design
 dds <- DESeq(dds)
 rld <- rlog(dds)
@@ -64,17 +71,17 @@ alphaSummary(dds)
 res_unshrunken <- results(
     dds,
     contrast = params$contrast,
-    alpha = params$alpha)
+    alpha = params$alpha
+)
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
-# Only `coef` or `contrast` can be specified, not both
 # Use the correct `coef` number to modify from `resultsNames(dds)`
 res_shrunken <- lfcShrink(
     dds = dds,
-    # coef = 2,
-    contrast = params$contrast,
-    res = res_unshrunken)
+    coef = 2,
+    res = res_unshrunken
+)
 
 # Use shrunken LFC values by default
 res <- res_shrunken
@@ -114,7 +121,9 @@ This plot shows only differentially expressed genes on a per-sample basis. We ha
 plotDEGHeatmap(
     res,
     counts = rld,
-    clustering_method = "ward.D2")
+    clusteringMethod = "ward.D2",
+    scale = "row"
+)
 ```
 
 
@@ -129,7 +138,8 @@ res_tbl <- resultsTables(
     summary = TRUE,
     headerLevel = 2,
     dir = params$results_dir,
-    dropboxDir = params$dropbox_dir)
+    dropboxDir = params$dropbox_dir
+)
 saveData(res_tbl, dir = params$data_dir)
 ```
 
