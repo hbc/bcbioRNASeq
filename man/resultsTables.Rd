@@ -59,14 +59,9 @@ resTbl <- resultsTables(
     rowData = rowData(bcb_small),
     summary = TRUE,
     headerLevel = 2L,
-    write = TRUE,
-    dir = "resultsTables"
+    write = FALSE
 )
 names(resTbl)
-
-# Clean up ====
-dir("resultsTables")
-unlink("resultsTables", recursive = TRUE)
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
