@@ -89,7 +89,7 @@ NULL
         txi <- .regenerateTximportList(rse)
         dds <- DESeqDataSetFromTximport(
             txi = txi,
-            colData = colData,
+            colData = colData(rse),
             # Use an empty design formula
             design = ~ 1  # nolint
         )
