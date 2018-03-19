@@ -132,7 +132,6 @@ setValidity(
             "bcbioLog" = "character",
             "caller" = "character",
             "countsFromAbundance" = "character",
-            "dataVersions" = "tbl_df",
             "date" = "Date",
             "devtoolsSessionInfo" = "session_info",
             "ensemblRelease" = "integer",
