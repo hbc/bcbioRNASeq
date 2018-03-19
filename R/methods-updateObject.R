@@ -98,7 +98,7 @@ NULL
 
     # Row data =================================================================
     if (.hasSlot(rse, "rowRanges")) {
-        rowRanges <- rowRanges(rse)
+        rowRanges <- slot(rse, "rowRanges")
     }
     assert_is_all_of(rowRanges, "GRanges")
 
