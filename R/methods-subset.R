@@ -45,7 +45,7 @@ NULL
 # Constructors =================================================================
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport estimateSizeFactors rlog
 #'   varianceStabilizingTransformation
-#' @importFrom SummarizedExperiment SummarizedExperiment
+#' @importFrom bcbioBase prepareSummarizedExperiment
 #' @importFrom tibble column_to_rownames rownames_to_column
 .subset.bcbioRNASeq <- function(x, i, j, ..., drop) {  # nolint
     validObject(x)
@@ -79,13 +79,13 @@ NULL
     rse <- as(x, "RangedSummarizedExperiment")
     rse <- rse[i, j, drop = drop]
 
-    # Row and column data ======================================================
     rowRanges <- rowRanges(rse)
     colData <- colData(rse)
+    metadata <- metadata(rse)
+    isSpike <- metadata[["isSpike"]]
 
     # Assays ===================================================================
     assays <- assays(rse)
-
     if (isTRUE(transform)) {
         inform(paste(
             "Calculating variance stabilizations using DESeq2",
@@ -112,11 +112,7 @@ NULL
         assays[["rlog"]] <- NULL
     }
 
-    # Drop any NULL items in assays list
-    assays <- Filter(Negate(is.null), assays)
-
     # Metadata =================================================================
-    metadata <- metadata(x)
     metadata[["subset"]] <- TRUE
     # Update version, if necessary
     if (!identical(metadata[["version"]], packageVersion)) {
@@ -132,11 +128,12 @@ NULL
         column_to_rownames()
 
     # Return ===================================================================
-    rse <- SummarizedExperiment(
+    rse <- prepareSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
-        metadata = metadata
+        metadata = metadata,
+        isSpike = isSpike
     )
     assert_is_all_of(rse, "RangedSummarizedExperiment")
     new("bcbioRNASeq", rse)
