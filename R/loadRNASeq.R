@@ -270,26 +270,14 @@ loadRNASeq <- function(
     )
     assert_is_tbl_df(programVersions)
 
-    bcbioLogFile <- list.files(
-        path = projectDir,
-        pattern = "bcbio-nextgen.log",
-        full.names = TRUE,
-        recursive = FALSE
+    bcbioLog <- readLogFile(
+        file = file.path(projectDir, "bcbio-nextgen.log")
     )
-    assert_is_a_string(bcbioLogFile)
-    inform(basename(bcbioLogFile))
-    bcbioLog <- readLogFile(bcbioLogFile)
     assert_is_character(bcbioLog)
 
-    bcbioCommandsLogFile <- list.files(
-        path = projectDir,
-        pattern = "bcbio-nextgen-commands.log",
-        full.names = TRUE,
-        recursive = FALSE
+    bcbioCommandsLog <- readLogFile(
+        file = file.path(projectDir, "bcbio-nextgen-commands.log")
     )
-    assert_is_a_string(bcbioCommandsLogFile)
-    inform(basename(bcbioCommandsLogFile))
-    bcbioCommandsLog <- readLogFile(bcbioCommandsLogFile)
     assert_is_character(bcbioCommandsLog)
 
     # tximport =================================================================
