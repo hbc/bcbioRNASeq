@@ -30,12 +30,12 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump sanitizeColData
+#' @importFrom basejump sanitizeSampleData
 `.colData<-` <- function(x, ..., value) {
     validObject(x)
     assert_are_identical(colnames(x), rownames(value))
     value <- as(value, "DataFrame")
-    value <- sanitizeColData(value)
+    value <- sanitizeSampleData(value)
     assert_has_dimnames(value)
     slot(x, "colData") <- value
     x
@@ -45,6 +45,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname colData
+#' @importFrom basejump sanitizeSampleData
 #' @export
 setMethod(
     "colData",
@@ -52,6 +53,7 @@ setMethod(
     function(x, return = c("data.frame", "DataFrame")) {
         return <- match.arg(return)
         data <- slot(x, "colData")
+        data <- sanitizeSampleData(data)
         as(data, return)
     }
 )
