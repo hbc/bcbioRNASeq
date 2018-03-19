@@ -19,7 +19,7 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
 #'  varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom basejump camel ensembl readYAML
+#' @importFrom basejump camel ensembl readYAML sanitizeSampleData
 #' @importFrom bcbioBase prepareSummarizedExperiment readLogFile
 #'   readProgramVersions readSampleMetadataFile sampleDirs sampleYAMLMetadata
 #'   sampleYAMLMetrics
@@ -194,6 +194,8 @@ loadRNASeq <- function(
                 .[which(samples %in% .[["description"]]), , drop = FALSE]
         }
     }
+    # Ensure all columns are factor
+    colData <- sanitizeSampleData(colData)
 
     # Interesting groups =======================================================
     interestingGroups <- camel(interestingGroups)
@@ -281,6 +283,7 @@ loadRNASeq <- function(
     assert_is_character(bcbioCommandsLog)
 
     # tximport =================================================================
+    # Run this step only after the required metadata has imported successfully
     if (level == "transcripts") {
         txOut = TRUE
     } else {
@@ -300,31 +303,20 @@ loadRNASeq <- function(
         tx2gene = tx2gene
     )
     # abundance = transcripts per million (TPM)
-    # counts = raw counts
+    # raw = raw counts
     # length = average transcript length
     # countsFromAbundance = character describing TPM
     tpm <- txi[["abundance"]]
     assert_is_matrix(tpm)
-    counts <- txi[["counts"]]
-    assert_is_matrix(counts)
+    raw <- txi[["counts"]]
+    assert_is_matrix(raw)
     length <- txi[["length"]]
     assert_is_matrix(length)
     countsFromAbundance <- txi[["countsFromAbundance"]]
     assert_is_character(countsFromAbundance)
 
-    # colData ==================================================================
-    # This step is necessary for samples have been sanitized with
-    # `make.names()`, which can cause samples that are now prefixed with `X` to
-    # become out of order in the rows. This will cause the
-    # `DESeqDataSetFromTximport` call below to error out because of a
-    # `txi$counts` colnames / colData rownames mismatch.
-    colData <- colData %>%
-        as.data.frame() %>%
-        .[colnames(counts), , drop = FALSE] %>%
-        rownames_to_column() %>%
-        mutate_all(as.factor) %>%
-        mutate_all(droplevels) %>%
-        column_to_rownames()
+    # Ensure colData matches the assays
+    colData <- colData[colnames(raw), , drop = FALSE]
 
     # Gene-level variance stabilization ========================================
     rlog <- NULL
@@ -354,6 +346,16 @@ loadRNASeq <- function(
             ))
         }
     }
+
+    # Assays ===================================================================
+    assays <- list(
+        "raw" = raw,
+        "tpm" = tpm,
+        "length" = length,
+        "rlog" = rlog,
+        "vst" = vst
+    )
+    assays <- Filter(Negate(is.null), assays)
 
     # Metadata =================================================================
     metadata <- list(
@@ -392,14 +394,6 @@ loadRNASeq <- function(
     metadata <- Filter(Negate(is.null), metadata)
 
     # Return =============================================
-    assays <- list(
-        "raw" = counts,
-        "tpm" = tpm,
-        "length" = length,
-        "rlog" = rlog,
-        "vst" = vst
-    )
-    assays <- Filter(Negate(is.null), assays)
     rse <- prepareSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
