@@ -32,6 +32,7 @@ NULL
 
 
 # Constructors =================================================================
+#' @importFrom basejump sanitizeSampleData
 .updateObject.bcbioRNASeq <- function(  # nolint
     object,
     rowRanges
@@ -45,17 +46,11 @@ NULL
         message("Legacy bcbio slot detected")
     }
 
-    # RangedSummarizedExperiment
+    # Coerce to RangedSummarizedExperiment
     rse <- as(object, "RangedSummarizedExperiment")
-    assays <- slot(rse, "assays")
-    if (.hasSlot(rse, "rowRanges")) {
-        rowRanges <- slot(rse, "rowRanges")
-    }
-    assert_is_all_of(rowRanges, "GRanges")
-    colData <- colData(rse)
-    metadata <- metadata(rse)
 
     # Assays ===================================================================
+    assays <- assays(rse)
     if (!all(assayNames(rse) %in% requiredAssays)) {
         # Coerce assays to a standard list
         assays <- lapply(seq_along(assays), function(a) {
@@ -100,7 +95,17 @@ NULL
         assert_is_subset(requiredAssays, names(assays))
     }
 
-    # Metadata upgrades ========================================================
+    # Row data =================================================================
+    if (.hasSlot(rse, "rowRanges")) {
+        rowRanges <- rowRanges(rse)
+    }
+    assert_is_all_of(rowRanges, "GRanges")
+
+    # Column data ==============================================================
+    colData <- colData(rse)
+    colData <- sanitizeSampleData(colData)
+
+    # Metadata =================================================================
     metadata <- metadata(rse)
 
     # bcbioLog
@@ -269,27 +274,18 @@ NULL
         metadata[["yamlFile"]] <- NULL
     }
 
+    # version
     metadata[["previousVersion"]] <- metadata[["version"]]
     metadata[["version"]] <- packageVersion
-    metadata[["upgradeDate"]] <- Sys.Date()
-
-    # Drop any NULL legacy metadata slots
-    metadata <- Filter(Negate(is.null), metadata)
 
     # Return ===================================================================
-    # Generate RangedSummarizedExperiment. Resizes rowRanges dynamically.
-    rse <- prepareSummarizedExperiment(
+    .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
-        metadata = metadata
+        metadata = metadata,
+        isSpike = metadata[["isSpike"]]
     )
-    validObject(rse)
-
-    # Return ===================================================================
-    to <- new("bcbioRNASeq", rse)
-    validObject(to)
-    to
 }
 
 

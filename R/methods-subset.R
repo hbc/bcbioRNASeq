@@ -79,11 +79,6 @@ NULL
     rse <- as(x, "RangedSummarizedExperiment")
     rse <- rse[i, j, drop = drop]
 
-    rowRanges <- rowRanges(rse)
-    colData <- colData(rse)
-    metadata <- metadata(rse)
-    isSpike <- metadata[["isSpike"]]
-
     # Assays ===================================================================
     assays <- assays(rse)
     if (isTRUE(transform)) {
@@ -113,6 +108,7 @@ NULL
     }
 
     # Metadata =================================================================
+    metadata <- metadata(rse)
     metadata[["subset"]] <- TRUE
     # Update version, if necessary
     if (!identical(metadata[["version"]], packageVersion)) {
@@ -128,15 +124,13 @@ NULL
         column_to_rownames()
 
     # Return ===================================================================
-    rse <- prepareSummarizedExperiment(
+    .new.bcbioRNASeq(
         assays = assays,
-        rowRanges = rowRanges,
-        colData = colData,
+        rowRanges = rowRanges(rse),
+        colData = colData(rse),
         metadata = metadata,
-        isSpike = isSpike
+        isSpike = metadata[["isSpike"]]
     )
-    assert_is_all_of(rse, "RangedSummarizedExperiment")
-    new("bcbioRNASeq", rse)
 }
 
 

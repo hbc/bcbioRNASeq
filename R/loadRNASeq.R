@@ -20,9 +20,8 @@
 #'  varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom basejump camel ensembl readYAML sanitizeSampleData
-#' @importFrom bcbioBase prepareSummarizedExperiment readLogFile
-#'   readProgramVersions readSampleMetadataFile sampleDirs sampleYAMLMetadata
-#'   sampleYAMLMetrics
+#' @importFrom bcbioBase readLogFile readProgramVersions readSampleMetadataFile
+#'   sampleDirs sampleYAMLMetadata sampleYAMLMetrics
 #' @importFrom dplyr mutate_all pull
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -355,7 +354,6 @@ loadRNASeq <- function(
         "rlog" = rlog,
         "vst" = vst
     )
-    assays <- Filter(Negate(is.null), assays)
 
     # Metadata =================================================================
     metadata <- list(
@@ -391,16 +389,13 @@ loadRNASeq <- function(
         assert_are_disjoint_sets(metadata, dots)
         metadata <- c(metadata, dots)
     }
-    metadata <- Filter(Negate(is.null), metadata)
 
     # Return =============================================
-    rse <- prepareSummarizedExperiment(
+    .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
         metadata = metadata,
         isSpike = isSpike
     )
-    assert_is_all_of(rse, "RangedSummarizedExperiment")
-    new("bcbioRNASeq", rse)
 }

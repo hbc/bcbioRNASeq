@@ -38,13 +38,7 @@ setAs(
     to = "DESeqDataSet",
     function(from) {
         validObject(from)
-        # Regenerate tximport list
-        txi <- list(
-            "abundance" = assays(from)[["tpm"]],
-            "counts" = assays(from)[["raw"]],
-            "length" = assays(from)[["length"]],
-            "countsFromAbundance" = metadata(from)[["countsFromAbundance"]]
-        )
+        txi <- .regenerateTximportList(from)
         dds <- DESeqDataSetFromTximport(
             txi = txi,
             colData = colData(from),
