@@ -265,8 +265,6 @@ loadRNASeq <- function(
     assert_is_data.frame(metrics)
 
     # bcbio run information ====================================================
-    inform("Reading bcbio run information")
-
     programVersions <- readProgramVersions(
         file = file.path(projectDir, "programs.txt")
     )
