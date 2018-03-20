@@ -20,8 +20,8 @@
 #'  varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom basejump camel ensembl readYAML sanitizeSampleData
-#' @importFrom bcbioBase readLogFile readProgramVersions readSampleMetadataFile
-#'   sampleDirs sampleYAMLMetadata sampleYAMLMetrics
+#' @importFrom bcbioBase readDataVersions readLogFile readProgramVersions
+#'   readSampleMetadataFile sampleDirs sampleYAMLMetadata sampleYAMLMetrics
 #' @importFrom dplyr mutate_all pull
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble column_to_rownames rownames_to_column
@@ -266,6 +266,10 @@ loadRNASeq <- function(
     assert_is_data.frame(metrics)
 
     # bcbio run information ====================================================
+    dataVersions <- readDataVersions(
+        file = file.path(projectDir, "data_versions.csv"))
+    assert_is_tbl_df(dataVersions)
+
     programVersions <- readProgramVersions(
         file = file.path(projectDir, "programs.txt")
     )
@@ -378,6 +382,7 @@ loadRNASeq <- function(
         "lanes" = lanes,
         "yaml" = yaml,
         "metrics" = metrics,
+        "dataVersions" = dataVersions,
         "programVersions" = programVersions,
         "bcbioLog" = bcbioLog,
         "bcbioCommandsLog" = bcbioCommandsLog,
