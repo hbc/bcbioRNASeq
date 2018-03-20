@@ -247,14 +247,6 @@ loadRNASeq <- function(
         assert_is_all_of(rowRanges, "GRanges")
         rowRangesMetadata <- ah[["metadata"]]
         assert_is_data.frame(rowRangesMetadata)
-        # Transcript-to-gene mappings
-        if (level == "transcripts") {
-            tx2gene <- tx2gene(
-                organism,
-                genomeBuild = genomeBuild,
-                release = ensemblRelease
-            )
-        }
     }
 
     # Sample metrics ===========================================================
@@ -267,7 +259,8 @@ loadRNASeq <- function(
 
     # bcbio run information ====================================================
     dataVersions <- readDataVersions(
-        file = file.path(projectDir, "data_versions.csv"))
+        file = file.path(projectDir, "data_versions.csv")
+    )
     assert_is_tbl_df(dataVersions)
 
     programVersions <- readProgramVersions(
@@ -296,7 +289,8 @@ loadRNASeq <- function(
     tx2gene <- .tx2gene(
         projectDir = projectDir,
         organism = organism,
-        release = ensemblRelease
+        release = ensemblRelease,
+        genomeBuild = genomeBuild
     )
     txi <- .tximport(
         sampleDirs = sampleDirs,

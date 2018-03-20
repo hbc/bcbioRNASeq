@@ -79,7 +79,7 @@
         txOut = txOut,
         countsFromAbundance = "lengthScaledTPM",
         tx2gene = tx2gene,
-        ignoreTxVersion = TRUE,
+        ignoreTxVersion = FALSE,
         importer = read_tsv
     )
 }
