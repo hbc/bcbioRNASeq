@@ -1,3 +1,5 @@
+# FIXME Add the number of non-zero genes to plot
+
 #' Plot Counts Per Gene
 #'
 #' @name plotCountsPerGene
@@ -16,25 +18,25 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
-.plotCountsPerGene <- function(
+.plotCountsPerGene.melted <- function(
     object,
     interestingGroups = "sampleName",
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE,
+    title = NULL,
+    subtitle = NULL,
     xlab = "counts"
 ) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
-
-    # Title
-    if (isTRUE(title)) {
-        title <- "counts per gene"
-    } else if (!is_a_string(title)) {
-        title <- NULL
+    assertIsAStringOrNULL(title)
+    if (is.null(title)) {
+        subtitle <- NULL
     }
+    assertIsAStringOrNULL(subtitle)
+    assert_is_a_string(xlab)
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
@@ -49,6 +51,7 @@ NULL
         geom_boxplot(color = lineColor, outlier.shape = NA) +
         labs(
             title = title,
+            subtitle = subtitle,
             x = "sample",
             y = xlab,
             fill = paste(interestingGroups, collapse = ":\n")
@@ -80,31 +83,41 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tmm", "tpm"),
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
-        title = TRUE
+        title = "counts per gene"
     ) {
         # Passthrough: fill, flip, title
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assert_is_a_string(normalized)
+        normalized <- match.arg(normalized)
+
+        # Subset the counts matrix to only include non-zero genes
+        raw <- assay(object)
+        nonzero <- rowSums(raw) > 0L
+        genes <- rownames(raw[nonzero, , drop = FALSE])
+        counts <- counts(object, normalized = normalized)
+        counts <- counts[genes, , drop = FALSE]
+
+        # Apply log2 transformation, if  necessary
         if (normalized %in% c("rlog", "vst")) {
+            # Already log2
             fxn <- .meltCounts
         } else {
             fxn <- .meltLog2Counts
         }
-        melt <- fxn(
-            counts(object, normalized = normalized),
-            colData = colData(object)
-        )
-        .plotCountsPerGene(
-            object = melt,
+        melted <- fxn(counts, colData = colData(object))
+
+        .plotCountsPerGene.melted(
+            object = melted,
             interestingGroups = interestingGroups,
             fill = fill,
             flip = flip,
             title = title,
+            subtitle = paste(nrow(counts), "non-zero genes"),
             xlab = paste("log2", normalized, "counts")
         )
-    })
+    }
+)

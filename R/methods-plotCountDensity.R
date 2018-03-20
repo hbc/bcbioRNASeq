@@ -1,3 +1,5 @@
+# FIXME Add the number of non-zero genes to plot
+
 #' Plot Count Density
 #'
 #' @name plotCountDensity
@@ -25,28 +27,27 @@ NULL
 # Constructors =================================================================
 #' @importFrom bcbioBase uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_density ggplot guides labs
-.plotCountDensity <- function(
+.plotCountDensity.melted <- function(
     object,
     interestingGroups = "sampleName",
-    style = "solid",
+    style = c("solid", "line"),
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE),
-    title = TRUE,
+    title = NULL,
+    subtitle = NULL,
     xlab = "counts"
 ) {
     assert_is_data.frame(object)
     assertFormalInterestingGroups(object, interestingGroups)
-    assert_is_a_string(style)
-    assert_is_subset(style, c("line", "solid"))
+    style <- match.arg(style)
     assertIsColorScaleDiscreteOrNULL(color)
     assertIsFillScaleDiscreteOrNULL(fill)
-
-    # Title
-    if (isTRUE(title)) {
-        title <- "count density"
-    } else if (!is_a_string(title)) {
-        title <- NULL
+    assertIsAStringOrNULL(title)
+    if (is.null(title)) {
+        subtitle <- NULL
     }
+    assertIsAStringOrNULL(subtitle)
+    assert_is_a_string(xlab)
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
@@ -61,6 +62,7 @@ NULL
     ) +
         labs(
             title = title,
+            subtitle = subtitle,
             x = xlab,
             fill = paste(interestingGroups, collapse = ":\n")
         )
@@ -95,32 +97,43 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = "rlog",
-        style = "solid",
+        normalized = c("rlog", "vst", "tmm", "tpm"),
+        style = c("solid", "line"),
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
-        title = TRUE
+        title = "count density"
     ) {
+        # Passthrough: color, fill, title
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assert_is_a_string(normalized)
+        normalized <- match.arg(normalized)
+        style <- match.arg(style)
+
+        # Subset the counts matrix to only include non-zero genes
+        raw <- assay(object)
+        nonzero <- rowSums(raw) > 0L
+        genes <- rownames(raw[nonzero, , drop = FALSE])
+        counts <- counts(object, normalized = normalized)
+        counts <- counts[genes, , drop = FALSE]
+
+        # Apply log2 transformation, if  necessary
         if (normalized %in% c("rlog", "vst")) {
+            # Already log2
             fxn <- .meltCounts
         } else {
             fxn <- .meltLog2Counts
         }
-        melt <- fxn(
-            counts(object, normalized = normalized),
-            colData = colData(object)
-        )
-        .plotCountDensity(
-            object = melt,
+        melted <- fxn(counts, colData = colData(object))
+
+        .plotCountDensity.melted(
+            object = melted,
             interestingGroups = interestingGroups,
             style = style,
             color = color,
             fill = fill,
             title = title,
+            subtitle = paste(nrow(counts), "non-zero genes"),
             xlab = paste("log2", normalized, "counts")
         )
     }

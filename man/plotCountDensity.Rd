@@ -10,9 +10,9 @@
 plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "rlog", style = "solid",
+  normalized = c("rlog", "vst", "tmm", "tpm"), style = c("solid", "line"),
   color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE), title = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), title = "count density")
 }
 \arguments{
 \item{object}{Object.}
