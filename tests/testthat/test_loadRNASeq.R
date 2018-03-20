@@ -111,6 +111,7 @@ test_that("Metadata", {
             "lanes" = "integer",
             "yaml" = "list",
             "metrics" = "data.frame",
+            "dataVersions" = tbl_df,
             "programVersions" = tbl_df,
             "bcbioLog" = "character",
             "bcbioCommandsLog" = "character",
