@@ -304,15 +304,15 @@ loadRNASeq <- function(
     # length = average transcript length
     # countsFromAbundance = character describing TPM
     tpm <- txi[["abundance"]]
-    assert_is_matrix(tpm)
     raw <- txi[["counts"]]
-    assert_is_matrix(raw)
     length <- txi[["length"]]
-    assert_is_matrix(length)
     countsFromAbundance <- txi[["countsFromAbundance"]]
+    assert_is_matrix(tpm)
+    assert_is_matrix(raw)
+    assert_is_matrix(length)
     assert_is_character(countsFromAbundance)
 
-    # Ensure colData matches the assays
+    # Ensure `colData` matches the colnames in `assays()`
     colData <- colData[colnames(raw), , drop = FALSE]
 
     # Gene-level variance stabilization ========================================

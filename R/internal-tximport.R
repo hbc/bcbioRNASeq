@@ -1,9 +1,10 @@
 #' Import RNA-Seq Counts
 #'
-#' Import RNA-seq counts using [tximport::tximport()].
+#' Import RNA-seq counts using
+#' [tximport](https://doi.org/doi:10.18129/B9.bioc.tximport).
 #'
 #' Normalized counts are loaded as length-scaled transcripts per million.
-#' https://goo.gl/h6fm15
+#' Consult this [vignette](https://goo.gl/h6fm15) for more information.
 #'
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
@@ -22,33 +23,24 @@
 #' @return `list` containing count matrices.
 .tximport <- function(
     sampleDirs,
-    type = NULL,
+    type = c("salmon", "kallisto", "sailfish"),
     txIn = TRUE,
     txOut = FALSE,
     tx2gene
 ) {
     assert_all_are_dirs(sampleDirs)
-    assertIsAStringOrNULL(type)
-    if (is_a_string(type)) {
-        assert_is_subset(type, validCallers)
-    }
+    type <- match.arg(type)
+    assert_is_a_bool(txIn)
+    assert_is_a_bool(txOut)
     assertIsTx2gene(tx2gene)
-    tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(sampleDirs[[1]], full.names = TRUE, recursive = FALSE)
+    subdirs <- list.dirs(
+        path = sampleDirs[[1]],
+        full.names = TRUE,
+        recursive = FALSE
+    )
     assert_are_intersecting_sets(basename(subdirs), validCallers)
-
-    # Set the default priority if caller isn't specified
-    if (!is_a_string(type)) {
-        if ("salmon" %in% basename(subdirs)) {
-            type <- "salmon"
-        } else if ("kallisto" %in% basename(subdirs)) {
-            type <- "kallisto"
-        } else if ("sailfish" %in% basename(subdirs)) {
-            type <- "sailfish"
-        }
-    }
 
     # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
@@ -78,7 +70,7 @@
         txIn = txIn,
         txOut = txOut,
         countsFromAbundance = "lengthScaledTPM",
-        tx2gene = tx2gene,
+        tx2gene = as.data.frame(tx2gene),
         ignoreTxVersion = FALSE,
         importer = read_tsv
     )
