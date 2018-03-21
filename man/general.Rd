@@ -6,6 +6,9 @@
 \arguments{
 \item{i}{An integer or numeric scalar.}
 
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
+
 \item{object}{Object.}
 
 \item{title}{Title.}

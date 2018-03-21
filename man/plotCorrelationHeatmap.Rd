@@ -33,6 +33,9 @@ Defaults to "\code{pearson}" but "\code{spearman}" can also be used. Consult the
 
 \item{samples}{\emph{Optional.} Character vector of samples to include.}
 
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
+
 \item{color}{Colors to use for plot. Defaults to the \code{\link[=viridis]{viridis()}}
 palette.}
 

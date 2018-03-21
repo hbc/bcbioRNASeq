@@ -21,9 +21,8 @@ plotDEGPCA(object, ...)
 
 \item{counts}{Object containing a normalized counts matrix.}
 
-\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
-appearance. If missing, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
