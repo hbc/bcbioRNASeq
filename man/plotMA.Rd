@@ -7,7 +7,7 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = NULL,
-  pointColor = "darkgray", sigPointColor = "red", labelColor = "black",
+  pointColor = "darkgray", sigPointColor = "purple", labelColor = "black",
   title = TRUE)
 }
 \arguments{
@@ -36,6 +36,7 @@ have passed alpha level cutoffs.}
 Plot Mean Average
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
 
 # DESeqResults ====
