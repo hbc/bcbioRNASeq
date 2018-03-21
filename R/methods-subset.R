@@ -10,7 +10,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`
-#' @param ... Additional arguments.
+#' @inheritParams general
 #'
 #' @return `bcbioRNASeq`.
 #'
