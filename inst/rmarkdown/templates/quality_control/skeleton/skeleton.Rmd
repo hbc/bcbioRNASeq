@@ -34,7 +34,7 @@ invisible(validObject(bcb))
 
 
 ```{r sample_data}
-sampleData(bcb)
+sampleData(bcb, return = "kable")
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
