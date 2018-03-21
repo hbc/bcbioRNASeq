@@ -4,6 +4,13 @@
 \alias{general}
 \title{General Arguments}
 \arguments{
+\item{fill}{Desired ggplot fill scale. Defaults to
+\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+
+\item{flip}{Flip x and y axes.}
+
 \item{i}{An integer or numeric scalar.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
@@ -11,9 +18,13 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{object}{Object.}
 
+\item{passLimit}{Threshold to plot pass color marker.}
+
 \item{title}{Title.}
 
 \item{value}{Value to assign.}
+
+\item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{withDimnames}{A \code{logical}, indicating whether dimnames should be
 applied to extracted assay elements.}

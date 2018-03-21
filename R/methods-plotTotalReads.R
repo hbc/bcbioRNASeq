@@ -5,13 +5,6 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param passLimit Threshold to plot pass color marker.
-#' @param warnLimit Threshold to plot warning color marker.
-#' @param fill Desired ggplot fill scale. Defaults to
-#'   [scale_fill_viridis()]. Must supply discrete values. When set to
-#'   `NULL`, the default ggplot2 color palette will be used. If manual color
-#'   definitions are desired, we recommend using [scale_fill_manual()].
-#' @param flip Flip x and y axes.
 #'
 #' @return `ggplot`.
 #'
