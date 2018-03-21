@@ -1,3 +1,5 @@
+# TODO Check for interestingGroups stashed in DESeqTransform
+
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA
@@ -13,7 +15,8 @@
 #' plotDEGPCA(
 #'     object = res_small,
 #'     counts = rld_small,
-#'     interestingGroups = interestingGroups(bcb_small)
+#'     interestingGroups = interestingGroups(bcb_small),
+#'     label = TRUE
 #' )
 NULL
 
@@ -32,9 +35,10 @@ setMethod(
         lfc = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
+        title = "deg pca",
         return = c("ggplot", "data.frame")
     ) {
-        # Passthrough: interestingGroups, color, label, return
+        # Passthrough: interestingGroups, color, label, title
         assert_is_all_of(counts, "DESeqTransform")
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
@@ -56,18 +60,30 @@ setMethod(
         # Subset the matrix
         counts <- counts[genes, , drop = FALSE]
 
-        if (return == "data.frame") {
-            returnData <- TRUE
-        } else {
-            returnData <- FALSE
-        }
-
-        # TODO Update to use our PCA code
-        plotPCA(
+        data <- plotPCA(
             object = counts,
             intgroup = interestingGroups,
             ntop = nrow(counts),
-            returnData = returnData
+            returnData = TRUE
+        ) %>%
+            camel()
+
+        if (return == "data.frame") {
+            return(data)
+        }
+
+        # Use `sampleName` for plot labels
+        if (isTRUE(label)) {
+            assert_is_subset("sampleName", colnames(colData(counts)))
+            data[["label"]] <- colData(counts)[, "sampleName", drop = TRUE]
+        }
+
+        .plotPCA.ggplot(
+            object = data,
+            color = color,
+            label = label,
+            group = interestingGroups,
+            title = title
         )
     }
 )
