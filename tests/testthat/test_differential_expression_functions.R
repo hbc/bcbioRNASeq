@@ -91,7 +91,7 @@ test_that("plotMA : DESeqResults", {
     )
     expect_identical(
         geomtype,
-        c("GeomPoint", "GeomLogticks")
+        c("GeomHline", "GeomPoint", "GeomLogticks")
     )
 
     # Check plot labels
