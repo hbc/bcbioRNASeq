@@ -52,9 +52,9 @@ NULL
 .plotPCA <- function(
     object,
     normalized = c("rlog", "vst", "tmm", "tpm"),
-    interestingGroups,
     genes = NULL,
     censorSamples = NULL,
+    interestingGroups,
     color = scale_color_viridis(discrete = TRUE),
     label = FALSE,
     title = "pca",
@@ -80,9 +80,6 @@ NULL
     assertFormalInterestingGroups(colData(object), interestingGroups)
     assertIsCharacterOrNULL(genes)
     assertIsCharacterOrNULL(censorSamples)
-    assertIsColorScaleDiscreteOrNULL(color)
-    assert_is_a_bool(label)
-    assertIsAStringOrNULL(title)
     return <- match.arg(return)
 
     # Prepare counts matrix ====================================================
@@ -132,14 +129,38 @@ NULL
         return(data)
     }
 
-    # Plot =====================================================================
-    percentVar <- round(100L * attr(data, "percentVar"))
-
     # Use `sampleName` for plot labels
-    data[["label"]] <- colData(object)[, "sampleName", drop = TRUE]
+    if (isTRUE(label)) {
+        data[["label"]] <- colData(object)[, "sampleName", drop = TRUE]
+    }
+
+    .plotPCA.ggplot(
+        object = data,
+        color = color,
+        label = label,
+        group = interestingGroups,
+        title = title
+    )
+}
+
+
+
+.plotPCA.ggplot <- function(
+    object,
+    color = scale_color_viridis(discrete = TRUE),
+    label = FALSE,
+    group = NULL,
+    title = NULL
+) {
+    assert_is_data.frame(object)
+    assertIsColorScaleDiscreteOrNULL(color)
+    assert_is_a_bool(label)
+    assertIsAStringOrNULL(title)
+
+    percentVar <- round(100L * attr(object, "percentVar"))
 
     p <- ggplot(
-        data,
+        data = object,
         mapping = aes_string(
             x = "pc1",
             y = "pc2",
@@ -152,7 +173,7 @@ NULL
             title = title,
             x = paste0("pc1: ", percentVar[[1L]], "% variance"),
             y = paste0("pc2: ", percentVar[[2L]], "% variance"),
-            color = paste(interestingGroups, collapse = ":\n")
+            color = paste(group, collapse = ":\n")
         )
 
     if (is(color, "ScaleDiscrete")) {
