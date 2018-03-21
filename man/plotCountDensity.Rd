@@ -10,7 +10,7 @@
 plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
-  normalized = c("rlog", "vst", "tmm", "tpm"), style = c("solid", "line"),
+  normalized = c("rlog", "vst", "tmm", "tpm"), style = c("line", "solid"),
   color = scale_color_viridis(discrete = TRUE),
   fill = scale_fill_viridis(discrete = TRUE), title = "count density")
 }
@@ -30,7 +30,7 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{style}{Desired plot style (\code{line} or \code{solid}).}
+\item{style}{Desired plot style ("\code{line}" or "\code{solid}").}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual

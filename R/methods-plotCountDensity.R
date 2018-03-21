@@ -7,7 +7,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param style Desired plot style (`line` or `solid`).
+#' @param style Desired plot style ("`line`" or "`solid`").
 #'
 #' @return `ggplot`.
 #'
@@ -28,7 +28,7 @@ NULL
 .plotCountDensity.melted <- function(
     object,
     interestingGroups = "sampleName",
-    style = c("solid", "line"),
+    style = c("line", "solid"),
     color = scale_color_viridis(discrete = TRUE),
     fill = scale_fill_viridis(discrete = TRUE),
     title = NULL,
@@ -96,7 +96,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = c("rlog", "vst", "tmm", "tpm"),
-        style = c("solid", "line"),
+        style = c("line", "solid"),
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
         title = "count density"
