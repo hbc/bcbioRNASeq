@@ -84,7 +84,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
+        normalized = c("tmm", "rlog", "vst", "tpm"),
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
         title = "counts per gene"
@@ -96,11 +96,9 @@ setMethod(
         normalized <- match.arg(normalized)
 
         # Subset the counts matrix to only include non-zero genes
-        raw <- assay(object)
-        nonzero <- rowSums(raw) > 0L
-        genes <- rownames(raw[nonzero, , drop = FALSE])
+        nonzero <- .nonzeroGenes(object)
         counts <- counts(object, normalized = normalized)
-        counts <- counts[genes, , drop = FALSE]
+        counts <- counts[nonzero, , drop = FALSE]
 
         # Apply log2 transformation, if  necessary
         if (normalized %in% c("rlog", "vst")) {
@@ -118,7 +116,7 @@ setMethod(
             flip = flip,
             title = title,
             subtitle = paste(nrow(counts), "non-zero genes"),
-            xlab = paste("log2", normalized, "counts")
+            xlab = paste(normalized, "counts (log2)")
         )
     }
 )
