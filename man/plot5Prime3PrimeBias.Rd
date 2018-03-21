@@ -11,7 +11,7 @@ plot5Prime3PrimeBias(object, ...)
 
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object, interestingGroups,
   warnLimit = 2L, fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = TRUE)
+  title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}

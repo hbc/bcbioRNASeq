@@ -10,7 +10,7 @@
 plotPCACovariates(object, ...)
 
 \S4method{plotPCACovariates}{bcbioRNASeq}(object, metrics = TRUE,
-  normalized = "rlog", ...)
+  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,14 +21,15 @@ plotPCACovariates(object, ...)
 include all metrics columns (\code{TRUE}), but desired columns can be specified
 here as a character vector.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Logical or character indicating which normalization
+method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item \code{FALSE}: Raw counts (tximport).
+\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 }
 \value{

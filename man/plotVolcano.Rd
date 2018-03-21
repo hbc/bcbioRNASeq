@@ -10,10 +10,10 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
-  histograms = TRUE)
+  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
+  "up", "down"), pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
+  labelColor = "black", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,15 +38,15 @@ symbols.}
 
 \item{direction}{Plot \code{up}, \code{down}, or \code{both} (\strong{default}) directions.}
 
-\item{shadeColor}{Shading color for bounding box.}
-
-\item{shadeAlpha}{Shading transparency alpha.}
-
 \item{pointColor}{Point color.}
 
 \item{pointAlpha}{Point transparency alpha.}
 
 \item{pointOutlineColor}{Point outline color.}
+
+\item{shadeColor}{Shading color for bounding box.}
+
+\item{shadeAlpha}{Shading transparency alpha.}
 
 \item{labelColor}{Gene label color.}
 
@@ -54,7 +54,7 @@ symbols.}
 }
 \value{
 Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
-individual \link{ggplot} (\code{grid = FALSE}).
+individual \code{ggplot} (\code{grid = FALSE}).
 }
 \description{
 Plot Volcano

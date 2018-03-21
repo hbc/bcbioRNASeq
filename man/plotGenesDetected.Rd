@@ -11,7 +11,8 @@ plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = "genes detected")
 }
 \arguments{
 \item{object}{Object.}
@@ -37,6 +38,8 @@ plotting.}
 definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Title.}
 }
 \value{
 \code{ggplot}.

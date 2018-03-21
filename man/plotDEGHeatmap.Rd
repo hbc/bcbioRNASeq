@@ -4,28 +4,20 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
-\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
-\alias{plotDEGHeatmap,DESeqResults,matrix-method}
+\alias{plotDEGHeatmap,DESeqResults-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
-plotDEGHeatmap(object, counts, ...)
+plotDEGHeatmap(object, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, lfc = 0L,
-  gene2symbol = NULL, title = TRUE, ...)
-
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  lfc = 0L, gene2symbol = NULL, title = TRUE, ...)
-
-\S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, lfc = 0L,
+\S4method{plotDEGHeatmap}{DESeqResults}(object, counts, lfc = 0L,
   gene2symbol = NULL, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Secondary object containing a normalized counts matrix.}
-
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
+
+\item{counts}{Object containing a normalized counts matrix.}
 
 \item{lfc}{log2 fold change ratio cutoff.}
 
@@ -33,11 +25,14 @@ plotDEGHeatmap(object, counts, ...)
 \code{data.frame} can be passed in, and must contain the columns \code{geneID} and
 \code{geneName}.}
 
-\item{title}{Title.}
+\item{title}{\emph{Optional.} Plot title.}
+}
+\value{
+Show heatmap and return \code{list}, containing \code{gtable}.
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
-optimized for handling a \link{DESeqResults} object rather a gene vector. All of
+optimized for handling a \code{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
 }

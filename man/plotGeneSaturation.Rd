@@ -9,23 +9,23 @@
 \usage{
 plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", minCounts = 0L, trendline = TRUE,
-  color = scale_color_viridis(discrete = TRUE), title = TRUE)
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("rlog",
+  "vst", "tmm", "tpm"), interestingGroups, minCounts = 0L, trendline = TRUE,
+  color = scale_color_viridis(discrete = TRUE), title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
+\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
+for more information.}
+
 \item{interestingGroups}{Category to use to group samples. In the plotting
 functions, this will define color and shape, where applicable. If unset,
 this is automatically determined by the metadata set inside the
 \link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
 \code{sampleName}.}
-
-\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
-for more information.}
 
 \item{minCounts}{Numeric value for filtering the counts matrix before
 plotting.}

@@ -4,22 +4,22 @@
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
+\alias{plotDEGPCA,DESeqResults-method}
 \title{Plot DEG PCA}
 \usage{
-plotDEGPCA(object, counts, ...)
+plotDEGPCA(object, ...)
 
-\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
+\S4method{plotDEGPCA}{DESeqResults}(object, counts,
   interestingGroups = "sampleName", lfc = 0L,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  returnData = FALSE)
+  return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Secondary object containing a normalized counts matrix.}
-
 \item{...}{Additional arguments.}
+
+\item{counts}{Object containing a normalized counts matrix.}
 
 \item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
 appearance. If missing, color defaults to all \code{interestingGroups}
@@ -34,7 +34,7 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 
 \item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
-\item{returnData}{Return PCA loadings data instead of plotting.}
+\item{return}{Return \code{ggplot} or \code{data.frame}.}
 }
 \description{
 Plot DEG PCA

@@ -6,22 +6,23 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNASeq}(object, normalized = "rlog",
-  interestingGroups, genes = NULL, censorSamples = NULL,
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
+  "tpm"), interestingGroups, genes = NULL, censorSamples = NULL,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  returnData = FALSE)
+  title = "pca", return = c("ggplot", "data.frame"), ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Logical or character indicating which normalization
+method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item \code{FALSE}: Raw counts (tximport).
+\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
 \item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
@@ -40,10 +41,14 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 
 \item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
-\item{returnData}{Return PCA loadings data instead of plotting.}
+\item{title}{Plot title.}
+
+\item{return}{Return \code{ggplot} or \code{data.frame}.}
+
+\item{...}{Additional arguments.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot} or \code{data.frame}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
@@ -51,18 +56,21 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 }
 \examples{
 # bcbioRNASeq ====
-plotPCA(bcb_small, label = TRUE)
 plotPCA(bcb_small, label = FALSE)
+plotPCA(bcb_small, label = TRUE)
 
 # Censor samples
 plotPCA(
     object = bcb_small,
-    censorSamples = colnames(bcb_small)[1L:2L],
+    censorSamples = head(colnames(bcb_small), 2L),
     label = TRUE
 )
 }
 \seealso{
-\code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\itemize{
+\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\item \code{getMethod("plotPCA", "DESeqTransform")}
+}
 
 Other Quality Control Functions: \code{\link{metrics}},
   \code{\link{plot5Prime3PrimeBias}},

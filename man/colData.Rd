@@ -10,16 +10,14 @@
 \usage{
 \S4method{colData}{bcbioRNASeq}(x, return = c("data.frame", "DataFrame"))
 
-\S4method{colData}{bcbioRNASeq,data.frame}(x, ...) <- value
+\S4method{colData}{bcbioRNASeq,data.frame}(x) <- value
 
-\S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
+\S4method{colData}{bcbioRNASeq,DataFrame}(x) <- value
 }
 \arguments{
 \item{x}{Object.}
 
 \item{return}{Return as "\code{data.frame}" or "\code{DataFrame}".}
-
-\item{...}{Additional arguments.}
 
 \item{value}{Value to assign.}
 }

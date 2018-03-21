@@ -11,7 +11,7 @@ plotRRNAMappingRate(object, ...)
 
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object, interestingGroups,
   warnLimit = 10L, fill = scale_fill_viridis(discrete = TRUE),
-  flip = TRUE, title = TRUE)
+  flip = TRUE, title = "rRNA mapping rate")
 }
 \arguments{
 \item{object}{Object.}

@@ -12,7 +12,7 @@ plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object, interestingGroups,
   warnLimit = 20L, fill = scale_fill_viridis(discrete = TRUE),
-  flip = TRUE, title = TRUE)
+  flip = TRUE, title = "intronic mapping rate")
 }
 \arguments{
 \item{object}{Object.}
