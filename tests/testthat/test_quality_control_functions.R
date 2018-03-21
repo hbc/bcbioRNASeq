@@ -55,11 +55,7 @@ test_that("plotCorrelationHeatmap", {
     # Bad method
     expect_error(
         plotCorrelationHeatmap(bcb_small, method = "XXX"),
-        paste(
-            "is_subset :",
-            "The element 'XXX' in method is not in",
-            "c\\(\"pearson\", \"spearman\"\\)."
-        )
+        "'arg' should be one of"
     )
 })
 
