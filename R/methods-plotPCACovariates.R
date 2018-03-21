@@ -8,7 +8,6 @@
 #'
 #' @inheritParams general
 #' @inheritParams plotPCA
-#'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.
@@ -32,7 +31,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotPCACovariates
-#' @importFrom bcbioBase interestingGroups
 #' @importFrom DEGreport degCovariates
 #' @importFrom dplyr select_if
 #' @export
@@ -42,11 +40,11 @@ setMethod(
     function(
         object,
         metrics = TRUE,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tmm", "tpm"),
         ...
     ) {
         assert_is_any_of(metrics, c("character", "logical"))
-        assert_is_a_string(normalized)
+        normalized <- match.arg(normalized)
 
         counts <- counts(object, normalized = normalized)
 

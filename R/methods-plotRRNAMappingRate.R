@@ -13,51 +13,31 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 .plotRRNAMappingRate <- function(
     object,
-    interestingGroups = "sampleName",
+    interestingGroups,
     warnLimit = 10L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE
+    title = "rRNA mapping rate"
 ) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
+    validObject(object)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
+    assertIsAStringOrNULL(title)
 
-    # Title
-    if (isTRUE(title)) {
-        title <- "rRNA mapping rate"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    # Fix for legacy camel variant mismatch (e.g. rRnaRate).
-    if (!"rrnaRate" %in% colnames(object)) {
-        warn(paste(
-            "`rrnaRate` is missing from `metrics()` slot.",
-            updateMsg
-        ))
-        col <- grep(
-            pattern = "rrnarate",
-            x = colnames(object),
-            ignore.case = TRUE,
-            value = TRUE
-        )
-        assert_is_a_string(col)
-        object[["rrnaRate"]] <- object[[col]]
-        object[[col]] <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
+    metrics <- metrics(object) %>%
+        uniteInterestingGroups(interestingGroups)
 
     p <- ggplot(
-        data = data,
+        data = metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~rrnaRate * 100L,
@@ -99,24 +79,5 @@ NULL
 setMethod(
     "plotRRNAMappingRate",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        warnLimit = 10L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE
-    ) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotRRNAMappingRate(
-            object = metrics(object),
-            interestingGroups = interestingGroups,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title
-        )
-    }
+    .plotRRNAMappingRate
 )

@@ -15,22 +15,22 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
 .plotGenesDetected <- function(
     object,
-    counts,
-    interestingGroups = "sampleName",
+    interestingGroups,
     passLimit = 20000L,
     warnLimit = 15000L,
     minCounts = 0L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE
+    title = "genes detected"
 ) {
-    assert_is_data.frame(object)
-    assert_is_matrix(counts)
-    assertFormalInterestingGroups(object, interestingGroups)
+    validObject(object)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
     assertIsAnImplicitInteger(warnLimit)
@@ -39,22 +39,19 @@ NULL
     assert_all_are_non_negative(minCounts)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
+    assertIsAStringOrNULL(title)
 
-    # Title
-    if (isTRUE(title)) {
-        title <- "genes detected"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
+    metrics <- metrics(object) %>%
+        uniteInterestingGroups(interestingGroups)
+    counts <- counts(object, normalized = FALSE)
 
     p <- ggplot(
-        data = data,
+        data = metrics,
         mapping = aes_(
             x = ~sampleName,
             y = colSums(counts > minCounts),
-            fill = ~interestingGroups)
+            fill = ~interestingGroups
+        )
     ) +
         geom_bar(stat = "identity") +
         labs(
@@ -94,27 +91,5 @@ NULL
 setMethod(
     "plotGenesDetected",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE
-    ) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotGenesDetected(
-            object = metrics(object),
-            counts = counts(object, normalized = FALSE),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            minCounts = minCounts,
-            fill = fill,
-            flip = flip
-        )
-    }
+    .plotGenesDetected
 )

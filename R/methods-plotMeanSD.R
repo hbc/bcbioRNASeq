@@ -1,3 +1,5 @@
+# TODO Inform user about `showLegend` deprecated in favor of `legend`
+
 #' Plot Row Standard Deviations vs. Row Means
 #'
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
@@ -11,7 +13,7 @@
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
 #'   `vertical`.
-#' @param showLegend Include the color bar legend. This is typically not that
+#' @param legend Include the color bar legend. This is typically not that
 #'   informative and is disabled by default, to improve the plot appearance.
 #'
 #' @return `ggplot` grid.
@@ -30,20 +32,20 @@ NULL
 #' @importFrom cowplot plot_grid
 #' @importFrom ggplot2 ggtitle theme xlab
 #' @importFrom vsn meanSdPlot
-.plotMeanSD <- function(
+.plotMeanSD.assays <- function(  # nolint
     raw,
     normalized,
     rlog,
     vst,
-    orientation = "vertical",
-    showLegend = FALSE
+    orientation = c("vertical", "horizontal"),
+    legend = FALSE
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
+    assert_is_matrix(rlog)
     assert_is_matrix(vst)
-    assert_is_a_string(orientation)
-    assert_is_subset(orientation, c("horizontal", "vertical"))
-    assert_is_a_bool(showLegend)
+    orientation <- match.arg(orientation)
+    assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -70,7 +72,7 @@ NULL
         xlab(xlab)
 
     # Remove the plot (color) legend, if desired
-    if (!isTRUE(showLegend)) {
+    if (!isTRUE(legend)) {
         gglog2 <- gglog2 +
             theme(legend.position = "none")
         ggrlog <- ggrlog +
@@ -107,20 +109,22 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        orientation = "vertical",
-        showLegend = FALSE
+        orientation = c("vertical", "horizontal"),
+        legend = FALSE
     ) {
+        # Passthrough: orientation, legend
+        # Require that the DESeq2 transformations are slotted
         rlog <- assays(object)[["rlog"]]
-        assert_is_matrix(rlog)
         vst <- assays(object)[["vst"]]
+        assert_is_matrix(rlog)
         assert_is_matrix(vst)
-        .plotMeanSD(
+        .plotMeanSD.assays(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = rlog,
             vst = vst,
             orientation = orientation,
-            showLegend = showLegend
+            legend = legend
         )
     }
 )
@@ -135,15 +139,17 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
-        orientation = "vertical",
-        showLegend = FALSE
+        orientation = c("vertical", "horizontal"),
+        legend = FALSE
     ) {
-        .plotMeanSD(
+        # Passthrough arguments: orientation, legend
+        .plotMeanSD.assays(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = assay(rlog(object)),
             vst = assay(varianceStabilizingTransformation(object)),
             orientation = orientation,
-            showLegend = showLegend)
+            legend = legend
+        )
     }
 )

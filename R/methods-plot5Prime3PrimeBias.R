@@ -13,41 +13,37 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
 #' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 .plot5Prime3PrimeBias <- function(
     object,
-    interestingGroups = "sampleName",
+    interestingGroups,
     warnLimit = 2L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE
+    title = "5'->3' bias"
 ) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
+    validObject(object)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
+    assertIsAStringOrNULL(title)
 
-    # Title
-    ylab <- "5'->3' bias"
-    if (isTRUE(title)) {
-        title <- ylab
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
+    metrics <- metrics(object) %>%
+        uniteInterestingGroups(interestingGroups)
 
     # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
     # The internal camel method has been updated in basejump 0.1.11.
-    if ("x53Bias" %in% colnames(data)) {
-        data <- dplyr::rename(data, "x5x3Bias" = "x53Bias")
+    if ("x53Bias" %in% colnames(metrics)) {
+        metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
     }
 
     p <- ggplot(
-        data = data,
+        data = metrics,
         mapping = aes_string(
             x = "sampleName",
             y = "x5x3Bias",
@@ -58,7 +54,7 @@ NULL
         labs(
             title = title,
             x = "sample",
-            y = ylab,
+            y = "5'->3' bias",
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
@@ -89,23 +85,5 @@ NULL
 setMethod(
     "plot5Prime3PrimeBias",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        warnLimit = 2L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plot5Prime3PrimeBias(
-            object = metrics(object),
-            interestingGroups = interestingGroups,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title
-        )
-    }
+    .plot5Prime3PrimeBias
 )

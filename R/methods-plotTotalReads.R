@@ -5,7 +5,6 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#'
 #' @param interestingGroups Category to use to group samples. In the plotting
 #'   functions, this will define color and shape, where applicable. If unset,
 #'   this is automatically determined by the metadata set inside the
@@ -28,39 +27,34 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
 #' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs
-#' @importFrom rlang !!! syms
-#' @importFrom tidyr unite
 .plotTotalReads <- function(
     object,
-    interestingGroups = "sampleName",
+    interestingGroups,
     passLimit = 20L,
     warnLimit = 10L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE
+    title = "total reads"
 ) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
+    validObject(object)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
+    assertIsAStringOrNULL(title)
 
-    # Title
-    if (isTRUE(title)) {
-        title <- "total reads"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
+    metrics <- metrics(object) %>%
+        uniteInterestingGroups(interestingGroups)
 
     p <- ggplot(
-        data = data,
+        data = metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~totalReads / 1e6L,
@@ -71,7 +65,7 @@ NULL
         labs(
             title = title,
             x = "sample",
-            y = "total reads (million)",
+            y = "reads per million",
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
@@ -105,26 +99,5 @@ NULL
 setMethod(
     "plotTotalReads",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        passLimit = 20L,
-        warnLimit = 10L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE
-    ) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotTotalReads(
-            object = metrics(object),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title
-        )
-    }
+    .plotTotalReads
 )
