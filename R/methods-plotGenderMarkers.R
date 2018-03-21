@@ -17,6 +17,10 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb_small)
 #'
@@ -49,6 +53,9 @@ NULL
     assert_is_matrix(object)
     assertFormalAnnotationCol(object, colData)
     assertFormalInterestingGroups(colData, interestingGroups)
+    if (missing(organism)) {
+        organism <- detectOrganism(object)
+    }
     assert_is_a_string(organism)
     assert_is_a_string(countsAxisLabel)
     assert_is_a_bool(medianLine)
@@ -85,7 +92,7 @@ NULL
         .[. %in% rownames(object)]
     assert_is_non_empty(genes)
 
-    plotGene(
+    .plotGene(
         object = object,
         genes = genes,
         gene2symbol = gene2symbol,
@@ -106,38 +113,29 @@ NULL
 #' @export
 setMethod(
     "plotGenderMarkers",
-    signature("matrix"),
-    .plotGenderMarkers
-)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tpm"),
         color = scale_color_viridis(discrete = TRUE),
         title = TRUE
     ) {
-        assert_is_a_string(normalized)
+        normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         counts <- counts(object, normalized = normalized)
+        # Ensure counts are log2 scale
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
-        plotGenderMarkers(
+        .plotGenderMarkers(
             object = counts,
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
             colData = colData(object),
-            countsAxisLabel = paste("log2", normalized, "counts"),
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             color = color,
             title = title
         )
@@ -160,18 +158,15 @@ setMethod(
         title = TRUE
     ) {
         counts <- log2(counts(object, normalized = TRUE) + 1L)
-        if (missing(organism)) {
-            organism <- detectOrganism(counts)
-        }
         colData <- colData(object)
         # Drop the numeric sizeFactor column
         colData[["sizeFactor"]] <- NULL
-        plotGenderMarkers(
+        .plotGenderMarkers(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
             colData = colData,
-            countsAxisLabel = "log2 normalized counts",
+            countsAxisLabel = "normalized counts (log2)",
             color = color,
             title = title
         )
@@ -195,9 +190,7 @@ setMethod(
     ) {
         # Passthrough: interestingGroups, color, title
         counts <- assay(object)
-        if (missing(organism)) {
-            organism <- detectOrganism(counts)
-        }
+
         colData <- colData(object)
         # Drop the numeric sizeFactor column
         colData[["sizeFactor"]] <- NULL
@@ -206,12 +199,12 @@ setMethod(
         } else {
             normalized <- "vst"
         }
-        plotGenderMarkers(
+        .plotGenderMarkers(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
             colData = colData,
-            countsAxisLabel = paste("log2", normalized, "counts"),
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             color = color,
             title = title
         )

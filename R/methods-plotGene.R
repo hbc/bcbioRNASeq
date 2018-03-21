@@ -23,6 +23,10 @@
 #' @seealso [DESeq2::plotCounts()].
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
+#' load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
+#'
 #' # Gene identifiers
 #' genes <- head(rownames(bcb_small), 8L)
 #'
@@ -276,16 +280,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGene
-#' @export
-setMethod(
-    "plotGene",
-    signature("matrix"),
-    .plotGene
-)
-
-
-
-#' @rdname plotGene
 #' @importFrom bcbioBase gene2symbol
 #' @export
 setMethod(
@@ -294,28 +288,30 @@ setMethod(
     function(
         object,
         genes,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tpm"),
         interestingGroups,
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
         headerLevel = 2L,
         return = c("grid", "wide", "list", "markdown")
     ) {
-        assert_is_a_string(normalized)
+        # Passthrough: genes, medianLine, color, headerLevel, return
+        normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         counts <- counts(object, normalized = normalized)
+        # Ensure counts are log2 scale
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
-        plotGene(
+        .plotGene(
             object = counts,
             genes = genes,
             gene2symbol = gene2symbol(object),
             colData = colData(object),
             interestingGroups = interestingGroups,
-            countsAxisLabel = paste("log2", normalized, "counts"),
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             medianLine = medianLine,
             color = color,
             return = return,
@@ -341,15 +337,18 @@ setMethod(
         headerLevel = 2L,
         return = c("grid", "wide", "list", "markdown")
     ) {
+        # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
+        # return
+        counts <- log2(counts(object, normalized = TRUE) + 1L)
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
-        plotGene(
-            object = log2(counts(object, normalized = TRUE) + 1L),
+        .plotGene(
+            object = counts,
             genes = genes,
             gene2symbol = gene2symbol,
             colData = colData,
             interestingGroups = interestingGroups,
-            countsAxisLabel = "log2 normalized counts",
+            countsAxisLabel = "normalized counts (log2)",
             medianLine = medianLine,
             color = color,
             return = return,
@@ -375,20 +374,23 @@ setMethod(
         headerLevel = 2L,
         return = c("grid", "wide", "list", "markdown")
     ) {
+        # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
+        # return
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             normalized <- "rlog"
         } else {
             normalized <- "vst"
         }
+        counts <- assay(object)
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
-        plotGene(
-            object = assay(object),
+        .plotGene(
+            object = counts,
             genes = genes,
             gene2symbol = gene2symbol,
             colData = colData,
             interestingGroups = interestingGroups,
-            countsAxisLabel = paste("log2", normalized, "counts"),
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             medianLine = medianLine,
             color = color,
             return = return,
