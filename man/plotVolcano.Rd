@@ -52,13 +52,13 @@ contain the columns \code{geneID} and \code{geneName}.}
 \item{histograms}{Show LFC and P value histograms.}
 }
 \value{
-Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
-individual \code{ggplot} (\code{grid = FALSE}).
+\code{ggplot}.
 }
 \description{
 Plot Volcano
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
 
 # DESeqResults ====

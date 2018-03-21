@@ -22,10 +22,10 @@
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
 #'
-#' @return Volcano plot arranged as grid (`grid = TRUE`), or [show()]
-#'   individual `ggplot` (`grid = FALSE`).
+#' @return `ggplot`.
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 #' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
 #'
 #' # DESeqResults ====
@@ -156,7 +156,7 @@ NULL
         ceiling(max(na.omit(data[["negLog10Pvalue"]])))
     )
 
-    # LFC density histogram ====================================================
+    # LFC density ==============================================================
     lfcDensity <- data[["log2FoldChange"]] %>%
         na.omit() %>%
         density()
@@ -170,11 +170,7 @@ NULL
     ) +
         geom_density() +
         scale_x_continuous(limits = rangeLFC) +
-        # Don't label density y-axis
-        labs(
-            x = "log2 fold change",
-            y = ""
-        ) +
+        labs(x = "log2 fold change") +
         theme(
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank()
@@ -202,7 +198,7 @@ NULL
             )
     }
 
-    # P value density plot =====================================================
+    # P value density ==========================================================
     pvalueDensity <- data[["negLog10Pvalue"]] %>%
         na.omit() %>%
         density()
@@ -217,17 +213,13 @@ NULL
         geom_density() +
         geom_ribbon(
             data = pvalueDensityDf %>%
-                .[.[["x"]] > -log10(alpha + 1e-10), ],
+                .[.[["x"]] > -log10(alpha + 1e-10), , drop = FALSE],
             mapping = aes_string(x = "x", ymax = "y"),
             ymin = 0L,
             fill = shadeColor,
             alpha = shadeAlpha
         ) +
-        # Don't label density y-axis
-        labs(
-            x = paste("-log10", pvalTitle),
-            y = ""
-        ) +
+        labs(x = paste("-log10", pvalTitle)) +
         theme(
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank()
