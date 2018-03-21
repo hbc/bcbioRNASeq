@@ -22,14 +22,6 @@ setGeneric("plot5Prime3PrimeBias", function(object, ...) {
 
 
 
-#' @rdname plotCorrelationHeatmap
-#' @export
-setGeneric("plotCorrelationHeatmap", function(object, ...) {
-    standardGeneric("plotCorrelationHeatmap")
-})
-
-
-
 #' @rdname plotCountDensity
 #' @export
 setGeneric("plotCountDensity", function(object, ...) {
