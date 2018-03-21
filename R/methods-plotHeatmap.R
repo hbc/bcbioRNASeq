@@ -1,3 +1,5 @@
+# TODO Simplify code to use basejump matrix method
+
 #' Plot Heatmap
 #'
 #' @details
@@ -11,18 +13,12 @@
 #'
 #' @importFrom basejump plotHeatmap
 #'
+#' @inherit basejump::plotHeatmap
+#'
 #' @inheritParams general
 #' @inheritParams counts
 #' @inheritParams plotGene
-#'
-#' @param samples *Optional.* Samples (colnames) to plot.
-#' @param annotationCol *Optional.* [data.frame] that defines annotation
-#'   mappings for the columns.
-#' @param scale Character indicating if the values should be centered and scaled
-#'   in either the row direction or the column direction, or none. Corresponding
-#'   values are "row", "column" and "none".
-#' @param legendColor Colors to use for legend labels. Defaults to the
-#'   [viridis()].
+#' @param samples *Optional.* Character vector of samples to plot.
 #'
 #' @examples
 #' # bcbioRNASeq ====
@@ -50,7 +46,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump convertGenesToSymbols plotHeatmap
-.plotHeatmap <- function(
+.plotHeatmap <- function(  # nolint
     object,
     samples = NULL,
     genes = NULL,
@@ -109,7 +105,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tmm", "tpm"),
         samples = NULL,
         genes = NULL,
         scale = "row",
@@ -118,6 +114,7 @@ setMethod(
         title = NULL,
         ...
     ) {
+        normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
         annotationCol <- colData(object) %>%
             .[colnames(counts), interestingGroups(object), drop = FALSE] %>%
@@ -157,6 +154,7 @@ setMethod(
         title = NULL,
         ...
     ) {
+        assert_is_a_bool(normalized)
         .plotHeatmap(
             object = counts(object, normalized = normalized),
             samples = samples,
