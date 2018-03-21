@@ -60,6 +60,7 @@ setMethod(
     ) {
         # Passthrough: method, genes, samples, color, legendColor
         normalized <- match.arg(normalized)
+        method <- match.arg(method)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
