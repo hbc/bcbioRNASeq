@@ -85,6 +85,7 @@ NULL
     assertIsAStringOrNULL(title)
     return <- match.arg(return)
 
+    # Prepare counts matrix ====================================================
     counts <- counts(object, normalized = normalized)
 
     # Censor samples, if desired
@@ -111,7 +112,7 @@ NULL
         ))
     }
 
-    # Generate DESeqTransform
+    # Get PCA data using DESeqTransform method =================================
     se <- SummarizedExperiment(
         assays = counts,
         colData = colData(object)
@@ -127,6 +128,11 @@ NULL
     ) %>%
         camel()
 
+    if (return == "data.frame") {
+        return(data)
+    }
+
+    # Plot =====================================================================
     percentVar <- round(100L * attr(data, "percentVar"))
 
     # Use `sampleName` for plot labels
@@ -176,12 +182,7 @@ NULL
             )
     }
 
-    # Return
-    if (return == "ggplot") {
-        p
-    } else if (return == "data.frame") {
-        data
-    }
+    p
 }
 
 
