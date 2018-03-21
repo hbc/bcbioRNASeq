@@ -1,6 +1,3 @@
-# FIXME Need to fix colData passthrough for DESeq methods here
-
-
 #' Plot Sexually Dimorphic Gender Markers
 #'
 #' @name plotGenderMarkers

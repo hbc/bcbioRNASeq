@@ -230,7 +230,7 @@ loadRNASeq <- function(
                 set_rownames(.[["txID"]])
         }
     } else {
-        # ah = AnnotationHub
+        # ah: AnnotationHub
         ah <- ensembl(
             organism = organism,
             format = level,
@@ -279,9 +279,9 @@ loadRNASeq <- function(
     # tximport =================================================================
     # Run this step only after the required metadata has imported successfully
     if (level == "transcripts") {
-        txOut = TRUE
+        txOut <- TRUE
     } else {
-        txOut = FALSE
+        txOut <- FALSE
     }
     # Attempt to use `tx2gene.csv` saved in project directory
     tx2gene <- .tx2gene(

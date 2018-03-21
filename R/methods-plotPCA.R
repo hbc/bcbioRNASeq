@@ -147,7 +147,7 @@ NULL
 
 
 
-.plotPCA.ggplot <- function(
+.plotPCA.ggplot <- function(  # nolint
     object,
     color = scale_color_viridis(discrete = TRUE),
     label = FALSE,

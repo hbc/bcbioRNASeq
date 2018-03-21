@@ -1,5 +1,4 @@
-# FIXME Simplify the method here
-# TODO Improve y-axis breaks from 1-10
+# FIXME Improve y-axis breaks from 1-10
 
 #' Plot Volcano
 #'

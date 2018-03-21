@@ -1,5 +1,3 @@
-# FIXME This script is breaking for Caenorhabditis elegans
-
 #' Transcript to Gene Annotations
 #'
 #' @author Michael Steinbaugh

@@ -1,5 +1,3 @@
-# TODO Check for interestingGroups stashed in DESeqTransform
-
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA

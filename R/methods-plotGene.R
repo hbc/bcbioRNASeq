@@ -1,6 +1,3 @@
-# TODO Add support for `facet` wrapped genes
-# TODO Consider adding an option to enforce y intercept at 0
-
 #' Plot Individual Genes
 #'
 #' @name plotGene
@@ -258,7 +255,6 @@ NULL
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
         )
-        # expand_limits(y = 0L)
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
         p <- p + geneMedianLine

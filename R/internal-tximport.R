@@ -36,7 +36,7 @@
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
-        path = sampleDirs[[1]],
+        path = sampleDirs[[1L]],
         full.names = TRUE,
         recursive = FALSE
     )

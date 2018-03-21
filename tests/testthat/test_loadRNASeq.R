@@ -68,8 +68,6 @@ test_that("Column data", {
     )))
 })
 
-# TODO Add rowRanges check
-
 test_that("Row data", {
     # Ensembl annotations from AnnotationHub, using ensembldb
     expect_identical(
@@ -87,7 +85,7 @@ test_that("Row data", {
 })
 
 test_that("Metadata", {
-    tbl_df <- c("tbl_df", "tbl", "data.frame")
+    tibble <- c("tbl_df", "tbl", "data.frame")
     expect_identical(
         lapply(metadata(bcb), class),
         list(
@@ -105,14 +103,14 @@ test_that("Metadata", {
             "organism" = "character",
             "genomeBuild" = "character",
             "ensemblRelease" = "integer",
-            "rowRangesMetadata" = tbl_df,
+            "rowRangesMetadata" = tibble,
             "gffFile" = "character",
             "tx2gene" = "data.frame",
             "lanes" = "integer",
             "yaml" = "list",
             "metrics" = "data.frame",
-            "dataVersions" = tbl_df,
-            "programVersions" = tbl_df,
+            "dataVersions" = tibble,
+            "programVersions" = tibble,
             "bcbioLog" = "character",
             "bcbioCommandsLog" = "character",
             "allSamples" = "logical",

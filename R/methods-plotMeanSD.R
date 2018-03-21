@@ -1,4 +1,4 @@
-# TODO Inform user about `showLegend` deprecated in favor of `legend`
+# FIXME Inform user about `showLegend` deprecated in favor of `legend`
 
 #' Plot Row Standard Deviations vs. Row Means
 #'

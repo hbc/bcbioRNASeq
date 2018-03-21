@@ -87,7 +87,7 @@ NULL
     markdownHeader("Results tables", level = headerLevel, asis = TRUE)
     markdownList(c(
         paste0(
-            "[`",basenames[["all"]], "`]",
+            "[`", basenames[["all"]], "`]",
             "(", paths[["all"]], "): ",
             "All genes, sorted by Ensembl identifier."
         ),
@@ -110,8 +110,6 @@ NULL
 }
 
 
-
-# FIXME Use merge instead of left_join
 
 #' @importFrom basejump camel initializeDirectory markdownHeader markdownList
 #'   sanitizeRowData snake

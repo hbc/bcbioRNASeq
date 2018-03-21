@@ -236,20 +236,6 @@ test_that("resultsTables : Summary and write support", {
             ""
         )
     )
-    # Check for the output files
-    # files <- list.files("resultsTables")
-    # expect_true(all(
-    #     match(
-    #         x = c(
-    #             "treatment_folic_acid_vs_control_all.csv.gz",
-    #             "treatment_folic_acid_vs_control_deg_lfc_down.csv.gz",
-    #             "treatment_folic_acid_vs_control_deg_lfc_up.csv.gz",
-    #             "treatment_folic_acid_vs_control_deg.csv.gz"
-    #         ),
-    #         table = files
-    #     )
-    # ))
-    # unlink("resultsTables", recursive = TRUE, force = TRUE)
 })
 
 if (file.exists("token.rds")) {
@@ -280,6 +266,5 @@ if (file.exists("token.rds")) {
             length(which(grepl("https://www.dropbox.com/s/", output))),
             4L
         )
-        # unlink("resultsTables", recursive = TRUE, force = TRUE)
     })
 }

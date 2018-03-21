@@ -123,8 +123,8 @@ setValidity(
 
         # New optional metadata
         # v0.2.0
-        # - "loadRNASeq" = "call"
-        # - "txdb" = "TxDb"
+        # - loadRNASeq: call
+        # - txdb: TxDb
 
         # Class checks (order independent)
         requiredMetadata <- list(

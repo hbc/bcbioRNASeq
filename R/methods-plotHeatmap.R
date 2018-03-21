@@ -1,5 +1,3 @@
-# TODO Simplify code to use basejump matrix method
-
 #' Plot Heatmap
 #'
 #' @details
