@@ -1,45 +1,43 @@
 #' Count Matrix Accessors
 #'
 #' By default, [counts()] returns the raw counts. Normalized counts, including
-#' transcripts per million (TPM) can be accessed using the `normalized`
+#' transcripts per million (TPM) can be accessed using the "`normalized`"
 #' argument.
 #'
 #' @name counts
 #' @family Data Functions
-#' @author Michael Steinbaugh
+#' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @importFrom BiocGenerics counts
 #'
 #' @inheritParams general
-#'
-#' @param normalized Select raw counts (`FALSE`), DESeq2 normalized counts
-#'   (`TRUE`), or additional normalization methods:
-#'   - `tpm`: Transcripts per million.
-#'   - `tmm`: Trimmed mean of M-values (edgeR).
-#'   - `rlog`: Regularized log transformation ([DESeq2::rlog()]).
-#'   - `vst`: Variance stabilizing transformation
-#'     ([DESeq2::varianceStabilizingTransformation()]).
+#' @param normalized Logical or character indicating which normalization
+#' method to apply:
+#' - `FALSE`: Raw counts (tximport).
+#' - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
+#' - "`tpm`": Transcripts per million (tximport).
+#' - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+#' - "`rlog`": DESeq2 **log2** regularized log transformation.
+#' - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 #'
 #' @return `matrix`.
 #'
+#' @seealso
+#' - [tpm()].
+#' - [tmm()].
+#' - [DESeq2::counts()].
+#' - [DESeq2::rlog()].
+#' - [DESeq2::varianceStabilizingTransformation()].
+#'
 #' @examples
-#' # Raw counts (from tximport)
 #' counts(bcb_small, normalized = FALSE) %>% summary()
-#'
-#' # TPM (from tximport)
-#' counts(bcb_small, normalized = "tpm") %>% summary()
-#'
-#' # Normalized counts (from DESeq2)
 #' counts(bcb_small, normalized = TRUE) %>% summary()
-#'
-#' # rlog (from DESeq2)
-#' counts(bcb_small, normalized = "rlog") %>% summary()
-#'
-#' # VST (from DESeq2)
-#' counts(bcb_small, normalized = "vst") %>% summary()
-#'
-#' # TMM (from edgeR)
+#' counts(bcb_small, normalized = "tpm") %>% summary()
 #' counts(bcb_small, normalized = "tmm") %>% summary()
+#'
+#' # log2
+#' counts(bcb_small, normalized = "rlog") %>% summary()
+#' counts(bcb_small, normalized = "vst") %>% summary()
 NULL
 
 
@@ -50,10 +48,7 @@ NULL
 setMethod(
     "counts",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = FALSE
-) {
+    function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
 
@@ -82,6 +77,7 @@ setMethod(
                 counts <- assays(object)[[normalized]]
             }
             if (!is.matrix(counts)) {
+                # Support for skipped DESeq2 transforms: log2 TMM
                 warn(paste(
                     normalized, "not present in assays.",
                     "Calculating log2 TMM counts instead."
