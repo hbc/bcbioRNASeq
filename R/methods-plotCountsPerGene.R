@@ -1,5 +1,3 @@
-# FIXME Add the number of non-zero genes to plot
-
 #' Plot Counts Per Gene
 #'
 #' @name plotCountsPerGene
@@ -17,29 +15,47 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
+#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
 #' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
-.plotCountsPerGene.melted <- function(
+.plotCountsPerGene <- function(
     object,
-    interestingGroups = "sampleName",
+    interestingGroups,
+    normalized = c("tmm", "rlog", "vst", "tpm"),
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = NULL,
-    subtitle = NULL,
-    xlab = "counts"
+    title = "counts per gene"
 ) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
+    # Passthrough: fill, flip, title
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
+    normalized <- match.arg(normalized)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
     assertIsAStringOrNULL(title)
-    if (is.null(title)) {
+
+    # Subset the counts matrix to only include non-zero genes
+    nonzero <- .nonzeroGenes(object)
+    counts <- counts(object, normalized = normalized)
+    counts <- counts[nonzero, , drop = FALSE]
+
+    # Apply log2 transformation, if  necessary
+    if (normalized %in% c("rlog", "vst")) {
+        # Already log2
+        fxn <- .meltCounts
+    } else {
+        fxn <- .meltLog2Counts
+    }
+
+    data <- fxn(counts, colData = colData(object)) %>%
+        uniteInterestingGroups(interestingGroups)
+
+    # Subtitle
+    if (is_a_string(title)) {
+        subtitle <- paste(nrow(counts), "non-zero genes")
+    } else {
         subtitle <- NULL
     }
-    assertIsAStringOrNULL(subtitle)
-    assert_is_a_string(xlab)
-
-    data <- uniteInterestingGroups(object, interestingGroups)
 
     p <- ggplot(
         data = data,
@@ -81,42 +97,5 @@ NULL
 setMethod(
     "plotCountsPerGene",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm"),
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = "counts per gene"
-    ) {
-        # Passthrough: fill, flip, title
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        normalized <- match.arg(normalized)
-
-        # Subset the counts matrix to only include non-zero genes
-        nonzero <- .nonzeroGenes(object)
-        counts <- counts(object, normalized = normalized)
-        counts <- counts[nonzero, , drop = FALSE]
-
-        # Apply log2 transformation, if  necessary
-        if (normalized %in% c("rlog", "vst")) {
-            # Already log2
-            fxn <- .meltCounts
-        } else {
-            fxn <- .meltLog2Counts
-        }
-        melted <- fxn(counts, colData = colData(object))
-
-        .plotCountsPerGene.melted(
-            object = melted,
-            interestingGroups = interestingGroups,
-            fill = fill,
-            flip = flip,
-            title = title,
-            subtitle = paste(nrow(counts), "non-zero genes"),
-            xlab = paste(normalized, "counts (log2)")
-        )
-    }
+    .plotCountsPerGene
 )
