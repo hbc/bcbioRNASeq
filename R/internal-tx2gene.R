@@ -19,12 +19,12 @@
 #' @return `data.frame` with unique rownames.
 .tx2gene <- function(
     projectDir,
-    organism,
+    organism = NULL,
     release = NULL,
     genomeBuild = NULL
 ) {
     assert_all_are_dirs(projectDir)
-    assert_is_a_string(organism)
+    assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(release)
     assertIsAStringOrNULL(genomeBuild)
 
@@ -42,7 +42,8 @@
         assert_has_no_duplicates(data[["txID"]])
         rownames(data) <- data[["txID"]]
     } else {
-        # Fall back to querying Ensembl
+        message("Falling back to obtaining mappings from Ensembl")
+        assert_is_a_string(organism)
         data <- tx2gene(
             organism = organism,
             release = release,
