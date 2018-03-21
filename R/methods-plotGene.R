@@ -10,7 +10,6 @@
 #' @importFrom bcbioBase plotGene
 #'
 #' @inheritParams general
-#' @param countsAxisLabel Text label of counts axis.
 #' @param medianLine Include median line for each group. Disabled when samples
 #'   are grouped by `sampleName`.
 #'

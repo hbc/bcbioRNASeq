@@ -56,8 +56,6 @@ the first item in the vector by default.}
 
 \item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
 contain the columns \code{geneID} and \code{geneName}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
 \itemize{
