@@ -1,6 +1,3 @@
-# FIXME Need to fix the `normalized` argument documentation. Doesn't support
-# logicals the way `counts()` does.
-
 #' Plot Correlation Heatmap
 #'
 #' This function calculates a correlation matrix based on gene expression per
@@ -12,6 +9,8 @@
 #' @name plotCorrelationHeatmap
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
+#'
+#' @importFrom basejump plotCorrelationHeatmap
 #'
 #' @inherit basejump::plotCorrelationHeatmap
 #'
