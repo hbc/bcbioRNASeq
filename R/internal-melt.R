@@ -16,7 +16,7 @@
 #'
 #' @seealso [reshape2::melt()].
 #'
-#' @return Melted `tibble` grouped by sampleID.
+#' @return Melted `grouped_df`, grouped by `sampleID`.
 #'
 #' @examples
 #' counts <- counts(bcb_small)
@@ -45,9 +45,6 @@
 
 .meltLog2Counts <- function(object, colData) {
     x <- .meltCounts(object, colData)
-    # Remove zero counts
-    # x <- x[x[["counts"]] > 0L, , drop = FALSE]
-    # log10 transform the counts
     x[["counts"]] <- log2(x[["counts"]] + 1L)
     x
 }
