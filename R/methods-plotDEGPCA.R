@@ -59,10 +59,7 @@ setMethod(
         counts <- counts[genes, , drop = FALSE]
         ntop <- nrow(counts)
 
-        inform(paste(
-            "Plotting PCA using top", ntop, "genes"
-        ))
-
+        inform(paste("Plotting PCA using", ntop, "genes"))
         data <- plotPCA(
             object = counts,
             intgroup = interestingGroups,
