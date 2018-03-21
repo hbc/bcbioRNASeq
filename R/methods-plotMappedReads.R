@@ -4,7 +4,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' plotMappedReads(bcb_small)

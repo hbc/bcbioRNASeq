@@ -6,9 +6,7 @@
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
-#' @inheritParams plotPCA
-#' @inheritParams plotDEGHeatmap
+#' @inherit plotPCA
 #'
 #' @examples
 #' # DESeqResults, DESeqTransform ====

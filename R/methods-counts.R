@@ -12,13 +12,13 @@
 #'
 #' @inheritParams general
 #' @param normalized Logical or character indicating which normalization
-#' method to apply:
-#' - `FALSE`: Raw counts (tximport).
-#' - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
-#' - "`tpm`": Transcripts per million (tximport).
-#' - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#' - "`rlog`": DESeq2 **log2** regularized log transformation.
-#' - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'   method to apply:
+#'   - `FALSE`: Raw counts (tximport).
+#'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
+#'   - "`tpm`": Transcripts per million (tximport).
+#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
+#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 #'
 #' @return `matrix`.
 #'

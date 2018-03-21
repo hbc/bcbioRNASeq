@@ -6,8 +6,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotCountDensity
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' plotCountsPerGene(bcb_small)

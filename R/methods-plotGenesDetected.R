@@ -4,8 +4,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotGeneSaturation
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' # Minimal example with fewer genes, so disable limits

@@ -16,9 +16,6 @@
 #' @inherit basejump::plotHeatmap
 #'
 #' @inheritParams general
-#' @inheritParams counts
-#' @inheritParams plotGene
-#' @param samples *Optional.* Character vector of samples to plot.
 #'
 #' @examples
 #' # bcbioRNASeq ====

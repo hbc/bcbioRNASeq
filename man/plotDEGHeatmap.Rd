@@ -19,10 +19,6 @@ plotDEGHeatmap(object, ...)
 
 \item{counts}{Object containing a normalized counts matrix.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
-\code{geneName}.}
-
 \item{title}{\emph{Optional.} Plot title.}
 }
 \value{

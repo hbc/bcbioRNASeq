@@ -6,12 +6,20 @@
 \arguments{
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
-\item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
+to \code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{headerLevel}{R Markdown header level.}
 
@@ -22,6 +30,14 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff.}
 
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
+
 \item{object}{Object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
@@ -29,7 +45,11 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{title}{Title.}
+\item{samples}{Character vector of samples to include.}
+
+\item{subtitle}{Subtitle of plot.}
+
+\item{title}{Title of plot.}
 
 \item{value}{Value to assign.}
 

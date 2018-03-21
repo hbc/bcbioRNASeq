@@ -8,9 +8,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @inheritParams plotGene
-#' @inheritParams plotTotalReads
-#'
 #' @param organism *Optional.* Organism name. Should be detected automatically,
 #'   unless a spike-in FASTA sequence is provided containing a gene identifier
 #'   that is first alphabetically in the count matrix rownames.

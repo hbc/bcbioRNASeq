@@ -13,13 +13,9 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
-symbols.}
-
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
-\code{geneName}.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{pointColor}{Default point color for the plot.}
 
@@ -28,7 +24,7 @@ have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
-\item{title}{Title.}
+\item{title}{Title of plot.}
 }
 \value{
 \code{ggplot}.

@@ -14,36 +14,34 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Logical or character indicating which normalization
-method to apply:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{genes}{\emph{Optional.} Character vector of gene identifiers to use.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{censorSamples}{\emph{Optional.} Samples to exclude from the PCA plot.
-Supply them as a character vector. These should match \code{colnames(object)}.}
+\item{censorSamples}{Character vector of samples to exclude.}
 
-\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
-appearance. If missing, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
+\item{label}{Superimpose sample text labels on the plot.}
 
-\item{title}{Plot title.}
+\item{title}{Title of plot.}
 
-\item{return}{Return \code{ggplot} or \code{data.frame}.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 
 \item{...}{Additional arguments.}
 }

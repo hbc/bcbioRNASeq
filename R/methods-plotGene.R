@@ -10,9 +10,6 @@
 #' @importFrom bcbioBase plotGene
 #'
 #' @inheritParams general
-#' @param genes Gene identifiers (rownames) to plot. These must be the stable
-#'   identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
-#'   symbols.
 #' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
 #'   `data.frame` can be passed in, and must contain the columns `geneID` and
 #'   `geneName`.
@@ -22,10 +19,6 @@
 #' @param countsAxisLabel Text label of counts axis.
 #' @param medianLine Include median line for each group. Disabled when samples
 #'   are grouped by `sampleName`.
-#' @param color Desired ggplot color scale. Defaults to
-#'   [scale_color_viridis()]. Must supply discrete values. When set to
-#'   `NULL`, the default ggplot2 color palette will be used. If manual color
-#'   definitions are desired, we recommend using [scale_color_manual()].
 #'
 #' @return
 #' - "`grid`": Show [cowplot::plot_grid()], paneled per gene.

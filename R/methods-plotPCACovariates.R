@@ -7,7 +7,6 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @inheritParams plotPCA
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.

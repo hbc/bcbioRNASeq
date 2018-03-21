@@ -16,9 +16,6 @@
 #' @inherit basejump::plotCorrelationHeatmap
 #'
 #' @inheritParams general
-#' @inheritParams counts
-#' @param genes *Optional.* Character vector of genes to include.
-#' @param samples *Optional.* Character vector of samples to include.
 #'
 #' @examples
 #' # Pearson correlation

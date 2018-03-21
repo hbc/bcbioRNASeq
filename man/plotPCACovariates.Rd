@@ -21,11 +21,8 @@ plotPCACovariates(object, ...)
 include all metrics columns (\code{TRUE}), but desired columns can be specified
 here as a character vector.}
 
-\item{normalized}{Logical or character indicating which normalization
-method to apply:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.

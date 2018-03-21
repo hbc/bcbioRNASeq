@@ -6,12 +6,10 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotGene
-#'
-#' @param normalized Count normalization method. See [counts()] documentation
-#'   for more information.
+#' @inheritParams general
 #' @param style Desired plot style (`line` or `solid`).
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' plotCountDensity(bcb_small)

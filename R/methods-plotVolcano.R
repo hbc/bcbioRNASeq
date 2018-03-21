@@ -7,9 +7,8 @@
 #' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams general
 #' @inheritParams plotHeatmap
-#'
+#' @inheritParams general
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param ntop Number of top genes to label.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.

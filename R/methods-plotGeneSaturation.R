@@ -4,13 +4,12 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotCountDensity
-#' @inheritParams plotGene
-#'
+#' @inheritParams general
 #' @param minCounts Numeric value for filtering the counts matrix before
 #'   plotting.
 #' @param trendline Include a trendline for each group.
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' # Minimal exampe distorts the y-axis

@@ -28,10 +28,6 @@ selection. Typically this can be left \code{NULL}.}
 sample information. Otherwise defaults to sample metadata saved in the YAML
 file. Remote URLs are supported. Typically this can be left \code{NULL}.}
 
-\item{interestingGroups}{Character vector of interesting groups. First entry
-is used for plot colors during quality control (QC) analysis. Entire vector
-is used for PCA and heatmap QC functions.}
-
 \item{organism}{Organism name. Use the full latin name (e.g.
 "Homo sapiens"), since this will be input downstream to
 AnnotationHub and ensembldb, unless \code{gffFile} is set.}

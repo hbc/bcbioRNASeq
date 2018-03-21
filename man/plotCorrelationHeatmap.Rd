@@ -14,11 +14,8 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Logical or character indicating which normalization
-method to apply:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
@@ -29,9 +26,11 @@ method to apply:
 Defaults to "\code{pearson}" but "\code{spearman}" can also be used. Consult the
 \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
 
-\item{genes}{\emph{Optional.} Character vector of genes to include.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{samples}{\emph{Optional.} Character vector of samples to include.}
+\item{samples}{Character vector of samples to include.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}

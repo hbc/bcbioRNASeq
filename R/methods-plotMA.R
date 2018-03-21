@@ -4,11 +4,9 @@
 #' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
-#' @inheritParams general
-#' @inheritParams plotHeatmap
-#'
 #' @importFrom BiocGenerics plotMA
 #'
+#' @inheritParams general
 #' @param pointColor Default point color for the plot.
 #' @param sigPointColor Color for points corresponding to significant genes that
 #'   have passed alpha level cutoffs.

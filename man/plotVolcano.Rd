@@ -18,7 +18,7 @@ plotVolcano(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
@@ -26,13 +26,9 @@ plotVolcano(object, ...)
 
 \item{lfc}{Log fold change ratio (base 2) cutoff.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
-symbols.}
-
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
-\code{geneName}.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{ntop}{Number of top genes to label.}
 

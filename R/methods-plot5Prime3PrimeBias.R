@@ -4,7 +4,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotTotalReads
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' plot5Prime3PrimeBias(bcb_small)

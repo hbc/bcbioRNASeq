@@ -34,8 +34,6 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{colData}{Sample metadata \code{data.frame}.}
-
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
@@ -43,20 +41,20 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 unless a spike-in FASTA sequence is provided containing a gene identifier
 that is first alphabetically in the count matrix rownames.}
 
-\item{countsAxisLabel}{Text label of counts axis.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{medianLine}{Include median line for each group. Disabled when samples
-are grouped by \code{sampleName}.}
+\item{title}{Title of plot.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
-
-\item{title}{Title.}
-
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 }
 \value{
 \code{ggplot}.

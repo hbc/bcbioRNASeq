@@ -10,17 +10,8 @@
 #' @importFrom BiocGenerics plotPCA
 #'
 #' @inheritParams general
-#' @inheritParams counts
-#' @inheritParams plotGene
-#' @param interestingGroups *Optional.* Interesting groups to use for point
-#'   appearance. If missing, color defaults to all `interestingGroups`
-#'   parameters set in the [bcbioRNASeq] object.
-#' @param genes *Optional.* Character vector of gene identifiers to use.
-#' @param censorSamples *Optional.* Samples to exclude from the PCA plot.
-#'   Supply them as a character vector. These should match `colnames(object)`.
-#' @param label *Optional.* Superimpose sample text labels on the plot.
-#' @param title Plot title.
-#' @param return Return `ggplot` or `data.frame`.
+#' @param censorSamples Character vector of samples to exclude.
+#' @param label Superimpose sample text labels on the plot.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].

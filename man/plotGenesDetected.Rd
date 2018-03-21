@@ -26,17 +26,13 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
-\item{minCounts}{Numeric value for filtering the counts matrix before
-plotting.}
-
-\item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+\item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
+to \code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 
-\item{title}{Title.}
+\item{title}{Title of plot.}
 }
 \value{
 \code{ggplot}.

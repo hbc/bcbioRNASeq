@@ -31,9 +31,9 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
-symbols.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
 \code{data.frame} can be passed in, and must contain the columns \code{geneID} and
@@ -49,10 +49,10 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{medianLine}{Include median line for each group. Disabled when samples
 are grouped by \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{headerLevel}{R Markdown header level.}
 

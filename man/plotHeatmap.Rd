@@ -24,22 +24,19 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Logical or character indicating which normalization
-method to apply:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{samples}{\emph{Optional.} Character vector of samples to plot.}
+\item{samples}{Character vector of samples to include.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
-symbols.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{scale}{Character indicating if the values should be centered and scaled
 in either the row direction or the column direction, or none. Corresponding
@@ -54,10 +51,6 @@ palette.}
 \item{title}{\emph{Optional.} Plot title.}
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
-
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
-\code{geneName}.}
 
 \item{annotationCol}{\emph{Optional.} \code{data.frame} that defines annotation
 mappings for the columns.}
