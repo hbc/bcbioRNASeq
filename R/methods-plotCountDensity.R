@@ -41,47 +41,13 @@ NULL
     assertIsColorScaleDiscreteOrNULL(color)
     assertIsFillScaleDiscreteOrNULL(fill)
     assertIsAStringOrNULL(title)
-    if (is.null(title)) {
-        subtitle <- NULL
-    }
+
     assertIsAStringOrNULL(subtitle)
     assert_is_a_string(xlab)
 
     data <- uniteInterestingGroups(object, interestingGroups)
 
-    p <- ggplot(
-        data = data,
-        mapping = aes_string(
-            x = "counts",
-            group = "interestingGroups",
-            color = "interestingGroups",
-            fill = "interestingGroups"
-        )
-    ) +
-        labs(
-            title = title,
-            subtitle = subtitle,
-            x = xlab,
-            fill = paste(interestingGroups, collapse = ":\n")
-        )
 
-    if (style == "line") {
-        p <- p + geom_density(fill = NA)
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
-    } else if (style == "solid") {
-        p <- p + geom_density(alpha = 0.75, color = NA)
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
-    }
-
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(fill = FALSE)
-    }
-
-    p
 }
 
 
@@ -107,6 +73,7 @@ setMethod(
         }
         normalized <- match.arg(normalized)
         style <- match.arg(style)
+        styleLab <- paste(interestingGroups, collapse = ":\n")
 
         # Subset the counts matrix to only include non-zero genes
         nonzero <- .nonzeroGenes(object)
@@ -120,17 +87,50 @@ setMethod(
         } else {
             fxn <- .meltLog2Counts
         }
-        melted <- fxn(counts, colData = colData(object))
 
-        .plotCountDensity.melted(
-            object = melted,
-            interestingGroups = interestingGroups,
-            style = style,
-            color = color,
-            fill = fill,
-            title = title,
-            subtitle = paste(nrow(counts), "non-zero genes"),
-            xlab = paste(normalized, "counts (log2)")
-        )
+        # Melt the counts into long format
+        data <- fxn(counts, colData = colData(object)) %>%
+            uniteInterestingGroups(interestingGroups)
+
+        if (is_a_string(title)) {
+            subtitle <- paste(nrow(counts), "non-zero genes")
+        } else {
+            subtitle <- NULL
+        }
+
+        p <- ggplot(
+            data = data,
+            mapping = aes_string(
+                x = "counts",
+                group = "interestingGroups",
+                color = "interestingGroups",
+                fill = "interestingGroups"
+            )
+        ) +
+            labs(
+                title = title,
+                subtitle = subtitle,
+                x = paste(normalized, "counts (log2)"),
+                color = styleLab,
+                fill = styleLab
+            )
+
+        if (style == "line") {
+            p <- p + geom_density(fill = NA)
+            if (is(color, "ScaleDiscrete")) {
+                p <- p + color
+            }
+        } else if (style == "solid") {
+            p <- p + geom_density(alpha = 0.75, color = NA)
+            if (is(fill, "ScaleDiscrete")) {
+                p <- p + fill
+            }
+        }
+
+        if (identical(interestingGroups, "sampleName")) {
+            p <- p + guides(fill = FALSE)
+        }
+
+        p
     }
 )
