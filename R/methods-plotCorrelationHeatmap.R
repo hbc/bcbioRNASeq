@@ -96,7 +96,9 @@ setMethod(
             x = colnames(object),
             y = as.character(colData[["sampleName"]])
         )) {
-            rownames(colData) <- colData[["sampleName"]]
+            rownames(colData) <- colData[["sampleName"]] %>%
+                as.character() %>%
+                make.names(unique = TRUE)
             colnames(counts) <- rownames(colData)
         }
 
@@ -104,15 +106,13 @@ setMethod(
         if (identical(interestingGroups, "sampleName")) {
             annotationCol <- NULL
         } else {
-            annotationCol <- colData(object) %>%
-                .[, interestingGroups, drop = FALSE] %>%
-                as.data.frame()
+            annotationCol <- colData[, interestingGroups, drop = FALSE]
         }
 
         plotCorrelationHeatmap(
             object = counts,
             method = method,
-            annotationCol = annotationCol,
+            annotationCol = as.data.frame(annotationCol),
             color = color,
             legendColor = legendColor,
             title = title,
