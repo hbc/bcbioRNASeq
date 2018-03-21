@@ -68,7 +68,11 @@ setMethod(
 
         # Title
         if (isTRUE(title)) {
-            title <- paste(normalized, method, "correlation")
+            title <- paste(
+                normalized,
+                paste(method, "correlation"),
+                sep = " : "
+            )
         }
 
         # Subset the counts matrix
@@ -81,6 +85,16 @@ setMethod(
             if (is.data.frame(annotationCol)) {
                 annotationCol <- annotationCol[samples, , drop = FALSE]
             }
+        }
+
+        # Rename the matrix columns to `sampleName`, if necessary
+        colData <- colData(object)
+        if (!identical(
+            x = colnames(object),
+            y = as.character(colData[["sampleName"]])
+        )) {
+            rownames(colData) <- colData[["sampleName"]]
+            colnames(counts) <- rownames(colData)
         }
 
         # Don't set annotation columns if we're only grouping by sample name
