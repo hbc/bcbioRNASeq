@@ -13,6 +13,9 @@
 #' @return `kable`.
 #'
 #' @examples
+#' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+#'
+#' # DESeqResults to list ====
 #' resTbl <- resultsTables(
 #'     object = res_small,
 #'     rowData = rowData(bcb_small),

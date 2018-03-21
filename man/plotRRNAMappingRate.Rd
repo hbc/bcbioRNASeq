@@ -38,6 +38,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Ribosomal RNA (rRNA) Mapping Rate
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotRRNAMappingRate(bcb_small)
 }
 \seealso{

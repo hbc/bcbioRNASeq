@@ -12,6 +12,8 @@ Object of new class.
 Coerce Object
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
 # DESeqDataSet ====
 dds <- as(bcb_small, "DESeqDataSet")
 show(dds)

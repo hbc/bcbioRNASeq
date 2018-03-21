@@ -36,6 +36,7 @@ here as a character vector.}
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNASeq} object.
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotPCACovariates(
     object = bcb_small,
     metrics = c("exonicRate", "intronicRate")

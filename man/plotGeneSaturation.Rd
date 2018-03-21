@@ -47,6 +47,8 @@ color definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
 # Minimal exampe distorts the y-axis
 plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
 }

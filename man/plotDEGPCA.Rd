@@ -45,6 +45,10 @@ the first item in the vector by default.}
 Plot DEG PCA
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
+
 # DESeqResults, DESeqTransform ====
 plotDEGPCA(
     object = res_small,

@@ -43,6 +43,8 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Genes Detected
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
 # Minimal example with fewer genes, so disable limits
 plotGenesDetected(bcb_small, passLimit = 0L, warnLimit = 0L)
 }

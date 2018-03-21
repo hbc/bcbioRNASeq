@@ -1,5 +1,3 @@
-# FIXME Add the number of non-zero genes to plot
-
 #' Plot Count Density
 #'
 #' @name plotCountDensity
@@ -12,6 +10,9 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq ====
 #' plotCountDensity(bcb_small)
 #' plotCountDensity(
 #'     object = bcb_small,

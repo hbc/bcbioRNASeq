@@ -19,6 +19,8 @@
 #' @return `ggplot` or `data.frame`.
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#'
 #' # bcbioRNASeq ====
 #' plotPCA(bcb_small, label = FALSE)
 #' plotPCA(bcb_small, label = TRUE)

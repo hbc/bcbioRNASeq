@@ -50,6 +50,9 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Count Density
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
+# bcbioRNASeq ====
 plotCountDensity(bcb_small)
 plotCountDensity(
     object = bcb_small,

@@ -37,6 +37,7 @@ objects from versions <= 0.0.20. We changed the name of the package to
 }
 
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 updateObject(bcb_small)
 }
 \author{

@@ -17,6 +17,8 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#'
 #' # Minimum of 100 genes, 2 samples
 #' genes <- head(rownames(bcb_small), 100L)
 #' head(genes)

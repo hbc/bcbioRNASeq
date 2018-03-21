@@ -15,6 +15,8 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+#'
 #' # DESeqResults ====
 #' plotMA(res_small)
 #' plotMA(

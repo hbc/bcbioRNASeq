@@ -59,6 +59,8 @@ individual \code{ggplot} (\code{grid = FALSE}).
 Plot Volcano
 }
 \examples{
+load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+
 # DESeqResults ====
 plotVolcano(
     object = res_small,

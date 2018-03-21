@@ -4,7 +4,6 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers,matrix-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,DESeqTransform-method}
@@ -12,14 +11,9 @@
 \usage{
 plotGenderMarkers(object, ...)
 
-\S4method{plotGenderMarkers}{matrix}(object, colData,
-  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  title = TRUE)
-
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "rlog", color = scale_color_viridis(discrete = TRUE),
-  title = TRUE)
+  normalized = c("rlog", "vst", "tpm"), color = scale_color_viridis(discrete
+  = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
@@ -34,28 +28,8 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{colData}{\code{data.frame} describing the columns of the object. Must
-contain \code{rownames} identical to the \code{colnames} of the object.}
-
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{organism}{Organism name. Typically can be left unset and should be
-detected automatically, unless a spike-in FASTA sequence is provided
-containing a gene identifier that is first alphabetically in the count
-matrix rownames.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
-
-\item{medianLine}{Include median line for each group. Disabled when samples
-are grouped by \code{sampleName}.}
-
-\item{color}{Desired ggplot color scale. Must supply discrete values. When
-set to \code{NULL}, the default ggplot2 color palette will be used. If manual
-color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
-
-\item{title}{Title of plot.}
 
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{
@@ -64,6 +38,18 @@ color definitions are desired, we recommend using
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
+
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{title}{Title of plot.}
+
+\item{organism}{Organism name. Typically can be left unset and should be
+detected automatically, unless a spike-in FASTA sequence is provided
+containing a gene identifier that is first alphabetically in the count
+matrix rownames.}
 }
 \value{
 \code{ggplot}.
@@ -72,6 +58,10 @@ color definitions are desired, we recommend using
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
+
 # bcbioRNASeq ====
 plotGenderMarkers(bcb_small)
 

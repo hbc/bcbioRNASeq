@@ -77,6 +77,8 @@ DESeq2 transformations can be disabled on large subset operations by setting
 \code{transform = FALSE}.
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
 # Minimum of 100 genes, 2 samples
 genes <- head(rownames(bcb_small), 100L)
 head(genes)

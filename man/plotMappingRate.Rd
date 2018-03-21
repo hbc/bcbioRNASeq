@@ -40,6 +40,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Mapping Rate
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotMappingRate(bcb_small)
 }
 \seealso{

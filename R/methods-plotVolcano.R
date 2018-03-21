@@ -27,6 +27,8 @@
 #'   individual `ggplot` (`grid = FALSE`).
 #'
 #' @examples
+#' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+#'
 #' # DESeqResults ====
 #' plotVolcano(
 #'     object = res_small,

@@ -3,20 +3,15 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene,matrix-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
-  interestingGroups = "sampleName", countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  headerLevel = 2L, return = c("grid", "wide", "list", "markdown"))
-
-\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
-  interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
-  = TRUE), headerLevel = 2L, return = c("grid", "wide", "list", "markdown"))
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("rlog", "vst",
+  "tpm"), interestingGroups, medianLine = TRUE,
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", medianLine = TRUE,
@@ -35,16 +30,16 @@
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
-contain the columns \code{geneID} and \code{geneName}.}
-
-\item{colData}{\code{data.frame} describing the columns of the object. Must
-contain \code{rownames} identical to the \code{colnames} of the object.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
 
 \item{medianLine}{Include median line for each group. Disabled when samples
 are grouped by \code{sampleName}.}
@@ -59,13 +54,10 @@ color definitions are desired, we recommend using
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{normalized}{Character indicating which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
 }
 \value{
 \itemize{
@@ -79,6 +71,10 @@ the first item in the vector by default.}
 Plot Individual Genes
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
+load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
+
 # Gene identifiers
 genes <- head(rownames(bcb_small), 8L)
 

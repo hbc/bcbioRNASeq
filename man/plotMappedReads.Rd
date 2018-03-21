@@ -40,6 +40,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Mapped Reads
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotMappedReads(bcb_small)
 }
 \seealso{

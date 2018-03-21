@@ -9,7 +9,7 @@
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }
 \arguments{
-\item{object}{\link{bcbioRNASeq}.}
+\item{object}{Object.}
 
 \item{...}{Passthrough arguments to \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.}
 }
@@ -18,12 +18,14 @@
 }
 \description{
 Method support for plotting the dispersion of counts stored in a
-\link{bcbioRNASeq} object. Here we're using the internally stored \link{DESeqDataSet},
-which already has method support for plotting dispersion, provided by
+\code{bcbioRNASeq} object. Here we're generating a \code{DESeqDataSet} object on the
+fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-# bcbioRNASeq
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+
+# bcbioRNASeq ====
 plotDispEsts(bcb_small)
 
 # Custom colors, using DESeq2 parameters

@@ -17,6 +17,9 @@
 #' @inheritParams general
 #'
 #' @examples
+#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
+#'
+#' # bcbioRNASeq ====
 #' # Pearson correlation
 #' plotCorrelationHeatmap(bcb_small, method = "pearson")
 #'

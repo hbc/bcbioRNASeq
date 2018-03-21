@@ -23,6 +23,8 @@ Contrast name \code{string}.
 Contrast Name
 }
 \examples{
+load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+
 # DESeqResults ====
 contrastName(res_small)
 }

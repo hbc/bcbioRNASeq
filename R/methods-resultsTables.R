@@ -27,6 +27,8 @@
 #' @return Results `list`.
 #'
 #' @examples
+#' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
+#'
 #' # DESeqResults ====
 #' resTbl <- resultsTables(
 #'     object = res_small,
