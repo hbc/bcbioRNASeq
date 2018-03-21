@@ -32,4 +32,7 @@ res_small <- lfcShrink(
 )
 validObject(res_small)
 
-use_data(dds_small, rld_small, res_small, overwrite = TRUE, compress = "xz")
+saveData(
+    dds_small, rld_small, res_small,
+    dir = "inst/extdata", overwrite = TRUE, compress = "xz"
+)

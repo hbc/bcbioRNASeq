@@ -83,4 +83,4 @@ lapply(metadata(bcb_small), pryr::object_size)
 lapply(assays(bcb_small), object.size)
 lapply(metadata(bcb_small), object.size)
 
-use_data(bcb_small, overwrite = TRUE, compress = "xz")
+saveData(bcb_small, dir = "inst/extdata", overwrite = TRUE, compress = "xz")
