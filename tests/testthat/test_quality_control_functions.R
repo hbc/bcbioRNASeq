@@ -135,18 +135,3 @@ test_that("plotDispEsts", {
         c("rect", "text")
     )
 })
-
-
-
-# plotRRNAMappingRate ==========================================================
-test_that("plotRRNAMappingRate : Legacy `rRnaRate` column", {
-    bcb <- bcb_small
-    data <- metadata(bcb)[["metrics"]]
-    data[["rRnaRate"]] <- data[["rrnaRate"]]
-    data[["rrnaRate"]] <- NULL
-    metadata(bcb)[["metrics"]] <- data
-    expect_warning(
-        plotRRNAMappingRate(bcb),
-        "`rrnaRate` is missing from `metrics\\(\\)`"
-    )
-})
