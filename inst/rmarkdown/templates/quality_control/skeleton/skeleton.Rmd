@@ -140,19 +140,19 @@ plot5Prime3PrimeBias(bcb)
 
 ## Counts per gene
 
-Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log2 regularized log ("rlog") normalization method [@DESeq2] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the rlog-normalized counts per gene to be similar for every sample.
+Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-plotCountsPerGene(bcb, normalized = "rlog")
+plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
 
 ## Count density
 
-Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different. Note that here again we are using the rlog normalized counts.
+Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
 ```{r plot_count_density}
-plotCountDensity(bcb, normalized = "rlog", style = "line")
+plotCountDensity(bcb, normalized = "tmm", style = "line")
 ```
 
 
@@ -215,7 +215,7 @@ plotPCACovariates(bcb)
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-plotCorrelationHeatmap(bcb)
+plotCorrelationHeatmap(bcb, method = "pearson")
 ```
 
 
