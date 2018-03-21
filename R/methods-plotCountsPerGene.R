@@ -70,7 +70,7 @@ NULL
             title = title,
             subtitle = subtitle,
             x = "sample",
-            y = xlab,
+            y = paste(normalized, "counts (log2)"),
             fill = paste(interestingGroups, collapse = ":\n")
         )
 
