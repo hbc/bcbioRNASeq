@@ -1,3 +1,6 @@
+# FIXME Simplify the method here
+# TODO Improve y-axis breaks from 1-10
+
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -24,7 +27,7 @@
 #'   `CHBUtils::volcano_density_plot()`.
 #'
 #' @return Volcano plot arranged as grid (`grid = TRUE`), or [show()]
-#'   individual [ggplot] (`grid = FALSE`).
+#'   individual `ggplot` (`grid = FALSE`).
 #'
 #' @examples
 #' # DESeqResults ====
@@ -50,13 +53,13 @@ NULL
 #' @importFrom tibble as_tibble rownames_to_column
 .plotVolcano <- function(
     object,
-    alpha = 0.01,
+    alpha,
     padj = TRUE,
     lfc = 0L,
     genes = NULL,
     gene2symbol = NULL,
     ntop = 0L,
-    direction = "both",
+    direction = c("both", "up", "down"),
     pointColor = "gray",
     pointAlpha = 0.75,
     pointOutlineColor = "darkgray",
@@ -65,31 +68,31 @@ NULL
     labelColor = "black",
     histograms = TRUE
 ) {
-    assert_is_data.frame(object)
+    if (missing(alpha)) {
+        alpha <- metadata(object)[["alpha"]]
+    }
     assert_is_a_number(alpha)
     assert_is_a_bool(padj)
     assert_is_a_number(lfc)
-    assert_all_are_non_negative(lfc)
     assertFormalGene2symbol(object, genes, gene2symbol)
     assertIsImplicitInteger(ntop)
-    assert_all_are_non_negative(ntop)
-    assert_is_a_string(direction)
-    assert_is_subset(direction, c("both", "up", "down"))
+    direction <- match.arg(direction)
     assert_is_a_string(pointColor)
     assert_is_a_number(pointAlpha)
     assert_is_a_string(pointOutlineColor)
     assert_is_a_string(shadeColor)
     assert_is_a_number(shadeAlpha)
+    assert_all_are_non_negative(c(lfc, ntop))
     assert_all_are_in_left_open_range(
-        x = c(pointAlpha, shadeAlpha),
-        lower = 0L,
-        upper = 1L
+        x = c(alpha, pointAlpha, shadeAlpha),
+        lower = 0L, upper = 1L
     )
     assert_is_a_string(labelColor)
     assert_is_a_bool(histograms)
 
     # Generate data `tibble`
     data <- object %>%
+        as.data.frame() %>%
         rownames_to_column("geneID") %>%
         as_tibble() %>%
         camel(strict = FALSE) %>%
@@ -353,42 +356,5 @@ NULL
 setMethod(
     "plotVolcano",
     signature("DESeqResults"),
-    function(
-        object,
-        alpha,
-        padj = TRUE,
-        lfc = 0L,
-        genes = NULL,
-        gene2symbol = NULL,
-        ntop = 0L,
-        direction = "both",
-        shadeColor = "green",
-        shadeAlpha = 0.25,
-        pointColor = "gray",
-        pointAlpha = 0.75,
-        pointOutlineColor = "darkgray",
-        labelColor = "black",
-        histograms = TRUE
-    ) {
-        if (missing(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
-        .plotVolcano(
-            object = as.data.frame(object),
-            alpha = alpha,
-            padj = padj,
-            lfc = lfc,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            ntop = ntop,
-            direction = direction,
-            pointColor = pointColor,
-            pointAlpha = pointAlpha,
-            pointOutlineColor = pointOutlineColor,
-            shadeColor = shadeColor,
-            shadeAlpha = shadeAlpha,
-            labelColor = labelColor,
-            histograms = histograms
-        )
-    }
+    .plotVolcano
 )
