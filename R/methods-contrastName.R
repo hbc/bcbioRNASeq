@@ -25,7 +25,7 @@ setMethod(
     signature("DESeqResults"),
     function(object) {
         validObject(object)
-        contrast <- mcols(object)[2L, 2L]
+        contrast <- mcols(object)[2L, "description"]
         assert_is_character(contrast)
         contrast %>%
             gsub("^.*:\\s", "", .) %>%
