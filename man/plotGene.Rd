@@ -12,21 +12,21 @@
 \S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
   interestingGroups = "sampleName", countsAxisLabel = "counts",
   medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2L)
+  headerLevel = 2L, return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
   interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
-  = TRUE), return = "grid", headerLevel = 2L)
+  = TRUE), headerLevel = 2L, return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2L)
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2L)
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 }
 \arguments{
 \item{object}{Object.}
@@ -54,20 +54,20 @@ are grouped by \code{sampleName}.}
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
 
-\item{return}{Desired return type: "\code{grid}", "\code{wide}", "\code{list}", or
-"\code{markdown}".}
+\item{headerLevel}{R Markdown header level.}
 
-\item{headerLevel}{R Markdown header level. Only applies when
-\code{return = "markdown"}.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 
 \item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
 \code{rlog}, or \code{vst}.}
 }
 \value{
 \itemize{
-\item \code{grid}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{list}: Plot \code{list}, containing per gene \code{ggplot} objects.
-\item \code{markdown}: Tabset R Markdown output, tabbed per gene.
+\item "\code{grid}": Show \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}, paneled per gene.
+\item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
+\item "\code{list}": \code{list}, containing per gene \code{ggplot} objects.
+\item "\code{markdown}": Show tabset R Markdown output, tabbed per gene.
 }
 }
 \description{

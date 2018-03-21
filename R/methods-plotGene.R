@@ -9,8 +9,7 @@
 #'
 #' @importFrom bcbioBase plotGene
 #'
-#' @inherit plotTotalReads
-#'
+#' @inheritParams general
 #' @param genes Gene identifiers (rownames) to plot. These must be the stable
 #'   identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
 #'   symbols.
@@ -27,15 +26,12 @@
 #'   [scale_color_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [scale_color_manual()].
-#' @param return Desired return type: "`grid`", "`wide`", "`list`", or
-#'   "`markdown`".
-#' @param headerLevel R Markdown header level. Only applies when
-#'   `return = "markdown"`.
 #'
 #' @return
-#' - `grid`: [cowplot::plot_grid()] graphical output.
-#' - `list`: Plot `list`, containing per gene `ggplot` objects.
-#' - `markdown`: Tabset R Markdown output, tabbed per gene.
+#' - "`grid`": Show [cowplot::plot_grid()], paneled per gene.
+#' - "`wide`": Show `ggplot` in wide format, with genes on the x-axis.
+#' - "`list`": `list`, containing per gene `ggplot` objects.
+#' - "`markdown`": Show tabset R Markdown output, tabbed per gene.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -69,8 +65,8 @@ NULL
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
-    return = "grid",
-    headerLevel = 2L
+    headerLevel = 2L,
+    return = c("grid", "wide", "list", "markdown")
 ) {
     assert_is_matrix(object)
     assert_has_dimnames(object)
@@ -83,9 +79,8 @@ NULL
     assert_is_a_string(countsAxisLabel)
     assert_is_a_bool(medianLine)
     assertIsColorScaleDiscreteOrNULL(color)
-    assert_is_a_string(return)
-    assert_is_subset(return, c("grid", "list", "markdown", "wide"))
     assertIsAHeaderLevel(headerLevel)
+    return <- match.arg(return)
 
     # Add `interestingGroups` column to colData
     colData <- uniteInterestingGroups(colData, interestingGroups)
@@ -316,8 +311,8 @@ setMethod(
         interestingGroups,
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L
+        headerLevel = 2L,
+        return = c("grid", "wide", "list", "markdown")
     ) {
         assert_is_a_string(normalized)
         if (missing(interestingGroups)) {
@@ -356,8 +351,8 @@ setMethod(
         interestingGroups = "sampleName",
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L
+        headerLevel = 2L,
+        return = c("grid", "wide", "list", "markdown")
     ) {
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
@@ -390,8 +385,8 @@ setMethod(
         interestingGroups = "sampleName",
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
-        return = "grid",
-        headerLevel = 2L
+        headerLevel = 2L,
+        return = c("grid", "wide", "list", "markdown")
     ) {
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             normalized <- "rlog"
