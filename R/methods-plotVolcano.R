@@ -315,7 +315,8 @@ NULL
                 data = volcanoPolyDown,
                 mapping = aes_string(
                     x = "x",
-                    y = "y"),
+                    y = "y"
+                ),
                 fill = shadeColor,
                 alpha = shadeAlpha
             )
@@ -326,13 +327,20 @@ NULL
         ggdraw() +
             # Coordinates are relative to lower left corner
             draw_plot(
-                lfcHist,
-                x = 0L, y = 0.7, width = 0.5, height = 0.3) +
+                plot = lfcHist,
+                x = 0L, y = 0.7,
+                width = 0.5, height = 0.3
+            ) +
             draw_plot(
-                pvalueHist,
-                x = 0.5, y = 0.7, width = 0.5, height = 0.3) +
+                plot = pvalueHist,
+                x = 0.5, y = 0.7,
+                width = 0.5, height = 0.3
+            ) +
             draw_plot(
-                volcano, x = 0L, y = 0L, width = 1L, height = 0.7)
+                plot = volcano,
+                x = 0L, y = 0L,
+                width = 1L, height = 0.7
+            )
     } else {
         volcano + ggtitle("volcano")
     }
