@@ -1,6 +1,6 @@
 #' Differential Expression Results Tables
 #'
-#' @note Log fold change cutoff ("`lfc"`) does not apply to statistical
+#' @note Log fold change cutoff ("`lfc`") does not apply to statistical
 #'   hypothesis testing, only gene filtering in the results tables. See
 #'   [DESeq2::results()] for additional information about using `lfcThreshold`
 #'   and `altHypothesis` to set an alternative hypothesis based on expected fold
