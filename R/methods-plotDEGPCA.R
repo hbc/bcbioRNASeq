@@ -57,11 +57,16 @@ setMethod(
 
         # Subset the matrix
         counts <- counts[genes, , drop = FALSE]
+        ntop <- nrow(counts)
+
+        inform(paste(
+            "Plotting PCA using top", ntop, "genes"
+        ))
 
         data <- plotPCA(
             object = counts,
             intgroup = interestingGroups,
-            ntop = nrow(counts),
+            ntop = ntop,
             returnData = TRUE
         ) %>%
             camel()
