@@ -46,7 +46,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump convertGenesToSymbols plotHeatmap
-.plotHeatmap <- function(  # nolint
+.plotHeatmap.matrix <- function(  # nolint
     object,
     samples = NULL,
     genes = NULL,
@@ -119,7 +119,7 @@ setMethod(
         annotationCol <- colData(object) %>%
             .[colnames(counts), interestingGroups(object), drop = FALSE] %>%
             as.data.frame()
-        .plotHeatmap(
+        .plotHeatmap.matrix(
             object = counts,
             samples = samples,
             genes = genes,
@@ -155,7 +155,7 @@ setMethod(
         ...
     ) {
         assert_is_a_bool(normalized)
-        .plotHeatmap(
+        .plotHeatmap.matrix(
             object = counts(object, normalized = normalized),
             samples = samples,
             genes = genes,
@@ -189,7 +189,7 @@ setMethod(
         title = NULL,
         ...
     ) {
-        .plotHeatmap(
+        .plotHeatmap.matrix(
             object = assay(object),
             samples = samples,
             genes = genes,
