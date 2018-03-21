@@ -7,7 +7,7 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
-  "tpm"), interestingGroups, genes = NULL, censorSamples = NULL,
+  "tpm"), genes = NULL, censorSamples = NULL, interestingGroups,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
   title = "pca", return = c("ggplot", "data.frame"), ...)
 }
@@ -25,14 +25,14 @@ method to apply:
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
-appearance. If missing, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
-
 \item{genes}{\emph{Optional.} Character vector of gene identifiers to use.}
 
 \item{censorSamples}{\emph{Optional.} Samples to exclude from the PCA plot.
 Supply them as a character vector. These should match \code{colnames(object)}.}
+
+\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
+appearance. If missing, color defaults to all \code{interestingGroups}
+parameters set in the \link{bcbioRNASeq} object.}
 
 \item{color}{Desired ggplot color scale. Defaults to
 \code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to

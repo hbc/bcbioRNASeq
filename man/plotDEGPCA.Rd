@@ -12,7 +12,7 @@ plotDEGPCA(object, ...)
 \S4method{plotDEGPCA}{DESeqResults}(object, counts,
   interestingGroups = "sampleName", lfc = 0L,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  return = c("ggplot", "data.frame"))
+  title = "deg pca", return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -34,6 +34,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 
 \item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
 
+\item{title}{Title.}
+
 \item{return}{Return \code{ggplot} or \code{data.frame}.}
 }
 \description{
@@ -44,7 +46,8 @@ Plot DEG PCA
 plotDEGPCA(
     object = res_small,
     counts = rld_small,
-    interestingGroups = interestingGroups(bcb_small)
+    interestingGroups = interestingGroups(bcb_small),
+    label = TRUE
 )
 }
 \seealso{
