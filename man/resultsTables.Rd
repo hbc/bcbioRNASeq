@@ -31,8 +31,7 @@ added to the results.}
 
 \item{summary}{Show summary statistics.}
 
-\item{headerLevel}{R Markdown header level. Applies only when
-\code{summary = TRUE}.}
+\item{headerLevel}{R Markdown header level.}
 
 \item{write}{Write CSV files to disk.}
 

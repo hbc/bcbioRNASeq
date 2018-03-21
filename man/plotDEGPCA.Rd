@@ -35,7 +35,8 @@ definitions are desired, we recommend using \code{\link[=scale_color_manual]{sca
 
 \item{title}{Title.}
 
-\item{return}{Return \code{ggplot} or \code{data.frame}.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 }
 \description{
 Plot DEG PCA

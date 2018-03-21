@@ -11,7 +11,7 @@
 #' @inheritParams general
 #' @inheritParams DESeq2::results
 #' @param alpha Numeric vector of desired alpha cutoffs.
-#' @param caption *Optional.* Character vector to add as caption to the table.
+#' @param caption *Optional.* Character string to use as a caption.
 #' @param ... *Optional.* Passthrough arguments to [DESeq2::results()]. Use
 #'   either `contrast` or `name` arguments to define the desired contrast.
 #'

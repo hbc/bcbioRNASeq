@@ -11,7 +11,8 @@
 \arguments{
 \item{x}{Object.}
 
-\item{return}{Return as "\code{data.frame}" or "\code{DataFrame}".}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 }
 \value{
 Data describing the rows of the object.

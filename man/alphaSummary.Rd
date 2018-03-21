@@ -24,7 +24,7 @@ either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
 \item{alpha}{Numeric vector of desired alpha cutoffs.}
 
-\item{caption}{\emph{Optional.} Character vector to add as caption to the table.}
+\item{caption}{\emph{Optional.} Character string to use as a caption.}
 }
 \value{
 \code{kable}.

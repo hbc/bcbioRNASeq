@@ -11,6 +11,8 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 
 \item{flip}{Flip x and y axes.}
 
+\item{headerLevel}{R Markdown header level.}
+
 \item{i}{An integer or numeric scalar.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
@@ -19,6 +21,9 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{object}{Object.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
+
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 
 \item{title}{Title.}
 

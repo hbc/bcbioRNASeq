@@ -15,8 +15,6 @@
 #'   recommended. Alternatively if set `NULL`, then gene annotations will not be
 #'   added to the results.
 #' @param summary Show summary statistics.
-#' @param headerLevel R Markdown header level. Applies only when
-#'   `summary = TRUE`.
 #' @param write Write CSV files to disk.
 #' @param dir Local directory path where to write the results tables.
 #' @param dropboxDir Dropbox directory path where to archive the results tables
