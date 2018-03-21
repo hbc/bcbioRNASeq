@@ -1,3 +1,6 @@
+# FIXME Need to fix the `normalized` argument documentation. Doesn't support
+# logicals the way `counts()` does.
+
 #' Plot Correlation Heatmap
 #'
 #' This function calculates a correlation matrix based on gene expression per
@@ -10,20 +13,12 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotHeatmap
+#' @inherit basejump::plotCorrelationHeatmap
 #'
+#' @inheritParams general
 #' @inheritParams counts
-#' @inheritParams plotTotalReads
-#' @param method Correlation coefficient (or covariance) method to be computed.
-#'   Defaults to "`pearson`" but "`spearman`" can also be used. Consult the
-#'   [stats::cor()] documentation for more information.
-#' @param samples *Optional.* Character vector of specific samples.
-#' @param genes *Optional.* Character vector of specific gene identifiers to
-#'   plot.
-#'
-#' @seealso
-#' - [stats::cor()].
-#' - [stats::hclust()].
+#' @param genes *Optional.* Character vector of genes to include.
+#' @param samples *Optional.* Character vector of samples to include.
 #'
 #' @examples
 #' # Pearson correlation
@@ -59,9 +54,9 @@ setMethod(
         object,
         normalized = c("rlog", "vst", "tmm", "tpm"),
         method = c("pearson", "spearman"),
-        interestingGroups,
         genes = NULL,
         samples = NULL,
+        interestingGroups,
         color = viridis,
         legendColor = viridis,
         title = TRUE,
@@ -69,7 +64,6 @@ setMethod(
     ) {
         # Passthrough: method, genes, samples, color, legendColor
         normalized <- match.arg(normalized)
-        counts <- counts(object, normalized = normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
@@ -78,6 +72,18 @@ setMethod(
         # Title
         if (isTRUE(title)) {
             title <- paste(normalized, method, "correlation")
+        }
+
+        # Subset the counts matrix
+        counts <- counts(object, normalized = normalized)
+        if (is.character(genes)) {
+            counts <- counts[genes, , drop = FALSE]
+        }
+        if (is.character(samples)) {
+            counts <- counts[, samples, drop = FALSE]
+            if (is.data.frame(annotationCol)) {
+                annotationCol <- annotationCol[samples, , drop = FALSE]
+            }
         }
 
         # Don't set annotation columns if we're only grouping by sample name
@@ -93,8 +99,6 @@ setMethod(
             object = counts,
             method = method,
             annotationCol = annotationCol,
-            genes = genes,
-            samples = samples,
             color = color,
             legendColor = legendColor,
             title = title,
