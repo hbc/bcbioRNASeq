@@ -4,6 +4,8 @@
 \alias{general}
 \title{General Arguments}
 \arguments{
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
+
 \item{fill}{Desired ggplot fill scale. Defaults to
 \code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
@@ -17,6 +19,8 @@ definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scal
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
+
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
 \item{object}{Object.}
 

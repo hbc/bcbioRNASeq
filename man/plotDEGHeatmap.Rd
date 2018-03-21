@@ -19,8 +19,6 @@ plotDEGHeatmap(object, ...)
 
 \item{counts}{Object containing a normalized counts matrix.}
 
-\item{lfc}{log2 fold change ratio cutoff.}
-
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
 \code{data.frame} can be passed in, and must contain the columns \code{geneID} and
 \code{geneName}.}

@@ -22,7 +22,7 @@ alphaSummary(object, ...)
 \item{...}{\emph{Optional.} Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
 either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
-\item{alpha}{Numeric vector of desired alpha cutoffs.}
+\item{alpha}{Numeric vector of multiple alpha cutoffs.}
 
 \item{caption}{\emph{Optional.} Character string to use as a caption.}
 }

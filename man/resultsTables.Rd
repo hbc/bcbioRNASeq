@@ -18,11 +18,7 @@ resultsTables(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See \code{\link[=results]{results()}} for additional information about using \code{lfcThreshold} and
-\code{altHypothesis} to set an alternative hypothesis based on expected fold
-changes.}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
 \item{rowData}{Join Ensembl gene annotations to the results. Apply gene
 identifier to symbol mappings. A previously saved \code{data.frame} is
@@ -49,6 +45,13 @@ Results \code{list}.
 }
 \description{
 Differential Expression Results Tables
+}
+\note{
+Log fold change cutoff ("\code{lfc"}) does not apply to statistical
+hypothesis testing, only gene filtering in the results tables. See
+\code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using \code{lfcThreshold}
+and \code{altHypothesis} to set an alternative hypothesis based on expected fold
+changes.
 }
 \examples{
 # DESeqResults ====

@@ -10,11 +10,9 @@
 #' @inheritParams general
 #' @inheritParams plotHeatmap
 #'
-#' @param alpha Alpha level cutoff used for coloring.
 #' @param padj Use P values adjusted for multiple comparisions.
-#' @param lfc Log fold change ratio (base 2) cutoff for coloring.
 #' @param ntop Number of top genes to label.
-#' @param direction Plot `up`, `down`, or `both` (**default**) directions.
+#' @param direction Plot "`both`", "`up`", or "`down`" directions.
 #' @param pointColor Point color.
 #' @param pointAlpha Point transparency alpha.
 #' @param pointOutlineColor Point outline color.

@@ -3,6 +3,7 @@
 #' @name general
 #' @keywords internal
 #'
+#' @param alpha Adjusted P value ("alpha") cutoff.
 #' @param fill Desired ggplot fill scale. Defaults to
 #'   [scale_fill_viridis()]. Must supply discrete values. When set to
 #'   `NULL`, the default ggplot2 color palette will be used. If manual color
@@ -12,6 +13,7 @@
 #' @param i An integer or numeric scalar.
 #' @param interestingGroups Character vector denoting groups of interest that
 #'   define the samples. If left unset, defaults to `sampleName`.
+#' @param lfc Log fold change ratio (base 2) cutoff.
 #' @param object Object.
 #' @param passLimit Threshold to plot pass color marker.
 #' @param return Object class to return. Uses [match.arg()] internally and picks

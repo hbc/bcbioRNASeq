@@ -20,11 +20,11 @@ plotVolcano(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{alpha}{Alpha level cutoff used for coloring.}
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{padj}{Use P values adjusted for multiple comparisions.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
 \item{genes}{Gene identifiers (rownames) to plot. These must be the stable
 identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
@@ -36,7 +36,7 @@ symbols.}
 
 \item{ntop}{Number of top genes to label.}
 
-\item{direction}{Plot \code{up}, \code{down}, or \code{both} (\strong{default}) directions.}
+\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
 \item{pointColor}{Point color.}
 

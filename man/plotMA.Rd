@@ -31,7 +31,7 @@ have passed alpha level cutoffs.}
 \item{title}{Title.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Mean Average

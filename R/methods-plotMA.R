@@ -14,7 +14,7 @@
 #'   have passed alpha level cutoffs.
 #' @param labelColor Text label color.
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
 #' # DESeqResults ====

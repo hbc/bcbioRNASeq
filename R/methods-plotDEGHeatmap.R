@@ -14,7 +14,6 @@
 #' @inherit plotHeatmap
 #'
 #' @param counts Object containing a normalized counts matrix.
-#' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
