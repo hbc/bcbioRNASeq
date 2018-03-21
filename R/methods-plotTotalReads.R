@@ -5,11 +5,6 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param interestingGroups Category to use to group samples. In the plotting
-#'   functions, this will define color and shape, where applicable. If unset,
-#'   this is automatically determined by the metadata set inside the
-#'   [bcbioRNASeq] object. When set to `NULL`, this will default to
-#'   `sampleName`.
 #' @param passLimit Threshold to plot pass color marker.
 #' @param warnLimit Threshold to plot warning color marker.
 #' @param fill Desired ggplot fill scale. Defaults to

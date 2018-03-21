@@ -4,6 +4,8 @@
 #' @keywords internal
 #'
 #' @param i An integer or numeric scalar.
+#' @param interestingGroups Character vector denoting groups of interest that
+#'   define the samples. If left unset, defaults to `sampleName`.
 #' @param object Object.
 #' @param title Title.
 #' @param value Value to assign.
