@@ -40,7 +40,7 @@ setGeneric("plotCountsPerGene", function(object, ...) {
 
 #' @rdname plotDEGHeatmap
 #' @export
-setGeneric("plotDEGHeatmap", function(object, counts, ...) {
+setGeneric("plotDEGHeatmap", function(object, ...) {
     standardGeneric("plotDEGHeatmap")
 })
 
@@ -48,7 +48,7 @@ setGeneric("plotDEGHeatmap", function(object, counts, ...) {
 
 #' @rdname plotDEGPCA
 #' @export
-setGeneric("plotDEGPCA", function(object, counts, ...) {
+setGeneric("plotDEGPCA", function(object, ...) {
     standardGeneric("plotDEGPCA")
 })
 

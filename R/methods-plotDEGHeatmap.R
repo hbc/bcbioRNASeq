@@ -1,7 +1,7 @@
 #' Differentially Expressed Gene Heatmap
 #'
 #' This function is a simplified version of [plotHeatmap()] that is
-#' optimized for handling a [DESeqResults] object rather a gene vector. All of
+#' optimized for handling a `DESeqResults` object rather a gene vector. All of
 #' the optional parameters for [plotHeatmap()] are also available to this
 #' function.
 #'
@@ -11,7 +11,7 @@
 #'
 #' @inherit plotHeatmap
 #'
-#' @param counts Secondary object containing a normalized counts matrix.
+#' @param counts Object containing a normalized counts matrix.
 #' @param lfc log2 fold change ratio cutoff.
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
@@ -44,7 +44,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump convertGenesToSymbols plotHeatmap
-.plotDEGHeatmap.DESeqResults <- function(  # nolint
+.plotDEGHeatmap <- function(  # nolint
     object,
     counts,
     lfc = 0L,
@@ -107,32 +107,6 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqDataSet"),
-    .plotDEGHeatmap.DESeqResults
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"),
-    .plotDEGHeatmap.DESeqResults
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        object = "DESeqResults",
-        counts = "matrix"),
-    .plotDEGHeatmap.DESeqResults
+    signature("DESeqResults"),
+    .plotDEGHeatmap
 )

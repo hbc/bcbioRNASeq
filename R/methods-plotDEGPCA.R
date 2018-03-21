@@ -24,10 +24,7 @@ NULL
 #' @export
 setMethod(
     "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
+    signature("DESeqResults"),
     function(
         object,
         counts,
@@ -35,11 +32,13 @@ setMethod(
         lfc = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
-        returnData = FALSE
+        return = c("ggplot", "data.frame")
     ) {
-        # Passthrough: interestingGroups, color, label, returnData
+        # Passthrough: interestingGroups, color, label, return
+        assert_is_all_of(counts, "DESeqTransform")
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
+        return <- match.arg(return)
 
         # Get the DE gene vector using `resultsTables()`
         list <- resultsTables(
@@ -54,12 +53,21 @@ setMethod(
             list[["degLFCDown"]][["geneID"]]
         )
 
-        .plotPCA.DESeqTransform(
+        # Subset the matrix
+        counts <- counts[genes, , drop = FALSE]
+
+        if (return == "data.frame") {
+            returnData <- TRUE
+        } else {
+            returnData <- FALSE
+        }
+
+        # TODO Update to use our PCA code
+        plotPCA(
             object = counts,
-            interestingGroups = interestingGroups,
-            genes = genes,
-            color = color,
-            label = label,
+            intgroup = interestingGroups,
+            ntop = nrow(counts),
             returnData = returnData
         )
-    })
+    }
+)
