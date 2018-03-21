@@ -1,7 +1,7 @@
 cacheURL <- "http://bcbiornaseq.seq.cloud"
 files <- c(
-    "bcb_small.rda",
     "bcb_invalid.rda",
+    "bcb_small.rda",
     "dds_small.rda",
     "res_small.rda",
     "rld_small.rda",
