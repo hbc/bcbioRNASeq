@@ -31,7 +31,7 @@ NULL
 
 # Constructors =================================================================
 #' @importFrom basejump sanitizeSampleData
-`.colData<-` <- function(x, ..., value) {
+`.colData<-` <- function(x, value) {
     validObject(x)
     assert_are_identical(colnames(x), rownames(value))
     value <- as(value, "DataFrame")
