@@ -7,7 +7,7 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
-  "tpm"), genes = NULL, censorSamples = NULL, interestingGroups,
+  "tpm"), genes = NULL, samples = NULL, interestingGroups,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
   title = "pca", return = c("ggplot", "data.frame"), ...)
 }
@@ -26,7 +26,7 @@
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{censorSamples}{Character vector of samples to exclude.}
+\item{samples}{Character vector of samples to include.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -57,10 +57,10 @@ Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves princi
 plotPCA(bcb_small, label = FALSE)
 plotPCA(bcb_small, label = TRUE)
 
-# Censor samples
+# Select samples
 plotPCA(
     object = bcb_small,
-    censorSamples = head(colnames(bcb_small), 2L),
+    samples = head(colnames(bcb_small), 4L),
     label = TRUE
 )
 }

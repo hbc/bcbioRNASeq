@@ -75,8 +75,9 @@ setMethod(
 
         # Use `sampleName` for plot labels
         if (isTRUE(label)) {
-            assert_is_subset("sampleName", colnames(colData(counts)))
-            data[["label"]] <- colData(counts)[, "sampleName", drop = TRUE]
+            colData <- colData(counts)
+            assert_is_subset("sampleName", colnames(colData))
+            data[["label"]] <- colData[, "sampleName", drop = TRUE]
         }
 
         .plotPCA.ggplot(
