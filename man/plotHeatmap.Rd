@@ -8,9 +8,9 @@
 \alias{plotHeatmap,DESeqTransform-method}
 \title{Plot Heatmap}
 \usage{
-\S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = "rlog",
-  samples = NULL, genes = NULL, scale = "row", color = viridis,
-  legendColor = viridis, title = NULL, ...)
+\S4method{plotHeatmap}{bcbioRNASeq}(object, normalized = c("rlog", "vst",
+  "tmm", "tpm"), samples = NULL, genes = NULL, scale = "row",
+  color = viridis, legendColor = viridis, title = NULL, ...)
 
 \S4method{plotHeatmap}{DESeqDataSet}(object, normalized = TRUE,
   samples = NULL, genes = NULL, gene2symbol = NULL,
@@ -24,17 +24,18 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Logical or character indicating which normalization
+method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item \code{FALSE}: Raw counts (tximport).
+\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{samples}{\emph{Optional.} Samples (colnames) to plot.}
+\item{samples}{\emph{Optional.} Character vector of samples to plot.}
 
 \item{genes}{Gene identifiers (rownames) to plot. These must be the stable
 identifiers (e.g. "ENSG00000000003") used on Ensembl and not the gene
@@ -44,24 +45,25 @@ symbols.}
 in either the row direction or the column direction, or none. Corresponding
 values are "row", "column" and "none".}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Colors to use for plot. Defaults to the \code{\link[=viridis]{viridis()}}
+palette.}
 
 \item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[=viridis]{viridis()}}.}
+\code{\link[=viridis]{viridis()}} palette.}
 
-\item{title}{Title.}
+\item{title}{\emph{Optional.} Plot title.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
 \item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
 \code{data.frame} can be passed in, and must contain the columns \code{geneID} and
 \code{geneName}.}
 
-\item{annotationCol}{\emph{Optional.} \link{data.frame} that defines annotation
+\item{annotationCol}{\emph{Optional.} \code{data.frame} that defines annotation
 mappings for the columns.}
+}
+\value{
+Show heatmap and return \code{list}, containing \code{gtable}.
 }
 \description{
 Plot Heatmap
