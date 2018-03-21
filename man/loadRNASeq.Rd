@@ -22,17 +22,20 @@ or "\code{sailfish}".}
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
-selection. Typically this can be left \code{NULL}.}
+selection. Typically this can be left unset.}
 
 \item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left \code{NULL}.}
+file. Remote URLs are supported. Typically this can be left unset.}
+
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{organism}{Organism name. Use the full latin name (e.g.
 "Homo sapiens"), since this will be input downstream to
 AnnotationHub and ensembldb, unless \code{gffFile} is set.}
 
-\item{ensemblRelease}{\emph{Optional.} Ensembl release version. If \code{NULL},
+\item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}

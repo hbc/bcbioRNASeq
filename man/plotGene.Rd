@@ -35,11 +35,11 @@
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\code{data.frame} can be passed in, and must contain the columns \code{geneID} and
-\code{geneName}.}
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
 
-\item{colData}{Sample metadata \code{data.frame}.}
+\item{colData}{\code{data.frame} describing the columns of the object. Must
+contain \code{rownames} identical to the \code{colnames} of the object.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -59,8 +59,13 @@ color definitions are desired, we recommend using
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 }
 \value{
 \itemize{

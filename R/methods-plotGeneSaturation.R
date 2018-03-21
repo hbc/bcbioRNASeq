@@ -5,8 +5,6 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param minCounts Numeric value for filtering the counts matrix before
-#'   plotting.
 #' @param trendline Include a trendline for each group.
 #'
 #' @return `ggplot`.

@@ -7,6 +7,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inherit plotPCA
+#' @inheritParams general
 #'
 #' @examples
 #' # DESeqResults, DESeqTransform ====

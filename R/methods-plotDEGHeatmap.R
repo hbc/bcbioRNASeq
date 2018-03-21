@@ -13,7 +13,7 @@
 #'
 #' @inherit plotHeatmap
 #'
-#' @param counts Object containing a normalized counts matrix.
+#' @inheritParams general
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples

@@ -29,8 +29,7 @@ plotGeneSaturation(object, ...)
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{minCounts}{Numeric value for filtering the counts matrix before
-plotting.}
+\item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
 \item{trendline}{Include a trendline for each group.}
 

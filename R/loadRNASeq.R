@@ -27,6 +27,7 @@
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom utils packageVersion
 #'
+#' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
@@ -35,17 +36,17 @@
 #' @param samples *Optional.* Specify a subset of samples to load. The names
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
-#'   selection. Typically this can be left `NULL`.
+#'   selection. Typically this can be left unset.
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file. Remote URLs are supported. Typically this can be left `NULL`.
+#'   file. Remote URLs are supported. Typically this can be left unset.
 #' @param organism Organism name. Use the full latin name (e.g.
 #'   "Homo sapiens"), since this will be input downstream to
 #'   AnnotationHub and ensembldb, unless `gffFile` is set.
 #' @param genomeBuild *Optional.* Ensembl genome build name (e.g. "GRCh38").
 #'   This will be passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
-#' @param ensemblRelease *Optional.* Ensembl release version. If `NULL`,
+#' @param ensemblRelease *Optional.* Ensembl release version. If unset,
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.

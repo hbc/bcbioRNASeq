@@ -30,6 +30,9 @@ plotVolcano(object, ...)
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
+
 \item{ntop}{Number of top genes to label.}
 
 \item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}

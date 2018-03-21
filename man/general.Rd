@@ -6,16 +6,24 @@
 \arguments{
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
+\item{colData}{\code{data.frame} describing the columns of the object. Must
+contain \code{rownames} identical to the \code{colnames} of the object.}
+
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+
+\item{counts}{Object containing a normalized counts matrix.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
@@ -29,6 +37,8 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff.}
+
+\item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{

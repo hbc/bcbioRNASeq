@@ -19,8 +19,12 @@ plotDEGPCA(object, ...)
 
 \item{...}{Additional arguments.}
 
+\item{counts}{Object containing a normalized counts matrix.}
+
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
+
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual

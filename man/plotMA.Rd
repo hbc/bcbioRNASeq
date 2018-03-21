@@ -17,6 +17,9 @@
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
+
 \item{pointColor}{Default point color for the plot.}
 
 \item{sigPointColor}{Color for points corresponding to significant genes that

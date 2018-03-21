@@ -19,6 +19,11 @@ plotDEGHeatmap(object, ...)
 
 \item{counts}{Object containing a normalized counts matrix.}
 
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
+
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
+
 \item{title}{\emph{Optional.} Plot title.}
 }
 \value{

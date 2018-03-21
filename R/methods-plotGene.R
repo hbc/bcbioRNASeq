@@ -10,12 +10,6 @@
 #' @importFrom bcbioBase plotGene
 #'
 #' @inheritParams general
-#' @param gene2symbol Apply gene identifier to symbol mappings. A gene2symbol
-#'   `data.frame` can be passed in, and must contain the columns `geneID` and
-#'   `geneName`.
-#' @param colData Sample metadata `data.frame`.
-#' @param normalized Normalization method. Supports `tpm` (**default**), `tmm`,
-#'   `rlog`, or `vst`.
 #' @param countsAxisLabel Text label of counts axis.
 #' @param medianLine Include median line for each group. Disabled when samples
 #'   are grouped by `sampleName`.

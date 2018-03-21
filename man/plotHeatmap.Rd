@@ -52,6 +52,9 @@ palette.}
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
 
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
+
 \item{annotationCol}{\emph{Optional.} \code{data.frame} that defines annotation
 mappings for the columns.}
 }

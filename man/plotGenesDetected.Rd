@@ -26,6 +26,8 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
+\item{minCounts}{Minimum number of counts per gene in the counts matrix.}
+
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}

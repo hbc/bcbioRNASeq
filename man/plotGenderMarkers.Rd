@@ -34,12 +34,21 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
+\item{colData}{\code{data.frame} describing the columns of the object. Must
+contain \code{rownames} identical to the \code{colnames} of the object.}
+
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{organism}{\emph{Optional.} Organism name. Should be detected automatically,
-unless a spike-in FASTA sequence is provided containing a gene identifier
-that is first alphabetically in the count matrix rownames.}
+\item{organism}{Organism name. Typically can be left unset and should be
+detected automatically, unless a spike-in FASTA sequence is provided
+containing a gene identifier that is first alphabetically in the count
+matrix rownames.}
+
+\item{countsAxisLabel}{Text label of counts axis.}
+
+\item{medianLine}{Include median line for each group. Disabled when samples
+are grouped by \code{sampleName}.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
