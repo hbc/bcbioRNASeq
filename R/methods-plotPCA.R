@@ -56,6 +56,7 @@ NULL
     # censorSamples
     if ("censorSamples" %in% names(call)) {
         warn("`censorSamples` is deprecated in favor of `samples`")
+        censorSamples <- call[["censorSamples"]]
         assert_is_subset(censorSamples, colnames(object))
         samples <- setdiff(colnames(object), censorSamples)
     }
