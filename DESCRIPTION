@@ -114,7 +114,6 @@ Imports:
     stats,
     stringr,
     tibble,
-    tidyr (>= 0.8),
     tximport (>= 1.6),
     utils,
     viridis,
