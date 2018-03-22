@@ -39,6 +39,9 @@ validObject(bcb_small)
 \itemize{
 \item \code{\link[=loadRNASeq]{loadRNASeq()}}.
 \item \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment()}}.
+\item \code{\link[methods:initialize]{methods::initialize()}}.
+\item \code{\link[methods:validObject]{methods::validObject()}}.
+\item \code{\link[BiocGenerics:updateObject]{BiocGenerics::updateObject()}}.
 \item \code{.S4methods(class = "bcbioRNASeq")}.
 }
 }

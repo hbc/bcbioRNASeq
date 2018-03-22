@@ -27,6 +27,9 @@
 #' @seealso
 #' - [loadRNASeq()].
 #' - [SummarizedExperiment::SummarizedExperiment()].
+#' - [methods::initialize()].
+#' - [methods::validObject()].
+#' - [BiocGenerics::updateObject()].
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
