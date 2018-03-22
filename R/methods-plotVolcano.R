@@ -66,6 +66,7 @@ NULL
     labelColor = "black",
     histograms = TRUE
 ) {
+    validObject(object)
     if (missing(alpha)) {
         alpha <- metadata(object)[["alpha"]]
     }

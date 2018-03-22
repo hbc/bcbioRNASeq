@@ -62,6 +62,7 @@ setMethod(
     "selectSamples",
     signature("bcbioRNASeq"),
     function(object, ..., transform = TRUE) {
+        validObject(object)
         samples <- .selectSamples(object, ...)
         object[, samples, transform = transform]
     }
@@ -75,6 +76,7 @@ setMethod(
     "selectSamples",
     signature("DESeqDataSet"),
     function(object, ...) {
+        validObject(object)
         samples <- .selectSamples(object, ...)
         object <- object[, samples]
 

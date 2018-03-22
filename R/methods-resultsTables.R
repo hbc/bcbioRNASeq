@@ -140,7 +140,7 @@ NULL
 
     # Assert checks ============================================================
     # Passthrough: headerLevel, dropboxDir, rdsToken
-    assert_is_all_of(object, "DESeqResults")
+    validObject(object)
     assert_is_a_number(lfc)
     assert_all_are_non_negative(lfc)
     assert_is_any_of(rowData, c("data.frame", "NULL"))

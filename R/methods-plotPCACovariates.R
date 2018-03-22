@@ -43,6 +43,7 @@ setMethod(
         normalized = c("rlog", "vst", "tmm", "tpm"),
         ...
     ) {
+        validObject(object)
         assert_is_any_of(metrics, c("character", "logical"))
         normalized <- match.arg(normalized)
 
