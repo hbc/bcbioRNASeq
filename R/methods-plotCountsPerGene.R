@@ -27,6 +27,7 @@ NULL
     title = "counts per gene"
 ) {
     # Passthrough: fill, flip, title
+    validObject(object)
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }

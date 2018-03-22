@@ -45,6 +45,7 @@ NULL
     labelColor = "black",
     title = TRUE
 ) {
+    validObject(object)
     assertFormalGene2symbol(object, genes, gene2symbol)
     assert_is_a_string(pointColor)
     assert_is_a_string(sigPointColor)

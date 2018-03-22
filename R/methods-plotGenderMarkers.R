@@ -118,6 +118,7 @@ setMethod(
         color = scale_color_viridis(discrete = TRUE),
         title = TRUE
     ) {
+        validObject(object)
         normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -154,6 +155,7 @@ setMethod(
         color = scale_color_viridis(discrete = TRUE),
         title = TRUE
     ) {
+        validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         colData <- colData(object)
         # Drop the numeric sizeFactor column
@@ -186,6 +188,7 @@ setMethod(
         title = TRUE
     ) {
         # Passthrough: interestingGroups, color, title
+        validObject(object)
         counts <- assay(object)
 
         colData <- colData(object)

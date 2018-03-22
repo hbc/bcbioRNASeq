@@ -56,6 +56,7 @@ NULL
     title = TRUE,
     ...
 ) {
+    validObject(object)
     assert_is_any_of(
         x = counts,
         classes = c("DESeqDataSet", "DESeqTransform", "matrix")

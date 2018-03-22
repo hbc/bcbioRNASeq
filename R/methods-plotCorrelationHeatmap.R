@@ -63,6 +63,7 @@ setMethod(
         ...
     ) {
         # Passthrough: method, genes, samples, color, legendColor
+        validObject(object)
         normalized <- match.arg(normalized)
         method <- match.arg(method)
         if (missing(interestingGroups)) {

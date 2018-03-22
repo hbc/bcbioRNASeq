@@ -40,6 +40,7 @@ setMethod(
         return = c("ggplot", "data.frame")
     ) {
         # Passthrough: interestingGroups, color, label, title
+        validObject(object)
         assert_is_all_of(counts, "DESeqTransform")
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)

@@ -113,6 +113,7 @@ setMethod(
         title = NULL,
         ...
     ) {
+        validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
         annotationCol <- colData(object) %>%
@@ -153,6 +154,7 @@ setMethod(
         title = NULL,
         ...
     ) {
+        validObject(object)
         assert_is_a_bool(normalized)
         .plotHeatmap.matrix(
             object = counts(object, normalized = normalized),
@@ -188,6 +190,7 @@ setMethod(
         title = NULL,
         ...
     ) {
+        validObject(object)
         .plotHeatmap.matrix(
             object = assay(object),
             samples = samples,

@@ -35,6 +35,7 @@ NULL
     fill = scale_fill_viridis(discrete = TRUE),
     title = "count density"
 ) {
+    validObject(object)
     if (missing(interestingGroups)) {
         interestingGroups <- bcbioBase::interestingGroups(object)
     }

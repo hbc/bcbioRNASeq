@@ -1,5 +1,3 @@
-# FIXME Inform user about `showLegend` deprecated in favor of `legend`
-
 #' Plot Row Standard Deviations vs. Row Means
 #'
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and

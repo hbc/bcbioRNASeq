@@ -291,6 +291,7 @@ setMethod(
         return = c("grid", "wide", "list", "markdown")
     ) {
         # Passthrough: genes, medianLine, color, headerLevel, return
+        validObject(object)
         normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -334,6 +335,7 @@ setMethod(
     ) {
         # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
         # return
+        validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
@@ -371,6 +373,7 @@ setMethod(
     ) {
         # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
         # return
+        validObject(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             normalized <- "rlog"
         } else {
