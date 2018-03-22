@@ -36,6 +36,7 @@ setMethod(
     "tmm",
     signature("bcbioRNASeq"),
     function(object) {
+        validObject(object)
         tmm(assay(object))
     }
 )
@@ -48,6 +49,7 @@ setMethod(
     "tmm",
     signature("DESeqDataSet"),
     function(object) {
+        validObject(object)
         tmm(assay(object))
     }
 )
