@@ -37,8 +37,9 @@ conda install -c bioconda r-bcbiornaseq
 ```r
 library(bcbioRNASeq)
 bcb <- loadRNASeq(
-    uploadDir = file.path("bcbio_rnaseq_run", "final"),
-    interestingGroups = c("genotype", "treatment")
+    uploadDir = "bcbio_rnaseq_run/final",
+    interestingGroups = c("genotype", "treatment"),
+    organism = "Homo sapiens"
 )
 ```
 
@@ -48,6 +49,7 @@ Parameters:
 
 - `uploadDir`: Path to the [bcbio][] final upload directory.
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
+- `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
 
 Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
 

@@ -1,8 +1,7 @@
 library(bcbioRNASeq)
 bcb <- loadRNASeq(
-    uploadDir = file.path("bcbio_rnaseq_run", "final"),
-    interestingGroups = c("genotype", "treatment")
+    uploadDir = "bcbio_rnaseq_run/final",
+    interestingGroups = c("genotype", "treatment"),
+    organism = "Homo sapiens"
 )
-# Back up all data inside bcbioRNASeq object
-flatFiles <- flatFiles(bcb)
-saveData(bcb, flatFiles, dir = "data")
+saveData(bcb, dir = file.path("data", Sys.Date()))
