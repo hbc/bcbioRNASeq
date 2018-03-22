@@ -45,6 +45,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
+#' @importFrom basejump makeNames
 #' @export
 setMethod(
     "plotCorrelationHeatmap",
@@ -98,7 +99,7 @@ setMethod(
         )) {
             rownames(colData) <- colData[["sampleName"]] %>%
                 as.character() %>%
-                make.names(unique = TRUE)
+                makeNames(unique = TRUE)
             colnames(counts) <- rownames(colData)
         }
 
