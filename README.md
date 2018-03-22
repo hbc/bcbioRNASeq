@@ -42,7 +42,7 @@ bcb <- loadRNASeq(
 )
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][RSE] container class.
 
 Parameters:
 
@@ -112,9 +112,9 @@ The papers and software cited in our workflows are available as a [shared librar
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
-[DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
-[SummarizedExperiment]: http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html
+[RSE]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
