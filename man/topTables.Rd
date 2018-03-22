@@ -27,6 +27,7 @@ topTables(object, ...)
 Top Tables of Differential Expression Results
 }
 \examples{
+load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
 
 # DESeqResults to list ====
