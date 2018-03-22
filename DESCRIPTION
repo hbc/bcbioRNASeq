@@ -33,6 +33,7 @@ Authors@R: c(
         given = "Brad",
         family = "Chapman",
         email = "chapmanb@fastmail.com",
+        role = "aut",
         comment = c(ORCID = "0000-0002-3026-1856")
     ),
     person(
