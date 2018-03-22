@@ -49,7 +49,7 @@ NULL
 #'   varianceStabilizingTransformation
 #' @importFrom bcbioBase prepareSummarizedExperiment
 #' @importFrom tibble column_to_rownames rownames_to_column
-.subset.bcbioRNASeq <- function(x, i, j, ..., drop) {  # nolint
+.subset <- function(x, i, j, ..., drop = FALSE) {
     validObject(x)
 
     dots <- list(...)
@@ -148,13 +148,5 @@ setMethod(
         j = "ANY",
         drop = "ANY"  # don't use logical here
     ),
-    function(x, i, j, ..., drop = FALSE) {
-        .subset.bcbioRNASeq(
-            x = x,
-            i = i,
-            j = j,
-            ...,
-            drop = drop
-        )
-    }
+    .subset
 )
