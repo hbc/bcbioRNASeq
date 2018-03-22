@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -91,9 +88,9 @@
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>,
-  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>,
+  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -115,24 +112,22 @@
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
-(<code>TRUE</code>), or additional normalization methods:</p><ul>
-<li><p><code>tpm</code>: Transcripts per million.</p></li>
-<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
-<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
-<li><p><code>vst</code>: Variance stabilizing transformation
-(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>samples</th>
-      <td><p><em>Optional.</em> Samples (colnames) to plot.</p></td>
+      <td><p>Character vector of samples to include.</p></td>
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.</p></td>
+      <td><p>Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
       <th>scale</th>
@@ -142,37 +137,37 @@ values are "row", "column" and "none".</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Desired ggplot color scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code>scale_color_manual()</code>.</p></td>
+      <td><p>Colors to use for plot. Defaults to the <code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>
+palette.</p></td>
     </tr>
     <tr>
       <th>legendColor</th>
       <td><p>Colors to use for legend labels. Defaults to the
-<code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>.</p></td>
+<code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code> palette.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title.</p></td>
+      <td><p><em>Optional.</em> Plot title.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p>Apply gene identifier to symbol mappings. A gene2symbol
-data.frame can be passed in, and must contain the columns <code>ensgene</code> and
-<code>symbol</code>. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.</p></td>
+      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
+contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     <tr>
       <th>annotationCol</th>
-      <td><p><em>Optional.</em> data.frame that defines annotation
+      <td><p><em>Optional.</em> <code>data.frame</code> that defines annotation
 mappings for the columns.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Show heatmap and return <code>list</code>, containing <code>gtable</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -182,39 +177,39 @@ sample names.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Heatmaps: <code>plotCorrelationHeatmap</code>,
-  <code>plotDEGHeatmap</code></p>
+    <p>Other Gene Expression Functions: <code>plotGenderMarkers</code>,
+  <code><a href='plotGene.html'>plotGene</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/rld.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/rld_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb</span>), <span class='fl'>20L</span>))</div><div class='img'><img src='plotHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb_small</span>), <span class='fl'>20L</span>))</div><div class='img'><img src='plotHeatmap-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Full transcriptome heatmap with default pheatmap colors</span>
-<span class='fu'>plotHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>inferno</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='img'><img src='plotHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>inferno</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='img'><img src='plotHeatmap-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='fu'>plotHeatmap</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>dds</span>,
-    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>dds</span>), <span class='fl'>20L</span>),
-    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>dds_small</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>dds_small</span>), <span class='fl'>20L</span>),
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+)</div><div class='img'><img src='plotHeatmap-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># DESeqTransform ====</span>
-<span class='no'>rld</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]]
 <span class='fu'>plotHeatmap</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>rld</span>,
-    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>rld</span>), <span class='fl'>20L</span>),
-    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>rld_small</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>rld_small</span>), <span class='fl'>20L</span>),
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+)</div><div class='img'><img src='plotHeatmap-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>

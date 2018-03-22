@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -94,12 +91,12 @@
     <pre class="usage"><span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>,
-  <span class='kw'>showLegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vertical"</span>,
+  <span class='st'>"horizontal"</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>,
-  <span class='kw'>showLegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vertical"</span>,
+  <span class='st'>"horizontal"</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -118,7 +115,7 @@
 <code>vertical</code>.</p></td>
     </tr>
     <tr>
-      <th>showLegend</th>
+      <th>legend</th>
       <td><p>Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.</p></td>
     </tr>
@@ -126,22 +123,35 @@ informative and is disabled by default, to improve the plot appearance.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> grid.</p>
+    <p><code>ggplot</code> grid.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Differential Expression Utilities: <code>alphaSummary</code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code></p>
+    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
+  <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>)</div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>)</div><div class='img'><img src='plotMeanSD-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># DESeqDataSet ====</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

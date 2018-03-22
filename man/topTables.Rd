@@ -37,7 +37,7 @@ resTbl <- resultsTables(
     summary = FALSE,
     write = FALSE
 )
-topTables(resTbl)
+topTables(resTbl, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}

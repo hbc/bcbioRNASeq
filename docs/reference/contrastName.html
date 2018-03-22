@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot 5'-&gt;3' Bias — plot53Bias • bcbioRNASeq</title>
+<title>Contrast Name — contrastName • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -83,20 +80,17 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot 5'-&gt;3' Bias</h1>
+    <h1>Contrast Name</h1>
     </div>
 
     
-    <p>Plot 5'-&gt;3' Bias</p>
+    <p>Contrast Name</p>
     
 
-    <pre class="usage"><span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>contrastName</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plot53Bias</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot5x3Bias</span>(<span class='no'>...</span>)</pre>
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>contrastName</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,57 +103,25 @@
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
-      <th>warnLimit</th>
-      <td><p>Threshold to plot warning color marker.</p></td>
-    </tr>
-    <tr>
-      <th>fill</th>
-      <td><p>Desired ggplot fill scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>scale_fill_manual()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>flip</th>
-      <td><p>Flip x and y axes.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p>Contrast name <code>string</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>, <code><a href='plotGene.html'>plotGene</a></code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+    <p>Other Differential Expression Functions: <code>alphaSummary</code>,
+  <code>plotDEGHeatmap</code>, <code>plotDEGPCA</code>,
+  <code><a href='plotMA.html'>plotMA</a></code>, <code>plotVolcano</code>,
+  <code>resultsTables</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>plot53Bias</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plot53Bias-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># DESeqResults ====</span>
+<span class='fu'>contrastName</span>(<span class='no'>res_small</span>)</div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

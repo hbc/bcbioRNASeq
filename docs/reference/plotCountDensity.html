@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -94,9 +91,9 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"solid"</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"tmm"</span>, <span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tpm"</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"line"</span>, <span class='st'>"solid"</span>),
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,63 +108,72 @@
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
+      <td><p>Character vector denoting groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Count normalization method. See <code><a href='counts.html'>counts()</a></code> documentation
-for more information.</p></td>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>Desired plot style (<code>line</code> or <code>solid</code>).</p></td>
+      <td><p>Desired plot style ("<code>line</code>" or "<code>solid</code>").</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Desired ggplot color scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code>scale_color_manual()</code>.</p></td>
+      <td><p>Desired ggplot color scale. Must supply discrete values. When
+set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p>Desired ggplot fill scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>scale_fill_manual()</a></code>.</p></td>
+      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
+to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title.</p></td>
+      <td><p>Title of plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code>plot53Bias</code>,
+    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
+  <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
   <code>plotCountsPerGene</code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
   <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code>plotGenesDetected</code>,
   <code>plotIntronicMappingRate</code>,
   <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
   <code>plotRRNAMappingRate</code>,
   <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>plotCountDensity</span>(<span class='no'>bcb</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"solid"</span>)</div><div class='img'><img src='plotCountDensity-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotCountDensity</span>(<span class='no'>bcb</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"line"</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>)</div><div class='img'><img src='plotCountDensity-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>plotCountDensity</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>500 non-zero genes detected</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='img'><img src='plotCountDensity-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotCountDensity</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
+    <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
+    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>
+)</div><div class='output co'>#&gt; <span class='message'>500 non-zero genes detected</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='img'><img src='plotCountDensity-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

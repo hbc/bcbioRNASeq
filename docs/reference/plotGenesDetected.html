@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -95,7 +92,8 @@
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>20000L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>15000L</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"genes detected"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -110,11 +108,8 @@
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
+      <td><p>Character vector denoting groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>passLimit</th>
@@ -126,44 +121,51 @@ this is automatically determined by the metadata set inside the
     </tr>
     <tr>
       <th>minCounts</th>
-      <td><p>Numeric value for filtering the counts matrix before
-plotting.</p></td>
+      <td><p>Minimum number of counts per gene in the counts matrix.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p>Desired ggplot fill scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>scale_fill_manual()</a></code>.</p></td>
+      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
+to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>flip</th>
       <td><p>Flip x and y axes.</p></td>
     </tr>
+    <tr>
+      <th>title</th>
+      <td><p>Title of plot.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Plots: <code>plot53Bias</code>,
+    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
+  <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
   <code>plotCountDensity</code>,
   <code>plotCountsPerGene</code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code>plotGeneSaturation</code>,
   <code>plotIntronicMappingRate</code>,
   <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
   <code>plotRRNAMappingRate</code>,
   <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='img'><img src='plotGenesDetected-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+
+<span class='co'># Minimal example with fewer genes, so disable limits</span>
+<span class='fu'>plotGenesDetected</span>(<span class='no'>bcb_small</span>, <span class='kw'>passLimit</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</div><div class='img'><img src='plotGenesDetected-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

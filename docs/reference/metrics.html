@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -104,35 +101,55 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame.</p>
+    <p><code>data.frame</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>metrics</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 4
-#&gt; Variables: 20
-#&gt; $ sampleID                      &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ sampleName                    &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ description                   &lt;fct&gt; group1_1, group1_2, group2_1, group2_2
-#&gt; $ group                         &lt;fct&gt; ctrl, ctrl, ko, ko
-#&gt; $ xGC                           &lt;dbl&gt; 48, 48, 47, 48
-#&gt; $ x5x3Bias                      &lt;dbl&gt; 1.01, 1.04, 1.00, 0.98
-#&gt; $ averageInsertSize             &lt;dbl&gt; 0, 0, 0, 0
-#&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0
-#&gt; $ duplicationRateOfMapped       &lt;dbl&gt; 0.5574675, 0.5890465, 0.5772400, 0.58...
-#&gt; $ exonicRate                    &lt;dbl&gt; 0.8590, 0.8820, 0.8632, 0.8713
-#&gt; $ intergenicRate                &lt;dbl&gt; 0.0663, 0.0599, 0.0661, 0.0635
-#&gt; $ intronicRate                  &lt;dbl&gt; 0.0747, 0.0581, 0.0707, 0.0652
-#&gt; $ mappedPairedReads             &lt;dbl&gt; 0, 0, 0, 0
-#&gt; $ mappedReads                   &lt;dbl&gt; 22062337, 25852621, 25172084, 25100941
-#&gt; $ qualityFormat                 &lt;fct&gt; standard, standard, standard, standard
-#&gt; $ sequenceLength                &lt;fct&gt; 25-75, 25-75, 25-75, 25-75
-#&gt; $ sequencesFlaggedAsPoorQuality &lt;dbl&gt; 0, 0, 0, 0
-#&gt; $ totalReads                    &lt;dbl&gt; 22339941, 26168288, 25490090, 25399483
-#&gt; $ rrna                          &lt;dbl&gt; 42218.64, 48275.49, 38893.78, 40831.69
-#&gt; $ rrnaRate                      &lt;dbl&gt; 0.002069408, 0.001970088, 0.001665623...</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>metrics</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 6
+#&gt; Variables: 25
+#&gt; $ sampleID                      &lt;fct&gt; control_rep1, control_rep2, control_r...
+#&gt; $ sampleName                    &lt;fct&gt; control_rep1, control_rep2, control_r...
+#&gt; $ description                   &lt;fct&gt; control_rep1, control_rep2, control_r...
+#&gt; $ day                           &lt;fct&gt; 0, 0, 0, 7, 7, 7
+#&gt; $ replicate                     &lt;fct&gt; 1, 2, 3, 1, 2, 3
+#&gt; $ strain                        &lt;fct&gt; Balb/c, Balb/c, Balb/c, Balb/c, Balb/...
+#&gt; $ tissue                        &lt;fct&gt; kidney, kidney, kidney, kidney, kidne...
+#&gt; $ treatment                     &lt;fct&gt; control, control, control, folic_acid...
+#&gt; $ xGC                           &lt;dbl&gt; 46, 45, 43, 40, 41, 46
+#&gt; $ x5x3Bias                      &lt;dbl&gt; 0.91, 0.79, 0.94, 0.56, 0.76, 0.66
+#&gt; $ averageInsertSize             &lt;dbl&gt; 247.5, 259.1, 243.1, 243.8, 254.4, 240.6
+#&gt; $ averageReadLength             &lt;dbl&gt; 50, 50, 50, 50, 50, 50
+#&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0
+#&gt; $ duplicationRateOfMapped       &lt;dbl&gt; 0.5395595, 0.5421294, 0.5660192, 0.45...
+#&gt; $ exonicRate                    &lt;dbl&gt; 0.7306, 0.7140, 0.7835, 0.6500, 0.640...
+#&gt; $ intergenicRate                &lt;dbl&gt; 0.0666, 0.0689, 0.0496, 0.0544, 0.063...
+#&gt; $ intronicRate                  &lt;dbl&gt; 0.2028, 0.2171, 0.1670, 0.2956, 0.295...
+#&gt; $ mappedPairedReads             &lt;dbl&gt; 59424252, 123516338, 53195972, 679607...
+#&gt; $ mappedReads                   &lt;dbl&gt; 59424252, 123516338, 53195972, 679607...
+#&gt; $ qualityFormat                 &lt;fct&gt; standard, standard, standard, standar...
+#&gt; $ sequenceLength                &lt;dbl&gt; 50, 50, 50, 50, 50, 50
+#&gt; $ sequencesFlaggedAsPoorQuality &lt;dbl&gt; 0, 0, 0, 0, 0, 0
+#&gt; $ totalReads                    &lt;dbl&gt; 97249196, 178892010, 76818864, 810674...
+#&gt; $ rrna                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0
+#&gt; $ rrnaRate                      &lt;dbl&gt; 0, 0, 0, 0, 0, 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -140,9 +157,15 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

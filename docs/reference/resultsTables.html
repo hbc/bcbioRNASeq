@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,9 +90,9 @@
     <pre class="usage"><span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),
-  <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>rowData</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -110,18 +107,14 @@
     </tr>
     <tr>
       <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff. Does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See <code>results()</code> for additional information about using <code>lfcThreshold</code> and
-<code>altHypothesis</code> to set an alternative hypothesis based on expected fold
-changes.</p></td>
+      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
     </tr>
     <tr>
-      <th>annotable</th>
+      <th>rowData</th>
       <td><p>Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved annotable data.frame
-is recommended. Alternatively if set <code>NULL</code>, then gene annotations will
-not be added to the results.</p></td>
+identifier to symbol mappings. A previously saved <code>data.frame</code> is
+recommended. Alternatively if set <code>NULL</code>, then gene annotations will not be
+added to the results.</p></td>
     </tr>
     <tr>
       <th>summary</th>
@@ -129,8 +122,7 @@ not be added to the results.</p></td>
     </tr>
     <tr>
       <th>headerLevel</th>
-      <td><p>R Markdown header level. Applies only when
-<code>summary = TRUE</code>.</p></td>
+      <td><p>R Markdown header level.</p></td>
     </tr>
     <tr>
       <th>write</th>
@@ -151,63 +143,55 @@ package.</p></td>
       <th>rdsToken</th>
       <td><p>RDS file token to use for Dropbox authentication.</p></td>
     </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>If <code>TRUE</code>, suppress any status messages and/or progress bars.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Results list.</p>
+    <p>Results <code>list</code>.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Log fold change cutoff ("<code>lfc</code>") does not apply to statistical
+hypothesis testing, only gene filtering in the results tables. See
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using <code>lfcThreshold</code>
+and <code>altHypothesis</code> to set an alternative hypothesis based on expected fold
+changes.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other Differential Expression Functions: <code>alphaSummary</code>,
+  <code>contrastName</code>, <code>plotDEGHeatmap</code>,
+  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMA</a></code>,
+  <code>plotVolcano</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='no'>annotable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='annotable.html'>annotable</a></span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># DESeqResults ====</span>
-<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>suppressMessages</span>(<span class='fu'>resultsTables</span>(
-    <span class='no'>res</span>,
+<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-    <span class='kw'>annotable</span> <span class='kw'>=</span> <span class='no'>annotable</span>,
+    <span class='kw'>rowData</span> <span class='kw'>=</span> <span class='fu'><a href='rowData.html'>rowData</a></span>(<span class='no'>bcb_small</span>),
     <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
     <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"resultsTables"</span>,
-    <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='st'>"bcbioRNASeq_examples"</span>, <span class='st'>"resultsTables"</span>),
-    <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/token.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
-))</div><div class='output co'>#&gt; 
+    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; ## Summary statistics
 #&gt; 
 #&gt; 
-#&gt; - 505 genes in counts matrix
-#&gt; - Base mean &gt; 0: 304 genes (non-zero)
-#&gt; - Base mean &gt; 1: 213 genes
+#&gt; - 500 genes in counts matrix
+#&gt; - Base mean &gt; 0: 500 genes (non-zero)
+#&gt; - Base mean &gt; 1: 500 genes
 #&gt; - Alpha cutoff: 0.1
 #&gt; - LFC cutoff: 0.25 (applied in tables only)
-#&gt; - DEG pass alpha: 4 genes
-#&gt; - DEG LFC up: 2 genes
-#&gt; - DEG LFC down: 2 genes
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; ## Results tables
-#&gt; 
-#&gt; 
-#&gt; - [`group_ko_vs_ctrl_all.csv.gz`](https://www.dropbox.com/s/4hgyi22pmgyt0sk/group_ko_vs_ctrl_all.csv.gz?dl=0): All genes, sorted by Ensembl identifier.
-#&gt; - [`group_ko_vs_ctrl_deg.csv.gz`](https://www.dropbox.com/s/wazygj8nhdyn2ce/group_ko_vs_ctrl_deg.csv.gz?dl=0): Genes that pass the alpha (FDR) cutoff.
-#&gt; - [`group_ko_vs_ctrl_deg_lfc_up.csv.gz`](https://www.dropbox.com/s/jifrumxjeqb0pun/group_ko_vs_ctrl_deg_lfc_up.csv.gz?dl=0): Upregulated DEG; positive log2 fold change.
-#&gt; - [`group_ko_vs_ctrl_deg_lfc_down.csv.gz`](https://www.dropbox.com/s/3aqdezjm7bzsuv2/group_ko_vs_ctrl_deg_lfc_down.csv.gz?dl=0): Downregulated DEG; negative log2 fold change.
-#&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt;  [1] "contrast"     "alpha"        "lfc"          "all"          "deg"         
-#&gt;  [6] "degLFC"       "degLFCUp"     "degLFCDown"   "localFiles"   "dropboxFiles"</div><div class='input'>
-<span class='co'># Clean up ====</span>
-<span class='fu'>dir</span>(<span class='st'>"resultsTables"</span>)</div><div class='output co'>#&gt; [1] "group_ko_vs_ctrl_all.csv.gz"         
-#&gt; [2] "group_ko_vs_ctrl_deg_lfc_down.csv.gz"
-#&gt; [3] "group_ko_vs_ctrl_deg_lfc_up.csv.gz"  
-#&gt; [4] "group_ko_vs_ctrl_deg.csv.gz"         </div><div class='input'><span class='fu'>unlink</span>(<span class='st'>"resultsTables"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
+#&gt; - DEG pass alpha: 277 genes
+#&gt; - DEG LFC up: 131 genes
+#&gt; - DEG LFC down: 146 genes
+#&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; [1] "contrast"   "alpha"      "lfc"        "all"        "deg"       
+#&gt; [6] "degLFC"     "degLFCUp"   "degLFCDown"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -215,6 +199,10 @@ package.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

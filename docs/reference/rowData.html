@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assert Checks — assert • bcbioRNASeq</title>
+<title>Row Data — rowData • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -83,29 +80,53 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assert Checks</h1>
+    <h1>Row Data</h1>
     </div>
 
     
-    <p>Assert Checks</p>
+    <p>Row Data</p>
     
 
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>rowData</span>(<span class='no'>x</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"data.frame"</span>, <span class='st'>"DataFrame"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>severity</th>
-      <td><p>How severe should the consequences of the assertion be?
-Either "<code>stop</code>", "<code>warning</code>", "<code>message</code>", or "<code>none</code>".</p></td>
+      <th>x</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
+the first item in the vector by default.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Stop on error.</p>
+    <p>Data describing the rows of the object.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other Data Functions: <code><a href='colData.html'>colData</a></code>,
+  <code><a href='counts.html'>counts</a></code>, <code><a href='selectSamples.html'>selectSamples</a></code>,
+  <code><a href='subset.html'>subset</a></code>, <code>tmm</code>,
+  <code><a href='tpm.html'>tpm</a></code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>rowData</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 500
+#&gt; Variables: 7
+#&gt; $ geneID         &lt;chr&gt; "ENSMUSG00000056673", "ENSMUSG00000068457", "ENSMUSG...
+#&gt; $ geneName       &lt;chr&gt; "Kdm5d", "Uty", "Ddx3y", "Gm20594", "mt-Co1", "mt-At...
+#&gt; $ geneBiotype    &lt;fct&gt; protein_coding, protein_coding, protein_coding, prot...
+#&gt; $ description    &lt;chr&gt; "lysine (K)-specific demethylase 5D [Source:MGI Symb...
+#&gt; $ seqCoordSystem &lt;fct&gt; chromosome, chromosome, chromosome, chromosome, chro...
+#&gt; $ entrezID       &lt;I(list)&gt;     20592,     22290,     26900, 100463512,     ...
+#&gt; $ broadClass     &lt;fct&gt; coding, coding, coding, coding, mito, mito, mito, mi...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -113,7 +134,15 @@ Either "<code>stop</code>", "<code>warning</code>", "<code>message</code>", or "
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>

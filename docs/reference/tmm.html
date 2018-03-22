@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -114,38 +111,65 @@ tool when plotting counts per gene.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>matrix.</p>
+    <p><code>matrix</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other Data Functions: <code><a href='colData.html'>colData</a></code>,
+  <code><a href='counts.html'>counts</a></code>, <code><a href='rowData.html'>rowData</a></code>,
+  <code><a href='selectSamples.html'>selectSamples</a></code>, <code><a href='subset.html'>subset</a></code>,
+  <code><a href='tpm.html'>tpm</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
-#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
-#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
-#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0  
-#&gt;  Mean   :  1415.64   Mean   :  2202.6   Mean   :  2084.6   Mean   :  2366  
-#&gt;  3rd Qu.:    19.75   3rd Qu.:    17.3   3rd Qu.:    19.2   3rd Qu.:    17  
-#&gt;  Max.   :310393.35   Max.   :367094.0   Max.   :368116.4   Max.   :387262  </div><div class='input'>
-<span class='co'># matrix</span>
-<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>tmm</span>(<span class='no'>counts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
-#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
-#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
-#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div></pre>
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>tmm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.73  
+#&gt;  1st Qu.:   166.7   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.85  
+#&gt;  Median :   405.8   Median :   387.7   Median :   390.4   Median :   410.44  
+#&gt;  Mean   :  2373.5   Mean   :  2217.7   Mean   :  2352.3   Mean   :  1747.00  
+#&gt;  3rd Qu.:  1058.2   3rd Qu.:  1136.7   3rd Qu.:  1029.2   3rd Qu.:  1068.13  
+#&gt;  Max.   :200089.3   Max.   :173113.1   Max.   :181335.9   Max.   :110247.98  
+#&gt;   fa_day7_rep2       fa_day7_rep3      
+#&gt;  Min.   :     0.0   Min.   :     0.29  
+#&gt;  1st Qu.:   202.7   1st Qu.:   207.71  
+#&gt;  Median :   430.2   Median :   420.84  
+#&gt;  Mean   :  1750.2   Mean   :  1690.46  
+#&gt;  3rd Qu.:  1062.8   3rd Qu.:   983.82  
+#&gt;  Max.   :163481.1   Max.   :161546.00  </div><div class='input'>
+<span class='co'># DESeqDataSet ====</span>
+<span class='fu'>tmm</span>(<span class='no'>dds_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.71  
+#&gt;  1st Qu.:   166.5   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.88  
+#&gt;  Median :   405.6   Median :   387.7   Median :   390.5   Median :   410.47  
+#&gt;  Mean   :  2371.9   Mean   :  2217.9   Mean   :  2353.1   Mean   :  1747.14  
+#&gt;  3rd Qu.:  1057.5   3rd Qu.:  1136.8   3rd Qu.:  1029.5   3rd Qu.:  1068.18  
+#&gt;  Max.   :199957.8   Max.   :173127.9   Max.   :181395.7   Max.   :110256.35  
+#&gt;   fa_day7_rep2       fa_day7_rep3      
+#&gt;  Min.   :     0.0   Min.   :     0.37  
+#&gt;  1st Qu.:   202.8   1st Qu.:   207.70  
+#&gt;  Median :   430.2   Median :   420.91  
+#&gt;  Mean   :  1750.4   Mean   :  1690.59  
+#&gt;  3rd Qu.:  1062.9   3rd Qu.:   983.95  
+#&gt;  Max.   :163494.8   Max.   :161558.41  </div><div class='input'>
+<span class='co'># matrix ====</span>
+<span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.73  
+#&gt;  1st Qu.:   166.7   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.85  
+#&gt;  Median :   405.8   Median :   387.7   Median :   390.4   Median :   410.44  
+#&gt;  Mean   :  2373.5   Mean   :  2217.7   Mean   :  2352.3   Mean   :  1747.00  
+#&gt;  3rd Qu.:  1058.2   3rd Qu.:  1136.7   3rd Qu.:  1029.2   3rd Qu.:  1068.13  
+#&gt;  Max.   :200089.3   Max.   :173113.1   Max.   :181335.9   Max.   :110247.98  
+#&gt;   fa_day7_rep2       fa_day7_rep3      
+#&gt;  Min.   :     0.0   Min.   :     0.29  
+#&gt;  1st Qu.:   202.7   1st Qu.:   207.71  
+#&gt;  Median :   430.2   Median :   420.84  
+#&gt;  Mean   :  1750.2   Mean   :  1690.46  
+#&gt;  3rd Qu.:  1062.8   3rd Qu.:   983.82  
+#&gt;  Max.   :163481.1   Max.   :161546.00  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -153,6 +177,8 @@ tool when plotting counts per gene.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

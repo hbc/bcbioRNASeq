@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -92,7 +89,7 @@
 
     <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"purple"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -104,16 +101,14 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.</p></td>
+      <td><p>Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p>Apply gene identifier to symbol mappings. A gene2symbol
-data.frame can be passed in, and must contain the columns <code>ensgene</code> and
-<code>symbol</code>. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.</p></td>
+      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
+contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     <tr>
       <th>pointColor</th>
@@ -130,31 +125,32 @@ have passed alpha level cutoffs.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p>Alpha level cutoff (Adjusted P value).</p></td>
+      <td><p>Title of plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Differential Expression Plots: <code>plotVolcano</code></p>
+    <p>Other Differential Expression Functions: <code>alphaSummary</code>,
+  <code>contrastName</code>, <code>plotDEGHeatmap</code>,
+  <code>plotDEGPCA</code>, <code>plotVolcano</code>,
+  <code>resultsTables</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
 <span class='co'># DESeqResults ====</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>res</span>), <span class='fl'>4L</span>)
-<span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotMA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotMA</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotMA</span>(<span class='no'>res_small</span>)</div><div class='img'><img src='plotMA-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>plotMA</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>res_small</span>), <span class='fl'>4L</span>),
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

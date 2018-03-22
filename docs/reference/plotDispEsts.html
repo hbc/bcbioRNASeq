@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -88,8 +85,8 @@
 
     
     <p>Method support for plotting the dispersion of counts stored in a
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. Here we're using the internally stored DESeqDataSet,
-which already has method support for plotting dispersion, provided by
+<code>bcbioRNASeq</code> object. Here we're generating a <code>DESeqDataSet</code> object on the
+fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package.</p>
     
 
@@ -101,7 +98,7 @@ the DESeq2 package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -111,7 +108,7 @@ the DESeq2 package.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -119,21 +116,34 @@ the DESeq2 package.</p>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></li>
 <li><p><code>getMethod("plotDispEsts", "DESeqDataSet")</code>.</p></li>
 </ul>
-    <p>Other Differential Expression Utilities: <code>alphaSummary</code>,
-  <code>plotMeanSD</code></p>
+    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
+  <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotDispEsts</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>plotDispEsts</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Custom colors, using DESeq2 parameters</span>
 <span class='fu'>plotDispEsts</span>(
-    <span class='no'>bcb</span>,
+    <span class='no'>bcb_small</span>,
     <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
     <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
-    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)</div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
+)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

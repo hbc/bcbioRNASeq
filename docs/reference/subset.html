@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -87,8 +84,8 @@
     </div>
 
     
-    <p>Extract genes by row and samples by column from a <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. The
-internal DESeqDataSet and count transformations are rescaled automatically.
+    <p>Extract genes by row and samples by column from a <code>bcbioRNASeq</code> object. The
+internal <code>DESeqDataSet</code> and count transformations are rescaled automatically.
 DESeq2 transformations can be disabled on large subset operations by setting
 <code>transform = FALSE</code>.</p>
     
@@ -158,60 +155,57 @@ DESeq2 transformations can be disabled on large subset operations by setting
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
+    <p><code>bcbioRNASeq</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code>help("[", "base")</code>.</p>
+<p>Other Data Functions: <code><a href='colData.html'>colData</a></code>,
+  <code><a href='counts.html'>counts</a></code>, <code><a href='rowData.html'>rowData</a></code>,
+  <code><a href='selectSamples.html'>selectSamples</a></code>, <code>tmm</code>,
+  <code><a href='tpm.html'>tpm</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='no'>ensgene</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>50</span>]
-<span class='fu'>head</span>(<span class='no'>ensgene</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000002459" "ENSMUSG00000004768" "ENSMUSG00000005886"
-#&gt; [4] "ENSMUSG00000016918" "ENSMUSG00000025774" "ENSMUSG00000025776"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>colnames</span>(<span class='no'>bcb</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>]
-<span class='fu'>head</span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "group1_1" "group1_2"</div><div class='input'>
+<span class='co'># Minimum of 100 genes, 2 samples</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb_small</span>), <span class='fl'>100L</span>)
+<span class='fu'>head</span>(<span class='no'>genes</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000056673" "ENSMUSG00000068457" "ENSMUSG00000069045"
+#&gt; [4] "ENSMUSG00000096887" "ENSMUSG00000064351" "ENSMUSG00000064356"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>colnames</span>(<span class='no'>bcb_small</span>), <span class='fl'>2L</span>)
+<span class='fu'>head</span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2"</div><div class='input'>
 <span class='co'># Subset by sample name</span>
-<span class='no'>bcb</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 505 2 
-#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000105982 ENSMUSG00000109048
-#&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
-#&gt; colnames(2): group1_1 group1_2
-#&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
+<span class='no'>bcb_small</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
+#&gt; samples: 2
+#&gt; genes: 500
+#&gt; organism: Mus musculus
+#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; bcbio date: 2018-02-18
+#&gt; load date: 2018-03-22</div><div class='input'>
 <span class='co'># Subset by gene list</span>
-<span class='no'>bcb</span>[<span class='no'>ensgene</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 50 4 
-#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000026154 ENSMUSG00000026155
-#&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
-#&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
-#&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
+<span class='no'>bcb_small</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
+#&gt; samples: 6
+#&gt; genes: 100
+#&gt; organism: Mus musculus
+#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; bcbio date: 2018-02-18
+#&gt; load date: 2018-03-22</div><div class='input'>
 <span class='co'># Subset by both genes and samples</span>
-<span class='no'>bcb</span>[<span class='no'>ensgene</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>found already estimated dispersions, replacing these</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Performing rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 50 2 
-#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000026154 ENSMUSG00000026155
-#&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
-#&gt; colnames(2): group1_1 group1_2
-#&gt; colData names(4): sampleID sampleName description group</div><div class='input'>
-<span class='co'># Skip DESeq2 transformations</span>
-<span class='no'>bcb</span>[<span class='no'>ensgene</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Updating internal DESeqDataSet</span></div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; class: bcbioRNASeq 
-#&gt; dim: 50 2 
-#&gt; metadata(29): version uploadDir ... unannotatedGenes subset
-#&gt; assays(4): raw normalized tpm tmm
-#&gt; rownames(50): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000026154 ENSMUSG00000026155
-#&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
-#&gt; colnames(2): group1_1 group1_2
-#&gt; colData names(4): sampleID sampleName description group</div></pre>
+<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
+#&gt; samples: 2
+#&gt; genes: 100
+#&gt; organism: Mus musculus
+#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; bcbio date: 2018-02-18
+#&gt; load date: 2018-03-22</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length" "rlog"   "vst"   </div><div class='input'>
+<span class='co'># Skip DESeq2 variance stabilizing transformations</span>
+<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
+#&gt; samples: 2
+#&gt; genes: 100
+#&gt; organism: Mus musculus
+#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; bcbio date: 2018-02-18
+#&gt; load date: 2018-03-22</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

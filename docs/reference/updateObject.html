@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -93,7 +90,7 @@ originally loaded into R.</p>
     
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>updateObject</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>rowRanges</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -102,28 +99,41 @@ originally loaded into R.</p>
       <th>object</th>
       <td><p>Object.</p></td>
     </tr>
+    <tr>
+      <th>rowRanges</th>
+      <td><p><code>GRanges</code> object that defines the row annotations. Since
+we converted to <code>RangedSummarizedExperiment</code> in v0.2.0, this option had
+to be added to enable updating of newly required <code>rowRanges()</code> slot.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p>
+    <p><code>bcbioRNASeq</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The previous bcbioRnaseq package (note lowercase "c") must be
-reinstalled to load objects from versions &lt;= 0.0.24.</p>
-    
-    <h2 class="hasAnchor" id="upgrade-bcbiornadataset-to-bcbiornaseq-object"><a class="anchor" href="#upgrade-bcbiornadataset-to-bcbiornaseq-object"></a>Upgrade bcbioRNADataSet to bcbioRNASeq object</h2>
+    <h2 class="hasAnchor" id="legacy-code-bcbiornadataset-code-class"><a class="anchor" href="#legacy-code-bcbiornadataset-code-class"></a>Legacy &lt;code&gt;bcbioRNADataSet&lt;/code&gt; class</h2>
 
     
-    <p>This method adds support for upgrading <a href='bcbioRNADataSet-class.html'>bcbioRNADataSet</a> objects to the
-latest <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> class version. This should be backwards compatible to
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> version 0.0.26.</p>
+    <p>Support for <code>bcbioRNADataSet</code> objects was dropped in v0.2.0 of the package.
+If you need to load one of these objects, please install an older release.</p>
+    
+    <h2 class="hasAnchor" id="legacy-objects-created-with-code-bcbiornaseq-code-"><a class="anchor" href="#legacy-objects-created-with-code-bcbiornaseq-code-"></a>Legacy objects created with &lt;code&gt;bcbioRnaseq&lt;/code&gt;</h2>
+
+    
+    <p>The previous <code>bcbioRnaseq</code> package (note case) must be reinstalled to load
+objects from versions &lt;= 0.0.20. We changed the name of the package to
+<code>bcbioRNASeq</code> starting in v0.0.21.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>loadRemoteData</span>(<span class='st'>"http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda"</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>metadata</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"version"</span>]]</div><div class='output co'>#&gt; [1] '0.0.27'</div><div class='input'><span class='no'>updated</span> <span class='kw'>&lt;-</span> <span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.0.27 to 0.1.6</span></div><div class='output co'>#&gt; <span class='message'>Setting design as empty formula</span></div><div class='output co'>#&gt; <span class='message'>Setting ensemblVersion as NULL</span></div><div class='output co'>#&gt; <span class='message'>Setting lanes as integer</span></div><div class='output co'>#&gt; <span class='message'>Dropping legacy sample names from metrics</span></div><div class='output co'>#&gt; <span class='message'>Renaming x53Bias to x5x3Bias</span></div><div class='output co'>#&gt; <span class='message'>Renaming programs to programVersions</span></div><div class='output co'>#&gt; <span class='message'>Setting transformationLimit as Inf</span></div><div class='output co'>#&gt; <span class='message'>Renaming missingGenes to unannotatedGenes</span></div><div class='input'><span class='fu'>metadata</span>(<span class='no'>updated</span>)<span class='kw'>[[</span><span class='st'>"version"</span>]]</div><div class='output co'>#&gt; [1] '0.1.6'</div><div class='input'><span class='fu'>metadata</span>(<span class='no'>updated</span>)<span class='kw'>[[</span><span class='st'>"previousVersion"</span>]]</div><div class='output co'>#&gt; [1] '0.0.27'</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.0 to 0.2.0</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
+#&gt; samples: 6
+#&gt; genes: 500
+#&gt; organism: Mus musculus
+#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; bcbio date: 2018-02-18
+#&gt; load date: 2018-03-22</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -132,9 +142,9 @@ latest <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> class version. This shou
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#legacy-code-bcbiornadataset-code-class">Legacy &lt;code&gt;bcbioRNADataSet&lt;/code&gt; class</a></li>
 
-      <li><a href="#upgrade-bcbiornadataset-to-bcbiornaseq-object">Upgrade bcbioRNADataSet to bcbioRNASeq object</a></li>
+      <li><a href="#legacy-objects-created-with-code-bcbiornaseq-code-">Legacy objects created with &lt;code&gt;bcbioRnaseq&lt;/code&gt;</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print Summary Statistics of Alpha Level Cutoffs — alphaSummary • bcbioRNASeq</title>
+<title>Alpha Level Cutoff Summary Statistics — alphaSummary • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -83,11 +80,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print Summary Statistics of Alpha Level Cutoffs</h1>
+    <h1>Alpha Level Cutoff Summary Statistics</h1>
     </div>
 
     
-    <p>Print Summary Statistics of Alpha Level Cutoffs</p>
+    <p>Alpha Level Cutoff Summary Statistics</p>
     
 
     <pre class="usage"><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -114,70 +111,65 @@ either <code>contrast</code> or <code>name</code> arguments to define the desire
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Numeric vector of desired alpha cutoffs.</p></td>
+      <td><p>Numeric vector of multiple alpha cutoffs.</p></td>
     </tr>
     <tr>
       <th>caption</th>
-      <td><p><em>Optional.</em> Character vector to add as caption to the table.</p></td>
+      <td><p><em>Optional.</em> Character string to use as a caption.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>kable.</p>
+    <p><code>kable</code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> does not support contrast definitions, since the
-object contains an internal DESeqDataSet with an empty design formula.</p>
+    <p><code>bcbioRNASeq</code> class does currently support contrast definitions, since
+the object contains an internal <code>DESeqDataSet</code> with an empty design
+formula.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>.</p>
-<p>Other Differential Expression Utilities: <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotMeanSD</code></p>
+<p>Other Differential Expression Functions: <code>contrastName</code>,
+  <code>plotDEGHeatmap</code>, <code>plotDEGPCA</code>,
+  <code><a href='plotMA.html'>plotMA</a></code>, <code>plotVolcano</code>,
+  <code>resultsTables</code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>alphaSummary</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Internal DESeqDataSet has an empty design formula</span></div><div class='output co'>#&gt; 
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>alphaSummary</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Empty design formula detected</span></div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |170, 56%         |166, 55%         |157, 52%         |152, 50%         |136, 45%         |
-#&gt; |LFC &lt; 0 (down) |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |1, 0.33%         |
-#&gt; |low counts     |67, 22%          |57, 19%          |0, 0%            |74, 24%          |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 1) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 1) |(mean count &lt; 0) |</div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='fu'>alphaSummary</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; 
+#&gt; |               |0.1               |0.05              |0.01              |0.001             |1e-06             |
+#&gt; |:--------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|
+#&gt; |LFC &gt; 0 (up)   |494, 99%          |494, 99%          |494, 99%          |494, 99%          |494, 99%          |
+#&gt; |LFC &lt; 0 (down) |0, 0%             |0, 0%             |0, 0%             |0, 0%             |0, 0%             |
+#&gt; |outliers       |6, 1.2%           |6, 1.2%           |6, 1.2%           |6, 1.2%           |6, 1.2%           |
+#&gt; |low counts     |0, 0%             |0, 0%             |0, 0%             |0, 0%             |0, 0%             |
+#&gt; |cutoff         |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 28) |</div><div class='input'>
+<span class='co'># DESeqDataSet ====</span>
+<span class='fu'>resultsNames</span>(<span class='no'>dds_small</span>)</div><div class='output co'>#&gt; [1] "Intercept"                       "treatment_folic_acid_vs_control"</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds_small</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treatment"</span>, <span class='st'>"folic_acid"</span>, <span class='st'>"control"</span>))</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"group"</span>, <span class='st'>"ko"</span>, <span class='st'>"ctrl"</span>))</div><div class='output co'>#&gt; 
+#&gt; |               |0.1               |0.05              |0.01              |0.001              |1e-06             |
+#&gt; |:--------------|:-----------------|:-----------------|:-----------------|:------------------|:-----------------|
+#&gt; |LFC &gt; 0 (up)   |131, 26%          |112, 22%          |77, 15%           |40, 8%             |21, 4.2%          |
+#&gt; |LFC &lt; 0 (down) |146, 29%          |128, 26%          |104, 21%          |67, 13%            |16, 3.2%          |
+#&gt; |outliers       |6, 1.2%           |6, 1.2%           |6, 1.2%           |6, 1.2%            |6, 1.2%           |
+#&gt; |low counts     |0, 0%             |0, 0%             |0, 0%             |30, 6%             |0, 0%             |
+#&gt; |cutoff         |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 432) |(mean count &lt; 28) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds_small</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"treatment_folic_acid_vs_control"</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>dds</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"group_ko_vs_ctrl"</span>)</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; |               |0.1              |0.05             |0.01             |0.001            |1e-06            |
-#&gt; |:--------------|:----------------|:----------------|:----------------|:----------------|:----------------|
-#&gt; |LFC &gt; 0 (up)   |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |LFC &lt; 0 (down) |2, 0.66%         |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |outliers       |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |low counts     |0, 0%            |0, 0%            |0, 0%            |0, 0%            |0, 0%            |
-#&gt; |cutoff         |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |(mean count &lt; 0) |</div></pre>
+#&gt; |               |0.1               |0.05              |0.01              |0.001              |1e-06             |
+#&gt; |:--------------|:-----------------|:-----------------|:-----------------|:------------------|:-----------------|
+#&gt; |LFC &gt; 0 (up)   |131, 26%          |112, 22%          |77, 15%           |40, 8%             |21, 4.2%          |
+#&gt; |LFC &lt; 0 (down) |146, 29%          |128, 26%          |104, 21%          |67, 13%            |16, 3.2%          |
+#&gt; |outliers       |6, 1.2%           |6, 1.2%           |6, 1.2%           |6, 1.2%            |6, 1.2%           |
+#&gt; |low counts     |0, 0%             |0, 0%             |0, 0%             |30, 6%             |0, 0%             |
+#&gt; |cutoff         |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 28) |(mean count &lt; 432) |(mean count &lt; 28) |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -23,7 +23,7 @@
 #'     summary = FALSE,
 #'     write = FALSE
 #' )
-#' topTables(resTbl)
+#' topTables(resTbl, n = 5L)
 NULL
 
 

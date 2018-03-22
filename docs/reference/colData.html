@@ -60,9 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -87,16 +84,17 @@
     </div>
 
     
-    <p>Improved assignment method support for <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object.</p>
-<p>This method support will also update the <code>colData</code> inside the <code>bcbio</code> and
-<code>assays</code> slots.</p>
+    <p>Improved assignment method support for a <code>bcbioRNASeq</code> object.</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq,data.frame</span>
-<span class='fu'>colData</span>(<span class='no'>x</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>colData</span>(<span class='no'>x</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"data.frame"</span>, <span class='st'>"DataFrame"</span>))
+
+<span class='co'># S4 method for bcbioRNASeq,data.frame</span>
+<span class='fu'>colData</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
 <span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
-<span class='fu'>colData</span>(<span class='no'>x</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>colData</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -106,8 +104,8 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <th>return</th>
+      <td><p>Return as "<code>data.frame</code>" or "<code>DataFrame</code>".</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -117,68 +115,50 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>DataFrame.</p>
+    <p>Data describing the columns of the object.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This method support will also update the nested <code>colData()</code> inside the
+<code>assays</code> slot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code>help("colData", "SummarizedExperiment")</code></p>
+<p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='rowData.html'>rowData</a></code>, <code><a href='selectSamples.html'>selectSamples</a></code>,
+  <code><a href='subset.html'>subset</a></code>, <code>tmm</code>,
+  <code><a href='tpm.html'>tpm</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
+    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb_small.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
 
-<span class='co'># Assignment support</span>
-<span class='no'>colData</span> <span class='kw'>&lt;-</span> <span class='fu'>colData</span>(<span class='no'>bcb</span>)
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>colData</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 6
+#&gt; Variables: 8
+#&gt; $ sampleID    &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ sampleName  &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ description &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ day         &lt;fct&gt; 0, 0, 0, 7, 7, 7
+#&gt; $ replicate   &lt;fct&gt; 1, 2, 3, 1, 2, 3
+#&gt; $ strain      &lt;fct&gt; Balb/c, Balb/c, Balb/c, Balb/c, Balb/c, Balb/c
+#&gt; $ tissue      &lt;fct&gt; kidney, kidney, kidney, kidney, kidney, kidney
+#&gt; $ treatment   &lt;fct&gt; control, control, control, folic_acid, folic_acid, foli...</div><div class='input'>
+<span class='co'># Assignment method support</span>
 <span class='co'># All columns will be coerced to factors</span>
-<span class='no'>colData</span><span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>14L</span>, <span class='fl'>30L</span>, <span class='fl'>14L</span>, <span class='fl'>30L</span>)
-<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>&lt;-</span> <span class='no'>colData</span>
-<span class='fu'>colData</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
-#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
-#&gt;   ..@ nrows          : int 4
-#&gt;   ..@ listData       :List of 5
-#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
-#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
-#&gt;   ..@ elementType    : chr "ANY"
-#&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'>
-<span class='co'># These internal objects will also get updated</span>
-<span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
-#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
-#&gt;   ..@ nrows          : int 4
-#&gt;   ..@ listData       :List of 5
-#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
-#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
-#&gt;   ..@ elementType    : chr "ANY"
-#&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"rlog"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
-#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
-#&gt;   ..@ nrows          : int 4
-#&gt;   ..@ listData       :List of 5
-#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
-#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
-#&gt;   ..@ elementType    : chr "ANY"
-#&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>assays</span>(<span class='no'>bcb</span>)<span class='kw'>[[</span><span class='st'>"vst"</span>]] <span class='kw'>%&gt;%</span> <span class='fu'>colData</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
-#&gt;   ..@ rownames       : chr [1:4] "group1_1" "group1_2" "group2_1" "group2_2"
-#&gt;   ..@ nrows          : int 4
-#&gt;   ..@ listData       :List of 5
-#&gt;   .. ..$ sampleID   : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ sampleName : Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ description: Factor w/ 4 levels "group1_1","group1_2",..: 1 2 3 4
-#&gt;   .. ..$ group      : Factor w/ 2 levels "ctrl","ko": 1 1 2 2
-#&gt;   .. ..$ age        : Factor w/ 2 levels "14","30": 1 2 1 2
-#&gt;   ..@ elementType    : chr "ANY"
-#&gt;   ..@ elementMetadata: NULL
-#&gt;   ..@ metadata       : list()</div></pre>
+<span class='fu'>colData</span>(<span class='no'>bcb_small</span>)<span class='kw'>[[</span><span class='st'>"age"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>14L</span>, <span class='fl'>30L</span>, <span class='fl'>14L</span>, <span class='fl'>30L</span>, <span class='fl'>14L</span>, <span class='fl'>30L</span>)
+<span class='fu'>colData</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 6
+#&gt; Variables: 9
+#&gt; $ sampleID    &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ sampleName  &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ description &lt;fct&gt; control_rep1, control_rep2, control_rep3, fa_day7_rep1,...
+#&gt; $ day         &lt;fct&gt; 0, 0, 0, 7, 7, 7
+#&gt; $ replicate   &lt;fct&gt; 1, 2, 3, 1, 2, 3
+#&gt; $ strain      &lt;fct&gt; Balb/c, Balb/c, Balb/c, Balb/c, Balb/c, Balb/c
+#&gt; $ tissue      &lt;fct&gt; kidney, kidney, kidney, kidney, kidney, kidney
+#&gt; $ treatment   &lt;fct&gt; control, control, control, folic_acid, folic_acid, foli...
+#&gt; $ age         &lt;fct&gt; 14, 30, 14, 30, 14, 30</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,10 +167,16 @@
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Michael Steinbaugh
 
   </div>
 </div>
