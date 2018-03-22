@@ -133,114 +133,24 @@
     <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
     <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
-<span class='fu'>topTables</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>topTables</span>(<span class='no'>resTbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |geneID             | baseMean|lfc   |padj      |geneName   |geneBiotype                      |description                                                                                           |
-#&gt; |:------------------|--------:|:-----|:---------|:----------|:--------------------------------|:-----------------------------------------------------------------------------------------------------|
-#&gt; |ENSMUSG00000024164 |    12722|8.352 |2.11e-211 |C3         |protein_coding                   |complement component 3                                                                                |
-#&gt; |ENSMUSG00000029304 |    69931|5.393 |1.83e-78  |Spp1       |protein_coding                   |secreted phosphoprotein 1                                                                             |
-#&gt; |ENSMUSG00000003617 |     3543|4.135 |2.44e-51  |Cp         |protein_coding                   |ceruloplasmin                                                                                         |
-#&gt; |ENSMUSG00000022037 |     3515|3.570 |1.92e-42  |Clu        |protein_coding                   |clusterin                                                                                             |
-#&gt; |ENSMUSG00000040405 |     3002|3.823 |7.11e-41  |Havcr1     |protein_coding                   |hepatitis A virus cellular receptor 1                                                                 |
-#&gt; |ENSMUSG00000026822 |     1078|5.868 |7.57e-35  |Lcn2       |protein_coding                   |lipocalin 2                                                                                           |
-#&gt; |ENSMUSG00000030218 |      811|3.529 |2.04e-32  |Mgp        |protein_coding                   |matrix Gla protein                                                                                    |
-#&gt; |ENSMUSG00000073421 |     1341|3.396 |2.20e-30  |H2-Ab1     |protein_coding                   |histocompatibility 2, class II antigen A, beta 1                                                      |
-#&gt; |ENSMUSG00000069516 |     2403|4.566 |2.37e-29  |Lyz2       |protein_coding                   |lysozyme 2                                                                                            |
-#&gt; |ENSMUSG00000024610 |     7951|3.226 |4.54e-21  |Cd74       |protein_coding                   |CD74 antigen (invariant polypeptide of major histocompatibility complex, class II antigen-associated) |
-#&gt; |ENSMUSG00000002985 |     1150|3.479 |3.42e-20  |Apoe       |protein_coding                   |apolipoprotein E                                                                                      |
-#&gt; |ENSMUSG00000018171 |     2798|2.060 |5.46e-20  |Vmp1       |protein_coding                   |vacuole membrane protein 1                                                                            |
-#&gt; |ENSMUSG00000036594 |     2425|2.729 |2.80e-16  |H2-Aa      |protein_coding                   |histocompatibility 2, class II antigen A, alpha                                                       |
-#&gt; |ENSMUSG00000027907 |     1564|1.985 |1.61e-14  |S100a11    |protein_coding                   |S100 calcium binding protein A11                                                                      |
-#&gt; |ENSMUSG00000026547 |     1512|2.222 |3.50e-13  |Tagln2     |protein_coding                   |transgelin 2                                                                                          |
-#&gt; |ENSMUSG00000049775 |     2366|2.188 |1.32e-10  |Tmsb4x     |protein_coding                   |thymosin, beta 4, X chromosome                                                                        |
-#&gt; |ENSMUSG00000021127 |     3766|1.906 |1.54e-08  |Zfp36l1    |protein_coding                   |zinc finger protein 36, C3H type-like 1                                                               |
-#&gt; |ENSMUSG00000047139 |     4064|1.836 |3.62e-08  |Cd24a      |protein_coding                   |CD24a antigen                                                                                         |
-#&gt; |ENSMUSG00000033685 |     2304|2.312 |4.40e-08  |Ucp2       |protein_coding                   |uncoupling protein 2 (mitochondrial, proton carrier)                                                  |
-#&gt; |ENSMUSG00000031785 |     3821|1.565 |5.60e-08  |Adgrg1     |protein_coding                   |adhesion G protein-coupled receptor G1                                                                |
-#&gt; |ENSMUSG00000029700 |     6330|1.402 |2.85e-07  |Slc13a1    |protein_coding                   |solute carrier family 13 (sodium/sulfate symporters), member 1                                        |
-#&gt; |ENSMUSG00000060802 |     3146|1.440 |1.41e-06  |B2m        |protein_coding                   |beta-2 microglobulin                                                                                  |
-#&gt; |ENSMUSG00000005054 |      877|1.982 |1.80e-06  |Cstb       |protein_coding                   |cystatin B                                                                                            |
-#&gt; |ENSMUSG00000017723 |      716|1.894 |2.41e-06  |Wfdc2      |protein_coding                   |WAP four-disulfide core domain 2                                                                      |
-#&gt; |ENSMUSG00000096768 |      436|2.076 |7.06e-06  |Erdr1      |protein_coding                   |erythroid differentiation regulator 1                                                                 |
-#&gt; |ENSMUSG00000062006 |      499|1.319 |1.86e-05  |Rpl34      |protein_coding                   |ribosomal protein L34                                                                                 |
-#&gt; |ENSMUSG00000022587 |     1307|1.219 |8.03e-05  |Ly6e       |protein_coding                   |lymphocyte antigen 6 complex, locus E                                                                 |
-#&gt; |ENSMUSG00000007891 |     3948|1.140 |1.00e-04  |Ctsd       |protein_coding                   |cathepsin D                                                                                           |
-#&gt; |ENSMUSG00000020460 |      953|1.253 |1.00e-04  |Rps27a     |protein_coding                   |ribosomal protein S27A                                                                                |
-#&gt; |ENSMUSG00000079435 |      945|1.162 |1.30e-04  |Rpl36a     |protein_coding                   |ribosomal protein L36A                                                                                |
-#&gt; |ENSMUSG00000006333 |      819|1.335 |1.56e-04  |Rps9       |protein_coding                   |ribosomal protein S9                                                                                  |
-#&gt; |ENSMUSG00000076432 |     2835|1.199 |1.61e-04  |Ywhaq      |protein_coding                   |tyrosine 3-monooxygenase/tryptophan 5-monooxygenase activation protein theta                          |
-#&gt; |ENSMUSG00000090592 |      112|1.400 |1.70e-04  |Gm17571    |protein_coding                   |predicted gene, 17571                                                                                 |
-#&gt; |ENSMUSG00000025290 |     2403|1.226 |3.15e-04  |Rps24      |protein_coding                   |ribosomal protein S24                                                                                 |
-#&gt; |ENSMUSG00000028081 |     1370|1.110 |3.85e-04  |Rps3a1     |protein_coding                   |ribosomal protein S3A1                                                                                |
-#&gt; |ENSMUSG00000057113 |     1919|1.177 |4.29e-04  |Npm1       |protein_coding                   |nucleophosmin 1                                                                                       |
-#&gt; |ENSMUSG00000069682 |      755|1.144 |4.34e-04  |Gm10275    |transcribed_processed_pseudogene |predicted pseudogene 10275                                                                            |
-#&gt; |ENSMUSG00000032518 |     1887|0.966 |4.80e-04  |Rpsa       |protein_coding                   |ribosomal protein SA                                                                                  |
-#&gt; |ENSMUSG00000026238 |     3492|0.863 |5.23e-04  |Ptma       |protein_coding                   |prothymosin alpha                                                                                     |
-#&gt; |ENSMUSG00000062825 |     3369|0.768 |7.25e-04  |Actg1      |protein_coding                   |actin, gamma, cytoplasmic 1                                                                           |
-#&gt; |ENSMUSG00000032216 |     7739|1.094 |7.66e-04  |Nedd4      |protein_coding                   |neural precursor cell expressed, developmentally down-regulated 4                                     |
-#&gt; |ENSMUSG00000026864 |     3898|0.830 |1.21e-03  |Hspa5      |protein_coding                   |heat shock protein 5                                                                                  |
-#&gt; |ENSMUSG00000050621 |     1860|0.932 |1.58e-03  |Rps27rt    |protein_coding                   |ribosomal protein S27, retrogene                                                                      |
-#&gt; |ENSMUSG00000037563 |     1892|0.801 |1.72e-03  |Rps16      |protein_coding                   |ribosomal protein S16                                                                                 |
-#&gt; |ENSMUSG00000039001 |      725|1.550 |2.30e-03  |Rps21      |protein_coding                   |ribosomal protein S21                                                                                 |
-#&gt; |ENSMUSG00000090728 |      125|1.012 |2.43e-03  |Gm17420    |pseudogene                       |predicted gene, 17420                                                                                 |
-#&gt; |ENSMUSG00000020849 |     7564|0.858 |2.50e-03  |Ywhae      |protein_coding                   |tyrosine 3-monooxygenase/tryptophan 5-monooxygenase activation protein, epsilon polypeptide           |
-#&gt; |ENSMUSG00000021036 |     1811|1.254 |2.79e-03  |Sptlc2     |protein_coding                   |serine palmitoyltransferase, long chain base subunit 2                                                |
-#&gt; |ENSMUSG00000111164 |      707|0.911 |2.80e-03  |AC147565.1 |processed_pseudogene             |NULL                                                                                                  |
-#&gt; |ENSMUSG00000000740 |     1429|0.713 |3.02e-03  |Rpl13      |protein_coding                   |ribosomal protein L13                                                                                 |
+#&gt; |geneID             | baseMean|lfc  |padj      |geneName |geneBiotype    |description                           |
+#&gt; |:------------------|--------:|:----|:---------|:--------|:--------------|:-------------------------------------|
+#&gt; |ENSMUSG00000024164 |    12722|8.35 |2.11e-211 |C3       |protein_coding |complement component 3                |
+#&gt; |ENSMUSG00000029304 |    69931|5.39 |1.83e-78  |Spp1     |protein_coding |secreted phosphoprotein 1             |
+#&gt; |ENSMUSG00000003617 |     3543|4.13 |2.44e-51  |Cp       |protein_coding |ceruloplasmin                         |
+#&gt; |ENSMUSG00000022037 |     3515|3.57 |1.92e-42  |Clu      |protein_coding |clusterin                             |
+#&gt; |ENSMUSG00000040405 |     3002|3.82 |7.11e-41  |Havcr1   |protein_coding |hepatitis A virus cellular receptor 1 |
 #&gt; 
 #&gt; 
-#&gt; |geneID             | baseMean|lfc    |padj     |geneName      |geneBiotype            |description                                                                                                  |
-#&gt; |:------------------|--------:|:------|:--------|:-------------|:----------------------|:------------------------------------------------------------------------------------------------------------|
-#&gt; |ENSMUSG00000005980 |     5649|-2.643 |5.72e-13 |Dnase1        |protein_coding         |deoxyribonuclease I                                                                                          |
-#&gt; |ENSMUSG00000027199 |    10851|-2.201 |2.38e-12 |Gatm          |protein_coding         |glycine amidinotransferase (L-arginine:glycine amidinotransferase)                                           |
-#&gt; |ENSMUSG00000028713 |    14427|-1.595 |6.64e-11 |Cyp4b1        |protein_coding         |cytochrome P450, family 4, subfamily b, polypeptide 1                                                        |
-#&gt; |ENSMUSG00000049152 |    13285|-1.622 |3.35e-10 |Ugt3a2        |protein_coding         |UDP glycosyltransferases 3 family, polypeptide A2                                                            |
-#&gt; |ENSMUSG00000062908 |     2771|-1.446 |2.04e-09 |Acadm         |protein_coding         |acyl-Coenzyme A dehydrogenase, medium chain                                                                  |
-#&gt; |ENSMUSG00000061906 |     7095|-1.887 |2.26e-09 |Ugt2b38       |protein_coding         |UDP glucuronosyltransferase 2 family, polypeptide B38                                                        |
-#&gt; |ENSMUSG00000060002 |    22521|-1.553 |5.86e-09 |Chpt1         |protein_coding         |choline phosphotransferase 1                                                                                 |
-#&gt; |ENSMUSG00000041052 |     4171|-2.397 |6.38e-09 |Slc7a13       |protein_coding         |solute carrier family 7, (cationic amino acid transporter, y+ system) member 13                              |
-#&gt; |ENSMUSG00000001827 |     1677|-1.780 |6.89e-09 |Folr1         |protein_coding         |folate receptor 1 (adult)                                                                                    |
-#&gt; |ENSMUSG00000036083 |     3723|-1.511 |1.77e-08 |Slc17a3       |protein_coding         |solute carrier family 17 (sodium phosphate), member 3                                                        |
-#&gt; |ENSMUSG00000064370 |   153642|-1.234 |2.02e-08 |mt-Cytb       |protein_coding         |mitochondrially encoded cytochrome b                                                                         |
-#&gt; |ENSMUSG00000064345 |    61014|-1.327 |7.92e-08 |mt-Nd2        |protein_coding         |mitochondrially encoded NADH dehydrogenase 2                                                                 |
-#&gt; |ENSMUSG00000024953 |     2874|-1.595 |2.81e-07 |Prdx5         |protein_coding         |peroxiredoxin 5                                                                                              |
-#&gt; |ENSMUSG00000032758 |    43668|-2.343 |3.89e-07 |Kap           |protein_coding         |kidney androgen regulated protein                                                                            |
-#&gt; |ENSMUSG00000076441 |    12142|-1.246 |5.43e-07 |Ass1          |protein_coding         |argininosuccinate synthetase 1                                                                               |
-#&gt; |ENSMUSG00000030945 |    41949|-1.761 |9.25e-07 |Acsm2         |protein_coding         |acyl-CoA synthetase medium-chain family member 2                                                             |
-#&gt; |ENSMUSG00000025980 |     4282|-1.419 |1.41e-06 |Hspd1         |protein_coding         |heat shock protein 1 (chaperonin)                                                                            |
-#&gt; |ENSMUSG00000020098 |     2063|-1.270 |1.89e-06 |Pcbd1         |protein_coding         |pterin 4 alpha carbinolamine dehydratase/dimerization cofactor of hepatocyte nuclear factor 1 alpha (TCF1) 1 |
-#&gt; |ENSMUSG00000069805 |     3084|-1.543 |2.15e-06 |Fbp1          |protein_coding         |fructose bisphosphatase 1                                                                                    |
-#&gt; |ENSMUSG00000031938 |     6588|-1.112 |4.05e-06 |4931406C07Rik |protein_coding         |RIKEN cDNA 4931406C07 gene                                                                                   |
-#&gt; |ENSMUSG00000064363 |   161680|-1.295 |4.15e-06 |mt-Nd4        |protein_coding         |mitochondrially encoded NADH dehydrogenase 4                                                                 |
-#&gt; |ENSMUSG00000064357 |   109595|-1.073 |5.47e-06 |mt-Atp6       |protein_coding         |mitochondrially encoded ATP synthase 6                                                                       |
-#&gt; |ENSMUSG00000021207 |     1941|-1.055 |5.82e-06 |Akr1c21       |protein_coding         |aldo-keto reductase family 1, member C21                                                                     |
-#&gt; |ENSMUSG00000052562 |     4104|-1.974 |6.65e-06 |Slc22a30      |protein_coding         |solute carrier family 22, member 30                                                                          |
-#&gt; |ENSMUSG00000022613 |     4721|-1.389 |8.88e-06 |Miox          |protein_coding         |myo-inositol oxygenase                                                                                       |
-#&gt; |ENSMUSG00000095143 |     2643|-1.260 |1.15e-05 |Hsd3b4        |protein_coding         |hydroxy-delta-5-steroid dehydrogenase, 3 beta- and steroid delta-isomerase 4                                 |
-#&gt; |ENSMUSG00000024866 |    10530|-1.587 |1.31e-05 |Acy3          |protein_coding         |aspartoacylase (aminoacylase) 3                                                                              |
-#&gt; |ENSMUSG00000006345 |     2010|-1.296 |1.40e-05 |Ggt1          |protein_coding         |gamma-glutamyltransferase 1                                                                                  |
-#&gt; |ENSMUSG00000020051 |     5587|-1.550 |1.40e-05 |Pah           |protein_coding         |phenylalanine hydroxylase                                                                                    |
-#&gt; |ENSMUSG00000074207 |     2152|-1.426 |1.51e-05 |Adh1          |protein_coding         |alcohol dehydrogenase 1 (class I)                                                                            |
-#&gt; |ENSMUSG00000064358 |   133000|-0.973 |1.97e-05 |mt-Co3        |protein_coding         |mitochondrially encoded cytochrome c oxidase III                                                             |
-#&gt; |ENSMUSG00000021490 |    14189|-1.267 |2.27e-05 |Slc34a1       |protein_coding         |solute carrier family 34 (sodium phosphate), member 1                                                        |
-#&gt; |ENSMUSG00000027070 |    32447|-1.154 |2.49e-05 |Lrp2          |protein_coding         |low density lipoprotein receptor-related protein 2                                                           |
-#&gt; |ENSMUSG00000028692 |     5432|-0.988 |3.05e-05 |Akr1a1        |protein_coding         |aldo-keto reductase family 1, member A1 (aldehyde reductase)                                                 |
-#&gt; |ENSMUSG00000021238 |     6793|-1.094 |4.68e-05 |Aldh6a1       |protein_coding         |aldehyde dehydrogenase family 6, subfamily A1                                                                |
-#&gt; |ENSMUSG00000032047 |     5214|-1.587 |5.50e-05 |Acat1         |protein_coding         |acetyl-Coenzyme A acetyltransferase 1                                                                        |
-#&gt; |ENSMUSG00000015401 |    17835|-1.497 |6.23e-05 |Tmem27        |protein_coding         |transmembrane protein 27                                                                                     |
-#&gt; |ENSMUSG00000023914 |     8441|-1.030 |6.95e-05 |Mep1a         |protein_coding         |meprin 1 alpha                                                                                               |
-#&gt; |ENSMUSG00000028307 |    26143|-0.965 |6.95e-05 |Aldob         |protein_coding         |aldolase B, fructose-bisphosphate                                                                            |
-#&gt; |ENSMUSG00000101939 |     1179|-1.177 |1.21e-04 |Gm28438       |unprocessed_pseudogene |predicted gene 28438                                                                                         |
-#&gt; |ENSMUSG00000064354 |    79198|-0.952 |1.42e-04 |mt-Co2        |protein_coding         |mitochondrially encoded cytochrome c oxidase II                                                              |
-#&gt; |ENSMUSG00000061048 |    10866|-2.031 |1.49e-04 |Cdh3          |protein_coding         |cadherin 3                                                                                                   |
-#&gt; |ENSMUSG00000064360 |     2989|-1.221 |1.53e-04 |mt-Nd3        |protein_coding         |mitochondrially encoded NADH dehydrogenase 3                                                                 |
-#&gt; |ENSMUSG00000027187 |     8912|-0.914 |1.56e-04 |Cat           |protein_coding         |catalase                                                                                                     |
-#&gt; |ENSMUSG00000024646 |     3287|-1.178 |1.70e-04 |Cyb5a         |protein_coding         |cytochrome b5 type A (microsomal)                                                                            |
-#&gt; |ENSMUSG00000052520 |     9456|-1.038 |1.90e-04 |Cyp2j5        |protein_coding         |cytochrome P450, family 2, subfamily j, polypeptide 5                                                        |
-#&gt; |ENSMUSG00000022982 |     2371|-1.142 |2.62e-04 |Sod1          |protein_coding         |superoxide dismutase 1, soluble                                                                              |
-#&gt; |ENSMUSG00000064367 |   139434|-1.127 |2.62e-04 |mt-Nd5        |protein_coding         |mitochondrially encoded NADH dehydrogenase 5                                                                 |
-#&gt; |ENSMUSG00000025479 |     9098|-1.305 |2.63e-04 |Cyp2e1        |protein_coding         |cytochrome P450, family 2, subfamily e, polypeptide 1                                                        |
-#&gt; |ENSMUSG00000020044 |    25612|-0.872 |2.79e-04 |Timp3         |protein_coding         |tissue inhibitor of metalloproteinase 3                                                                      |</div></pre>
+#&gt; |geneID             | baseMean|lfc   |padj     |geneName |geneBiotype    |description                                                        |
+#&gt; |:------------------|--------:|:-----|:--------|:--------|:--------------|:------------------------------------------------------------------|
+#&gt; |ENSMUSG00000005980 |     5649|-2.64 |5.72e-13 |Dnase1   |protein_coding |deoxyribonuclease I                                                |
+#&gt; |ENSMUSG00000027199 |    10851|-2.20 |2.38e-12 |Gatm     |protein_coding |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
+#&gt; |ENSMUSG00000028713 |    14427|-1.60 |6.64e-11 |Cyp4b1   |protein_coding |cytochrome P450, family 4, subfamily b, polypeptide 1              |
+#&gt; |ENSMUSG00000049152 |    13285|-1.62 |3.35e-10 |Ugt3a2   |protein_coding |UDP glycosyltransferases 3 family, polypeptide A2                  |
+#&gt; |ENSMUSG00000062908 |     2771|-1.45 |2.04e-09 |Acadm    |protein_coding |acyl-Coenzyme A dehydrogenase, medium chain                        |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
