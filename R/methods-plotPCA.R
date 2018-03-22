@@ -41,7 +41,7 @@ NULL
 #' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom grid arrow unit
-.plotPCA <- function(
+.plotPCA.bcbioRNASeq <- function(  # nolint
     object,
     normalized = c("rlog", "vst", "tmm", "tpm"),
     genes = NULL,
@@ -216,5 +216,5 @@ NULL
 setMethod(
     "plotPCA",
     signature("bcbioRNASeq"),
-    .plotPCA
+    .plotPCA.bcbioRNASeq
 )
