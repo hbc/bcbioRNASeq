@@ -16,8 +16,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
 .plotCountsPerGene <- function(
     object,
     interestingGroups,

@@ -4,8 +4,6 @@
 #' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase prepareTemplate
-#'
 #' @inheritParams general
 #'
 #' @return No value.

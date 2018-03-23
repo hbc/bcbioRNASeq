@@ -45,10 +45,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport estimateSizeFactors rlog
-#'   varianceStabilizingTransformation
-#' @importFrom bcbioBase prepareSummarizedExperiment
-#' @importFrom tibble column_to_rownames rownames_to_column
 .subset <- function(x, i, j, ..., drop = FALSE) {
     validObject(x)
 

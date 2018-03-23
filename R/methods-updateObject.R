@@ -33,7 +33,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump sanitizeSampleData
 .updateObject <- function(
     object,
     rowRanges

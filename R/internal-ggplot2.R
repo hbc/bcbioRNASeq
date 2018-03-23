@@ -1,10 +1,7 @@
-#' @importFrom grid unit
-#' @importFrom viridis inferno
-
 lineColor <- "black"
 
 # Quality control plot colors
-qcColors <- viridis::inferno(3L)
+qcColors <- inferno(3L)
 qcPassColor <- qcColors[[1L]]
 qcWarnColor <- qcColors[[2L]]
 qcFailColor <- qcColors[[3L]]
@@ -15,7 +12,7 @@ qcLabelAlpha <- 0.75
 qcLabelColor <- "white"
 qcLabelFill <- "black"
 qcLabelFontface <- "bold"
-qcLabelPadding <- grid::unit(0.2, "lines")
+qcLabelPadding <- unit(0.2, "lines")
 qcLabelSize <- NA
 
 # Quality control line appearance
@@ -29,7 +26,6 @@ labelSep <- ": "
 
 
 # ggproto objects ==============================================================
-#' @importFrom ggplot2 stat_summary
 geneMedianLine <- stat_summary(
     fun.y = median,
     fun.ymin = median,
@@ -42,7 +38,6 @@ geneMedianLine <- stat_summary(
 
 
 # geom functions ==============================================================
-#' @importFrom ggplot2 position_jitterdodge
 genePoint <- function(size = 3L, alpha = 1L) {
     geom_point(
         size = size,
@@ -53,7 +48,6 @@ genePoint <- function(size = 3L, alpha = 1L) {
 
 
 
-#' @importFrom ggplot2 geom_hline
 qcPassLine <- function(intercept) {
     assert_is_a_number(intercept)
     assert_all_are_non_negative(intercept)
@@ -68,7 +62,6 @@ qcPassLine <- function(intercept) {
 
 
 
-#' @importFrom ggplot2 geom_hline
 qcWarnLine <- function(intercept) {
     assert_is_a_number(intercept)
     assert_all_are_non_negative(intercept)

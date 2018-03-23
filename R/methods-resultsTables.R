@@ -52,8 +52,6 @@ NULL
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @importFrom basejump markdownHeader markdownList
-#'
 #' @return [writeLines()] output.
 #' @noRd
 .markdownResultsTables <- function(object, headerLevel = 2L) {
@@ -112,12 +110,6 @@ NULL
 
 
 
-#' @importFrom basejump camel initializeDirectory markdownHeader markdownList
-#'   sanitizeRowData snake
-#' @importFrom bcbioBase copyToDropbox
-#' @importFrom dplyr left_join
-#' @importFrom readr write_csv
-#' @importFrom tibble rownames_to_column
 .resultsTables.DESeqResults <- function(  # nolint
     object,
     lfc = 0L,

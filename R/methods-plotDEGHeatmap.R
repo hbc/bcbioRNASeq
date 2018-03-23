@@ -47,7 +47,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump convertGenesToSymbols plotHeatmap
 .plotDEGHeatmap <- function(  # nolint
     object,
     counts,

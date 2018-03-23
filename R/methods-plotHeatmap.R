@@ -44,7 +44,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump convertGenesToSymbols plotHeatmap
 .plotHeatmap.matrix <- function(  # nolint
     object,
     samples = NULL,
@@ -97,7 +96,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotHeatmap
-#' @importFrom bcbioBase gene2symbol interestingGroups
 #' @export
 setMethod(
     "plotHeatmap",

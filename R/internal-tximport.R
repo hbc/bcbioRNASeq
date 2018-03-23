@@ -10,9 +10,6 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom readr read_tsv
-#' @importFrom tximport tximport
-#'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs Sample directories to import.
 #' @param type *Optional.* Manually specify the expression caller to use.

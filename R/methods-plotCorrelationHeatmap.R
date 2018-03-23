@@ -45,7 +45,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
-#' @importFrom basejump makeNames
 #' @export
 setMethod(
     "plotCorrelationHeatmap",

@@ -40,9 +40,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump markdownPlotlist
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom cowplot plot_grid
 .plotGene <- function(
     object,
     genes,
@@ -112,10 +109,6 @@ NULL
 
 
 
-#' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
-#'   guides labs theme
-#' @importFrom parallel mcmapply
-#' @importFrom tibble tibble
 .plotGeneList <- function(
     object,
     genes,
@@ -202,13 +195,6 @@ NULL
 
 
 
-#' @importFrom dplyr arrange group_by left_join
-#' @importFrom ggplot2 aes_string element_text expand_limits geom_point ggplot
-#'   guides labs theme
-#' @importFrom magrittr set_colnames
-#' @importFrom rlang !! !!! sym syms
-#' @importFrom reshape2 melt
-#' @importFrom tibble as_tibble rownames_to_column
 .plotGeneWide <- function(
     object,
     genes,
@@ -275,7 +261,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotGene
-#' @importFrom bcbioBase gene2symbol
 #' @export
 setMethod(
     "plotGene",

@@ -24,8 +24,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_density ggplot guides labs
 .plotCountDensity <- function(
     object,
     interestingGroups,

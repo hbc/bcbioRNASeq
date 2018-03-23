@@ -4,12 +4,6 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @importFrom dplyr group_by left_join mutate
-#' @importFrom magrittr set_colnames
-#' @importFrom reshape2 melt
-#' @importFrom rlang !! !!! sym syms
-#' @importFrom tibble as_tibble rownames_to_column
-#'
 #' @inheritParams general
 #' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
 #' or specifically request TMM-normalized counts (`tmm`).

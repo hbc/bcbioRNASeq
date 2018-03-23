@@ -16,8 +16,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 .plotMappingRate <- function(
     object,
     interestingGroups,

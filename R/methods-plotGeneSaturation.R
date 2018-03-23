@@ -19,8 +19,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
-#' @importFrom ggplot2 aes_ geom_point geom_smooth ggplot labs
 .plotGeneSaturation <- function(
     object,
     normalized = c("rlog", "vst", "tmm", "tpm"),

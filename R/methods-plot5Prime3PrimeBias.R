@@ -16,8 +16,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase interestingGroups uniteInterestingGroups
-#' @importFrom ggplot2 aes_string coord_flip geom_bar ggplot guides labs
 .plot5Prime3PrimeBias <- function(
     object,
     interestingGroups,

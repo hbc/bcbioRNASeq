@@ -19,7 +19,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname metrics
-#' @importFrom dplyr left_join mutate_if
 #' @export
 setMethod(
     "metrics",

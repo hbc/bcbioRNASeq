@@ -16,17 +16,6 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform rlog
-#'  varianceStabilizingTransformation
-#' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom basejump camel ensembl readYAML sanitizeSampleData
-#' @importFrom bcbioBase readDataVersions readLogFile readProgramVersions
-#'   readSampleMetadataFile sampleDirs sampleYAMLMetadata sampleYAMLMetrics
-#' @importFrom dplyr mutate_all pull
-#' @importFrom stringr str_match str_trunc
-#' @importFrom tibble column_to_rownames rownames_to_column
-#' @importFrom utils packageVersion
-#'
 #' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.

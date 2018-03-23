@@ -31,8 +31,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname plotPCACovariates
-#' @importFrom DEGreport degCovariates
-#' @importFrom dplyr select_if
 #' @export
 setMethod(
     "plotPCACovariates",

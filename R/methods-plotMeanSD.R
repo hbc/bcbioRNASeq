@@ -30,9 +30,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom cowplot plot_grid
-#' @importFrom ggplot2 ggtitle theme xlab
-#' @importFrom vsn meanSdPlot
 .plotMeanSD.assays <- function(  # nolint
     raw,
     normalized,
@@ -133,7 +130,6 @@ setMethod(
 
 
 #' @rdname plotMeanSD
-#' @importFrom DESeq2 rlog varianceStabilizingTransformation
 #' @export
 setMethod(
     "plotMeanSD",

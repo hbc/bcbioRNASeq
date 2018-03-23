@@ -36,11 +36,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom SummarizedExperiment SummarizedExperiment
-#' @importFrom basejump camel
-#' @importFrom ggplot2 aes_string coord_fixed geom_point ggplot guides labs
-#' @importFrom ggrepel geom_text_repel
-#' @importFrom grid arrow unit
 .plotPCA.bcbioRNASeq <- function(  # nolint
     object,
     normalized = c("rlog", "vst", "tmm", "tpm"),

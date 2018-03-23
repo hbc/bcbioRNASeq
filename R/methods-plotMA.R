@@ -30,12 +30,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom dplyr left_join
-#' @importFrom ggplot2 aes_ annotation_logticks geom_hline geom_point ggtitle
-#'   guides labs scale_color_manual scale_x_log10
-#' @importFrom ggrepel geom_text_repel
-#' @importFrom grid arrow unit
-#' @importFrom tibble as_tibble rownames_to_column
 .plotMA <- function(
     object,
     genes = NULL,

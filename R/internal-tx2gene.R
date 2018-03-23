@@ -5,9 +5,6 @@
 #' @noRd
 #'
 #' @importFrom basejump tx2gene
-#' @importFrom dplyr mutate
-#' @importFrom magrittr set_rownames
-#' @importFrom readr read_csv
 #'
 #' @param projectDir Project directory.
 #' @param organism Organism name.

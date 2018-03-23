@@ -29,9 +29,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump fixNA
-#' @importFrom dplyr filter mutate
-#' @importFrom tibble remove_rownames
 .subsetTop <- function(
     object,
     n = 50L,
@@ -85,7 +82,6 @@ NULL
 
 
 
-#' @importFrom knitr kable
 .topTables.list <- function(  # nolint
     object,
     n = 50L,

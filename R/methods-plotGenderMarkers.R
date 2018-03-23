@@ -137,7 +137,6 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -169,7 +168,6 @@ setMethod(
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",

@@ -57,7 +57,6 @@ setMethod(
 
 
 #' @rdname tmm
-#' @importFrom edgeR calcNormFactors cpm DGEList
 #' @export
 setMethod(
     "tmm",

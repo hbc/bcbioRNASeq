@@ -36,11 +36,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname alphaSummary
-#' @importFrom DESeq2 results
-#' @importFrom dplyr bind_cols
-#' @importFrom knitr kable
-#' @importFrom magrittr set_colnames set_rownames
-#' @importFrom utils capture.output
 #' @export
 setMethod(
     "alphaSummary",
@@ -104,7 +99,6 @@ setMethod(
 
 
 #' @rdname alphaSummary
-#' @importFrom BiocGenerics design
 #' @export
 setMethod(
     "alphaSummary",

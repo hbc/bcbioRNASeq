@@ -33,7 +33,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump sanitizeSampleData
 `.colData<-` <- function(x, value) {
     validObject(x)
     assert_are_identical(colnames(x), rownames(value))
@@ -48,7 +47,6 @@ NULL
 
 # Methods ======================================================================
 #' @rdname colData
-#' @importFrom basejump sanitizeSampleData
 #' @export
 setMethod(
     "colData",

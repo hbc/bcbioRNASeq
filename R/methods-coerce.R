@@ -34,7 +34,6 @@ NULL
 # Methods ======================================================================
 #' @rdname coerce
 #' @name coerce-bcbioRNASeq-DESeqDataSet
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport
 setAs(
     from = "bcbioRNASeq",
     to = "DESeqDataSet",
