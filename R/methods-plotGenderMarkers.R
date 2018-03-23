@@ -31,12 +31,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
-#' @importFrom dplyr filter left_join pull
-#' @importFrom ggplot2 aes_string element_text expand_limits geom_jitter ggplot
-#'   ggtitle labs theme
-#' @importFrom magrittr set_colnames set_rownames
-#' @importFrom tibble rownames_to_column
 .plotGenderMarkers <- function(
     object,
     colData,
@@ -76,10 +70,10 @@ NULL
     gene2symbol <- markers %>%
         .[.[["include"]] == TRUE, , drop = FALSE] %>%
         mutate(
-            "geneName" = paste(
-                .data[["chromosome"]],
-                .data[["geneName"]],
-                sep = " : ")
+            geneName = paste(
+                !!!syms(c("chromosome", "geneName")),
+                sep = " : "
+            )
         ) %>%
         .[, c("geneID", "geneName")] %>%
         as.data.frame() %>%

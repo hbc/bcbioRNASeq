@@ -111,19 +111,18 @@ NULL
             # Keep genes with an adjusted P value
             .[!is.na(.[["padj"]]), , drop = FALSE] %>%
             # log10 transform
-            mutate(negLog10Pvalue = -log10(.data[["padj"]] + 1e-10))
+            mutate(negLog10Pvalue = -log10(!!sym("padj") + 1e-10))
         pvalTitle <- "adj p value"
     } else {
         data <- data %>%
-            mutate(negLog10Pvalue = -log10(.data[["pvalue"]] + 1e-10))
+            mutate(negLog10Pvalue = -log10(!!sym("pvalue") + 1e-10))
         pvalTitle <- "p value"
     }
 
     # Calculate rank score
     data <- data %>%
         mutate(
-            rankScore = .data[["negLog10Pvalue"]] *
-                abs(.data[["log2FoldChange"]])
+            rankScore = !!sym("negLog10Pvalue") * abs(!!sym("log2FoldChange"))
         ) %>%
         arrange(desc(!!sym("rankScore")))
 

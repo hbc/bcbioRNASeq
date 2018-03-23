@@ -62,9 +62,9 @@ NULL
         remove_rownames() %>%
         head(n = n) %>%
         mutate(
-            baseMean = round(.data[["baseMean"]]),
-            log2FoldChange = format(.data[["log2FoldChange"]], digits = 3L),
-            padj = format(.data[["padj"]], digits = 3L, scientific = TRUE)
+            baseMean = round(!!sym("baseMean")),
+            log2FoldChange = format(!!sym("log2FoldChange"), digits = 3L),
+            padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
         ) %>%
         .[, which(colnames(.) %in% keepCols)]
 
@@ -80,7 +80,7 @@ NULL
 
     return %>%
         # Shorten `log2FoldChange` to `lfc`
-        dplyr::rename(lfc = .data[["log2FoldChange"]])
+        dplyr::rename(lfc = !!sym("log2FoldChange"))
 }
 
 
