@@ -1,7 +1,7 @@
 lineColor <- "black"
 
 # Quality control plot colors
-qcColors <- inferno(3L)
+qcColors <- viridis::inferno(3L)
 qcPassColor <- qcColors[[1L]]
 qcWarnColor <- qcColors[[2L]]
 qcFailColor <- qcColors[[3L]]
@@ -12,7 +12,7 @@ qcLabelAlpha <- 0.75
 qcLabelColor <- "white"
 qcLabelFill <- "black"
 qcLabelFontface <- "bold"
-qcLabelPadding <- unit(0.2, "lines")
+qcLabelPadding <- grid::unit(0.2, "lines")
 qcLabelSize <- NA
 
 # Quality control line appearance
