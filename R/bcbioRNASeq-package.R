@@ -20,8 +20,7 @@
 #'   rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism ensembl fixNA
 #'   gene2symbol initializeDirectory makeNames markdownHeader markdownList
-#'   markdownPlotlist plotHeatmap readYAML sanitizeRowData sanitizeSampleData
-#'   snake
+#'   markdownPlotlist readYAML sanitizeRowData sanitizeSampleData snake
 #' @importFrom bcbioBase copyToDropbox interestingGroups
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLogFile
 #'   readProgramVersions readSampleMetadataFile sampleDirs sampleYAMLMetadata

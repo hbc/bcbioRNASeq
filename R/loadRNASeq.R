@@ -188,7 +188,7 @@ loadRNASeq <- function(
     assert_is_subset(interestingGroups, colnames(colData))
 
     # Subset sample directories by metadata ====================================
-    samples <- colData[["sampleID"]] %>% as.character()
+    samples <- as.character(colData[["sampleID"]])
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
         inform(paste(

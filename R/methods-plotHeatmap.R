@@ -9,9 +9,9 @@
 #' @family Gene Expression Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotHeatmap
+#' @importFrom bcbioBase plotHeatmap
 #'
-#' @inherit basejump::plotHeatmap
+#' @inherit bcbioBase::plotHeatmap
 #'
 #' @inheritParams general
 #'

@@ -10,9 +10,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump plotCorrelationHeatmap
+#' @importFrom bcbioBase plotCorrelationHeatmap
 #'
-#' @inherit basejump::plotCorrelationHeatmap
+#' @inherit bcbioBase::plotCorrelationHeatmap
 #'
 #' @inheritParams general
 #'
