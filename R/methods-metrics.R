@@ -35,7 +35,7 @@ setMethod(
                     "Metrics slot contains legacy columns:",
                     toString(intersect(colnames(metrics), legacyMetricsCols))
                 ),
-                updateMsg,
+                bcbioBase::updateMessage,
                 sep = "\n"
             ))
             metrics <- metrics %>%

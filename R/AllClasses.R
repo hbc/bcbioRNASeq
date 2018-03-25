@@ -66,7 +66,7 @@ setValidity(
                     "Assays that are not matrix:",
                     toString(names(assayCheck[!assayCheck]))
                 ),
-                updateMsg,
+                bcbioBase::updateMessage,
                 sep = "\n"
             ))
         }
@@ -94,7 +94,7 @@ setValidity(
                     "Non-factor colData columns:",
                     toString(names(colDataCheck[!colDataCheck]))
                 ),
-                updateMsg,
+                bcbioBase::updateMessage,
                 sep = "\n"
             ))
         }
@@ -119,7 +119,7 @@ setValidity(
                     "Legacy metadata slots:",
                     toString(sort(intersect))
                 ),
-                updateMsg,
+                bcbioBase::updateMessage,
                 sep = "\n"
             ))
         }
@@ -182,7 +182,9 @@ setValidity(
         ))
         if (!all(classChecks)) {
             abort(paste(
-                "Metadata class checks failed.", updateMsg, sep = "\n"
+                "Metadata class checks failed.",
+                bcbioBase::updateMessage,
+                sep = "\n"
             ))
         }
 
@@ -190,7 +192,7 @@ setValidity(
         # caller
         assert_is_subset(
             x = metadata[["caller"]],
-            y = c("salmon", "kallisto", "sailfish")
+            y = validCallers
         )
         # level
         assert_is_subset(

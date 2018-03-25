@@ -150,8 +150,8 @@ loadRNASeq <- function(
     assert_all_are_dirs(sampleDirs)
 
     # Sequencing lanes =========================================================
-    if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
-        lanes <- str_match(names(sampleDirs), lanePattern) %>%
+    if (any(grepl(x = sampleDirs, pattern = bcbioBase::lanePattern))) {
+        lanes <- str_match(names(sampleDirs), bcbioBase::lanePattern) %>%
             .[, 2L] %>%
             unique() %>%
             length()

@@ -200,7 +200,7 @@ NULL
         assert_is_data.frame(metrics)
 
         # Drop sample name columns
-        legacyNameCols <- c(metadataPriorityCols, "name")
+        legacyNameCols <- c(bcbioBase::metadataPriorityCols, "name")
         if (length(intersect(colnames(metrics), legacyNameCols))) {
             inform("Dropping legacy sample names from metrics")
             metrics <- metrics %>%
