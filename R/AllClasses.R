@@ -47,7 +47,7 @@ bcbioRNASeq <- setClass(
 setValidity(
     "bcbioRNASeq",
     function(object) {
-        assert_is_all_of(object, "SummarizedExperiment")
+        assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
 
         # Assays ===============================================================
