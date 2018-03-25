@@ -47,6 +47,7 @@ bcbioRNASeq <- setClass(
 setValidity(
     "bcbioRNASeq",
     function(object) {
+        stopifnot(metadata(object)[["version"]] >= 0.2)
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
 
