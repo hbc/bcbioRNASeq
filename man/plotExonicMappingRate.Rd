@@ -39,7 +39,6 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Exonic Mapping Rate
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotExonicMappingRate(bcb_small)
 }
 \seealso{

@@ -20,9 +20,6 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
 #' alphaSummary(bcb_small)
 #'

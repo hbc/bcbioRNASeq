@@ -1,4 +1,4 @@
-# FIXME Improve y-axis breaks from 1-10
+# TODO Improve y-axis break consistency from 1-10
 
 #' Plot Volcano
 #'
@@ -25,9 +25,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
-#'
 #' # DESeqResults ====
 #' plotVolcano(
 #'     object = res_small,

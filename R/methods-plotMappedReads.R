@@ -9,7 +9,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 #' plotMappedReads(bcb_small)
 NULL
 

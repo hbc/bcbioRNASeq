@@ -18,7 +18,6 @@
 Transcripts Per Million (TPM)
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 tpm(bcb_small) \%>\% glimpse()
 }
 \seealso{

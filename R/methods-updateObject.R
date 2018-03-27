@@ -26,7 +26,6 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 #' updateObject(bcb_small)
 NULL
 

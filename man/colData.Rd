@@ -32,8 +32,6 @@ This method support will also update the nested \code{\link[=colData]{colData()}
 \code{assays} slot.
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq ====
 colData(bcb_small) \%>\% glimpse()
 

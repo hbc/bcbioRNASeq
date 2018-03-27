@@ -38,7 +38,6 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot 5'->3' Bias
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plot5Prime3PrimeBias(bcb_small)
 }
 \seealso{

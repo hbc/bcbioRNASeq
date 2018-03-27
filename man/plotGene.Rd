@@ -69,10 +69,6 @@ contain the columns \code{geneID} and \code{geneName}.}
 Plot Individual Genes
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
-
 # Gene identifiers
 genes <- head(rownames(bcb_small), 8L)
 

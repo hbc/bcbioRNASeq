@@ -9,7 +9,6 @@
 #' @return Data describing the rows of the object.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 #' rowData(bcb_small) %>% glimpse()
 NULL
 

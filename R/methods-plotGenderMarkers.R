@@ -14,10 +14,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld_small.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb_small)
 #'

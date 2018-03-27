@@ -23,8 +23,6 @@ fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq ====
 plotDispEsts(bcb_small)
 

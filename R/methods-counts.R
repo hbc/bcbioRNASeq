@@ -30,8 +30,6 @@
 #' - [DESeq2::varianceStabilizingTransformation()].
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
 #' counts(bcb_small, normalized = FALSE) %>% summary()
 #' counts(bcb_small, normalized = TRUE) %>% summary()

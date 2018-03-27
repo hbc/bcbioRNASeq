@@ -40,7 +40,6 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Total Reads
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 plotTotalReads(bcb_small)
 }
 \seealso{

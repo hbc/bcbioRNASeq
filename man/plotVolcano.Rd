@@ -58,9 +58,6 @@ contain the columns \code{geneID} and \code{geneName}.}
 Plot Volcano
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
-
 # DESeqResults ====
 plotVolcano(
     object = res_small,

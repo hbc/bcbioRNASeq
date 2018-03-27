@@ -21,8 +21,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
 #' plotDispEsts(bcb_small)
 #'

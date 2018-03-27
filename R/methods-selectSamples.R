@@ -13,9 +13,6 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/dds_small.rda", package = "bcbioRNASeq"))
-#'
 #' # bcbioRNASeq ====
 #' x <- selectSamples(bcb_small, day = 7L)
 #' show(x)

@@ -33,7 +33,6 @@
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 #' show(bcb_small)
 #' validObject(bcb_small)
 bcbioRNASeq <- setClass(

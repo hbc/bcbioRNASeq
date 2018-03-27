@@ -56,8 +56,6 @@ input of \code{gene} identifier vector. In this case, only the expression of the
 desired genes will be used to calculate the correlation matrix.
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq ====
 # Pearson correlation
 plotCorrelationHeatmap(bcb_small, method = "pearson")

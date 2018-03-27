@@ -10,8 +10,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#'
 #' # Minimal exampe distorts the y-axis
 #' plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
 NULL

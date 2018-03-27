@@ -6,8 +6,6 @@
 #' @return Object of new class.
 #'
 #' @examples
-#' load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-#'
 #' # DESeqDataSet ====
 #' dds <- as(bcb_small, "DESeqDataSet")
 #' show(dds)

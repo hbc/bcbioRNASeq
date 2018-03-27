@@ -18,7 +18,6 @@
 Sample Metrics
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
 metrics(bcb_small) \%>\% glimpse()
 }
 \seealso{

@@ -54,9 +54,6 @@ and \code{altHypothesis} to set an alternative hypothesis based on expected fold
 changes.
 }
 \examples{
-load(system.file("extdata/bcb_small.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res_small.rda", package = "bcbioRNASeq"))
-
 # DESeqResults ====
 resTbl <- resultsTables(
     object = res_small,
