@@ -1,5 +1,3 @@
-# TODO Improve y-axis break consistency from 1-10
-
 #' Plot Volcano
 #'
 #' @name plotVolcano
