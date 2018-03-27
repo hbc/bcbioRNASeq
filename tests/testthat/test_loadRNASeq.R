@@ -172,7 +172,7 @@ test_that("User-defined sample metadata", {
     ))
     expect_s4_class(bcb, "bcbioRNASeq")
     expect_identical(
-        metadata(bcb)[["sampleMetadataFile"]],
-        sampleMetadataFile
+        basename(metadata(bcb)[["sampleMetadataFile"]]),
+        "sample_metadata.csv"
     )
 })
