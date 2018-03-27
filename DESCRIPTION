@@ -15,19 +15,22 @@ Authors@R: c(
         given = "Lorena",
         family = "Pantano",
         email = "lorena.pantano@gmail.com",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0002-3859-3249")
     ),
     person(
         given = "Rory",
         family = "Kirchner",
         email = "roryk@alum.mit.edu",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0003-4814-5885")
     ),
     person(
         given = "Victor",
         family = "Barrera",
         email = "barrera.vic@gmail.com",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0003-0590-4634")
     ),
     person(
         given = "Brad",
@@ -47,25 +50,29 @@ Authors@R: c(
         given = "Meeta",
         family = "Mistry",
         email = "meeta.mistry@gmail.com",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0002-5830-9479")
     ),
     person(
         given = "Radhika",
         family = "Khetani",
         email = "rkhetani@hsph.harvard.edu",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0003-2430-2970")
     ),
     person(
         given = "Kayleigh",
         family = "Rutherford",
         email = "kayrut1@gmail.com",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0001-9699-2363")
     ),
     person(
         given = "Oliver",
         family = "Hofmann",
         email = "ohofmann72@gmail.com",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0002-7738-1513")
     ),
     person(
         given = "John",
@@ -78,7 +85,8 @@ Authors@R: c(
         given = "Shannan",
         family = "Ho Sui",
         email = "shosui@hsph.harvard.edu",
-        role = "aut"
+        role = "aut",
+        comment = c(ORCID = "0000-0002-6191-4709")
     ),
     person(
         given = "Harvard Chan Bioinformatics Core",
