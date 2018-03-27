@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot 5'-&gt;3' Bias — plot5Prime3PrimeBias • bcbioRNASeq</title>
+<title><code>DESeqResults</code> Example — res_small • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,96 +80,38 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot 5'-&gt;3' Bias</h1>
+    <h1><code>DESeqResults</code> Example</h1>
     </div>
 
     
-    <p>Plot 5'-&gt;3' Bias</p>
+    <p><code>DESeqResults</code> Example</p>
     
 
-    <pre class="usage"><span class='fu'>plot5Prime3PrimeBias</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='no'>res_small</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plot5Prime3PrimeBias</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"5'-&gt;3' bias"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p>Character vector denoting groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
-      <th>warnLimit</th>
-      <td><p>Threshold to plot warning color marker.</p></td>
-    </tr>
-    <tr>
-      <th>fill</th>
-      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
-to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>flip</th>
-      <td><p>Flip x and y axes.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title of plot.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>ggplot</code>.</p>
+    <p>An object of class <code>DESeqResults</code> with 500 rows and 6 columns.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
-  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+    <p>Other GSE65267: <code><a href='bcb_small.html'>bcb_small</a></code>,
+  <code><a href='dds_small.html'>dds_small</a></code>, <code><a href='rld_small.html'>rld_small</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plot5Prime3PrimeBias</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plot5Prime3PrimeBias-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
     
-Michael Steinbaugh
+Lorena Pantano, Michael Steinbaugh
 
   </div>
 </div>

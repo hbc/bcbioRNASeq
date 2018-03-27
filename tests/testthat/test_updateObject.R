@@ -11,7 +11,7 @@ test_that("updateObject", {
     rowRanges <- genes(organism)
     valid <- suppressWarnings(updateObject(invalid, rowRanges = rowRanges))
     expect_identical(
-        metadata(bcb)[["version"]],
+        metadata(valid)[["version"]],
         packageVersion
     )
     expect_identical(
