@@ -35,12 +35,12 @@ stopifnot(identical(
 ))
 
 # Minimize metadata slots that take up disk space
-metadata(bcb_small)$bcbioCommandsLog <- character()
-metadata(bcb_small)$bcbioLog <- character()
-metadata(bcb_small)$dataVersions <- tibble()
-metadata(bcb_small)$programVersions <- tibble()
-metadata(bcb_small)$tx2gene <- head(metadata(bcb_small)$tx2gene)
-metadata(bcb_small)$yaml <- list()
+metadata(bcb_small)[["bcbioCommandsLog"]] <- character()
+metadata(bcb_small)[["bcbioLog"]] <- character()
+metadata(bcb_small)[["dataVersions"]] <- tibble()
+metadata(bcb_small)[["programVersions"]] <- tibble()
+metadata(bcb_small)[["tx2gene"]] <- head(metadata(bcb_small)[["tx2gene"]])
+metadata(bcb_small)[["yaml"]] <- list()
 
 # Sort the genes by abundance
 abundance <- tpm(bcb_small) %>%
@@ -48,7 +48,7 @@ abundance <- tpm(bcb_small) %>%
     sort(decreasing = TRUE) %>%
     names()
 # Ensure all dimorphic gender markers are included
-dimorphic <- genderMarkers$musMusculus %>%
+dimorphic <- genderMarkers[["musMusculus"]] %>%
     filter(include == TRUE) %>%
     pull(geneID) %>%
     sort() %>%
@@ -67,7 +67,7 @@ stopifnot(identical(
 interestingGroups(bcb_small) <- "treatment"
 
 # DESeq2 doesn't like spaces in design factors, so fix that in colData
-bcb_small$treatment <- snake(bcb_small$treatment)
+bcb_small[["treatment"]] <- snake(bcb_small[["treatment"]])
 
 # Check that object is valid
 validObject(bcb_small)
@@ -83,4 +83,4 @@ lapply(metadata(bcb_small), pryr::object_size)
 lapply(assays(bcb_small), object.size)
 lapply(metadata(bcb_small), object.size)
 
-saveData(bcb_small, dir = "inst/extdata", overwrite = TRUE, compress = "xz")
+use_data(bcb_small, overwrite = TRUE, compress = "xz")

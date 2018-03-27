@@ -168,7 +168,7 @@ test_that("User-defined sample metadata", {
     bcb <- suppressWarnings(loadRNASeq(
         uploadDir = uploadDir,
         organism = "Mus musculus",
-        sampleMetadataFile = sampleMetadataFile
+        sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
     ))
     expect_s4_class(bcb, "bcbioRNASeq")
     expect_identical(

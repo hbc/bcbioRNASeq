@@ -207,9 +207,9 @@ loadRNASeq <- function(
     txdb <- NULL
     tx2gene <- NULL
     if (is_a_string(gffFile)) {
+        # TODO Need to sanitize rowRanges here
         txdb <- makeTxDbFromGFF(gffFile)
         rowRanges <- genes(txdb)
-        # FIXME Need to sanitize rowRanges here
         # Transcript-to-gene mappings
         if (level == "transcripts") {
             transcripts <- transcripts(txdb, columns = c("tx_name", "gene_id"))
