@@ -182,7 +182,7 @@ cnetplot(
 
 A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. [Gene Set Enrichment Analysis (GSEA)][GSEA] directly addresses this limitation. All genes can be used in [GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
-```{r gsea_go, results="hide"}
+```{r gsea_go}
 # Prepare the gene list. Here we're subtracting the adjusted P value from 1.
 gene_list <- 1 - res_df$padj
 names(gene_list) <- row.names(res_df)
@@ -337,7 +337,21 @@ saveData(gsea_kegg, dir = params$data_dir)
 
 write_csv(
     gsea_kegg_result,
-    path = file.path(params$results_dir, "gsea_kegg_clusterprofiler.csv.gz")
+    path = file.path(params$results_dir, 
+                     paste0(
+                         paste(
+                             "gsea",
+                             "kegg",
+                             "clusterprofiler",
+                             "padj",
+                             alpha,
+                             "lfc",
+                             params$lfc,
+                             sep = "_"
+                         ),
+                         ".csv.gz"
+                     )
+    )
 )
 
 gsea_kegg_result
