@@ -12,12 +12,7 @@
 #' @param release Ensembl release version.
 #'
 #' @return `data.frame` with unique rownames.
-.tx2gene <- function(
-    projectDir,
-    organism = NULL,
-    release = NULL,
-    genomeBuild = NULL
-) {
+readTx2gene <- function(file) {
     assert_all_are_dirs(projectDir)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(release)

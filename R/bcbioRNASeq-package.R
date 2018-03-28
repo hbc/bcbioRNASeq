@@ -20,11 +20,12 @@
 #'   rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism ensembl fixNA
 #'   gene2symbol initializeDirectory makeNames markdownHeader markdownList
-#'   markdownPlotlist readYAML sanitizeRowData sanitizeSampleData snake
+#'   markdownPlotlist readYAML rowRangesFromGFF sanitizeRowData
+#'   sanitizeSampleData snake
 #' @importFrom bcbioBase copyToDropbox interestingGroups
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLogFile
-#'   readProgramVersions readSampleMetadataFile sampleDirs sampleYAMLMetadata
-#'   sampleYAMLMetrics uniteInterestingGroups
+#'   readProgramVersions readSampleMetadataFile readTx2gene sampleDirs
+#'   sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
 #'   mutate_all mutate_if pull select_if

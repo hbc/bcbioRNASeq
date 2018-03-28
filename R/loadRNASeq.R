@@ -203,20 +203,9 @@ loadRNASeq <- function(
     }
 
     # Row data =================================================================
-    rowRangesMetadata <- NULL
-    txdb <- NULL
-    tx2gene <- NULL
     if (is_a_string(gffFile)) {
-        txdb <- makeTxDbFromGFF(gffFile)
-        rowRanges <- genes(txdb)
-        # Transcript-to-gene mappings
-        if (level == "transcripts") {
-            transcripts <- transcripts(txdb, columns = c("tx_name", "gene_id"))
-            tx2gene <- mcols(transcripts) %>%
-                as.data.frame() %>%
-                set_colnames(c("txID", "geneID")) %>%
-                set_rownames(.[["txID"]])
-        }
+        rowRanges <- rowRangesFromGFF(gffFile, level = level)
+        rowRangesMetadata <- NULL
     } else {
         # ah: AnnotationHub
         ah <- ensembl(
@@ -271,13 +260,7 @@ loadRNASeq <- function(
     } else {
         txOut <- FALSE
     }
-    # Attempt to use `tx2gene.csv` saved in project directory
-    tx2gene <- .tx2gene(
-        projectDir = projectDir,
-        organism = organism,
-        release = ensemblRelease,
-        genomeBuild = genomeBuild
-    )
+    tx2gene <- readTx2gene(file.path(projectDir, "tx2gene.csv"))
     txi <- .tximport(
         sampleDirs = sampleDirs,
         type = caller,
@@ -357,7 +340,6 @@ loadRNASeq <- function(
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
         "gffFile" = as.character(gffFile),
-        "txdb" = txdb,
         "tx2gene" = tx2gene,
         "lanes" = lanes,
         "yaml" = yaml,
