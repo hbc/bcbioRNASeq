@@ -337,7 +337,21 @@ saveData(gsea_kegg, dir = params$data_dir)
 
 write_csv(
     gsea_kegg_result,
-    path = file.path(params$results_dir, "gsea_kegg_clusterprofiler.csv.gz")
+    path = file.path(params$results_dir, 
+                     paste0(
+                         paste(
+                             "gsea",
+                             "kegg",
+                             "clusterprofiler",
+                             "padj",
+                             alpha,
+                             "lfc",
+                             params$lfc,
+                             sep = "_"
+                         ),
+                         ".csv.gz"
+                     )
+    )
 )
 
 gsea_kegg_result
