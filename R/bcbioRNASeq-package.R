@@ -18,12 +18,13 @@
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom SummarizedExperiment assay assayNames assays colData rowData
 #'   rowRanges SummarizedExperiment
-#' @importFrom basejump camel convertGenesToSymbols detectOrganism ensembl fixNA
-#'   gene2symbol initializeDirectory makeNames markdownHeader markdownList
-#'   markdownPlotlist readYAML sanitizeRowData sanitizeSampleData snake
+#' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
+#'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
+#'   sanitizeRowData sanitizeSampleData snake
 #' @importFrom bcbioBase copyToDropbox interestingGroups
-#'   prepareSummarizedExperiment prepareTemplate readDataVersions readLogFile
-#'   readProgramVersions readSampleMetadataFile sampleDirs sampleYAMLMetadata
+#'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
+#'   readProgramVersions readSampleData sampleDirs sampleYAMLMetadata
 #'   sampleYAMLMetrics uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
