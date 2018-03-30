@@ -22,10 +22,10 @@
 #'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
 #'   sanitizeRowData sanitizeSampleData snake
-#' @importFrom bcbioBase copyToDropbox interestingGroups
+#' @importFrom bcbioBase copyToDropbox gene2symbol interestingGroups
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
-#'   readProgramVersions readSampleData sampleDirs sampleYAMLMetadata
-#'   sampleYAMLMetrics uniteInterestingGroups
+#'   readProgramVersions readSampleData readTx2gene sampleDirs
+#'   sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
 #'   mutate_all mutate_if pull select_if
