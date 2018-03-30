@@ -171,7 +171,7 @@ loadRNASeq <- function(
 
     # Column data ==============================================================
     if (is_a_string(sampleMetadataFile)) {
-        colData <- readSampleMetadataFile(sampleMetadataFile, lanes = lanes)
+        colData <- readSampleData(sampleMetadataFile, lanes = lanes)
     } else {
         colData <- sampleYAMLMetadata(yaml)
         if (is.character(samples)) {
@@ -203,28 +203,16 @@ loadRNASeq <- function(
     }
 
     # Row data =================================================================
-    rowRangesMetadata <- NULL
-    txdb <- NULL
-    tx2gene <- NULL
     if (is_a_string(gffFile)) {
-        txdb <- makeTxDbFromGFF(gffFile)
-        rowRanges <- genes(txdb)
-        # Transcript-to-gene mappings
-        if (level == "transcripts") {
-            transcripts <- transcripts(txdb, columns = c("tx_name", "gene_id"))
-            tx2gene <- mcols(transcripts) %>%
-                as.data.frame() %>%
-                set_colnames(c("txID", "geneID")) %>%
-                set_rownames(.[["txID"]])
-        }
+        rowRanges <- makeGRangesFromGFF(gffFile)
+        rowRangesMetadata <- NULL
     } else {
         # ah: AnnotationHub
-        ah <- ensembl(
+        ah <- makeGRangesFromEnsembl(
             organism = organism,
             format = level,
             genomeBuild = genomeBuild,
             release = ensemblRelease,
-            return = "GRanges",
             metadata = TRUE
         )
         assert_is_list(ah)
@@ -254,12 +242,12 @@ loadRNASeq <- function(
     )
     assert_is_tbl_df(programVersions)
 
-    bcbioLog <- readLogFile(
+    bcbioLog <- readLog(
         file = file.path(projectDir, "bcbio-nextgen.log")
     )
     assert_is_character(bcbioLog)
 
-    bcbioCommandsLog <- readLogFile(
+    bcbioCommandsLog <- readLog(
         file = file.path(projectDir, "bcbio-nextgen-commands.log")
     )
     assert_is_character(bcbioCommandsLog)
@@ -271,13 +259,22 @@ loadRNASeq <- function(
     } else {
         txOut <- FALSE
     }
-    # Attempt to use `tx2gene.csv` saved in project directory
-    tx2gene <- .tx2gene(
-        projectDir = projectDir,
-        organism = organism,
-        release = ensemblRelease,
-        genomeBuild = genomeBuild
-    )
+
+    # tx2gene
+    tx2geneFile <- file.path(projectDir, "tx2gene.csv")
+    if (file.exists(tx2geneFile)) {
+        # CSV file always takes priority
+        tx2gene <- readTx2gene(tx2geneFile)
+    } else if (is_a_string(gffFile)) {
+        # Fall back to using GFF, if declared
+        tx2gene <- makeTx2geneFromGFF(gffFile)
+    } else {
+        abort(paste(
+            "tx2gene assignment failure.",
+            "tx2gene.csv or GFF file are required."
+        ))
+    }
+
     txi <- .tximport(
         sampleDirs = sampleDirs,
         type = caller,
@@ -285,14 +282,16 @@ loadRNASeq <- function(
         txOut = txOut,
         tx2gene = tx2gene
     )
-    # abundance = transcripts per million (TPM)
-    # raw = raw counts
-    # length = average transcript length
-    # countsFromAbundance = character describing TPM
+
+    # abundance: transcripts per million (TPM)
+    # raw: raw counts
+    # length: average transcript length
+    # countsFromAbundance: character describing TPM
     tpm <- txi[["abundance"]]
     raw <- txi[["counts"]]
     length <- txi[["length"]]
     countsFromAbundance <- txi[["countsFromAbundance"]]
+
     assert_is_matrix(tpm)
     assert_is_matrix(raw)
     assert_is_matrix(length)
@@ -357,7 +356,6 @@ loadRNASeq <- function(
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
         "gffFile" = as.character(gffFile),
-        "txdb" = txdb,
         "tx2gene" = tx2gene,
         "lanes" = lanes,
         "yaml" = yaml,
