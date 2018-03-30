@@ -8,7 +8,7 @@ test_that("updateObject", {
         "metadata\\(object\\)\\[\\[\"version\"\\]\\] >= 0.2 is not TRUE"
     )
     organism <- metadata(invalid)[["organism"]]
-    rowRanges <- genes(organism)
+    rowRanges <- makeGRangesFromEnsembl(organism)
     valid <- suppressWarnings(updateObject(invalid, rowRanges = rowRanges))
     expect_identical(
         metadata(valid)[["version"]],
