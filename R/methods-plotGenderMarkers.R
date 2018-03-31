@@ -79,7 +79,7 @@ NULL
         .[. %in% rownames(object)]
     assert_is_non_empty(genes)
 
-    .plotGene(
+    .plotGene.matrix(
         object = object,
         genes = genes,
         gene2symbol = gene2symbol,
