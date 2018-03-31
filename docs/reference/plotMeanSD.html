@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Plot Row Standard Deviations vs. Row Means — plotMeanSD" />
+
+<meta property="og:description" content="vsn::meanSdPlot() wrapper that plots log2(), rlog(), and
+varianceStabilizingTransformation() normalized counts." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +41,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +58,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,6 +85,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -77,10 +93,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Row Standard Deviations vs. Row Means</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotMeanSD.R'><code>R/methods-plotMeanSD.R</code></a></small>
     </div>
 
     
@@ -98,7 +115,7 @@
 <span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vertical"</span>,
   <span class='st'>"horizontal"</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -127,13 +144,13 @@ informative and is disabled by default, to improve the plot appearance.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Quality Control Functions: <code><a href='metrics.html'>metrics</a></code>,
-  <code>plot5Prime3PrimeBias</code>,
+    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
   <code>plotCountDensity</code>,
   <code>plotCountsPerGene</code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code>plotExonicMappingRate</code>,
+  <code>plotGenderMarkers</code>,
   <code>plotGeneSaturation</code>,
   <code>plotGenesDetected</code>,
   <code>plotIntronicMappingRate</code>,
@@ -141,14 +158,14 @@ informative and is disabled by default, to improve the plot appearance.</p></td>
   <code>plotMappingRate</code>,
   <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
   <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p>
+  <code>plotTotalReads</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,5 +198,8 @@ Michael Steinbaugh, Lorena Patano
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

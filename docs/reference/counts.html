@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,14 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Count Matrix Accessors — counts" />
+
+<meta property="og:description" content="By default, counts() returns the raw counts. Normalized counts, including
+transcripts per million (TPM) can be accessed using the "normalized"
+argument." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +42,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,6 +86,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -77,10 +94,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Count Matrix Accessors</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-counts.R'><code>R/methods-counts.R</code></a></small>
     </div>
 
     
@@ -92,7 +110,7 @@ argument.</p>
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>counts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -119,17 +137,16 @@ method to apply:</p><ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <ul>
+    <div class='dont-index'><ul>
 <li><p><code><a href='tpm.html'>tpm()</a></code>.</p></li>
 <li><p><code>tmm()</code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/counts'>DESeq2::counts()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
-</ul>
-    <p>Other Data Functions: <code><a href='colData.html'>colData</a></code>,
-  <code><a href='rowData.html'>rowData</a></code>, <code><a href='selectSamples.html'>selectSamples</a></code>,
-  <code><a href='subset.html'>subset</a></code>, <code>tmm</code>,
-  <code><a href='tpm.html'>tpm</a></code></p>
+</ul></div>
+    <div class='dont-index'><p>Other Data Functions: <code><a href='metrics.html'>metrics</a></code>,
+  <code><a href='selectSamples.html'>selectSamples</a></code>, <code>tmm</code>,
+  <code><a href='tpm.html'>tpm</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -247,5 +264,8 @@ Michael Steinbaugh, Lorena Pantano
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

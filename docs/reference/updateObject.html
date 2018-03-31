@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,14 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Update Object — updateObject" />
+
+<meta property="og:description" content="Update old objects created by the bcbioRNASeq package. The session
+information metadata is preserved from the time when the bcbio data was
+originally loaded into R." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +42,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,6 +86,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -77,10 +94,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update Object</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-updateObject.R'><code>R/methods-updateObject.R</code></a></small>
     </div>
 
     
@@ -92,7 +110,7 @@ originally loaded into R.</p>
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>rowRanges</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -111,18 +129,25 @@ to be added to enable updating of newly required <code>rowRanges()</code> slot.<
 
     <p><code>bcbioRNASeq</code>.</p>
     
-    <h2 class="hasAnchor" id="legacy-code-bcbiornadataset-code-class"><a class="anchor" href="#legacy-code-bcbiornadataset-code-class"></a>Legacy &lt;code&gt;bcbioRNADataSet&lt;/code&gt; class</h2>
+    <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
 
     
     <p>Support for <code>bcbioRNADataSet</code> objects was dropped in v0.2.0 of the package.
 If you need to load one of these objects, please install an older release.</p>
     
-    <h2 class="hasAnchor" id="legacy-objects-created-with-code-bcbiornaseq-code-"><a class="anchor" href="#legacy-objects-created-with-code-bcbiornaseq-code-"></a>Legacy objects created with &lt;code&gt;bcbioRnaseq&lt;/code&gt;</h2>
+    <h2 class="hasAnchor" id="legacy-objects-created-with-bcbiornaseq"><a class="anchor" href="#legacy-objects-created-with-bcbiornaseq"></a>Legacy objects created with <code>bcbioRnaseq</code></h2>
 
     
     <p>The previous <code>bcbioRnaseq</code> package (note case) must be reinstalled to load
 objects from versions &lt;= 0.0.20. We changed the name of the package to
 <code>bcbioRNASeq</code> starting in v0.0.21.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
+  <code><a href='coerce.html'>coerce</a></code>, <code><a href='colData.html'>colData</a></code>,
+  <code><a href='rowData.html'>rowData</a></code>, <code><a href='show.html'>show</a></code>,
+  <code><a href='subset.html'>subset</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -132,7 +157,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; bcbio date: 2018-02-18
-#&gt; load date: 2018-03-27</div></pre>
+#&gt; load date: 2018-03-31</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -141,9 +166,11 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#legacy-code-bcbiornadataset-code-class">Legacy &lt;code&gt;bcbioRNADataSet&lt;/code&gt; class</a></li>
+      <li><a href="#legacy-bcbiornadataset-class">Legacy <code>bcbioRNADataSet</code> class</a></li>
 
-      <li><a href="#legacy-objects-created-with-code-bcbiornaseq-code-">Legacy objects created with &lt;code&gt;bcbioRnaseq&lt;/code&gt;</a></li>
+      <li><a href="#legacy-objects-created-with-bcbiornaseq">Legacy objects created with <code>bcbioRnaseq</code></a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -167,5 +194,8 @@ Michael Steinbaugh
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

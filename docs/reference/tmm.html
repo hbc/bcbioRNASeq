@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,14 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Trimmed Mean of M-Values (TMM) Normalization — tmm" />
+
+<meta property="og:description" content="TMM normalization is recommended for RNA-seq data generally when the majority
+of genes are not differentially expressed. We use this as a quality control
+tool when plotting counts per gene." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +42,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,6 +86,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -77,10 +94,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Trimmed Mean of M-Values (TMM) Normalization</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-tmm.R'><code>R/methods-tmm.R</code></a></small>
     </div>
 
     
@@ -100,7 +118,7 @@ tool when plotting counts per gene.</p>
 <span class='co'># S4 method for matrix</span>
 <span class='fu'>tmm</span>(<span class='no'>object</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -115,10 +133,9 @@ tool when plotting counts per gene.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other Data Functions: <code><a href='colData.html'>colData</a></code>,
-  <code><a href='counts.html'>counts</a></code>, <code><a href='rowData.html'>rowData</a></code>,
-  <code><a href='selectSamples.html'>selectSamples</a></code>, <code><a href='subset.html'>subset</a></code>,
-  <code><a href='tpm.html'>tpm</a></code></p>
+    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='metrics.html'>metrics</a></code>, <code><a href='selectSamples.html'>selectSamples</a></code>,
+  <code><a href='tpm.html'>tpm</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -199,5 +216,8 @@ Michael Steinbaugh
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

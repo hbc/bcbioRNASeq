@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
@@ -25,6 +27,9 @@
 <script src="pkgdown.js"></script>
   <link href="extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Citation and Authors" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +37,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +54,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,6 +81,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -77,9 +89,8 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="contents col-md-9">
-
     <div class="page-header">
       <h1>Citation</h1>
     </div>
@@ -106,55 +117,55 @@ doi: <a href="http://doi.org/10.12688/f1000research.12093.1">10.12688/f1000resea
 
     <ul class="list-unstyled">
       <li>
-        <p><strong><a href='http://steinbaugh.com'>Michael Steinbaugh</a></strong>. Author, maintainer.
-        <br /><small>0000-0002-2403-2221</small></p>
+        <p><strong><a href='http://steinbaugh.com'>Michael Steinbaugh</a></strong>. Author, maintainer. <a href='https://orcid.org/0000-0002-2403-2221' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://lpantano.github.io'>Lorena Pantano</a></strong>. Author.
-        <br /><small>0000-0002-3859-3249</small></p>
+        <p><strong><a href='https://lpantano.github.io'>Lorena Pantano</a></strong>. Author. <a href='https://orcid.org/0000-0002-3859-3249' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/roryk'>Rory Kirchner</a></strong>. Author.
-        <br /><small>0000-0003-4814-5885</small></p>
+        <p><strong><a href='https://github.com/roryk'>Rory Kirchner</a></strong>. Author. <a href='https://orcid.org/0000-0003-4814-5885' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/vbarrera'>Victor Barrera</a></strong>. Author.
-        <br /><small>0000-0003-0590-4634</small></p>
+        <p><strong><a href='https://github.com/vbarrera'>Victor Barrera</a></strong>. Author. <a href='https://orcid.org/0000-0003-0590-4634' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/chapmanb'>Brad Chapman</a></strong>. Author.
-        <br /><small>0000-0002-3026-1856</small></p>
+        <p><strong><a href='https://github.com/chapmanb'>Brad Chapman</a></strong>. Author. <a href='https://orcid.org/0000-0002-3026-1856' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/marypiper'>Mary Piper</a></strong>. Author.
-        <br /><small>0000-0003-2699-3840</small></p>
+        <p><strong><a href='https://github.com/marypiper'>Mary Piper</a></strong>. Author. <a href='https://orcid.org/0000-0003-2699-3840' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/mistrm82'>Meeta Mistry</a></strong>. Author.
-        <br /><small>0000-0002-5830-9479</small></p>
+        <p><strong><a href='https://github.com/mistrm82'>Meeta Mistry</a></strong>. Author. <a href='https://orcid.org/0000-0002-5830-9479' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/rkhetani'>Radhika Khetani</a></strong>. Author.
-        <br /><small>0000-0003-2430-2970</small></p>
+        <p><strong><a href='https://github.com/rkhetani'>Radhika Khetani</a></strong>. Author. <a href='https://orcid.org/0000-0003-2430-2970' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a></strong>. Author.
-        <br /><small>0000-0001-9699-2363</small></p>
+        <p><strong><a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a></strong>. Author. <a href='https://orcid.org/0000-0001-9699-2363' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/ohofmann'>Oliver Hofmann</a></strong>. Author.
-        <br /><small>0000-0002-7738-1513</small></p>
+        <p><strong><a href='https://github.com/ohofmann'>Oliver Hofmann</a></strong>. Author. <a href='https://orcid.org/0000-0002-7738-1513' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/jnhutchinson'>John Hutchinson</a></strong>. Author.
-        <br /><small>0000-0002-7804-7576</small></p>
+        <p><strong><a href='https://github.com/jnhutchinson'>John Hutchinson</a></strong>. Author. <a href='https://orcid.org/0000-0002-7804-7576' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='https://github.com/sjhosui'>Shannan Ho Sui</a></strong>. Author.
-        <br /><small>0000-0002-6191-4709</small></p>
+        <p><strong><a href='https://github.com/sjhosui'>Shannan Ho Sui</a></strong>. Author. <a href='https://orcid.org/0000-0002-6191-4709' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' height='16'></a>
+        </p>
       </li>
       <li>
-        <p><strong><a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a></strong>. Copyright holder, funder.
+        <p><strong><a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a></strong>. Copyright holder, funder. 
         </p>
       </li>
     </ul>
@@ -176,5 +187,8 @@ doi: <a href="http://doi.org/10.12688/f1000research.12093.1">10.12688/f1000resea
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
