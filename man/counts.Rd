@@ -50,9 +50,8 @@ counts(bcb_small, normalized = "vst") \%>\% summary()
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 
-Other Data Functions: \code{\link{colData}},
-  \code{\link{rowData}}, \code{\link{selectSamples}},
-  \code{\link{subset}}, \code{\link{tmm}},
+Other Data Functions: \code{\link{metrics}},
+  \code{\link{selectSamples}}, \code{\link{tmm}},
   \code{\link{tpm}}
 }
 \author{

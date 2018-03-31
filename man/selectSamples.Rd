@@ -37,9 +37,8 @@ show(x)
 colnames(x)
 }
 \seealso{
-Other Data Functions: \code{\link{colData}},
-  \code{\link{counts}}, \code{\link{rowData}},
-  \code{\link{subset}}, \code{\link{tmm}},
+Other Data Functions: \code{\link{counts}},
+  \code{\link{metrics}}, \code{\link{tmm}},
   \code{\link{tpm}}
 }
 \author{

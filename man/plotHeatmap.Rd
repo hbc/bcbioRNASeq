@@ -91,8 +91,7 @@ plotHeatmap(
 )
 }
 \seealso{
-Other Gene Expression Functions: \code{\link{plotGenderMarkers}},
-  \code{\link{plotGene}}
+Other Gene Expression Functions: \code{\link{plotGene}}
 }
 \author{
 Michael Steinbaugh

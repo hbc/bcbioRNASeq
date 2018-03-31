@@ -48,13 +48,13 @@ plotPCACovariates(
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 
-Other Quality Control Functions: \code{\link{metrics}},
-  \code{\link{plot5Prime3PrimeBias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},

@@ -68,8 +68,20 @@ plotGenderMarkers(dds_small)
 plotGenderMarkers(rld_small)
 }
 \seealso{
-Other Gene Expression Functions: \code{\link{plotGene}},
-  \code{\link{plotHeatmap}}
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

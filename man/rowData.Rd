@@ -24,10 +24,10 @@ Row Data
 rowData(bcb_small) \%>\% glimpse()
 }
 \seealso{
-Other Data Functions: \code{\link{colData}},
-  \code{\link{counts}}, \code{\link{selectSamples}},
-  \code{\link{subset}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+  \code{\link{coerce}}, \code{\link{colData}},
+  \code{\link{show}}, \code{\link{subset}},
+  \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh

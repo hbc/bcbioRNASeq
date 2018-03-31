@@ -43,6 +43,11 @@ validObject(bcb_small)
 \item \code{\link[BiocGenerics:updateObject]{BiocGenerics::updateObject()}}.
 \item \code{.S4methods(class = "bcbioRNASeq")}.
 }
+
+Other S4 Class Definition: \code{\link{coerce}},
+  \code{\link{colData}}, \code{\link{rowData}},
+  \code{\link{show}}, \code{\link{subset}},
+  \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

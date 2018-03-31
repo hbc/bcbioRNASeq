@@ -51,13 +51,13 @@ Plot Gene Detection Saturation
 plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
 }
 \seealso{
-Other Quality Control Functions: \code{\link{metrics}},
-  \code{\link{plot5Prime3PrimeBias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},

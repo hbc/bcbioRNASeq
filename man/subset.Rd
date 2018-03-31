@@ -102,10 +102,10 @@ assayNames(subset)
 \seealso{
 \code{help("[", "base")}.
 
-Other Data Functions: \code{\link{colData}},
-  \code{\link{counts}}, \code{\link{rowData}},
-  \code{\link{selectSamples}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+  \code{\link{coerce}}, \code{\link{colData}},
+  \code{\link{rowData}}, \code{\link{show}},
+  \code{\link{updateObject}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

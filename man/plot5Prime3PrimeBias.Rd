@@ -41,12 +41,12 @@ Plot 5'->3' Bias
 plot5Prime3PrimeBias(bcb_small)
 }
 \seealso{
-Other Quality Control Functions: \code{\link{metrics}},
-  \code{\link{plotCorrelationHeatmap}},
+Other Quality Control Functions: \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
   \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},

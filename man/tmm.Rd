@@ -39,9 +39,8 @@ tmm(dds_small) \%>\% summary()
 counts(bcb_small) \%>\% tmm() \%>\% summary()
 }
 \seealso{
-Other Data Functions: \code{\link{colData}},
-  \code{\link{counts}}, \code{\link{rowData}},
-  \code{\link{selectSamples}}, \code{\link{subset}},
+Other Data Functions: \code{\link{counts}},
+  \code{\link{metrics}}, \code{\link{selectSamples}},
   \code{\link{tpm}}
 }
 \author{

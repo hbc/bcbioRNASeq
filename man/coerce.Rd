@@ -2,14 +2,15 @@
 % Please edit documentation in R/methods-coerce.R
 \name{coerce}
 \alias{coerce}
+\alias{as}
 \alias{coerce-bcbioRNASeq-DESeqDataSet}
 \alias{coerce-bcbioRNASeq-list}
-\title{Coerce Object}
+\title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
 }
 \description{
-Coerce Object
+Methods for Coercing an Object to a Class
 }
 \examples{
 # DESeqDataSet ====
@@ -31,6 +32,17 @@ show(se)
 # list ====
 list <- as(bcb_small, "list")
 names(list)
+}
+\seealso{
+\itemize{
+\item \code{\link[methods:as]{methods::as()}}.
+\item \code{\link[methods:coerce]{methods::coerce()}}.
+}
+
+Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+  \code{\link{colData}}, \code{\link{rowData}},
+  \code{\link{show}}, \code{\link{subset}},
+  \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh
