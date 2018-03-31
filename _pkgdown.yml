@@ -1,6 +1,7 @@
 template:
     params:
         bootswatch: readable
+
 authors:
     Michael Steinbaugh:
         href: http://steinbaugh.com
@@ -28,3 +29,67 @@ authors:
         href: https://github.com/sjhosui
     Harvard Chan Bioinformatics Core:
         href: http://bioinformatics.sph.harvard.edu
+
+reference:
+  - title: S4 Class Definition
+    contents:
+    - bcbioRNASeq-class
+    - subset
+    - coerce
+    - colData
+    - rowData
+    - show
+    - updateObject
+  - title: Read Functions
+    contents:
+    - loadRNASeq
+  - title: Data Functions
+    contents:
+    - counts
+    - metrics
+    - selectSamples
+    - tmm
+    - tpm
+  - title: Quality Control Functions
+    contents:
+    - plot5Prime3PrimeBias
+    - plotCorrelationHeatmap
+    - plotCountDensity
+    - plotCountsPerGene
+    - plotDispEsts
+    - plotExonicMappingRate
+    - plotGenderMarkers
+    - plotGeneSaturation
+    - plotGenesDetected
+    - plotIntronicMappingRate
+    - plotMappedReads
+    - plotMappingRate
+    - plotMeanSD
+    - plotPCA
+    - plotPCACovariates
+    - plotRRNAMappingRate
+    - plotTotalReads
+  - title: Differential Expression Functions
+    contents:
+    - alphaSummary
+    - contrastName
+    - plotDEGHeatmap
+    - plotDEGPCA
+    - plotMA
+    - plotVolcano
+    - resultsTables
+    - topTables
+  - title: Gene Expression Functions
+    contents:
+    - plotGene
+    - plotHeatmap
+  - title: R Markdown Functions
+    contents:
+    - prepareRNASeqTemplate
+  - title: Internal Data
+    contents:
+    - genderMarkers
+  - title: Example Data
+    desc: GSE65267
+    contents:
+    - ends_with("_small")
