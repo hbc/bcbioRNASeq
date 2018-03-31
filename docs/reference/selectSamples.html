@@ -145,7 +145,7 @@ take a long time for large datasets.</p></td>
 #&gt; genes: 500
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; bcbio date: 2018-02-18
+#&gt; bcbio date: 2018-03-18
 #&gt; load date: 2018-03-31</div><div class='input'><span class='fu'>colnames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "fa_day7_rep1" "fa_day7_rep2" "fa_day7_rep3"</div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>selectSamples</span>(<span class='no'>dds_small</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='fl'>7L</span>)
@@ -153,8 +153,8 @@ take a long time for large datasets.</p></td>
 #&gt; dim: 500 3 
 #&gt; metadata(1): version
 #&gt; assays(3): counts mu cooks
-#&gt; rownames(500): ENSMUSG00000056673 ENSMUSG00000068457 ...
-#&gt;   ENSMUSG00000037416 ENSMUSG00000074884
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(21): baseMean baseVar ... deviance maxCooks
 #&gt; colnames(3): fa_day7_rep1 fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(9): sampleID sampleName ... treatment sizeFactor</div><div class='input'><span class='fu'>colnames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "fa_day7_rep1" "fa_day7_rep2" "fa_day7_rep3"</div></pre>

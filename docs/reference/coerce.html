@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce Object — coerce • bcbioRNASeq</title>
+<title>Methods for Coercing an Object to a Class — coerce • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Coerce Object — coerce" />
+<meta property="og:title" content="Methods for Coercing an Object to a Class — coerce" />
 
-<meta property="og:description" content="Coerce Object" />
+<meta property="og:description" content="Methods for Coercing an Object to a Class" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,12 +95,12 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce Object</h1>
+    <h1>Methods for Coercing an Object to a Class</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-coerce.R'><code>R/methods-coerce.R</code></a></small>
     </div>
 
     
-    <p>Coerce Object</p>
+    <p>Methods for Coercing an Object to a Class</p>
     
 
         
@@ -110,6 +110,10 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>methods::coerce()</a></code>.</p></li>
+</ul></div>
     <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
   <code><a href='colData.html'>colData</a></code>, <code><a href='rowData.html'>rowData</a></code>,
   <code><a href='show.html'>show</a></code>, <code><a href='subset.html'>subset</a></code>,
@@ -122,8 +126,8 @@
 #&gt; dim: 500 6 
 #&gt; metadata(1): version
 #&gt; assays(3): counts mu cooks
-#&gt; rownames(500): ENSMUSG00000056673 ENSMUSG00000068457 ...
-#&gt;   ENSMUSG00000037416 ENSMUSG00000074884
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(17): baseMean baseVar ... deviance maxCooks
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(9): sampleID sampleName ... treatment sizeFactor</div><div class='input'>
@@ -134,8 +138,8 @@
 #&gt; dim: 500 6 
 #&gt; metadata(33): version level ... unannotatedRows subset
 #&gt; assays(5): raw tpm length rlog vst
-#&gt; rownames(500): ENSMUSG00000056673 ENSMUSG00000068457 ...
-#&gt;   ENSMUSG00000037416 ENSMUSG00000074884
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
@@ -148,8 +152,8 @@
 #&gt; dim: 500 6 
 #&gt; metadata(33): version level ... unannotatedRows subset
 #&gt; assays(5): raw tpm length rlog vst
-#&gt; rownames(500): ENSMUSG00000056673 ENSMUSG00000068457 ...
-#&gt;   ENSMUSG00000037416 ENSMUSG00000074884
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>

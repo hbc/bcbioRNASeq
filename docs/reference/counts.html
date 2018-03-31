@@ -151,87 +151,87 @@ method to apply:</p><ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2      control_rep3       fa_day7_rep1     
-#&gt;  Min.   :     0   Min.   :      0   Min.   :     0.0   Min.   :    39.1  
-#&gt;  1st Qu.:   762   1st Qu.:   1795   1st Qu.:   660.3   1st Qu.:  1041.7  
-#&gt;  Median :  1855   Median :   3980   Median :  1604.2   Median :  2077.0  
-#&gt;  Mean   : 10849   Mean   :  22762   Mean   :  9665.9   Mean   :  8840.5  
-#&gt;  3rd Qu.:  4837   3rd Qu.:  11667   3rd Qu.:  4229.1   3rd Qu.:  5405.2  
-#&gt;  Max.   :914584   Max.   :1776858   Max.   :745122.5   Max.   :557896.5  
+<span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :       1  
+#&gt;  1st Qu.:     419   1st Qu.:     904   1st Qu.:     317   1st Qu.:     579  
+#&gt;  Median :    1389   Median :    3397   Median :    1315   Median :    1725  
+#&gt;  Mean   :   43568   Mean   :   86384   Mean   :   41167   Mean   :   39351  
+#&gt;  3rd Qu.:    4692   3rd Qu.:   11303   3rd Qu.:    4125   3rd Qu.:    5373  
+#&gt;  Max.   :11767239   Max.   :22627793   Max.   :11608372   Max.   :10623916  
+#&gt;   fa_day7_rep2      fa_day7_rep3     
+#&gt;  Min.   :      0   Min.   :       0  
+#&gt;  1st Qu.:    501   1st Qu.:     769  
+#&gt;  Median :   1557   Median :    1904  
+#&gt;  Mean   :  34610   Mean   :   42438  
+#&gt;  3rd Qu.:   4840   3rd Qu.:    5304  
+#&gt;  Max.   :9676254   Max.   :12145225  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :       1  
+#&gt;  1st Qu.:     512   1st Qu.:     476   1st Qu.:     435   1st Qu.:     578  
+#&gt;  Median :    1695   Median :    1788   Median :    1803   Median :    1723  
+#&gt;  Mean   :   53193   Mean   :   45465   Mean   :   56458   Mean   :   39307  
+#&gt;  3rd Qu.:    5728   3rd Qu.:    5949   3rd Qu.:    5657   3rd Qu.:    5367  
+#&gt;  Max.   :14366610   Max.   :11909307   Max.   :15920023   Max.   :10611940  
 #&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :     0.0   Min.   :     1.6  
-#&gt;  1st Qu.:   900.4   1st Qu.:  1112.9  
-#&gt;  Median :  1910.8   Median :  2254.8  
-#&gt;  Mean   :  7774.1   Mean   :  9057.3  
-#&gt;  3rd Qu.:  4720.9   3rd Qu.:  5271.2  
-#&gt;  Max.   :726143.2   Max.   :865544.5  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :      0.0   Min.   :     0.0   Min.   :     0.0   Min.   :    39.7  
-#&gt;  1st Qu.:    910.9   1st Qu.:   930.4   1st Qu.:   866.1   1st Qu.:  1060.4  
-#&gt;  Median :   2218.3   Median :  2062.7   Median :  2104.1   Median :  2114.2  
-#&gt;  Mean   :  12973.6   Mean   : 11798.3   Mean   : 12679.6   Mean   :  8998.8  
-#&gt;  3rd Qu.:   5784.0   3rd Qu.:  6047.3   3rd Qu.:  5547.5   3rd Qu.:  5501.8  
-#&gt;  Max.   :1093691.0   Max.   :920984.3   Max.   :977437.2   Max.   :567888.7  
-#&gt;   fa_day7_rep2     fa_day7_rep3   
-#&gt;  Min.   :     0   Min.   :     2  
-#&gt;  1st Qu.:  1042   1st Qu.:  1117  
-#&gt;  Median :  2210   Median :  2264  
-#&gt;  Mean   :  8994   Mean   :  9094  
-#&gt;  3rd Qu.:  5462   3rd Qu.:  5293  
-#&gt;  Max.   :840117   Max.   :869029  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :    11.43  
-#&gt;  1st Qu.:   143.7   1st Qu.:   154.3   1st Qu.:   141.8   1st Qu.:   188.70  
-#&gt;  Median :   220.8   Median :   244.4   Median :   221.0   Median :   308.20  
-#&gt;  Mean   :  1565.5   Mean   :  1529.7   Mean   :  1585.1   Mean   :  1334.82  
-#&gt;  3rd Qu.:   443.8   3rd Qu.:   478.6   3rd Qu.:   444.8   3rd Qu.:   500.50  
-#&gt;  Max.   :313692.5   Max.   :291498.2   Max.   :288058.0   Max.   :203669.05  
-#&gt;   fa_day7_rep2       fa_day7_rep3      
-#&gt;  Min.   :     0.0   Min.   :     0.27  
-#&gt;  1st Qu.:   189.7   1st Qu.:   190.04  
-#&gt;  Median :   276.3   Median :   284.74  
-#&gt;  Mean   :  1347.9   Mean   :  1382.09  
-#&gt;  3rd Qu.:   451.0   3rd Qu.:   481.99  
-#&gt;  Max.   :291127.0   Max.   :305266.04  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.73  
-#&gt;  1st Qu.:   166.7   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.85  
-#&gt;  Median :   405.8   Median :   387.7   Median :   390.4   Median :   410.44  
-#&gt;  Mean   :  2373.5   Mean   :  2217.7   Mean   :  2352.3   Mean   :  1747.00  
-#&gt;  3rd Qu.:  1058.2   3rd Qu.:  1136.7   3rd Qu.:  1029.2   3rd Qu.:  1068.13  
-#&gt;  Max.   :200089.3   Max.   :173113.1   Max.   :181335.9   Max.   :110247.98  
-#&gt;   fa_day7_rep2       fa_day7_rep3      
-#&gt;  Min.   :     0.0   Min.   :     0.29  
-#&gt;  1st Qu.:   202.7   1st Qu.:   207.71  
-#&gt;  Median :   430.2   Median :   420.84  
-#&gt;  Mean   :  1750.2   Mean   :  1690.46  
-#&gt;  3rd Qu.:  1062.8   3rd Qu.:   983.82  
-#&gt;  Max.   :163481.1   Max.   :161546.00  </div><div class='input'>
+#&gt;  Min.   :       0   Min.   :       0  
+#&gt;  1st Qu.:     575   1st Qu.:     758  
+#&gt;  Median :    1787   Median :    1878  
+#&gt;  Mean   :   39712   Mean   :   41851  
+#&gt;  3rd Qu.:    5554   3rd Qu.:    5231  
+#&gt;  Max.   :11102734   Max.   :11977303  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.45  
+#&gt;  1st Qu.:    50.08   1st Qu.:    55.4   1st Qu.:    65.8   1st Qu.:    93.10  
+#&gt;  Median :    83.12   Median :    95.0   Median :   107.6   Median :   143.80  
+#&gt;  Mean   :  1828.24   Mean   :  1817.1   Mean   :  1787.9   Mean   :  1671.45  
+#&gt;  3rd Qu.:   184.63   3rd Qu.:   181.8   3rd Qu.:   219.1   3rd Qu.:   254.47  
+#&gt;  Max.   :292758.61   Max.   :320187.5   Max.   :337651.9   Max.   :272312.78  
+#&gt;   fa_day7_rep2        fa_day7_rep3      
+#&gt;  Min.   :     0.00   Min.   :     0.00  
+#&gt;  1st Qu.:    92.77   1st Qu.:    78.54  
+#&gt;  Median :   138.55   Median :   117.01  
+#&gt;  Mean   :  1661.65   Mean   :  1733.66  
+#&gt;  3rd Qu.:   236.03   3rd Qu.:   210.51  
+#&gt;  Max.   :291312.78   Max.   :270608.66  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tmm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'>
 <span class='co'># log2 scale</span>
 <span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
-#&gt;  Min.   : 3.766   Min.   : 3.595   Min.   : 3.788   Min.   : 5.022  
-#&gt;  1st Qu.: 9.913   1st Qu.: 9.928   1st Qu.: 9.850   1st Qu.:10.094  
-#&gt;  Median :11.066   Median :11.073   Median :11.145   Median :11.113  
-#&gt;  Mean   :11.219   Mean   :11.207   Mean   :11.206   Mean   :11.256  
-#&gt;  3rd Qu.:12.429   3rd Qu.:12.451   3rd Qu.:12.406   3rd Qu.:12.338  
-#&gt;  Max.   :19.915   Max.   :19.773   Max.   :19.822   Max.   :19.400  
+#&gt;  Min.   : 3.471   Min.   : 3.222   Min.   : 3.511   Min.   : 4.175  
+#&gt;  1st Qu.: 9.208   1st Qu.: 9.166   1st Qu.: 9.101   1st Qu.: 9.350  
+#&gt;  Median :10.751   Median :10.774   Median :10.835   Median :10.777  
+#&gt;  Mean   :10.632   Mean   :10.622   Mean   :10.613   Mean   :10.676  
+#&gt;  3rd Qu.:12.441   3rd Qu.:12.468   3rd Qu.:12.450   3rd Qu.:12.340  
+#&gt;  Max.   :23.699   Max.   :23.535   Max.   :23.790   Max.   :23.437  
 #&gt;   fa_day7_rep2     fa_day7_rep3   
-#&gt;  Min.   : 3.758   Min.   : 3.855  
-#&gt;  1st Qu.: 9.976   1st Qu.:10.093  
-#&gt;  Median :11.143   Median :11.087  
-#&gt;  Mean   :11.225   Mean   :11.236  
-#&gt;  3rd Qu.:12.305   3rd Qu.:12.330  
-#&gt;  Max.   :19.699   Max.   :19.726  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
-#&gt;  Min.   : 2.485   Min.   : 2.485   Min.   : 2.485   Min.   : 5.652  
-#&gt;  1st Qu.: 9.849   1st Qu.: 9.879   1st Qu.: 9.777   1st Qu.:10.066  
-#&gt;  Median :11.122   Median :11.018   Median :11.047   Median :11.053  
-#&gt;  Mean   :11.180   Mean   :11.177   Mean   :11.168   Mean   :11.246  
-#&gt;  3rd Qu.:12.501   3rd Qu.:12.565   3rd Qu.:12.441   3rd Qu.:12.429  
-#&gt;  Max.   :20.061   Max.   :19.813   Max.   :19.899   Max.   :19.115  
+#&gt;  Min.   : 3.451   Min.   : 3.601  
+#&gt;  1st Qu.: 9.262   1st Qu.: 9.473  
+#&gt;  Median :10.809   Median :10.946  
+#&gt;  Mean   :10.623   Mean   :10.642  
+#&gt;  3rd Qu.:12.307   3rd Qu.:12.295  
+#&gt;  Max.   :23.475   Max.   :23.540  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
+#&gt;  Min.   : 4.647   Min.   : 4.647   Min.   : 4.647   Min.   : 4.935  
+#&gt;  1st Qu.: 9.132   1st Qu.: 9.035   1st Qu.: 8.919   1st Qu.: 9.293  
+#&gt;  Median :10.769   Median :10.844   Median :10.856   Median :10.792  
+#&gt;  Mean   :10.785   Mean   :10.779   Mean   :10.760   Mean   :10.829  
+#&gt;  3rd Qu.:12.496   3rd Qu.:12.550   3rd Qu.:12.478   3rd Qu.:12.403  
+#&gt;  Max.   :23.776   Max.   :23.506   Max.   :23.924   Max.   :23.339  
 #&gt;   fa_day7_rep2     fa_day7_rep3   
-#&gt;  Min.   : 2.485   Min.   : 3.337  
-#&gt;  1st Qu.:10.040   1st Qu.:10.140  
-#&gt;  Median :11.117   Median :11.152  
-#&gt;  Mean   :11.218   Mean   :11.242  
-#&gt;  3rd Qu.:12.418   3rd Qu.:12.373  
-#&gt;  Max.   :19.680   Max.   :19.729  </div></pre>
+#&gt;  Min.   : 4.647   Min.   : 4.647  
+#&gt;  1st Qu.: 9.285   1st Qu.: 9.657  
+#&gt;  Median :10.843   Median :10.912  
+#&gt;  Mean   :10.778   Mean   :10.812  
+#&gt;  3rd Qu.:12.452   3rd Qu.:12.367  
+#&gt;  Max.   :23.404   Max.   :23.514  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

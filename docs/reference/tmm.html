@@ -140,50 +140,50 @@ tool when plotting counts per gene.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>tmm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.73  
-#&gt;  1st Qu.:   166.7   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.85  
-#&gt;  Median :   405.8   Median :   387.7   Median :   390.4   Median :   410.44  
-#&gt;  Mean   :  2373.5   Mean   :  2217.7   Mean   :  2352.3   Mean   :  1747.00  
-#&gt;  3rd Qu.:  1058.2   3rd Qu.:  1136.7   3rd Qu.:  1029.2   3rd Qu.:  1068.13  
-#&gt;  Max.   :200089.3   Max.   :173113.1   Max.   :181335.9   Max.   :110247.98  
-#&gt;   fa_day7_rep2       fa_day7_rep3      
-#&gt;  Min.   :     0.0   Min.   :     0.29  
-#&gt;  1st Qu.:   202.7   1st Qu.:   207.71  
-#&gt;  Median :   430.2   Median :   420.84  
-#&gt;  Mean   :  1750.2   Mean   :  1690.46  
-#&gt;  3rd Qu.:  1062.8   3rd Qu.:   983.82  
-#&gt;  Max.   :163481.1   Max.   :161546.00  </div><div class='input'>
+<span class='fu'>tmm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='fu'>tmm</span>(<span class='no'>dds_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.71  
-#&gt;  1st Qu.:   166.5   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.88  
-#&gt;  Median :   405.6   Median :   387.7   Median :   390.5   Median :   410.47  
-#&gt;  Mean   :  2371.9   Mean   :  2217.9   Mean   :  2353.1   Mean   :  1747.14  
-#&gt;  3rd Qu.:  1057.5   3rd Qu.:  1136.8   3rd Qu.:  1029.5   3rd Qu.:  1068.18  
-#&gt;  Max.   :199957.8   Max.   :173127.9   Max.   :181395.7   Max.   :110256.35  
-#&gt;   fa_day7_rep2       fa_day7_rep3      
-#&gt;  Min.   :     0.0   Min.   :     0.37  
-#&gt;  1st Qu.:   202.8   1st Qu.:   207.70  
-#&gt;  Median :   430.2   Median :   420.91  
-#&gt;  Mean   :  1750.4   Mean   :  1690.59  
-#&gt;  3rd Qu.:  1062.9   3rd Qu.:   983.95  
-#&gt;  Max.   :163494.8   Max.   :161558.41  </div><div class='input'>
+<span class='fu'>tmm</span>(<span class='no'>dds_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.4   Median :    78.7   Median :    78.7   Median :    76.8  
+#&gt;  Mean   :  2304.6   Mean   :  2001.5   Mean   :  2463.2   Mean   :  1751.4  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.9   3rd Qu.:   246.8   3rd Qu.:   239.1  
+#&gt;  Max.   :622429.1   Max.   :524269.5   Max.   :694574.2   Max.   :472836.5  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.1   Mean   :  1875.4  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.4  
+#&gt;  Max.   :479502.8   Max.   :536710.4  </div><div class='input'>
 <span class='co'># matrix ====</span>
-<span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     7.73  
-#&gt;  1st Qu.:   166.7   1st Qu.:   174.9   1st Qu.:   160.7   1st Qu.:   205.85  
-#&gt;  Median :   405.8   Median :   387.7   Median :   390.4   Median :   410.44  
-#&gt;  Mean   :  2373.5   Mean   :  2217.7   Mean   :  2352.3   Mean   :  1747.00  
-#&gt;  3rd Qu.:  1058.2   3rd Qu.:  1136.7   3rd Qu.:  1029.2   3rd Qu.:  1068.13  
-#&gt;  Max.   :200089.3   Max.   :173113.1   Max.   :181335.9   Max.   :110247.98  
-#&gt;   fa_day7_rep2       fa_day7_rep3      
-#&gt;  Min.   :     0.0   Min.   :     0.29  
-#&gt;  1st Qu.:   202.7   1st Qu.:   207.71  
-#&gt;  Median :   430.2   Median :   420.84  
-#&gt;  Mean   :  1750.2   Mean   :  1690.46  
-#&gt;  3rd Qu.:  1062.8   3rd Qu.:   983.82  
-#&gt;  Max.   :163481.1   Max.   :161546.00  </div></pre>
+<span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
