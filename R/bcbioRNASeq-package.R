@@ -4,6 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @name bcbioRNASeq-package
+#' @keywords internal
 #'
 #' @import S4Vectors methods
 #'
@@ -18,13 +19,13 @@
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom SummarizedExperiment assay assayNames assays colData rowData
 #'   rowRanges SummarizedExperiment
-#' @importFrom basejump camel convertGenesToSymbols detectOrganism ensembl fixNA
-#'   gene2symbol initializeDirectory makeNames markdownHeader markdownList
-#'   markdownPlotlist readYAML rowRangesFromGFF sanitizeRowData
-#'   sanitizeSampleData snake
-#' @importFrom bcbioBase copyToDropbox interestingGroups
-#'   prepareSummarizedExperiment prepareTemplate readDataVersions readLogFile
-#'   readProgramVersions readSampleMetadataFile readTx2gene sampleDirs
+#' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
+#'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
+#'   sanitizeRowData sanitizeSampleData snake
+#' @importFrom bcbioBase copyToDropbox gene2symbol interestingGroups
+#'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
+#'   readProgramVersions readSampleData readTx2gene sampleDirs
 #'   sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
