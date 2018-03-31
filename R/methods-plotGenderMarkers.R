@@ -62,9 +62,7 @@ NULL
     assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
-    # Ensembl identifiers
     gene2symbol <- markers %>%
-        .[.[["include"]] == TRUE, , drop = FALSE] %>%
         mutate(
             geneName = paste(
                 !!!syms(c("chromosome", "geneName")),
@@ -75,6 +73,7 @@ NULL
         as.data.frame() %>%
         set_rownames(.[["geneID"]])
     assertIsGene2symbol(gene2symbol)
+
     genes <- gene2symbol[["geneID"]] %>%
         .[. %in% rownames(object)]
     assert_is_non_empty(genes)
