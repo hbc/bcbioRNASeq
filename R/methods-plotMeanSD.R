@@ -27,7 +27,7 @@ NULL
 
 
 # Constructors =================================================================
-.plotMeanSD.assays <- function(  # nolint
+.plotMeanSD <- function(
     raw,
     normalized,
     rlog,
@@ -113,7 +113,7 @@ setMethod(
         vst <- assays(object)[["vst"]]
         assert_is_matrix(rlog)
         assert_is_matrix(vst)
-        .plotMeanSD.assays(
+        .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = rlog,
@@ -137,7 +137,7 @@ setMethod(
         legend = FALSE
     ) {
         # Passthrough arguments: orientation, legend
-        .plotMeanSD.assays(
+        .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = assay(rlog(object)),

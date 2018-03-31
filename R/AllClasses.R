@@ -21,6 +21,7 @@
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'

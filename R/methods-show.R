@@ -1,6 +1,7 @@
 #' Show an Object
 #'
 #' @name show
+#' @family S4 Class Definition
 #' @author Michael Steinbuagh
 #'
 #' @inherit methods::show

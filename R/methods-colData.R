@@ -6,7 +6,7 @@
 #' `assays` slot.
 #'
 #' @name colData
-#' @family Data Functions
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh
 #'
 #' @importFrom SummarizedExperiment colData colData<-

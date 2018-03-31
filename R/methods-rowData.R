@@ -1,7 +1,7 @@
 #' Row Data
 #'
 #' @name rowData
-#' @family Data Functions
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general

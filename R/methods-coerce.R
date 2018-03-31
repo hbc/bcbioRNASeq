@@ -1,9 +1,15 @@
-#' Coerce Object
+#' Methods for Coercing an Object to a Class
 #'
 #' @name coerce
+#' @aliases as
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh
 #'
 #' @return Object of new class.
+#'
+#' @seealso
+#' - [methods::as()].
+#' - [methods::coerce()].
 #'
 #' @examples
 #' # DESeqDataSet ====

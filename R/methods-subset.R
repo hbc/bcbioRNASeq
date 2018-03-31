@@ -6,7 +6,7 @@
 #' `transform = FALSE`.
 #'
 #' @name subset
-#' @family Data Functions
+#' @family S4 Class Definition
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`
@@ -42,95 +42,6 @@ NULL
 
 
 
-# Constructors =================================================================
-.subset <- function(x, i, j, ..., drop = FALSE) {
-    validObject(x)
-
-    dots <- list(...)
-    if (!identical(dots[["transform"]], FALSE)) {
-        transform <- TRUE
-    }
-
-    # Genes (rows)
-    if (missing(i)) {
-        i <- 1L:nrow(x)
-    }
-    # Require at least 100 genes
-    assert_all_are_in_left_open_range(length(i), lower = 99L)
-
-    # Samples (columns)
-    if (missing(j)) {
-        j <- 1L:ncol(x)
-    }
-    # Require at least 2 samples
-    assert_all_are_in_left_open_range(length(j), lower = 1L)
-
-
-    # Early return if dimensions are unmodified
-    if (identical(dim(x), c(length(i), length(j)))) {
-        return(x)
-    }
-
-    # Regenerate RangedSummarizedExperiment
-    rse <- as(x, "RangedSummarizedExperiment")
-    rse <- rse[i, j, drop = drop]
-
-    # Assays ===================================================================
-    assays <- assays(rse)
-    if (isTRUE(transform)) {
-        inform(paste(
-            "Calculating variance stabilizations using DESeq2",
-            packageVersion("DESeq2")
-        ))
-        txi <- .regenerateTximportList(rse)
-        dds <- DESeqDataSetFromTximport(
-            txi = txi,
-            colData = colData(rse),
-            # Use an empty design formula
-            design = ~ 1  # nolint
-        )
-        # Suppress warning about empty design formula
-        dds <- suppressWarnings(DESeq(dds))
-        validObject(dds)
-        inform("Applying rlog transformation")
-        assays[["rlog"]] <- assay(rlog(dds))
-        inform("Applying variance stabilizing transformation")
-        assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
-    } else {
-        inform("Skipping DESeq2 transformations")
-        # Ensure existing transformations get dropped
-        assays[["vst"]] <- NULL
-        assays[["rlog"]] <- NULL
-    }
-
-    # Metadata =================================================================
-    metadata <- metadata(rse)
-    metadata[["subset"]] <- TRUE
-    # Update version, if necessary
-    if (!identical(metadata[["version"]], packageVersion)) {
-        metadata[["originalVersion"]] <- metadata[["version"]]
-        metadata[["version"]] <- packageVersion
-    }
-    # Metrics
-    metadata[["metrics"]] <- metadata[["metrics"]] %>%
-        .[colnames(rse), , drop = FALSE] %>%
-        rownames_to_column() %>%
-        mutate_if(is.character, as.factor) %>%
-        mutate_if(is.factor, droplevels) %>%
-        column_to_rownames()
-
-    # Return ===================================================================
-    .new.bcbioRNASeq(
-        assays = assays,
-        rowRanges = rowRanges(rse),
-        colData = colData(rse),
-        metadata = metadata,
-        isSpike = metadata[["isSpike"]]
-    )
-}
-
-
-
 # Methods ======================================================================
 #' @rdname subset
 #' @export
@@ -140,7 +51,91 @@ setMethod(
         x = "bcbioRNASeq",
         i = "ANY",
         j = "ANY",
-        drop = "ANY"  # don't use logical here
+        drop = "ANY"
     ),
-    .subset
+    function(x, i, j, ..., drop = FALSE) {
+        validObject(x)
+
+        dots <- list(...)
+        if (!identical(dots[["transform"]], FALSE)) {
+            transform <- TRUE
+        }
+
+        # Genes (rows)
+        if (missing(i)) {
+            i <- 1L:nrow(x)
+        }
+        # Require at least 100 genes
+        assert_all_are_in_left_open_range(length(i), lower = 99L)
+
+        # Samples (columns)
+        if (missing(j)) {
+            j <- 1L:ncol(x)
+        }
+        # Require at least 2 samples
+        assert_all_are_in_left_open_range(length(j), lower = 1L)
+
+
+        # Early return if dimensions are unmodified
+        if (identical(dim(x), c(length(i), length(j)))) {
+            return(x)
+        }
+
+        # Regenerate RangedSummarizedExperiment
+        rse <- as(x, "RangedSummarizedExperiment")
+        rse <- rse[i, j, drop = drop]
+
+        # Assays ===============================================================
+        assays <- assays(rse)
+        if (isTRUE(transform)) {
+            inform(paste(
+                "Calculating variance stabilizations using DESeq2",
+                packageVersion("DESeq2")
+            ))
+            txi <- .regenerateTximportList(rse)
+            dds <- DESeqDataSetFromTximport(
+                txi = txi,
+                colData = colData(rse),
+                # Use an empty design formula
+                design = ~ 1  # nolint
+            )
+            # Suppress warning about empty design formula
+            dds <- suppressWarnings(DESeq(dds))
+            validObject(dds)
+            inform("Applying rlog transformation")
+            assays[["rlog"]] <- assay(rlog(dds))
+            inform("Applying variance stabilizing transformation")
+            assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
+        } else {
+            inform("Skipping DESeq2 transformations")
+            # Ensure existing transformations get dropped
+            assays[["vst"]] <- NULL
+            assays[["rlog"]] <- NULL
+        }
+
+        # Metadata =============================================================
+        metadata <- metadata(rse)
+        metadata[["subset"]] <- TRUE
+        # Update version, if necessary
+        if (!identical(metadata[["version"]], packageVersion)) {
+            metadata[["originalVersion"]] <- metadata[["version"]]
+            metadata[["version"]] <- packageVersion
+        }
+        # Metrics
+        metadata[["metrics"]] <- metadata[["metrics"]] %>%
+            .[colnames(rse), , drop = FALSE] %>%
+            rownames_to_column() %>%
+            mutate_if(is.character, as.factor) %>%
+            mutate_if(is.factor, droplevels) %>%
+            column_to_rownames()
+
+        # Return ===============================================================
+        .new.bcbioRNASeq(
+            assays = assays,
+            rowRanges = rowRanges(rse),
+            colData = colData(rse),
+            metadata = metadata,
+            isSpike = metadata[["isSpike"]]
+        )
+    }
 )

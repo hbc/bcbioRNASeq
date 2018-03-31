@@ -36,7 +36,7 @@ NULL
 
 
 # Constructors =================================================================
-.plotGene <- function(
+.plotGene.matrix <- function(  # nolint
     object,
     genes,
     gene2symbol = NULL,
@@ -282,7 +282,7 @@ setMethod(
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
-        .plotGene(
+        .plotGene.matrix(
             object = counts,
             genes = genes,
             gene2symbol = gene2symbol(object),
@@ -320,7 +320,7 @@ setMethod(
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
-        .plotGene(
+        .plotGene.matrix(
             object = counts,
             genes = genes,
             gene2symbol = gene2symbol,
@@ -363,7 +363,7 @@ setMethod(
         counts <- assay(object)
         colData <- colData(object)
         colData[["sizeFactor"]] <- NULL
-        .plotGene(
+        .plotGene.matrix(
             object = counts,
             genes = genes,
             gene2symbol = gene2symbol,

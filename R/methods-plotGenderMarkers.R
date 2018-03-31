@@ -1,7 +1,7 @@
 #' Plot Sexually Dimorphic Gender Markers
 #'
 #' @name plotGenderMarkers
-#' @family Gene Expression Functions
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams plotGene
@@ -27,7 +27,7 @@ NULL
 
 
 # Constructors =================================================================
-.plotGenderMarkers <- function(
+.plotGenderMarkers.matrix <- function(  # nolint
     object,
     colData,
     interestingGroups = "sampleName",
@@ -118,7 +118,7 @@ setMethod(
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
-        .plotGenderMarkers(
+        .plotGenderMarkers.matrix(
             object = counts,
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
@@ -149,7 +149,7 @@ setMethod(
         colData <- colData(object)
         # Drop the numeric sizeFactor column
         colData[["sizeFactor"]] <- NULL
-        .plotGenderMarkers(
+        .plotGenderMarkers.matrix(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
@@ -187,7 +187,7 @@ setMethod(
         } else {
             normalized <- "vst"
         }
-        .plotGenderMarkers(
+        .plotGenderMarkers.matrix(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,

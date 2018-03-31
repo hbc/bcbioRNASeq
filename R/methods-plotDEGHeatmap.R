@@ -41,71 +41,66 @@ NULL
 
 
 
-# Constructors =================================================================
-.plotDEGHeatmap <- function(  # nolint
-    object,
-    counts,
-    lfc = 0L,
-    gene2symbol = NULL,
-    title = TRUE,
-    ...
-) {
-    validObject(object)
-    assert_is_any_of(
-        x = counts,
-        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
-    )
-    if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
-        counts <- assay(counts)
-    }
-    assert_is_matrix(counts)
-    assert_are_identical(rownames(object), rownames(counts))
-    assert_is_a_number(lfc)
-    assert_all_are_non_negative(lfc)
-    assertFormalGene2symbol(object, rownames(counts), gene2symbol)
-
-    # Title
-    if (isTRUE(title)) {
-        title <- contrastName(object)
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    # Alpha level
-    alpha <- metadata(object)[["alpha"]]
-    assert_is_a_number(alpha)
-
-    data <- object %>%
-        as.data.frame() %>%
-        camel() %>%
-        # Keep genes that pass alpha cutoff
-        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-        .[.[["padj"]] < alpha, , drop = FALSE] %>%
-        # Keep genes that pass log2 fold change cutoff
-        .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-        .[.[["log2FoldChange"]] > lfc |
-              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    assert_has_rows(data)
-    counts <- counts[rownames(data), , drop = FALSE]
-
-    # Remap gene identifier rows to symbols
-    if (is.data.frame(gene2symbol)) {
-        rownames(counts) <- convertGenesToSymbols(
-            rownames(counts),
-            gene2symbol = gene2symbol
-        )
-    }
-
-    plotHeatmap(counts, title = title, ...)
-}
-
-
-
 # Methods ======================================================================
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
     "plotDEGHeatmap",
     signature("DESeqResults"),
-    .plotDEGHeatmap
+    function(
+        object,
+        counts,
+        lfc = 0L,
+        gene2symbol = NULL,
+        title = TRUE,
+        ...
+    ) {
+        validObject(object)
+        assert_is_any_of(
+            x = counts,
+            classes = c("DESeqDataSet", "DESeqTransform", "matrix")
+        )
+        if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
+            counts <- assay(counts)
+        }
+        assert_is_matrix(counts)
+        assert_are_identical(rownames(object), rownames(counts))
+        assert_is_a_number(lfc)
+        assert_all_are_non_negative(lfc)
+        assertFormalGene2symbol(object, rownames(counts), gene2symbol)
+
+        # Title
+        if (isTRUE(title)) {
+            title <- contrastName(object)
+        } else if (!is_a_string(title)) {
+            title <- NULL
+        }
+
+        # Alpha level
+        alpha <- metadata(object)[["alpha"]]
+        assert_is_a_number(alpha)
+
+        data <- object %>%
+            as.data.frame() %>%
+            camel() %>%
+            # Keep genes that pass alpha cutoff
+            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+            .[.[["padj"]] < alpha, , drop = FALSE] %>%
+            # Keep genes that pass log2 fold change cutoff
+            .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
+            .[.[["log2FoldChange"]] > lfc |
+                  .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+        assert_has_rows(data)
+        counts <- counts[rownames(data), , drop = FALSE]
+
+        # Remap gene identifier rows to symbols
+        if (is.data.frame(gene2symbol)) {
+            rownames(counts) <- convertGenesToSymbols(
+                rownames(counts),
+                gene2symbol = gene2symbol
+            )
+        }
+
+        plotHeatmap(counts, title = title, ...)
+    }
 )

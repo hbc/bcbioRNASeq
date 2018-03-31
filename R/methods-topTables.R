@@ -1,3 +1,8 @@
+# FIXME Add method support for `DESeqResults`
+# FIXME Use kables for dynamic return
+
+
+
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables
@@ -79,50 +84,46 @@ NULL
 
 
 
-.topTables.list <- function(  # nolint
-    object,
-    n = 50L,
-    coding = FALSE
-) {
-    # Passthrough: n, coding
-    assert_is_list(object)
-    assert_is_subset(
-        c("all", "deg", "degLFCDown", "degLFCUp"),
-        names(object)
-    )
-
-    up <- .subsetTop(
-        object[["degLFCUp"]],
-        n = n,
-        coding = coding
-    )
-    down <- .subsetTop(
-        object[["degLFCDown"]],
-        n = n,
-        coding = coding
-    )
-    contrast <- object[["contrast"]]
-    if (!is.null(up)) {
-        show(kable(
-            up,
-            caption = paste(contrast, "(upregulated)")
-        ))
-    }
-    if (!is.null(down)) {
-        show(kable(
-            down,
-            caption = paste(contrast, "(downregulated)")
-        ))
-    }
-}
-
-
-
 # Methods ======================================================================
 #' @rdname topTables
 #' @export
 setMethod(
     "topTables",
     signature("list"),
-    .topTables.list
+    function(
+        object,
+        n = 50L,
+        coding = FALSE
+    ) {
+        # Passthrough: n, coding
+        assert_is_list(object)
+        assert_is_subset(
+            c("all", "deg", "degLFCDown", "degLFCUp"),
+            names(object)
+        )
+
+        up <- .subsetTop(
+            object[["degLFCUp"]],
+            n = n,
+            coding = coding
+        )
+        down <- .subsetTop(
+            object[["degLFCDown"]],
+            n = n,
+            coding = coding
+        )
+        contrast <- object[["contrast"]]
+        if (!is.null(up)) {
+            show(kable(
+                up,
+                caption = paste(contrast, "(upregulated)")
+            ))
+        }
+        if (!is.null(down)) {
+            show(kable(
+                down,
+                caption = paste(contrast, "(downregulated)")
+            ))
+        }
+    }
 )
