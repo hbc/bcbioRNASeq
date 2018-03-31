@@ -7,3 +7,4 @@
 Quality control and differential expression for
 \href{http://bcbio-nextgen.readthedocs.io}{bcbio} RNA-seq experiments.
 }
+\keyword{internal}
