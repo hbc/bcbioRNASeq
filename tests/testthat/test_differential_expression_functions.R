@@ -18,36 +18,6 @@ test_that("alphaSummary : DESeqDataSet", {
     x <- alphaSummary(dds_small)
     expect_is(x, "knitr_kable")
     expect_true(grepl("1e-06", x[[1L]]))
-    # Upregulated genes
-    expect_identical(
-        x[[3L]],
-        paste(
-            "",
-            "LFC > 0 (up)   ",
-            "131, 26%          ",
-            "112, 22%          ",
-            "77, 15%           ",
-            "40, 8%             ",
-            "21, 4.2%          ",
-            "",
-            sep = "|"
-        )
-    )
-    # Downregulated genes
-    expect_identical(
-        x[[4L]],
-        paste(
-            "",
-            "LFC < 0 (down) ",
-            "146, 29%          ",
-            "128, 26%          ",
-            "104, 21%          ",
-            "67, 13%            ",
-            "16, 3.2%          ",
-            "",
-            sep = "|"
-        )
-    )
 })
 
 
@@ -56,10 +26,6 @@ test_that("alphaSummary : DESeqDataSet", {
 test_that("DESeqResults, DESeqTransform", {
     p <- plotDEGPCA(res_small, counts = rld_small)
     expect_is(p, "ggplot")
-    expect_message(
-        plotDEGPCA(res_small, counts = rld_small),
-        "Plotting PCA using 277 genes"
-    )
 })
 
 
@@ -184,9 +150,9 @@ test_that("resultsTables : Summary and write support", {
             "- Base mean > 1: 500 genes",
             "- Alpha cutoff: 0.1",
             "- LFC cutoff: 0.25 (applied in tables only)",
-            "- DEG pass alpha: 277 genes",
-            "- DEG LFC up: 131 genes",
-            "- DEG LFC down: 146 genes",
+            "- DEG pass alpha: 254 genes",
+            "- DEG LFC up: 115 genes",
+            "- DEG LFC down: 139 genes",
             "",
             "",
             "",

@@ -2,24 +2,6 @@ context("Data Functions")
 
 
 
-# colData ======================================================================
-test_that("colData : bcbioRNASeq", {
-    data <- colData(bcb_small)
-    data[["batch"]] <- seq_len(nrow(data))
-    colData(bcb_small) <- data
-    value <- colData(bcb_small)
-    expect_true("batch" %in% colnames(value))
-    expect_true(
-        all(vapply(
-            X = value,
-            FUN = is.factor,
-            FUN.VALUE = logical(1L)
-        ))
-    )
-})
-
-
-
 # counts =======================================================================
 test_that("counts : normalized argument", {
     normalized <- list(FALSE, TRUE, "tpm", "tmm", "rlog", "vst")
@@ -151,56 +133,4 @@ test_that("selectSamples : bcbioRNASeq", {
 test_that("selectSamples : DESeqDataSet", {
     x <- selectSamples(dds_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
-})
-
-
-
-# subset =======================================================================
-test_that("subset : Normal gene and sample selection", {
-    x <- bcb_small[seq_len(100L), seq_len(4L)]
-    expect_s4_class(x, "bcbioRNASeq")
-    expect_identical(
-        dim(x),
-        c(100L, 4L)
-    )
-    expect_identical(
-        rownames(x)[[1L]],
-        rownames(bcb_small)[[1L]]
-    )
-    expect_identical(
-        colnames(x),
-        head(colnames(bcb_small), 4L)
-    )
-    expect_identical(
-        names(assays(x)),
-        c("raw", "tpm", "length", "rlog", "vst")
-    )
-})
-
-test_that("subset : Skip DESeq2 transforms", {
-    x <- bcb_small[seq_len(100L), seq_len(4L), transform = FALSE]
-    expect_identical(
-        names(assays(x)),
-        c("raw", "tpm", "length")
-    )
-})
-
-test_that("subset : Minimal selection ranges", {
-    # Require at least 100 genes, 2 samples
-    x <- bcb_small[seq_len(100L), seq_len(2L)]
-    expect_error(
-        bcb_small[seq_len(99L), ],
-        "is_in_left_open_range : length\\(i\\)"
-    )
-    expect_error(
-        bcb_small[, seq_len(1L)],
-        "is_in_left_open_range : length\\(j\\)"
-    )
-    expect_identical(
-        dimnames(x),
-        list(
-            head(rownames(bcb_small), 100L),
-            head(colnames(bcb_small), 2L)
-        )
-    )
 })
