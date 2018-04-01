@@ -4,8 +4,6 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase tpm
-#'
 #' @inheritParams general
 #'
 #' @return `matrix`.
