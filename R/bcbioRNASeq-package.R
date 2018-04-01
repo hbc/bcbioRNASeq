@@ -23,7 +23,7 @@
 #'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
 #'   sanitizeRowData sanitizeSampleData snake
-#' @importFrom bcbioBase copyToDropbox gene2symbol interestingGroups
+#' @importFrom bcbioBase copyToDropbox flatFiles gene2symbol interestingGroups
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene sampleDirs
 #'   sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups

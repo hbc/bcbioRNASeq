@@ -65,14 +65,6 @@ setAs(
     from = "bcbioRNASeq",
     to = "list",
     function(from) {
-        to <- lapply(slotNames(from), function(slot) {
-            if (.hasSlot(from, slot)) {
-                slot(from, slot)
-            } else {
-                NULL
-            }
-        })
-        names(to) <- slotNames(from)
-        to
+        flatFiles(from)
     }
 )
