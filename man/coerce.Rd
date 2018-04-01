@@ -14,27 +14,28 @@ Methods for Coercing an Object to a Class
 }
 \examples{
 # DESeqDataSet ====
-dds <- as(bcb_small, "DESeqDataSet")
-class(dds)
-show(dds)
+x <- as(bcb_small, "DESeqDataSet")
+class(x)
+show(x)
 
 # RangedSummarizedExperiment ====
-rse <- as(bcb_small, "RangedSummarizedExperiment")
-slotNames(rse)
-show(rse)
+x <- as(bcb_small, "RangedSummarizedExperiment")
+slotNames(x)
+show(x)
 
 # SummarizedExperiment ====
-# Coerced to RangedSummarizedExperiment first.
+# Coerce to RangedSummarizedExperiment first.
 # Otherwise, rowData will be NULL.
-se <- as(rse, "SummarizedExperiment")
-class(se)
-slotNames(se)
-show(se)
+x <- as(bcb_small, "RangedSummarizedExperiment")
+x <- as(x, "SummarizedExperiment")
+class(x)
+slotNames(x)
+show(x)
 
 # list ====
-list <- as(bcb_small, "list")
-class(list)
-names(list)
+x <- as(bcb_small, "list")
+class(x)
+names(x)
 }
 \seealso{
 \itemize{
