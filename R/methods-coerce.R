@@ -14,6 +14,7 @@
 #' @examples
 #' # DESeqDataSet ====
 #' dds <- as(bcb_small, "DESeqDataSet")
+#' class(dds)
 #' show(dds)
 #'
 #' # RangedSummarizedExperiment ====
@@ -25,11 +26,13 @@
 #' # Coerced to RangedSummarizedExperiment first.
 #' # Otherwise, rowData will be NULL.
 #' se <- as(rse, "SummarizedExperiment")
+#' class(se)
 #' slotNames(se)
 #' show(se)
 #'
 #' # list ====
 #' list <- as(bcb_small, "list")
+#' class(list)
 #' names(list)
 NULL
 
