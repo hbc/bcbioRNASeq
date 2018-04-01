@@ -37,9 +37,12 @@ bcb <- loadRNASeq(
     uploadDir = file.path("bcbio_rnaseq_run", "final"),
     interestingGroups = c("genotype", "treatment")
 )
+# Back up all data inside bcbioRNASeq object
+flatFiles <- flatFiles(bcb)
+saveData(bcb, flatFiles, dir = "data")
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class and save it, as well as a simplified object with just the flat files in the `data` directory.
 
 Parameters:
 
