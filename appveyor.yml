@@ -15,10 +15,15 @@ cache:
 
 # Adapt as necessary starting from here
 
+environment:
+  global:
+    R_ARCH: x64
+    R_VERSION: devel
+
 build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_deps
-  - travis-tool.sh install_github mikelove/tximport
+  - travis-tool.sh install_bioc tximport
   - travis-tool.sh install_github lpantano/DEGreport
 
 test_script:
