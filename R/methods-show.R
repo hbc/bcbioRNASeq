@@ -27,7 +27,7 @@ setMethod(
             paste("organism:", metadata(object)[["organism"]]),
             paste("bcbio dir:", metadata(object)[["uploadDir"]]),
             paste("bcbio date:", metadata(object)[["runDate"]]),
-            paste("load date:", metadata(object)[["date"]]),
+            paste("R load date:", metadata(object)[["date"]]),
             sep = "\n"
         )
     }
