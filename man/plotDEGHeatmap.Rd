@@ -12,16 +12,19 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = c("row",
+  "column", "none"), color = viridis, legendColor = viridis, title = TRUE,
+  ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = c("row",
+  "column", "none"), color = viridis, legendColor = viridis, title = TRUE,
+  ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,matrix}(object, counts, alpha,
-  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = "row",
-  color = viridis, legendColor = viridis, title = TRUE, ...)
+  lfc = 0L, gene2symbol = NULL, annotationCol = NULL, scale = c("row",
+  "column", "none"), color = viridis, legendColor = viridis, title = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{Object.}

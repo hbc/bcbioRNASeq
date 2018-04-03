@@ -49,57 +49,6 @@ NULL
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
-.plotDEGHeatmap.dataFrame <- function(  # nolint
-    object,
-    counts,
-    alpha = 0.01,
-    lfc = 0L,
-    gene2symbol = NULL,
-    annotationCol = NULL,
-    scale = "row",
-    color = viridis,
-    legendColor = viridis,
-    title,
-    ...) {
-    # Passthrough: color, legendColor
-    assert_is_data.frame(object)
-    assert_is_matrix(counts)
-    assert_are_identical(rownames(object), rownames(counts))
-    assert_is_a_number(alpha)
-    assert_all_are_positive(alpha)
-    assertIsAnImplicitInteger(lfc)
-    assert_all_are_non_negative(lfc)
-    assertFormalGene2symbol(object, rownames(counts), gene2symbol)
-    assertIsHexColorFunctionOrNULL(color)
-    assertIsHexColorFunctionOrNULL(legendColor)
-    assert_is_a_string(title)
-
-    results <- object %>%
-        camel(strict = FALSE) %>%
-        # Keep genes that pass alpha cutoff
-        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-        .[.[["padj"]] < alpha, , drop = FALSE] %>%
-        # Keep genes that pass log2 fold change cutoff
-        .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-        .[.[["log2FoldChange"]] > lfc |
-            .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-    assert_has_rows(results)
-    counts <- counts[rownames(results), , drop = FALSE]
-
-    plotHeatmap(
-        object = counts,
-        gene2symbol = gene2symbol,
-        annotationCol = annotationCol,
-        scale = scale,
-        color = color,
-        legendColor = legendColor,
-        title = title,
-        ...)
-}
-
-
-
 .plotDEGHeatmap.DESeqResults <- function(  # nolint
     object,
     counts,
@@ -107,34 +56,59 @@ NULL
     lfc = 0L,
     gene2symbol = NULL,
     annotationCol = NULL,
-    scale = "row",
+    scale = c("row", "column", "none"),
     color = viridis,
     legendColor = viridis,
     title = TRUE,
     ...) {
-    # Passthrough: lfc, gene2symbol, annotationCol, scale, color, legendColor
-    assert_is_all_of(object, "DESeqResults")
-    assert_is_any_of(
-        x = counts,
-        classes = c("DESeqDataSet", "DESeqTransform", "matrix")
-    )
-
+    # Passthrough: annotationCol, color, legendColor
+    stopifnot(is(object, "DESeqResults"))
     if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
         counts <- assay(counts)
     }
+    assert_is_matrix(counts)
+    assert_are_identical(rownames(object), rownames(counts))
     if (missing(alpha)) {
         alpha <- metadata(object)[["alpha"]]
     }
+    assert_is_a_number(alpha)
+    assert_all_are_positive(alpha)
+    assertIsAnImplicitInteger(lfc)
+    assert_all_are_non_negative(lfc)
+    assertFormalGene2symbol(
+        x = object,
+        genes = rownames(counts),
+        gene2symbol = gene2symbol
+    )
+    scale <- match.arg(scale)
     if (isTRUE(title)) {
         title <- .contrastName.DESeqResults(object)
+    } else {
+        title <- NULL
     }
 
-    .plotDEGHeatmap.dataFrame(
-        object = as.data.frame(object),
-        counts = counts,
-        alpha = alpha,
-        lfc = lfc,
-        gene2symbol = gene2symbol,
+    # Subset the counts matrix to match only the significant DEGs
+    results <- object %>%
+        as.data.frame() %>%
+        camel() %>%
+        # Keep genes that pass alpha cutoff
+        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+        .[.[["padj"]] < alpha, , drop = FALSE] %>%
+        # Keep genes that pass log2 fold change cutoff
+        .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
+        .[.[["log2FoldChange"]] > lfc |
+              .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+    assert_has_rows(results)
+    counts <- counts[rownames(results), , drop = FALSE]
+
+    # Rename rows using gene symbols, if desired
+    if (is.data.frame(gene2symbol)) {
+        rownames <- gene2symbol[rownames(counts), "symbol", drop = TRUE]
+        rownames(counts) <- rownames
+    }
+
+    plotHeatmap(
+        object = counts,
         annotationCol = annotationCol,
         scale = scale,
         color = color,
