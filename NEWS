@@ -89,6 +89,11 @@
 - Legacy `bcbioRNADataSet` method support has been removed.
 
 
+## bcbioRNASeq 0.1.8 (2018-04-03)
+
+- Bug fix for `gene2symbol` argument not renaming rows in `plotDEGHeatmap()`.
+
+
 ## bcbioRNASeq 0.1.7 (2018-02-28)
 
 - Bug fix for `[` subset method dropping metrics in metadata.
