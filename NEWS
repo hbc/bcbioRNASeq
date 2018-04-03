@@ -89,6 +89,12 @@
 - Legacy `bcbioRNADataSet` method support has been removed.
 
 
+## bcbioRNASeq 0.1.7 (2018-02-28)
+
+- Bug fix for `[` subset method dropping metrics in metadata.
+- Simplified unit testing for Dropbox mode enabled in `resultsTables()`.
+
+
 ## bcbioRNASeq 0.1.6 (2018-02-20)
 
 - Bug fix for gene-to-symbol mappings in `plotDEGHeatmap()`.
