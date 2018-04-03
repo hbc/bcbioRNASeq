@@ -99,7 +99,10 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">)</a></code></pre></div>
+<a class="sourceLine" id="cb3-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># Back up all data inside bcbioRNASeq object</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">saveData</span>(bcb, flatFiles)</a></code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
