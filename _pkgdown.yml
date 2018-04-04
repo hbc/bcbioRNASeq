@@ -78,7 +78,6 @@ reference:
   - title: Gene Expression Functions
     contents:
     - plotGene
-    - plotHeatmap
   - title: R Markdown Functions
     contents:
     - prepareRNASeqTemplate
