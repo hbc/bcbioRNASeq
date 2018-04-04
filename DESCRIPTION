@@ -152,7 +152,6 @@ biocViews:
     DataRepresentation,
     DifferentialExpression,
     GeneExpression,
-    Infrastructure,
     QualityControl,
     ReportWriting,
     RNASeq,
