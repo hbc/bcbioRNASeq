@@ -41,8 +41,7 @@ updateObject(bcb_small)
 }
 \seealso{
 Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
-  \code{\link{coerce}}, \code{\link{colData}},
-  \code{\link{rowData}}, \code{\link{show}},
+  \code{\link{coerce}}, \code{\link{show}},
   \code{\link{subset}}
 }
 \author{

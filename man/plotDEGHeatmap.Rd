@@ -10,14 +10,13 @@
 plotDEGHeatmap(object, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults}(object, counts, lfc = 0L,
-  gene2symbol = NULL, showColnames = TRUE, showRownames = TRUE,
-  title = TRUE, ...)
+  gene2symbol = NULL, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
-arguments must be formatted in camel case, not snake case.}
+\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}} \code{SummarizedExperiment}
+method.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
@@ -25,10 +24,6 @@ arguments must be formatted in camel case, not snake case.}
 
 \item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
 contain the columns \code{geneID} and \code{geneName}.}
-
-\item{showColnames}{Show column names.}
-
-\item{showRownames}{Show row names.}
 
 \item{title}{\emph{Optional.} Plot title.}
 }
@@ -41,18 +36,20 @@ optimized for handling a \code{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
 }
+\details{
+To adjust the annotation columns, modify the \code{colData} of the \code{counts}
+argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTransform},
+\code{DESeqDataSet}).
+}
 \examples{
 # Use our stashed gene2symbol
 gene2symbol <- gene2symbol(bcb_small)
-annotationCol <- colData(bcb_small) \%>\%
-    .[, interestingGroups(bcb_small), drop = FALSE]
 
 # DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
     object = res_small,
     counts = rld_small,
-    gene2symbol = gene2symbol,
-    annotationCol = annotationCol
+    gene2symbol = gene2symbol
 )
 
 # DESeqResults, DESeqDataSet ====
@@ -66,6 +63,11 @@ plotDEGHeatmap(
 )
 }
 \seealso{
+\itemize{
+\item \code{help("plotHeatmap", "bcbioBase")}.
+\item \code{findMethod("plotHeatmap", "SummarizedExperiment")}.
+}
+
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
   \code{\link{plotMA}}, \code{\link{plotVolcano}},

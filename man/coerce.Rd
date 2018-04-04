@@ -44,7 +44,6 @@ names(x)
 }
 
 Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
-  \code{\link{colData}}, \code{\link{rowData}},
   \code{\link{show}}, \code{\link{subset}},
   \code{\link{updateObject}}
 }
