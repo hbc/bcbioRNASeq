@@ -102,9 +102,9 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.4),
-    SummarizedExperiment (>= 1.6.5),
+    SummarizedExperiment (>= 1.8),
     bcbioBase (>= 0.2),
-    DESeq2 (>= 1.16.1)
+    DESeq2 (>= 1.18)
 Imports:
     BiocGenerics,
     DEGreport (>= 1.15),
@@ -114,7 +114,7 @@ Imports:
     basejump (>= 0.4),
     cowplot,
     dplyr (>= 0.7),
-    edgeR (>= 3.18.1),
+    edgeR (>= 3.20),
     ggplot2 (>= 2.2.1),
     ggrepel,
     grid,
