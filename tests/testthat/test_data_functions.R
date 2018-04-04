@@ -81,31 +81,6 @@ test_that("counts : apply transformationLimit", {
 
 
 
-# interestingGroups ============================================================
-test_that("interestingGroups", {
-    expect_identical(
-        interestingGroups(bcb_small),
-        "treatment"
-    )
-})
-
-test_that("interestingGroups<-", {
-    expect_silent(
-        interestingGroups(bcb_small) <- "sampleName"
-    )
-    # Interesting group must be in the metadata
-    expect_error(
-        interestingGroups(bcb_small) <- "XXX",
-        paste(
-            "is_subset :",
-            "The element 'XXX' in interestingGroups is not in",
-            "colnames\\(x\\)."
-        )
-    )
-})
-
-
-
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
     x <- selectSamples(

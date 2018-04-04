@@ -64,15 +64,15 @@ test_that("DESeqTransform", {
 
 # plotHeatmap ==================================================================
 test_that("plotHeatmap : bcbioRNASeq", {
-    genes <- head(rownames(bcb_small), n = 20L)
-    p <- plotHeatmap(bcb_small, genes = genes)
+    genes <- head(rownames(bcb_small), n = 100L)
+    p <- plotHeatmap(bcb_small[genes, ])
     expect_is(p, "list")
     expect_identical(names(p), plotlist)
 })
 
 test_that("plotHeatmap : DESeqDataSet", {
     genes <- head(rownames(dds_small), n = 20L)
-    p <- plotHeatmap(dds_small, genes = genes, gene2symbol = gene2symbol)
+    p <- plotHeatmap(dds_small[genes, ])
     expect_is(p, "list")
     expect_identical(names(p), plotlist)
 })
