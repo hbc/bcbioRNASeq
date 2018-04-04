@@ -138,7 +138,7 @@ setMethod(
         validObject(object)
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
-        assert_is_any_of(rowData, c("data.frame", "NULL"))
+        assert_is_any_of(rowData, c("DataFrame", "data.frame", "NULL"))
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
         dir <- initializeDirectory(dir)
