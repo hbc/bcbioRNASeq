@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -100,6 +100,7 @@ transform = FALSE." />
     <div class="page-header">
     <h1>Bracket-Based Subsetting</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-subset.R'><code>R/methods-subset.R</code></a></small>
+    <p class="hidden name"><code>subset.Rd</code></p>
     </div>
 
     
@@ -180,8 +181,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 
     <div class='dont-index'><p><code>help("[", "base")</code>.</p>
 <p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
-  <code><a href='coerce.html'>coerce</a></code>, <code><a href='colData.html'>colData</a></code>,
-  <code><a href='rowData.html'>rowData</a></code>, <code><a href='show.html'>show</a></code>,
+  <code><a href='coerce.html'>coerce</a></code>, <code><a href='show.html'>show</a></code>,
   <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
@@ -198,7 +198,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; bcbio date: 2018-03-18
-#&gt; load date: 2018-03-31</div><div class='input'>
+#&gt; R load date: 2018-04-04</div><div class='input'>
 <span class='co'># Subset by gene list</span>
 <span class='no'>bcb_small</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
 #&gt; samples: 6
@@ -206,7 +206,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; bcbio date: 2018-03-18
-#&gt; load date: 2018-03-31</div><div class='input'>
+#&gt; R load date: 2018-04-04</div><div class='input'>
 <span class='co'># Subset by both genes and samples</span>
 <span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
 #&gt; samples: 2
@@ -214,7 +214,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; bcbio date: 2018-03-18
-#&gt; load date: 2018-03-31</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length" "rlog"   "vst"   </div><div class='input'>
+#&gt; R load date: 2018-04-04</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length" "rlog"   "vst"   </div><div class='input'>
 <span class='co'># Skip DESeq2 variance stabilizing transformations</span>
 <span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
 #&gt; samples: 2
@@ -222,7 +222,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; organism: Mus musculus
 #&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; bcbio date: 2018-03-18
-#&gt; load date: 2018-03-31</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length"</div></pre>
+#&gt; R load date: 2018-04-04</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -245,7 +245,7 @@ Lorena Pantano, Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
