@@ -1,10 +1,6 @@
-template:
-    params:
-        bootswatch: readable
-
 authors:
     Michael Steinbaugh:
-        href: http://steinbaugh.com
+        href: https://steinbaugh.com
     Lorena Pantano:
         href: https://lpantano.github.io
     Rory Kirchner:
