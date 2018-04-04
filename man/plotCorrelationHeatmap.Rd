@@ -20,8 +20,7 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
-arguments must be formatted in camel case, not snake case.}
+\item{...}{Passthrough arguments to \code{SummarizedExperiment} method.}
 }
 \value{
 Show heatmap and invisibly return a \code{list} of the components.
@@ -53,6 +52,11 @@ plotCorrelationHeatmap(
 )
 }
 \seealso{
+\itemize{
+\item \code{help("plotCorrelationHeatmap", "bcbioBase")}.
+\item \code{findMethod("plotCorrelationHeatmap", "SummarizedExperiment")}.
+}
+
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},

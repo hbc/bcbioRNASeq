@@ -12,6 +12,11 @@
 #' @inherit bcbioBase::plotCorrelationHeatmap
 #'
 #' @inheritParams general
+#' @param ... Passthrough arguments to `SummarizedExperiment` method.
+#'
+#' @seealso
+#' - `help("plotCorrelationHeatmap", "bcbioBase")`.
+#' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
 #' # bcbioRNASeq ====
