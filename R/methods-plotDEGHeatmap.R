@@ -9,10 +9,9 @@
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
-#' @inherit plotHeatmap
+#' @inherit bcbioBase::plotHeatmap
 #'
 #' @inheritParams general
-#' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @examples
 #' # Use our stashed gene2symbol
@@ -52,14 +51,12 @@ setMethod(
         counts,
         lfc = 0L,
         gene2symbol = NULL,
+        showColnames = TRUE,
+        showRownames = TRUE,
         title = TRUE,
         ...
     ) {
         validObject(object)
-        assert_is_any_of(
-            x = counts,
-            classes = c("DESeqDataSet", "DESeqTransform", "matrix")
-        )
         if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
             counts <- assay(counts)
         }
@@ -95,12 +92,19 @@ setMethod(
 
         # Remap gene identifier rows to symbols
         if (is.data.frame(gene2symbol)) {
-            rownames(counts) <- convertGenesToSymbols(
-                rownames(counts),
+            rownames <- convertGenesToSymbols(
+                object = rownames(counts),
                 gene2symbol = gene2symbol
             )
+            rownames(counts) <- rownames
         }
 
-        plotHeatmap(counts, title = title, ...)
+        plotHeatmap(
+            object = counts,
+            title = title,
+            showColnames = TRUE,
+            showRownames = TRUE,
+            ...
+        )
     }
 )

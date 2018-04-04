@@ -4,7 +4,7 @@
 #' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams plotHeatmap
+#' @inheritParams bcbioBase::plotHeatmap
 #' @inheritParams general
 #' @param padj Use P values adjusted for multiple comparisions.
 #' @param ntop Number of top genes to label.

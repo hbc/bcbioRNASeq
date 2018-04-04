@@ -84,8 +84,6 @@ plotGene(rld_small, genes = genes)
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
-
-Other Gene Expression Functions: \code{\link{plotHeatmap}}
 }
 \author{
 Michael Steinbaugh

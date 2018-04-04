@@ -43,10 +43,11 @@ palette.}
 
 \item{title}{\emph{Optional.} Plot title.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments must be formatted in camel case, not snake case.}
 }
 \value{
-Show heatmap and return \code{list}, containing \code{gtable}.
+Show heatmap and invisibly return a \code{list} of the components.
 }
 \description{
 This function calculates a correlation matrix based on gene expression per

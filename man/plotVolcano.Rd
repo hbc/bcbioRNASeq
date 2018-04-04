@@ -18,7 +18,8 @@ plotVolcano(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments must be formatted in camel case, not snake case.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 

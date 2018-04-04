@@ -10,12 +10,14 @@
 plotDEGHeatmap(object, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults}(object, counts, lfc = 0L,
-  gene2symbol = NULL, title = TRUE, ...)
+  gene2symbol = NULL, showColnames = TRUE, showRownames = TRUE,
+  title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments must be formatted in camel case, not snake case.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
@@ -24,21 +26,20 @@ plotDEGHeatmap(object, ...)
 \item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
 contain the columns \code{geneID} and \code{geneName}.}
 
+\item{showColnames}{Show column names.}
+
+\item{showRownames}{Show row names.}
+
 \item{title}{\emph{Optional.} Plot title.}
 }
 \value{
-Show heatmap and return \code{list}, containing \code{gtable}.
+Show heatmap and invisibly return a \code{list} of the components.
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
 optimized for handling a \code{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
-}
-\details{
-When column clustering is disabled, the columns are sorted by the interesting
-groups (\code{interestingGroups}) specified in the \link{bcbioRNASeq} and then the
-sample names.
 }
 \examples{
 # Use our stashed gene2symbol
