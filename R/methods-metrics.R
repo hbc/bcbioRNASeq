@@ -25,7 +25,7 @@ setMethod(
     function(object) {
         validObject(object)
         metrics <- metadata(object)[["metrics"]]
-        metadata <- colData(object, return = "data.frame")
+        metadata <- sampleData(object)
         assert_are_identical(rownames(metrics), rownames(metadata))
 
         if (length(intersect(colnames(metrics), legacyMetricsCols))) {
