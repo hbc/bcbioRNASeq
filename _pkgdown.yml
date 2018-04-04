@@ -32,8 +32,6 @@ reference:
     - bcbioRNASeq-class
     - subset
     - coerce
-    - colData
-    - rowData
     - show
     - updateObject
   - title: Read Functions
