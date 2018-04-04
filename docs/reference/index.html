@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +37,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +54,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">bcbioRNASeq</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -60,9 +71,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -73,6 +81,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,316 +89,311 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.6</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="alphaSummary.html">alphaSummary</a></code> </p>
-          </td>
-          <td><p>Print Summary Statistics of Alpha Level Cutoffs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="annotable.html">annotable</a></code> </p>
-          </td>
-          <td><p>Ensembl Annotations</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="assert.html">assert</a></code> </p>
-          </td>
-          <td><p>Assert Checks</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bcbio.html">bcbio</a></code> <code><a href="bcbio.html">bcbio<-</a></code> </p>
-          </td>
-          <td><p>bcbioRNASeq Additional Run Data Accessor</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bcbioRNASeq-class.html">bcbioRNASeq-class</a></code> </p>
-          </td>
-          <td><p>bcbioRNASeq Object Class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bcbioRNASeq-package.html">bcbioRNASeq-package</a></code> </p>
-          </td>
-          <td><p>bcbioRNASeq</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="coerce.html">coerce</a></code> </p>
-          </td>
-          <td><p>Coerce Object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="colData.html">colData<-</a></code> </p>
-          </td>
-          <td><p>Column Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="counts.html">counts</a></code> </p>
-          </td>
-          <td><p>Count Matrix Accessors</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="design.html">design</a></code> <code><a href="design.html">design<-</a></code> </p>
-          </td>
-          <td><p>Design Formula Accessor</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="flatFiles.html">flatFiles</a></code> </p>
-          </td>
-          <td><p>Get Flat Files from S4 Object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="gene2symbol.html">gene2symbol</a></code> </p>
-          </td>
-          <td><p>Gene to Symbol Mappings</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="interestingGroups.html">interestingGroups</a></code> <code><a href="interestingGroups.html">interestingGroups<-</a></code> </p>
-          </td>
-          <td><p>Interesting Groups</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="loadRNASeq.html">loadRNASeq</a></code> </p>
-          </td>
-          <td><p>Load bcbio RNA-Seq Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="meltLog10.html">meltLog10</a></code> </p>
-          </td>
-          <td><p>Melt Count Matrix to Long Format and log10 Transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="metrics.html">metrics</a></code> </p>
-          </td>
-          <td><p>Sample Metrics</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot53Bias.html">plot53Bias</a></code> <code><a href="plot53Bias.html">plot5x3Bias</a></code> </p>
-          </td>
-          <td><p>Plot 5'-&gt;3' Bias</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap</a></code> </p>
-          </td>
-          <td><p>Plot Correlation Heatmap</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotCountDensity.html">plotCountDensity</a></code> </p>
-          </td>
-          <td><p>Plot Count Density</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotCountsPerGene.html">plotCountsPerGene</a></code> </p>
-          </td>
-          <td><p>Plot Counts Per Gene</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotDEGHeatmap.html">plotDEGHeatmap</a></code> </p>
-          </td>
-          <td><p>Differentially Expressed Gene Heatmap</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotDEGPCA.html">plotDEGPCA</a></code> </p>
-          </td>
-          <td><p>Plot DEG PCA</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotDispEsts.html">plotDispEsts</a></code> </p>
-          </td>
-          <td><p>Plot Dispersion Estimates</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotExonicMappingRate.html">plotExonicMappingRate</a></code> </p>
-          </td>
-          <td><p>Plot Exonic Mapping Rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotGenderMarkers.html">plotGenderMarkers</a></code> </p>
-          </td>
-          <td><p>Plot Sexually Dimorphic Gender Markers</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotGene.html">plotGene</a></code> </p>
-          </td>
-          <td><p>Plot Individual Genes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotGeneSaturation.html">plotGeneSaturation</a></code> </p>
-          </td>
-          <td><p>Plot Gene Detection Saturation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotGenesDetected.html">plotGenesDetected</a></code> </p>
-          </td>
-          <td><p>Plot Genes Detected</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotHeatmap.html">plotHeatmap</a></code> </p>
-          </td>
-          <td><p>Plot Heatmap</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotIntronicMappingRate.html">plotIntronicMappingRate</a></code> </p>
-          </td>
-          <td><p>Plot Intronic Mapping Rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotMA.html">plotMA</a></code> </p>
-          </td>
-          <td><p>Plot Mean Average</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotMappedReads.html">plotMappedReads</a></code> </p>
-          </td>
-          <td><p>Plot Mapped Reads</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotMappingRate.html">plotMappingRate</a></code> </p>
-          </td>
-          <td><p>Plot Mapping Rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotMeanSD.html">plotMeanSD</a></code> </p>
-          </td>
-          <td><p>Plot Row Standard Deviations vs. Row Means</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotPCA.html">plotPCA</a></code> </p>
-          </td>
-          <td><p>Sample PCA Plot for Transformed Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotPCACovariates.html">plotPCACovariates</a></code> </p>
-          </td>
-          <td><p>Find Correlation Between Principal Components (PCs) and Covariates</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotRRNAMappingRate.html">plotRRNAMappingRate</a></code> </p>
-          </td>
-          <td><p>Plot Ribosomal RNA (rRNA) Mapping Rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotTotalReads.html">plotTotalReads</a></code> </p>
-          </td>
-          <td><p>Plot Total Reads</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotVolcano.html">plotVolcano</a></code> </p>
-          </td>
-          <td><p>Plot Volcano</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prepareRNASeqTemplate.html">prepareRNASeqTemplate</a></code> </p>
-          </td>
-          <td><p>Prepare RNA-Seq R Markdown Template</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="resultsTables.html">resultsTables</a></code> </p>
-          </td>
-          <td><p>Differential Expression Results Tables</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sampleMetadata.html">sampleMetadata</a></code> <code><a href="sampleMetadata.html">sampleMetadata<-</a></code> </p>
-          </td>
-          <td><p>Sample Metadata</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="selectSamples.html">selectSamples</a></code> </p>
-          </td>
-          <td><p>Select Samples</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="subset.html">subset</a></code> </p>
-          </td>
-          <td><p>Bracket-Based Subsetting</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="topTables.html">topTables</a></code> </p>
-          </td>
-          <td><p>Top Tables of Differential Expression Results</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tpm.html">tpm</a></code> </p>
-          </td>
-          <td><p>Transcripts Per Million (TPM)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="updateObject.html">updateObject</a></code> </p>
-          </td>
-          <td><p>Update Object</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="alphaSummary.html">alphaSummary()</a></code> </p>
+        </td>
+        <td><p>Print Summary Statistics of Alpha Level Cutoffs</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="annotable.html">annotable(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Ensembl Annotations</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="assert.html">assert</a></code> </p>
+        </td>
+        <td><p>Assert Checks</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bcbio.html">bcbio(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="bcbio.html">`bcbio<-`(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>bcbioRNASeq Additional Run Data Accessor</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bcbioRNASeq-class.html">bcbioRNASeq-class</a></code> </p>
+        </td>
+        <td><p>bcbioRNASeq Object Class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bcbioRNASeq-package.html">bcbioRNASeq-package</a></code> </p>
+        </td>
+        <td><p>bcbioRNASeq</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="coerce.html">coerce</a></code> </p>
+        </td>
+        <td><p>Coerce Object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="colData.html">`colData<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="colData.html">`colData<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;DataFrame&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Column Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="counts.html">counts(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Count Matrix Accessors</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="design.html">design(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="design.html">`design<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;formula&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Design Formula Accessor</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="flatFiles.html">flatFiles(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Get Flat Files from S4 Object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="gene2symbol.html">gene2symbol(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Gene to Symbol Mappings</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="interestingGroups.html">interestingGroups(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="interestingGroups.html">`interestingGroups<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Interesting Groups</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="loadRNASeq.html">loadRNASeq()</a></code> </p>
+        </td>
+        <td><p>Load bcbio RNA-Seq Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="meltLog10.html">meltLog10()</a></code> </p>
+        </td>
+        <td><p>Melt Count Matrix to Long Format and log10 Transform</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="metrics.html">metrics(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Sample Metrics</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plot53Bias.html">plot53Bias()</a></code> <code><a href="plot53Bias.html">plot5x3Bias()</a></code> </p>
+        </td>
+        <td><p>Plot 5'-&gt;3' Bias</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap()</a></code> </p>
+        </td>
+        <td><p>Plot Correlation Heatmap</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotCountDensity.html">plotCountDensity()</a></code> </p>
+        </td>
+        <td><p>Plot Count Density</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotCountsPerGene.html">plotCountsPerGene()</a></code> </p>
+        </td>
+        <td><p>Plot Counts Per Gene</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotDEGHeatmap.html">plotDEGHeatmap()</a></code> </p>
+        </td>
+        <td><p>Differentially Expressed Gene Heatmap</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotDEGPCA.html">plotDEGPCA()</a></code> </p>
+        </td>
+        <td><p>Plot DEG PCA</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotDispEsts.html">plotDispEsts(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot Dispersion Estimates</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotExonicMappingRate.html">plotExonicMappingRate()</a></code> </p>
+        </td>
+        <td><p>Plot Exonic Mapping Rate</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotGenderMarkers.html">plotGenderMarkers()</a></code> </p>
+        </td>
+        <td><p>Plot Sexually Dimorphic Gender Markers</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotGene.html">plotGene(<i>&lt;matrix&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;DESeqDataSet&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;DESeqTransform&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot Individual Genes</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotGeneSaturation.html">plotGeneSaturation()</a></code> </p>
+        </td>
+        <td><p>Plot Gene Detection Saturation</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotGenesDetected.html">plotGenesDetected()</a></code> </p>
+        </td>
+        <td><p>Plot Genes Detected</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotHeatmap.html">plotHeatmap(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotHeatmap.html">plotHeatmap(<i>&lt;DESeqDataSet&gt;</i>)</a></code> <code><a href="plotHeatmap.html">plotHeatmap(<i>&lt;DESeqTransform&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot Heatmap</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotIntronicMappingRate.html">plotIntronicMappingRate()</a></code> </p>
+        </td>
+        <td><p>Plot Intronic Mapping Rate</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotMA.html">plotMA(<i>&lt;DESeqResults&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot Mean Average</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotMappedReads.html">plotMappedReads()</a></code> </p>
+        </td>
+        <td><p>Plot Mapped Reads</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotMappingRate.html">plotMappingRate()</a></code> </p>
+        </td>
+        <td><p>Plot Mapping Rate</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotMeanSD.html">plotMeanSD()</a></code> </p>
+        </td>
+        <td><p>Plot Row Standard Deviations vs. Row Means</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotPCA.html">plotPCA(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Sample PCA Plot for Transformed Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotPCACovariates.html">plotPCACovariates()</a></code> </p>
+        </td>
+        <td><p>Find Correlation Between Principal Components (PCs) and Covariates</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotRRNAMappingRate.html">plotRRNAMappingRate()</a></code> </p>
+        </td>
+        <td><p>Plot Ribosomal RNA (rRNA) Mapping Rate</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotTotalReads.html">plotTotalReads()</a></code> </p>
+        </td>
+        <td><p>Plot Total Reads</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotVolcano.html">plotVolcano()</a></code> </p>
+        </td>
+        <td><p>Plot Volcano</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="prepareRNASeqTemplate.html">prepareRNASeqTemplate()</a></code> </p>
+        </td>
+        <td><p>Prepare RNA-Seq R Markdown Template</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="resultsTables.html">resultsTables()</a></code> </p>
+        </td>
+        <td><p>Differential Expression Results Tables</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sampleMetadata.html">sampleMetadata(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="sampleMetadata.html">sampleMetadata(<i>&lt;DESeqDataSet&gt;</i>)</a></code> <code><a href="sampleMetadata.html">sampleMetadata(<i>&lt;DESeqTransform&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;DataFrame&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;DESeqDataSet&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;DESeqDataSet&gt;</i>,<i>&lt;DataFrame&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;DESeqTransform&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="sampleMetadata.html">`sampleMetadata<-`(<i>&lt;DESeqTransform&gt;</i>,<i>&lt;DataFrame&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Sample Metadata</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="selectSamples.html">selectSamples(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="selectSamples.html">selectSamples(<i>&lt;DESeqDataSet&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Select Samples</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="subset.html">`[`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Bracket-Based Subsetting</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="topTables.html">topTables()</a></code> </p>
+        </td>
+        <td><p>Top Tables of Differential Expression Results</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tpm.html">tpm(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Transcripts Per Million (TPM)</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="updateObject.html">updateObject(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Update Object</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -412,5 +416,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
