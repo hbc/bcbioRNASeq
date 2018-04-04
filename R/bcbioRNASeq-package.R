@@ -18,7 +18,7 @@
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom SummarizedExperiment assay assayNames assays assays<- colData
-#'   rowData rowRanges SummarizedExperiment
+#'   colData<- rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
 #'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
