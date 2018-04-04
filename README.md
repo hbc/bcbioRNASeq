@@ -19,6 +19,7 @@ This is an [R][] package.
 source("https://bioconductor.org/biocLite.R")
 biocLite("devtools")
 biocLite("GenomeInfoDbData")
+biocLite("GenomicAlignments")
 biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
