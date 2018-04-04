@@ -144,9 +144,9 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    hbc/bcbioBase@develop,
+    hbc/bcbioBase,
     lpantano/DEGreport,
-    steinbaugh/basejump@develop
+    steinbaugh/basejump
 biocViews:
     DataImport,
     DataRepresentation,
