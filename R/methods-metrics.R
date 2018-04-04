@@ -24,25 +24,12 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         validObject(object)
+        sampleData <- as.data.frame(sampleData(object))
         metrics <- metadata(object)[["metrics"]]
-        metadata <- sampleData(object)
-        assert_are_identical(rownames(metrics), rownames(metadata))
-
-        if (length(intersect(colnames(metrics), legacyMetricsCols))) {
-            warn(paste(
-                paste(
-                    "Metrics slot contains legacy columns:",
-                    toString(intersect(colnames(metrics), legacyMetricsCols))
-                ),
-                bcbioBase::updateMessage,
-                sep = "\n"
-            ))
-            metrics <- metrics %>%
-                .[, setdiff(colnames(.), legacyMetricsCols), drop = FALSE]
-        }
-        assert_are_disjoint_sets(colnames(metrics), colnames(metadata))
-
-        cbind(metadata, metrics) %>%
+        assert_are_identical(rownames(sampleData), rownames(metrics))
+        assert_are_disjoint_sets(colnames(sampleData), colnames(metrics))
+        cbind(sampleData, metrics) %>%
+            as.data.frame() %>%
             rownames_to_column() %>%
             mutate_if(is.character, as.factor) %>%
             column_to_rownames()
