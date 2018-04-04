@@ -81,7 +81,7 @@ test_that("Row data", {
             "geneBiotype" = "factor",
             "description" = "character",
             "seqCoordSystem" = "factor",
-            "entrezID" = "AsIs",
+            "entrezID" = "list",
             "broadClass" = "factor"
         )
     )
