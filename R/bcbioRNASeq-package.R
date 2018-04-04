@@ -17,16 +17,16 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom SummarizedExperiment assay assayNames assays colData rowData
-#'   rowRanges SummarizedExperiment
+#' @importFrom SummarizedExperiment assay assayNames assays assays<- colData
+#'   rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
 #'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
 #'   sanitizeRowData sanitizeSampleData snake
 #' @importFrom bcbioBase copyToDropbox flatFiles gene2symbol interestingGroups
-#'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
-#'   readProgramVersions readSampleData readTx2gene sampleDirs
-#'   sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
+#'   plotHeatmap prepareSummarizedExperiment prepareTemplate readDataVersions
+#'   readLog readProgramVersions readSampleData readTx2gene sampleData
+#'   sampleDirs sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
 #'   mutate_all mutate_if pull select_if
