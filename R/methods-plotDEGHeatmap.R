@@ -5,6 +5,10 @@
 #' the optional parameters for [plotHeatmap()] are also available to this
 #' function.
 #'
+#' To adjust the annotation columns, modify the `colData` of the `counts`
+#' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
+#' `DESeqDataSet`).
+#'
 #' @name plotDEGHeatmap
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
@@ -12,19 +16,22 @@
 #' @inherit bcbioBase::plotHeatmap
 #'
 #' @inheritParams general
+#' @param ... Passthrough arguments to [plotHeatmap()] `SummarizedExperiment`
+#'   method.
+#'
+#' @seealso
+#' - `help("plotHeatmap", "bcbioBase")`.
+#' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
 #' # Use our stashed gene2symbol
 #' gene2symbol <- gene2symbol(bcb_small)
-#' annotationCol <- colData(bcb_small) %>%
-#'     .[, interestingGroups(bcb_small), drop = FALSE]
 #'
 #' # DESeqResults, DESeqTransform ====
 #' plotDEGHeatmap(
 #'     object = res_small,
 #'     counts = rld_small,
-#'     gene2symbol = gene2symbol,
-#'     annotationCol = annotationCol
+#'     gene2symbol = gene2symbol
 #' )
 #'
 #' # DESeqResults, DESeqDataSet ====
@@ -51,20 +58,20 @@ setMethod(
         counts,
         lfc = 0L,
         gene2symbol = NULL,
-        showColnames = TRUE,
-        showRownames = TRUE,
         title = TRUE,
         ...
     ) {
         validObject(object)
-        if (is(counts, "DESeqDataSet") || is(counts, "DESeqTransform")) {
-            counts <- assay(counts)
-        }
-        assert_is_matrix(counts)
+        assert_is_all_of(counts, "SummarizedExperiment")
+        validObject(counts)
         assert_are_identical(rownames(object), rownames(counts))
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
-        assertFormalGene2symbol(object, rownames(counts), gene2symbol)
+        assertFormalGene2symbol(
+            x = object,
+            genes = rownames(counts),
+            gene2symbol = gene2symbol
+        )
 
         # Title
         if (isTRUE(title)) {
@@ -77,7 +84,7 @@ setMethod(
         alpha <- metadata(object)[["alpha"]]
         assert_is_a_number(alpha)
 
-        data <- object %>%
+        deg <- object %>%
             as.data.frame() %>%
             camel() %>%
             # Keep genes that pass alpha cutoff
@@ -87,8 +94,11 @@ setMethod(
             .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
             .[.[["log2FoldChange"]] > lfc |
                   .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-        assert_has_rows(data)
-        counts <- counts[rownames(data), , drop = FALSE]
+        assert_has_rows(deg)
+
+        # Subset the counts matrix to only contain DEGs
+        counts <- counts[rownames(deg), ]
+        validObject(counts)
 
         # Remap gene identifier rows to symbols
         if (is.data.frame(gene2symbol)) {
@@ -99,11 +109,10 @@ setMethod(
             rownames(counts) <- rownames
         }
 
+        # SummarizedExperiment method
         plotHeatmap(
-            object = counts,
+            counts,
             title = title,
-            showColnames = TRUE,
-            showRownames = TRUE,
             ...
         )
     }
