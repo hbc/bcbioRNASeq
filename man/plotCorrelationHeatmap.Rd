@@ -7,9 +7,7 @@
 \title{Plot Correlation Heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("rlog",
-  "vst", "tmm", "tpm"), method = c("pearson", "spearman"), genes = NULL,
-  samples = NULL, interestingGroups, color = viridis,
-  legendColor = viridis, title = TRUE, ...)
+  "vst", "tmm", "tpm"), ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,27 +20,6 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{method}{Correlation coefficient (or covariance) method to be computed.
-Defaults to "\code{pearson}" but "\code{spearman}" can also be used. Consult the
-\code{\link[stats:cor]{stats::cor()}} documentation for more information.}
-
-\item{genes}{Character vector of genes to include. These must match the
-rownames of the object. It is best practice to use the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
-
-\item{samples}{Character vector of samples to include.}
-
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{color}{Colors to use for plot. Defaults to the \code{\link[=viridis]{viridis()}}
-palette.}
-
-\item{legendColor}{Colors to use for legend labels. Defaults to the
-\code{\link[=viridis]{viridis()}} palette.}
-
-\item{title}{\emph{Optional.} Plot title.}
-
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments must be formatted in camel case, not snake case.}
 }
@@ -50,11 +27,8 @@ arguments must be formatted in camel case, not snake case.}
 Show heatmap and invisibly return a \code{list} of the components.
 }
 \description{
-This function calculates a correlation matrix based on gene expression per
-sample. By default, this function processes all gene counts per sample to
-calculate the corrlation matrix. This behavior can be overrided with the
-input of \code{gene} identifier vector. In this case, only the expression of the
-desired genes will be used to calculate the correlation matrix.
+This function calculates a correlation matrix based on feature expression per
+sample.
 }
 \examples{
 # bcbioRNASeq ====
