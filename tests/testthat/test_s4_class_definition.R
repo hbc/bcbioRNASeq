@@ -155,24 +155,6 @@ test_that("Example data dimensions", {
 
 
 
-# colData ======================================================================
-test_that("colData : bcbioRNASeq", {
-    data <- colData(bcb_small)
-    data[["batch"]] <- seq_len(nrow(data))
-    colData(bcb_small) <- data
-    value <- colData(bcb_small)
-    expect_true("batch" %in% colnames(value))
-    expect_true(
-        all(vapply(
-            X = value,
-            FUN = is.factor,
-            FUN.VALUE = logical(1L)
-        ))
-    )
-})
-
-
-
 # subset =======================================================================
 test_that("subset : Normal gene and sample selection", {
     x <- bcb_small[seq_len(100L), seq_len(4L)]
