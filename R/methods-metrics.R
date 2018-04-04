@@ -1,58 +1,37 @@
 #' Sample Metrics
 #'
-#' @rdname metrics
 #' @name metrics
+#' @family Data Functions
+#' @author Michael Steinbaugh
 #'
 #' @importFrom bcbioBase metrics
 #'
 #' @inheritParams general
 #'
-#' @return [data.frame].
+#' @return `data.frame`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' metrics(bcb) %>% glimpse()
+#' metrics(bcb_small) %>% glimpse()
 NULL
 
 
 
 # Methods ======================================================================
 #' @rdname metrics
-#' @importFrom dplyr left_join mutate_if
 #' @export
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object) {  # nolint
+    function(object) {
+        validObject(object)
+        sampleData <- as.data.frame(sampleData(object))
         metrics <- metadata(object)[["metrics"]]
-        assert_is_data.frame(metrics)
-        assert_are_identical(colnames(object), rownames(metrics))
-
-        metadata <- sampleMetadata(object)
-        assert_is_data.frame(metadata)
-        assert_are_identical(rownames(metrics), rownames(metadata))
-
-        if (length(intersect(
-            x = colnames(metrics),
-            y = legacyMetricsCols
-        ))) {
-            warn(paste(
-                paste(
-                    "Metrics slot contains legacy columns:",
-                    toString(intersect(colnames(metrics), legacyMetricsCols))
-                ),
-                updateMsg,
-                sep = "\n"
-            ))
-            metrics <- metrics %>%
-                .[, setdiff(colnames(.), legacyMetricsCols), drop = FALSE]
-        }
-        assert_are_disjoint_sets(colnames(metrics), colnames(metadata))
-
-        cbind(metadata, metrics) %>%
+        assert_are_identical(rownames(sampleData), rownames(metrics))
+        assert_are_disjoint_sets(colnames(sampleData), colnames(metrics))
+        cbind(sampleData, metrics) %>%
+            as.data.frame() %>%
             rownames_to_column() %>%
             mutate_if(is.character, as.factor) %>%
             column_to_rownames()
-    })
+    }
+)

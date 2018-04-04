@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -108,10 +108,10 @@
 
 <span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
-  <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
-  <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
+  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
+  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -122,11 +122,12 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
+arguments must be formatted in camel case, not snake case.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Alpha level cutoff used for coloring.</p></td>
+      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
       <th>padj</th>
@@ -134,20 +135,18 @@
     </tr>
     <tr>
       <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff for coloring.</p></td>
+      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.</p></td>
+      <td><p>Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p>Apply gene identifier to symbol mappings. A gene2symbol
-data.frame can be passed in, and must contain the columns <code>ensgene</code> and
-<code>symbol</code>. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.</p></td>
+      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
+contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     <tr>
       <th>ntop</th>
@@ -155,15 +154,7 @@ gene symbols.</p></td>
     </tr>
     <tr>
       <th>direction</th>
-      <td><p>Plot <code>up</code>, <code>down</code>, or <code>both</code> (<strong>default</strong>) directions.</p></td>
-    </tr>
-    <tr>
-      <th>shadeColor</th>
-      <td><p>Shading color for bounding box.</p></td>
-    </tr>
-    <tr>
-      <th>shadeAlpha</th>
-      <td><p>Shading transparency alpha.</p></td>
+      <td><p>Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
     </tr>
     <tr>
       <th>pointColor</th>
@@ -178,6 +169,14 @@ gene symbols.</p></td>
       <td><p>Point outline color.</p></td>
     </tr>
     <tr>
+      <th>shadeColor</th>
+      <td><p>Shading color for bounding box.</p></td>
+    </tr>
+    <tr>
+      <th>shadeAlpha</th>
+      <td><p>Shading transparency alpha.</p></td>
+    </tr>
+    <tr>
       <th>labelColor</th>
       <td><p>Gene label color.</p></td>
     </tr>
@@ -189,27 +188,25 @@ gene symbols.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Volcano plot arranged as grid (<code>grid = TRUE</code>), or <code>show()</code>
-individual <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> (<code>grid = FALSE</code>).</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>This function is an updated variant of
 <code>CHBUtils::volcano_density_plot()</code>.</p>
-<p>Other Differential Expression Plots: <code><a href='plotMA.html'>plotMA</a></code></p></div>
+<p>Other Differential Expression Functions: <code>alphaSummary</code>,
+  <code>contrastName</code>, <code>plotDEGHeatmap</code>,
+  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMA</a></code>,
+  <code>resultsTables</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/res.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene2symbol.html'>gene2symbol</a></span>(<span class='no'>bcb</span>)
-
-<span class='co'># DESeqResults ====</span>
-<span class='co'># Label the top genes</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Label specific genes</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>rownames</span>(<span class='no'>res</span>) <span class='kw'>%&gt;%</span> <span class='fu'>head</span>()
-<span class='fu'>plotVolcano</span>(<span class='no'>res</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>)</div><div class='img'><img src='plotVolcano-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># DESeqResults ====</span>
+<span class='fu'>plotVolcano</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -232,7 +229,7 @@ John Hutchinson, Michael Steinbaugh, Lorena Pantano
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -11,53 +11,54 @@ plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
+  title = "genes detected")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
-\item{minCounts}{Numeric value for filtering the counts matrix before
-plotting.}
+\item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
-\item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+\item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
+to \code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
+
+\item{title}{Title of plot.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Genes Detected
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotGenesDetected(bcb, passLimit = 0L, warnLimit = 0L)
+# Minimal example with fewer genes, so disable limits
+plotGenesDetected(bcb_small, passLimit = 0L, warnLimit = 0L)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}}, \code{\link{plotGene}},
+  \code{\link{plotGeneSaturation}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }

@@ -20,22 +20,26 @@
 take a long time for large datasets.}
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
 Select Samples
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-
 # bcbioRNASeq ====
-subset <- selectSamples(bcb, group = "ko")
-metrics(subset) \%>\% glimpse()
+x <- selectSamples(bcb_small, day = 7L)
+show(x)
+colnames(x)
 
 # DESeqDataSet ====
-subset <- selectSamples(dds, group = "ko")
-print(subset)
+x <- selectSamples(dds_small, day = 7L)
+show(x)
+colnames(x)
+}
+\seealso{
+Other Data Functions: \code{\link{counts}},
+  \code{\link{metrics}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh

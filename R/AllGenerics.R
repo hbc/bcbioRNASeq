@@ -1,80 +1,99 @@
 #' @rdname alphaSummary
 #' @export
-setGeneric("alphaSummary", function(object, ...) {
-    standardGeneric("alphaSummary")
-})
+setGeneric(
+    "alphaSummary",
+    function(object, ...) {
+        standardGeneric("alphaSummary")
+    }
+)
 
 
 
-#' @rdname meltLog10
+#' @rdname contrastName
 #' @export
-setGeneric("meltLog10", function(object, ...) {
-    standardGeneric("meltLog10")
-})
+setGeneric(
+    "contrastName",
+    function(object, ...) {
+        standardGeneric("contrastName")
+    }
+)
 
 
 
-#' @rdname plot53Bias
+#' @rdname plot5Prime3PrimeBias
 #' @export
-setGeneric("plot53Bias", function(object, ...) {
-    standardGeneric("plot53Bias")
-})
-
-
-
-#' @rdname plotCorrelationHeatmap
-#' @export
-setGeneric("plotCorrelationHeatmap", function(object, ...) {
-    standardGeneric("plotCorrelationHeatmap")
-})
+setGeneric(
+    "plot5Prime3PrimeBias",
+    function(object, ...) {
+        standardGeneric("plot5Prime3PrimeBias")
+    }
+)
 
 
 
 #' @rdname plotCountDensity
 #' @export
-setGeneric("plotCountDensity", function(object, ...) {
-    standardGeneric("plotCountDensity")
-})
+setGeneric(
+    "plotCountDensity",
+    function(object, ...) {
+        standardGeneric("plotCountDensity")
+    }
+)
 
 
 
 #' @rdname plotCountsPerGene
 #' @export
-setGeneric("plotCountsPerGene", function(object, ...) {
-    standardGeneric("plotCountsPerGene")
-})
+setGeneric(
+    "plotCountsPerGene",
+    function(object, ...) {
+        standardGeneric("plotCountsPerGene")
+    }
+)
 
 
 
 #' @rdname plotDEGHeatmap
 #' @export
-setGeneric("plotDEGHeatmap", function(object, counts, ...) {
-    standardGeneric("plotDEGHeatmap")
-})
+setGeneric(
+    "plotDEGHeatmap",
+    function(object, ...) {
+        standardGeneric("plotDEGHeatmap")
+    }
+)
 
 
 
 #' @rdname plotDEGPCA
 #' @export
-setGeneric("plotDEGPCA", function(object, counts, ...) {
-    standardGeneric("plotDEGPCA")
-})
+setGeneric(
+    "plotDEGPCA",
+    function(object, ...) {
+        standardGeneric("plotDEGPCA")
+    }
+)
 
 
 
 #' @rdname plotExonicMappingRate
 #' @export
-setGeneric("plotExonicMappingRate", function(object, ...) {
-    standardGeneric("plotExonicMappingRate")
-})
+setGeneric(
+    "plotExonicMappingRate",
+    function(object, ...) {
+        standardGeneric("plotExonicMappingRate")
+    }
+)
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
-setGeneric("plotGenderMarkers", function(object, ...) {
-    standardGeneric("plotGenderMarkers")
-})
+setGeneric(
+    "plotGenderMarkers",
+    function(object, ...) {
+        standardGeneric("plotGenderMarkers")
+    }
+)
 
 
 
@@ -84,108 +103,148 @@ setGeneric(
     "plotGeneSaturation",
     function(object, ...) {
         standardGeneric("plotGeneSaturation")
-    })
+    }
+)
 
 
 
 #' @rdname plotGenesDetected
 #' @export
-setGeneric("plotGenesDetected", function(object, ...) {
-    standardGeneric("plotGenesDetected")
-})
+setGeneric(
+    "plotGenesDetected",
+    function(object, ...) {
+        standardGeneric("plotGenesDetected")
+    }
+)
 
 
 
 #' @rdname plotIntronicMappingRate
 #' @export
-setGeneric("plotIntronicMappingRate", function(object, ...) {
-    standardGeneric("plotIntronicMappingRate")
-})
+setGeneric(
+    "plotIntronicMappingRate",
+    function(object, ...) {
+        standardGeneric("plotIntronicMappingRate")
+    }
+)
 
 
 
 #' @rdname plotMappedReads
 #' @export
-setGeneric("plotMappedReads", function(object, ...) {
-    standardGeneric("plotMappedReads")
-})
+setGeneric(
+    "plotMappedReads",
+    function(object, ...) {
+        standardGeneric("plotMappedReads")
+    }
+)
 
 
 
 #' @rdname plotMappingRate
 #' @export
-setGeneric("plotMappingRate", function(object, ...) {
-    standardGeneric("plotMappingRate")
-})
+setGeneric(
+    "plotMappingRate",
+    function(object, ...) {
+        standardGeneric("plotMappingRate")
+    }
+)
 
 
 
 #' @rdname plotMeanSD
 #' @export
-setGeneric("plotMeanSD", function(object, ...) {
-    standardGeneric("plotMeanSD")
-})
+setGeneric(
+    "plotMeanSD",
+    function(object, ...) {
+        standardGeneric("plotMeanSD")
+    }
+)
 
 
 
 #' @rdname plotPCACovariates
 #' @export
-setGeneric("plotPCACovariates", function(object, ...) {
-    standardGeneric("plotPCACovariates")
-})
+setGeneric(
+    "plotPCACovariates",
+    function(object, ...) {
+        standardGeneric("plotPCACovariates")
+    }
+)
 
 
 
 #' @rdname plotRRNAMappingRate
 #' @export
-setGeneric("plotRRNAMappingRate", function(object, ...) {
-    standardGeneric("plotRRNAMappingRate")
-})
+setGeneric(
+    "plotRRNAMappingRate",
+    function(object, ...) {
+        standardGeneric("plotRRNAMappingRate")
+    }
+)
 
 
 
 #' @rdname plotTotalReads
 #' @export
-setGeneric("plotTotalReads", function(object, ...) {
-    standardGeneric("plotTotalReads")
-})
+setGeneric(
+    "plotTotalReads",
+    function(object, ...) {
+        standardGeneric("plotTotalReads")
+    }
+)
 
 
 
 #' @rdname plotVolcano
 #' @export
-setGeneric("plotVolcano", function(object, ...) {
-    standardGeneric("plotVolcano")
-})
-
-
-
-#' @rdname prepareRNASeqTemplate
-#' @export
-setGeneric("prepareRNASeqTemplate", function(object, ...) {
-    standardGeneric("prepareRNASeqTemplate")
-})
+setGeneric(
+    "plotVolcano",
+    function(object, ...) {
+        standardGeneric("plotVolcano")
+    }
+)
 
 
 
 #' @rdname resultsTables
 #' @export
-setGeneric("resultsTables", function(object, ...) {
-    standardGeneric("resultsTables")
-})
+setGeneric(
+    "resultsTables",
+    function(object, ...) {
+        standardGeneric("resultsTables")
+    }
+)
 
 
 
 #' @rdname tmm
 #' @export
-setGeneric("tmm", function(object) {
-    standardGeneric("tmm")
-})
+setGeneric(
+    "tmm",
+    function(object) {
+        standardGeneric("tmm")
+    }
+)
 
 
 
 #' @rdname topTables
 #' @export
-setGeneric("topTables", function(object, ...) {
-    standardGeneric("topTables")
-})
+setGeneric(
+    "topTables",
+    function(object, ...) {
+        standardGeneric("topTables")
+    }
+)
+
+
+
+#' @rdname tpm
+#' @export
+setGeneric(
+    "tpm",
+    function(object) {
+        standardGeneric("tpm")
+    }
+)

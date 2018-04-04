@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -104,28 +104,23 @@
     <p>Plot Individual Genes</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for matrix</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>colData</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
-  <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='no'>interestingGroups</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span>
-  <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>,
+  <span class='st'>"tpm"</span>), <span class='no'>interestingGroups</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>,
-  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))
 
 <span class='co'># S4 method for DESeqTransform</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>,
-  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>)</pre>
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,32 +131,23 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.</p></td>
+      <td><p>Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
-      <th>gene2symbol</th>
-      <td><p>Apply gene identifier to symbol mappings. A gene2symbol
-data.frame can be passed in, and must contain the columns <code>ensgene</code> and
-<code>symbol</code>. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.</p></td>
-    </tr>
-    <tr>
-      <th>colData</th>
-      <td><p>Sample metadata data.frame.</p></td>
+      <th>normalized</th>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
-      <th>countsAxisLabel</th>
-      <td><p>Text label of counts axis.</p></td>
+      <td><p>Character vector denoting groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>medianLine</th>
@@ -170,24 +156,24 @@ are grouped by <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Desired ggplot color scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code>scale_color_manual()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>return</th>
-      <td><p>Desired return type: <code>grid</code>, <code>wide</code>, <code>list</code>, or <code>markdown</code>.</p></td>
+      <td><p>Desired ggplot color scale. Must supply discrete values. When
+set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>headerLevel</th>
-      <td><p>R Markdown header level. Only applies when
-<code>return = "markdown"</code>.</p></td>
+      <td><p>R Markdown header level.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p>Normalization method. Supports <code>tpm</code> (<strong>default</strong>), <code>tmm</code>,
-<code>rlog</code>, or <code>vst</code>.</p></td>
+      <th>return</th>
+      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
+the first item in the vector by default.</p></td>
+    </tr>
+    <tr>
+      <th>gene2symbol</th>
+      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
+contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     </table>
     
@@ -195,43 +181,28 @@ definitions are desired, we recommend using <code>scale_color_manual()</code>.</
 
     
 <ul>
-<li><p><code>grid</code>: <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code> graphical output.</p></li>
-<li><p><code>list</code>: Plot list, containing per gene <a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a> objects.</p></li>
-<li><p><code>markdown</code>: Tabset R Markdown output, tabbed per gene.</p></li>
+<li><p>"<code>grid</code>": Show <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code>, paneled per gene.</p></li>
+<li><p>"<code>wide</code>": Show <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
+<li><p>"<code>list</code>": <code>list</code>, containing per gene <code>ggplot</code> objects.</p></li>
+<li><p>"<code>markdown</code>": Show tabset R Markdown output, tabbed per gene.</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p>
-<p>Other Quality Control Plots: <code>plot53Bias</code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p></div>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/dds.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/rld.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># Gene identifiers</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb</span>), <span class='fl'>4L</span>)
+    <pre class="examples"><div class='input'><span class='co'># Gene identifiers</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb_small</span>), <span class='fl'>8L</span>)
 
 <span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>dds</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotGene</span>(<span class='no'>dds_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqTransform ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>rld</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"group"</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotGene</span>(<span class='no'>rld_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -254,7 +225,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

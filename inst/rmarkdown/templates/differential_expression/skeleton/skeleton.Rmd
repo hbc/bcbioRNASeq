@@ -4,43 +4,33 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "data/YYYY-MM-DD/bcb.rda"
-    design: !r formula(~genotype)
-    contrast: !r c("genotype", "mutant", "wildtype")
+    bcb_file: "bcb.rda"
+    design: !r ~ treatment
+    contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
     lfc: 1
-    output_dir: "."
+    data_dir: "."
+    results_dir: "results/differential_expression"
     dropbox_dir: NULL
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-14
+# Last modified 2018-03-17
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
-# Directory paths
-data_dir <- file.path(params$output_dir, "data", Sys.Date())
-results_dir <- file.path(params$output_dir, "results", "differential_expression")
+# Directory paths ==============================================================
 invisible(mapply(
     FUN = dir.create,
-    list(data_dir, results_dir),
-    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+    path = c(params$data_dir, params$results_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
-# Dropbox paths
-if (is.character(params$dropbox_dir)) {
-    # Delete `.httr-oauth` if you have trouble writing to Dropbox
-    dropbox_dir <- file.path(
-        params$dropbox_dir,
-        "results",
-        "differential_expression")
-}
-
-# Load bcbioRNASeq object
+# Load object ==================================================================
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
-validObject(bcb)
+invisible(validObject(bcb))
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -49,7 +39,7 @@ validObject(bcb)
 
 
 ```{r dds, results="hide"}
-dds <- bcbio(bcb, "DESeqDataSet")
+dds <- as(bcb, "DESeqDataSet")
 design(dds) <- params$design
 dds <- DESeq(dds)
 rld <- rlog(dds)
@@ -78,21 +68,21 @@ alphaSummary(dds)
 res_unshrunken <- results(
     dds,
     contrast = params$contrast,
-    alpha = params$alpha)
+    alpha = params$alpha
+)
 
 # DESeqResults with shrunken log2 fold changes (LFC)
 # help("lfcShrink", "DESeq2")
-# Only `coef` or `contrast` can be specified, not both
 # Use the correct `coef` number to modify from `resultsNames(dds)`
 res_shrunken <- lfcShrink(
     dds = dds,
-    # coef = 2,
-    contrast = params$contrast,
-    res = res_unshrunken)
+    coef = 2,
+    res = res_unshrunken
+)
 
 # Use shrunken LFC values by default
 res <- res_shrunken
-saveData(res, res_shrunken, res_unshrunken, dir = data_dir)
+saveData(res, res_shrunken, res_unshrunken, dir = params$data_dir)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc`.
@@ -124,7 +114,13 @@ plotVolcano(res, lfc = params$lfc)
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
 
 ```{r plot_deg_heatmap}
-plotDEGHeatmap(res, counts = rld)
+# help("pheatmap", "pheatmap")
+plotDEGHeatmap(
+    res,
+    counts = rld,
+    clusteringMethod = "ward.D2",
+    scale = "row"
+)
 ```
 
 
@@ -138,8 +134,10 @@ res_tbl <- resultsTables(
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,
-    dir = results_dir)
-saveData(res_tbl, dir = data_dir)
+    dir = params$results_dir,
+    dropboxDir = params$dropbox_dir
+)
+saveData(res_tbl, dir = params$data_dir)
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:

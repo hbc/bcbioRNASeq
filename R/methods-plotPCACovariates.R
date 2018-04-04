@@ -2,13 +2,11 @@
 #'
 #' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
 #'
-#' @rdname plotPCACovariates
 #' @name plotPCACovariates
+#' @family Quality Control Functions
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @inheritParams plotPCA
-#'
 #' @param metrics Include sample summary metrics as covariates. Defaults to
 #'   include all metrics columns (`TRUE`), but desired columns can be specified
 #'   here as a character vector.
@@ -19,21 +17,19 @@
 #' - [DESeq2::rlog()].
 #' - [DESeq2::varianceStabilizingTransformation()].
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
+#' plotPCACovariates(
+#'     object = bcb_small,
+#'     metrics = c("exonicRate", "intronicRate")
+#' )
 NULL
 
 
 
 # Methods ======================================================================
 #' @rdname plotPCACovariates
-#' @importFrom DEGreport degCovariates
-#' @importFrom dplyr select_if
 #' @export
 setMethod(
     "plotPCACovariates",
@@ -41,10 +37,12 @@ setMethod(
     function(
         object,
         metrics = TRUE,
-        normalized = "rlog",
-        ...) {
+        normalized = c("rlog", "vst", "tmm", "tpm"),
+        ...
+    ) {
+        validObject(object)
         assert_is_any_of(metrics, c("character", "logical"))
-        assert_is_a_string(normalized)
+        normalized <- match.arg(normalized)
 
         counts <- counts(object, normalized = normalized)
 
@@ -52,7 +50,7 @@ setMethod(
         factors <- select_if(metadata, is.factor)
         numerics <- select_if(metadata, is.numeric) %>%
             # Drop columns that are all zeroes (not useful to plot)
-            .[, colSums(.) > 0L]
+            .[, colSums(.) > 0L, drop = FALSE]
         metadata <- cbind(factors, numerics)
 
         # Select the metrics to use for plot
@@ -74,5 +72,7 @@ setMethod(
         degCovariates(
             counts = counts,
             metadata = metadata,
-            ...)
-    })
+            ...
+        )
+    }
+)

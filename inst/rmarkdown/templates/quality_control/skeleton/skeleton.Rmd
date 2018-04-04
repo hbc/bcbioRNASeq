@@ -4,29 +4,28 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "data/YYYY-MM-DD/bcb.rda"
-    output_dir: "."
+    bcb_file: "bcb.rda"
+    data_dir: "."
+    results_dir: "results/counts"
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-02-14
+# Last modified 2018-03-17
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
-# Directory paths
-data_dir <- file.path(params$output_dir, "data", Sys.Date())
-results_dir <- file.path(params$output_dir, "results", "counts")
+# Directory paths ==============================================================
 invisible(mapply(
     FUN = dir.create,
-    list(data_dir, results_dir),
-    MoreArgs = list(recursive = TRUE, showWarnings = FALSE)
+    path = c(params$data_dir, params$results_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
-# Load bcbioRNASeq object
+# Load object ==================================================================
 bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
-validObject(bcb)
+invisible(validObject(bcb))
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -34,8 +33,8 @@ validObject(bcb)
 
 
 
-```{r sample_metadata}
-sampleMetadata(bcb)
+```{r sample_data}
+sampleData(bcb, return = "kable")
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
@@ -46,17 +45,19 @@ sampleMetadata(bcb)
 
 ```{r counts}
 raw_counts <- counts(bcb, normalized = FALSE)
+# DESeq2 normalized counts
 normalized_counts <- counts(bcb, normalized = TRUE)
+# Transcripts per million
 tpm <- counts(bcb, normalized = "tpm")
-saveData(raw_counts, normalized_counts, tpm, dir = data_dir)
-writeCounts(raw_counts, normalized_counts, tpm, dir = results_dir)
+saveData(raw_counts, normalized_counts, tpm, dir = params$data_dir)
+writeCounts(raw_counts, normalized_counts, tpm, dir = params$results_dir)
 ```
 
 The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
 
-- [`normalized_counts.csv.gz`](`r file.path(results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](`r file.path(results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`raw_counts.csv.gz`](`r file.path(results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
+- [`normalized_counts.csv.gz`](`r file.path(params$results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
+- [`tpm.csv.gz`](`r file.path(params$results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`raw_counts.csv.gz`](`r file.path(params$results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 
 
@@ -99,7 +100,7 @@ plotGenesDetected(bcb)
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
 ```{r plot_gene_saturation}
-plotGeneSaturation(bcb)
+plotGeneSaturation(bcb, interestingGroups = "sampleName")
 ```
 
 
@@ -132,8 +133,8 @@ plotRRNAMappingRate(bcb)
 
 ## 5'->3' bias
 
-```{r plot_53_bias}
-plot53Bias(bcb)
+```{r plot_5prime_3prime_bias}
+plot5Prime3PrimeBias(bcb)
 ```
 
 
@@ -142,7 +143,7 @@ plot53Bias(bcb)
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-plotCountsPerGene(bcb)
+plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
 
@@ -151,7 +152,7 @@ plotCountsPerGene(bcb)
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
 ```{r plot_count_density}
-plotCountDensity(bcb)
+plotCountDensity(bcb, normalized = "tmm", style = "line")
 ```
 
 
@@ -182,15 +183,19 @@ plotDispEsts(bcb)
 
 # Sample similarity analysis
 
-Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a transformation (`rlog()`) that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@DESeq2], which we will later use for differential gene expression analysis.
+Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a regularized log ("rlog"; base 2) transformation that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@DESeq2], which we will later use for differential gene expression analysis.
 
 
-## Principal component analysis (PCA)
+## Principal component analysis (PCA) {.tabset}
 
 PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
 ```{r plot_pca}
-plotPCA(bcb)
+markdownHeader("unlabeled", level = 3)
+plotPCA(bcb, label = FALSE)
+
+markdownHeader("labeled", level = 3)
+plotPCA(bcb, label = TRUE)
 ```
 
 
@@ -210,7 +215,7 @@ plotPCACovariates(bcb)
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-plotCorrelationHeatmap(bcb)
+plotCorrelationHeatmap(bcb, method = "pearson")
 ```
 
 

@@ -9,30 +9,25 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, annotable = NULL,
-  summary = TRUE, headerLevel = 2L, write = FALSE, dir = getwd(),
-  dropboxDir = NULL, rdsToken = NA, quiet = FALSE)
+\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, rowData = NULL,
+  summary = TRUE, headerLevel = 2L, write = FALSE, dir = ".",
+  dropboxDir = NULL, rdsToken = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff. Does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See \code{\link[=results]{results()}} for additional information about using \code{lfcThreshold} and
-\code{altHypothesis} to set an alternative hypothesis based on expected fold
-changes.}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
-\item{annotable}{Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved annotable \link{data.frame}
-is recommended. Alternatively if set \code{NULL}, then gene annotations will
-not be added to the results.}
+\item{rowData}{Join Ensembl gene annotations to the results. Apply gene
+identifier to symbol mappings. A previously saved \code{data.frame} is
+recommended. Alternatively if set \code{NULL}, then gene annotations will not be
+added to the results.}
 
 \item{summary}{Show summary statistics.}
 
-\item{headerLevel}{R Markdown header level. Applies only when
-\code{summary = TRUE}.}
+\item{headerLevel}{R Markdown header level.}
 
 \item{write}{Write CSV files to disk.}
 
@@ -44,34 +39,37 @@ enabled, unique links per file are generated internally with the rdrop2
 package.}
 
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
-
-\item{quiet}{If \code{TRUE}, suppress any status messages and/or progress bars.}
 }
 \value{
-Results \link{list}.
+Results \code{list}.
 }
 \description{
 Differential Expression Results Tables
 }
+\note{
+Log fold change cutoff ("\code{lfc}") does not apply to statistical
+hypothesis testing, only gene filtering in the results tables. See
+\code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using \code{lfcThreshold}
+and \code{altHypothesis} to set an alternative hypothesis based on expected fold
+changes.
+}
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-annotable <- annotable(bcb)
-
 # DESeqResults ====
 resTbl <- resultsTables(
-    res,
+    object = res_small,
     lfc = 0.25,
-    annotable = annotable,
+    rowData = rowData(bcb_small),
     summary = TRUE,
     headerLevel = 2L,
-    write = TRUE,
-    dir = "resultsTables")
+    write = FALSE
+)
 names(resTbl)
-
-# Clean up ====
-dir("resultsTables")
-unlink("resultsTables", recursive = TRUE)
+}
+\seealso{
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh

@@ -11,52 +11,50 @@ plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20L, warnLimit = 10L, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE, title = TRUE)
+  TRUE), flip = TRUE, title = "mapped reads")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
-\item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+\item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
+to \code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
 \item{flip}{Flip x and y axes.}
 
-\item{title}{Title.}
+\item{title}{Title of plot.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Mapped Reads
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotMappedReads(bcb)
+plotMappedReads(bcb_small)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }

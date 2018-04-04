@@ -4,166 +4,31 @@
 #' information metadata is preserved from the time when the bcbio data was
 #' originally loaded into R.
 #'
-#' @section Upgrade bcbioRNADataSet to bcbioRNASeq object:
-#' This method adds support for upgrading [bcbioRNADataSet] objects to the
-#' latest [bcbioRNASeq] class version. This should be backwards compatible to
-#' [bcbioRNASeq] version 0.0.26.
+#' @section Legacy `bcbioRNADataSet` class:
+#' Support for `bcbioRNADataSet` objects was dropped in v0.2.0 of the package.
+#' If you need to load one of these objects, please install an older release.
 #'
-#' @note The previous bcbioRnaseq package (note lowercase "c") must be
-#'   reinstalled to load objects from versions <= 0.0.24.
+#' @section Legacy objects created with `bcbioRnaseq`:
+#' The previous `bcbioRnaseq` package (note case) must be reinstalled to load
+#' objects from versions <= 0.0.20. We changed the name of the package to
+#' `bcbioRNASeq` starting in v0.0.21.
 #'
-#' @rdname updateObject
 #' @name updateObject
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics updateObject
 #'
 #' @inheritParams general
+#' @param rowRanges `GRanges` object that defines the row annotations. Since
+#'   we converted to `RangedSummarizedExperiment` in v0.2.0, this option had
+#'   to be added to enable updating of newly required [rowRanges()] slot.
 #'
-#' @return [bcbioRNASeq].
+#' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' loadRemoteData("http://bcbiornaseq.seq.cloud/f1000v1/bcb.rda", quiet = TRUE)
-#' metadata(bcb)[["version"]]
-#' updated <- updateObject(bcb)
-#' metadata(updated)[["version"]]
-#' metadata(updated)[["previousVersion"]]
+#' updateObject(bcb_small)
 NULL
-
-
-
-# Constructors =================================================================
-.updateObject.bcbioRNASeq <- function(object) {  # nolint
-    version <- metadata(object)[["version"]]
-    assert_is_all_of(version, c("package_version", "numeric_version"))
-    inform(paste("Upgrading from", version, "to", packageVersion))
-
-    # Regenerate the bcbioRNASeq object
-    se <- as(object, "SummarizedExperiment")
-
-    # Sanitize the colData
-    colData(se) <- sanitizeColData(colData(se))
-
-    # Upgrade the metadata
-    metadata <- metadata(se)
-
-    # bcbioLog
-    if (is.null(metadata[["bcbioLog"]])) {
-        message("Setting bcbioLog as empty character")
-        metadata[["bcbioLog"]] <- ""
-    }
-
-    # bcbioCommandsLog
-    if (is.null(metadata[["bcbioCommandsLog"]])) {
-        message("Setting bcbioCommands as empty character")
-        metadata[["bcbioCommandsLog"]] <- ""
-    }
-
-    # design
-    if (is.null(metadata[["design"]])) {
-        inform("Setting design as empty formula")
-        metadata[["design"]] <- formula(~1)  # nolint
-    }
-
-    # ensemblVersion
-    if (is.character(metadata[["ensemblVersion"]])) {
-        inform("Setting ensemblVersion as NULL")
-        metadata[["ensemblVersion"]] <- NULL
-    } else if (
-        !is.integer(metadata[["ensemblVersion"]]) &&
-        is.numeric(metadata[["ensemblVersion"]])) {
-        inform("Coercing ensemblVersion to integer")
-        metadata[["ensemblVersion"]] <- as.integer(metadata[["ensemblVersion"]])
-    }
-
-    # gtf
-    if ("gtf" %in% names(metadata)) {
-        inform("Removing stashed GTF")
-        metadata <- metadata[setdiff(names(metadata), "gtf")]
-    }
-
-    # lanes
-    if (!is.integer(metadata[["lanes"]]) &&
-        is.numeric(metadata[["lanes"]])) {
-        inform("Setting lanes as integer")
-        metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
-    }
-
-    # metrics
-    if (length(intersect(
-        x = colnames(metadata[["metrics"]]),
-        y = legacyMetricsCols
-    ))) {
-        metrics <- metadata[["metrics"]]
-        assert_is_data.frame(metrics)
-
-        # Drop sample name columns
-        legacyNameCols <- c(metadataPriorityCols, "name")
-        if (length(intersect(colnames(metrics), legacyNameCols))) {
-            inform("Dropping legacy sample names from metrics")
-            metrics <- metrics %>%
-                .[, setdiff(colnames(.), legacyNameCols), drop = FALSE]
-        }
-
-        # Rename 5'3' bias
-        if ("x53Bias" %in% colnames(metrics)) {
-            inform("Renaming x53Bias to x5x3Bias")
-            metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
-            metrics[["x53Bias"]] <- NULL
-        }
-
-        # Rename rRNA rate
-        if (!"rrnaRate" %in% colnames(metrics)) {
-            col <- grep(
-                pattern = "rrnarate",
-                x = colnames(metrics),
-                ignore.case = TRUE,
-                value = TRUE)
-            assert_is_a_string(col)
-            inform(paste("Renaming", col, "to rrnaRate"))
-            metrics[["rrnaRate"]] <- metrics[[col]]
-            metrics[[col]] <- NULL
-        }
-
-        metadata[["metrics"]] <- metrics
-    }
-
-    # programVersions
-    if (!"programVersions" %in% names(metadata) &&
-        "programs" %in% names(metadata)) {
-        inform("Renaming programs to programVersions")
-        metadata[["programVersions"]] <- metadata[["programs"]]
-        metadata <- metadata[setdiff(names(metadata), "programs")]
-    }
-
-    # transformationLimit
-    if (is.null(metadata[["transformationLimit"]])) {
-        inform("Setting transformationLimit as Inf")
-        metadata[["transformationLimit"]] <- Inf
-    }
-
-    # unannotatedGenes
-    if (!"unannotatedGenes" %in% names(metadata) &&
-        "missingGenes" %in% names(metadata)) {
-        inform("Renaming missingGenes to unannotatedGenes")
-        metadata[["unannotatedGenes"]] <- metadata[["missingGenes"]]
-        metadata <- metadata[setdiff(names(metadata), "missingGenes")]
-    }
-
-    # Update the automatic metadata slots
-    metadata[["version"]] <- packageVersion
-    metadata[["previousVersion"]] <- metadata(object)[["version"]]
-    metadata[["upgradeDate"]] <- Sys.Date()
-    metadata(se) <- metadata
-
-    # Upgrade the bcbio slot
-    bcbio <- bcbio(object)
-    assert_is_all_of(bcbio, "SimpleList")
-
-    to <- new("bcbioRNASeq", se, bcbio = bcbio)
-    validObject(to)
-    to
-}
 
 
 
@@ -173,4 +38,260 @@ NULL
 setMethod(
     "updateObject",
     signature("bcbioRNASeq"),
-    .updateObject.bcbioRNASeq)
+    function(
+        object,
+        rowRanges
+    ) {
+        version <- metadata(object)[["version"]]
+        assert_is_all_of(version, c("package_version", "numeric_version"))
+        inform(paste("Upgrading from", version, "to", packageVersion))
+
+        # Check for legacy bcbio slot
+        if (.hasSlot(object, "bcbio")) {
+            message("Legacy bcbio slot detected")
+        }
+
+        # Coerce to RangedSummarizedExperiment
+        rse <- as(object, "RangedSummarizedExperiment")
+
+        # Assays ===============================================================
+        # Using `slot()` here to avoid error on missing rowRanges
+        assays <- slot(rse, "assays")
+        if (!all(assayNames(rse) %in% requiredAssays)) {
+            # Coerce assays to a standard list
+            assays <- lapply(seq_along(assays), function(a) {
+                assays[[a]]
+            })
+            names(assays) <- assayNames(rse)
+            # DESeqDataSet (only on develop branch, safe to remove later)
+            if ("dds" %in% names(assays)) {
+                inform("Dropping legacy DESeqDataSet from assays")
+                assays[["dds"]] <- NULL
+            }
+            # length (from tximport)
+            if (!"length" %in% names(assays)) {
+                inform("Moving length matrix from legacy bcbio slot to assays")
+                length <- slot(object, "bcbio")[["tximport"]][["length"]]
+                assert_is_matrix(length)
+                assays[["length"]] <- length
+            }
+            # DESeq2 normalized counts
+            if ("normalized" %in% names(assays)) {
+                inform("Dropping legacy DESeq2 normalized counts from assays")
+                assays[["normalized"]] <- NULL
+            }
+            # rlog
+            if (is(assays[["rlog"]], "DESeqTransform")) {
+                inform("Coercing rlog DESeqTransform to matrix in assays")
+                assays[["rlog"]] <- assay(assays[["rlog"]])
+            }
+            # tmm
+            if ("tmm" %in% names(assays)) {
+                inform("Dropping tmm from assays. Now calculated on the fly.")
+                assays[["tmm"]] <- NULL
+            }
+            # vst
+            if (is(assays[["vst"]], "DESeqTransform")) {
+                inform("Coercing vst DESeqTransform to matrix in assays")
+                assays[["vst"]] <- assay(assays[["vst"]])
+            }
+            assays <- Filter(Negate(is.null), assays)
+            # Put the required assays first, in order
+            assays <- assays[unique(c(requiredAssays, names(assays)))]
+            assert_is_subset(requiredAssays, names(assays))
+        }
+
+        # Row data =============================================================
+        if (.hasSlot(rse, "rowRanges")) {
+            rowRanges <- slot(rse, "rowRanges")
+        }
+        assert_is_all_of(rowRanges, "GRanges")
+
+        # Column data ==========================================================
+        colData <- colData(rse)
+        colData <- sanitizeSampleData(colData)
+
+        # Metadata =============================================================
+        metadata <- metadata(rse)
+
+        # bcbioLog
+        if (is.null(metadata[["bcbioLog"]])) {
+            inform("Setting bcbioLog as empty character")
+            metadata[["bcbioLog"]] <- character()
+        }
+
+        # bcbioCommandsLog
+        if (is.null(metadata[["bcbioCommandsLog"]])) {
+            message("Setting bcbioCommands as empty character")
+            metadata[["bcbioCommandsLog"]] <- character()
+        }
+
+        # caller
+        if (!"caller" %in% names(metadata)) {
+            message("Setting caller as salmon")
+            metadata[["caller"]] <- "salmon"
+        }
+
+        # countsFromAbundance
+        if (!"countsFromAbundance" %in% names(metadata)) {
+            message("Setting countsFromAbundance as lengthScaledTPM")
+            metadata[["countsFromAbundance"]] <- "lengthScaledTPM"
+        }
+
+        # design
+        if ("design" %in% names(metadata)) {
+            inform("Dropping legacy design formula")
+            metadata[["design"]] <- NULL
+        }
+
+        # ensemblRelease
+        if ("ensemblVersion" %in% names(metadata)) {
+            # Renamed in v0.2.0
+            inform("Renaming ensemblVersion to ensemblRelease")
+            metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
+            metadata[["ensemblVersion"]] <- NULL
+        }
+        if (!is.integer(metadata[["ensemblRelease"]])) {
+            inform("Setting ensemblRelease as integer")
+            metadata[["ensemblRelease"]] <-
+                as.integer(metadata[["ensemblRelease"]])
+        }
+
+        # genomeBuild
+        if (!is.character(metadata[["genomeBuild"]])) {
+            inform("Setting genomeBuild as empty character")
+            metadata[["genomeBuild"]] <- character()
+        }
+
+        # gffFile
+        if ("gtfFile" %in% names(metadata)) {
+            inform("Renaming gtfFile to gffFile")
+            metadata[["gffFile"]] <- metadata[["gtfFile"]]
+            metadata[["gtfFile"]] <- NULL
+        }
+        if (!"gffFile" %in% names(metadata)) {
+            inform("Setting gffFile as empty character")
+            metadata[["gffFile"]] <- character()
+        }
+
+        # gtf
+        if ("gtf" %in% names(metadata)) {
+            inform("Removing stashed GTF")
+            metadata <- metadata[setdiff(names(metadata), "gtf")]
+        }
+
+        # isSpike
+        if (!is.character(metadata[["isSpike"]])) {
+            inform("Setting isSpike as empty character")
+            metadata[["isSpike"]] <- character()
+        }
+
+        # lanes
+        if (!is.integer(metadata[["lanes"]])) {
+            inform("Setting lanes as integer")
+            metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
+        }
+
+        # level
+        if (!"level" %in% names(metadata)) {
+            inform("Setting level as genes")
+            metadata[["level"]] <- "genes"
+        }
+
+        # metrics
+        if (length(intersect(
+            colnames(metadata[["metrics"]]), legacyMetricsCols
+        ))) {
+            metrics <- metadata[["metrics"]]
+            assert_is_data.frame(metrics)
+
+            # Drop sample name columns
+            legacyNameCols <- c(bcbioBase::metadataPriorityCols, "name")
+            if (length(intersect(colnames(metrics), legacyNameCols))) {
+                inform("Dropping legacy sample names from metrics")
+                metrics <- metrics %>%
+                    .[, setdiff(colnames(.), legacyNameCols), drop = FALSE]
+            }
+
+            # Rename 5'3' bias
+            if ("x53Bias" %in% colnames(metrics)) {
+                inform("Renaming x53Bias to x5x3Bias")
+                metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
+                metrics[["x53Bias"]] <- NULL
+            }
+
+            # Rename rRNA rate
+            if (!"rrnaRate" %in% colnames(metrics)) {
+                col <- grep(
+                    pattern = "rrnarate",
+                    x = colnames(metrics),
+                    ignore.case = TRUE,
+                    value = TRUE
+                )
+                assert_is_a_string(col)
+                inform(paste("Renaming", col, "to rrnaRate"))
+                metrics[["rrnaRate"]] <- metrics[[col]]
+                metrics[[col]] <- NULL
+            }
+
+            metadata[["metrics"]] <- metrics
+        }
+
+        # programVersions
+        if (!"programVersions" %in% names(metadata) &&
+            "programs" %in% names(metadata)) {
+            inform("Renaming programs to programVersions")
+            metadata[["programVersions"]] <- metadata[["programs"]]
+            metadata <- metadata[setdiff(names(metadata), "programs")]
+        }
+
+        # rowRangesMetadata
+        if (!"rowRangesMetadata" %in% names(metadata)) {
+            inform("Setting rowRangesMetadata as empty tibble")
+            metadata[["rowRangesMetadata"]] <- tibble()
+        }
+
+        # sampleMetadataFile
+        if (!is.character(metadata[["sampleMetadataFile"]])) {
+            inform("Setting sampleMetadataFile as empty character")
+            metadata[["sampleMetadataFile"]] <- character()
+        }
+
+        # tx2gene
+        if (any(c("enstxp", "ensgene") %in% colnames(metadata[["tx2gene"]]))) {
+            inform("Renaming enstxp, ensgene to txID, geneID")
+            x <- metadata[["tx2gene"]]
+            x[["txID"]] <- x[["enstxp"]]
+            x[["enstxp"]] <- NULL
+            x[["geneID"]] <- x[["ensgene"]]
+            x[["ensgene"]] <- NULL
+            metadata[["tx2gene"]] <- x
+        }
+
+        # unannotatedGenes
+        if ("missingGenes" %in% names(metadata)) {
+            inform("Renaming missingGenes to unannotatedGenes")
+            metadata[["unannotatedGenes"]] <- metadata[["missingGenes"]]
+            metadata[["missingGenes"]] <- NULL
+        }
+
+        # yamlFile
+        if ("yamlFile" %in% names(metadata)) {
+            inform("Dropping yamlFile path")
+            metadata[["yamlFile"]] <- NULL
+        }
+
+        # version
+        metadata[["previousVersion"]] <- metadata[["version"]]
+        metadata[["version"]] <- packageVersion
+
+        # Return ===============================================================
+        .new.bcbioRNASeq(
+            assays = assays,
+            rowRanges = rowRanges,
+            colData = colData,
+            metadata = metadata,
+            isSpike = metadata[["isSpike"]]
+        )
+    }
+)

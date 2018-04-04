@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,8 +30,8 @@
 <meta property="og:title" content="Plot Dispersion Estimates — plotDispEsts" />
 
 <meta property="og:description" content="Method support for plotting the dispersion of counts stored in a
-bcbioRNASeq object. Here we're using the internally stored DESeqDataSet,
-which already has method support for plotting dispersion, provided by
+bcbioRNASeq object. Here we're generating a DESeqDataSet object on the
+fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package." />
 <meta name="twitter:card" content="summary" />
 
@@ -62,7 +62,7 @@ the DESeq2 package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -105,8 +105,8 @@ the DESeq2 package." />
 
     
     <p>Method support for plotting the dispersion of counts stored in a
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. Here we're using the internally stored DESeqDataSet,
-which already has method support for plotting dispersion, provided by
+<code>bcbioRNASeq</code> object. Here we're generating a <code>DESeqDataSet</code> object on the
+fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package.</p>
     
 
@@ -118,7 +118,7 @@ the DESeq2 package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a>.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -128,7 +128,7 @@ the DESeq2 package.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a>.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -136,21 +136,32 @@ the DESeq2 package.</p>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></li>
 <li><p><code>getMethod("plotDispEsts", "DESeqDataSet")</code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Differential Expression Utilities: <code>alphaSummary</code>,
-  <code>plotMeanSD</code></p></div>
+    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGenderMarkers</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>plotDispEsts</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>plotDispEsts</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Custom colors, using DESeq2 parameters</span>
 <span class='fu'>plotDispEsts</span>(
-    <span class='no'>bcb</span>,
+    <span class='no'>bcb_small</span>,
     <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
     <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
-    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)</div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
+)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -173,7 +184,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

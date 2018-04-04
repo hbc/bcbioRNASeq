@@ -4,7 +4,6 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers,matrix-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,DESeqTransform-method}
@@ -12,14 +11,9 @@
 \usage{
 plotGenderMarkers(object, ...)
 
-\S4method{plotGenderMarkers}{matrix}(object, colData,
-  interestingGroups = "sampleName", organism, countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  title = TRUE)
-
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "rlog", color = scale_color_viridis(discrete = TRUE),
-  title = TRUE)
+  normalized = c("rlog", "vst", "tpm"), color = scale_color_viridis(discrete
+  = TRUE), title = TRUE)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object,
   interestingGroups = "sampleName", organism,
@@ -34,74 +28,58 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{colData}{Sample metadata \link{data.frame}.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 
-\item{organism}{\emph{Optional.} Organism name. Should be detected automatically,
-unless a spike-in FASTA sequence is provided containing a gene identifier
-that is first alphabetically in the count matrix rownames.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{countsAxisLabel}{Text label of counts axis.}
+\item{title}{Title of plot.}
 
-\item{medianLine}{Include median line for each group. Disabled when samples
-are grouped by \code{sampleName}.}
-
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
-
-\item{title}{Title.}
-
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{organism}{Organism name. Typically can be left unset and should be
+detected automatically, unless a spike-in FASTA sequence is provided
+containing a gene identifier that is first alphabetically in the count
+matrix rownames.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Sexually Dimorphic Gender Markers
 }
 \examples{
-dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
-loadRemoteData(
-    c(
-        file.path(dir, "bcb.rda"),
-        file.path(dir, "rld.rda"),
-        file.path(dir, "vst.rda")
-    ),
-    quiet = TRUE)
-
 # bcbioRNASeq ====
-plotGenderMarkers(bcb)
-plotGenderMarkers(
-    bcb,
-    interestingGroups = "sampleName",
-    color = NULL)
+plotGenderMarkers(bcb_small)
 
 # DESeqDataSet ====
-dds <- bcbio(bcb, "DESeqDataSet")
-plotGenderMarkers(dds, interestingGroups = "group")
+plotGenderMarkers(dds_small)
 
 # DESeqTransform ====
-plotGenderMarkers(rld, interestingGroups = "group")
-plotGenderMarkers(vst, interestingGroups = "group")
+plotGenderMarkers(rld_small)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }

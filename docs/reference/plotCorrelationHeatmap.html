@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -29,11 +29,8 @@
   
 <meta property="og:title" content="Plot Correlation Heatmap — plotCorrelationHeatmap" />
 
-<meta property="og:description" content="This function calculates a correlation matrix based on gene expression per
-sample. By default, this function processes all gene counts per sample to
-calculate the corrlation matrix. This behavior can be overrided with the
-input of gene identifier vector. In this case, only the expression of the
-desired genes will be used to calculate the correlation matrix." />
+<meta property="og:description" content="This function calculates a correlation matrix based on feature expression per
+sample." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +60,7 @@ desired genes will be used to calculate the correlation matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -100,29 +97,18 @@ desired genes will be used to calculate the correlation matrix." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Correlation Heatmap</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotCorrelationHeatmap.R'><code>R/methods-plotCorrelationHeatmap.R</code></a></small>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotCorrelationHeatmap.R'><code>R/methods-plotCorrelationHeatmap.R</code></a></small>
     <p class="hidden name"><code>plotCorrelationHeatmap.Rd</code></p>
     </div>
 
     
-    <p>This function calculates a correlation matrix based on gene expression per
-sample. By default, this function processes all gene counts per sample to
-calculate the corrlation matrix. This behavior can be overrided with the
-input of <code>gene</code> identifier vector. In this case, only the expression of the
-desired genes will be used to calculate the correlation matrix.</p>
+    <p>This function calculates a correlation matrix based on feature expression per
+sample.</p>
     
 
-    <pre class="usage"><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for matrix</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>method</span>,
-  <span class='kw'>annotationCol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>,
-  <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>, <span class='no'>interestingGroups</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>viridis</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>,
+  <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,106 +118,71 @@ desired genes will be used to calculate the correlation matrix.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p>Correlation coefficient (or covariance) method to be computed.
-Defaults to <code>pearson</code> but <code>spearman</code> can also be used. Consult the
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code> documentation for more information.</p></td>
-    </tr>
-    <tr>
-      <th>annotationCol</th>
-      <td><p><em>Optional.</em> data.frame that defines annotation
-mappings for the columns.</p></td>
-    </tr>
-    <tr>
-      <th>genes</th>
-      <td><p><em>Optional.</em> Character vector of specific gene identifiers to
-plot.</p></td>
-    </tr>
-    <tr>
-      <th>samples</th>
-      <td><p><em>Optional.</em> Character vector of specific samples.</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p>Desired ggplot color scale. Defaults to
-<code><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis()</a></code>. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code>scale_color_manual()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>legendColor</th>
-      <td><p>Colors to use for legend labels. Defaults to the
-<code><a href='http://www.rdocumentation.org/packages/viridisLite/topics/viridis'>viridis()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title.</p></td>
-    </tr>
-    <tr>
       <th>normalized</th>
-      <td><p>Select raw counts (<code>FALSE</code>), DESeq2 normalized counts
-(<code>TRUE</code>), or additional normalization methods:</p><ul>
-<li><p><code>tpm</code>: Transcripts per million.</p></li>
-<li><p><code>tmm</code>: Trimmed mean of M-values (edgeR).</p></li>
-<li><p><code>rlog</code>: Regularized log transformation (<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>).</p></li>
-<li><p><code>vst</code>: Variance stabilizing transformation
-(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).</p></li>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p>Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-<a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> object. When set to <code>NULL</code>, this will default to
-<code>sampleName</code>.</p></td>
+      <th>...</th>
+      <td><p>Passthrough arguments to <code>SummarizedExperiment</code> method.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>When column clustering is disabled, the columns are sorted by the interesting
-groups (<code>interestingGroups</code>) specified in the <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> and then the
-sample names.</p>
+    <p>Show heatmap and invisibly return a <code>list</code> of the components.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
+<li><p><code>help("plotCorrelationHeatmap", "bcbioBase")</code>.</p></li>
+<li><p><code>findMethod("plotCorrelationHeatmap", "SummarizedExperiment")</code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Heatmaps: <code>plotDEGHeatmap</code>,
-  <code><a href='plotHeatmap.html'>plotHeatmap</a></code></p></div>
+    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+  <code>plotCountDensity</code>,
+  <code>plotCountsPerGene</code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
+  <code>plotExonicMappingRate</code>,
+  <code>plotGenderMarkers</code>,
+  <code>plotGeneSaturation</code>,
+  <code>plotGenesDetected</code>,
+  <code>plotIntronicMappingRate</code>,
+  <code>plotMappedReads</code>,
+  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
+  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code>plotRRNAMappingRate</code>,
+  <code>plotTotalReads</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
 <span class='co'># Pearson correlation</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Spearman correlation</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inferno palette</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
-    <span class='no'>bcb</span>,
+    <span class='no'>bcb_small</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>inferno</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>)</div><div class='img'><img src='plotCorrelationHeatmap-3.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='no'>inferno</span>
+)</div><div class='img'><img src='plotCorrelationHeatmap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Default pheatmap palette</span>
 <span class='fu'>plotCorrelationHeatmap</span>(
-    <span class='no'>bcb</span>,
+    <span class='no'>bcb_small</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='img'><img src='plotCorrelationHeatmap-4.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</div><div class='img'><img src='plotCorrelationHeatmap-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
@@ -247,7 +198,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

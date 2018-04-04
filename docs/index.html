@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RNA-Seq Utilities • bcbioRNASeq</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -78,10 +78,12 @@
 <h3 class="hasAnchor">
 <a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">biocLite</span>(</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="st">"hbc/bcbioRNASeq"</span>,</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">biocLite</span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">biocLite</span>(<span class="st">"GenomeInfoDbData"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">biocLite</span>(</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="st">"hbc/bcbioRNASeq"</span>,</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">)</a></code></pre></div>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
@@ -94,26 +96,29 @@
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(bcbioRNASeq)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="kw">file.path</span>(<span class="st">"bcbio_rnaseq_run"</span>, <span class="st">"final"</span>),</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Back up all data inside bcbioRNASeq object</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">flatFiles &lt;-<span class="st"> </span><span class="kw"><a href="reference/flatFiles.html">flatFiles</a></span>(bcb)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">saveData</span>(bcb, flatFiles, <span class="dt">dir =</span> <span class="st">"data"</span>)</a></code></pre></div>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> container class and save it, as well as a simplified object with just the flat files in the <code>data</code> directory.</p>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># Back up all data inside bcbioRNASeq object</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">saveData</span>(bcb, flatFiles)</a></code></pre></div>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
 <li>
 <code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
 <li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code><a href="reference/colData.html">colData()</a></code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
+<li>
+<code>organism</code>: Organism name. Use the full latin name (e.g. “Homo sapiens”).</li>
 </ul>
 <p>Consult <code>help("loadRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
 </div>
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
-<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including Quality Control and Differential Expression using <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
+<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including Quality Control and Differential Expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
 <div id="examples" class="section level3">
 <h3 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h3>
@@ -140,23 +145,23 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>sample1_R1.fastq.gz</td>
-<td>sample1</td>
+<td>sample_1_R1.fastq.gz</td>
+<td>sample_1</td>
 <td>wildtype</td>
 </tr>
 <tr class="even">
-<td>sample2_R1.fastq.gz</td>
-<td>sample2</td>
+<td>sample_2_R1.fastq.gz</td>
+<td>sample_2</td>
 <td>knockout</td>
 </tr>
 <tr class="odd">
-<td>sample3_R1.fastq.gz</td>
-<td>sample3</td>
+<td>sample_3_R1.fastq.gz</td>
+<td>sample_3</td>
 <td>wildtype</td>
 </tr>
 <tr class="even">
-<td>sample4_R1.fastq.gz</td>
-<td>sample4</td>
+<td>sample_4_R1.fastq.gz</td>
+<td>sample_4</td>
 <td>knockout</td>
 </tr>
 </tbody>
@@ -259,27 +264,29 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://steinbaugh.com">Michael Steinbaugh</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<a href="https://steinbaugh.com">Michael Steinbaugh</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2403-2221" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://lpantano.github.io">Lorena Pantano</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://lpantano.github.io">Lorena Pantano</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3859-3249" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/roryk">Rory Kirchner</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/roryk">Rory Kirchner</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4814-5885" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/vbarrera">Victor Barrera</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/vbarrera">Victor Barrera</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0590-4634" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/marypiper">Mary Piper</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/chapmanb">Brad Chapman</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3026-1856" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/mistrm82">Meeta Mistry</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/marypiper">Mary Piper</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2699-3840" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/rkhetani">Radhika Khetani</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/mistrm82">Meeta Mistry</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5830-9479" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/rkhetani">Radhika Khetani</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2430-2970" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/ohofmann">Oliver Hofmann</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9699-2363" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/jnhutchinson">John Hutchinson</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/ohofmann">Oliver Hofmann</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7738-1513" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
-<a href="https://github.com/sjhosui">Shannan Ho Sui</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/jnhutchinson">John Hutchinson</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-7804-7576" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
+<li>
+<a href="https://github.com/sjhosui">Shannan Ho Sui</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6191-4709" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
 <li>
 <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
@@ -288,9 +295,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/hbc/bcbioRNASeq"><img src="https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://travis-ci.org/hbc/bcbioRNASeq"><img src="https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master" alt="Travis CI"></a></li>
+<li><a href="https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master"><img src="https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true" alt="AppVeyor CI"></a></li>
+<li><a href="https://codecov.io/gh/hbc/bcbioRNASeq"><img src="https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg" alt="Codecov"></a></li>
 <li><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active - The project has reached a stable, usable state and is being actively developed."></a></li>
-<li><a href="https://codecov.io/gh/hbc/bcbioRNASeq"><img src="https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://anaconda.org/bioconda/r-bcbiornaseq"><img src="https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg" alt="Anaconda-Server Badge"></a></li>
 </ul>
 </div>
@@ -299,7 +307,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://steinbaugh.com">Michael Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/marypiper">Mary Piper</a>, <a href="https://github.com/mistrm82">Meeta Mistry</a>, <a href="https://github.com/rkhetani">Radhika Khetani</a>, <a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a>, <a href="https://github.com/ohofmann">Oliver Hofmann</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="https://github.com/sjhosui">Shannan Ho Sui</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href="https://steinbaugh.com">Michael Steinbaugh</a>, <a href="https://lpantano.github.io">Lorena Pantano</a>, <a href="https://github.com/roryk">Rory Kirchner</a>, <a href="https://github.com/vbarrera">Victor Barrera</a>, <a href="https://github.com/chapmanb">Brad Chapman</a>, <a href="https://github.com/marypiper">Mary Piper</a>, <a href="https://github.com/mistrm82">Meeta Mistry</a>, <a href="https://github.com/rkhetani">Radhika Khetani</a>, <a href="https://github.com/KayleighRutherford">Kayleigh Rutherford</a>, <a href="https://github.com/ohofmann">Oliver Hofmann</a>, <a href="https://github.com/jnhutchinson">John Hutchinson</a>, <a href="https://github.com/sjhosui">Shannan Ho Sui</a>, <a href="http://bioinformatics.sph.harvard.edu">Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 \alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
 \alias{alphaSummary,bcbioRNASeq-method}
-\title{Print Summary Statistics of Alpha Level Cutoffs}
+\title{Alpha Level Cutoff Summary Statistics}
 \usage{
 alphaSummary(object, ...)
 
@@ -22,37 +22,37 @@ alphaSummary(object, ...)
 \item{...}{\emph{Optional.} Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
 either \code{contrast} or \code{name} arguments to define the desired contrast.}
 
-\item{alpha}{Numeric vector of desired alpha cutoffs.}
+\item{alpha}{Numeric vector of multiple alpha cutoffs.}
 
-\item{caption}{\emph{Optional.} Character vector to add as caption to the table.}
+\item{caption}{\emph{Optional.} Character string to use as a caption.}
 }
 \value{
-\link{kable}.
+\code{kable}.
 }
 \description{
-Print Summary Statistics of Alpha Level Cutoffs
+Alpha Level Cutoff Summary Statistics
 }
 \note{
-\link{bcbioRNASeq} does not support contrast definitions, since the
-object contains an internal \link{DESeqDataSet} with an empty design formula.
+\code{bcbioRNASeq} class does currently support contrast definitions, since
+the object contains an internal \code{DESeqDataSet} with an empty design
+formula.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
+# bcbioRNASeq ====
+alphaSummary(bcb_small)
 
-# bcbioRNASeq
-alphaSummary(bcb)
-
-# DESeqDataSet
-alphaSummary(dds)
-alphaSummary(dds, contrast = c("group", "ko", "ctrl"))
-alphaSummary(dds, name = "group_ko_vs_ctrl")
+# DESeqDataSet ====
+resultsNames(dds_small)
+alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
+alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
 }
 \seealso{
 \code{\link[DESeq2:results]{DESeq2::results()}}.
 
-Other Differential Expression Utilities: \code{\link{plotDispEsts}},
-  \code{\link{plotMeanSD}}
+Other Differential Expression Functions: \code{\link{contrastName}},
+  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
+  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

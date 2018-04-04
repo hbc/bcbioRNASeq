@@ -1,3 +1,94 @@
+## bcbioRNASeq 0.2.0 (2018-03-22)
+
+### Major changes
+
+- `bcbioRNASeq` S4 class object is now extending `RangedSummarizedExperiment`
+  instead of `SummarizedExperiment`. Consequently, the row annotations are now
+  stored in the `rowRanges` slot as `GRanges` class, instead of in the
+  `rowData` slot as a `DataFrame`. The `rowData()` accessor still works and
+  returns a data frame of gene/transcript annotations, but these are now
+  coerced from the internally stored `GRanges`. The `GRanges` object is
+  acquired automatically from [Ensembl][] using `basejump::ensembl()`. By
+  default, `GRanges` are acquired from [Ensembl][] using [AnnotationHub][] and
+  [ensembldb][]. Legacy GRCh37 genome build is supported using the
+  [EnsDb.Hsapiens.v75][] package.
+- `assays()` now only slot matrices. We've moved the [tximport][] data from
+  the now defunct `bcbio()` slot to assays. This includes the `lengths` matrix
+  from [tximport][]. Additionally, we are optionally slotting [DESeq2][]
+  variance-stabilized counts ("`rlog`", `"vst"`). [DESeq2][] normalized counts
+  and [edgeR][] TMM counts are calculated on the fly and no longer stored
+  inside the `bcbioRNASeq` object.
+- `colData()` now defaults to returning as `data.frame` instead of
+  `DataFrame`, for easy piping to [tidyverse][] functions.
+- `bcbio()` slot is now defunct.
+- FASTA spike-ins (e.g. EGFP, ERCCs) can be defined using the `isSpike`
+  argument during the `loadRNASeq()` data import step.
+- Melted counts are now scaled to log2 in the relevant quality control
+  functions rather than using log10. This applies to `plotCountsPerGene()` and
+  `plotCountDensity()`. Note that we are subsetting the nonzero genes as
+  defined by the raw counts here.
+- Simplified internal `tximport()` code to no longer attempt to strip
+  transcript versions. This is required for working with *C. elegans*
+  transcripts.
+- Minimal working example dataset is now derived from GSE65267, which is also
+  used in the F1000 paper.
+- Added `as(object, "DESeqDataSet")` coercion method support for
+  `bcbioRNASeq` class. This helps us set up the differential expression
+  analysis easily.
+- `counts()` function now returns [DESeq2][] normalized counts (`normalized =
+  TRUE`) and [edgeR][] TMM counts (`normalized = "tmm"`) on the fly, as
+  suggested by the F1000 reviewers.
+- Design formula can no longer be slotted into `bcbioRNASeq` object, since
+  we're not stashing a `DESeqDataSet` any more.
+- Updated Functional Analysis R Markdown template.
+
+### Minor changes
+
+- `validObject()` is now required for all plotting functions. This check is
+  also called in the R Markdown template. Legacy objects can be updated using
+  `updateObject()`.
+- `metrics()` now returns columns sorted alphabetically.
+- Added `contrastName()` as a generic function.
+- `plotDEGHeatmap()` and `plotDEGPCA()` generics no longer have `counts`
+  defined in the signature. The `counts` argument is now only defined in the
+  methods.
+- `prepareRNASeqTemplate()` has been converted from a generic to a standard
+  function.
+- Improved `metadata()` validity checks.
+- `plotCorrelationHeatmap()` matrix method has been moved to [basejump][]
+  package, for improved consistency with the other heatmap code.
+- `plotGenderMarkers()` internal code has been reworked to match
+  `plotGene()`.
+- Default `plotMA()` appearance has changed, providing a line at the 0
+  y-intercept, similar to `DESeqDataSet` method.
+- Internal example datasets have been renamed (e.g. `bcb_small` instead of
+  `bcb`).
+- Added AppVeyor CI support for code testing on Windows.
+- Made Travis CI checks stricter, added `BiocCheck()`.
+- Internal `.sampleDirs()` code is now exported in [bcbioBase][] as a
+  generic.
+- `gene2symbol()` and `interestingGroups()` method support are now defined
+  for `SummarizedExperiment` in the [bcbioBase][] package.
+
+### Updating legacy objects < v0.2.0
+
+- Use `updateObject()` in combination with the `rowRanges` argument, which
+  requires a `GRanges` object. `GRanges` can be obtained from [Ensembl][] using
+  the `basejump::ensembl()` function or the [ensembldb][] package.
+
+### Deprecations
+
+- `bcbio()` slot is now defunct, since we have moved all data into the
+  `SummarizedExperiment` container.
+- Deprecated `plot5x3Bias()` in favor of `plot5Prime3PrimeBias()`. This is
+  less confusing as to what this function plots.
+- `flatFiles()` has been deprecated in favor of `as(object, "list")` coercion
+  method. See [bcbioBase][] package for `SummarizedExperiment`   method
+  support.
+- Defunct: `design()`, `download()`, `meltLog10()`, `txi()`.
+- Legacy `bcbioRNADataSet` method support has been removed.
+
+
 ## bcbioRNASeq 0.1.8 (2018-04-03)
 
 - Bug fix for `gene2symbol` argument not renaming rows in `plotDEGHeatmap()`.

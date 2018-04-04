@@ -4,77 +4,82 @@
 \alias{loadRNASeq}
 \title{Load bcbio RNA-Seq Data}
 \usage{
-loadRNASeq(uploadDir, interestingGroups = "sampleName",
-  sampleMetadataFile = NULL, samples = NULL, annotable = TRUE,
-  organism = NULL, ensemblVersion = NULL, genomeBuild = NULL,
-  transformationLimit = 50L, design = NULL, ...)
+loadRNASeq(uploadDir, level = c("genes", "transcripts"),
+  caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
+  sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
+  ensemblRelease = NULL, genomeBuild = NULL, isSpike = NULL,
+  gffFile = NULL, transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
 running \code{bcbio_nextgen -w template}.}
 
-\item{interestingGroups}{Character vector of interesting groups. First entry
-is used for plot colors during quality control (QC) analysis. Entire vector
-is used for PCA and heatmap QC functions.}
+\item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 
-\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
-sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left \code{NULL}.}
+\item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
+or "\code{sailfish}".}
 
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
-selection. Typically this can be left \code{NULL}.}
+selection. Typically this can be left unset.}
 
-\item{annotable}{\emph{Optional.} User-defined gene annotations (a.k.a.
-"annotable"), which will be slotted into \code{\link[=rowData]{rowData()}}. Typically this should
-be left undefined. By default, the function will automatically generate an
-annotable from the annotations available on Ensembl. If set \code{NULL}, then
-\code{\link[=rowData]{rowData()}} inside the resulting \link{bcbioRNASeq} object will be left empty.
-This is recommended for projects dealing with genes or transcripts that are
-poorly annotated.}
+\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file. Remote URLs are supported. Typically this can be left unset.}
 
-\item{organism}{\emph{Optional.} Organism name. Use the full latin name (e.g.
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
+
+\item{organism}{Organism name. Use the full latin name (e.g.
 "Homo sapiens"), since this will be input downstream to
-AnnotationHub/ensembldb. If set, this genome must be supported on Ensembl.
-Normally this can be left \code{NULL}, and the function will attempt to detect
-the organism automatically using \code{\link[=detectOrganism]{detectOrganism()}}.}
+AnnotationHub and ensembldb, unless \code{gffFile} is set.}
 
-\item{ensemblVersion}{\emph{Optional.} Ensembl release version. If \code{NULL},
+\item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
-user-defined. This parameter can be useful for matching Ensembl annotations
-against an outdated bcbio annotation build.}
+user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
+unless \code{gffFile} is set.}
 
-\item{genomeBuild}{\emph{Optional.} Genome build. Normally this can be left \code{NULL}
-and the build will be detected from the bcbio run data. This can be set
-manually (e.g. "hg19" for the older \emph{Homo sapiens} reference genome). Note
-that this must match the genome build identifier on Ensembl for annotations
-to download correctly.}
+\item{genomeBuild}{\emph{Optional.} Ensembl genome build name (e.g. "GRCh38").
+This will be passed to AnnotationHub for \code{EnsDb} annotation matching,
+unless \code{gffFile} is set.}
+
+\item{isSpike}{\emph{Optional.} Gene names corresponding to FASTA spike-in
+sequences (e.g. ERCCs, EGFP, TDTOMATO).}
+
+\item{gffFile}{\emph{Optional, not recommended.} By default, we recommend leaving
+this \code{NULL} for genomes that are supported on Ensembl. In this case, the
+row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically from Ensembl
+by passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease} arguments to
+AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
+and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
+Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
+possible, although all GFF formats are supported. The function will
+internally generate a \code{TxDb} containing transcript-to-gene mappings and
+construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
 \item{transformationLimit}{Maximum number of samples to calculate
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
-It is not generally recommended to change this value. For large datasets,
-DESeq2 will take a really long time applying variance stabilization. See
-Details. Use \code{Inf} to always apply transformations and \code{0} to always skip.}
-
-\item{design}{DESeq2 design formula. Empty by default. Can be updated after
-initial data loading using the \code{\link[=design]{design()}} function.}
+For large datasets, DESeq2 is slow to apply variance stabilization. In this
+case, we recommend loading up the dataset in a high-performance computing
+environment. Use \code{Inf} to always apply and \code{-Inf} to always skip.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
 Simply point to the final upload directory output by
 \href{https://bcbio-nextgen.readthedocs.io/}{bcbio}, and this function will take
-care of the rest. It automatically imports RNA-seq counts, metadata, and
+care of the rest. It automatically imports RNA-seq counts, metadata, and the
 program versions used.
 }
 \details{
-When number of samples is bigger than \code{transformationLimit}, \code{rlog} and \code{vst}
-counts will not be slotted into \code{assays()}. In this case, we recommend
-visualization using the \code{tmm} counts generated by edgeR.
+When the number of samples is bigger than the \code{transformationLimit}, \code{rlog}
+and \code{vst} counts will not be slotted into \code{assays()}. In this case, we
+recommend visualization using \code{\link[=tmm]{tmm()}} counts, which are automatically
+calculated using edgeR.
 }
 \note{
 When working in RStudio, we recommend connecting to the bcbio-nextgen
@@ -83,8 +88,23 @@ run directory as a remote connection over
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- loadRNASeq(uploadDir, interestingGroups = "group")
-print(bcb)
+
+# Gene level
+loadRNASeq(
+    uploadDir = uploadDir,
+    level = "genes",
+    organism = "Mus musculus"
+)
+
+# Transcript level
+loadRNASeq(
+    uploadDir = uploadDir,
+    level = "transcripts",
+    organism = "Mus musculus"
+)
+}
+\seealso{
+\code{help("bcbioRNASeq-class", "bcbioRNASeq")}.
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

@@ -1,8 +1,9 @@
 # bcbioRNASeq
 
-[![Build Status](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
+[![Travis CI](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
+[![AppVeyor CI](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
+[![Codecov](https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRNASeq)
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![codecov](https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRNASeq)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
 Quality control and differential expression for [bcbio][] RNA-seq experiments.
@@ -16,6 +17,8 @@ This is an [R][] package.
 
 ```r
 source("https://bioconductor.org/biocLite.R")
+biocLite("devtools")
+biocLite("GenomeInfoDbData")
 biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
@@ -34,20 +37,22 @@ conda install -c bioconda r-bcbiornaseq
 ```r
 library(bcbioRNASeq)
 bcb <- loadRNASeq(
-    uploadDir = file.path("bcbio_rnaseq_run", "final"),
-    interestingGroups = c("genotype", "treatment")
+    uploadDir = "bcbio_rnaseq_run/final",
+    interestingGroups = c("genotype", "treatment"),
+    organism = "Homo sapiens"
 )
 # Back up all data inside bcbioRNASeq object
 flatFiles <- flatFiles(bcb)
-saveData(bcb, flatFiles, dir = "data")
+saveData(bcb, flatFiles)
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [SummarizedExperiment][] container class and save it, as well as a simplified object with just the flat files in the `data` directory.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][RSE] container class.
 
 Parameters:
 
 - `uploadDir`: Path to the [bcbio][] final upload directory.
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
+- `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
 
 Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
 
@@ -72,12 +77,12 @@ For a normal bcbio RNA-seq run, the sample metadata will be imported automatical
 
 The sample IDs in the bcbioRNASeq object map to the `description` column, which gets sanitized internally into a `sampleID` column. The sample names provided in the `description` column must be unique.
 
-| fileName            | description | genotype |
-|---------------------|-------------|----------|
-| sample1_R1.fastq.gz | sample1     | wildtype |
-| sample2_R1.fastq.gz | sample2     | knockout |
-| sample3_R1.fastq.gz | sample3     | wildtype |
-| sample4_R1.fastq.gz | sample4     | knockout |
+| fileName             | description | genotype |
+|----------------------|-------------|----------|
+| sample_1_R1.fastq.gz | sample_1    | wildtype |
+| sample_2_R1.fastq.gz | sample_2    | knockout |
+| sample_3_R1.fastq.gz | sample_3    | wildtype |
+| sample_4_R1.fastq.gz | sample_4    | knockout |
 
 ### Technical replicates
 
@@ -112,9 +117,9 @@ The papers and software cited in our workflows are available as a [shared librar
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
-[DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
-[SummarizedExperiment]: http://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html
+[RSE]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment

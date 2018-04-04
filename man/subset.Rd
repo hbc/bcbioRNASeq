@@ -68,36 +68,43 @@
   }
 }
 \value{
-\link{bcbioRNASeq}.
+\code{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \link{bcbioRNASeq} object. The
-internal \link{DESeqDataSet} and count transformations are rescaled automatically.
+Extract genes by row and samples by column from a \code{bcbioRNASeq} object. The
+internal \code{DESeqDataSet} and count transformations are rescaled automatically.
 DESeq2 transformations can be disabled on large subset operations by setting
 \code{transform = FALSE}.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-ensgene <- rownames(bcb)[1:50]
-head(ensgene)
-samples <- colnames(bcb)[1:2]
+# Minimum of 100 genes, 2 samples
+genes <- head(rownames(bcb_small), 100L)
+head(genes)
+samples <- head(colnames(bcb_small), 2L)
 head(samples)
 
 # Subset by sample name
-bcb[, samples]
+bcb_small[, samples]
 
 # Subset by gene list
-bcb[ensgene, ]
+bcb_small[genes, ]
 
 # Subset by both genes and samples
-bcb[ensgene, samples]
+subset <- bcb_small[genes, samples]
+print(subset)
+assayNames(subset)
 
-# Skip DESeq2 transformations
-bcb[ensgene, samples, transform = FALSE]
+# Skip DESeq2 variance stabilizing transformations
+subset <- bcb_small[genes, samples, transform = FALSE]
+print(subset)
+assayNames(subset)
 }
 \seealso{
 \code{help("[", "base")}.
+
+Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+  \code{\link{coerce}}, \code{\link{show}},
+  \code{\link{updateObject}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

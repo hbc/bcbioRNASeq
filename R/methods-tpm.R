@@ -1,20 +1,15 @@
 #' Transcripts Per Million (TPM)
 #'
-#' @rdname tpm
 #' @name tpm
+#' @family Data Functions
 #' @author Michael Steinbaugh
-#'
-#' @importFrom bcbioBase tpm
 #'
 #' @inheritParams general
 #'
-#' @return [matrix].
+#' @return `matrix`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' tpm(bcb) %>% glimpse()
+#' tpm(bcb_small) %>% glimpse()
 NULL
 
 
@@ -26,7 +21,9 @@ setMethod(
     "tpm",
     signature("bcbioRNASeq"),
     function(object) {
+        validObject(object)
         data <- assays(object)[["tpm"]]
         assert_is_matrix(data)
         data
-    })
+    }
+)

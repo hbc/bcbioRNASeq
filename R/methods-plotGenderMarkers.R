@@ -1,56 +1,33 @@
 #' Plot Sexually Dimorphic Gender Markers
 #'
-#' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
 #' @inheritParams plotGene
-#' @inheritParams plotTotalReads
+#' @inheritParams general
+#' @param organism Organism name. Typically can be left unset and should be
+#'   detected automatically, unless a spike-in FASTA sequence is provided
+#'   containing a gene identifier that is first alphabetically in the count
+#'   matrix rownames.
 #'
-#' @param organism *Optional.* Organism name. Should be detected automatically,
-#'   unless a spike-in FASTA sequence is provided containing a gene identifier
-#'   that is first alphabetically in the count matrix rownames.
-#'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
-#' dir <- "http://bcbiornaseq.seq.cloud/f1000v1"
-#' loadRemoteData(
-#'     c(
-#'         file.path(dir, "bcb.rda"),
-#'         file.path(dir, "rld.rda"),
-#'         file.path(dir, "vst.rda")
-#'     ),
-#'     quiet = TRUE)
-#'
 #' # bcbioRNASeq ====
-#' plotGenderMarkers(bcb)
-#' plotGenderMarkers(
-#'     bcb,
-#'     interestingGroups = "sampleName",
-#'     color = NULL)
+#' plotGenderMarkers(bcb_small)
 #'
 #' # DESeqDataSet ====
-#' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotGenderMarkers(dds, interestingGroups = "group")
+#' plotGenderMarkers(dds_small)
 #'
 #' # DESeqTransform ====
-#' plotGenderMarkers(rld, interestingGroups = "group")
-#' plotGenderMarkers(vst, interestingGroups = "group")
+#' plotGenderMarkers(rld_small)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom basejump camel
-#' @importFrom dplyr filter left_join pull
-#' @importFrom ggplot2 aes_string element_text expand_limits geom_jitter ggplot
-#'   ggtitle labs theme
-#' @importFrom magrittr set_colnames set_rownames
-#' @importFrom tibble rownames_to_column
-.plotGenderMarkers <- function(
+.plotGenderMarkers.matrix <- function(  # nolint
     object,
     colData,
     interestingGroups = "sampleName",
@@ -58,10 +35,14 @@ NULL
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = scale_color_viridis(discrete = TRUE),
-    title = TRUE) {
+    title = TRUE
+) {
     assert_is_matrix(object)
     assertFormalAnnotationCol(object, colData)
     assertFormalInterestingGroups(colData, interestingGroups)
+    if (missing(organism)) {
+        organism <- detectOrganism(object)
+    }
     assert_is_a_string(organism)
     assert_is_a_string(countsAxisLabel)
     assert_is_a_bool(medianLine)
@@ -77,27 +58,27 @@ NULL
     colData <- uniteInterestingGroups(colData, interestingGroups)
 
     # Load the relevant internal gender markers data
-    markers <- get("genderMarkers", envir = loadNamespace("bcbioRNASeq"))
+    markers <- bcbioRNASeq::genderMarkers
     assert_is_subset(camel(organism), names(markers))
     markers <- markers[[camel(organism)]]
 
-    # Ensembl identifiers
     gene2symbol <- markers %>%
-        .[.[["include"]] == TRUE, , drop = FALSE] %>%
         mutate(
-            symbol = paste(
-                .data[["chromosome"]],
-                .data[["symbol"]],
-                sep = " : ")
+            geneName = paste(
+                !!!syms(c("chromosome", "geneName")),
+                sep = " : "
+            )
         ) %>%
-        .[, c("ensgene", "symbol")] %>%
+        .[, c("geneID", "geneName")] %>%
         as.data.frame() %>%
-        set_rownames(.[["ensgene"]])
+        set_rownames(.[["geneID"]])
     assertIsGene2symbol(gene2symbol)
-    genes <- gene2symbol[["ensgene"]]
-    assert_is_subset(genes, rownames(object))
 
-    plotGene(
+    genes <- gene2symbol[["geneID"]] %>%
+        .[. %in% rownames(object)]
+    assert_is_non_empty(genes)
+
+    .plotGene.matrix(
         object = object,
         genes = genes,
         gene2symbol = gene2symbol,
@@ -106,7 +87,8 @@ NULL
         countsAxisLabel = countsAxisLabel,
         medianLine = medianLine,
         color = color,
-        return = "wide") +
+        return = "wide"
+    ) +
         ggtitle(title)
 }
 
@@ -117,40 +99,39 @@ NULL
 #' @export
 setMethod(
     "plotGenderMarkers",
-    signature("matrix"),
-    .plotGenderMarkers)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        normalized = "rlog",
+        normalized = c("rlog", "vst", "tpm"),
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
-        assert_is_a_string(normalized)
+        title = TRUE
+    ) {
+        validObject(object)
+        normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        plotGenderMarkers(
-            object = counts(object, normalized = normalized),
+        counts <- counts(object, normalized = normalized)
+        # Ensure counts are log2 scale
+        if (!normalized %in% c("rlog", "vst")) {
+            counts <- log2(counts + 1L)
+        }
+        .plotGenderMarkers.matrix(
+            object = counts,
             interestingGroups = interestingGroups,
             organism = metadata(object)[["organism"]],
-            colData = sampleMetadata(object),
-            countsAxisLabel = normalized,
+            colData = colData(object),
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)
 
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -160,25 +141,28 @@ setMethod(
         interestingGroups = "sampleName",
         organism,
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
+        validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
-        if (missing(organism)) {
-            organism <- detectOrganism(counts)
-        }
-        plotGenderMarkers(
+        colData <- colData(object)
+        # Drop the numeric sizeFactor column
+        colData[["sizeFactor"]] <- NULL
+        .plotGenderMarkers.matrix(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = sampleMetadata(object),
-            countsAxisLabel = "log2 normalized counts",
+            colData = colData,
+            countsAxisLabel = "normalized counts (log2)",
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)
 
 
 
 #' @rdname plotGenderMarkers
-#' @importFrom basejump detectOrganism
 #' @export
 setMethod(
     "plotGenderMarkers",
@@ -188,23 +172,28 @@ setMethod(
         interestingGroups = "sampleName",
         organism,
         color = scale_color_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = TRUE
+    ) {
         # Passthrough: interestingGroups, color, title
+        validObject(object)
         counts <- assay(object)
-        if (missing(organism)) {
-            organism <- detectOrganism(counts)
-        }
+
+        colData <- colData(object)
+        # Drop the numeric sizeFactor column
+        colData[["sizeFactor"]] <- NULL
         if ("rlogIntercept" %in% colnames(mcols(object))) {
-            countsAxisLabel <- "rlog"
+            normalized <- "rlog"
         } else {
-            countsAxisLabel <- "vst"
+            normalized <- "vst"
         }
-        plotGenderMarkers(
+        .plotGenderMarkers.matrix(
             object = counts,
             interestingGroups = interestingGroups,
             organism = organism,
-            colData = sampleMetadata(object),
-            countsAxisLabel = countsAxisLabel,
+            colData = colData,
+            countsAxisLabel = paste(normalized, "counts (log2)"),
             color = color,
-            title = title)
-    })
+            title = title
+        )
+    }
+)

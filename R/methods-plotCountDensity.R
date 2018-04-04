@@ -1,82 +1,23 @@
 #' Plot Count Density
 #'
-#' @rdname plotCountDensity
 #' @name plotCountDensity
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotGene
+#' @inheritParams general
+#' @param style Desired plot style ("`line`" or "`solid`").
 #'
-#' @param normalized Count normalization method. See [counts()] documentation
-#'   for more information.
-#' @param style Desired plot style (`line` or `solid`).
+#' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotCountDensity(bcb, style = "solid")
-#' plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
+#' # bcbioRNASeq ====
+#' plotCountDensity(bcb_small)
+#' plotCountDensity(
+#'     object = bcb_small,
+#'     style = "line",
+#'     interestingGroups = "sampleName"
+#' )
 NULL
-
-
-
-# Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_density ggplot guides labs
-.plotCountDensity <- function(
-    object,
-    interestingGroups = "sampleName",
-    style = "solid",
-    color = scale_color_viridis(discrete = TRUE),
-    fill = scale_fill_viridis(discrete = TRUE),
-    title = TRUE) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
-    assert_is_a_string(style)
-    assert_is_subset(style, c("line", "solid"))
-    assertIsColorScaleDiscreteOrNULL(color)
-    assertIsFillScaleDiscreteOrNULL(fill)
-
-    # Title
-    if (isTRUE(title)) {
-        title <- "count density"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
-
-    p <- ggplot(
-        data = data,
-        mapping = aes_string(
-            x = "counts",
-            group = "interestingGroups",
-            color = "interestingGroups",
-            fill = "interestingGroups")
-    ) +
-        labs(
-            title = title,
-            x = "log10 counts per gene",
-            fill = paste(interestingGroups, collapse = ":\n"))
-
-    if (style == "line") {
-        p <- p + geom_density(fill = NA)
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
-    } else if (style == "solid") {
-        p <- p + geom_density(alpha = 0.75, color = NA)
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
-    }
-
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(fill = FALSE)
-    }
-
-    p
-}
 
 
 
@@ -89,19 +30,81 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = "tmm",
-        style = "solid",
+        normalized = c("tmm", "rlog", "vst", "tpm"),
+        style = c("line", "solid"),
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
-        title = TRUE) {
+        title = "count density"
+    ) {
+        validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        .plotCountDensity(
-            object = meltLog10(object, normalized = normalized),
-            interestingGroups = interestingGroups,
-            style = style,
-            color = color,
-            fill = fill,
-            title = title)
-    })
+        normalized <- match.arg(normalized)
+        style <- match.arg(style)
+        assertIsColorScaleDiscreteOrNULL(color)
+        assertIsFillScaleDiscreteOrNULL(fill)
+        assertIsAStringOrNULL(title)
+
+        styleLab <- paste(interestingGroups, collapse = ":\n")
+
+        # Subset the counts matrix to only include non-zero genes
+        nonzero <- .nonzeroGenes(object)
+        counts <- counts(object, normalized = normalized)
+        counts <- counts[nonzero, , drop = FALSE]
+
+        # Apply log2 transformation, if  necessary
+        if (normalized %in% c("rlog", "vst")) {
+            # Already log2
+            fxn <- .meltCounts
+        } else {
+            fxn <- .meltLog2Counts
+        }
+
+        # Melt the counts into long format
+        data <- fxn(counts, colData = colData(object)) %>%
+            uniteInterestingGroups(interestingGroups)
+
+        # Subtitle
+        if (is_a_string(title)) {
+            subtitle <- paste(nrow(counts), "non-zero genes")
+        } else {
+            subtitle <- NULL
+        }
+
+        p <- ggplot(
+            data = data,
+            mapping = aes_string(
+                x = "counts",
+                group = "interestingGroups",
+                color = "interestingGroups",
+                fill = "interestingGroups"
+            )
+        ) +
+            labs(
+                title = title,
+                subtitle = subtitle,
+                x = paste(normalized, "counts (log2)"),
+                color = styleLab,
+                fill = styleLab
+            )
+
+        if (style == "line") {
+            p <- p + geom_density(fill = NA)
+            if (is(color, "ScaleDiscrete")) {
+                p <- p + color
+            }
+        } else if (style == "solid") {
+            p <- p + geom_density(alpha = 0.75, color = NA)
+            if (is(fill, "ScaleDiscrete")) {
+                p <- p + fill
+            }
+        }
+
+        if (identical(interestingGroups, "sampleName")) {
+            p <- p + guides(fill = FALSE)
+        }
+
+        p
+    }
+)

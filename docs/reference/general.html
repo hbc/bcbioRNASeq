@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -109,20 +109,108 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>alpha</th>
+      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>colData</th>
+      <td><p><code>data.frame</code> describing the columns of the object. Must
+contain <code>rownames</code> identical to the <code>colnames</code> of the object.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Desired ggplot color scale. Must supply discrete values. When
+set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p>Object containing a normalized counts matrix.</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
+to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>flip</th>
+      <td><p>Flip x and y axes.</p></td>
+    </tr>
+    <tr>
+      <th>gene2symbol</th>
+      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
+contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>genes</th>
+      <td><p>Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
+    </tr>
+    <tr>
+      <th>headerLevel</th>
+      <td><p>R Markdown header level.</p></td>
+    </tr>
+    <tr>
       <th>i</th>
       <td><p>An integer or numeric scalar.</p></td>
+    </tr>
+    <tr>
+      <th>interestingGroups</th>
+      <td><p>Character vector denoting groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>lfc</th>
+      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
+    </tr>
+    <tr>
+      <th>minCounts</th>
+      <td><p>Minimum number of counts per gene in the counts matrix.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
     </tr>
     <tr>
+      <th>passLimit</th>
+      <td><p>Threshold to plot pass color marker.</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
+the first item in the vector by default.</p></td>
+    </tr>
+    <tr>
+      <th>samples</th>
+      <td><p>Character vector of samples to include.</p></td>
+    </tr>
+    <tr>
+      <th>subtitle</th>
+      <td><p>Subtitle of plot.</p></td>
+    </tr>
+    <tr>
       <th>title</th>
-      <td><p>Title.</p></td>
+      <td><p>Title of plot.</p></td>
     </tr>
     <tr>
       <th>value</th>
       <td><p>Value to assign.</p></td>
+    </tr>
+    <tr>
+      <th>warnLimit</th>
+      <td><p>Threshold to plot warning color marker.</p></td>
     </tr>
     <tr>
       <th>withDimnames</th>
@@ -158,7 +246,7 @@ applied to extracted assay elements.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

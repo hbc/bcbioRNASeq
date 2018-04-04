@@ -10,38 +10,33 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = "both",
-  shadeColor = "green", shadeAlpha = 0.25, pointColor = "gray",
-  pointAlpha = 0.75, pointOutlineColor = "darkgray", labelColor = "black",
-  histograms = TRUE)
+  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
+  "up", "down"), pointColor = "gray", pointAlpha = 0.75,
+  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
+  labelColor = "black", histograms = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments must be formatted in camel case, not snake case.}
 
-\item{alpha}{Alpha level cutoff used for coloring.}
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{padj}{Use P values adjusted for multiple comparisions.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff for coloring.}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
-\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.}
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
 
 \item{ntop}{Number of top genes to label.}
 
-\item{direction}{Plot \code{up}, \code{down}, or \code{both} (\strong{default}) directions.}
-
-\item{shadeColor}{Shading color for bounding box.}
-
-\item{shadeAlpha}{Shading transparency alpha.}
+\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
 \item{pointColor}{Point color.}
 
@@ -49,35 +44,36 @@ gene symbols.}
 
 \item{pointOutlineColor}{Point outline color.}
 
+\item{shadeColor}{Shading color for bounding box.}
+
+\item{shadeAlpha}{Shading transparency alpha.}
+
 \item{labelColor}{Gene label color.}
 
 \item{histograms}{Show LFC and P value histograms.}
 }
 \value{
-Volcano plot arranged as grid (\code{grid = TRUE}), or \code{\link[=show]{show()}}
-individual \link{ggplot} (\code{grid = FALSE}).
+\code{ggplot}.
 }
 \description{
 Plot Volcano
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-gene2symbol <- gene2symbol(bcb)
-
 # DESeqResults ====
-# Label the top genes
-plotVolcano(res, ntop = 5L, gene2symbol = gene2symbol)
-
-# Label specific genes
-genes <- rownames(res) \%>\% head()
-plotVolcano(res, genes = genes, gene2symbol = gene2symbol)
+plotVolcano(
+    object = res_small,
+    ntop = 5L,
+    gene2symbol = gene2symbol(bcb_small)
+)
 }
 \seealso{
 This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
 
-Other Differential Expression Plots: \code{\link{plotMA}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{resultsTables}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano

@@ -9,31 +9,30 @@
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }
 \arguments{
-\item{object}{\link{bcbioRNASeq}.}
+\item{object}{Object.}
 
 \item{...}{Passthrough arguments to \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Method support for plotting the dispersion of counts stored in a
-\link{bcbioRNASeq} object. Here we're using the internally stored \link{DESeqDataSet},
-which already has method support for plotting dispersion, provided by
+\code{bcbioRNASeq} object. Here we're generating a \code{DESeqDataSet} object on the
+fly, which already has method support for plotting dispersion, provided by
 the DESeq2 package.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
-plotDispEsts(bcb)
+# bcbioRNASeq ====
+plotDispEsts(bcb_small)
 
 # Custom colors, using DESeq2 parameters
 plotDispEsts(
-    bcb,
+    bcb_small,
     genecol = "gray",
     fitcol = "purple",
-    finalcol = "orange")
+    finalcol = "orange"
+)
 }
 \seealso{
 \itemize{
@@ -41,8 +40,20 @@ plotDispEsts(
 \item \code{getMethod("plotDispEsts", "DESeqDataSet")}.
 }
 
-Other Differential Expression Utilities: \code{\link{alphaSummary}},
-  \code{\link{plotMeanSD}}
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

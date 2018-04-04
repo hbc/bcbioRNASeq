@@ -1,54 +1,51 @@
 #' Plot Mapping Rate
 #'
-#' @rdname plotMappingRate
 #' @name plotMappingRate
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotMappingRate(bcb)
+#' plotMappingRate(bcb_small)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_ coord_flip geom_bar ggplot guides labs ylim
 .plotMappingRate <- function(
     object,
-    interestingGroups = "sampleName",
+    interestingGroups,
     passLimit = 90L,
     warnLimit = 70L,
     fill = scale_fill_viridis(discrete = TRUE),
     flip = TRUE,
-    title = TRUE) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
+    title = "mapping rate"
+) {
+    validObject(object)
+    if (missing(interestingGroups)) {
+        interestingGroups <- bcbioBase::interestingGroups(object)
+    }
     assertIsAnImplicitInteger(passLimit)
     assert_all_are_non_negative(passLimit)
     assertIsAnImplicitInteger(warnLimit)
     assert_all_are_non_negative(warnLimit)
     assertIsFillScaleDiscreteOrNULL(fill)
     assert_is_a_bool(flip)
+    assertIsAStringOrNULL(title)
 
-    # Title
-    if (isTRUE(title)) {
-        title <- "mapping rate"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
+    metrics <- metrics(object) %>%
+        uniteInterestingGroups(interestingGroups)
 
     p <- ggplot(
-        data = data,
+        data = metrics,
         mapping = aes_(
             x = ~sampleName,
             y = ~mappedReads / totalReads * 100L,
-            fill = ~interestingGroups)
+            fill = ~interestingGroups
+        )
     ) +
         geom_bar(stat = "identity") +
         ylim(0L, 100L) +
@@ -89,23 +86,5 @@ NULL
 setMethod(
     "plotMappingRate",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        passLimit = 90L,
-        warnLimit = 70L,
-        fill = scale_fill_viridis(discrete = TRUE),
-        flip = TRUE,
-        title = TRUE) {
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
-        .plotMappingRate(
-            object = metrics(object),
-            interestingGroups = interestingGroups,
-            passLimit = passLimit,
-            warnLimit = warnLimit,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+    .plotMappingRate
+)

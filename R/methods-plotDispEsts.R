@@ -1,38 +1,36 @@
 #' Plot Dispersion Estimates
 #'
 #' Method support for plotting the dispersion of counts stored in a
-#' [bcbioRNASeq] object. Here we're using the internally stored [DESeqDataSet],
-#' which already has method support for plotting dispersion, provided by
+#' `bcbioRNASeq` object. Here we're generating a `DESeqDataSet` object on the
+#' fly, which already has method support for plotting dispersion, provided by
 #' the DESeq2 package.
 #'
-#' @rdname plotDispEsts
 #' @name plotDispEsts
-#' @family Differential Expression Utilities
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics plotDispEsts
 #'
-#' @param object [bcbioRNASeq].
+#' @inheritParams general
 #' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
 #'
 #' @seealso
 #' - [DESeq2::plotDispEsts()].
 #' - `getMethod("plotDispEsts", "DESeqDataSet")`.
 #'
-#' @return [ggplot].
+#' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#'
-#' # bcbioRNASeq
-#' plotDispEsts(bcb)
+#' # bcbioRNASeq ====
+#' plotDispEsts(bcb_small)
 #'
 #' # Custom colors, using DESeq2 parameters
 #' plotDispEsts(
-#'     bcb,
+#'     bcb_small,
 #'     genecol = "gray",
 #'     fitcol = "purple",
-#'     finalcol = "orange")
+#'     finalcol = "orange"
+#' )
 NULL
 
 
@@ -44,7 +42,8 @@ setMethod(
     "plotDispEsts",
     signature("bcbioRNASeq"),
     function(object, ...) {
-        dds <- bcbio(object, "DESeqDataSet")
-        assert_is_all_of(dds, "DESeqDataSet")
+        validObject(object)
+        dds <- as(object, "DESeqDataSet")
         plotDispEsts(dds, ...)
-    })
+    }
+)

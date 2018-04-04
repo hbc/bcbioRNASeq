@@ -10,59 +10,67 @@
 plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
-  normalized = "tmm", style = "solid",
+  normalized = c("tmm", "rlog", "vst", "tpm"), style = c("line", "solid"),
   color = scale_color_viridis(discrete = TRUE),
-  fill = scale_fill_viridis(discrete = TRUE), title = TRUE)
+  fill = scale_fill_viridis(discrete = TRUE), title = "count density")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{normalized}{Count normalization method. See \code{\link[=counts]{counts()}} documentation
-for more information.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 
-\item{style}{Desired plot style (\code{line} or \code{solid}).}
+\item{style}{Desired plot style ("\code{line}" or "\code{solid}").}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{fill}{Desired ggplot fill scale. Defaults to
-\code{\link[=scale_fill_viridis]{scale_fill_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_fill_manual]{scale_fill_manual()}}.}
+\item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
+to \code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
 
-\item{title}{Title.}
+\item{title}{Title of plot.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Count Density
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-plotCountDensity(bcb, style = "solid")
-plotCountDensity(bcb, style = "line", interestingGroups = "sampleName")
+# bcbioRNASeq ====
+plotCountDensity(bcb_small)
+plotCountDensity(
+    object = bcb_small,
+    style = "line",
+    interestingGroups = "sampleName"
+)
 }
 \seealso{
-Other Quality Control Plots: \code{\link{plot53Bias}},
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }

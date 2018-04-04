@@ -6,66 +6,85 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{bcbioRNASeq}(object, normalized = "rlog",
-  interestingGroups, genes = NULL, censorSamples = NULL,
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
+  "tpm"), genes = NULL, samples = NULL, interestingGroups,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  returnData = FALSE)
+  title = "pca", return = c("ggplot", "data.frame"), ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
-appearance. If missing, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{genes}{\emph{Optional.} Character vector of gene identifiers to use.}
+\item{samples}{Character vector of samples to include.}
 
-\item{censorSamples}{\emph{Optional.} Samples to exclude from the PCA plot.
-Supply them as a character vector. These should match \code{colnames(object)}.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
+\item{label}{Superimpose sample text labels on the plot.}
 
-\item{returnData}{Return PCA loadings data instead of plotting.}
+\item{title}{Title of plot.}
+
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
+
+\item{...}{Additional arguments.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot} or \code{data.frame}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
 (PCA) sample coloring and labeling.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+# bcbioRNASeq ====
+plotPCA(bcb_small, label = FALSE)
+plotPCA(bcb_small, label = TRUE)
 
-# bcbioRNASeq
-plotPCA(bcb, label = TRUE)
-plotPCA(bcb, label = FALSE)
-
-# Default ggplot color palette
-plotPCA(bcb, interestingGroups = "sampleName", color = NULL)
-
-# Censor samples
-colnames(bcb)
-censor <- "group1_1"
-plotPCA(bcb, censorSamples = censor)
+# Select samples
+plotPCA(
+    object = bcb_small,
+    samples = head(colnames(bcb_small), 4L),
+    label = TRUE
+)
 }
 \seealso{
-\code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\itemize{
+\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\item \code{getMethod("plotPCA", "DESeqTransform")}
+}
+
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCACovariates}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

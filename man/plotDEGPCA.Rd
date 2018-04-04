@@ -4,47 +4,60 @@
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
+\alias{plotDEGPCA,DESeqResults-method}
 \title{Plot DEG PCA}
 \usage{
-plotDEGPCA(object, counts, ...)
+plotDEGPCA(object, ...)
 
-\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
+\S4method{plotDEGPCA}{DESeqResults}(object, counts,
   interestingGroups = "sampleName", lfc = 0L,
   color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  returnData = FALSE)
+  title = "deg pca", return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{Secondary object containing a normalized counts matrix.}
-
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{\emph{Optional.} Interesting groups to use for point
-appearance. If missing, color defaults to all \code{interestingGroups}
-parameters set in the \link{bcbioRNASeq} object.}
+\item{counts}{Object containing a normalized counts matrix.}
 
-\item{lfc}{log2 fold change ratio cutoff.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{lfc}{Log fold change ratio (base 2) cutoff.}
 
-\item{label}{\emph{Optional.} Superimpose sample text labels on the plot.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{returnData}{Return PCA loadings data instead of plotting.}
+\item{label}{Superimpose sample text labels on the plot.}
+
+\item{title}{Title of plot.}
+
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
+}
+\value{
+\code{ggplot} or \code{data.frame}.
 }
 \description{
 Plot DEG PCA
 }
 \examples{
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
-# DESeqResults, DESeqTransform
-plotDEGPCA(res, counts = rld)
+# DESeqResults, DESeqTransform ====
+plotDEGPCA(
+    object = res_small,
+    counts = rld_small,
+    interestingGroups = interestingGroups(bcb_small),
+    label = TRUE
+)
+}
+\seealso{
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Michael Steinbaugh

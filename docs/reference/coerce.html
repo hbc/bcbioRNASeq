@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce Object — coerce • bcbioRNASeq</title>
+<title>Methods for Coercing an Object to a Class — coerce • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Coerce Object — coerce" />
+<meta property="og:title" content="Methods for Coercing an Object to a Class — coerce" />
 
-<meta property="og:description" content="Coerce Object" />
+<meta property="og:description" content="Methods for Coercing an Object to a Class" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -95,57 +95,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce Object</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/setAs.R'><code>R/setAs.R</code></a></small>
+    <h1>Methods for Coercing an Object to a Class</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-coerce.R'><code>R/methods-coerce.R</code></a></small>
     <p class="hidden name"><code>coerce.Rd</code></p>
     </div>
 
     
-    <p>Coerce Object</p>
+    <p>Methods for Coercing an Object to a Class</p>
     
 
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>from</th>
-      <td><p>Class for which the coerce method will perform coercion.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="bcbiornaseq-to-summarizedexperiment"><a class="anchor" href="#bcbiornaseq-to-summarizedexperiment"></a>bcbioRNASeq to SummarizedExperiment</h2>
+        
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-    <p>Since <a href='bcbioRNASeq-class.html'>bcbioRNASeq</a> is an extension of SummarizedExperiment, this
-coercion method is very simple. Here we're simply dropping our <code>@bcbio</code> slot,
-which contains raw cellular barcodes and other bcbio-specific metadata.</p>
+    <p>Object of new class.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>help(topic = "coerce", package = "methods")</code>.</p></div>
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>methods::coerce()</a></code>.</p></li>
+</ul></div>
+    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
+  <code><a href='show.html'>show</a></code>, <code><a href='subset.html'>subset</a></code>,
+  <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-<span class='no'>se</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"SummarizedExperiment"</span>)
-<span class='fu'>print</span>(<span class='no'>se</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
-#&gt; dim: 505 4 
-#&gt; metadata(28): version uploadDir ... devtoolsSessionInfo
-#&gt;   unannotatedGenes
-#&gt; assays(6): raw normalized ... rlog vst
-#&gt; rownames(505): ENSMUSG00000002459 ENSMUSG00000004768 ...
-#&gt;   ENSMUSG00000105982 ENSMUSG00000109048
-#&gt; rowData names(11): ensgene symbol ... seqCoordSystem entrez
-#&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
-#&gt; colData names(4): sampleID sampleName description group</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># DESeqDataSet ====</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
+#&gt; attr(,"package")
+#&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
+#&gt; dim: 500 6 
+#&gt; metadata(1): version
+#&gt; assays(3): counts mu cooks
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(17): baseMean baseVar ... deviance maxCooks
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(9): sampleID sampleName ... treatment sizeFactor</div><div class='input'>
+<span class='co'># RangedSummarizedExperiment ====</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
+<span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
+#&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(33): version level ... unannotatedRows subset
+#&gt; assays(5): raw tpm length rlog vst
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): geneID geneName ... entrezID broadClass
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
+<span class='co'># SummarizedExperiment ====</span>
+<span class='co'># Coerce to RangedSummarizedExperiment first.</span>
+<span class='co'># Otherwise, rowData will be NULL.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>x</span>, <span class='st'>"SummarizedExperiment"</span>)
+<span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "SummarizedExperiment"
+#&gt; attr(,"package")
+#&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
+#&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(33): version level ... unannotatedRows subset
+#&gt; assays(5): raw tpm length rlog vst
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): geneID geneName ... entrezID broadClass
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
+<span class='co'># list ====</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"list"</span>)
+<span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
+#&gt; [5] "elementMetadata" "metadata"       </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#bcbiornaseq-to-summarizedexperiment">bcbioRNASeq to SummarizedExperiment</a></li>
+      <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
@@ -161,7 +187,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

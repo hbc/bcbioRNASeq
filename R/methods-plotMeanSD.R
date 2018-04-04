@@ -3,51 +3,44 @@
 #' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
 #' [varianceStabilizingTransformation()] normalized counts.
 #'
-#' @rdname plotMeanSD
 #' @name plotMeanSD
-#' @family Differential Expression Utilities
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams general
 #'
 #' @param orientation Orientation to use for plot grid, either `horizontal` or
 #'   `vertical`.
-#' @param showLegend Include the color bar legend. This is typically not that
+#' @param legend Include the color bar legend. This is typically not that
 #'   informative and is disabled by default, to improve the plot appearance.
 #'
-#' @return [ggplot] grid.
+#' @return `ggplot` grid.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+#' # bcbioRNASeq ====
+#' plotMeanSD(bcb_small)
 #'
-#' # bcbioRNASeq
-#' plotMeanSD(bcb, orientation = "horizontal")
-#' plotMeanSD(bcb, orientation = "vertical")
-#'
-#' # DESeqDataSet
-#' dds <- bcbio(bcb, "DESeqDataSet")
-#' plotMeanSD(dds, orientation = "horizontal")
+#' # DESeqDataSet ====
+#' plotMeanSD(dds_small)
 NULL
 
 
 
 # Constructors =================================================================
-#' @importFrom cowplot plot_grid
-#' @importFrom ggplot2 ggtitle theme xlab
-#' @importFrom vsn meanSdPlot
 .plotMeanSD <- function(
     raw,
     normalized,
     rlog,
     vst,
-    orientation = "vertical",
-    showLegend = FALSE) {
+    orientation = c("vertical", "horizontal"),
+    legend = FALSE
+) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
+    assert_is_matrix(rlog)
     assert_is_matrix(vst)
-    assert_is_a_string(orientation)
-    assert_is_subset(orientation, c("horizontal", "vertical"))
-    assert_is_a_bool(showLegend)
+    orientation <- match.arg(orientation)
+    assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -74,7 +67,7 @@ NULL
         xlab(xlab)
 
     # Remove the plot (color) legend, if desired
-    if (!isTRUE(showLegend)) {
+    if (!isTRUE(legend)) {
         gglog2 <- gglog2 +
             theme(legend.position = "none")
         ggrlog <- ggrlog +
@@ -98,7 +91,8 @@ NULL
         ggvst,
         labels = "AUTO",
         ncol = ncol,
-        nrow = nrow)
+        nrow = nrow
+    )
 }
 
 
@@ -110,34 +104,46 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        orientation = "vertical",
-        showLegend = FALSE) {
+        orientation = c("vertical", "horizontal"),
+        legend = FALSE
+    ) {
+        # Passthrough: orientation, legend
+        # Require that the DESeq2 transformations are slotted
+        rlog <- assays(object)[["rlog"]]
+        vst <- assays(object)[["vst"]]
+        assert_is_matrix(rlog)
+        assert_is_matrix(vst)
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
-            rlog = counts(object, normalized = "rlog"),
-            vst = counts(object, normalized = "vst"),
+            rlog = rlog,
+            vst = vst,
             orientation = orientation,
-            showLegend = showLegend)
-    })
+            legend = legend
+        )
+    }
+)
 
 
 
 #' @rdname plotMeanSD
-#' @importFrom DESeq2 rlog varianceStabilizingTransformation
 #' @export
 setMethod(
     "plotMeanSD",
     signature("DESeqDataSet"),
     function(
         object,
-        orientation = "vertical",
-        showLegend = FALSE) {
+        orientation = c("vertical", "horizontal"),
+        legend = FALSE
+    ) {
+        # Passthrough arguments: orientation, legend
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = assay(rlog(object)),
             vst = assay(varianceStabilizingTransformation(object)),
             orientation = orientation,
-            showLegend = showLegend)
-    })
+            legend = legend
+        )
+    }
+)

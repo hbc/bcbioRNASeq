@@ -10,7 +10,7 @@
 plotPCACovariates(object, ...)
 
 \S4method{plotPCACovariates}{bcbioRNASeq}(object, metrics = TRUE,
-  normalized = "rlog", ...)
+  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,27 +21,25 @@ plotPCACovariates(object, ...)
 include all metrics columns (\code{TRUE}), but desired columns can be specified
 here as a character vector.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Character indicating which normalization method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting a \link{bcbioRNASeq} object.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-
-# bcbioRNASeq
-plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
+plotPCACovariates(
+    object = bcb_small,
+    metrics = c("exonicRate", "intronicRate")
+)
 }
 \seealso{
 \itemize{
@@ -49,6 +47,21 @@ plotPCACovariates(bcb, metrics = c("exonicRate", "intronicRate"))
 \item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
+
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
+  \code{\link{plotPCA}}, \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

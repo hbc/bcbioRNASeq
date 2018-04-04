@@ -7,20 +7,18 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = NULL,
-  pointColor = "darkgray", sigPointColor = "red", labelColor = "black",
+  pointColor = "darkgray", sigPointColor = "purple", labelColor = "black",
   title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
-\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.}
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
 
 \item{pointColor}{Default point color for the plot.}
 
@@ -29,26 +27,28 @@ have passed alpha level cutoffs.}
 
 \item{labelColor}{Text label color.}
 
-\item{title}{Title.}
+\item{title}{Title of plot.}
 }
 \value{
-\link{ggplot}.
+\code{ggplot}.
 }
 \description{
 Plot Mean Average
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-gene2symbol <- gene2symbol(bcb)
-
 # DESeqResults ====
-genes <- head(rownames(res), 4L)
-plotMA(res, genes = genes, gene2symbol = NULL)
-plotMA(res, genes = genes, gene2symbol = gene2symbol)
+plotMA(res_small)
+plotMA(
+    object = res_small,
+    genes = head(rownames(res_small), 4L),
+    gene2symbol = gene2symbol(bcb_small)
+)
 }
 \seealso{
-Other Differential Expression Plots: \code{\link{plotVolcano}}
+Other Differential Expression Functions: \code{\link{alphaSummary}},
+  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotVolcano}},
+  \code{\link{resultsTables}}
 }
 \author{
 Rory Kirchner, Michael Steinbaugh

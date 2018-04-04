@@ -1,6 +1,3 @@
-#' @importFrom grid unit
-#' @importFrom viridis inferno
-
 lineColor <- "black"
 
 # Quality control plot colors
@@ -28,18 +25,29 @@ labelSep <- ": "
 
 
 
-# Line functions ===============================================================
-#' @importFrom ggplot2 stat_summary
+# ggproto objects ==============================================================
 geneMedianLine <- stat_summary(
     fun.y = median,
     fun.ymin = median,
     fun.ymax = median,
     geom = "crossbar",
     show.legend = FALSE,
-    width = 0.67)
+    width = 0.5
+)
 
 
-#' @importFrom ggplot2 geom_hline
+
+# geom functions ==============================================================
+genePoint <- function(size = 3L, alpha = 1L) {
+    geom_point(
+        size = size,
+        alpha = alpha,
+        position = position_jitterdodge(dodge.width = 0.9)
+    )
+}
+
+
+
 qcPassLine <- function(intercept) {
     assert_is_a_number(intercept)
     assert_all_are_non_negative(intercept)
@@ -48,10 +56,12 @@ qcPassLine <- function(intercept) {
         color = qcPassColor,
         linetype = qcLineType,
         size = qcLineSize,
-        yintercept = intercept)
+        yintercept = intercept
+    )
 }
 
-#' @importFrom ggplot2 geom_hline
+
+
 qcWarnLine <- function(intercept) {
     assert_is_a_number(intercept)
     assert_all_are_non_negative(intercept)
@@ -60,5 +70,6 @@ qcWarnLine <- function(intercept) {
         color = qcWarnColor,
         linetype = qcLineType,
         size = qcLineSize,
-        yintercept = intercept)
+        yintercept = intercept
+    )
 }

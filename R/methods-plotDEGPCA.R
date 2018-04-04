@@ -1,19 +1,20 @@
 #' Plot DEG PCA
 #'
-#' @rdname plotDEGPCA
 #' @name plotDEGPCA
+#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
+#' @inherit plotPCA
 #' @inheritParams general
-#' @inheritParams plotPCA
-#' @inheritParams plotDEGHeatmap
 #'
 #' @examples
-#' load(system.file("extdata/res.rda", package = "bcbioRNASeq"))
-#' load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-#'
-#' # DESeqResults, DESeqTransform
-#' plotDEGPCA(res, counts = rld)
+#' # DESeqResults, DESeqTransform ====
+#' plotDEGPCA(
+#'     object = res_small,
+#'     counts = rld_small,
+#'     interestingGroups = interestingGroups(bcb_small),
+#'     label = TRUE
+#' )
 NULL
 
 
@@ -23,9 +24,7 @@ NULL
 #' @export
 setMethod(
     "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"),
+    signature("DESeqResults"),
     function(
         object,
         counts,
@@ -33,26 +32,59 @@ setMethod(
         lfc = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
-        returnData = FALSE) {
-        # Passthrough: interestingGroups, color, label, returnData
+        title = "deg pca",
+        return = c("ggplot", "data.frame")
+    ) {
+        # Passthrough: interestingGroups, color, label, title
+        validObject(object)
+        assert_is_all_of(counts, "DESeqTransform")
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
+        return <- match.arg(return)
 
         # Get the DE gene vector using `resultsTables()`
         list <- resultsTables(
             object,
             lfc = lfc,
+            rowData = NULL,
             summary = FALSE,
-            write = FALSE)
+            write = FALSE
+        )
         genes <- c(
-            list[["degLFCUp"]][["ensgene"]],
-            list[["degLFCDown"]][["ensgene"]])
+            list[["degLFCUp"]][["geneID"]],
+            list[["degLFCDown"]][["geneID"]]
+        )
 
-        .plotPCA.DESeqTransform(
+        # Subset the matrix
+        counts <- counts[genes, , drop = FALSE]
+        ntop <- nrow(counts)
+
+        inform(paste("Plotting PCA using", ntop, "genes"))
+        data <- plotPCA(
             object = counts,
-            interestingGroups = interestingGroups,
-            genes = genes,
+            intgroup = interestingGroups,
+            ntop = ntop,
+            returnData = TRUE
+        ) %>%
+            camel()
+
+        if (return == "data.frame") {
+            return(data)
+        }
+
+        # Use `sampleName` for plot labels
+        if (isTRUE(label)) {
+            colData <- colData(counts)
+            assert_is_subset("sampleName", colnames(colData))
+            data[["label"]] <- colData[, "sampleName", drop = TRUE]
+        }
+
+        .plotPCA.ggplot(
+            object = data,
             color = color,
             label = label,
-            returnData = returnData)
-    })
+            group = interestingGroups,
+            title = title
+        )
+    }
+)

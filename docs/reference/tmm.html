@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -61,7 +61,7 @@ tool when plotting counts per gene." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -130,38 +130,61 @@ tool when plotting counts per gene.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>matrix.</p>
+    <p><code>matrix</code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='metrics.html'>metrics</a></code>, <code><a href='selectSamples.html'>selectSamples</a></code>,
+  <code>tpm</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>load</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/bcb.rda"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>))
-
-<span class='co'># bcbioRNASeq</span>
-<span class='fu'>tmm</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
-#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
-#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
-#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div><div class='input'>
-<span class='co'># DESeqDataSet</span>
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbio.html'>bcbio</a></span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>tmm</span>(<span class='no'>dds</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2     
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0  
-#&gt;  Mean   :  1415.64   Mean   :  2202.6   Mean   :  2084.6   Mean   :  2366  
-#&gt;  3rd Qu.:    19.75   3rd Qu.:    17.3   3rd Qu.:    19.2   3rd Qu.:    17  
-#&gt;  Max.   :310393.35   Max.   :367094.0   Max.   :368116.4   Max.   :387262  </div><div class='input'>
-<span class='co'># matrix</span>
-<span class='no'>counts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>tmm</span>(<span class='no'>counts</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Performing trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;     group1_1            group1_2           group2_1           group2_2       
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0.0  
-#&gt;  Median :     0.00   Median :     0.0   Median :     0.0   Median :     0.0  
-#&gt;  Mean   :  1413.77   Mean   :  2200.7   Mean   :  2082.5   Mean   :  2373.1  
-#&gt;  3rd Qu.:    19.71   3rd Qu.:    17.2   3rd Qu.:    19.6   3rd Qu.:    17.1  
-#&gt;  Max.   :309985.26   Max.   :366775.7   Max.   :367736.6   Max.   :388504.5  </div></pre>
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>tmm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'>
+<span class='co'># DESeqDataSet ====</span>
+<span class='fu'>tmm</span>(<span class='no'>dds_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.4   Median :    78.7   Median :    78.7   Median :    76.8  
+#&gt;  Mean   :  2304.6   Mean   :  2001.5   Mean   :  2463.2   Mean   :  1751.4  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.9   3rd Qu.:   246.8   3rd Qu.:   239.1  
+#&gt;  Max.   :622429.1   Max.   :524269.5   Max.   :694574.2   Max.   :472836.5  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.1   Mean   :  1875.4  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.4  
+#&gt;  Max.   :479502.8   Max.   :536710.4  </div><div class='input'>
+<span class='co'># matrix ====</span>
+<span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,6 +192,8 @@ tool when plotting counts per gene.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -182,7 +207,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

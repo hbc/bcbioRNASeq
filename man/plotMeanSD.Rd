@@ -10,11 +10,11 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = "vertical",
-  showLegend = FALSE)
+\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = c("vertical",
+  "horizontal"), legend = FALSE)
 
-\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = "vertical",
-  showLegend = FALSE)
+\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = c("vertical",
+  "horizontal"), legend = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,30 +24,39 @@ plotMeanSD(object, ...)
 \item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
 \code{vertical}.}
 
-\item{showLegend}{Include the color bar legend. This is typically not that
+\item{legend}{Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.}
 }
 \value{
-\link{ggplot} grid.
+\code{ggplot} grid.
 }
 \description{
 \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots \code{\link[=log2]{log2()}}, \code{\link[=rlog]{rlog()}}, and
 \code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+# bcbioRNASeq ====
+plotMeanSD(bcb_small)
 
-# bcbioRNASeq
-plotMeanSD(bcb, orientation = "horizontal")
-plotMeanSD(bcb, orientation = "vertical")
-
-# DESeqDataSet
-dds <- bcbio(bcb, "DESeqDataSet")
-plotMeanSD(dds, orientation = "horizontal")
+# DESeqDataSet ====
+plotMeanSD(dds_small)
 }
 \seealso{
-Other Differential Expression Utilities: \code{\link{alphaSummary}},
-  \code{\link{plotDispEsts}}
+Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+  \code{\link{plotCorrelationHeatmap}},
+  \code{\link{plotCountDensity}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotDispEsts}},
+  \code{\link{plotExonicMappingRate}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGeneSaturation}},
+  \code{\link{plotGenesDetected}},
+  \code{\link{plotIntronicMappingRate}},
+  \code{\link{plotMappedReads}},
+  \code{\link{plotMappingRate}},
+  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
+  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

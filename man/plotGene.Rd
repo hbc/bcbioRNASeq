@@ -3,112 +3,87 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene,matrix-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{matrix}(object, genes, gene2symbol = NULL, colData,
-  interestingGroups = "sampleName", countsAxisLabel = "counts",
-  medianLine = TRUE, color = scale_color_viridis(discrete = TRUE),
-  return = "grid", headerLevel = 2L)
-
-\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = "rlog",
-  interestingGroups, medianLine = TRUE, color = scale_color_viridis(discrete
-  = TRUE), return = "grid", headerLevel = 2L)
+\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("rlog", "vst",
+  "tpm"), interestingGroups, medianLine = TRUE,
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2L)
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 
 \S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
   interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), return = "grid",
-  headerLevel = 2L)
+  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
+  return = c("grid", "wide", "list", "markdown"))
 }
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Gene identifiers (rownames) to plot. These must be the stable
-identifiers (e.g. ENSG00000000003) used on Ensembl and not the gene
-symbols.}
+\item{genes}{Character vector of genes to include. These must match the
+rownames of the object. It is best practice to use the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{Apply gene identifier to symbol mappings. A gene2symbol
-\link{data.frame} can be passed in, and must contain the columns \code{ensgene} and
-\code{symbol}. then the Ensembl gene identifiers will be labeled in place of
-gene symbols.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 
-\item{colData}{Sample metadata \link{data.frame}.}
-
-\item{interestingGroups}{Category to use to group samples. In the plotting
-functions, this will define color and shape, where applicable. If unset,
-this is automatically determined by the metadata set inside the
-\link{bcbioRNASeq} object. When set to \code{NULL}, this will default to
-\code{sampleName}.}
-
-\item{countsAxisLabel}{Text label of counts axis.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{medianLine}{Include median line for each group. Disabled when samples
 are grouped by \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Defaults to
-\code{\link[=scale_color_viridis]{scale_color_viridis()}}. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[=scale_color_manual]{scale_color_manual()}}.}
+\item{color}{Desired ggplot color scale. Must supply discrete values. When
+set to \code{NULL}, the default ggplot2 color palette will be used. If manual
+color definitions are desired, we recommend using
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
-\item{return}{Desired return type: \code{grid}, \code{wide}, \code{list}, or \code{markdown}.}
+\item{headerLevel}{R Markdown header level.}
 
-\item{headerLevel}{R Markdown header level. Only applies when
-\code{return = "markdown"}.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 
-\item{normalized}{Normalization method. Supports \code{tpm} (\strong{default}), \code{tmm},
-\code{rlog}, or \code{vst}.}
+\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
+contain the columns \code{geneID} and \code{geneName}.}
 }
 \value{
 \itemize{
-\item \code{grid}: \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}} graphical output.
-\item \code{list}: Plot list, containing per gene \link{ggplot} objects.
-\item \code{markdown}: Tabset R Markdown output, tabbed per gene.
+\item "\code{grid}": Show \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}, paneled per gene.
+\item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
+\item "\code{list}": \code{list}, containing per gene \code{ggplot} objects.
+\item "\code{markdown}": Show tabset R Markdown output, tabbed per gene.
 }
 }
 \description{
 Plot Individual Genes
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/dds.rda", package = "bcbioRNASeq"))
-load(system.file("extdata/rld.rda", package = "bcbioRNASeq"))
-
 # Gene identifiers
-genes <- head(rownames(bcb), 4L)
+genes <- head(rownames(bcb_small), 8L)
 
 # bcbioRNASeq ====
-plotGene(bcb, genes = genes, return = "grid")
-plotGene(bcb, genes = genes, return = "wide")
+plotGene(bcb_small, genes = genes, return = "grid")
+plotGene(bcb_small, genes = genes, return = "wide")
 
 # DESeqDataSet ====
-plotGene(dds, genes = genes, interestingGroups = "group")
+plotGene(dds_small, genes = genes)
 
 # DESeqTransform ====
-plotGene(rld, genes = genes, interestingGroups = "group")
+plotGene(rld_small, genes = genes)
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
-
-Other Quality Control Plots: \code{\link{plot53Bias}},
-  \code{\link{plotCountDensity}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh

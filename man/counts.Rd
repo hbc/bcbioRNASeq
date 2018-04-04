@@ -11,45 +11,49 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Select raw counts (\code{FALSE}), DESeq2 normalized counts
-(\code{TRUE}), or additional normalization methods:
+\item{normalized}{Logical or character indicating which normalization
+method to apply:
 \itemize{
-\item \code{tpm}: Transcripts per million.
-\item \code{tmm}: Trimmed mean of M-values (edgeR).
-\item \code{rlog}: Regularized log transformation (\code{\link[DESeq2:rlog]{DESeq2::rlog()}}).
-\item \code{vst}: Variance stabilizing transformation
-(\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+\item \code{FALSE}: Raw counts (tximport).
+\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 }
 \value{
-\link{matrix}.
+\code{matrix}.
 }
 \description{
 By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the \code{normalized}
+transcripts per million (TPM) can be accessed using the "\code{normalized}"
 argument.
 }
 \examples{
-load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
+# bcbioRNASeq ====
+counts(bcb_small, normalized = FALSE) \%>\% summary()
+counts(bcb_small, normalized = TRUE) \%>\% summary()
+counts(bcb_small, normalized = "tpm") \%>\% summary()
+counts(bcb_small, normalized = "tmm") \%>\% summary()
 
-# Raw counts (from tximport)
-counts(bcb, normalized = FALSE) \%>\% summary()
+# log2 scale
+counts(bcb_small, normalized = "rlog") \%>\% summary()
+counts(bcb_small, normalized = "vst") \%>\% summary()
+}
+\seealso{
+\itemize{
+\item \code{\link[=tpm]{tpm()}}.
+\item \code{\link[=tmm]{tmm()}}.
+\item \code{\link[DESeq2:counts]{DESeq2::counts()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+}
 
-# TPM (from tximport)
-counts(bcb, normalized = "tpm") \%>\% summary()
-
-# Normalized counts (from DESeq2)
-counts(bcb, normalized = TRUE) \%>\% summary()
-
-# rlog (from DESeq2)
-counts(bcb, normalized = "rlog") \%>\% summary()
-
-# TMM (from edgeR)
-counts(bcb, normalized = "tmm") \%>\% summary()
-
-# VST (from DESeq2)
-counts(bcb, normalized = "vst") \%>\% summary()
+Other Data Functions: \code{\link{metrics}},
+  \code{\link{selectSamples}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
-Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 }

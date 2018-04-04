@@ -1,71 +1,16 @@
 #' Plot Counts Per Gene
 #'
-#' @rdname plotCountsPerGene
 #' @name plotCountsPerGene
-#' @family Quality Control Plots
+#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inherit plotTotalReads
-#' @inheritParams plotCountDensity
+#' @inheritParams general
+#'
+#' @return `ggplot`.
 #'
 #' @examples
-#' load(system.file("extdata/bcb.rda", package = "bcbioRNASeq"))
-#' plotCountsPerGene(bcb)
+#' plotCountsPerGene(bcb_small)
 NULL
-
-
-
-# Constructors =================================================================
-#' @importFrom bcbioBase uniteInterestingGroups
-#' @importFrom ggplot2 aes_string geom_boxplot ggplot guides labs
-.plotCountsPerGene <- function(
-    object,
-    interestingGroups = "sampleName",
-    fill = scale_fill_viridis(discrete = TRUE),
-    flip = TRUE,
-    title = TRUE) {
-    assert_is_data.frame(object)
-    assertFormalInterestingGroups(object, interestingGroups)
-    assertIsFillScaleDiscreteOrNULL(fill)
-    assert_is_a_bool(flip)
-
-    # Title
-    if (isTRUE(title)) {
-        title <- "counts per gene"
-    } else if (!is_a_string(title)) {
-        title <- NULL
-    }
-
-    data <- uniteInterestingGroups(object, interestingGroups)
-
-    p <- ggplot(
-        data = data,
-        mapping = aes_string(
-            x = "sampleName",
-            y = "counts",
-            fill = "interestingGroups")
-    ) +
-        geom_boxplot(color = lineColor, outlier.shape = NA) +
-        labs(
-            title = title,
-            x = "sample",
-            y = "log10 counts per gene",
-            fill = paste(interestingGroups, collapse = ":\n"))
-
-    if (is(fill, "ScaleDiscrete")) {
-        p <- p + fill
-    }
-
-    if (isTRUE(flip)) {
-        p <- p + coord_flip()
-    }
-
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(fill = FALSE)
-    }
-
-    p
-}
 
 
 
@@ -78,19 +23,73 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = "tmm",
+        normalized = c("tmm", "rlog", "vst", "tpm"),
         fill = scale_fill_viridis(discrete = TRUE),
         flip = TRUE,
-        title = TRUE) {
+        title = "counts per gene"
+    ) {
         # Passthrough: fill, flip, title
+        validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assert_is_a_string(normalized)
-        .plotCountsPerGene(
-            object = meltLog10(object, normalized = normalized),
-            interestingGroups = interestingGroups,
-            fill = fill,
-            flip = flip,
-            title = title)
-    })
+        normalized <- match.arg(normalized)
+        assertIsFillScaleDiscreteOrNULL(fill)
+        assert_is_a_bool(flip)
+        assertIsAStringOrNULL(title)
+
+        # Subset the counts matrix to only include non-zero genes
+        nonzero <- .nonzeroGenes(object)
+        counts <- counts(object, normalized = normalized)
+        counts <- counts[nonzero, , drop = FALSE]
+
+        # Apply log2 transformation, if  necessary
+        if (normalized %in% c("rlog", "vst")) {
+            # Already log2
+            fxn <- .meltCounts
+        } else {
+            fxn <- .meltLog2Counts
+        }
+
+        data <- fxn(counts, colData = colData(object)) %>%
+            uniteInterestingGroups(interestingGroups)
+
+        # Subtitle
+        if (is_a_string(title)) {
+            subtitle <- paste(nrow(counts), "non-zero genes")
+        } else {
+            subtitle <- NULL
+        }
+
+        p <- ggplot(
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "counts",
+                fill = "interestingGroups"
+            )
+        ) +
+            geom_boxplot(color = lineColor, outlier.shape = NA) +
+            labs(
+                title = title,
+                subtitle = subtitle,
+                x = "sample",
+                y = paste(normalized, "counts (log2)"),
+                fill = paste(interestingGroups, collapse = ":\n")
+            )
+
+        if (is(fill, "ScaleDiscrete")) {
+            p <- p + fill
+        }
+
+        if (isTRUE(flip)) {
+            p <- p + coord_flip()
+        }
+
+        if (identical(interestingGroups, "sampleName")) {
+            p <- p + guides(fill = FALSE)
+        }
+
+        p
+    }
+)
