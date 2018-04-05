@@ -53,11 +53,3 @@
 #' @importFrom viridis inferno scale_color_viridis scale_fill_viridis viridis
 #' @importFrom vsn meanSdPlot
 NULL
-
-
-
-globalVariables(".")
-legacyMetricsCols <- c(bcbioBase::metadataPriorityCols, "name", "x53Bias")
-packageVersion <- packageVersion("bcbioRNASeq")
-requiredAssays <- c("raw", "tpm", "length")
-validCallers <- c("salmon", "kallisto", "sailfish")
