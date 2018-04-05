@@ -1,12 +1,26 @@
-# R for travis
+# Travis-CI configuration for Bioconductor packages
 # https://docs.travis-ci.com/user/languages/r
 
 language: r
 cache: packages
-warnings_are_errors: false
+
+r:
+  - bioc-release
+  - bioc-devel
+
+# blocklist
+branches:
+  except:
+  - develop
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_edc1907ba0ad_key -iv $encrypted_edc1907ba0ad_iv -in tests/testthat/token.rds.enc -out tests/testthat/token.rds -d
+
+# r_build_args: "--no-build-vignettes"
+# r_check_args: "--no-vignettes"
+
+# Set true before submission to Bioconductor
+warnings_are_errors: false
 
 # Temporarily enable when caching Bioconductor packages
 # script: true
@@ -15,10 +29,6 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-r:
-  - bioc-release
-  # - bioc-devel
 
 r_packages:
   - covr
