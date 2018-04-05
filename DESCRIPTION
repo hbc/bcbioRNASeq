@@ -101,7 +101,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.4),
+    R (>= 3.5),
     SummarizedExperiment,
     bcbioBase (>= 0.2),
     DESeq2
@@ -145,7 +145,6 @@ Suggests:
     tidyverse
 Remotes:
     hbc/bcbioBase,
-    lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
     DataImport,
