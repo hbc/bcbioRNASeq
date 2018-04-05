@@ -155,7 +155,6 @@ setValidity(
             "sampleMetadataFile" = "character",
             "template" = "character",
             "tx2gene" = "data.frame",
-            "unannotatedRows" = "character",
             "uploadDir" = "character",
             "utilsSessionInfo" = "sessionInfo",
             "version" = "package_version",
