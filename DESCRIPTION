@@ -101,7 +101,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.5),
+    R (>= 3.4),
     SummarizedExperiment,
     bcbioBase (>= 0.2),
     DESeq2
