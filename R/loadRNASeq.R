@@ -283,24 +283,24 @@ loadRNASeq <- function(
         tx2gene = tx2gene
     )
 
-    # abundance: transcripts per million (TPM)
-    # raw: raw counts
-    # length: average transcript length
-    # countsFromAbundance: character describing TPM
+    # TPM/abundance: transcripts per million
     tpm <- txi[["abundance"]]
-    raw <- txi[["counts"]]
-    length <- txi[["length"]]
-    countsFromAbundance <- txi[["countsFromAbundance"]]
-
     assert_is_matrix(tpm)
-    assert_is_matrix(raw)
+    # counts: raw counts
+    counts <- txi[["counts"]]
+    assert_is_matrix(counts)
+        # length: average transcript length
+    length <- txi[["length"]]
     assert_is_matrix(length)
+    # countsFromAbundance: character describing TPM
+    countsFromAbundance <- txi[["countsFromAbundance"]]
     assert_is_character(countsFromAbundance)
 
     # Ensure `colData` matches the colnames in `assays()`
-    colData <- colData[colnames(raw), , drop = FALSE]
+    colData <- colData[colnames(counts), , drop = FALSE]
 
     # Gene-level variance stabilization ========================================
+    normalized <- NULL
     rlog <- NULL
     vst <- NULL
     if (level == "genes") {
@@ -317,6 +317,7 @@ loadRNASeq <- function(
             )
             # Suppress warning about empty design formula
             dds <- suppressWarnings(DESeq(dds))
+            normalized <- counts(dds, normalized = TRUE)
             inform("Applying rlog transformation")
             rlog <- assay(rlog(dds))
             inform("Applying variance stabilizing transformation")
@@ -331,9 +332,10 @@ loadRNASeq <- function(
 
     # Assays ===================================================================
     assays <- list(
-        "raw" = raw,
+        "counts" = counts,
         "tpm" = tpm,
         "length" = length,
+        "normalized" = normalized,
         "rlog" = rlog,
         "vst" = vst
     )
