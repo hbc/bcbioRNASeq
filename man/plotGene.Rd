@@ -3,13 +3,13 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
-\alias{plotGene,RangedSummarizedExperiment-method}
+\alias{plotGene,SummarizedExperiment-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{RangedSummarizedExperiment}(object, genes,
+\S4method{plotGene}{SummarizedExperiment}(object, genes,
   countsAxisLabel = "counts", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
   return = c("grid", "wide", "list", "markdown"))

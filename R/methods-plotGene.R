@@ -159,7 +159,7 @@ NULL
 #' @export
 setMethod(
     "plotGene",
-    signature("RangedSummarizedExperiment"),
+    signature("SummarizedExperiment"),
     function(
         object,
         genes,
