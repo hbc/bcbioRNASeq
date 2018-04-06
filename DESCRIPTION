@@ -103,7 +103,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.2),
+    bcbioBase (>= 0.99),
     DESeq2
 Imports:
     BiocGenerics,
@@ -111,7 +111,7 @@ Imports:
     GenomicFeatures,
     S4Vectors,
     assertive,
-    basejump (>= 0.4),
+    basejump (>= 0.99),
     cowplot,
     dplyr (>= 0.7),
     edgeR,
