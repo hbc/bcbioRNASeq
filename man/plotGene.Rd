@@ -9,10 +9,10 @@
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{SummarizedExperiment}(object, genes,
+\S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
   countsAxisLabel = "counts", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
-  return = c("grid", "wide", "list", "markdown"))
+  return = c("wide", "grid", "list", "markdown"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tpm"),
   ...)
@@ -27,6 +27,9 @@
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{medianLine}{Include median line for each group. Disabled if samples
 are colored by sample name.}
