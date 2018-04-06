@@ -55,14 +55,9 @@ setMethod(
 
         if (is.logical(normalized)) {
             if (identical(normalized, FALSE)) {
-                # Raw counts from tximport (default)
                 counts <- assay(object)
             } else if (identical(normalized, TRUE)) {
-                # DESeq2 normalized counts
-                dds <- as(object, "DESeqDataSet")
-                assert_is_all_of(dds, "DESeqDataSet")
-                validObject(dds)
-                counts <- counts(dds, normalized = TRUE)
+                counts <- assays(object)[["normalized"]]
             }
         } else if (is.character(normalized)) {
             assert_is_a_string(normalized)
