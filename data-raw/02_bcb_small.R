@@ -3,7 +3,9 @@ library(devtools)
 library(tidyverse)
 load_all()
 
-# GSE65267
+
+
+# GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 # HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2
 gse65267 <- loadRNASeq(
@@ -22,17 +24,28 @@ gse65267 <- loadRNASeq(
     organism = "Mus musculus",
     ensemblRelease = 90L
 )
-# Too large to save in the package
 saveData(gse65267, dir = "~")
 
+
+
+# F1000v2 ======================================================================
 # F1000 paper: days 0, 1, 3, 7
+f1000v2 <- selectSamples(
+    object = gse65267,
+    day = c(0L, 1L, 3L, 7L),
+    transform = TRUE
+)
+saveData(f1000v2, dir = "~")
+
+
+
+# bcb_small ====================================================================
 # Minimal working example: days 0, 7
-# Don't need to transform here - will be done after gene selection
-bcb_small <- selectSamples(gse65267, day = c(0L, 7L), transform = FALSE)
-stopifnot(identical(
-    names(assays(bcb_small)),
-    c("raw", "tpm", "length")
-))
+bcb_small <- selectSamples(
+    object = gse65267,
+    day = c(0L, 7L),
+    transform = FALSE
+)
 
 # Minimize metadata slots that take up disk space
 metadata(bcb_small)[["bcbioCommandsLog"]] <- character()
@@ -58,10 +71,6 @@ genes <- c(dimorphic, abundance) %>%
     head(500L) %>%
     sort()
 bcb_small <- bcb_small[genes, , transform = TRUE]
-stopifnot(identical(
-    names(assays(bcb_small)),
-    c("raw", "tpm", "length", "rlog", "vst")
-))
 
 # Update the interesting groups and design formula
 interestingGroups(bcb_small) <- "treatment"
