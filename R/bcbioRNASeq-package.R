@@ -14,7 +14,7 @@
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom S4Vectors head mcols metadata na.omit
+#' @importFrom S4Vectors as.data.frame head mcols metadata na.omit
 #' @importFrom SummarizedExperiment assay assayNames assays assays<- colData
 #'   colData<- rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
