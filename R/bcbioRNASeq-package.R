@@ -6,17 +6,15 @@
 #' @name bcbioRNASeq-package
 #' @keywords internal
 #'
-#' @import S4Vectors methods
-#'
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
-#'
-#' @importFrom BiocGenerics density design
+#' @importFrom BiocGenerics colSums density design
 #' @importFrom DEGreport degCovariates
 #' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
+#' @importFrom S4Vectors head mcols metadata na.omit
 #' @importFrom SummarizedExperiment assay assayNames assays assays<- colData
 #'   colData<- rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
@@ -41,6 +39,7 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
+#' @importFrom methods .hasSlot as is new show slot validObject
 #' @importFrom parallel mcmapply
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
