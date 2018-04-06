@@ -1,3 +1,8 @@
+# FIXME Rename colData to sampleData
+# TODO Switch to DelayedArray approach here using `apply()`
+
+
+
 #' Plot Individual Genes
 #'
 #' @name plotGene
@@ -7,8 +12,8 @@
 #' @importFrom bcbioBase plotGene
 #'
 #' @inheritParams general
-#' @param medianLine Include median line for each group. Disabled when samples
-#'   are grouped by `sampleName`.
+#' @param medianLine Include median line for each group. Disabled if samples
+#'   are colored by sample name.
 #'
 #' @return
 #' - "`grid`": Show [cowplot::plot_grid()], paneled per gene.
@@ -36,128 +41,31 @@ NULL
 
 
 # Constructors =================================================================
-.plotGene.matrix <- function(  # nolint
-    object,
-    genes,
-    gene2symbol = NULL,
-    colData,
-    interestingGroups = "sampleName",
-    countsAxisLabel = "counts",
-    medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE),
-    headerLevel = 2L,
-    return = c("grid", "wide", "list", "markdown")
-) {
-    assert_is_matrix(object)
-    assert_has_dimnames(object)
-    assert_is_character(genes)
-    assert_is_subset(genes, rownames(object))
-    object <- object[genes, , drop = FALSE]
-    assertFormalGene2symbol(object, genes, gene2symbol)
-    assertFormalAnnotationCol(object, colData)
-    assertFormalInterestingGroups(colData, interestingGroups)
-    assert_is_a_string(countsAxisLabel)
-    assert_is_a_bool(medianLine)
-    assertIsColorScaleDiscreteOrNULL(color)
-    assertIsAHeaderLevel(headerLevel)
-    return <- match.arg(return)
-
-    # Add `interestingGroups` column to colData
-    colData <- uniteInterestingGroups(colData, interestingGroups)
-
-    if (return != "wide") {
-        plotlist <- .plotGeneList(
-            object = object,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            colData = colData,
-            interestingGroups = interestingGroups,
-            countsAxisLabel = countsAxisLabel,
-            medianLine = medianLine,
-            color = color
-        )
-    }
-
-    if (return == "grid") {
-        if (length(plotlist) > 1L) {
-            labels <- "AUTO"
-        } else {
-            labels <- NULL
-        }
-        plot_grid(plotlist = plotlist, labels = labels)
-    } else if (return == "wide") {
-        .plotGeneWide(
-            object = object,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            colData = colData,
-            interestingGroups = interestingGroups,
-            countsAxisLabel = countsAxisLabel,
-            medianLine = medianLine,
-            color = color
-        )
-    } else if (return == "list") {
-        plotlist
-    } else if (return == "markdown") {
-        markdownPlotlist(plotlist, headerLevel = headerLevel)
-    }
-}
-
-
-
 .plotGeneList <- function(
     object,
-    genes,
-    gene2symbol = NULL,
-    colData,
-    interestingGroups = "sampleName",
-    countsAxisLabel = "log2 counts",
-    medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE)
+    countsAxisLabel,
+    medianLine,
+    color
 ) {
-    assert_is_subset(genes, rownames(object))
-    object <- object[genes, , drop = FALSE]
-
-    # Gene to symbol mappings
-    if (is.data.frame(gene2symbol)) {
-        assert_is_subset(genes, gene2symbol[["geneID"]])
-        match <- match(x = genes, table = gene2symbol[["geneID"]])
-        symbols <- gene2symbol[match, "geneName", drop = TRUE]
-        rownames(object) <- symbols
-        genes <- symbols
-    }
-
-    mcmapply(
-        gene = genes,
-        MoreArgs = list(
-            object = object,
-            colData = colData,
-            interestingGroups = interestingGroups,
-            countsAxisLabel = countsAxisLabel,
-            medianLine = medianLine,
-            color = color
-        ),
-        FUN = function(
-            object,
-            gene,
-            colData,
-            interestingGroups,
-            countsAxisLabel,
-            medianLine,
-            color
-        ) {
+    stopifnot(is(object, "SummarizedExperiment"))
+    genes <- rownames(object)
+    object <- convertGenesToSymbols(object)
+    counts <- assay(object)
+    sampleData <- sampleData(object)
+    interestingGroups <- interestingGroups(object)
+    list <- mclapply(
+        X = rownames(object),
+        FUN = function(gene) {
             data <- tibble(
-                x = colData[["interestingGroups"]],
-                y = object[gene, , drop = TRUE],
-                interestingGroups = colData[["interestingGroups"]]
+                x = sampleData[["interestingGroups"]],
+                y = counts[gene, , drop = TRUE]
             )
-
             p <- ggplot(
                 data = data,
                 mapping = aes_string(
                     x = "x",
                     y = "y",
-                    color = "interestingGroups"
+                    color = "x"
                 )
             ) +
                 genePoint() +
@@ -183,35 +91,27 @@ NULL
             }
 
             p
-        },
-        SIMPLIFY = FALSE,
-        USE.NAMES = TRUE
+        }
     )
+    names(list) <- genes
+    list
 }
 
 
 
 .plotGeneWide <- function(
     object,
-    genes,
-    gene2symbol = NULL,
-    colData,
-    interestingGroups = "sampleName",
-    countsAxisLabel = "log2 counts",
-    medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE),
-    title = NULL
+    countsAxisLabel,
+    medianLine,
+    color
 ) {
-    # Gene to symbol mappings
-    if (is.data.frame(gene2symbol)) {
-        assert_is_subset(genes, gene2symbol[["geneID"]])
-        match <- match(x = genes, table = gene2symbol[["geneID"]])
-        symbols <- gene2symbol[match, "geneName", drop = TRUE]
-        rownames(object) <- symbols
-    }
+    stopifnot(is(object, "SummarizedExperiment"))
+    object <- convertGenesToSymbols(object)
+    sampleData <- sampleData(object)
+    interestingGroups <- interestingGroups(object)
 
     # Melt counts into long format
-    data <- object %>%
+    data <- assay(object) %>%
         as.data.frame() %>%
         rownames_to_column() %>%
         melt(id = 1L) %>%
@@ -219,7 +119,7 @@ NULL
         set_colnames(c("gene", "sampleID", "counts")) %>%
         arrange(!!!syms(c("gene", "sampleID"))) %>%
         group_by(!!sym("gene")) %>%
-        left_join(as.data.frame(colData), by = "sampleID")
+        left_join(as.data.frame(sampleData), by = "sampleID")
 
     p <- ggplot(
         data = data,
@@ -232,7 +132,6 @@ NULL
         genePoint() +
         theme(axis.text.x = element_text(angle = 90L, hjust = 1L)) +
         labs(
-            title = title,
             x = NULL,
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
@@ -260,39 +159,87 @@ NULL
 #' @export
 setMethod(
     "plotGene",
-    signature("bcbioRNASeq"),
+    signature("RangedSummarizedExperiment"),
     function(
         object,
         genes,
-        normalized = c("rlog", "vst", "tpm"),
-        interestingGroups,
+        countsAxisLabel = "counts",
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
         headerLevel = 2L,
         return = c("grid", "wide", "list", "markdown")
     ) {
-        # Passthrough: genes, medianLine, color, headerLevel, return
+        validObject(object)
+        assert_is_a_bool(medianLine)
+        assertIsColorScaleDiscreteOrNULL(color)
+        assertIsAHeaderLevel(headerLevel)
+        return <- match.arg(return)
+
+        rse <- as(object, "RangedSummarizedExperiment")
+        rse <- rse[genes, , drop = FALSE]
+
+        # Obtain ggplot objects per gene
+        if (return != "wide") {
+            plotlist <- .plotGeneList(
+                object = rse,
+                countsAxisLabel = countsAxisLabel,
+                medianLine = medianLine,
+                color = color
+            )
+        }
+
+        if (return == "wide") {
+            .plotGeneWide(
+                object = rse,
+                countsAxisLabel = countsAxisLabel,
+                medianLine = medianLine,
+                color = color
+            )
+        } else if (return == "grid") {
+            if (length(plotlist) > 1L) {
+                labels <- "AUTO"
+            } else {
+                labels <- NULL
+            }
+            plot_grid(plotlist = plotlist, labels = labels)
+        } else if (return == "list") {
+            plotlist
+        } else if (return == "markdown") {
+            markdownPlotlist(plotlist, headerLevel = headerLevel)
+        }
+    }
+)
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    "plotGene",
+    signature("bcbioRNASeq"),
+    function(
+        object,
+        normalized = c("rlog", "vst", "tpm"),
+        ...
+    ) {
         validObject(object)
         normalized <- match.arg(normalized)
-        if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
-        }
+
         counts <- counts(object, normalized = normalized)
         # Ensure counts are log2 scale
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
-        .plotGene.matrix(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol(object),
-            colData = colData(object),
-            interestingGroups = interestingGroups,
-            countsAxisLabel = paste(normalized, "counts (log2)"),
-            medianLine = medianLine,
-            color = color,
-            return = return,
-            headerLevel = headerLevel
+        countsAxisLabel <- paste(normalized, "counts (log2)")
+
+        # Coerce to RangedSummarizedExperiment and subset the genes
+        rse <- as(object, "RangedSummarizedExperiment")
+        assay(rse) <- counts
+
+        # RangedSummarizedExperiment
+        plotGene(
+            object = rse,
+            countsAxisLabel = countsAxisLabel,
+            ...
         )
     }
 )
@@ -304,33 +251,19 @@ setMethod(
 setMethod(
     "plotGene",
     signature("DESeqDataSet"),
-    function(
-        object,
-        genes,
-        gene2symbol = NULL,
-        interestingGroups = "sampleName",
-        medianLine = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
-        headerLevel = 2L,
-        return = c("grid", "wide", "list", "markdown")
-    ) {
-        # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
-        # return
+    function(object, ...) {
         validObject(object)
+
+        # Ensure counts are log2 scale
         counts <- log2(counts(object, normalized = TRUE) + 1L)
-        colData <- colData(object)
-        colData[["sizeFactor"]] <- NULL
-        .plotGene.matrix(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            colData = colData,
-            interestingGroups = interestingGroups,
+        rse <- as(object, "RangedSummarizedExperiment")
+        assay(rse) <- counts
+
+        # RangedSummarizedExperiment
+        plotGene(
+            object = rse,
             countsAxisLabel = "normalized counts (log2)",
-            medianLine = medianLine,
-            color = color,
-            return = return,
-            headerLevel = headerLevel
+            ...
         )
     }
 )
@@ -342,38 +275,19 @@ setMethod(
 setMethod(
     "plotGene",
     signature("DESeqTransform"),
-    function(
-        object,
-        genes,
-        gene2symbol = NULL,
-        interestingGroups = "sampleName",
-        medianLine = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
-        headerLevel = 2L,
-        return = c("grid", "wide", "list", "markdown")
-    ) {
-        # Passthrough: genes, gene2symbol, medianLine, color, headerLevel,
-        # return
+    function(object, ...) {
         validObject(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             normalized <- "rlog"
         } else {
             normalized <- "vst"
         }
-        counts <- assay(object)
-        colData <- colData(object)
-        colData[["sizeFactor"]] <- NULL
-        .plotGene.matrix(
-            object = counts,
-            genes = genes,
-            gene2symbol = gene2symbol,
-            colData = colData,
-            interestingGroups = interestingGroups,
-            countsAxisLabel = paste(normalized, "counts (log2)"),
-            medianLine = medianLine,
-            color = color,
-            return = return,
-            headerLevel = headerLevel
+        countsAxisLabel <- paste(normalized, "counts (log2)")
+        rse <- as(object, "RangedSummarizedExperiment")
+        plotGene(
+            object = rse,
+            countsAxisLabel = countsAxisLabel,
+            ...
         )
     }
 )
