@@ -1,5 +1,5 @@
 # FIXME Rename colData to sampleData
-# TODO Switch to DelayedArray approach here using `apply()`
+
 
 
 
@@ -53,6 +53,7 @@ NULL
     counts <- assay(object)
     sampleData <- sampleData(object)
     interestingGroups <- interestingGroups(object)
+    # TODO Switch to DelayedArray approach here using `apply()`
     list <- mclapply(
         X = rownames(object),
         FUN = function(gene) {
@@ -163,17 +164,22 @@ setMethod(
     function(
         object,
         genes,
+        interestingGroups,
         countsAxisLabel = "counts",
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
         headerLevel = 2L,
-        return = c("grid", "wide", "list", "markdown")
+        return = c("wide", "grid", "list", "markdown")
     ) {
         validObject(object)
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAHeaderLevel(headerLevel)
         return <- match.arg(return)
+
+        if (!missing(interestingGroups)) {
+            interestingGroups(object) <- interestingGroups
+        }
 
         rse <- as(object, "RangedSummarizedExperiment")
         rse <- rse[genes, , drop = FALSE]
