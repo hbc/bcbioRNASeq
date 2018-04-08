@@ -90,18 +90,22 @@ run directory as a remote connection over
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-loadRNASeq(
+x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "genes",
-    organism = "Mus musculus"
+    organism = "Mus musculus",
+    ensemblRelease = 87L
 )
+show(x)
 
 # Transcript level
-loadRNASeq(
+x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "transcripts",
-    organism = "Mus musculus"
+    organism = "Mus musculus",
+    ensemblRelease = 87L
 )
+show(x)
 }
 \seealso{
 \code{help("bcbioRNASeq-class", "bcbioRNASeq")}.
