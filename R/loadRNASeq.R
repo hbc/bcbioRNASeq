@@ -67,18 +67,22 @@
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' loadRNASeq(
+#' x <- loadRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "genes",
-#'     organism = "Mus musculus"
+#'     organism = "Mus musculus",
+#'     ensemblRelease = 87L
 #' )
+#' show(x)
 #'
 #' # Transcript level
-#' loadRNASeq(
+#' x <- loadRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",
-#'     organism = "Mus musculus"
+#'     organism = "Mus musculus",
+#'     ensemblRelease = 87L
 #' )
+#' show(x)
 loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
