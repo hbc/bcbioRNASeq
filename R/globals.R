@@ -1,5 +1,5 @@
 globalVariables(".")
 legacyMetricsCols <- c(bcbioBase::metadataPriorityCols, "name", "x53Bias")
 packageVersion <- packageVersion("bcbioRNASeq")
-requiredAssays <- c("counts", "tpm", "length", "normalized")
+requiredAssays <- c("counts", "tpm", "length")
 validCallers <- c("salmon", "kallisto", "sailfish")

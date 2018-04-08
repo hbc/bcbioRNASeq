@@ -72,6 +72,11 @@ setValidity(
             ))
         }
 
+        # Gene-level specific
+        if (metadata(object)[["level"]] == "genes") {
+            assert_is_subset("normalized", names(assays(object)))
+        }
+
         # Row data =============================================================
         assert_is_all_of(rowRanges(object), "GRanges")
         assert_is_all_of(rowData(object), "DataFrame")
