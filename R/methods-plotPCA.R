@@ -119,14 +119,14 @@ setMethod(
         call <- match.call()
         # censorSamples
         if ("censorSamples" %in% names(call)) {
-            warn("`censorSamples` is deprecated in favor of `samples`")
+            warning("`censorSamples` is deprecated in favor of `samples`")
             censorSamples <- call[["censorSamples"]]
             assert_is_subset(censorSamples, colnames(object))
             samples <- setdiff(colnames(object), censorSamples)
         }
         # returnData
         if ("returnData" %in% names(call)) {
-            warn("`returnData` is deprecated in favor of `return`")
+            warning("`returnData` is deprecated in favor of `return`")
             returnData <- call[["returnData"]]
             if (isTRUE(returnData)) {
                 return <- "data.frame"
@@ -165,13 +165,13 @@ setMethod(
             counts <- counts[genes, , drop = FALSE]
             # Set ntop to the number of genes requested
             ntop <- length(genes)
-            inform(paste(
+            message(paste(
                 "Plotting PCA using", ntop, "genes"
             ))
         } else {
             # Recommended DESeq default of most variable genes
             ntop <- 500L
-            inform(paste(
+            message(paste(
                 "Plotting PCA using top", ntop, "most variable genes"
             ))
         }

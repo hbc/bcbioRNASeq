@@ -62,7 +62,7 @@ setValidity(
             USE.NAMES = TRUE
         )
         if (!all(assayCheck)) {
-            abort(paste(
+            stop(paste(
                 paste(
                     "Assays that are not matrix:",
                     toString(names(assayCheck[!assayCheck]))
@@ -95,7 +95,7 @@ setValidity(
             USE.NAMES = TRUE
         )
         if (!all(colDataCheck)) {
-            abort(paste(
+            stop(paste(
                 paste(
                     "Non-factor colData columns:",
                     toString(names(colDataCheck[!colDataCheck]))
@@ -120,7 +120,7 @@ setValidity(
         )
         intersect <- intersect(names(metadata), legacyMetadata)
         if (length(intersect)) {
-            abort(paste(
+            stop(paste(
                 paste(
                     "Legacy metadata slots:",
                     toString(sort(intersect))
@@ -173,7 +173,7 @@ setValidity(
                 actual <- class(metadata[[name]])
                 expected <- requiredMetadata[[a]]
                 if (!length(intersect(expected, actual))) {
-                    warn(paste(
+                    warning(paste(
                         name, "is not", toString(expected)
                     ))
                     FALSE
@@ -185,7 +185,7 @@ setValidity(
             USE.NAMES = FALSE
         ))
         if (!all(classChecks)) {
-            abort(paste(
+            stop(paste(
                 "Metadata class checks failed.",
                 bcbioBase::updateMessage,
                 sep = "\n"

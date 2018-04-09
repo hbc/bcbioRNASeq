@@ -50,7 +50,7 @@ setMethod(
 
         # Abort on empty design formula
         if (design(object) == ~ 1) {  # nolint
-            warn("Empty design formula detected")
+            warning("Empty design formula detected")
         }
 
         # Generate an automatic caption

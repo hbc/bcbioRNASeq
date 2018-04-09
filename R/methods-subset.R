@@ -88,7 +88,7 @@ setMethod(
         # Assays ===============================================================
         assays <- assays(rse)
         if (isTRUE(transform)) {
-            inform(paste(
+            message(paste(
                 "Calculating variance stabilizations using DESeq2",
                 packageVersion("DESeq2")
             ))
@@ -102,12 +102,12 @@ setMethod(
             # Suppress warning about empty design formula
             dds <- suppressWarnings(DESeq(dds))
             validObject(dds)
-            inform("Applying rlog transformation")
+            message("Applying rlog transformation")
             assays[["rlog"]] <- assay(rlog(dds))
-            inform("Applying variance stabilizing transformation")
+            message("Applying variance stabilizing transformation")
             assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
         } else {
-            inform("Skipping DESeq2 transformations")
+            message("Skipping DESeq2 transformations")
             # Ensure existing transformations get dropped
             assays[["vst"]] <- NULL
             assays[["rlog"]] <- NULL

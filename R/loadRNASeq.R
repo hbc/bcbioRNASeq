@@ -104,17 +104,17 @@ loadRNASeq <- function(
     call <- match.call(expand.dots = TRUE)
     # annotable
     if ("annotable" %in% names(call)) {
-        abort("`annotable` is defunct. Consider using `gffFile` instead.")
+        stop("`annotable` is defunct. Consider using `gffFile` instead.")
     }
     # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
-        warn("Use `ensemblRelease` instead of `ensemblVersion`")
+        warning("Use `ensemblRelease` instead of `ensemblVersion`")
         ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
     # organism missing
     if (!"organism" %in% names(call)) {
-        abort("`organism` is now required")
+        stop("`organism` is now required")
     }
     dots <- Filter(Negate(is.null), dots)
 
@@ -144,7 +144,7 @@ loadRNASeq <- function(
         recursive = FALSE
     )
     assert_is_a_string(projectDir)
-    inform(projectDir)
+    message(projectDir)
     match <- str_match(projectDir, bcbioBase::projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
@@ -159,7 +159,7 @@ loadRNASeq <- function(
             .[, 2L] %>%
             unique() %>%
             length()
-        inform(paste(
+        message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"
         ))
     } else {
@@ -195,7 +195,7 @@ loadRNASeq <- function(
     samples <- as.character(colData[["sampleID"]])
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
-        inform(paste(
+        message(paste(
             "Loading a subset of samples:",
             str_trunc(toString(samples), width = 80L),
             sep = "\n"
@@ -231,7 +231,7 @@ loadRNASeq <- function(
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    inform("Reading sample metrics")
+    message("Reading sample metrics")
     metrics <- sampleYAMLMetrics(yaml)
     assert_is_data.frame(metrics)
 
@@ -273,7 +273,7 @@ loadRNASeq <- function(
         # Fall back to using GFF, if declared
         tx2gene <- makeTx2geneFromGFF(gffFile)
     } else {
-        abort(paste(
+        stop(paste(
             "tx2gene assignment failure.",
             "tx2gene.csv or GFF file are required."
         ))
@@ -309,7 +309,7 @@ loadRNASeq <- function(
     vst <- NULL
     if (level == "genes") {
         if (nrow(colData) <= transformationLimit) {
-            inform(paste(
+            message(paste(
                 "Calculating variance stabilizations using DESeq2",
                 packageVersion("DESeq2")
             ))
@@ -322,12 +322,12 @@ loadRNASeq <- function(
             # Suppress warning about empty design formula
             dds <- suppressWarnings(DESeq(dds))
             normalized <- counts(dds, normalized = TRUE)
-            inform("Applying rlog transformation")
+            message("Applying rlog transformation")
             rlog <- assay(rlog(dds))
-            inform("Applying variance stabilizing transformation")
+            message("Applying variance stabilizing transformation")
             vst <- assay(varianceStabilizingTransformation(dds))
         } else {
-            warn(paste(
+            warning(paste(
                 "Dataset contains many samples.",
                 "Skipping variance stabilizing transformations."
             ))

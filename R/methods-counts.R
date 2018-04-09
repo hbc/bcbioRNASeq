@@ -74,12 +74,12 @@ setMethod(
             }
             if (!is.matrix(counts)) {
                 # Support for skipped DESeq2 transforms: log2 TMM
-                warn(paste(
+                warning(paste(
                     normalized, "not present in assays.",
                     "Calculating log2 TMM counts instead."
                 ))
                 counts <- tmm(assay(object))
-                inform("Applying log2 transformation to TMM values")
+                message("Applying log2 transformation to TMM values")
                 counts <- log2(counts + 1L)
             }
         }

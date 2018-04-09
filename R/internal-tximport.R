@@ -59,7 +59,7 @@
     names(files) <- names(sampleDirs)
 
     # Begin loading of selected counts
-    inform(paste("Reading", type, "counts using tximport"))
+    message(paste("Reading", type, "counts using tximport"))
 
     tximport(
         files = files,

@@ -59,7 +59,7 @@ setMethod(
     "tmm",
     signature("matrix"),
     function(object) {
-        inform("Applying trimmed mean of M-values (TMM) normalization")
+        message("Applying trimmed mean of M-values (TMM) normalization")
         object %>%
             DGEList() %>%
             calcNormFactors() %>%

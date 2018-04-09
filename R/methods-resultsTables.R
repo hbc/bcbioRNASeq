@@ -129,7 +129,7 @@ setMethod(
         call <- match.call(expand.dots = TRUE)
         # annotable
         if ("annotable" %in% names(call)) {
-            warn("Use `rowData` instead of `annotable`")
+            warning("Use `rowData` instead of `annotable`")
             rowData <- call[["annotable"]]
         }
 
