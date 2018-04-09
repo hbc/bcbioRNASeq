@@ -5,7 +5,7 @@
 #' @keywords internal
 #'
 #' @examples
-#' # bcbioSingleCell ====
+#' # bcbioRNASeq ====
 #' metadata(bcb_small)[["stash"]] <- "test"
 #' metadata(bcb_small)[["stash"]]
 NULL
