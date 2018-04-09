@@ -5,6 +5,7 @@
 \alias{as}
 \alias{coerce-bcbioRNASeq-DESeqDataSet}
 \alias{coerce-bcbioRNASeq-list}
+\alias{coerce-bcbioRNASeq-SummarizedExperiment}
 \title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
