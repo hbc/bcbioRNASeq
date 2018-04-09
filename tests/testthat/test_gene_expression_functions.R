@@ -51,12 +51,12 @@ test_that("Markdown return", {
 })
 
 test_that("DESeqDataSet", {
-    p <- plotGene(dds_small, genes = genes, gene2symbol = gene2symbol)
+    p <- plotGene(dds_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
 test_that("DESeqTransform", {
-    p <- plotGene(rld_small, genes = genes, gene2symbol = gene2symbol)
+    p <- plotGene(rld_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
