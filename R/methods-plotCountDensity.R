@@ -62,8 +62,7 @@ setMethod(
         }
 
         # Melt the counts into long format
-        data <- fxn(counts, colData = colData(object)) %>%
-            uniteInterestingGroups(interestingGroups)
+        data <- fxn(counts, sampleData = sampleData(object))
 
         # Subtitle
         if (is_a_string(title)) {
