@@ -4,22 +4,18 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @inheritParams general
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts (`tmm`).
-#'
 #' @seealso [reshape2::melt()].
 #'
-#' @return Melted `grouped_df`, grouped by `sampleID`.
+#' @return Melted `grouped_df`, grouped by `sampleID` and `geneID`.
 #'
 #' @examples
 #' counts <- counts(bcb_small)
 #' sampleData <- sampleData(bcb_small)
-#' .meltCounts(counts, sampleData)
-.meltCounts <- function(object, sampleData = NULL) {
-    assert_is_matrix(object)
+#' x <- .meltCounts(counts, sampleData)
+.meltCounts <- function(counts, sampleData = NULL) {
+    assert_is_matrix(counts)
 
-    data <- object %>%
+    data <- counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
         melt(id = 1L) %>%
@@ -31,7 +27,7 @@
     if (!is.null(sampleData)) {
         assert_has_dims(sampleData)
         assert_are_identical(
-            colnames(object),
+            colnames(counts),
             as.character(sampleData[["sampleID"]])
         )
         data <- left_join(
@@ -46,8 +42,8 @@
 
 
 
-.meltLog2Counts <- function(object, ...) {
-    x <- .meltCounts(object, ...)
+.meltLog2Counts <- function(counts, ...) {
+    x <- .meltCounts(counts, ...)
     x[["counts"]] <- log2(x[["counts"]] + 1L)
     x
 }
