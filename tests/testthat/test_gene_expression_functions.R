@@ -30,10 +30,10 @@ test_that("bcbioRNASeq", {
 })
 
 test_that("List return", {
-    list <- plotGene(bcb_small, genes = genes, return = "list")
-    expect_is(list, "list")
+    x <- plotGene(bcb_small, genes = genes, return = "list")
+    expect_is(x, "list")
     expect_true(
-        lapply(list, function(x) is(x, "ggplot")) %>%
+        lapply(x, function(x) is(x, "ggplot")) %>%
             unlist() %>%
             all()
     )

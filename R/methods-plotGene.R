@@ -57,8 +57,8 @@ NULL
     # TODO Switch to DelayedArray approach here instead?
     list <- mclapply(
         X = rownames(object),
-        FUN = function(x) {
-            data <- data[data[["geneID"]] == x, , drop = FALSE]
+        FUN = function(geneID) {
+            data <- data[data[["geneID"]] == geneID, , drop = FALSE]
             p <- ggplot(
                 data = data,
                 mapping = aes_string(
@@ -79,7 +79,6 @@ NULL
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
-                # expand_limits(y = 0L) +
                 theme(legend.position = "none")
 
             if (
@@ -272,7 +271,7 @@ setMethod(
             plot_grid(plotlist = plotlist, labels = labels)
         } else if (return == "markdown") {
             markdownPlotlist(plotlist, headerLevel = headerLevel)
-        } else if (return == "list") {
+        } else {
             plotlist
         }
     }

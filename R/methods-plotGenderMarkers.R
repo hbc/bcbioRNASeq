@@ -39,7 +39,7 @@ setMethod(
         # Load the relevant internal gender markers data
         organism <- metadata(object)[["organism"]]
         if (!is_a_string(organism)) {
-            organism <- detectOrganism(counts)
+            organism <- detectOrganism(assay(object))
         }
         markers <- bcbioRNASeq::genderMarkers
         assert_is_subset(camel(organism), names(markers))
