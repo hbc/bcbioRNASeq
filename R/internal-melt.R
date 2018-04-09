@@ -43,7 +43,6 @@
 
 
 .meltLog2Counts <- function(counts, ...) {
-    x <- .meltCounts(counts, ...)
-    x[["counts"]] <- log2(x[["counts"]] + 1L)
-    x
+    counts <- log2(counts + 1L)
+    .meltCounts(counts, ...)
 }
