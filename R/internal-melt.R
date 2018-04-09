@@ -37,6 +37,10 @@
         )
     }
 
+    if (!"interestingGroups" %in% colnames(data)) {
+        data[["interestingGroups"]] <- data[["sampleID"]]
+    }
+
     data
 }
 
