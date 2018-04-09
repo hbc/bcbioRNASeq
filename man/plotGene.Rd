@@ -12,7 +12,7 @@
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
   countsAxisLabel = "counts", medianLine = TRUE,
   color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
-  return = c("wide", "grid", "list", "markdown"))
+  return = c("facet", "wide", "grid", "markdown", "list"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tpm"),
   ...)

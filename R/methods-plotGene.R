@@ -1,8 +1,3 @@
-# FIXME Rename colData to sampleData
-
-
-
-
 #' Plot Individual Genes
 #'
 #' @name plotGene
@@ -43,36 +38,43 @@ NULL
 # Constructors =================================================================
 .plotGeneList <- function(
     object,
-    countsAxisLabel,
-    medianLine,
-    color
+    countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE)
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
-    genes <- rownames(object)
+    stopifnot(length(rownames(object)) <= 50L)
+
     object <- convertGenesToSymbols(object)
-    counts <- assay(object)
     sampleData <- sampleData(object)
     interestingGroups <- interestingGroups(object)
-    # TODO Switch to DelayedArray approach here using `apply()`
+
+    data <- .meltCounts(
+        counts = assay(object),
+        sampleData = sampleData(bcb_small)
+    )
+
+    # TODO Switch to DelayedArray approach here instead?
     list <- mclapply(
         X = rownames(object),
-        FUN = function(gene) {
-            data <- tibble(
-                x = sampleData[["interestingGroups"]],
-                y = counts[gene, , drop = TRUE]
-            )
+        FUN = function(x) {
+            data <- data[data[["geneID"]] == x, , drop = FALSE]
             p <- ggplot(
                 data = data,
                 mapping = aes_string(
-                    x = "x",
-                    y = "y",
-                    color = "x"
+                    x = "geneID",
+                    y = "counts",
+                    color = "interestingGroups"
                 )
             ) +
                 genePoint() +
-                theme(axis.text.x = element_text(angle = 90L)) +
+                theme(
+                    axis.text.x = element_text(
+                        angle = 90L, hjust = 1L, vjust = 0.5
+                    )
+                ) +
                 labs(
-                    title = gene,
+                    title = geneID,
                     x = NULL,
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
@@ -94,44 +96,97 @@ NULL
             p
         }
     )
-    names(list) <- genes
+    names(list) <- rownames(object)
     list
+}
+
+
+
+.plotGeneFacet <- function(
+    object,
+    countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE)
+) {
+    stopifnot(is(object, "SummarizedExperiment"))
+    stopifnot(length(rownames(object)) <= 50L)
+
+    object <- convertGenesToSymbols(object)
+    sampleData <- sampleData(object)
+    interestingGroups <- interestingGroups(object)
+
+    data <- .meltCounts(
+        counts = assay(object),
+        sampleData = sampleData(bcb_small)
+    )
+
+    p <- ggplot(
+        data = data,
+        mapping = aes_string(
+            x = "interestingGroups",
+            y = "counts",
+            color = "interestingGroups"
+        )
+    ) +
+        genePoint() +
+        theme(
+            axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
+        ) +
+        facet_wrap(facets = "geneID", scales = "free") +
+        labs(
+            x = NULL,
+            y = countsAxisLabel,
+            color = paste(interestingGroups, collapse = ":\n")
+        )
+
+    if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
+        p <- p + geneMedianLine
+    }
+
+    if (is(color, "ScaleDiscrete")) {
+        p <- p + color
+    }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(color = FALSE)
+    }
+
+    p
+
 }
 
 
 
 .plotGeneWide <- function(
     object,
-    countsAxisLabel,
-    medianLine,
-    color
+    countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_viridis(discrete = TRUE)
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
+    stopifnot(length(rownames(object)) <= 50L)
+
     object <- convertGenesToSymbols(object)
     sampleData <- sampleData(object)
     interestingGroups <- interestingGroups(object)
 
-    # Melt counts into long format
-    data <- assay(object) %>%
-        as.data.frame() %>%
-        rownames_to_column() %>%
-        melt(id = 1L) %>%
-        as_tibble() %>%
-        set_colnames(c("gene", "sampleID", "counts")) %>%
-        arrange(!!!syms(c("gene", "sampleID"))) %>%
-        group_by(!!sym("gene")) %>%
-        left_join(as.data.frame(sampleData), by = "sampleID")
+    data <- .meltCounts(
+        counts = assay(object),
+        sampleData = sampleData(bcb_small)
+    )
 
     p <- ggplot(
         data = data,
         mapping = aes_string(
-            x = "gene",
+            x = "geneID",
             y = "counts",
             color = "interestingGroups"
         )
     ) +
         genePoint() +
-        theme(axis.text.x = element_text(angle = 90L, hjust = 1L)) +
+        theme(
+            axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
+        ) +
         labs(
             x = NULL,
             y = countsAxisLabel,
@@ -169,7 +224,7 @@ setMethod(
         medianLine = TRUE,
         color = scale_color_viridis(discrete = TRUE),
         headerLevel = 2L,
-        return = c("wide", "grid", "list", "markdown")
+        return = c("facet", "wide", "grid", "markdown", "list")
     ) {
         validObject(object)
         assert_is_a_bool(medianLine)
@@ -185,7 +240,7 @@ setMethod(
         rse <- rse[genes, , drop = FALSE]
 
         # Obtain ggplot objects per gene
-        if (return != "wide") {
+        if (return %in% c("grid", "list", "markdown")) {
             plotlist <- .plotGeneList(
                 object = rse,
                 countsAxisLabel = countsAxisLabel,
@@ -194,7 +249,14 @@ setMethod(
             )
         }
 
-        if (return == "wide") {
+        if (return == "facet") {
+            .plotGeneFacet(
+                object = rse,
+                countsAxisLabel = countsAxisLabel,
+                medianLine = medianLine,
+                color = color
+            )
+        } else if (return == "wide") {
             .plotGeneWide(
                 object = rse,
                 countsAxisLabel = countsAxisLabel,
@@ -208,13 +270,14 @@ setMethod(
                 labels <- NULL
             }
             plot_grid(plotlist = plotlist, labels = labels)
-        } else if (return == "list") {
-            plotlist
         } else if (return == "markdown") {
             markdownPlotlist(plotlist, headerLevel = headerLevel)
+        } else if (return == "list") {
+            plotlist
         }
     }
 )
+
 
 
 #' @rdname plotGene
