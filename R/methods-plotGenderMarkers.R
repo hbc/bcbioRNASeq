@@ -50,6 +50,7 @@ setMethod(
         yGenes <- markers %>%
             .[.[["chromosome"]] == "Y", "geneID", drop = TRUE]
 
+        rse <- as(object, "RangedSummarizedExperiment")
         xPlot <- plotGene(
             object = rse,
             genes = xGenes,
