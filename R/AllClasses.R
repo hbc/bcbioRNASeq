@@ -159,25 +159,23 @@ setValidity(
             "wd" = "character",
             "yaml" = "list"
         )
-        classChecks <- invisible(vapply(
-            X = seq_along(requiredMetadata),
-            FUN = function(a) {
-                name <- names(requiredMetadata)[[a]]
+        classChecks <- invisible(mapply(
+            name <- names(requiredMetadata),
+            expected <- requiredMetadata,
+            MoreArgs = list(metadata = metadata),
+            FUN = function(name, expected, metadata) {
                 actual <- class(metadata[[name]])
-                expected <- requiredMetadata[[a]]
                 if (!length(intersect(expected, actual))) {
-                    warning(paste(
-                        name, "is not", toString(expected)
-                    ))
                     FALSE
                 } else {
                     TRUE
                 }
             },
-            FUN.VALUE = logical(1L),
-            USE.NAMES = FALSE
+            SIMPLIFY = TRUE,
+            USE.NAMES = TRUE
         ))
         if (!all(classChecks)) {
+            print(classChecks)
             stop(paste(
                 "Metadata class checks failed.",
                 bcbioBase::updateMessage,
