@@ -14,14 +14,21 @@
 #'   run directory as a remote connection over
 #'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
-#' @author Michael Steinbaugh, Lorena Pantano
+#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #'
+#' @inheritParams bcbioBase::prepareSummarizedExperiment
 #' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
 #'   or "`sailfish`".
+#' @param organism Organism name. Use the full latin name (e.g.
+#'   "Homo sapiens"), since this will be input downstream to
+#'   AnnotationHub and ensembldb, unless `gffFile` is set. If set `NULL`
+#'   (*advanced use; not recommended*), the function call will skip loading
+#'   gene/transcript-level annotations into `rowRanges()`. This can be useful
+#'   for poorly annotation genomes or experiments involving multiple genomes.
 #' @param samples *Optional.* Specify a subset of samples to load. The names
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
@@ -29,9 +36,6 @@
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left unset.
-#' @param organism Organism name. Use the full latin name (e.g.
-#'   "Homo sapiens"), since this will be input downstream to
-#'   AnnotationHub and ensembldb, unless `gffFile` is set.
 #' @param genomeBuild *Optional.* Ensembl genome build name (e.g. "GRCh38").
 #'   This will be passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
@@ -39,18 +43,17 @@
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
-#' @param isSpike *Optional.* Gene names corresponding to FASTA spike-in
-#'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
-#' @param gffFile *Optional, not recommended.* By default, we recommend leaving
-#'   this `NULL` for genomes that are supported on Ensembl. In this case, the
-#'   row annotations ([rowRanges()]) will be obtained automatically from Ensembl
-#'   by passing the `organism`, `genomeBuild`, and `ensemblRelease` arguments to
-#'   AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-#'   and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-#'   Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-#'   possible, although all GFF formats are supported. The function will
-#'   internally generate a `TxDb` containing transcript-to-gene mappings and
-#'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
+#' @param gffFile *Advanced use; not recommended.* By default, we recommend
+#'   leaving this `NULL` for genomes that are supported on Ensembl. In this
+#'   case, the row annotations ([rowRanges()]) will be obtained automatically
+#'   from Ensembl by passing the `organism`, `genomeBuild`, and `ensemblRelease`
+#'   arguments to AnnotationHub and ensembldb. For a genome that is not
+#'   supported on Ensembl and/or AnnotationHub, a GFF/GTF (General Feature
+#'   Format) file is required. Generally, we recommend using a GTF (GFFv2) file
+#'   here over a GFF3 file if possible, although all GFF formats are supported.
+#'   The function will internally generate a `TxDb` containing
+#'   transcript-to-gene mappings and construct a `GRanges` object containing the
+#'   genomic ranges ([rowRanges()]).
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   For large datasets, DESeq2 is slow to apply variance stabilization. In this
@@ -87,13 +90,14 @@ loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
+    organism,
     samples = NULL,
     sampleMetadataFile = NULL,
     interestingGroups = "sampleName",
-    organism,
     ensemblRelease = NULL,
     genomeBuild = NULL,
-    isSpike = NULL,
+    transgeneNames = NULL,
+    spikeNames = NULL,
     gffFile = NULL,
     transformationLimit = 50L,
     ...
@@ -125,10 +129,11 @@ loadRNASeq <- function(
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
     assert_is_character(interestingGroups)
-    assert_is_a_string(organism)
+    assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
-    assertIsCharacterOrNULL(isSpike)
+    assertIsCharacterOrNULL(transgeneNames)
+    assertIsCharacterOrNULL(spikeNames)
     assertIsAStringOrNULL(gffFile)
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
@@ -204,27 +209,6 @@ loadRNASeq <- function(
         sampleDirs <- sampleDirs[samples]
     } else {
         allSamples <- TRUE
-    }
-
-    # Row data =================================================================
-    if (is_a_string(gffFile)) {
-        rowRanges <- makeGRangesFromGFF(gffFile)
-        rowRangesMetadata <- NULL
-    } else {
-        # ah: AnnotationHub
-        ah <- makeGRangesFromEnsembl(
-            organism = organism,
-            format = level,
-            genomeBuild = genomeBuild,
-            release = ensemblRelease,
-            metadata = TRUE
-        )
-        assert_is_list(ah)
-        assert_are_identical(names(ah), c("data", "metadata"))
-        rowRanges <- ah[["data"]]
-        assert_is_all_of(rowRanges, "GRanges")
-        rowRangesMetadata <- ah[["metadata"]]
-        assert_is_data.frame(rowRangesMetadata)
     }
 
     # Sample metrics ===========================================================
@@ -303,6 +287,29 @@ loadRNASeq <- function(
     # Ensure `colData` matches the colnames in `assays()`
     colData <- colData[colnames(counts), , drop = FALSE]
 
+    # Row data =================================================================
+    rowRangesMetadata <- NULL
+    if (is_a_string(gffFile)) {
+        rowRanges <- makeGRangesFromGFF(gffFile)
+    } else if (is_a_string(organism)) {
+        # ah: AnnotationHub
+        ah <- makeGRangesFromEnsembl(
+            organism = organism,
+            format = level,
+            genomeBuild = genomeBuild,
+            release = ensemblRelease,
+            metadata = TRUE
+        )
+        assert_is_list(ah)
+        assert_are_identical(names(ah), c("data", "metadata"))
+        rowRanges <- ah[["data"]]
+        assert_is_all_of(rowRanges, "GRanges")
+        rowRangesMetadata <- ah[["metadata"]]
+        assert_is_data.frame(rowRangesMetadata)
+    } else {
+        rowRanges <- emptyRanges(rownames(counts))
+    }
+
     # Gene-level variance stabilization ========================================
     normalized <- NULL
     rlog <- NULL
@@ -357,7 +364,7 @@ loadRNASeq <- function(
         "template" = template,
         "runDate" = runDate,
         "interestingGroups" = interestingGroups,
-        "organism" = organism,
+        "organism" = as.character(organism),
         "genomeBuild" = as.character(genomeBuild),
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
@@ -379,12 +386,13 @@ loadRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
-    # Return =============================================
+    # Return ===================================================================
     .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
         metadata = metadata,
-        isSpike = isSpike
+        transgeneNames = transgeneNames,
+        spikeNames = spikeNames
     )
 }

@@ -3,14 +3,16 @@
     rowRanges,
     colData,
     metadata,
-    isSpike
+    transgeneNames,
+    spikeNames
 ) {
     rse <- prepareSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
         metadata = metadata,
-        isSpike = isSpike
+        transgeneNames = transgeneNames,
+        spikeNames = spikeNames
     )
     assert_is_all_of(rse, "RangedSummarizedExperiment")
     new("bcbioRNASeq", rse)
