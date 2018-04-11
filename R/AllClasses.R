@@ -80,11 +80,6 @@ setValidity(
         # Row data =============================================================
         assert_is_all_of(rowRanges(object), "GRanges")
         assert_is_all_of(rowData(object), "DataFrame")
-        # Require gene-to-symbol mappings
-        assert_is_subset(
-            x = c("geneID", "geneName"),
-            y = colnames(rowData(object))
-        )
 
         # Column data ==========================================================
         # Check that all of the columns are factors
@@ -147,14 +142,12 @@ setValidity(
             "genomeBuild" = "character",
             "gffFile" = "character",
             "interestingGroups" = "character",
-            "isSpike" = "character",
             "lanes" = "integer",
             "level" = "character",
             "metrics" = "data.frame",
             "organism" = "character",
             "programVersions" = "tbl_df",
             "projectDir" = "character",
-            "rowRangesMetadata" = "tbl_df",
             "runDate" = "Date",
             "sampleDirs" = "character",
             "sampleMetadataFile" = "character",
