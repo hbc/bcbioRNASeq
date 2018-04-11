@@ -82,6 +82,7 @@
 #' x <- loadRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",
+#'     caller = "salmon",
 #'     organism = "Mus musculus",
 #'     ensemblRelease = 87L
 #' )
