@@ -277,7 +277,7 @@ loadRNASeq <- function(
     # counts: raw counts
     counts <- txi[["counts"]]
     assert_is_matrix(counts)
-        # length: average transcript length
+    # length: average transcript length
     length <- txi[["length"]]
     assert_is_matrix(length)
     # countsFromAbundance: character describing TPM
