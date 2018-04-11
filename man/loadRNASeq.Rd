@@ -100,6 +100,7 @@ uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "genes",
+    caller = "salmon",
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
@@ -109,6 +110,7 @@ show(x)
 x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "transcripts",
+    caller = "salmon",
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
