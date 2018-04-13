@@ -30,7 +30,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm"),
+        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
         style = c("line", "solid"),
         color = scale_color_viridis(discrete = TRUE),
         fill = scale_fill_viridis(discrete = TRUE),
