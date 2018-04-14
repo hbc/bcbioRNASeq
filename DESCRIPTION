@@ -144,6 +144,7 @@ Suggests:
     tidyverse
 Remotes:
     hbc/bcbioBase,
+    lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
     DataImport,
