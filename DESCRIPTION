@@ -142,6 +142,9 @@ Suggests:
     sessioninfo,
     testthat,
     tidyverse
+Remotes:
+    hbc/bcbioBase,
+    steinbaugh/basejump
 biocViews:
     DataImport,
     DataRepresentation,
