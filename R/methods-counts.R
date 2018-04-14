@@ -82,7 +82,7 @@ setMethod(
                 warning(paste(
                     normalized, "not present in assays.",
                     "Calculating log2 TMM counts instead."
-                ))
+                ), call. = FALSE)
                 counts <- tmm(assay(object))
                 message("Applying log2 transformation to TMM values")
                 counts <- log2(counts + 1L)
