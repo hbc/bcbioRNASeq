@@ -38,7 +38,6 @@
 #' @importFrom assertive is_positive
 #'
 #' @importFrom basejump assertAreGeneAnnotations
-#' @importFrom basejump assertFormalAnnotationCol
 #' @importFrom basejump assertIsHexColorFunctionOrNULL
 #' @importFrom basejump assertFormalGene2symbol
 #' @importFrom basejump assertIsAHeaderLevel
@@ -52,5 +51,6 @@
 #' @importFrom basejump assertIsFillScaleDiscreteOrNULL
 #' @importFrom basejump assertIsTx2gene
 #'
+#' @importFrom bcbioBase assertFormalAnnotationCol
 #' @importFrom bcbioBase assertFormalInterestingGroups
 NULL
