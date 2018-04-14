@@ -1,7 +1,7 @@
 context("S4 Class Definition")
 
 bcb <- suppressWarnings(loadRNASeq(
-    uploadDir,
+    uploadDir = uploadDir,
     ensemblRelease = 87L,
     organism = "Mus musculus"
 ))
@@ -45,6 +45,26 @@ test_that("Slots", {
                 package = "S4Vectors"
             ),
             "list"
+        )
+    )
+})
+
+test_that("Dimensions", {
+    expect_identical(
+        dim(bcb),
+        c(502L, 4L)
+    )
+    expect_identical(
+        colnames(bcb),
+        c("group1_1", "group1_2", "group2_1", "group2_2")
+    )
+    expect_identical(
+        rownames(bcb)[1L:4L],
+        c(
+            "ENSMUSG00000002459",
+            "ENSMUSG00000004768",
+            "ENSMUSG00000005886",
+            "ENSMUSG00000016918"
         )
     )
 })
@@ -131,26 +151,6 @@ test_that("Metadata", {
     )
 })
 
-test_that("Example data dimensions", {
-    expect_identical(
-        dim(bcb),
-        c(500L, 4L)
-    )
-    expect_identical(
-        colnames(bcb),
-        c("group1_1", "group1_2", "group2_1", "group2_2")
-    )
-    expect_identical(
-        rownames(bcb)[1L:4L],
-        c(
-            "ENSMUSG00000002459",
-            "ENSMUSG00000004768",
-            "ENSMUSG00000005886",
-            "ENSMUSG00000016918"
-        )
-    )
-})
-
 
 
 # subset =======================================================================
@@ -197,6 +197,48 @@ test_that("subset : Minimal selection ranges", {
             head(rownames(bcb_small), 100L),
             head(colnames(bcb_small), 2L)
         )
+    )
+})
+
+
+
+# loadRNASeq ===================================================================
+test_that("loadRNASeq : organism = NULL", {
+    x <- loadRNASeq(
+        uploadDir = uploadDir,
+        organism = NULL
+    )
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        levels(seqnames(x)),
+        "unknown"
+    )
+})
+
+test_that("loadRNASeq : transformationLimit", {
+    x <- suppressWarnings(
+        loadRNASeq(
+            uploadDir = uploadDir,
+            organism = "Mus musculus",
+            transformationLimit = -Inf
+        )
+    )
+    expect_identical(
+        names(assays(x)),
+        c("counts", "tpm", "length", "normalized")
+    )
+})
+
+test_that("loadRNASeq : User-defined sample metadata", {
+    x <- suppressWarnings(loadRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
+    ))
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        basename(metadata(x)[["sampleMetadataFile"]]),
+        "sample_metadata.csv"
     )
 })
 
