@@ -5,7 +5,7 @@
 #' @keywords internal
 #'
 #' @importFrom S4Vectors metadata<-
-#' @importFrom SummarizedExperiment assays<-
+#' @importFrom SummarizedExperiment assays<- colData<-
 #'
 #' @examples
 #' # bcbioRNASeq ====
@@ -57,7 +57,68 @@ setMethod(
 #' @rdname SummarizedExperiment
 #' @export
 setMethod(
+    "colData<-",
+    signature(
+        x = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
+    getMethod(
+        "colData<-",
+        signature(
+            x = "SummarizedExperiment",
+            value = "DataFrame"
+        )
+    )
+)
+
+
+
+#' @rdname SummarizedExperiment
+#' @export
+setMethod(
+    "interestingGroups<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "character"
+    ),
+    getMethod(
+        "interestingGroups<-",
+        signature(
+            object = "SummarizedExperiment",
+            value = "character"
+        )
+    )
+)
+
+
+
+#' @rdname SummarizedExperiment
+#' @export
+setMethod(
     "metadata<-",
     signature("bcbioRNASeq"),
     getMethod("metadata<-", "Annotated")
+)
+
+
+
+#' @rdname SummarizedExperiment
+#' @export
+setMethod(
+    "[[<-",
+    signature(
+        x = "bcbioRNASeq",
+        i = "ANY",
+        j = "missing",
+        value = "ANY"
+    ),
+    getMethod(
+        "[[<-",
+        signature(
+            x = "SummarizedExperiment",
+            i = "ANY",
+            j = "missing",
+            value = "ANY"
+        )
+    )
 )

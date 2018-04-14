@@ -5,7 +5,10 @@
 \alias{SummarizedExperiment}
 \alias{assays<-,bcbioRNASeq,list-method}
 \alias{assays<-,bcbioRNASeq,SimpleList-method}
+\alias{colData<-,bcbioRNASeq,DataFrame-method}
+\alias{interestingGroups<-,bcbioRNASeq,character-method}
 \alias{metadata<-,bcbioRNASeq-method}
+\alias{[[<-,bcbioRNASeq,ANY,missing,ANY-method}
 \title{Extend SummarizedExperiment Assignment Methods}
 \usage{
 \S4method{assays}{bcbioRNASeq,list}(x, ..., withDimnames = TRUE) <- value
@@ -13,7 +16,13 @@
 \S4method{assays}{bcbioRNASeq,SimpleList}(x, ...,
   withDimnames = TRUE) <- value
 
+\S4method{colData}{bcbioRNASeq,DataFrame}(x, ...) <- value
+
+\S4method{interestingGroups}{bcbioRNASeq,character}(object) <- value
+
 \S4method{metadata}{bcbioRNASeq}(x) <- value
+
+\S4method{[[}{bcbioRNASeq,ANY,missing,ANY}(x, i, j, ...) <- value
 }
 \description{
 Extend SummarizedExperiment Assignment Methods
