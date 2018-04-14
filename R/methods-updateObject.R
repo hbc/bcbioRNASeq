@@ -42,7 +42,7 @@ setMethod(
         object,
         rowRanges
     ) {
-        version <- metadata(object)[["version"]]
+        version <- slot(object, "metadata")[["version"]]
         assert_is_all_of(version, c("package_version", "numeric_version"))
         message(paste("Upgrading from", version, "to", packageVersion))
 
@@ -63,11 +63,14 @@ setMethod(
                 assays[[a]]
             })
             names(assays) <- assayNames(rse)
-            # DESeqDataSet (only on develop branch, safe to remove later)
-            if ("dds" %in% names(assays)) {
-                message("Dropping legacy DESeqDataSet from assays")
-                assays[["dds"]] <- NULL
+
+            # raw counts
+            if ("raw" %in% names(assays)) {
+                message("Renaming `raw` assay to `counts`")
+                assays[["counts"]] <- assays[["raw"]]
+                assays[["raw"]] <- NULL
             }
+
             # length (from tximport)
             if (!"length" %in% names(assays)) {
                 message("Moving length matrix from legacy bcbio slot to assays")
@@ -75,26 +78,35 @@ setMethod(
                 assert_is_matrix(length)
                 assays[["length"]] <- length
             }
+
             # DESeq2 normalized counts
-            if ("normalized" %in% names(assays)) {
+            if (!"normalized" %in% names(assays)) {
+                dds <- .regenerateDESeqDataSet(rse)
                 message("Dropping legacy DESeq2 normalized counts from assays")
                 assays[["normalized"]] <- NULL
             }
+
             # rlog
             if (is(assays[["rlog"]], "DESeqTransform")) {
                 message("Coercing rlog DESeqTransform to matrix in assays")
                 assays[["rlog"]] <- assay(assays[["rlog"]])
             }
+
             # tmm
             if ("tmm" %in% names(assays)) {
-                message("Dropping tmm from assays. Now calculated on the fly.")
+                message(paste(
+                    "Dropping tmm from assays.",
+                    "Now calculated on the fly instead."
+                ))
                 assays[["tmm"]] <- NULL
             }
+
             # vst
             if (is(assays[["vst"]], "DESeqTransform")) {
                 message("Coercing vst DESeqTransform to matrix in assays")
                 assays[["vst"]] <- assay(assays[["vst"]])
             }
+
             assays <- Filter(Negate(is.null), assays)
             # Put the required assays first, in order
             assays <- assays[unique(c(requiredAssays, names(assays)))]
@@ -262,11 +274,14 @@ setMethod(
             metadata[["tx2gene"]] <- x
         }
 
-        # unannotatedGenes
+        # Dead genes: "missing" or "unannotated"
         if ("missingGenes" %in% names(metadata)) {
-            message("Renaming missingGenes to unannotatedGenes")
-            metadata[["unannotatedGenes"]] <- metadata[["missingGenes"]]
+            message("Dropping missingGenes from metadata")
             metadata[["missingGenes"]] <- NULL
+        }
+        if ("unannotatedGenes" %in% names(metadata)) {
+            message("Dropping unannotatedGenes from metadata")
+            metadata[["unannotatedGenes"]] <- NULL
         }
 
         # yamlFile

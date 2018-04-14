@@ -40,7 +40,7 @@ setMethod(
 
         # rowRanges
         m <- metadata(object)[["rowRangesMetadata"]]
-        if (is.data.frame(m)) {
+        if (is.data.frame(m) && length(m)) {
             cat(
                 paste(
                     "AnnotationHub:",
