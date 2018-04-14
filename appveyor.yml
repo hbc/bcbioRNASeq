@@ -28,6 +28,7 @@ build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
+  - travis-tool.sh install_r data.table
   - travis-tool.sh install_deps
 
 test_script:
