@@ -92,16 +92,7 @@ setMethod(
                 "Calculating variance stabilizations using DESeq2",
                 packageVersion("DESeq2")
             ))
-            txi <- .regenerateTximportList(rse)
-            dds <- DESeqDataSetFromTximport(
-                txi = txi,
-                colData = colData(rse),
-                # Use an empty design formula
-                design = ~ 1  # nolint
-            )
-            # Suppress warning about empty design formula
-            dds <- suppressWarnings(DESeq(dds))
-            validObject(dds)
+            dds <- .regenerateDESeqDataSet(rse)
             message("Applying rlog transformation")
             assays[["rlog"]] <- assay(rlog(dds))
             message("Applying variance stabilizing transformation")
