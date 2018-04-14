@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -97,30 +97,28 @@
     <div class="page-header">
     <h1>Plot Individual Genes</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotGene.R'><code>R/methods-plotGene.R</code></a></small>
-    <p class="hidden name"><code>plotGene.Rd</code></p>
+    <div class="hidden name"><code>plotGene.Rd</code></div>
     </div>
 
     
     <p>Plot Individual Genes</p>
     
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>,
-  <span class='st'>"tpm"</span>), <span class='no'>interestingGroups</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>, <span class='st'>"grid"</span>, <span class='st'>"markdown"</span>, <span class='st'>"list"</span>))
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tpm"</span>),
+  <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"wide"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))</pre>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,23 +134,18 @@ rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
-    </tr>
-    <tr>
       <th>interestingGroups</th>
       <td><p>Character vector denoting groups of interest that
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
+      <th>countsAxisLabel</th>
+      <td><p>Label to use for the counts axis.</p></td>
+    </tr>
+    <tr>
       <th>medianLine</th>
-      <td><p>Include median line for each group. Disabled when samples
-are grouped by <code>sampleName</code>.</p></td>
+      <td><p>Include median line for each group. Disabled if samples
+are colored by sample name.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -171,9 +164,17 @@ color definitions are desired, we recommend using
 the first item in the vector by default.</p></td>
     </tr>
     <tr>
-      <th>gene2symbol</th>
-      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
-contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
+      <th>normalized</th>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     

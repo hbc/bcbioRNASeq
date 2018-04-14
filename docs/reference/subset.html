@@ -62,7 +62,7 @@ transform = FALSE." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@ transform = FALSE." />
     <div class="page-header">
     <h1>Bracket-Based Subsetting</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-subset.R'><code>R/methods-subset.R</code></a></small>
-    <p class="hidden name"><code>subset.Rd</code></p>
+    <div class="hidden name"><code>subset.Rd</code></div>
     </div>
 
     
@@ -192,37 +192,50 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>colnames</span>(<span class='no'>bcb_small</span>), <span class='fl'>2L</span>)
 <span class='fu'>head</span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2"</div><div class='input'>
 <span class='co'># Subset by sample name</span>
-<span class='no'>bcb_small</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 2
-#&gt; genes: 500
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; bcbio date: 2018-03-18
-#&gt; R load date: 2018-04-04</div><div class='input'>
+<span class='no'>bcb_small</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 2
+#&gt; Genes: 500
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH57770
+#&gt; Ensembl Release: 90
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; Upload Date: 2018-03-18
+#&gt; R Load Date: 2018-04-14</div><div class='input'>
 <span class='co'># Subset by gene list</span>
-<span class='no'>bcb_small</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 6
-#&gt; genes: 100
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; bcbio date: 2018-03-18
-#&gt; R load date: 2018-04-04</div><div class='input'>
+<span class='no'>bcb_small</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 6
+#&gt; Genes: 100
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH57770
+#&gt; Ensembl Release: 90
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; Upload Date: 2018-03-18
+#&gt; R Load Date: 2018-04-14</div><div class='input'>
 <span class='co'># Subset by both genes and samples</span>
-<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 2
-#&gt; genes: 100
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; bcbio date: 2018-03-18
-#&gt; R load date: 2018-04-04</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length" "rlog"   "vst"   </div><div class='input'>
+<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 2
+#&gt; Genes: 100
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH57770
+#&gt; Ensembl Release: 90
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; Upload Date: 2018-03-18
+#&gt; R Load Date: 2018-04-14</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
+#&gt; [6] "vst"       </div><div class='input'>
 <span class='co'># Skip DESeq2 variance stabilizing transformations</span>
-<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 2
-#&gt; genes: 100
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; bcbio date: 2018-03-18
-#&gt; R load date: 2018-04-04</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "raw"    "tpm"    "length"</div></pre>
+<span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 transformations</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 2
+#&gt; Genes: 100
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH57770
+#&gt; Ensembl Release: 90
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; Upload Date: 2018-03-18
+#&gt; R Load Date: 2018-04-14</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

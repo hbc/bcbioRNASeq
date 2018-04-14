@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepare RNA-Seq R Markdown Template — prepareRNASeqTemplate • bcbioRNASeq</title>
+<title>Extend SummarizedExperiment Assignment Methods — SummarizedExperiment • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Prepare RNA-Seq R Markdown Template — prepareRNASeqTemplate" />
+<meta property="og:title" content="Extend SummarizedExperiment Assignment Methods — SummarizedExperiment" />
 
-<meta property="og:description" content="Prepare RNA-Seq R Markdown Template" />
+<meta property="og:description" content="Extend SummarizedExperiment Assignment Methods" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,46 +95,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepare RNA-Seq R Markdown Template</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-prepareRNASeqTemplate.R'><code>R/methods-prepareRNASeqTemplate.R</code></a></small>
-    <div class="hidden name"><code>prepareRNASeqTemplate.Rd</code></div>
+    <h1>Extend SummarizedExperiment Assignment Methods</h1>
+    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-SummarizedExperiment.R'><code>R/methods-SummarizedExperiment.R</code></a></small>
+    <div class="hidden name"><code>SummarizedExperiment.Rd</code></div>
     </div>
 
     
-    <p>Prepare RNA-Seq R Markdown Template</p>
+    <p>Extend SummarizedExperiment Assignment Methods</p>
     
 
-    <pre class="usage"><span class='fu'>prepareRNASeqTemplate</span>()</pre>
+    <pre class="usage"># S4 method for bcbioRNASeq,list
+assays(x, ..., withDimnames = TRUE) <- value
+
+# S4 method for bcbioRNASeq,SimpleList
+assays(x, ...,
+  withDimnames = TRUE) <- value
+
+# S4 method for bcbioRNASeq,DataFrame
+colData(x, ...) <- value
+
+# S4 method for bcbioRNASeq,character
+interestingGroups(object) <- value
+
+# S4 method for bcbioRNASeq
+metadata(x) <- value
+
+# S4 method for bcbioRNASeq,ANY,missing
+[[(x, i, j, ...) <- value</pre>
         
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>No value.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other R Markdown Functions: <code>topTables</code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prepareRNASeqTemplate</span>()
-
-<span class='co'># Clean up</span>
-<span class='fu'>unlink</span>(<span class='fu'>c</span>(
-    <span class='st'>"_footer.Rmd"</span>,
-    <span class='st'>"_header.Rmd"</span>,
-    <span class='st'>"_output.yaml"</span>,
-    <span class='st'>"_setup.R"</span>,
-    <span class='st'>"bibliography.bib"</span>
-))</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>metadata</span>(<span class='no'>bcb_small</span>)<span class='kw'>[[</span><span class='st'>"stash"</span>]] <span class='kw'>&lt;-</span> <span class='st'>"test"</span>
+<span class='fu'>metadata</span>(<span class='no'>bcb_small</span>)<span class='kw'>[[</span><span class='st'>"stash"</span>]]</div><div class='output co'>#&gt; [1] "test"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

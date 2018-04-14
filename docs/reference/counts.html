@@ -61,7 +61,7 @@ argument." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ argument." />
     <div class="page-header">
     <h1>Count Matrix Accessors</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-counts.R'><code>R/methods-counts.R</code></a></small>
-    <p class="hidden name"><code>counts.Rd</code></p>
+    <div class="hidden name"><code>counts.Rd</code></div>
     </div>
 
     
@@ -128,6 +128,7 @@ method to apply:</p><ul>
 <li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
 <li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
 <li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+<li><p>"<code>rle</code>": Relative log expression transformation.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -165,20 +166,20 @@ method to apply:</p><ul>
 #&gt;  Median :   1557   Median :    1904  
 #&gt;  Mean   :  34610   Mean   :   42438  
 #&gt;  3rd Qu.:   4840   3rd Qu.:    5304  
-#&gt;  Max.   :9676254   Max.   :12145225  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :       1  
-#&gt;  1st Qu.:     512   1st Qu.:     476   1st Qu.:     435   1st Qu.:     578  
-#&gt;  Median :    1695   Median :    1788   Median :    1803   Median :    1723  
-#&gt;  Mean   :   53193   Mean   :   45465   Mean   :   56458   Mean   :   39307  
-#&gt;  3rd Qu.:    5728   3rd Qu.:    5949   3rd Qu.:    5657   3rd Qu.:    5367  
-#&gt;  Max.   :14366610   Max.   :11909307   Max.   :15920023   Max.   :10611940  
-#&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :       0   Min.   :       0  
-#&gt;  1st Qu.:     575   1st Qu.:     758  
-#&gt;  Median :    1787   Median :    1878  
-#&gt;  Mean   :   39712   Mean   :   41851  
-#&gt;  3rd Qu.:    5554   3rd Qu.:    5231  
-#&gt;  Max.   :11102734   Max.   :11977303  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Max.   :9676254   Max.   :12145225  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1    
+#&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :      1  
+#&gt;  1st Qu.:     621   1st Qu.:     614   1st Qu.:     538   1st Qu.:    499  
+#&gt;  Median :    2054   Median :    2307   Median :    2228   Median :   1486  
+#&gt;  Mean   :   64460   Mean   :   58658   Mean   :   69763   Mean   :  33907  
+#&gt;  3rd Qu.:    6941   3rd Qu.:    7675   3rd Qu.:    6990   3rd Qu.:   4630  
+#&gt;  Max.   :17409918   Max.   :15365287   Max.   :19671878   Max.   :9154208  
+#&gt;   fa_day7_rep2      fa_day7_rep3     
+#&gt;  Min.   :      0   Min.   :       0  
+#&gt;  1st Qu.:    483   1st Qu.:     702  
+#&gt;  Median :   1502   Median :    1740  
+#&gt;  Mean   :  33389   Mean   :   38785  
+#&gt;  3rd Qu.:   4670   3rd Qu.:    4847  
+#&gt;  Max.   :9334986   Max.   :11099805  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
 #&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.45  
 #&gt;  1st Qu.:    50.08   1st Qu.:    55.4   1st Qu.:    65.8   1st Qu.:    93.10  
 #&gt;  Median :    83.12   Median :    95.0   Median :   107.6   Median :   143.80  
@@ -204,7 +205,20 @@ method to apply:</p><ul>
 #&gt;  Median :    77.2   Median :    84.1  
 #&gt;  Mean   :  1715.5   Mean   :  1875.8  
 #&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
-#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'>
+#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rle"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+#&gt;  Min.   :   0.000   Min.   :   0.000   Min.   :   0.000   Min.   :   0.000  
+#&gt;  1st Qu.:   0.302   1st Qu.:   0.266   1st Qu.:   0.241   1st Qu.:   0.336  
+#&gt;  Median :   1.000   Median :   1.000   Median :   1.000   Median :   1.000  
+#&gt;  Mean   :  31.375   Mean   :  25.428   Mean   :  31.307   Mean   :  22.814  
+#&gt;  3rd Qu.:   3.379   3rd Qu.:   3.327   3rd Qu.:   3.137   3rd Qu.:   3.115  
+#&gt;  Max.   :8474.039   Max.   :6660.619   Max.   :8828.088   Max.   :6159.113  
+#&gt;   fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :   0.000   Min.   :   0.000  
+#&gt;  1st Qu.:   0.322   1st Qu.:   0.404  
+#&gt;  Median :   1.000   Median :   1.000  
+#&gt;  Mean   :  22.234   Mean   :  22.291  
+#&gt;  3rd Qu.:   3.109   3rd Qu.:   2.786  
+#&gt;  Max.   :6216.364   Max.   :6379.513  </div><div class='input'>
 <span class='co'># log2 scale</span>
 <span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
 #&gt;  Min.   : 3.471   Min.   : 3.222   Min.   : 3.511   Min.   : 4.175  
