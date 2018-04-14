@@ -31,6 +31,8 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
+\item{countsAxisLabel}{Label to use for the counts axis.}
+
 \item{medianLine}{Include median line for each group. Disabled if samples
 are colored by sample name.}
 

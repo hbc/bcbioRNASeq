@@ -33,11 +33,6 @@ plotGenderMarkers(object, ...)
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
-
-\item{organism}{Organism name. Typically can be left unset and should be
-detected automatically, unless a spike-in FASTA sequence is provided
-containing a gene identifier that is first alphabetically in the count
-matrix rownames.}
 }
 \value{
 \code{ggplot}.
