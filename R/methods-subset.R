@@ -134,8 +134,7 @@ setMethod(
             assays = assays,
             rowRanges = rowRanges(rse),
             colData = colData(rse),
-            metadata = metadata,
-            isSpike = metadata[["isSpike"]]
+            metadata = metadata
         )
     }
 )

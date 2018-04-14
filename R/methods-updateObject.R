@@ -180,12 +180,6 @@ setMethod(
             metadata <- metadata[setdiff(names(metadata), "gtf")]
         }
 
-        # isSpike
-        if (!is.character(metadata[["isSpike"]])) {
-            message("Setting isSpike as empty character")
-            metadata[["isSpike"]] <- character()
-        }
-
         # lanes
         if (!is.integer(metadata[["lanes"]])) {
             message("Setting lanes as integer")
@@ -290,8 +284,7 @@ setMethod(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,
-            metadata = metadata,
-            isSpike = metadata[["isSpike"]]
+            metadata = metadata
         )
     }
 )
