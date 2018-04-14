@@ -317,20 +317,20 @@ loadRNASeq <- function(
     rlog <- NULL
     vst <- NULL
     if (level == "genes") {
+        message(paste(
+            "Generating DESeqDataSet with DESeq2",
+            packageVersion("DESeq2")
+        ))
+        dds <- DESeqDataSetFromTximport(
+            txi = txi,
+            colData = colData,
+            # Use an empty design formula
+            design = ~ 1  # nolint
+        )
+        # Suppress warning about empty design formula
+        dds <- suppressWarnings(DESeq(dds))
+        normalized <- counts(dds, normalized = TRUE)
         if (nrow(colData) <= transformationLimit) {
-            message(paste(
-                "Calculating variance stabilizations using DESeq2",
-                packageVersion("DESeq2")
-            ))
-            dds <- DESeqDataSetFromTximport(
-                txi = txi,
-                colData = colData,
-                # Use an empty design formula
-                design = ~ 1  # nolint
-            )
-            # Suppress warning about empty design formula
-            dds <- suppressWarnings(DESeq(dds))
-            normalized <- counts(dds, normalized = TRUE)
             message("Applying rlog transformation")
             rlog <- assay(rlog(dds))
             message("Applying variance stabilizing transformation")
