@@ -51,7 +51,7 @@ NULL
 
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(bcb_small)
+        sampleData = sampleData(object)
     )
 
     # TODO Switch to DelayedArray approach here instead?
@@ -116,7 +116,7 @@ NULL
 
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(bcb_small)
+        sampleData = sampleData(object)
     )
 
     p <- ggplot(
@@ -171,7 +171,7 @@ NULL
 
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(bcb_small)
+        sampleData = sampleData(object)
     )
 
     p <- ggplot(
