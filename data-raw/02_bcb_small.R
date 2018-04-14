@@ -79,6 +79,7 @@ interestingGroups(bcb_small) <- "treatment"
 bcb_small[["treatment"]] <- snake(bcb_small[["treatment"]])
 
 # Check that object is valid
+stopifnot(is(bcb_small, "bcbioRNASeq"))
 validObject(bcb_small)
 
 # Check the object size
