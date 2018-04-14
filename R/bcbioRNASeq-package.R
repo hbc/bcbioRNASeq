@@ -15,16 +15,17 @@
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom S4Vectors as.data.frame head mcols metadata na.omit
-#' @importFrom SummarizedExperiment assay assayNames assays assays<- colData
-#'   colData<- rowData rowRanges SummarizedExperiment
-#' @importFrom basejump camel convertGenesToSymbols detectOrganism fixNA
-#'   initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
-#'   sanitizeRowData sanitizeSampleData snake
+#' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
+#'   colData colData<- rowData rowRanges SummarizedExperiment
+#' @importFrom basejump camel convertGenesToSymbols detectOrganism emptyRanges
+#'   fixNA initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF
+#'   makeNames makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist
+#'   readYAML sanitizeRowData sanitizeSampleData snake
 #' @importFrom bcbioBase copyToDropbox flatFiles gene2symbol interestingGroups
-#'   plotHeatmap prepareSummarizedExperiment prepareTemplate readDataVersions
-#'   readLog readProgramVersions readSampleData readTx2gene sampleData
-#'   sampleDirs sampleYAMLMetadata sampleYAMLMetrics uniteInterestingGroups
+#'   interestingGroups<- plotHeatmap prepareSummarizedExperiment prepareTemplate
+#'   readDataVersions readLog readProgramVersions readSampleData readTx2gene
+#'   sampleData sampleDirs sampleYAMLMetadata sampleYAMLMetrics
+#'   uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
 #'   mutate_all mutate_if pull select_if
@@ -39,8 +40,9 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom methods .hasSlot as is new show slot validObject
-#' @importFrom parallel mcmapply
+#' @importFrom matrixStats colMedians
+#' @importFrom methods .hasSlot as as<- is new show slot slot<- validObject
+#' @importFrom parallel mclapply mcmapply
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
 #' @importFrom rlang !! !!! sym syms

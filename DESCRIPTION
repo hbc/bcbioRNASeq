@@ -120,6 +120,7 @@ Imports:
     grid,
     knitr,
     magrittr,
+    matrixStats,
     methods,
     parallel,
     readr,

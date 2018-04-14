@@ -3,8 +3,6 @@
 #' @name SummarizedExperiment
 #' @author Michael Steinbaugh
 #' @keywords internal
-#'
-#' @importFrom S4Vectors metadata<-
 #' @importFrom SummarizedExperiment assays<- colData<-
 #'
 #' @examples
@@ -17,6 +15,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname SummarizedExperiment
+#' @importFrom SummarizedExperiment assays<-
 #' @export
 setMethod(
     "assays<-",
@@ -36,6 +35,7 @@ setMethod(
 
 
 #' @rdname SummarizedExperiment
+#' @importFrom SummarizedExperiment assays<-
 #' @export
 setMethod(
     "assays<-",
@@ -55,6 +55,7 @@ setMethod(
 
 
 #' @rdname SummarizedExperiment
+#' @importFrom SummarizedExperiment colData<-
 #' @export
 setMethod(
     "colData<-",
@@ -74,6 +75,7 @@ setMethod(
 
 
 #' @rdname SummarizedExperiment
+#' @importFrom bcbioBase interestingGroups<-
 #' @export
 setMethod(
     "interestingGroups<-",
@@ -93,6 +95,7 @@ setMethod(
 
 
 #' @rdname SummarizedExperiment
+#' @importFrom S4Vectors metadata<-
 #' @export
 setMethod(
     "metadata<-",
