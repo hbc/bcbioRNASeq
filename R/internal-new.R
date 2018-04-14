@@ -3,8 +3,8 @@
     rowRanges,
     colData,
     metadata,
-    transgeneNames,
-    spikeNames
+    transgeneNames = NULL,
+    spikeNames = NULL
 ) {
     rse <- prepareSummarizedExperiment(
         assays = assays,
