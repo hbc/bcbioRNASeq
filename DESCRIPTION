@@ -133,8 +133,9 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    clusterProfiler,
     DOSE,
+    EnsDb.Hsapiens.v75,
+    clusterProfiler,
     formatR,
     pathview,
     rmarkdown,
