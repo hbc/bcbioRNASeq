@@ -121,9 +121,7 @@ test_that("Metadata", {
             "date" = "Date",
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
-            "devtoolsSessionInfo" = "session_info",
-            "isSpike" = "character",
-            "unannotatedRows" = "character"
+            "devtoolsSessionInfo" = "session_info"
         )
     )
     # Interesting groups should default to `sampleName`
@@ -136,7 +134,7 @@ test_that("Metadata", {
 test_that("Example data dimensions", {
     expect_identical(
         dim(bcb),
-        c(503L, 4L)
+        c(500L, 4L)
     )
     expect_identical(
         colnames(bcb),
@@ -159,10 +157,7 @@ test_that("Example data dimensions", {
 test_that("subset : Normal gene and sample selection", {
     x <- bcb_small[seq_len(100L), seq_len(4L)]
     expect_s4_class(x, "bcbioRNASeq")
-    expect_identical(
-        dim(x),
-        c(100L, 4L)
-    )
+    expect_identical(dim(x), c(100L, 4L))
     expect_identical(
         rownames(x)[[1L]],
         rownames(bcb_small)[[1L]]
@@ -173,7 +168,7 @@ test_that("subset : Normal gene and sample selection", {
     )
     expect_identical(
         names(assays(x)),
-        c("raw", "tpm", "length", "rlog", "vst")
+        c("counts", "tpm", "length", "normalized", "rlog", "vst")
     )
 })
 
@@ -181,7 +176,7 @@ test_that("subset : Skip DESeq2 transforms", {
     x <- bcb_small[seq_len(100L), seq_len(4L), transform = FALSE]
     expect_identical(
         names(assays(x)),
-        c("raw", "tpm", "length")
+        c("counts", "tpm", "length", "normalized")
     )
 })
 

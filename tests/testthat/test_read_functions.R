@@ -13,7 +13,7 @@ test_that("transformationLimit", {
     )
     expect_identical(
         names(assays(skip)),
-        c("raw", "tpm", "length")
+        c("counts", "tpm", "length", "normalized")
     )
 })
 
