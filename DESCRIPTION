@@ -131,6 +131,18 @@ Imports:
     utils,
     viridis,
     vsn
+Suggests:
+    BiocStyle,
+    clusterProfiler,
+    DOSE,
+    formatR,
+    lintr,
+    pathview,
+    rmarkdown,
+    roxygen2,
+    sessioninfo,
+    testthat,
+    tidyverse
 Remotes:
     hbc/bcbioBase,
     lpantano/DEGreport,
