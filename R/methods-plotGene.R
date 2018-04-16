@@ -55,7 +55,6 @@ NULL
         sampleData = sampleData(object)
     )
 
-    # TODO Switch to DelayedArray approach here instead?
     list <- mclapply(
         X = rownames(object),
         FUN = function(geneID) {

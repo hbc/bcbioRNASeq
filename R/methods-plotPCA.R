@@ -115,7 +115,7 @@ setMethod(
         return = c("ggplot", "data.frame"),
         ...
     ) {
-        # Legacy arguments =========================================================
+        # Legacy arguments =====================================================
         call <- match.call()
         # censorSamples
         if ("censorSamples" %in% names(call)) {

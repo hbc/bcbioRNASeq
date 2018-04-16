@@ -1,8 +1,3 @@
-# FIXME Add method support for `DESeqResults`
-# FIXME Use kables for dynamic return
-
-
-
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables

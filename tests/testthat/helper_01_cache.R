@@ -1,7 +1,5 @@
 cacheURL <- "http://bcbiornaseq.seq.cloud"
-files <- c(
-    "bcb_invalid.rda"
-)
+files <- "bcb_invalid.rda"
 mapply(
     FUN = function(cacheURL, file, envir) {
         if (!file.exists(file)) {
