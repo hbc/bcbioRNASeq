@@ -125,6 +125,7 @@ loadRNASeq <- function(
     dots <- Filter(Negate(is.null), dots)
 
     # Assert checks ============================================================
+    assert_is_a_string(uploadDir)
     assert_all_are_dirs(uploadDir)
     level <- match.arg(level)
     caller <- match.arg(caller)
