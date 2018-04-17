@@ -25,9 +25,8 @@ opts_chunk[["set"]](
 )
 
 theme_set(
-    theme_light(base_size = 14L)
-)
-theme_update(
-    legend.justification = "center",
-    legend.position = "bottom"
+    theme_paperwhite(
+        base_size = 14L,
+        legend_position = "bottom"
+    )
 )
