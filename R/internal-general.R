@@ -33,6 +33,7 @@
 #'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 #' @param object Object.
 #' @param passLimit Threshold to plot pass color marker.
+#' @param results `DESeqResults` object.
 #' @param return Object class to return. Uses [match.arg()] internally and picks
 #'   the first item in the vector by default.
 #' @param samples Character vector of samples to include.
