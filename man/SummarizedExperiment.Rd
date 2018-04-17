@@ -8,7 +8,7 @@
 \alias{colData<-,bcbioRNASeq,DataFrame-method}
 \alias{interestingGroups<-,bcbioRNASeq,character-method}
 \alias{metadata<-,bcbioRNASeq-method}
-\alias{[[<-,bcbioRNASeq,ANY,missing,ANY-method}
+\alias{[[<-,bcbioRNASeq,ANY,missing-method}
 \title{Extend SummarizedExperiment Assignment Methods}
 \usage{
 \S4method{assays}{bcbioRNASeq,list}(x, ..., withDimnames = TRUE) <- value
@@ -22,7 +22,7 @@
 
 \S4method{metadata}{bcbioRNASeq}(x) <- value
 
-\S4method{[[}{bcbioRNASeq,ANY,missing,ANY}(x, i, j, ...) <- value
+\S4method{[[}{bcbioRNASeq,ANY,missing}(x, i, j, ...) <- value
 }
 \description{
 Extend SummarizedExperiment Assignment Methods
