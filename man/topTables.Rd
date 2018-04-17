@@ -31,7 +31,13 @@ Top Tables of Differential Expression Results
 }
 \examples{
 # DESeqResults ====
+# Minimal return
 topTables(res_small, n = 5L)
+
+# resultsTables list ====
+# Return with gene symbol and description
+x <- resultsTables(res_small, rowData = rowData(bcb_small))
+topTables(x, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}
