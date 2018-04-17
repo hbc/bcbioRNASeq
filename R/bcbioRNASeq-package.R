@@ -11,7 +11,7 @@
 #'   SummarizedExperiment
 #' @importFrom BiocGenerics colSums density design
 #' @importFrom DEGreport degCovariates
-#' @importFrom DESeq2 DESeq DESeqDataSetFromTximport DESeqTransform
+#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromTximport DESeqTransform
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom S4Vectors as.data.frame head mcols metadata na.omit

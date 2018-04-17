@@ -14,6 +14,7 @@
 #' @examples
 #' # DESeqDataSet ====
 #' x <- as(bcb_small, "DESeqDataSet")
+#' names(S4Vectors::mcols(x))
 #' class(x)
 #' show(x)
 #'
@@ -47,18 +48,20 @@ setAs(
     to = "DESeqDataSet",
     function(from) {
         validObject(from)
-        txi <- .regenerateTximportList(from)
-        # Alternatively can use `DESeqDataSet` but must round the counts.
-        # If we switch to these, we need to check the internal code for
-        # handling size factor calculations.
-        dds <- DESeqDataSetFromTximport(
-            txi = txi,
-            colData = colData(from),
-            # Use an empty design formula
+        if (metadata(from)[["level"]] != "genes") {
+            stop("Gene-level counts are required")
+        }
+        # Creating `DESeqDataSet` from `RangedSummarizedExperiment` is
+        # preferable to `DESeqDataSetFromTximport` method because `rowRanges`
+        # are defined, with richer metadata
+        rse <- as(from, "RangedSummarizedExperiment")
+        # Integer counts are required
+        assay(rse) <- round(assay(rse))
+        # Prepare using an empty design formula
+        dds <- DESeqDataSet(
+            se = rse,
             design = ~ 1  # nolint
         )
-        # Always slot rowRanges from our bcbioRNASeq dataset
-        rowRanges(dds) <- rowRanges(from)
         # Suppress warning about empty design formula
         to <- suppressWarnings(DESeq(dds))
         validObject(to)
