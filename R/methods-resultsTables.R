@@ -158,16 +158,15 @@ setMethod(
             camel(strict = FALSE) %>%
             .[order(.[["geneID"]]), , drop = FALSE]
 
-        # Add Ensembl gene annotations (rowData), if desired
-        if (has_dims(rowData)) {
+        # Add gene annotations (rowData), if desired
+        if (length(rowData)) {
+            assert_are_identical(nrow(all), nrow(rowData))
             # Drop the nested lists (e.g. entrezID), otherwise can't write CSVs
             # to save when `write = TRUE`.
             rowData <- sanitizeRowData(rowData)
-            all <- left_join(
-                x = all,
-                y = as.data.frame(rowData),
-                by = "geneID"
-            )
+            # Select only unique columns, then bind
+            rowData <- rowData[, setdiff(colnames(rowData), colnames(all))]
+            all <- cbind(all, rowData)
         }
 
         # Check for overall gene expression with base mean
