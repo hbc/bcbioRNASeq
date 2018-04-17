@@ -59,7 +59,7 @@ alphaSummary(dds)
 
 # Results
 
-```{r res}
+```{r results}
 # help("results", "DESeq2")
 # For contrast argument as character vector:
 #   1. Design matrix factor of interest.
