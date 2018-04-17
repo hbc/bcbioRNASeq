@@ -4,7 +4,6 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults,matrix-method}
 \alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
@@ -12,29 +11,22 @@
 \usage{
 plotDEGHeatmap(results, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,matrix}(results, counts, lfc = 0L,
-  gene2symbol = NULL, title = TRUE, ...)
-
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results, counts,
-  ...)
+  lfc = 0L, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
-  normalized = "rlog", ...)
+  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults} object.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
-\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}} \code{SummarizedExperiment}
-method.}
+\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff.}
-
-\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
-contain the columns \code{geneID} and \code{geneName}.}
 
 \item{title}{\emph{Optional.} Plot title.}
 
@@ -61,15 +53,6 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \code{DESeqDataSet}).
 }
 \examples{
-# DESeqResults, matrix ====
-counts <- assay(rld_small)
-gene2symbol <- gene2symbol(rld_small)
-plotDEGHeatmap(
-    results = res_small,
-    counts = counts,
-    gene2symbol = gene2symbol
-)
-
 # DESeqResults, SummarizedExperiment ====
 plotDEGHeatmap(
     results = res_small,

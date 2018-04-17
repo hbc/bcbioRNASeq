@@ -4,22 +4,28 @@
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqResults-method}
+\alias{plotDEGPCA,DESeqResults,SummarizedExperiment-method}
+\alias{plotDEGPCA,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
 \title{Plot DEG PCA}
 \usage{
-plotDEGPCA(object, ...)
+plotDEGPCA(results, counts, ...)
 
-\S4method{plotDEGPCA}{DESeqResults}(object, counts,
-  interestingGroups = "sampleName", lfc = 0L,
-  color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  title = "deg pca", return = c("ggplot", "data.frame"))
+\S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
+  interestingGroups, lfc = 0L, color = scale_color_viridis(discrete = TRUE),
+  label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
+
+\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
+
+\S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(results, counts,
+  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
 }
 \arguments{
-\item{object}{Object.}
-
-\item{...}{Additional arguments.}
+\item{results}{\code{DESeqResults} object.}
 
 \item{counts}{Object containing a normalized counts matrix.}
+
+\item{...}{Additional arguments.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -37,6 +43,14 @@ color definitions are desired, we recommend using
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
+
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
@@ -45,11 +59,17 @@ the first item in the vector by default.}
 Plot DEG PCA
 }
 \examples{
-# DESeqResults, DESeqTransform ====
+# DESeqResults, SummarizedExperiment ====
 plotDEGPCA(
-    object = res_small,
+    results = res_small,
     counts = rld_small,
-    interestingGroups = interestingGroups(bcb_small),
+    label = TRUE
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGPCA(
+    results = res_small,
+    counts = bcb_small,
     label = TRUE
 )
 }

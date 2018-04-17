@@ -52,6 +52,8 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
 
+\item{results}{\code{DESeqResults} object.}
+
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 

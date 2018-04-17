@@ -3,24 +3,22 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
+\alias{plotPCA,SummarizedExperiment-method}
+\alias{plotPCA,DESeqDataSet-method}
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
+\S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
+  samples = NULL, interestingGroups, color = scale_color_viridis(discrete =
+  TRUE), label = FALSE, title = "pca", return = c("ggplot", "data.frame"))
+
+\S4method{plotPCA}{DESeqDataSet}(object, ...)
+
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
-  "tpm"), genes = NULL, samples = NULL, interestingGroups,
-  color = scale_color_viridis(discrete = TRUE), label = FALSE,
-  title = "pca", return = c("ggplot", "data.frame"), ...)
+  "tpm"), ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{normalized}{Character indicating which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
@@ -44,6 +42,14 @@ color definitions are desired, we recommend using
 the first item in the vector by default.}
 
 \item{...}{Additional arguments.}
+
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
@@ -63,6 +69,10 @@ plotPCA(
     samples = head(colnames(bcb_small), 4L),
     label = TRUE
 )
+
+# DESeqDataSet ====
+# DESeqTransform method is preferred
+plotPCA(dds_small)
 }
 \seealso{
 \itemize{
