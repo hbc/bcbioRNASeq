@@ -55,7 +55,7 @@ changes.
 }
 \examples{
 # DESeqResults ====
-resTbl <- resultsTables(
+x <- resultsTables(
     object = res_small,
     lfc = 0.25,
     rowData = rowData(bcb_small),
@@ -63,7 +63,7 @@ resTbl <- resultsTables(
     headerLevel = 2L,
     write = FALSE
 )
-names(resTbl)
+names(x)
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},

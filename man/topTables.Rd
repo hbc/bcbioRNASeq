@@ -4,10 +4,13 @@
 \name{topTables}
 \alias{topTables}
 \alias{topTables}
+\alias{topTables,DESeqResults-method}
 \alias{topTables,list-method}
 \title{Top Tables of Differential Expression Results}
 \usage{
 topTables(object, ...)
+
+\S4method{topTables}{DESeqResults}(object, n = 50L, coding = FALSE)
 
 \S4method{topTables}{list}(object, n = 50L, coding = FALSE)
 }
@@ -27,14 +30,8 @@ topTables(object, ...)
 Top Tables of Differential Expression Results
 }
 \examples{
-# DESeqResults to list ====
-resTbl <- resultsTables(
-    object = res_small,
-    rowData = rowData(bcb_small),
-    summary = FALSE,
-    write = FALSE
-)
-topTables(resTbl, n = 5L)
+# DESeqResults ====
+topTables(res_small, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}
