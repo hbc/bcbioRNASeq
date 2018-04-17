@@ -57,7 +57,7 @@ setGeneric(
 #' @export
 setGeneric(
     "plotDEGHeatmap",
-    function(object, counts, ...) {
+    function(results, counts, ...) {
         standardGeneric("plotDEGHeatmap")
     }
 )
