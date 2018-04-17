@@ -28,7 +28,7 @@
 #'
 #' @examples
 #' # DESeqResults ====
-#' resTbl <- resultsTables(
+#' x <- resultsTables(
 #'     object = res_small,
 #'     lfc = 0.25,
 #'     rowData = rowData(bcb_small),
@@ -36,7 +36,7 @@
 #'     headerLevel = 2L,
 #'     write = FALSE
 #' )
-#' names(resTbl)
+#' names(x)
 NULL
 
 
@@ -153,14 +153,12 @@ setMethod(
         # Prepare the results tables ===========================================
         all <- object %>%
             as.data.frame() %>%
-            camel()
+            camel() %>%
+            rownames_to_column("geneID")
 
         # Add gene annotations (rowData), if desired
         if (length(rowData)) {
             assert_are_identical(nrow(all), nrow(rowData))
-            if (hasRownames(rowData)) {
-                assert_are_identical(rownames(all), rownames(rowData))
-            }
             # Drop the nested lists (e.g. entrezID), otherwise can't write CSVs
             # to save when `write = TRUE`.
             rowData <- sanitizeRowData(rowData)
@@ -168,6 +166,9 @@ setMethod(
             rowData <- rowData[, setdiff(colnames(rowData), colnames(all))]
             all <- cbind(all, rowData)
         }
+
+        # Ensure the data frames have rownames
+        rownames(all) <- rownames(object)
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- all %>%
@@ -194,7 +195,7 @@ setMethod(
             # Cutoffs
             "alpha" = alpha,
             "lfc" = lfc,
-            # Tibbles
+            # Data frames
             "all" = all,
             "deg" = deg,
             "degLFC" = degLFC,
@@ -221,21 +222,21 @@ setMethod(
         }
 
         if (isTRUE(write)) {
-            tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
+            tables <- c("all", "deg", "degLFCUp", "degLFCDown")
 
             # Local files (required) ===========================================
             localFiles <- file.path(
                 dir,
-                paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+                paste0(fileStem, "_", snake(tables), ".csv.gz")
             )
-            names(localFiles) <- tibbles
+            names(localFiles) <- tables
 
-            # Write the results tibbles to local directory
+            # Write the results tables to local directory
             invisible(lapply(
                 X = seq_along(localFiles),
                 FUN = function(a) {
                     write_csv(
-                        x = get(tibbles[[a]]),
+                        x = get(tables[[a]]),
                         path = localFiles[[a]]
                     )
                 }
