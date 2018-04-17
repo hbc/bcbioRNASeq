@@ -68,7 +68,7 @@ setGeneric(
 #' @export
 setGeneric(
     "plotDEGPCA",
-    function(object, ...) {
+    function(results, counts, ...) {
         standardGeneric("plotDEGPCA")
     }
 )
