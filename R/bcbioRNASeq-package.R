@@ -28,7 +28,7 @@
 #'   uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
-#'   mutate_all mutate_if pull select_if
+#'   mutate_all mutate_if pull rename select_if
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
