@@ -153,14 +153,14 @@ setMethod(
         # Prepare the results tables ===========================================
         all <- object %>%
             as.data.frame() %>%
-            rownames_to_column("geneID") %>%
-            as("tibble") %>%
-            camel(strict = FALSE) %>%
-            .[order(.[["geneID"]]), , drop = FALSE]
+            camel()
 
         # Add gene annotations (rowData), if desired
         if (length(rowData)) {
             assert_are_identical(nrow(all), nrow(rowData))
+            if (hasRownames(rowData)) {
+                assert_are_identical(rownames(all), rownames(rowData))
+            }
             # Drop the nested lists (e.g. entrezID), otherwise can't write CSVs
             # to save when `write = TRUE`.
             rowData <- sanitizeRowData(rowData)
