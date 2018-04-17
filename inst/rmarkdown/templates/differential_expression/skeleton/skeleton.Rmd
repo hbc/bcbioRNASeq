@@ -131,6 +131,7 @@ plotDEGHeatmap(
 res_tbl <- resultsTables(
     res,
     lfc = params$lfc,
+    rowData = rowData(bcb),
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,
@@ -142,7 +143,7 @@ saveData(res_tbl, dir = params$data_dir)
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
 
-- `ensgene`: [Ensembl][] gene identifier.
+- `geneID`: [Ensembl][] gene identifier.
 - `baseMean`: Mean of the normalized counts per gene for all samples.
 - `log2FoldChange`: log2 fold change.
 - `lfcSE`: log2 standard error.
