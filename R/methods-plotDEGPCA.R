@@ -8,11 +8,17 @@
 #' @inheritParams general
 #'
 #' @examples
-#' # DESeqResults, DESeqTransform ====
+#' # DESeqResults, SummarizedExperiment ====
 #' plotDEGPCA(
-#'     object = res_small,
+#'     results = res_small,
 #'     counts = rld_small,
-#'     interestingGroups = interestingGroups(bcb_small),
+#'     label = TRUE
+#' )
+#'
+#' # DESeqResults, bcbioRNASeq ====
+#' plotDEGPCA(
+#'     results = res_small,
+#'     counts = bcb_small,
 #'     label = TRUE
 #' )
 NULL
@@ -24,67 +30,115 @@ NULL
 #' @export
 setMethod(
     "plotDEGPCA",
-    signature("DESeqResults"),
+    signature(
+        results = "DESeqResults",
+        counts = "SummarizedExperiment"
+    ),
     function(
-        object,
+        results,
         counts,
-        interestingGroups = "sampleName",
+        interestingGroups,
         lfc = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
         title = "deg pca",
         return = c("ggplot", "data.frame")
     ) {
-        # Passthrough: interestingGroups, color, label, title
-        validObject(object)
-        assert_is_all_of(counts, "DESeqTransform")
+        validObject(results)
+        validObject(counts)
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(counts)
+        }
+        assertFormalInterestingGroups(colData(counts), interestingGroups)
         assert_is_a_number(lfc)
         assert_all_are_non_negative(lfc)
+        assertIsColorScaleDiscreteOrNULL(color)
+        assert_is_a_bool(label)
+        assertIsAStringOrNULL(title)
         return <- match.arg(return)
 
         # Get the DE gene vector using `resultsTables()`
         list <- resultsTables(
-            object,
+            object = results,
             lfc = lfc,
             rowData = NULL,
             summary = FALSE,
             write = FALSE
         )
-        genes <- c(
+        deg <- c(
             list[["degLFCUp"]][["geneID"]],
             list[["degLFCDown"]][["geneID"]]
         )
-
-        # Subset the matrix
-        counts <- counts[genes, , drop = FALSE]
-        ntop <- nrow(counts)
-
-        message(paste("Plotting PCA using", ntop, "genes"))
-        data <- plotPCA(
-            object = counts,
-            intgroup = interestingGroups,
-            ntop = ntop,
-            returnData = TRUE
-        ) %>%
-            camel()
-
-        if (return == "data.frame") {
-            return(data)
+        if (!length(deg)) {
+            return(NULL)
         }
 
-        # Use `sampleName` for plot labels
-        if (isTRUE(label)) {
-            colData <- colData(counts)
-            assert_is_subset("sampleName", colnames(colData))
-            data[["label"]] <- colData[, "sampleName", drop = TRUE]
-        }
+        # Subset the counts
+        counts <- counts[deg, , drop = FALSE]
 
-        .plotPCA.ggplot(
-            object = data,
-            color = color,
-            label = label,
-            group = interestingGroups,
-            title = title
+        # SummarizedExperiment method
+        rse <- as(counts, "RangedSummarizedExperiment")
+        plotPCA(
+            object = rse,
+            genes = rownames(rse),
+            interestingGroups = interestingGroups,
+            return = return
+        )
+    }
+)
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    "plotDEGPCA",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    function(
+        results,
+        counts,
+        ...
+    ) {
+        validObject(counts)
+        message("Using normalized counts")
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assay(rse) <- counts(counts, normalized = TRUE)
+        plotDEGPCA(
+            results = results,
+            counts = rse,
+            ...
+        )
+    }
+)
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    "plotDEGPCA",
+    signature(
+        results = "DESeqResults",
+        counts = "bcbioRNASeq"
+    ),
+    function(
+        results,
+        counts,
+        normalized = c("rlog", "vst", "tmm", "tpm"),
+        ...
+    ) {
+        validObject(counts)
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assay(rse) <- counts(counts, normalized = normalized)
+        plotDEGPCA(
+            results = results,
+            counts = rse,
+            ...
         )
     }
 )
