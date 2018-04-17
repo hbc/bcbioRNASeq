@@ -13,14 +13,8 @@
 #' @return `kable`.
 #'
 #' @examples
-#' # DESeqResults to list ====
-#' resTbl <- resultsTables(
-#'     object = res_small,
-#'     rowData = rowData(bcb_small),
-#'     summary = FALSE,
-#'     write = FALSE
-#' )
-#' topTables(resTbl, n = 5L)
+#' # DESeqResults ====
+#' topTables(res_small, n = 5L)
 NULL
 
 
@@ -60,7 +54,9 @@ NULL
             log2FoldChange = format(!!sym("log2FoldChange"), digits = 3L),
             padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
         ) %>%
-        .[, which(colnames(.) %in% keepCols)]
+        .[, which(colnames(.) %in% keepCols)] %>%
+        # Shorten `log2FoldChange` to `lfc`
+        rename(lfc = !!sym("log2FoldChange"))
 
     # Sanitize the description, if necessary
     if ("description" %in% colnames(return)) {
@@ -72,14 +68,52 @@ NULL
         )
     }
 
-    return %>%
-        # Shorten `log2FoldChange` to `lfc`
-        dplyr::rename(lfc = !!sym("log2FoldChange"))
+    return
 }
 
 
 
 # Methods ======================================================================
+#' @rdname topTables
+#' @export
+setMethod(
+    "topTables",
+    signature("DESeqResults"),
+    function(
+        object,
+        n = 50L,
+        coding = FALSE
+    ) {
+        contrast <- contrastName(object)
+        padj <- object %>%
+            as.data.frame() %>%
+            rownames_to_column("geneID") %>%
+            # Remove any rows with NA P values
+            .[complete.cases(.), ] %>%
+            .[order(.[["padj"]]), ]
+        up <- padj %>%
+            .[.[["log2FoldChange"]] > 0L, , drop = FALSE] %>%
+            .subsetTop(n = n, coding = coding)
+        down <- padj %>%
+            .[.[["log2FoldChange"]] < 0L, , drop = FALSE] %>%
+            .subsetTop(n = n, coding = coding)
+        if (!is.null(up)) {
+            show(kable(
+                up,
+                caption = paste(contrast, "(upregulated)")
+            ))
+        }
+        if (!is.null(down)) {
+            show(kable(
+                down,
+                caption = paste(contrast, "(downregulated)")
+            ))
+        }
+    }
+)
+
+
+
 #' @rdname topTables
 #' @export
 setMethod(
@@ -90,13 +124,11 @@ setMethod(
         n = 50L,
         coding = FALSE
     ) {
-        # Passthrough: n, coding
         assert_is_list(object)
         assert_is_subset(
             c("all", "deg", "degLFCDown", "degLFCUp"),
             names(object)
         )
-
         up <- .subsetTop(
             object[["degLFCUp"]],
             n = n,
