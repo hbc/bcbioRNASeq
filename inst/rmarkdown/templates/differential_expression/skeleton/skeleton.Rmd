@@ -143,16 +143,12 @@ saveData(res_tbl, dir = params$data_dir)
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
 
-- `geneID`: [Ensembl][] gene identifier.
 - `baseMean`: Mean of the normalized counts per gene for all samples.
 - `log2FoldChange`: log2 fold change.
 - `lfcSE`: log2 standard error.
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
 - `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
-- `externalGeneName`: [Ensembl][] name (a.k.a. symbol).
-- `description`: [Ensembl][] description.
-- `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
 
 ## Top tables
