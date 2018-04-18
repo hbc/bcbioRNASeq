@@ -103,18 +103,17 @@ test_that("resultsTables : Default return with local files only", {
         write = FALSE
     )
     expect_identical(class(resTbl), "list")
-    tibble <- c("tbl_df", "tbl", "data.frame")
     expect_identical(
         lapply(resTbl, class),
         list(
             "contrast" = "character",
              "alpha" = "numeric",
              "lfc" = "numeric",
-             "all" = tibble,
-             "deg" = tibble,
-             "degLFC" = tibble,
-             "degLFCUp" = tibble,
-             "degLFCDown" = tibble
+             "all" = "data.frame",
+             "deg" = "data.frame",
+             "degLFC" = "data.frame",
+             "degLFCUp" = "data.frame",
+             "degLFCDown" = "data.frame"
         )
     )
 })
