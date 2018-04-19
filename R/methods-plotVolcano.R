@@ -194,12 +194,12 @@ setMethod(
                 color = pointColor
             ) +
             geom_point() +
+            guides(color = FALSE) +
             labs(
                 title = contrastName(object),
                 x = "log2 fold change",
                 y = "-log10 adj p value"
-            ) +
-            theme(legend.position = "none")
+            )
 
         if (is_a_string(pointColor) && is.character(sigPointColor)) {
             p <- p +
@@ -220,7 +220,7 @@ setMethod(
             assert_is_subset(genes, data[["geneID"]])
             labelData <- data[data[["geneID"]] %in% genes, ]
             p <- p +
-                geomLabel(
+                .geomLabel(
                     data = labelData,
                     mapping = aes_string(
                         x = "log2FoldChange",

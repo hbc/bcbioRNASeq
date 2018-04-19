@@ -171,7 +171,7 @@ setMethod(
             assert_is_subset(genes, data[["geneID"]])
             labelData <- data[data[["geneID"]] %in% genes, ]
             p <- p +
-                geomLabel(
+                .geomLabel(
                     data = labelData,
                     mapping = aes_string(
                         x = "baseMean",
