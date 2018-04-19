@@ -42,26 +42,39 @@ labelSep <- " : "
 # -1: downregulated
 #  0: not significant
 #  1: upregulated
-.degColors <- function(data, alpha, lfcThreshold = 0L) {
-    color <- mapply(
-        lfc = data[["log2FoldChange"]],
-        padj = data[["padj"]],
-        FUN = function(lfc, padj) {
-            if (any(is.na(c(lfc, padj)))) {
-                "nonsignificant"
-            } else if (lfc > lfcThreshold & padj < alpha) {
-                "upregulated"
-            } else if (lfc < lfcThreshold & padj < alpha) {
-                "downregulated"
+.addIsDECol <- function(
+    data,
+    testCol = "padj",
+    alpha,
+    lfcCol = "log2FoldChange",
+    lfcThreshold = 0L
+) {
+    # test: P value or S value
+    test <- data[[testCol]]
+    # lfc: log2 fold change cutoff
+    lfc <- data[[lfcCol]]
+    isDE <- mapply(
+        test = test,
+        lfc = lfc,
+        FUN = function(test, lfc) {
+            if (any(is.na(c(test, lfc)))) {
+                # nonsignificant
+                0L
+            } else if (test < alpha & lfc > lfcThreshold) {
+                # upregulated
+                1L
+            } else if (test < alpha & lfc < lfcThreshold) {
+                # downregulated
+                -1L
             } else {
-                "nonsignificant"
+                0L
             }
         },
         SIMPLIFY = TRUE,
         USE.NAMES = FALSE
     )
-    color <- as.factor(color)
-    data[["color"]] <- color
+    isDE <- as.factor(isDE)
+    data[["isDE"]] <- isDE
     data
 }
 
