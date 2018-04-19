@@ -1,6 +1,8 @@
-library(knitr)
-library(DEGreport)
 library(bcbioRNASeq)
+library(DESeq2)
+library(DEGreport)
+
+library(knitr)
 library(tidyverse)
 
 # Set seed for reproducibility
