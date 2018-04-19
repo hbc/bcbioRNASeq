@@ -130,12 +130,15 @@ setMethod(
             return(data)
         }
 
-        xBreaks <- data[["baseMean"]] %>%
+        xFloor <- data[["baseMean"]] %>%
+            min() %>%
+            log10() %>%
+            floor()
+        xCeiling <- data[["baseMean"]] %>%
             max() %>%
             log10() %>%
-            ceiling() %>%
-            seq(from = 0L, to = ., by = 1L) %>%
-            10 ^ `.`
+            ceiling()
+        xBreaks <- 10 ^ seq(from = xFloor, to = xCeiling, by = 1L)
 
         p <- ggplot(
             data = data,
