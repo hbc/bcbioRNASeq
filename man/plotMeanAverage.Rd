@@ -9,10 +9,10 @@
 \usage{
 plotMeanAverage(object, ...)
 
-\S4method{plotMeanAverage}{DESeqResults}(object, alpha, mle = FALSE,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = "gray50", sigPointColor = c(upregulated =
-  "purple", downregulated = "orange"), title = TRUE, return = c("ggplot",
+\S4method{plotMeanAverage}{DESeqResults}(object, alpha, genes = NULL,
+  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), title = TRUE, return = c("ggplot",
   "data.frame"))
 }
 \arguments{
