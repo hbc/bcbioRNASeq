@@ -35,7 +35,7 @@
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
 #'   geom_boxplot geom_density geom_hline geom_jitter geom_point geom_polygon
 #'   geom_ribbon geom_smooth ggplot ggtitle guides labs position_jitterdodge
-#'   scale_color_manual scale_fill_manual scale_x_continuous scale_x_log10
+#'   scale_color_manual scale_fill_manual scale_x_continuous scale_y_continuous
 #'   stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
 #' @importFrom grid arrow unit

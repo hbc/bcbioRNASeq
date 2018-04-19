@@ -151,7 +151,7 @@ setMethod(
                 color = pointColor
             ) +
             geom_point(size = 1L) +
-            scale_x_log10(breaks = xBreaks) +
+            scale_x_continuous(breaks = xBreaks, trans = "log10") +
             scale_y_continuous(breaks = pretty_breaks()) +
             annotation_logticks(sides = "b") +
             guides(color = FALSE) +
