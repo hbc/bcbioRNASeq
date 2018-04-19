@@ -47,6 +47,7 @@
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
 #' @importFrom rlang !! !!! sym syms
+#' @importFrom scales pretty_breaks
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble as_tibble column_to_rownames glimpse remove_rownames
 #'   rownames_to_column tibble

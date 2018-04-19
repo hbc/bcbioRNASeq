@@ -154,12 +154,20 @@ setMethod(
                 color = NA,
                 fill = pointColor
             ) +
-            labs(x = "log2 fold change") +
+            scale_x_continuous(
+                breaks = pretty_breaks(),
+                expand = c(0L, 0L)
+            ) +
+            scale_y_continuous(expand = c(0L, 0L)) +
+            labs(
+                x = "log2 fold change",
+                y = NULL
+            ) +
+            guides(fill = FALSE) +
             theme(
+                axis.line.y = element_blank(),
                 axis.text.y = element_blank(),
-                axis.ticks.y = element_blank(),
-                axis.title.y = element_blank(),
-                legend.position = "none"
+                axis.ticks.y = element_blank()
             )
 
         # P value density ======================================================
@@ -171,12 +179,21 @@ setMethod(
                 color = NA,
                 fill = pointColor
             ) +
-            labs(x = "-log10 adj p value") +
+            scale_x_continuous(
+                breaks = pretty_breaks(),
+                expand = c(0L, 0L),
+                limits = c(0L, 10L)
+            ) +
+            scale_y_continuous(expand = c(0L, 0L)) +
+            labs(
+                x = "-log10 adj p value",
+                y = NULL
+            ) +
+            guides(fill = FALSE) +
             theme(
+                axis.line.y = element_blank(),
                 axis.text.y = element_blank(),
-                axis.ticks.y = element_blank(),
-                axis.title.y = element_blank(),
-                legend.position = "none"
+                axis.ticks.y = element_blank()
             )
 
         # Volcano plot =========================================================
@@ -194,6 +211,13 @@ setMethod(
                 color = pointColor
             ) +
             geom_point() +
+            scale_x_continuous(
+                breaks = pretty_breaks()
+            ) +
+            scale_y_continuous(
+                breaks = pretty_breaks(),
+                limits = c(0L, 10L)
+            ) +
             guides(color = FALSE) +
             labs(
                 title = contrastName(object),
@@ -242,12 +266,12 @@ setMethod(
                 draw_plot(
                     plot = lfcHist,
                     x = 0L, y = 0L,
-                    width = 0.5, height = 0.15
+                    width = 0.45, height = 0.15
                 ) +
                 draw_plot(
                     plot = pvalueHist,
-                    x = 0.5, y = 0L,
-                    width = 0.5, height = 0.15
+                    x = 0.55, y = 0L,
+                    width = 0.45, height = 0.15
                 )
         } else {
             p
