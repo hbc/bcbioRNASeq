@@ -7,8 +7,9 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = NULL,
-  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
-  downregulated = "orange"), title = TRUE)
+  ntop = 0L, direction = c("both", "up", "down"), pointColor = "gray50",
+  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
+  title = TRUE, return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -20,6 +21,8 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
 contain the columns \code{geneID} and \code{geneName}.}
 
+\item{ntop}{Number of top genes to label.}
+
 \item{pointColor}{Default point color for the plot.}
 
 \item{sigPointColor}{\code{character} vector containing color names for labeling
@@ -28,7 +31,8 @@ labeling DEGs with the same color, regardless of direction.}
 
 \item{title}{Title of plot.}
 
-\item{labelColor}{Text label color.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 }
 \value{
 \code{ggplot}.
@@ -37,6 +41,8 @@ labeling DEGs with the same color, regardless of direction.}
 Plot Mean Average
 }
 \examples{
+gene2symbol <- gene2symbol(bcb_small)
+
 # DESeqResults ====
 # Color DEGs in each direction separately
 plotMA(
@@ -47,18 +53,27 @@ plotMA(
     )
 )
 
-# Label DEGs in both directions with a single color
+# Label DEGs with a single color
+plotMA(res_small, sigPointColor = "purple")
+
+# Directional support
 plotMA(
     object = res_small,
-    sigPointColor = "purple"
+    direction = "up",
+    ntop = 5L,
+    gene2symbol = gene2symbol
+)
+plotMA(
+    object = res_small,
+    direction = "down",
+    ntop = 5L,
+    gene2symbol = gene2symbol
 )
 
-# Label genes
-genes <- head(rownames(res_small), 4L)
-gene2symbol <- gene2symbol(bcb_small)
+# Label genes manually
 plotMA(
     object = res_small,
-    genes = genes,
+    genes = head(rownames(res_small)),
     gene2symbol = gene2symbol
 )
 }

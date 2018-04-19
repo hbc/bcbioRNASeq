@@ -4,6 +4,16 @@
 \alias{general}
 \title{General Arguments}
 \arguments{
+\item{object}{Object.}
+
+\item{i}{An integer or numeric scalar.}
+
+\item{value}{Value to assign.}
+
+\item{x}{Object.}
+
+\item{...}{Additional arguments.}
+
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{colData}{\code{data.frame} describing the columns of the object. Must
@@ -31,8 +41,6 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{headerLevel}{R Markdown header level.}
 
-\item{i}{An integer or numeric scalar.}
-
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
@@ -48,9 +56,11 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{object}{Object.}
+\item{ntop}{Number of top genes to label.}
 
 \item{passLimit}{Threshold to plot pass color marker.}
+
+\item{pointColor}{Default point color for the plot.}
 
 \item{results}{\code{DESeqResults} object.}
 
@@ -59,20 +69,18 @@ the first item in the vector by default.}
 
 \item{samples}{Character vector of samples to include.}
 
+\item{sigPointColor}{\code{character} vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.}
+
 \item{subtitle}{Subtitle of plot.}
 
 \item{title}{Title of plot.}
-
-\item{value}{Value to assign.}
 
 \item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{withDimnames}{A \code{logical}, indicating whether dimnames should be
 applied to extracted assay elements.}
-
-\item{x}{Object.}
-
-\item{...}{Additional arguments.}
 }
 \value{
 No value.

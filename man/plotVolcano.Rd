@@ -54,24 +54,34 @@ the first item in the vector by default.}
 Plot Volcano
 }
 \examples{
-# DESeqResults ====
 gene2symbol <- gene2symbol(bcb_small)
+
+# DESeqResults ====
+# Color DEGs in each direction separately
 plotVolcano(
     object = res_small,
-    ntop = 5L,
-    gene2symbol = gene2symbol,
-    histograms = TRUE
+    sigPointColor = c(
+        upregulated = "purple",
+        downregulated = "orange"
+    )
 )
+
+# Label DEGs with a single color
+plotVolcano(res_small, sigPointColor = "purple")
 
 # Directional support
 plotVolcano(
     object = res_small,
     direction = "up",
+    ntop = 5L,
+    gene2symbol = gene2symbol,
     histograms = TRUE
 )
 plotVolcano(
     object = res_small,
     direction = "down",
+    ntop = 5L,
+    gene2symbol = gene2symbol,
     histograms = TRUE
 )
 
