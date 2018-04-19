@@ -1,6 +1,3 @@
-# TODO Add `ylim` cutoff?
-
-
 #' Plot Mean Average
 #'
 #' @name plotMeanAverage
@@ -60,6 +57,7 @@ setMethod(
     function(
         object,
         alpha,
+        lfcThreshold = 0L,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -69,10 +67,16 @@ setMethod(
             upregulated = "purple",
             downregulated = "orange"
         ),
-        title = TRUE,
         return = c("ggplot", "data.frame")
     ) {
         validObject(object)
+        if (missing(alpha)) {
+            alpha <- metadata(object)[["alpha"]]
+        }
+        assert_is_a_number(alpha)
+        assert_all_are_in_left_open_range(alpha, 0L, 1L)
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
         assertFormalGene2symbol(object, genes, gene2symbol)
         direction <- match.arg(direction)
         assert_all_are_non_negative(ntop)
@@ -85,30 +89,16 @@ setMethod(
             )
         }
         assert_is_of_length(sigPointColor, 2L)
-        assert_is_a_bool(title)
         return <- match.arg(return)
 
         # Check to see if we should use `sval` instead of `padj`
-        sval <- "svalue" %in% names(object)
-        if (isTRUE(sval)) {
+        if ("svalue" %in% names(object)) {
             testCol <- "svalue"
         } else {
             testCol <- "padj"
         }
 
-        # Title
-        if (isTRUE(title)) {
-            title <- contrastName(object)
-        } else {
-            title <- NULL
-        }
-
-        # Get alpha cutoff automatically (for coloring)
-        if (missing(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
-        assert_is_a_number(alpha)
-        assert_all_are_in_left_open_range(alpha, 0L, 1L)
+        lfcCol <- "log2FoldChange"
 
         data <- object %>%
             as.data.frame() %>%
@@ -120,12 +110,17 @@ setMethod(
             mutate(rankScore = abs(!!sym("log2FoldChange"))) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
-            .degColors(alpha = alpha)
+            .addIsDECol(
+                testCol = testCol,
+                alpha = alpha,
+                lfcCol = lfcCol,
+                lfcThreshold = lfcThreshold
+            )
 
         if (direction == "up") {
-            data <- data[data[["log2FoldChange"]] > 0L, ]
+            data <- data[data[[lfcCol]] > 0L, ]
         } else if (direction == "down") {
-            data <- data[data[["log2FoldChange"]] < 0L, ]
+            data <- data[data[[lfcCol]] < 0L, ]
         }
 
         # Gene-to-symbol mappings
@@ -159,8 +154,8 @@ setMethod(
             data = data,
             mapping = aes_string(
                 x = "baseMean",
-                y = "log2FoldChange",
-                color = "color"
+                y = lfcCol,
+                color = "isDE"
             )
         ) +
             geom_hline(
@@ -174,7 +169,7 @@ setMethod(
             annotation_logticks(sides = "b") +
             guides(color = FALSE) +
             labs(
-                title = title,
+                title = contrastName(object),
                 x = "mean of normalized counts",
                 y = "log2 fold change"
             )
@@ -183,9 +178,12 @@ setMethod(
             p <- p +
                 scale_color_manual(
                     values = c(
-                        "nonsignificant" = pointColor,
-                        "upregulated" = sigPointColor[[1L]],
-                        "downregulated" = sigPointColor[[2L]]
+                        # nonsignificant
+                        "0" = pointColor,
+                        # downregulated
+                        "-1" = sigPointColor[[1L]],
+                        # upregulated
+                        "1" = sigPointColor[[2L]]
                     )
                 )
         }
@@ -203,7 +201,7 @@ setMethod(
                     data = labelData,
                     mapping = aes_string(
                         x = "baseMean",
-                        y = "log2FoldChange",
+                        y = lfcCol,
                         label = labelCol
                     )
                 )
