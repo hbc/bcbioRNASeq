@@ -9,11 +9,11 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
-  labelColor = "black", histograms = TRUE)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, lfc = 0L, genes = NULL,
+  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
+  "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -22,8 +22,6 @@ plotVolcano(object, ...)
 arguments must be formatted in camel case, not snake case.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
-
-\item{padj}{Use P values adjusted for multiple comparisions.}
 
 \item{lfc}{Log fold change ratio (base 2) cutoff.}
 
@@ -40,6 +38,12 @@ contain the columns \code{geneID} and \code{geneName}.}
 
 \item{pointColor}{Point color.}
 
+\item{histograms}{Show LFC and P value histograms.}
+
+\item{return}{Return \code{ggplot} or \code{data.frame}.}
+
+\item{padj}{Use P values adjusted for multiple comparisions.}
+
 \item{pointAlpha}{Point transparency alpha.}
 
 \item{pointOutlineColor}{Point outline color.}
@@ -49,8 +53,6 @@ contain the columns \code{geneID} and \code{geneName}.}
 \item{shadeAlpha}{Shading transparency alpha.}
 
 \item{labelColor}{Gene label color.}
-
-\item{histograms}{Show LFC and P value histograms.}
 }
 \value{
 \code{ggplot}.
@@ -60,11 +62,17 @@ Plot Volcano
 }
 \examples{
 # DESeqResults ====
+gene2symbol <- gene2symbol(bcb_small)
 plotVolcano(
     object = res_small,
     ntop = 5L,
-    gene2symbol = gene2symbol(bcb_small)
+    gene2symbol = gene2symbol,
+    histograms = TRUE
 )
+
+# Return coordinates as a data.frame
+x <- plotVolcano(res_small, return = "data.frame")
+glimpse(x)
 }
 \seealso{
 This function is an updated variant of
