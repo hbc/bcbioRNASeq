@@ -1,10 +1,10 @@
 #' Differential Expression Results Tables
 #'
-#' @note Log fold change cutoff ("`lfc`") does not apply to statistical
-#'   hypothesis testing, only gene filtering in the results tables. See
-#'   [DESeq2::results()] for additional information about using `lfcThreshold`
-#'   and `altHypothesis` to set an alternative hypothesis based on expected fold
-#'   changes.
+#' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
+#'   statistical hypothesis testing, only gene filtering in the results tables.
+#'   See [DESeq2::results()] for additional information about using
+#'   `lfcThreshold` and `altHypothesis` to set an alternative hypothesis based
+#'   on expected fold changes.
 #'
 #' @name resultsTables
 #' @family Differential Expression Functions
@@ -17,7 +17,6 @@
 #'   added to the results.
 #' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
-#' @param dir Local directory path where to write the results tables.
 #' @param dropboxDir Dropbox directory path where to archive the results tables
 #'   for permanent storage (e.g. Stem Cell Commons). When this option is
 #'   enabled, unique links per file are generated internally with the rdrop2
@@ -30,7 +29,7 @@
 #' # DESeqResults ====
 #' x <- resultsTables(
 #'     object = res_small,
-#'     lfc = 0.25,
+#'     lfcThreshold = 0.25,
 #'     rowData = rowData(bcb_small),
 #'     summary = TRUE,
 #'     headerLevel = 2L,
@@ -115,7 +114,7 @@ setMethod(
     signature("DESeqResults"),
     function(
         object,
-        lfc = 0L,
+        lfcThreshold = 0L,
         rowData = NULL,
         summary = TRUE,
         headerLevel = 2L,
@@ -136,8 +135,8 @@ setMethod(
         # Assert checks ========================================================
         # Passthrough: headerLevel, dropboxDir, rdsToken
         validObject(object)
-        assert_is_a_number(lfc)
-        assert_all_are_non_negative(lfc)
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
         assert_is_any_of(rowData, c("DataFrame", "data.frame", "NULL"))
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
@@ -183,8 +182,8 @@ setMethod(
             .[.[["padj"]] < alpha, , drop = FALSE] %>%
             .[order(.[["padj"]]), , drop = FALSE]
         degLFC <- deg %>%
-            .[.[["log2FoldChange"]] > lfc |
-                  .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+            .[.[["log2FoldChange"]] > lfcThreshold |
+                  .[["log2FoldChange"]] < -lfcThreshold, , drop = FALSE]
         degLFCUp <- degLFC %>%
             .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
         degLFCDown <- degLFC %>%
@@ -194,7 +193,7 @@ setMethod(
             "contrast" = contrast,
             # Cutoffs
             "alpha" = alpha,
-            "lfc" = lfc,
+            "lfcThreshold" = lfcThreshold,
             # Data frames
             "all" = all,
             "deg" = deg,
@@ -214,7 +213,7 @@ setMethod(
                 paste("Base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
                 paste("Base mean > 1:", nrow(baseMeanGt1), "genes"),
                 paste("Alpha cutoff:", alpha),
-                paste("LFC cutoff:", lfc, "(applied in tables only)"),
+                paste("LFC cutoff:", lfcThreshold, "(applied in tables only)"),
                 paste("DEG pass alpha:", nrow(deg), "genes"),
                 paste("DEG LFC up:", nrow(degLFCUp), "genes"),
                 paste("DEG LFC down:", nrow(degLFCDown), "genes")

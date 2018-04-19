@@ -38,7 +38,7 @@ setMethod(
         results,
         counts,
         interestingGroups,
-        lfc = 0L,
+        lfcThreshold = 0L,
         color = scale_color_viridis(discrete = TRUE),
         label = FALSE,
         title = "deg pca",
@@ -50,8 +50,8 @@ setMethod(
             interestingGroups <- bcbioBase::interestingGroups(counts)
         }
         assertFormalInterestingGroups(colData(counts), interestingGroups)
-        assert_is_a_number(lfc)
-        assert_all_are_non_negative(lfc)
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
         assertIsAStringOrNULL(title)
@@ -60,7 +60,7 @@ setMethod(
         # Get the DE gene vector using `resultsTables()`
         list <- resultsTables(
             object = results,
-            lfc = lfc,
+            lfcThreshold = lfcThreshold,
             rowData = NULL,
             summary = FALSE,
             write = FALSE

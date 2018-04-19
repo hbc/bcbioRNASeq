@@ -62,7 +62,7 @@ setMethod(
     function(
         object,
         alpha,
-        lfc = 0L,
+        lfcThreshold = 0L,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -84,11 +84,11 @@ setMethod(
             lower = 0L,
             upper = 1L
         )
-        assert_is_a_number(lfc)
+        assert_is_a_number(lfcThreshold)
         assertFormalGene2symbol(object, genes, gene2symbol)
         assertIsImplicitInteger(ntop)
         direction <- match.arg(direction)
-        assert_all_are_non_negative(c(lfc, ntop))
+        assert_all_are_non_negative(c(lfcThreshold, ntop))
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
@@ -123,7 +123,7 @@ setMethod(
             ) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
-            .degColors(alpha = alpha, lfcThreshold = lfc)
+            .degColors(alpha = alpha, lfcThreshold = lfcThreshold)
 
         if (direction == "up") {
             data <- data[data[["log2FoldChange"]] > 0L, ]

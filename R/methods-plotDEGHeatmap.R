@@ -60,7 +60,7 @@ setMethod(
     function(
         results,
         counts,
-        lfc = 0L,
+        lfcThreshold = 0L,
         title = TRUE,
         ...
     ) {
@@ -77,8 +77,8 @@ setMethod(
         # Assert checks ========================================================
         validObject(results)
         assert_are_identical(rownames(results), rownames(counts))
-        assert_is_a_number(lfc)
-        assert_all_are_non_negative(lfc)
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
 
         # Title
         if (isTRUE(title)) {
@@ -100,8 +100,8 @@ setMethod(
             .[.[["padj"]] < alpha, , drop = FALSE] %>%
             # Keep genes that pass log2 fold change cutoff
             .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-            .[.[["log2FoldChange"]] > lfc |
-                  .[["log2FoldChange"]] < -lfc, , drop = FALSE]
+            .[.[["log2FoldChange"]] > lfcThreshold |
+                  .[["log2FoldChange"]] < -lfcThreshold, , drop = FALSE]
         assert_has_rows(data)
         deg <- rownames(data)
 
