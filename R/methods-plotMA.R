@@ -91,29 +91,8 @@ setMethod(
             rownames_to_column("geneID") %>%
             as_tibble() %>%
             camel(strict = FALSE) %>%
-            .[!is.na(.[["padj"]]), , drop = FALSE]
-
-        # Calculate a numeric vector to define the colors
-        # -1: downregulated
-        #  0: not significant
-        #  1: upregulated
-        data[["color"]] <- mapply(
-            lfc = data[["log2FoldChange"]],
-            padj = data[["padj"]],
-            MoreArgs = list(alpha = alpha),
-            FUN = function(lfc, padj, alpha) {
-                if (lfc > 0L & padj < alpha) {
-                    "upregulated"
-                } else if (lfc < 0L & padj < alpha) {
-                    "downregulated"
-                } else {
-                    "nonsignificant"
-                }
-            },
-            SIMPLIFY = TRUE,
-            USE.NAMES = FALSE
-        ) %>%
-            as.factor()
+            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+            .degColors(alpha = alpha)
 
         p <- ggplot(
             data = data,
