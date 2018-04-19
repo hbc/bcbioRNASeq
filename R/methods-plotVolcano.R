@@ -15,24 +15,34 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # DESeqResults ====
 #' gene2symbol <- gene2symbol(bcb_small)
+#'
+#' # DESeqResults ====
+#' # Color DEGs in each direction separately
 #' plotVolcano(
 #'     object = res_small,
-#'     ntop = 5L,
-#'     gene2symbol = gene2symbol,
-#'     histograms = TRUE
+#'     sigPointColor = c(
+#'         upregulated = "purple",
+#'         downregulated = "orange"
+#'     )
 #' )
+#'
+#' # Label DEGs with a single color
+#' plotVolcano(res_small, sigPointColor = "purple")
 #'
 #' # Directional support
 #' plotVolcano(
 #'     object = res_small,
 #'     direction = "up",
+#'     ntop = 5L,
+#'     gene2symbol = gene2symbol,
 #'     histograms = TRUE
 #' )
 #' plotVolcano(
 #'     object = res_small,
 #'     direction = "down",
+#'     ntop = 5L,
+#'     gene2symbol = gene2symbol,
 #'     histograms = TRUE
 #' )
 #'
@@ -65,7 +75,6 @@ setMethod(
         histograms = FALSE,
         return = c("ggplot", "data.frame")
     ) {
-        # Assert checks ========================================================
         validObject(object)
         if (missing(alpha)) {
             alpha <- metadata(object)[["alpha"]]
@@ -122,32 +131,18 @@ setMethod(
             data <- data[data[["log2FoldChange"]] < 0L, ]
         }
 
+        # Gene-to-symbol mappings
+        if (is.data.frame(gene2symbol)) {
+            assertIsGene2symbol(gene2symbol)
+            labelCol <- "geneName"
+            data <- left_join(data, gene2symbol, by = "geneID")
+        } else {
+            labelCol <- "geneID"
+        }
+
         # Early return data frame, if desired
         if (return == "data.frame") {
             return(data)
-        }
-
-        # Gene text labels =====================================================
-        if (is.null(genes) && is_positive(ntop)) {
-            genes <- data[1L:ntop, "geneID", drop = TRUE]
-        }
-        if (is.character(genes)) {
-            assert_is_subset(genes, data[["geneID"]])
-            labelData <- data %>%
-                .[.[["geneID"]] %in% genes, , drop = FALSE]
-            if (is.data.frame(gene2symbol)) {
-                labelCol <- "geneName"
-                assertIsGene2symbol(gene2symbol)
-                labelData <- left_join(
-                    x = labelData,
-                    y = gene2symbol,
-                    by = "geneID"
-                )
-            } else {
-                labelCol <- "geneID"
-            }
-        } else {
-            labelData <- NULL
         }
 
         # LFC density ==========================================================
@@ -159,7 +154,6 @@ setMethod(
                 color = NA,
                 fill = pointColor
             ) +
-            scale_x_continuous(limits = rangeX) +
             labs(x = "log2 fold change") +
             theme(
                 axis.text.y = element_blank(),
@@ -206,17 +200,6 @@ setMethod(
                 y = "-log10 adj p value"
             ) +
             theme(legend.position = "none")
-        if (is.data.frame(labelData)) {
-            p <- p +
-                geomLabel(
-                    data = labelData,
-                    mapping = aes_string(
-                        x = "log2FoldChange",
-                        y = "negLog10Pvalue",
-                        label = labelCol
-                    )
-                )
-        }
 
         if (is_a_string(pointColor) && is.character(sigPointColor)) {
             p <- p +
@@ -229,24 +212,42 @@ setMethod(
                 )
         }
 
+        # Gene text labels =====================================================
+        if (is.null(genes) && is_positive(ntop)) {
+            genes <- data[1L:ntop, "geneID", drop = TRUE]
+        }
+        if (is.character(genes)) {
+            assert_is_subset(genes, data[["geneID"]])
+            labelData <- data[data[["geneID"]] %in% genes, ]
+            p <- p +
+                geomLabel(
+                    data = labelData,
+                    mapping = aes_string(
+                        x = "log2FoldChange",
+                        y = "negLog10Pvalue",
+                        label = labelCol
+                    )
+                )
+        }
+
         # Grid layout ==========================================================
         if (isTRUE(histograms)) {
             ggdraw() +
                 # Coordinates are relative to lower left corner
                 draw_plot(
+                    plot = p,
+                    x = 0L, y = 0.15,
+                    width = 1L, height = 0.85
+                ) +
+                draw_plot(
                     plot = lfcHist,
-                    x = 0L, y = 0.7,
-                    width = 0.5, height = 0.3
+                    x = 0L, y = 0L,
+                    width = 0.5, height = 0.15
                 ) +
                 draw_plot(
                     plot = pvalueHist,
-                    x = 0.5, y = 0.7,
-                    width = 0.5, height = 0.3
-                ) +
-                draw_plot(
-                    plot = p,
-                    x = 0L, y = 0L,
-                    width = 1L, height = 0.7
+                    x = 0.5, y = 0L,
+                    width = 0.5, height = 0.15
                 )
         } else {
             p
