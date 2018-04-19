@@ -102,7 +102,9 @@ qcWarnLine <- function(intercept) {
         lfc = data[["log2FoldChange"]],
         padj = data[["padj"]],
         FUN = function(lfc, padj) {
-            if (lfc > lfcThreshold & padj < alpha) {
+            if (any(is.na(c(lfc, padj)))) {
+                "nonsignificant"
+            } else if (lfc > lfcThreshold & padj < alpha) {
                 "upregulated"
             } else if (lfc < lfcThreshold & padj < alpha) {
                 "downregulated"
