@@ -8,7 +8,7 @@ params:
     design: !r ~ treatment
     contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
-    lfc: 1
+    lfc: 0
     data_dir: "."
     results_dir: "results/differential_expression"
     dropbox_dir: NULL
