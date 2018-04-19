@@ -9,11 +9,11 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, lfc = 0L, genes = NULL,
-  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
-  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
-  "data.frame"))
+\S4method{plotVolcano}{DESeqResults}(object, alpha, lfcThreshold = 0L,
+  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
+  "up", "down"), pointColor = "gray50", sigPointColor = c(upregulated =
+  "purple", downregulated = "orange"), histograms = FALSE,
+  return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -23,7 +23,7 @@ arguments must be formatted in camel case, not snake case.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
@@ -95,7 +95,7 @@ This function is an updated variant of
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
   \code{\link{resultsTables}}
 }
 \author{

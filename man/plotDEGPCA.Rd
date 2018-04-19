@@ -12,8 +12,9 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, lfc = 0L, color = scale_color_viridis(discrete = TRUE),
-  label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
+  interestingGroups, lfcThreshold = 0L, color = scale_color_viridis(discrete
+  = TRUE), label = FALSE, title = "deg pca", return = c("ggplot",
+  "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -30,7 +31,7 @@ plotDEGPCA(results, counts, ...)
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
@@ -76,7 +77,7 @@ plotDEGPCA(
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
   \code{\link{resultsTables}}
 }
 \author{

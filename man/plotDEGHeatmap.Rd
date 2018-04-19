@@ -12,7 +12,7 @@
 plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results, counts,
-  lfc = 0L, title = TRUE, ...)
+  lfcThreshold = 0L, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -26,7 +26,7 @@ plotDEGHeatmap(results, counts, ...)
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{title}{\emph{Optional.} Plot title.}
 
@@ -83,7 +83,7 @@ plotDEGHeatmap(
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
   \code{\link{resultsTables}}
 }
 \author{

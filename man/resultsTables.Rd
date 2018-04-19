@@ -9,16 +9,16 @@
 \usage{
 resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, rowData = NULL,
-  summary = TRUE, headerLevel = 2L, write = FALSE, dir = ".",
-  dropboxDir = NULL, rdsToken = NULL, ...)
+\S4method{resultsTables}{DESeqResults}(object, lfcThreshold = 0L,
+  rowData = NULL, summary = TRUE, headerLevel = 2L, write = FALSE,
+  dir = ".", dropboxDir = NULL, rdsToken = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{rowData}{Join Ensembl gene annotations to the results. Apply gene
 identifier to symbol mappings. A previously saved \code{data.frame} is
@@ -31,7 +31,7 @@ added to the results.}
 
 \item{write}{Write CSV files to disk.}
 
-\item{dir}{Local directory path where to write the results tables.}
+\item{dir}{Local directory path.}
 
 \item{dropboxDir}{Dropbox directory path where to archive the results tables
 for permanent storage (e.g. Stem Cell Commons). When this option is
@@ -47,17 +47,17 @@ Results \code{list}.
 Differential Expression Results Tables
 }
 \note{
-Log fold change cutoff ("\code{lfc}") does not apply to statistical
-hypothesis testing, only gene filtering in the results tables. See
-\code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using \code{lfcThreshold}
-and \code{altHypothesis} to set an alternative hypothesis based on expected fold
-changes.
+Log fold change cutoff threshold ("\code{lfcThreshold}") does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using
+\code{lfcThreshold} and \code{altHypothesis} to set an alternative hypothesis based
+on expected fold changes.
 }
 \examples{
 # DESeqResults ====
 x <- resultsTables(
     object = res_small,
-    lfc = 0.25,
+    lfcThreshold = 0.25,
     rowData = rowData(bcb_small),
     summary = TRUE,
     headerLevel = 2L,
@@ -68,7 +68,7 @@ names(x)
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
   \code{\link{plotVolcano}}
 }
 \author{

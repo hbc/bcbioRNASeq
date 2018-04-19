@@ -26,6 +26,8 @@ color definitions are desired, we recommend using
 
 \item{counts}{Object containing a normalized counts matrix.}
 
+\item{dir}{Local directory path.}
+
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
@@ -44,7 +46,7 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
