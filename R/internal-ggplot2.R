@@ -38,7 +38,7 @@ geneMedianLine <- stat_summary(
 
 
 # geom functions ==============================================================
-geomLabel <- function(data, mapping, size = 5L) {
+geomLabel <- function(data, mapping, size = 4L) {
     geom_label_repel(
         data = data,
         mapping = mapping,
@@ -89,4 +89,31 @@ qcWarnLine <- function(intercept) {
         size = qcLineSize,
         yintercept = intercept
     )
+}
+
+
+
+# Calculate a numeric vector to define the colors
+# -1: downregulated
+#  0: not significant
+#  1: upregulated
+.degColors <- function(data, alpha, lfcThreshold = 0L) {
+    color <- mapply(
+        lfc = data[["log2FoldChange"]],
+        padj = data[["padj"]],
+        FUN = function(lfc, padj) {
+            if (lfc > lfcThreshold & padj < alpha) {
+                "upregulated"
+            } else if (lfc < lfcThreshold & padj < alpha) {
+                "downregulated"
+            } else {
+                "nonsignificant"
+            }
+        },
+        SIMPLIFY = TRUE,
+        USE.NAMES = FALSE
+    )
+    color <- as.factor(color)
+    data[["color"]] <- color
+    data
 }
