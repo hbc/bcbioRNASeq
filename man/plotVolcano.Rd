@@ -36,23 +36,16 @@ contain the columns \code{geneID} and \code{geneName}.}
 
 \item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
-\item{pointColor}{Point color.}
+\item{pointColor}{Default point color for the plot.}
+
+\item{sigPointColor}{\code{character} vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.}
 
 \item{histograms}{Show LFC and P value histograms.}
 
-\item{return}{Return \code{ggplot} or \code{data.frame}.}
-
-\item{padj}{Use P values adjusted for multiple comparisions.}
-
-\item{pointAlpha}{Point transparency alpha.}
-
-\item{pointOutlineColor}{Point outline color.}
-
-\item{shadeColor}{Shading color for bounding box.}
-
-\item{shadeAlpha}{Shading transparency alpha.}
-
-\item{labelColor}{Gene label color.}
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 }
 \value{
 \code{ggplot}.
@@ -67,6 +60,18 @@ plotVolcano(
     object = res_small,
     ntop = 5L,
     gene2symbol = gene2symbol,
+    histograms = TRUE
+)
+
+# Directional support
+plotVolcano(
+    object = res_small,
+    direction = "up",
+    histograms = TRUE
+)
+plotVolcano(
+    object = res_small,
+    direction = "down",
     histograms = TRUE
 )
 

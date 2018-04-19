@@ -6,17 +6,8 @@
 #'
 #' @inheritParams bcbioBase::plotHeatmap
 #' @inheritParams general
-#' @param padj Use P values adjusted for multiple comparisions.
-#' @param ntop Number of top genes to label.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.
-#' @param pointColor Point color.
-#' @param pointAlpha Point transparency alpha.
-#' @param pointOutlineColor Point outline color.
-#' @param shadeColor Shading color for bounding box.
-#' @param shadeAlpha Shading transparency alpha.
-#' @param labelColor Gene label color.
 #' @param histograms Show LFC and P value histograms.
-#' @param return Return `ggplot` or `data.frame`.
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
@@ -30,6 +21,18 @@
 #'     object = res_small,
 #'     ntop = 5L,
 #'     gene2symbol = gene2symbol,
+#'     histograms = TRUE
+#' )
+#'
+#' # Directional support
+#' plotVolcano(
+#'     object = res_small,
+#'     direction = "up",
+#'     histograms = TRUE
+#' )
+#' plotVolcano(
+#'     object = res_small,
+#'     direction = "down",
 #'     histograms = TRUE
 #' )
 #'
@@ -113,6 +116,12 @@ setMethod(
             mutate(rank = row_number()) %>%
             .degColors(alpha = alpha, lfcThreshold = lfc)
 
+        if (direction == "up") {
+            data <- data[data[["log2FoldChange"]] > 0L, ]
+        } else if (direction == "down") {
+            data <- data[data[["log2FoldChange"]] < 0L, ]
+        }
+
         # Early return data frame, if desired
         if (return == "data.frame") {
             return(data)
@@ -140,17 +149,6 @@ setMethod(
         } else {
             labelData <- NULL
         }
-
-        # Plot ranges ==========================================================
-        # Get range of LFC and P values to set up plot borders
-        rangeX <- c(
-            floor(min(data[["log2FoldChange"]])),
-            ceiling(max(data[["log2FoldChange"]]))
-        )
-        rangeY <- c(
-            floor(min(data[["negLog10Pvalue"]])),
-            ceiling(max(data[["negLog10Pvalue"]]))
-        )
 
         # LFC density ==========================================================
         lfcHist <- ggplot(
