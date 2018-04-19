@@ -103,6 +103,8 @@ setMethod(
             rownames_to_column("geneID") %>%
             as_tibble() %>%
             camel() %>%
+            # Remove genes with zero counts
+            filter(!!sym("baseMean") > 0L) %>%
             mutate(rankScore = abs(!!sym("log2FoldChange"))) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
@@ -128,6 +130,13 @@ setMethod(
             return(data)
         }
 
+        xBreaks <- data[["baseMean"]] %>%
+            max() %>%
+            log10() %>%
+            ceiling() %>%
+            seq(from = 0L, to = ., by = 1L) %>%
+            10 ^ `.`
+
         p <- ggplot(
             data = data,
             mapping = aes_string(
@@ -142,7 +151,8 @@ setMethod(
                 color = pointColor
             ) +
             geom_point(size = 1L) +
-            scale_x_log10() +
+            scale_x_log10(breaks = xBreaks) +
+            scale_y_continuous(breaks = pretty_breaks()) +
             annotation_logticks(sides = "b") +
             guides(color = FALSE) +
             labs(
