@@ -58,7 +58,7 @@ setMethod(
             )
 
         if (is_positive(warnLimit)) {
-            p <- p + qcWarnLine(warnLimit)
+            p <- p + .qcWarnLine(warnLimit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

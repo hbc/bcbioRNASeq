@@ -21,12 +21,12 @@ qcLineSize <- 1L
 qcLineType <- "dashed"
 
 # Plot label separator
-labelSep <- ": "
+labelSep <- " : "
 
 
 
 # ggproto objects ==============================================================
-geneMedianLine <- stat_summary(
+.geneMedianLine <- stat_summary(
     fun.y = median,
     fun.ymin = median,
     fun.ymax = median,
@@ -38,61 +38,6 @@ geneMedianLine <- stat_summary(
 
 
 # geom functions ==============================================================
-geomLabel <- function(data, mapping, size = 4L) {
-    geom_label_repel(
-        data = data,
-        mapping = mapping,
-        arrow = arrow(length = unit(0.01, "npc")),
-        box.padding = unit(0.5, "lines"),
-        fontface = "bold",
-        force = 1L,
-        point.padding = unit(0.75, "lines"),
-        segment.size = 0.5,
-        show.legend = FALSE,
-        size = size
-    )
-}
-
-
-
-genePoint <- function(size = 3L, alpha = 1L) {
-    geom_point(
-        size = size,
-        alpha = alpha,
-        position = position_jitterdodge(dodge.width = 0.9)
-    )
-}
-
-
-
-qcPassLine <- function(intercept) {
-    assert_is_a_number(intercept)
-    assert_all_are_non_negative(intercept)
-    geom_hline(
-        alpha = qcLineAlpha,
-        color = qcPassColor,
-        linetype = qcLineType,
-        size = qcLineSize,
-        yintercept = intercept
-    )
-}
-
-
-
-qcWarnLine <- function(intercept) {
-    assert_is_a_number(intercept)
-    assert_all_are_non_negative(intercept)
-    geom_hline(
-        alpha = qcLineAlpha,
-        color = qcWarnColor,
-        linetype = qcLineType,
-        size = qcLineSize,
-        yintercept = intercept
-    )
-}
-
-
-
 # Calculate a numeric vector to define the colors
 # -1: downregulated
 #  0: not significant
@@ -118,4 +63,59 @@ qcWarnLine <- function(intercept) {
     color <- as.factor(color)
     data[["color"]] <- color
     data
+}
+
+
+
+.geomLabel <- function(data, mapping, size = 4L) {
+    geom_label_repel(
+        data = data,
+        mapping = mapping,
+        arrow = arrow(length = unit(0.01, "npc")),
+        box.padding = unit(0.5, "lines"),
+        fontface = "bold",
+        force = 1L,
+        point.padding = unit(0.75, "lines"),
+        segment.size = 0.5,
+        show.legend = FALSE,
+        size = size
+    )
+}
+
+
+
+.genePoint <- function(size = 3L, alpha = 1L) {
+    geom_point(
+        size = size,
+        alpha = alpha,
+        position = position_jitterdodge(dodge.width = 0.9)
+    )
+}
+
+
+
+.qcPassLine <- function(intercept) {
+    assert_is_a_number(intercept)
+    assert_all_are_non_negative(intercept)
+    geom_hline(
+        alpha = qcLineAlpha,
+        color = qcPassColor,
+        linetype = qcLineType,
+        size = qcLineSize,
+        yintercept = intercept
+    )
+}
+
+
+
+.qcWarnLine <- function(intercept) {
+    assert_is_a_number(intercept)
+    assert_all_are_non_negative(intercept)
+    geom_hline(
+        alpha = qcLineAlpha,
+        color = qcWarnColor,
+        linetype = qcLineType,
+        size = qcLineSize,
+        yintercept = intercept
+    )
 }

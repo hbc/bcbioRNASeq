@@ -66,10 +66,10 @@ setMethod(
             )
 
         if (is_positive(passLimit)) {
-            p <- p + qcPassLine(passLimit)
+            p <- p + .qcPassLine(passLimit)
         }
         if (is_positive(warnLimit)) {
-            p <- p + qcWarnLine(warnLimit)
+            p <- p + .qcWarnLine(warnLimit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

@@ -59,7 +59,7 @@ setMethod(
             ylim(0L, 100L)
 
         if (is_positive(passLimit)) {
-            p <- p + qcPassLine(passLimit)
+            p <- p + .qcPassLine(passLimit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

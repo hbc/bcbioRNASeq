@@ -67,7 +67,7 @@ NULL
                     color = "interestingGroups"
                 )
             ) +
-                genePoint() +
+                .genePoint() +
                 theme(
                     axis.text.x = element_text(
                         angle = 90L, hjust = 1L, vjust = 0.5
@@ -85,7 +85,7 @@ NULL
                 isTRUE(medianLine) &&
                 !identical(interestingGroups, "sampleName")
             ) {
-                p <- p + geneMedianLine
+                p <- p + .geneMedianLine
             }
 
             if (is(color, "ScaleDiscrete")) {
@@ -127,7 +127,7 @@ NULL
             color = "interestingGroups"
         )
     ) +
-        genePoint() +
+        .genePoint() +
         theme(
             axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
         ) +
@@ -139,7 +139,7 @@ NULL
         )
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
-        p <- p + geneMedianLine
+        p <- p + .geneMedianLine
     }
 
     if (is(color, "ScaleDiscrete")) {
@@ -182,7 +182,7 @@ NULL
             color = "interestingGroups"
         )
     ) +
-        genePoint() +
+        .genePoint() +
         theme(
             axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
         ) +
@@ -193,7 +193,7 @@ NULL
         )
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
-        p <- p + geneMedianLine
+        p <- p + .geneMedianLine
     }
 
     if (is(color, "ScaleDiscrete")) {
