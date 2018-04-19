@@ -7,8 +7,8 @@
 \title{Plot Mean Average}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL, gene2symbol = NULL,
-  pointColor = "darkgray", sigPointColor = "purple", labelColor = "black",
-  title = TRUE)
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), title = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,12 +22,13 @@ contain the columns \code{geneID} and \code{geneName}.}
 
 \item{pointColor}{Default point color for the plot.}
 
-\item{sigPointColor}{Color for points corresponding to significant genes that
-have passed alpha level cutoffs.}
-
-\item{labelColor}{Text label color.}
+\item{sigPointColor}{\code{character} vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.}
 
 \item{title}{Title of plot.}
+
+\item{labelColor}{Text label color.}
 }
 \value{
 \code{ggplot}.
@@ -37,11 +38,28 @@ Plot Mean Average
 }
 \examples{
 # DESeqResults ====
-plotMA(res_small)
+# Color DEGs in each direction separately
 plotMA(
     object = res_small,
-    genes = head(rownames(res_small), 4L),
-    gene2symbol = gene2symbol(bcb_small)
+    sigPointColor = c(
+        upregulated = "purple",
+        downregulated = "orange"
+    )
+)
+
+# Label DEGs in both directions with a single color
+plotMA(
+    object = res_small,
+    sigPointColor = "purple"
+)
+
+# Label genes
+genes <- head(rownames(res_small), 4L)
+gene2symbol <- gene2symbol(bcb_small)
+plotMA(
+    object = res_small,
+    genes = genes,
+    gene2symbol = gene2symbol
 )
 }
 \seealso{
