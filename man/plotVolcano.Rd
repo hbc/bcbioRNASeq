@@ -10,10 +10,10 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha, lfcThreshold = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = "gray50", sigPointColor = c(upregulated =
-  "purple", downregulated = "orange"), histograms = FALSE,
-  return = c("ggplot", "data.frame"))
+  ylim = 1e-10, genes = NULL, gene2symbol = NULL, ntop = 0L,
+  direction = c("both", "up", "down"), pointColor = "gray50",
+  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
+  histograms = FALSE, return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -24,6 +24,9 @@ arguments must be formatted in camel case, not snake case.}
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
+
+\item{ylim}{Upper boundary limit for y-axis. Helps preserve dynamic range
+for gene sets containing highly significant P values (e.g. \code{1e-100}).}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene

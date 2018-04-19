@@ -9,11 +9,10 @@
 \usage{
 plotMeanAverage(object, ...)
 
-\S4method{plotMeanAverage}{DESeqResults}(object, alpha, genes = NULL,
-  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
-  downregulated = "orange"), title = TRUE, return = c("ggplot",
-  "data.frame"))
+\S4method{plotMeanAverage}{DESeqResults}(object, alpha, lfcThreshold = 0L,
+  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
+  "up", "down"), pointColor = "gray50", sigPointColor = c(upregulated =
+  "purple", downregulated = "orange"), return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -21,6 +20,8 @@ plotMeanAverage(object, ...)
 \item{...}{Additional arguments.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
+
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
@@ -36,8 +37,6 @@ contain the columns \code{geneID} and \code{geneName}.}
 \item{sigPointColor}{\code{character} vector containing color names for labeling
 upregulated and downregulated genes. Also supports a character string for
 labeling DEGs with the same color, regardless of direction.}
-
-\item{title}{Title of plot.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
