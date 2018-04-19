@@ -1,10 +1,11 @@
+# TODO Add `ylim` cutoff?
+
+
 #' Plot Mean Average
 #'
-#' @name plotMA
+#' @name plotMeanAverage
 #' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
-#'
-#' @importFrom BiocGenerics plotMA
 #'
 #' @inheritParams general
 #'
@@ -15,7 +16,7 @@
 #'
 #' # DESeqResults ====
 #' # Color DEGs in each direction separately
-#' plotMA(
+#' plotMeanAverage(
 #'     object = res_small,
 #'     sigPointColor = c(
 #'         upregulated = "purple",
@@ -24,16 +25,16 @@
 #' )
 #'
 #' # Label DEGs with a single color
-#' plotMA(res_small, sigPointColor = "purple")
+#' plotMeanAverage(res_small, sigPointColor = "purple")
 #'
 #' # Directional support
-#' plotMA(
+#' plotMeanAverage(
 #'     object = res_small,
 #'     direction = "up",
 #'     ntop = 5L,
 #'     gene2symbol = gene2symbol
 #' )
-#' plotMA(
+#' plotMeanAverage(
 #'     object = res_small,
 #'     direction = "down",
 #'     ntop = 5L,
@@ -41,7 +42,7 @@
 #' )
 #'
 #' # Label genes manually
-#' plotMA(
+#' plotMeanAverage(
 #'     object = res_small,
 #'     genes = head(rownames(res_small)),
 #'     gene2symbol = gene2symbol
@@ -51,13 +52,15 @@ NULL
 
 
 # Methods ======================================================================
-#' @rdname plotMA
+#' @rdname plotMeanAverage
 #' @export
 setMethod(
-    "plotMA",
+    "plotMeanAverage",
     signature("DESeqResults"),
     function(
         object,
+        alpha,
+        mle = FALSE,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -86,6 +89,27 @@ setMethod(
         assert_is_a_bool(title)
         return <- match.arg(return)
 
+        # Check to see if we should use `sval` instead of `padj`
+        sval <- "svalue" %in% names(object)
+        if (isTRUE(sval)) {
+            testCol <- "svalue"
+        } else {
+            testCol <- "padj"
+        }
+
+        # Use unshrunken values, if desired
+        if (isTRUE(mle)) {
+            if (is.null(object[["lfcMLE"]])) {
+                stop(paste(
+                    "`lfcMLE` column is missing.",
+                    "Run `results(dds, addMLE = TRUE)`."
+                ))
+            }
+            lfc.col <- "lfcMLE"
+        } else {
+            lfc.col <- "log2FoldChange"
+        }
+
         # Title
         if (isTRUE(title)) {
             title <- contrastName(object)
@@ -103,8 +127,8 @@ setMethod(
             rownames_to_column("geneID") %>%
             as_tibble() %>%
             camel() %>%
-            # Remove genes with zero counts
-            filter(!!sym("baseMean") > 0L) %>%
+            # Remove genes with very low expression
+            filter(!!sym("baseMean") >= 1L) %>%
             mutate(rankScore = abs(!!sym("log2FoldChange"))) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
@@ -160,7 +184,7 @@ setMethod(
             guides(color = FALSE) +
             labs(
                 title = title,
-                x = "mean expression across all samples",
+                x = "mean of normalized counts",
                 y = "log2 fold change"
             )
 

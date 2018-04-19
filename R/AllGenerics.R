@@ -130,6 +130,18 @@ setGeneric(
 
 
 
+# Alternate version, so we don't conflict with `DESeq2::plotMA` methods
+#' @rdname plotMeanAverage
+#' @export
+setGeneric(
+    "plotMeanAverage",
+    function(object, ...) {
+        standardGeneric("plotMeanAverage")
+    }
+)
+
+
+
 #' @rdname plotMappedReads
 #' @export
 setGeneric(
