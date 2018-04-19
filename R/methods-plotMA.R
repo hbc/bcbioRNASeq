@@ -7,15 +7,12 @@
 #' @importFrom BiocGenerics plotMA
 #'
 #' @inheritParams general
-#' @param pointColor Default point color for the plot.
-#' @param sigPointColor `character` vector containing color names for labeling
-#'   upregulated and downregulated genes. Also supports a character string for
-#'   labeling DEGs with the same color, regardless of direction.
-#' @param labelColor Text label color.
 #'
 #' @return `ggplot`.
 #'
 #' @examples
+#' gene2symbol <- gene2symbol(bcb_small)
+#'
 #' # DESeqResults ====
 #' # Color DEGs in each direction separately
 #' plotMA(
@@ -26,18 +23,27 @@
 #'     )
 #' )
 #'
-#' # Label DEGs in both directions with a single color
+#' # Label DEGs with a single color
+#' plotMA(res_small, sigPointColor = "purple")
+#'
+#' # Directional support
 #' plotMA(
 #'     object = res_small,
-#'     sigPointColor = "purple"
+#'     direction = "up",
+#'     ntop = 5L,
+#'     gene2symbol = gene2symbol
+#' )
+#' plotMA(
+#'     object = res_small,
+#'     direction = "down",
+#'     ntop = 5L,
+#'     gene2symbol = gene2symbol
 #' )
 #'
-#' # Label genes
-#' genes <- head(rownames(res_small), 4L)
-#' gene2symbol <- gene2symbol(bcb_small)
+#' # Label genes manually
 #' plotMA(
 #'     object = res_small,
-#'     genes = genes,
+#'     genes = head(rownames(res_small)),
 #'     gene2symbol = gene2symbol
 #' )
 NULL
@@ -54,15 +60,20 @@ setMethod(
         object,
         genes = NULL,
         gene2symbol = NULL,
+        ntop = 0L,
+        direction = c("both", "up", "down"),
         pointColor = "gray50",
         sigPointColor = c(
             upregulated = "purple",
             downregulated = "orange"
         ),
-        title = TRUE
+        title = TRUE,
+        return = c("ggplot", "data.frame")
     ) {
         validObject(object)
         assertFormalGene2symbol(object, genes, gene2symbol)
+        direction <- match.arg(direction)
+        assert_all_are_non_negative(ntop)
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
@@ -73,11 +84,7 @@ setMethod(
         }
         assert_is_of_length(sigPointColor, 2L)
         assert_is_a_bool(title)
-
-        # Get alpha cutoff automatically
-        alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
-        assert_all_are_in_left_open_range(alpha, 0L, 1L)
+        return <- match.arg(return)
 
         # Title
         if (isTRUE(title)) {
@@ -86,13 +93,40 @@ setMethod(
             title <- NULL
         }
 
+        # Get alpha cutoff automatically (for coloring)
+        alpha <- metadata(object)[["alpha"]]
+        assert_is_a_number(alpha)
+        assert_all_are_in_left_open_range(alpha, 0L, 1L)
+
         data <- object %>%
             as.data.frame() %>%
             rownames_to_column("geneID") %>%
             as_tibble() %>%
-            camel(strict = FALSE) %>%
-            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+            camel() %>%
+            mutate(rankScore = abs(!!sym("log2FoldChange"))) %>%
+            arrange(desc(!!sym("rankScore"))) %>%
+            mutate(rank = row_number()) %>%
             .degColors(alpha = alpha)
+
+        if (direction == "up") {
+            data <- data[data[["log2FoldChange"]] > 0L, ]
+        } else if (direction == "down") {
+            data <- data[data[["log2FoldChange"]] < 0L, ]
+        }
+
+        # Gene-to-symbol mappings
+        if (is.data.frame(gene2symbol)) {
+            assertIsGene2symbol(gene2symbol)
+            labelCol <- "geneName"
+            data <- left_join(data, gene2symbol, by = "geneID")
+        } else {
+            labelCol <- "geneID"
+        }
+
+        # Early return data frame, if desired
+        if (return == "data.frame") {
+            return(data)
+        }
 
         p <- ggplot(
             data = data,
@@ -128,20 +162,17 @@ setMethod(
                 )
         }
 
+        # Gene text labels =====================================================
+        labelData <- NULL
+        if (is.null(genes) && is_positive(ntop)) {
+            genes <- data[1L:ntop, "geneID", drop = TRUE]
+        }
         if (is.character(genes)) {
-            if (is.data.frame(gene2symbol)) {
-                labelCol <- "geneName"
-                assertIsGene2symbol(gene2symbol)
-                data <- left_join(data, gene2symbol, by = "geneID")
-            } else {
-                labelCol <- "geneID"
-            }
-            labels <- data %>%
-                .[.[["geneID"]] %in% genes, , drop = FALSE]
-            assert_is_non_empty(labels)
+            assert_is_subset(genes, data[["geneID"]])
+            labelData <- data[data[["geneID"]] %in% genes, ]
             p <- p +
                 geomLabel(
-                    data = labels,
+                    data = labelData,
                     mapping = aes_string(
                         x = "baseMean",
                         y = "log2FoldChange",
