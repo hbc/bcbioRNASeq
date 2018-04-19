@@ -6,6 +6,8 @@
 #'
 #' @inheritParams bcbioBase::plotHeatmap
 #' @inheritParams general
+#' @param ylim Upper boundary limit for y-axis. Helps preserve dynamic range
+#'   for gene sets containing highly significant P values (e.g. `1e-100`).
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.
 #' @param histograms Show LFC and P value histograms.
 #'
@@ -63,6 +65,7 @@ setMethod(
         object,
         alpha,
         lfcThreshold = 0L,
+        ylim = 1e-10,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -85,6 +88,12 @@ setMethod(
             upper = 1L
         )
         assert_is_a_number(lfcThreshold)
+        assert_is_a_number(ylim)
+        assert_all_are_in_range(
+            x = ylim,
+            lower = 1e-100,
+            upper = 1e-3
+        )
         assertFormalGene2symbol(object, genes, gene2symbol)
         assertIsImplicitInteger(ntop)
         direction <- match.arg(direction)
@@ -101,34 +110,49 @@ setMethod(
         assert_is_a_bool(histograms)
         return <- match.arg(return)
 
+        # Check to see if we should use `sval` instead of `padj`
+        sval <- "svalue" %in% names(object)
+        if (isTRUE(sval)) {
+            testCol <- "svalue"
+        } else {
+            testCol <- "padj"
+        }
+
+        lfcCol <- "log2FoldChange"
+        negLogTestCol <- camel(paste("neg", "log10", testCol))
+
         data <- object %>%
             as.data.frame() %>%
             rownames_to_column("geneID") %>%
             as_tibble() %>%
             camel() %>%
             # Select columns used for plots
-            .[, c("geneID", "baseMean", "log2FoldChange", "padj")] %>%
+            .[, c("geneID", "baseMean", lfcCol, testCol)] %>%
             # Remove rows with any NA values (e.g. padj)
             .[complete.cases(.), ] %>%
             # Remove rows with zero counts
             .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
-            # Negative log10 transform the P values. Add `1e-10` here to prevent
-            # `Inf` values resulting from log transformation. Consequently, this
-            # will gate the upper bound of the y-axis at 10.
-            mutate(negLog10Pvalue = -log10(!!sym("padj") + 1e-10)) %>%
-            # Calculate rank score. This is used to determine the `ntop` order.
+            # Negative log10 transform the test values. Add `ylim` here to
+            # prevent `Inf` values resulting from log transformation.
+            # This will also define the upper bound of the y-axis.
+            mutate(!!sym(negLogTestCol) := -log10(!!sym(testCol) + ylim)) %>%
+            # Calculate rank score. Used for `ntop`.
             mutate(
-                rankScore = !!sym("negLog10Pvalue") *
-                    abs(!!sym("log2FoldChange"))
+                rankScore = !!sym(negLogTestCol) *
+                    abs(!!sym(lfcCol))
             ) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
-            .degColors(alpha = alpha, lfcThreshold = lfcThreshold)
+            .addIsDECol(
+                testCol = testCol,
+                alpha = alpha,
+                lfcThreshold = lfcThreshold
+            )
 
         if (direction == "up") {
-            data <- data[data[["log2FoldChange"]] > 0L, ]
+            data <- data[data[[lfcCol]] > 0L, ]
         } else if (direction == "down") {
-            data <- data[data[["log2FoldChange"]] < 0L, ]
+            data <- data[data[[lfcCol]] < 0L, ]
         }
 
         # Gene-to-symbol mappings
@@ -151,7 +175,7 @@ setMethod(
         # LFC density ==========================================================
         lfcHist <- ggplot(
             data,
-            mapping = aes_string(x = "log2FoldChange")
+            mapping = aes_string(x = lfcCol)
         ) +
             geom_density(
                 color = NA,
@@ -176,7 +200,7 @@ setMethod(
         # P value density ======================================================
         pvalueHist <- ggplot(
             data = data,
-            mapping = aes_string(x = "negLog10Pvalue")
+            mapping = aes_string(x = negLogTestCol)
         ) +
             geom_density(
                 color = NA,
@@ -184,8 +208,7 @@ setMethod(
             ) +
             scale_x_continuous(
                 breaks = pretty_breaks(),
-                expand = c(0L, 0L),
-                limits = c(0L, 10L)
+                expand = c(0L, 0L)
             ) +
             scale_y_continuous(expand = c(0L, 0L)) +
             labs(
@@ -203,9 +226,9 @@ setMethod(
         p <- ggplot(
             data = data,
             mapping = aes_string(
-                x = "log2FoldChange",
-                y = "negLog10Pvalue",
-                color = "color"
+                x = lfcCol,
+                y = negLogTestCol,
+                color = "isDE"
             )
         ) +
             geom_vline(
@@ -214,13 +237,8 @@ setMethod(
                 color = pointColor
             ) +
             geom_point() +
-            scale_x_continuous(
-                breaks = pretty_breaks()
-            ) +
-            scale_y_continuous(
-                breaks = pretty_breaks(),
-                limits = c(0L, 10L)
-            ) +
+            scale_x_continuous(breaks = pretty_breaks()) +
+            scale_y_continuous(breaks = pretty_breaks()) +
             guides(color = FALSE) +
             labs(
                 title = contrastName(object),
@@ -232,9 +250,12 @@ setMethod(
             p <- p +
                 scale_color_manual(
                     values = c(
-                        "nonsignificant" = pointColor,
-                        "upregulated" = sigPointColor[[1L]],
-                        "downregulated" = sigPointColor[[2L]]
+                        # nonsignificant
+                        "0" = pointColor,
+                        # downregulated
+                        "-1" = sigPointColor[[1L]],
+                        # upregulated
+                        "1" = sigPointColor[[2L]]
                     )
                 )
         }
@@ -250,8 +271,8 @@ setMethod(
                 .geomLabel(
                     data = labelData,
                     mapping = aes_string(
-                        x = "log2FoldChange",
-                        y = "negLog10Pvalue",
+                        x = lfcCol,
+                        y = negLogTestCol,
                         label = labelCol
                     )
                 )
