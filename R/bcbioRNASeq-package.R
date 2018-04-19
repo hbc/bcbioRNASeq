@@ -37,7 +37,7 @@
 #'   geom_ribbon geom_smooth ggplot ggtitle guides labs position_jitterdodge
 #'   scale_color_manual scale_fill_manual scale_x_continuous scale_x_log10
 #'   stat_summary theme xlab ylim
-#' @importFrom ggrepel geom_text_repel
+#' @importFrom ggrepel geom_label_repel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames

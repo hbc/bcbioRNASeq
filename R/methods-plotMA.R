@@ -8,19 +8,37 @@
 #'
 #' @inheritParams general
 #' @param pointColor Default point color for the plot.
-#' @param sigPointColor Color for points corresponding to significant genes that
-#'   have passed alpha level cutoffs.
+#' @param sigPointColor `character` vector containing color names for labeling
+#'   upregulated and downregulated genes. Also supports a character string for
+#'   labeling DEGs with the same color, regardless of direction.
 #' @param labelColor Text label color.
 #'
 #' @return `ggplot`.
 #'
 #' @examples
 #' # DESeqResults ====
-#' plotMA(res_small)
+#' # Color DEGs in each direction separately
 #' plotMA(
 #'     object = res_small,
-#'     genes = head(rownames(res_small), 4L),
-#'     gene2symbol = gene2symbol(bcb_small)
+#'     sigPointColor = c(
+#'         upregulated = "purple",
+#'         downregulated = "orange"
+#'     )
+#' )
+#'
+#' # Label DEGs in both directions with a single color
+#' plotMA(
+#'     object = res_small,
+#'     sigPointColor = "purple"
+#' )
+#'
+#' # Label genes
+#' genes <- head(rownames(res_small), 4L)
+#' gene2symbol <- gene2symbol(bcb_small)
+#' plotMA(
+#'     object = res_small,
+#'     genes = genes,
+#'     gene2symbol = gene2symbol
 #' )
 NULL
 
@@ -36,16 +54,24 @@ setMethod(
         object,
         genes = NULL,
         gene2symbol = NULL,
-        pointColor = "darkgray",
-        sigPointColor = "purple",
-        labelColor = "black",
+        pointColor = "gray50",
+        sigPointColor = c(
+            upregulated = "purple",
+            downregulated = "orange"
+        ),
         title = TRUE
     ) {
         validObject(object)
         assertFormalGene2symbol(object, genes, gene2symbol)
         assert_is_a_string(pointColor)
-        assert_is_a_string(sigPointColor)
-        assert_is_a_string(labelColor)
+        assert_is_character(sigPointColor)
+        if (is_a_string(sigPointColor)) {
+            sigPointColor <- c(
+                "upregulated" = sigPointColor,
+                "downregulated" = sigPointColor
+            )
+        }
+        assert_is_of_length(sigPointColor, 2L)
         assert_is_a_bool(title)
 
         # Get alpha cutoff automatically
@@ -67,21 +93,42 @@ setMethod(
             camel(strict = FALSE) %>%
             .[!is.na(.[["padj"]]), , drop = FALSE]
 
+        # Calculate a numeric vector to define the colors
+        # -1: downregulated
+        #  0: not significant
+        #  1: upregulated
+        data[["color"]] <- mapply(
+            lfc = data[["log2FoldChange"]],
+            padj = data[["padj"]],
+            MoreArgs = list(alpha = alpha),
+            FUN = function(lfc, padj, alpha) {
+                if (lfc > 0L & padj < alpha) {
+                    "upregulated"
+                } else if (lfc < 0L & padj < alpha) {
+                    "downregulated"
+                } else {
+                    "nonsignificant"
+                }
+            },
+            SIMPLIFY = TRUE,
+            USE.NAMES = FALSE
+        ) %>%
+            as.factor()
+
         p <- ggplot(
             data = data,
-            mapping = aes_(
-                x = ~baseMean,
-                y = ~log2FoldChange,
-                color = ~padj < alpha
+            mapping = aes_string(
+                x = "baseMean",
+                y = "log2FoldChange",
+                color = "color"
             )
         ) +
             geom_hline(
                 yintercept = 0L,
-                size = 1L,
-                color = sigPointColor,
-                alpha = 0.25
+                size = 0.5,
+                color = pointColor
             ) +
-            geom_point(size = 0.8) +
+            geom_point(size = 1L) +
             scale_x_log10() +
             annotation_logticks(sides = "b") +
             guides(color = FALSE) +
@@ -91,12 +138,14 @@ setMethod(
                 y = "log2 fold change"
             )
 
-        if (!is.null(pointColor) && !is.null(sigPointColor)) {
-            # `FALSE`: Genes that don't pass alpha
-            # `TRUE`: Significant genes that do pass alpha
+        if (is_a_string(pointColor) && is.character(sigPointColor)) {
             p <- p +
                 scale_color_manual(
-                    values = c("FALSE" = pointColor, "TRUE" = sigPointColor)
+                    values = c(
+                        "nonsignificant" = pointColor,
+                        "upregulated" = sigPointColor[[1L]],
+                        "downregulated" = sigPointColor[[2L]]
+                    )
                 )
         }
 
@@ -112,23 +161,13 @@ setMethod(
                 .[.[["geneID"]] %in% genes, , drop = FALSE]
             assert_is_non_empty(labels)
             p <- p +
-                geom_text_repel(
+                geomLabel(
                     data = labels,
-                    aes_string(
+                    mapping = aes_string(
                         x = "baseMean",
                         y = "log2FoldChange",
                         label = labelCol
-                    ),
-                    arrow = arrow(length = unit(0.01, "npc")),
-                    box.padding = unit(0.5, "lines"),
-                    color = labelColor,
-                    fontface = "bold",
-                    force = 1L,
-                    point.padding = unit(0.75, "lines"),
-                    segment.color = labelColor,
-                    segment.size = 0.5,
-                    show.legend = FALSE,
-                    size = 4L
+                    )
                 )
         }
 

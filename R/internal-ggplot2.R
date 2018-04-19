@@ -38,6 +38,23 @@ geneMedianLine <- stat_summary(
 
 
 # geom functions ==============================================================
+geomLabel <- function(data, mapping, size = 5L) {
+    geom_label_repel(
+        data = data,
+        mapping = mapping,
+        arrow = arrow(length = unit(0.01, "npc")),
+        box.padding = unit(0.5, "lines"),
+        fontface = "bold",
+        force = 1L,
+        point.padding = unit(0.75, "lines"),
+        segment.size = 0.5,
+        show.legend = FALSE,
+        size = size
+    )
+}
+
+
+
 genePoint <- function(size = 3L, alpha = 1L) {
     geom_point(
         size = size,
