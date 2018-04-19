@@ -87,6 +87,7 @@
 #' @importFrom assertive assert_is_matrix
 #' @importFrom assertive assert_is_non_empty
 #' @importFrom assertive assert_is_numeric
+#' @importFrom assertive assert_is_of_length
 #' @importFrom assertive assert_is_subset
 #' @importFrom assertive assert_is_tbl_df
 #' @importFrom assertive assert_is_vector
