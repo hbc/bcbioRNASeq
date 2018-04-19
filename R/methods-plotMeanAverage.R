@@ -60,7 +60,6 @@ setMethod(
     function(
         object,
         alpha,
-        mle = FALSE,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -97,19 +96,6 @@ setMethod(
             testCol <- "padj"
         }
 
-        # Use unshrunken values, if desired
-        if (isTRUE(mle)) {
-            if (is.null(object[["lfcMLE"]])) {
-                stop(paste(
-                    "`lfcMLE` column is missing.",
-                    "Run `results(dds, addMLE = TRUE)`."
-                ))
-            }
-            lfc.col <- "lfcMLE"
-        } else {
-            lfc.col <- "log2FoldChange"
-        }
-
         # Title
         if (isTRUE(title)) {
             title <- contrastName(object)
@@ -118,7 +104,9 @@ setMethod(
         }
 
         # Get alpha cutoff automatically (for coloring)
-        alpha <- metadata(object)[["alpha"]]
+        if (missing(alpha)) {
+            alpha <- metadata(object)[["alpha"]]
+        }
         assert_is_a_number(alpha)
         assert_all_are_in_left_open_range(alpha, 0L, 1L)
 
@@ -151,6 +139,9 @@ setMethod(
 
         # Early return data frame, if desired
         if (return == "data.frame") {
+            data <- data %>%
+                as.data.frame() %>%
+                column_to_rownames("geneID")
             return(data)
         }
 

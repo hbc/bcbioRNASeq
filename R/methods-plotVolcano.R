@@ -142,6 +142,9 @@ setMethod(
 
         # Early return data frame, if desired
         if (return == "data.frame") {
+            data <- data %>%
+                as.data.frame() %>%
+                column_to_rownames("geneID")
             return(data)
         }
 
