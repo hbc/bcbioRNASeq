@@ -17,6 +17,7 @@
 #'   color definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()].
 #' @param counts Object containing a normalized counts matrix.
+#' @param dir Local directory path.
 #' @param fill Desired ggplot fill scale. Must supply discrete values. When set
 #'   to `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
@@ -29,7 +30,7 @@
 #' @param headerLevel R Markdown header level.
 #' @param interestingGroups Character vector denoting groups of interest that
 #'   define the samples. If left unset, defaults to `sampleName`.
-#' @param lfc Log fold change ratio (base 2) cutoff.
+#' @param lfcThreshold Log fold change ratio (base 2) cutoff threshold.
 #' @param minCounts Minimum number of counts per gene in the counts matrix.
 #' @param normalized Character indicating which normalization method to apply:
 #'   - "`tpm`": Transcripts per million (tximport).
