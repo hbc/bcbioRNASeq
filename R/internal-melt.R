@@ -30,10 +30,11 @@
             colnames(counts),
             as.character(sampleData[["sampleID"]])
         )
-        data <- left_join(
+        data <- merge(
             x = data,
             y = as.data.frame(sampleData),
-            by = "sampleID"
+            by = "sampleID",
+            all.x = TRUE
         )
     }
 
