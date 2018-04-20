@@ -87,25 +87,11 @@ test_that("counts : apply transformationLimit", {
 
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
-    x <- selectSamples(
-        object = bcb_small,
-        treatment = "folic_acid",
-        transform = TRUE
-    )
+    x <- selectSamples(bcb_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
     expect_identical(
         names(assays(x)),
         c("counts", "tpm", "length", "normalized", "rlog", "vst")
-    )
-    x <- selectSamples(
-        object = bcb_small,
-        treatment = "folic_acid",
-        transform = FALSE
-    )
-    expect_identical(dim(x), c(500L, 3L))
-    expect_identical(
-        names(assays(x)),
-        c("counts", "tpm", "length", "normalized")
     )
 })
 
