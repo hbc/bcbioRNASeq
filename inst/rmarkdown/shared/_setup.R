@@ -21,7 +21,6 @@ opts_chunk[["set"]](
     highlight = TRUE,
     message = FALSE,
     prompt = TRUE,
-    # formatR required for tidy code
     tidy = TRUE,
     warning = TRUE
 )
