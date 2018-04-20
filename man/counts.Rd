@@ -53,8 +53,7 @@ counts(bcb_small, normalized = "vst") \%>\% summary()
 }
 
 Other Data Functions: \code{\link{metrics}},
-  \code{\link{selectSamples}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+  \code{\link{tmm}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
