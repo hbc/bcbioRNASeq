@@ -11,8 +11,8 @@
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 60L, fill = scale_fill_viridis(discrete = TRUE),
-  flip = TRUE, title = "exonic mapping rate")
+  passLimit = 60L, fill = scale_fill_hue(), flip = TRUE,
+  title = "exonic mapping rate")
 }
 \arguments{
 \item{object}{Object.}

@@ -12,9 +12,8 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, lfcThreshold = 0L, color = scale_color_viridis(discrete
-  = TRUE), label = FALSE, title = "deg pca", return = c("ggplot",
-  "data.frame"))
+  interestingGroups, lfcThreshold = 0L, color = scale_color_hue(),
+  label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 

@@ -41,7 +41,7 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE)
+    color = scale_color_hue()
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -105,7 +105,7 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE)
+    color = scale_color_hue()
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -160,7 +160,7 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = scale_color_viridis(discrete = TRUE)
+    color = scale_color_hue()
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -221,7 +221,7 @@ setMethod(
         interestingGroups,
         countsAxisLabel = "counts",
         medianLine = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
+        color = scale_color_hue(),
         headerLevel = 2L,
         return = c("facet", "wide", "grid", "markdown", "list")
     ) {

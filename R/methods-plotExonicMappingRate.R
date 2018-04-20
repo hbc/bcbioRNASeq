@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         passLimit = 60L,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_hue(),
         flip = TRUE,
         title = "exonic mapping rate"
     ) {
@@ -49,7 +49,10 @@ setMethod(
                 fill = ~interestingGroups
             )
         ) +
-            geom_bar(stat = "identity") +
+            geom_bar(
+                color = "black",
+                stat = "identity"
+            ) +
             labs(
                 title = title,
                 x = "sample",
@@ -63,7 +66,7 @@ setMethod(
         }
 
         if (is(fill, "ScaleDiscrete")) {
-            p <- p + scale_fill_viridis(discrete = TRUE)
+            p <- p + fill
         }
 
         if (isTRUE(flip)) {

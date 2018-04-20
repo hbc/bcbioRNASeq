@@ -1,10 +1,9 @@
 lineColor <- "black"
 
-# Quality control plot colors
-qcColors <- viridis::inferno(3L)
-qcPassColor <- qcColors[[1L]]
-qcWarnColor <- qcColors[[2L]]
-qcFailColor <- qcColors[[3L]]
+# Quality control plot colors (from inferno)
+qcPassColor <- "#000004"
+qcWarnColor <- "#BB3754"
+qcFailColor <- "#FCFFA4"
 qcCutoffColor <- "black"
 
 # Quality control label appearance

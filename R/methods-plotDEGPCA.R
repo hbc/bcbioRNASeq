@@ -39,7 +39,7 @@ setMethod(
         counts,
         interestingGroups,
         lfcThreshold = 0L,
-        color = scale_color_viridis(discrete = TRUE),
+        color = scale_color_hue(),
         label = FALSE,
         title = "deg pca",
         return = c("ggplot", "data.frame")

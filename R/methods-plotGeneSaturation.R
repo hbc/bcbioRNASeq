@@ -28,7 +28,7 @@ setMethod(
         interestingGroups,
         minCounts = 0L,
         trendline = TRUE,
-        color = scale_color_viridis(discrete = TRUE),
+        color = scale_color_hue(),
         title = "gene saturation"
     ) {
         validObject(object)

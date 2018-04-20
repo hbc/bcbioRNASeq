@@ -32,8 +32,8 @@ setMethod(
         interestingGroups,
         normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
         style = c("line", "solid"),
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE),
+        color = scale_color_hue(),
+        fill = scale_fill_hue(),
         title = "count density"
     ) {
         validObject(object)

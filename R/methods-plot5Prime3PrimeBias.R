@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         warnLimit = 2L,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_hue(),
         flip = TRUE,
         title = "5'->3' bias"
     ) {
@@ -55,7 +55,10 @@ setMethod(
                 fill = "interestingGroups"
             )
         ) +
-            geom_bar(stat = "identity") +
+            geom_bar(
+                color = "black",
+                stat = "identity"
+            ) +
             labs(
                 title = title,
                 x = "sample",

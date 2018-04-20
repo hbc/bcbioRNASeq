@@ -11,7 +11,7 @@ plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("rlog",
   "vst", "tmm", "tpm"), interestingGroups, minCounts = 0L, trendline = TRUE,
-  color = scale_color_viridis(discrete = TRUE), title = "gene saturation")
+  color = scale_color_hue(), title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}

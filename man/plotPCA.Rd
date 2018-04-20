@@ -9,8 +9,8 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups, color = scale_color_viridis(discrete =
-  TRUE), label = FALSE, title = "pca", return = c("ggplot", "data.frame"))
+  samples = NULL, interestingGroups, color = scale_color_hue(),
+  label = FALSE, title = "pca", return = c("ggplot", "data.frame"))
 
 \S4method{plotPCA}{DESeqDataSet}(object, ...)
 

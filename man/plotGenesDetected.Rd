@@ -11,8 +11,7 @@ plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
   passLimit = 20000L, warnLimit = 15000L, minCounts = 0L,
-  fill = scale_fill_viridis(discrete = TRUE), flip = TRUE,
-  title = "genes detected")
+  fill = scale_fill_hue(), flip = TRUE, title = "genes detected")
 }
 \arguments{
 \item{object}{Object.}

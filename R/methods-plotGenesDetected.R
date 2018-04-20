@@ -27,7 +27,7 @@ setMethod(
         passLimit = 20000L,
         warnLimit = 15000L,
         minCounts = 0L,
-        fill = scale_fill_viridis(discrete = TRUE),
+        fill = scale_fill_hue(),
         flip = TRUE,
         title = "genes detected"
     ) {
@@ -57,7 +57,10 @@ setMethod(
                 fill = ~interestingGroups
             )
         ) +
-            geom_bar(stat = "identity") +
+            geom_bar(
+                color = "black",
+                stat = "identity"
+            ) +
             labs(
                 title = title,
                 x = "sample",

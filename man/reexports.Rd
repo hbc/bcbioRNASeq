@@ -5,19 +5,21 @@
 \alias{reexports}
 \alias{ggplot}
 \alias{reexports}
+\alias{scale_color_hue}
+\alias{reexports}
+\alias{scale_color_manual}
+\alias{reexports}
+\alias{scale_colour_hue}
+\alias{reexports}
+\alias{scale_colour_manual}
+\alias{reexports}
+\alias{scale_fill_hue}
+\alias{reexports}
 \alias{scale_fill_manual}
 \alias{reexports}
 \alias{\%>\%}
 \alias{reexports}
 \alias{glimpse}
-\alias{reexports}
-\alias{inferno}
-\alias{reexports}
-\alias{scale_color_viridis}
-\alias{reexports}
-\alias{scale_fill_viridis}
-\alias{reexports}
-\alias{viridis}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -25,12 +27,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{scale_fill_manual}}}
+  \item{ggplot2}{\code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{scale_color_hue}}, \code{\link[ggplot2]{scale_color_manual}}, \code{\link[ggplot2]{scale_colour_hue}}, \code{\link[ggplot2]{scale_colour_manual}}, \code{\link[ggplot2]{scale_fill_hue}}, \code{\link[ggplot2]{scale_fill_manual}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{tibble}{\code{\link[tibble]{glimpse}}}
-
-  \item{viridis}{\code{\link[viridis]{inferno}}, \code{\link[viridis]{scale_color_viridis}}, \code{\link[viridis]{scale_fill_viridis}}, \code{\link[viridis]{viridis}}}
 }}
 

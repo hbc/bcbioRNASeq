@@ -48,7 +48,7 @@ setMethod(
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = scale_color_viridis(discrete = TRUE),
+        color = scale_color_hue(),
         label = FALSE,
         title = "pca",
         return = c("ggplot", "data.frame")
