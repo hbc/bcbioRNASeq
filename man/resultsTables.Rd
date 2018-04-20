@@ -4,12 +4,16 @@
 \name{resultsTables}
 \alias{resultsTables}
 \alias{resultsTables}
+\alias{resultsTables,DESeqResults,missingOrNULL-method}
 \alias{resultsTables,DESeqResults,DESeqDataSet-method}
 \title{Differential Expression Results Tables}
 \usage{
 resultsTables(results, counts, ...)
 
-\S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts,
+\S4method{resultsTables}{DESeqResults,missingOrNULL}(results, counts = NULL,
+  alpha, lfcThreshold = 0L)
+
+\S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts, alpha,
   lfcThreshold = 0L, summary = TRUE, write = FALSE, headerLevel = 2L,
   dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
@@ -20,6 +24,8 @@ resultsTables(results, counts, ...)
 the \code{DESeqResults}.}
 
 \item{...}{Additional arguments.}
+
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
