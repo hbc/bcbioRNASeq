@@ -19,18 +19,22 @@ test_that("prepareRNASeqTemplate", {
 
 
 # topTables ====================================================================
-test_that("topTables", {
-    resTbl <- resultsTables(
-        res_small,
+test_that("topTables : resultsTables list", {
+    x <- resultsTables(
+        results = res_small,
+        counts = dds_small,
         summary = FALSE,
         write = FALSE
     )
     # Capture the knitr table output
-    output <- capture_output(topTables(resTbl)) %>%
+    output <- capture_output(topTables(x)) %>%
         strsplit("\\n") %>%
         .[[1L]]
     # Check for geneID column in header
     expect_true(grepl("^\\|geneID", output[[3L]]))
-    # Check the output length
-    expect_identical(length(output), 108L)
+})
+
+test_that("topTables : DESeqResults", {
+    output <- capture.output(topTables(res_small))
+    expect_true(grepl("^\\|geneID", output[[3L]]))
 })

@@ -172,25 +172,11 @@ test_that("subset : Normal gene and sample selection", {
     )
 })
 
-test_that("subset : Skip DESeq2 transforms", {
-    x <- bcb_small[seq_len(100L), seq_len(4L), transform = FALSE]
-    expect_identical(
-        names(assays(x)),
-        c("counts", "tpm", "length", "normalized")
-    )
-})
-
 test_that("subset : Minimal selection ranges", {
     # Require at least 100 genes, 2 samples
     x <- bcb_small[seq_len(100L), seq_len(2L)]
-    expect_error(
-        bcb_small[seq_len(99L), ],
-        "is_in_left_open_range : length\\(i\\)"
-    )
-    expect_error(
-        bcb_small[, seq_len(1L)],
-        "is_in_left_open_range : length\\(j\\)"
-    )
+    expect_error(bcb_small[seq_len(99L), ])
+    expect_error(bcb_small[, seq_len(1L)])
     expect_identical(
         dimnames(x),
         list(
