@@ -6,7 +6,7 @@
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
 \title{Bracket-Based Subsetting}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, ..., drop = FALSE)
+\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE)
 }
 \arguments{
 \item{x}{
@@ -59,8 +59,6 @@
     An index value of \code{NULL} is treated as if it were \code{integer(0)}.
   }
 
-\item{...}{Additional arguments.}
-
 \item{drop}{For matrices and arrays.  If \code{TRUE} the result is
     coerced to the lowest possible dimension (see the examples).  This
     only works for extracting elements, not for the replacement.  See
@@ -91,11 +89,6 @@ bcb_small[genes, ]
 
 # Subset by both genes and samples
 subset <- bcb_small[genes, samples]
-print(subset)
-assayNames(subset)
-
-# Skip DESeq2 variance stabilizing transformations
-subset <- bcb_small[genes, samples, transform = FALSE]
 print(subset)
 assayNames(subset)
 }
