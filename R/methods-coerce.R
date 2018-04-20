@@ -80,18 +80,3 @@ setAs(
         flatFiles(from)
     }
 )
-
-
-
-#' @rdname coerce
-#' @name coerce-bcbioRNASeq-SummarizedExperiment
-setAs(
-    from = "bcbioRNASeq",
-    to = "SummarizedExperiment",
-    function(from) {
-        # Otherwise rowData will be NULL
-        rse <- as(from, "RangedSummarizedExperiment")
-        se <- as(rse, "SummarizedExperiment")
-        se
-    }
-)
