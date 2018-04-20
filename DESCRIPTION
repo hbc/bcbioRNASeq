@@ -130,7 +130,6 @@ Imports:
     tibble,
     tximport (>= 1.6),
     utils,
-    viridis,
     vsn
 Suggests:
     BiocStyle,
