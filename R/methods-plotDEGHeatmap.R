@@ -60,23 +60,17 @@ setMethod(
     function(
         results,
         counts,
+        alpha,
         lfcThreshold = 0L,
         title = TRUE,
         ...
     ) {
-        # Legacy arguments =====================================================
-        call <- match.call(expand.dots = TRUE)
-        # gene2symbol
-        if ("genesymbol" %in% names(call)) {
-            stop(paste(
-                "`gene2symbol` argument has been deprecated in favor of",
-                "stashing gene-to-symbol mappings in `rowRanges`"
-            ))
-        }
-
-        # Assert checks ========================================================
         validObject(results)
         assert_are_identical(rownames(results), rownames(counts))
+        if (missing(alpha)) {
+            alpha <- metadata(results)[["alpha"]]
+        }
+        assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
 
@@ -87,23 +81,12 @@ setMethod(
             title <- NULL
         }
 
-        # Alpha level
-        alpha <- metadata(results)[["alpha"]]
-        assert_is_a_number(alpha)
+        deg <- significants(results, padj = alpha, fc = lfcThreshold)
 
-        # data.frame containing only the significant DEGs
-        data <- results %>%
-            as.data.frame() %>%
-            camel() %>%
-            # Keep genes that pass alpha cutoff
-            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-            .[.[["padj"]] < alpha, , drop = FALSE] %>%
-            # Keep genes that pass log2 fold change cutoff
-            .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-            .[.[["log2FoldChange"]] > lfcThreshold |
-                  .[["log2FoldChange"]] < -lfcThreshold, , drop = FALSE]
-        assert_has_rows(data)
-        deg <- rownames(data)
+        # Early return if there are no DEGs
+        if (!length(deg)) {
+            return(invisible())
+        }
 
         # Subset the counts to only contain DEGs
         counts <- counts[deg, , drop = FALSE]

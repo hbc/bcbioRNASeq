@@ -12,7 +12,7 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, lfcThreshold = 0L, color = scale_color_hue(),
+  interestingGroups, alpha, lfcThreshold = 0L, color = scale_color_hue(),
   label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
@@ -29,6 +29,8 @@ plotDEGPCA(results, counts, ...)
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
+
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 

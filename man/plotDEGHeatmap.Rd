@@ -12,7 +12,7 @@
 plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results, counts,
-  lfcThreshold = 0L, title = TRUE, ...)
+  alpha, lfcThreshold = 0L, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -25,6 +25,8 @@ plotDEGHeatmap(results, counts, ...)
 \item{counts}{Object containing a normalized counts matrix.}
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
+
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 

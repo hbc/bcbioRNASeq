@@ -38,6 +38,7 @@ setMethod(
         results,
         counts,
         interestingGroups,
+        alpha,
         lfcThreshold = 0L,
         color = scale_color_hue(),
         label = FALSE,
@@ -50,6 +51,10 @@ setMethod(
             interestingGroups <- bcbioBase::interestingGroups(counts)
         }
         assertFormalInterestingGroups(colData(counts), interestingGroups)
+        if (missing(alpha)) {
+            alpha <- metadata(results)[["alpha"]]
+        }
+        assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assertIsColorScaleDiscreteOrNULL(color)
@@ -57,20 +62,11 @@ setMethod(
         assertIsAStringOrNULL(title)
         return <- match.arg(return)
 
-        # Get the DE gene vector using `resultsTables()`
-        list <- resultsTables(
-            object = results,
-            lfcThreshold = lfcThreshold,
-            rowData = NULL,
-            summary = FALSE,
-            write = FALSE
-        )
-        deg <- c(
-            list[["degLFCUp"]][["geneID"]],
-            list[["degLFCDown"]][["geneID"]]
-        )
+        deg <- significants(results, padj = alpha, fc = lfcThreshold)
+
+        # Early return if there are no DEGs
         if (!length(deg)) {
-            return(NULL)
+            return(invisible())
         }
 
         # Subset the counts
