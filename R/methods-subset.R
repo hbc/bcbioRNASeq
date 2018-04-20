@@ -65,7 +65,6 @@ setMethod(
         # Require at least 2 samples
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
-
         # Early return if dimensions are unmodified
         if (identical(dim(x), c(length(i), length(j)))) {
             return(x)
@@ -80,10 +79,7 @@ setMethod(
 
         # Update DESeq2 transformations, if they are defined
         if (any(c("rlog", "vst") %in% names(assays))) {
-            message(paste(
-                "Updating variance stabilizations using DESeq2",
-                packageVersion("DESeq2")
-            ))
+            message("Updating variance stabilizations")
             dds <- .regenerateDESeqDataSet(rse)
             message("Applying rlog transformation")
             assays[["rlog"]] <- assay(rlog(dds))
