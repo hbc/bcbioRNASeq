@@ -4,14 +4,11 @@
 \name{resultsTables}
 \alias{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables,DESeqResults,missingOrNULL-method}
 \alias{resultsTables,DESeqResults,DESeqDataSet-method}
+\alias{resultsTables,DESeqResults,missingOrNULL-method}
 \title{Differential Expression Results Tables}
 \usage{
 resultsTables(results, counts, ...)
-
-\S4method{resultsTables}{DESeqResults,missingOrNULL}(results, counts = NULL,
-  alpha, lfcThreshold = 0L)
 
 \S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts, alpha,
   lfcThreshold = 0L, summary = TRUE, write = FALSE, headerLevel = 2L,

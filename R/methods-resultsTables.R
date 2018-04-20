@@ -153,32 +153,6 @@ NULL
 
 
 # Methods ======================================================================
-# Minimal method that is used by other functions inside the package
-#' @rdname resultsTables
-#' @export
-setMethod(
-    "resultsTables",
-    signature(
-        results = "DESeqResults",
-        counts = "missingOrNULL"
-    ),
-    function(
-        results,
-        counts = NULL,
-        alpha,
-        lfcThreshold = 0L
-    ) {
-        .degList(
-            results = results,
-            alpha = alpha,
-            lfcThreshold = lfcThreshold
-        )
-    }
-)
-
-
-
-# Only dispatch with advanced params if DESeqDataSet is defined
 #' @rdname resultsTables
 #' @export
 setMethod(
@@ -247,10 +221,10 @@ setMethod(
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- results %>%
-            .[.[["baseMean"]] > 0L, ] %>%
+            .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
             nrow()
         baseMeanGt1 <- results %>%
-            .[.[["baseMean"]] > 1L, ] %>%
+            .[.[["baseMean"]] > 1L, , drop = FALSE] %>%
             nrow()
 
         list <- .degList(
@@ -323,5 +297,31 @@ setMethod(
         }
 
         list
+    }
+)
+
+
+
+# Minimal method that is used by other functions inside the package
+#' @rdname resultsTables
+#' @usage NULL
+#' @export
+setMethod(
+    "resultsTables",
+    signature(
+        results = "DESeqResults",
+        counts = "missingOrNULL"
+    ),
+    function(
+        results,
+        counts = NULL,
+        alpha,
+        lfcThreshold = 0L
+    ) {
+        .degList(
+            results = results,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold
+        )
     }
 )
