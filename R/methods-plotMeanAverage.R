@@ -176,7 +176,7 @@ setMethod(
             guides(color = FALSE) +
             labs(
                 title = contrastName(object),
-                x = "mean of normalized counts",
+                x = "mean expression across all samples",
                 y = "log2 fold change"
             )
 
