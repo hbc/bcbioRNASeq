@@ -30,7 +30,6 @@ reference:
   - title: S4 Class Definition
     contents:
     - bcbioRNASeq-class
-    - subset
     - coerce
     - show
     - updateObject

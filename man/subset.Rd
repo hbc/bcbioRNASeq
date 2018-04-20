@@ -102,3 +102,4 @@ Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
 \author{
 Lorena Pantano, Michael Steinbaugh
 }
+\keyword{internal}

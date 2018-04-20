@@ -8,6 +8,7 @@
 #' @name subset
 #' @family S4 Class Definition
 #' @author Lorena Pantano, Michael Steinbaugh
+#' @keywords internal
 #'
 #' @inheritParams base::`[`
 #' @inheritParams general
