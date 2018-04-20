@@ -9,8 +9,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # Minimal example with fewer genes, so disable limits
-#' plotGenesDetected(bcb_small, passLimit = 0L, warnLimit = 0L)
+#' plotGenesDetected(bcb_small)
 NULL
 
 
@@ -24,9 +23,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 20000L,
-        warnLimit = 15000L,
-        minCounts = 0L,
+        limit = 0L,
+        minCounts = 1L,
         fill = scale_fill_hue(),
         flip = TRUE,
         title = "genes detected"
@@ -35,11 +33,10 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assertIsAnImplicitInteger(passLimit)
-        assert_all_are_non_negative(passLimit)
-        assertIsAnImplicitInteger(warnLimit)
-        assert_all_are_non_negative(warnLimit)
+        assertIsAnImplicitInteger(limit)
+        assert_all_are_non_negative(limit)
         assertIsAnImplicitInteger(minCounts)
+        assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
         assert_all_are_non_negative(minCounts)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
@@ -53,7 +50,7 @@ setMethod(
             data = metrics,
             mapping = aes_(
                 x = ~sampleName,
-                y = colSums(counts > minCounts),
+                y = colSums(counts >= minCounts),
                 fill = ~interestingGroups
             )
         ) +
@@ -68,11 +65,8 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(passLimit)) {
-            p <- p + .qcPassLine(passLimit)
-        }
-        if (is_positive(warnLimit)) {
-            p <- p + .qcWarnLine(warnLimit)
+        if (is_positive(limit)) {
+            p <- p + .qcLine(limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

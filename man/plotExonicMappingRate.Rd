@@ -11,7 +11,7 @@
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 60L, fill = scale_fill_hue(), flip = TRUE,
+  limit = 60L, fill = scale_fill_hue(), flip = TRUE,
   title = "exonic mapping rate")
 }
 \arguments{
@@ -21,8 +21,6 @@ plotExonicMappingRate(object, ...)
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{passLimit}{Threshold to plot pass color marker.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color

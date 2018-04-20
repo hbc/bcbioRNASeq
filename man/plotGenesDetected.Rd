@@ -10,8 +10,8 @@
 plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20000L, warnLimit = 15000L, minCounts = 0L,
-  fill = scale_fill_hue(), flip = TRUE, title = "genes detected")
+  limit = 0L, minCounts = 1L, fill = scale_fill_hue(), flip = TRUE,
+  title = "genes detected")
 }
 \arguments{
 \item{object}{Object.}
@@ -20,10 +20,6 @@ plotGenesDetected(object, ...)
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{passLimit}{Threshold to plot pass color marker.}
-
-\item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
@@ -42,8 +38,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 Plot Genes Detected
 }
 \examples{
-# Minimal example with fewer genes, so disable limits
-plotGenesDetected(bcb_small, passLimit = 0L, warnLimit = 0L)
+plotGenesDetected(bcb_small)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},

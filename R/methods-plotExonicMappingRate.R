@@ -23,7 +23,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 60L,
+        limit = 60L,
         fill = scale_fill_hue(),
         flip = TRUE,
         title = "exonic mapping rate"
@@ -32,8 +32,8 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assertIsAnImplicitInteger(passLimit)
-        assert_all_are_non_negative(passLimit)
+        assertIsAnImplicitInteger(limit)
+        assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
@@ -61,8 +61,8 @@ setMethod(
             ) +
             ylim(0L, 100L)
 
-        if (is_positive(passLimit)) {
-            p <- p + .qcPassLine(passLimit)
+        if (is_positive(limit)) {
+            p <- p + .qcLine(limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

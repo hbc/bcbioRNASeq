@@ -23,8 +23,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        passLimit = 90L,
-        warnLimit = 70L,
+        limit = 90L,
         fill = scale_fill_hue(),
         flip = TRUE,
         title = "mapping rate"
@@ -33,10 +32,8 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assertIsAnImplicitInteger(passLimit)
-        assert_all_are_non_negative(passLimit)
-        assertIsAnImplicitInteger(warnLimit)
-        assert_all_are_non_negative(warnLimit)
+        assertIsAnImplicitInteger(limit)
+        assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
@@ -64,11 +61,8 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(passLimit)) {
-            p <- p + .qcPassLine(passLimit)
-        }
-        if (is_positive(warnLimit)) {
-            p <- p + .qcWarnLine(warnLimit)
+        if (is_positive(limit)) {
+            p <- p + .qcLine(limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

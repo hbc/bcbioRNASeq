@@ -10,7 +10,7 @@
 plot5Prime3PrimeBias(object, ...)
 
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object, interestingGroups,
-  warnLimit = 2L, fill = scale_fill_hue(), flip = TRUE,
+  limit = 2L, fill = scale_fill_hue(), flip = TRUE,
   title = "5'->3' bias")
 }
 \arguments{
@@ -20,8 +20,6 @@ plot5Prime3PrimeBias(object, ...)
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{warnLimit}{Threshold to plot warning color marker.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
