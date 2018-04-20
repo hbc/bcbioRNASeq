@@ -4,32 +4,30 @@
 \name{resultsTables}
 \alias{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables,DESeqResults-method}
+\alias{resultsTables,DESeqResults,DESeqDataSet-method}
 \title{Differential Expression Results Tables}
 \usage{
-resultsTables(object, ...)
+resultsTables(results, counts, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfcThreshold = 0L,
-  rowData = NULL, summary = TRUE, headerLevel = 2L, write = FALSE,
-  dir = ".", dropboxDir = NULL, rdsToken = NULL, ...)
+\S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts,
+  lfcThreshold = 0L, summary = TRUE, write = FALSE, headerLevel = 2L,
+  dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
-\item{object}{Object.}
+\item{results}{\code{DESeqResults} object.}
+
+\item{counts}{\code{DESeqDataSet} containing the counts that were used to generate
+the \code{DESeqResults}.}
 
 \item{...}{Additional arguments.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
-\item{rowData}{Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved \code{data.frame} is
-recommended. Alternatively if set \code{NULL}, then gene annotations will not be
-added to the results.}
-
 \item{summary}{Show summary statistics.}
 
-\item{headerLevel}{R Markdown header level.}
-
 \item{write}{Write CSV files to disk.}
+
+\item{headerLevel}{R Markdown header level.}
 
 \item{dir}{Local directory path.}
 
@@ -41,7 +39,8 @@ package.}
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
 }
 \value{
-Results \code{list}.
+\code{list} containing modified \code{DESeqResults} return, including
+additional gene-level metadata and normalized counts.
 }
 \description{
 Differential Expression Results Tables
@@ -54,13 +53,12 @@ See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information a
 on expected fold changes.
 }
 \examples{
-# DESeqResults ====
+# DESeqResults, DESeqDataSet ====
 x <- resultsTables(
-    object = res_small,
+    results = res_small,
+    counts = dds_small,
     lfcThreshold = 0.25,
-    rowData = rowData(bcb_small),
     summary = TRUE,
-    headerLevel = 2L,
     write = FALSE
 )
 names(x)

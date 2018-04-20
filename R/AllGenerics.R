@@ -223,7 +223,7 @@ setGeneric(
 #' @export
 setGeneric(
     "resultsTables",
-    function(object, ...) {
+    function(results, counts, ...) {
         standardGeneric("resultsTables")
     }
 )

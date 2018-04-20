@@ -11,10 +11,8 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param rowData Join Ensembl gene annotations to the results. Apply gene
-#'   identifier to symbol mappings. A previously saved `data.frame` is
-#'   recommended. Alternatively if set `NULL`, then gene annotations will not be
-#'   added to the results.
+#' @param counts `DESeqDataSet` containing the counts that were used to generate
+#'   the `DESeqResults`.
 #' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
 #' @param dropboxDir Dropbox directory path where to archive the results tables
@@ -23,16 +21,16 @@
 #'   package.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
-#' @return Results `list`.
+#' @return `list` containing modified `DESeqResults` return, including
+#'   additional gene-level metadata and normalized counts.
 #'
 #' @examples
-#' # DESeqResults ====
+#' # DESeqResults, DESeqDataSet ====
 #' x <- resultsTables(
-#'     object = res_small,
+#'     results = res_small,
+#'     counts = dds_small,
 #'     lfcThreshold = 0.25,
-#'     rowData = rowData(bcb_small),
 #'     summary = TRUE,
-#'     headerLevel = 2L,
 #'     write = FALSE
 #' )
 #' names(x)
@@ -111,63 +109,63 @@ NULL
 #' @export
 setMethod(
     "resultsTables",
-    signature("DESeqResults"),
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
     function(
-        object,
+        results,
+        counts,
         lfcThreshold = 0L,
-        rowData = NULL,
         summary = TRUE,
-        headerLevel = 2L,
         write = FALSE,
+        headerLevel = 2L,
         dir = ".",
         dropboxDir = NULL,
-        rdsToken = NULL,
-        ...
+        rdsToken = NULL
     ) {
-        # Legacy arguments =====================================================
-        call <- match.call(expand.dots = TRUE)
-        # annotable
-        if ("annotable" %in% names(call)) {
-            warning("Use `rowData` instead of `annotable`")
-            rowData <- call[["annotable"]]
-        }
-
-        # Assert checks ========================================================
         # Passthrough: headerLevel, dropboxDir, rdsToken
-        validObject(object)
+        validObject(results)
+        validObject(counts)
+        assert_are_identical(rownames(results), rownames(counts))
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
-        assert_is_any_of(rowData, c("DataFrame", "data.frame", "NULL"))
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
         dir <- initializeDirectory(dir)
 
         # Extract internal parameters from DESeqResults object =================
-        contrast <- contrastName(object)
+        contrast <- contrastName(results)
         fileStem <- snake(contrast)
         # Alpha level, slotted in `DESeqResults` metadata
-        alpha <- metadata(object)[["alpha"]]
+        alpha <- metadata(results)[["alpha"]]
         assert_is_a_number(alpha)
 
         # Prepare the results tables ===========================================
-        all <- object %>%
+        all <- results %>%
             as.data.frame() %>%
-            camel() %>%
-            rownames_to_column("geneID")
+            camel()
 
-        # Add gene annotations (rowData), if desired
-        if (length(rowData)) {
-            assert_are_identical(nrow(all), nrow(rowData))
-            # Drop the nested lists (e.g. entrezID), otherwise can't write CSVs
-            # to save when `write = TRUE`.
-            rowData <- sanitizeRowData(rowData)
-            # Select only unique columns, then bind
-            rowData <- rowData[, setdiff(colnames(rowData), colnames(all))]
-            all <- cbind(all, rowData)
-        }
+        # Add gene annotations (rowData)
+        rowRanges <- rowRanges(counts)
+        mcols <- mcols(rowRanges)
+        mcols <- mcols[, vapply(
+            X = mcols,
+            FUN = function(x) {
+                is.character(x) || is.factor(x)
+            },
+            FUN.VALUE = logical(1L)
+        )]
+        mcols(rowRanges) <- mcols
+        rowData <- as.data.frame(rowRanges)
+        # Drop columns already present in results
+        rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
 
-        # Ensure the data frames have rownames
-        rownames(all) <- rownames(object)
+        # Now safe to bind the rowData annotations
+        all <- cbind(all, rowData)
+
+        # Add the DESeq2 normalized counts
+        all <- cbind(all, counts(counts, normalized = TRUE))
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- all %>%
