@@ -8,6 +8,8 @@
 #'
 #' @return `ggplot`.
 #'
+#' @seealso [DESeq2::plotMA()].
+#'
 #' @examples
 #' gene2symbol <- gene2symbol(bcb_small)
 #'

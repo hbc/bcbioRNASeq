@@ -85,6 +85,8 @@ plotMeanAverage(
 )
 }
 \seealso{
+\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
+
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
   \code{\link{plotDEGPCA}}, \code{\link{plotVolcano}},
