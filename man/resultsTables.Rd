@@ -60,11 +60,10 @@ on expected fold changes.
 x <- resultsTables(
     results = res_small,
     counts = dds_small,
-    lfcThreshold = 0.25,
-    summary = TRUE,
-    write = FALSE
+    lfcThreshold = 0.25
 )
 names(x)
+glimpse(x[["deg"]])
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
