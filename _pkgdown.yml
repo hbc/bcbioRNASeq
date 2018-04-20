@@ -41,7 +41,6 @@ reference:
     contents:
     - counts
     - metrics
-    - selectSamples
     - tmm
     - tpm
   - title: Quality Control Functions
