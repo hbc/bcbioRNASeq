@@ -179,13 +179,12 @@ loadRNASeq <- function(
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
-    assert_is_list(yaml)
 
     # Column data ==============================================================
     if (is_a_string(sampleMetadataFile)) {
         colData <- readSampleData(sampleMetadataFile, lanes = lanes)
     } else {
-        colData <- sampleYAMLMetadata(yaml)
+        colData <- readYAMLSampleData(yamlFile)
         if (is.character(samples)) {
             assert_is_subset(samples, colData[["description"]])
             colData <- colData %>%
@@ -219,7 +218,7 @@ loadRNASeq <- function(
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
     message("Reading sample metrics")
-    metrics <- sampleYAMLMetrics(yaml)
+    metrics <- readYAMLSampleMetrics(yamlFile)
     assert_is_data.frame(metrics)
 
     # bcbio run information ====================================================
