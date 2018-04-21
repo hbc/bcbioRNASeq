@@ -181,6 +181,8 @@ loadRNASeq <- function(
     yaml <- readYAML(yamlFile)
 
     # Column data ==============================================================
+    # FIXME Figure out a way of combining these two? The YAML data has
+    # interesting metadata worth keeping inside `colData` (e.g. genomeBuild)
     if (is_a_string(sampleMetadataFile)) {
         colData <- readSampleData(sampleMetadataFile, lanes = lanes)
     } else {
