@@ -25,7 +25,7 @@
 #' @importFrom bcbioBase copyToDropbox flatFiles gene2symbol interestingGroups
 #'   interestingGroups<- plotHeatmap prepareSummarizedExperiment prepareTemplate
 #'   readDataVersions readLog readProgramVersions readSampleData readTx2gene
-#'   sampleData sampleDirs sampleYAMLMetadata sampleYAMLMetrics
+#'   readYAMLSampleData readYAMLSampleMetrics sampleData sampleDirs
 #'   uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
