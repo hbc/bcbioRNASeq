@@ -111,7 +111,7 @@ Imports:
     GenomicFeatures,
     S4Vectors,
     assertive,
-    basejump (>= 0.5),
+    basejump (>= 0.5.2),
     cowplot,
     dplyr (>= 0.7),
     edgeR,
@@ -144,7 +144,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    hbc/bcbioBase@develop,
+    hbc/bcbioBase,
     lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
