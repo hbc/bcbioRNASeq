@@ -21,6 +21,8 @@ plotGenesDetected(object, ...)
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
+\item{limit}{Threshold to denote on the plot, using a dashed line.}
+
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set

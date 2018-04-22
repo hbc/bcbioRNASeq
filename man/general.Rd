@@ -48,6 +48,8 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
+\item{limit}{Threshold to denote on the plot, using a dashed line.}
+
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
 \item{normalized}{Character indicating which normalization method to apply:
