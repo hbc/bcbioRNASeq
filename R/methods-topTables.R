@@ -18,8 +18,11 @@
 #' topTables(res_small, n = 5L)
 #'
 #' # resultsTables list ====
-#' # Return with gene symbol and description
-#' x <- resultsTables(res_small, rowData = rowData(bcb_small))
+#' # Return with gene annotations and DESeq2 normalized counts
+#' x <- resultsTables(
+#'     results = res_small,
+#'     counts = dds_small
+#' )
 #' topTables(x, n = 5L)
 NULL
 
