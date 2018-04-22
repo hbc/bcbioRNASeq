@@ -14,8 +14,8 @@
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromTximport DESeqTransform
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom S4Vectors as.data.frame complete.cases head mcols metadata
-#'   na.omit
+#' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
+#'   metadata na.omit
 #' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
 #'   colData colData<- rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism emptyRanges
@@ -47,7 +47,7 @@
 #' @importFrom parallel mclapply mcmapply
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
-#' @importFrom rlang !! !!! sym syms
+#' @importFrom rlang := !! !!! sym syms
 #' @importFrom scales pretty_breaks
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tibble as_tibble column_to_rownames glimpse remove_rownames
