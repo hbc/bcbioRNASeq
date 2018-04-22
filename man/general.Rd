@@ -28,6 +28,8 @@ color definitions are desired, we recommend using
 
 \item{dir}{Local directory path.}
 
+\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}

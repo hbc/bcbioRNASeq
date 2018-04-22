@@ -32,6 +32,8 @@ contain the columns \code{geneID} and \code{geneName}.}
 
 \item{ntop}{Number of top genes to label.}
 
+\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+
 \item{pointColor}{Default point color for the plot.}
 
 \item{sigPointColor}{\code{character} vector containing color names for labeling

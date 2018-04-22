@@ -8,7 +8,6 @@
 #' @inheritParams general
 #' @param ylim Upper boundary limit for y-axis. Helps preserve dynamic range
 #'   for gene sets containing highly significant P values (e.g. `1e-100`).
-#' @param direction Plot "`both`", "`up`", or "`down`" directions.
 #' @param histograms Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
