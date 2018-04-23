@@ -1,6 +1,8 @@
-library(knitr)
-library(DEGreport)
 library(bcbioRNASeq)
+library(DESeq2)
+library(DEGreport)
+
+library(knitr)
 library(tidyverse)
 
 # Set seed for reproducibility
@@ -19,15 +21,13 @@ opts_chunk[["set"]](
     highlight = TRUE,
     message = FALSE,
     prompt = TRUE,
-    # formatR required for tidy code
     tidy = TRUE,
     warning = TRUE
 )
 
 theme_set(
-    theme_light(base_size = 14L)
-)
-theme_update(
-    legend.justification = "center",
-    legend.position = "bottom"
+    theme_paperwhite(
+        base_size = 14L,
+        legend_position = "bottom"
+    )
 )

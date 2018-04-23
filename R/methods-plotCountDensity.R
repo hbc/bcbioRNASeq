@@ -30,10 +30,10 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm"),
+        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
         style = c("line", "solid"),
-        color = scale_color_viridis(discrete = TRUE),
-        fill = scale_fill_viridis(discrete = TRUE),
+        color = scale_color_hue(),
+        fill = scale_fill_hue(),
         title = "count density"
     ) {
         validObject(object)
@@ -62,8 +62,7 @@ setMethod(
         }
 
         # Melt the counts into long format
-        data <- fxn(counts, colData = colData(object)) %>%
-            uniteInterestingGroups(interestingGroups)
+        data <- fxn(counts, sampleData = sampleData(object))
 
         # Subtitle
         if (is_a_string(title)) {

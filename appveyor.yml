@@ -11,15 +11,25 @@ install:
   ps: Bootstrap
 
 cache:
-  - C:\RLibrary
+  # - C:\RLibrary
 
 # Adapt as necessary starting from here
 
+environment:
+  global:
+    BIOC_USE_DEVEL: TRUE
+    R_ARCH: x64
+    USE_RTOOLS: TRUE
+    WARNINGS_ARE_ERRORS: 1
+
 build_script:
+  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+  - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_bioc GenomeInfoDbData
+  - travis-tool.sh install_bioc DelayedArray
+  - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
+  - travis-tool.sh install_r data.table
   - travis-tool.sh install_deps
-  - travis-tool.sh install_github mikelove/tximport
-  - travis-tool.sh install_github lpantano/DEGreport
 
 test_script:
   - travis-tool.sh run_tests

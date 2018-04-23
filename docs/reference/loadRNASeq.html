@@ -62,7 +62,7 @@ program versions used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@ program versions used." />
     <div class="page-header">
     <h1>Load bcbio RNA-Seq Data</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/loadRNASeq.R'><code>R/loadRNASeq.R</code></a></small>
-    <p class="hidden name"><code>loadRNASeq.Rd</code></p>
+    <div class="hidden name"><code>loadRNASeq.Rd</code></div>
     </div>
 
     
@@ -111,10 +111,10 @@ program versions used.</p>
     
 
     <pre class="usage"><span class='fu'>loadRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"genes"</span>, <span class='st'>"transcripts"</span>),
-  <span class='kw'>caller</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"salmon"</span>, <span class='st'>"kallisto"</span>, <span class='st'>"sailfish"</span>), <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>organism</span>,
-  <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isSpike</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>gffFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>caller</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"salmon"</span>, <span class='st'>"kallisto"</span>, <span class='st'>"sailfish"</span>), <span class='no'>organism</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+  <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transgeneNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spikeNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gffFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transformationLimit</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,6 +132,15 @@ running <code>bcbio_nextgen -w template</code>.</p></td>
       <th>caller</th>
       <td><p>Expression caller. Supports "<code>salmon</code>" (default), "<code>kallisto</code>",
 or "<code>sailfish</code>".</p></td>
+    </tr>
+    <tr>
+      <th>organism</th>
+      <td><p>Organism name. Use the full latin name (e.g.
+"Homo sapiens"), since this will be input downstream to
+AnnotationHub and ensembldb, unless <code>gffFile</code> is set. If set <code>NULL</code>
+(<em>advanced use; not recommended</em>), the function call will skip loading
+gene/transcript-level annotations into <code>rowRanges()</code>. This can be useful
+for poorly annotation genomes or experiments involving multiple genomes.</p></td>
     </tr>
     <tr>
       <th>samples</th>
@@ -152,12 +161,6 @@ file. Remote URLs are supported. Typically this can be left unset.</p></td>
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>organism</th>
-      <td><p>Organism name. Use the full latin name (e.g.
-"Homo sapiens"), since this will be input downstream to
-AnnotationHub and ensembldb, unless <code>gffFile</code> is set.</p></td>
-    </tr>
-    <tr>
       <th>ensemblRelease</th>
       <td><p><em>Optional.</em> Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
@@ -171,22 +174,28 @@ This will be passed to AnnotationHub for <code>EnsDb</code> annotation matching,
 unless <code>gffFile</code> is set.</p></td>
     </tr>
     <tr>
-      <th>isSpike</th>
-      <td><p><em>Optional.</em> Gene names corresponding to FASTA spike-in
-sequences (e.g. ERCCs, EGFP, TDTOMATO).</p></td>
+      <th>transgeneNames</th>
+      <td><p><code>character</code> vector indicating which <code>assay()</code> rows
+denote transgenes (e.g. EGFP, TDTOMATO).</p></td>
+    </tr>
+    <tr>
+      <th>spikeNames</th>
+      <td><p><code>character</code> vector indicating which <code>assay()</code> rows denote
+spike-in sequences (e.g. ERCCs).</p></td>
     </tr>
     <tr>
       <th>gffFile</th>
-      <td><p><em>Optional, not recommended.</em> By default, we recommend leaving
-this <code>NULL</code> for genomes that are supported on Ensembl. In this case, the
-row annotations (<code>rowRanges()</code>) will be obtained automatically from Ensembl
-by passing the <code>organism</code>, <code>genomeBuild</code>, and <code>ensemblRelease</code> arguments to
-AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-possible, although all GFF formats are supported. The function will
-internally generate a <code>TxDb</code> containing transcript-to-gene mappings and
-construct a <code>GRanges</code> object containing the genomic ranges (<code>rowRanges()</code>).</p></td>
+      <td><p><em>Advanced use; not recommended.</em> By default, we recommend
+leaving this <code>NULL</code> for genomes that are supported on Ensembl. In this
+case, the row annotations (<code>rowRanges()</code>) will be obtained automatically
+from Ensembl by passing the <code>organism</code>, <code>genomeBuild</code>, and <code>ensemblRelease</code>
+arguments to AnnotationHub and ensembldb. For a genome that is not
+supported on Ensembl and/or AnnotationHub, a GFF/GTF (General Feature
+Format) file is required. Generally, we recommend using a GTF (GFFv2) file
+here over a GFF3 file if possible, although all GFF formats are supported.
+The function will internally generate a <code>TxDb</code> containing
+transcript-to-gene mappings and construct a <code>GRanges</code> object containing the
+genomic ranges (<code>rowRanges()</code>).</p></td>
     </tr>
     <tr>
       <th>transformationLimit</th>
@@ -228,16 +237,14 @@ run directory as a remote connection over
     <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 
 <span class='co'># Gene level</span>
-<span class='fu'>loadRNASeq</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(
     <span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>,
     <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"genes"</span>,
-    <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>
+    <span class='kw'>caller</span> <span class='kw'>=</span> <span class='st'>"salmon"</span>,
+    <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
+    <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected:</span>
-#&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH57770"</span>
-#&gt; <span class='message'>organism: "Mus musculus"</span>
-#&gt; <span class='message'>build: "GRCm38"</span>
-#&gt; <span class='message'>release: "90"</span>
-#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  txID = col_character(),</span>
 #&gt; <span class='message'>  geneID = col_character()</span>
@@ -269,24 +276,29 @@ run directory as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Calculating variance stabilizations using DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping 3 unannotated rows (0.594%): ENSMUSG00000101738, ENSMUSG00000104475, ENSMUSG00000109048</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 4
-#&gt; genes: 502
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
-#&gt; bcbio date: 2017-05-23
-#&gt; R load date: 2018-04-04</div><div class='input'>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>organism: "Mus musculus"</span>
+#&gt; <span class='message'>build: "GRCm38"</span>
+#&gt; <span class='message'>release: "87"</span>
+#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 4
+#&gt; Genes: 502
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH53222
+#&gt; Ensembl Release: 87
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
+#&gt; Upload Date: 2017-05-23
+#&gt; R Load Date: 2018-04-16</div><div class='input'>
 <span class='co'># Transcript level</span>
-<span class='fu'>loadRNASeq</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>loadRNASeq</span>(
     <span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>,
     <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"transcripts"</span>,
-    <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>
+    <span class='kw'>caller</span> <span class='kw'>=</span> <span class='st'>"salmon"</span>,
+    <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
+    <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected:</span>
-#&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH57770"</span>
-#&gt; <span class='message'>organism: "Mus musculus"</span>
-#&gt; <span class='message'>build: "GRCm38"</span>
-#&gt; <span class='message'>release: "90"</span>
-#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  txID = col_character(),</span>
 #&gt; <span class='message'>  geneID = col_character()</span>
@@ -318,13 +330,20 @@ run directory as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping 1 unannotated rows (0.1%): ENSMUST00000187966</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.0
-#&gt; samples: 4
-#&gt; transcripts: 998
-#&gt; organism: Mus musculus
-#&gt; bcbio dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
-#&gt; bcbio date: 2017-05-23
-#&gt; R load date: 2018-04-04</div></pre>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>organism: "Mus musculus"</span>
+#&gt; <span class='message'>build: "GRCm38"</span>
+#&gt; <span class='message'>release: "87"</span>
+#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+#&gt; Samples: 4
+#&gt; Transcripts: 996
+#&gt; Organism: Mus musculus
+#&gt; AnnotationHub: AH53222
+#&gt; Ensembl Release: 87
+#&gt; Genome Build: GRCm38
+#&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
+#&gt; Upload Date: 2017-05-23
+#&gt; R Load Date: 2018-04-16</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -344,7 +363,7 @@ run directory as a remote connection over
 
     <h2>Author</h2>
     
-Michael Steinbaugh, Lorena Pantano
+Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 
   </div>
 </div>

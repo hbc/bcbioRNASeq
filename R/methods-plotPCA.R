@@ -29,71 +29,11 @@
 #'     samples = head(colnames(bcb_small), 4L),
 #'     label = TRUE
 #' )
+#'
+#' # DESeqDataSet ====
+#' # DESeqTransform method is preferred
+#' plotPCA(dds_small)
 NULL
-
-
-
-# Constructors =================================================================
-.plotPCA.ggplot <- function(  # nolint
-    object,
-    color = scale_color_viridis(discrete = TRUE),
-    label = FALSE,
-    group = NULL,
-    title = NULL
-) {
-    assert_is_data.frame(object)
-    assertIsColorScaleDiscreteOrNULL(color)
-    assert_is_a_bool(label)
-    assertIsAStringOrNULL(title)
-
-    percentVar <- round(100L * attr(object, "percentVar"))
-
-    p <- ggplot(
-        data = object,
-        mapping = aes_string(
-            x = "pc1",
-            y = "pc2",
-            color = "group"
-        )
-    ) +
-        geom_point(size = 4L) +
-        coord_fixed() +
-        labs(
-            title = title,
-            x = paste0("pc1: ", percentVar[[1L]], "% variance"),
-            y = paste0("pc2: ", percentVar[[2L]], "% variance"),
-            color = paste(group, collapse = ":\n")
-        )
-
-    if (is(color, "ScaleDiscrete")) {
-        p <- p + color
-    }
-
-    if (isTRUE(label)) {
-        p <- p +
-            geom_text_repel(
-                # Color the labels to match the points
-                aes_string(label = "label"),
-                color = "black",
-                fontface = "bold",
-                # Add extra padding around each text label
-                box.padding = unit(0.5, "lines"),
-                # Add extra padding around each data point
-                point.padding = unit(1.5, "lines"),
-                # Color of the line segments
-                segment.color = "gray",
-                # Width of the line segments
-                segment.size = 0.5,
-                # Draw an arrow from the label to the data point
-                arrow = arrow(length = unit(0.01, "npc")),
-                # Strength of the repulsion force
-                force = 1L,
-                show.legend = FALSE
-            )
-    }
-
-    p
-}
 
 
 
@@ -102,31 +42,29 @@ NULL
 #' @export
 setMethod(
     "plotPCA",
-    signature("bcbioRNASeq"),
+    signature("SummarizedExperiment"),
     function(
         object,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = scale_color_viridis(discrete = TRUE),
+        color = scale_color_hue(),
         label = FALSE,
         title = "pca",
-        return = c("ggplot", "data.frame"),
-        ...
+        return = c("ggplot", "data.frame")
     ) {
-        # Legacy arguments =========================================================
+        # Legacy arguments =====================================================
         call <- match.call()
         # censorSamples
         if ("censorSamples" %in% names(call)) {
-            warn("`censorSamples` is deprecated in favor of `samples`")
+            warning("`censorSamples` is deprecated in favor of `samples`")
             censorSamples <- call[["censorSamples"]]
             assert_is_subset(censorSamples, colnames(object))
             samples <- setdiff(colnames(object), censorSamples)
         }
         # returnData
         if ("returnData" %in% names(call)) {
-            warn("`returnData` is deprecated in favor of `return`")
+            warning("`returnData` is deprecated in favor of `return`")
             returnData <- call[["returnData"]]
             if (isTRUE(returnData)) {
                 return <- "data.frame"
@@ -135,53 +73,46 @@ setMethod(
 
         # Assert checks ========================================================
         validObject(object)
-        normalized <- match.arg(normalized)
+        assertIsCharacterOrNULL(genes)
+        assertIsCharacterOrNULL(samples)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
         assertFormalInterestingGroups(colData(object), interestingGroups)
-        assertIsCharacterOrNULL(genes)
-        assertIsCharacterOrNULL(samples)
+        assertIsColorScaleDiscreteOrNULL(color)
+        assert_is_a_bool(label)
+        assertIsAStringOrNULL(title)
+        # exists check is needed for legacy `returnData` match above
         if (!exists(return, inherits = FALSE)) {
-            # exists check is needed for legacy `returnData` match above
             return <- match.arg(return)
         }
 
-
         # Prepare counts matrix ================================================
-        counts <- counts(object, normalized = normalized)
-        colData <- colData(object)
-
         # Subset samples, if desired
         if (length(samples)) {
-            assert_is_subset(samples, colnames(object))
-            counts <- counts[, samples, drop = FALSE]
-            colData <- colData[samples, , drop = FALSE]
+            object <- object[, samples]
         }
 
         # Subset genes, if desired
         if (length(genes)) {
-            assert_is_subset(genes, rownames(counts))
-            counts <- counts[genes, , drop = FALSE]
+            object <- object[genes, ]
             # Set ntop to the number of genes requested
             ntop <- length(genes)
-            inform(paste(
+            message(paste(
                 "Plotting PCA using", ntop, "genes"
             ))
         } else {
             # Recommended DESeq default of most variable genes
             ntop <- 500L
-            inform(paste(
+            message(paste(
                 "Plotting PCA using top", ntop, "most variable genes"
             ))
         }
 
         # Get PCA data using DESeqTransform method =============================
-        se <- SummarizedExperiment(assays = counts, colData = colData)
-        dt <- DESeqTransform(se)
+        dt <- DESeqTransform(object)
+        colData <- colData(object)
 
-        # `group` column is generated by `DESeq2::plotPCA()` for
-        # `interestingGroups`
         data <- plotPCA(
             object = dt,
             intgroup = interestingGroups,
@@ -190,6 +121,7 @@ setMethod(
         ) %>%
             camel()
 
+        # Early return if `data.frame` is requested
         if (return == "data.frame") {
             return(data)
         }
@@ -199,12 +131,91 @@ setMethod(
             data[["label"]] <- colData[, "sampleName", drop = TRUE]
         }
 
-        .plotPCA.ggplot(
-            object = data,
-            color = color,
-            label = label,
-            group = interestingGroups,
-            title = title
-        )
+        percentVar <- round(100L * attr(data, "percentVar"))
+
+        # `DESeq2::plotPCA()` defines interesting groups in `group` column
+        p <- ggplot(
+            data = data,
+            mapping = aes_string(
+                x = "pc1",
+                y = "pc2",
+                color = "group"
+            )
+        ) +
+            geom_point(size = 4L) +
+            coord_fixed() +
+            labs(
+                title = title,
+                x = paste0("pc1: ", percentVar[[1L]], "% variance"),
+                y = paste0("pc2: ", percentVar[[2L]], "% variance"),
+                color = paste(interestingGroups, collapse = ":\n")
+            )
+
+        if (is(color, "ScaleDiscrete")) {
+            p <- p + color
+        }
+
+        if (isTRUE(label)) {
+            p <- p +
+                geom_text_repel(
+                    # Color the labels to match the points
+                    aes_string(label = "label"),
+                    color = "black",
+                    fontface = "bold",
+                    # Add extra padding around each text label
+                    box.padding = unit(0.5, "lines"),
+                    # Add extra padding around each data point
+                    point.padding = unit(1.5, "lines"),
+                    # Color of the line segments
+                    segment.color = "gray",
+                    # Width of the line segments
+                    segment.size = 0.5,
+                    # Draw an arrow from the label to the data point
+                    arrow = arrow(length = unit(0.01, "npc")),
+                    # Strength of the repulsion force
+                    force = 1L,
+                    show.legend = FALSE
+                )
+        }
+
+        p
+    }
+)
+
+
+
+#' @rdname plotPCA
+#' @export
+setMethod(
+    "plotPCA",
+    signature("DESeqDataSet"),
+    function(object, ...) {
+        validObject(object)
+        counts <- counts(object, normalized = TRUE)
+        rse <- as(object, "RangedSummarizedExperiment")
+        assay(rse) <- counts
+        plotPCA(rse, ...)
+    }
+)
+
+
+
+#' @rdname plotPCA
+#' @export
+setMethod(
+    "plotPCA",
+    signature("bcbioRNASeq"),
+    function(
+        object,
+        normalized = c("rlog", "vst", "tmm", "tpm"),
+        ...
+    ) {
+        validObject(object)
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
+        counts <- counts(object, normalized = normalized)
+        rse <- as(object, "RangedSummarizedExperiment")
+        assay(rse) <- counts
+        plotPCA(rse, ...)
     }
 )

@@ -3,25 +3,23 @@
 \docType{methods}
 \name{plotGene}
 \alias{plotGene}
+\alias{plotGene,SummarizedExperiment-method}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqDataSet-method}
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("rlog", "vst",
-  "tpm"), interestingGroups, medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
-  return = c("grid", "wide", "list", "markdown"))
+\S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
+  countsAxisLabel = "counts", medianLine = TRUE,
+  color = scale_color_hue(), headerLevel = 2L, return = c("facet", "wide",
+  "grid", "markdown", "list"))
 
-\S4method{plotGene}{DESeqDataSet}(object, genes, gene2symbol = NULL,
-  interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
-  return = c("grid", "wide", "list", "markdown"))
+\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tpm"),
+  ...)
 
-\S4method{plotGene}{DESeqTransform}(object, genes, gene2symbol = NULL,
-  interestingGroups = "sampleName", medianLine = TRUE,
-  color = scale_color_viridis(discrete = TRUE), headerLevel = 2L,
-  return = c("grid", "wide", "list", "markdown"))
+\S4method{plotGene}{DESeqDataSet}(object, ...)
+
+\S4method{plotGene}{DESeqTransform}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -30,19 +28,13 @@
 rownames of the object. It is best practice to use the stable gene
 identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{normalized}{Character indicating which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
-
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{medianLine}{Include median line for each group. Disabled when samples
-are grouped by \code{sampleName}.}
+\item{countsAxisLabel}{Label to use for the counts axis.}
+
+\item{medianLine}{Include median line for each group. Disabled if samples
+are colored by sample name.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
@@ -54,8 +46,15 @@ color definitions are desired, we recommend using
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
-contain the columns \code{geneID} and \code{geneName}.}
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \itemize{

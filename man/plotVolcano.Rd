@@ -9,23 +9,24 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, padj = TRUE, lfc = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = "gray", pointAlpha = 0.75,
-  pointOutlineColor = "darkgray", shadeColor = "green", shadeAlpha = 0.25,
-  labelColor = "black", histograms = TRUE)
+\S4method{plotVolcano}{DESeqResults}(object, alpha, lfcThreshold = 0L,
+  ylim = 1e-10, genes = NULL, gene2symbol = NULL, ntop = 0L,
+  direction = c("both", "up", "down"), pointColor = "gray50",
+  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
+  histograms = FALSE, return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
-arguments must be formatted in camel case, not snake case.}
+arguments should be formatted in camel case, not snake case.}
 
 \item{alpha}{Adjusted P value ("alpha") cutoff.}
 
-\item{padj}{Use P values adjusted for multiple comparisions.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{ylim}{Upper boundary limit for y-axis. Helps preserve dynamic range
+for gene sets containing highly significant P values (e.g. \code{1e-100}).}
 
 \item{genes}{Character vector of genes to include. These must match the
 rownames of the object. It is best practice to use the stable gene
@@ -38,19 +39,16 @@ contain the columns \code{geneID} and \code{geneName}.}
 
 \item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
-\item{pointColor}{Point color.}
+\item{pointColor}{Default point color for the plot.}
 
-\item{pointAlpha}{Point transparency alpha.}
-
-\item{pointOutlineColor}{Point outline color.}
-
-\item{shadeColor}{Shading color for bounding box.}
-
-\item{shadeAlpha}{Shading transparency alpha.}
-
-\item{labelColor}{Gene label color.}
+\item{sigPointColor}{\code{character} vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.}
 
 \item{histograms}{Show LFC and P value histograms.}
+
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
 }
 \value{
 \code{ggplot}.
@@ -59,12 +57,40 @@ contain the columns \code{geneID} and \code{geneName}.}
 Plot Volcano
 }
 \examples{
+gene2symbol <- gene2symbol(bcb_small)
+
 # DESeqResults ====
+# Color DEGs in each direction separately
 plotVolcano(
     object = res_small,
-    ntop = 5L,
-    gene2symbol = gene2symbol(bcb_small)
+    sigPointColor = c(
+        upregulated = "purple",
+        downregulated = "orange"
+    )
 )
+
+# Label DEGs with a single color
+plotVolcano(res_small, sigPointColor = "purple")
+
+# Directional support
+plotVolcano(
+    object = res_small,
+    direction = "up",
+    ntop = 5L,
+    gene2symbol = gene2symbol,
+    histograms = TRUE
+)
+plotVolcano(
+    object = res_small,
+    direction = "down",
+    ntop = 5L,
+    gene2symbol = gene2symbol,
+    histograms = TRUE
+)
+
+# Return coordinates as a data.frame
+x <- plotVolcano(res_small, return = "data.frame")
+glimpse(x)
 }
 \seealso{
 This function is an updated variant of
@@ -72,7 +98,7 @@ This function is an updated variant of
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
   \code{\link{resultsTables}}
 }
 \author{

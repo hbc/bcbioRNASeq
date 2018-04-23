@@ -11,8 +11,8 @@
 plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  warnLimit = 20L, fill = scale_fill_viridis(discrete = TRUE),
-  flip = TRUE, title = "intronic mapping rate")
+  limit = 20L, fill = scale_fill_hue(), flip = TRUE,
+  title = "intronic mapping rate")
 }
 \arguments{
 \item{object}{Object.}
@@ -22,7 +22,7 @@ plotIntronicMappingRate(object, ...)
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{warnLimit}{Threshold to plot warning color marker.}
+\item{limit}{Threshold to denote on the plot, using a dashed line.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color

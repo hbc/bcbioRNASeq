@@ -30,7 +30,6 @@ reference:
   - title: S4 Class Definition
     contents:
     - bcbioRNASeq-class
-    - subset
     - coerce
     - show
     - updateObject
@@ -41,7 +40,6 @@ reference:
     contents:
     - counts
     - metrics
-    - selectSamples
     - tmm
     - tpm
   - title: Quality Control Functions

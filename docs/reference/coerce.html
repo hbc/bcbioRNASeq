@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
     <div class="page-header">
     <h1>Methods for Coercing an Object to a Class</h1>
     <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-coerce.R'><code>R/methods-coerce.R</code></a></small>
-    <p class="hidden name"><code>coerce.Rd</code></p>
+    <div class="hidden name"><code>coerce.Rd</code></div>
     </div>
 
     
@@ -138,8 +138,8 @@
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
 #&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(33): version level ... unannotatedRows subset
-#&gt; assays(5): raw tpm length rlog vst
+#&gt; metadata(31): version level ... devtoolsSessionInfo subset
+#&gt; assays(6): counts tpm ... rlog vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
@@ -155,8 +155,8 @@
 #&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
 #&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(33): version level ... unannotatedRows subset
-#&gt; assays(5): raw tpm length rlog vst
+#&gt; metadata(31): version level ... devtoolsSessionInfo subset
+#&gt; assays(6): counts tpm ... rlog vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
@@ -164,8 +164,8 @@
 #&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
 <span class='co'># list ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"list"</span>)
-<span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
-#&gt; [5] "elementMetadata" "metadata"       </div></pre>
+<span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
+#&gt; [5] "metadata"       </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

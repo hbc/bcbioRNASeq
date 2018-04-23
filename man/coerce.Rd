@@ -15,6 +15,7 @@ Methods for Coercing an Object to a Class
 \examples{
 # DESeqDataSet ====
 x <- as(bcb_small, "DESeqDataSet")
+names(S4Vectors::mcols(x))
 class(x)
 show(x)
 

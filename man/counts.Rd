@@ -20,6 +20,7 @@ method to apply:
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item "\code{rle}": Relative log expression transformation.
 }}
 }
 \value{
@@ -36,6 +37,7 @@ counts(bcb_small, normalized = FALSE) \%>\% summary()
 counts(bcb_small, normalized = TRUE) \%>\% summary()
 counts(bcb_small, normalized = "tpm") \%>\% summary()
 counts(bcb_small, normalized = "tmm") \%>\% summary()
+counts(bcb_small, normalized = "rle") \%>\% summary()
 
 # log2 scale
 counts(bcb_small, normalized = "rlog") \%>\% summary()
@@ -51,8 +53,7 @@ counts(bcb_small, normalized = "vst") \%>\% summary()
 }
 
 Other Data Functions: \code{\link{metrics}},
-  \code{\link{selectSamples}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+  \code{\link{tmm}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

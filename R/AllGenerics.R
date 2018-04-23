@@ -57,7 +57,7 @@ setGeneric(
 #' @export
 setGeneric(
     "plotDEGHeatmap",
-    function(object, ...) {
+    function(results, counts, ...) {
         standardGeneric("plotDEGHeatmap")
     }
 )
@@ -68,7 +68,7 @@ setGeneric(
 #' @export
 setGeneric(
     "plotDEGPCA",
-    function(object, ...) {
+    function(results, counts, ...) {
         standardGeneric("plotDEGPCA")
     }
 )
@@ -125,6 +125,18 @@ setGeneric(
     "plotIntronicMappingRate",
     function(object, ...) {
         standardGeneric("plotIntronicMappingRate")
+    }
+)
+
+
+
+# Alternate version, so we don't conflict with `DESeq2::plotMA` methods
+#' @rdname plotMeanAverage
+#' @export
+setGeneric(
+    "plotMeanAverage",
+    function(object, ...) {
+        standardGeneric("plotMeanAverage")
     }
 )
 
@@ -211,7 +223,7 @@ setGeneric(
 #' @export
 setGeneric(
     "resultsTables",
-    function(object, ...) {
+    function(results, counts, ...) {
         standardGeneric("resultsTables")
     }
 )

@@ -4,41 +4,50 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @inheritParams general
-#' @param normalized Select normalized counts (`TRUE`), raw counts (`FALSE`),
-#' or specifically request TMM-normalized counts (`tmm`).
-#'
 #' @seealso [reshape2::melt()].
 #'
-#' @return Melted `grouped_df`, grouped by `sampleID`.
+#' @return Melted `grouped_df`, grouped by `sampleID` and `geneID`.
 #'
 #' @examples
 #' counts <- counts(bcb_small)
-#' colData <- colData(bcb_small)
-#' .meltCounts(counts, colData)
-.meltCounts <- function(object, colData) {
-    assert_is_matrix(object)
-    assert_has_dims(colData)
-    assert_are_identical(
-        colnames(object),
-        as.character(colData[["sampleID"]])
-    )
-    object %>%
+#' sampleData <- sampleData(bcb_small)
+#' x <- .meltCounts(counts, sampleData)
+.meltCounts <- function(counts, sampleData = NULL) {
+    assert_is_matrix(counts)
+
+    data <- counts %>%
         as.data.frame() %>%
         rownames_to_column() %>%
         melt(id = 1L) %>%
         as_tibble() %>%
         set_colnames(c("geneID", "sampleID", "counts")) %>%
-        .[, c("sampleID", "geneID", "counts")] %>%
         arrange(!!!syms(c("sampleID", "geneID"))) %>%
-        group_by(!!sym("sampleID")) %>%
-        left_join(as.data.frame(colData), by = "sampleID")
+        group_by(!!!syms(c("sampleID", "geneID")))
+
+    if (!is.null(sampleData)) {
+        assert_has_dims(sampleData)
+        assert_are_identical(
+            colnames(counts),
+            as.character(sampleData[["sampleID"]])
+        )
+        data <- merge(
+            x = data,
+            y = as.data.frame(sampleData),
+            by = "sampleID",
+            all.x = TRUE
+        )
+    }
+
+    if (!"interestingGroups" %in% colnames(data)) {
+        data[["interestingGroups"]] <- data[["sampleID"]]
+    }
+
+    data
 }
 
 
 
-.meltLog2Counts <- function(object, colData) {
-    x <- .meltCounts(object, colData)
-    x[["counts"]] <- log2(x[["counts"]] + 1L)
-    x
+.meltLog2Counts <- function(counts, ...) {
+    counts <- log2(counts + 1L)
+    .meltCounts(counts, ...)
 }

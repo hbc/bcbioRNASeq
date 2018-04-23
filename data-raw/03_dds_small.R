@@ -7,6 +7,7 @@ dds_small <- as(bcb_small, "DESeqDataSet")
 design(dds_small) <- ~ treatment
 dds_small <- DESeq(dds_small)
 validObject(dds_small)
+
 stopifnot(design(dds_small) == ~ treatment)
 stopifnot(identical(
     resultsNames(dds_small),

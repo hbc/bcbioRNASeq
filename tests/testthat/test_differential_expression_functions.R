@@ -42,9 +42,9 @@ test_that("plotDEGHeatmap", {
 
 
 
-# plotMA =======================================================================
-test_that("plotMA : DESeqResults", {
-    p <- plotMA(res_small)
+# plotMeanAverage ==============================================================
+test_that("plotMeanAverage : DESeqResults", {
+    p <- plotMeanAverage(res_small)
     expect_is(p, "ggplot")
 
     # Check geom classes
@@ -71,8 +71,8 @@ test_that("plotMA : DESeqResults", {
     )
 })
 
-test_that("plotMA : Gene labels", {
-    p <- plotMA(res_small, genes = genes)
+test_that("plotMeanAverage : Gene labels", {
+    p <- plotMeanAverage(res_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
@@ -96,25 +96,25 @@ test_that("plotVolcano : DESeqResults", {
 
 # resultsTables ================================================================
 test_that("resultsTables : Default return with local files only", {
-    resTbl <- resultsTables(
-        res_small,
-        lfc = lfc,
+    x <- resultsTables(
+        results = res_small,
+        counts = dds_small,
+        lfcThreshold = lfc,
         summary = FALSE,
         write = FALSE
     )
-    expect_identical(class(resTbl), "list")
-    tibble <- c("tbl_df", "tbl", "data.frame")
+    expect_identical(class(x), "list")
     expect_identical(
-        lapply(resTbl, class),
+        lapply(x, class),
         list(
+            "deg" = "data.frame",
+            "degLFC" = "data.frame",
+            "degLFCUp" = "data.frame",
+            "degLFCDown" = "data.frame",
+            "all" = "data.frame",
             "contrast" = "character",
-             "alpha" = "numeric",
-             "lfc" = "numeric",
-             "all" = tibble,
-             "deg" = tibble,
-             "degLFC" = tibble,
-             "degLFCUp" = tibble,
-             "degLFCDown" = tibble
+            "alpha" = "numeric",
+            "lfcThreshold" = "numeric"
         )
     )
 })
@@ -125,9 +125,9 @@ test_that("resultsTables : Summary and write support", {
     dir <- file.path(getwd(), "resultsTables")
     output <- capture.output(
         resultsTables(
-            object = res_small,
-            lfc = lfc,
-            rowData = rowData(bcb_small),
+            results = res_small,
+            counts = dds_small,
+            lfcThreshold = lfc,
             summary = TRUE,
             headerLevel = 2L,
             write = TRUE,
@@ -148,8 +148,8 @@ test_that("resultsTables : Summary and write support", {
             "- 500 genes in counts matrix",
             "- Base mean > 0: 500 genes (non-zero)",
             "- Base mean > 1: 500 genes",
-            "- Alpha cutoff: 0.1",
-            "- LFC cutoff: 0.25 (applied in tables only)",
+            "- Alpha: 0.1",
+            "- LFC threshold: 0.25",
             "- DEG pass alpha: 254 genes",
             "- DEG LFC up: 115 genes",
             "- DEG LFC down: 139 genes",
@@ -207,9 +207,9 @@ test_that("resultsTables : Summary and write support", {
 if (file.exists("token.rds")) {
     test_that("resultsTables : Dropbox mode", {
         resTbl <- resultsTables(
-            res_small,
-            lfc = lfc,
-            rowData = rowData(bcb_small),
+            results = res_small,
+            counts = dds_small,
+            lfcThreshold = lfc,
             summary = FALSE,
             write = TRUE,
             dir = "resultsTables",

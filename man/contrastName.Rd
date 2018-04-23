@@ -29,7 +29,7 @@ contrastName(res_small)
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
   \code{\link{resultsTables}}
 }
 \author{

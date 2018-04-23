@@ -23,8 +23,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm"),
-        fill = scale_fill_viridis(discrete = TRUE),
+        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
+        fill = scale_fill_hue(),
         flip = TRUE,
         title = "counts per gene"
     ) {
@@ -51,8 +51,7 @@ setMethod(
             fxn <- .meltLog2Counts
         }
 
-        data <- fxn(counts, colData = colData(object)) %>%
-            uniteInterestingGroups(interestingGroups)
+        data <- fxn(counts, sampleData = sampleData(object))
 
         # Subtitle
         if (is_a_string(title)) {

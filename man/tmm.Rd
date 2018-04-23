@@ -40,8 +40,7 @@ counts(bcb_small) \%>\% tmm() \%>\% summary()
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{selectSamples}},
-  \code{\link{tpm}}
+  \code{\link{metrics}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh

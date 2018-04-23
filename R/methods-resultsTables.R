@@ -1,47 +1,91 @@
 #' Differential Expression Results Tables
 #'
-#' @note Log fold change cutoff ("`lfc`") does not apply to statistical
-#'   hypothesis testing, only gene filtering in the results tables. See
-#'   [DESeq2::results()] for additional information about using `lfcThreshold`
-#'   and `altHypothesis` to set an alternative hypothesis based on expected fold
-#'   changes.
+#' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
+#'   statistical hypothesis testing, only gene filtering in the results tables.
+#'   See [DESeq2::results()] for additional information about using
+#'   `lfcThreshold` and `altHypothesis` to set an alternative hypothesis based
+#'   on expected fold changes.
 #'
 #' @name resultsTables
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param rowData Join Ensembl gene annotations to the results. Apply gene
-#'   identifier to symbol mappings. A previously saved `data.frame` is
-#'   recommended. Alternatively if set `NULL`, then gene annotations will not be
-#'   added to the results.
+#' @param counts `DESeqDataSet` containing the counts that were used to generate
+#'   the `DESeqResults`.
 #' @param summary Show summary statistics.
 #' @param write Write CSV files to disk.
-#' @param dir Local directory path where to write the results tables.
 #' @param dropboxDir Dropbox directory path where to archive the results tables
 #'   for permanent storage (e.g. Stem Cell Commons). When this option is
 #'   enabled, unique links per file are generated internally with the rdrop2
 #'   package.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
-#' @return Results `list`.
+#' @return `list` containing modified `DESeqResults` return, including
+#'   additional gene-level metadata and normalized counts.
 #'
 #' @examples
-#' # DESeqResults ====
-#' resTbl <- resultsTables(
-#'     object = res_small,
-#'     lfc = 0.25,
-#'     rowData = rowData(bcb_small),
-#'     summary = TRUE,
-#'     headerLevel = 2L,
-#'     write = FALSE
+#' # DESeqResults, DESeqDataSet ====
+#' x <- resultsTables(
+#'     results = res_small,
+#'     counts = dds_small,
+#'     lfcThreshold = 0.25
 #' )
-#' names(resTbl)
+#' names(x)
+#' glimpse(x[["deg"]])
 NULL
 
 
 
 # Constructors =================================================================
+.degList <- function(
+    results,
+    alpha,
+    lfcThreshold = 0L,
+    contrast
+) {
+    assert_is_subset(c("log2FoldChange", "padj"), colnames(results))
+    if (missing(alpha)) {
+        alpha <- metadata(results)[["alpha"]]
+    }
+    assert_is_a_number(alpha)
+    assert_is_a_number(lfcThreshold)
+    if (missing(contrast)) {
+        contrast <- contrastName(results)
+    }
+    assert_is_a_string(contrast)
+
+    all <- results %>%
+        as.data.frame() %>%
+        camel()
+
+    # DEG tables are sorted by BH adjusted P value
+    deg <- all %>%
+        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
+        .[.[["padj"]] < alpha, , drop = FALSE] %>%
+        .[order(.[["padj"]]), , drop = FALSE]
+    degLFC <- deg %>%
+        .[.[["log2FoldChange"]] > lfcThreshold |
+              .[["log2FoldChange"]] < -lfcThreshold, , drop = FALSE]
+    degLFCUp <- degLFC %>%
+        .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
+    degLFCDown <- degLFC %>%
+        .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
+
+    list(
+        "deg" = deg,
+        "degLFC" = degLFC,
+        "degLFCUp" = degLFCUp,
+        "degLFCDown" = degLFCDown,
+        "all" = all,
+        "contrast" = contrast,
+        "alpha" = alpha,
+        "lfcThreshold" = lfcThreshold
+    )
+}
+
+
+
 #' Markdown List of Results Files
 #'
 #' Enables looping of results contrast file links for RMarkdown.
@@ -112,95 +156,81 @@ NULL
 #' @export
 setMethod(
     "resultsTables",
-    signature("DESeqResults"),
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
     function(
-        object,
-        lfc = 0L,
-        rowData = NULL,
+        results,
+        counts,
+        alpha,
+        lfcThreshold = 0L,
         summary = TRUE,
-        headerLevel = 2L,
         write = FALSE,
+        headerLevel = 2L,
         dir = ".",
         dropboxDir = NULL,
-        rdsToken = NULL,
-        ...
+        rdsToken = NULL
     ) {
-        # Legacy arguments =====================================================
-        call <- match.call(expand.dots = TRUE)
-        # annotable
-        if ("annotable" %in% names(call)) {
-            warn("Use `rowData` instead of `annotable`")
-            rowData <- call[["annotable"]]
-        }
-
-        # Assert checks ========================================================
-        # Passthrough: headerLevel, dropboxDir, rdsToken
-        validObject(object)
-        assert_is_a_number(lfc)
-        assert_all_are_non_negative(lfc)
-        assert_is_any_of(rowData, c("DataFrame", "data.frame", "NULL"))
+        validObject(results)
+        validObject(counts)
+        assert_are_identical(rownames(results), rownames(counts))
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
         dir <- initializeDirectory(dir)
 
         # Extract internal parameters from DESeqResults object =================
-        contrast <- contrastName(object)
-        fileStem <- snake(contrast)
-        # Alpha level, slotted in `DESeqResults` metadata
-        alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
-
-        # Prepare the results tables ===========================================
-        all <- object %>%
-            as.data.frame() %>%
-            rownames_to_column("geneID") %>%
-            as("tibble") %>%
-            camel(strict = FALSE) %>%
-            .[order(.[["geneID"]]), , drop = FALSE]
-
-        # Add Ensembl gene annotations (rowData), if desired
-        if (has_dims(rowData)) {
-            # Drop the nested lists (e.g. entrezID), otherwise can't write CSVs
-            # to save when `write = TRUE`.
-            rowData <- sanitizeRowData(rowData)
-            all <- left_join(
-                x = all,
-                y = as.data.frame(rowData),
-                by = "geneID"
-            )
+        if (missing(alpha)) {
+            alpha <- metadata(results)[["alpha"]]
         }
+        assert_is_a_number(alpha)
+        contrast <- contrastName(results)
+        fileStem <- snake(contrast)
+
+        # Now safe to coerce to DataFrame
+        results <- as.data.frame(results) %>%
+            rownames_to_column("geneID")
+
+        # Add gene annotations (rowData) =======================================
+        rowRanges <- rowRanges(counts)
+        mcols <- mcols(rowRanges)
+        mcols <- mcols[, vapply(
+            X = mcols,
+            FUN = function(x) {
+                is.character(x) || is.factor(x)
+            },
+            FUN.VALUE = logical(1L)
+        )]
+        mcols(rowRanges) <- mcols
+        # Coerce to `data.frame` here first instead of `DataFrame` so the
+        # GRanges gets collapsed into columns. `DataFrame` nests this data in a
+        # column named `X` otherwise, and that won't write to disk in CSV
+        # format.
+        rowData <- rowRanges %>%
+            as.data.frame() %>%
+            as("DataFrame")
+        # Drop columns already present in results
+        rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
+
+        # Bind annotation columns ==============================================
+        results <- cbind(results, rowData)
+        results <- cbind(results, counts(counts, normalized = TRUE))
 
         # Check for overall gene expression with base mean
-        baseMeanGt0 <- all %>%
-            .[order(.[["baseMean"]], decreasing = TRUE), , drop = FALSE] %>%
-            .[.[["baseMean"]] > 0L, , drop = FALSE]
-        baseMeanGt1 <- baseMeanGt0 %>%
-            .[.[["baseMean"]] > 1L, , drop = FALSE]
+        baseMeanGt0 <- results %>%
+            .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
+            nrow()
+        baseMeanGt1 <- results %>%
+            .[.[["baseMean"]] > 1L, , drop = FALSE] %>%
+            nrow()
 
-        # All DEG tables are sorted by BH adjusted P value
-        deg <- all %>%
-            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-            .[.[["padj"]] < alpha, , drop = FALSE] %>%
-            .[order(.[["padj"]]), , drop = FALSE]
-        degLFC <- deg %>%
-            .[.[["log2FoldChange"]] > lfc |
-                  .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-        degLFCUp <- degLFC %>%
-            .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
-        degLFCDown <- degLFC %>%
-            .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
-
-        list <- list(
-            "contrast" = contrast,
-            # Cutoffs
-            "alpha" = alpha,
-            "lfc" = lfc,
-            # Tibbles
-            "all" = all,
-            "deg" = deg,
-            "degLFC" = degLFC,
-            "degLFCUp" = degLFCUp,
-            "degLFCDown" = degLFCDown
+        list <- .degList(
+            results = results,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold,
+            contrast = contrast
         )
 
         if (isTRUE(summary)) {
@@ -210,37 +240,39 @@ setMethod(
                 asis = TRUE
             )
             markdownList(c(
-                paste(nrow(all), "genes in counts matrix"),
-                paste("Base mean > 0:", nrow(baseMeanGt0), "genes (non-zero)"),
-                paste("Base mean > 1:", nrow(baseMeanGt1), "genes"),
-                paste("Alpha cutoff:", alpha),
-                paste("LFC cutoff:", lfc, "(applied in tables only)"),
-                paste("DEG pass alpha:", nrow(deg), "genes"),
-                paste("DEG LFC up:", nrow(degLFCUp), "genes"),
-                paste("DEG LFC down:", nrow(degLFCDown), "genes")
+                paste(nrow(results), "genes in counts matrix"),
+                paste("Base mean > 0:", baseMeanGt0, "genes (non-zero)"),
+                paste("Base mean > 1:", baseMeanGt1, "genes"),
+                paste("Alpha:", alpha),
+                paste("LFC threshold:", lfcThreshold),
+                paste("DEG pass alpha:", nrow(list[["deg"]]), "genes"),
+                paste("DEG LFC up:", nrow(list[["degLFCUp"]]), "genes"),
+                paste("DEG LFC down:", nrow(list[["degLFCDown"]]), "genes")
             ), asis = TRUE)
         }
 
         if (isTRUE(write)) {
-            tibbles <- c("all", "deg", "degLFCUp", "degLFCDown")
+            tables <- list[c("all", "deg", "degLFCUp", "degLFCDown")]
 
             # Local files (required) ===========================================
             localFiles <- file.path(
                 dir,
-                paste0(fileStem, "_", snake(tibbles), ".csv.gz")
+                paste0(fileStem, "_", snake(names(tables)), ".csv.gz")
             )
-            names(localFiles) <- tibbles
+            names(localFiles) <- names(tables)
 
-            # Write the results tibbles to local directory
-            invisible(lapply(
-                X = seq_along(localFiles),
-                FUN = function(a) {
-                    write_csv(
-                        x = get(tibbles[[a]]),
-                        path = localFiles[[a]]
-                    )
-                }
+            # Write the results tables to local directory
+            message(paste(
+                "Writing", toString(basename(localFiles)), "to", dir
             ))
+            mapply(
+                x = tables,
+                path = localFiles,
+                FUN = function(x, path) {
+                    assert_are_identical("geneID", colnames(x)[[1L]])
+                    write_csv(x = x, path = path)
+                }
+            )
 
             # Check that writes were successful
             assert_all_are_existing_files(localFiles)
@@ -264,5 +296,31 @@ setMethod(
         }
 
         list
+    }
+)
+
+
+
+# Minimal method that is used by other functions inside the package
+#' @rdname resultsTables
+#' @usage NULL
+#' @export
+setMethod(
+    "resultsTables",
+    signature(
+        results = "DESeqResults",
+        counts = "missingOrNULL"
+    ),
+    function(
+        results,
+        counts = NULL,
+        alpha,
+        lfcThreshold = 0L
+    ) {
+        .degList(
+            results = results,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold
+        )
     }
 )

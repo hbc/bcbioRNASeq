@@ -5,10 +5,10 @@
 \title{Load bcbio RNA-Seq Data}
 \usage{
 loadRNASeq(uploadDir, level = c("genes", "transcripts"),
-  caller = c("salmon", "kallisto", "sailfish"), samples = NULL,
-  sampleMetadataFile = NULL, interestingGroups = "sampleName", organism,
-  ensemblRelease = NULL, genomeBuild = NULL, isSpike = NULL,
-  gffFile = NULL, transformationLimit = 50L, ...)
+  caller = c("salmon", "kallisto", "sailfish"), organism, samples = NULL,
+  sampleMetadataFile = NULL, interestingGroups = "sampleName",
+  ensemblRelease = NULL, genomeBuild = NULL, transgeneNames = NULL,
+  spikeNames = NULL, gffFile = NULL, transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -18,6 +18,13 @@ running \code{bcbio_nextgen -w template}.}
 
 \item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
 or "\code{sailfish}".}
+
+\item{organism}{Organism name. Use the full latin name (e.g.
+"Homo sapiens"), since this will be input downstream to
+AnnotationHub and ensembldb, unless \code{gffFile} is set. If set \code{NULL}
+(\emph{advanced use; not recommended}), the function call will skip loading
+gene/transcript-level annotations into \code{rowRanges()}. This can be useful
+for poorly annotation genomes or experiments involving multiple genomes.}
 
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
@@ -31,10 +38,6 @@ file. Remote URLs are supported. Typically this can be left unset.}
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{organism}{Organism name. Use the full latin name (e.g.
-"Homo sapiens"), since this will be input downstream to
-AnnotationHub and ensembldb, unless \code{gffFile} is set.}
-
 \item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
@@ -44,19 +47,23 @@ unless \code{gffFile} is set.}
 This will be passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
 
-\item{isSpike}{\emph{Optional.} Gene names corresponding to FASTA spike-in
-sequences (e.g. ERCCs, EGFP, TDTOMATO).}
+\item{transgeneNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows
+denote transgenes (e.g. EGFP, TDTOMATO).}
 
-\item{gffFile}{\emph{Optional, not recommended.} By default, we recommend leaving
-this \code{NULL} for genomes that are supported on Ensembl. In this case, the
-row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically from Ensembl
-by passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease} arguments to
-AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-possible, although all GFF formats are supported. The function will
-internally generate a \code{TxDb} containing transcript-to-gene mappings and
-construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
+\item{spikeNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows denote
+spike-in sequences (e.g. ERCCs).}
+
+\item{gffFile}{\emph{Advanced use; not recommended.} By default, we recommend
+leaving this \code{NULL} for genomes that are supported on Ensembl. In this
+case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically
+from Ensembl by passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease}
+arguments to AnnotationHub and ensembldb. For a genome that is not
+supported on Ensembl and/or AnnotationHub, a GFF/GTF (General Feature
+Format) file is required. Generally, we recommend using a GTF (GFFv2) file
+here over a GFF3 file if possible, although all GFF formats are supported.
+The function will internally generate a \code{TxDb} containing
+transcript-to-gene mappings and construct a \code{GRanges} object containing the
+genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
 \item{transformationLimit}{Maximum number of samples to calculate
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
@@ -90,22 +97,28 @@ run directory as a remote connection over
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-loadRNASeq(
+x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "genes",
-    organism = "Mus musculus"
+    caller = "salmon",
+    organism = "Mus musculus",
+    ensemblRelease = 87L
 )
+show(x)
 
 # Transcript level
-loadRNASeq(
+x <- loadRNASeq(
     uploadDir = uploadDir,
     level = "transcripts",
-    organism = "Mus musculus"
+    caller = "salmon",
+    organism = "Mus musculus",
+    ensemblRelease = 87L
 )
+show(x)
 }
 \seealso{
 \code{help("bcbioRNASeq-class", "bcbioRNASeq")}.
 }
 \author{
-Michael Steinbaugh, Lorena Pantano
+Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 }

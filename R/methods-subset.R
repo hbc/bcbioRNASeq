@@ -8,6 +8,7 @@
 #' @name subset
 #' @family S4 Class Definition
 #' @author Lorena Pantano, Michael Steinbaugh
+#' @keywords internal
 #'
 #' @inheritParams base::`[`
 #' @inheritParams general
@@ -33,11 +34,6 @@
 #' subset <- bcb_small[genes, samples]
 #' print(subset)
 #' assayNames(subset)
-#'
-#' # Skip DESeq2 variance stabilizing transformations
-#' subset <- bcb_small[genes, samples, transform = FALSE]
-#' print(subset)
-#' assayNames(subset)
 NULL
 
 
@@ -53,28 +49,22 @@ setMethod(
         j = "ANY",
         drop = "ANY"
     ),
-    function(x, i, j, ..., drop = FALSE) {
+    function(x, i, j, drop = FALSE) {
         validObject(x)
-
-        dots <- list(...)
-        if (!identical(dots[["transform"]], FALSE)) {
-            transform <- TRUE
-        }
 
         # Genes (rows)
         if (missing(i)) {
             i <- 1L:nrow(x)
         }
         # Require at least 100 genes
-        assert_all_are_in_left_open_range(length(i), lower = 99L)
+        assert_all_are_in_range(length(i), lower = 100L, upper = Inf)
 
         # Samples (columns)
         if (missing(j)) {
             j <- 1L:ncol(x)
         }
         # Require at least 2 samples
-        assert_all_are_in_left_open_range(length(j), lower = 1L)
-
+        assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
         # Early return if dimensions are unmodified
         if (identical(dim(x), c(length(i), length(j)))) {
@@ -87,30 +77,15 @@ setMethod(
 
         # Assays ===============================================================
         assays <- assays(rse)
-        if (isTRUE(transform)) {
-            inform(paste(
-                "Calculating variance stabilizations using DESeq2",
-                packageVersion("DESeq2")
-            ))
-            txi <- .regenerateTximportList(rse)
-            dds <- DESeqDataSetFromTximport(
-                txi = txi,
-                colData = colData(rse),
-                # Use an empty design formula
-                design = ~ 1  # nolint
-            )
-            # Suppress warning about empty design formula
-            dds <- suppressWarnings(DESeq(dds))
-            validObject(dds)
-            inform("Applying rlog transformation")
+
+        # Update DESeq2 transformations, if they are defined
+        if (any(c("rlog", "vst") %in% names(assays))) {
+            message("Updating variance stabilizations")
+            dds <- .regenerateDESeqDataSet(rse)
+            message("Applying rlog transformation")
             assays[["rlog"]] <- assay(rlog(dds))
-            inform("Applying variance stabilizing transformation")
+            message("Applying variance stabilizing transformation")
             assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
-        } else {
-            inform("Skipping DESeq2 transformations")
-            # Ensure existing transformations get dropped
-            assays[["vst"]] <- NULL
-            assays[["rlog"]] <- NULL
         }
 
         # Metadata =============================================================
@@ -134,8 +109,7 @@ setMethod(
             assays = assays,
             rowRanges = rowRanges(rse),
             colData = colData(rse),
-            metadata = metadata,
-            isSpike = metadata[["isSpike"]]
+            metadata = metadata
         )
     }
 )

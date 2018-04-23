@@ -18,14 +18,18 @@ test_that("counts : normalized argument", {
     # FALSE
     expect_identical(
         counts(bcb_small, normalized = FALSE),
-        assays(bcb_small)[["raw"]]
+        assays(bcb_small)[["counts"]]
     )
     expect_identical(
         counts(bcb_small, normalized = FALSE),
         assay(bcb_small)
     )
 
-    # TRUE = calculated on the fly with DESeq2
+    # TRUE
+    expect_identical(
+        counts(bcb_small, normalized = TRUE),
+        assays(bcb_small)[["normalized"]]
+    )
 
     # tpm
     expect_identical(
@@ -37,7 +41,7 @@ test_that("counts : normalized argument", {
         tpm(bcb_small)
     )
 
-    # tmm = calculated on the fly
+    # tmm: calculated on the fly
     expect_identical(
         counts(bcb_small, normalized = "tmm"),
         tmm(bcb_small)
@@ -83,25 +87,11 @@ test_that("counts : apply transformationLimit", {
 
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
-    x <- selectSamples(
-        object = bcb_small,
-        treatment = "folic_acid",
-        transform = TRUE
-    )
+    x <- selectSamples(bcb_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
     expect_identical(
         names(assays(x)),
-        c("raw", "tpm", "length", "rlog", "vst")
-    )
-    x <- selectSamples(
-        object = bcb_small,
-        treatment = "folic_acid",
-        transform = FALSE
-    )
-    expect_identical(dim(x), c(500L, 3L))
-    expect_identical(
-        names(assays(x)),
-        c("raw", "tpm", "length")
+        c("counts", "tpm", "length", "normalized", "rlog", "vst")
     )
 })
 

@@ -4,34 +4,35 @@
 \name{resultsTables}
 \alias{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables,DESeqResults-method}
+\alias{resultsTables,DESeqResults,DESeqDataSet-method}
+\alias{resultsTables,DESeqResults,missingOrNULL-method}
 \title{Differential Expression Results Tables}
 \usage{
-resultsTables(object, ...)
+resultsTables(results, counts, ...)
 
-\S4method{resultsTables}{DESeqResults}(object, lfc = 0L, rowData = NULL,
-  summary = TRUE, headerLevel = 2L, write = FALSE, dir = ".",
-  dropboxDir = NULL, rdsToken = NULL, ...)
+\S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts, alpha,
+  lfcThreshold = 0L, summary = TRUE, write = FALSE, headerLevel = 2L,
+  dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
-\item{object}{Object.}
+\item{results}{\code{DESeqResults} object.}
+
+\item{counts}{\code{DESeqDataSet} containing the counts that were used to generate
+the \code{DESeqResults}.}
 
 \item{...}{Additional arguments.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
 
-\item{rowData}{Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved \code{data.frame} is
-recommended. Alternatively if set \code{NULL}, then gene annotations will not be
-added to the results.}
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{summary}{Show summary statistics.}
 
-\item{headerLevel}{R Markdown header level.}
-
 \item{write}{Write CSV files to disk.}
 
-\item{dir}{Local directory path where to write the results tables.}
+\item{headerLevel}{R Markdown header level.}
+
+\item{dir}{Local directory path.}
 
 \item{dropboxDir}{Dropbox directory path where to archive the results tables
 for permanent storage (e.g. Stem Cell Commons). When this option is
@@ -41,34 +42,33 @@ package.}
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
 }
 \value{
-Results \code{list}.
+\code{list} containing modified \code{DESeqResults} return, including
+additional gene-level metadata and normalized counts.
 }
 \description{
 Differential Expression Results Tables
 }
 \note{
-Log fold change cutoff ("\code{lfc}") does not apply to statistical
-hypothesis testing, only gene filtering in the results tables. See
-\code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using \code{lfcThreshold}
-and \code{altHypothesis} to set an alternative hypothesis based on expected fold
-changes.
+Log fold change cutoff threshold ("\code{lfcThreshold}") does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using
+\code{lfcThreshold} and \code{altHypothesis} to set an alternative hypothesis based
+on expected fold changes.
 }
 \examples{
-# DESeqResults ====
-resTbl <- resultsTables(
-    object = res_small,
-    lfc = 0.25,
-    rowData = rowData(bcb_small),
-    summary = TRUE,
-    headerLevel = 2L,
-    write = FALSE
+# DESeqResults, DESeqDataSet ====
+x <- resultsTables(
+    results = res_small,
+    counts = dds_small,
+    lfcThreshold = 0.25
 )
-names(resTbl)
+names(x)
+glimpse(x[["deg"]])
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}},
+  \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
   \code{\link{plotVolcano}}
 }
 \author{

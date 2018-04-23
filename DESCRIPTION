@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person(
         given = "Michael",
@@ -99,11 +99,11 @@ URL:
 BugReports: https://github.com/hbc/bcbioRNASeq/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.2),
+    bcbioBase (>= 0.2.4),
     DESeq2
 Imports:
     BiocGenerics,
@@ -111,7 +111,7 @@ Imports:
     GenomicFeatures,
     S4Vectors,
     assertive,
-    basejump (>= 0.4),
+    basejump (>= 0.5.2),
     cowplot,
     dplyr (>= 0.7),
     edgeR,
@@ -120,26 +120,26 @@ Imports:
     grid,
     knitr,
     magrittr,
+    matrixStats,
     methods,
     parallel,
     readr,
     reshape2,
     rlang,
+    scales,
     stringr,
     tibble,
     tximport (>= 1.6),
     utils,
-    viridis,
     vsn
 Suggests:
     BiocStyle,
-    clusterProfiler,
     DOSE,
+    EnsDb.Hsapiens.v75,
+    clusterProfiler,
     formatR,
-    lintr,
     pathview,
     rmarkdown,
-    roxygen2,
     sessioninfo,
     testthat,
     tidyverse
@@ -152,10 +152,10 @@ biocViews:
     DataRepresentation,
     DifferentialExpression,
     GeneExpression,
-    Infrastructure,
     QualityControl,
     ReportWriting,
     RNASeq,
+    Transcription,
     Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

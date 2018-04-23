@@ -4,28 +4,41 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults-method}
+\alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
-plotDEGHeatmap(object, ...)
+plotDEGHeatmap(results, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults}(object, counts, lfc = 0L,
-  gene2symbol = NULL, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results, counts,
+  alpha, lfcThreshold = 0L, title = TRUE, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
+  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
 }
 \arguments{
-\item{object}{Object.}
-
-\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}} \code{SummarizedExperiment}
-method.}
+\item{results}{\code{DESeqResults} object.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
-\item{lfc}{Log fold change ratio (base 2) cutoff.}
+\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
-\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
-contain the columns \code{geneID} and \code{geneName}.}
+\item{alpha}{Adjusted P value ("alpha") cutoff.}
+
+\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{title}{\emph{Optional.} Plot title.}
+
+\item{normalized}{Character indicating which normalization method to apply:
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 }
 \value{
 Show heatmap and invisibly return a \code{list} of the components.
@@ -42,24 +55,26 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \code{DESeqDataSet}).
 }
 \examples{
-# Use our stashed gene2symbol
-gene2symbol <- gene2symbol(bcb_small)
-
-# DESeqResults, DESeqTransform ====
+# DESeqResults, SummarizedExperiment ====
 plotDEGHeatmap(
-    object = res_small,
-    counts = rld_small,
-    gene2symbol = gene2symbol
+    results = res_small,
+    counts = rld_small
 )
 
 # DESeqResults, DESeqDataSet ====
+# This always uses normalized counts
 # Using default ggplot2 colors
 plotDEGHeatmap(
-    object = res_small,
+    results = res_small,
     counts = dds_small,
-    gene2symbol = gene2symbol,
     color = NULL,
     legendColor = NULL
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGHeatmap(
+    results = res_small,
+    counts = bcb_small
 )
 }
 \seealso{
@@ -70,7 +85,7 @@ plotDEGHeatmap(
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}},
+  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
   \code{\link{resultsTables}}
 }
 \author{

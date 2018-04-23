@@ -14,14 +14,21 @@
 #'   run directory as a remote connection over
 #'   [sshfs](https://github.com/osxfuse/osxfuse/wiki/SSHFS).
 #'
-#' @author Michael Steinbaugh, Lorena Pantano
+#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #'
+#' @inheritParams bcbioBase::prepareSummarizedExperiment
 #' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
 #'   running `bcbio_nextgen -w template`.
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
 #'   or "`sailfish`".
+#' @param organism Organism name. Use the full latin name (e.g.
+#'   "Homo sapiens"), since this will be input downstream to
+#'   AnnotationHub and ensembldb, unless `gffFile` is set. If set `NULL`
+#'   (*advanced use; not recommended*), the function call will skip loading
+#'   gene/transcript-level annotations into `rowRanges()`. This can be useful
+#'   for poorly annotation genomes or experiments involving multiple genomes.
 #' @param samples *Optional.* Specify a subset of samples to load. The names
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
@@ -29,9 +36,6 @@
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left unset.
-#' @param organism Organism name. Use the full latin name (e.g.
-#'   "Homo sapiens"), since this will be input downstream to
-#'   AnnotationHub and ensembldb, unless `gffFile` is set.
 #' @param genomeBuild *Optional.* Ensembl genome build name (e.g. "GRCh38").
 #'   This will be passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
@@ -39,18 +43,17 @@
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
-#' @param isSpike *Optional.* Gene names corresponding to FASTA spike-in
-#'   sequences (e.g. ERCCs, EGFP, TDTOMATO).
-#' @param gffFile *Optional, not recommended.* By default, we recommend leaving
-#'   this `NULL` for genomes that are supported on Ensembl. In this case, the
-#'   row annotations ([rowRanges()]) will be obtained automatically from Ensembl
-#'   by passing the `organism`, `genomeBuild`, and `ensemblRelease` arguments to
-#'   AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-#'   and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-#'   Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-#'   possible, although all GFF formats are supported. The function will
-#'   internally generate a `TxDb` containing transcript-to-gene mappings and
-#'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
+#' @param gffFile *Advanced use; not recommended.* By default, we recommend
+#'   leaving this `NULL` for genomes that are supported on Ensembl. In this
+#'   case, the row annotations ([rowRanges()]) will be obtained automatically
+#'   from Ensembl by passing the `organism`, `genomeBuild`, and `ensemblRelease`
+#'   arguments to AnnotationHub and ensembldb. For a genome that is not
+#'   supported on Ensembl and/or AnnotationHub, a GFF/GTF (General Feature
+#'   Format) file is required. Generally, we recommend using a GTF (GFFv2) file
+#'   here over a GFF3 file if possible, although all GFF formats are supported.
+#'   The function will internally generate a `TxDb` containing
+#'   transcript-to-gene mappings and construct a `GRanges` object containing the
+#'   genomic ranges ([rowRanges()]).
 #' @param transformationLimit Maximum number of samples to calculate
 #'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
 #'   For large datasets, DESeq2 is slow to apply variance stabilization. In this
@@ -67,29 +70,36 @@
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' loadRNASeq(
+#' x <- loadRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "genes",
-#'     organism = "Mus musculus"
+#'     caller = "salmon",
+#'     organism = "Mus musculus",
+#'     ensemblRelease = 87L
 #' )
+#' show(x)
 #'
 #' # Transcript level
-#' loadRNASeq(
+#' x <- loadRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",
-#'     organism = "Mus musculus"
+#'     caller = "salmon",
+#'     organism = "Mus musculus",
+#'     ensemblRelease = 87L
 #' )
+#' show(x)
 loadRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
+    organism,
     samples = NULL,
     sampleMetadataFile = NULL,
     interestingGroups = "sampleName",
-    organism,
     ensemblRelease = NULL,
     genomeBuild = NULL,
-    isSpike = NULL,
+    transgeneNames = NULL,
+    spikeNames = NULL,
     gffFile = NULL,
     transformationLimit = 50L,
     ...
@@ -100,31 +110,33 @@ loadRNASeq <- function(
     call <- match.call(expand.dots = TRUE)
     # annotable
     if ("annotable" %in% names(call)) {
-        abort("`annotable` is defunct. Consider using `gffFile` instead.")
+        stop("`annotable` is defunct. Consider using `gffFile` instead.")
     }
     # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
-        warn("Use `ensemblRelease` instead of `ensemblVersion`")
+        warning("Use `ensemblRelease` instead of `ensemblVersion`")
         ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
     # organism missing
     if (!"organism" %in% names(call)) {
-        abort("`organism` is now required")
+        stop("`organism` is now required")
     }
     dots <- Filter(Negate(is.null), dots)
 
     # Assert checks ============================================================
+    assert_is_a_string(uploadDir)
     assert_all_are_dirs(uploadDir)
     level <- match.arg(level)
     caller <- match.arg(caller)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
     assert_is_character(interestingGroups)
-    assert_is_a_string(organism)
+    assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
-    assertIsCharacterOrNULL(isSpike)
+    assertIsCharacterOrNULL(transgeneNames)
+    assertIsCharacterOrNULL(spikeNames)
     assertIsAStringOrNULL(gffFile)
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
@@ -140,7 +152,7 @@ loadRNASeq <- function(
         recursive = FALSE
     )
     assert_is_a_string(projectDir)
-    inform(projectDir)
+    message(projectDir)
     match <- str_match(projectDir, bcbioBase::projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
@@ -155,7 +167,7 @@ loadRNASeq <- function(
             .[, 2L] %>%
             unique() %>%
             length()
-        inform(paste(
+        message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"
         ))
     } else {
@@ -167,13 +179,14 @@ loadRNASeq <- function(
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
-    assert_is_list(yaml)
 
     # Column data ==============================================================
+    # FIXME Figure out a way of combining these two? The YAML data has
+    # interesting metadata worth keeping inside `colData` (e.g. genomeBuild)
     if (is_a_string(sampleMetadataFile)) {
         colData <- readSampleData(sampleMetadataFile, lanes = lanes)
     } else {
-        colData <- sampleYAMLMetadata(yaml)
+        colData <- readYAMLSampleData(yamlFile)
         if (is.character(samples)) {
             assert_is_subset(samples, colData[["description"]])
             colData <- colData %>%
@@ -191,7 +204,7 @@ loadRNASeq <- function(
     samples <- as.character(colData[["sampleID"]])
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
-        inform(paste(
+        message(paste(
             "Loading a subset of samples:",
             str_trunc(toString(samples), width = 80L),
             sep = "\n"
@@ -202,33 +215,12 @@ loadRNASeq <- function(
         allSamples <- TRUE
     }
 
-    # Row data =================================================================
-    if (is_a_string(gffFile)) {
-        rowRanges <- makeGRangesFromGFF(gffFile)
-        rowRangesMetadata <- NULL
-    } else {
-        # ah: AnnotationHub
-        ah <- makeGRangesFromEnsembl(
-            organism = organism,
-            format = level,
-            genomeBuild = genomeBuild,
-            release = ensemblRelease,
-            metadata = TRUE
-        )
-        assert_is_list(ah)
-        assert_are_identical(names(ah), c("data", "metadata"))
-        rowRanges <- ah[["data"]]
-        assert_is_all_of(rowRanges, "GRanges")
-        rowRangesMetadata <- ah[["metadata"]]
-        assert_is_data.frame(rowRangesMetadata)
-    }
-
     # Sample metrics ===========================================================
     # Note that sample metrics used for QC plots are not currently generated
     # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
     # counts generated with STAR.
-    inform("Reading sample metrics")
-    metrics <- sampleYAMLMetrics(yaml)
+    message("Reading sample metrics")
+    metrics <- readYAMLSampleMetrics(yamlFile)
     assert_is_data.frame(metrics)
 
     # bcbio run information ====================================================
@@ -269,7 +261,7 @@ loadRNASeq <- function(
         # Fall back to using GFF, if declared
         tx2gene <- makeTx2geneFromGFF(gffFile)
     } else {
-        abort(paste(
+        stop(paste(
             "tx2gene assignment failure.",
             "tx2gene.csv or GFF file are required."
         ))
@@ -283,46 +275,70 @@ loadRNASeq <- function(
         tx2gene = tx2gene
     )
 
-    # abundance: transcripts per million (TPM)
-    # raw: raw counts
-    # length: average transcript length
-    # countsFromAbundance: character describing TPM
+    # TPM/abundance: transcripts per million
     tpm <- txi[["abundance"]]
-    raw <- txi[["counts"]]
-    length <- txi[["length"]]
-    countsFromAbundance <- txi[["countsFromAbundance"]]
-
     assert_is_matrix(tpm)
-    assert_is_matrix(raw)
+    # counts: raw counts
+    counts <- txi[["counts"]]
+    assert_is_matrix(counts)
+    # length: average transcript length
+    length <- txi[["length"]]
     assert_is_matrix(length)
+    # countsFromAbundance: character describing TPM
+    countsFromAbundance <- txi[["countsFromAbundance"]]
     assert_is_character(countsFromAbundance)
 
     # Ensure `colData` matches the colnames in `assays()`
-    colData <- colData[colnames(raw), , drop = FALSE]
+    colData <- colData[colnames(counts), , drop = FALSE]
+
+    # Row data =================================================================
+    rowRangesMetadata <- NULL
+    if (is_a_string(gffFile)) {
+        rowRanges <- makeGRangesFromGFF(gffFile)
+    } else if (is_a_string(organism)) {
+        # ah: AnnotationHub
+        ah <- makeGRangesFromEnsembl(
+            organism = organism,
+            format = level,
+            genomeBuild = genomeBuild,
+            release = ensemblRelease,
+            metadata = TRUE
+        )
+        assert_is_list(ah)
+        assert_are_identical(names(ah), c("data", "metadata"))
+        rowRanges <- ah[["data"]]
+        assert_is_all_of(rowRanges, "GRanges")
+        rowRangesMetadata <- ah[["metadata"]]
+        assert_is_data.frame(rowRangesMetadata)
+    } else {
+        rowRanges <- emptyRanges(rownames(counts))
+    }
 
     # Gene-level variance stabilization ========================================
+    normalized <- NULL
     rlog <- NULL
     vst <- NULL
     if (level == "genes") {
+        message(paste(
+            "Generating DESeqDataSet with DESeq2",
+            packageVersion("DESeq2")
+        ))
+        dds <- DESeqDataSetFromTximport(
+            txi = txi,
+            colData = colData,
+            # Use an empty design formula
+            design = ~ 1  # nolint
+        )
+        # Suppress warning about empty design formula
+        dds <- suppressWarnings(DESeq(dds))
+        normalized <- counts(dds, normalized = TRUE)
         if (nrow(colData) <= transformationLimit) {
-            inform(paste(
-                "Calculating variance stabilizations using DESeq2",
-                packageVersion("DESeq2")
-            ))
-            dds <- DESeqDataSetFromTximport(
-                txi = txi,
-                colData = colData,
-                # Use an empty design formula
-                design = ~ 1  # nolint
-            )
-            # Suppress warning about empty design formula
-            dds <- suppressWarnings(DESeq(dds))
-            inform("Applying rlog transformation")
+            message("Applying rlog transformation")
             rlog <- assay(rlog(dds))
-            inform("Applying variance stabilizing transformation")
+            message("Applying variance stabilizing transformation")
             vst <- assay(varianceStabilizingTransformation(dds))
         } else {
-            warn(paste(
+            warning(paste(
                 "Dataset contains many samples.",
                 "Skipping variance stabilizing transformations."
             ))
@@ -331,9 +347,10 @@ loadRNASeq <- function(
 
     # Assays ===================================================================
     assays <- list(
-        "raw" = raw,
+        "counts" = counts,
         "tpm" = tpm,
         "length" = length,
+        "normalized" = normalized,
         "rlog" = rlog,
         "vst" = vst
     )
@@ -351,7 +368,7 @@ loadRNASeq <- function(
         "template" = template,
         "runDate" = runDate,
         "interestingGroups" = interestingGroups,
-        "organism" = organism,
+        "organism" = as.character(organism),
         "genomeBuild" = as.character(genomeBuild),
         "ensemblRelease" = as.integer(ensemblRelease),
         "rowRangesMetadata" = rowRangesMetadata,
@@ -373,12 +390,13 @@ loadRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
-    # Return =============================================
+    # Return ===================================================================
     .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
         metadata = metadata,
-        isSpike = isSpike
+        transgeneNames = transgeneNames,
+        spikeNames = spikeNames
     )
 }

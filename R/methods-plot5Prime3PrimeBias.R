@@ -23,8 +23,8 @@ setMethod(
     function(
         object,
         interestingGroups,
-        warnLimit = 2L,
-        fill = scale_fill_viridis(discrete = TRUE),
+        limit = 2L,
+        fill = scale_fill_hue(),
         flip = TRUE,
         title = "5'->3' bias"
     ) {
@@ -32,8 +32,8 @@ setMethod(
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         }
-        assertIsAnImplicitInteger(warnLimit)
-        assert_all_are_non_negative(warnLimit)
+        assertIsAnImplicitInteger(limit)
+        assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
@@ -55,7 +55,10 @@ setMethod(
                 fill = "interestingGroups"
             )
         ) +
-            geom_bar(stat = "identity") +
+            geom_bar(
+                color = "black",
+                stat = "identity"
+            ) +
             labs(
                 title = title,
                 x = "sample",
@@ -63,8 +66,8 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(warnLimit)) {
-            p <- p + qcWarnLine(warnLimit)
+        if (is_positive(limit)) {
+            p <- p + .qcLine(limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

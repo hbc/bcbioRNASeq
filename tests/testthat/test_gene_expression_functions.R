@@ -24,22 +24,20 @@ test_that("plotGenderMarkers : DESeqTransform", {
 
 
 # plotGene =====================================================================
-test_that("bcbioRNASeq", {
-    p <- plotGene(bcb_small, genes = genes)
+test_that("plotGene : bcbioRNASeq", {
+    # facet
+    p <- plotGene(bcb_small, genes = genes, return = "facet")
     expect_is(p, "ggplot")
-})
 
-test_that("List return", {
-    list <- plotGene(bcb_small, genes = genes, return = "list")
-    expect_is(list, "list")
-    expect_true(
-        lapply(list, function(x) is(x, "ggplot")) %>%
-            unlist() %>%
-            all()
-    )
-})
+    # wide
+    p <- plotGene(bcb_small, genes = genes, return = "wide")
+    expect_is(p, "ggplot")
 
-test_that("Markdown return", {
+    # grid
+    p <- plotGene(bcb_small, genes = genes, return = "grid")
+    expect_is(p, "ggplot")
+
+    # markdown
     gene <- gene2symbol[1L, "geneName", drop = TRUE]
     output <- capture.output(
         plotGene(bcb_small, genes = genes, return = "markdown")
@@ -48,15 +46,24 @@ test_that("Markdown return", {
         output[[3L]],
         paste("##", gene)
     )
+
+    # list
+    x <- plotGene(bcb_small, genes = genes, return = "list")
+    expect_is(x, "list")
+    expect_true(
+        lapply(x, function(x) is(x, "ggplot")) %>%
+            unlist() %>%
+            all()
+    )
 })
 
-test_that("DESeqDataSet", {
-    p <- plotGene(dds_small, genes = genes, gene2symbol = gene2symbol)
+test_that("plotGene : DESeqDataSet", {
+    p <- plotGene(dds_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
-test_that("DESeqTransform", {
-    p <- plotGene(rld_small, genes = genes, gene2symbol = gene2symbol)
+test_that("plotGene : DESeqTransform", {
+    p <- plotGene(rld_small, genes = genes)
     expect_is(p, "ggplot")
 })
 

@@ -1,7 +1,7 @@
 context("S4 Class Definition")
 
 bcb <- suppressWarnings(loadRNASeq(
-    uploadDir,
+    uploadDir = uploadDir,
     ensemblRelease = 87L,
     organism = "Mus musculus"
 ))
@@ -45,6 +45,26 @@ test_that("Slots", {
                 package = "S4Vectors"
             ),
             "list"
+        )
+    )
+})
+
+test_that("Dimensions", {
+    expect_identical(
+        dim(bcb),
+        c(502L, 4L)
+    )
+    expect_identical(
+        colnames(bcb),
+        c("group1_1", "group1_2", "group2_1", "group2_2")
+    )
+    expect_identical(
+        rownames(bcb)[1L:4L],
+        c(
+            "ENSMUSG00000002459",
+            "ENSMUSG00000004768",
+            "ENSMUSG00000005886",
+            "ENSMUSG00000016918"
         )
     )
 })
@@ -121,9 +141,7 @@ test_that("Metadata", {
             "date" = "Date",
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
-            "devtoolsSessionInfo" = "session_info",
-            "isSpike" = "character",
-            "unannotatedRows" = "character"
+            "devtoolsSessionInfo" = "session_info"
         )
     )
     # Interesting groups should default to `sampleName`
@@ -133,36 +151,13 @@ test_that("Metadata", {
     )
 })
 
-test_that("Example data dimensions", {
-    expect_identical(
-        dim(bcb),
-        c(503L, 4L)
-    )
-    expect_identical(
-        colnames(bcb),
-        c("group1_1", "group1_2", "group2_1", "group2_2")
-    )
-    expect_identical(
-        rownames(bcb)[1L:4L],
-        c(
-            "ENSMUSG00000002459",
-            "ENSMUSG00000004768",
-            "ENSMUSG00000005886",
-            "ENSMUSG00000016918"
-        )
-    )
-})
-
 
 
 # subset =======================================================================
 test_that("subset : Normal gene and sample selection", {
     x <- bcb_small[seq_len(100L), seq_len(4L)]
     expect_s4_class(x, "bcbioRNASeq")
-    expect_identical(
-        dim(x),
-        c(100L, 4L)
-    )
+    expect_identical(dim(x), c(100L, 4L))
     expect_identical(
         rownames(x)[[1L]],
         rownames(bcb_small)[[1L]]
@@ -173,29 +168,15 @@ test_that("subset : Normal gene and sample selection", {
     )
     expect_identical(
         names(assays(x)),
-        c("raw", "tpm", "length", "rlog", "vst")
-    )
-})
-
-test_that("subset : Skip DESeq2 transforms", {
-    x <- bcb_small[seq_len(100L), seq_len(4L), transform = FALSE]
-    expect_identical(
-        names(assays(x)),
-        c("raw", "tpm", "length")
+        c("counts", "tpm", "length", "normalized", "rlog", "vst")
     )
 })
 
 test_that("subset : Minimal selection ranges", {
     # Require at least 100 genes, 2 samples
     x <- bcb_small[seq_len(100L), seq_len(2L)]
-    expect_error(
-        bcb_small[seq_len(99L), ],
-        "is_in_left_open_range : length\\(i\\)"
-    )
-    expect_error(
-        bcb_small[, seq_len(1L)],
-        "is_in_left_open_range : length\\(j\\)"
-    )
+    expect_error(bcb_small[seq_len(99L), ])
+    expect_error(bcb_small[, seq_len(1L)])
     expect_identical(
         dimnames(x),
         list(
@@ -207,23 +188,66 @@ test_that("subset : Minimal selection ranges", {
 
 
 
+# loadRNASeq ===================================================================
+test_that("loadRNASeq : organism = NULL", {
+    x <- loadRNASeq(
+        uploadDir = uploadDir,
+        organism = NULL
+    )
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        levels(seqnames(x)),
+        "unknown"
+    )
+})
+
+test_that("loadRNASeq : transformationLimit", {
+    x <- suppressWarnings(
+        loadRNASeq(
+            uploadDir = uploadDir,
+            organism = "Mus musculus",
+            transformationLimit = -Inf
+        )
+    )
+    expect_identical(
+        names(assays(x)),
+        c("counts", "tpm", "length", "normalized")
+    )
+})
+
+test_that("loadRNASeq : User-defined sample metadata", {
+    x <- suppressWarnings(loadRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
+    ))
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        basename(metadata(x)[["sampleMetadataFile"]]),
+        "sample_metadata.csv"
+    )
+})
+
+
+
 # updateObject =================================================================
 test_that("updateObject", {
-    invalid <- bcb_small
-    metadata(invalid)[["version"]] <- package_version("0.1.7")
-    expect_error(
-        validObject(invalid),
-        "metadata\\(object\\)\\[\\[\"version\"\\]\\] >= 0.2 is not TRUE"
-    )
-    organism <- metadata(invalid)[["organism"]]
-    rowRanges <- makeGRangesFromEnsembl(organism)
-    valid <- suppressWarnings(updateObject(invalid, rowRanges = rowRanges))
+    expect_error(validObject(bcb_invalid))
     expect_identical(
-        metadata(valid)[["version"]],
+        slot(bcb_invalid, "metadata")[["version"]],
+        package_version("0.1.4")
+    )
+    organism <- slot(bcb_invalid, "metadata")[["organism"]]
+    rowRanges <- makeGRangesFromEnsembl(organism)
+    x <- suppressWarnings(
+        updateObject(bcb_invalid, rowRanges = rowRanges)
+    )
+    expect_identical(
+        metadata(x)[["version"]],
         packageVersion
     )
     expect_identical(
-        metadata(valid)[["previousVersion"]],
-        package_version("0.1.7")
+        metadata(x)[["previousVersion"]],
+        package_version("0.1.4")
     )
 })

@@ -8,7 +8,7 @@ params:
     design: !r ~ treatment
     contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
-    lfc: 1
+    lfc: 0
     data_dir: "."
     results_dir: "results/differential_expression"
     dropbox_dir: NULL
@@ -59,7 +59,7 @@ alphaSummary(dds)
 
 # Results
 
-```{r res}
+```{r results}
 # help("results", "DESeq2")
 # For contrast argument as character vector:
 #   1. Design matrix factor of interest.
@@ -96,7 +96,10 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r params$alph
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
 ```{r plot_ma}
-plotMA(res)
+plotMeanAverage(res)
+
+# Alternate plot
+# DESeq2::plotMA(res)
 ```
 
 
@@ -131,6 +134,7 @@ plotDEGHeatmap(
 res_tbl <- resultsTables(
     res,
     lfc = params$lfc,
+    rowData = rowData(bcb),
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,
@@ -142,16 +146,12 @@ saveData(res_tbl, dir = params$data_dir)
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
 
-- `ensgene`: [Ensembl][] gene identifier.
 - `baseMean`: Mean of the normalized counts per gene for all samples.
 - `log2FoldChange`: log2 fold change.
 - `lfcSE`: log2 standard error.
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
 - `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
-- `externalGeneName`: [Ensembl][] name (a.k.a. symbol).
-- `description`: [Ensembl][] description.
-- `geneBiotype`: [Ensembl][] biotype (e.g. `protein_coding`).
 
 
 ## Top tables

@@ -19,6 +19,7 @@
 #'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'   - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'   - "`rle`": Relative log expression transformation.
 #'
 #' @return `matrix`.
 #'
@@ -35,6 +36,7 @@
 #' counts(bcb_small, normalized = TRUE) %>% summary()
 #' counts(bcb_small, normalized = "tpm") %>% summary()
 #' counts(bcb_small, normalized = "tmm") %>% summary()
+#' counts(bcb_small, normalized = "rle") %>% summary()
 #'
 #' # log2 scale
 #' counts(bcb_small, normalized = "rlog") %>% summary()
@@ -55,36 +57,34 @@ setMethod(
 
         if (is.logical(normalized)) {
             if (identical(normalized, FALSE)) {
-                # Raw counts from tximport (default)
                 counts <- assay(object)
             } else if (identical(normalized, TRUE)) {
-                # DESeq2 normalized counts
-                dds <- as(object, "DESeqDataSet")
-                assert_is_all_of(dds, "DESeqDataSet")
-                validObject(dds)
-                counts <- counts(dds, normalized = TRUE)
+                counts <- assays(object)[["normalized"]]
             }
         } else if (is.character(normalized)) {
             assert_is_a_string(normalized)
             assert_is_subset(
                 x = normalized,
-                y = c("raw", "tpm", "rlog", "vst", "tmm")
+                y = c("raw", "tpm", "rlog", "vst", "tmm", "rle")
             )
             if (normalized == "tmm") {
                 # Calculate TMM on the fly
                 counts <- tmm(assay(object))
+            } else if (normalized == "rle") {
+                # Calculate RLE on the fly
+                counts <- t(t(assay(object)) / colMedians(assay(object)))
             } else {
                 # Use matrices slotted into `assays()`
                 counts <- assays(object)[[normalized]]
             }
             if (!is.matrix(counts)) {
                 # Support for skipped DESeq2 transforms: log2 TMM
-                warn(paste(
+                warning(paste(
                     normalized, "not present in assays.",
                     "Calculating log2 TMM counts instead."
-                ))
+                ), call. = FALSE)
                 counts <- tmm(assay(object))
-                inform("Applying log2 transformation to TMM values")
+                message("Applying log2 transformation to TMM values")
                 counts <- log2(counts + 1L)
             }
         }

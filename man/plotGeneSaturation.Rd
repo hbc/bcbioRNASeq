@@ -10,8 +10,8 @@
 plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("rlog",
-  "vst", "tmm", "tpm"), interestingGroups, minCounts = 0L, trendline = TRUE,
-  color = scale_color_viridis(discrete = TRUE), title = "gene saturation")
+  "vst", "tmm", "tpm"), interestingGroups, minCounts = 1L,
+  trendline = FALSE, color = scale_color_hue(), title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}
@@ -47,8 +47,8 @@ color definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
-# Minimal exampe distorts the y-axis
-plotGeneSaturation(bcb_small, interestingGroups = "sampleName")
+# Minimal example distorts the y-axis
+plotGeneSaturation(bcb_small)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},

@@ -19,6 +19,9 @@ sessioninfo::session_info()
 
 markdownHeader("`sessionInfo()`", level = 2)
 utils::sessionInfo()
+
+markdownHeader("`_setup.R`", level = 2)
+readr::read_lines("_setup.R") %>% writeLines()
 ```
 
 

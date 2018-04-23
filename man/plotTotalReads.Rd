@@ -9,9 +9,8 @@
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
-  passLimit = 20L, warnLimit = 10L, fill = scale_fill_viridis(discrete =
-  TRUE), flip = TRUE, title = "total reads")
+\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups, limit = 10L,
+  fill = scale_fill_hue(), flip = TRUE, title = "total reads")
 }
 \arguments{
 \item{object}{Object.}
@@ -21,9 +20,7 @@ plotTotalReads(object, ...)
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{passLimit}{Threshold to plot pass color marker.}
-
-\item{warnLimit}{Threshold to plot warning color marker.}
+\item{limit}{Threshold to denote on the plot, using a dashed line.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color

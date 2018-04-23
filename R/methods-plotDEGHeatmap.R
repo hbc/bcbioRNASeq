@@ -16,32 +16,33 @@
 #' @inherit bcbioBase::plotHeatmap
 #'
 #' @inheritParams general
-#' @param ... Passthrough arguments to [plotHeatmap()] `SummarizedExperiment`
-#'   method.
+#' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @seealso
 #' - `help("plotHeatmap", "bcbioBase")`.
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
-#' # Use our stashed gene2symbol
-#' gene2symbol <- gene2symbol(bcb_small)
-#'
-#' # DESeqResults, DESeqTransform ====
+#' # DESeqResults, SummarizedExperiment ====
 #' plotDEGHeatmap(
-#'     object = res_small,
-#'     counts = rld_small,
-#'     gene2symbol = gene2symbol
+#'     results = res_small,
+#'     counts = rld_small
 #' )
 #'
 #' # DESeqResults, DESeqDataSet ====
+#' # This always uses normalized counts
 #' # Using default ggplot2 colors
 #' plotDEGHeatmap(
-#'     object = res_small,
+#'     results = res_small,
 #'     counts = dds_small,
-#'     gene2symbol = gene2symbol,
 #'     color = NULL,
 #'     legendColor = NULL
+#' )
+#'
+#' # DESeqResults, bcbioRNASeq ====
+#' plotDEGHeatmap(
+#'     results = res_small,
+#'     counts = bcb_small
 #' )
 NULL
 
@@ -52,67 +53,104 @@ NULL
 #' @export
 setMethod(
     "plotDEGHeatmap",
-    signature("DESeqResults"),
+    signature(
+        results = "DESeqResults",
+        counts = "SummarizedExperiment"
+    ),
     function(
-        object,
+        results,
         counts,
-        lfc = 0L,
-        gene2symbol = NULL,
+        alpha,
+        lfcThreshold = 0L,
         title = TRUE,
         ...
     ) {
-        validObject(object)
-        assert_is_all_of(counts, "SummarizedExperiment")
-        validObject(counts)
-        assert_are_identical(rownames(object), rownames(counts))
-        assert_is_a_number(lfc)
-        assert_all_are_non_negative(lfc)
-        assertFormalGene2symbol(
-            x = object,
-            genes = rownames(counts),
-            gene2symbol = gene2symbol
-        )
+        validObject(results)
+        assert_are_identical(rownames(results), rownames(counts))
+        if (missing(alpha)) {
+            alpha <- metadata(results)[["alpha"]]
+        }
+        assert_is_a_number(alpha)
+        assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
 
         # Title
         if (isTRUE(title)) {
-            title <- contrastName(object)
+            title <- contrastName(results)
         } else if (!is_a_string(title)) {
             title <- NULL
         }
 
-        # Alpha level
-        alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
+        deg <- significants(results, padj = alpha, fc = lfcThreshold)
 
-        deg <- object %>%
-            as.data.frame() %>%
-            camel() %>%
-            # Keep genes that pass alpha cutoff
-            .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-            .[.[["padj"]] < alpha, , drop = FALSE] %>%
-            # Keep genes that pass log2 fold change cutoff
-            .[!is.na(.[["log2FoldChange"]]), , drop = FALSE] %>%
-            .[.[["log2FoldChange"]] > lfc |
-                  .[["log2FoldChange"]] < -lfc, , drop = FALSE]
-        assert_has_rows(deg)
-
-        # Subset the counts matrix to only contain DEGs
-        counts <- counts[rownames(deg), ]
-        validObject(counts)
-
-        # Remap gene identifier rows to symbols
-        if (is.data.frame(gene2symbol)) {
-            rownames <- convertGenesToSymbols(
-                object = rownames(counts),
-                gene2symbol = gene2symbol
-            )
-            rownames(counts) <- rownames
+        # Early return if there are no DEGs
+        if (!length(deg)) {
+            return(invisible())
         }
+
+        # Subset the counts to only contain DEGs
+        counts <- counts[deg, , drop = FALSE]
 
         # SummarizedExperiment method
         plotHeatmap(
-            counts,
+            object = counts,
             title = title,
+            ...
+        )
+    }
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    function(
+        results,
+        counts,
+        ...
+    ) {
+        validObject(counts)
+        message("Using normalized counts")
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assay(rse) <- counts(counts, normalized = TRUE)
+        plotDEGHeatmap(
+            results = results,
+            counts = rse,
+            ...
+        )
+    }
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "bcbioRNASeq"
+    ),
+    function(
+        results,
+        counts,
+        normalized = c("rlog", "vst", "tmm", "tpm"),
+        ...
+    ) {
+        validObject(counts)
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assay(rse) <- counts(counts, normalized = normalized)
+        plotDEGHeatmap(
+            results = results,
+            counts = rse,
             ...
         )
     }
