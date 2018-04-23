@@ -468,8 +468,6 @@ bcbioRNASeq <- function(
 
 
 
-# FIXME Require `metrics` to be moved into `colData` and NOT present in
-# `metadata()` list
 # Validity Checks ==============================================================
 setValidity(
     "bcbioRNASeq",
