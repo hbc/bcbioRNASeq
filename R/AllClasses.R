@@ -55,10 +55,10 @@ bcbioRNASeq <- setClass(
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
-#' @family S4 Class Definition
 #' @rdname bcbioRNASeq-class
 #' @aliases bcbioRNASeq-class
 #' @docType class
+#' @family S4 Class Definition
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams bcbioBase::prepareSummarizedExperiment
