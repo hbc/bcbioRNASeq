@@ -30,22 +30,14 @@ saveData(gse65267, dir = "~")
 
 # F1000v2 ======================================================================
 # F1000 paper: days 0, 1, 3, 7
-f1000v2 <- selectSamples(
-    object = gse65267,
-    day = c(0L, 1L, 3L, 7L),
-    transform = TRUE
-)
+f1000v2 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000v2, dir = "~")
 
 
 
 # bcb_small ====================================================================
 # Minimal working example: days 0, 7
-bcb_small <- selectSamples(
-    object = gse65267,
-    day = c(0L, 7L),
-    transform = FALSE
-)
+bcb_small <- selectSamples(gse65267, day = c(0L, 7L))
 
 # Minimize metadata slots that take up disk space
 metadata(bcb_small)[["bcbioCommandsLog"]] <- character()
@@ -70,7 +62,7 @@ genes <- c(dimorphic, abundance) %>%
     unique() %>%
     head(500L) %>%
     sort()
-bcb_small <- bcb_small[genes, , transform = TRUE]
+bcb_small <- bcb_small[genes, ]
 
 # Update the interesting groups and design formula
 interestingGroups(bcb_small) <- "treatment"
