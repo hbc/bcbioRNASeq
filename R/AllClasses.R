@@ -254,7 +254,7 @@ bcbioRNASeq <- function(
     assert_is_subset(interestingGroups, colnames(colData))
 
     # Subset sample directories by metadata ====================================
-    samples <- as.character(colData[["sampleID"]])
+    samples <- rownames(colData)
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
         message(paste(
