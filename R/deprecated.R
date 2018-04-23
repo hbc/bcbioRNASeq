@@ -132,7 +132,7 @@ setMethod(
 
 
 # v0.2.2 =======================================================================
-#' @rdname bcbioRNASeq
+#' @rdname bcbioRNASeq-class
 #' @usage NULL
 #' @export
 loadRNASeq <- function(...) {

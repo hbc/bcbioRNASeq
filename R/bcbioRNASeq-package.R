@@ -4,7 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @name bcbioRNASeq-package
-#' @keywords internal
+#' @docType package
 #'
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment

@@ -2,7 +2,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 
 
-#' @rdname bcbioRNASeq
+#' @rdname bcbioRNASeq-class
 #' @aliases NULL
 #' @exportClass bcbioRNASeq
 #' @usage NULL
@@ -56,6 +56,7 @@ bcbioRNASeq <- setClass(
 #'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @family S4 Class Definition
+#' @rdname bcbioRNASeq-class
 #' @aliases bcbioRNASeq-class
 #' @docType class
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
