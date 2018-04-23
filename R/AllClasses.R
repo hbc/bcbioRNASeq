@@ -435,7 +435,7 @@ bcbioRNASeq <- function(
         "bcbioLog" = bcbioLog,
         "bcbioCommandsLog" = bcbioCommandsLog,
         "allSamples" = allSamples,
-        "loadRNASeq" = match.call()
+        "call" = match.call()
     )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {
@@ -537,10 +537,6 @@ setValidity(
                 sep = "\n"
             ))
         }
-
-        # New optional metadata
-        # v0.2.0
-        # - loadRNASeq: call
 
         # Class checks (order independent)
         requiredMetadata <- list(

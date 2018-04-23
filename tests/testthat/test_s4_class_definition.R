@@ -1,6 +1,6 @@
 context("S4 Class Definition")
 
-bcb <- suppressWarnings(loadRNASeq(
+bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     ensemblRelease = 87L,
     organism = "Mus musculus"
@@ -137,7 +137,7 @@ test_that("Metadata", {
             "bcbioLog" = "character",
             "bcbioCommandsLog" = "character",
             "allSamples" = "logical",
-            "loadRNASeq" = "call",
+            "call" = "call",
             "date" = "Date",
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
@@ -188,9 +188,9 @@ test_that("subset : Minimal selection ranges", {
 
 
 
-# loadRNASeq ===================================================================
-test_that("loadRNASeq : organism = NULL", {
-    x <- loadRNASeq(
+# bcbioRNASeq ===================================================================
+test_that("bcbioRNASeq : organism = NULL", {
+    x <- bcbioRNASeq(
         uploadDir = uploadDir,
         organism = NULL
     )
@@ -201,9 +201,9 @@ test_that("loadRNASeq : organism = NULL", {
     )
 })
 
-test_that("loadRNASeq : transformationLimit", {
+test_that("bcbioRNASeq : transformationLimit", {
     x <- suppressWarnings(
-        loadRNASeq(
+        bcbioRNASeq(
             uploadDir = uploadDir,
             organism = "Mus musculus",
             transformationLimit = -Inf
@@ -215,8 +215,8 @@ test_that("loadRNASeq : transformationLimit", {
     )
 })
 
-test_that("loadRNASeq : User-defined sample metadata", {
-    x <- suppressWarnings(loadRNASeq(
+test_that("bcbioRNASeq : User-defined sample metadata", {
+    x <- suppressWarnings(bcbioRNASeq(
         uploadDir = uploadDir,
         organism = "Mus musculus",
         sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
