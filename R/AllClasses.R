@@ -234,20 +234,41 @@ bcbioRNASeq <- function(
     yaml <- readYAML(yamlFile)
 
     # Column data ==============================================================
-    # FIXME Figure out a way of combining these two? The YAML data has
-    # interesting metadata worth keeping inside `colData` (e.g. genomeBuild)
+    colData <- readYAMLSampleData(yamlFile)
+
+    # Replace columns with external, user-defined metadata, if desired. This is
+    # nice for correcting metadata issues that aren't easy to fix by editing the
+    # bcbio YAML output.
     if (is_a_string(sampleMetadataFile)) {
-        colData <- readSampleData(sampleMetadataFile, lanes = lanes)
-    } else {
-        colData <- readYAMLSampleData(yamlFile)
-        if (is.character(samples)) {
-            assert_is_subset(samples, colData[["description"]])
-            colData <- colData %>%
-                .[which(samples %in% .[["description"]]), , drop = FALSE]
-        }
+        userColData <- readSampleData(sampleMetadataFile, lanes = lanes)
+        # Drop columns that are defined from the auto metadata
+        setdiff <- setdiff(colnames(colData), colnames(userColData))
+        # Note that we're allowing the user to subset the samples by the
+        # metadata input here
+        colData <- colData[rownames(userColData), setdiff, drop = FALSE]
+        colData <- cbind(userColData, colData)
     }
-    # Ensure all columns are factor
+
+    # Allow easy subsetting by sample (must match description)
+    if (is.character(samples)) {
+        assert_is_subset(samples, colData[["description"]])
+        colData <- colData %>%
+            .[which(samples %in% .[["description"]]), , drop = FALSE]
+    }
+
+    # Sanitize into factors
     colData <- sanitizeSampleData(colData)
+
+    # Sample metrics ===========================================================
+    # Note that sample metrics used for QC plots are not currently generated
+    # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
+    # counts generated with STAR.
+    message("Reading sample metrics")
+    metrics <- readYAMLSampleMetrics(yamlFile)
+    assert_is_data.frame(metrics)
+    assert_are_disjoint_sets(colnames(colData), colnames(metrics))
+    # Now safe to add the metrics to colData
+    colData <- cbind(colData, metrics)
 
     # Interesting groups =======================================================
     interestingGroups <- camel(interestingGroups)
@@ -267,14 +288,6 @@ bcbioRNASeq <- function(
     } else {
         allSamples <- TRUE
     }
-
-    # Sample metrics ===========================================================
-    # Note that sample metrics used for QC plots are not currently generated
-    # when using fast RNA-seq workflow. This depends upon MultiQC and aligned
-    # counts generated with STAR.
-    message("Reading sample metrics")
-    metrics <- readYAMLSampleMetrics(yamlFile)
-    assert_is_data.frame(metrics)
 
     # bcbio run information ====================================================
     dataVersions <- readDataVersions(
@@ -429,7 +442,6 @@ bcbioRNASeq <- function(
         "tx2gene" = tx2gene,
         "lanes" = lanes,
         "yaml" = yaml,
-        "metrics" = metrics,
         "dataVersions" = dataVersions,
         "programVersions" = programVersions,
         "bcbioLog" = bcbioLog,
@@ -456,6 +468,8 @@ bcbioRNASeq <- function(
 
 
 
+# FIXME Require `metrics` to be moved into `colData` and NOT present in
+# `metadata()` list
 # Validity Checks ==============================================================
 setValidity(
     "bcbioRNASeq",
@@ -495,23 +509,17 @@ setValidity(
         assert_is_all_of(rowData(object), "DataFrame")
 
         # Column data ==========================================================
-        # Check that all of the columns are factors
-        colDataCheck <- vapply(
-            X = colData(object),
-            FUN = is.factor,
-            FUN.VALUE = logical(1L),
-            USE.NAMES = TRUE
-        )
-        if (!all(colDataCheck)) {
+        # metrics
+        if (is.data.frame(metadata(object)[["metrics"]])) {
             stop(paste(
-                paste(
-                    "Non-factor colData columns:",
-                    toString(names(colDataCheck[!colDataCheck]))
-                ),
-                bcbioBase::updateMessage,
-                sep = "\n"
+                "`metrics` saved in `metadata()` instead of `colData()`.",
+                bcbioBase::updateMessage
             ))
         }
+        assert_are_disjoint_sets(
+            x = colnames(colData(object)),
+            y = legacyMetricsCols
+        )
 
         # Metadata =============================================================
         metadata <- metadata(object)
@@ -553,7 +561,6 @@ setValidity(
             "interestingGroups" = "character",
             "lanes" = "integer",
             "level" = "character",
-            "metrics" = "data.frame",
             "organism" = "character",
             "programVersions" = "tbl_df",
             "projectDir" = "character",
@@ -603,10 +610,6 @@ setValidity(
             x = metadata[["level"]],
             y = c("genes", "transcripts")
         )
-        # metrics
-        metrics <- metadata[["metrics"]]
-        assert_are_identical(colnames(object), rownames(metrics))
-        assert_are_disjoint_sets(colnames(metrics), legacyMetricsCols)
         # tx2gene
         tx2gene <- metadata[["tx2gene"]]
         assertIsTx2gene(tx2gene)

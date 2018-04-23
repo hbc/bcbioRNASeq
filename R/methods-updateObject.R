@@ -32,6 +32,7 @@ NULL
 
 
 
+# FIXME Require `metrics` to be moved into `colData`
 # Methods ======================================================================
 #' @rdname updateObject
 #' @export
