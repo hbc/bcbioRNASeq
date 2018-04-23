@@ -617,11 +617,3 @@ setValidity(
         TRUE
     }
 )
-
-
-
-# Aliases ======================================================================
-#' @rdname bcbioRNASeq
-#' @usage NULL
-#' @export
-loadRNASeq <- bcbioRNASeq
