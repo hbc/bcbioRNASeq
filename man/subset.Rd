@@ -95,7 +95,7 @@ assayNames(subset)
 \seealso{
 \code{help("[", "base")}.
 
-Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+Other S4 Class Definition: \code{\link{bcbioRNASeq}},
   \code{\link{coerce}}, \code{\link{show}},
   \code{\link{updateObject}}
 }

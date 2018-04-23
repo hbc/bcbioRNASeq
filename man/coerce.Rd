@@ -44,7 +44,7 @@ names(x)
 \item \code{\link[methods:coerce]{methods::coerce()}}.
 }
 
-Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+Other S4 Class Definition: \code{\link{bcbioRNASeq}},
   \code{\link{show}}, \code{\link{subset}},
   \code{\link{updateObject}}
 }

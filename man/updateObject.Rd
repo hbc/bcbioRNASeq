@@ -40,7 +40,7 @@ objects from versions <= 0.0.20. We changed the name of the package to
 updateObject(bcb_small)
 }
 \seealso{
-Other S4 Class Definition: \code{\link{bcbioRNASeq-class}},
+Other S4 Class Definition: \code{\link{bcbioRNASeq}},
   \code{\link{coerce}}, \code{\link{show}},
   \code{\link{subset}}
 }

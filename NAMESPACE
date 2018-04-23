@@ -2,6 +2,7 @@
 
 export("%>%")
 export(alphaSummary)
+export(bcbioRNASeq)
 export(contrastName)
 export(download)
 export(ggplot)
