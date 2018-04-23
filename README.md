@@ -35,7 +35,7 @@ conda install -c bioconda r-bcbiornaseq
 
 ```r
 library(bcbioRNASeq)
-bcb <- loadRNASeq(
+bcb <- bcbioRNASeq(
     uploadDir = "bcbio_rnaseq_run/final",
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
@@ -53,7 +53,7 @@ Parameters:
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 - `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
 
-Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
+Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
 
 
 ## [R Markdown][] templates
@@ -70,7 +70,7 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 
 ## Sample metadata
 
-For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into `loadRNASeq()` using the `sampleMetadataFile` parameter.
+For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` parameter.
 
 ### Minimal example
 
