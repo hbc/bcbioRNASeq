@@ -17,7 +17,7 @@
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
 #'   metadata na.omit
 #' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
-#'   colData colData<- rowData rowRanges SummarizedExperiment
+#'   colData colData<- metadata<- rowData rowRanges SummarizedExperiment
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF
 #'   makeNames makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist
