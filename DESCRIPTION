@@ -103,7 +103,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.2.4),
+    bcbioBase (>= 0.2.5),
     DESeq2
 Imports:
     BiocGenerics,
@@ -145,7 +145,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    hbc/bcbioBase,
+    hbc/bcbioBase@develop,
     lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
