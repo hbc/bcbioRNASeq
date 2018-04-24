@@ -4,7 +4,6 @@
 \alias{coerce}
 \alias{as}
 \alias{coerce-bcbioRNASeq-DESeqDataSet}
-\alias{coerce-bcbioRNASeq-list}
 \title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
@@ -26,17 +25,11 @@ show(x)
 
 # SummarizedExperiment ====
 # Coerce to RangedSummarizedExperiment first.
-# Otherwise, rowData will be NULL.
 x <- as(bcb_small, "RangedSummarizedExperiment")
 x <- as(x, "SummarizedExperiment")
 class(x)
 slotNames(x)
 show(x)
-
-# list ====
-x <- as(bcb_small, "list")
-class(x)
-names(x)
 }
 \seealso{
 \itemize{
@@ -44,8 +37,8 @@ names(x)
 \item \code{\link[methods:coerce]{methods::coerce()}}.
 }
 
-Other S4 Class Definition: \code{\link{bcbioRNASeq}},
-  \code{\link{show}}, \code{\link{subset}},
+Other S4 Class Definition: \code{\link{[,bcbioRNASeq,ANY,ANY,ANY-method}},
+  \code{\link{bcbioRNASeq}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
 \author{

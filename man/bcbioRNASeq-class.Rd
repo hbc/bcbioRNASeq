@@ -163,8 +163,8 @@ validObject(x)
 \item \code{.S4methods(class = "bcbioRNASeq")}.
 }
 
-Other S4 Class Definition: \code{\link{coerce}},
-  \code{\link{show}}, \code{\link{subset}},
+Other S4 Class Definition: \code{\link{[,bcbioRNASeq,ANY,ANY,ANY-method}},
+  \code{\link{coerce}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
 \author{

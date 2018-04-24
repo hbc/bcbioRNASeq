@@ -52,9 +52,9 @@ validObject(x)
 metadata(x)[["version"]]
 }
 \seealso{
-Other S4 Class Definition: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{show}},
-  \code{\link{subset}}
+Other S4 Class Definition: \code{\link{[,bcbioRNASeq,ANY,ANY,ANY-method}},
+  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+  \code{\link{show}}
 }
 \author{
 Michael Steinbaugh

@@ -35,8 +35,8 @@ the discussion in \code{\link{setIs}} for the general concept.
 show(bcb_small)
 }
 \seealso{
-Other S4 Class Definition: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{subset}},
+Other S4 Class Definition: \code{\link{[,bcbioRNASeq,ANY,ANY,ANY-method}},
+  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{updateObject}}
 }
 \author{

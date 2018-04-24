@@ -5,7 +5,7 @@
 #' @family S4 Class Definition
 #' @author Michael Steinbaugh
 #'
-#' @return Object of new class.
+#' @inherit bcbioBase::coerce
 #'
 #' @seealso
 #' - [methods::as()].
@@ -25,17 +25,11 @@
 #'
 #' # SummarizedExperiment ====
 #' # Coerce to RangedSummarizedExperiment first.
-#' # Otherwise, rowData will be NULL.
 #' x <- as(bcb_small, "RangedSummarizedExperiment")
 #' x <- as(x, "SummarizedExperiment")
 #' class(x)
 #' slotNames(x)
 #' show(x)
-#'
-#' # list ====
-#' x <- as(bcb_small, "list")
-#' class(x)
-#' names(x)
 NULL
 
 
@@ -66,17 +60,5 @@ setAs(
         to <- suppressWarnings(DESeq(dds))
         validObject(to)
         to
-    }
-)
-
-
-
-#' @rdname coerce
-#' @name coerce-bcbioRNASeq-list
-setAs(
-    from = "bcbioRNASeq",
-    to = "list",
-    function(from) {
-        flatFiles(from)
     }
 )
