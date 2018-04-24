@@ -56,11 +56,11 @@ Parameters:
 Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
 
 
-## Sample metadata
+### Sample metadata
 
 When loading a [bcbio][] RNA-seq run, the sample metadata will be imported automatically from the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` argument.
 
-### Metadata file example
+#### Metadata file example
 
 The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions.
 
@@ -74,11 +74,11 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 
 ## [R Markdown][] templates
 
-This package provides multiple [R Markdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+This package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis.
 
-### Examples
+These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
-View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [R Markdown][] templates included in the package:
+View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) renderings:
 
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
