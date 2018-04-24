@@ -70,18 +70,18 @@ View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered 
 
 ## Sample metadata
 
-For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` parameter.
+When loading a [bcbio][] RNA-seq run, the sample metadata will be imported automatically from the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` argument.
 
-### Minimal example
+### Metadata file example
 
-The sample IDs in the bcbioRNASeq object map to the `description` column, which gets sanitized internally into a `sampleID` column. The sample names provided in the `description` column must be unique.
+The samples in the [bcbio][] run must map to the `description` column. The values provided in the `description` column must be unique, and can contain any characters, including spaces or hyphens. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")` for more information), and assigned as the column names (`colnames()`) of the `bcbioRNASeq` object. The unmodified values are accessible from the `sampleName` column in `colData()`.
 
-| fileName            | description | genotype |
-|---------------------|-------------|----------|
-| sample1_R1.fastq.gz | sample1     | wildtype |
-| sample2_R1.fastq.gz | sample2     | knockout |
-| sample3_R1.fastq.gz | sample3     | wildtype |
-| sample4_R1.fastq.gz | sample4     | knockout |
+| description | genotype |
+|-------------|----------|
+| sample1     | wildtype |
+| sample2     | knockout |
+| sample3     | wildtype |
+| sample4     | knockout |
 
 
 ## Citation
