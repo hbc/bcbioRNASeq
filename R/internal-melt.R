@@ -24,12 +24,9 @@
         arrange(!!!syms(c("sampleID", "geneID"))) %>%
         group_by(!!!syms(c("sampleID", "geneID")))
 
-    if (!is.null(sampleData)) {
-        assert_has_dims(sampleData)
-        assert_are_identical(
-            colnames(counts),
-            as.character(sampleData[["sampleID"]])
-        )
+    if (length(sampleData)) {
+        assert_are_identical(colnames(counts), rownames(sampleData))
+        sampleData[["sampleID"]] <- rownames(sampleData)
         data <- merge(
             x = data,
             y = as.data.frame(sampleData),

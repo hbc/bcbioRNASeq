@@ -80,17 +80,6 @@ test_that("Assays", {
     )))
 })
 
-test_that("Column data", {
-    # All columns should be factor5
-    expect_true(all(vapply(
-        X = colData(bcb),
-        FUN = function(assay) {
-            is.factor(assay)
-        },
-        FUN.VALUE = logical(1L)
-    )))
-})
-
 test_that("Row data", {
     # Ensembl annotations from AnnotationHub, using ensembldb
     expect_identical(
