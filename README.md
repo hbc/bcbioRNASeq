@@ -74,7 +74,7 @@ When loading a [bcbio][] RNA-seq run, the sample metadata will be imported autom
 
 ### Metadata file example
 
-The samples in the [bcbio][] run must map to the `description` column. The values provided in the `description` column must be unique, and can contain any characters, including spaces or hyphens. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")` for more information), and assigned as the column names (`colnames()`) of the `bcbioRNASeq` object. The unmodified values are accessible from the `sampleName` column in `colData()`.
+The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique, and can contain any characters, including spaces or hyphens. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are accessible from the `sampleName` column in `colData()`, and are used for all plotting functions.
 
 | description | genotype |
 |-------------|----------|
