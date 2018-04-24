@@ -13,6 +13,10 @@ branches:
   except:
   - develop
 
+env:
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_edc1907ba0ad_key -iv $encrypted_edc1907ba0ad_iv -in tests/testthat/token.rds.enc -out tests/testthat/token.rds -d
 
@@ -32,6 +36,7 @@ notifications:
 
 r_packages:
   - covr
+  - hexbin
 bioc_packages:
   - BiocCheck
 
