@@ -78,7 +78,7 @@ This package provides multiple [R Markdown][] templates, including quality contr
 
 These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
-View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) renderings:
+### Example renderings
 
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
