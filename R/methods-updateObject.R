@@ -27,7 +27,19 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' updateObject(bcb_small)
+#' tryCatch(
+#'     loadRemoteData("http://bcbiornaseq.seq.cloud/bcb_invalid.rda"),
+#'     error = function(e) print(e)
+#' )
+#' slot(bcb_invalid, "metadata")[["version"]]
+#'
+#' # Need to acquire gene annotations as GRanges object
+#' organism <- slot(bcb_invalid, "metadata")[["organism"]]
+#' rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
+#'
+#' x <- updateObject(bcb_invalid, rowRanges = rowRanges)
+#' validObject(x)
+#' metadata(x)[["version"]]
 NULL
 
 
@@ -122,7 +134,47 @@ setMethod(
 
         # Column data ==========================================================
         colData <- colData(rse)
-        colData <- sanitizeSampleData(colData)
+
+        # Move metrics from metadata into colData, if necessary
+        metrics <- metadata(rse)[["metrics"]]
+        if (is.data.frame(metrics)) {
+            message("Moving metrics from metadata into colData")
+
+            # Always remove legacy `name` column
+            metrics[["name"]] <- NULL
+
+            # Rename 5'3' bias
+            if ("x53Bias" %in% colnames(metrics)) {
+                message("Renaming x53Bias to x5x3Bias")
+                metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
+                metrics[["x53Bias"]] <- NULL
+            }
+
+            # Rename rRNA rate
+            if (!"rrnaRate" %in% colnames(metrics)) {
+                col <- grep(
+                    pattern = "rrnarate",
+                    x = colnames(metrics),
+                    ignore.case = TRUE,
+                    value = TRUE
+                )
+                assert_is_a_string(col)
+                message(paste("Renaming", col, "to rrnaRate"))
+                metrics[["rrnaRate"]] <- metrics[[col]]
+                metrics[[col]] <- NULL
+            }
+
+            # Only include columns not already present in colData
+            setdiff <- setdiff(colnames(metrics), colnames(colData))
+            metrics <- metrics[, sort(setdiff), drop = FALSE]
+
+            colData <- cbind(colData, metrics)
+            metadata(rse)[["metrics"]] <- NULL
+        }
+
+        # Remove legacy `sampleID` and `description` columns, if present
+        colData[["sampleID"]] <- NULL
+        colData[["description"]] <- NULL
 
         # Metadata =============================================================
         metadata <- metadata(rse)
@@ -203,45 +255,6 @@ setMethod(
         if (!"level" %in% names(metadata)) {
             message("Setting level as genes")
             metadata[["level"]] <- "genes"
-        }
-
-        # metrics
-        if (length(intersect(
-            colnames(metadata[["metrics"]]), legacyMetricsCols
-        ))) {
-            metrics <- metadata[["metrics"]]
-            assert_is_data.frame(metrics)
-
-            # Drop sample name columns
-            legacyNameCols <- c(bcbioBase::metadataPriorityCols, "name")
-            if (length(intersect(colnames(metrics), legacyNameCols))) {
-                message("Dropping legacy sample names from metrics")
-                metrics <- metrics %>%
-                    .[, setdiff(colnames(.), legacyNameCols), drop = FALSE]
-            }
-
-            # Rename 5'3' bias
-            if ("x53Bias" %in% colnames(metrics)) {
-                message("Renaming x53Bias to x5x3Bias")
-                metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
-                metrics[["x53Bias"]] <- NULL
-            }
-
-            # Rename rRNA rate
-            if (!"rrnaRate" %in% colnames(metrics)) {
-                col <- grep(
-                    pattern = "rrnarate",
-                    x = colnames(metrics),
-                    ignore.case = TRUE,
-                    value = TRUE
-                )
-                assert_is_a_string(col)
-                message(paste("Renaming", col, "to rrnaRate"))
-                metrics[["rrnaRate"]] <- metrics[[col]]
-                metrics[[col]] <- NULL
-            }
-
-            metadata[["metrics"]] <- metrics
         }
 
         # programVersions

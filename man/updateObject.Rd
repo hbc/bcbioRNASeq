@@ -37,7 +37,19 @@ objects from versions <= 0.0.20. We changed the name of the package to
 }
 
 \examples{
-updateObject(bcb_small)
+tryCatch(
+    loadRemoteData("http://bcbiornaseq.seq.cloud/bcb_invalid.rda"),
+    error = function(e) print(e)
+)
+slot(bcb_invalid, "metadata")[["version"]]
+
+# Need to acquire gene annotations as GRanges object
+organism <- slot(bcb_invalid, "metadata")[["organism"]]
+rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
+
+x <- updateObject(bcb_invalid, rowRanges = rowRanges)
+validObject(x)
+metadata(x)[["version"]]
 }
 \seealso{
 Other S4 Class Definition: \code{\link{bcbioRNASeq}},

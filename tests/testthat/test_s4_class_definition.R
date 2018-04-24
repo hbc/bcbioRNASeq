@@ -238,10 +238,8 @@ test_that("updateObject", {
         package_version("0.1.4")
     )
     organism <- slot(bcb_invalid, "metadata")[["organism"]]
-    rowRanges <- makeGRangesFromEnsembl(organism)
-    x <- suppressWarnings(
-        updateObject(bcb_invalid, rowRanges = rowRanges)
-    )
+    rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
+    x <- updateObject(bcb_invalid, rowRanges = rowRanges)
     expect_identical(
         metadata(x)[["version"]],
         packageVersion
