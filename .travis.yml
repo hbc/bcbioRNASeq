@@ -23,7 +23,7 @@ before_install:
 warnings_are_errors: true
 
 # Temporarily enable when caching Bioconductor packages
-script: true
+# script: true
 
 notifications:
   email:
@@ -32,6 +32,7 @@ notifications:
 
 r_packages:
   - covr
+  - hexbin
 bioc_packages:
   - BiocCheck
 
