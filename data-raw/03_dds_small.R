@@ -30,8 +30,7 @@ res_small <- results(
 res_small <- lfcShrink(
     dds = dds_small,
     coef = 2L,
-    res = res_small,
-    type = "apeglm"
+    res = res_small
 )
 validObject(res_small)
 
