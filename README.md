@@ -56,18 +56,6 @@ Parameters:
 Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
 
 
-## [R Markdown][] templates
-
-This package provides multiple [R Markdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
-
-### Examples
-
-View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [R Markdown][] templates included in the package:
-
-- [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
-- [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
-
-
 ## Sample metadata
 
 When loading a [bcbio][] RNA-seq run, the sample metadata will be imported automatically from the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` argument.
@@ -82,6 +70,18 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 | sample2     | knockout |
 | sample3     | wildtype |
 | sample4     | knockout |
+
+
+## [R Markdown][] templates
+
+This package provides multiple [R Markdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+
+### Examples
+
+View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [R Markdown][] templates included in the package:
+
+- [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
+- [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 
 
 ## Citation
