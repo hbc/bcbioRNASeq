@@ -239,7 +239,8 @@ test_that("updateObject", {
     )
     organism <- slot(bcb_invalid, "metadata")[["organism"]]
     rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
-    x <- updateObject(bcb_invalid, rowRanges = rowRanges)
+    # Suppressing expected warning about ENSMUSG00000104475, ENSMUSG00000109048
+    x <- suppressWarnings(updateObject(bcb_invalid, rowRanges = rowRanges))
     expect_identical(
         metadata(x)[["version"]],
         packageVersion

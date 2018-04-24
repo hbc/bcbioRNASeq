@@ -37,7 +37,7 @@
 #' organism <- slot(bcb_invalid, "metadata")[["organism"]]
 #' rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
 #'
-#' x <- updateObject(bcb_invalid, rowRanges = rowRanges)
+#' x <- suppressWarnings(updateObject(bcb_invalid, rowRanges = rowRanges))
 #' validObject(x)
 #' metadata(x)[["version"]]
 NULL
