@@ -146,12 +146,13 @@ Generally, we expect similar count spreads for all genes between samples unless 
 plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
-```{r biotype_plot, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE, results='asis'}
+```{r biotype_plot, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE}
 basejump::mdHeader("TPM per biotype", level=2)
-cat("Different RNA-seq processing methods can preferentially capture a subset of the RNA species
-from the total RNA. For example, polyA selection should select for mostly coding genes and
-skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for
-the top 12 biotypes with the most genes assigned to them for each sample.")
+knitr::asis_output("Different RNA-seq processing methods can preferentially capture a subset of
+  the RNA species from the total RNA. For example, polyA selection should select for mostly
+  coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots
+  of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.")
+
 keep_biotypes = rowData(bcb) %>%
   as.data.frame() %>%
   group_by(geneBiotype) %>%
@@ -179,10 +180,11 @@ ggplot(biotypetpm, aes(sample, tpm))+
         axis.title=element_text(size=10))
 ```
 
-```{r broadclass_plot, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE, results='asis'}
+```{r broadclass_plot, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE}
 basejump::mdHeader("TPM per broad biotype class", level=2)
-cat("The Ensembl biotype clasifications are too specific to plot them all-- here we have grouped
-the biotypes into broad classes and plot boxplots of the TPM for each sample.")
+knitr::asis_output("The Ensembl biotype clasifications are too specific to plot them all--
+  here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each
+  sample.")
 biotypetpm = tpm(bcb) %>%
   as.data.frame() %>%
   tibble::rownames_to_column("gene") %>%
