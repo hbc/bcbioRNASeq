@@ -51,6 +51,7 @@ setMethod(
         color = scale_color_hue(),
         label = FALSE,
         title = "pca",
+        subtitle = NULL,
         return = c("ggplot", "data.frame")
     ) {
         # Legacy arguments =====================================================
@@ -146,6 +147,7 @@ setMethod(
             coord_fixed() +
             labs(
                 title = title,
+                subtitle = subtitle,
                 x = paste0("pc1: ", percentVar[[1L]], "% variance"),
                 y = paste0("pc2: ", percentVar[[2L]], "% variance"),
                 color = paste(interestingGroups, collapse = ":\n")

@@ -10,7 +10,8 @@
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
   samples = NULL, interestingGroups, color = scale_color_hue(),
-  label = FALSE, title = "pca", return = c("ggplot", "data.frame"))
+  label = FALSE, title = "pca", subtitle = NULL, return = c("ggplot",
+  "data.frame"))
 
 \S4method{plotPCA}{DESeqDataSet}(object, ...)
 
@@ -37,6 +38,8 @@ color definitions are desired, we recommend using
 \item{label}{Superimpose sample text labels on the plot.}
 
 \item{title}{Title of plot.}
+
+\item{subtitle}{Subtitle of plot.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}

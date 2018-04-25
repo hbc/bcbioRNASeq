@@ -13,7 +13,7 @@ plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
   interestingGroups, alpha, lfcThreshold = 0L, color = scale_color_hue(),
-  label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
+  label = FALSE, return = c("ggplot", "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -40,8 +40,6 @@ color definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
-
-\item{title}{Title of plot.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}

@@ -42,7 +42,6 @@ setMethod(
         lfcThreshold = 0L,
         color = scale_color_hue(),
         label = FALSE,
-        title = "deg pca",
         return = c("ggplot", "data.frame")
     ) {
         validObject(results)
@@ -59,7 +58,6 @@ setMethod(
         assert_all_are_non_negative(lfcThreshold)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
-        assertIsAStringOrNULL(title)
         return <- match.arg(return)
 
         deg <- significants(results, padj = alpha, fc = lfcThreshold)
@@ -79,6 +77,8 @@ setMethod(
             genes = rownames(rse),
             interestingGroups = interestingGroups,
             label = label,
+            title = contrastName(results),
+            subtitle = paste(nrow(rse), "genes"),
             return = return
         )
     }
