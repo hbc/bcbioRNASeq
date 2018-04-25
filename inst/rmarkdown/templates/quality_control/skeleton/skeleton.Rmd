@@ -191,8 +191,8 @@ biotypetpm = tpm(bcb) %>%
                    as.data.frame(), by=c("gene"="geneID"))
 
 ggplot(biotypetpm, aes(sample, tpm)) +
-  geom_boxplot() +
-  facet_wrap(~geneBiotype) +
+  geom_violin() +
+  facet_wrap(~broadClass) +
   scale_y_log10() +
   xlab("") +
   ylab("Transcripts Per Million (TPM)") +
