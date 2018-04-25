@@ -74,7 +74,7 @@ labelSep <- " : "
 
 
 
-.geomLabel <- function(data, mapping, size = 4L) {
+.geomLabel <- function(data = NULL, mapping = NULL, size = 4L) {
     geom_label_repel(
         data = data,
         mapping = mapping,
