@@ -235,11 +235,7 @@ setMethod(
 
         # Print a markdown header containing the contrast (useful for looping)
         if (isTRUE(summary) || isTRUE(write)) {
-            markdownHeader(
-                contrastName,
-                level = headerLevel,
-                asis = TRUE
-            )
+            markdownHeader(contrast, level = headerLevel, asis = TRUE)
         }
 
         if (isTRUE(summary)) {
