@@ -233,10 +233,19 @@ setMethod(
             contrast = contrast
         )
 
+        # Print a markdown header containing the contrast (useful for looping)
+        if (isTRUE(summary) || isTRUE(write)) {
+            markdownHeader(
+                contrastName,
+                level = headerLevel,
+                asis = TRUE
+            )
+        }
+
         if (isTRUE(summary)) {
             markdownHeader(
                 "Summary statistics",
-                level = headerLevel,
+                level = headerLevel + 1L,
                 asis = TRUE
             )
             markdownList(c(
@@ -294,7 +303,7 @@ setMethod(
             }
 
             # Output file information in Markdown format
-            .markdownResultsTables(list, headerLevel = headerLevel)
+            .markdownResultsTables(list, headerLevel = headerLevel + 1L)
         }
 
         list
