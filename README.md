@@ -35,7 +35,7 @@ conda install -c bioconda r-bcbiornaseq
 
 ```r
 library(bcbioRNASeq)
-bcb <- loadRNASeq(
+bcb <- bcbioRNASeq(
     uploadDir = "bcbio_rnaseq_run/final",
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
@@ -53,35 +53,35 @@ Parameters:
 - `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
 - `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
 
-Consult `help("loadRNASeq", "bcbioRNASeq")` for additional documentation.
+Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
+
+
+### Sample metadata
+
+When loading a [bcbio][] RNA-seq run, the sample metadata will be imported automatically from the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` argument.
+
+#### Metadata file example
+
+The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions.
+
+| description | genotype |
+|-------------|----------|
+| sample1     | wildtype |
+| sample2     | knockout |
+| sample3     | wildtype |
+| sample4     | knockout |
 
 
 ## [R Markdown][] templates
 
-This package provides multiple [R Markdown][] templates, including Quality Control and Differential Expression using [DESeq2][], which are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+This package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis.
 
-### Examples
+These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
-View example [HTML reports](http://bcb.io/bcbio_rnaseq_output_example) rendered from the default [R Markdown][] templates included in the package:
+### Example renderings
 
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
-
-
-## Sample metadata
-
-For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into `loadRNASeq()` using the `sampleMetadataFile` parameter.
-
-### Minimal example
-
-The sample IDs in the bcbioRNASeq object map to the `description` column, which gets sanitized internally into a `sampleID` column. The sample names provided in the `description` column must be unique.
-
-| fileName            | description | genotype |
-|---------------------|-------------|----------|
-| sample1_R1.fastq.gz | sample1     | wildtype |
-| sample2_R1.fastq.gz | sample2     | knockout |
-| sample3_R1.fastq.gz | sample3     | wildtype |
-| sample4_R1.fastq.gz | sample4     | knockout |
 
 
 ## Citation

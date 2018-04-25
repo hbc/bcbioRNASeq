@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Plot Gene Detection Saturation — plotGeneSaturation" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,20 +97,22 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Gene Detection Saturation</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotGeneSaturation.R'><code>R/methods-plotGeneSaturation.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotGeneSaturation.R'><code>R/methods-plotGeneSaturation.R</code></a></small>
     <div class="hidden name"><code>plotGeneSaturation.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plot Gene Detection Saturation</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>,
-  <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='no'>interestingGroups</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"gene saturation"</span>)</pre>
+  <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='no'>interestingGroups</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_color_hue</a></span>(), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"gene saturation"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,8 +183,8 @@ color definitions are desired, we recommend using
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Minimal exampe distorts the y-axis</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb_small</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Minimal example distorts the y-axis</span>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

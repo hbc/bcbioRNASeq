@@ -33,47 +33,21 @@ reference:
     - coerce
     - show
     - updateObject
-  - title: Read Functions
-    contents:
-    - loadRNASeq
   - title: Data Functions
     contents:
     - counts
     - metrics
     - tmm
     - tpm
-  - title: Quality Control Functions
+  - title: Plot Functions
     contents:
-    - plot5Prime3PrimeBias
-    - plotCorrelationHeatmap
-    - plotCountDensity
-    - plotCountsPerGene
-    - plotDispEsts
-    - plotExonicMappingRate
-    - plotGenderMarkers
-    - plotGeneSaturation
-    - plotGenesDetected
-    - plotIntronicMappingRate
-    - plotMappedReads
-    - plotMappingRate
-    - plotMeanSD
-    - plotPCA
-    - plotPCACovariates
-    - plotRRNAMappingRate
-    - plotTotalReads
+    - starts_with("plot")
   - title: Differential Expression Functions
     contents:
     - alphaSummary
     - contrastName
-    - plotDEGHeatmap
-    - plotDEGPCA
-    - plotMA
-    - plotVolcano
     - resultsTables
     - topTables
-  - title: Gene Expression Functions
-    contents:
-    - plotGene
   - title: R Markdown Functions
     contents:
     - prepareRNASeqTemplate

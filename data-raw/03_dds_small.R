@@ -17,6 +17,7 @@ stopifnot(identical(
 rld_small <- rlog(dds_small)
 validObject(rld_small)
 
+resultsNames(dds_small)
 res_small <- results(
     dds_small,
     contrast = c(

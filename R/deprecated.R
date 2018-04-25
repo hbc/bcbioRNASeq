@@ -129,4 +129,15 @@ setMethod(
     }
 )
 
+
+
+# v0.2.2 =======================================================================
+#' @rdname bcbioRNASeq-class
+#' @usage NULL
+#' @export
+loadRNASeq <- function(...) {
+    .Deprecated("bcbioRNASeq")
+    bcbioRNASeq(...)
+}
+
 # nocov end

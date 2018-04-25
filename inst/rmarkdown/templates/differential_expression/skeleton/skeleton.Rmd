@@ -132,9 +132,9 @@ plotDEGHeatmap(
 
 ```{r results_tables, results="asis"}
 res_tbl <- resultsTables(
-    res,
-    lfc = params$lfc,
-    rowData = rowData(bcb),
+    results = res,
+    counts = dds,
+    lfcThreshold = params$lfc,
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,

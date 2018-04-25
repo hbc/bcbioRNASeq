@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Plot Ribosomal RNA (rRNA) Mapping Rate — plotRRNAMappingRate" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,20 +97,22 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Ribosomal RNA (rRNA) Mapping Rate</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotRRNAMappingRate.R'><code>R/methods-plotRRNAMappingRate.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotRRNAMappingRate.R'><code>R/methods-plotRRNAMappingRate.R</code></a></small>
     <div class="hidden name"><code>plotRRNAMappingRate.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plot Ribosomal RNA (rRNA) Mapping Rate</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>warnLimit</span> <span class='kw'>=</span> <span class='fl'>10L</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_fill_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"rRNA mapping rate"</span>)</pre>
+  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10L</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_fill_hue</a></span>(), <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"rRNA mapping rate"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,8 +131,8 @@
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>warnLimit</th>
-      <td><p>Threshold to plot warning color marker.</p></td>
+      <th>limit</th>
+      <td><p>Threshold to denote on the plot, using a dashed line.</p></td>
     </tr>
     <tr>
       <th>fill</th>

@@ -24,14 +24,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         validObject(object)
-        sampleData <- as.data.frame(sampleData(object))
-        metrics <- metadata(object)[["metrics"]]
-        assert_are_identical(rownames(sampleData), rownames(metrics))
-        assert_are_disjoint_sets(colnames(sampleData), colnames(metrics))
-        cbind(sampleData, metrics) %>%
-            as.data.frame() %>%
-            rownames_to_column() %>%
-            mutate_if(is.character, as.factor) %>%
-            column_to_rownames()
+        as.data.frame(colData(object))
     }
 )

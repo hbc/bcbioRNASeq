@@ -1,6 +1,6 @@
 context("S4 Class Definition")
 
-bcb <- suppressWarnings(loadRNASeq(
+bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     ensemblRelease = 87L,
     organism = "Mus musculus"
@@ -80,17 +80,6 @@ test_that("Assays", {
     )))
 })
 
-test_that("Column data", {
-    # All columns should be factor5
-    expect_true(all(vapply(
-        X = colData(bcb),
-        FUN = function(assay) {
-            is.factor(assay)
-        },
-        FUN.VALUE = logical(1L)
-    )))
-})
-
 test_that("Row data", {
     # Ensembl annotations from AnnotationHub, using ensembldb
     expect_identical(
@@ -131,13 +120,12 @@ test_that("Metadata", {
             "tx2gene" = "data.frame",
             "lanes" = "integer",
             "yaml" = "list",
-            "metrics" = "data.frame",
             "dataVersions" = tibble,
             "programVersions" = tibble,
             "bcbioLog" = "character",
             "bcbioCommandsLog" = "character",
             "allSamples" = "logical",
-            "loadRNASeq" = "call",
+            "call" = "call",
             "date" = "Date",
             "wd" = "character",
             "utilsSessionInfo" = "sessionInfo",
@@ -188,9 +176,9 @@ test_that("subset : Minimal selection ranges", {
 
 
 
-# loadRNASeq ===================================================================
-test_that("loadRNASeq : organism = NULL", {
-    x <- loadRNASeq(
+# bcbioRNASeq ===================================================================
+test_that("bcbioRNASeq : organism = NULL", {
+    x <- bcbioRNASeq(
         uploadDir = uploadDir,
         organism = NULL
     )
@@ -201,9 +189,9 @@ test_that("loadRNASeq : organism = NULL", {
     )
 })
 
-test_that("loadRNASeq : transformationLimit", {
+test_that("bcbioRNASeq : transformationLimit", {
     x <- suppressWarnings(
-        loadRNASeq(
+        bcbioRNASeq(
             uploadDir = uploadDir,
             organism = "Mus musculus",
             transformationLimit = -Inf
@@ -215,8 +203,8 @@ test_that("loadRNASeq : transformationLimit", {
     )
 })
 
-test_that("loadRNASeq : User-defined sample metadata", {
-    x <- suppressWarnings(loadRNASeq(
+test_that("bcbioRNASeq : User-defined sample metadata", {
+    x <- suppressWarnings(bcbioRNASeq(
         uploadDir = uploadDir,
         organism = "Mus musculus",
         sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
@@ -238,10 +226,9 @@ test_that("updateObject", {
         package_version("0.1.4")
     )
     organism <- slot(bcb_invalid, "metadata")[["organism"]]
-    rowRanges <- makeGRangesFromEnsembl(organism)
-    x <- suppressWarnings(
-        updateObject(bcb_invalid, rowRanges = rowRanges)
-    )
+    rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
+    # Suppressing expected warning about ENSMUSG00000104475, ENSMUSG00000109048
+    x <- suppressWarnings(updateObject(bcb_invalid, rowRanges = rowRanges))
     expect_identical(
         metadata(x)[["version"]],
         packageVersion

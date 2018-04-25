@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Sample PCA Plot for Transformed Data — plotPCA" />
@@ -43,8 +46,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -60,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -97,20 +98,28 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sample PCA Plot for Transformed Data</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotPCA.R'><code>R/methods-plotPCA.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotPCA.R'><code>R/methods-plotPCA.R</code></a></small>
     <div class="hidden name"><code>plotPCA.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
 (PCA) sample coloring and labeling.</p>
     
+    </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>interestingGroups</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_color_hue</a></span>(),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"pca"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>,
-  <span class='st'>"tpm"</span>), <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/viridis/topics/scale_viridis'>scale_color_viridis</a></span>(<span class='kw'>discrete</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"pca"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>), <span class='no'>...</span>)</pre>
+  <span class='st'>"tpm"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -118,15 +127,6 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -167,6 +167,15 @@ the first item in the vector by default.</p></td>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p>Character indicating which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -198,13 +207,16 @@ the first item in the vector by default.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Select samples</span>
 <span class='fu'>plotPCA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
     <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>colnames</span>(<span class='no'>bcb_small</span>), <span class='fl'>4L</span>),
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqDataSet ====</span>
+<span class='co'># DESeqTransform method is preferred</span>
+<span class='fu'>plotPCA</span>(<span class='no'>dds_small</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using top 500 most variable genes</span></div><div class='img'><img src='plotPCA-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
