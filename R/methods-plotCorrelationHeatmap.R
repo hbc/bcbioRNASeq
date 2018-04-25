@@ -66,3 +66,27 @@ setMethod(
         plotCorrelationHeatmap(rse, ...)
     }
 )
+
+
+
+#' @rdname plotCorrelationHeatmap
+#' @export
+setMethod(
+    "plotCorrelationHeatmap",
+    signature("DESeqDataSet"),
+    function(
+        object,
+        normalized = TRUE,
+        ...
+    ) {
+        validObject(object)
+        counts <- counts(object, normalized = normalized)
+
+        # Coerce to RangedSummarizedExperiment
+        rse <- as(object, "RangedSummarizedExperiment")
+        assays(rse) <- list("counts" = counts)
+        validObject(rse)
+
+        plotCorrelationHeatmap(rse, ...)
+    }
+)
