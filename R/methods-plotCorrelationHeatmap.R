@@ -74,13 +74,9 @@ setMethod(
 setMethod(
     "plotCorrelationHeatmap",
     signature("DESeqDataSet"),
-    function(
-        object,
-        normalized = TRUE,
-        ...
-    ) {
+    function(object, ...) {
         validObject(object)
-        counts <- counts(object, normalized = normalized)
+        counts <- counts(object, normalized = TRUE)
 
         # Coerce to RangedSummarizedExperiment
         rse <- as(object, "RangedSummarizedExperiment")

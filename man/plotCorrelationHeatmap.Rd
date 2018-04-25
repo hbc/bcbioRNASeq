@@ -10,8 +10,7 @@
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("rlog",
   "vst", "tmm", "tpm"), ...)
 
-\S4method{plotCorrelationHeatmap}{DESeqDataSet}(object, normalized = TRUE,
-  ...)
+\S4method{plotCorrelationHeatmap}{DESeqDataSet}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
