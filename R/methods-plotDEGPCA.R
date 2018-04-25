@@ -40,6 +40,7 @@ setMethod(
         interestingGroups,
         alpha,
         lfcThreshold = 0L,
+        direction = c("both", "up", "down"),
         color = scale_color_hue(),
         label = FALSE,
         return = c("ggplot", "data.frame")
@@ -57,10 +58,20 @@ setMethod(
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assertIsColorScaleDiscreteOrNULL(color)
+        direction <- match.arg(direction)
         assert_is_a_bool(label)
         return <- match.arg(return)
 
-        deg <- significants(results, padj = alpha, fc = lfcThreshold)
+        # Get DEG vector using DEGreport
+        if (direction == "both") {
+            direction <- NULL
+        }
+        deg <- significants(
+            results,
+            padj = alpha,
+            fc = lfcThreshold,
+            direction = direction
+        )
 
         # Early return if there are no DEGs
         if (!length(deg)) {
