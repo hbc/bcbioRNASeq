@@ -120,9 +120,9 @@ setMethod(
             )
 
         if (direction == "up") {
-            data <- data[data[[lfcCol]] > 0L, ]
+            data <- data[data[[lfcCol]] > 0L, , drop = FALSE]
         } else if (direction == "down") {
-            data <- data[data[[lfcCol]] < 0L, ]
+            data <- data[data[[lfcCol]] < 0L, , drop = FALSE]
         }
 
         # Gene-to-symbol mappings
@@ -186,10 +186,10 @@ setMethod(
                     values = c(
                         # nonsignificant
                         "0" = pointColor,
-                        # downregulated
-                        "-1" = sigPointColor[[1L]],
                         # upregulated
-                        "1" = sigPointColor[[2L]]
+                        "1" = sigPointColor[[1L]],
+                        # downregulated
+                        "-1" = sigPointColor[[2L]]
                     )
                 )
         }
@@ -201,7 +201,7 @@ setMethod(
         }
         if (is.character(genes)) {
             assert_is_subset(genes, data[["geneID"]])
-            labelData <- data[data[["geneID"]] %in% genes, ]
+            labelData <- data[data[["geneID"]] %in% genes, , drop = FALSE]
             p <- p +
                 .geomLabel(
                     data = labelData,
