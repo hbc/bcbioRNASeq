@@ -188,7 +188,8 @@ biotypetpm = tpm(bcb) %>%
   tibble::rownames_to_column("gene") %>%
   tidyr::gather(sample, tpm, -gene) %>%
   dplyr::left_join(rowData(bcb) %>%
-                   as.data.frame(), by=c("gene"="geneID"))
+                   as.data.frame(), by=c("gene"="geneID")) %>%
+  filter(!is.na(broadClass))
 
 ggplot(biotypetpm, aes(sample, tpm)) +
   geom_violin() +
