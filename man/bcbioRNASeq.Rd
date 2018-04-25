@@ -15,7 +15,7 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
-running \code{bcbio_nextgen -w template}.}
+running "\code{bcbio_nextgen -w template}".}
 
 \item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 

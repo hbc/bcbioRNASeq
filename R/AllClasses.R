@@ -64,7 +64,7 @@ bcbioRNASeq <- setClass(
 #' @inheritParams bcbioBase::prepareSummarizedExperiment
 #' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
-#'   running `bcbio_nextgen -w template`.
+#'   running "`bcbio_nextgen -w template`".
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
 #'   or "`sailfish`".
