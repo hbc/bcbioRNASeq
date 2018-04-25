@@ -57,7 +57,7 @@ labelSep <- " : "
             } else if (test < alpha & lfc > lfcThreshold) {
                 # upregulated
                 1L
-            } else if (test < alpha & lfc < lfcThreshold) {
+            } else if (test < alpha & lfc < -lfcThreshold) {
                 # downregulated
                 -1L
             } else {
