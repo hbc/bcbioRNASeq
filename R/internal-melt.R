@@ -25,7 +25,7 @@
         group_by(!!!syms(c("sampleID", "geneID")))
 
     if (length(sampleData)) {
-        assert_are_identical(colnames(counts), rownames(sampleData))
+        assert_are_set_equal(colnames(counts), rownames(sampleData))
         sampleData[["sampleID"]] <- rownames(sampleData)
         data <- merge(
             x = data,
