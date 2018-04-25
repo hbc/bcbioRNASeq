@@ -282,6 +282,7 @@ setMethod(
 
             # Copy to Dropbox (optional) =======================================
             if (is.character(dropboxDir)) {
+                # nocov start
                 dropboxFiles <- copyToDropbox(
                     files = localFiles,
                     dir = dropboxDir,
@@ -289,6 +290,7 @@ setMethod(
                 )
                 assert_is_list(dropboxFiles)
                 list[["dropboxFiles"]] <- dropboxFiles
+                # nocov end
             }
 
             # Output file information in Markdown format
