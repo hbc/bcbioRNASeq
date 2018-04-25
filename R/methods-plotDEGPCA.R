@@ -78,6 +78,7 @@ setMethod(
             object = rse,
             genes = rownames(rse),
             interestingGroups = interestingGroups,
+            label = label,
             return = return
         )
     }
