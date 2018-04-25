@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Differential Expression Results Tables — resultsTables" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,58 +97,62 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Differential Expression Results Tables</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-resultsTables.R'><code>R/methods-resultsTables.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-resultsTables.R'><code>R/methods-resultsTables.R</code></a></small>
     <div class="hidden name"><code>resultsTables.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Differential Expression Results Tables</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>resultsTables</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>resultsTables</span>(<span class='no'>object</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>rowData</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
+<span class='fu'>resultsTables</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>alpha</span>,
+  <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
+      <th>results</th>
+      <td><p><code>DESeqResults</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p><code>DESeqDataSet</code> containing the counts that were used to generate
+the <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
+      <th>alpha</th>
+      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
-      <th>rowData</th>
-      <td><p>Join Ensembl gene annotations to the results. Apply gene
-identifier to symbol mappings. A previously saved <code>data.frame</code> is
-recommended. Alternatively if set <code>NULL</code>, then gene annotations will not be
-added to the results.</p></td>
+      <th>lfcThreshold</th>
+      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
     </tr>
     <tr>
       <th>summary</th>
       <td><p>Show summary statistics.</p></td>
     </tr>
     <tr>
-      <th>headerLevel</th>
-      <td><p>R Markdown header level.</p></td>
-    </tr>
-    <tr>
       <th>write</th>
       <td><p>Write CSV files to disk.</p></td>
     </tr>
     <tr>
+      <th>headerLevel</th>
+      <td><p>R Markdown header level.</p></td>
+    </tr>
+    <tr>
       <th>dir</th>
-      <td><p>Local directory path where to write the results tables.</p></td>
+      <td><p>Local directory path.</p></td>
     </tr>
     <tr>
       <th>dropboxDir</th>
@@ -164,33 +169,31 @@ package.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Results <code>list</code>.</p>
+    <p><code>list</code> containing modified <code>DESeqResults</code> return, including
+additional gene-level metadata and normalized counts.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Log fold change cutoff ("<code>lfc</code>") does not apply to statistical
-hypothesis testing, only gene filtering in the results tables. See
-<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using <code>lfcThreshold</code>
-and <code>altHypothesis</code> to set an alternative hypothesis based on expected fold
-changes.</p>
+    <p>Log fold change cutoff threshold ("<code>lfcThreshold</code>") does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using
+<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative hypothesis based
+on expected fold changes.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Differential Expression Functions: <code>alphaSummary</code>,
   <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMA</a></code>,
+  <code>plotDEGPCA</code>, <code>plotMeanAverage</code>,
   <code>plotVolcano</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults ====</span>
-<span class='no'>resTbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-    <span class='kw'>rowData</span> <span class='kw'>=</span> <span class='fu'>rowData</span>(<span class='no'>bcb_small</span>),
-    <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-    <span class='kw'>write</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="examples"><div class='input'><span class='co'># DESeqResults, DESeqDataSet ====</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
+    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds_small</span>,
+    <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0.25</span>
 )</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; ## Summary statistics
@@ -199,13 +202,37 @@ changes.</p>
 #&gt; - 500 genes in counts matrix
 #&gt; - Base mean &gt; 0: 500 genes (non-zero)
 #&gt; - Base mean &gt; 1: 500 genes
-#&gt; - Alpha cutoff: 0.1
-#&gt; - LFC cutoff: 0.25 (applied in tables only)
+#&gt; - Alpha: 0.1
+#&gt; - LFC threshold: 0.25
 #&gt; - DEG pass alpha: 254 genes
 #&gt; - DEG LFC up: 115 genes
 #&gt; - DEG LFC down: 139 genes
-#&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>resTbl</span>)</div><div class='output co'>#&gt; [1] "contrast"   "alpha"      "lfc"        "all"        "deg"       
-#&gt; [6] "degLFC"     "degLFCUp"   "degLFCDown"</div></pre>
+#&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "deg"          "degLFC"       "degLFCUp"     "degLFCDown"   "all"         
+#&gt; [6] "contrast"     "alpha"        "lfcThreshold"</div><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='st'>"deg"</span>]])</div><div class='output co'>#&gt; Observations: 254
+#&gt; Variables: 23
+#&gt; $ geneID         &lt;chr&gt; "ENSMUSG00000024164", "ENSMUSG00000029304", "ENSMUSG...
+#&gt; $ baseMean       &lt;dbl&gt; 12562.2432, 69339.5105, 3560.1421, 3544.1246, 3001.7...
+#&gt; $ log2FoldChange &lt;dbl&gt; 8.271529, 5.355205, 4.079595, 3.564108, 3.742423, 5....
+#&gt; $ lfcSE          &lt;dbl&gt; 0.2736384, 0.2861386, 0.2828642, 0.2553612, 0.284346...
+#&gt; $ stat           &lt;dbl&gt; 29.931566, 18.716632, 14.412404, 13.950754, 13.15278...
+#&gt; $ pvalue         &lt;dbl&gt; 7.645607e-197, 3.623490e-78, 4.323962e-47, 3.112976e...
+#&gt; $ padj           &lt;dbl&gt; 3.776930e-194, 8.950019e-76, 7.120125e-45, 3.844525e...
+#&gt; $ seqnames       &lt;fct&gt; 17, 5, 3, 14, 11, 2, 10, 6, 17, 18, 7, 11, 17, 2, 16...
+#&gt; $ start          &lt;int&gt; 57203970, 104435118, 19957054, 65968483, 46735080, 3...
+#&gt; $ end            &lt;int&gt; 57228136, 104441050, 20009145, 65981547, 46779578, 3...
+#&gt; $ width          &lt;int&gt; 24167, 5933, 52092, 13065, 44499, 3620, 4991, 3389, ...
+#&gt; $ strand         &lt;fct&gt; -, +, +, +, +, -, -, -, +, +, -, -, -, -, +, +, +, -...
+#&gt; $ geneName       &lt;chr&gt; "C3", "Spp1", "Cp", "Clu", "Havcr1", "Lcn2", "Lyz2",...
+#&gt; $ geneBiotype    &lt;fct&gt; protein_coding, protein_coding, protein_coding, prot...
+#&gt; $ description    &lt;chr&gt; "complement component 3 [Source:MGI Symbol;Acc:MGI:8...
+#&gt; $ seqCoordSystem &lt;fct&gt; chromosome, chromosome, chromosome, chromosome, chro...
+#&gt; $ broadClass     &lt;fct&gt; coding, coding, coding, coding, coding, coding, codi...
+#&gt; $ controlRep1    &lt;dbl&gt; 7.813753e+01, 2.313604e+03, 3.015620e+02, 5.127776e+...
+#&gt; $ controlRep2    &lt;dbl&gt; 46.84188, 2998.40658, 344.73518, 536.83951, 452.1030...
+#&gt; $ controlRep3    &lt;dbl&gt; 5.622846e+01, 2.733252e+03, 3.798850e+02, 4.457134e+...
+#&gt; $ faDay7Rep1     &lt;dbl&gt; 25465.2621, 182255.3222, 8797.0724, 7941.0384, 4726....
+#&gt; $ faDay7Rep2     &lt;dbl&gt; 25909.906, 121258.268, 6227.052, 5552.369, 5293.052,...
+#&gt; $ faDay7Rep3     &lt;dbl&gt; 23817.0835, 104478.2110, 5310.5459, 6276.0101, 6902....</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

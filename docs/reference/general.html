@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="General Arguments — general" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,18 +97,40 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>General Arguments</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/internal-general.R'><code>R/internal-general.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/internal-general.R'><code>R/internal-general.R</code></a></small>
     <div class="hidden name"><code>general.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>General Arguments</p>
     
+    </div>
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>i</th>
+      <td><p>An integer or numeric scalar.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Value to assign.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
     <tr>
       <th>alpha</th>
       <td><p>Adjusted P value ("alpha") cutoff.</p></td>
@@ -127,6 +150,14 @@ color definitions are desired, we recommend using
     <tr>
       <th>counts</th>
       <td><p>Object containing a normalized counts matrix.</p></td>
+    </tr>
+    <tr>
+      <th>dir</th>
+      <td><p>Local directory path.</p></td>
+    </tr>
+    <tr>
+      <th>direction</th>
+      <td><p>Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
     </tr>
     <tr>
       <th>fill</th>
@@ -154,17 +185,17 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p><
       <td><p>R Markdown header level.</p></td>
     </tr>
     <tr>
-      <th>i</th>
-      <td><p>An integer or numeric scalar.</p></td>
-    </tr>
-    <tr>
       <th>interestingGroups</th>
       <td><p>Character vector denoting groups of interest that
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
+      <th>lfcThreshold</th>
+      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
+    </tr>
+    <tr>
+      <th>limit</th>
+      <td><p>Threshold to denote on the plot, using a dashed line.</p></td>
     </tr>
     <tr>
       <th>minCounts</th>
@@ -180,12 +211,20 @@ define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
 </ul></td>
     </tr>
     <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
+      <th>ntop</th>
+      <td><p>Number of top genes to label.</p></td>
     </tr>
     <tr>
       <th>passLimit</th>
       <td><p>Threshold to plot pass color marker.</p></td>
+    </tr>
+    <tr>
+      <th>pointColor</th>
+      <td><p>Default point color for the plot.</p></td>
+    </tr>
+    <tr>
+      <th>results</th>
+      <td><p><code>DESeqResults</code> object.</p></td>
     </tr>
     <tr>
       <th>return</th>
@@ -197,16 +236,18 @@ the first item in the vector by default.</p></td>
       <td><p>Character vector of samples to include.</p></td>
     </tr>
     <tr>
+      <th>sigPointColor</th>
+      <td><p><code>character</code> vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.</p></td>
+    </tr>
+    <tr>
       <th>subtitle</th>
       <td><p>Subtitle of plot.</p></td>
     </tr>
     <tr>
       <th>title</th>
       <td><p>Title of plot.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>Value to assign.</p></td>
     </tr>
     <tr>
       <th>warnLimit</th>
@@ -216,14 +257,6 @@ the first item in the vector by default.</p></td>
       <th>withDimnames</th>
       <td><p>A <code>logical</code>, indicating whether dimnames should be
 applied to extracted assay elements.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     

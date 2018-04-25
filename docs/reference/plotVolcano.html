@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Plot Volcano — plotVolcano" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,22 +97,24 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Volcano</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotVolcano.R'><code>R/methods-plotVolcano.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotVolcano.R'><code>R/methods-plotVolcano.R</code></a></small>
     <div class="hidden name"><code>plotVolcano.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plot Volcano</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>padj</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lfc</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
-  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='kw'>pointAlpha</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>pointOutlineColor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shadeColor</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>shadeAlpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>labelColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>1e-10</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray50"</span>,
+  <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>upregulated</span> <span class='kw'>=</span> <span class='st'>"purple"</span>, <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
+  <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -123,19 +126,20 @@
     <tr>
       <th>...</th>
       <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
-arguments must be formatted in camel case, not snake case.</p></td>
+arguments should be formatted in camel case, not snake case.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
       <td><p>Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
-      <th>padj</th>
-      <td><p>Use P values adjusted for multiple comparisions.</p></td>
+      <th>lfcThreshold</th>
+      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
     </tr>
     <tr>
-      <th>lfc</th>
-      <td><p>Log fold change ratio (base 2) cutoff.</p></td>
+      <th>ylim</th>
+      <td><p>Upper boundary limit for y-axis. Helps preserve dynamic range
+for gene sets containing highly significant P values (e.g. <code>1e-100</code>).</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -158,31 +162,22 @@ contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     <tr>
       <th>pointColor</th>
-      <td><p>Point color.</p></td>
+      <td><p>Default point color for the plot.</p></td>
     </tr>
     <tr>
-      <th>pointAlpha</th>
-      <td><p>Point transparency alpha.</p></td>
-    </tr>
-    <tr>
-      <th>pointOutlineColor</th>
-      <td><p>Point outline color.</p></td>
-    </tr>
-    <tr>
-      <th>shadeColor</th>
-      <td><p>Shading color for bounding box.</p></td>
-    </tr>
-    <tr>
-      <th>shadeAlpha</th>
-      <td><p>Shading transparency alpha.</p></td>
-    </tr>
-    <tr>
-      <th>labelColor</th>
-      <td><p>Gene label color.</p></td>
+      <th>sigPointColor</th>
+      <td><p><code>character</code> vector containing color names for labeling
+upregulated and downregulated genes. Also supports a character string for
+labeling DEGs with the same color, regardless of direction.</p></td>
     </tr>
     <tr>
       <th>histograms</th>
       <td><p>Show LFC and P value histograms.</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
+the first item in the vector by default.</p></td>
     </tr>
     </table>
     
@@ -196,17 +191,49 @@ contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
 <code>CHBUtils::volcano_density_plot()</code>.</p>
 <p>Other Differential Expression Functions: <code>alphaSummary</code>,
   <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMA</a></code>,
+  <code>plotDEGPCA</code>, <code>plotMeanAverage</code>,
   <code>resultsTables</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults ====</span>
+    <pre class="examples"><div class='input'><span class='no'>gene2symbol</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+
+<span class='co'># DESeqResults ====</span>
+<span class='co'># Color DEGs in each direction separately</span>
 <span class='fu'>plotVolcano</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>c</span>(
+        <span class='kw'>upregulated</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
+        <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
+    )
+)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Label DEGs with a single color</span>
+<span class='fu'>plotVolcano</span>(<span class='no'>res_small</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"purple"</span>)</div><div class='img'><img src='plotVolcano-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Directional support</span>
+<span class='fu'>plotVolcano</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>,
     <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
-    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
-)</div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
+    <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</div><div class='img'><img src='plotVolcano-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotVolcano</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>,
+    <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
+    <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>,
+    <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Return coordinates as a data.frame</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>plotVolcano</span>(<span class='no'>res_small</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Observations: 494
+#&gt; Variables: 7
+#&gt; $ baseMean       &lt;dbl&gt; 12562.2432, 1079.2175, 69339.5105, 2368.9417, 3560.1...
+#&gt; $ log2FoldChange &lt;dbl&gt; 8.271529, 5.897104, 5.355205, 4.539444, 4.079595, 3....
+#&gt; $ padj           &lt;dbl&gt; 3.776930e-194, 8.777282e-33, 8.950019e-76, 6.403761e...
+#&gt; $ negLog10Padj   &lt;dbl&gt; 10.000000, 10.000000, 10.000000, 10.000000, 10.00000...
+#&gt; $ rankScore      &lt;dbl&gt; 82.71529, 58.97104, 53.55205, 45.39444, 40.79595, 37...
+#&gt; $ rank           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
+#&gt; $ isDE           &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1,...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

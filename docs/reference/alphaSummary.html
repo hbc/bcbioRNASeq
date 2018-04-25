@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Alpha Level Cutoff Summary Statistics — alphaSummary" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,13 +97,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Alpha Level Cutoff Summary Statistics</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-alphaSummary.R'><code>R/methods-alphaSummary.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-alphaSummary.R'><code>R/methods-alphaSummary.R</code></a></small>
     <div class="hidden name"><code>alphaSummary.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Alpha Level Cutoff Summary Statistics</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -151,13 +154,13 @@ formula.</p>
     <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>.</p>
 <p>Other Differential Expression Functions: <code>contrastName</code>,
   <code>plotDEGHeatmap</code>, <code>plotDEGPCA</code>,
-  <code><a href='plotMA.html'>plotMA</a></code>, <code>plotVolcano</code>,
+  <code>plotMeanAverage</code>, <code>plotVolcano</code>,
   <code>resultsTables</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>alphaSummary</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Empty design formula detected</span></div><div class='output co'>#&gt; 
+<span class='fu'>alphaSummary</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>converting counts to integer mode</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Empty design formula detected</span></div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; |               |0.1               |0.05              |0.01              |0.001             |1e-06             |
 #&gt; |:--------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|

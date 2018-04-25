@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Methods for Coercing an Object to a Class — coerce" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,13 +97,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Methods for Coercing an Object to a Class</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-coerce.R'><code>R/methods-coerce.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-coerce.R'><code>R/methods-coerce.R</code></a></small>
     <div class="hidden name"><code>coerce.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Methods for Coercing an Object to a Class</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -115,39 +118,49 @@
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>methods::coerce()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
-  <code><a href='show.html'>show</a></code>, <code><a href='subset.html'>subset</a></code>,
+    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='subset.html'>[,bcbioRNASeq,ANY,ANY,ANY-method</a></code>,
+  <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a></code>, <code><a href='show.html'>show</a></code>,
   <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>converting counts to integer mode</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>names</span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  [1] "geneID"                  "geneName"               
+#&gt;  [3] "geneBiotype"             "description"            
+#&gt;  [5] "seqCoordSystem"          "entrezID"               
+#&gt;  [7] "broadClass"              "baseMean"               
+#&gt;  [9] "baseVar"                 "allZero"                
+#&gt; [11] "dispGeneEst"             "dispFit"                
+#&gt; [13] "dispersion"              "dispIter"               
+#&gt; [15] "dispOutlier"             "dispMAP"                
+#&gt; [17] "Intercept"               "SE_Intercept"           
+#&gt; [19] "WaldStatistic_Intercept" "WaldPvalue_Intercept"   
+#&gt; [21] "betaConv"                "betaIter"               
+#&gt; [23] "deviance"                "maxCooks"               </div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 500 6 
-#&gt; metadata(1): version
-#&gt; assays(3): counts mu cooks
+#&gt; metadata(30): version level ... devtoolsSessionInfo subset
+#&gt; assays(8): counts tpm ... mu cooks
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(17): baseMean baseVar ... deviance maxCooks
+#&gt; rowData names(24): geneID geneName ... deviance maxCooks
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(9): sampleID sampleName ... treatment sizeFactor</div><div class='input'>
+#&gt; colData names(26): sampleName day ... xGC sizeFactor</div><div class='input'>
 <span class='co'># RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
 #&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(31): version level ... devtoolsSessionInfo subset
+#&gt; metadata(30): version level ... devtoolsSessionInfo subset
 #&gt; assays(6): counts tpm ... rlog vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
+#&gt; colData names(25): sampleName day ... x5x3Bias xGC</div><div class='input'>
 <span class='co'># SummarizedExperiment ====</span>
 <span class='co'># Coerce to RangedSummarizedExperiment first.</span>
-<span class='co'># Otherwise, rowData will be NULL.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>x</span>, <span class='st'>"SummarizedExperiment"</span>)
 <span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "SummarizedExperiment"
@@ -155,17 +168,13 @@
 #&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
 #&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(31): version level ... devtoolsSessionInfo subset
+#&gt; metadata(30): version level ... devtoolsSessionInfo subset
 #&gt; assays(6): counts tpm ... rlog vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(8): sampleID sampleName ... tissue treatment</div><div class='input'>
-<span class='co'># list ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"list"</span>)
-<span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "list"</div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
-#&gt; [5] "metadata"       </div></pre>
+#&gt; colData names(25): sampleName day ... x5x3Bias xGC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

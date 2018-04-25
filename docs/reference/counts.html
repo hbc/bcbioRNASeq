@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Count Matrix Accessors — counts" />
@@ -44,8 +47,6 @@ argument." />
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -61,7 +62,7 @@ argument." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -98,15 +99,17 @@ argument." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Count Matrix Accessors</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-counts.R'><code>R/methods-counts.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-counts.R'><code>R/methods-counts.R</code></a></small>
     <div class="hidden name"><code>counts.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>By default, <code>counts()</code> returns the raw counts. Normalized counts, including
 transcripts per million (TPM) can be accessed using the "<code>normalized</code>"
 argument.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>counts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -147,8 +150,7 @@ method to apply:</p><ul>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 </ul></div>
     <div class='dont-index'><p>Other Data Functions: <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='selectSamples.html'>selectSamples</a></code>, <code>tmm</code>,
-  <code>tpm</code></p></div>
+  <code>tmm</code>, <code>tpm</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
 <h2 class="hasAnchor">
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(bcbioRNASeq)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/loadRNASeq.html">loadRNASeq</a></span>(</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
@@ -112,113 +112,54 @@
 <li>
 <code>organism</code>: Organism name. Use the full latin name (e.g. “Homo sapiens”).</li>
 </ul>
-<p>Consult <code>help("loadRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
-</div>
-<div id="r-markdown-templates" class="section level2">
-<h2 class="hasAnchor">
-<a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
-<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including Quality Control and Differential Expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, which are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
-<div id="examples" class="section level3">
+<p>Consult <code>help("bcbioRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
+<div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h3>
-<p>View example <a href="http://bcb.io/bcbio_rnaseq_output_example">HTML reports</a> rendered from the default <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates included in the package:</p>
-<ul>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
-</ul>
-</div>
-</div>
-<div id="sample-metadata" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sample-metadata" class="anchor"></a>Sample metadata</h2>
-<p>For a normal bcbio RNA-seq run, the sample metadata will be imported automatically using the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected in the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/loadRNASeq.html">loadRNASeq()</a></code> using the <code>sampleMetadataFile</code> parameter.</p>
-<div id="minimal-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minimal-example" class="anchor"></a>Minimal example</h3>
-<p>The sample IDs in the bcbioRNASeq object map to the <code>description</code> column, which gets sanitized internally into a <code>sampleID</code> column. The sample names provided in the <code>description</code> column must be unique.</p>
+<a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
+<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
+<div id="metadata-file-example" class="section level4">
+<h4 class="hasAnchor">
+<a href="#metadata-file-example" class="anchor"></a>Metadata file example</h4>
+<p>The samples in the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run must map to the <code>description</code> column. The values provided in <code>description</code> must be unique. These values will be sanitized into syntactically valid names (see <code>help("makeNames", "basejump")</code>), and assigned as the column names of the <code>bcbioRNASeq</code> object. The original values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for all plotting functions.</p>
 <table class="table">
 <thead><tr class="header">
-<th>fileName</th>
 <th>description</th>
 <th>genotype</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>sample1_R1.fastq.gz</td>
 <td>sample1</td>
 <td>wildtype</td>
 </tr>
 <tr class="even">
-<td>sample2_R1.fastq.gz</td>
 <td>sample2</td>
 <td>knockout</td>
 </tr>
 <tr class="odd">
-<td>sample3_R1.fastq.gz</td>
 <td>sample3</td>
 <td>wildtype</td>
 </tr>
 <tr class="even">
-<td>sample4_R1.fastq.gz</td>
 <td>sample4</td>
 <td>knockout</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="technical-replicates" class="section level3">
+</div>
+</div>
+<div id="r-markdown-templates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
+<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including quality control, differential expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, and functional enrichment analysis.</p>
+<p>These are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
+<div id="example-renderings" class="section level3">
 <h3 class="hasAnchor">
-<a href="#technical-replicates" class="anchor"></a>Technical replicates</h3>
-<p>Use <code>sampleNameAggregate</code> to assign groupings for technical replicates:</p>
-<table class="table">
-<thead><tr class="header">
-<th>fileName</th>
-<th>description</th>
-<th>sampleNameAggregate</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>wildtype_L001_R1.fastq.gz</td>
-<td>wildtype_L001</td>
-<td>wildtype</td>
-</tr>
-<tr class="even">
-<td>wildtype_L002_R1.fastq.gz</td>
-<td>wildtype_L002</td>
-<td>wildtype</td>
-</tr>
-<tr class="odd">
-<td>wildtype_L003_R1.fastq.gz</td>
-<td>wildtype_L003</td>
-<td>wildtype</td>
-</tr>
-<tr class="even">
-<td>wildtype_L004_R1.fastq.gz</td>
-<td>wildtype_L004</td>
-<td>wildtype</td>
-</tr>
-<tr class="odd">
-<td>mutant_L001_R1.fastq.gz</td>
-<td>mutant_L001</td>
-<td>mutant</td>
-</tr>
-<tr class="even">
-<td>mutant_L002_R1.fastq.gz</td>
-<td>mutant_L002</td>
-<td>mutant</td>
-</tr>
-<tr class="odd">
-<td>mutant_L003_R1.fastq.gz</td>
-<td>mutant_L003</td>
-<td>mutant</td>
-</tr>
-<tr class="even">
-<td>mutant_L004_R1.fastq.gz</td>
-<td>mutant_L004</td>
-<td>mutant</td>
-</tr>
-</tbody>
-</table>
+<a href="#example-renderings" class="anchor"></a>Example renderings</h3>
+<ul>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
+<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
+</ul>
 </div>
 </div>
 <div id="citation" class="section level2">

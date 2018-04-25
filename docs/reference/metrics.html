@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Sample Metrics — metrics" />
@@ -42,8 +45,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -59,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -96,13 +97,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sample Metrics</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-metrics.R'><code>R/methods-metrics.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-metrics.R'><code>R/methods-metrics.R</code></a></small>
     <div class="hidden name"><code>metrics.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Sample Metrics</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>metrics</span>(<span class='no'>object</span>)</pre>
@@ -123,22 +126,20 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
-  <code><a href='selectSamples.html'>selectSamples</a></code>, <code>tmm</code>,
-  <code>tpm</code></p></div>
+  <code>tmm</code>, <code>tpm</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>metrics</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>()</div><div class='output co'>#&gt; Observations: 6
-#&gt; Variables: 26
-#&gt; $ sampleID                      &lt;fct&gt; control_rep1, control_rep2, control_r...
+#&gt; Variables: 25
 #&gt; $ sampleName                    &lt;fct&gt; control_rep1, control_rep2, control_r...
-#&gt; $ description                   &lt;fct&gt; control_rep1, control_rep2, control_r...
 #&gt; $ day                           &lt;fct&gt; 0, 0, 0, 7, 7, 7
+#&gt; $ genomeBuild                   &lt;fct&gt; GRCm38_90, GRCm38_90, GRCm38_90, GRCm...
 #&gt; $ replicate                     &lt;fct&gt; 1, 2, 3, 1, 2, 3
+#&gt; $ samRef                        &lt;fct&gt; /n/app/bcbio/dev/genomes/Mmusculus/GR...
 #&gt; $ strain                        &lt;fct&gt; Balb/c, Balb/c, Balb/c, Balb/c, Balb/...
 #&gt; $ tissue                        &lt;fct&gt; kidney, kidney, kidney, kidney, kidne...
 #&gt; $ treatment                     &lt;fct&gt; control, control, control, folic_acid...
-#&gt; $ interestingGroups             &lt;fct&gt; control, control, control, folic_acid...
 #&gt; $ averageInsertSize             &lt;dbl&gt; 243.3, 254.2, 238.0, 235.2, 248.1, 234.8
 #&gt; $ averageReadLength             &lt;dbl&gt; 50, 50, 50, 50, 50, 50
 #&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0

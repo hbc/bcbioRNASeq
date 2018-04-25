@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
   <link href="../extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Update Object — updateObject" />
@@ -44,8 +47,6 @@ originally loaded into R." />
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -61,7 +62,7 @@ originally loaded into R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
       </span>
     </div>
 
@@ -98,15 +99,17 @@ originally loaded into R." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update Object</h1>
-    <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-updateObject.R'><code>R/methods-updateObject.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-updateObject.R'><code>R/methods-updateObject.R</code></a></small>
     <div class="hidden name"><code>updateObject.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Update old objects created by the bcbioRNASeq package. The session
 information metadata is preserved from the time when the bcbio data was
 originally loaded into R.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>rowRanges</span>)</pre>
@@ -145,13 +148,13 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code>,
-  <code><a href='coerce.html'>coerce</a></code>, <code><a href='show.html'>show</a></code>,
-  <code><a href='subset.html'>subset</a></code></p></div>
+    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='subset.html'>[,bcbioRNASeq,ANY,ANY,ANY-method</a></code>,
+  <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a></code>, <code><a href='coerce.html'>coerce</a></code>,
+  <code><a href='show.html'>show</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.1 to 0.2.1</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.1
+    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.2 to 0.2.2</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.2
 #&gt; Samples: 6
 #&gt; Genes: 500
 #&gt; Organism: Mus musculus
@@ -160,7 +163,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-04-16</div></pre>
+#&gt; R Load Date: 2018-04-24</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
