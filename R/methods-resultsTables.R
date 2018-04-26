@@ -221,6 +221,7 @@ setMethod(
         colData <- colData(counts)
         if ("sampleName" %in% colnames(counts)) {
             colnames(counts) <- colData[["sampleName"]]
+            counts <- counts[, sort(colnames(counts)), drop = FALSE]
         }
         results <- cbind(results, counts)
 
