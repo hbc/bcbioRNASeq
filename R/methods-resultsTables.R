@@ -277,9 +277,19 @@ setMethod(
             names(localFiles) <- names(tables)
 
             # Write the results tables to local directory
-            message(paste(
-                "Writing", toString(basename(localFiles)), "to", dir
-            ))
+            if (length(dropboxDir)) {
+                message(paste(
+                    "Writing",
+                    toString(basename(localFiles)),
+                    "to Dropbox",
+                    paste0("(", dropboxDir, ")")
+                ))
+            } else {
+                message(paste(
+                    "Writing", toString(basename(localFiles)), "to", dir
+                ))
+            }
+
             mapply(
                 x = tables,
                 path = localFiles,
