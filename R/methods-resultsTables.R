@@ -213,10 +213,16 @@ setMethod(
             as("DataFrame")
         # Drop columns already present in results
         rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
-
-        # Bind annotation columns ==============================================
         results <- cbind(results, rowData)
-        results <- cbind(results, counts(counts, normalized = TRUE))
+
+        # Add normalized counts ================================================
+        counts <- counts(counts, normalized = TRUE)
+        # Use the `sampleName` metadata for columns, if defined
+        colData <- colData(counts)
+        if ("sampleName" %in% colnames(counts)) {
+            colnames(counts) <- colData[["sampleName"]]
+        }
+        results <- cbind(results, counts)
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- results %>%
