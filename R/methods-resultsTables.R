@@ -215,15 +215,14 @@ setMethod(
         rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
         results <- cbind(results, rowData)
 
-        # Add normalized counts ================================================
-        counts <- counts(counts, normalized = TRUE)
+        # Add normalized counts matrix =========================================
+        matrix <- counts(counts, normalized = TRUE)
         # Use the `sampleName` metadata for columns, if defined
-        colData <- colData(counts)
-        if ("sampleName" %in% colnames(counts)) {
-            colnames(counts) <- colData[["sampleName"]]
-            counts <- counts[, sort(colnames(counts)), drop = FALSE]
+        if ("sampleName" %in% colnames(colData(counts))) {
+            colnames(matrix) <- colData(counts)[["sampleName"]]
+            matrix <- matrix[, sort(colnames(matrix)), drop = FALSE]
         }
-        results <- cbind(results, counts)
+        results <- cbind(results, matrix)
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- results %>%
