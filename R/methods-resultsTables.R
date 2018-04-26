@@ -55,10 +55,7 @@ NULL
     }
     assert_is_a_string(contrast)
 
-    all <- results %>%
-        as.data.frame() %>%
-        camel()
-
+    all <- as.data.frame(results)
     # DEG tables are sorted by BH adjusted P value
     deg <- all %>%
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
