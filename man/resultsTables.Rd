@@ -37,7 +37,8 @@ the \code{DESeqResults}.}
 \item{dropboxDir}{Dropbox directory path where to archive the results tables
 for permanent storage (e.g. Stem Cell Commons). When this option is
 enabled, unique links per file are generated internally with the rdrop2
-package.}
+package. Note that local files are written to \code{\link[base:tempdir]{base::tempdir()}} and the
+\code{dir} argument is ignored, if this is enabled.}
 
 \item{rdsToken}{RDS file token to use for Dropbox authentication.}
 }

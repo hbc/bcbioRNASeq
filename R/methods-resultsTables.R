@@ -18,7 +18,8 @@
 #' @param dropboxDir Dropbox directory path where to archive the results tables
 #'   for permanent storage (e.g. Stem Cell Commons). When this option is
 #'   enabled, unique links per file are generated internally with the rdrop2
-#'   package.
+#'   package. Note that local files are written to [base::tempdir()] and the
+#'   `dir` argument is ignored, if this is enabled.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
 #' @return `list` containing modified `DESeqResults` return, including
@@ -176,7 +177,13 @@ setMethod(
         assert_all_are_non_negative(lfcThreshold)
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
-        dir <- initializeDirectory(dir)
+
+        # Write local files to tempdir if Dropbox mode is enabled
+        if (is_a_string(dropboxDir)) {
+            dir <- tempdir()
+        } else {
+            dir <- initializeDirectory(dir)
+        }
 
         # Extract internal parameters from DESeqResults object =================
         if (missing(alpha)) {
