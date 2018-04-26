@@ -8,7 +8,7 @@ params:
     design: !r ~ treatment
     contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
-    lfc: 0
+    lfcThreshold: 0
     data_dir: "."
     results_dir: "results/differential_expression"
     dropbox_dir: NULL
@@ -85,7 +85,7 @@ res <- res_shrunken
 saveData(res, res_shrunken, res_unshrunken, dir = params$data_dir)
 ```
 
-We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc`.
+We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfcThreshold`.
 
 
 
@@ -108,7 +108,7 @@ plotMeanAverage(res)
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
-plotVolcano(res, lfc = params$lfc)
+plotVolcano(res, lfcThreshold = params$lfcThreshold)
 ```
 
 
@@ -134,7 +134,7 @@ plotDEGHeatmap(
 res_tbl <- resultsTables(
     results = res,
     counts = dds,
-    lfcThreshold = params$lfc,
+    lfcThreshold = params$lfcThreshold,
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,

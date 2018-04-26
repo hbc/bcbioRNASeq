@@ -12,8 +12,9 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, alpha, lfcThreshold = 0L, color = scale_color_hue(),
-  label = FALSE, title = "deg pca", return = c("ggplot", "data.frame"))
+  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both", "up",
+  "down"), color = scale_color_hue(), label = FALSE, return = c("ggplot",
+  "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -34,14 +35,14 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
+\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
 \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
-
-\item{title}{Title of plot.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}

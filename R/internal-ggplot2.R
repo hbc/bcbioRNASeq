@@ -57,7 +57,7 @@ labelSep <- " : "
             } else if (test < alpha & lfc > lfcThreshold) {
                 # upregulated
                 1L
-            } else if (test < alpha & lfc < lfcThreshold) {
+            } else if (test < alpha & lfc < -lfcThreshold) {
                 # downregulated
                 -1L
             } else {
@@ -74,7 +74,7 @@ labelSep <- " : "
 
 
 
-.geomLabel <- function(data, mapping, size = 4L) {
+.geomLabel <- function(data = NULL, mapping = NULL, size = 4L) {
     geom_label_repel(
         data = data,
         mapping = mapping,

@@ -15,7 +15,7 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
-running \code{bcbio_nextgen -w template}.}
+running "\code{bcbio_nextgen -w template}".}
 
 \item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
 
@@ -163,8 +163,8 @@ validObject(x)
 \item \code{.S4methods(class = "bcbioRNASeq")}.
 }
 
-Other S4 Class Definition: \code{\link{[,bcbioRNASeq,ANY,ANY,ANY-method}},
-  \code{\link{coerce}}, \code{\link{show}},
+Other S4 Class Definition: \code{\link{coerce}},
+  \code{\link{show}}, \code{\link{subset}},
   \code{\link{updateObject}}
 }
 \author{

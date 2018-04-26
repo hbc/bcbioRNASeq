@@ -2,7 +2,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 
 
-#' @rdname bcbioRNASeq-class
+#' @rdname bcbioRNASeq
 #' @aliases NULL
 #' @exportClass bcbioRNASeq
 #' @usage NULL
@@ -55,7 +55,7 @@ bcbioRNASeq <- setClass(
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
-#' @rdname bcbioRNASeq-class
+#' @rdname bcbioRNASeq
 #' @aliases bcbioRNASeq-class
 #' @docType class
 #' @family S4 Class Definition
@@ -64,7 +64,7 @@ bcbioRNASeq <- setClass(
 #' @inheritParams bcbioBase::prepareSummarizedExperiment
 #' @inheritParams general
 #' @param uploadDir Path to final upload directory. This path is set when
-#'   running `bcbio_nextgen -w template`.
+#'   running "`bcbio_nextgen -w template`".
 #' @param level Import counts as "`genes`" (default) or "`transcripts`".
 #' @param caller Expression caller. Supports "`salmon`" (default), "`kallisto`",
 #'   or "`sailfish`".

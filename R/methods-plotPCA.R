@@ -51,6 +51,7 @@ setMethod(
         color = scale_color_hue(),
         label = FALSE,
         title = "pca",
+        subtitle = NULL,
         return = c("ggplot", "data.frame")
     ) {
         # Legacy arguments =====================================================
@@ -146,6 +147,7 @@ setMethod(
             coord_fixed() +
             labs(
                 title = title,
+                subtitle = subtitle,
                 x = paste0("pc1: ", percentVar[[1L]], "% variance"),
                 y = paste0("pc2: ", percentVar[[2L]], "% variance"),
                 color = paste(interestingGroups, collapse = ":\n")
@@ -156,26 +158,7 @@ setMethod(
         }
 
         if (isTRUE(label)) {
-            p <- p +
-                geom_text_repel(
-                    # Color the labels to match the points
-                    aes_string(label = "label"),
-                    color = "black",
-                    fontface = "bold",
-                    # Add extra padding around each text label
-                    box.padding = unit(0.5, "lines"),
-                    # Add extra padding around each data point
-                    point.padding = unit(1.5, "lines"),
-                    # Color of the line segments
-                    segment.color = "gray",
-                    # Width of the line segments
-                    segment.size = 0.5,
-                    # Draw an arrow from the label to the data point
-                    arrow = arrow(length = unit(0.01, "npc")),
-                    # Strength of the repulsion force
-                    force = 1L,
-                    show.legend = FALSE
-                )
+            p <- p + .geomLabel(mapping = aes_string(label = "label"))
         }
 
         p

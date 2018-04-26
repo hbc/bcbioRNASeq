@@ -18,7 +18,8 @@
 #' @param dropboxDir Dropbox directory path where to archive the results tables
 #'   for permanent storage (e.g. Stem Cell Commons). When this option is
 #'   enabled, unique links per file are generated internally with the rdrop2
-#'   package.
+#'   package. Note that local files are written to [base::tempdir()] and the
+#'   `dir` argument is ignored, if this is enabled.
 #' @param rdsToken RDS file token to use for Dropbox authentication.
 #'
 #' @return `list` containing modified `DESeqResults` return, including
@@ -55,10 +56,7 @@ NULL
     }
     assert_is_a_string(contrast)
 
-    all <- results %>%
-        as.data.frame() %>%
-        camel()
-
+    all <- as.data.frame(results)
     # DEG tables are sorted by BH adjusted P value
     deg <- all %>%
         .[!is.na(.[["padj"]]), , drop = FALSE] %>%
@@ -179,7 +177,13 @@ setMethod(
         assert_all_are_non_negative(lfcThreshold)
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
-        dir <- initializeDirectory(dir)
+
+        # Write local files to tempdir if Dropbox mode is enabled
+        if (is_a_string(dropboxDir)) {
+            dir <- tempdir()
+        } else {
+            dir <- initializeDirectory(dir)
+        }
 
         # Extract internal parameters from DESeqResults object =================
         if (missing(alpha)) {
@@ -213,10 +217,16 @@ setMethod(
             as("DataFrame")
         # Drop columns already present in results
         rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
-
-        # Bind annotation columns ==============================================
         results <- cbind(results, rowData)
-        results <- cbind(results, counts(counts, normalized = TRUE))
+
+        # Add normalized counts matrix =========================================
+        matrix <- counts(counts, normalized = TRUE)
+        # Use the `sampleName` metadata for columns, if defined
+        if ("sampleName" %in% colnames(colData(counts))) {
+            colnames(matrix) <- colData(counts)[["sampleName"]]
+            matrix <- matrix[, sort(colnames(matrix)), drop = FALSE]
+        }
+        results <- cbind(results, matrix)
 
         # Check for overall gene expression with base mean
         baseMeanGt0 <- results %>%
@@ -233,10 +243,15 @@ setMethod(
             contrast = contrast
         )
 
+        # Print a markdown header containing the contrast (useful for looping)
+        if (isTRUE(summary) || isTRUE(write)) {
+            markdownHeader(contrast, level = headerLevel, asis = TRUE)
+        }
+
         if (isTRUE(summary)) {
             markdownHeader(
                 "Summary statistics",
-                level = headerLevel,
+                level = headerLevel + 1L,
                 asis = TRUE
             )
             markdownList(c(
@@ -262,9 +277,19 @@ setMethod(
             names(localFiles) <- names(tables)
 
             # Write the results tables to local directory
-            message(paste(
-                "Writing", toString(basename(localFiles)), "to", dir
-            ))
+            if (length(dropboxDir)) {
+                message(paste(
+                    "Writing",
+                    toString(basename(localFiles)),
+                    "to Dropbox",
+                    paste0("(", dropboxDir, ")")
+                ))
+            } else {
+                message(paste(
+                    "Writing", toString(basename(localFiles)), "to", dir
+                ))
+            }
+
             mapply(
                 x = tables,
                 path = localFiles,
@@ -294,7 +319,7 @@ setMethod(
             }
 
             # Output file information in Markdown format
-            .markdownResultsTables(list, headerLevel = headerLevel)
+            .markdownResultsTables(list, headerLevel = headerLevel + 1L)
         }
 
         list

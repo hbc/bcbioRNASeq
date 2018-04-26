@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person(
         given = "Michael",
@@ -107,10 +107,16 @@ Depends:
     DESeq2
 Imports:
     BiocGenerics,
-    DEGreport (>= 1.15),
+    DEGreport (>= 1.14),
     GenomicFeatures,
     S4Vectors,
-    assertive,
+    assertive.base,
+    assertive.files,
+    assertive.numbers,
+    assertive.properties,
+    assertive.sets,
+    assertive.strings,
+    assertive.types,
     basejump (>= 0.5.2),
     cowplot,
     dplyr (>= 0.7),
@@ -146,7 +152,6 @@ Suggests:
     tidyverse
 Remotes:
     hbc/bcbioBase,
-    lpantano/DEGreport,
     steinbaugh/basejump
 biocViews:
     DataImport,

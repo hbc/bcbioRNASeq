@@ -5,7 +5,7 @@
 #' DESeq2 transformations can be disabled on large subset operations by setting
 #' `transform = FALSE`.
 #'
-#' @rdname subset
+#' @name subset
 #' @family S4 Class Definition
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
@@ -13,7 +13,6 @@
 #' @inheritParams general
 #'
 #' @return `bcbioRNASeq`.
-#' @export
 #'
 #' @seealso `help("[", "base")`.
 #'
@@ -34,6 +33,13 @@
 #' subset <- bcb_small[genes, samples]
 #' print(subset)
 #' assayNames(subset)
+NULL
+
+
+
+# Methods ======================================================================
+#' @rdname subset
+#' @export
 setMethod(
     "[",
     signature(
