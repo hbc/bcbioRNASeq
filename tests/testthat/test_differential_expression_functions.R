@@ -136,13 +136,17 @@ test_that("resultsTables : Summary and write support", {
         type = "output"
     ) %>%
         # Just evaluate the R Markdown output
-        head(24L)
+        head(28L)
     expect_identical(
         output,
         c(
             "",
             "",
-            "## Summary statistics",
+            "## treatment folic acid vs control",
+            "",
+            "",
+            "",
+            "### Summary statistics",
             "",
             "",
             "- 500 genes in counts matrix",
@@ -156,7 +160,7 @@ test_that("resultsTables : Summary and write support", {
             "",
             "",
             "",
-            "## Results tables",
+            "### Results tables",
             "",
             "",
             paste0(
