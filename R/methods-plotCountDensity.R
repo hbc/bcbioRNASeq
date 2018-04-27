@@ -39,6 +39,8 @@ setMethod(
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         normalized <- match.arg(normalized)
         style <- match.arg(style)

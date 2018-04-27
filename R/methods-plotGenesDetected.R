@@ -32,6 +32,8 @@ setMethod(
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
@@ -42,12 +44,10 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        metrics <- metrics(object) %>%
-            uniteInterestingGroups(interestingGroups)
         counts <- counts(object, normalized = FALSE)
 
         p <- ggplot(
-            data = metrics,
+            data = metrics(object),
             mapping = aes_(
                 x = ~sampleName,
                 y = colSums(counts >= minCounts),

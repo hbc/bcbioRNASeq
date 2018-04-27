@@ -78,6 +78,8 @@ setMethod(
         assertIsCharacterOrNULL(samples)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         assertFormalInterestingGroups(colData(object), interestingGroups)
         assertIsColorScaleDiscreteOrNULL(color)
@@ -96,18 +98,14 @@ setMethod(
 
         # Subset genes, if desired
         if (length(genes)) {
-            object <- object[genes, ]
+            object <- object[genes, , drop = FALSE]
             # Set ntop to the number of genes requested
             ntop <- length(genes)
-            message(paste(
-                "Plotting PCA using", ntop, "genes"
-            ))
+            message(paste("Plotting PCA using", ntop, "genes"))
         } else {
             # Recommended DESeq default of most variable genes
             ntop <- 500L
-            message(paste(
-                "Plotting PCA using top", ntop, "most variable genes"
-            ))
+            message(paste("Plotting PCA using", ntop, "most variable genes"))
         }
 
         # Get PCA data using DESeqTransform method =============================

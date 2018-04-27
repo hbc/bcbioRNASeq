@@ -226,14 +226,16 @@ setMethod(
         return = c("facet", "wide", "grid", "markdown", "list")
     ) {
         validObject(object)
+        assert_is_character(genes)
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
+        }
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAHeaderLevel(headerLevel)
         return <- match.arg(return)
-
-        if (!missing(interestingGroups)) {
-            interestingGroups(object) <- interestingGroups
-        }
 
         rse <- as(object, "RangedSummarizedExperiment")
         rse <- rse[genes, , drop = FALSE]

@@ -35,6 +35,8 @@ setMethod(
         normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         assertIsAnImplicitInteger(minCounts)
         assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
@@ -42,12 +44,10 @@ setMethod(
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAStringOrNULL(title)
 
-        metrics <- metrics(object) %>%
-            uniteInterestingGroups(interestingGroups)
         counts <- counts(object, normalized = normalized)
 
         p <- ggplot(
-            data = metrics,
+            data = metrics(object),
             mapping = aes_(
                 x = ~mappedReads / 1e6L,
                 y = colSums(counts >= minCounts),
