@@ -508,20 +508,21 @@ setValidity(
         assert_is_all_of(rowData(object), "DataFrame")
 
         # Column data ==========================================================
-        # metrics
-        if (is.data.frame(metadata(object)[["metrics"]])) {
+        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
+
+        # Metadata =============================================================
+        metadata <- metadata(object)
+
+        # Check that interesting groups defined in metadata are valid
+        interestingGroups(object)
+
+        # Detect legacy metrics
+        if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
                 "`metrics` saved in `metadata()` instead of `colData()`.",
                 bcbioBase::updateMessage
             ))
         }
-        assert_are_disjoint_sets(
-            x = colnames(colData(object)),
-            y = legacyMetricsCols
-        )
-
-        # Metadata =============================================================
-        metadata <- metadata(object)
 
         # Detect legacy slots
         legacyMetadata <- c(
