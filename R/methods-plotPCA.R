@@ -81,7 +81,6 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
-        assertFormalInterestingGroups(colData(object), interestingGroups)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
         assertIsAStringOrNULL(title)

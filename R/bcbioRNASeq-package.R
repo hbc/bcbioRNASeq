@@ -111,7 +111,4 @@
 #' @importFrom basejump assertIsFillScaleDiscreteOrNULL
 #' @importFrom basejump assertIsTx2gene
 #' @importFrom basejump hasRownames
-#'
-#' @importFrom bcbioBase assertFormalAnnotationCol
-#' @importFrom bcbioBase assertFormalInterestingGroups
 NULL
