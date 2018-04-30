@@ -162,23 +162,31 @@ keep_biotypes <- rowData(bcb) %>%
 biotype_tpm <- tpm(bcb) %>%
     as.data.frame() %>%
     rownames_to_column("geneID") %>%
-    gather(key = sample, value = tpm, -geneID) %>%
+    gather(key = sampleID, value = tpm, -geneID) %>%
     left_join(as.data.frame(rowData(bcb)), by = "geneID") %>%
     filter(geneBiotype %in% keep_biotypes) %>%
     filter(tpm > 0)
 
 ggplot(
     data = biotype_tpm,
-    mapping = aes(sample, tpm)
+    mapping = aes(
+        x = sampleID,
+        y = tpm,
+        fill = sampleID
+    )
 ) +
-    geom_violin() +
+    geom_violin(
+        color = "black",
+        scale = "area"
+    ) +
     scale_y_log10() +
-    facet_wrap(~geneBiotype) +
+    facet_wrap(~geneBiotype, scales = "free_y") +
     labs(
         title = "tpm per biotype",
-        x = NULL,
+        x = "sample",
         y = "transcripts per million (tpm)"
     ) +
+    guides(fill = FALSE) +
     theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
 ```
 
@@ -189,23 +197,31 @@ asis_output("The Ensembl biotype clasifications are too specific to plot them al
 broad_tpm <- tpm(bcb) %>%
     as.data.frame() %>%
     rownames_to_column("geneID") %>%
-    gather(key = sample, value = tpm, -geneID) %>%
+    gather(key = sampleID, value = tpm, -geneID) %>%
     left_join(as.data.frame(rowData(bcb)), by = "geneID") %>%
     filter(!is.na(broadClass)) %>%
     filter(tpm > 0)
 
 ggplot(
     data = broad_tpm,
-    mapping = aes(sample, tpm)
+    mapping = aes(
+        x = sampleID,
+        y = tpm,
+        fill = sampleID
+    )
 ) +
-    geom_violin() +
-    facet_wrap(~broadClass) +
+    geom_violin(
+        color = "black",
+        scale = "area"
+    ) +
+    facet_wrap(~broadClass, scales = "free_y") +
     scale_y_log10() +
     labs(
         title = "tpm per broad biotype class",
-        x = NULL,
+        x = "sample",
         y = "transcripts per million (tpm)"
     ) +
+    guides(fill = FALSE) +
     theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
 ```
 
