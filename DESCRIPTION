@@ -151,7 +151,7 @@ Suggests:
     testthat,
     tidyverse
 Remotes:
-    hbc/bcbioBase@develop,
+    hbc/bcbioBase,
     steinbaugh/basejump
 biocViews:
     DataImport,
