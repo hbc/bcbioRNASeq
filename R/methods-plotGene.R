@@ -79,7 +79,7 @@ NULL
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
-                theme(legend.position = "none")
+                guides(color = "none")
 
             if (
                 isTRUE(medianLine) &&
