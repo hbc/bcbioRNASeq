@@ -10,7 +10,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-03-17
+# Last modified 2018-04-30
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -144,6 +144,69 @@ Generally, we expect similar count spreads for all genes between samples unless 
 
 ```{r plot_counts_per_gene}
 plotCountsPerGene(bcb, normalized = "tmm")
+```
+
+
+```{r plot_biotype, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE}
+mdHeader("TPM per biotype", level = 2)
+asis_output("Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.")
+
+keep_biotypes <- rowData(bcb) %>%
+    as.data.frame() %>%
+    group_by(geneBiotype) %>%
+    summarise(nBiotype = n()) %>%
+    arrange(-nBiotype) %>%
+    top_n(12, wt = nBiotype) %>%
+    pull(geneBiotype) %>%
+    droplevels()
+biotype_tpm <- tpm(bcb) %>%
+    as.data.frame() %>%
+    rownames_to_column("geneID") %>%
+    gather(key = sample, value = tpm, -geneID) %>%
+    left_join(as.data.frame(rowData(bcb)), by = "geneID") %>%
+    filter(geneBiotype %in% keep_biotypes) %>%
+    filter(tpm > 0)
+
+ggplot(
+    data = biotype_tpm,
+    mapping = aes(sample, tpm)
+) +
+    geom_violin() +
+    scale_y_log10() +
+    facet_wrap(~geneBiotype) +
+    labs(
+        title = "tpm per biotype",
+        x = NULL,
+        y = "transcripts per million (tpm)"
+    ) +
+    theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
+```
+
+```{r plot_broad_class, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE}
+mdHeader("TPM per broad biotype class", level = 2)
+asis_output("The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.")
+
+broad_tpm <- tpm(bcb) %>%
+    as.data.frame() %>%
+    rownames_to_column("geneID") %>%
+    gather(key = sample, value = tpm, -geneID) %>%
+    left_join(as.data.frame(rowData(bcb)), by = "geneID") %>%
+    filter(!is.na(broadClass)) %>%
+    filter(tpm > 0)
+
+ggplot(
+    data = broad_tpm,
+    mapping = aes(sample, tpm)
+) +
+    geom_violin() +
+    facet_wrap(~broadClass) +
+    scale_y_log10() +
+    labs(
+        title = "tpm per broad biotype class",
+        x = NULL,
+        y = "transcripts per million (tpm)"
+    ) +
+    theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
 ```
 
 
