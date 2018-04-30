@@ -514,7 +514,10 @@ setValidity(
         metadata <- metadata(object)
 
         # Check that interesting groups defined in metadata are valid
-        interestingGroups(object)
+        assert_is_subset(
+            x = metadata[["interestingGroups"]],
+            y = colnames(colData(object))
+        )
 
         # Detect legacy metrics
         if (is.data.frame(metadata[["metrics"]])) {
