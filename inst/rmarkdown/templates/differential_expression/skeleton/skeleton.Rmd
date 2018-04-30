@@ -15,7 +15,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-03-17
+# Last modified 2018-04-30
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -66,7 +66,7 @@ alphaSummary(dds)
 #   2. Numerator for LFC (expt).
 #   3. Denominator for LFC (control).
 res_unshrunken <- results(
-    dds,
+    object = dds,
     contrast = params$contrast,
     alpha = params$alpha
 )
@@ -119,10 +119,21 @@ This plot shows only differentially expressed genes on a per-sample basis. We ha
 ```{r plot_deg_heatmap}
 # help("pheatmap", "pheatmap")
 plotDEGHeatmap(
-    res,
+    results = res,
     counts = rld,
     clusteringMethod = "ward.D2",
     scale = "row"
+)
+```
+
+
+## PCA
+
+```{r plot_deg_pca}
+plotDEGPCA(
+    results = res,
+    counts = rld,
+    label = TRUE
 )
 ```
 
