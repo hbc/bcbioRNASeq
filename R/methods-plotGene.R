@@ -24,8 +24,9 @@
 #' genes <- head(rownames(bcb_small), 8L)
 #'
 #' # bcbioRNASeq ====
-#' plotGene(bcb_small, genes = genes, return = "grid")
+#' plotGene(bcb_small, genes = genes, return = "facet")
 #' plotGene(bcb_small, genes = genes, return = "wide")
+#' plotGene(bcb_small, genes = genes, return = "grid")
 #'
 #' # DESeqDataSet ====
 #' plotGene(dds_small, genes = genes)
@@ -68,18 +69,16 @@ NULL
                 )
             ) +
                 .genePoint() +
-                theme(
-                    axis.text.x = element_text(
-                        angle = 90L, hjust = 1L, vjust = 0.5
-                    )
-                ) +
                 labs(
                     title = geneID,
                     x = NULL,
                     y = countsAxisLabel,
                     color = paste(interestingGroups, collapse = ":\n")
                 ) +
-                theme(legend.position = "none")
+                theme(
+                    axis.text.x = element_blank(),
+                    axis.ticks.x = element_blank()
+                )
 
             if (
                 isTRUE(medianLine) &&
@@ -128,14 +127,15 @@ NULL
         )
     ) +
         .genePoint() +
-        theme(
-            axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
-        ) +
         facet_wrap(facets = "geneID", scales = "free") +
         labs(
             x = NULL,
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
+        ) +
+        theme(
+            axis.text.x = element_blank(),
+            axis.ticks.x = element_blank()
         )
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
@@ -183,9 +183,6 @@ NULL
         )
     ) +
         .genePoint() +
-        theme(
-            axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5)
-        ) +
         labs(
             x = NULL,
             y = countsAxisLabel,
