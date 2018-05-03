@@ -80,6 +80,7 @@ labelSep <- " : "
         mapping = mapping,
         arrow = arrow(length = unit(0.01, "npc")),
         box.padding = unit(0.5, "lines"),
+        fill = "white",
         fontface = "bold",
         force = 1L,
         point.padding = unit(0.75, "lines"),
