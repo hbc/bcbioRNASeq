@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Quality control and differential expression for bcbio RNA-seq and
     small RNA-seq experiments.
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person(
         given = "Michael",
@@ -103,7 +103,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.2.8),
+    bcbioBase (>= 0.2.9),
     DESeq2
 Imports:
     BiocGenerics,
@@ -117,7 +117,7 @@ Imports:
     assertive.sets,
     assertive.strings,
     assertive.types,
-    basejump (>= 0.5.2),
+    basejump,
     cowplot,
     dplyr (>= 0.7),
     edgeR,

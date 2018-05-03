@@ -87,6 +87,16 @@ setMethod(
             assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
         }
 
+        # Column data ==========================================================
+        # Ensure factors get releveled
+        colData <- colData(rse) %>%
+            as.data.frame() %>%
+            rownames_to_column() %>%
+            mutate_if(is.character, as.factor) %>%
+            mutate_if(is.factor, droplevels) %>%
+            column_to_rownames() %>%
+            as("DataFrame")
+
         # Metadata =============================================================
         metadata <- metadata(rse)
         metadata[["subset"]] <- TRUE
@@ -100,7 +110,7 @@ setMethod(
         .new.bcbioRNASeq(
             assays = assays,
             rowRanges = rowRanges(rse),
-            colData = colData(rse),
+            colData = colData,
             metadata = metadata
         )
     }
