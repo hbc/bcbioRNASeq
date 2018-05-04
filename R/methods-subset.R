@@ -65,14 +65,14 @@ setMethod(
         # Require at least 2 samples
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
-        # Early return if dimensions are unmodified
-        if (identical(dim(x), c(length(i), length(j)))) {
-            return(x)
-        }
-
         # Regenerate RangedSummarizedExperiment
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = drop]
+
+        # Early return if dimensions are unmodified
+        if (identical(dim(rse), dim(x))) {
+            return(x)
+        }
 
         # Assays ===============================================================
         assays <- assays(rse)
