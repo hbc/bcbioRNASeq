@@ -1,24 +1,3 @@
-lineColor <- "black"
-
-# Quality control plot colors (from inferno)
-qcPassColor <- "#000004"
-qcWarnColor <- "#BB3754"
-qcFailColor <- "#FCFFA4"
-qcCutoffColor <- "black"
-
-# Quality control label appearance
-qcLabelAlpha <- 0.75
-qcLabelColor <- "white"
-qcLabelFill <- "black"
-qcLabelFontface <- "bold"
-qcLabelPadding <- grid::unit(0.2, "lines")
-qcLabelSize <- NA
-
-# Plot label separator
-labelSep <- " : "
-
-
-
 # ggproto objects ==============================================================
 .geneMedianLine <- stat_summary(
     fun.y = median,
@@ -70,24 +49,6 @@ labelSep <- " : "
     isDE <- as.factor(isDE)
     data[["isDE"]] <- isDE
     data
-}
-
-
-
-.geomLabel <- function(data = NULL, mapping = NULL, size = 4L) {
-    geom_label_repel(
-        data = data,
-        mapping = mapping,
-        arrow = arrow(length = unit(0.01, "npc")),
-        box.padding = unit(0.5, "lines"),
-        fill = "white",
-        fontface = "bold",
-        force = 1L,
-        point.padding = unit(0.75, "lines"),
-        segment.size = 0.5,
-        show.legend = FALSE,
-        size = size
-    )
 }
 
 
