@@ -107,7 +107,7 @@ Depends:
     DESeq2 (>= 1.20)
 Imports:
     BiocGenerics,
-    DEGreport (>= 1.16),
+    DEGreport (>= 1.15),
     GenomicFeatures,
     S4Vectors,
     assertive.base,
