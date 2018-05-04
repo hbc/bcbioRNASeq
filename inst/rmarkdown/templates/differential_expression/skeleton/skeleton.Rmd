@@ -42,7 +42,8 @@ invisible(validObject(bcb))
 dds <- as(bcb, "DESeqDataSet")
 design(dds) <- params$design
 dds <- DESeq(dds)
-rld <- rlog(dds)
+# Alternatively, can use `rlog()`
+rld <- varianceStabilizingTransformation(dds)
 ```
 
 
