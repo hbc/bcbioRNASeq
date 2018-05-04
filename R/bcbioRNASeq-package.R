@@ -22,8 +22,9 @@
 #'   fixNA initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF
 #'   makeNames makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist
 #'   readYAML sanitizeRowData sanitizeSampleData snake
-#' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label copyToDropbox
-#'   flatFiles gene2symbol interestingGroups interestingGroups<- plotHeatmap
+#' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
+#'   bcbio_geom_label_repel copyToDropbox flatFiles gene2symbol
+#'   interestingGroups interestingGroups<- plotHeatmap
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleData sampleDirs uniteInterestingGroups
