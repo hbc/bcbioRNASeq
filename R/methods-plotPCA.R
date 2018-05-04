@@ -155,7 +155,9 @@ setMethod(
         }
 
         if (isTRUE(label)) {
-            p <- p + .geomLabel(mapping = aes_string(label = "label"))
+            p <- p + bcbio_geom_label_repel(
+                mapping = aes_string(label = "label")
+            )
         }
 
         p
