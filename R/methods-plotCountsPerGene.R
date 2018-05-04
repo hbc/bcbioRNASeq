@@ -70,7 +70,7 @@ setMethod(
                 fill = "interestingGroups"
             )
         ) +
-            geom_boxplot(color = lineColor, outlier.shape = NA) +
+            geom_boxplot(color = "black", outlier.shape = NA) +
             labs(
                 title = title,
                 subtitle = subtitle,
