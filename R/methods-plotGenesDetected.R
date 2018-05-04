@@ -60,13 +60,13 @@ setMethod(
             ) +
             labs(
                 title = title,
-                x = "sample",
+                x = NULL,
                 y = "gene count",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (is_positive(limit)) {
-            p <- p + .qcLine(limit)
+            p <- p + bcbio_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

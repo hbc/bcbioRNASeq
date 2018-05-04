@@ -54,13 +54,13 @@ setMethod(
             ) +
             labs(
                 title = title,
-                x = "sample",
+                x = NULL,
                 y = "mapped reads per million",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (is_positive(limit)) {
-            p <- p + .qcLine(limit)
+            p <- p + bcbio_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

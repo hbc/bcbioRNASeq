@@ -60,29 +60,3 @@
         position = position_jitterdodge(dodge.width = 0.9)
     )
 }
-
-
-
-.qcLine <- function(
-    intercept,
-    alpha = 0.75,
-    color = "black",
-    linetype = "dashed",
-    size = 1L
-) {
-    assert_is_a_number(intercept)
-    assert_all_are_non_negative(intercept)
-    assert_is_a_number(alpha)
-    assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
-    assert_is_a_string(color)
-    assert_is_a_string(linetype)
-    assert_is_a_number(size)
-    assert_all_are_positive(size)
-    geom_hline(
-        alpha = alpha,
-        color = color,
-        linetype = linetype,
-        size = size,
-        yintercept = intercept
-    )
-}
