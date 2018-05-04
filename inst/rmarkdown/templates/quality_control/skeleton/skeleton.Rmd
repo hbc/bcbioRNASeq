@@ -183,7 +183,7 @@ ggplot(
     facet_wrap(~geneBiotype, scales = "free_y") +
     labs(
         title = "tpm per biotype",
-        x = "sample",
+        x = NULL,
         y = "transcripts per million (tpm)"
     ) +
     guides(fill = FALSE) +
@@ -219,7 +219,7 @@ ggplot(
     scale_y_log10() +
     labs(
         title = "tpm per broad biotype class",
-        x = "sample",
+        x = NULL,
         y = "transcripts per million (tpm)"
     ) +
     guides(fill = FALSE) +
