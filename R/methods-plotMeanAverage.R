@@ -150,7 +150,7 @@ setMethod(
             max() %>%
             log10() %>%
             ceiling()
-        xBreaks <- 10 ^ seq(from = xFloor, to = xCeiling, by = 1L)
+        xBreaks <- 10L ^ seq(from = xFloor, to = xCeiling, by = 1L)
 
         p <- ggplot(
             data = data,

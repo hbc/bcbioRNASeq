@@ -176,7 +176,7 @@ test_that("subset : Minimal selection ranges", {
 
 
 
-# bcbioRNASeq ===================================================================
+# bcbioRNASeq ==================================================================
 test_that("bcbioRNASeq : organism = NULL", {
     x <- bcbioRNASeq(
         uploadDir = uploadDir,

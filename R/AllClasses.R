@@ -468,7 +468,6 @@ bcbioRNASeq <- function(
 
 
 
-# TODO Consider erroring on `sampleID` and `description` columns in colData
 # Validity Checks ==============================================================
 setValidity(
     "bcbioRNASeq",
