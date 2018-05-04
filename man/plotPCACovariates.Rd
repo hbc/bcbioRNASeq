@@ -10,7 +10,7 @@
 plotPCACovariates(object, ...)
 
 \S4method{plotPCACovariates}{bcbioRNASeq}(object, metrics = TRUE,
-  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{object}{Object.}

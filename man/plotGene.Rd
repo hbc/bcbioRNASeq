@@ -14,8 +14,8 @@
   color = scale_color_hue(), headerLevel = 2L, return = c("facet", "wide",
   "grid", "markdown", "list"))
 
-\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tpm"),
-  ...)
+\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
+  "tpm", "rle"), ...)
 
 \S4method{plotGene}{DESeqDataSet}(object, ...)
 

@@ -7,8 +7,8 @@
 \alias{plotCorrelationHeatmap,DESeqDataSet-method}
 \title{Plot Correlation Heatmap}
 \usage{
-\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("rlog",
-  "vst", "tmm", "tpm"), ...)
+\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("vst",
+  "rlog", "tmm", "tpm", "rle"), ...)
 
 \S4method{plotCorrelationHeatmap}{DESeqDataSet}(object, ...)
 }

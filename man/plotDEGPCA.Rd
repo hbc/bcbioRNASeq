@@ -19,7 +19,7 @@ plotDEGPCA(results, counts, ...)
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(results, counts,
-  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults} object.}

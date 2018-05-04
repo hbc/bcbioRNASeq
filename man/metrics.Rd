@@ -6,10 +6,13 @@
 \alias{metrics,bcbioRNASeq-method}
 \title{Sample Metrics}
 \usage{
-\S4method{metrics}{bcbioRNASeq}(object)
+\S4method{metrics}{bcbioRNASeq}(object, interestingGroups)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 }
 \value{
 \code{data.frame}.
