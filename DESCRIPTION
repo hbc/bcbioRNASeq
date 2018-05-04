@@ -145,7 +145,6 @@ Suggests:
     clusterProfiler,
     formatR,
     pathview,
-    pryr,
     rmarkdown,
     sessioninfo,
     testthat,
