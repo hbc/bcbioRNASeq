@@ -102,12 +102,12 @@ Encoding: UTF-8
 LazyData: TRUE
 Depends:
     R (>= 3.4),
-    SummarizedExperiment,
-    bcbioBase (>= 0.2.9),
-    DESeq2
+    SummarizedExperiment (>= 1.10),
+    bcbioBase (>= 0.2.10),
+    DESeq2 (>= 1.20)
 Imports:
     BiocGenerics,
-    DEGreport (>= 1.14),
+    DEGreport (>= 1.16),
     GenomicFeatures,
     S4Vectors,
     assertive.base,
@@ -135,7 +135,7 @@ Imports:
     scales,
     stringr,
     tibble,
-    tximport (>= 1.6),
+    tximport (>= 1.8),
     utils,
     vsn
 Suggests:
@@ -149,7 +149,7 @@ Suggests:
     rmarkdown,
     sessioninfo,
     testthat,
-    tidyverse
+    tidyverse (>= 1.2)
 Remotes:
     hbc/bcbioBase,
     steinbaugh/basejump
