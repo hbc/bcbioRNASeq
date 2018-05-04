@@ -30,7 +30,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
+        normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         style = c("line", "solid"),
         color = scale_color_hue(),
         fill = scale_fill_hue(),

@@ -23,7 +23,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
+        normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         fill = scale_fill_hue(),
         flip = TRUE,
         title = "counts per gene"
@@ -74,7 +74,7 @@ setMethod(
             labs(
                 title = title,
                 subtitle = subtitle,
-                x = "sample",
+                x = NULL,
                 y = paste(normalized, "counts (log2)"),
                 fill = paste(interestingGroups, collapse = ":\n")
             )

@@ -10,7 +10,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # Minimal example distorts the y-axis
+#' # Note that minimal example distorts the y-axis
 #' plotGeneSaturation(bcb_small)
 NULL
 
@@ -24,7 +24,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         interestingGroups,
         minCounts = 1L,
         trendline = FALSE,

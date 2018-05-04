@@ -140,7 +140,7 @@ setMethod(
     function(
         results,
         counts,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(counts)
