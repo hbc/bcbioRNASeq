@@ -102,12 +102,12 @@ Encoding: UTF-8
 LazyData: TRUE
 Depends:
     R (>= 3.4),
-    SummarizedExperiment (>= 1.10),
+    SummarizedExperiment,
     bcbioBase (>= 0.2.11),
-    DESeq2 (>= 1.20)
+    DESeq2 (>= 1.18)
 Imports:
     BiocGenerics,
-    DEGreport (>= 1.15),
+    DEGreport (>= 1.14),
     GenomicFeatures,
     S4Vectors,
     assertive.base,
@@ -131,11 +131,14 @@ Imports:
     parallel,
     readr,
     reshape2,
+    rmarkdown,
     rlang,
     scales,
+    sessioninfo,
     stringr,
     tibble,
-    tximport (>= 1.8),
+    tidyverse (>= 1.2),
+    tximport (>= 1.6),
     utils,
     vsn
 Suggests:
@@ -143,12 +146,8 @@ Suggests:
     DOSE,
     EnsDb.Hsapiens.v75,
     clusterProfiler,
-    formatR,
     pathview,
-    rmarkdown,
-    sessioninfo,
-    testthat,
-    tidyverse (>= 1.2)
+    testthat
 Remotes:
     hbc/bcbioBase,
     steinbaugh/basejump
