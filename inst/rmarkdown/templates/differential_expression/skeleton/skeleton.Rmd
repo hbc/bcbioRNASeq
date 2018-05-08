@@ -4,18 +4,22 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "bcb.rda"
-    design: !r ~ treatment
-    contrast: !r c("treatment", "experimental", "control")
+    bcb_file: "data/YYYY-MM-DD/bcb.rda"
+    design: !r formula("~ treatment")
+    contrast: !r c(
+        factor = "treatment",
+        numerator = "experimental",
+        denominator = "control"
+    )
     alpha: 0.01
-    lfcThreshold: 0
-    data_dir: "."
+    lfc_threshold: 0
+    data_dir: !r file.path("data", Sys.Date())
     results_dir: "results/differential_expression"
     dropbox_dir: NULL
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-04-30
+# Last modified 2018-05-08
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -86,7 +90,7 @@ res <- res_shrunken
 saveData(res, res_shrunken, res_unshrunken, dir = params$data_dir)
 ```
 
-We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfcThreshold`.
+We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc_threshold`.
 
 
 
@@ -109,7 +113,7 @@ plotMeanAverage(res)
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
-plotVolcano(res, lfcThreshold = params$lfcThreshold)
+plotVolcano(res, lfcThreshold = params$lfc_threshold)
 ```
 
 
@@ -146,7 +150,7 @@ plotDEGPCA(
 res_tbl <- resultsTables(
     results = res,
     counts = dds,
-    lfcThreshold = params$lfcThreshold,
+    lfcThreshold = params$lfc_threshold,
     write = TRUE,
     summary = TRUE,
     headerLevel = 2,
