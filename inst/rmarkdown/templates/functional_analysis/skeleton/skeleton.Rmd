@@ -4,19 +4,19 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "bcb.rda"
-    res_file: "res.rda"
+    bcb_file: "data/YYYY-MM-DD/bcb.rda"
+    res_file: "data/YYYY-MM-DD/res.rda"
     organism: "Hs"
     gspecies: "hsa"
     species: "human"
-    lfc: 0
     go_class: "BP"
-    data_dir: "."
+    lfc_threshold: 0
+    data_dir: !r file.path("data", Sys.Date())
     results_dir: "results/functional_analysis"
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-03-17
+# Last modified 2018-05-08
 
 # Human
 # - organism: "Hs"
@@ -83,7 +83,7 @@ alpha <- metadata(res)$alpha
 
 all_genes <- rownames(res)
 # help("significants", "DEGreport")
-sig_genes <- significants(res, fc = params$lfc, padj = alpha)
+sig_genes <- significants(res, fc = params$lfc_threshold, padj = alpha)
 
 # All genes containing a P value, ordered by FDR
 res_df <- res %>%
@@ -92,7 +92,7 @@ res_df <- res %>%
 
 # Significant genes 
 sig_res_df <- res_df %>%
-    .[which(rownames(.) %in% sig_genes), ]
+    .[which(rownames(.) %in% sig_genes), , drop = FALSE]
 
 lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
@@ -135,7 +135,7 @@ write_csv(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc,
+                params$lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
@@ -213,7 +213,7 @@ write_csv(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc,
+                params$lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
@@ -256,7 +256,7 @@ rownames(entrez_res) <- as.character(gene2entrez)
 
 all_entrez <- rownames(entrez_res)
 # help("significants", "DEGreport")
-sig_entrez <- significants(entrez_res, fc = params$lfc, padj = alpha)
+sig_entrez <- significants(entrez_res, fc = params$lfc_threshold, padj = alpha)
 
 # All genes containing a P value, ordered by FDR
 entrez_res_df <- entrez_res %>%
@@ -301,7 +301,7 @@ write_csv(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc,
+                params$lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
@@ -337,20 +337,21 @@ saveData(gsea_kegg, dir = params$data_dir)
 
 write_csv(
     gsea_kegg_result,
-    path = file.path(params$results_dir, 
-                     paste0(
-                         paste(
-                             "gsea",
-                             "kegg",
-                             "clusterprofiler",
-                             "padj",
-                             alpha,
-                             "lfc",
-                             params$lfc,
-                             sep = "_"
-                         ),
-                         ".csv.gz"
-                     )
+    path = file.path(
+        params$results_dir, 
+        paste0(
+            paste(
+                "gsea",
+                "kegg",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc_threshold,
+                sep = "_"
+            ),
+            ".csv.gz"
+        )
     )
 )
 
