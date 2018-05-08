@@ -1,5 +1,6 @@
 context("S4 Class Definition")
 
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     ensemblRelease = 87L,
