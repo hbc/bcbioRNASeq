@@ -21,13 +21,14 @@
 #' @importFrom basejump camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA initializeDirectory makeGRangesFromEnsembl makeGRangesFromGFF
 #'   makeNames makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist
-#'   readYAML sanitizeRowData sanitizeSampleData snake
+#'   readYAML sanitizeRowData snake
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox flatFiles gene2symbol
 #'   interestingGroups interestingGroups<- plotHeatmap
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
-#'   readYAMLSampleMetrics sampleData sampleDirs uniteInterestingGroups
+#'   readYAMLSampleMetrics sampleData sampleDirs sanitizeSampleData
+#'   uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
 #'   mutate_all mutate_if pull rename row_number select_if
