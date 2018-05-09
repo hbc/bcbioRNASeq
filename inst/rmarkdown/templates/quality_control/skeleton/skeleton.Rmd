@@ -6,7 +6,7 @@ bibliography: bibliography.bib
 params:
     bcb_file: "data/YYYY-MM-DD/bcb.rda"
     data_dir: !r file.path("data", Sys.Date())
-    results_dir: "results/counts"
+    results_dir: !r file.path("results", Sys.Date(), "counts")
 ---
 
 ```{r setup, message=FALSE}
