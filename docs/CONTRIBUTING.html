@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -121,24 +121,24 @@
 <div id="required-checks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#required-checks" class="anchor"></a>Required checks</h2>
-<p>If there are changes to <code>bcbioRNASeq</code> class or <code><a href="reference/bcbioRNASeq-class.html">loadRNASeq()</a></code> function, be sure to rebuild all working example data:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">source</span>(<span class="kw">file.path</span>(<span class="st">"data-raw"</span>, <span class="st">"examples.R"</span>))</a></code></pre></div>
+<p>If there are changes to <code>bcbioRNASeq</code> class or <code><a href="reference/bcbioRNASeq.html">loadRNASeq()</a></code> function, be sure to rebuild all working example data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="kw">file.path</span>(<span class="st">"data-raw"</span>, <span class="st">"examples.R"</span>))</code></pre></div>
 <p>For all package updates, run these commands prior to a pull request:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">lintr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lintr/topics/lint_package">lint_package</a></span>()</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>()</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/run_examples">run_examples</a></span>()</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/test">test</a></span>()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/check">check</a></span>()</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">BiocCheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocCheck/topics/BiocCheck">BiocCheck</a></span>(<span class="kw">getwd</span>())</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lintr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lintr/topics/lint_package">lint_package</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/run_examples">run_examples</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/test">test</a></span>()
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/check">check</a></span>()
+BiocCheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocCheck/topics/BiocCheck">BiocCheck</a></span>(<span class="kw">getwd</span>())</code></pre></div>
 <div id="rebuild-website" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rebuild-website" class="anchor"></a>Rebuild website</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">unlink</span>(<span class="st">"docs"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">pkgdown<span class="op">::</span><span class="kw"><a href="http://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlink</span>(<span class="st">"docs"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)
+pkgdown<span class="op">::</span><span class="kw"><a href="http://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</code></pre></div>
 <p>Beside this, the package should be able to run the templates. This should be done in the parent directory of <code>bcbioRNASeq</code> folder.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">git clone https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>bcbio<span class="op">/</span>bcbio_rnaseq_output_example.git</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">cd bcbio_rnaseq_output_example</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">Rscript <span class="op">-</span>e <span class="st">'testthat::test_file("test_reports.R")'</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">git clone https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>bcbio<span class="op">/</span>bcbio_rnaseq_output_example.git
+cd bcbio_rnaseq_output_example
+Rscript <span class="op">-</span>e <span class="st">'testthat::test_file("test_reports.R")'</span></code></pre></div>
 <p>Make sure <code>qc.html</code> and <code>de.html</code> are created inside <code>reports</code> folder and the figures and tables look as expected.</p>
 </div>
 </div>

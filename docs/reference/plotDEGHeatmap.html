@@ -63,7 +63,7 @@ function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ function.</p>
 
 <span class='co'># S4 method for DESeqResults,bcbioRNASeq</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='no'>...</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,7 +205,7 @@ argument, which must contain a <code>SummarizedExperiment</code> (e.g. <code>DES
 <span class='fu'>plotDEGHeatmap</span>(
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='img'><img src='plotDEGHeatmap-3.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='img'><img src='plotDEGHeatmap-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

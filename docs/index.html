@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -77,31 +77,34 @@
 <div id="bioconductor-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">biocLite</span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">biocLite</span>(</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="st">"hbc/bcbioRNASeq"</span>,</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## try http:// if https:// URLs are not supported
+<span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
+<span class="kw">biocLite</span>(<span class="st">"devtools"</span>)
+<span class="kw">biocLite</span>(<span class="st">"remotes"</span>)
+<span class="kw">biocLite</span>(<span class="st">"GenomeInfoDbData"</span>)
+<span class="kw">biocLite</span>(
+    <span class="st">"hbc/bcbioRNASeq"</span>,
+    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
+)</code></pre></div>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conda-method" class="anchor"></a><a href="https://conda.io">conda</a> method</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-bcbio-run" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(bcbioRNASeq)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># Back up all data inside bcbioRNASeq object</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">saveData</span>(bcb, flatFiles)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,
+    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),
+    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
+)
+<span class="co"># Back up all data inside bcbioRNASeq object</span>
+flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
+<span class="kw">saveData</span>(bcb, flatFiles)</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
@@ -116,7 +119,7 @@
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
-<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
+<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
 <div id="metadata-file-example" class="section level4">
 <h4 class="hasAnchor">
 <a href="#metadata-file-example" class="anchor"></a>Metadata file example</h4>
@@ -165,7 +168,7 @@
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 <p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). <a href="https://f1000research.com/articles/6-1976/v1">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
 </div>
 <div id="references" class="section level2">
