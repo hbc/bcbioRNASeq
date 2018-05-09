@@ -1,4 +1,3 @@
-library(pryr)
 library(devtools)
 library(tidyverse)
 load_all()
@@ -75,9 +74,9 @@ stopifnot(is(bcb_small, "bcbioRNASeq"))
 validObject(bcb_small)
 
 # Check the object size
-format(object.size(bcb_small), units = "auto")
-pryr::object_size(bcb_small)
-lapply(assays(bcb_small), pryr::object_size)
-lapply(metadata(bcb_small), pryr::object_size)
+# format(object.size(bcb_small), units = "auto")
+# pryr::object_size(bcb_small)
+# lapply(assays(bcb_small), pryr::object_size)
+# lapply(metadata(bcb_small), pryr::object_size)
 
 use_data(bcb_small, overwrite = TRUE, compress = "xz")

@@ -1,4 +1,3 @@
-library(pryr)
 library(devtools)
 library(DESeq2)
 load_all()
