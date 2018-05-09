@@ -6,15 +6,11 @@ bibliography: bibliography.bib
 params:
     bcb_file: "data/YYYY-MM-DD/bcb.rda"
     design: !r formula("~ treatment")
-    contrast: !r c(
-        factor = "treatment",
-        numerator = "experimental",
-        denominator = "control"
-    )
+    contrast: !r c("treatment", "experimental", "control")
     alpha: 0.01
     lfc_threshold: 0
     data_dir: !r file.path("data", Sys.Date())
-    results_dir: "results/differential_expression"
+    results_dir: !r file.path("results", Sys.Date(), "differential_expression")
     dropbox_dir: NULL
 ---
 
