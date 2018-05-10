@@ -12,11 +12,6 @@
 #' @examples
 #' # bcbioRNASeq ====
 #' plotCountDensity(bcb_small)
-#' plotCountDensity(
-#'     object = bcb_small,
-#'     style = "line",
-#'     interestingGroups = "sampleName"
-#' )
 NULL
 
 

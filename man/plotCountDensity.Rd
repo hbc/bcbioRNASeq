@@ -52,11 +52,6 @@ Plot Count Density
 \examples{
 # bcbioRNASeq ====
 plotCountDensity(bcb_small)
-plotCountDensity(
-    object = bcb_small,
-    style = "line",
-    interestingGroups = "sampleName"
-)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
