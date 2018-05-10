@@ -16,7 +16,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-08
+# Last modified 2018-05-10
 
 # Human
 # - organism: "Hs"
@@ -36,10 +36,10 @@ packages <- c(
     "DOSE",
     "pathview"
 )
-notInstalled <- setdiff(basename(packages), rownames(installed.packages()))
-if (length(notInstalled)) {
+not_installed <- setdiff(basename(packages), rownames(installed.packages()))
+if (length(not_installed)) {
     source("https://bioconductor.org/biocLite.R")
-    biocLite(pkgs = notInstalled)
+    biocLite(pkgs = not_installed)
 }
 invisible(lapply(
     X = basename(packages),
