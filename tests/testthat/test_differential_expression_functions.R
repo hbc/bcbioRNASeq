@@ -24,7 +24,7 @@ test_that("alphaSummary : DESeqDataSet", {
 
 # plotDEGPCA ===================================================================
 test_that("DESeqResults, DESeqTransform", {
-    p <- plotDEGPCA(res_small, counts = rld_small)
+    p <- plotDEGPCA(results = res_small, counts = rld_small)
     expect_is(p, "ggplot")
 })
 

@@ -14,8 +14,8 @@
   color = scale_color_hue(), headerLevel = 2L, return = c("facet", "wide",
   "grid", "markdown", "list"))
 
-\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tpm"),
-  ...)
+\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
+  "tpm", "rle"), ...)
 
 \S4method{plotGene}{DESeqDataSet}(object, ...)
 
@@ -72,8 +72,9 @@ Plot Individual Genes
 genes <- head(rownames(bcb_small), 8L)
 
 # bcbioRNASeq ====
-plotGene(bcb_small, genes = genes, return = "grid")
+plotGene(bcb_small, genes = genes, return = "facet")
 plotGene(bcb_small, genes = genes, return = "wide")
+plotGene(bcb_small, genes = genes, return = "grid")
 
 # DESeqDataSet ====
 plotGene(dds_small, genes = genes)

@@ -15,8 +15,8 @@
 
 \S4method{plotPCA}{DESeqDataSet}(object, ...)
 
-\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("rlog", "vst", "tmm",
-  "tpm"), ...)
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
+  "tpm", "rle"), ...)
 }
 \arguments{
 \item{object}{Object.}

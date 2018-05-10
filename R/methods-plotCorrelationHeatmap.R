@@ -51,11 +51,12 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
         counts <- counts(object, normalized = normalized)
 
         # Coerce to RangedSummarizedExperiment

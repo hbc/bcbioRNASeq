@@ -23,7 +23,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        normalized = c("tmm", "rlog", "vst", "tpm", "rle"),
+        normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         fill = scale_fill_hue(),
         flip = TRUE,
         title = "counts per gene"
@@ -32,6 +32,8 @@ setMethod(
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         normalized <- match.arg(normalized)
         assertIsFillScaleDiscreteOrNULL(fill)
@@ -68,11 +70,11 @@ setMethod(
                 fill = "interestingGroups"
             )
         ) +
-            geom_boxplot(color = lineColor, outlier.shape = NA) +
+            geom_boxplot(color = "black", outlier.shape = NA) +
             labs(
                 title = title,
                 subtitle = subtitle,
-                x = "sample",
+                x = NULL,
                 y = paste(normalized, "counts (log2)"),
                 fill = paste(interestingGroups, collapse = ":\n")
             )

@@ -11,6 +11,7 @@ linters: with_defaults(
     no_tab_linter,
     object_length_linter(40),
     object_name_linter("lowerCamelCase"),
+    object_usage_linter = NULL,
     open_curly_linter,
     semicolon_terminator_linter,
     pipe_continuation_linter,

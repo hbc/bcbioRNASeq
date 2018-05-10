@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -111,15 +111,16 @@
 
 <span class='co'># S4 method for DESeqResults,SummarizedExperiment</span>
 <span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_color_hue</a></span>(),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"deg pca"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))
+  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>,
+  <span class='st'>"down"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_color_hue</a></span>(), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
+  <span class='st'>"data.frame"</span>))
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
 <span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,bcbioRNASeq</span>
 <span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>), <span class='no'>...</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,6 +151,10 @@ define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
       <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
     </tr>
     <tr>
+      <th>direction</th>
+      <td><p>Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
+    </tr>
+    <tr>
       <th>color</th>
       <td><p>Desired ggplot color scale. Must supply discrete values. When
 set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
@@ -159,10 +164,6 @@ color definitions are desired, we recommend using
     <tr>
       <th>label</th>
       <td><p>Superimpose sample text labels on the plot.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title of plot.</p></td>
     </tr>
     <tr>
       <th>return</th>
@@ -204,7 +205,7 @@ the first item in the vector by default.</p></td>
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -31,6 +31,8 @@ setMethod(
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
@@ -38,17 +40,8 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        metrics <- metrics(object) %>%
-            uniteInterestingGroups(interestingGroups)
-
-        # Legacy code: make sure `x53Bias` is camel sanitized to `x5x3Bias`.
-        # The internal camel method has been updated in basejump 0.1.11.
-        if ("x53Bias" %in% colnames(metrics)) {
-            metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
-        }
-
         p <- ggplot(
-            data = metrics,
+            data = metrics(object),
             mapping = aes_string(
                 x = "sampleName",
                 y = "x5x3Bias",
@@ -61,13 +54,13 @@ setMethod(
             ) +
             labs(
                 title = title,
-                x = "sample",
+                x = NULL,
                 y = "5'->3' bias",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (is_positive(limit)) {
-            p <- p + .qcLine(limit)
+            p <- p + bcbio_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

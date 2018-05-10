@@ -468,7 +468,6 @@ bcbioRNASeq <- function(
 
 
 
-# TODO Consider erroring on `sampleID` and `description` columns in colData
 # Validity Checks ==============================================================
 setValidity(
     "bcbioRNASeq",
@@ -508,20 +507,24 @@ setValidity(
         assert_is_all_of(rowData(object), "DataFrame")
 
         # Column data ==========================================================
-        # metrics
-        if (is.data.frame(metadata(object)[["metrics"]])) {
+        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
+
+        # Metadata =============================================================
+        metadata <- metadata(object)
+
+        # Check that interesting groups defined in metadata are valid
+        assert_is_subset(
+            x = metadata[["interestingGroups"]],
+            y = colnames(colData(object))
+        )
+
+        # Detect legacy metrics
+        if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
                 "`metrics` saved in `metadata()` instead of `colData()`.",
                 bcbioBase::updateMessage
             ))
         }
-        assert_are_disjoint_sets(
-            x = colnames(colData(object)),
-            y = legacyMetricsCols
-        )
-
-        # Metadata =============================================================
-        metadata <- metadata(object)
 
         # Detect legacy slots
         legacyMetadata <- c(

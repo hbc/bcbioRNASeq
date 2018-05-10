@@ -1,5 +1,6 @@
 context("S4 Class Definition")
 
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     ensemblRelease = 87L,
@@ -176,7 +177,7 @@ test_that("subset : Minimal selection ranges", {
 
 
 
-# bcbioRNASeq ===================================================================
+# bcbioRNASeq ==================================================================
 test_that("bcbioRNASeq : organism = NULL", {
     x <- bcbioRNASeq(
         uploadDir = uploadDir,

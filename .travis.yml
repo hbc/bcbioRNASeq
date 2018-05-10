@@ -15,6 +15,7 @@ branches:
 
 env:
   global:
+    - LINTR_COMMENT_BOT=true
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 # r_build_args: "--no-build-vignettes"
@@ -36,8 +37,11 @@ r_packages:
   - hexbin
 bioc_packages:
   - BiocCheck
+r_github_packages:
+  - jimhester/lintr
 
 after_success:
+  - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
   - pwd

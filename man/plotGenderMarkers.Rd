@@ -14,8 +14,8 @@ plotGenderMarkers(object, ...)
 
 \S4method{plotGenderMarkers}{SummarizedExperiment}(object, ...)
 
-\S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("rlog",
-  "vst", "tpm"), ...)
+\S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
+  "rlog", "tmm", "tpm", "rle"), ...)
 
 \S4method{plotGenderMarkers}{DESeqDataSet}(object, ...)
 

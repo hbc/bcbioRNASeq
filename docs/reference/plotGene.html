@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -114,8 +114,8 @@
   <span class='st'>"grid"</span>, <span class='st'>"markdown"</span>, <span class='st'>"list"</span>))
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rlog"</span>, <span class='st'>"vst"</span>, <span class='st'>"tpm"</span>),
-  <span class='no'>...</span>)
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>,
+  <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -202,11 +202,11 @@ the first item in the vector by default.</p></td>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb_small</span>), <span class='fl'>8L</span>)
 
 <span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"grid"</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>dds_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotGene</span>(<span class='no'>dds_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqTransform ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>rld_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotGene</span>(<span class='no'>rld_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

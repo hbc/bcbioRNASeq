@@ -77,7 +77,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = c("rlog", "vst", "tpm"),
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(object)

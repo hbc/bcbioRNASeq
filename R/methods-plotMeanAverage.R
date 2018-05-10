@@ -150,7 +150,7 @@ setMethod(
             max() %>%
             log10() %>%
             ceiling()
-        xBreaks <- 10 ^ seq(from = xFloor, to = xCeiling, by = 1L)
+        xBreaks <- 10L ^ seq(from = xFloor, to = xCeiling, by = 1L)
 
         p <- ggplot(
             data = data,
@@ -203,7 +203,7 @@ setMethod(
             assert_is_subset(genes, data[["geneID"]])
             labelData <- data[data[["geneID"]] %in% genes, , drop = FALSE]
             p <- p +
-                .geomLabel(
+                bcbio_geom_label_repel(
                     data = labelData,
                     mapping = aes_string(
                         x = "baseMean",

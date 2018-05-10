@@ -17,7 +17,7 @@ plotDEGHeatmap(results, counts, ...)
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
-  normalized = c("rlog", "vst", "tmm", "tpm"), ...)
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults} object.}

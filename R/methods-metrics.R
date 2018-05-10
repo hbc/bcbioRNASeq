@@ -22,8 +22,15 @@ NULL
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object) {
+    function(object, interestingGroups) {
         validObject(object)
-        as.data.frame(colData(object))
+        if (missing(interestingGroups)) {
+            interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
+        }
+        data <- as.data.frame(colData(object))
+        data <- uniteInterestingGroups(data, interestingGroups)
+        data
     }
 )

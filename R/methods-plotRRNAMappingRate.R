@@ -31,6 +31,8 @@ setMethod(
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
+        } else {
+            interestingGroups(object) <- interestingGroups
         }
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
@@ -38,11 +40,8 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        metrics <- metrics(object) %>%
-            uniteInterestingGroups(interestingGroups)
-
         p <- ggplot(
-            data = metrics,
+            data = metrics(object),
             mapping = aes_(
                 x = ~sampleName,
                 y = ~rrnaRate * 100L,
@@ -55,13 +54,13 @@ setMethod(
             ) +
             labs(
                 title = title,
-                x = "sample",
+                x = NULL,
                 y = "rRNA mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (is_positive(limit)) {
-            p <- p + .qcLine(limit)
+            p <- p + bcbio_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {

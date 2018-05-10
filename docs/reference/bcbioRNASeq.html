@@ -62,7 +62,7 @@ analysis." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@ analysis." />
     <div class="page-header">
     <h1><code>bcbioRNASeq</code> Object and Constructor</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllClasses.R'><code>R/AllClasses.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>bcbioRNASeq-class.Rd</code></div>
+    <div class="hidden name"><code>bcbioRNASeq.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -123,7 +123,7 @@ analysis.</p>
     <tr>
       <th>uploadDir</th>
       <td><p>Path to final upload directory. This path is set when
-running <code>bcbio_nextgen -w template</code>.</p></td>
+running "<code>bcbio_nextgen -w template</code>".</p></td>
     </tr>
     <tr>
       <th>level</th>
@@ -266,8 +266,8 @@ as a remote connection over
 <li><p><code><a href='http://www.rdocumentation.org/packages/BiocGenerics/topics/updateObject'>BiocGenerics::updateObject()</a></code>.</p></li>
 <li><p><code>.S4methods(class = "bcbioRNASeq")</code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='subset.html'>[,bcbioRNASeq,ANY,ANY,ANY-method</a></code>,
-  <code><a href='coerce.html'>coerce</a></code>, <code><a href='show.html'>show</a></code>,
+    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='coerce.html'>coerce</a></code>,
+  <code><a href='show.html'>show</a></code>, <code><a href='subset.html'>subset</a></code>,
   <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
@@ -314,11 +314,11 @@ as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-23)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.18.1</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.2
+#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.3
 #&gt; Samples: 4
 #&gt; Genes: 502
 #&gt; Organism: Mus musculus
@@ -327,7 +327,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-04-24</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+#&gt; R Load Date: 2018-05-09</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Transcript level</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbioRNASeq</span>(
     <span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>,
@@ -368,11 +368,11 @@ as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.10.1 (2017-10-27)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-23)</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.2
+#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.3
 #&gt; Samples: 4
 #&gt; Transcripts: 996
 #&gt; Organism: Mus musculus
@@ -381,7 +381,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-04-24</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+#&gt; R Load Date: 2018-05-09</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

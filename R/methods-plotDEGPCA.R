@@ -49,8 +49,9 @@ setMethod(
         validObject(counts)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(counts)
+        } else {
+            interestingGroups(counts) <- interestingGroups
         }
-        assertFormalInterestingGroups(colData(counts), interestingGroups)
         if (missing(alpha)) {
             alpha <- metadata(results)[["alpha"]]
         }
@@ -135,7 +136,7 @@ setMethod(
     function(
         results,
         counts,
-        normalized = c("rlog", "vst", "tmm", "tpm"),
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(counts)
