@@ -9,16 +9,8 @@
 #' @export
 #'
 #' @examples
-#' prepareRNASeqTemplate()
-#'
-#' # Clean up
-#' unlink(c(
-#'     "_footer.Rmd",
-#'     "_header.Rmd",
-#'     "_output.yaml",
-#'     "_setup.R",
-#'     "bibliography.bib"
-#' ))
+#' x <- prepareRNASeqTemplate()
+#' x
 prepareRNASeqTemplate <- function(overwrite = FALSE) {
     prepareTemplate(
         file = c(
