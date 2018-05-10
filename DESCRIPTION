@@ -103,7 +103,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.2.11),
+    bcbioBase (>= 0.2.12),
     DESeq2 (>= 1.18)
 Imports:
     BiocGenerics,
