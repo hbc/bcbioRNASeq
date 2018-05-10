@@ -419,13 +419,3 @@ if (length(pathways)) {
 
 ```{r footer, child="_footer.Rmd"}
 ```
-
-
-
-[clusterProfiler]: https://doi.org/doi:10.18129/B9.bioc.clusterProfiler
-[Ensembl]: https://www.ensembl.org
-[Entrez]: https://www.ncbi.nlm.nih.gov/gquery
-[GO]: http://www.geneontology.org
-[GSEA]: http://software.broadinstitute.org/gsea
-[KEGG]: http://www.genome.jp/kegg
-[pathview]: https://doi.org/doi:10.18129/B9.bioc.pathview
