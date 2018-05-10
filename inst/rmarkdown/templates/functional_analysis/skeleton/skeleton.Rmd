@@ -236,7 +236,7 @@ gsea_go_result
 rse <- as(bcb, "RangedSummarizedExperiment")
 rse <- rse[all_genes, ]
 
-entrez <- rowData(rse)[["entrezID"]]
+entrez <- rowData(rse)$entrezID
 stopifnot(is.list(entrez))
 stopifnot(!is.null(names(entrez)))
 
