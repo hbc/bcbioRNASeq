@@ -29,23 +29,22 @@ params:
 # - species: "mouse"
 
 # Additional required packages =================================================
-org_db <- paste("org", params$organism, "eg", "db", sep = ".")
 packages <- c(
-    org_db,
     "clusterProfiler",
     "DOSE",
-    "pathview"
+    "pathview",
+    OrgDb = paste("org", params$organism, "eg", "db", sep = ".")
 )
-not_installed <- setdiff(basename(packages), rownames(installed.packages()))
-if (length(not_installed)) {
-    source("https://bioconductor.org/biocLite.R")
-    biocLite(pkgs = not_installed)
-}
 invisible(lapply(
     X = basename(packages),
-    FUN = library,
-    character.only = TRUE
+    FUN = function(package) {
+        stopifnot(require(package, character.only = TRUE))
+    }
 ))
+# Bioconductor 3.6
+stopifnot(packageVersion("clusterProfiler") >= 3.6)
+stopifnot(packageVersion("DOSE") >= 3.4)
+stopifnot(packageVersion("pathview") >= 1.18)
 
 # Prepare template =============================================================
 bcbioRNASeq::prepareRNASeqTemplate()
@@ -77,22 +76,20 @@ invisible(validObject(res))
 
 
 ```{r results}
-# Subset NA adjusted P values
-res <- res[!is.na(res$padj), , drop = FALSE]
 alpha <- metadata(res)$alpha
 
+# Subset NA adjusted P values
+res <- res[!is.na(res$padj), , drop = FALSE]
+res_df <- as.data.frame(res)
+
 all_genes <- rownames(res)
+
 # help("significants", "DEGreport")
 sig_genes <- significants(res, fc = params$lfc_threshold, padj = alpha)
 
-# All genes containing a P value, ordered by FDR
-res_df <- res %>%
-    as("DataFrame") %>%
-    .[order(.$padj), c("log2FoldChange", "padj")]
-
-# Significant genes 
 sig_res_df <- res_df %>%
-    .[which(rownames(.) %in% sig_genes), , drop = FALSE]
+    .[sig_genes, , drop = FALSE] %>%
+    .[order(.$padj), , drop = FALSE]
 
 lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
@@ -171,7 +168,7 @@ Here we are plotting genes colored by LFC for top 5 most significant [GO][] term
 ```{r cnetplot, fig.width=8, fig.height=8}
 # help("cnetplot", "clusterProfiler")
 cnetplot(
-    enrich_go,
+    x = enrich_go,
     foldChange = lfc_vec,
     vertex.label.cex = 0.5
 )
@@ -189,12 +186,13 @@ names(gene_list) <- row.names(res_df)
 
 # Now run GSEA
 # help("gseGO", "clusterProfiler")
+# minGSSize = 100
 gsea_go <- gseGO(
     geneList = gene_list,
     ont = params$go_class,
     OrgDb = org_db,
     keyType = "ENSEMBL",
-    minGSSize = 100
+    pvalueCutoff = 0.05
 )
 gsea_go_result <- gsea_go %>%
     slot("result") %>%
@@ -232,11 +230,16 @@ gsea_go_result
 
 [Entrez][] IDs are required for [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the [Ensembl][] gene IDs to [Entrez][] IDs. For genes that map to multiple [Entrez][] IDs, we are using the oldest [Entrez][] ID to define the 1:1 mapping.
 
-```{r entrez}
-# Entrez IDs here are obtained from AnnotationHub using ensembldb
-entrez <- rowData(bcb)[all_genes, "entrezID", drop = TRUE]
+```{r map_genes_to_entrez}
+# Entrez IDs here are obtained from AnnotationHub using ensembldb.
+# Coerce to SummarizedExperiment for fast subsetting.
+rse <- as(bcb, "RangedSummarizedExperiment")
+rse <- rse[all_genes, ]
+
+entrez <- rowData(rse)[, "entrezID", drop = TRUE]
 stopifnot(is.list(entrez))
 stopifnot(!is.null(names(entrez)))
+
 # For genes that don't map 1:1 with Entrez, use the oldest Entrez ID
 entrez <- lapply(entrez, function(x) {
     if (all(is.na(x))) {
@@ -251,25 +254,39 @@ entrez <- Filter(Negate(is.null), entrez)
 gene2entrez <- unlist(entrez)
 stopifnot(is.integer(gene2entrez))
 
-entrez_res <- res[names(gene2entrez), ]
-rownames(entrez_res) <- as.character(gene2entrez)
+all_entrez <- gene2entrez %>%
+    unique() %>%
+    sort() %>%
+    as.character()
 
-all_entrez <- rownames(entrez_res)
-# help("significants", "DEGreport")
-sig_entrez <- significants(entrez_res, fc = params$lfc_threshold, padj = alpha)
+# Filter the results to only contain genes that map to Entrez
+entrez_res <- res[names(gene2entrez), , drop = FALSE]
 
 # All genes containing a P value, ordered by FDR
-entrez_res_df <- entrez_res %>%
-    as("DataFrame") %>%
-    .[order(.$padj), c("log2FoldChange", "padj")]
+entrez_res_df <- as.data.frame(entrez_res)
+entrez_res_df$entrez <- gene2entrez
+
+# help("significants", "DEGreport")
+sig_gene <- significants(
+    object = entrez_res,
+    fc = params$lfc_threshold,
+    padj = alpha
+)
 
 # Significant genes 
 sig_entrez_res_df <- entrez_res_df %>%
-    .[which(rownames(.) %in% sig_entrez), ]
+    .[sig_gene, , drop = FALSE] %>%
+    .[order(.$padj), , drop = FALSE]
+
+sig_entrez <- sig_entrez_res_df %>%
+    pull(entrez) %>%
+    unique() %>%
+    sort() %>%
+    as.character()
 
 # Extract the fold changes
 entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
-names(entrez_lfc_vec) <- rownames(sig_entrez_res_df)
+names(entrez_lfc_vec) <- sig_entrez_res_df$entrez
 # Sort from upregulated to downregulated
 entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
 
@@ -279,9 +296,9 @@ saveData(gene2entrez, entrez_res, dir = params$data_dir)
 ```{r enrich_kegg}
 # help("enrichKEGG", "clusterProfiler")
 kegg <- enrichKEGG(
-    gene = sig_entrez,
+    gene = as.character(sig_entrez),
     organism = params$species,
-    universe = all_entrez,
+    universe = as.character(all_entrez),
     qvalueCutoff = 0.05
 )
 kegg_result <- kegg %>%
