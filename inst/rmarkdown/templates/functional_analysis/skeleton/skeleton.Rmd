@@ -146,16 +146,15 @@ enrich_go_result
 
 ## Dot plot
 
-```{r dot_plot, fig.width=8}
+```{r dotplot, fig.width=8}
 dotplot(enrich_go, showCategory = 25)
 ```
 
 
 ## GO terms map
 
-```{r enrich_map, fig.width=8, fig.height=8}
-# help("enrichMap", "DOSE")
-enrichMap(enrich_go, n = 25, vertex.label.cex = 0.5)
+```{r emapplot, fig.width=8, fig.height=8}
+emapplot(enrich_go, showCategory = 25)
 ```
 
 
