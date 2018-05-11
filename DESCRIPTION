@@ -146,6 +146,8 @@ Suggests:
     DOSE,
     EnsDb.Hsapiens.v75,
     clusterProfiler,
+    org.Hs.eg.db,
+    org.Mm.eg.db,
     pathview,
     testthat
 Remotes:
