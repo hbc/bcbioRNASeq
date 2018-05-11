@@ -390,6 +390,7 @@ if (length(pathways)) {
     wd <- getwd()
     setwd(kegg_plots_dir)
     invisible(lapply(pathways, function(pathway) {
+        # `gene.data` vector should be numeric with geneIDs as names
         tryCatch(
             pathview(
                 gene.data = lfc_vec,
