@@ -78,6 +78,7 @@ bcbioRNASeq <- setClass(
 #'   must match the `description` specified in the bcbio YAML metadata. If a
 #'   `sampleMetadataFile` is provided, that will take priority for sample
 #'   selection. Typically this can be left unset.
+#' @param censorSamples *Optional.* Samples to exclude from the analysis.
 #' @param sampleMetadataFile *Optional.* Custom metadata file containing
 #'   sample information. Otherwise defaults to sample metadata saved in the YAML
 #'   file. Remote URLs are supported. Typically this can be left unset.
@@ -146,8 +147,9 @@ bcbioRNASeq <- function(
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
     organism,
-    samples = NULL,
     sampleMetadataFile = NULL,
+    samples = NULL,
+    censorSamples = NULL,
     interestingGroups = "sampleName",
     ensemblRelease = NULL,
     genomeBuild = NULL,
@@ -184,6 +186,7 @@ bcbioRNASeq <- function(
     caller <- match.arg(caller)
     assertIsAStringOrNULL(sampleMetadataFile)
     assertIsCharacterOrNULL(samples)
+    assertIsCharacterOrNULL(censorSamples)
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
@@ -236,10 +239,11 @@ bcbioRNASeq <- function(
     # Column data ==============================================================
     colData <- readYAMLSampleData(yamlFile)
 
-    # Replace columns with external, user-defined metadata, if desired. This is
-    # nice for correcting metadata issues that aren't easy to fix by editing the
-    # bcbio YAML output.
+    # Subset the samples
     if (is_a_string(sampleMetadataFile)) {
+        # Replace columns with external, user-defined metadata, if desired. This
+        # is nice for correcting metadata issues that aren't easy to fix by
+        # editing the bcbio YAML output.
         userColData <- readSampleData(sampleMetadataFile, lanes = lanes)
         # Drop columns that are defined from the auto metadata
         setdiff <- setdiff(colnames(colData), colnames(userColData))
@@ -247,13 +251,13 @@ bcbioRNASeq <- function(
         # metadata input here
         colData <- colData[rownames(userColData), setdiff, drop = FALSE]
         colData <- cbind(userColData, colData)
-    }
-
-    # Allow easy subsetting by sample (must match description)
-    if (is.character(samples)) {
+    } else if (is.character(samples)) {
         assert_is_subset(samples, colData[["description"]])
         colData <- colData %>%
-            .[which(samples %in% .[["description"]]), , drop = FALSE]
+            .[.[["description"]] %in% samples, , drop = FALSE]
+    } else if (is.character(censorSamples)) {
+        colData <- colData %>%
+            .[!.[["description"]] %in% censorSamples, , drop = FALSE]
     }
 
     # Sanitize into factors

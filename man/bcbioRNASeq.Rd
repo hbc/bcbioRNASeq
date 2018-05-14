@@ -9,9 +9,10 @@
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish"), organism, samples = NULL,
-  sampleMetadataFile = NULL, interestingGroups = "sampleName",
-  ensemblRelease = NULL, genomeBuild = NULL, transgeneNames = NULL,
-  spikeNames = NULL, gffFile = NULL, transformationLimit = 50L, ...)
+  censorSamples = NULL, sampleMetadataFile = NULL,
+  interestingGroups = "sampleName", ensemblRelease = NULL,
+  genomeBuild = NULL, transgeneNames = NULL, spikeNames = NULL,
+  gffFile = NULL, transformationLimit = 50L, ...)
 }
 \arguments{
 \item{uploadDir}{Path to final upload directory. This path is set when
@@ -33,6 +34,8 @@ for poorly annotation genomes or experiments involving multiple genomes.}
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
 selection. Typically this can be left unset.}
+
+\item{censorSamples}{\emph{Optional.} Samples to exclude from the analysis.}
 
 \item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
