@@ -331,8 +331,8 @@ bcbioRNASeq <- function(
         tx2gene <- makeTx2geneFromGFF(gffFile)
     } else {
         stop(paste(
-            "tx2gene assignment failure.",
-            "tx2gene.csv or GFF file are required."
+            "`tx2gene.csv` file is missing.",
+            "GFF file are required with `gffFile` argument."
         ))
     }
 
