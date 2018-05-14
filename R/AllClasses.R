@@ -265,10 +265,13 @@ bcbioRNASeq <- function(
     # counts generated with STAR.
     message("Reading sample metrics")
     metrics <- readYAMLSampleMetrics(yamlFile)
-    assert_is_data.frame(metrics)
-    assert_are_disjoint_sets(colnames(colData), colnames(metrics))
-    # Now safe to add the metrics to colData
-    colData <- cbind(colData, metrics)
+    if (length(metrics)) {
+        assert_is_data.frame(metrics)
+        assert_are_disjoint_sets(colnames(colData), colnames(metrics))
+        colData <- cbind(colData, metrics)
+    } else {
+        message("Fast mode detected. No metrics were calculated.")
+    }
 
     # Interesting groups =======================================================
     interestingGroups <- camel(interestingGroups)
