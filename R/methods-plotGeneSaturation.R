@@ -24,7 +24,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+        normalized = c("tpm", "tmm"),
         interestingGroups,
         minCounts = 1L,
         trendline = FALSE,

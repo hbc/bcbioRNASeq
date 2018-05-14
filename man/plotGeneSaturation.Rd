@@ -9,9 +9,9 @@
 \usage{
 plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), interestingGroups, minCounts = 1L,
-  trendline = FALSE, color = scale_color_hue(), title = "gene saturation")
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("tpm",
+  "tmm"), interestingGroups, minCounts = 1L, trendline = FALSE,
+  color = scale_color_hue(), title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}
