@@ -1,0 +1,15 @@
+html_document:
+    code_folding: hide
+    df_print: paged
+    highlight: pygments
+    number_sections: false
+    self_contained: true
+    theme: cosmo
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: false
+pdf_document:
+    number_sections: false
+    toc: true
+    toc_depth: 1

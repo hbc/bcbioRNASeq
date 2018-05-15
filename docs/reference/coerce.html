@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.4</span>
       </span>
     </div>
 
@@ -74,6 +74,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -147,7 +150,7 @@
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(25): geneID geneName ... deviance maxCooks
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): sampleName day ... xGC sizeFactor</div><div class='input'>
+#&gt; colData names(27): sampleName day ... xGC sizeFactor</div><div class='input'>
 <span class='co'># RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
@@ -159,7 +162,7 @@
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): sampleName day ... x5x3Bias xGC</div><div class='input'>
+#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div><div class='input'>
 <span class='co'># SummarizedExperiment ====</span>
 <span class='co'># Coerce to RangedSummarizedExperiment first.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
@@ -175,7 +178,7 @@
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): sampleName day ... x5x3Bias xGC</div></pre>
+#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
