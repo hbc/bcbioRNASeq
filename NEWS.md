@@ -1,6 +1,85 @@
-## bcbioRNASeq 0.2.0 (2018-03-22)
+# bcbioRNASeq 0.2.3 (2018-05-10)
 
-### Major changes
+## Major changes
+
+- Now recommending variance stabilizing transformation (`vst`) over `rlog`
+  counts by default in plots, where applicable.
+
+## Minor changes
+
+- Tweaked Rory's biotype plots in QC report to match formatting conventions in
+  the package. These plots are now colored.
+- Added `plotDEGPCA()` to default differential expression R Markdown template.
+- `colData()` factors are correctly releveled upon object subset with `[`. This
+  helps avoid unwanted downstream errors when creating a `DESeqDataSet` and
+  running differential expression with DESeq2.
+- Recommending `facet` return method by default for `plotGene()`. Updated the
+  working example to reflect this.
+- `metrics()` now returns `interestingGroups` column.
+- `sample` label has been removed from axis title for QC plot functions.
+- Now using shared ggplot2 convneience functions from bcbioBase 0.2.10:
+  `bcbio_geom_abline()`, `bcbio_geom_label()`, and `bcbio_geom_label_repel()`.
+  These are also used by bcbioSingleCell for improved graphical consistency.
+- Removed unused internal legacy ggplot2 code.
+- Increased DEGreport, DESeq2, and tximport dependency requirements.
+
+
+
+# bcbioRNASeq 0.2.2 (2018-04-26)
+
+## Minor changes
+
+- Split out assertive imports so we can pin on [bioconda][].
+- Improved package documentation.
+- Improved label consistency in `plotPCA()` functions to match
+  `plotMeanAverage()` and `plotVolcano()`.
+- Improved automatic title labeling in `plotDEGPCA()`, matching the other DEG
+  functions. Also added directionality to `plotDEGPCA()`.
+- Added DESeqDataSet method support to `plotCorrelationHeatmap()`, using the
+  normalized counts.
+- `reusltsTables()` now writes local files to `tempdir()` when Dropbox mode is
+  enabled using `dropboxDir`.
+
+
+
+# bcbioRNASeq 0.2.1 (2018-04-24)
+
+Last set of code fixes before F1000v2 resubmission.
+
+## Major changes
+
+- Added `rle` return support for `counts()`, which are calculated on the fly.
+- Added `transgeneNames` and `spikeNames` support to `loadRNASeq()` function.
+- `loadRNASeq()` now supports `organism = NULL` again, for datasets with poorly
+  annotated genomes.
+- Primary `assay()` containing raw counts is now named `counts` instead of
+  `raw`, for consistency with other `SummarizedExperiment` objects (e.g.
+  `DESeqDataSet`) and the bcbioSingleCell S4 class definition.
+- Improved internal code for `plotGene()` and `plotGenderMarkers()`.
+
+## Minor changes
+
+- Improved AppVeyor CI support to test against bioc-devel using R 3.5.
+- Improved support and unit testing for `updateObject()` method.
+- DESeq2 normalized counts are always slotted in `assays()`, even when rlog and
+  vst transformations are skipped.
+- Exporting `[[<-`, `assays<-`, `colData<-`, `interestingGroups<-`, and
+  `metadata<-` assignment methods, to avoid unwanted coercion to
+  `SummarizedExperiment`. Objects extending `RangedSummarizedExperiment`
+  shouldn't be doing this, so we may need to file a bug report with Bioconductor
+  or check our class definition in the package.
+- Now importing specific functions from S4Vectors and methods rather than
+  importing everything.
+- Switched back to using `stop()`, `warning()` and `message()` rather than the
+  alternate rlang functions `abort()`, `warn()`, and `inform()`.
+- Objects with invalid metadata now print which slots are invalid to the
+  console.
+
+
+
+# bcbioRNASeq 0.2.0 (2018-03-22)
+
+## Major changes
 
 - `bcbioRNASeq` S4 class object is now extending `RangedSummarizedExperiment`
   instead of `SummarizedExperiment`. Consequently, the row annotations are now
@@ -42,7 +121,7 @@
   we're not stashing a `DESeqDataSet` any more.
 - Updated Functional Analysis R Markdown template.
 
-### Minor changes
+## Minor changes
 
 - `validObject()` is now required for all plotting functions. This check is
   also called in the R Markdown template. Legacy objects can be updated using
@@ -70,13 +149,13 @@
 - `gene2symbol()` and `interestingGroups()` method support are now defined
   for `SummarizedExperiment` in the [bcbioBase][] package.
 
-### Updating legacy objects < v0.2.0
+## Updating legacy objects < v0.2.0
 
 - Use `updateObject()` in combination with the `rowRanges` argument, which
   requires a `GRanges` object. `GRanges` can be obtained from [Ensembl][] using
   the `basejump::ensembl()` function or the [ensembldb][] package.
 
-### Deprecations
+## Deprecations
 
 - `bcbio()` slot is now defunct, since we have moved all data into the
   `SummarizedExperiment` container.
@@ -89,18 +168,21 @@
 - Legacy `bcbioRNADataSet` method support has been removed.
 
 
-## bcbioRNASeq 0.1.8 (2018-04-03)
+
+# bcbioRNASeq 0.1.8 (2018-04-03)
 
 - Bug fix for `gene2symbol` argument not renaming rows in `plotDEGHeatmap()`.
 
 
-## bcbioRNASeq 0.1.7 (2018-02-28)
+
+# bcbioRNASeq 0.1.7 (2018-02-28)
 
 - Bug fix for `[` subset method dropping metrics in metadata.
 - Simplified unit testing for Dropbox mode enabled in `resultsTables()`.
 
 
-## bcbioRNASeq 0.1.6 (2018-02-20)
+
+# bcbioRNASeq 0.1.6 (2018-02-20)
 
 - Bug fix for gene-to-symbol mappings in `plotDEGHeatmap()`.
 - Added support for quickly plotting differentially expressed genes (DEG) in
@@ -113,7 +195,8 @@
 - Deprecated data frame methods based on metrics for QC functions.
 
 
-## bcbioRNASeq 0.1.5 (2018-01-31)
+
+# bcbioRNASeq 0.1.5 (2018-01-31)
 
 - Import shared dependency functions from bcbioBase instead of basejump.
 - Added method support for `selectSamples()`.
@@ -136,12 +219,14 @@
 - `resulsTables()` function now defaults to `summary = TRUE`.
 
 
-## bcbioRNASeq 0.1.4 (2018-11-27)
+
+# bcbioRNASeq 0.1.4 (2018-11-27)
 
 - Migrated all basejump function imports to bcbioBase package.
 
 
-## bcbioRNASeq 0.1.3 (2017-12-03)
+
+# bcbioRNASeq 0.1.3 (2017-12-03)
 
 - Combined examples (`bcb`, `dds`, `res`, etc.) into a single `examples`
   object. This helps avoid accidental use of example `bcb` in an analysis.
@@ -190,7 +275,8 @@
   packages along with imports.
 
 
-## bcbioRNASeq 0.1.2 (2017-11-08)
+
+# bcbioRNASeq 0.1.2 (2017-11-08)
 
 - Updated package imports to match Bioconductor 3.6.
 - Added support for interesting groups assignment with `interestingGroups<-`.
@@ -203,13 +289,15 @@
 - Sample metadata columns are now consistently set as factors.
 
 
-## bcbioRNASeq 0.1.1 (2017-10-26)
+
+# bcbioRNASeq 0.1.1 (2017-10-26)
 
 - Added support for coloring of multiple interesting groups in quality control
   plots.
 
 
-## bcbioRNASeq 0.1.0 (2017-10-23)
+
+# bcbioRNASeq 0.1.0 (2017-10-23)
 
 - Updated version and author information to match the F1000 Research
   workflow.
@@ -225,14 +313,16 @@
   Legacy `bcbioRNADataSet` objects must be upgraded to `bcbioRNASeq` class.
 
 
-## bcbioRNASeq 0.0.28 (2017-10-17)
+
+# bcbioRNASeq 0.0.28 (2017-10-17)
 
 - Added support for output of unstructured data inside `bcbioRNASeq` S4 object
   using `flatFiles()` function.
 - Added `bcbioRNASeq` method support for `annotable()` generic.
 
 
-## bcbioRNASeq 0.0.27 (2017-10-10)
+
+# bcbioRNASeq 0.0.27 (2017-10-10)
 
 - Renamed `bcbioRNADataSet` S4 class to `bcbioRNASeq`. This matches the
   naming conventions in the [bcbioSingleCell][] package.
@@ -250,7 +340,8 @@
   experience across both packages.
 
 
-## bcbioRNASeq 0.0.26 (2017-09-09)
+
+# bcbioRNASeq 0.0.26 (2017-09-09)
 
 - Renamed package from bcbioRnaseq to bcbioRNASeq.
 - Improved website appearance.
@@ -260,7 +351,8 @@
   [R Markdown][] template.
 
 
-## bcbioRNASeq 0.0.25 (2017-08-11)
+
+# bcbioRNASeq 0.0.25 (2017-08-11)
 
 - Added S4 methods support for plots, allowing the user to use either
   `bcbioRNADataSet` or a metrics `data.frame` and manual `interesting_group`
@@ -270,7 +362,8 @@
   [bcbioSmallRNA][].
 
 
-## bcbioRNASeq 0.0.24 (2017-07-13)
+
+# bcbioRNASeq 0.0.24 (2017-07-13)
 
 - Reworked [R Markdown][] templates to improve YAML defaults and add more
   comments.
@@ -279,7 +372,8 @@
 - Updated NEWS file to use [Markdown][] syntax.
 
 
-## bcbioRNASeq 0.0.23 (2017-07-03)
+
+# bcbioRNASeq 0.0.23 (2017-07-03)
 
 - Slotted `DESeqDataSet` using `design = formula(~1)` for quality control. This
   enables automatic generation of `rlog` and `vst` transformed counts.
@@ -288,50 +382,59 @@
 - Adjusted the number of exported functions.
 
 
-## bcbioRNASeq 0.0.22 (2017-06-21)
+
+# bcbioRNASeq 0.0.22 (2017-06-21)
 
 - Added [testthat][] checking with [lintr][].
 - Initial setup of code coverage using [covr][].
 
 
-## bcbioRNASeq 0.0.21 (2017-06-16)
+
+# bcbioRNASeq 0.0.21 (2017-06-16)
 
 - Prepared draft of [F1000][] workflow document.
 
 
-## bcbioRNASeq 0.0.20 (2017-06-09)
+
+# bcbioRNASeq 0.0.20 (2017-06-09)
 
 - Added [Travis-CI][] support for automatic rendering of quality control report.
 
 
-## bcbioRNASeq 0.0.19 (2017-06-07)
+
+# bcbioRNASeq 0.0.19 (2017-06-07)
 
 - `bcbioRnaDataSet` S4 definition updates.
 - Updates to `plot_pca()` and gene-level heatmaps.
 
 
-## bcbioRNASeq 0.0.18 (2017-05-24)
+
+# bcbioRNASeq 0.0.18 (2017-05-24)
 
 - Simplified count pooling functions.
 
 
-## bcbioRNASeq 0.0.17 (2017-05-21)
+
+# bcbioRNASeq 0.0.17 (2017-05-21)
 
 - Reduced number of exports and improved documentation.
 
 
-## bcbioRNASeq 0.0.16 (2017-05-18)
+
+# bcbioRNASeq 0.0.16 (2017-05-18)
 
 - Draft migration of [bcbio][] run object into S4 `bcbioRnaDataSet`.
 - Created a new variant of `load_run()` that saves to S4 object instead of list.
 
 
-## bcbioRNASeq 0.0.15 (2017-05-15)
+
+# bcbioRNASeq 0.0.15 (2017-05-15)
 
 - Reworked and re-organized internal functions.
 
 
-## bcbioRNASeq 0.0.14 (2017-05-10)
+
+# bcbioRNASeq 0.0.14 (2017-05-10)
 
 - Defaulted to loading run using project summary YAML file.
 - Initial commit of [R Markdown][] templates (e.g. quality control).
@@ -339,18 +442,21 @@
 - Draft build of website using `pkgdown::build_site()`.
 
 
-## bcbioRNASeq 0.0.13 (2017-05-08)
+
+# bcbioRNASeq 0.0.13 (2017-05-08)
 
 - Improved [RDAVIDWebService][] utility functions to work with [dplyr][] 0.6.0.
 
 
-## bcbioRNASeq 0.0.12 (2017-05-01)
+
+# bcbioRNASeq 0.0.12 (2017-05-01)
 
 - Reworked metadata and summary metrics functions to obtain information from
   `project-summary.yaml` saved in the final run directory.
 
 
-## bcbioRNASeq 0.0.11 (2017-04-27)
+
+# bcbioRNASeq 0.0.11 (2017-04-27)
 
 - Reduced number of depdencies.
 - Initial commit of modified volcano plot from [CHBUtils][] package.
@@ -359,58 +465,69 @@
   release 88.
 
 
-## bcbioRNASeq 0.0.10 (2017-04-19)
+
+# bcbioRNASeq 0.0.10 (2017-04-19)
 
 - Renamed `import_*` functions to `read_*`.
 
 
-## bcbioRNASeq 0.0.9 (2017-04-13)
+
+# bcbioRNASeq 0.0.9 (2017-04-13)
 
 - Consolidated NAMESPACE imports.
 - Defaulted to writing count matrices with gzip compression, to save disk space.
 
 
-## bcbioRNASeq 0.0.8 (2017-04-12)
+
+# bcbioRNASeq 0.0.8 (2017-04-12)
 
 - Renamed internal parameters for better readability.
 - Improved documentation and consolidate functions by group.
 
 
-## bcbioRNASeq 0.0.7 (2017-04-10)
+
+# bcbioRNASeq 0.0.7 (2017-04-10)
 
 - NAMESPACE simplification using [basejump][] package.
 
 
-## bcbioRNASeq 0.0.6 (2017-04-07)
+
+# bcbioRNASeq 0.0.6 (2017-04-07)
 
 - Reworked handling of plots and tables during knits.
 
 
-## bcbioRNASeq 0.0.5 (2017-04-06)
+
+# bcbioRNASeq 0.0.5 (2017-04-06)
 
 - Initial commit of differential expression and gene set enrichment functions.
 
 
-## bcbioRNASeq 0.0.4 (2017-04-04)
+
+# bcbioRNASeq 0.0.4 (2017-04-04)
 
 - Added [bcbio][] object integrity checks.
 - Improved detection and handling of lane split samples.
 
 
-## bcbioRNASeq 0.0.3 (2017-03-31)
+
+# bcbioRNASeq 0.0.3 (2017-03-31)
 
 - Reworked functions to utilize [bcbio][] list object.
 
 
-## bcbioRNASeq 0.0.2 (2017-03-28)
+
+# bcbioRNASeq 0.0.2 (2017-03-28)
 
 - Added plotting functions.
 
 
-## bcbioRNASeq 0.0.1 (2017-03-22)
+
+# bcbioRNASeq 0.0.1 (2017-03-22)
 
 - Start of package development.
 - Initial draft release supporting automatic loading of [bcbio][] run data.
+
 
 
 [AnnotationHub]: https://doi.org/doi:10.18129/B9.bioc.AnnotationHub
