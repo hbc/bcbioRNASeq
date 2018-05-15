@@ -29,11 +29,12 @@ params:
 # - species: "mouse"
 
 # Additional required packages =================================================
+org_db <- paste("org", params$organism, "eg", "db", sep = ".")
 packages <- c(
     "clusterProfiler",
     "DOSE",
     "pathview",
-    OrgDb = paste("org", params$organism, "eg", "db", sep = ".")
+    org_db
 )
 invisible(lapply(
     X = basename(packages),
