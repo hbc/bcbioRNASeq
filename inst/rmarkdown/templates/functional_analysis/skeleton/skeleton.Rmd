@@ -17,13 +17,11 @@ params:
 ```{r setup, message=FALSE}
 # Last modified 2018-05-18
 
-# OrgDb supported organisms
-# Use the 2 letter code here for `organism` param
-# http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
-
-# KEGG supported organisms
-# Use the 3 letter code here for `gspeces` param
+# KEGG supported organismss
 # http://www.genome.jp/kegg/catalog/org_list.html
+
+# OrgDb supported organisms
+# http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 
 # Additional required packages =================================================
 packages <- c(
@@ -62,7 +60,7 @@ dds_name <- load(params$dds_file)
 dds <- get(dds_name, inherits = FALSE)
 stopifnot(is(dds, "DESeqDataSet"))
 invisible(validObject(dds))
-# Require `entrezID` mappings column in rowData.
+# Require `entrezID` mappings column in `rowData()`.
 # This will be stashed when using `as(dds, "bcbioRNASeq")` coercion method.
 stopifnot(is(rowData(dds)$entrezID, "list"))
 
@@ -74,7 +72,7 @@ invisible(validObject(res))
 # Ensure that DESeqDataSet and DESeqResults are matched
 stopifnot(identical(rownames(dds), rownames(res)))
 
-# KEGG organism code (e.g. "hsa")
+# KEGG organism code (e.g. "hsa" for Homo sapiens)
 kegg_code <- params$organism %>%
     search_kegg_organism("scientific_name") %>%
     pull("kegg_code")
@@ -184,11 +182,7 @@ Here we are plotting genes colored by LFC for top 5 most significant [GO][] term
 
 ```{r cnetplot, fig.width=8, fig.height=8}
 # help("cnetplot", "clusterProfiler")
-cnetplot(
-    x = enrich_go,
-    foldChange = lfc_vec,
-    vertex.label.cex = 0.5
-)
+cnetplot(enrich_go, foldChange = lfc_vec)
 ```
 
 
@@ -276,13 +270,15 @@ all_entrez <- gene2entrez %>%
     unique() %>%
     sort() %>%
     as.character()
+```
 
+```{r entrez_res}
 # Filter the results to only contain genes that map to Entrez
 entrez_res <- res[names(gene2entrez), , drop = FALSE]
 
 # All genes containing a P value, ordered by FDR
 entrez_res_df <- as.data.frame(entrez_res)
-entrez_res_df$entrez <- gene2entrez
+entrez_res_df$entrezID <- gene2entrez
 
 # help("significants", "DEGreport")
 sig_genes <- significants(
@@ -291,20 +287,25 @@ sig_genes <- significants(
     padj = alpha
 )
 
-# Significant genes 
+# Significant results by Entrez ID
 sig_entrez_res_df <- entrez_res_df %>%
     .[sig_genes, , drop = FALSE] %>%
-    .[order(.$padj), , drop = FALSE]
+    rownames_to_column("geneID") %>%
+    select(entrezID, everything()) %>%
+    group_by(entrezID) %>%
+    # Get the most significant result, per Entrez ID
+    top_n(n = 1, wt = padj)
+stopifnot(!any(duplicated(sig_entrez_res_df$entrezID)))
 
 sig_entrez <- sig_entrez_res_df %>%
-    pull(entrez) %>%
+    pull(entrezID) %>%
     unique() %>%
     sort() %>%
     as.character()
 
 # Extract the fold changes
 entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
-names(entrez_lfc_vec) <- sig_entrez_res_df$entrez
+names(entrez_lfc_vec) <- sig_entrez_res_df$entrezID
 # Sort from upregulated to downregulated
 entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
 glimpse(entrez_lfc_vec)
@@ -365,7 +366,7 @@ When performing [GSEA][] analysis it may be useful to adjust the minGSSize and/o
 gsea_kegg <- gseKEGG(
     geneList = entrez_lfc_vec,
     organism = kegg_code,
-    keyType = "kegg"
+    keyType = "ncbi-geneid"
 )
 gsea_kegg_result <- gsea_kegg %>%
     slot("result") %>%
@@ -411,10 +412,10 @@ if (length(pathways)) {
     wd <- getwd()
     setwd(kegg_plots_dir)
     invisible(lapply(pathways, function(pathway) {
-        # `gene.data` vector should be numeric with geneIDs as names
+        # `gene.data` vector should be numeric with Entrez IDs as names
         tryCatch(
             pathview(
-                gene.data = lfc_vec,
+                gene.data = entrez_lfc_vec,
                 pathway.id = pathway,
                 species = kegg_code, 
                 limit = list(gene = 2, cpd = 1)
