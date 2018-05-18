@@ -194,8 +194,8 @@ setMethod(
         fileStem <- snake(contrast)
 
         # Now safe to coerce to DataFrame
-        results <- as.data.frame(results) %>%
-            rownames_to_column("geneID")
+        results <- as.data.frame(results)
+        results[["geneID"]] <- rownames(results)
 
         # Add gene annotations (rowData) =======================================
         rowRanges <- rowRanges(counts)
