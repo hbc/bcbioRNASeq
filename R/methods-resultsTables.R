@@ -27,11 +27,7 @@
 #'
 #' @examples
 #' # DESeqResults, DESeqDataSet ====
-#' x <- resultsTables(
-#'     results = res_small,
-#'     counts = dds_small,
-#'     lfcThreshold = 0.25
-#' )
+#' x <- resultsTables(results = res_small, counts = dds_small)
 #' names(x)
 #' glimpse(x[["deg"]])
 NULL
