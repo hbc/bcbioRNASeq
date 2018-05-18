@@ -4,10 +4,10 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    bcb_file: "data/YYYY-MM-DD/bcb.rda"
+    dds_file: "data/YYYY-MM-DD/dds.rda"
     res_file: "data/YYYY-MM-DD/res.rda"
+    organism: "Homo sapiens"
     org_db: "org.Hs.eg.db"
-    kegg_org: "hsa"
     go_class: "BP"
     lfc_threshold: 0
     data_dir: !r file.path("data", Sys.Date())
@@ -36,6 +36,7 @@ print(packages)
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
+        # Use `BiocInstaller::biocLite()` to install missing packages
         stopifnot(require(package, character.only = TRUE))
     }
 ))
@@ -57,15 +58,28 @@ invisible(mapply(
 ))
 
 # Load objects =================================================================
-bcb_name <- load(params$bcb_file)
-bcb <- get(bcb_name, inherits = FALSE)
-stopifnot(is(bcb, "bcbioRNASeq"))
-invisible(validObject(bcb))
+dds_name <- load(params$dds_file)
+dds <- get(dds_name, inherits = FALSE)
+stopifnot(is(dds, "DESeqDataSet"))
+invisible(validObject(dds))
+# Require `entrezID` mappings column in rowData.
+# This will be stashed when using `as(dds, "bcbioRNASeq")` coercion method.
+stopifnot(is(rowData(dds)$entrezID, "list"))
 
 res_name <- load(params$res_file)
 res <- get(res_name, inherits = FALSE)
 stopifnot(is(res, "DESeqResults"))
 invisible(validObject(res))
+
+# Ensure that DESeqDataSet and DESeqResults are matched
+stopifnot(identical(rownames(dds), rownames(res)))
+
+# KEGG organism code (e.g. "hsa")
+kegg_code <- params$organism %>%
+    search_kegg_organism("scientific_name") %>%
+    pull("kegg_code")
+stopifnot(length(kegg_code) == 1)
+stopifnot(grepl("^[a-z]{3}$", kegg_code))
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -77,13 +91,18 @@ invisible(validObject(res))
 alpha <- metadata(res)$alpha
 
 # Subset NA adjusted P values
-res <- res[!is.na(res$padj), , drop = FALSE]
-res_df <- as.data.frame(res)
+message("Dropping genes without an adjusted P value")
+res_subset <- res[!is.na(res$padj), , drop = FALSE]
+all_genes <- rownames(res_subset)
 
-all_genes <- rownames(res)
+res_df <- as.data.frame(res_subset)
 
 # help("significants", "DEGreport")
-sig_genes <- significants(res, fc = params$lfc_threshold, padj = alpha)
+sig_genes <- significants(
+    object = res_subset,
+    fc = params$lfc_threshold,
+    padj = alpha
+)
 
 sig_res_df <- res_df %>%
     .[sig_genes, , drop = FALSE] %>%
@@ -93,6 +112,7 @@ lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
 # Sort from upregulated to downregulated
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
+glimpse(lfc_vec)
 ```
 
 
@@ -180,6 +200,8 @@ A common approach in analyzing gene expression profiles was identifying differen
 # Prepare the gene list. Here we're subtracting the adjusted P value from 1.
 gene_list <- 1 - res_df$padj
 names(gene_list) <- row.names(res_df)
+gene_list <- sort(gene_list, decreasing = TRUE)
+glimpse(gene_list)
 
 # Now run GSEA
 # help("gseGO", "clusterProfiler")
@@ -230,10 +252,8 @@ gsea_go_result
 ```{r map_genes_to_entrez}
 # Entrez IDs here are obtained from AnnotationHub using ensembldb.
 # Coerce to SummarizedExperiment for fast subsetting.
-rse <- as(bcb, "RangedSummarizedExperiment")
-rse <- rse[all_genes, ]
-
-entrez <- rowData(rse)$entrezID
+dds_subset <- dds[all_genes, ]
+entrez <- rowData(dds_subset)$entrezID
 stopifnot(is.list(entrez))
 stopifnot(!is.null(names(entrez)))
 
@@ -251,6 +271,7 @@ entrez <- Filter(Negate(is.null), entrez)
 gene2entrez <- unlist(entrez)
 stopifnot(is.integer(gene2entrez))
 
+# Coerce Entrez identifiers to character
 all_entrez <- gene2entrez %>%
     unique() %>%
     sort() %>%
@@ -264,7 +285,7 @@ entrez_res_df <- as.data.frame(entrez_res)
 entrez_res_df$entrez <- gene2entrez
 
 # help("significants", "DEGreport")
-sig_gene <- significants(
+sig_genes <- significants(
     object = entrez_res,
     fc = params$lfc_threshold,
     padj = alpha
@@ -272,7 +293,7 @@ sig_gene <- significants(
 
 # Significant genes 
 sig_entrez_res_df <- entrez_res_df %>%
-    .[sig_gene, , drop = FALSE] %>%
+    .[sig_genes, , drop = FALSE] %>%
     .[order(.$padj), , drop = FALSE]
 
 sig_entrez <- sig_entrez_res_df %>%
@@ -286,6 +307,7 @@ entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
 names(entrez_lfc_vec) <- sig_entrez_res_df$entrez
 # Sort from upregulated to downregulated
 entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
+glimpse(entrez_lfc_vec)
 
 saveData(gene2entrez, entrez_res, dir = params$data_dir)
 ```
@@ -294,7 +316,8 @@ saveData(gene2entrez, entrez_res, dir = params$data_dir)
 # help("enrichKEGG", "clusterProfiler")
 kegg <- enrichKEGG(
     gene = as.character(sig_entrez),
-    organism = params$kegg_org,
+    organism = kegg_code,
+    keyType = "ncbi-geneid",
     universe = as.character(all_entrez),
     qvalueCutoff = 0.05
 )
@@ -341,7 +364,8 @@ When performing [GSEA][] analysis it may be useful to adjust the minGSSize and/o
 # help("gseKEGG", "clusterProfiler")
 gsea_kegg <- gseKEGG(
     geneList = entrez_lfc_vec,
-    organism = params$kegg_org
+    organism = kegg_code,
+    keyType = "kegg"
 )
 gsea_kegg_result <- gsea_kegg %>%
     slot("result") %>%
@@ -392,7 +416,7 @@ if (length(pathways)) {
             pathview(
                 gene.data = lfc_vec,
                 pathway.id = pathway,
-                species = params$kegg_org, 
+                species = kegg_code, 
                 limit = list(gene = 2, cpd = 1)
             ),
             error = function(e) {
