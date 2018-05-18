@@ -6,9 +6,8 @@ bibliography: bibliography.bib
 params:
     bcb_file: "data/YYYY-MM-DD/bcb.rda"
     res_file: "data/YYYY-MM-DD/res.rda"
-    organism: "Hs"
-    gspecies: "hsa"
-    species: "human"
+    org_db: "org.Hs.eg.db"
+    kegg_org: "hsa"
     go_class: "BP"
     lfc_threshold: 0
     data_dir: !r file.path("data", Sys.Date())
@@ -16,26 +15,24 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-10
+# Last modified 2018-05-18
 
-# Human
-# - organism: "Hs"
-# - gspecies: "hsa"
-# - species: "human"
-# 
-# Mouse
-# - organism: "Mm"
-# - gspecies: "mmu"
-# - species: "mouse"
+# OrgDb supported organisms
+# Use the 2 letter code here for `organism` param
+# http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
+
+# KEGG supported organisms
+# Use the 3 letter code here for `gspeces` param
+# http://www.genome.jp/kegg/catalog/org_list.html
 
 # Additional required packages =================================================
-org_db <- paste("org", params$organism, "eg", "db", sep = ".")
 packages <- c(
     "clusterProfiler",
     "DOSE",
     "pathview",
-    org_db
+    params$org_db
 )
+print(packages)
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
@@ -108,7 +105,7 @@ lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 # help("enrichGO", "clusterProfiler")
 enrich_go <- enrichGO(
     gene = sig_genes,
-    OrgDb = org_db,
+    OrgDb = params$org_db,
     keyType = "ENSEMBL",
     ont = params$go_class,
     universe = all_genes,
@@ -190,7 +187,7 @@ names(gene_list) <- row.names(res_df)
 gsea_go <- gseGO(
     geneList = gene_list,
     ont = params$go_class,
-    OrgDb = org_db,
+    OrgDb = params$org_db,
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
@@ -297,7 +294,7 @@ saveData(gene2entrez, entrez_res, dir = params$data_dir)
 # help("enrichKEGG", "clusterProfiler")
 kegg <- enrichKEGG(
     gene = as.character(sig_entrez),
-    organism = params$species,
+    organism = params$kegg_org,
     universe = as.character(all_entrez),
     qvalueCutoff = 0.05
 )
@@ -344,7 +341,7 @@ When performing [GSEA][] analysis it may be useful to adjust the minGSSize and/o
 # help("gseKEGG", "clusterProfiler")
 gsea_kegg <- gseKEGG(
     geneList = entrez_lfc_vec,
-    organism = tolower(params$gspecies)
+    organism = params$kegg_org
 )
 gsea_kegg_result <- gsea_kegg %>%
     slot("result") %>%
@@ -395,7 +392,7 @@ if (length(pathways)) {
             pathview(
                 gene.data = lfc_vec,
                 pathway.id = pathway,
-                species = tolower(params$gspecies), 
+                species = params$kegg_org, 
                 limit = list(gene = 2, cpd = 1)
             ),
             error = function(e) {
