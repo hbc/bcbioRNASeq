@@ -13,6 +13,14 @@ branches:
   except:
   - develop
 
+# External dependencies
+# dependency for clusterProfiler > enrichplot > udunits2
+addons:
+  apt:
+    update: true
+    packages:
+      - libudunits2-dev
+
 env:
   global:
     - LINTR_COMMENT_BOT=true
@@ -40,7 +48,6 @@ r_packages:
 bioc_packages:
   - BiocCheck
 r_github_packages:
-  - GuangchuangYu/clusterProfiler
   - jimhester/lintr
 
 after_success:
