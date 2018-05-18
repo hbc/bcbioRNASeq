@@ -29,8 +29,10 @@ warnings_are_errors: true
 
 notifications:
   email:
+  recipients:
+      - mike@steinbaugh.com
     on_success: change
-    on_failure: change
+    on_failure: always
 
 r_packages:
   - covr
@@ -38,6 +40,7 @@ r_packages:
 bioc_packages:
   - BiocCheck
 r_github_packages:
+  - GuangchuangYu/clusterProfiler
   - jimhester/lintr
 
 after_success:
