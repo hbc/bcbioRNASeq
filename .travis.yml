@@ -9,9 +9,9 @@ r:
   - bioc-devel
 
 # blocklist
-branches:
-  except:
-  - develop
+# branches:
+#   except:
+#   - develop
 
 # External dependencies
 # dependency for clusterProfiler > enrichplot > udunits2
