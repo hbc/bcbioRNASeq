@@ -37,7 +37,7 @@ warnings_are_errors: true
 
 notifications:
   email:
-  recipients:
+    recipients:
       - mike@steinbaugh.com
     on_success: change
     on_failure: always
