@@ -8,8 +8,8 @@
 \title{\code{bcbioRNASeq} Object and Constructor}
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
-  caller = c("salmon", "kallisto", "sailfish"), organism, samples = NULL,
-  censorSamples = NULL, sampleMetadataFile = NULL,
+  caller = c("salmon", "kallisto", "sailfish"), organism,
+  sampleMetadataFile = NULL, samples = NULL, censorSamples = NULL,
   interestingGroups = "sampleName", ensemblRelease = NULL,
   genomeBuild = NULL, transgeneNames = NULL, spikeNames = NULL,
   gffFile = NULL, transformationLimit = 50L, ...)
@@ -30,16 +30,16 @@ AnnotationHub and ensembldb, unless \code{gffFile} is set. If set \code{NULL}
 gene/transcript-level annotations into \code{rowRanges()}. This can be useful
 for poorly annotation genomes or experiments involving multiple genomes.}
 
+\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file. Remote URLs are supported. Typically this can be left unset.}
+
 \item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
 must match the \code{description} specified in the bcbio YAML metadata. If a
 \code{sampleMetadataFile} is provided, that will take priority for sample
 selection. Typically this can be left unset.}
 
 \item{censorSamples}{\emph{Optional.} Samples to exclude from the analysis.}
-
-\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
-sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left unset.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
