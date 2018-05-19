@@ -4,7 +4,7 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    dds_file: "data/YYYY-MM-DD/dds.rda"
+    bcb_file: "data/YYYY-MM-DD/bcb.rda"
     res_file: "data/YYYY-MM-DD/res.rda"
     organism: "Homo sapiens"
     go_class: "BP"
@@ -69,13 +69,12 @@ invisible(mapply(
 ))
 
 # Load objects =================================================================
-dds_name <- load(params$dds_file)
-dds <- get(dds_name, inherits = FALSE)
-stopifnot(is(dds, "DESeqDataSet"))
-invisible(validObject(dds))
+bcb_name <- load(params$bcb_file)
+bcb <- get(bcb_name, inherits = FALSE)
+stopifnot(is(bcb, "bcbioRNASeq"))
+invisible(validObject(bcb))
 # Require `entrezID` mappings column in `rowData()`.
-# This will be stashed when using `as(dds, "bcbioRNASeq")` coercion method.
-stopifnot(is(rowData(dds)$entrezID, "list"))
+stopifnot(is(rowData(bcb)$entrezID, "list"))
 
 res_name <- load(params$res_file)
 res <- get(res_name, inherits = FALSE)
@@ -83,7 +82,7 @@ stopifnot(is(res, "DESeqResults"))
 invisible(validObject(res))
 
 # Ensure that DESeqDataSet and DESeqResults are matched
-stopifnot(identical(rownames(dds), rownames(res)))
+stopifnot(identical(rownames(bcb), rownames(res)))
 
 # KEGG organism code (e.g. "hsa" for Homo sapiens)
 kegg_code <- params$organism %>%
@@ -258,9 +257,10 @@ gsea_go_result
 
 ```{r map_genes_to_entrez}
 # Entrez IDs here are obtained from AnnotationHub using ensembldb.
-# Coerce to SummarizedExperiment for fast subsetting.
-dds_subset <- dds[all_genes, ]
-entrez <- rowData(dds_subset)$entrezID
+# Coerce bcbioRNASeq to SummarizedExperiment for faster subsetting.
+rse <- as(bcb, "RangedSummarizedExperiment")
+rse <- rse[all_genes, ]
+entrez <- rowData(rse)$entrezID
 stopifnot(is.list(entrez))
 stopifnot(!is.null(names(entrez)))
 
