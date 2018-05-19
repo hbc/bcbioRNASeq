@@ -7,7 +7,6 @@ params:
     dds_file: "data/YYYY-MM-DD/dds.rda"
     res_file: "data/YYYY-MM-DD/res.rda"
     organism: "Homo sapiens"
-    org_db: "org.Hs.eg.db"
     go_class: "BP"
     lfc_threshold: 0
     data_dir: !r file.path("data", Sys.Date())
@@ -23,12 +22,26 @@ params:
 # OrgDb supported organisms
 # http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 
+# OrgDb package (e.g. "org.Hs.eg.db")
+library(stringr)
+match <- str_match(
+    string = params$organism,
+    pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
+)
+org_db <- paste(
+    "org",
+    paste(match[, 2:3], collapse = ""),
+    "eg",
+    "db",
+    sep = "."
+)
+
 # Additional required packages =================================================
 packages <- c(
     "clusterProfiler",
     "DOSE",
     "pathview",
-    params$org_db
+    org_db
 )
 print(packages)
 invisible(lapply(
@@ -123,7 +136,7 @@ glimpse(lfc_vec)
 # help("enrichGO", "clusterProfiler")
 enrich_go <- enrichGO(
     gene = sig_genes,
-    OrgDb = params$org_db,
+    OrgDb = org_db,
     keyType = "ENSEMBL",
     ont = params$go_class,
     universe = all_genes,
@@ -203,7 +216,7 @@ glimpse(gene_list)
 gsea_go <- gseGO(
     geneList = gene_list,
     ont = params$go_class,
-    OrgDb = params$org_db,
+    OrgDb = org_db,
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
