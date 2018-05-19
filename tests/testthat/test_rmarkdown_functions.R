@@ -31,7 +31,7 @@ test_that("topTables : resultsTables list", {
         strsplit("\\n") %>%
         .[[1L]]
     # Check for geneID column in header
-    expect_true(grepl("^\\|geneID", output[[3L]]))
+    expect_true(grepl("geneID", output[[3L]]))
 })
 
 test_that("topTables : DESeqResults", {

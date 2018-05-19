@@ -49,12 +49,13 @@ NULL
             .[.[["broadClass"]] == "coding", , drop = FALSE]
     }
 
+    # Early return NULL when there are no significant DEGs
     if (!nrow(object)) {
         return(NULL)
     }
 
     keepCols <- c(requiredCols, c("geneName", "geneBiotype", "description"))
-    return <- object %>%
+    data <- object %>%
         as_tibble() %>%
         remove_rownames() %>%
         head(n = n) %>%
@@ -64,20 +65,23 @@ NULL
             padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
         ) %>%
         .[, which(colnames(.) %in% keepCols)] %>%
-        # Shorten `log2FoldChange` to `lfc`
+        # Shorten `log2FoldChange` to `lfc` to keep column width compact
         rename(lfc = !!sym("log2FoldChange"))
 
     # Sanitize the description, if necessary
-    if ("description" %in% colnames(return)) {
+    if ("description" %in% colnames(data)) {
         # Remove symbol information in description, if present
-        return[["description"]] <- gsub(
+        data[["description"]] <- gsub(
             pattern = " \\[.+\\]$",
             replacement = "",
-            x = return[["description"]]
+            x = data[["description"]]
         )
     }
 
-    return
+    # Ensure `gene*` columns appear first
+    data <- select(data, starts_with("gene"), everything())
+
+    data
 }
 
 

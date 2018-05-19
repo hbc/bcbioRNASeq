@@ -9,6 +9,7 @@
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
+#'
 #' @importFrom BiocGenerics colSums density design
 #' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromTximport DESeqTransform
@@ -30,8 +31,9 @@
 #'   readYAMLSampleMetrics sampleData sampleDirs sanitizeSampleData
 #'   uniteInterestingGroups
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom dplyr arrange bind_cols desc filter group_by left_join mutate
-#'   mutate_all mutate_if pull rename row_number select_if
+#' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
+#'   mutate mutate_all mutate_if pull rename row_number select select_if
+#'   starts_with
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
 #'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
@@ -98,7 +100,6 @@
 #' @importFrom assertive.types assert_is_numeric
 #' @importFrom assertive.types assert_is_tbl_df
 #' @importFrom assertive.types is_a_string
-#'
 #' @importFrom basejump assertAreGeneAnnotations
 #' @importFrom basejump assertIsHexColorFunctionOrNULL
 #' @importFrom basejump assertFormalGene2symbol

@@ -290,7 +290,7 @@ setMethod(
                 x = tables,
                 path = localFiles,
                 FUN = function(x, path) {
-                    assert_are_identical("geneID", colnames(x)[[1L]])
+                    assert_is_subset("geneID", colnames(x))
                     write_csv(x = x, path = path)
                 }
             )
