@@ -16,7 +16,7 @@ params:
 ```{r setup, message=FALSE}
 # Last modified 2018-05-18
 
-# KEGG supported organismss
+# KEGG supported organisms
 # http://www.genome.jp/kegg/catalog/org_list.html
 
 # OrgDb supported organisms
