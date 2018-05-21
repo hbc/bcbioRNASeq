@@ -23,9 +23,9 @@ matrix:
 #   - master
 
 # blocklist
-# branches:
-#   except:
-#   - develop
+branches:
+  except:
+  - develop
 
 # External dependencies
 # dependency for clusterProfiler > enrichplot > udunits2
@@ -38,7 +38,7 @@ addons:
 env:
   global:
     - LINTR_COMMENT_BOT=true
-    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+    # - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 # r_build_args: "--no-build-vignettes"
 # r_check_args: "--no-vignettes"
@@ -62,6 +62,14 @@ r_packages:
 bioc_packages:
   - BiocCheck
   - GenomeInfoDbData
+  - DelayedArray
+  # clusterProfiler dependencies
+  - ALL
+  - DO.db
+  - GO.db
+  - enrichplot
+  - org.Hs.eg.db
+  - org.Mm.eg.db
 r_github_packages:
   - jimhester/lintr
 
