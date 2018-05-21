@@ -4,7 +4,6 @@
 \name{plotPCA}
 \alias{plotPCA}
 \alias{plotPCA,SummarizedExperiment-method}
-\alias{plotPCA,DESeqDataSet-method}
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
@@ -12,8 +11,6 @@
   samples = NULL, interestingGroups, color = scale_color_hue(),
   label = FALSE, title = "pca", subtitle = NULL, return = c("ggplot",
   "data.frame"))
-
-\S4method{plotPCA}{DESeqDataSet}(object, ...)
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -44,8 +41,6 @@ color definitions are desired, we recommend using
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{...}{Additional arguments.}
-
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
@@ -53,6 +48,8 @@ the first item in the vector by default.}
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
