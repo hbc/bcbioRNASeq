@@ -8,7 +8,7 @@
 #'
 #' @inheritParams general
 #'
-#' @return `DESeqDataSet`.
+#' @return `RangedSummarizedExperiment`.
 NULL
 
 
@@ -68,10 +68,9 @@ setMethod(
         assert_are_identical(colnames(counts), rownames(colData))
 
         # Return ===============================================================
-        DESeqDataSetFromMatrix(
-            countData = round(counts),
+        SummarizedExperiment(
+            assays = list(counts = counts),
             colData = colData,
-            design = ~ 1,  # nolint
             rowRanges = rowRanges(object)
         )
     }

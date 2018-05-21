@@ -12,7 +12,7 @@
 \item{object}{Object.}
 }
 \value{
-\code{DESeqDataSet}.
+\code{RangedSummarizedExperiment}.
 }
 \description{
 Aggregate Replicates
