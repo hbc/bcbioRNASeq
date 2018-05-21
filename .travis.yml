@@ -63,6 +63,7 @@ bioc_packages:
   - BiocCheck
   - GenomeInfoDbData
   - DelayedArray
+  - EnsDb.Hsapiens.v75
   # clusterProfiler dependencies
   - ALL
   - DO.db
