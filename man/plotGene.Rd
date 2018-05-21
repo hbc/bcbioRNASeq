@@ -58,6 +58,8 @@ the first item in the vector by default.}
 }
 \value{
 \itemize{
+\item "\code{facet}": \code{ggplot} grouped by \code{sampleName}, with \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}
+applied to panel the samples.
 \item "\code{grid}": Show \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}, paneled per gene.
 \item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
 \item "\code{list}": \code{list}, containing per gene \code{ggplot} objects.

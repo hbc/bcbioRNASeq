@@ -12,6 +12,8 @@
 #'   are colored by sample name.
 #'
 #' @return
+#' - "`facet`": `ggplot` grouped by `sampleName`, with [ggplot2::facet_wrap()]
+#'   applied to panel the samples.
 #' - "`grid`": Show [cowplot::plot_grid()], paneled per gene.
 #' - "`wide`": Show `ggplot` in wide format, with genes on the x-axis.
 #' - "`list`": `list`, containing per gene `ggplot` objects.
@@ -38,6 +40,60 @@ NULL
 
 
 # Constructors =================================================================
+.plotGeneFacet <- function(
+    object,
+    countsAxisLabel = "counts",
+    medianLine = TRUE,
+    color = scale_color_hue()
+) {
+    stopifnot(is(object, "SummarizedExperiment"))
+    stopifnot(length(rownames(object)) <= 50L)
+
+    object <- convertGenesToSymbols(object)
+    interestingGroups <- interestingGroups(object)
+
+    data <- .meltCounts(
+        counts = assay(object),
+        sampleData = sampleData(object, clean = FALSE)
+    )
+
+    p <- ggplot(
+        data = data,
+        mapping = aes_string(
+            x = "interestingGroups",
+            y = "counts",
+            color = "interestingGroups"
+        )
+    ) +
+        .genePoint() +
+        facet_wrap(facets = "geneID", scales = "free") +
+        labs(
+            x = NULL,
+            y = countsAxisLabel,
+            color = paste(interestingGroups, collapse = ":\n")
+        ) +
+        theme(
+            axis.text.x = element_blank(),
+            axis.ticks.x = element_blank()
+        )
+
+    if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
+        p <- p + .geneMedianLine
+    }
+
+    if (is(color, "ScaleDiscrete")) {
+        p <- p + color
+    }
+
+    if (identical(interestingGroups, "sampleName")) {
+        p <- p + guides(color = FALSE)
+    }
+
+    p
+}
+
+
+
 .plotGeneList <- function(
     object,
     countsAxisLabel = "counts",
@@ -48,12 +104,11 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    sampleData <- sampleData(object)
     interestingGroups <- interestingGroups(object)
 
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(object)
+        sampleData = sampleData(object, clean = FALSE)
     )
 
     list <- mclapply(
@@ -100,62 +155,6 @@ NULL
 
 
 
-.plotGeneFacet <- function(
-    object,
-    countsAxisLabel = "counts",
-    medianLine = TRUE,
-    color = scale_color_hue()
-) {
-    stopifnot(is(object, "SummarizedExperiment"))
-    stopifnot(length(rownames(object)) <= 50L)
-
-    object <- convertGenesToSymbols(object)
-    sampleData <- sampleData(object)
-    interestingGroups <- interestingGroups(object)
-
-    data <- .meltCounts(
-        counts = assay(object),
-        sampleData = sampleData(object)
-    )
-
-    p <- ggplot(
-        data = data,
-        mapping = aes_string(
-            x = "interestingGroups",
-            y = "counts",
-            color = "interestingGroups"
-        )
-    ) +
-        .genePoint() +
-        facet_wrap(facets = "geneID", scales = "free") +
-        labs(
-            x = NULL,
-            y = countsAxisLabel,
-            color = paste(interestingGroups, collapse = ":\n")
-        ) +
-        theme(
-            axis.text.x = element_blank(),
-            axis.ticks.x = element_blank()
-        )
-
-    if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
-        p <- p + .geneMedianLine
-    }
-
-    if (is(color, "ScaleDiscrete")) {
-        p <- p + color
-    }
-
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(color = FALSE)
-    }
-
-    p
-
-}
-
-
-
 .plotGeneWide <- function(
     object,
     countsAxisLabel = "counts",
@@ -166,12 +165,11 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    sampleData <- sampleData(object)
     interestingGroups <- interestingGroups(object)
 
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(object)
+        sampleData = sampleData(object, clean = FALSE)
     )
 
     p <- ggplot(
