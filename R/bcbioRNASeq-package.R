@@ -12,8 +12,9 @@
 #'
 #' @importFrom BiocGenerics colSums density design
 #' @importFrom DEGreport degCovariates significants
-#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromTximport DESeqTransform
-#'   estimateSizeFactors results rlog varianceStabilizingTransformation
+#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
+#'   DESeqDataSetFromTximport DESeqTransform estimateSizeFactors results rlog
+#'   varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
 #'   metadata na.omit

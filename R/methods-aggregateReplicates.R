@@ -1,0 +1,78 @@
+#' Aggregate Replicates
+#'
+#' @name aggregateReplicates
+#' @family Data Functions
+#' @author Michael Steinbaugh
+#'
+#' @importFrom basejump aggregateReplicates
+#'
+#' @inheritParams general
+#'
+#' @return `DESeqDataSet`.
+NULL
+
+
+
+# Methods ======================================================================
+#' @rdname aggregateReplicates
+#' @export
+setMethod(
+    "aggregateReplicates",
+    signature("bcbioRNASeq"),
+    function(object) {
+        validObject(object)
+
+        metadata <- metadata(object)
+        colData <- colData(object)
+        assert_is_subset("aggregate", colnames(colData))
+
+        # This step will replace the `sampleName` column with the `aggregate`
+        # column metadata.
+        remap <- colData %>%
+            as.data.frame() %>%
+            rownames_to_column("sampleID") %>%
+            select(!!!syms(c("sampleID", "aggregate"))) %>%
+            mutate(sampleIDAggregate = makeNames(
+                !!sym("aggregate"), unique = FALSE
+            )) %>%
+            select(-!!sym("aggregate")) %>%
+            arrange(!!!syms(c("sampleID", "sampleIDAggregate"))) %>%
+            mutate_all(as.factor) %>%
+            mutate_all(droplevels)
+
+        # Message the new sample IDs
+        newIDs <- unique(remap[["sampleIDAggregate"]])
+        message(paste("New sample IDs:", toString(newIDs)))
+
+        groupings <- factor(remap[["sampleIDAggregate"]])
+        names(groupings) <- remap[["sampleID"]]
+
+        # Assays ===============================================================
+        message("Aggregating counts")
+        counts <- aggregateReplicates(counts(object), groupings = groupings)
+        assert_are_identical(sum(counts), sum(counts(object)))
+
+        # Column data ==========================================================
+        expected <- length(levels(colData[["aggregate"]]))
+        colData <- colData %>%
+            as.data.frame() %>%
+            mutate(sampleName = !!sym("aggregate")) %>%
+            select(!!sym("sampleName")) %>%
+            mutate_all(as.factor) %>%
+            unique() %>%
+            as("DataFrame")
+        if (!identical(nrow(colData), expected)) {
+            stop("Failed to aggregate sample metadata uniquely")
+        }
+        rownames(colData) <- makeNames(colData[["sampleName"]])
+        assert_are_identical(colnames(counts), rownames(colData))
+
+        # Return ===============================================================
+        DESeqDataSetFromMatrix(
+            countData = round(counts),
+            colData = colData,
+            design = ~ 1,  # nolint
+            rowRanges = rowRanges(object)
+        )
+    }
+)

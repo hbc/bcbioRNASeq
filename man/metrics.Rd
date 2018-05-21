@@ -24,8 +24,9 @@ Sample Metrics
 metrics(bcb_small) \%>\% glimpse()
 }
 \seealso{
-Other Data Functions: \code{\link{counts}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{aggregateReplicates}},
+  \code{\link{counts}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
