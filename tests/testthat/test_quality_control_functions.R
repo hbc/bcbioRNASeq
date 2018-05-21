@@ -42,16 +42,10 @@ test_that("Quality Control Metrics Plots", {
 test_that("plotCorrelationHeatmap", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb_small)
-    expect_identical(
-        names(p),
-        c("tree_row", "tree_col", "kmeans", "gtable")
-    )
+    expect_identical(names(p), pheatmapNames)
     # Spearman
     p <- plotCorrelationHeatmap(bcb_small, method = "spearman")
-    expect_identical(
-        names(p),
-        c("tree_row", "tree_col", "kmeans", "gtable")
-    )
+    expect_identical(names(p), pheatmapNames)
     # Bad method
     expect_error(
         plotCorrelationHeatmap(bcb_small, method = "XXX"),
@@ -65,7 +59,7 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
         skipWarning
     )
     p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
-    expect_is(p, "list")
+    expect_identical(names(p), pheatmapNames)
 })
 
 
