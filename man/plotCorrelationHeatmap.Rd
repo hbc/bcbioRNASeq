@@ -4,13 +4,13 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
-\alias{plotCorrelationHeatmap,DESeqDataSet-method}
+\alias{plotCorrelationHeatmap,DESeqTransform-method}
 \title{Plot Correlation Heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "tpm", "rle"), ...)
 
-\S4method{plotCorrelationHeatmap}{DESeqDataSet}(object, ...)
+\S4method{plotCorrelationHeatmap}{DESeqTransform}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
