@@ -33,7 +33,7 @@ build_script:
   - travis-tool.sh install_bioc GO.db
   - travis-tool.sh install_bioc enrichplot
   - travis-tool.sh install_bioc org.Hs.eg.db
-  - travis-tool.sh install_bioc org.Ms.eg.db
+  - travis-tool.sh install_bioc org.Mm.eg.db
   - travis-tool.sh install_r data.table
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
