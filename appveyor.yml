@@ -24,7 +24,6 @@ environment:
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
-  - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
@@ -36,6 +35,7 @@ build_script:
   - travis-tool.sh install_bioc org.Hs.eg.db
   - travis-tool.sh install_bioc org.Ms.eg.db
   - travis-tool.sh install_r data.table
+  - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
 
 test_script:
