@@ -30,7 +30,7 @@ setMethod(
             stop(paste(
                 "Fast mode detected.",
                 "Metrics were not calculated."
-            ))
+            ), call. = FALSE)
         }
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
