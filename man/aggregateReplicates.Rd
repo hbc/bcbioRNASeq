@@ -21,7 +21,8 @@ Aggregate Replicates
 bcb <- bcb_small
 colnames(bcb)
 # Assign groupings into `aggregate` column of `colData()`
-aggregate <- sub("^([a-z]+)_.*", "\\\\1", colnames(bcb)) \%>\% as.factor()
+aggregate <- as.factor(sub("^([a-z]+)_.*", "\\\\1", colnames(bcb)))
+names(aggregate) <- colnames(bcb)
 aggregate
 bcb$aggregate <- aggregate
 aggregateReplicates(bcb)
