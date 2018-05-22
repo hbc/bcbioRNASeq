@@ -24,6 +24,14 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, interestingGroups) {
         validObject(object)
+        # Stop on fast-rnaseq pipline detection
+        if (!"totalReads" %in% colnames(colData(object))) {
+            # Parse the YAML metadata or log file here instead?
+            stop(paste(
+                "Fast mode detected.",
+                "Metrics were not calculated."
+            ))
+        }
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
         } else {
