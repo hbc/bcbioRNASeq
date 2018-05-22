@@ -17,6 +17,15 @@
 \description{
 Aggregate Replicates
 }
+\examples{
+bcb <- bcb_small
+colnames(bcb)
+# Assign groupings into `aggregate` column of `colData()`
+aggregate <- sub("^([a-z]+)_.*", "\\\\1", colnames(bcb)) \%>\% as.factor()
+aggregate
+bcb$aggregate <- aggregate
+aggregateReplicates(bcb)
+}
 \seealso{
 Other Data Functions: \code{\link{counts}},
   \code{\link{metrics}}, \code{\link{tmm}},

@@ -9,6 +9,16 @@
 #' @inheritParams general
 #'
 #' @return `RangedSummarizedExperiment`.
+#'
+#' @examples
+#' bcb <- bcb_small
+#' colnames(bcb)
+#' # Assign groupings into `aggregate` column of `colData()`
+#' aggregate <- as.factor(sub("^([a-z]+)_.*", "\\1", colnames(bcb)))
+#' names(aggregate) <- colnames(bcb)
+#' aggregate
+#' bcb$aggregate <- aggregate
+#' aggregateReplicates(bcb)
 NULL
 
 
@@ -25,6 +35,7 @@ setMethod(
         metadata <- metadata(object)
         colData <- colData(object)
         assert_is_subset("aggregate", colnames(colData))
+        assert_is_factor(colData[["aggregate"]])
 
         # This step will replace the `sampleName` column with the `aggregate`
         # column metadata.
@@ -53,6 +64,7 @@ setMethod(
         assert_are_identical(sum(counts), sum(counts(object)))
 
         # Column data ==========================================================
+        # Return minimal metadata with `sampleName` column only
         expected <- length(levels(colData[["aggregate"]]))
         colData <- colData %>%
             as.data.frame() %>%
