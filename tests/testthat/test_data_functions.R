@@ -8,7 +8,7 @@ test_that("aggregateReplicates", {
     # Assign groupings into `aggregate` column of `colData()`
     aggregate <- as.factor(sub("^([a-z]+)_.*", "\\1", colnames(bcb)))
     names(aggregate) <- colnames(bcb)
-    bcb$aggregate <- aggregate
+    bcb[["aggregate"]] <- aggregate
     x <- aggregateReplicates(bcb)
     expect_identical(dim(x), c(500L, 2L))
     expect_identical(sum(counts(x)), sum(counts(bcb)))
