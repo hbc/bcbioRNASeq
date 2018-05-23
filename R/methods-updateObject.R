@@ -14,7 +14,7 @@
 #' `bcbioRNASeq` starting in v0.0.21.
 #'
 #' @name updateObject
-#' @family S4 Class Definition
+#' @family S4 Object
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics updateObject

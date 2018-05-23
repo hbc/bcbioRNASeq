@@ -1,4 +1,4 @@
-#' Bracket-Based Subsetting
+#' Subset
 #'
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object. The
 #' internal `DESeqDataSet` and count transformations are rescaled automatically.
@@ -6,7 +6,7 @@
 #' `transform = FALSE`.
 #'
 #' @name subset
-#' @family S4 Class Definition
+#' @family S4 Object
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`

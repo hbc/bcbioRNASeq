@@ -1,4 +1,6 @@
-context("S4 Class Definition")
+context("S4 Object")
+
+
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- suppressWarnings(bcbioRNASeq(
@@ -10,7 +12,7 @@ validObject(bcb)
 
 
 
-# bcbioRNASeq S4 Object ========================================================
+# bcbioRNASeq Object ===========================================================
 test_that("Slots", {
     expect_identical(
         slotNames(bcb),

@@ -27,11 +27,12 @@ authors:
         href: http://bioinformatics.sph.harvard.edu
 
 reference:
-  - title: S4 Class Definition
+  - title: S4 Object
     contents:
     - bcbioRNASeq-class
     - coerce
     - show
+    - subset
     - updateObject
   - title: Data Functions
     contents:

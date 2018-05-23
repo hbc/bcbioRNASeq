@@ -58,7 +58,7 @@ bcbioRNASeq <- setClass(
 #' @rdname bcbioRNASeq
 #' @aliases bcbioRNASeq-class
 #' @docType class
-#' @family S4 Class Definition
+#' @family S4 Object
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams bcbioBase::prepareSummarizedExperiment
