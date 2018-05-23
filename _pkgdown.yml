@@ -29,7 +29,7 @@ authors:
 reference:
   - title: S4 Object
     contents:
-    - bcbioRNASeq-class
+    - starts_with("bcbio")
     - coerce
     - show
     - subset
