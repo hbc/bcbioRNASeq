@@ -1,4 +1,4 @@
-#' Subset
+#' Subset Object
 #'
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object. The
 #' internal `DESeqDataSet` and count transformations are rescaled automatically.

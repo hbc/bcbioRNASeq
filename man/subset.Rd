@@ -4,7 +4,7 @@
 \name{subset}
 \alias{subset}
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
-\title{Bracket-Based Subsetting}
+\title{Subset Object}
 \usage{
 \S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE)
 }
@@ -95,7 +95,7 @@ assayNames(subset)
 \seealso{
 \code{help("[", "base")}.
 
-Other S4 Class Definition: \code{\link{bcbioRNASeq}},
+Other S4 Object: \code{\link{bcbioRNASeq}},
   \code{\link{coerce}}, \code{\link{show}},
   \code{\link{updateObject}}
 }

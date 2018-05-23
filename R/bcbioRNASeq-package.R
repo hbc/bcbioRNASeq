@@ -19,8 +19,8 @@
 #'   metadata na.omit
 #' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
 #'   colData colData<- metadata<- rowData rowRanges SummarizedExperiment
-#' @importFrom assertive.base assert_are_identical assert_all_are_dirs
-#'   assert_all_are_existing_files
+#' @importFrom assertive.base assert_are_identical
+#' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
 #'   assert_all_are_in_left_open_range assert_all_are_in_range
 #'   assert_all_are_non_negative assert_all_are_positive is_positive

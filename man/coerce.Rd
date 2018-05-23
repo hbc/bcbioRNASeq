@@ -37,7 +37,7 @@ show(x)
 \item \code{\link[methods:coerce]{methods::coerce()}}.
 }
 
-Other S4 Class Definition: \code{\link{bcbioRNASeq}},
+Other S4 Object: \code{\link{bcbioRNASeq}},
   \code{\link{show}}, \code{\link{subset}},
   \code{\link{updateObject}}
 }
