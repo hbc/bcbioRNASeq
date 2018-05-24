@@ -21,16 +21,12 @@ plotMeanSD(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{legend}{Include the color bar legend. This is typically not that
-informative and is disabled by default, to improve the plot appearance.}
+\item{legend}{Show plot legend.}
 
 \item{headerLevel}{R Markdown header level.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
-
-\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
-\code{vertical}.}
 }
 \value{
 \code{ggplot} grid.

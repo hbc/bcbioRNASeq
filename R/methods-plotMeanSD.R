@@ -9,11 +9,6 @@
 #'
 #' @inheritParams general
 #'
-#' @param orientation Orientation to use for plot grid, either `horizontal` or
-#'   `vertical`.
-#' @param legend Include the color bar legend. This is typically not that
-#'   informative and is disabled by default, to improve the plot appearance.
-#'
 #' @return `ggplot` grid.
 #'
 #' @examples
