@@ -96,23 +96,12 @@ setMethod(
 
 
 #' @rdname alphaSummary
+#' @usage NULL
 #' @export
 setMethod(
     "alphaSummary",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...
-    ) {
-        validObject(object)
-        dds <- as(object, "DESeqDataSet")
-        alphaSummary(
-            object = dds,
-            alpha = alpha,
-            caption = caption,
-            ...
-        )
+    function(object, ...) {
+        .Defunct("DESeqDataSet method")  # nocov
     }
 )
