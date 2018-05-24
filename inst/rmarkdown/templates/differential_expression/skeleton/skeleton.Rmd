@@ -15,7 +15,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-10
+# Last modified 2018-05-24
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -49,6 +49,7 @@ design(dds) <- params$design
 dds <- DESeq(dds)
 # Alternatively, can use `rlog()`
 rld <- varianceStabilizingTransformation(dds)
+saveData(dds, rld, dir = params$data_dir)
 ```
 
 
