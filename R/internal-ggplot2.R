@@ -53,10 +53,11 @@
 
 
 
-.genePoint <- function(size = 3L, alpha = 1L) {
+.genePoint <- function(size = 3L, alpha = 1L, ...) {
     geom_point(
         size = size,
         alpha = alpha,
-        position = position_jitterdodge(dodge.width = 0.9)
+        position = position_jitterdodge(dodge.width = 0.9),
+        ...
     )
 }
