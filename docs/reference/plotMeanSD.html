@@ -115,12 +115,12 @@ varianceStabilizingTransformation() normalized counts." />
     <pre class="usage"><span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vertical"</span>,
-  <span class='st'>"horizontal"</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vertical"</span>,
-  <span class='st'>"horizontal"</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grid"</span>, <span class='st'>"list"</span>, <span class='st'>"markdown"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,14 +134,23 @@ varianceStabilizingTransformation() normalized counts." />
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>orientation</th>
-      <td><p>Orientation to use for plot grid, either <code>horizontal</code> or
-<code>vertical</code>.</p></td>
-    </tr>
-    <tr>
       <th>legend</th>
       <td><p>Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.</p></td>
+    </tr>
+    <tr>
+      <th>headerLevel</th>
+      <td><p>R Markdown header level.</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
+the first item in the vector by default.</p></td>
+    </tr>
+    <tr>
+      <th>orientation</th>
+      <td><p>Orientation to use for plot grid, either <code>horizontal</code> or
+<code>vertical</code>.</p></td>
     </tr>
     </table>
     

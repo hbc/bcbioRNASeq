@@ -121,36 +121,25 @@
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>methods::coerce()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other S4 Class Definition: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
+    <div class='dont-index'><p>Other S4 Object: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
   <code><a href='show.html'>show</a></code>, <code><a href='subset.html'>subset</a></code>,
   <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>converting counts to integer mode</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>names</span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;  [1] "geneID"                  "geneName"               
-#&gt;  [3] "geneBiotype"             "description"            
-#&gt;  [5] "seqCoordSystem"          "entrezID"               
-#&gt;  [7] "broadClass"              "baseMean"               
-#&gt;  [9] "baseVar"                 "allZero"                
-#&gt; [11] "dispGeneEst"             "dispGeneIter"           
-#&gt; [13] "dispFit"                 "dispersion"             
-#&gt; [15] "dispIter"                "dispOutlier"            
-#&gt; [17] "dispMAP"                 "Intercept"              
-#&gt; [19] "SE_Intercept"            "WaldStatistic_Intercept"
-#&gt; [21] "WaldPvalue_Intercept"    "betaConv"               
-#&gt; [23] "betaIter"                "deviance"               
-#&gt; [25] "maxCooks"               </div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>converting counts to integer mode</span></div><div class='input'><span class='fu'>names</span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "geneID"         "geneName"       "geneBiotype"    "description"   
+#&gt; [5] "seqCoordSystem" "entrezID"       "broadClass"    </div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 500 6 
 #&gt; metadata(30): version level ... devtoolsSessionInfo subset
-#&gt; assays(9): counts tpm ... H cooks
+#&gt; assays(6): counts tpm ... rlog vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(25): geneID geneName ... deviance maxCooks
+#&gt; rowData names(7): geneID geneName ... entrezID broadClass
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(27): sampleName day ... xGC sizeFactor</div><div class='input'>
+#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div><div class='input'>
 <span class='co'># RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          

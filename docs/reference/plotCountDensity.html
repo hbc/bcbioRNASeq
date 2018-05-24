@@ -115,8 +115,7 @@
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"line"</span>,
-  <span class='st'>"solid"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_color_hue</a></span>(), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue'>scale_fill_hue</a></span>(),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
+  <span class='st'>"solid"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,7 +151,7 @@ define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
       <td><p>Desired ggplot color scale. Must supply discrete values. When
 set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_colour_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>fill</th>

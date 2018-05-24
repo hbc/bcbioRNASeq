@@ -148,7 +148,7 @@ contain <code>rownames</code> identical to the <code>colnames</code> of the obje
       <td><p>Desired ggplot color scale. Must supply discrete values. When
 set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p></td>
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_colour_manual()</a></code>.</p></td>
     </tr>
     <tr>
       <th>counts</th>
@@ -191,6 +191,10 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p><
       <th>interestingGroups</th>
       <td><p>Character vector denoting groups of interest that
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>legend</th>
+      <td><p>Show plot legend.</p></td>
     </tr>
     <tr>
       <th>lfcThreshold</th>

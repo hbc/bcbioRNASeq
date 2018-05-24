@@ -149,7 +149,15 @@
 <span class='no'>x</span></div><div class='output co'>#&gt;      _footer.Rmd      _header.Rmd     _output.yaml         _setup.R 
 #&gt;             TRUE             TRUE             TRUE             TRUE 
 #&gt; bibliography.bib 
-#&gt;             TRUE </div></pre>
+#&gt;             TRUE </div><div class='input'>
+<span class='co'># Clean up</span>
+<span class='fu'>unlink</span>(<span class='fu'>c</span>(
+    <span class='st'>"_footer.Rmd"</span>,
+    <span class='st'>"_header.Rmd"</span>,
+    <span class='st'>"_output.yaml"</span>,
+    <span class='st'>"_setup.R"</span>,
+    <span class='st'>"bibliography.bib"</span>
+))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

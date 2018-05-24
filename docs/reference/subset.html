@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bracket-Based Subsetting — subset • bcbioRNASeq</title>
+<title>Subset Object — subset • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Bracket-Based Subsetting — subset" />
+<meta property="og:title" content="Subset Object — subset" />
 
 <meta property="og:description" content="Extract genes by row and samples by column from a bcbioRNASeq object. The
 internal DESeqDataSet and count transformations are rescaled automatically.
@@ -102,7 +102,7 @@ transform = FALSE." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bracket-Based Subsetting</h1>
+    <h1>Subset Object</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-subset.R'><code>R/methods-subset.R</code></a></small>
     <div class="hidden name"><code>subset.Rd</code></div>
     </div>
@@ -182,7 +182,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>help("[", "base")</code>.</p>
-<p>Other S4 Class Definition: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
+<p>Other S4 Object: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
   <code><a href='coerce.html'>coerce</a></code>, <code><a href='show.html'>show</a></code>,
   <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
@@ -203,7 +203,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-05-15</div><div class='input'>
+#&gt; R Load Date: 2018-05-24</div><div class='input'>
 <span class='co'># Subset by gene list</span>
 <span class='no'>bcb_small</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating variance stabilizations</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.4
 #&gt; Samples: 6
@@ -214,7 +214,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-05-15</div><div class='input'>
+#&gt; R Load Date: 2018-05-24</div><div class='input'>
 <span class='co'># Subset by both genes and samples</span>
 <span class='no'>subset</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating variance stabilizations</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.4
 #&gt; Samples: 2
@@ -225,7 +225,7 @@ DESeq2 transformations can be disabled on large subset operations by setting
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-05-15</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
+#&gt; R Load Date: 2018-05-24</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>subset</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
 #&gt; [6] "vst"       </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Ribosomal RNA (rRNA) Mapping Rate — plotRRNAMappingRate • bcbioRNASeq</title>
+<title>Aggregate Replicates — aggregateReplicates • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Ribosomal RNA (rRNA) Mapping Rate — plotRRNAMappingRate" />
+<meta property="og:title" content="Aggregate Replicates — aggregateReplicates" />
 
-<meta property="og:description" content="Plot Ribosomal RNA (rRNA) Mapping Rate" />
+<meta property="og:description" content="Aggregate Replicates" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,22 +99,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Ribosomal RNA (rRNA) Mapping Rate</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotRRNAMappingRate.R'><code>R/methods-plotRRNAMappingRate.R</code></a></small>
-    <div class="hidden name"><code>plotRRNAMappingRate.Rd</code></div>
+    <h1>Aggregate Replicates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-aggregateReplicates.R'><code>R/methods-aggregateReplicates.R</code></a></small>
+    <div class="hidden name"><code>aggregateReplicates.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot Ribosomal RNA (rRNA) Mapping Rate</p>
+    <p>Aggregate Replicates</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10L</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"rRNA mapping rate"</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>aggregateReplicates</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -123,59 +120,37 @@
       <th>object</th>
       <td><p>Object.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p>Character vector denoting groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
-      <th>limit</th>
-      <td><p>Threshold to denote on the plot, using a dashed line.</p></td>
-    </tr>
-    <tr>
-      <th>fill</th>
-      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
-to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>flip</th>
-      <td><p>Flip x and y axes.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>Title of plot.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ggplot</code>.</p>
+    <p><code>RangedSummarizedExperiment</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
-  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code>plotTotalReads</code></p></div>
+    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='metrics.html'>metrics</a></code>, <code>tmm</code>,
+  <code>tpm</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotRRNAMappingRate</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotRRNAMappingRate-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>
+<span class='fu'>colnames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"
+#&gt; [6] "fa_day7_rep3"</div><div class='input'><span class='co'># Assign groupings into `aggregate` column of `colData()`</span>
+<span class='no'>aggregate</span> <span class='kw'>&lt;-</span> <span class='fu'>as.factor</span>(<span class='fu'>sub</span>(<span class='st'>"^([a-z]+)_.*"</span>, <span class='st'>"\\1"</span>, <span class='fu'>colnames</span>(<span class='no'>bcb</span>)))
+<span class='fu'>names</span>(<span class='no'>aggregate</span>) <span class='kw'>&lt;-</span> <span class='fu'>colnames</span>(<span class='no'>bcb</span>)
+<span class='no'>aggregate</span></div><div class='output co'>#&gt; control_rep1 control_rep2 control_rep3 fa_day7_rep1 fa_day7_rep2 fa_day7_rep3 
+#&gt;      control      control      control           fa           fa           fa 
+#&gt; Levels: control fa</div><div class='input'><span class='no'>bcb</span>$<span class='no'>aggregate</span> <span class='kw'>&lt;-</span> <span class='no'>aggregate</span>
+<span class='fu'>aggregateReplicates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>New sample IDs: control, fa</span></div><div class='output co'>#&gt; <span class='message'>Aggregating counts</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 2 
+#&gt; metadata(0):
+#&gt; assays(1): counts
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): geneID geneName ... entrezID broadClass
+#&gt; colnames(2): control fa
+#&gt; colData names(1): sampleName</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -191,7 +166,7 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
 
     <h2>Author</h2>
     
-Michael Steinbaugh, Rory Kirchner, Victor Barrera
+Michael Steinbaugh
 
   </div>
 </div>

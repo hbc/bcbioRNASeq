@@ -100,19 +100,55 @@
       <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="bcbiornaseq-0-2-3-2018-05-10" class="section level1">
+    <div id="bcbiornaseq-0-2-4-2018-05-24" class="section level1">
 <h1 class="page-header">
-<a href="#bcbiornaseq-0-2-3-2018-05-10" class="anchor"></a>bcbioRNASeq 0.2.3 (2018-05-10)</h1>
+<a href="#bcbiornaseq-0-2-4-2018-05-24" class="anchor"></a>bcbioRNASeq 0.2.4 (2018-05-24)</h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
+<li>
+<code><a href="../reference/aggregateReplicates.html">aggregateReplicates()</a></code> support has been added back. This function returns a <code>RangedSummarizedExperiment</code> instead of a <code>bcbioRNASeq</code> object, containing only an aggregate raw counts matrix in the <code>counts</code> slot of <code>assays()</code>.</li>
+<li>The functional analysis [R Markdown][] template has been reworked to use <code>dds_file</code> and <code>organism</code> as new parameter arguments. We’ve reduced the number of parameters required here to run [clusterProfiler][].</li>
+<li>Made <code>alphaSummary()</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>
+<code><a href="../reference/metrics.html">metrics()</a></code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> pipeline.</li>
+<li>
+<code>DESeqDataSet</code> coercion from <code>bcbioRNASeq</code> object doesn’t attempt to run <code>DESeq()</code> command any more, which was unnecessary and improves speed.</li>
+<li>
+<code>bcbioSingleCell()</code> constructor now supports <code>censorSamples</code> parameter. This is useful for removing known poor quality samples upon loading.</li>
+<li>[ggplot2][] color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_colour_hue()</a></code> or <code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_fill_hue()</a></code>. The upcoming [ggplot2][] v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
+<li>Reworked the internal code for <code>topTables()</code>.</li>
+</ul>
+</div>
+<div id="infrastructure-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#infrastructure-changes" class="anchor"></a>Infrastructure changes</h2>
+<ul>
+<li>Added [macOS][] testing to [Travis CI][] build checks.</li>
+<li>Fixed [clusterProfiler][] compilation error on [Travis CI][] by installing <code>libudunits2-dev</code> (Linux).</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-2-3-2018-05-10" class="section level1">
+<h1 class="page-header">
+<a href="#bcbiornaseq-0-2-3-2018-05-10" class="anchor"></a>bcbioRNASeq 0.2.3 (2018-05-10)</h1>
+<div id="major-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<ul>
+<li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
+</ul>
+</div>
+<div id="minor-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Tweaked Rory’s biotype plots in QC report to match formatting conventions in the package. These plots are now colored.</li>
 <li>Added <code>plotDEGPCA()</code> to default differential expression R Markdown template.</li>
@@ -132,9 +168,9 @@
     <div id="bcbiornaseq-0-2-2-2018-04-26" class="section level1">
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-2-2-2018-04-26" class="anchor"></a>bcbioRNASeq 0.2.2 (2018-04-26)</h1>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Split out assertive imports so we can pin on [bioconda][].</li>
 <li>Improved package documentation.</li>
@@ -150,9 +186,9 @@
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-2-1-2018-04-24" class="anchor"></a>bcbioRNASeq 0.2.1 (2018-04-24)</h1>
 <p>Last set of code fixes before F1000v2 resubmission.</p>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Added <code>rle</code> return support for <code><a href="../reference/counts.html">counts()</a></code>, which are calculated on the fly.</li>
 <li>Added <code>transgeneNames</code> and <code>spikeNames</code> support to <code><a href="../reference/bcbioRNASeq.html">loadRNASeq()</a></code> function.</li>
@@ -162,9 +198,9 @@
 <li>Improved internal code for <code><a href="../reference/plotGene.html">plotGene()</a></code> and <code>plotGenderMarkers()</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-2" class="section level2">
+<div id="minor-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Improved AppVeyor CI support to test against bioc-devel using R 3.5.</li>
 <li>Improved support and unit testing for <code><a href="../reference/updateObject.html">updateObject()</a></code> method.</li>
@@ -179,16 +215,16 @@
     <div id="bcbiornaseq-0-2-0-2018-03-22" class="section level1">
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-2-0-2018-03-22" class="anchor"></a>bcbioRNASeq 0.2.0 (2018-03-22)</h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
-<code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData()</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from <a href="http://www.ensembl.org">Ensembl</a> using <code><a href="http://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code>. By default, <code>GRanges</code> are acquired from <a href="http://www.ensembl.org">Ensembl</a> using <a href="https://doi.org/doi:10.18129/B9.bioc.AnnotationHub">AnnotationHub</a> and <a href="https://doi.org/doi:10.18129/B9.bioc.ensembldb">ensembldb</a>. Legacy GRCh37 genome build is supported using the [EnsDb.Hsapiens.v75][] package.</li>
+<code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData()</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from [Ensembl][] using <code><a href="http://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code>. By default, <code>GRanges</code> are acquired from [Ensembl][] using <a href="https://doi.org/doi:10.18129/B9.bioc.AnnotationHub">AnnotationHub</a> and [ensembldb][]. Legacy GRCh37 genome build is supported using the [EnsDb.Hsapiens.v75][] package.</li>
 <li>
-<code>assays()</code> now only slot matrices. We’ve moved the <a href="https://doi.org/doi:10.18129/B9.bioc.tximport">tximport</a> data from the now defunct <code>bcbio()</code> slot to assays. This includes the <code>lengths</code> matrix from <a href="https://doi.org/doi:10.18129/B9.bioc.tximport">tximport</a>. Additionally, we are optionally slotting [DESeq2][] variance-stabilized counts (“<code>rlog</code>”, <code>"vst"</code>). [DESeq2][] normalized counts and <a href="https://doi.org/doi:10.18129/B9.bioc.edgeR">edgeR</a> TMM counts are calculated on the fly and no longer stored inside the <code>bcbioRNASeq</code> object.</li>
+<code>assays()</code> now only slot matrices. We’ve moved the [tximport][] data from the now defunct <code>bcbio()</code> slot to assays. This includes the <code>lengths</code> matrix from [tximport][]. Additionally, we are optionally slotting [DESeq2][] variance-stabilized counts (“<code>rlog</code>”, <code>"vst"</code>). [DESeq2][] normalized counts and [edgeR][] TMM counts are calculated on the fly and no longer stored inside the <code>bcbioRNASeq</code> object.</li>
 <li>
-<code>colData()</code> now defaults to returning as <code>data.frame</code> instead of <code>DataFrame</code>, for easy piping to <a href="https://www.tidyverse.org/">tidyverse</a> functions.</li>
+<code>colData()</code> now defaults to returning as <code>data.frame</code> instead of <code>DataFrame</code>, for easy piping to [tidyverse][] functions.</li>
 <li>
 <code>bcbio()</code> slot is now defunct.</li>
 <li>FASTA spike-ins (e.g. EGFP, ERCCs) can be defined using the <code>isSpike</code> argument during the <code><a href="../reference/bcbioRNASeq.html">loadRNASeq()</a></code> data import step.</li>
@@ -197,14 +233,14 @@
 <li>Minimal working example dataset is now derived from GSE65267, which is also used in the F1000 paper.</li>
 <li>Added <code><a href="../reference/coerce.html">as(object, "DESeqDataSet")</a></code> coercion method support for <code>bcbioRNASeq</code> class. This helps us set up the differential expression analysis easily.</li>
 <li>
-<code><a href="../reference/counts.html">counts()</a></code> function now returns [DESeq2][] normalized counts (<code>normalized =   TRUE</code>) and <a href="https://doi.org/doi:10.18129/B9.bioc.edgeR">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
+<code><a href="../reference/counts.html">counts()</a></code> function now returns [DESeq2][] normalized counts (<code>normalized =   TRUE</code>) and [edgeR][] TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
 <li>Design formula can no longer be slotted into <code>bcbioRNASeq</code> object, since we’re not stashing a <code>DESeqDataSet</code> any more.</li>
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
 </div>
-<div id="minor-changes-3" class="section level2">
+<div id="minor-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-4" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>
 <code>validObject()</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code><a href="../reference/updateObject.html">updateObject()</a></code>.</li>
@@ -233,7 +269,7 @@
 <h2 class="hasAnchor">
 <a href="#updating-legacy-objects-v0-2-0" class="anchor"></a>Updating legacy objects &lt; v0.2.0</h2>
 <ul>
-<li>Use <code><a href="../reference/updateObject.html">updateObject()</a></code> in combination with the <code>rowRanges</code> argument, which requires a <code>GRanges</code> object. <code>GRanges</code> can be obtained from <a href="http://www.ensembl.org">Ensembl</a> using the <code><a href="http://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code> function or the <a href="https://doi.org/doi:10.18129/B9.bioc.ensembldb">ensembldb</a> package.</li>
+<li>Use <code><a href="../reference/updateObject.html">updateObject()</a></code> in combination with the <code>rowRanges</code> argument, which requires a <code>GRanges</code> object. <code>GRanges</code> can be obtained from [Ensembl][] using the <code><a href="http://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code> function or the [ensembldb][] package.</li>
 </ul>
 </div>
 <div id="deprecations" class="section level2">
@@ -271,7 +307,7 @@
 <ul>
 <li>Bug fix for gene-to-symbol mappings in <code>plotDEGHeatmap()</code>.</li>
 <li>Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with <code>plotDEGPCA()</code>.</li>
-<li>Added support for Dropbox shared links to <code>resultsTables()</code>, for use with the <a href="http://stemcellcommons.org">Stem Cell Commons</a> database.</li>
+<li>Added support for Dropbox shared links to <code>resultsTables()</code>, for use with the [Stem Cell Commons][] database.</li>
 <li>Added assert checks internally for all functions.</li>
 <li>Improved internal code for <code><a href="../reference/plotGene.html">plotGene()</a></code> and <code>plotGenderMarkers()</code> to run faster.</li>
 <li>Deprecated data frame methods based on metrics for QC functions.</li>
@@ -286,7 +322,7 @@
 <li>
 <code>organism</code> and <code>genomeBuild</code> parameters are now user-definable in the main <code><a href="../reference/bcbioRNASeq.html">loadRNASeq()</a></code> import function.</li>
 <li>Fixed gene subsetting method on S4 object, which handles genes using <code>intersect()</code> in the featureCounts matrix.</li>
-<li>Removed internal <code>aggregateReplicates()</code> code. This needs to be reworked and added back in a future release.</li>
+<li>Removed internal <code><a href="../reference/aggregateReplicates.html">aggregateReplicates()</a></code> code. This needs to be reworked and added back in a future release.</li>
 <li>Improve method for handling a missing normalized counts matrix in the assays slot. This can occur when the user opts to skip the CPU-intensive DESeq2 normalizations.</li>
 <li>Improved internal code for the quality control functions. Improved the <code>if</code> statements to be more class specific.</li>
 <li>Renamed <code><a href="../reference/plotCorrelationHeatmap.html">plotCorrelationHeatmap()</a></code> <code>transform</code> argument to <code>normalized</code>, for consistency with the <code><a href="../reference/counts.html">counts()</a></code> generic.</li>
@@ -390,9 +426,9 @@
 <ul>
 <li>Renamed package from bcbioRnaseq to bcbioRNASeq.</li>
 <li>Improved website appearance.</li>
-<li>Added <a href="https://cran.r-project.org/web/packages/viridis/index.html">viridis</a> color palette support to quality control functions.</li>
+<li>Added [viridis][] color palette support to quality control functions.</li>
 <li>Improved subset operations on <code>bcbioRNADataSet</code> object.</li>
-<li>Fixed setup chunk loading of <code>bcbioRNADataSet</code> in differential expression <a href="http://rmarkdown.rstudio.com">R Markdown</a> template.</li>
+<li>Fixed setup chunk loading of <code>bcbioRNADataSet</code> in differential expression [R Markdown][] template.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-25-2017-08-11" class="section level1">
@@ -408,9 +444,9 @@
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-0-24-2017-07-13" class="anchor"></a>bcbioRNASeq 0.0.24 (2017-07-13)</h1>
 <ul>
-<li>Reworked <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates to improve YAML defaults and add more comments.</li>
+<li>Reworked [R Markdown][] templates to improve YAML defaults and add more comments.</li>
 <li>Modified default path variables in <code>setup.R</code> to use <code>*_dir</code> instead of <code>*_out</code>.</li>
-<li>Updated NEWS file to use <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a> syntax.</li>
+<li>Updated NEWS file to use [Markdown][] syntax.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-23-2017-07-03" class="section level1">
@@ -427,22 +463,22 @@
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-0-22-2017-06-21" class="anchor"></a>bcbioRNASeq 0.0.22 (2017-06-21)</h1>
 <ul>
-<li>Added <a href="https://github.com/hadley/testthat">testthat</a> checking with <a href="https://github.com/jimhester/lintr">lintr</a>.</li>
-<li>Initial setup of code coverage using <a href="https://github.com/jimhester/covr">covr</a>.</li>
+<li>Added [testthat][] checking with [lintr][].</li>
+<li>Initial setup of code coverage using [covr][].</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-21-2017-06-16" class="section level1">
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-0-21-2017-06-16" class="anchor"></a>bcbioRNASeq 0.0.21 (2017-06-16)</h1>
 <ul>
-<li>Prepared draft of <a href="https://f1000.com">F1000</a> workflow document.</li>
+<li>Prepared draft of [F1000][] workflow document.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-20-2017-06-09" class="section level1">
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-0-20-2017-06-09" class="anchor"></a>bcbioRNASeq 0.0.20 (2017-06-09)</h1>
 <ul>
-<li>Added <a href="https://travis-ci.org">Travis-CI</a> support for automatic rendering of quality control report.</li>
+<li>Added [Travis-CI][] support for automatic rendering of quality control report.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-19-2017-06-07" class="section level1">
@@ -488,8 +524,8 @@
 <a href="#bcbiornaseq-0-0-14-2017-05-10" class="anchor"></a>bcbioRNASeq 0.0.14 (2017-05-10)</h1>
 <ul>
 <li>Defaulted to loading run using project summary YAML file.</li>
-<li>Initial commit of <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates (e.g. quality control).</li>
-<li>Added support for dynamic file downloads from <a href="http://bioinformatics.sph.harvard.edu">HBC</a> website.</li>
+<li>Initial commit of [R Markdown][] templates (e.g. quality control).</li>
+<li>Added support for dynamic file downloads from [HBC][] website.</li>
 <li>Draft build of website using <code><a href="http://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>.</li>
 </ul>
 </div>
@@ -497,7 +533,7 @@
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-0-13-2017-05-08" class="anchor"></a>bcbioRNASeq 0.0.13 (2017-05-08)</h1>
 <ul>
-<li>Improved <a href="https://doi.org/doi:10.18129/B9.bioc.RDAVIDWebService">RDAVIDWebService</a> utility functions to work with <a href="http://dplyr.tidyverse.org">dplyr</a> 0.6.0.</li>
+<li>Improved [RDAVIDWebService][] utility functions to work with [dplyr][] 0.6.0.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-12-2017-05-01" class="section level1">
@@ -513,8 +549,8 @@
 <ul>
 <li>Reduced number of depdencies.</li>
 <li>Initial commit of modified volcano plot from <a href="https://github.com/hbc/CHBUtils">CHBUtils</a> package.</li>
-<li>Internal code updates for upcoming <a href="http://dplyr.tidyverse.org">dplyr</a> 0.6.0/<a href="http://dplyr.tidyverse.org/articles/programming.html">tidyeval</a> update.</li>
-<li>Updated <a href="http://www.ensembl.org">Ensembl</a> <a href="https://doi.org/doi:10.18129/B9.bioc.biomaRt">biomaRt</a> annotations to use live site, currently release 88.</li>
+<li>Internal code updates for upcoming [dplyr][] 0.6.0/[tidyeval][] update.</li>
+<li>Updated [Ensembl][] <a href="https://doi.org/doi:10.18129/B9.bioc.biomaRt">biomaRt</a> annotations to use live site, currently release 88.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-10-2017-04-19" class="section level1">
@@ -590,6 +626,7 @@
 <li>Start of package development.</li>
 <li>Initial draft release supporting automatic loading of <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run data.</li>
 </ul>
+<p>[clusterProfiler]: [covr]: <a href="https://github.com/jimhester/covr" class="uri">https://github.com/jimhester/covr</a> [dplyr]: <a href="http://dplyr.tidyverse.org" class="uri">http://dplyr.tidyverse.org</a> [edgeR]: <a href="https://doi.org/doi:10.18129/B9.bioc.edgeR" class="uri">https://doi.org/doi:10.18129/B9.bioc.edgeR</a> [Ensembl]: <a href="http://www.ensembl.org" class="uri">http://www.ensembl.org</a> [ensembldb]: <a href="https://doi.org/doi:10.18129/B9.bioc.ensembldb" class="uri">https://doi.org/doi:10.18129/B9.bioc.ensembldb</a> [F1000]: <a href="https://f1000.com" class="uri">https://f1000.com</a> [HBC]: <a href="http://bioinformatics.sph.harvard.edu" class="uri">http://bioinformatics.sph.harvard.edu</a> [lintr]: <a href="https://github.com/jimhester/lintr" class="uri">https://github.com/jimhester/lintr</a> [macOS]: <a href="https://www.apple.com/macos" class="uri">https://www.apple.com/macos</a> [Markdown]: <a href="https://daringfireball.net/projects/markdown/syntax" class="uri">https://daringfireball.net/projects/markdown/syntax</a> [RDAVIDWebService]: <a href="https://doi.org/doi:10.18129/B9.bioc.RDAVIDWebService" class="uri">https://doi.org/doi:10.18129/B9.bioc.RDAVIDWebService</a> [R Markdown]: <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a> [Stem Cell Commons]: <a href="http://stemcellcommons.org" class="uri">http://stemcellcommons.org</a> [testthat]: <a href="https://github.com/hadley/testthat" class="uri">https://github.com/hadley/testthat</a> [tidyeval]: <a href="http://dplyr.tidyverse.org/articles/programming.html" class="uri">http://dplyr.tidyverse.org/articles/programming.html</a> [tidyverse]: <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> [tximport]: <a href="https://doi.org/doi:10.18129/B9.bioc.tximport" class="uri">https://doi.org/doi:10.18129/B9.bioc.tximport</a> [Travis-CI]: <a href="https://travis-ci.org" class="uri">https://travis-ci.org</a> [viridis]: <a href="https://cran.r-project.org/web/packages/viridis/index.html" class="uri">https://cran.r-project.org/web/packages/viridis/index.html</a></p>
 </div>
   </div>
 
@@ -597,6 +634,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bcbiornaseq-0-2-4-2018-05-24">0.2.4</a></li>
         <li><a href="#bcbiornaseq-0-2-3-2018-05-10">0.2.3</a></li>
         <li><a href="#bcbiornaseq-0-2-2-2018-04-26">0.2.2</a></li>
         <li><a href="#bcbiornaseq-0-2-1-2018-04-24">0.2.1</a></li>
