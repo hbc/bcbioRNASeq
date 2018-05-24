@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' # Gene identifiers
-#' genes <- head(rownames(bcb_small), 8L)
+#' genes <- head(rownames(bcb_small), 4L)
 #'
 #' # bcbioRNASeq ====
 #' plotGene(bcb_small, genes = genes, return = "facet")
@@ -44,7 +44,8 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = NULL
+    color = NULL,
+    legend = TRUE
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -65,16 +66,12 @@ NULL
             color = "interestingGroups"
         )
     ) +
-        .genePoint() +
-        facet_wrap(facets = "geneID", scales = "free") +
+        .genePoint(show.legend = legend) +
+        facet_wrap(facets = "geneID", scales = "free_y") +
         labs(
             x = NULL,
             y = countsAxisLabel,
             color = paste(interestingGroups, collapse = ":\n")
-        ) +
-        theme(
-            axis.text.x = element_blank(),
-            axis.ticks.x = element_blank()
         )
 
     if (isTRUE(medianLine) && !identical(interestingGroups, "sampleName")) {
@@ -98,7 +95,8 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = NULL
+    color = NULL,
+    legend = TRUE
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -123,7 +121,7 @@ NULL
                     color = "interestingGroups"
                 )
             ) +
-                .genePoint() +
+                .genePoint(show.legend = legend) +
                 labs(
                     title = geneID,
                     x = NULL,
@@ -159,7 +157,8 @@ NULL
     object,
     countsAxisLabel = "counts",
     medianLine = TRUE,
-    color = NULL
+    color = NULL,
+    legend = TRUE
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
@@ -180,7 +179,7 @@ NULL
             color = "interestingGroups"
         )
     ) +
-        .genePoint() +
+        .genePoint(show.legend = legend) +
         labs(
             x = NULL,
             y = countsAxisLabel,
@@ -217,6 +216,7 @@ setMethod(
         countsAxisLabel = "counts",
         medianLine = TRUE,
         color = NULL,
+        legend = TRUE,
         headerLevel = 2L,
         return = c("facet", "wide", "grid", "markdown", "list")
     ) {
@@ -229,6 +229,7 @@ setMethod(
         }
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
+        assert_is_a_bool(legend)
         assertIsAHeaderLevel(headerLevel)
         return <- match.arg(return)
 
@@ -241,7 +242,8 @@ setMethod(
                 object = rse,
                 countsAxisLabel = countsAxisLabel,
                 medianLine = medianLine,
-                color = color
+                color = color,
+                legend = legend
             )
         }
 
@@ -250,14 +252,16 @@ setMethod(
                 object = rse,
                 countsAxisLabel = countsAxisLabel,
                 medianLine = medianLine,
-                color = color
+                color = color,
+                legend = legend
             )
         } else if (return == "wide") {
             .plotGeneWide(
                 object = rse,
                 countsAxisLabel = countsAxisLabel,
                 medianLine = medianLine,
-                color = color
+                color = color,
+                legend = legend
             )
         } else if (return == "grid") {
             if (length(plotlist) > 1L) {

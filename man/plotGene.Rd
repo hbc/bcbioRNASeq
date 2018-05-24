@@ -11,7 +11,8 @@
 \usage{
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
   countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
-  headerLevel = 2L, return = c("facet", "wide", "grid", "markdown", "list"))
+  legend = TRUE, headerLevel = 2L, return = c("facet", "wide", "grid",
+  "markdown", "list"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -39,6 +40,8 @@ are colored by sample name.}
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
 \code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+
+\item{legend}{Show plot legend.}
 
 \item{headerLevel}{R Markdown header level.}
 
@@ -70,7 +73,7 @@ Plot Individual Genes
 }
 \examples{
 # Gene identifiers
-genes <- head(rownames(bcb_small), 8L)
+genes <- head(rownames(bcb_small), 4L)
 
 # bcbioRNASeq ====
 plotGene(bcb_small, genes = genes, return = "facet")
