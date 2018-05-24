@@ -113,7 +113,8 @@ setMethod(
             normalized = counts(object, normalized = TRUE),
             rlog = rlog,
             vst = vst,
-            legend = legend
+            legend = legend,
+            return = return
         )
     }
 )
