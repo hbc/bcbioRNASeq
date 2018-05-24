@@ -1,3 +1,38 @@
+# bcbioRNASeq 0.2.4 (2018-05-24)
+
+## Major changes
+
+- `aggregateReplicates()` support has been added back. This function returns
+  a `RangedSummarizedExperiment` instead of a `bcbioRNASeq` object, containing
+  only an aggregate raw counts matrix in the `counts` slot of `assays()`.
+- The functional analysis [R Markdown][] template has been reworked to use
+  `dds_file` and `organism` as new parameter arguments. We've reduced the number
+  of parameters required here to run [clusterProfiler][].
+
+## Minor changes
+
+- `metrics()` now contains an informative error for datasets that were analyzed
+  using the `fast-rnaseq` [bcbio][] pipeline.
+- `DESeqDataSet` coercion from `bcbioRNASeq` object doesn't attempt to run
+  `DESeq()` command any more, which was unnecessary and improves speed.
+- `bcbioSingleCell()` constructor now supports `censorSamples` parameter. This
+  is useful for removing known poor quality samples upon loading.
+- [ggplot2][] color and fill palettes are now set `NULL` in the quality control
+  functions. This behavior doesn't change the appearance of the plot colors,
+  which will still default to `ggplot2::scale_colour_hue()` or
+  `ggplot2::scale_fill_hue()`. The upcoming [ggplot2][] v2.3.0 update supports
+  global options for color and fill palettes, so these parameters may be
+  deprecated in a future release.
+- Reworked the internal code for `topTables()`.
+
+## Infrastructure changes
+
+- Added [macOS][] testing to [Travis CI][] build checks.
+- Fixed [clusterProfiler][] compilation error on [Travis CI][] by installing
+  `libudunits2-dev` (Linux).
+
+
+
 # bcbioRNASeq 0.2.3 (2018-05-10)
 
 ## Major changes
@@ -538,6 +573,7 @@ Last set of code fixes before F1000v2 resubmission.
 [bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna
 [biomaRt]: https://doi.org/doi:10.18129/B9.bioc.biomaRt
 [CHBUtils]: https://github.com/hbc/CHBUtils
+[clusterProfiler]: 
 [covr]: https://github.com/jimhester/covr
 [dplyr]: http://dplyr.tidyverse.org
 [edgeR]: https://doi.org/doi:10.18129/B9.bioc.edgeR
@@ -546,6 +582,7 @@ Last set of code fixes before F1000v2 resubmission.
 [F1000]: https://f1000.com
 [HBC]: http://bioinformatics.sph.harvard.edu
 [lintr]: https://github.com/jimhester/lintr
+[macOS]: https://www.apple.com/macos
 [Markdown]: https://daringfireball.net/projects/markdown/syntax
 [RDAVIDWebService]: https://doi.org/doi:10.18129/B9.bioc.RDAVIDWebService
 [R Markdown]: http://rmarkdown.rstudio.com
