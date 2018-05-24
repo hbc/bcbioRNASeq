@@ -6,14 +6,6 @@ gene2symbol <- gene2symbol(bcb_small)
 
 
 # alphaSummary =================================================================
-test_that("alphaSummary : bcbioRNASeq", {
-    expect_warning(
-        alphaSummary(bcb_small),
-        "Empty design formula detected"
-    )
-    expect_is(suppressWarnings(alphaSummary(bcb_small)), "knitr_kable")
-})
-
 test_that("alphaSummary : DESeqDataSet", {
     x <- alphaSummary(dds_small)
     expect_is(x, "knitr_kable")
