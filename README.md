@@ -3,7 +3,7 @@
 [![Travis CI](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
 [![AppVeyor CI](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
 [![Codecov](https://codecov.io/gh/hbc/bcbioRNASeq/branch/master/graph/badge.svg)](https://codecov.io/gh/hbc/bcbioRNASeq)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
 Quality control and differential expression for [bcbio][] RNA-seq experiments.
@@ -48,7 +48,7 @@ flatFiles <- flatFiles(bcb)
 saveData(bcb, flatFiles)
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][RSE] container class.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class.
 
 Parameters:
 
@@ -57,7 +57,6 @@ Parameters:
 - `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
 
 Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
-
 
 ### Sample metadata
 
@@ -81,10 +80,11 @@ This package provides multiple [R Markdown][] templates, including quality contr
 
 These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
-### Example renderings
+### Example reports
 
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
+- [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
 
 
 ## Citation
@@ -109,4 +109,4 @@ The papers and software cited in our workflows are available as a [shared librar
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
-[RSE]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
+[RangedSummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
