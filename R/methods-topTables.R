@@ -57,15 +57,15 @@ NULL
 
     # Apply direction
     if (direction == "up") {
-        data <- filter(data, log2FoldChange > 0L)
+        data <- filter(data, !!sym("log2FoldChange") > 0L)
     } else if (direction == "down") {
-        data <- filter(data, log2FoldChange < 0L)
+        data <- filter(data, !!sym("log2FoldChange") < 0L)
     }
 
     # Coding genes only, if desired
     if (isTRUE(coding)) {
         assert_is_subset("broadClass", colnames(data))
-        data <- filter(data, broadClass == "coding")
+        data <- filter(data, !!sym("broadClass") == "coding")
     }
 
     # Early return NULL when there are no significant DEGs
