@@ -12,9 +12,6 @@ alphaSummary(object, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
   0.001, 1e-06), caption = NULL, ...)
-
-\S4method{alphaSummary}{bcbioRNASeq}(object, alpha = c(0.1, 0.05, 0.01, 0.001,
-  1e-06), caption = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,10 +35,8 @@ the object contains an internal \code{DESeqDataSet} with an empty design
 formula.
 }
 \examples{
-# bcbioRNASeq ====
-alphaSummary(bcb_small)
-
 # DESeqDataSet ====
+design(dds_small)
 resultsNames(dds_small)
 alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
 alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")

@@ -34,6 +34,15 @@ This code is used internally by:
 \examples{
 x <- prepareRNASeqTemplate()
 x
+
+# Clean up
+unlink(c(
+    "_footer.Rmd",
+    "_header.Rmd",
+    "_output.yaml",
+    "_setup.R",
+    "bibliography.bib"
+))
 }
 \seealso{
 Other R Markdown Functions: \code{\link{topTables}}

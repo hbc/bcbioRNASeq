@@ -10,22 +10,27 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = c("vertical",
-  "horizontal"), legend = FALSE)
+\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = FALSE, headerLevel = 2L,
+  return = c("grid", "list", "markdown"))
 
-\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = c("vertical",
-  "horizontal"), legend = FALSE)
+\S4method{plotMeanSD}{DESeqDataSet}(object, legend = FALSE,
+  headerLevel = 2L, return = c("grid", "list", "markdown"))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
-\code{vertical}.}
-
 \item{legend}{Include the color bar legend. This is typically not that
 informative and is disabled by default, to improve the plot appearance.}
+
+\item{headerLevel}{R Markdown header level.}
+
+\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
+the first item in the vector by default.}
+
+\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
+\code{vertical}.}
 }
 \value{
 \code{ggplot} grid.
