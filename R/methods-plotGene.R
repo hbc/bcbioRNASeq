@@ -28,7 +28,6 @@
 #' # bcbioRNASeq ====
 #' plotGene(bcb_small, genes = genes, return = "facet")
 #' plotGene(bcb_small, genes = genes, return = "wide")
-#' plotGene(bcb_small, genes = genes, return = "grid")
 #'
 #' # DESeqDataSet ====
 #' plotGene(dds_small, genes = genes)
