@@ -299,7 +299,7 @@ all_entrez <- gene2entrez %>%
     as.integer() %>%
     sort() %>%
     as.character()
-glimpse(unique_entrez)
+glimpse(all_entrez)
 ```
 
 Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vector of significant genes that map to Entrez.
@@ -308,13 +308,10 @@ Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vec
 # Significant genes that map to Entrez ID (which can be duplicated)
 sig_gene2entrez <- gene2entrez[intersect(sig_genes, names(gene2entrez))]
 glimpse(sig_gene2entrez)
+# any(duplicated(sig_gene2entrez))
 ```
 
 Note that this vector can contain duplicate Entrez IDs, which we will resolve by significance (adjusted P value).
-
-```{r}
-any(duplicated(sig_gene2entrez))
-```
 
 ```{r entrez_res}
 stopifnot(all(names(sig_gene2entrez) %in% rownames(res_df)))
