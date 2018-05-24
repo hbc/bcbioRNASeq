@@ -22,7 +22,7 @@ contain \code{rownames} identical to the \code{colnames} of the object.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 

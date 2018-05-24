@@ -10,8 +10,7 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  limit = 10L, fill = scale_fill_hue(), flip = TRUE,
-  title = "mapped reads")
+  limit = 10L, fill = NULL, flip = TRUE, title = "mapped reads")
 }
 \arguments{
 \item{object}{Object.}

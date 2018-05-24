@@ -10,8 +10,7 @@
 plotRRNAMappingRate(object, ...)
 
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  limit = 10L, fill = scale_fill_hue(), flip = TRUE,
-  title = "rRNA mapping rate")
+  limit = 10L, fill = NULL, flip = TRUE, title = "rRNA mapping rate")
 }
 \arguments{
 \item{object}{Object.}

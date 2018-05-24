@@ -41,7 +41,7 @@ setMethod(
         alpha,
         lfcThreshold = 0L,
         direction = c("both", "up", "down"),
-        color = scale_color_hue(),
+        color = NULL,
         label = FALSE,
         return = c("ggplot", "data.frame")
     ) {

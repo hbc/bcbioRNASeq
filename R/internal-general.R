@@ -15,7 +15,7 @@
 #' @param color Desired ggplot color scale. Must supply discrete values. When
 #'   set to `NULL`, the default ggplot2 color palette will be used. If manual
 #'   color definitions are desired, we recommend using
-#'   [ggplot2::scale_color_manual()].
+#'   [ggplot2::scale_colour_manual()].
 #' @param counts Object containing a normalized counts matrix.
 #' @param dir Local directory path.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.

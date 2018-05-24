@@ -10,7 +10,7 @@
 plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
-  limit = 0L, minCounts = 1L, fill = scale_fill_hue(), flip = TRUE,
+  limit = 0L, minCounts = 1L, fill = NULL, flip = TRUE,
   title = "genes detected")
 }
 \arguments{

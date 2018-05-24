@@ -25,7 +25,7 @@ setMethod(
         interestingGroups,
         limit = 0L,
         minCounts = 1L,
-        fill = scale_fill_hue(),
+        fill = NULL,
         flip = TRUE,
         title = "genes detected"
     ) {

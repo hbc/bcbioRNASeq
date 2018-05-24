@@ -10,9 +10,8 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
-  countsAxisLabel = "counts", medianLine = TRUE,
-  color = scale_color_hue(), headerLevel = 2L, return = c("facet", "wide",
-  "grid", "markdown", "list"))
+  countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
+  headerLevel = 2L, return = c("facet", "wide", "grid", "markdown", "list"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -39,7 +38,7 @@ are colored by sample name.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{headerLevel}{R Markdown header level.}
 

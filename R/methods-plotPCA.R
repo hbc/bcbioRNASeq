@@ -48,7 +48,7 @@ setMethod(
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = scale_color_hue(),
+        color = NULL,
         label = FALSE,
         title = "pca",
         subtitle = NULL,

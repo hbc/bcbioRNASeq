@@ -10,8 +10,7 @@
 plot5Prime3PrimeBias(object, ...)
 
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object, interestingGroups,
-  limit = 2L, fill = scale_fill_hue(), flip = TRUE,
-  title = "5'->3' bias")
+  limit = 2L, fill = NULL, flip = TRUE, title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}
