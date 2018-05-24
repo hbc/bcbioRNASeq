@@ -48,6 +48,8 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
+\item{legend}{Show plot legend.}
+
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
 \item{limit}{Threshold to denote on the plot, using a dashed line.}
