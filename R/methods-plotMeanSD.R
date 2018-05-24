@@ -32,15 +32,16 @@ NULL
     normalized,
     rlog,
     vst,
-    orientation = c("vertical", "horizontal"),
-    legend = FALSE
+    legend = FALSE,
+    headerLevel = 2L,
+    return = c("grid", "list", "markdown")
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
     assert_is_matrix(rlog)
     assert_is_matrix(vst)
-    orientation <- match.arg(orientation)
     assert_is_a_bool(legend)
+    return <- match.arg(return)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -76,22 +77,16 @@ NULL
             theme(legend.position = "none")
     }
 
-    # Return either horizontal or vertical
-    if (orientation == "horizontal") {
-        ncol <- 3L
-        nrow <- 1L
-    } else if (orientation == "vertical") {
-        ncol <- 1L
-        nrow <- 3L
-    }
+    plotlist <- list(
+        log2 = gglog2,
+        rlog = ggrlog,
+        vst = ggvst
+    )
 
-    plot_grid(
-        gglog2,
-        ggrlog,
-        ggvst,
-        labels = "AUTO",
-        ncol = ncol,
-        nrow = nrow
+    dynamicPlotlist(
+        plotlist = plotlist,
+        headerLevel = headerLevel,
+        return = return
     )
 }
 
@@ -104,21 +99,25 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        orientation = c("vertical", "horizontal"),
-        legend = FALSE
+        legend = FALSE,
+        headerLevel = 2L,
+        return = c("grid", "list", "markdown")
     ) {
-        # Passthrough: orientation, legend
-        # Require that the DESeq2 transformations are slotted
+        # Passthrough: legend, headerLevel
+        return <- match.arg(return)
+
+        # Require that the DESeq2 transformations are slotted.
+        # If `transformationLimit` was applied, this function will error.
         rlog <- assays(object)[["rlog"]]
         vst <- assays(object)[["vst"]]
         assert_is_matrix(rlog)
         assert_is_matrix(vst)
+
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = rlog,
             vst = vst,
-            orientation = orientation,
             legend = legend
         )
     }
@@ -133,17 +132,26 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
-        orientation = c("vertical", "horizontal"),
-        legend = FALSE
+        legend = FALSE,
+        headerLevel = 2L,
+        return = c("grid", "list", "markdown")
     ) {
-        # Passthrough arguments: orientation, legend
+        # Passthrough: legend, headerLevel
+        return <- match.arg(return)
+
+        raw <- counts(object, normalized = FALSE)
+        normalized <- counts(object, normalized = TRUE)
+        rlog <- assay(rlog(object))
+        vst <- assay(varianceStabilizingTransformation(object))
+
         .plotMeanSD(
-            raw = counts(object, normalized = FALSE),
-            normalized = counts(object, normalized = TRUE),
-            rlog = assay(rlog(object)),
-            vst = assay(varianceStabilizingTransformation(object)),
-            orientation = orientation,
-            legend = legend
+            raw = raw,
+            normalized = normalized,
+            rlog = rlog,
+            vst = vst,
+            legend = legend,
+            headerLevel = headerLevel,
+            return = return
         )
     }
 )
