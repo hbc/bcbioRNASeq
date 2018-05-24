@@ -8,6 +8,9 @@
 - The functional analysis [R Markdown][] template has been reworked to use
   `dds_file` and `organism` as new parameter arguments. We've reduced the number
   of parameters required here to run [clusterProfiler][].
+- Made `alphaSummary()` defunct for `bcbioRNASeq` object, in favor of
+  `DESeqDataSet` only. This function is only useful when a proper design formula
+  has been defined.
 
 ## Minor changes
 
