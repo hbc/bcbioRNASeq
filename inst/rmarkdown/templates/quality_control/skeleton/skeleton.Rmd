@@ -252,12 +252,12 @@ plotDispEsts(bcb)
 ```
 
 
-## Variance stabilization {.tabset}
+## Variance stabilization
 
 The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
 
 ```{r plot_mean_sd}
-plotMeanSD(bcb, return = "markdown", headerLevel = 3)
+plotMeanSD(bcb)
 ```
 
 
