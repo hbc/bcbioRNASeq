@@ -27,16 +27,13 @@ NULL
     normalized,
     rlog,
     vst,
-    legend = FALSE,
-    headerLevel = 2L,
-    return = c("grid", "list", "markdown")
+    legend = FALSE
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
     assert_is_matrix(rlog)
     assert_is_matrix(vst)
     assert_is_a_bool(legend)
-    return <- match.arg(return)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -48,6 +45,15 @@ NULL
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
         ggtitle("log2") +
+        xlab(xlab)
+    tmm <- suppressMessages(tmm(raw))
+    ggtmm <- tmm %>%
+        .[nonzero, , drop = FALSE] %>%
+        `+`(1L) %>%
+        log2() %>%
+        meanSdPlot(plot = FALSE) %>%
+        .[["gg"]] +
+        ggtitle("log2 tmm") +
         xlab(xlab)
     ggrlog <- rlog %>%
         .[nonzero, , drop = FALSE] %>%
@@ -62,31 +68,28 @@ NULL
         ggtitle("vst") +
         xlab(xlab)
 
-    # Remove the plot (color) legend, if desired
-    if (!isTRUE(legend)) {
-        gglog2 <- gglog2 +
-            theme(legend.position = "none")
-        ggrlog <- ggrlog +
-            theme(legend.position = "none")
-        ggvst <- ggvst +
-            theme(legend.position = "none")
-    }
-
     plotlist <- list(
         log2 = gglog2,
+        tmm = ggtmm,
         rlog = ggrlog,
         vst = ggvst
     )
 
-    dynamicPlotlist(
-        plotlist = plotlist,
-        headerLevel = headerLevel,
-        return = return
-    )
+    # Remove the plot (color) legend, if desired
+    if (!isTRUE(legend)) {
+        plotlist <- lapply(plotlist, function(p) {
+            p <- p + theme(legend.position = "none")
+        })
+    }
+
+    plot_grid(plotlist = plotlist, labels = "AUTO")
 }
 
 
+
 # Methods ======================================================================
+# Require that the DESeq2 transformations are slotted.
+# If `transformationLimit` was applied, this function will error.
 #' @rdname plotMeanSD
 #' @export
 setMethod(
@@ -94,28 +97,14 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        legend = FALSE,
-        headerLevel = 2L,
-        return = c("grid", "list", "markdown")
+        legend = FALSE
     ) {
-        # Passthrough: legend, headerLevel
-        return <- match.arg(return)
-
-        # Require that the DESeq2 transformations are slotted.
-        # If `transformationLimit` was applied, this function will error.
-        rlog <- assays(object)[["rlog"]]
-        vst <- assays(object)[["vst"]]
-        assert_is_matrix(rlog)
-        assert_is_matrix(vst)
-
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
-            rlog = rlog,
-            vst = vst,
-            legend = legend,
-            headerLevel = headerLevel,
-            return = return
+            rlog = assays(object)[["rlog"]],
+            vst = assays(object)[["vst"]],
+            legend = legend
         )
     }
 )
@@ -129,26 +118,14 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
-        legend = FALSE,
-        headerLevel = 2L,
-        return = c("grid", "list", "markdown")
+        legend = FALSE
     ) {
-        # Passthrough: legend, headerLevel
-        return <- match.arg(return)
-
-        raw <- counts(object, normalized = FALSE)
-        normalized <- counts(object, normalized = TRUE)
-        rlog <- assay(rlog(object))
-        vst <- assay(varianceStabilizingTransformation(object))
-
         .plotMeanSD(
-            raw = raw,
-            normalized = normalized,
-            rlog = rlog,
-            vst = vst,
-            legend = legend,
-            headerLevel = headerLevel,
-            return = return
+            raw = counts(object, normalized = FALSE),
+            normalized = counts(object, normalized = TRUE),
+            rlog = assay(rlog(object)),
+            vst = assay(varianceStabilizingTransformation(object)),
+            legend = legend
         )
     }
 )

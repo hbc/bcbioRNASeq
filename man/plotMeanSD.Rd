@@ -10,11 +10,9 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = FALSE, headerLevel = 2L,
-  return = c("grid", "list", "markdown"))
+\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = FALSE)
 
-\S4method{plotMeanSD}{DESeqDataSet}(object, legend = FALSE,
-  headerLevel = 2L, return = c("grid", "list", "markdown"))
+\S4method{plotMeanSD}{DESeqDataSet}(object, legend = FALSE)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,11 +20,6 @@ plotMeanSD(object, ...)
 \item{...}{Additional arguments.}
 
 \item{legend}{Show plot legend.}
-
-\item{headerLevel}{R Markdown header level.}
-
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
 }
 \value{
 \code{ggplot} grid.

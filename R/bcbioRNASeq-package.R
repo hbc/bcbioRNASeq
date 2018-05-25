@@ -41,8 +41,8 @@
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsCharacterOrNULL assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
-#'   assertIsTx2gene camel convertGenesToSymbols detectOrganism dynamicPlotlist
-#'   emptyRanges fixNA hasRownames initializeDirectory makeGRangesFromEnsembl
+#'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
+#'   fixNA hasRownames initializeDirectory makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeTx2geneFromGFF markdownHeader markdownList
 #'   markdownPlotlist readYAML sanitizeRowData snake
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
