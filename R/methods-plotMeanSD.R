@@ -1,7 +1,18 @@
 #' Plot Row Standard Deviations vs. Row Means
 #'
-#' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
-#' [varianceStabilizingTransformation()] normalized counts.
+#' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
+#'
+#' - **DESeq2 log2**: log2 normalized counts.
+#' - **DESeq2 rlog**: regularized log transformation.
+#' - **DESeq2 vst**: variance stabilizing transformation.
+#' - **edgeR log2 tmm**: log2 trimmed mean of M-values transformation.
+#'
+#' @seealso
+#' - [vsn::meanSdPlot()].
+#' - [DESeq2::DESeq()].
+#' - [DESeq2::rlog()].
+#' - [DESeq2::varianceStabilizingTransformation()].
+#' - [tmm()].
 #'
 #' @name plotMeanSD
 #' @family Quality Control Functions
@@ -31,21 +42,49 @@ NULL
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
-    assert_is_matrix(rlog)
-    assert_is_matrix(vst)
+    # rlog and vst are optional (transformationLimit)
     assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
 
+    # DESeq2 log2 normalized
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
         log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
-        ggtitle("log2") +
+        ggtitle("DESeq2 log2") +
         xlab(xlab)
+
+    # DESeq2 regularized log
+    if (is.matrix(rlog)) {
+        ggrlog <- rlog %>%
+            .[nonzero, , drop = FALSE] %>%
+            meanSdPlot(plot = FALSE) %>%
+            .[["gg"]] +
+            ggtitle("DESeq2 rlog") +
+            xlab(xlab)
+    } else {
+        message("Skipping regularized log")
+        ggrlog <- NULL
+    }
+
+    # DESeq2 variance stabilizing transformation
+    if (is.matrix(vst)) {
+        ggvst <- vst %>%
+            .[nonzero, , drop = FALSE] %>%
+            meanSdPlot(plot = FALSE) %>%
+            .[["gg"]] +
+            ggtitle("DESeq2 vst") +
+            xlab(xlab)
+    } else {
+        message("Skipping variance stabilizing transformation")
+        ggvst <- NULL
+    }
+
+    # edgeR log2 tmm
     tmm <- suppressMessages(tmm(raw))
     ggtmm <- tmm %>%
         .[nonzero, , drop = FALSE] %>%
@@ -53,27 +92,17 @@ NULL
         log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
-        ggtitle("log2 tmm") +
-        xlab(xlab)
-    ggrlog <- rlog %>%
-        .[nonzero, , drop = FALSE] %>%
-        meanSdPlot(plot = FALSE) %>%
-        .[["gg"]] +
-        ggtitle("rlog") +
-        xlab(xlab)
-    ggvst <- vst %>%
-        .[nonzero, , drop = FALSE] %>%
-        meanSdPlot(plot = FALSE) %>%
-        .[["gg"]] +
-        ggtitle("vst") +
+        ggtitle("edgeR log2 tmm") +
         xlab(xlab)
 
     plotlist <- list(
         log2 = gglog2,
-        tmm = ggtmm,
         rlog = ggrlog,
-        vst = ggvst
+        vst = ggvst,
+        tmm = ggtmm
     )
+    # Remove NULL assays if present (e.g. rlog, vst)
+    plotlist <- Filter(Negate(is.null), plotlist)
 
     # Remove the plot (color) legend, if desired
     if (!isTRUE(legend)) {

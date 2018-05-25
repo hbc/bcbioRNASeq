@@ -1,4 +1,4 @@
-#' Trimmed Mean of M-Values (TMM) Normalization
+#' **T**rimmed **M**ean of **M**-Values (TMM) Normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
 #' of genes are not differentially expressed. We use this as a quality control

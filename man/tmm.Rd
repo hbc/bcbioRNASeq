@@ -7,7 +7,7 @@
 \alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}
-\title{Trimmed Mean of M-Values (TMM) Normalization}
+\title{\strong{T}rimmed \strong{M}ean of \strong{M}-Values (TMM) Normalization}
 \usage{
 tmm(object)
 

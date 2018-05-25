@@ -32,8 +32,8 @@
   
 <meta property="og:title" content="Plot Row Standard Deviations vs. Row Means — plotMeanSD" />
 
-<meta property="og:description" content="vsn::meanSdPlot() wrapper that plots log2(), rlog(), and
-varianceStabilizingTransformation() normalized counts." />
+<meta property="og:description" content="vsn::meanSdPlot() wrapper that plots the following count transformations
+(all are log2 scale):" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,8 +107,8 @@ varianceStabilizingTransformation() normalized counts." />
 
     <div class="ref-description">
     
-    <p><code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code> wrapper that plots <code>log2()</code>, <code>rlog()</code>, and
-<code>varianceStabilizingTransformation()</code> normalized counts.</p>
+    <p><code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code> wrapper that plots the following count transformations
+(all are log2 scale):</p>
     
     </div>
 
@@ -141,8 +141,24 @@ varianceStabilizingTransformation() normalized counts." />
 
     <p><code>ggplot</code> grid.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <ul>
+<li><p><strong>DESeq2 log2</strong>: log2 normalized counts.</p></li>
+<li><p><strong>DESeq2 rlog</strong>: regularized log transformation.</p></li>
+<li><p><strong>DESeq2 vst</strong>: variance stabilizing transformation.</p></li>
+<li><p><strong>edgeR log2 tmm</strong>: log2 trimmed mean of M-values transformation.</p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
+<li><p><code>tmm()</code>.</p></li>
+</ul></div>
     <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
   <code>plotCountDensity</code>,
@@ -172,6 +188,8 @@ varianceStabilizingTransformation() normalized counts." />
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
