@@ -114,6 +114,7 @@ setMethod(
             rlog = rlog,
             vst = vst,
             legend = legend,
+            headerLevel = headerLevel,
             return = return
         )
     }
