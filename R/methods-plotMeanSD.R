@@ -111,7 +111,7 @@ NULL
         })
     }
 
-    plot_grid(plotlist = plotlist, labels = "AUTO")
+    plot_grid(plotlist = plotlist)
 }
 
 
