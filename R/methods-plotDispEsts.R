@@ -44,6 +44,7 @@ setMethod(
     function(object, ...) {
         validObject(object)
         dds <- as(object, "DESeqDataSet")
+        dds <- suppressWarnings(DESeq(dds))
         plotDispEsts(dds, ...)
     }
 )

@@ -27,11 +27,7 @@
 #'
 #' @examples
 #' # DESeqResults, DESeqDataSet ====
-#' x <- resultsTables(
-#'     results = res_small,
-#'     counts = dds_small,
-#'     lfcThreshold = 0.25
-#' )
+#' x <- resultsTables(results = res_small, counts = dds_small)
 #' names(x)
 #' glimpse(x[["deg"]])
 NULL
@@ -194,8 +190,8 @@ setMethod(
         fileStem <- snake(contrast)
 
         # Now safe to coerce to DataFrame
-        results <- as.data.frame(results) %>%
-            rownames_to_column("geneID")
+        results <- as.data.frame(results)
+        results[["geneID"]] <- rownames(results)
 
         # Add gene annotations (rowData) =======================================
         rowRanges <- rowRanges(counts)
@@ -294,7 +290,7 @@ setMethod(
                 x = tables,
                 path = localFiles,
                 FUN = function(x, path) {
-                    assert_are_identical("geneID", colnames(x)[[1L]])
+                    assert_is_subset("geneID", colnames(x))
                     write_csv(x = x, path = path)
                 }
             )

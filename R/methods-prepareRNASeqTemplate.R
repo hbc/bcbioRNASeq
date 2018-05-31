@@ -4,13 +4,13 @@
 #' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inherit bcbioBase::prepareTemplate
 #'
-#' @return No value.
 #' @export
 #'
 #' @examples
-#' prepareRNASeqTemplate()
+#' x <- prepareRNASeqTemplate()
+#' x
 #'
 #' # Clean up
 #' unlink(c(
@@ -20,9 +20,9 @@
 #'     "_setup.R",
 #'     "bibliography.bib"
 #' ))
-prepareRNASeqTemplate <- function() {
+prepareRNASeqTemplate <- function(overwrite = FALSE) {
     prepareTemplate(
-        c(
+        file = c(
             "_footer.Rmd",
             "_header.Rmd",
             "_output.yaml",
@@ -32,6 +32,7 @@ prepareRNASeqTemplate <- function() {
         sourceDir = system.file(
             "rmarkdown/shared",
             package = "bcbioRNASeq"
-        )
+        ),
+        overwrite = overwrite
     )
 }

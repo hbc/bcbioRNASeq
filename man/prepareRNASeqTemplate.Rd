@@ -4,16 +4,36 @@
 \alias{prepareRNASeqTemplate}
 \title{Prepare RNA-Seq R Markdown Template}
 \usage{
-prepareRNASeqTemplate()
+prepareRNASeqTemplate(overwrite = FALSE)
+}
+\arguments{
+\item{overwrite}{\code{logical}. Should existing destination files be overwritten?}
 }
 \value{
-No value.
+Invisible \code{logical} vector indicating which files were copied.
 }
 \description{
 Prepare RNA-Seq R Markdown Template
 }
+\details{
+By default, this function will create local copies of these files:
+\itemize{
+\item \code{_footer.Rmd}
+\item \code{_header.Rmd}
+\item \code{_output.yaml}
+\item \code{_setup.R}
+\item \code{bibliography.bib}
+}
+
+This code is used internally by:
+\itemize{
+\item \code{bcbioRNASeq::prepareRNASeqTemplate()}.
+\item \code{bcbioSingleCell::prepareSingleCellTemplate()}.
+}
+}
 \examples{
-prepareRNASeqTemplate()
+x <- prepareRNASeqTemplate()
+x
 
 # Clean up
 unlink(c(

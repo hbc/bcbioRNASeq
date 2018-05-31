@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 60L,
-        fill = scale_fill_hue(),
+        fill = NULL,
         flip = TRUE,
         title = "exonic mapping rate"
     ) {

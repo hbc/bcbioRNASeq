@@ -10,8 +10,7 @@
 plotMappingRate(object, ...)
 
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  limit = 90L, fill = scale_fill_hue(), flip = TRUE,
-  title = "mapping rate")
+  limit = 90L, fill = NULL, flip = TRUE, title = "mapping rate")
 }
 \arguments{
 \item{object}{Object.}

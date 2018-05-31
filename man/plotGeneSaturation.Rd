@@ -9,9 +9,9 @@
 \usage{
 plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), interestingGroups, minCounts = 1L,
-  trendline = FALSE, color = scale_color_hue(), title = "gene saturation")
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("tpm",
+  "tmm"), interestingGroups, minCounts = 1L, trendline = FALSE,
+  color = NULL, title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}
@@ -36,7 +36,7 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{title}{Title of plot.}
 }

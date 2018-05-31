@@ -24,8 +24,9 @@ Transcripts Per Million (TPM)
 tpm(bcb_small) \%>\% glimpse()
 }
 \seealso{
-Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{tmm}}
+Other Data Functions: \code{\link{aggregateReplicates}},
+  \code{\link{counts}}, \code{\link{metrics}},
+  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh

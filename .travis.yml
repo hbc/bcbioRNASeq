@@ -4,19 +4,41 @@
 language: r
 cache: packages
 
+os:
+  - linux
+  - osx
+
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
+
+matrix:
+  exclude:
+  - os: osx
+    r: bioc-devel
+
+# safelist
+# branches:
+#   only:
+#   - master
 
 # blocklist
 branches:
   except:
   - develop
 
+# External dependencies
+# dependency for clusterProfiler > enrichplot > udunits2
+addons:
+  apt:
+    update: true
+    packages:
+      - libudunits2-dev
+
 env:
   global:
     - LINTR_COMMENT_BOT=true
-    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+    # - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 # r_build_args: "--no-build-vignettes"
 # r_check_args: "--no-vignettes"
@@ -29,14 +51,26 @@ warnings_are_errors: true
 
 notifications:
   email:
+    recipients:
+      - mike@steinbaugh.com
     on_success: change
-    on_failure: change
+    on_failure: always
 
 r_packages:
   - covr
   - hexbin
 bioc_packages:
   - BiocCheck
+  - GenomeInfoDbData
+  - DelayedArray
+  - EnsDb.Hsapiens.v75
+  # clusterProfiler dependencies
+  - ALL
+  - DO.db
+  - GO.db
+  - enrichplot
+  - org.Hs.eg.db
+  - org.Mm.eg.db
 r_github_packages:
   - jimhester/lintr
 

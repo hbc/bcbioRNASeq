@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        fill = scale_fill_hue(),
+        fill = NULL,
         flip = TRUE,
         title = "counts per gene"
     ) {

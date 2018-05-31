@@ -19,7 +19,7 @@ opts_chunk[["set"]](
     fig.retina = 2L,
     fig.width = 10L,
     highlight = TRUE,
-    message = FALSE,
+    message = TRUE,
     prompt = TRUE,
     tidy = FALSE,
     warning = TRUE

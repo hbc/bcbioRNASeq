@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 20L,
-        fill = scale_fill_hue(),
+        fill = NULL,
         flip = TRUE,
         title = "intronic mapping rate"
     ) {

@@ -22,7 +22,7 @@ contain \code{rownames} identical to the \code{colnames} of the object.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
@@ -47,6 +47,8 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
+
+\item{legend}{Show plot legend.}
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 

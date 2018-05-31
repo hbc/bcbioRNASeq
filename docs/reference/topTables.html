@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.4</span>
       </span>
     </div>
 
@@ -74,6 +74,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -152,23 +155,23 @@
 #&gt; 
 #&gt; |geneID             | baseMean|lfc  |padj      |
 #&gt; |:------------------|--------:|:----|:---------|
-#&gt; |ENSMUSG00000024164 |    12562|8.27 |3.78e-194 |
-#&gt; |ENSMUSG00000029304 |    69340|5.36 |8.95e-76  |
-#&gt; |ENSMUSG00000003617 |     3560|4.08 |7.12e-45  |
-#&gt; |ENSMUSG00000022037 |     3544|3.56 |3.84e-42  |
-#&gt; |ENSMUSG00000040405 |     3002|3.74 |1.62e-37  |
+#&gt; |ENSMUSG00000024164 |    12562|8.27 |3.89e-194 |
+#&gt; |ENSMUSG00000029304 |    69340|5.36 |9.03e-76  |
+#&gt; |ENSMUSG00000003617 |     3560|4.08 |7.16e-45  |
+#&gt; |ENSMUSG00000022037 |     3544|3.56 |3.87e-42  |
+#&gt; |ENSMUSG00000040405 |     3002|3.74 |1.63e-37  |
 #&gt; 
 #&gt; 
 #&gt; |geneID             | baseMean|lfc   |padj     |
 #&gt; |:------------------|--------:|:-----|:--------|
-#&gt; |ENSMUSG00000027199 |    11624|-2.31 |9.63e-13 |
+#&gt; |ENSMUSG00000027199 |    11624|-2.31 |9.65e-13 |
 #&gt; |ENSMUSG00000005980 |     5795|-2.72 |1.10e-12 |
-#&gt; |ENSMUSG00000049152 |    13888|-1.72 |6.76e-11 |
+#&gt; |ENSMUSG00000049152 |    13888|-1.72 |6.78e-11 |
 #&gt; |ENSMUSG00000028713 |    14806|-1.65 |1.90e-10 |
-#&gt; |ENSMUSG00000061906 |     7413|-1.98 |7.49e-10 |</div><div class='input'>
-<span class='co'># resultsTables list ====</span>
+#&gt; |ENSMUSG00000061906 |     7413|-1.98 |7.50e-10 |</div><div class='input'>
+<span class='co'># `resultsTables()` return list ====</span>
 <span class='co'># Return with gene annotations and DESeq2 normalized counts</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
+<span class='no'>res_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds_small</span>
 )</div><div class='output co'>#&gt; 
@@ -188,24 +191,24 @@
 #&gt; - DEG pass alpha: 254 genes
 #&gt; - DEG LFC up: 115 genes
 #&gt; - DEG LFC down: 139 genes
-#&gt; </div><div class='input'><span class='fu'>topTables</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; 
+#&gt; </div><div class='input'><span class='fu'>topTables</span>(<span class='no'>res_tbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |geneID             | baseMean|lfc  |padj      |geneName |geneBiotype    |description                           |
-#&gt; |:------------------|--------:|:----|:---------|:--------|:--------------|:-------------------------------------|
-#&gt; |ENSMUSG00000024164 |    12562|8.27 |3.78e-194 |C3       |protein_coding |complement component 3                |
-#&gt; |ENSMUSG00000029304 |    69340|5.36 |8.95e-76  |Spp1     |protein_coding |secreted phosphoprotein 1             |
-#&gt; |ENSMUSG00000003617 |     3560|4.08 |7.12e-45  |Cp       |protein_coding |ceruloplasmin                         |
-#&gt; |ENSMUSG00000022037 |     3544|3.56 |3.84e-42  |Clu      |protein_coding |clusterin                             |
-#&gt; |ENSMUSG00000040405 |     3002|3.74 |1.62e-37  |Havcr1   |protein_coding |hepatitis A virus cellular receptor 1 |
+#&gt; |geneID             |geneName |geneBiotype    | baseMean|lfc  |padj      |description                           |
+#&gt; |:------------------|:--------|:--------------|--------:|:----|:---------|:-------------------------------------|
+#&gt; |ENSMUSG00000024164 |C3       |protein_coding |    12562|8.27 |3.89e-194 |complement component 3                |
+#&gt; |ENSMUSG00000029304 |Spp1     |protein_coding |    69340|5.36 |9.03e-76  |secreted phosphoprotein 1             |
+#&gt; |ENSMUSG00000003617 |Cp       |protein_coding |     3560|4.08 |7.16e-45  |ceruloplasmin                         |
+#&gt; |ENSMUSG00000022037 |Clu      |protein_coding |     3544|3.56 |3.87e-42  |clusterin                             |
+#&gt; |ENSMUSG00000040405 |Havcr1   |protein_coding |     3002|3.74 |1.63e-37  |hepatitis A virus cellular receptor 1 |
 #&gt; 
 #&gt; 
-#&gt; |geneID             | baseMean|lfc   |padj     |geneName |geneBiotype    |description                                                        |
-#&gt; |:------------------|--------:|:-----|:--------|:--------|:--------------|:------------------------------------------------------------------|
-#&gt; |ENSMUSG00000027199 |    11624|-2.31 |9.63e-13 |Gatm     |protein_coding |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
-#&gt; |ENSMUSG00000005980 |     5795|-2.72 |1.10e-12 |Dnase1   |protein_coding |deoxyribonuclease I                                                |
-#&gt; |ENSMUSG00000049152 |    13888|-1.72 |6.76e-11 |Ugt3a2   |protein_coding |UDP glycosyltransferases 3 family, polypeptide A2                  |
-#&gt; |ENSMUSG00000028713 |    14806|-1.65 |1.90e-10 |Cyp4b1   |protein_coding |cytochrome P450, family 4, subfamily b, polypeptide 1              |
-#&gt; |ENSMUSG00000061906 |     7413|-1.98 |7.49e-10 |Ugt2b38  |protein_coding |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
+#&gt; |geneID             |geneName |geneBiotype    | baseMean|lfc   |padj     |description                                                        |
+#&gt; |:------------------|:--------|:--------------|--------:|:-----|:--------|:------------------------------------------------------------------|
+#&gt; |ENSMUSG00000027199 |Gatm     |protein_coding |    11624|-2.31 |9.65e-13 |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
+#&gt; |ENSMUSG00000005980 |Dnase1   |protein_coding |     5795|-2.72 |1.10e-12 |deoxyribonuclease I                                                |
+#&gt; |ENSMUSG00000049152 |Ugt3a2   |protein_coding |    13888|-1.72 |6.78e-11 |UDP glycosyltransferases 3 family, polypeptide A2                  |
+#&gt; |ENSMUSG00000028713 |Cyp4b1   |protein_coding |    14806|-1.65 |1.90e-10 |cytochrome P450, family 4, subfamily b, polypeptide 1              |
+#&gt; |ENSMUSG00000061906 |Ugt2b38  |protein_coding |     7413|-1.98 |7.50e-10 |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

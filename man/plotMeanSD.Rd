@@ -10,29 +10,30 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, orientation = c("vertical",
-  "horizontal"), legend = FALSE)
+\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = FALSE)
 
-\S4method{plotMeanSD}{DESeqDataSet}(object, orientation = c("vertical",
-  "horizontal"), legend = FALSE)
+\S4method{plotMeanSD}{DESeqDataSet}(object, legend = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{orientation}{Orientation to use for plot grid, either \code{horizontal} or
-\code{vertical}.}
-
-\item{legend}{Include the color bar legend. This is typically not that
-informative and is disabled by default, to improve the plot appearance.}
+\item{legend}{Show plot legend.}
 }
 \value{
 \code{ggplot} grid.
 }
 \description{
-\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots \code{\link[=log2]{log2()}}, \code{\link[=rlog]{rlog()}}, and
-\code{\link[=varianceStabilizingTransformation]{varianceStabilizingTransformation()}} normalized counts.
+\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots count transformations on a log2 scale.
+}
+\details{
+\itemize{
+\item \strong{DESeq2 log2}: log2 normalized counts.
+\item \strong{DESeq2 rlog}: regularized log transformation.
+\item \strong{DESeq2 vst}: variance stabilizing transformation.
+\item \strong{edgeR log2 tmm}: log2 trimmed mean of M-values transformation.
+}
 }
 \examples{
 # bcbioRNASeq ====
@@ -42,6 +43,14 @@ plotMeanSD(bcb_small)
 plotMeanSD(dds_small)
 }
 \seealso{
+\itemize{
+\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
+\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{\link[=tmm]{tmm()}}.
+}
+
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},

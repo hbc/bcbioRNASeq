@@ -4,16 +4,12 @@
 \name{plotPCA}
 \alias{plotPCA}
 \alias{plotPCA,SummarizedExperiment-method}
-\alias{plotPCA,DESeqDataSet-method}
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups, color = scale_color_hue(),
-  label = FALSE, title = "pca", subtitle = NULL, return = c("ggplot",
-  "data.frame"))
-
-\S4method{plotPCA}{DESeqDataSet}(object, ...)
+  samples = NULL, interestingGroups, color = NULL, label = FALSE,
+  title = "pca", subtitle = NULL, return = c("ggplot", "data.frame"))
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -33,7 +29,7 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 
@@ -44,8 +40,6 @@ color definitions are desired, we recommend using
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
 
-\item{...}{Additional arguments.}
-
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
@@ -53,6 +47,8 @@ the first item in the vector by default.}
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.

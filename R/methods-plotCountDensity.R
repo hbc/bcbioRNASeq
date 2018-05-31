@@ -12,11 +12,6 @@
 #' @examples
 #' # bcbioRNASeq ====
 #' plotCountDensity(bcb_small)
-#' plotCountDensity(
-#'     object = bcb_small,
-#'     style = "line",
-#'     interestingGroups = "sampleName"
-#' )
 NULL
 
 
@@ -32,8 +27,8 @@ setMethod(
         interestingGroups,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         style = c("line", "solid"),
-        color = scale_color_hue(),
-        fill = scale_fill_hue(),
+        color = NULL,
+        fill = NULL,
         title = "count density"
     ) {
         validObject(object)

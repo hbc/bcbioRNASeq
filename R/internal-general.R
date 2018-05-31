@@ -15,7 +15,7 @@
 #' @param color Desired ggplot color scale. Must supply discrete values. When
 #'   set to `NULL`, the default ggplot2 color palette will be used. If manual
 #'   color definitions are desired, we recommend using
-#'   [ggplot2::scale_color_manual()].
+#'   [ggplot2::scale_colour_manual()].
 #' @param counts Object containing a normalized counts matrix.
 #' @param dir Local directory path.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.
@@ -31,6 +31,7 @@
 #' @param headerLevel R Markdown header level.
 #' @param interestingGroups Character vector denoting groups of interest that
 #'   define the samples. If left unset, defaults to `sampleName`.
+#' @param legend Show plot legend.
 #' @param lfcThreshold Log fold change ratio (base 2) cutoff threshold.
 #' @param limit Threshold to denote on the plot, using a dashed line.
 #' @param minCounts Minimum number of counts per gene in the counts matrix.

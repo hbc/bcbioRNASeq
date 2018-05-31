@@ -247,7 +247,7 @@ setMethod(
 
         if (is_a_string(pointColor) && is.character(sigPointColor)) {
             p <- p +
-                scale_color_manual(
+                scale_colour_manual(
                     values = c(
                         # nonsignificant
                         "0" = pointColor,

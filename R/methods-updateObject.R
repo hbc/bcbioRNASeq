@@ -14,7 +14,7 @@
 #' `bcbioRNASeq` starting in v0.0.21.
 #'
 #' @name updateObject
-#' @family S4 Class Definition
+#' @family S4 Object
 #' @author Michael Steinbaugh
 #'
 #' @importFrom BiocGenerics updateObject
@@ -58,7 +58,7 @@ setMethod(
         # Using `slot()` here to avoid error on missing rowRanges
         assays <- slot(rse, "assays")
         if (!all(assayNames(rse) %in% requiredAssays)) {
-            # Coerce assays to a standard list
+            # Coerce ShallowSimpleListAssays to list
             assays <- lapply(seq_along(assays), function(a) {
                 assays[[a]]
             })

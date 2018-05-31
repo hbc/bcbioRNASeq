@@ -1,18 +1,24 @@
 #' Plot Row Standard Deviations vs. Row Means
 #'
-#' [vsn::meanSdPlot()] wrapper that plots [log2()], [rlog()], and
-#' [varianceStabilizingTransformation()] normalized counts.
+#' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
+#'
+#' - **DESeq2 log2**: log2 normalized counts.
+#' - **DESeq2 rlog**: regularized log transformation.
+#' - **DESeq2 vst**: variance stabilizing transformation.
+#' - **edgeR log2 tmm**: log2 trimmed mean of M-values transformation.
+#'
+#' @seealso
+#' - [vsn::meanSdPlot()].
+#' - [DESeq2::DESeq()].
+#' - [DESeq2::rlog()].
+#' - [DESeq2::varianceStabilizingTransformation()].
+#' - [tmm()].
 #'
 #' @name plotMeanSD
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams general
-#'
-#' @param orientation Orientation to use for plot grid, either `horizontal` or
-#'   `vertical`.
-#' @param legend Include the color bar legend. This is typically not that
-#'   informative and is disabled by default, to improve the plot appearance.
 #'
 #' @return `ggplot` grid.
 #'
@@ -32,71 +38,87 @@ NULL
     normalized,
     rlog,
     vst,
-    orientation = c("vertical", "horizontal"),
     legend = FALSE
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
-    assert_is_matrix(rlog)
-    assert_is_matrix(vst)
-    orientation <- match.arg(orientation)
+    # rlog and vst are optional (transformationLimit)
     assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
 
+    # DESeq2 log2 normalized
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
         log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
-        ggtitle("log2") +
+        ggtitle("DESeq2 log2") +
         xlab(xlab)
-    ggrlog <- rlog %>%
+
+    # DESeq2 regularized log
+    if (is.matrix(rlog)) {
+        ggrlog <- rlog %>%
+            .[nonzero, , drop = FALSE] %>%
+            meanSdPlot(plot = FALSE) %>%
+            .[["gg"]] +
+            ggtitle("DESeq2 rlog") +
+            xlab(xlab)
+    } else {
+        message("Skipping regularized log")
+        ggrlog <- NULL
+    }
+
+    # DESeq2 variance stabilizing transformation
+    if (is.matrix(vst)) {
+        ggvst <- vst %>%
+            .[nonzero, , drop = FALSE] %>%
+            meanSdPlot(plot = FALSE) %>%
+            .[["gg"]] +
+            ggtitle("DESeq2 vst") +
+            xlab(xlab)
+    } else {
+        message("Skipping variance stabilizing transformation")
+        ggvst <- NULL
+    }
+
+    # edgeR log2 tmm
+    tmm <- suppressMessages(tmm(raw))
+    ggtmm <- tmm %>%
         .[nonzero, , drop = FALSE] %>%
+        `+`(1L) %>%
+        log2() %>%
         meanSdPlot(plot = FALSE) %>%
         .[["gg"]] +
-        ggtitle("rlog") +
+        ggtitle("edgeR log2 tmm") +
         xlab(xlab)
-    ggvst <- vst %>%
-        .[nonzero, , drop = FALSE] %>%
-        meanSdPlot(plot = FALSE) %>%
-        .[["gg"]] +
-        ggtitle("vst") +
-        xlab(xlab)
+
+    plotlist <- list(
+        log2 = gglog2,
+        rlog = ggrlog,
+        vst = ggvst,
+        tmm = ggtmm
+    )
+    # Remove NULL assays if present (e.g. rlog, vst)
+    plotlist <- Filter(Negate(is.null), plotlist)
 
     # Remove the plot (color) legend, if desired
     if (!isTRUE(legend)) {
-        gglog2 <- gglog2 +
-            theme(legend.position = "none")
-        ggrlog <- ggrlog +
-            theme(legend.position = "none")
-        ggvst <- ggvst +
-            theme(legend.position = "none")
+        plotlist <- lapply(plotlist, function(p) {
+            p <- p + theme(legend.position = "none")
+        })
     }
 
-    # Return either horizontal or vertical
-    if (orientation == "horizontal") {
-        ncol <- 3L
-        nrow <- 1L
-    } else if (orientation == "vertical") {
-        ncol <- 1L
-        nrow <- 3L
-    }
-
-    plot_grid(
-        gglog2,
-        ggrlog,
-        ggvst,
-        labels = "AUTO",
-        ncol = ncol,
-        nrow = nrow
-    )
+    plot_grid(plotlist = plotlist)
 }
 
 
+
 # Methods ======================================================================
+# Require that the DESeq2 transformations are slotted.
+# If `transformationLimit` was applied, this function will error.
 #' @rdname plotMeanSD
 #' @export
 setMethod(
@@ -104,21 +126,13 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        orientation = c("vertical", "horizontal"),
         legend = FALSE
     ) {
-        # Passthrough: orientation, legend
-        # Require that the DESeq2 transformations are slotted
-        rlog <- assays(object)[["rlog"]]
-        vst <- assays(object)[["vst"]]
-        assert_is_matrix(rlog)
-        assert_is_matrix(vst)
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
-            rlog = rlog,
-            vst = vst,
-            orientation = orientation,
+            rlog = assays(object)[["rlog"]],
+            vst = assays(object)[["vst"]],
             legend = legend
         )
     }
@@ -133,16 +147,13 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
-        orientation = c("vertical", "horizontal"),
         legend = FALSE
     ) {
-        # Passthrough arguments: orientation, legend
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
             rlog = assay(rlog(object)),
             vst = assay(varianceStabilizingTransformation(object)),
-            orientation = orientation,
             legend = legend
         )
     }

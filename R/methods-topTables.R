@@ -17,13 +17,13 @@
 #' # Minimal return
 #' topTables(res_small, n = 5L)
 #'
-#' # resultsTables list ====
+#' # `resultsTables()` return list ====
 #' # Return with gene annotations and DESeq2 normalized counts
-#' x <- resultsTables(
+#' res_tbl <- resultsTables(
 #'     results = res_small,
 #'     counts = dds_small
 #' )
-#' topTables(x, n = 5L)
+#' topTables(res_tbl, n = 5L)
 NULL
 
 
@@ -31,32 +31,50 @@ NULL
 # Constructors =================================================================
 .subsetTop <- function(
     object,
+    direction = c("up", "down"),
     n = 50L,
     coding = FALSE
 ) {
-    assert_is_data.frame(object)
-    assert_has_colnames(object)
-    assert_has_rows(object)
+    data <- as.data.frame(object)
+    assert_has_colnames(data)
+    assert_has_rows(data)
     assertIsImplicitInteger(n)
     assert_is_a_bool(coding)
     # Note that `geneName` and `description` columns are optional
     requiredCols <- c("geneID", "baseMean", "log2FoldChange", "padj")
-    assert_is_subset(requiredCols, colnames(object))
+    if (!"geneID" %in% colnames(data)) {
+        data <- rownames_to_column(data, "geneID")
+    }
+    assert_is_subset(requiredCols, colnames(data))
 
-    if (isTRUE(coding)) {
-        assert_is_subset("broadClass", colnames(object))
-        object <- object %>%
-            .[.[["broadClass"]] == "coding", , drop = FALSE]
+    # Coerce to tibble and arrange by adjusted P value
+    data <- data %>%
+        as_tibble() %>%
+        remove_rownames() %>%
+        # Remove rows containing NA P value
+        filter(!is.na(!!sym("padj"))) %>%
+        arrange(!!sym("padj"))
+
+    # Apply direction
+    if (direction == "up") {
+        data <- filter(data, !!sym("log2FoldChange") > 0L)
+    } else if (direction == "down") {
+        data <- filter(data, !!sym("log2FoldChange") < 0L)
     }
 
-    if (!nrow(object)) {
+    # Coding genes only, if desired
+    if (isTRUE(coding)) {
+        assert_is_subset("broadClass", colnames(data))
+        data <- filter(data, !!sym("broadClass") == "coding")
+    }
+
+    # Early return NULL when there are no significant DEGs
+    if (!nrow(data)) {
         return(NULL)
     }
 
     keepCols <- c(requiredCols, c("geneName", "geneBiotype", "description"))
-    return <- object %>%
-        as_tibble() %>%
-        remove_rownames() %>%
+    data <- data %>%
         head(n = n) %>%
         mutate(
             baseMean = round(!!sym("baseMean")),
@@ -64,20 +82,22 @@ NULL
             padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
         ) %>%
         .[, which(colnames(.) %in% keepCols)] %>%
-        # Shorten `log2FoldChange` to `lfc`
-        rename(lfc = !!sym("log2FoldChange"))
+        # Shorten `log2FoldChange` to `lfc` to keep column width compact
+        rename(lfc = !!sym("log2FoldChange")) %>%
+        # Ensure `gene*` columns appear first
+        select(starts_with("gene"), everything())
 
     # Sanitize the description, if necessary
-    if ("description" %in% colnames(return)) {
+    if ("description" %in% colnames(data)) {
         # Remove symbol information in description, if present
-        return[["description"]] <- gsub(
+        data[["description"]] <- gsub(
             pattern = " \\[.+\\]$",
             replacement = "",
-            x = return[["description"]]
+            x = data[["description"]]
         )
     }
 
-    return
+    data
 }
 
 
@@ -93,31 +113,28 @@ setMethod(
         n = 50L,
         coding = FALSE
     ) {
+        assertIsAnImplicitInteger(n)
+        assert_is_a_bool(coding)
         contrast <- contrastName(object)
-        padj <- object %>%
-            as.data.frame() %>%
-            rownames_to_column("geneID") %>%
-            # Remove any rows with NA P values
-            .[complete.cases(.), ] %>%
-            .[order(.[["padj"]]), ]
-        up <- padj %>%
-            .[.[["log2FoldChange"]] > 0L, , drop = FALSE] %>%
-            .subsetTop(n = n, coding = coding)
-        down <- padj %>%
-            .[.[["log2FoldChange"]] < 0L, , drop = FALSE] %>%
-            .subsetTop(n = n, coding = coding)
-        if (!is.null(up)) {
+
+        up <- .subsetTop(object, direction = "up", n = n, coding = coding)
+        down <- .subsetTop(object, direction = "down", n = n, coding = coding)
+
+        if (length(up)) {
             show(kable(
-                up,
+                x = up,
                 caption = paste(contrast, "(upregulated)")
             ))
         }
-        if (!is.null(down)) {
+        if (length(down)) {
             show(kable(
-                down,
+                x = down,
                 caption = paste(contrast, "(downregulated)")
             ))
         }
+
+        # Invisibly return list containing the subset data.frames
+        invisible(list(up = up, down = down))
     }
 )
 
@@ -133,33 +150,42 @@ setMethod(
         n = 50L,
         coding = FALSE
     ) {
-        assert_is_list(object)
+        assertIsAnImplicitInteger(n)
+        assert_is_a_bool(coding)
         assert_is_subset(
-            c("all", "deg", "degLFCDown", "degLFCUp"),
-            names(object)
+            x = c("all", "deg", "degLFCDown", "degLFCUp"),
+            y = names(object)
         )
+        contrast <- object[["contrast"]]
+        assert_is_a_string(contrast)
+
         up <- .subsetTop(
-            object[["degLFCUp"]],
+            object = object[["degLFCUp"]],
+            direction = "up",
             n = n,
             coding = coding
         )
         down <- .subsetTop(
-            object[["degLFCDown"]],
+            object = object[["degLFCDown"]],
+            direction = "down",
             n = n,
             coding = coding
         )
-        contrast <- object[["contrast"]]
-        if (!is.null(up)) {
+
+        if (length(up)) {
             show(kable(
-                up,
+                x = up,
                 caption = paste(contrast, "(upregulated)")
             ))
         }
-        if (!is.null(down)) {
+        if (length(down)) {
             show(kable(
-                down,
+                x = down,
                 caption = paste(contrast, "(downregulated)")
             ))
         }
+
+        # Invisibly return list containing the subset data.frames
+        invisible(list(up = up, down = down))
     }
 )

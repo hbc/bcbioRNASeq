@@ -2,7 +2,7 @@
 #'
 #' @name coerce
 #' @aliases as
-#' @family S4 Class Definition
+#' @family S4 Object
 #' @author Michael Steinbaugh
 #'
 #' @inherit bcbioBase::coerce
@@ -52,12 +52,10 @@ setAs(
         # Integer counts are required
         assay(rse) <- round(assay(rse))
         # Prepare using an empty design formula
-        dds <- DESeqDataSet(
+        to <- DESeqDataSet(
             se = rse,
             design = ~ 1  # nolint
         )
-        # Suppress warning about empty design formula
-        to <- suppressWarnings(DESeq(dds))
         validObject(to)
         to
     }

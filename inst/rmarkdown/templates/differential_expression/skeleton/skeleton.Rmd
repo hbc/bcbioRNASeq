@@ -15,7 +15,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-08
+# Last modified 2018-05-24
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -25,6 +25,11 @@ invisible(mapply(
     path = c(params$data_dir, params$results_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
+
+# Authenticate with Dropbox, if enabled
+if (!is.null(params$dropbox_dir)) {
+    rdrop2::drop_auth()
+}
 
 # Load object ==================================================================
 bcb_name <- load(params$bcb_file)
@@ -44,16 +49,7 @@ design(dds) <- params$design
 dds <- DESeq(dds)
 # Alternatively, can use `rlog()`
 rld <- varianceStabilizingTransformation(dds)
-```
-
-
-
-# Alpha level (FDR) cutoffs
-
-Let's take a look at the number of genes we get with different false discovery rate (FDR) cutoffs. These tests subset *P* values that have been multiple test corrected using the Benjamini Hochberg (BH) method [@Benjamini:1995ws].
-
-```{r alpha_summary, results="asis"}
-alphaSummary(dds)
+saveData(dds, rld, dir = params$data_dir)
 ```
 
 

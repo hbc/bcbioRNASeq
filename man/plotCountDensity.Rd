@@ -11,8 +11,7 @@ plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = c("tmm", "vst", "rlog", "tpm", "rle"), style = c("line",
-  "solid"), color = scale_color_hue(), fill = scale_fill_hue(),
-  title = "count density")
+  "solid"), color = NULL, fill = NULL, title = "count density")
 }
 \arguments{
 \item{object}{Object.}
@@ -35,7 +34,7 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
@@ -52,11 +51,6 @@ Plot Count Density
 \examples{
 # bcbioRNASeq ====
 plotCountDensity(bcb_small)
-plotCountDensity(
-    object = bcb_small,
-    style = "line",
-    interestingGroups = "sampleName"
-)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},

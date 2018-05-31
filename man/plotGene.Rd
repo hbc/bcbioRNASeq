@@ -10,9 +10,9 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
-  countsAxisLabel = "counts", medianLine = TRUE,
-  color = scale_color_hue(), headerLevel = 2L, return = c("facet", "wide",
-  "grid", "markdown", "list"))
+  countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
+  legend = TRUE, headerLevel = 2L, return = c("facet", "wide", "grid",
+  "markdown", "list"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -39,7 +39,9 @@ are colored by sample name.}
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.}
+\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+
+\item{legend}{Show plot legend.}
 
 \item{headerLevel}{R Markdown header level.}
 
@@ -58,6 +60,8 @@ the first item in the vector by default.}
 }
 \value{
 \itemize{
+\item "\code{facet}": \code{ggplot} grouped by \code{sampleName}, with \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}
+applied to panel the samples.
 \item "\code{grid}": Show \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}, paneled per gene.
 \item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
 \item "\code{list}": \code{list}, containing per gene \code{ggplot} objects.
@@ -69,12 +73,11 @@ Plot Individual Genes
 }
 \examples{
 # Gene identifiers
-genes <- head(rownames(bcb_small), 8L)
+genes <- head(rownames(bcb_small), 4L)
 
 # bcbioRNASeq ====
 plotGene(bcb_small, genes = genes, return = "facet")
 plotGene(bcb_small, genes = genes, return = "wide")
-plotGene(bcb_small, genes = genes, return = "grid")
 
 # DESeqDataSet ====
 plotGene(dds_small, genes = genes)

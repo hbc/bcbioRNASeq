@@ -48,7 +48,7 @@ setMethod(
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = scale_color_hue(),
+        color = NULL,
         label = FALSE,
         title = "pca",
         subtitle = NULL,
@@ -161,22 +161,6 @@ setMethod(
         }
 
         p
-    }
-)
-
-
-
-#' @rdname plotPCA
-#' @export
-setMethod(
-    "plotPCA",
-    signature("DESeqDataSet"),
-    function(object, ...) {
-        validObject(object)
-        counts <- counts(object, normalized = TRUE)
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts
-        plotPCA(rse, ...)
     }
 )
 

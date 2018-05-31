@@ -24,7 +24,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 2L,
-        fill = scale_fill_hue(),
+        fill = NULL,
         flip = TRUE,
         title = "5'->3' bias"
     ) {

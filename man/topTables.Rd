@@ -34,13 +34,13 @@ Top Tables of Differential Expression Results
 # Minimal return
 topTables(res_small, n = 5L)
 
-# resultsTables list ====
+# `resultsTables()` return list ====
 # Return with gene annotations and DESeq2 normalized counts
-x <- resultsTables(
+res_tbl <- resultsTables(
     results = res_small,
     counts = dds_small
 )
-topTables(x, n = 5L)
+topTables(res_tbl, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}

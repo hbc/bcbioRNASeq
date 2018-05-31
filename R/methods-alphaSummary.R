@@ -20,10 +20,8 @@
 #' @seealso [DESeq2::results()].
 #'
 #' @examples
-#' # bcbioRNASeq ====
-#' alphaSummary(bcb_small)
-#'
 #' # DESeqDataSet ====
+#' design(dds_small)
 #' resultsNames(dds_small)
 #' alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
 #' alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
@@ -96,23 +94,12 @@ setMethod(
 
 
 #' @rdname alphaSummary
+#' @usage NULL
 #' @export
 setMethod(
     "alphaSummary",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...
-    ) {
-        validObject(object)
-        dds <- as(object, "DESeqDataSet")
-        alphaSummary(
-            object = dds,
-            alpha = alpha,
-            caption = caption,
-            ...
-        )
+    function(object, ...) {
+        .Defunct("DESeqDataSet method")  # nocov
     }
 )

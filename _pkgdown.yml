@@ -27,14 +27,16 @@ authors:
         href: http://bioinformatics.sph.harvard.edu
 
 reference:
-  - title: S4 Class Definition
+  - title: S4 Object
     contents:
-    - bcbioRNASeq-class
+    - starts_with("bcbio")
     - coerce
     - show
+    - subset
     - updateObject
   - title: Data Functions
     contents:
+    - starts_with("aggregate")
     - counts
     - metrics
     - tmm
@@ -46,8 +48,7 @@ reference:
     contents:
     - alphaSummary
     - contrastName
-    - resultsTables
-    - topTables
+    - ends_with("Tables")
   - title: R Markdown Functions
     contents:
     - prepareRNASeqTemplate

@@ -7,7 +7,7 @@
 \alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
 \alias{tmm,matrix-method}
-\title{Trimmed Mean of M-Values (TMM) Normalization}
+\title{\strong{T}rimmed \strong{M}ean of \strong{M}-Values (TMM) Normalization}
 \usage{
 tmm(object)
 
@@ -39,8 +39,9 @@ tmm(dds_small) \%>\% summary()
 counts(bcb_small) \%>\% tmm() \%>\% summary()
 }
 \seealso{
-Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{aggregateReplicates}},
+  \code{\link{counts}}, \code{\link{metrics}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
