@@ -1,0 +1,231 @@
+source("https://bioconductor.org/biocLite.R")
+biocLite(c(
+    "ggplot2",
+    "cowplot",
+    "DESeq2",
+    "DEGreport",
+    "hbc/bcbioRNASeq"
+))
+
+library(ggplot2)
+library(cowplot)
+library(DESeq2)
+library(DEGreport)
+library(bcbioRNASeq)
+
+theme_set(
+    theme_gray(base_size = 10)
+)
+
+
+
+# Load bcbio run ====
+# GSE65267
+bcb <- loadRNASeq(
+    uploadDir = file.path(
+        "/n",
+        "scratch2",
+        "hsph_bioinformatic_core",
+        "lp113",
+        "workflow",
+        "samples-merged",
+        "final"),
+    interestingGroups = "group",
+    ensemblVersion = "current"
+)
+saveData(bcb)
+
+lv = gtools::mixedsort(as.character(colData(bcb)[["sampleName"]]))
+colData(bcb)[["sampleName"]] = factor(colData(bcb)[["sampleName"]], levels = lv)
+lv = unique(gtools::mixedsort(as.character(colData(bcb)[["day"]])))
+colData(bcb)[["day"]] = factor(colData(bcb)[["day"]], levels = lv)
+interestingGroups(bcb) = "day"
+saveData(bcb)
+
+# Figure 1 ====
+theme_update(
+    legend.justification = "left",
+    legend.position = "right"
+)
+pdf("figures/generalStats.pdf", width = 9, height = 7)
+plot_grid(
+    plotTotalReads(bcb),
+    plotMappingRate(bcb),
+    plotExonicMappingRate(bcb),
+    plotIntronicMappingRate(bcb),
+    plotGenesDetected(bcb),
+    plotGeneSaturation(bcb),
+    ncol = 2,
+    labels = "AUTO",
+    label_size = 12
+)
+dev.off()
+
+
+
+# Figure 2 ====
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom"
+)
+pdf("figures/geneCounts.pdf", width = 8, height = 4)
+plot_grid(
+    plotCountsPerGene(bcb),
+    plotCountDensity(bcb),
+    ncol = 2,
+    labels = "AUTO",
+    label_size = 14
+)
+dev.off()
+
+
+
+# Figure 3 ====
+pdf("figures/plotMeanSD.pdf", width = 7, height = 4)
+plotMeanSD(bcb)
+dev.off()
+
+
+
+# Figure 4 ====
+pdf("figures/plotDispEsts.pdf", width = 6, height = 6)
+plotDispEsts(bcb)
+dev.off()
+
+
+
+# Figure 5 ====
+pdf("figures/plotCorrelationHeatmap.pdf", width = 6, height = 4)
+plotCorrelationHeatmap(bcb)
+dev.off()
+
+
+
+# Figure 6 ====
+pdf("figures/plotPCA.pdf", width = 6, height = 4)
+plotPCA(bcb, label = FALSE)
+dev.off()
+
+
+
+# Figure 7 ====
+pdf("figures/plotPCACovariates.pdf", width = 6, height = 4.5)
+plotPCACovariates(bcb)
+dev.off()
+
+
+
+dds <- as(bcb, "DESeqDataSet")
+design(dds) <- ~day
+dds <- DESeq(dds)
+
+res <- results(
+    dds,
+    name = "day_7_vs_0",
+    alpha = 0.05)
+saveData(dds, res)
+
+
+alphaSummary(dds, contrast = c("day", "7", "0"), alpha = c(0.1, 0.05))
+
+# Figure 8 ====
+pdf("figures/plotMA.pdf", width = 6, height = 6)
+plotMA(res)
+dev.off()
+
+
+
+# Figure 9 ====
+pdf("figures/plotVolcano.pdf", width = 6, height = 6)
+plotVolcano(res)
+dev.off()
+
+
+
+# Figure 10 ====
+pdf("figures/plotDEGHeatmap.pdf", width = 6, height = 6)
+# DESeqResults, DESeqTransform
+plotDEGHeatmap(res, counts = bcb, normalized = "vst")
+dev.off()
+
+
+
+# Figure 11 ====
+pdf("figures/degPlot.pdf", width = 6, height = 4)
+degPlot(
+    bcb,
+    res = res,
+    n = 3,
+    slot = "rlog",
+    log = FALSE,
+    # Use the 'ann' argument for gene to symbol mapping
+    ann = c("geneID", "geneName"),
+    xs = "day")
+dev.off()
+
+
+
+ddsLRT <- DESeq(dds, reduced = ~1, test = "LRT")
+resLRT <- results(ddsLRT)
+saveData(ddsLRT, resLRT)
+
+
+
+theme_set(
+    theme_gray(base_size = 5)
+)
+resPatterns <- degPatterns(
+    counts(bcb, "rlog")[significants(res, fc = 2), ],
+    metadata = colData(bcb),
+    time = "day",
+    minc = 60)
+saveData(ddsLRT, resLRT, resPatterns)
+
+
+# Figure 12 ====
+
+pdf("figures/degPatterns.pdf", width = 6, height = 4)
+resPatterns[["plot"]]
+dev.off()
+
+
+
+# Subset example
+subset(resPatterns[["df"]], cluster == 8, select = "genes")
+
+resTbl <- resultsTables(res, lfc = 1)
+topTables(resTbl, n = 5)
+
+# FA analysis
+sigGenes <- significants(res, fc = 1, padj = 0.05)
+allGenes <- rownames(res)[!is.na(res[["padj"]])]
+sigResults <- as.data.frame(res)[sigGenes, ]
+foldChanges <- sigResults$log2FoldChange
+names(foldChanges) <- rownames(sigResults)
+
+library(clusterProfiler)
+ego <- enrichGO(
+    gene = sigGenes,
+    OrgDb = "org.Mm.eg.db",
+    keyType = "ENSEMBL",
+    ont = "BP",
+    universe = allGenes,
+    qvalueCutoff = 0.05,
+    readable = TRUE
+)
+
+pdf("figures/dot_plot.pdf", width = 7, height = 5)
+dotplot(ego, showCategory = 25)
+dev.off()
+pdf("figures/enrich_map.pdf", width = 6, height = 6)
+enrichMap(ego, n = 25, vertex.label.cex = 0.5)
+dev.off()
+pdf("figures/cnet_plot.pdf", width = 6, height = 6)
+cnetplot(
+    ego,
+    categorySize = "pvalue",
+    showCategory = 5,
+    foldChange = foldChanges,
+    vertex.label.cex = 0.5
+)
+dev.off()
