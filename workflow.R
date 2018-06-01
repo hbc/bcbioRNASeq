@@ -19,21 +19,7 @@ theme_set(
 
 
 
-# Load bcbio run ====
-# GSE65267
-bcb <- loadRNASeq(
-    uploadDir = file.path(
-        "/n",
-        "scratch2",
-        "hsph_bioinformatic_core",
-        "lp113",
-        "workflow",
-        "samples-merged",
-        "final"),
-    interestingGroups = "group",
-    ensemblVersion = "current"
-)
-saveData(bcb)
+load("data/bcb.rda")
 
 lv = gtools::mixedsort(as.character(colData(bcb)[["sampleName"]]))
 colData(bcb)[["sampleName"]] = factor(colData(bcb)[["sampleName"]], levels = lv)
