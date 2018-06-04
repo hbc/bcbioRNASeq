@@ -69,10 +69,8 @@
 \code{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \code{bcbioRNASeq} object. The
-internal \code{DESeqDataSet} and count transformations are rescaled automatically.
-DESeq2 transformations can be disabled on large subset operations by setting
-\code{transform = FALSE}.
+Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
+Internal count transformations are rescaled automatically, if defined.
 }
 \examples{
 # Minimum of 100 genes, 2 samples
