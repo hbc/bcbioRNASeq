@@ -1,4 +1,4 @@
-#' Update Object
+#' Update an Object to Its Current Class Definition
 #'
 #' Update old objects created by the bcbioRNASeq package. The session
 #' information metadata is preserved from the time when the bcbio data was
