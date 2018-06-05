@@ -144,8 +144,8 @@ test_that("Metadata", {
 
 
 
-# subset =======================================================================
-test_that("subset : Normal gene and sample selection", {
+# extract ======================================================================
+test_that("extract : Normal gene and sample selection", {
     x <- bcb_small[seq_len(100L), seq_len(4L)]
     expect_s4_class(x, "bcbioRNASeq")
     expect_identical(dim(x), c(100L, 4L))
@@ -163,7 +163,7 @@ test_that("subset : Normal gene and sample selection", {
     )
 })
 
-test_that("subset : Minimal selection ranges", {
+test_that("extract : Minimal selection ranges", {
     # Require at least 100 genes, 2 samples
     x <- bcb_small[seq_len(100L), seq_len(2L)]
     expect_error(bcb_small[seq_len(99L), ])
