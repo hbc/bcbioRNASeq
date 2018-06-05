@@ -38,7 +38,7 @@ show(x)
 }
 
 Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{show}}, \code{\link{subset}},
+  \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
 \author{
