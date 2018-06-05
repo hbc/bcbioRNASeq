@@ -39,6 +39,14 @@
 #'     legendColor = NULL
 #' )
 #'
+#' # Custom colors with viridis palettes
+#' plotDEGHeatmap(
+#'     results = res_small,
+#'     counts = dds_small,
+#'     color = viridis::plasma,
+#'     legendColor = viridis::viridis
+#' )
+#'
 #' # DESeqResults, bcbioRNASeq ====
 #' plotDEGHeatmap(
 #'     results = res_small,
