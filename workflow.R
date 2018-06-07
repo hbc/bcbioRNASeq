@@ -81,7 +81,7 @@ dev.off()
 
 
 # Figure 5 ====
-pdf("figures/plotCorrelationHeatmap.pdf", width = 6, height = 4)
+pdf("figures/plotCorrelationHeatmap.pdf", width = 6, height = 6)
 plotCorrelationHeatmap(bcb)
 dev.off()
 
@@ -109,14 +109,13 @@ res <- results(
     dds,
     name = "day_7_vs_0",
     alpha = 0.05)
-saveData(dds, res)
 
 
 alphaSummary(dds, contrast = c("day", "7", "0"), alpha = c(0.1, 0.05))
 
 # Figure 8 ====
 pdf("figures/plotMA.pdf", width = 6, height = 6)
-plotMA(res)
+plotMeanAverage(res)
 dev.off()
 
 
@@ -137,7 +136,7 @@ dev.off()
 
 
 # Figure 11 ====
-pdf("figures/degPlot.pdf", width = 6, height = 4)
+pdf("figures/degPlot.pdf", width = 6, height = 3)
 degPlot(
     bcb,
     res = res,
@@ -151,36 +150,36 @@ dev.off()
 
 
 
-ddsLRT <- DESeq(dds, reduced = ~1, test = "LRT")
-resLRT <- results(ddsLRT)
-saveData(ddsLRT, resLRT)
+dds_lrt <- DESeq(dds, reduced = ~1, test = "LRT")
+res_lrt <- results(dds_lrt)
+saveData(dds_lrt, res_lrt)
 
 
 
 theme_set(
     theme_gray(base_size = 5)
 )
-resPatterns <- degPatterns(
+res_patterns <- degPatterns(
     counts(bcb, "rlog")[significants(res, fc = 2), ],
     metadata = colData(bcb),
     time = "day",
     minc = 60)
-saveData(ddsLRT, resLRT, resPatterns)
+saveData(dds_lrt, res_lrt, res_patterns)
 
 
 # Figure 12 ====
 
 pdf("figures/degPatterns.pdf", width = 6, height = 4)
-resPatterns[["plot"]]
+res_patterns[["plot"]]
 dev.off()
 
 
 
 # Subset example
-subset(resPatterns[["df"]], cluster == 8, select = "genes")
+subset(res_patterns[["df"]], cluster == 8, select = "genes")
 
-resTbl <- resultsTables(res, lfc = 1)
-topTables(resTbl, n = 5)
+res_tbl <- resultsTables(res, lfc = 1)
+topTables(res_tbl, n = 5)
 
 # FA analysis
 sigGenes <- significants(res, fc = 1, padj = 0.05)
