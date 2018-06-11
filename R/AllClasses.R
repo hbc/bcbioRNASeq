@@ -146,7 +146,7 @@ bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
-    organism,
+    organism = NULL,
     sampleMetadataFile = NULL,
     samples = NULL,
     censorSamples = NULL,
@@ -175,7 +175,7 @@ bcbioRNASeq <- function(
     }
     # organism missing
     if (!"organism" %in% names(call)) {
-        stop("`organism` is now required")
+        warning("`organism` is now recommended, to aquire gene annotations")
     }
     dots <- Filter(Negate(is.null), dots)
 
