@@ -46,7 +46,7 @@ bcbioRNASeq <- setClass(
 #' not be slotted into `assays()`. In this case, we recommend visualization
 #' using [tmm()] counts, which are automatically calculated using edgeR.
 #'
-#' @section Remote Data:
+#' @section Remote data:
 #'
 #' When working in RStudio, we recommend connecting to the bcbio run directory
 #' as a remote connection over

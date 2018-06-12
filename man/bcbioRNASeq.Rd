@@ -123,7 +123,7 @@ not be slotted into \code{assays()}. In this case, we recommend visualization
 using \code{\link[=tmm]{tmm()}} counts, which are automatically calculated using edgeR.
 }
 
-\section{Remote Data}{
+\section{Remote data}{
 
 
 When working in RStudio, we recommend connecting to the bcbio run directory
