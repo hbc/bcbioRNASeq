@@ -173,7 +173,7 @@ bcbioRNASeq <- function(
         ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
-    # organism missing
+    # organism
     if (!"organism" %in% names(call)) {
         warning("`organism` is now recommended, to acquire gene annotations")
     }
