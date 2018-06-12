@@ -4,7 +4,7 @@
 \name{updateObject}
 \alias{updateObject}
 \alias{updateObject,bcbioRNASeq-method}
-\title{Update Object}
+\title{Update an Object to Its Current Class Definition}
 \usage{
 \S4method{updateObject}{bcbioRNASeq}(object, rowRanges)
 }
@@ -41,8 +41,8 @@ updateObject(bcb_small)
 }
 \seealso{
 Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{show}},
-  \code{\link{subset}}
+  \code{\link{coerce}}, \code{\link{extract}},
+  \code{\link{show}}
 }
 \author{
 Michael Steinbaugh

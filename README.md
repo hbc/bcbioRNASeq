@@ -6,12 +6,10 @@
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
-Quality control and differential expression for [bcbio][] RNA-seq experiments.
+[R][] package for [bcbio][] RNA-seq analysis.
 
 
 ## Installation
-
-This is an [R][] package.
 
 ### [Bioconductor][] method
 

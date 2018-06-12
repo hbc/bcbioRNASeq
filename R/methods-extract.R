@@ -1,11 +1,9 @@
-#' Subset Object
+#' Extract or Replace Parts of an Object
 #'
-#' Extract genes by row and samples by column from a `bcbioRNASeq` object. The
-#' internal `DESeqDataSet` and count transformations are rescaled automatically.
-#' DESeq2 transformations can be disabled on large subset operations by setting
-#' `transform = FALSE`.
+#' Extract genes by row and samples by column from a `bcbioRNASeq` object.
+#' Internal count transformations are rescaled automatically, if defined.
 #'
-#' @name subset
+#' @name extract
 #' @family S4 Object
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
@@ -17,28 +15,30 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
+#' object <- bcb_small
+#'
 #' # Minimum of 100 genes, 2 samples
-#' genes <- head(rownames(bcb_small), 100L)
+#' genes <- head(rownames(object), 100L)
 #' head(genes)
-#' samples <- head(colnames(bcb_small), 2L)
+#' samples <- head(colnames(object), 2L)
 #' head(samples)
 #'
-#' # Subset by sample name
-#' bcb_small[, samples]
+#' # Extract by sample name
+#' object[, samples]
 #'
-#' # Subset by gene list
-#' bcb_small[genes, ]
+#' # Extract by gene list
+#' object[genes, ]
 #'
-#' # Subset by both genes and samples
-#' subset <- bcb_small[genes, samples]
-#' print(subset)
-#' assayNames(subset)
+#' # Extract by both genes and samples
+#' x <- object[genes, samples]
+#' print(x)
+#' assayNames(x)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname subset
+#' @rdname extract
 #' @export
 setMethod(
     "[",

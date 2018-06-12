@@ -39,7 +39,7 @@
 #' @importFrom basejump assertAreGeneAnnotations assertIsHexColorFunctionOrNULL
 #'   assertFormalGene2symbol assertIsAHeaderLevel assertIsAStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
-#'   assertIsCharacterOrNULL assertIsImplicitInteger assertIsGene2symbol
+#'   assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA hasRownames initializeDirectory makeGRangesFromEnsembl

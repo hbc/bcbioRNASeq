@@ -146,7 +146,7 @@ bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish"),
-    organism,
+    organism = NULL,
     sampleMetadataFile = NULL,
     samples = NULL,
     censorSamples = NULL,
@@ -173,9 +173,9 @@ bcbioRNASeq <- function(
         ensemblRelease <- call[["ensemblVersion"]]
         dots[["ensemblVersion"]] <- NULL
     }
-    # organism missing
+    # organism
     if (!"organism" %in% names(call)) {
-        stop("`organism` is now required")
+        warning("`organism` is now recommended, to acquire gene annotations")
     }
     dots <- Filter(Negate(is.null), dots)
 
@@ -185,14 +185,14 @@ bcbioRNASeq <- function(
     level <- match.arg(level)
     caller <- match.arg(caller)
     assertIsAStringOrNULL(sampleMetadataFile)
-    assertIsCharacterOrNULL(samples)
-    assertIsCharacterOrNULL(censorSamples)
+    assert_is_any_of(samples, c("character", "NULL"))
+    assert_is_any_of(censorSamples, c("character", "NULL"))
     assert_is_character(interestingGroups)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
-    assertIsCharacterOrNULL(transgeneNames)
-    assertIsCharacterOrNULL(spikeNames)
+    assert_is_any_of(transgeneNames, c("character", "NULL"))
+    assert_is_any_of(spikeNames, c("character", "NULL"))
     assertIsAStringOrNULL(gffFile)
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)

@@ -8,7 +8,7 @@
 \title{\code{bcbioRNASeq} Object and Constructor}
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
-  caller = c("salmon", "kallisto", "sailfish"), organism,
+  caller = c("salmon", "kallisto", "sailfish"), organism = NULL,
   sampleMetadataFile = NULL, samples = NULL, censorSamples = NULL,
   interestingGroups = "sampleName", ensemblRelease = NULL,
   genomeBuild = NULL, transgeneNames = NULL, spikeNames = NULL,
@@ -166,8 +166,9 @@ validObject(x)
 \item \code{.S4methods(class = "bcbioRNASeq")}.
 }
 
-Other S4 Object: \code{\link{coerce}}, \code{\link{show}},
-  \code{\link{subset}}, \code{\link{updateObject}}
+Other S4 Object: \code{\link{coerce}},
+  \code{\link{extract}}, \code{\link{show}},
+  \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera

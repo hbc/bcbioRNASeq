@@ -1,7 +1,6 @@
 Package: bcbioRNASeq
 Title: RNA-Seq Utilities
-Description: Quality control and differential expression for bcbio RNA-seq and
-    small RNA-seq experiments.
+Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.2.4
 Authors@R: c(
     person(
@@ -165,3 +164,4 @@ biocViews:
     Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
