@@ -142,9 +142,10 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
+    clusterProfiler,
+    conflicted,
     DOSE,
     EnsDb.Hsapiens.v75,
-    clusterProfiler,
     org.Hs.eg.db,
     org.Mm.eg.db,
     pathview,
