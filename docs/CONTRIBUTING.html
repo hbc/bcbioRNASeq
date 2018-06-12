@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
 <script src="pkgdown.js"></script>
 
 
@@ -31,6 +33,7 @@
   <link href="extra.css" rel="stylesheet">
   
 <meta property="og:title" content="Contributing to bcbioRNASeq development" />
+
 
 
 <!-- mathjax -->
@@ -137,7 +140,7 @@ BiocCheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumen
 <h3 class="hasAnchor">
 <a href="#rebuild-website" class="anchor"></a>Rebuild website</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlink</span>(<span class="st">"docs"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)
-pkgdown<span class="op">::</span><span class="kw"><a href="http://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</code></pre></div>
+pkgdown<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/pkgdown/topics/build_site">build_site</a></span>()</code></pre></div>
 <p>Beside this, the package should be able to run the templates. This should be done in the parent directory of <code>bcbioRNASeq</code> folder.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">git clone https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>bcbio<span class="op">/</span>bcbio_rnaseq_output_example.git
 cd bcbio_rnaseq_output_example
