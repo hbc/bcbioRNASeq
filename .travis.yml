@@ -10,7 +10,7 @@ os:
 
 r:
   - bioc-release
-  # - bioc-devel
+  - bioc-devel
 
 matrix:
   exclude:
@@ -62,6 +62,7 @@ r_packages:
 bioc_packages:
   - BiocCheck
   - GenomeInfoDbData
+  - S4Vectors
   - DelayedArray
   - EnsDb.Hsapiens.v75
   - DEGreport
