@@ -10,7 +10,7 @@ os:
 
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
 
 matrix:
   exclude:
