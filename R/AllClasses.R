@@ -175,7 +175,7 @@ bcbioRNASeq <- function(
     }
     # organism missing
     if (!"organism" %in% names(call)) {
-        warning("`organism` is now recommended, to aquire gene annotations")
+        warning("`organism` is now recommended, to acquire gene annotations")
     }
     dots <- Filter(Negate(is.null), dots)
 
