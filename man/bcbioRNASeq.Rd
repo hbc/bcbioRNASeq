@@ -23,12 +23,12 @@ running "\code{bcbio_nextgen -w template}".}
 \item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
 or "\code{sailfish}".}
 
-\item{organism}{Organism name. Use the full latin name (e.g.
-"Homo sapiens"), since this will be input downstream to
-AnnotationHub and ensembldb, unless \code{gffFile} is set. If set \code{NULL}
-(\emph{advanced use; not recommended}), the function call will skip loading
-gene/transcript-level annotations into \code{rowRanges()}. This can be useful
-for poorly annotation genomes or experiments involving multiple genomes.}
+\item{organism}{Organism name. Use the full Latin name (e.g. "Homo sapiens"),
+since this will be input downstream to AnnotationHub and ensembldb, unless
+\code{gffFile} is set. If left \code{NULL} (\emph{not recommended}), the function call
+will skip loading gene/transcript-level annotations into \code{rowRanges()}.
+This can be useful for poorly annotation genomes or experiments involving
+multiple genomes.}
 
 \item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
 sample information. Otherwise defaults to sample metadata saved in the YAML
