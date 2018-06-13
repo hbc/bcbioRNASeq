@@ -100,8 +100,8 @@ bcbioRNASeq <- setClass(
 #'   The function will internally generate a `TxDb` containing
 #'   transcript-to-gene mappings and construct a `GRanges` object containing the
 #'   genomic ranges ([rowRanges()]).
-#' @param transformationLimit Maximum number of samples to calculate
-#'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()] matrix.
+#' @param transformationLimit Maximum sample limit allowed to calculate
+#'   [DESeq2::rlog()] and [DESeq2::varianceStabilizingTransformation()].
 #'   For large datasets, DESeq2 is slow to apply variance stabilization. In this
 #'   case, we recommend loading up the dataset in a high-performance computing
 #'   environment. Use `Inf` to always apply and `-Inf` to always skip.

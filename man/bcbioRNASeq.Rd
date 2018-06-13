@@ -71,8 +71,8 @@ The function will internally generate a \code{TxDb} containing
 transcript-to-gene mappings and construct a \code{GRanges} object containing the
 genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
-\item{transformationLimit}{Maximum number of samples to calculate
-\code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} matrix.
+\item{transformationLimit}{Maximum sample limit allowed to calculate
+\code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 For large datasets, DESeq2 is slow to apply variance stabilization. In this
 case, we recommend loading up the dataset in a high-performance computing
 environment. Use \code{Inf} to always apply and \code{-Inf} to always skip.}
