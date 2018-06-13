@@ -143,7 +143,6 @@ Imports:
 Suggests:
     BiocStyle,
     clusterProfiler,
-    conflicted,
     DOSE,
     EnsDb.Hsapiens.v75,
     org.Hs.eg.db,

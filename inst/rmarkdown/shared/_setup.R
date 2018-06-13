@@ -1,8 +1,6 @@
 library(bcbioRNASeq)
 library(DESeq2)
 library(DEGreport)
-
-library(conflicted)
 library(knitr)
 library(tidyverse)
 
