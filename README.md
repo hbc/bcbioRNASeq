@@ -42,8 +42,8 @@ bcb <- bcbioRNASeq(
     organism = "Homo sapiens"
 )
 # Back up all data inside bcbioRNASeq object
-flatFiles <- flatFiles(bcb)
-saveData(bcb, flatFiles)
+flat <- flatFiles(bcb)
+saveData(bcb, flat)
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class.
