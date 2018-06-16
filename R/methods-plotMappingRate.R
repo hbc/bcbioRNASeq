@@ -40,19 +40,23 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
+        data <- metrics(object) %>%
+            mutate(
+                mappingPct = !!sym("mappedReads") / !!sym("totalReads") * 100L
+            )
+
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~mappedReads / totalReads * 100L,
-                fill = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "mappingPct",
+                fill = "interestingGroups"
             )
         ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
             ) +
-            ylim(0L, 100L) +
             labs(
                 title = title,
                 x = NULL,

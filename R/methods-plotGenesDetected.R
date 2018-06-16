@@ -45,13 +45,15 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         counts <- counts(object, normalized = FALSE)
+        data <- metrics(object) %>%
+            mutate(geneCount = colSums(!!counts >= !!minCounts))
 
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = colSums(counts >= minCounts),
-                fill = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "geneCount",
+                fill = "interestingGroups"
             )
         ) +
             geom_bar(

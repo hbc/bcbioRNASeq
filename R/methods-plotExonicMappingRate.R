@@ -40,12 +40,15 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
+        data <- metrics(object) %>%
+            mutate(exonicRatePct = !!sym("exonicRate") * 100L)
+
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~exonicRate * 100L,
-                fill = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "exonicRatePct",
+                fill = "interestingGroups"
             )
         ) +
             geom_bar(
