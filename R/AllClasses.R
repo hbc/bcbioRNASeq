@@ -1,7 +1,4 @@
-setClassUnion("missingOrNULL", c("missing", "NULL"))
-
-
-
+# Class Definitions ============================================================
 #' @rdname bcbioRNASeq
 #' @aliases NULL
 #' @exportClass bcbioRNASeq
@@ -11,9 +8,17 @@ bcbioRNASeq <- setClass(
     contains = "RangedSummarizedExperiment"
 )
 
-.dataHasVariation = function(dds) {
-  return(!all(rowSums(assay(dds) == assay(dds)[,1]) == ncol(dds)))
+setClassUnion("missingOrNULL", c("missing", "NULL"))
+
+
+
+# Internal Functions ===========================================================
+# Used for bcbio pipeline checks
+.dataHasVariation <- function(dds) {
+    !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
 }
+
+
 
 # Constructors =================================================================
 #' `bcbioRNASeq` Object and Constructor
@@ -405,65 +410,67 @@ bcbioRNASeq <- function(
             txi = txi,
             colData = colData,
             # Use an empty design formula
-            design = ~ 1  # nolint
+            design = ~ 1L
         )
-        dds <- estimateSizeFactors(dds)
-        if(.dataHasVariation(dds)) {
-          # Suppress warning about empty design formula
-          dds <- suppressWarings(estimateDispersions(DESeq(dds)))
+        # Skip full DESeq2 calculations, for internal bcbio test data
+        if (.dataHasVariation(dds)) {
+            # Suppress warning about empty design formula
+            dds <- suppressWarings(DESeq(dds))
+            if (nrow(colData) <= transformationLimit) {
+                message("Applying rlog transformation")
+                rlog <- assay(rlog(dds))
+                message("Applying variance stabilizing transformation")
+                vst <- assay(varianceStabilizingTransformation(dds))
+            } else {
+                warning(paste(
+                    "Dataset contains many samples.",
+                    "Skipping variance stabilizing transformations."
+                ))
+            }
+        } else {
+            warning("Data has no variation. Skipping transformations.")
+            dds <- estimateSizeFactors(dds)
         }
         normalized <- counts(dds, normalized = TRUE)
-        if(.dataHasVariation(dds)) {
-          if (nrow(colData) <= transformationLimit) {
-            message("Applying rlog transformation")
-            rlog <- assay(rlog(dds))
-            message("Applying variance stabilizing transformation")
-            vst <- assay(varianceStabilizingTransformation(dds))
-          } else {
-            warning(paste(
-              "Dataset contains many samples.",
-              "Skipping variance stabilizing transformations."
-            ))
-          }}
-        else {warning("Data has no variation, skipping transformation.")}
-        }
+    }
+
     # Assays ===================================================================
     assays <- list(
-        "counts" = counts,
-        "tpm" = tpm,
-        "length" = length,
-        "normalized" = normalized,
-        "rlog" = rlog,
-        "vst" = vst
+        counts = counts,
+        tpm = tpm,
+        length = length,
+        normalized = normalized,
+        rlog = rlog,
+        vst = vst
     )
 
     # Metadata =================================================================
     metadata <- list(
-        "version" = packageVersion,
-        "level" = level,
-        "caller" = caller,
-        "countsFromAbundance" = countsFromAbundance,
-        "uploadDir" = uploadDir,
-        "sampleDirs" = sampleDirs,
-        "sampleMetadataFile" = as.character(sampleMetadataFile),
-        "projectDir" = projectDir,
-        "template" = template,
-        "runDate" = runDate,
-        "interestingGroups" = interestingGroups,
-        "organism" = as.character(organism),
-        "genomeBuild" = as.character(genomeBuild),
-        "ensemblRelease" = as.integer(ensemblRelease),
-        "rowRangesMetadata" = rowRangesMetadata,
-        "gffFile" = as.character(gffFile),
-        "tx2gene" = tx2gene,
-        "lanes" = lanes,
-        "yaml" = yaml,
-        "dataVersions" = dataVersions,
-        "programVersions" = programVersions,
-        "bcbioLog" = bcbioLog,
-        "bcbioCommandsLog" = bcbioCommandsLog,
-        "allSamples" = allSamples,
-        "call" = match.call()
+        version = packageVersion,
+        level = level,
+        caller = caller,
+        countsFromAbundance = countsFromAbundance,
+        uploadDir = uploadDir,
+        sampleDirs = sampleDirs,
+        sampleMetadataFile = as.character(sampleMetadataFile),
+        projectDir = projectDir,
+        template = template,
+        runDate = runDate,
+        interestingGroups = interestingGroups,
+        organism = as.character(organism),
+        genomeBuild = as.character(genomeBuild),
+        ensemblRelease = as.integer(ensemblRelease),
+        rowRangesMetadata = rowRangesMetadata,
+        gffFile = as.character(gffFile),
+        tx2gene = tx2gene,
+        lanes = lanes,
+        yaml = yaml,
+        dataVersions = dataVersions,
+        programVersions = programVersions,
+        bcbioLog = bcbioLog,
+        bcbioCommandsLog = bcbioCommandsLog,
+        allSamples = allSamples,
+        call = match.call()
     )
     # Add user-defined custom metadata, if specified
     if (length(dots)) {

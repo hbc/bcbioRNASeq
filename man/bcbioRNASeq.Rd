@@ -26,7 +26,7 @@ or "\code{sailfish}".}
 \item{organism}{Organism name. Use the full Latin name (e.g. "Homo sapiens"),
 since this will be input downstream to AnnotationHub and ensembldb, unless
 \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}), the function call
-will skip loading gene/transcript-level annotations into \code{rowRanges()}.
+will skip loading gene/transcript-level annotations into \code{\link[=rowRanges]{rowRanges()}}.
 This can be useful for poorly annotation genomes or experiments involving
 multiple genomes.}
 
