@@ -57,8 +57,7 @@ setMethod(
                 x = NULL,
                 y = "intronic mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
-            ) +
-            ylim(0L, 100L)
+            )
 
         if (is_positive(limit)) {
             p <- p + bcbio_geom_abline(yintercept = limit)
