@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
       </span>
     </div>
 
@@ -104,8 +104,8 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASe
     <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
 )
 <span class="co"># Back up all data inside bcbioRNASeq object</span>
-flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
-<span class="kw">saveData</span>(bcb, flatFiles)</code></pre></div>
+flat &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
+<span class="kw">saveData</span>(bcb, flat)</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
