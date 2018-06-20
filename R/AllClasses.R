@@ -415,7 +415,7 @@ bcbioRNASeq <- function(
         # Skip full DESeq2 calculations, for internal bcbio test data
         if (.dataHasVariation(dds)) {
             # Suppress warning about empty design formula
-            dds <- suppressWarings(DESeq(dds))
+            dds <- suppressWarnings(DESeq(dds))
             if (nrow(colData) <= transformationLimit) {
                 message("Applying rlog transformation")
                 rlog <- assay(rlog(dds))
