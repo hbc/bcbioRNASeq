@@ -26,7 +26,7 @@ build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
-  - travis-tool.sh install_bioc ensembldb
+  - travis-tool.sh install_github jotsetung/ensembldb
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
   # clusterProfiler dependencies
   - travis-tool.sh install_bioc ALL
