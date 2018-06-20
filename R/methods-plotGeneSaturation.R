@@ -11,7 +11,8 @@
 #'
 #' @examples
 #' # Note that minimal example distorts the y-axis
-#' plotGeneSaturation(bcb_small)
+#' plotGeneSaturation(bcb_small, label = FALSE)
+#' plotGeneSaturation(bcb_small, label = TRUE)
 NULL
 
 
