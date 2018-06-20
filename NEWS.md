@@ -1,3 +1,15 @@
+# bcbioRNASeq 0.2.5 (2018-06-20)
+
+## Minor changes
+
+- Enable support bcbio integration, by modifying `bcbioRNASeq()` constructor
+  to work with minimal bcbio test data.
+- Switched from internal usage of `aes_()` in favor of consistent usage of
+  `aes_string()`. This will make the transition to [ggplot2][] v2.3.0 easier
+  in a future update.
+
+
+
 # bcbioRNASeq 0.2.4 (2018-05-24)
 
 ## Major changes
