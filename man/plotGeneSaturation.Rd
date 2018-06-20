@@ -10,8 +10,8 @@
 plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("tpm",
-  "tmm"), interestingGroups, minCounts = 1L, trendline = FALSE,
-  color = NULL, title = "gene saturation")
+  "tmm"), interestingGroups, minCounts = 1L, label = FALSE,
+  trendline = FALSE, color = NULL, title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}

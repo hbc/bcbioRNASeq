@@ -9,7 +9,7 @@
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
   samples = NULL, interestingGroups, color = NULL, label = FALSE,
-  title = "pca", subtitle = NULL, return = c("ggplot", "data.frame"))
+  title = "PCA", subtitle = NULL, return = c("ggplot", "data.frame"))
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)

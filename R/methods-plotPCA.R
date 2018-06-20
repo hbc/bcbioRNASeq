@@ -50,7 +50,7 @@ setMethod(
         interestingGroups,
         color = NULL,
         label = FALSE,
-        title = "pca",
+        title = "PCA",
         subtitle = NULL,
         return = c("ggplot", "data.frame")
     ) {
@@ -109,24 +109,19 @@ setMethod(
 
         # Get PCA data using DESeqTransform method =============================
         dt <- DESeqTransform(object)
-        colData <- colData(object)
-
+        colData <- colData(dt)
+        assert_is_subset("sampleName", colnames(colData))
         data <- plotPCA(
             object = dt,
             intgroup = interestingGroups,
             ntop = ntop,
             returnData = TRUE
-        ) %>%
-            camel()
+        )
+        data[["sampleName"]] <- colData[["sampleName"]]
 
         # Early return if `data.frame` is requested
         if (return == "data.frame") {
             return(data)
-        }
-
-        # Use `sampleName` for plot labels
-        if (isTRUE(label)) {
-            data[["label"]] <- colData[, "sampleName", drop = TRUE]
         }
 
         percentVar <- round(100L * attr(data, "percentVar"))
@@ -135,8 +130,8 @@ setMethod(
         p <- ggplot(
             data = data,
             mapping = aes_string(
-                x = "pc1",
-                y = "pc2",
+                x = "PC1",
+                y = "PC2",
                 color = "group"
             )
         ) +
@@ -145,8 +140,8 @@ setMethod(
             labs(
                 title = title,
                 subtitle = subtitle,
-                x = paste0("pc1: ", percentVar[[1L]], "% variance"),
-                y = paste0("pc2: ", percentVar[[2L]], "% variance"),
+                x = paste0("PC1: ", percentVar[[1L]], "% variance"),
+                y = paste0("PC2: ", percentVar[[2L]], "% variance"),
                 color = paste(interestingGroups, collapse = ":\n")
             )
 
@@ -156,7 +151,7 @@ setMethod(
 
         if (isTRUE(label)) {
             p <- p + bcbio_geom_label_repel(
-                mapping = aes_string(label = "label")
+                mapping = aes_string(label = "sampleName")
             )
         }
 
