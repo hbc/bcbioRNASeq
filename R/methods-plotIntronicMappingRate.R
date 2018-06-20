@@ -40,12 +40,15 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
+        data <- metrics(object) %>%
+            mutate(intronicPct = !!sym("intronicRate") * 100L)
+
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~intronicRate * 100L,
-                fill = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "intronicPct",
+                fill = "interestingGroups"
             )
         ) +
             geom_bar(

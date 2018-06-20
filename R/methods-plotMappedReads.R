@@ -40,12 +40,15 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
+        data <- metrics(object) %>%
+            mutate(mappedReadsPerMillion = !!sym("mappedReads") / 1e6L)
+
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~mappedReads / 1e6L,
-                fill = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "sampleName",
+                y = "mappedReadsPerMillion",
+                fill = "interestingGroups"
             )
         ) +
             geom_bar(
