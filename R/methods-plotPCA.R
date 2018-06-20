@@ -10,7 +10,6 @@
 #' @importFrom BiocGenerics plotPCA
 #'
 #' @inheritParams general
-#' @param label Superimpose sample text labels on the plot.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].

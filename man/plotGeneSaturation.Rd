@@ -31,6 +31,8 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
+\item{label}{Superimpose sample text labels on the plot.}
+
 \item{trendline}{Include a trendline for each group.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
