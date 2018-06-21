@@ -33,19 +33,17 @@ upload_files() {
     git push --force --quiet --set-upstream origin-pages gh-pages
 }
 
-if [ $TRAVIS_OS_NAME == "linux" ]; then
-    # Render R Markdown templates and upload to bcbio GitHub repo
-    render_templates
-    setup_git
-    commit_website_files
-    upload_files
+# Render R Markdown templates and upload to bcbio GitHub repo
+render_templates
+setup_git
+commit_website_files
+upload_files
 
-    # Lintr checks
-    Rscript -e 'lintr::lint_package()'
+# Lintr checks
+Rscript -e 'lintr::lint_package()'
 
-    # Code coverage
-    Rscript -e 'covr::codecov()'
+# Code coverage
+Rscript -e 'covr::codecov()'
 
-    # Bioconductor checks
-    R CMD BiocCheck .
-fi
+# Bioconductor checks
+R CMD BiocCheck .
