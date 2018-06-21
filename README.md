@@ -11,7 +11,7 @@
 
 ## Installation
 
-### [Bioconductor][] method
+### [Bioconductor][] method (recommended)
 
 ```r
 ## try http:// if https:// URLs are not supported
@@ -23,6 +23,13 @@ biocLite(
     "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
 )
+```
+
+#### [F1000 paper][] version
+
+```r
+# v0.2.4
+biocLite("hbc/bcbioRNASeq", ref = "v0.2.4")
 ```
 
 ### [conda][] method
@@ -91,7 +98,7 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 citation("bcbioRNASeq")
 ```
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.](https://f1000research.com/articles/6-1976/v1) *F1000Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000 paper] *F1000Research* 6:1976.
 
 
 ## References
@@ -103,6 +110,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
 [DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
+[F1000 paper]: https://f1000research.com/articles/6-1976/v2
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com

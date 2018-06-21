@@ -65,7 +65,7 @@ analysis." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
       </span>
     </div>
 
@@ -143,12 +143,12 @@ or "<code>sailfish</code>".</p></td>
     </tr>
     <tr>
       <th>organism</th>
-      <td><p>Organism name. Use the full latin name (e.g.
-"Homo sapiens"), since this will be input downstream to
-AnnotationHub and ensembldb, unless <code>gffFile</code> is set. If set <code>NULL</code>
-(<em>advanced use; not recommended</em>), the function call will skip loading
-gene/transcript-level annotations into <code>rowRanges()</code>. This can be useful
-for poorly annotation genomes or experiments involving multiple genomes.</p></td>
+      <td><p>Organism name. Use the full Latin name (e.g. "Homo sapiens"),
+since this will be input downstream to AnnotationHub and ensembldb, unless
+<code>gffFile</code> is set. If left <code>NULL</code> (<em>not recommended</em>), the function call
+will skip loading gene/transcript-level annotations into <code>rowRanges()</code>.
+This can be useful for poorly annotation genomes or experiments involving
+multiple genomes.</p></td>
     </tr>
     <tr>
       <th>sampleMetadataFile</th>
@@ -211,8 +211,8 @@ genomic ranges (<code>rowRanges()</code>).</p></td>
     </tr>
     <tr>
       <th>transformationLimit</th>
-      <td><p>Maximum number of samples to calculate
-<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code> and <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code> matrix.
+      <td><p>Maximum sample limit allowed to calculate
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code> and <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.
 For large datasets, DESeq2 is slow to apply variance stabilization. In this
 case, we recommend loading up the dataset in a high-performance computing
 environment. Use <code>Inf</code> to always apply and <code>-Inf</code> to always skip.</p></td>
@@ -261,7 +261,7 @@ bigger than the <code>transformationLimit</code> argument, <code>rlog</code> and
 not be slotted into <code>assays()</code>. In this case, we recommend visualization
 using <code>tmm()</code> counts, which are automatically calculated using edgeR.</p>
     
-    <h2 class="hasAnchor" id="remote-data"><a class="anchor" href="#remote-data"></a>Remote Data</h2>
+    <h2 class="hasAnchor" id="remote-data"><a class="anchor" href="#remote-data"></a>Remote data</h2>
 
     
     <p>When working in RStudio, we recommend connecting to the bcbio run directory
@@ -329,7 +329,7 @@ as a remote connection over
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.4
+#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.5
 #&gt; Samples: 4
 #&gt; Genes: 502
 #&gt; Organism: Mus musculus
@@ -338,7 +338,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-06-12</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+#&gt; R Load Date: 2018-06-21</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Transcript level</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbioRNASeq</span>(
     <span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>,
@@ -383,7 +383,7 @@ as a remote connection over
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.4
+#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.5
 #&gt; Samples: 4
 #&gt; Transcripts: 996
 #&gt; Organism: Mus musculus
@@ -392,7 +392,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-06-12</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+#&gt; R Load Date: 2018-06-21</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -409,7 +409,7 @@ as a remote connection over
 
       <li><a href="#deseq-">DESeq2</a></li>
 
-      <li><a href="#remote-data">Remote Data</a></li>
+      <li><a href="#remote-data">Remote data</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
