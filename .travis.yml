@@ -10,22 +10,16 @@ os:
 
 r:
   - bioc-release
-  # - bioc-devel
-
-matrix:
-  exclude:
-  - os: osx
-    r: bioc-devel
-
-# safelist
-# branches:
-#   only:
-#   - master
 
 # blocklist
 branches:
   except:
   - develop
+
+# safelist
+# branches:
+#   only:
+#   - master
 
 # External dependencies
 # dependency for clusterProfiler > enrichplot > udunits2
@@ -38,7 +32,6 @@ addons:
 env:
   global:
     - LINTR_COMMENT_BOT=true
-    # - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 # r_build_args: "--no-build-vignettes"
 # r_check_args: "--no-vignettes"
@@ -49,19 +42,13 @@ warnings_are_errors: true
 # Temporarily enable when caching Bioconductor packages
 # script: true
 
-notifications:
-  email:
-    recipients:
-      - mike@steinbaugh.com
-    on_success: change
-    on_failure: always
-
 r_packages:
   - covr
   - hexbin
 bioc_packages:
   - BiocCheck
   - GenomeInfoDbData
+  - S4Vectors
   - DelayedArray
   - EnsDb.Hsapiens.v75
   - DEGreport
@@ -79,17 +66,12 @@ after_success:
   - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
-  - pwd
-  - cd ..
-  - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-  - cd bcbio_rnaseq_output_example
-  - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
-  - Rscript -e 'testthat::test_file("test_reports.R")'
-  - cd report
-  - mv de.html de-${TRAVIS_BRANCH}.html
-  - mv qc.html qc-${TRAVIS_BRANCH}.html
-  - mv fa.html fa-${TRAVIS_BRANCH}.html
-  - cd ..
-  - cp ../bcbioRNASeq/.push.sh push.sh
-  - chmod +x push.sh
-  - ./push.sh
+  - chmod +x travis_render.sh
+  - ./travis_render.sh
+
+notifications:
+  email:
+    recipients:
+      - mike@steinbaugh.com
+    on_success: change
+    on_failure: always

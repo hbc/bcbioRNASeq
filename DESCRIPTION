@@ -1,7 +1,7 @@
 Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.2.4
+Version: 0.2.5
 Authors@R: c(
     person(
         given = "Michael",
@@ -142,9 +142,9 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
+    clusterProfiler,
     DOSE,
     EnsDb.Hsapiens.v75,
-    clusterProfiler,
     org.Hs.eg.db,
     org.Mm.eg.db,
     pathview,

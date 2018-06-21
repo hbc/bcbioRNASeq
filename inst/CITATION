@@ -19,19 +19,18 @@ citEntry(
                  )),
   journal      = "F1000Research",
   volume       = "6",
-  month        = "nov",
-  year         = "2017",
   number       = "1976",
-  url          = "https://f1000research.com/articles/6-1976/v1",
-  doi          = "10.12688/f1000research.12093.1",
+  year         = "2018",
+  url          = "https://f1000research.com/articles/6-1976/v2",
+  doi          = "10.12688/f1000research.12093.2",
 
   textVersion  =
   paste("Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA,",
         "Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O,",
         "Hutchinson JN, Ho Sui SJ.",
-        "(2017).",
+        "(2018).",
         "bcbioRNASeq: R package for bcbio RNA-seq analysis.",
         "F1000Research, 6:1976.",
-        "URL https://f1000research.com/articles/6-1976/v1.",
-        "DOI 10.12688/f1000research.12093.1.")
+        "URL https://f1000research.com/articles/6-1976/v2.",
+        "DOI 10.12688/f1000research.12093.2.")
 )

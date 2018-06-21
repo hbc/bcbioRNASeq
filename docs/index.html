@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
       </span>
     </div>
 
@@ -75,9 +75,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="bioconductor-method" class="section level3">
+<div id="bioconductor-method-recommended" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
+<a href="#bioconductor-method-recommended" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method (recommended)</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## try http:// if https:// URLs are not supported
 <span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
 <span class="kw">biocLite</span>(<span class="st">"devtools"</span>)
@@ -87,6 +87,12 @@
     <span class="st">"hbc/bcbioRNASeq"</span>,
     <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
 )</code></pre></div>
+<div id="f1000-paper-version" class="section level4">
+<h4 class="hasAnchor">
+<a href="#f1000-paper-version" class="anchor"></a><a href="https://f1000research.com/articles/6-1976/v2">F1000 paper</a> version</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># v0.2.4</span>
+<span class="kw">biocLite</span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"v0.2.4"</span>)</code></pre></div>
+</div>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
@@ -104,8 +110,8 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASe
     <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
 )
 <span class="co"># Back up all data inside bcbioRNASeq object</span>
-flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
-<span class="kw">saveData</span>(bcb, flatFiles)</code></pre></div>
+flat &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
+<span class="kw">saveData</span>(bcb, flat)</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
 <p>Parameters:</p>
 <ul>
@@ -171,7 +177,7 @@ flatFiles &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
-<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). <a href="https://f1000research.com/articles/6-1976/v1">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
+<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). <a href="https://f1000research.com/articles/6-1976/v2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
