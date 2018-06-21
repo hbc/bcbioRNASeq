@@ -33,16 +33,6 @@ upload_files() {
     git push --force --quiet --set-upstream origin-pages gh-pages
 }
 
-# Lintr checks
-Rscript -e 'lintr::lint_package()'
-
-# Code coverage
-Rscript -e 'covr::codecov()'
-
-# Bioconductor checks
-R CMD BiocCheck .
-
-# Render R Markdown templates and upload to bcbio GitHub repo
 render_templates
 setup_git
 commit_website_files
