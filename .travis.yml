@@ -63,11 +63,8 @@ r_github_packages:
   - jimhester/lintr
 
 after_success:
-  - Rscript -e 'lintr::lint_package()'
-  - Rscript -e 'covr::codecov()'
-  - R CMD BiocCheck .
-  - chmod +x travis_render.sh
-  - ./travis_render.sh
+  - chmod +x travis_success.sh
+  - ./travis_success.sh
 
 notifications:
   email:
