@@ -395,7 +395,6 @@ bcbioRNASeq <- function(
     } else {
         rowRanges <- emptyRanges(rownames(counts))
     }
-    assert_is_subset(rownames(counts), names(rowRanges))
 
     # Gene-level variance stabilization ========================================
     normalized <- NULL
