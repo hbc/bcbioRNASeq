@@ -23,7 +23,7 @@ upload_files() {
 }
 
 # Only render on Linux container
-if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     pwd
     cd ..
     git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
@@ -35,7 +35,7 @@ if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
     mv qc.html qc-${TRAVIS_BRANCH}.html
     mv fa.html fa-${TRAVIS_BRANCH}.html
     cd ..
-    
+
     setup_git
     commit_website_files
     upload_files
