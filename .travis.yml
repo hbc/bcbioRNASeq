@@ -66,20 +66,8 @@ after_success:
   - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
-  - pwd
-  - cd ..
-  - git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-  - cd bcbio_rnaseq_output_example
-  - Rscript -e 'devtools::install_local("../bcbioRNASeq")'
-  - Rscript -e 'testthat::test_file("test_reports.R")'
-  - cd report
-  - mv de.html de-${TRAVIS_BRANCH}.html
-  - mv qc.html qc-${TRAVIS_BRANCH}.html
-  - mv fa.html fa-${TRAVIS_BRANCH}.html
-  - cd ..
-  - cp ../bcbioRNASeq/.push.sh push.sh
-  - chmod +x push.sh
-  - ./push.sh
+  - chmod +x travis_render.sh
+  - ./travis_render.sh
 
 notifications:
   email:
