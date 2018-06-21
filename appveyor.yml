@@ -17,15 +17,17 @@ cache:
 
 environment:
   global:
+    _R_CHECK_FORCE_SUGGESTS_: FALSE
     BIOC_USE_DEVEL: TRUE
     R_ARCH: x64
     USE_RTOOLS: TRUE
-    WARNINGS_ARE_ERRORS: 1
+    # WARNINGS_ARE_ERRORS: 1
 
 build_script:
   - Rscript -e "source('http://bioconductor.org/biocLite.R')"
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
+  - travis-tool.sh install_github jotsetung/ensembldb
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
   # clusterProfiler dependencies
   - travis-tool.sh install_bioc ALL
