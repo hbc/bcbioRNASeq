@@ -10,22 +10,16 @@ os:
 
 r:
   - bioc-release
-  - bioc-devel
-
-matrix:
-  exclude:
-  - os: osx
-    r: bioc-devel
-
-# safelist
-# branches:
-#   only:
-#   - master
 
 # blocklist
 branches:
   except:
   - develop
+
+# safelist
+# branches:
+#   only:
+#   - master
 
 # External dependencies
 # dependency for clusterProfiler > enrichplot > udunits2
@@ -38,7 +32,6 @@ addons:
 env:
   global:
     - LINTR_COMMENT_BOT=true
-    # - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 # r_build_args: "--no-build-vignettes"
 # r_check_args: "--no-vignettes"
@@ -48,13 +41,6 @@ warnings_are_errors: true
 
 # Temporarily enable when caching Bioconductor packages
 # script: true
-
-notifications:
-  email:
-    recipients:
-      - mike@steinbaugh.com
-    on_success: change
-    on_failure: always
 
 r_packages:
   - covr
@@ -94,3 +80,10 @@ after_success:
   - cp ../bcbioRNASeq/.push.sh push.sh
   - chmod +x push.sh
   - ./push.sh
+
+notifications:
+  email:
+    recipients:
+      - mike@steinbaugh.com
+    on_success: change
+    on_failure: always
