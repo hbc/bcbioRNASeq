@@ -22,18 +22,21 @@ upload_files() {
     git push --force --quiet --set-upstream origin-pages gh-pages
 }
 
-pwd
-cd ..
-git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
-cd bcbio_rnaseq_output_example
-Rscript -e 'devtools::install_local("../bcbioRNASeq")'
-Rscript -e 'testthat::test_file("test_reports.R")'
-cd report
-mv de.html de-${TRAVIS_BRANCH}.html
-mv qc.html qc-${TRAVIS_BRANCH}.html
-mv fa.html fa-${TRAVIS_BRANCH}.html
-cd ..
-
-setup_git
-commit_website_files
-upload_files
+# Only render on Linux container
+if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
+    pwd
+    cd ..
+    git clone https://github.com/bcbio/bcbio_rnaseq_output_example.git
+    cd bcbio_rnaseq_output_example
+    Rscript -e 'devtools::install_local("../bcbioRNASeq")'
+    Rscript -e 'testthat::test_file("test_reports.R")'
+    cd report
+    mv de.html de-${TRAVIS_BRANCH}.html
+    mv qc.html qc-${TRAVIS_BRANCH}.html
+    mv fa.html fa-${TRAVIS_BRANCH}.html
+    cd ..
+    
+    setup_git
+    commit_website_files
+    upload_files
+fi
