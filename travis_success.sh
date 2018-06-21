@@ -33,7 +33,7 @@ upload_files() {
     git push --force --quiet --set-upstream origin-pages gh-pages
 }
 
-if [[ $TRAVIS_OS_NAME == "linux" ]]; then
+if [ $TRAVIS_OS_NAME == "linux" ]; then
     # Render R Markdown templates and upload to bcbio GitHub repo
     render_templates
     setup_git
