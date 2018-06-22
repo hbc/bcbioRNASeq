@@ -98,7 +98,7 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 citation("bcbioRNASeq")
 ```
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000 paper] *F1000Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000 paper] *F1000Research* 6:1976.
 
 
 ## References
