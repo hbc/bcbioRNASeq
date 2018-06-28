@@ -1,10 +1,12 @@
 # GSE65267
 # https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 
+# v0.2.4
+# BiocInstaller::biocLite("hbc/bcbioRNASeq")
 library(bcbioRNASeq)
 
-# Import bcbio RNA-seq run data from HMS O2 cluster
-bcb <- loadRNASeq(
+# bcbio RNA-seq run is saved on HMS O2 cluster
+gse65267 <- loadRNASeq(
     uploadDir = file.path(
         "/n"
         "data1",
@@ -13,8 +15,13 @@ bcb <- loadRNASeq(
         "bcbioRNASeq",
         "F1000v2",
         "GSE65267-merged",
-        "final"),
-    interestingGroups = "treatment",
+        "final"
+    ),
+    organism = "Mus musculus",
     ensemblVersion = 90L
 )
-saveData(bcb)
+
+# Subset GSE65267 to day 0, 1, 3, 7 samples
+bcb <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
+
+saveData(gse65267, bcb, dir = "data")
