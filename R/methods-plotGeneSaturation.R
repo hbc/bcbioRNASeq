@@ -27,6 +27,7 @@ setMethod(
         normalized = c("tpm", "tmm"),
         interestingGroups,
         minCounts = 1L,
+        label = FALSE,
         trendline = FALSE,
         color = NULL,
         title = "gene saturation"
@@ -45,13 +46,18 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         counts <- counts(object, normalized = normalized)
+        data <- metrics(object) %>%
+            mutate(
+                mappedReadsPerMillion = !!sym("mappedReads") / 1e6L,
+                geneCount = colSums(!!counts >= !!minCounts)
+            )
 
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~mappedReads / 1e6L,
-                y = colSums(counts >= minCounts),
-                color = ~interestingGroups
+            data = data,
+            mapping = aes_string(
+                x = "mappedReadsPerMillion",
+                y = "geneCount",
+                color = "interestingGroups"
             )
         ) +
             geom_point(size = 3L) +
@@ -68,6 +74,12 @@ setMethod(
 
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
+        }
+
+        if (isTRUE(label)) {
+            p <- p + bcbio_geom_label_repel(
+                mapping = aes_string(label = "sampleName")
+            )
         }
 
         p
