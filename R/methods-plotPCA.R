@@ -126,7 +126,7 @@ setMethod(
 
         # Use `sampleName` for plot labels
         if (isTRUE(label)) {
-            data[["label"]] <- colData[, "sampleName", drop = TRUE]
+            data[["sampleName"]] <- colData[["sampleName"]]
         }
 
         percentVar <- round(100L * attr(data, "percentVar"))
@@ -156,7 +156,7 @@ setMethod(
 
         if (isTRUE(label)) {
             p <- p + bcbio_geom_label_repel(
-                mapping = aes_string(label = "label")
+                mapping = aes_string(label = "sampleName")
             )
         }
 
