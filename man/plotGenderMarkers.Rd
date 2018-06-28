@@ -38,7 +38,9 @@ plotGenderMarkers(object, ...)
 \code{ggplot}.
 }
 \description{
-Plot Sexually Dimorphic Gender Markers
+This is a convenience function that wraps \code{\link[=plotGene]{plotGene()}} to quickly plot known
+sexually dimorphic genes. Currently only \emph{Homo sapiens} and \emph{Mus musculus}
+genomes are supported.
 }
 \examples{
 # bcbioRNASeq ====
@@ -51,6 +53,8 @@ plotGenderMarkers(dds_small)
 plotGenderMarkers(rld_small)
 }
 \seealso{
+\code{\link[=plotGene]{plotGene()}}.
+
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},
