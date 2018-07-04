@@ -11,8 +11,7 @@
 \usage{
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
   countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
-  legend = TRUE, headerLevel = 2L, return = c("facet", "wide", "grid",
-  "markdown", "list"))
+  legend = TRUE, headerLevel = 2L, return = c("facet", "wide"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
   "tpm", "rle"), ...)
@@ -62,10 +61,7 @@ the first item in the vector by default.}
 \itemize{
 \item "\code{facet}": \code{ggplot} grouped by \code{sampleName}, with \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}
 applied to panel the samples.
-\item "\code{grid}": Show \code{\link[cowplot:plot_grid]{cowplot::plot_grid()}}, paneled per gene.
 \item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
-\item "\code{list}": \code{list}, containing per gene \code{ggplot} objects.
-\item "\code{markdown}": Show tabset R Markdown output, tabbed per gene.
 }
 }
 \description{

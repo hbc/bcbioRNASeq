@@ -14,10 +14,7 @@
 #' @return
 #' - "`facet`": `ggplot` grouped by `sampleName`, with [ggplot2::facet_wrap()]
 #'   applied to panel the samples.
-#' - "`grid`": Show [cowplot::plot_grid()], paneled per gene.
 #' - "`wide`": Show `ggplot` in wide format, with genes on the x-axis.
-#' - "`list`": `list`, containing per gene `ggplot` objects.
-#' - "`markdown`": Show tabset R Markdown output, tabbed per gene.
 #'
 #' @seealso [DESeq2::plotCounts()].
 #'
@@ -59,10 +56,10 @@ NULL
 
     p <- ggplot(
         data = data,
-        mapping = aes_string(
-            x = "interestingGroups",
-            y = "counts",
-            color = "interestingGroups"
+        mapping = aes(
+            x = !!sym("interestingGroups"),
+            y = !!sym("counts"),
+            color = !!sym("interestingGroups")
         )
     ) +
         .genePoint(show.legend = legend) +
@@ -114,10 +111,10 @@ NULL
             data <- data[data[["geneID"]] == geneID, , drop = FALSE]
             p <- ggplot(
                 data = data,
-                mapping = aes_string(
-                    x = "geneID",
-                    y = "counts",
-                    color = "interestingGroups"
+                mapping = aes(
+                    x = !!sym("geneID"),
+                    y = !!sym("counts"),
+                    color = !!sym("interestingGroups")
                 )
             ) +
                 .genePoint(show.legend = legend) +
@@ -172,10 +169,10 @@ NULL
 
     p <- ggplot(
         data = data,
-        mapping = aes_string(
-            x = "geneID",
-            y = "counts",
-            color = "interestingGroups"
+        mapping = aes(
+            x = !!sym("geneID"),
+            y = !!sym("counts"),
+            color = !!sym("interestingGroups")
         )
     ) +
         .genePoint(show.legend = legend) +
@@ -217,7 +214,7 @@ setMethod(
         color = NULL,
         legend = TRUE,
         headerLevel = 2L,
-        return = c("facet", "wide", "grid", "markdown", "list")
+        return = c("facet", "wide")
     ) {
         validObject(object)
         assert_is_character(genes)
@@ -232,48 +229,24 @@ setMethod(
         assertIsAHeaderLevel(headerLevel)
         return <- match.arg(return)
 
-        rse <- as(object, "RangedSummarizedExperiment")
-        rse <- rse[genes, , drop = FALSE]
-
-        # Obtain ggplot objects per gene
-        if (return %in% c("grid", "list", "markdown")) {
-            plotlist <- .plotGeneList(
-                object = rse,
-                countsAxisLabel = countsAxisLabel,
-                medianLine = medianLine,
-                color = color,
-                legend = legend
-            )
-        }
+        # Coerce to RangedSummarizedExperiment
+        rse <- object %>%
+            as("RangedSummarizedExperiment") %>%
+            .[genes, , drop = FALSE]
 
         if (return == "facet") {
-            .plotGeneFacet(
-                object = rse,
-                countsAxisLabel = countsAxisLabel,
-                medianLine = medianLine,
-                color = color,
-                legend = legend
-            )
+            fxn <- .plotGeneFacet
         } else if (return == "wide") {
-            .plotGeneWide(
-                object = rse,
-                countsAxisLabel = countsAxisLabel,
-                medianLine = medianLine,
-                color = color,
-                legend = legend
-            )
-        } else if (return == "grid") {
-            if (length(plotlist) > 1L) {
-                labels <- "AUTO"
-            } else {
-                labels <- NULL
-            }
-            plot_grid(plotlist = plotlist, labels = labels)
-        } else if (return == "markdown") {
-            markdownPlotlist(plotlist, headerLevel = headerLevel)
-        } else {
-            plotlist
+            fxn <- .plotGeneWide
         }
+
+        fxn(
+            object = rse,
+            countsAxisLabel = countsAxisLabel,
+            medianLine = medianLine,
+            color = color,
+            legend = legend
+        )
     }
 )
 
