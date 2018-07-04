@@ -102,7 +102,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment (>= 1.8),
-    bcbioBase (>= 0.2.12),
+    bcbioBase (>= 0.2.16),
     DESeq2 (>= 1.18)
 Imports:
     assertive.base,
