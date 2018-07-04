@@ -101,8 +101,8 @@ setMethod(
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
             sigPointColor <- c(
-                "upregulated" = sigPointColor,
-                "downregulated" = sigPointColor
+                upregulated = sigPointColor,
+                downregulated = sigPointColor
             )
         }
         assert_is_of_length(sigPointColor, 2L)
@@ -110,8 +110,7 @@ setMethod(
         return <- match.arg(return)
 
         # Check to see if we should use `sval` instead of `padj`
-        sval <- "svalue" %in% names(object)
-        if (isTRUE(sval)) {
+        if ("svalue" %in% names(object)) {
             testCol <- "svalue"
         } else {
             testCol <- "padj"
@@ -134,11 +133,10 @@ setMethod(
             # Negative log10 transform the test values. Add `ylim` here to
             # prevent `Inf` values resulting from log transformation.
             # This will also define the upper bound of the y-axis.
-            mutate(!!sym(negLogTestCol) := -log10(!!sym(testCol) + ylim)) %>%
-            # Calculate rank score. Used for `ntop`.
+            # Then calculate the rank score, which is used for `ntop`.
             mutate(
-                rankScore = !!sym(negLogTestCol) *
-                    abs(!!sym(lfcCol))
+                !!sym(negLogTestCol) := -log10(!!sym(testCol) + !!ylim),
+                rankScore = !!sym(negLogTestCol) * abs(!!sym(lfcCol))
             ) %>%
             arrange(desc(!!sym("rankScore"))) %>%
             mutate(rank = row_number()) %>%
@@ -173,8 +171,8 @@ setMethod(
 
         # LFC density ==========================================================
         lfcHist <- ggplot(
-            data,
-            mapping = aes_string(x = lfcCol)
+            data = data,
+            mapping = aes(x = !!sym(lfcCol))
         ) +
             geom_density(
                 color = NA,
@@ -199,7 +197,7 @@ setMethod(
         # P value density ======================================================
         pvalueHist <- ggplot(
             data = data,
-            mapping = aes_string(x = negLogTestCol)
+            mapping = aes(x = !!sym(negLogTestCol))
         ) +
             geom_density(
                 color = NA,
@@ -224,10 +222,10 @@ setMethod(
         # Volcano plot =========================================================
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = lfcCol,
-                y = negLogTestCol,
-                color = "isDE"
+            mapping = aes(
+                x = !!sym(lfcCol),
+                y = !!sym(negLogTestCol),
+                color = !!sym("isDE")
             )
         ) +
             geom_vline(
@@ -269,10 +267,10 @@ setMethod(
             p <- p +
                 bcbio_geom_label_repel(
                     data = labelData,
-                    mapping = aes_string(
-                        x = lfcCol,
-                        y = negLogTestCol,
-                        label = labelCol
+                    mapping = aes(
+                        x = !!sym(lfcCol),
+                        y = !!sym(negLogTestCol),
+                        label = !!sym(labelCol)
                     )
                 )
         }

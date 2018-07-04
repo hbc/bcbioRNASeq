@@ -41,13 +41,13 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_string(
-                x = "sampleName",
-                y = "x5x3Bias",
-                fill = "interestingGroups"
-            )
-        ) +
+                data = metrics(object),
+                mapping = aes(
+                    x = !!sym("sampleName"),
+                    y = !!sym("x5x3Bias"),
+                    fill = !!sym("interestingGroups")
+                )
+            ) +
             geom_bar(
                 color = "black",
                 stat = "identity"

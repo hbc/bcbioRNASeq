@@ -58,7 +58,7 @@
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
 #'   starts_with
 #' @importFrom edgeR calcNormFactors cpm DGEList
-#' @importFrom ggplot2 aes_string annotation_logticks coord_fixed coord_flip
+#' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
 #'   geom_density geom_hline geom_jitter geom_point geom_polygon geom_ribbon
 #'   geom_smooth geom_vline ggplot ggtitle guides labs position_jitterdodge

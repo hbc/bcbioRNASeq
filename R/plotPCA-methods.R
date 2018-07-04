@@ -133,10 +133,10 @@ setMethod(
         # `DESeq2::plotPCA()` defines interesting groups in `group` column
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "pc1",
-                y = "pc2",
-                color = "group"
+            mapping = aes(
+                x = !!sym("pc1"),
+                y = !!sym("pc2"),
+                color = !!sym("group")
             )
         ) +
             geom_point(size = 4L) +
@@ -155,7 +155,7 @@ setMethod(
 
         if (isTRUE(label)) {
             p <- p + bcbio_geom_label_repel(
-                mapping = aes_string(label = "sampleName")
+                mapping = aes(label = !!sym("sampleName"))
             )
         }
 

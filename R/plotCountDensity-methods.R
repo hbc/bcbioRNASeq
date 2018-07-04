@@ -70,11 +70,11 @@ setMethod(
 
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "counts",
-                group = "interestingGroups",
-                color = "interestingGroups",
-                fill = "interestingGroups"
+            mapping = aes(
+                x = !!sym("counts"),
+                group = !!sym("interestingGroups"),
+                color = !!sym("interestingGroups"),
+                fill = !!sym("interestingGroups")
             )
         ) +
             labs(

@@ -154,10 +154,10 @@ setMethod(
 
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "baseMean",
-                y = lfcCol,
-                color = "isDE"
+            mapping = aes(
+                x = !!sym("baseMean"),
+                y = !!sym(lfcCol),
+                color = !!sym("isDE")
             )
         ) +
             geom_hline(
@@ -205,10 +205,10 @@ setMethod(
             p <- p +
                 bcbio_geom_label_repel(
                     data = labelData,
-                    mapping = aes_string(
-                        x = "baseMean",
-                        y = lfcCol,
-                        label = labelCol
+                    mapping = aes(
+                        x = !!sym("baseMean"),
+                        y = !!sym(lfcCol),
+                        label = !!sym(labelCol)
                     )
                 )
         }

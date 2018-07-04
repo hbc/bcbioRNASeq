@@ -64,10 +64,10 @@ setMethod(
 
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "sampleName",
-                y = "counts",
-                fill = "interestingGroups"
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("counts"),
+                fill = !!sym("interestingGroups")
             )
         ) +
             geom_boxplot(color = "black", outlier.shape = NA) +
