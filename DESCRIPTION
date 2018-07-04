@@ -126,7 +126,7 @@ Imports:
     magrittr (>= 1.5),
     matrixStats,
     methods,
-    parallel (>= 3.5),
+    parallel,
     readr (>= 1.1),
     reshape2 (>= 1.4),
     rlang (>= 0.2),
