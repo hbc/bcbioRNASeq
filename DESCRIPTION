@@ -101,7 +101,7 @@ Encoding: UTF-8
 LazyData: TRUE
 Depends:
     R (>= 3.4),
-    SummarizedExperiment,
+    SummarizedExperiment (>= 1.8),
     bcbioBase (>= 0.2.12),
     DESeq2 (>= 1.18)
 Imports:
@@ -117,7 +117,7 @@ Imports:
     cowplot (>= 0.9),
     DEGreport (>= 1.14),
     dplyr (>= 0.7),
-    edgeR,
+    edgeR (>= 3.20),
     GenomicFeatures,
     ggplot2 (>= 3.0),
     ggrepel (>= 0.8),
@@ -142,12 +142,12 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    clusterProfiler,
-    DOSE,
+    clusterProfiler (>= 3.8),
+    DOSE (>= 3.6),
     EnsDb.Hsapiens.v75,
     org.Hs.eg.db,
     org.Mm.eg.db,
-    pathview,
+    pathview (>= 1.20),
     testthat (>= 2.0)
 Remotes:
     hbc/bcbioBase,
