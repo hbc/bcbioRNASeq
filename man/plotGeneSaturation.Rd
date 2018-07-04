@@ -49,8 +49,8 @@ color definitions are desired, we recommend using
 Plot Gene Detection Saturation
 }
 \examples{
-# Note that minimal example distorts the y-axis
-plotGeneSaturation(bcb_small)
+plotGeneSaturation(bcb_small, label = FALSE)
+plotGeneSaturation(bcb_small, label = TRUE)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
