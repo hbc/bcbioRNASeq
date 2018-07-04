@@ -100,10 +100,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
-    R (>= 3.5),
-    SummarizedExperiment (>= 1.10),
+    R (>= 3.4),
+    SummarizedExperiment,
     bcbioBase (>= 0.2.12),
-    DESeq2 (>= 1.20)
+    DESeq2 (>= 1.18)
 Imports:
     assertive.base,
     assertive.files,
@@ -142,12 +142,12 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    clusterProfiler (>= 3.8),
-    DOSE (>= 3.6),
+    clusterProfiler,
+    DOSE,
     EnsDb.Hsapiens.v75,
     org.Hs.eg.db,
     org.Mm.eg.db,
-    pathview (>= 1.20),
+    pathview,
     testthat (>= 2.0)
 Remotes:
     hbc/bcbioBase,
