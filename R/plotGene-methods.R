@@ -63,7 +63,7 @@ NULL
         )
     ) +
         .genePoint(show.legend = legend) +
-        facet_wrap(facets = "geneID", scales = "free_y") +
+        facet_wrap(facets = sym("geneID"), scales = "free_y") +
         labs(
             x = NULL,
             y = countsAxisLabel,
