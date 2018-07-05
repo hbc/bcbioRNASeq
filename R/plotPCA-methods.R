@@ -107,9 +107,9 @@ setMethod(
         }
 
         # Get PCA data using DESeqTransform method =============================
+        # FIXME Modify the DESeqTransform source code and use directly here?
         dt <- DESeqTransform(object)
         colData <- colData(object)
-
         data <- plotPCA(
             object = dt,
             intgroup = interestingGroups,
