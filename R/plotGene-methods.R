@@ -105,7 +105,7 @@ NULL
         sampleData = sampleData(object, clean = FALSE)
     )
 
-    list <- mclapply(
+    list <- bplapply(
         X = rownames(object),
         FUN = function(geneID) {
             data <- data[data[["geneID"]] == geneID, , drop = FALSE]

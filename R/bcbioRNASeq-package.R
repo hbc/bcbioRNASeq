@@ -53,6 +53,7 @@
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleData sampleDirs sanitizeSampleData
 #'   uniteInterestingGroups
+#' @importFrom BiocParallel bplapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
@@ -70,7 +71,6 @@
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom matrixStats colMedians
 #' @importFrom methods .hasSlot as as<- is new show slot slot<- validObject
-#' @importFrom parallel mclapply mcmapply
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
 #' @importFrom rlang := !! !!! sym syms
