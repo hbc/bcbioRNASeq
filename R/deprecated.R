@@ -140,4 +140,17 @@ loadRNASeq <- function(...) {
     bcbioRNASeq(...)
 }
 
+
+
+# v0.2.6 =======================================================================
+#' @rdname plotMA
+#' @usage NULL
+#' @export
+plotMeanAverage <- function(...) {
+    # Soft deprecation, since used in F1000 paper
+    plotMA(...)
+}
+
+
+
 # nocov end

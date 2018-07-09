@@ -1,8 +1,15 @@
-#' Plot Mean Average
+#' MA Plot
 #'
-#' @name plotMeanAverage
+#' An MA plot is an application of a Bland–Altman plot for visual representation
+#' of genomic data. The plot visualizes the differences between measurements
+#' taken in two samples, by transforming the data onto M (log ratio) and A
+#' (mean average) scales, then plotting these values.
+#'
+#' @name plotMA
 #' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
+#'
+#' @importFrom BiocGenerics plotMA
 #'
 #' @inheritParams general
 #'
@@ -15,7 +22,7 @@
 #'
 #' # DESeqResults ====
 #' # Color DEGs in each direction separately
-#' plotMeanAverage(
+#' plotMA(
 #'     object = res_small,
 #'     sigPointColor = c(
 #'         upregulated = "purple",
@@ -24,16 +31,16 @@
 #' )
 #'
 #' # Label DEGs with a single color
-#' plotMeanAverage(res_small, sigPointColor = "purple")
+#' plotMA(res_small, sigPointColor = "purple")
 #'
 #' # Directional support
-#' plotMeanAverage(
+#' plotMA(
 #'     object = res_small,
 #'     direction = "up",
 #'     ntop = 5L,
 #'     gene2symbol = gene2symbol
 #' )
-#' plotMeanAverage(
+#' plotMA(
 #'     object = res_small,
 #'     direction = "down",
 #'     ntop = 5L,
@@ -41,7 +48,7 @@
 #' )
 #'
 #' # Label genes manually
-#' plotMeanAverage(
+#' plotMA(
 #'     object = res_small,
 #'     genes = head(rownames(res_small)),
 #'     gene2symbol = gene2symbol
@@ -51,10 +58,10 @@ NULL
 
 
 # Methods ======================================================================
-#' @rdname plotMeanAverage
+#' @rdname plotMA
 #' @export
 setMethod(
-    "plotMeanAverage",
+    "plotMA",
     signature("DESeqResults"),
     function(
         object,
