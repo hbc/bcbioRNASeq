@@ -27,14 +27,15 @@
     type = c("salmon", "kallisto", "sailfish"),
     txIn = TRUE,
     txOut = FALSE,
-    ignoreTxVersion = TRUE,
-    tx2gene
+    tx2gene,
+    ignoreTxVersion = TRUE
 ) {
     assert_all_are_dirs(sampleDirs)
     type <- match.arg(type)
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
     assertIsTx2gene(tx2gene)
+    tx2gene <- as.data.frame(tx2gene)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
@@ -66,13 +67,19 @@
     # Begin loading of selected counts
     message(paste("Reading", type, "counts using tximport"))
 
+    # Ensure transcript IDs are stripped from tx2gene, if desired
+    if (isTRUE(ignoreTxVersion)) {
+        tx2gene[["txID"]] <- stripTranscriptVersions(tx2gene[["txID"]])
+        rownames(tx2gene) <- tx2gene[["txID"]]
+    }
+
     tximport(
         files = files,
         type = type,
         txIn = txIn,
         txOut = txOut,
         countsFromAbundance = "lengthScaledTPM",
-        tx2gene = as.data.frame(tx2gene),
+        tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
