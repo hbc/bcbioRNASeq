@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Differential Expression Results Tables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-resultsTables.R'><code>R/methods-resultsTables.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/resultsTables-methods.R'><code>R/resultsTables-methods.R</code></a></small>
     <div class="hidden name"><code>resultsTables.Rd</code></div>
     </div>
 
@@ -191,7 +191,7 @@ on expected fold changes.</p>
 
     <div class='dont-index'><p>Other Differential Expression Functions: <code>alphaSummary</code>,
   <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotDEGPCA</code>, <code>plotMeanAverage</code>,
+  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMeanAverage</a></code>,
   <code>plotVolcano</code></p></div>
     
 
@@ -215,7 +215,7 @@ on expected fold changes.</p>
 #&gt; - DEG LFC up: 115 genes
 #&gt; - DEG LFC down: 139 genes
 #&gt; </div><div class='input'><span class='fu'>names</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "deg"          "degLFC"       "degLFCUp"     "degLFCDown"   "all"         
-#&gt; [6] "contrast"     "alpha"        "lfcThreshold"</div><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='st'>"deg"</span>]])</div><div class='output co'>#&gt; Observations: 254
+#&gt; [6] "contrast"     "alpha"        "lfcThreshold"</div><div class='input'><span class='fu'>glimpse</span>(<span class='no'>x</span><span class='kw'>[[</span><span class='st'>"deg"</span>]])</div><div class='output co'>#&gt; Observations: 254
 #&gt; Variables: 23
 #&gt; $ baseMean       &lt;dbl&gt; 12562.2432, 69339.5105, 3560.1421, 3544.1246, 3001.7...
 #&gt; $ log2FoldChange &lt;dbl&gt; 8.271501, 5.355191, 4.079583, 3.564097, 3.742413, 5....

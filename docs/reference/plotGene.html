@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Individual Genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotGene.R'><code>R/methods-plotGene.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGene-methods.R'><code>R/plotGene-methods.R</code></a></small>
     <div class="hidden name"><code>plotGene.Rd</code></div>
     </div>
 
@@ -116,8 +116,7 @@
     <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>, <span class='st'>"grid"</span>,
-  <span class='st'>"markdown"</span>, <span class='st'>"list"</span>))
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>,
@@ -197,10 +196,7 @@ the first item in the vector by default.</p></td>
 <ul>
 <li><p>"<code>facet</code>": <code>ggplot</code> grouped by <code>sampleName</code>, with <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>ggplot2::facet_wrap()</a></code>
 applied to panel the samples.</p></li>
-<li><p>"<code>grid</code>": Show <code><a href='http://www.rdocumentation.org/packages/cowplot/topics/plot_grid'>cowplot::plot_grid()</a></code>, paneled per gene.</p></li>
 <li><p>"<code>wide</code>": Show <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
-<li><p>"<code>list</code>": <code>list</code>, containing per gene <code>ggplot</code> objects.</p></li>
-<li><p>"<code>markdown</code>": Show tabset R Markdown output, tabbed per gene.</p></li>
 </ul>
 
     

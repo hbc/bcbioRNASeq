@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Volcano</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotVolcano.R'><code>R/methods-plotVolcano.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotVolcano-methods.R'><code>R/plotVolcano-methods.R</code></a></small>
     <div class="hidden name"><code>plotVolcano.Rd</code></div>
     </div>
 
@@ -197,7 +197,7 @@ the first item in the vector by default.</p></td>
 <code>CHBUtils::volcano_density_plot()</code>.</p>
 <p>Other Differential Expression Functions: <code>alphaSummary</code>,
   <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotDEGPCA</code>, <code>plotMeanAverage</code>,
+  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMeanAverage</a></code>,
   <code>resultsTables</code></p></div>
     
 
@@ -231,7 +231,7 @@ the first item in the vector by default.</p></td>
 )</div><div class='img'><img src='plotVolcano-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Return coordinates as a data.frame</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>plotVolcano</span>(<span class='no'>res_small</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>)
-<span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/glimpse'>glimpse</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Observations: 494
+<span class='fu'>glimpse</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Observations: 494
 #&gt; Variables: 7
 #&gt; $ baseMean       &lt;dbl&gt; 12562.2432, 1079.2175, 69339.5105, 2368.9417, 3560.1...
 #&gt; $ log2FoldChange &lt;dbl&gt; 8.271501, 5.897090, 5.355191, 4.539434, 4.079583, 3....
