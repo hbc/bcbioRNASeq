@@ -1,3 +1,21 @@
+# bcbioRNASeq 0.2.6 (2018-07-09)
+
+## Minor changes
+
+- Improved internal handling during `tximport()` call to handle transcript
+  version mismatch with tx2gene data.frame. This can result if the bcbio
+  pipeline is using an old genome build.
+- Updated internal code to use `aes()` instead of `aes_string()`, which uses
+  tidyeval and quasiquotation.
+- `plotGeneSaturation` now supports `label` argument, similar to `plotPCA()`.
+- `plotGene()`: reduced the number of `return` options to simply "facet" and
+  "wide". Previously, this also supported "grid", "list", and "markdown", but
+  these were removed because they are not frequently used.
+- Soft deprecated `plotMeanAverage()` in favor of `plotMA()`.
+- All function reexports have been consolidated in bcbioBase package.
+
+
+
 # bcbioRNASeq 0.2.5 (2018-06-21)
 
 ## Minor changes
