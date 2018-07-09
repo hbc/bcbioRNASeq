@@ -13,15 +13,12 @@ opts_chunk[["set"]](
     cache = TRUE,
     cache.lazy = TRUE,
     dev = c("png", "pdf"),
-    error = TRUE,
     fig.height = 10L,
     fig.retina = 2L,
     fig.width = 10L,
     highlight = TRUE,
-    message = TRUE,
     prompt = TRUE,
-    tidy = FALSE,
-    warning = TRUE
+    tidy = FALSE
 )
 
 theme_set(
