@@ -6,6 +6,10 @@
 #' Normalized counts are loaded as length-scaled transcripts per million.
 #' Consult this [vignette](https://goo.gl/h6fm15) for more information.
 #'
+#' @note Ignoring transcript versions should work by default. There may be
+#' an issue with genomes containing non-Ensembl transcript IDs, such as
+#' C. elegans, although we need to double check.
+#'
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
 #' @noRd
@@ -23,6 +27,7 @@
     type = c("salmon", "kallisto", "sailfish"),
     txIn = TRUE,
     txOut = FALSE,
+    ignoreTxVersion = TRUE,
     tx2gene
 ) {
     assert_all_are_dirs(sampleDirs)
@@ -68,7 +73,7 @@
         txOut = txOut,
         countsFromAbundance = "lengthScaledTPM",
         tx2gene = as.data.frame(tx2gene),
-        ignoreTxVersion = FALSE,
+        ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
 }
