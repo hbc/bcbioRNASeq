@@ -1,6 +1,6 @@
-#' Plot Exonic Mapping Rate
+#' Plot Ribosomal RNA (rRNA) Mapping Rate
 #'
-#' @name plotExonicMappingRate
+#' @name plotRRNAMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
@@ -9,24 +9,24 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' plotExonicMappingRate(bcb_small)
+#' plotRRNAMappingRate(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotExonicMappingRate
+#' @rdname plotRRNAMappingRate
 #' @export
 setMethod(
-    "plotExonicMappingRate",
+    "plotRRNAMappingRate",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        limit = 60L,
+        limit = 10L,
         fill = NULL,
         flip = TRUE,
-        title = "exonic mapping rate"
+        title = "rRNA mapping rate"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -42,10 +42,10 @@ setMethod(
 
         p <- ggplot(
             data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~exonicRate * 100L,
-                fill = ~interestingGroups
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("rrnaRate") * 100L,
+                fill = !!sym("interestingGroups")
             )
         ) +
             geom_bar(
@@ -55,7 +55,7 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "exonic mapping rate (%)",
+                y = "rRNA mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

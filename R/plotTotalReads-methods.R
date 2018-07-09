@@ -1,6 +1,6 @@
-#' Plot Mapped Reads
+#' Plot Total Reads
 #'
-#' @name plotMappedReads
+#' @name plotTotalReads
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
@@ -9,16 +9,16 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' plotMappedReads(bcb_small)
+#' plotTotalReads(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotMappedReads
+#' @rdname plotTotalReads
 #' @export
 setMethod(
-    "plotMappedReads",
+    "plotTotalReads",
     signature("bcbioRNASeq"),
     function(
         object,
@@ -26,7 +26,7 @@ setMethod(
         limit = 10L,
         fill = NULL,
         flip = TRUE,
-        title = "mapped reads"
+        title = "total reads"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -40,14 +40,14 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~mappedReads / 1e6L,
-                fill = ~interestingGroups
-            )
-        ) +
+        p <- metrics(object) %>%
+            ggplot(
+                mapping = aes(
+                    x = !!sym("sampleName"),
+                    y = !!sym("totalReads") / 1e6L,
+                    fill = !!sym("interestingGroups")
+                )
+            ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
@@ -55,7 +55,7 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "mapped reads per million",
+                y = "reads per million",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

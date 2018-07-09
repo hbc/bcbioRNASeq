@@ -45,7 +45,7 @@
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA hasRownames initializeDirectory makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeTx2geneFromGFF markdownHeader markdownList
-#'   markdownPlotlist readYAML sanitizeRowData snake
+#'   markdownPlotlist readYAML sanitizeRowData snake stripTranscriptVersions
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox flatFiles gene2symbol
 #'   interestingGroups interestingGroups<- plotHeatmap
@@ -53,25 +53,24 @@
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleData sampleDirs sanitizeSampleData
 #'   uniteInterestingGroups
+#' @importFrom BiocParallel bplapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
 #'   starts_with
 #' @importFrom edgeR calcNormFactors cpm DGEList
-#' @importFrom ggplot2 aes_ aes_string annotation_logticks coord_fixed
-#'   coord_flip element_blank element_text expand_limits facet_wrap geom_bar
-#'   geom_boxplot geom_density geom_hline geom_jitter geom_point geom_polygon
-#'   geom_ribbon geom_smooth geom_vline ggplot ggtitle guides labs
-#'   position_jitterdodge scale_colour_hue scale_colour_manual scale_fill_hue
-#'   scale_fill_manual scale_x_continuous scale_y_continuous stat_summary theme
-#'   xlab ylim
+#' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
+#'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
+#'   geom_density geom_hline geom_jitter geom_point geom_polygon geom_ribbon
+#'   geom_smooth geom_vline ggplot ggtitle guides labs position_jitterdodge
+#'   scale_colour_hue scale_colour_manual scale_fill_hue scale_fill_manual
+#'   scale_x_continuous scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom matrixStats colMedians
 #' @importFrom methods .hasSlot as as<- is new show slot slot<- validObject
-#' @importFrom parallel mclapply mcmapply
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
 #' @importFrom rlang := !! !!! sym syms

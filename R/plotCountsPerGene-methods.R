@@ -1,36 +1,34 @@
-#' Plot Count Density
+#' Plot Counts Per Gene
 #'
-#' @name plotCountDensity
+#' @name plotCountsPerGene
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param style Desired plot style ("`line`" or "`solid`").
 #'
 #' @return `ggplot`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
-#' plotCountDensity(bcb_small)
+#' plotCountsPerGene(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotCountDensity
+#' @rdname plotCountsPerGene
 #' @export
 setMethod(
-    "plotCountDensity",
+    "plotCountsPerGene",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        style = c("line", "solid"),
-        color = NULL,
         fill = NULL,
-        title = "count density"
+        flip = TRUE,
+        title = "counts per gene"
     ) {
+        # Passthrough: fill, flip, title
         validObject(object)
         if (missing(interestingGroups)) {
             interestingGroups <- bcbioBase::interestingGroups(object)
@@ -38,12 +36,9 @@ setMethod(
             interestingGroups(object) <- interestingGroups
         }
         normalized <- match.arg(normalized)
-        style <- match.arg(style)
-        assertIsColorScaleDiscreteOrNULL(color)
         assertIsFillScaleDiscreteOrNULL(fill)
+        assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
-
-        styleLab <- paste(interestingGroups, collapse = ":\n")
 
         # Subset the counts matrix to only include non-zero genes
         nonzero <- .nonzeroGenes(object)
@@ -58,7 +53,6 @@ setMethod(
             fxn <- .meltLog2Counts
         }
 
-        # Melt the counts into long format
         data <- fxn(counts, sampleData = sampleData(object))
 
         # Subtitle
@@ -70,31 +64,27 @@ setMethod(
 
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "counts",
-                group = "interestingGroups",
-                color = "interestingGroups",
-                fill = "interestingGroups"
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("counts"),
+                fill = !!sym("interestingGroups")
             )
         ) +
+            geom_boxplot(color = "black", outlier.shape = NA) +
             labs(
                 title = title,
                 subtitle = subtitle,
-                x = paste(normalized, "counts (log2)"),
-                color = styleLab,
-                fill = styleLab
+                x = NULL,
+                y = paste(normalized, "counts (log2)"),
+                fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (style == "line") {
-            p <- p + geom_density(fill = NA)
-            if (is(color, "ScaleDiscrete")) {
-                p <- p + color
-            }
-        } else if (style == "solid") {
-            p <- p + geom_density(alpha = 0.75, color = NA)
-            if (is(fill, "ScaleDiscrete")) {
-                p <- p + fill
-            }
+        if (is(fill, "ScaleDiscrete")) {
+            p <- p + fill
+        }
+
+        if (isTRUE(flip)) {
+            p <- p + coord_flip()
         }
 
         if (identical(interestingGroups, "sampleName")) {

@@ -1,4 +1,12 @@
+# FIXME Add an option to plot all X and Y chromosome genes in aggregate
+
+
+
 #' Plot Sexually Dimorphic Gender Markers
+#'
+#' This is a convenience function that wraps [plotGene()] to quickly plot known
+#' sexually dimorphic genes. Currently only *Homo sapiens* and *Mus musculus*
+#' genomes are supported.
 #'
 #' @name plotGenderMarkers
 #' @family Quality Control Functions
@@ -6,6 +14,8 @@
 #'
 #' @inheritParams plotGene
 #' @inheritParams general
+#'
+#' @seealso [plotGene()].
 #'
 #' @return `ggplot`.
 #'
@@ -30,23 +40,23 @@ setMethod(
     signature("SummarizedExperiment"),
     function(object, ...) {
         validObject(object)
-        return <- "wide"
-
         # Load the relevant internal gender markers data
         organism <- metadata(object)[["organism"]]
-        if (!is_a_string(organism)) {
-            organism <- detectOrganism(assay(object))
-        }
+        assert_is_a_string(organism)
         markers <- bcbioRNASeq::genderMarkers
         assert_is_subset(camel(organism), names(markers))
         markers <- markers[[camel(organism)]]
 
+        # Get the X and Y chromosome marker genes
         xGenes <- markers %>%
-            .[.[["chromosome"]] == "X", "geneID", drop = TRUE]
+            filter(!!sym("chromosome") == "X") %>%
+            pull("geneID")
         yGenes <- markers %>%
-            .[.[["chromosome"]] == "Y", "geneID", drop = TRUE]
+            filter(!!sym("chromosome") == "Y") %>%
+            pull("geneID")
 
         rse <- as(object, "RangedSummarizedExperiment")
+        return <- "wide"
         xPlot <- plotGene(
             object = rse,
             genes = xGenes,
@@ -54,7 +64,6 @@ setMethod(
             ...
         ) +
             ggtitle("X chromosome")
-
         yPlot <- plotGene(
             object = rse,
             genes = yGenes,
@@ -63,7 +72,7 @@ setMethod(
         ) +
             ggtitle("Y chromosome")
 
-        plotlist <- list(xPlot, yPlot)
+        plotlist <- list(x = xPlot, y = yPlot)
         plot_grid(plotlist = plotlist)
     }
 )
@@ -88,10 +97,8 @@ setMethod(
             counts <- log2(counts + 1L)
         }
         countsAxisLabel <- paste(normalized, "counts (log2)")
-
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
         plotGenderMarkers(
             object = rse,
             countsAxisLabel = countsAxisLabel,
@@ -111,10 +118,8 @@ setMethod(
         validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         countsAxisLabel <- "normalized counts (log2)"
-
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
         plotGenderMarkers(
             object = rse,
             countsAxisLabel = countsAxisLabel,

@@ -1,32 +1,32 @@
-#' Plot 5'->3' Bias
+#' Plot Exonic Mapping Rate
 #'
-#' @name plot5Prime3PrimeBias
+#' @name plotExonicMappingRate
 #' @family Quality Control Functions
-#' @author Michael Steinbaugh
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
 #'
 #' @examples
-#' plot5Prime3PrimeBias(bcb_small)
+#' plotExonicMappingRate(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plot5Prime3PrimeBias
+#' @rdname plotExonicMappingRate
 #' @export
 setMethod(
-    "plot5Prime3PrimeBias",
+    "plotExonicMappingRate",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        limit = 2L,
+        limit = 60L,
         fill = NULL,
         flip = TRUE,
-        title = "5'->3' bias"
+        title = "exonic mapping rate"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -40,14 +40,14 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        p <- ggplot(
-            data = metrics(object),
-            mapping = aes_string(
-                x = "sampleName",
-                y = "x5x3Bias",
-                fill = "interestingGroups"
-            )
-        ) +
+        p <- metrics(object) %>%
+            ggplot(
+                mapping = aes(
+                    x = !!sym("sampleName"),
+                    y = !!sym("exonicRate") * 100L,
+                    fill = !!sym("interestingGroups")
+                )
+            ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
@@ -55,7 +55,7 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "5'->3' bias",
+                y = "exonic mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

@@ -1,32 +1,32 @@
-#' Plot Ribosomal RNA (rRNA) Mapping Rate
+#' Plot 5'->3' Bias
 #'
-#' @name plotRRNAMappingRate
+#' @name plot5Prime3PrimeBias
 #' @family Quality Control Functions
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @author Michael Steinbaugh
 #'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
 #'
 #' @examples
-#' plotRRNAMappingRate(bcb_small)
+#' plot5Prime3PrimeBias(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotRRNAMappingRate
+#' @rdname plot5Prime3PrimeBias
 #' @export
 setMethod(
-    "plotRRNAMappingRate",
+    "plot5Prime3PrimeBias",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        limit = 10L,
+        limit = 2L,
         fill = NULL,
         flip = TRUE,
-        title = "rRNA mapping rate"
+        title = "5'->3' bias"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -41,13 +41,13 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~rrnaRate * 100L,
-                fill = ~interestingGroups
-            )
-        ) +
+                data = metrics(object),
+                mapping = aes(
+                    x = !!sym("sampleName"),
+                    y = !!sym("x5x3Bias"),
+                    fill = !!sym("interestingGroups")
+                )
+            ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
@@ -55,7 +55,7 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "rRNA mapping rate (%)",
+                y = "5'->3' bias",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

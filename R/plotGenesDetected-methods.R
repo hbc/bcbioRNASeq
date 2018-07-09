@@ -1,6 +1,6 @@
-#' Plot Mapping Rate
+#' Plot Genes Detected
 #'
-#' @name plotMappingRate
+#' @name plotGenesDetected
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
@@ -9,24 +9,25 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' plotMappingRate(bcb_small)
+#' plotGenesDetected(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotMappingRate
+#' @rdname plotGenesDetected
 #' @export
 setMethod(
-    "plotMappingRate",
+    "plotGenesDetected",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        limit = 90L,
+        limit = 0L,
+        minCounts = 1L,
         fill = NULL,
         flip = TRUE,
-        title = "mapping rate"
+        title = "genes detected"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -36,27 +37,33 @@ setMethod(
         }
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
+        assertIsAnImplicitInteger(minCounts)
+        assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
+        assert_all_are_non_negative(minCounts)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~mappedReads / totalReads * 100L,
-                fill = ~interestingGroups
-            )
-        ) +
+        counts <- counts(object, normalized = FALSE)
+        geneCount <- colSums(counts >= minCounts)
+
+        p <- metrics(object) %>%
+            mutate(geneCount = !!geneCount) %>%
+            ggplot(
+                mapping = aes(
+                    x = !!sym("sampleName"),
+                    y = !!sym("geneCount"),
+                    fill = !!sym("interestingGroups")
+                )
+            ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
             ) +
-            ylim(0L, 100L) +
             labs(
                 title = title,
                 x = NULL,
-                y = "mapping rate (%)",
+                y = "gene count",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

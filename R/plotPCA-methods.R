@@ -10,7 +10,6 @@
 #' @importFrom BiocGenerics plotPCA
 #'
 #' @inheritParams general
-#' @param label Superimpose sample text labels on the plot.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
@@ -108,9 +107,9 @@ setMethod(
         }
 
         # Get PCA data using DESeqTransform method =============================
+        # FIXME Modify the DESeqTransform source code and use directly here?
         dt <- DESeqTransform(object)
         colData <- colData(object)
-
         data <- plotPCA(
             object = dt,
             intgroup = interestingGroups,
@@ -126,7 +125,7 @@ setMethod(
 
         # Use `sampleName` for plot labels
         if (isTRUE(label)) {
-            data[["label"]] <- colData[, "sampleName", drop = TRUE]
+            data[["sampleName"]] <- colData[["sampleName"]]
         }
 
         percentVar <- round(100L * attr(data, "percentVar"))
@@ -134,10 +133,10 @@ setMethod(
         # `DESeq2::plotPCA()` defines interesting groups in `group` column
         p <- ggplot(
             data = data,
-            mapping = aes_string(
-                x = "pc1",
-                y = "pc2",
-                color = "group"
+            mapping = aes(
+                x = !!sym("pc1"),
+                y = !!sym("pc2"),
+                color = !!sym("group")
             )
         ) +
             geom_point(size = 4L) +
@@ -156,7 +155,7 @@ setMethod(
 
         if (isTRUE(label)) {
             p <- p + bcbio_geom_label_repel(
-                mapping = aes_string(label = "label")
+                mapping = aes(label = !!sym("sampleName"))
             )
         }
 

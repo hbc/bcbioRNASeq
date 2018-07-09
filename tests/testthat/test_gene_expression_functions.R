@@ -32,29 +32,6 @@ test_that("plotGene : bcbioRNASeq", {
     # wide
     p <- plotGene(bcb_small, genes = genes, return = "wide")
     expect_is(p, "ggplot")
-
-    # grid
-    p <- plotGene(bcb_small, genes = genes, return = "grid")
-    expect_is(p, "ggplot")
-
-    # markdown
-    gene <- gene2symbol[1L, "geneName", drop = TRUE]
-    output <- capture.output(
-        plotGene(bcb_small, genes = genes, return = "markdown")
-    )
-    expect_identical(
-        output[[3L]],
-        paste("##", gene)
-    )
-
-    # list
-    x <- plotGene(bcb_small, genes = genes, return = "list")
-    expect_is(x, "list")
-    expect_true(
-        lapply(x, function(x) is(x, "ggplot")) %>%
-            unlist() %>%
-            all()
-    )
 })
 
 test_that("plotGene : DESeqDataSet", {

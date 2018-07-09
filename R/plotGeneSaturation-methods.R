@@ -10,8 +10,8 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # Note that minimal example distorts the y-axis
-#' plotGeneSaturation(bcb_small)
+#' plotGeneSaturation(bcb_small, label = FALSE)
+#' plotGeneSaturation(bcb_small, label = TRUE)
 NULL
 
 
@@ -27,6 +27,7 @@ setMethod(
         normalized = c("tpm", "tmm"),
         interestingGroups,
         minCounts = 1L,
+        label = FALSE,
         trendline = FALSE,
         color = NULL,
         title = "gene saturation"
@@ -45,15 +46,15 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         counts <- counts(object, normalized = normalized)
-
-        p <- ggplot(
-            data = metrics(object),
-            mapping = aes_(
-                x = ~mappedReads / 1e6L,
-                y = colSums(counts >= minCounts),
-                color = ~interestingGroups
-            )
-        ) +
+        p <- metrics(object) %>%
+            mutate(geneCount = colSums(!!counts >= !!minCounts)) %>%
+            ggplot(
+                mapping = aes(
+                    x = !!sym("mappedReads") / 1e6L,
+                    y = !!sym("geneCount"),
+                    color = !!sym("interestingGroups")
+                )
+            ) +
             geom_point(size = 3L) +
             labs(
                 title = title,
@@ -68,6 +69,12 @@ setMethod(
 
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
+        }
+
+        if (isTRUE(label)) {
+            p <- p + bcbio_geom_label_repel(
+                mapping = aes(label = !!sym("sampleName"))
+            )
         }
 
         p

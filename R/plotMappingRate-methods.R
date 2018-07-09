@@ -1,6 +1,6 @@
-#' Plot Genes Detected
+#' Plot Mapping Rate
 #'
-#' @name plotGenesDetected
+#' @name plotMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
@@ -9,25 +9,24 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' plotGenesDetected(bcb_small)
+#' plotMappingRate(bcb_small)
 NULL
 
 
 
 # Methods ======================================================================
-#' @rdname plotGenesDetected
+#' @rdname plotMappingRate
 #' @export
 setMethod(
-    "plotGenesDetected",
+    "plotMappingRate",
     signature("bcbioRNASeq"),
     function(
         object,
         interestingGroups,
-        limit = 0L,
-        minCounts = 1L,
+        limit = 90L,
         fill = NULL,
         flip = TRUE,
-        title = "genes detected"
+        title = "mapping rate"
     ) {
         validObject(object)
         if (missing(interestingGroups)) {
@@ -37,31 +36,27 @@ setMethod(
         }
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
-        assertIsAnImplicitInteger(minCounts)
-        assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
-        assert_all_are_non_negative(minCounts)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        counts <- counts(object, normalized = FALSE)
-
         p <- ggplot(
             data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = colSums(counts >= minCounts),
-                fill = ~interestingGroups
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("mappedReads") / !!sym("totalReads") * 100L,
+                fill = !!sym("interestingGroups")
             )
         ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
             ) +
+            ylim(0L, 100L) +
             labs(
                 title = title,
                 x = NULL,
-                y = "gene count",
+                y = "mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 

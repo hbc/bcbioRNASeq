@@ -42,10 +42,10 @@ setMethod(
 
         p <- ggplot(
             data = metrics(object),
-            mapping = aes_(
-                x = ~sampleName,
-                y = ~intronicRate * 100L,
-                fill = ~interestingGroups
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("intronicRate") * 100L,
+                fill = !!sym("interestingGroups")
             )
         ) +
             geom_bar(

@@ -4,7 +4,6 @@ html_document:
     highlight: pygments
     number_sections: false
     self_contained: true
-    theme: cosmo
     toc: true
     toc_float:
         collapsed: true

@@ -31,6 +31,7 @@
 #' @param headerLevel R Markdown header level.
 #' @param interestingGroups Character vector denoting groups of interest that
 #'   define the samples. If left unset, defaults to `sampleName`.
+#' @param label Superimpose sample text labels on the plot.
 #' @param legend Show plot legend.
 #' @param lfcThreshold Log fold change ratio (base 2) cutoff threshold.
 #' @param limit Threshold to denote on the plot, using a dashed line.

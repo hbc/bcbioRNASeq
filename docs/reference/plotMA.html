@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Mean Average — plotMeanAverage • bcbioRNASeq</title>
+<title>MA Plot — plotMeanAverage • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Mean Average — plotMeanAverage" />
+<meta property="og:title" content="MA Plot — plotMeanAverage" />
 
-<meta property="og:description" content="Plot Mean Average" />
+<meta property="og:description" content="An MA plot is an application of a Bland–Altman plot for visual representation
+of genomic data. The plot visualizes the differences between measurements
+taken in two samples, by transforming the data onto M (log ratio) and A
+(mean average) scales, then plotting these values." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -102,21 +105,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Mean Average</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotMeanAverage.R'><code>R/methods-plotMeanAverage.R</code></a></small>
-    <div class="hidden name"><code>plotMeanAverage.Rd</code></div>
+    <h1>MA Plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotMA-methods.R'><code>R/plotMA-methods.R</code></a></small>
+    <div class="hidden name"><code>plotMA.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot Mean Average</p>
+    <p>An MA plot is an application of a Bland–Altman plot for visual representation
+of genomic data. The plot visualizes the differences between measurements
+taken in two samples, by transforming the data onto M (log ratio) and A
+(mean average) scales, then plotting these values.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotMeanAverage</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotMeanAverage</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+    <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
   <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
   <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"gray50"</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>upregulated</span> <span class='kw'>=</span>
   <span class='st'>"purple"</span>, <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))</pre>
@@ -125,12 +129,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>object</th>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -194,33 +198,33 @@ the first item in the vector by default.</p></td>
 
 <span class='co'># DESeqResults ====</span>
 <span class='co'># Color DEGs in each direction separately</span>
-<span class='fu'>plotMeanAverage</span>(
+<span class='fu'>plotMA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>c</span>(
         <span class='kw'>upregulated</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
         <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
     )
-)</div><div class='img'><img src='plotMeanAverage-1.png' alt='' width='700' height='433' /></div><div class='input'>
+)</div><div class='img'><img src='plotMA-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Label DEGs with a single color</span>
-<span class='fu'>plotMeanAverage</span>(<span class='no'>res_small</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"purple"</span>)</div><div class='img'><img src='plotMeanAverage-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotMA</span>(<span class='no'>res_small</span>, <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='st'>"purple"</span>)</div><div class='img'><img src='plotMA-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Directional support</span>
-<span class='fu'>plotMeanAverage</span>(
+<span class='fu'>plotMA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>,
     <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>
-)</div><div class='img'><img src='plotMeanAverage-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotMeanAverage</span>(
+)</div><div class='img'><img src='plotMA-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotMA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>,
     <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>,
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>
-)</div><div class='img'><img src='plotMeanAverage-4.png' alt='' width='700' height='433' /></div><div class='input'>
+)</div><div class='img'><img src='plotMA-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Label genes manually</span>
-<span class='fu'>plotMeanAverage</span>(
+<span class='fu'>plotMA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>res_small</span>)),
     <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='no'>gene2symbol</span>
-)</div><div class='img'><img src='plotMeanAverage-5.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='plotMA-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
