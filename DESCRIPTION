@@ -101,8 +101,9 @@ Encoding: UTF-8
 LazyData: TRUE
 Depends:
     R (>= 3.4),
-    SummarizedExperiment (>= 1.8),
-    bcbioBase (>= 0.2.17)
+    SummarizedExperiment,
+    bcbioBase (>= 0.2.17),
+    DESeq2 (>= 1.18)
 Imports:
     assertive.base,
     assertive.files,
@@ -116,7 +117,6 @@ Imports:
     BiocParallel,
     cowplot (>= 0.9),
     DEGreport (>= 1.14),
-    DESeq2 (>= 1.18),
     dplyr (>= 0.7),
     edgeR (>= 3.20),
     GenomicFeatures,
