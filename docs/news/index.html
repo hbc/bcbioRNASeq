@@ -103,12 +103,30 @@
       <small>Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="bcbiornaseq-0-2-5-2018-06-21" class="section level1">
+    <div id="bcbiornaseq-0-2-6-2018-07-09" class="section level1">
 <h1 class="page-header">
-<a href="#bcbiornaseq-0-2-5-2018-06-21" class="anchor"></a>bcbioRNASeq 0.2.5 (2018-06-21)</h1>
+<a href="#bcbiornaseq-0-2-6-2018-07-09" class="anchor"></a>bcbioRNASeq 0.2.6 (2018-07-09)</h1>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>Improved internal handling during <code>tximport()</code> call to handle transcript version mismatch with tx2gene data.frame. This can result if the bcbio pipeline is using an old genome build.</li>
+<li>Updated internal code to use <code>aes()</code> instead of <code>aes_string()</code>, which uses tidyeval and quasiquotation.</li>
+<li>
+<code>plotGeneSaturation</code> now supports <code>label</code> argument, similar to <code><a href="../reference/plotPCA.html">plotPCA()</a></code>.</li>
+<li>
+<code><a href="../reference/plotGene.html">plotGene()</a></code>: reduced the number of <code>return</code> options to simply “facet” and “wide”. Previously, this also supported “grid”, “list”, and “markdown”, but these were removed because they are not frequently used.</li>
+<li>Soft deprecated <code><a href="../reference/plotMA.html">plotMeanAverage()</a></code> in favor of <code><a href="../reference/plotMA.html">plotMA()</a></code>.</li>
+<li>All function reexports have been consolidated in bcbioBase package.</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-2-5-2018-06-21" class="section level1">
+<h1 class="page-header">
+<a href="#bcbiornaseq-0-2-5-2018-06-21" class="anchor"></a>bcbioRNASeq 0.2.5 (2018-06-21)</h1>
+<div id="minor-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Enable support bcbio integration, by modifying <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor to work with minimal bcbio test data.</li>
 <li>Switched from internal usage of <code>aes_()</code> in favor of consistent usage of <code>aes_string()</code>. This will make the transition to [ggplot2][] v2.3.0 easier in a future update.</li>
@@ -128,9 +146,9 @@
 <li>Made <code>alphaSummary()</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
 </ul>
 </div>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>
 <code><a href="../reference/metrics.html">metrics()</a></code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> pipeline.</li>
@@ -161,9 +179,9 @@
 <li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
 </ul>
 </div>
-<div id="minor-changes-2" class="section level2">
+<div id="minor-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Tweaked Rory’s biotype plots in QC report to match formatting conventions in the package. These plots are now colored.</li>
 <li>Added <code>plotDEGPCA()</code> to default differential expression R Markdown template.</li>
@@ -183,9 +201,9 @@
     <div id="bcbiornaseq-0-2-2-2018-04-26" class="section level1">
 <h1 class="page-header">
 <a href="#bcbiornaseq-0-2-2-2018-04-26" class="anchor"></a>bcbioRNASeq 0.2.2 (2018-04-26)</h1>
-<div id="minor-changes-3" class="section level2">
+<div id="minor-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-4" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Split out assertive imports so we can pin on [bioconda][].</li>
 <li>Improved package documentation.</li>
@@ -213,9 +231,9 @@
 <li>Improved internal code for <code><a href="../reference/plotGene.html">plotGene()</a></code> and <code>plotGenderMarkers()</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-4" class="section level2">
+<div id="minor-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-4" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-5" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Improved AppVeyor CI support to test against bioc-devel using R 3.5.</li>
 <li>Improved support and unit testing for <code><a href="../reference/updateObject.html">updateObject()</a></code> method.</li>
@@ -253,9 +271,9 @@
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
 </div>
-<div id="minor-changes-5" class="section level2">
+<div id="minor-changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-5" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-6" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>
 <code>validObject()</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code><a href="../reference/updateObject.html">updateObject()</a></code>.</li>
@@ -649,6 +667,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bcbiornaseq-0-2-6-2018-07-09">0.2.6</a></li>
         <li><a href="#bcbiornaseq-0-2-5-2018-06-21">0.2.5</a></li>
         <li><a href="#bcbiornaseq-0-2-4-2018-05-24">0.2.4</a></li>
         <li><a href="#bcbiornaseq-0-2-3-2018-05-10">0.2.3</a></li>
