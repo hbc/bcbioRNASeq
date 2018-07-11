@@ -26,7 +26,7 @@ tpm(bcb_small) \%>\% glimpse()
 \seealso{
 Other Data Functions: \code{\link{aggregateReplicates}},
   \code{\link{counts}}, \code{\link{metrics}},
-  \code{\link{tmm}}
+  \code{\link{sampleData}}, \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh

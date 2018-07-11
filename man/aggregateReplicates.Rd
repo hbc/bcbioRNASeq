@@ -29,8 +29,8 @@ aggregateReplicates(bcb)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+  \code{\link{metrics}}, \code{\link{sampleData}},
+  \code{\link{tmm}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
