@@ -4,16 +4,10 @@
 \name{sampleData}
 \alias{sampleData}
 \alias{sampleData,bcbioRNASeq-method}
-\alias{sampleData<-,SummarizedExperiment,DataFrame-method}
-\alias{sampleData<-,SummarizedExperiment,data.frame-method}
 \title{Sample Data}
 \usage{
 \S4method{sampleData}{bcbioRNASeq}(object, clean = TRUE, interestingGroups,
   return = c("DataFrame", "data.frame", "kable"))
-
-\S4method{sampleData}{SummarizedExperiment,DataFrame}(object) <- value
-
-\S4method{sampleData}{SummarizedExperiment,data.frame}(object) <- value
 }
 \arguments{
 \item{object}{Object.}
@@ -26,8 +20,6 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
 the first item in the vector by default.}
-
-\item{value}{Value to assign.}
 }
 \value{
 Data describing the samples.

@@ -76,7 +76,7 @@ setMethod(
         assert_is_any_of(genes, c("character", "NULL"))
         assert_is_any_of(samples, c("character", "NULL"))
         if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
+            interestingGroups <- basejump::interestingGroups(object)
         } else {
             interestingGroups(object) <- interestingGroups
         }

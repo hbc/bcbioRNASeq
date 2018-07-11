@@ -43,16 +43,16 @@
 #'   assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
-#'   fixNA hasRownames initializeDirectory makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeTx2geneFromGFF markdownHeader markdownList
-#'   markdownPlotlist readYAML sanitizeRowData snake stripTranscriptVersions
+#'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
+#'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeTx2geneFromGFF markdownHeader markdownList markdownPlotlist readYAML
+#'   sampleData sanitizeRowData sanitizeSampleData snake stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
-#'   bcbio_geom_label_repel copyToDropbox flatFiles gene2symbol
-#'   interestingGroups interestingGroups<- plotHeatmap
+#'   bcbio_geom_label_repel copyToDropbox flatFiles plotHeatmap
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
-#'   readYAMLSampleMetrics sampleData sampleDirs sanitizeSampleData
-#'   uniteInterestingGroups
+#'   readYAMLSampleMetrics sampleDirs
 #' @importFrom BiocParallel bplapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join

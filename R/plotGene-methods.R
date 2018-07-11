@@ -219,7 +219,7 @@ setMethod(
         validObject(object)
         assert_is_character(genes)
         if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
+            interestingGroups <- basejump::interestingGroups(object)
         } else {
             interestingGroups(object) <- interestingGroups
         }

@@ -60,7 +60,7 @@ setMethod(
         } else {
             # Include `interestingGroups` column, if not NULL
             if (missing(interestingGroups)) {
-                interestingGroups <- bcbioBase::interestingGroups(object)
+                interestingGroups <- basejump::interestingGroups(object)
             }
             if (length(interestingGroups)) {
                 data <- uniteInterestingGroups(data, interestingGroups)

@@ -31,7 +31,7 @@ setMethod(
         # Passthrough: fill, flip, title
         validObject(object)
         if (missing(interestingGroups)) {
-            interestingGroups <- bcbioBase::interestingGroups(object)
+            interestingGroups <- basejump::interestingGroups(object)
         } else {
             interestingGroups(object) <- interestingGroups
         }
