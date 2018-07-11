@@ -101,6 +101,17 @@ be loaded at gene or transcript level.
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
 }
+\section{Genome build}{
+
+
+Ensure that the organism and genome build used with bcio match correctly
+here in the function call. In particular, for the legacy \emph{Homo sapiens}
+GRCh37/hg19 genome build, ensure that \code{genomeBuild = "GRCh37"}. Otherwise,
+the genomic ranges set in \code{rowRanges()} will mismatch. It is recommended
+for current projects that GRCh38/hg38 is used in place of GRCh37/hg19
+if possible.
+}
+
 \section{Metadata}{
 
 
