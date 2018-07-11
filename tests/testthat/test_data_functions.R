@@ -100,6 +100,110 @@ test_that("counts : apply transformationLimit", {
 
 
 
+# sampleData ===================================================================
+# Check output of `return` parameter
+return <- methodFormals(
+    f = "sampleData",
+    signature = "bcbioRNASeq"
+) %>%
+    .[["return"]] %>%
+    as.character() %>%
+    .[-1L]
+
+test_that("sampleData: Verbose mode", {
+    list <- lapply(return, function(x) {
+        sampleData(
+            bcb_small,
+            clean = FALSE,
+            return = x
+        )
+    })
+
+    # Check returns
+    expect_identical(
+        lapply(list, class),
+        list(
+            structure("DataFrame", package = "S4Vectors"),
+            "data.frame",
+            "knitr_kable"
+        )
+    )
+
+    # Check dimnames
+    expected <- list(
+        colnames(bcb_small),
+        c(colnames(colData(bcb_small)), "interestingGroups")
+    )
+    expect_identical(
+        lapply(list, dimnames),
+        list(
+            expected,
+            expected,
+            NULL
+        )
+    )
+})
+
+test_that("sampleData : Clean mode", {
+    list <- lapply(return, function(x) {
+        sampleData(
+            bcb_small,
+            clean = TRUE,
+            return = x
+        )
+    })
+
+    # Check returns
+    expect_identical(
+        lapply(list, class),
+        list(
+            structure("DataFrame", package = "S4Vectors"),
+            "data.frame",
+            "knitr_kable"
+        )
+    )
+
+    # Check dimnames
+    expected <- list(
+        colnames(bcb_small),
+        c(
+            "sampleName",
+            "day",
+            "replicate",
+            "strain",
+            "tissue",
+            "treatment"
+        )
+    )
+    expect_identical(
+        lapply(list, dimnames),
+        list(
+            expected,
+            expected,
+            NULL
+        )
+    )
+
+    # Ensure all columns are factor
+    invisible(lapply(list[[1L]], function(x) {
+        expect_is(x, "factor")
+    }))
+
+    # Interesting groups
+    x <- sampleData(bcb_small, clean = FALSE, interestingGroups = NULL)
+    expect_identical(
+        x[["interestingGruops"]],
+        NULL
+    )
+    x <- sampleData(bcb_small, clean = FALSE, interestingGroups = "day")
+    expect_identical(
+        levels(x[["interestingGroups"]]),
+        c("0", "7")
+    )
+})
+
+
+
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
     x <- selectSamples(bcb_small, treatment = "folic_acid")
