@@ -6,7 +6,8 @@
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
 \title{Extract or Replace Parts of an Object}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE)
+\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, transform = TRUE,
+  drop = FALSE)
 }
 \arguments{
 \item{x}{
@@ -59,6 +60,11 @@
     An index value of \code{NULL} is treated as if it were \code{integer(0)}.
   }
 
+\item{transform}{\code{logical}. Apply DESeq2 transformations
+(\code{\link[DESeq2:rlog]{DESeq2::rlog()}}, \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+Recommended by default but takes a long time to calculate for large
+datasets (> 50 samples).}
+
 \item{drop}{For matrices and arrays.  If \code{TRUE} the result is
     coerced to the lowest possible dimension (see the examples).  This
     only works for extracting elements, not for the replacement.  See
@@ -71,6 +77,10 @@
 \description{
 Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
 Internal count transformations are rescaled automatically, if defined.
+}
+\note{
+DESeq2 transformations will only be calculated when \code{transform = TRUE}
+and either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
 }
 \examples{
 object <- bcb_small
@@ -91,6 +101,10 @@ object[genes, ]
 x <- object[genes, samples]
 print(x)
 assayNames(x)
+
+# Fast subsetting, by skipping DESeq2 transformations
+x <- object[, samples, transform = FALSE]
+names(assays(x))
 }
 \seealso{
 \code{help("[", "base")}.

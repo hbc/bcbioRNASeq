@@ -21,7 +21,7 @@ setMethod(
     function(object) {
         validObject(object)
 
-        cat(
+        return <- c(
             paste(class(object), metadata(object)[["version"]]),
             paste("Samples:", ncol(object)),
             paste0(
@@ -34,14 +34,15 @@ setMethod(
                 ": ",
                 nrow(object)
             ),
-            paste("Organism:", metadata(object)[["organism"]]),
-            sep = "\n"
+            paste("Assays:", toString(names(assays(object)))),
+            paste("Organism:", metadata(object)[["organism"]])
         )
 
         # rowRanges
         m <- metadata(object)[["rowRangesMetadata"]]
         if (is.data.frame(m) && length(m)) {
-            cat(
+            return <- c(
+                return,
                 paste(
                     "AnnotationHub:",
                     m[m[["name"]] == "id", "value", drop = TRUE]
@@ -53,16 +54,17 @@ setMethod(
                 paste(
                     "Genome Build:",
                     m[m[["name"]] == "genome_build", "value", drop = TRUE]
-                ),
-                sep = "\n"
+                )
             )
         }
 
-        cat(
+        return <- c(
+            return,
             paste("Upload Dir:", metadata(object)[["uploadDir"]]),
             paste("Upload Date:", metadata(object)[["runDate"]]),
-            paste("R Load Date:", metadata(object)[["date"]]),
-            sep = "\n"
+            paste("R Load Date:", metadata(object)[["date"]])
         )
+
+        cat(return, sep = "\n")
     }
 )

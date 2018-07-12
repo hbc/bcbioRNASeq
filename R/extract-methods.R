@@ -3,12 +3,20 @@
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object.
 #' Internal count transformations are rescaled automatically, if defined.
 #'
+#' @note DESeq2 transformations will only be calculated when `transform = TRUE`
+#'   and either `rlog` or `vst` counts are defined in [assays()].
+#'
 #' @name extract
 #' @family S4 Object
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`
 #' @inheritParams general
+#'
+#' @param transform `logical`. Apply DESeq2 transformations
+#'   ([DESeq2::rlog()], [DESeq2::varianceStabilizingTransformation()]).
+#'   Recommended by default but takes a long time to calculate for large
+#'   datasets (> 50 samples).
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -33,6 +41,10 @@
 #' x <- object[genes, samples]
 #' print(x)
 #' assayNames(x)
+#'
+#' # Fast subsetting, by skipping DESeq2 transformations
+#' x <- object[, samples, transform = FALSE]
+#' names(assays(x))
 NULL
 
 
@@ -48,7 +60,13 @@ setMethod(
         j = "ANY",
         drop = "ANY"
     ),
-    function(x, i, j, drop = FALSE) {
+    function(
+        x,
+        i,
+        j,
+        transform = TRUE,
+        drop = FALSE
+    ) {
         validObject(x)
 
         # Genes (rows)
@@ -77,14 +95,30 @@ setMethod(
         # Assays ===============================================================
         assays <- assays(rse)
 
-        # Update DESeq2 transformations, if they are defined
-        if (any(c("rlog", "vst") %in% names(assays))) {
+        # DESeq2 transformations
+        if (
+            any(c("rlog", "vst") %in% names(assays)) &&
+            isTRUE(transform)
+        ) {
+            # Update DESeq2 transformations by default, but only if they are
+            # already defined in assays (rlog, vst)
             message("Updating variance stabilizations")
             dds <- .regenerateDESeqDataSet(rse)
-            message("Applying rlog transformation")
-            assays[["rlog"]] <- assay(rlog(dds))
-            message("Applying variance stabilizing transformation")
-            assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
+            # rlog
+            if ("rlog" %in% names(assays)) {
+                message("Applying rlog transformation")
+                assays[["rlog"]] <- assay(rlog(dds))
+            }
+            # vst
+            if ("vst" %in% names(assays)) {
+                message("Applying variance stabilizing transformation")
+                assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
+            }
+        } else {
+            # Otherwise, ensure previous calculations are removed from assays
+            message("Skipping DESeq2 transformations")
+            assays[["rlog"]] <- NULL
+            assays[["vst"]] <- NULL
         }
 
         # Column data ==========================================================
