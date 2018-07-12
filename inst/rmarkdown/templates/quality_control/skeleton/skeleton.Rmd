@@ -35,11 +35,7 @@ invisible(validObject(bcb))
 
 ```{r sample_data}
 # getMethod("sampleData", "SummarizedExperiment")
-sample_data <- sampleData(
-    object = bcb,
-    clean = TRUE
-    return = "data.frame"
-)
+sample_data <- sampleData(bcb, clean = TRUE) %>% as.data.frame()
 write.csv(
     x = sample_data,
     file = file.path(params$results_dir, "sample_data.csv")
