@@ -43,7 +43,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        clean = TRUE,
+        clean = FALSE,
         interestingGroups,
         return = c("DataFrame", "data.frame", "kable")
     ) {

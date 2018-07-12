@@ -6,7 +6,7 @@
 \alias{sampleData,bcbioRNASeq-method}
 \title{Sample Data}
 \usage{
-\S4method{sampleData}{bcbioRNASeq}(object, clean = TRUE, interestingGroups,
+\S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE, interestingGroups,
   return = c("DataFrame", "data.frame", "kable"))
 }
 \arguments{
