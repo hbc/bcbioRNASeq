@@ -6,8 +6,8 @@
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
 \title{Extract or Replace Parts of an Object}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, transform = TRUE,
-  drop = FALSE)
+\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE,
+  transform = TRUE)
 }
 \arguments{
 \item{x}{
@@ -60,16 +60,16 @@
     An index value of \code{NULL} is treated as if it were \code{integer(0)}.
   }
 
-\item{transform}{\code{logical}. Apply DESeq2 transformations
-(\code{\link[DESeq2:rlog]{DESeq2::rlog()}}, \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
-Recommended by default but takes a long time to calculate for large
-datasets (> 50 samples).}
-
 \item{drop}{For matrices and arrays.  If \code{TRUE} the result is
     coerced to the lowest possible dimension (see the examples).  This
     only works for extracting elements, not for the replacement.  See
     \code{\link{drop}} for further details.
   }
+
+\item{transform}{\code{logical}. Apply DESeq2 transformations
+(\code{\link[DESeq2:rlog]{DESeq2::rlog()}}, \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
+Recommended by default but takes a long time to calculate for large
+datasets (> 50 samples).}
 }
 \value{
 \code{bcbioRNASeq}.

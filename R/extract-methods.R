@@ -66,8 +66,8 @@ setMethod(
         x,
         i,
         j,
-        transform = TRUE,
-        drop = FALSE
+        drop = FALSE,
+        transform = TRUE
     ) {
         validObject(x)
 
@@ -97,15 +97,22 @@ setMethod(
         # Assays ===============================================================
         assays <- assays(rse)
 
-        # DESeq2 transformations
+        # Always recalculate DESeq2 normalized counts
+        message("Updating normalized counts")
+        dds <- .regenerateDESeqDataSet(rse)
+        assays[["normalized"]] <- counts(dds, normalized = TRUE)
+
+        # Optionally, recalculate DESeq2 transformations (rlog, vst)
         if (
             any(c("rlog", "vst") %in% names(assays)) &&
             isTRUE(transform)
         ) {
             # Update DESeq2 transformations by default, but only if they are
             # already defined in assays (rlog, vst)
-            message("Updating variance stabilizations")
-            dds <- .regenerateDESeqDataSet(rse)
+            message(paste(
+                "Recalculating DESeq2 variance stabilizations",
+                "(transform = TRUE)"
+            ))
             # rlog
             if ("rlog" %in% names(assays)) {
                 message("Applying rlog transformation")
@@ -118,7 +125,10 @@ setMethod(
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays
-            message("Skipping DESeq2 transformations")
+            message(paste(
+                "Skipping DESeq2 variance stabilizations",
+                "(transform = FALSE)"
+            ))
             assays[["rlog"]] <- NULL
             assays[["vst"]] <- NULL
         }
