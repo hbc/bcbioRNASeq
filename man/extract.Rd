@@ -103,7 +103,9 @@ print(x)
 assayNames(x)
 
 # Fast subsetting, by skipping DESeq2 transformations
+# Note that rlog and vst counts will not be defined
 x <- object[, samples, transform = FALSE]
+print(x)
 names(assays(x))
 }
 \seealso{
