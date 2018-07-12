@@ -6,23 +6,16 @@
 \alias{sampleData,bcbioRNASeq-method}
 \title{Sample Data}
 \usage{
-\S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE, interestingGroups,
-  return = c("DataFrame", "data.frame", "kable"))
+\S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{clean}{\code{logical}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}
-
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
-
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
 }
 \value{
-Data describing the samples.
+\code{DataFrame}.
 }
 \description{
 Return the sample metadata. Columns are always sanitized to factor.

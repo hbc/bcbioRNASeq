@@ -17,7 +17,7 @@
 #' @param clean `logical`. Only return `factor` columns not defined in
 #'   [bcbioBase::metadataBlacklist].
 #'
-#' @return Data describing the samples.
+#' @return `DataFrame`.
 #'
 #' @seealso [bcbioBase::metadataBlacklist].
 #'
@@ -43,13 +43,10 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        clean = FALSE,
-        interestingGroups,
-        return = c("DataFrame", "data.frame", "kable")
+        clean = FALSE
     ) {
         data <- colData(object)
         assert_is_a_bool(clean)
-        return <- match.arg(return)
 
         # Only return factor columns, if desired
         if (isTRUE(clean)) {
@@ -57,21 +54,8 @@ setMethod(
             # Drop remaining blacklisted columns
             setdiff <- setdiff(colnames(data), bcbioBase::metadataBlacklist)
             data <- data[, setdiff, drop = FALSE]
-        } else {
-            # Include `interestingGroups` column, if not NULL
-            if (missing(interestingGroups)) {
-                interestingGroups <- basejump::interestingGroups(object)
-            }
-            if (length(interestingGroups)) {
-                data <- uniteInterestingGroups(data, interestingGroups)
-            }
         }
 
-        # Return
-        if (return == "kable") {
-            kable(as.data.frame(data), row.names = FALSE)
-        } else {
-            as(data, return)
-        }
+        as(data, "DataFrame")
     }
 )
