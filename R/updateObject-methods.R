@@ -17,8 +17,6 @@
 #' @family S4 Object
 #' @author Michael Steinbaugh
 #'
-#' @importFrom BiocGenerics updateObject
-#'
 #' @inheritParams general
 #' @param rowRanges `GRanges` object that defines the row annotations. Since
 #'   we converted to `RangedSummarizedExperiment` in v0.2.0, this option had
@@ -29,6 +27,12 @@
 #' @examples
 #' updateObject(bcb_small)
 NULL
+
+
+
+#' @importFrom BiocGenerics updateObject
+#' @export
+BiocGenerics::updateObject
 
 
 
