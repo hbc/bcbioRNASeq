@@ -36,6 +36,14 @@ NULL
 
 
 
+#' @rdname sampleData
+#' @name sampleData<-
+#' @importFrom basejump sampleData<-
+#' @export
+NULL
+
+
+
 # Methods ======================================================================
 #' @rdname sampleData
 #' @export
@@ -44,6 +52,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
+        interestingGroups,
         clean = FALSE
     ) {
         data <- colData(object)
@@ -55,8 +64,33 @@ setMethod(
             # Drop remaining blacklisted columns
             setdiff <- setdiff(colnames(data), bcbioBase::metadataBlacklist)
             data <- data[, setdiff, drop = FALSE]
+        } else {
+            # Include `interestingGroups` column, if not NULL
+            if (missing(interestingGroups)) {
+                interestingGroups <- bcbioBase::interestingGroups(object)
+            }
+            if (length(interestingGroups)) {
+                data <- uniteInterestingGroups(data, interestingGroups)
+            }
         }
 
         as(data, "DataFrame")
+    }
+)
+
+
+
+#' @rdname sampleData
+#' @export
+setMethod(
+    "sampleData<-",
+    signature(
+        object = "bcbioRNASeq",
+        value = "DataFrame"
+    ),
+    function(object, value) {
+        value[["interestingGroups"]] <- NULL
+        colData(object) <- value
+        object
     }
 )
