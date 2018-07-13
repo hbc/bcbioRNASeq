@@ -9,7 +9,7 @@
         txi = txi,
         colData = colData(rse),
         # Use an empty design formula
-        design = ~ 1  # nolint
+        design = ~ 1L
     )
     # Suppress warning about empty design formula
     dds <- suppressWarnings(DESeq(dds))

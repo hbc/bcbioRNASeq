@@ -52,10 +52,7 @@ setAs(
         # Integer counts are required
         assay(rse) <- round(assay(rse))
         # Prepare using an empty design formula
-        to <- DESeqDataSet(
-            se = rse,
-            design = ~ 1  # nolint
-        )
+        to <- DESeqDataSet(se = rse, design = ~ 1L)
         validObject(to)
         to
     }
