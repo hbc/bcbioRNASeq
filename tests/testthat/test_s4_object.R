@@ -240,6 +240,14 @@ test_that("extract : DESeq2 transforms", {
 
 
 
+# show =========================================================================
+test_that("show", {
+    x <- capture.output(show(bcb_small))
+    expect_true(grepl("bcbioRNASeq", x[[1L]]))
+})
+
+
+
 # updateObject =================================================================
 test_that("updateObject", {
     expect_error(validObject(bcb_invalid))
