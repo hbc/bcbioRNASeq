@@ -7,6 +7,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom bcbioBase plotCorrelationHeatmap
+#' @export
+#'
 #' @inherit bcbioBase::plotCorrelationHeatmap
 #'
 #' @inheritParams general
@@ -38,12 +41,6 @@
 #'     legendColor = NULL
 #' )
 NULL
-
-
-
-#' @importFrom bcbioBase plotCorrelationHeatmap
-#' @export
-bcbioBase::plotCorrelationHeatmap
 
 
 

@@ -4,6 +4,9 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump aggregateReplicates
+#' @export
+#'
 #' @inheritParams general
 #'
 #' @return `RangedSummarizedExperiment`.
@@ -18,12 +21,6 @@
 #' bcb$aggregate <- aggregate
 #' aggregateReplicates(bcb)
 NULL
-
-
-
-#' @importFrom basejump aggregateReplicates
-#' @export
-basejump::aggregateReplicates
 
 
 

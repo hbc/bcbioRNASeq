@@ -8,6 +8,9 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
+#' @importFrom BiocGenerics counts
+#' @export
+#'
 #' @inheritParams general
 #' @param normalized Logical or character indicating which normalization
 #'   method to apply:
@@ -40,12 +43,6 @@
 #' counts(bcb_small, normalized = "rlog") %>% summary()
 #' counts(bcb_small, normalized = "vst") %>% summary()
 NULL
-
-
-
-#' @importFrom BiocGenerics counts
-#' @export
-BiocGenerics::counts
 
 
 

@@ -7,6 +7,9 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics plotPCA
+#' @export
+#'
 #' @inheritParams general
 #'
 #' @seealso
@@ -31,12 +34,6 @@
 #' # DESeqTransform method is preferred
 #' plotPCA(dds_small)
 NULL
-
-
-
-#' @importFrom BiocGenerics plotPCA
-#' @export
-BiocGenerics::plotPCA
 
 
 

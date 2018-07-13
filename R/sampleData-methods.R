@@ -11,6 +11,9 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom basejump sampleData
+#' @export
+#'
 #' @inheritParams general
 #' @param clean `logical`. Only return `factor` columns not defined in
 #'   [bcbioBase::metadataBlacklist].
@@ -30,12 +33,6 @@
 #' # `test` column should be now defined
 #' "test" %in% colnames(sampleData(x))
 NULL
-
-
-
-#' @importFrom basejump sampleData
-#' @export
-basejump::sampleData
 
 
 

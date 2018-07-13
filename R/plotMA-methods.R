@@ -9,6 +9,9 @@
 #' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
+#' @importFrom BiocGenerics plotMA
+#' @export
+#'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
@@ -52,12 +55,6 @@
 #'     gene2symbol = gene2symbol
 #' )
 NULL
-
-
-
-#' @importFrom BiocGenerics plotMA
-#' @export
-BiocGenerics::plotMA
 
 
 

@@ -4,6 +4,9 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom bcbioBase metrics
+#' @export
+#'
 #' @inheritParams general
 #'
 #' @return `data.frame`.
@@ -11,12 +14,6 @@
 #' @examples
 #' metrics(bcb_small) %>% glimpse()
 NULL
-
-
-
-#' @importFrom bcbioBase metrics
-#' @export
-bcbioBase::metrics
 
 
 

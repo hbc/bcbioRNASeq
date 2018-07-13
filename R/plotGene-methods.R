@@ -4,6 +4,9 @@
 #' @family Gene Expression Functions
 #' @author Michael Steinbaugh
 #'
+#' @importFrom bcbioBase plotGene
+#' @export
+#'
 #' @inheritParams general
 #' @param countsAxisLabel Label to use for the counts axis.
 #' @param medianLine Include median line for each group. Disabled if samples
@@ -30,12 +33,6 @@
 #' # DESeqTransform ====
 #' plotGene(rld_small, genes = genes)
 NULL
-
-
-
-#' @importFrom bcbioBase plotGene
-#' @export
-bcbioBase::plotGene
 
 
 
