@@ -180,6 +180,7 @@ bcbioRNASeq <- function(
     dots <- list(...)
 
     # Legacy arguments =========================================================
+    # nocov start
     call <- match.call(expand.dots = TRUE)
     # annotable
     if ("annotable" %in% names(call)) {
@@ -196,6 +197,7 @@ bcbioRNASeq <- function(
         warning("`organism` is now recommended, to acquire gene annotations")
     }
     dots <- Filter(Negate(is.null), dots)
+    # nocov end
 
     # Assert checks ============================================================
     assert_is_a_string(uploadDir)

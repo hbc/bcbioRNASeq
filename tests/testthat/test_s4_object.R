@@ -2,13 +2,58 @@ context("S4 Object")
 
 
 
+# bcbioRNASeq Constructor ==============================================
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
-    ensemblRelease = 87L,
-    organism = "Mus musculus"
+    organism = "Mus musculus",
+    ensemblRelease = 87L
 ))
 validObject(bcb)
+
+test_that("bcbioRNASeq : GTF file", {
+    # 87 is the oldest version supported by AnnotationHub
+    # Note that gzip compression is supported for GFF/GTF files
+    gffURL <- paste(
+        "ftp://ftp.ensembl.org",
+        "pub",
+        "release-87",
+        "gff3",
+        "mus_musculus",
+        "Mus_musculus.GRCm38.87.gff3.gz",
+        sep = "/"
+    )
+    gffFile <- basename(gffURL)
+    if (!file.exists(gffFile)) {
+        download.file(url = gffURL, destfile = gffFile)
+    }
+    # FIXME This is breaking with GFF file
+    # Need to unit test this with basejump makeGRangesFromGFF too
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        gffFile = gffFile
+    )
+
+    gtfURL <- paste(
+        "ftp://ftp.ensembl.org",
+        "pub",
+        "release-87",
+        "gtf",
+        "mus_musculus",
+        "Mus_musculus.GRCm38.87.gtf.gz",
+        sep = "/"
+    )
+    gtfFile <- basename(gtfURL)
+    if (!file.exists(gtfFile)) {
+        download.file(url = gtfURL, destfile = gtfFile)
+    }
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        gffFile = gtfFile
+    )
+})
 
 
 
