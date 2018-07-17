@@ -133,13 +133,13 @@ test_that("Row data", {
     expect_identical(
         lapply(rowData(bcb), class),
         list(
-            geneID = "character",
-            geneName = "character",
-            geneBiotype = "factor",
-            description = "character",
-            seqCoordSystem = "factor",
+            broadClass = "factor",
+            description = "factor",
             entrezID = "list",
-            broadClass = "factor"
+            geneBiotype = "factor",
+            geneID = "character",
+            geneName = "factor",
+            seqCoordSystem = "factor"
         )
     )
 })

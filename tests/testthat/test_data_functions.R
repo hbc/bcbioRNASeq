@@ -101,93 +101,16 @@ test_that("counts : apply transformationLimit", {
 
 
 # sampleData ===================================================================
-# Check output of `return` parameter
-return <- methodFormals(
-    f = "sampleData",
-    signature = "bcbioRNASeq"
-) %>%
-    .[["return"]] %>%
-    as.character() %>%
-    .[-1L]
-
-test_that("sampleData: Verbose mode", {
-    list <- lapply(return, function(x) {
-        sampleData(
-            bcb_small,
-            clean = FALSE,
-            return = x
-        )
-    })
-
-    # Check returns
+test_that("sampleData: Verbose mode (default)", {
+    # Match colData when `interestingGroups = NULL`
     expect_identical(
-        lapply(list, class),
-        list(
-            structure("DataFrame", package = "S4Vectors"),
-            "data.frame",
-            "knitr_kable"
-        )
+        sampleData(bcb_small, clean = FALSE, interestingGroups = NULL),
+        colData(bcb_small)
     )
 
-    # Check dimnames
-    expected <- list(
-        colnames(bcb_small),
-        c(colnames(colData(bcb_small)), "interestingGroups")
-    )
-    expect_identical(
-        lapply(list, dimnames),
-        list(
-            expected,
-            expected,
-            NULL
-        )
-    )
-})
-
-test_that("sampleData : Clean mode", {
-    list <- lapply(return, function(x) {
-        sampleData(
-            bcb_small,
-            clean = TRUE,
-            return = x
-        )
-    })
-
-    # Check returns
-    expect_identical(
-        lapply(list, class),
-        list(
-            structure("DataFrame", package = "S4Vectors"),
-            "data.frame",
-            "knitr_kable"
-        )
-    )
-
-    # Check dimnames
-    expected <- list(
-        colnames(bcb_small),
-        c(
-            "sampleName",
-            "day",
-            "replicate",
-            "strain",
-            "tissue",
-            "treatment"
-        )
-    )
-    expect_identical(
-        lapply(list, dimnames),
-        list(
-            expected,
-            expected,
-            NULL
-        )
-    )
-
-    # Ensure all columns are factor
-    invisible(lapply(list[[1L]], function(x) {
-        expect_is(x, "factor")
-    }))
+    # Return `interestingGroups` factor column by default
+    x <- sampleData(bcb_small, clean = FALSE)
+    expect_is(x[["interestingGroups"]], "factor")
 
     # Interesting groups
     x <- sampleData(bcb_small, clean = FALSE, interestingGroups = NULL)
@@ -200,6 +123,26 @@ test_that("sampleData : Clean mode", {
         levels(x[["interestingGroups"]]),
         c("0", "7")
     )
+})
+
+test_that("sampleData : Clean mode", {
+    # Return useful factor columns
+    x <- sampleData(bcb_small, clean = TRUE)
+    expect_identical(
+        colnames(x),
+        c(
+            "sampleName",
+            "day",
+            "replicate",
+            "strain",
+            "tissue",
+            "treatment"
+        )
+    )
+    # Ensure all columns are factor
+    invisible(lapply(x, function(x) {
+        expect_is(x, "factor")
+    }))
 })
 
 
