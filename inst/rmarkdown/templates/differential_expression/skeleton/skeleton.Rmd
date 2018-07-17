@@ -15,7 +15,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-24
+# Last modified 2018-07-17
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -43,7 +43,19 @@ invisible(validObject(bcb))
 
 
 
+# Create `DESeqDataSet`
+
+Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
+
 ```{r dds, results="hide"}
+# Coerce bcbioRNASeq to DESeqDataSet
+# getMethod(
+#     f = "coerce",
+#     signature = signature(
+#         from = "bcbioRNASeq",
+#         to = "DESeqDataSet"
+#     )
+# )
 dds <- as(bcb, "DESeqDataSet")
 design(dds) <- params$design
 dds <- DESeq(dds)
