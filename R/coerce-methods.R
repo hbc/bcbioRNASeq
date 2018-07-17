@@ -50,7 +50,7 @@ setAs(
         # are defined, with richer metadata
         rse <- as(from, "RangedSummarizedExperiment")
         # Integer counts are required
-        assay(rse) <- round(assay(rse))
+        assay(rse) <- round(assay(rse), digits = 0L)
         # Prepare using an empty design formula
         to <- DESeqDataSet(se = rse, design = ~ 1L)
         validObject(to)
