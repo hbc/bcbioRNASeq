@@ -49,6 +49,7 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 
 ```{r dds, results="hide"}
 # Coerce bcbioRNASeq to DESeqDataSet
+# help("coerce", "bcbioRNASeq")
 # getMethod(
 #     f = "coerce",
 #     signature = signature(
