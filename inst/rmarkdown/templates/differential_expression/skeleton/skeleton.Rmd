@@ -60,7 +60,28 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 dds <- as(bcb, "DESeqDataSet")
 design(dds) <- params$design
 dds <- DESeq(dds)
-# Alternatively, can use `rlog()`
+```
+
+
+
+# Pre-filtering
+
+While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2. Here we perform a minimal pre-filtering to keep only rows that have at least 10 reads total. Note that more strict filtering to increase power is automatically applied via independent filtering on the mean of normalized counts within the `results()` function.
+
+```{r prefilter}
+# Note that this criteria can be made more stringent
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep, ]
+```
+
+
+
+# Variance stabilization
+
+Now we're ready to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object.
+
+```{r variance_stabilization}
+# Alternatively, can use `rlog()` but it is slower
 rld <- varianceStabilizingTransformation(dds)
 saveData(dds, rld, dir = params$data_dir)
 ```
