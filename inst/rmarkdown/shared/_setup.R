@@ -24,6 +24,6 @@ opts_chunk[["set"]](
 theme_set(
     theme_paperwhite(
         base_size = 14L,
-        legend_position = "bottom"
+        legend_position = "right"
     )
 )
