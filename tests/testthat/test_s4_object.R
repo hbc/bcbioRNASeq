@@ -11,7 +11,7 @@ bcb <- suppressWarnings(bcbioRNASeq(
 ))
 validObject(bcb)
 
-test_that("bcbioRNASeq : GTF file", {
+test_that("bcbioRNASeq : GFF3 file", {
     # 87 is the oldest version supported by AnnotationHub
     # Note that gzip compression is supported for GFF/GTF files
     gffURL <- paste(
@@ -27,14 +27,14 @@ test_that("bcbioRNASeq : GTF file", {
     if (!file.exists(gffFile)) {
         download.file(url = gffURL, destfile = gffFile)
     }
-    # FIXME This is breaking with GFF file
-    # Need to unit test this with basejump makeGRangesFromGFF too
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         organism = "Mus musculus",
         gffFile = gffFile
     )
+})
 
+test_that("bcbioRNASeq : GTF file", {
     gtfURL <- paste(
         "ftp://ftp.ensembl.org",
         "pub",
@@ -133,13 +133,13 @@ test_that("Row data", {
     expect_identical(
         lapply(rowData(bcb), class),
         list(
-            "geneID" = "character",
-            "geneName" = "character",
-            "geneBiotype" = "factor",
-            "description" = "character",
-            "seqCoordSystem" = "factor",
-            "entrezID" = "list",
-            "broadClass" = "factor"
+            geneID = "character",
+            geneName = "character",
+            geneBiotype = "factor",
+            description = "character",
+            seqCoordSystem = "factor",
+            entrezID = "list",
+            broadClass = "factor"
         )
     )
 })
@@ -149,35 +149,35 @@ test_that("Metadata", {
     expect_identical(
         lapply(metadata(bcb), class),
         list(
-            "version" = c("package_version", "numeric_version"),
-            "level" = "character",
-            "caller" = "character",
-            "countsFromAbundance" = "character",
-            "uploadDir" = "character",
-            "sampleDirs" = "character",
-            "sampleMetadataFile" = "character",
-            "projectDir" = "character",
-            "template" = "character",
-            "runDate" = "Date",
-            "interestingGroups" = "character",
-            "organism" = "character",
-            "genomeBuild" = "character",
-            "ensemblRelease" = "integer",
-            "rowRangesMetadata" = tibble,
-            "gffFile" = "character",
+            version = c("package_version", "numeric_version"),
+            level = "character",
+            caller = "character",
+            countsFromAbundance = "character",
+            uploadDir = "character",
+            sampleDirs = "character",
+            sampleMetadataFile = "character",
+            projectDir = "character",
+            template = "character",
+            runDate = "Date",
+            interestingGroups = "character",
+            organism = "character",
+            genomeBuild = "character",
+            ensemblRelease = "integer",
+            rowRangesMetadata = tibble,
+            gffFile = "character",
             "tx2gene" = "data.frame",
-            "lanes" = "integer",
-            "yaml" = "list",
-            "dataVersions" = tibble,
-            "programVersions" = tibble,
-            "bcbioLog" = "character",
-            "bcbioCommandsLog" = "character",
-            "allSamples" = "logical",
-            "call" = "call",
-            "date" = "Date",
-            "wd" = "character",
-            "utilsSessionInfo" = "sessionInfo",
-            "devtoolsSessionInfo" = "session_info"
+            lanes = "integer",
+            yaml = "list",
+            dataVersions = tibble,
+            programVersions = tibble,
+            bcbioLog = "character",
+            bcbioCommandsLog = "character",
+            allSamples = "logical",
+            call = "call",
+            date = "Date",
+            wd = "character",
+            utilsSessionInfo = "sessionInfo",
+            devtoolsSessionInfo = "session_info"
         )
     )
     # Interesting groups should default to `sampleName`

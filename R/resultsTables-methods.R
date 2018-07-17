@@ -67,14 +67,14 @@ NULL
         .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
 
     list(
-        "deg" = deg,
-        "degLFC" = degLFC,
-        "degLFCUp" = degLFCUp,
-        "degLFCDown" = degLFCDown,
-        "all" = all,
-        "contrast" = contrast,
-        "alpha" = alpha,
-        "lfcThreshold" = lfcThreshold
+        deg = deg,
+        degLFC = degLFC,
+        degLFCUp = degLFCUp,
+        degLFCDown = degLFCDown,
+        all = all,
+        contrast = contrast,
+        alpha = alpha,
+        lfcThreshold = lfcThreshold
     )
 }
 

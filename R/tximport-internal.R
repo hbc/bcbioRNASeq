@@ -96,9 +96,9 @@
     assert_is_subset(c("tpm", "counts", "length"), names(assays(object)))
     assert_is_subset("countsFromAbundance", names(metadata(object)))
     list(
-        "abundance" = assays(object)[["tpm"]],
-        "counts" = assays(object)[["counts"]],
-        "length" = assays(object)[["length"]],
-        "countsFromAbundance" = metadata(object)[["countsFromAbundance"]]
+        abundance = assays(object)[["tpm"]],
+        counts = assays(object)[["counts"]],
+        length = assays(object)[["length"]],
+        countsFromAbundance = metadata(object)[["countsFromAbundance"]]
     )
 }

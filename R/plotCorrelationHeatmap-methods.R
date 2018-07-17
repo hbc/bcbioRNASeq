@@ -62,7 +62,7 @@ setMethod(
 
         # Coerce to RangedSummarizedExperiment
         rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list("counts" = counts)
+        assays(rse) <- list(counts = counts)
         validObject(rse)
 
         plotCorrelationHeatmap(rse, ...)
@@ -82,7 +82,7 @@ setMethod(
 
         # Coerce to RangedSummarizedExperiment
         rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list("counts" = counts)
+        assays(rse) <- list(counts = counts)
         validObject(rse)
 
         plotCorrelationHeatmap(rse, ...)

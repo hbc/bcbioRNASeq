@@ -94,8 +94,8 @@ setMethod(
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
             sigPointColor <- c(
-                "upregulated" = sigPointColor,
-                "downregulated" = sigPointColor
+                upregulated = sigPointColor,
+                downregulated = sigPointColor
             )
         }
         assert_is_of_length(sigPointColor, 2L)

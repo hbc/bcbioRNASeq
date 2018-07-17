@@ -118,7 +118,7 @@ setMethod(
         validObject(counts)
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list("counts" = counts(counts, normalized = TRUE))
+        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
         plotDEGHeatmap(
             results = results,
             counts = rse,
@@ -147,7 +147,7 @@ setMethod(
         normalized <- match.arg(normalized)
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list("counts" = counts(counts, normalized = normalized))
+        assays(rse) <- list(counts = counts(counts, normalized = normalized))
         plotDEGHeatmap(
             results = results,
             counts = rse,

@@ -95,14 +95,14 @@ test_that("resultsTables : Default return with local files only", {
     expect_identical(
         lapply(x, class),
         list(
-            "deg" = "data.frame",
-            "degLFC" = "data.frame",
-            "degLFCUp" = "data.frame",
-            "degLFCDown" = "data.frame",
-            "all" = "data.frame",
-            "contrast" = "character",
-            "alpha" = "numeric",
-            "lfcThreshold" = "numeric"
+            deg = "data.frame",
+            degLFC = "data.frame",
+            degLFCUp = "data.frame",
+            degLFCDown = "data.frame",
+            all = "data.frame",
+            contrast = "character",
+            alpha = "numeric",
+            lfcThreshold = "numeric"
         )
     )
 })
