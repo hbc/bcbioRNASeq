@@ -266,14 +266,27 @@ setMethod(
         }
 
         # tx2gene
+        if ("txID" %in% colnames(metadata[["tx2gene"]])) {
+            message("tx2gene: Renaming `txID` to `transcriptID`")
+            metadata[["tx2gene"]][["transcriptID"]] <-
+                metadata[["tx2gene"]][["txID"]]
+            metadata[["tx2gene"]][["txID"]] <- NULL
+        }
         if (any(c("enstxp", "ensgene") %in% colnames(metadata[["tx2gene"]]))) {
-            message("Renaming enstxp, ensgene to txID, geneID")
-            x <- metadata[["tx2gene"]]
-            x[["txID"]] <- x[["enstxp"]]
-            x[["enstxp"]] <- NULL
-            x[["geneID"]] <- x[["ensgene"]]
-            x[["ensgene"]] <- NULL
-            metadata[["tx2gene"]] <- x
+            message(paste(
+                "tx2gene: Renaming `enstxp`, `ensgene`",
+                "to `transcriptID`, `geneID`"
+            ))
+            assert_are_identical(
+                x = colnames(metadata[["tx2gene"]]),
+                y = c("enstxp", "ensgene")
+            )
+            metadata[["tx2gene"]][["transcriptID"]] <-
+                metadata[["tx2gene"]][["enstxp"]]
+            metadata[["tx2gene"]][["enstxp"]] <- NULL
+            metadata[["tx2gene"]][["geneID"]] <-
+                metadata[["tx2gene"]][["ensgene"]]
+            metadata[["tx2gene"]][["ensgene"]] <- NULL
         }
 
         # Dead genes: "missing" or "unannotated"

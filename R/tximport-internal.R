@@ -69,8 +69,9 @@
 
     # Ensure transcript IDs are stripped from tx2gene, if desired
     if (isTRUE(ignoreTxVersion)) {
-        tx2gene[["txID"]] <- stripTranscriptVersions(tx2gene[["txID"]])
-        rownames(tx2gene) <- tx2gene[["txID"]]
+        tx2gene[["transcriptID"]] <-
+            stripTranscriptVersions(tx2gene[["transcriptID"]])
+        rownames(tx2gene) <- tx2gene[["transcriptID"]]
     }
 
     tximport(
