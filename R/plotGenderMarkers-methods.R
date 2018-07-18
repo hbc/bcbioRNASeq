@@ -1,7 +1,3 @@
-# FIXME Add an option to plot all X and Y chromosome genes in aggregate
-
-
-
 #' Plot Sexually Dimorphic Gender Markers
 #'
 #' This is a convenience function that wraps [plotGene()] to quickly plot known
