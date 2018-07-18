@@ -41,7 +41,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        rowRanges
+        rowRanges = NULL
     ) {
         version <- slot(object, "metadata")[["version"]]
         assert_is_all_of(version, c("package_version", "numeric_version"))
@@ -268,9 +268,11 @@ setMethod(
         # tx2gene
         if ("txID" %in% colnames(metadata[["tx2gene"]])) {
             message("tx2gene: Renaming `txID` to `transcriptID`")
-            metadata[["tx2gene"]][["transcriptID"]] <-
-                metadata[["tx2gene"]][["txID"]]
-            metadata[["tx2gene"]][["txID"]] <- NULL
+            assert_are_identical(
+                c("txID", "geneID"),
+                colnames(metadata[["tx2gene"]])
+            )
+            colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
         if (any(c("enstxp", "ensgene") %in% colnames(metadata[["tx2gene"]]))) {
             message(paste(
@@ -281,13 +283,9 @@ setMethod(
                 x = colnames(metadata[["tx2gene"]]),
                 y = c("enstxp", "ensgene")
             )
-            metadata[["tx2gene"]][["transcriptID"]] <-
-                metadata[["tx2gene"]][["enstxp"]]
-            metadata[["tx2gene"]][["enstxp"]] <- NULL
-            metadata[["tx2gene"]][["geneID"]] <-
-                metadata[["tx2gene"]][["ensgene"]]
-            metadata[["tx2gene"]][["ensgene"]] <- NULL
+            colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
+        assertIsTx2gene(metadata[["tx2gene"]])
 
         # Dead genes: "missing" or "unannotated"
         if ("missingGenes" %in% names(metadata)) {
