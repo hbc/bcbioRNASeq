@@ -1,17 +1,34 @@
-# bcbioRNASeq 0.2.6 (2018-07-09)
+# bcbioRNASeq 0.2.6 (2018-07-17)
+
+## Major changes
+
+- Added `transform = TRUE` argument to `[` extraction method, allowing the
+  user to skip automatic DESeq2 transformations, which can be CPU intensive
+  for large datasets.
+- Switched back to using `plotMA()` instead of `plotMeanAverage()`. An MA-plot
+  by definition is not a "Mean Average" plot, so this function name is
+  misleading. We will keep the `plotMeanAverage()` working but it is now
+  soft deprecated.
+- `plotGeneSaturation()` now supports `label` argument, similar to `plotPCA()`.
 
 ## Minor changes
 
 - Improved internal handling during `tximport()` call to handle transcript
   version mismatch with tx2gene data.frame. This can result if the bcbio
   pipeline is using an old genome build.
+- Ensure `genomeBuild` is detected from AnnotationHub rowRangesMetadata if
+  applicable, and not left NULL in the metadata.
 - Updated internal code to use `aes()` instead of `aes_string()`, which uses
   tidyeval and quasiquotation.
-- `plotGeneSaturation` now supports `label` argument, similar to `plotPCA()`.
 - `plotGene()`: reduced the number of `return` options to simply "facet" and
   "wide". Previously, this also supported "grid", "list", and "markdown", but
   these were removed because they are not frequently used.
+- `plotGene()`: Switched back to internal `lapply()` call instead of using
+  `BiocParallel::bplapply()`. This doesn't always work perfect in an HPC
+  environment (e.g. HMS O2 cluster).
 - Soft deprecated `plotMeanAverage()` in favor of `plotMA()`.
+- All S4 generics with method support are exported for easier lookup in the
+  reference documentation.
 - All function reexports have been consolidated in bcbioBase package.
 
 
@@ -606,7 +623,7 @@ Last set of code fixes before F1000v2 resubmission.
 [bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna
 [biomaRt]: https://doi.org/doi:10.18129/B9.bioc.biomaRt
 [CHBUtils]: https://github.com/hbc/CHBUtils
-[clusterProfiler]: 
+[clusterProfiler]:
 [covr]: https://github.com/jimhester/covr
 [dplyr]: http://dplyr.tidyverse.org
 [edgeR]: https://doi.org/doi:10.18129/B9.bioc.edgeR
