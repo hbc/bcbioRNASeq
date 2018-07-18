@@ -1,30 +1,30 @@
 authors:
-    Michael Steinbaugh:
-        href: https://steinbaugh.com
-    Lorena Pantano:
-        href: https://lpantano.github.io
-    Rory Kirchner:
-        href: https://github.com/roryk
-    Victor Barrera:
-        href: https://github.com/vbarrera
-    Brad Chapman:
-        href: https://github.com/chapmanb
-    Mary Piper:
-        href: https://github.com/marypiper
-    Meeta Mistry:
-        href: https://github.com/mistrm82
-    Radhika Khetani:
-        href: https://github.com/rkhetani
-    Kayleigh Rutherford:
-        href: https://github.com/KayleighRutherford
-    Oliver Hofmann:
-        href: https://github.com/ohofmann
-    John Hutchinson:
-        href: https://github.com/jnhutchinson
-    Shannan Ho Sui:
-        href: https://github.com/sjhosui
-    Harvard Chan Bioinformatics Core:
-        href: http://bioinformatics.sph.harvard.edu
+  Michael Steinbaugh:
+    href: https://steinbaugh.com
+  Lorena Pantano:
+    href: https://lpantano.github.io
+  Rory Kirchner:
+    href: https://github.com/roryk
+  Victor Barrera:
+    href: https://github.com/vbarrera
+  Brad Chapman:
+    href: https://github.com/chapmanb
+  Mary Piper:
+    href: https://github.com/marypiper
+  Meeta Mistry:
+    href: https://github.com/mistrm82
+  Radhika Khetani:
+    href: https://github.com/rkhetani
+  Kayleigh Rutherford:
+    href: https://github.com/KayleighRutherford
+  Oliver Hofmann:
+    href: https://github.com/ohofmann
+  John Hutchinson:
+    href: https://github.com/jnhutchinson
+  Shannan Ho Sui:
+    href: https://github.com/sjhosui
+  Harvard Chan Bioinformatics Core:
+    href: http://bioinformatics.sph.harvard.edu
 
 reference:
   - title: Package Information
