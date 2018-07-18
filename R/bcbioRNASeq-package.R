@@ -53,7 +53,6 @@
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
-#' @importFrom BiocParallel bplapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
