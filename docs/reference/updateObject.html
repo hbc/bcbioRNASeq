@@ -80,9 +80,6 @@ originally loaded into R." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -118,7 +115,7 @@ originally loaded into R.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>rowRanges</span>)</pre>
+<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='kw'>rowRanges</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,7 +128,9 @@ originally loaded into R.</p>
       <th>rowRanges</th>
       <td><p><code>GRanges</code> object that defines the row annotations. Since
 we converted to <code>RangedSummarizedExperiment</code> in v0.2.0, this option had
-to be added to enable updating of newly required <code>rowRanges()</code> slot.</p></td>
+to be added to enable updating of newly required <code>rowRanges()</code> slot.
+Objects that are &gt;= v0.2 don't require this argument and it can be left
+<code>NULL</code>.</p></td>
     </tr>
     </table>
     
@@ -160,7 +159,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.3 to 0.2.6</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.3 to 0.2.6</span></div><div class='output co'>#&gt; <span class='message'>tx2gene: Renaming `txID` to `transcriptID`</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
 #&gt; Samples: 6
 #&gt; Genes: 500
 #&gt; Assays: counts, tpm, length, normalized, rlog, vst
@@ -170,7 +169,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-13</div></pre>
+#&gt; R Load Date: 2018-07-17</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -79,9 +79,6 @@ Internal count transformations are rescaled automatically, if defined." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -218,7 +215,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-13</div><div class='input'>
+#&gt; R Load Date: 2018-07-17</div><div class='input'>
 <span class='co'># Extract by gene list</span>
 <span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
 #&gt; Samples: 6
@@ -230,7 +227,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-13</div><div class='input'>
+#&gt; R Load Date: 2018-07-17</div><div class='input'>
 <span class='co'># Extract by both genes and samples</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
 #&gt; Samples: 2
@@ -242,7 +239,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-13</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
+#&gt; R Load Date: 2018-07-17</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
 #&gt; [6] "vst"       </div><div class='input'>
 <span class='co'># Fast subsetting, by skipping DESeq2 transformations</span>
 <span class='co'># Note that rlog and vst counts will not be defined</span>
@@ -256,7 +253,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-13</div><div class='input'><span class='fu'>names</span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized"</div></pre>
+#&gt; R Load Date: 2018-07-17</div><div class='input'><span class='fu'>names</span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

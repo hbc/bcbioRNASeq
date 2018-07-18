@@ -45,9 +45,6 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -75,9 +72,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="bioconductor-method-recommended" class="section level3">
+<div id="bioconductor-method" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bioconductor-method-recommended" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method (recommended)</h3>
+<a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## try http:// if https:// URLs are not supported
 <span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
 <span class="kw">biocLite</span>(<span class="st">"devtools"</span>)
@@ -97,7 +94,10 @@
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conda-method" class="anchor"></a><a href="https://conda.io">conda</a> method</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> config --add channels defaults
+<span class="ex">conda</span> config --add channels conda-forge
+<span class="ex">conda</span> config --add channels bioconda
+<span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">

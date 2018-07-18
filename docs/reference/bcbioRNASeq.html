@@ -80,9 +80,6 @@ analysis." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -305,7 +302,7 @@ as a remote connection over
 )</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected:</span>
 #&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  txID = col_character(),</span>
+#&gt; <span class='message'>  transcriptID = col_character(),</span>
 #&gt; <span class='message'>  geneID = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
@@ -339,7 +336,7 @@ as a remote connection over
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+#&gt; <span class='message'>format: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Defining broad class using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Sorting ranges by geneID</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying rlog transformation</span></div><div class='output co'>#&gt; <span class='message'>Applying variance stabilizing transformation</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
 #&gt; Samples: 4
 #&gt; Genes: 502
 #&gt; Assays: counts, tpm, length, normalized, rlog, vst
@@ -349,7 +346,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-07-13</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+#&gt; R Load Date: 2018-07-17</div><div class='input'><span class='fu'>is</span>(<span class='no'>x</span>, <span class='st'>"RangedSummarizedExperiment"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Transcript level</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbioRNASeq</span>(
     <span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>,
@@ -360,7 +357,7 @@ as a remote connection over
 )</div><div class='output co'>#&gt; <span class='message'>2017-05-23_rnaseq</span></div><div class='output co'>#&gt; <span class='message'>4 samples detected:</span>
 #&gt; <span class='message'>group1_1, group1_2, group2_1, group2_2</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Reading sample metrics</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  txID = col_character(),</span>
+#&gt; <span class='message'>  transcriptID = col_character(),</span>
 #&gt; <span class='message'>  geneID = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
@@ -394,7 +391,7 @@ as a remote connection over
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
-#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Using geneName instead of symbol</span></div><div class='output co'>#&gt; <span class='message'>Setting geneBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting seqCoordSystem as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txBiotype as factor</span></div><div class='output co'>#&gt; <span class='message'>Setting txSupportLevel as factor</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, txBiotype, seqnames</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+#&gt; <span class='message'>format: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Standardizing the metadata columns</span></div><div class='output co'>#&gt; <span class='message'>Defining broad class using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Sorting ranges by transcriptID</span></div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
 #&gt; Samples: 4
 #&gt; Transcripts: 996
 #&gt; Assays: counts, tpm, length
@@ -404,7 +401,7 @@ as a remote connection over
 #&gt; Genome Build: GRCm38
 #&gt; Upload Dir: /Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-07-13</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+#&gt; R Load Date: 2018-07-17</div><div class='input'><span class='fu'>validObject</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

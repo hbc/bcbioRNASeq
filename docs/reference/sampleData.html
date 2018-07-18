@@ -78,9 +78,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -114,7 +111,10 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>sampleData</span>(<span class='no'>object</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>sampleData</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
+<span class='fu'>sampleData</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -124,9 +124,18 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
+      <th>interestingGroups</th>
+      <td><p>Character vector denoting groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
       <th>clean</th>
       <td><p><code>logical</code>. Only return <code>factor</code> columns not defined in
 <a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Value to assign.</p></td>
     </tr>
     </table>
     
@@ -166,7 +175,7 @@ experiment).</p>
 #&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>sampleData</span>(<span class='no'>bcb_small</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ nrows          : int 6
-#&gt;   ..@ listData       :List of 26
+#&gt;   ..@ listData       :List of 27
 #&gt;   .. ..$ sampleName                   : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
 #&gt;   .. ..$ day                          : Factor w/ 2 levels "0","7": 1 1 1 2 2 2
 #&gt;   .. ..$ description                  : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
@@ -193,6 +202,8 @@ experiment).</p>
 #&gt;   .. ..$ totalReads                   : num [1:6] 9.72e+07 1.79e+08 7.68e+07 8.11e+07 7.41e+07 ...
 #&gt;   .. ..$ x5x3Bias                     : num [1:6] 0.88 0.77 0.91 0.45 0.76 0.65
 #&gt;   .. ..$ xGC                          : num [1:6] 46 45 43 40 41 46
+#&gt;   .. ..$ interestingGroups            : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
+#&gt;   .. .. ..- attr(*, "names")= chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
 #&gt;   ..@ metadata       : list()</div><div class='input'>
