@@ -269,14 +269,14 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
 # Extract method ===============================================================
 test_that("extract : DESeq2 transforms", {
     # Transform by default
-    x <- bcb_small[1:100, 1:2]
+    x <- bcb_small[1L:100L, 1L:2L]
     expect_identical(
         names(assays(x)),
         c("counts", "tpm", "length", "normalized", "rlog", "vst")
     )
 
     # Allow the user to skip, using `transform` argument
-    x <- bcb_small[1:100, 1:2, transform = FALSE]
+    x <- bcb_small[1L:100L, 1L:2L, transform = FALSE]
     expect_identical(
         names(assays(x)),
         c("counts", "tpm", "length", "normalized")
