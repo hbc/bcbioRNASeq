@@ -5,8 +5,19 @@ date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
-  design: !r formula("~ treatment")
-  contrast: !r c("treatment", "experimental", "control")
+  design: !r formula("~ condition")
+  contrasts: !r list(
+      contrast_1 = c(
+        factor = "condition",
+        numerator = "treated_1",
+        denominator = "untreated"
+      ),
+      contrast_2 = c(
+        factor = "condition",
+        numerator = "treated_2",
+        denominator = "untreated"
+      )
+    )
   alpha: 0.01
   lfc_threshold: 0
   data_dir: !r file.path("data", Sys.Date())
