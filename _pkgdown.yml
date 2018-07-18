@@ -42,6 +42,7 @@ reference:
     - starts_with("aggregate")
     - counts
     - metrics
+    - sampleData
     - tmm
     - tpm
   - title: Plot Functions
