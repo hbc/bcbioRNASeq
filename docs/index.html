@@ -98,6 +98,16 @@
 <span class="ex">conda</span> config --add channels conda-forge
 <span class="ex">conda</span> config --add channels bioconda
 <span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
+<p>To avoid version issues, your <code>.condarc</code> file should be configured for <a href="https://bioconda.github.io">bioconda</a>, and only contain the following channels, in this order:</p>
+<pre><code>channels:
+  - bioconda
+  - conda-forge
+  - defaults</code></pre>
+<p>We recommend installing into a clean <a href="https://conda.io">conda</a> environment:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> create --name r-bcbiornaseq
+<span class="ex">conda</span> activate r-bcbiornaseq</code></pre></div>
+<p>Note that there is currently a bug with <a href="https://conda.io">conda</a> and <code>libgfortran</code>. You may need to install <code>libgfortran-ng</code> to get the bcbioRNASeq package to load in <a href="https://www.r-project.org">R</a>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install libgfortran-ng</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">
