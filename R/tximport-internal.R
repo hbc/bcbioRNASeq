@@ -1,4 +1,4 @@
-#' Import RNA-Seq Counts
+#' Import Transcript-Level Abundances and Counts
 #'
 #' Import RNA-seq counts using
 #' [tximport](https://doi.org/doi:10.18129/B9.bioc.tximport).
@@ -21,7 +21,7 @@
 #'
 #' @seealso [tximport::tximport()].
 #'
-#' @return `list` containing count matrices.
+#' @return `list`.
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),

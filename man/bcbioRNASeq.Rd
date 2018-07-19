@@ -8,38 +8,53 @@
 \title{\code{bcbioRNASeq} Object and Constructor}
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
-  caller = c("salmon", "kallisto", "sailfish"), organism = NULL,
-  sampleMetadataFile = NULL, samples = NULL, censorSamples = NULL,
-  interestingGroups = "sampleName", ensemblRelease = NULL,
-  genomeBuild = NULL, transgeneNames = NULL, spikeNames = NULL,
-  gffFile = NULL, transformationLimit = 50L, ...)
+  caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
+  organism = NULL, sampleMetadataFile = NULL, samples = NULL,
+  censorSamples = NULL, interestingGroups = "sampleName",
+  ensemblRelease = NULL, genomeBuild = NULL, transgeneNames = NULL,
+  spikeNames = NULL, gffFile = NULL, transform = TRUE, ...)
 }
 \arguments{
-\item{uploadDir}{Path to final upload directory. This path is set when
-running "\code{bcbio_nextgen -w template}".}
+\item{uploadDir}{\code{string}. Path to final upload directory. This path is set
+when running "\code{bcbio_nextgen -w template}".}
 
-\item{level}{Import counts as "\code{genes}" (default) or "\code{transcripts}".}
+\item{level}{\code{string}. Import counts at gene level ("\code{genes}"; \emph{default}) or
+transcript level ("\code{transcripts}"; \emph{advanced use}).}
 
-\item{caller}{Expression caller. Supports "\code{salmon}" (default), "\code{kallisto}",
-or "\code{sailfish}".}
+\item{caller}{\code{string}. Expression caller:
+\itemize{
+\item "\code{salmon}" (\emph{default}): \href{https://combine-lab.github.io/salmon}{Salmon}
+alignment-free, quasi-mapped counts.
+\item "\code{kallisto}". \href{https://pachterlab.github.io/kallisto}{Kallisto}
+alignment-free, pseudo-aligned counts.
+\item "\code{sailfish}". \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish}{Sailfish}
+alignment-free, lightweight counts.
+\item "\code{star}": \href{https://github.com/alexdobin/STAR}{STAR}
+(Spliced Transcripts Alignment to a Reference) aligned counts.
+\item "\code{hisat2}": \href{https://ccb.jhu.edu/software/hisat2}{HISAT2}
+(Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
+aligned counts.
+}}
 
-\item{organism}{Organism name. Use the full Latin name (e.g. "Homo sapiens"),
-since this will be input downstream to AnnotationHub and ensembldb, unless
-\code{gffFile} is set. If left \code{NULL} (\emph{not recommended}), the function call
-will skip loading gene/transcript-level annotations into \code{\link[=rowRanges]{rowRanges()}}.
-This can be useful for poorly annotation genomes or experiments involving
-multiple genomes.}
+\item{organism}{\code{string or NULL}. Organism name. Use the full Latin name
+(e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
+and ensembldb, unless \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}),
+the function call will skip loading gene/transcript-level annotations into
+\code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
+experiments involving multiple genomes.}
 
-\item{sampleMetadataFile}{\emph{Optional.} Custom metadata file containing
-sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left unset.}
+\item{sampleMetadataFile}{\code{string or NULL}. \emph{Optional.} Custom metadata file
+containing sample information. Otherwise defaults to sample metadata saved
+in the YAML file. Remote URLs are supported. Typically this can be left
+unset.}
 
-\item{samples}{\emph{Optional.} Specify a subset of samples to load. The names
-must match the \code{description} specified in the bcbio YAML metadata. If a
-\code{sampleMetadataFile} is provided, that will take priority for sample
-selection. Typically this can be left unset.}
+\item{samples}{\code{character or NULL}. \emph{Optional.} Specify a subset of samples
+to load. The names must match the \code{description} specified in the bcbio YAML
+metadata. If a \code{sampleMetadataFile} is provided, that will take priority
+for sample selection. Typically this can be left unset.}
 
-\item{censorSamples}{\emph{Optional.} Samples to exclude from the analysis.}
+\item{censorSamples}{\code{character or NULL}. \emph{Optional.} Samples to exclude from
+the analysis.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -49,9 +64,9 @@ defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
 
-\item{genomeBuild}{\emph{Optional.} Ensembl genome build name (e.g. "GRCh38").
-This will be passed to AnnotationHub for \code{EnsDb} annotation matching,
-unless \code{gffFile} is set.}
+\item{genomeBuild}{\code{string or NULL}. \emph{Optional.} Ensembl genome build name
+(e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
+annotation matching, unless \code{gffFile} is set.}
 
 \item{transgeneNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows
 denote transgenes (e.g. EGFP, TDTOMATO).}
@@ -59,23 +74,23 @@ denote transgenes (e.g. EGFP, TDTOMATO).}
 \item{spikeNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows denote
 spike-in sequences (e.g. ERCCs).}
 
-\item{gffFile}{\emph{Advanced use; not recommended.} By default, we recommend
-leaving this \code{NULL} for genomes that are supported on Ensembl. In this
-case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically
-from Ensembl by passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease}
-arguments to AnnotationHub and ensembldb. For a genome that is not
-supported on Ensembl and/or AnnotationHub, a GFF/GTF (General Feature
-Format) file is required. Generally, we recommend using a GTF (GFFv2) file
-here over a GFF3 file if possible, although all GFF formats are supported.
-The function will internally generate a \code{TxDb} containing
+\item{gffFile}{\code{string or NULL}. \emph{Advanced use; not recommended.} By default,
+we recommend leaving this \code{NULL} for genomes that are supported on Ensembl.
+In this case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained
+automatically from Ensembl by passing the \code{organism}, \code{genomeBuild}, and
+\code{ensemblRelease} arguments to AnnotationHub and ensembldb. For a genome
+that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
+Feature Format) file is required. Generally, we recommend using a GTF
+(GFFv2) file here over a GFF3 file if possible, although all GFF formats
+are supported. The function will internally generate a \code{TxDb} containing
 transcript-to-gene mappings and construct a \code{GRanges} object containing the
 genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
-\item{transformationLimit}{Maximum sample limit allowed to calculate
-\code{\link[DESeq2:rlog]{DESeq2::rlog()}} and \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-For large datasets, DESeq2 is slow to apply variance stabilization. In this
-case, we recommend loading up the dataset in a high-performance computing
-environment. Use \code{Inf} to always apply and \code{-Inf} to always skip.}
+\item{transform}{\code{boolean}. Calculate DESeq2 variance-stabilizing
+transformations, specifically \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. For large datasets, DESeq2
+is slow to apply variance stabilization. In this case, we recommend loading
+up the dataset in a high-performance computing environment.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }
