@@ -113,15 +113,15 @@ setMethod(
                 "Recalculating DESeq2 variance stabilizations",
                 "(transform = TRUE)"
             ))
+            # vst
+            if ("vst" %in% names(assays)) {
+                message("Applying variance-stabilizing transformation")
+                assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
+            }
             # rlog
             if ("rlog" %in% names(assays)) {
                 message("Applying rlog transformation")
                 assays[["rlog"]] <- assay(rlog(dds))
-            }
-            # vst
-            if ("vst" %in% names(assays)) {
-                message("Applying variance stabilizing transformation")
-                assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays

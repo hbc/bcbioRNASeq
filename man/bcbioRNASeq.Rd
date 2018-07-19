@@ -12,7 +12,7 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   organism = NULL, sampleMetadataFile = NULL, samples = NULL,
   censorSamples = NULL, interestingGroups = "sampleName",
   ensemblRelease = NULL, genomeBuild = NULL, transgeneNames = NULL,
-  spikeNames = NULL, gffFile = NULL, transform = TRUE, ...)
+  spikeNames = NULL, gffFile = NULL, vst = TRUE, rlog = FALSE, ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -86,11 +86,13 @@ are supported. The function will internally generate a \code{TxDb} containing
 transcript-to-gene mappings and construct a \code{GRanges} object containing the
 genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
-\item{transform}{\code{boolean}. Calculate DESeq2 variance-stabilizing
-transformations, specifically \code{\link[DESeq2:rlog]{DESeq2::rlog()}} and
-\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. For large datasets, DESeq2
-is slow to apply variance stabilization. In this case, we recommend loading
-up the dataset in a high-performance computing environment.}
+\item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
+for visualization.}
+
+\item{rlog}{\code{boolean}. Calcualte regularized log transformation using
+\code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
+discouraged by default for visualization.}
 
 \item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
 }

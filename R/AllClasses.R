@@ -129,11 +129,12 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'   are supported. The function will internally generate a `TxDb` containing
 #'   transcript-to-gene mappings and construct a `GRanges` object containing the
 #'   genomic ranges ([rowRanges()]).
-#' @param transform `boolean`. Calculate DESeq2 variance-stabilizing
-#'   transformations, specifically [DESeq2::rlog()] and
-#'   [DESeq2::varianceStabilizingTransformation()]. For large datasets, DESeq2
-#'   is slow to apply variance stabilization. In this case, we recommend loading
-#'   up the dataset in a high-performance computing environment.
+#' @param vst `boolean`. Calculate variance-stabilizing transformation using
+#'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default
+#'   for visualization.
+#' @param rlog `boolean`. Calcualte regularized log transformation using
+#'   [DESeq2::rlog()]. This calculation is slow for large datasets and now
+#'   discouraged by default for visualization.
 #' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @return `bcbioRNASeq`.
@@ -185,7 +186,8 @@ bcbioRNASeq <- function(
     transgeneNames = NULL,
     spikeNames = NULL,
     gffFile = NULL,
-    transform = TRUE,
+    vst = TRUE,
+    rlog = FALSE,
     ...
 ) {
     dots <- list(...)
@@ -212,7 +214,10 @@ bcbioRNASeq <- function(
     }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
-        stop("`transformationLimit` is deprecated in favor of `transform`")
+        stop(paste(
+            "`transformationLimit` is deprecated in favor of",
+            "separate `vst` and `rlog` arguments"
+        ))
     }
     dots <- Filter(Negate(is.null), dots)
     # nocov end
@@ -238,7 +243,8 @@ bcbioRNASeq <- function(
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
-    assert_is_a_bool(transform)
+    assert_is_a_bool(vst)
+    assert_is_a_bool(rlog)
 
     # Directory paths ==========================================================
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
@@ -445,9 +451,6 @@ bcbioRNASeq <- function(
     }
 
     # Gene-level variance stabilization ========================================
-    normalized <- NULL
-    rlog <- NULL
-    vst <- NULL
     if (level == "genes") {
         message(paste(
             "Generating DESeqDataSet with DESeq2",
@@ -473,17 +476,29 @@ bcbioRNASeq <- function(
         if (.dataHasVariation(dds)) {
             # Suppress warning about empty design formula
             dds <- suppressWarnings(DESeq(dds))
-            if (isTRUE(transform)) {
-                message("Applying rlog transformation")
-                rlog <- assay(rlog(dds))
-                message("Applying variance stabilizing transformation")
+            if (isTRUE(vst)) {
+                message("Applying variance-stabilizing transformation")
                 vst <- assay(varianceStabilizingTransformation(dds))
+            } else {
+                vst <- NULL
+            }
+            if (isTRUE(rlog)) {
+                message("Applying regularized log transformation")
+                rlog <- assay(rlog(dds))
+            } else {
+                rlog <- NULL
             }
         } else {
             warning("Data has no variation. Skipping transformations.")
             dds <- estimateSizeFactors(dds)
+            vst <- NULL
+            rlog <- NULL
         }
         normalized <- counts(dds, normalized = TRUE)
+    } else if (level == "transcripts") {
+        normalized <- NULL
+        vst <- NULL
+        rlog <- NULL
     }
 
     # Assays ===================================================================
@@ -492,8 +507,8 @@ bcbioRNASeq <- function(
         tpm = tpm,
         length = length,
         normalized = normalized,
-        rlog = rlog,
-        vst = vst
+        vst = vst,
+        rlog = rlog
     )
 
     # Metadata =================================================================
@@ -623,13 +638,15 @@ setValidity(
             ))
         }
 
+        # v0.2.6: countsFromAbundance is now optional, since we're supporting
+        # featureCounts aligned counts
+
         # Class checks (order independent)
         requiredMetadata <- list(
             allSamples = "logical",
             bcbioCommandsLog = "character",
             bcbioLog = "character",
             caller = "character",
-            countsFromAbundance = "character",
             date = "Date",
             devtoolsSessionInfo = "session_info",
             ensemblRelease = "integer",
