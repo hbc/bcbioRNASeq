@@ -1,3 +1,8 @@
+# TODO Consider using `scales::pretty_breaks()` here to avoid decimals in
+# the y-axis
+
+
+
 #' Plot Gene Detection Saturation
 #'
 #' @name plotGeneSaturation
