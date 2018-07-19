@@ -36,6 +36,20 @@ biocLite("hbc/bcbioRNASeq", ref = "v0.2.4")
 
 ```bash
 conda install -c bioconda r-bcbiornaseq
+
+To avoid version issues, your .condarc file should only contain the following channels, in this order:
+    channels:
+        - bioconda
+        - conda-forge
+        - defaults
+        
+We recommend installing into a clean conda environment:
+    conda create --name bcbiornaseq_env
+    conda activate bcbiornaseq_env
+
+Note that there is currently a bug with conda and libgfortran. You may need to install conda's libgfortran-ng to get the bcbioRNASeq package to load in R:
+    conda install libgfortran-ng
+
 ```
 
 
