@@ -9,22 +9,14 @@
 \usage{
 plotGeneSaturation(object, ...)
 
-\S4method{plotGeneSaturation}{bcbioRNASeq}(object, normalized = c("tpm",
-  "tmm"), interestingGroups, minCounts = 1L, label = FALSE,
-  trendline = FALSE, color = NULL, title = "gene saturation")
+\S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
+  minCounts = 1L, label = FALSE, trendline = FALSE, color = NULL,
+  title = "gene saturation")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
-
-\item{normalized}{Character indicating which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
