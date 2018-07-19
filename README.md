@@ -41,6 +41,28 @@ conda config --add channels bioconda
 conda install -c bioconda r-bcbiornaseq
 ```
 
+To avoid version issues, your `.condarc` file should be configured for [bioconda][], and only contain the following channels, in this order:
+
+```
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+```
+
+We recommend installing into a clean [conda][] environment:
+
+```bash
+conda create --name r-bcbiornaseq
+conda activate r-bcbiornaseq
+```
+
+Note that there is currently a bug with [conda][] and `libgfortran`. You may need to install `libgfortran-ng` to get the bcbioRNASeq package to load in [R][].
+
+```bash
+conda install libgfortran-ng
+```
+
 
 ## Load [bcbio][] run
 
@@ -110,6 +132,7 @@ The papers and software cited in our workflows are available as a [shared librar
 
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
+[bioconda]: https://bioconda.github.io
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
 [DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
