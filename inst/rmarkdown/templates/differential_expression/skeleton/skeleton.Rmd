@@ -7,12 +7,12 @@ params:
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
   design: !r formula("~ condition")
   contrasts: !r list(
-      contrast_1 = c(
+      c(
         factor = "condition",
         numerator = "treated_1",
         denominator = "untreated"
       ),
-      contrast_2 = c(
+      c(
         factor = "condition",
         numerator = "treated_2",
         denominator = "untreated"
