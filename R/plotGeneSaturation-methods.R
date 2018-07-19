@@ -24,7 +24,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = c("tpm", "tmm"),
         interestingGroups,
         minCounts = 1L,
         label = FALSE,
@@ -33,7 +32,6 @@ setMethod(
         title = "gene saturation"
     ) {
         validObject(object)
-        normalized <- match.arg(normalized)
         if (missing(interestingGroups)) {
             interestingGroups <- basejump::interestingGroups(object)
         } else {
@@ -45,7 +43,7 @@ setMethod(
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAStringOrNULL(title)
 
-        counts <- counts(object, normalized = normalized)
+        counts <- counts(object, normalized = FALSE)
         p <- metrics(object) %>%
             mutate(geneCount = colSums(!!counts >= !!minCounts)) %>%
             ggplot(
