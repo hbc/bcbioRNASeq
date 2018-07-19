@@ -6,15 +6,16 @@ bibliography: bibliography.bib
 params:
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
   design: !r formula("~ condition")
+  # Multiple contrasts are supported
   contrasts: !r list(
       c(
         factor = "condition",
-        numerator = "treated_1",
+        numerator = "treated",
         denominator = "untreated"
       ),
       c(
         factor = "condition",
-        numerator = "treated_2",
+        numerator = "treated",
         denominator = "untreated"
       )
     )
@@ -26,7 +27,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-07-18
+# Last modified 2018-07-19
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -58,7 +59,7 @@ invisible(validObject(bcb))
 
 Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
 
-```{r dds, results="hide"}
+```{r coerce}
 # Coerce bcbioRNASeq to DESeqDataSet
 # help("coerce", "bcbioRNASeq")
 # getMethod(
@@ -69,8 +70,18 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 #     )
 # )
 dds <- as(bcb, "DESeqDataSet")
+print(dds)
+```
+
+
+
+# Design
+
+The design formula, specified with the `design()` function, must contain factor columns from `colData()`.
+
+```{r design}
+# colnames(colData(dds))
 design(dds) <- params$design
-dds <- DESeq(dds)
 ```
 
 
@@ -83,48 +94,122 @@ While it is not necessary to pre-filter low count genes before running the DESeq
 # Note that this criteria can be made more stringent
 keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep, ]
+print(dds)
+```
+
+
+
+# Factor reference level
+
+By default, R will choose a reference level for factors based on alphabetical order. Then, if you never tell the DESeq2 functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the DESeq2 analysis, not during or afterward. Setting the factor levels can be done in two ways, either using factor:
+
+```{r relevel_examples, eval=FALSE}
+# EXAMPLE: Don't run this chunk
+
+# Specify the reference level (preferred)
+dds$condition <- relevel(dds$condition, ref = "untreated")
+
+# Alternatively, can explicitly define, using `factor()`
+dds$condition <- factor(dds$condition, levels = c("untreated", "treated"))
+
+# If samples have been subset, ensure factor levels match
+dds$condition <- droplevels(dds$condition)
+```
+
+```{r relevel, eval=TRUE}
+dds$condition <- relevel(dds$condition, ref = "Control")
+print(dds$condition)
+```
+
+
+
+# Differential expression analysis
+
+Now that our `DESeqDataSet` is properly set up, we can move on to performing the differential expression. The standard differential expression analysis steps for [DESeq2][] are wrapped into a single function, `DESeq()`. Results tables are generated using the function `results()`, which extracts a results table with log2 fold changes, *P* values and adjusted *P* values. With no additional arguments to `results()`, the log2 fold change and Wald test *P* value will be for the last variable in the design formula (`design()`), and if this is a factor, the comparison will be the last level of this variable over the reference level (see previous note on factor levels). However, the order of the variables of the design do not matter so long as the user specifies the comparison to build a results table for, using the name or contrast arguments of results.
+
+```{r deseq}
+dds <- DESeq(dds)
+saveData(dds, dir = params$data_dir)
 ```
 
 
 
 # Variance stabilization
 
-Now we're ready to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object.
+After we perform the differential expression, we need to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object. These transformed counts are useful for visualization. We currently recommend using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 
 ```{r variance_stabilization}
 # Alternatively, can use `rlog()` but it is slower
 rld <- varianceStabilizingTransformation(dds)
-saveData(dds, rld, dir = params$data_dir)
+saveData(rld, dir = params$data_dir)
 ```
 
 
 
 # Results
 
-```{r results}
+For contrast argument as character vector:
+
+1. Design matrix factor of interest.
+2. Numerator for LFC (expt).
+3. Denominator for LFC (control).
+
+```{r contrasts}
+# factor; numerator; denominator
+# levels(dds$genotype)
 # help("results", "DESeq2")
-# For contrast argument as character vector:
-#   1. Design matrix factor of interest.
-#   2. Numerator for LFC (expt).
-#   3. Denominator for LFC (control).
-res_unshrunken <- results(
-    object = dds,
-    contrast = params$contrast,
-    alpha = params$alpha
+stopifnot(is.list(params$contrasts))
+contrasts <- params$contrasts
+names <- vapply(
+    X = contrasts,
+    FUN = function(x) {
+        paste(x[[1]], x[[2]], "vs", x[[3]], sep = "_")
+        
+    },
+    FUN.VALUE = "character"
 )
+names(contrasts) <- names
+print(contrasts)
+```
 
-# DESeqResults with shrunken log2 fold changes (LFC)
+```{r res_unshrunken}
+res_list_unshrunken <- mapply(
+    FUN = results,
+    contrast = contrasts,
+    MoreArgs = list(object = dds, alpha = params$alpha),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+)
+names(res_list_unshrunken) <- names
+saveData(res_list_unshrunken, dir = params$data_dir)
+```
+
+Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work well with complex contrast designs.
+
+```{r res_shrunken}
+# For `type` arguments other than "normal", `coef` argument is required.
+# Otherwise can use `contrast`, which is more intuitive and readable.
+# If using `coef` number, must match order in `resultsNames(dds)`.
+# The new apeglm method is great but currently only works with coef.
 # help("lfcShrink", "DESeq2")
-# Use the correct `coef` number to modify from `resultsNames(dds)`
-res_shrunken <- lfcShrink(
-    dds = dds,
-    coef = 2,
-    res = res_unshrunken
+# help("coef", "DESeq2")
+# help("resultsNames", "DESeq2")
+# This step can be a little slow and sped up with the `parallel` argument.
+res_list_shrunken <- mapply(
+    FUN = lfcShrink,
+    res = res_list_unshrunken,
+    contrast = contrasts,
+    MoreArgs = list(dds = dds, type = "normal"),
+    SIMPLIFY = FALSE,
+    USE.NAMES = TRUE
 )
+saveData(res_list_shrunken, dir = params$data_dir)
+```
 
-# Use shrunken LFC values by default
-res <- res_shrunken
-saveData(res, res_shrunken, res_unshrunken, dir = params$data_dir)
+Let's save a copy of the prior information used during the shrinkage procedure.
+
+```{r prior_info}
+lapply(res_list_shrunken, priorInfo)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc_threshold`.
@@ -138,10 +223,12 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r params$alph
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
 
 ```{r plot_ma}
-plotMeanAverage(res)
-
-# Alternate plot
-# DESeq2::plotMA(res)
+mapply(
+    FUN = plotMA,
+    object = res_list_shrunken,
+    MoreArgs = list(lfcThreshold = params$lfc, alpha = 0.01),
+    SIMPLIFY = FALSE
+)
 ```
 
 
@@ -150,7 +237,31 @@ plotMeanAverage(res)
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
-plotVolcano(res, lfcThreshold = params$lfc_threshold)
+mapply(
+    FUN = plotVolcano,
+    object = res_list_shrunken,
+    MoreArgs = list(lfcThreshold = params$lfc),
+    SIMPLIFY = FALSE
+)
+```
+
+
+## PCA
+
+```{r plot_deg_pca}
+# help("pheatmap", "pheatmap")
+mapply(
+    FUN = function(...) {
+        plotDEGPCA(..., label = FALSE) %>% show()
+        plotDEGPCA(..., label = TRUE) %>% show()
+    },
+    results = res_list_shrunken,
+    MoreArgs = list(
+        counts = rld,
+        interestingGroups = "condition"
+    ),
+    SIMPLIFY = FALSE
+)
 ```
 
 
@@ -160,41 +271,44 @@ This plot shows only differentially expressed genes on a per-sample basis. We ha
 
 ```{r plot_deg_heatmap}
 # help("pheatmap", "pheatmap")
-plotDEGHeatmap(
-    results = res,
-    counts = rld,
-    clusteringMethod = "ward.D2",
-    scale = "row"
-)
-```
-
-
-## PCA
-
-```{r plot_deg_pca}
-plotDEGPCA(
-    results = res,
-    counts = rld,
-    label = TRUE
-)
+invisible(mapply(
+    FUN = plotDEGHeatmap,
+    results = res_list_shrunken,
+    MoreArgs = list(
+        counts = rld,
+        interestingGroups = "condition",
+        clusteringMethod = "ward.D2",
+        scale = "row"
+    ),
+    SIMPLIFY = FALSE
+))
 ```
 
 
 
 # Results tables
 
+Subset the results into separate tables, containing all genes, differentially expressed genes in both directions, and directional tables.
+
 ```{r results_tables, results="asis"}
-res_tbl <- resultsTables(
-    results = res,
-    counts = dds,
-    lfcThreshold = params$lfc_threshold,
-    write = TRUE,
-    summary = TRUE,
-    headerLevel = 2,
-    dir = params$results_dir,
-    dropboxDir = params$dropbox_dir
+# Here we're creating subset tables of the DEGs, and adding the normalized
+# counts used by DESeq2 for the differential expression analysis.
+res_tbl_list <- mapply(
+    FUN = resultsTables,
+    results = res_list_shrunken,
+    MoreArgs = list(
+        counts = dds,
+        lfcThreshold = params$lfc,
+        summary = TRUE,
+        headerLevel = 2,
+        write = TRUE,
+        dir = params$results_dir,
+        dropboxDir = params$dropbox_dir
+    ),
+    SIMPLIFY = FALSE,
+    USE.NAMES = TRUE
 )
-saveData(res_tbl, dir = params$data_dir)
+saveData(res_tbl_list, dir = params$data_dir)
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
@@ -212,7 +326,11 @@ Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, an
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
 ```{r top_tables, results="asis"}
-topTables(res_tbl)
+invisible(mapply(
+    FUN = topTables,
+    object = res_tbl_list,
+    MoreArgs = list(n = 20L, coding = FALSE)
+))
 ```
 
 
