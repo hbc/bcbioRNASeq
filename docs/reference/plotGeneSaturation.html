@@ -113,9 +113,9 @@
     <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"tpm"</span>,
-  <span class='st'>"tmm"</span>), <span class='no'>interestingGroups</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"gene saturation"</span>)</pre>
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"gene saturation"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -127,15 +127,6 @@
     <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
