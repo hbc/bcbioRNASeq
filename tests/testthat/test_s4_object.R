@@ -237,17 +237,28 @@ test_that("bcbioRNASeq : organism = NULL", {
     )
 })
 
-test_that("bcbioRNASeq : transformationLimit", {
+test_that("bcbioRNASeq : DESeq2 variance stabilization", {
     x <- suppressWarnings(
         bcbioRNASeq(
             uploadDir = uploadDir,
-            organism = "Mus musculus",
-            transformationLimit = -Inf
+            vst = FALSE,
+            rlog = FALSE
         )
     )
     expect_identical(
         names(assays(x)),
         c("counts", "tpm", "length", "normalized")
+    )
+    x <- suppressWarnings(
+        bcbioRNASeq(
+            uploadDir = uploadDir,
+            vst = TRUE,
+            rlog = TRUE
+        )
+    )
+    expect_identical(
+        names(assays(x)),
+        c("counts", "tpm", "length", "normalized", "vst", "rlog")
     )
 })
 
