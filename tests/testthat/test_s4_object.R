@@ -57,7 +57,7 @@ test_that("bcbioRNASeq : GTF file", {
 
 
 
-# bcbioRNASeq Object ===========================================================
+# bcbioRNASeq Object Structure =================================================
 test_that("Slots", {
     expect_identical(
         slotNames(bcb),
