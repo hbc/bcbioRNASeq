@@ -95,32 +95,32 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'   - "`hisat2`": [HISAT2](https://ccb.jhu.edu/software/hisat2)
 #'     (Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
 #'     aligned counts.
-#' @param organism `string or NULL`. Organism name. Use the full Latin name
+#' @param organism `string` or `NULL`. Organism name. Use the full Latin name
 #'   (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
 #'   and ensembldb, unless `gffFile` is set. If left `NULL` (*not recommended*),
 #'   the function call will skip loading gene/transcript-level annotations into
 #'   [rowRanges()]. This can be useful for poorly annotation genomes or
 #'   experiments involving multiple genomes.
-#' @param samples `character or NULL`. *Optional.* Specify a subset of samples
+#' @param samples `character` or `NULL`. *Optional.* Specify a subset of samples
 #'   to load. The names must match the `description` specified in the bcbio YAML
 #'   metadata. If a `sampleMetadataFile` is provided, that will take priority
 #'   for sample selection. Typically this can be left unset.
-#' @param censorSamples `character or NULL`. *Optional.* Samples to exclude from
-#'   the analysis.
-#' @param sampleMetadataFile `string or NULL`. *Optional.* Custom metadata file
-#'   containing sample information. Otherwise defaults to sample metadata saved
-#'   in the YAML file. Remote URLs are supported. Typically this can be left
-#'   unset.
-#' @param genomeBuild `string or NULL`. *Optional.* Ensembl genome build name
+#' @param censorSamples `character` or `NULL`. *Optional.* Samples to exclude
+#'   from the analysis.
+#' @param sampleMetadataFile `string` or `NULL`. *Optional.* Custom metadata
+#'   file containing sample information. Otherwise defaults to sample metadata
+#'   saved in the YAML file. Remote URLs are supported. Typically this can be
+#'   left unset.
+#' @param genomeBuild `string` or `NULL`. *Optional.* Ensembl genome build name
 #'   (e.g. "GRCh38"). This will be passed to AnnotationHub for `EnsDb`
 #'   annotation matching, unless `gffFile` is set.
 #' @param ensemblRelease *Optional.* Ensembl release version. If unset,
 #'   defaults to current release, and does not typically need to be
 #'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
-#' @param gffFile `string or NULL`. *Advanced use; not recommended.* By default,
-#'   we recommend leaving this `NULL` for genomes that are supported on Ensembl.
-#'   In this case, the row annotations ([rowRanges()]) will be obtained
+#' @param gffFile `string` or `NULL`. *Advanced use; not recommended.* By
+#'   default, we recommend leaving this `NULL` for genomes that are supported on
+#'   Ensembl. In this case, the row annotations ([rowRanges()]) will be obtained
 #'   automatically from Ensembl by passing the `organism`, `genomeBuild`, and
 #'   `ensemblRelease` arguments to AnnotationHub and ensembldb. For a genome
 #'   that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
@@ -292,6 +292,7 @@ bcbioRNASeq <- function(
 
     # Sequencing lanes =========================================================
     if (any(grepl(x = sampleDirs, pattern = bcbioBase::lanePattern))) {
+        # nocov start
         lanes <- str_match(names(sampleDirs), bcbioBase::lanePattern) %>%
             .[, 2L] %>%
             unique() %>%
@@ -299,6 +300,7 @@ bcbioRNASeq <- function(
         message(paste(
             lanes, "sequencing lane detected", "(technical replicates)"
         ))
+        # nocov end
     } else {
         lanes <- 1L
     }
@@ -365,18 +367,8 @@ bcbioRNASeq <- function(
 
     # Transcript-to-gene mappings ==============================================
     tx2geneFile <- file.path(projectDir, "tx2gene.csv")
-    if (file.exists(tx2geneFile)) {
-        # CSV file always takes priority
-        tx2gene <- readTx2gene(tx2geneFile)
-    } else if (is_a_string(gffFile)) {
-        # Fall back to using GFF, if declared
-        tx2gene <- makeTx2geneFromGFF(gffFile)
-    } else {
-        stop(paste(
-            "`tx2gene.csv` file is missing.",
-            "GFF file are required with `gffFile` argument."
-        ))
-    }
+    assert_all_are_existing_files(tx2geneFile)
+    tx2gene <- readTx2gene(tx2geneFile)
 
     # Read counts ==============================================================
     # Use tximport by default for transcript-aware callers.

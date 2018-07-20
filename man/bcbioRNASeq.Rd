@@ -36,25 +36,25 @@ alignment-free, lightweight counts.
 aligned counts.
 }}
 
-\item{organism}{\code{string or NULL}. Organism name. Use the full Latin name
+\item{organism}{\code{string} or \code{NULL}. Organism name. Use the full Latin name
 (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
 and ensembldb, unless \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}),
 the function call will skip loading gene/transcript-level annotations into
 \code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
 experiments involving multiple genomes.}
 
-\item{sampleMetadataFile}{\code{string or NULL}. \emph{Optional.} Custom metadata file
-containing sample information. Otherwise defaults to sample metadata saved
-in the YAML file. Remote URLs are supported. Typically this can be left
-unset.}
+\item{sampleMetadataFile}{\code{string} or \code{NULL}. \emph{Optional.} Custom metadata
+file containing sample information. Otherwise defaults to sample metadata
+saved in the YAML file. Remote URLs are supported. Typically this can be
+left unset.}
 
-\item{samples}{\code{character or NULL}. \emph{Optional.} Specify a subset of samples
+\item{samples}{\code{character} or \code{NULL}. \emph{Optional.} Specify a subset of samples
 to load. The names must match the \code{description} specified in the bcbio YAML
 metadata. If a \code{sampleMetadataFile} is provided, that will take priority
 for sample selection. Typically this can be left unset.}
 
-\item{censorSamples}{\code{character or NULL}. \emph{Optional.} Samples to exclude from
-the analysis.}
+\item{censorSamples}{\code{character} or \code{NULL}. \emph{Optional.} Samples to exclude
+from the analysis.}
 
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -64,7 +64,7 @@ defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
 
-\item{genomeBuild}{\code{string or NULL}. \emph{Optional.} Ensembl genome build name
+\item{genomeBuild}{\code{string} or \code{NULL}. \emph{Optional.} Ensembl genome build name
 (e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
 annotation matching, unless \code{gffFile} is set.}
 
@@ -74,9 +74,9 @@ denote transgenes (e.g. EGFP, TDTOMATO).}
 \item{spikeNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows denote
 spike-in sequences (e.g. ERCCs).}
 
-\item{gffFile}{\code{string or NULL}. \emph{Advanced use; not recommended.} By default,
-we recommend leaving this \code{NULL} for genomes that are supported on Ensembl.
-In this case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained
+\item{gffFile}{\code{string} or \code{NULL}. \emph{Advanced use; not recommended.} By
+default, we recommend leaving this \code{NULL} for genomes that are supported on
+Ensembl. In this case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained
 automatically from Ensembl by passing the \code{organism}, \code{genomeBuild}, and
 \code{ensemblRelease} arguments to AnnotationHub and ensembldb. For a genome
 that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
