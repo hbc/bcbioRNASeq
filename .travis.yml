@@ -4,12 +4,18 @@
 language: r
 cache: packages
 
+r:
+  - bioc-release
+  - bioc-devel
+
 os:
   - linux
   - osx
 
-r:
-  - bioc-release
+matrix:
+  exclude:
+  - os: osx
+    r: bioc-devel
 
 # blocklist
 branches:
