@@ -10,8 +10,8 @@
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
   interestingGroups = "sampleName", samples = NULL, censorSamples = NULL,
-  sampleMetadataFile = NULL, organism = NULL, ensemblRelease = NULL,
-  genomeBuild = NULL, gffFile = NULL, transgeneNames = NULL,
+  sampleMetadataFile = NULL, organism = NULL, genomeBuild = NULL,
+  ensemblRelease = NULL, gffFile = NULL, transgeneNames = NULL,
   spikeNames = NULL, vst = TRUE, rlog = FALSE, ...)
 }
 \arguments{
@@ -59,14 +59,14 @@ the function call will skip loading gene/transcript-level annotations into
 \code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
 experiments involving multiple genomes.}
 
+\item{genomeBuild}{\code{string} or \code{NULL}. \emph{Optional.} Ensembl genome build name
+(e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
+annotation matching, unless \code{gffFile} is set.}
+
 \item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
-
-\item{genomeBuild}{\code{string} or \code{NULL}. \emph{Optional.} Ensembl genome build name
-(e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
-annotation matching, unless \code{gffFile} is set.}
 
 \item{gffFile}{\code{string} or \code{NULL}. \emph{Advanced use; not recommended.} By
 default, we recommend leaving this \code{NULL} for genomes that are supported on
