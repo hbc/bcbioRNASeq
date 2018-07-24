@@ -1,3 +1,9 @@
+# TODO Inform the user about loading counts at gene or transcript level
+# TODO Reduce the message spam about project-summary.yaml in the load call
+# TODO Inform the user that we're using featureCounts for STAR, HISAT2
+
+
+
 # Class Definitions ============================================================
 #' @rdname bcbioRNASeq
 #' @aliases NULL
@@ -148,11 +154,11 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
-#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+#' upload_dir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
 #' x <- bcbioRNASeq(
-#'     uploadDir = uploadDir,
+#'     uploadDir = upload_dir,
 #'     level = "genes",
 #'     caller = "salmon",
 #'     organism = "Mus musculus",
@@ -164,7 +170,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'
 #' # Transcript level
 #' x <- bcbioRNASeq(
-#'     uploadDir = uploadDir,
+#'     uploadDir = upload_dir,
 #'     level = "transcripts",
 #'     caller = "salmon",
 #'     organism = "Mus musculus",

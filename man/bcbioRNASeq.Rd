@@ -160,11 +160,11 @@ as a remote connection over
 }
 
 \examples{
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+upload_dir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
 x <- bcbioRNASeq(
-    uploadDir = uploadDir,
+    uploadDir = upload_dir,
     level = "genes",
     caller = "salmon",
     organism = "Mus musculus",
@@ -176,7 +176,7 @@ validObject(x)
 
 # Transcript level
 x <- bcbioRNASeq(
-    uploadDir = uploadDir,
+    uploadDir = upload_dir,
     level = "transcripts",
     caller = "salmon",
     organism = "Mus musculus",
