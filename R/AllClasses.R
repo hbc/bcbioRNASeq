@@ -342,11 +342,11 @@ bcbioRNASeq <- function(
     # Sample metrics. Note that sample metrics used for QC plots are not
     # currently generated when using fast RNA-seq workflow. This depends upon
     # MultiQC and aligned counts generated with STAR.
-    message("Reading sample metrics")
     metrics <- readYAMLSampleMetrics(yamlFile)
     if (length(metrics)) {
         assert_is_data.frame(metrics)
         assert_are_disjoint_sets(colnames(colData), colnames(metrics))
+        metrics <- metrics[rownames(colData), , drop = FALSE]
         colData <- cbind(colData, metrics)
     } else {
         message("Fast mode detected. No metrics were calculated.")
