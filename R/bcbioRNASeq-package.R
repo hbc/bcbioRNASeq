@@ -43,7 +43,7 @@
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
-#' @importFrom BiocGenerics colSums density design
+#' @importFrom BiocGenerics cbind colSums density design
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
