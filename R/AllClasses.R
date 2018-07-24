@@ -95,12 +95,6 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'   - "`hisat2`": [HISAT2](https://ccb.jhu.edu/software/hisat2)
 #'     (Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
 #'     aligned counts.
-#' @param organism `string` or `NULL`. Organism name. Use the full Latin name
-#'   (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
-#'   and ensembldb, unless `gffFile` is set. If left `NULL` (*not recommended*),
-#'   the function call will skip loading gene/transcript-level annotations into
-#'   [rowRanges()]. This can be useful for poorly annotation genomes or
-#'   experiments involving multiple genomes.
 #' @param samples `character` or `NULL`. *Optional.* Specify a subset of samples
 #'   to load. The names must match the `description` specified in the bcbio YAML
 #'   metadata. If a `sampleMetadataFile` is provided, that will take priority
@@ -111,6 +105,12 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'   file containing sample information. Otherwise defaults to sample metadata
 #'   saved in the YAML file. Remote URLs are supported. Typically this can be
 #'   left unset.
+#' @param organism `string` or `NULL`. Organism name. Use the full Latin name
+#'   (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
+#'   and ensembldb, unless `gffFile` is set. If left `NULL` (*not recommended*),
+#'   the function call will skip loading gene/transcript-level annotations into
+#'   [rowRanges()]. This can be useful for poorly annotation genomes or
+#'   experiments involving multiple genomes.
 #' @param genomeBuild `string` or `NULL`. *Optional.* Ensembl genome build name
 #'   (e.g. "GRCh38"). This will be passed to AnnotationHub for `EnsDb`
 #'   annotation matching, unless `gffFile` is set.
@@ -176,16 +176,16 @@ bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-    organism = NULL,
-    sampleMetadataFile = NULL,
+    interestingGroups = "sampleName",
     samples = NULL,
     censorSamples = NULL,
-    interestingGroups = "sampleName",
+    sampleMetadataFile = NULL,
+    organism = NULL,
     ensemblRelease = NULL,
     genomeBuild = NULL,
+    gffFile = NULL,
     transgeneNames = NULL,
     spikeNames = NULL,
-    gffFile = NULL,
     vst = TRUE,
     rlog = FALSE,
     ...

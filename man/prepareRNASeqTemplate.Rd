@@ -7,10 +7,10 @@
 prepareRNASeqTemplate(overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{\code{logical}. Should existing destination files be overwritten?}
+\item{overwrite}{\code{boolean}. Should existing destination files be overwritten?}
 }
 \value{
-Invisible \code{logical} vector indicating which files were copied.
+Invisible \code{logical} indicating which files were copied.
 }
 \description{
 Prepare RNA-Seq R Markdown Template

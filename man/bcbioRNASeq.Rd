@@ -9,10 +9,10 @@
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-  organism = NULL, sampleMetadataFile = NULL, samples = NULL,
-  censorSamples = NULL, interestingGroups = "sampleName",
-  ensemblRelease = NULL, genomeBuild = NULL, transgeneNames = NULL,
-  spikeNames = NULL, gffFile = NULL, vst = TRUE, rlog = FALSE, ...)
+  interestingGroups = "sampleName", samples = NULL, censorSamples = NULL,
+  sampleMetadataFile = NULL, organism = NULL, ensemblRelease = NULL,
+  genomeBuild = NULL, gffFile = NULL, transgeneNames = NULL,
+  spikeNames = NULL, vst = TRUE, rlog = FALSE, ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -36,17 +36,8 @@ alignment-free, lightweight counts.
 aligned counts.
 }}
 
-\item{organism}{\code{string} or \code{NULL}. Organism name. Use the full Latin name
-(e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
-and ensembldb, unless \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}),
-the function call will skip loading gene/transcript-level annotations into
-\code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
-experiments involving multiple genomes.}
-
-\item{sampleMetadataFile}{\code{string} or \code{NULL}. \emph{Optional.} Custom metadata
-file containing sample information. Otherwise defaults to sample metadata
-saved in the YAML file. Remote URLs are supported. Typically this can be
-left unset.}
+\item{interestingGroups}{Character vector denoting groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{samples}{\code{character} or \code{NULL}. \emph{Optional.} Specify a subset of samples
 to load. The names must match the \code{description} specified in the bcbio YAML
@@ -56,8 +47,17 @@ for sample selection. Typically this can be left unset.}
 \item{censorSamples}{\code{character} or \code{NULL}. \emph{Optional.} Samples to exclude
 from the analysis.}
 
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{sampleMetadataFile}{\code{string} or \code{NULL}. \emph{Optional.} Custom metadata
+file containing sample information. Otherwise defaults to sample metadata
+saved in the YAML file. Remote URLs are supported. Typically this can be
+left unset.}
+
+\item{organism}{\code{string} or \code{NULL}. Organism name. Use the full Latin name
+(e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
+and ensembldb, unless \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}),
+the function call will skip loading gene/transcript-level annotations into
+\code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
+experiments involving multiple genomes.}
 
 \item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
 defaults to current release, and does not typically need to be
@@ -67,12 +67,6 @@ unless \code{gffFile} is set.}
 \item{genomeBuild}{\code{string} or \code{NULL}. \emph{Optional.} Ensembl genome build name
 (e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
 annotation matching, unless \code{gffFile} is set.}
-
-\item{transgeneNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows
-denote transgenes (e.g. EGFP, TDTOMATO).}
-
-\item{spikeNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows denote
-spike-in sequences (e.g. ERCCs).}
 
 \item{gffFile}{\code{string} or \code{NULL}. \emph{Advanced use; not recommended.} By
 default, we recommend leaving this \code{NULL} for genomes that are supported on
@@ -85,6 +79,12 @@ Feature Format) file is required. Generally, we recommend using a GTF
 are supported. The function will internally generate a \code{TxDb} containing
 transcript-to-gene mappings and construct a \code{GRanges} object containing the
 genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
+
+\item{transgeneNames}{\code{character} or \code{NULL}. Vector indicating which
+\code{\link[=assay]{assay()}} rows denote transgenes (e.g. EGFP, TDTOMATO).}
+
+\item{spikeNames}{\code{character} or \code{NULL}. Vector indicating which \code{\link[=assay]{assay()}}
+rows denote spike-in sequences (e.g. ERCCs).}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
