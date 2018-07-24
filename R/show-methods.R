@@ -21,24 +21,34 @@ setMethod(
     function(object) {
         validObject(object)
 
+        # Extend the RangedSummarizedExperiment show method
+        rse <- as(object, "RangedSummarizedExperiment")
+        return <- capture.output(show(rse))
+
+        return[[1L]] <- paste(
+            "class:",
+            class(object),
+            metadata(object)[["version"]]
+        )
+
         return <- c(
-            paste(class(object), metadata(object)[["version"]]),
-            paste("Samples:", ncol(object)),
-            paste0(
-                sub(
-                    pattern = "^([a-z])",
-                    replacement = "\\U\\1",
-                    x = metadata(object)[["level"]],
-                    perl = TRUE
-                ),
-                ": ",
-                nrow(object)
-            ),
-            paste("Assays:", toString(names(assays(object)))),
+            return,
+            bcbioBase::separatorBar,
+            paste("Level:", metadata(object)[["level"]]),
+            paste("Caller:", metadata(object)[["caller"]]),
             paste("Organism:", metadata(object)[["organism"]])
         )
 
-        # rowRanges
+        # sampleMetadataFile
+        sampleMetadataFile <- metadata(object)[["sampleMetadataFile"]]
+        if (length(sampleMetadataFile)) {
+            return <- c(
+                return,
+                paste("Metadata File:", sampleMetadataFile)
+            )
+        }
+
+        # Gene annotations
         m <- metadata(object)[["rowRangesMetadata"]]
         if (is.data.frame(m) && length(m)) {
             return <- c(
@@ -58,11 +68,21 @@ setMethod(
             )
         }
 
+        # GFF File
+        gffFile <- metadata(object)[["gffFile"]]
+        if (length(gffFile)) {
+            return <- c(
+                return,
+                paste("GFF File:", gffFile)
+            )
+        }
+
         return <- c(
             return,
             paste("Upload Dir:", metadata(object)[["uploadDir"]]),
             paste("Upload Date:", metadata(object)[["runDate"]]),
-            paste("R Load Date:", metadata(object)[["date"]])
+            paste("R Load Date:", metadata(object)[["date"]]),
+            paste("Installed Version:", packageVersion("bcbioRNASeq"))
         )
 
         cat(return, sep = "\n")
