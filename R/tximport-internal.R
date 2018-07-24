@@ -65,7 +65,10 @@
     names(files) <- names(sampleDirs)
 
     # Begin loading of selected counts
-    message(paste("Reading", type, "counts using tximport"))
+    message(paste(
+        "Reading", type, "counts using tximport",
+        packageVersion("tximport")
+    ))
 
     # Ensure transcript IDs are stripped from tx2gene, if desired
     if (isTRUE(ignoreTxVersion)) {
