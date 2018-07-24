@@ -34,6 +34,9 @@ setMethod(
         return <- c(
             return,
             bcbioBase::separatorBar,
+            paste("Upload Dir:", metadata(object)[["uploadDir"]]),
+            paste("Upload Date:", metadata(object)[["runDate"]]),
+            paste("R Load Date:", metadata(object)[["date"]]),
             paste("Level:", metadata(object)[["level"]]),
             paste("Caller:", metadata(object)[["caller"]]),
             paste("Organism:", metadata(object)[["organism"]])
@@ -79,9 +82,6 @@ setMethod(
 
         return <- c(
             return,
-            paste("Upload Dir:", metadata(object)[["uploadDir"]]),
-            paste("Upload Date:", metadata(object)[["runDate"]]),
-            paste("R Load Date:", metadata(object)[["date"]]),
             paste("Installed Version:", packageVersion("bcbioRNASeq"))
         )
 
