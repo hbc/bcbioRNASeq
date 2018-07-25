@@ -17,9 +17,9 @@ method to apply:
 \item \code{FALSE}: Raw counts (tximport).
 \item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
 \item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rle}": Relative log expression transformation.
 }}
 }
@@ -36,12 +36,10 @@ argument.
 counts(bcb_small, normalized = FALSE) \%>\% summary()
 counts(bcb_small, normalized = TRUE) \%>\% summary()
 counts(bcb_small, normalized = "tpm") \%>\% summary()
+counts(bcb_small, normalized = "vst") \%>\% summary()
+counts(bcb_small, normalized = "rlog") \%>\% summary()
 counts(bcb_small, normalized = "tmm") \%>\% summary()
 counts(bcb_small, normalized = "rle") \%>\% summary()
-
-# log2 scale
-counts(bcb_small, normalized = "rlog") \%>\% summary()
-counts(bcb_small, normalized = "vst") \%>\% summary()
 }
 \seealso{
 \itemize{

@@ -17,9 +17,9 @@
 #'   - `FALSE`: Raw counts (tximport).
 #'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
 #'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
+#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'   - "`rle`": Relative log expression transformation.
 #'
 #' @return `matrix`.
@@ -36,12 +36,10 @@
 #' counts(bcb_small, normalized = FALSE) %>% summary()
 #' counts(bcb_small, normalized = TRUE) %>% summary()
 #' counts(bcb_small, normalized = "tpm") %>% summary()
+#' counts(bcb_small, normalized = "vst") %>% summary()
+#' counts(bcb_small, normalized = "rlog") %>% summary()
 #' counts(bcb_small, normalized = "tmm") %>% summary()
 #' counts(bcb_small, normalized = "rle") %>% summary()
-#'
-#' # log2 scale
-#' counts(bcb_small, normalized = "rlog") %>% summary()
-#' counts(bcb_small, normalized = "vst") %>% summary()
 NULL
 
 
@@ -66,7 +64,7 @@ setMethod(
             assert_is_a_string(normalized)
             assert_is_subset(
                 x = normalized,
-                y = c("raw", "tpm", "rlog", "vst", "tmm", "rle")
+                y = c("tpm", "vst", "rlog", "tmm", "rle")
             )
             if (normalized == "tmm") {
                 # Calculate TMM on the fly
