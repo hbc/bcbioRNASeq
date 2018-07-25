@@ -45,6 +45,10 @@ setAs(
         if (metadata(from)[["level"]] != "genes") {
             stop("Gene-level counts are required")
         }
+        message(paste(
+            "Generating DESeqDataSet with DESeq2",
+            packageVersion("DESeq2")
+        ))
         # Creating `DESeqDataSet` from `RangedSummarizedExperiment` is
         # preferable to `DESeqDataSetFromTximport` method because `rowRanges`
         # are defined, with richer metadata
