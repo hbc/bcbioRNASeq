@@ -46,7 +46,7 @@ setAs(
             stop("Gene-level counts are required")
         }
         message(paste(
-            "Generating DESeqDataSet with DESeq2",
+            "Coercing bcbioRNASeq to DESeqDataSet with DESeq2",
             packageVersion("DESeq2")
         ))
         # Creating `DESeqDataSet` from `RangedSummarizedExperiment` is
