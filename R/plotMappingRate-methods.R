@@ -1,5 +1,9 @@
 #' Plot Mapping Rate
 #'
+#' The genomic mapping rate represents the percentage of reads mapping to the
+#' reference genome. Low mapping rates are indicative of sample contamination,
+#' poor sequencing quality or other artifacts.
+#'
 #' @name plotMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

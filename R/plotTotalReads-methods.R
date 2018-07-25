@@ -1,5 +1,8 @@
 #' Plot Total Reads
 #'
+#' High quality RNA-seq samples ideally should have at least 10 million reads
+#' per sample.
+#'
 #' @name plotTotalReads
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

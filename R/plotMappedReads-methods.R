@@ -1,5 +1,7 @@
 #' Plot Mapped Reads
 #'
+#' The number of mapped reads should correspond to the number of total reads.
+#'
 #' @name plotMappedReads
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
@@ -7,6 +9,8 @@
 #' @inheritParams general
 #'
 #' @return `ggplot`.
+#'
+#' @seealso [plotMappingRate()].
 #'
 #' @examples
 #' plotMappedReads(bcb_small)
