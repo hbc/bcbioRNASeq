@@ -34,12 +34,14 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Mapped Reads
+The number of mapped reads should correspond to the number of total reads.
 }
 \examples{
 plotMappedReads(bcb_small)
 }
 \seealso{
+\code{\link[=plotMappingRate]{plotMappingRate()}}.
+
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountDensity}},

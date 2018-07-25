@@ -34,7 +34,9 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Mapping Rate
+The genomic mapping rate represents the percentage of reads mapping to the
+reference genome. Low mapping rates are indicative of sample contamination,
+poor sequencing quality or other artifacts.
 }
 \examples{
 plotMappingRate(bcb_small)

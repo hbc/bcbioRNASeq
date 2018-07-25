@@ -77,6 +77,8 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 ## Total reads
 
+High quality RNA-seq samples ideally should have at least 10 million reads per sample.
+
 ```{r plot_total_reads}
 # getMethod("plotTotalReads", "bcbioRNASeq")
 plotTotalReads(bcb)
@@ -176,11 +178,13 @@ plot5Prime3PrimeBias(bcb)
 
 ## Counts per gene
 
-Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different. The log10 TMM-normalized counts per gene normalization method [@Robinson:2010dd] equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the log10 TMM-normalized counts per gene to be similar for every sample.
+Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different.
+
+We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson:2010dd]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
 # getMethod("plotCountsPerGene", "bcbioRNASeq")
-plotCountsPerGene(bcb)
+plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
 
@@ -292,7 +296,7 @@ plotDispEsts(bcb)
 
 ## Variance stabilization
 
-The plots below show the standard deviation of normalized counts (`normalized_counts`) using `log2()`, `rlog()`, and variance stabilizing (`vst()`) transformations by `rank(mean)`. The transformations greatly reduce the standard deviation, with `rlog()` stabilizing the variance best across the mean.
+These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
 ```{r plot_mean_sd}
 # getMethod("plotMeanSD", "bcbioRNASeq")

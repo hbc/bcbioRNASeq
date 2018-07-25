@@ -46,7 +46,8 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Count Density
+Generally, we expect similar count spreads for all genes between samples
+unless the total expressed RNA per sample is different.
 }
 \examples{
 # bcbioRNASeq ====

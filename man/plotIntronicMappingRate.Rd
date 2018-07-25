@@ -36,7 +36,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Intronic Mapping Rate
+The majority of reads should map to exons and not introns.
 }
 \examples{
 plotIntronicMappingRate(bcb_small)

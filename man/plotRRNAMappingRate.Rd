@@ -34,7 +34,11 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Ribosomal RNA (rRNA) Mapping Rate
+Clean, high-quality samples should have an rRNA mapping rate below 10%.
+Higher rates are likely indicative of the polyA enrichment or ribo depletion
+protocol not having removed all ribosomal RNA (rRNA) transcripts. This will
+reduce the number of biologically meaningful reads in the experiment and is
+best avoided.
 }
 \examples{
 plotRRNAMappingRate(bcb_small)

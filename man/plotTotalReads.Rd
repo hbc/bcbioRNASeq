@@ -34,7 +34,8 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Total Reads
+High quality RNA-seq samples ideally should have at least 10 million reads
+per sample.
 }
 \examples{
 plotTotalReads(bcb_small)

@@ -17,10 +17,12 @@
 \code{ggplot}.
 }
 \description{
-Method support for plotting the dispersion of counts stored in a
-\code{bcbioRNASeq} object. Here we're generating a \code{DESeqDataSet} object on the
-fly, which already has method support for plotting dispersion, provided by
-the DESeq2 package.
+This plot shows the dispersion by mean of normalized counts. We expect the
+dispersion to decrease as the mean of normalized counts increases.
+}
+\note{
+Here we're generating a \code{DESeqDataSet} object on the fly, which already
+has method support for plotting dispersion, provided by the DESeq2 package.
 }
 \examples{
 # bcbioRNASeq ====

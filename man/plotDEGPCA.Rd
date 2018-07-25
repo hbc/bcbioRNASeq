@@ -61,6 +61,14 @@ the first item in the vector by default.}
 \description{
 Plot DEG PCA
 }
+\details{
+PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
+summarize the systematic patterns of variations in the data. PCA takes the
+expression levels for genes and transforms it in principal component space,
+reducing each sample into one point. Thereby, we can separate samples by
+expression variation, and identify potential sample outliers. The PCA plot is
+a way to look at how samples are clustering.
+}
 \examples{
 # DESeqResults, SummarizedExperiment ====
 plotDEGPCA(

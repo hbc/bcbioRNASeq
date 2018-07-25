@@ -35,7 +35,7 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Exonic Mapping Rate
+Ideally, at least 60% of total reads should map to exons.
 }
 \examples{
 plotExonicMappingRate(bcb_small)

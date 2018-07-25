@@ -1,5 +1,8 @@
 #' Plot Count Density
 #'
+#' Generally, we expect similar count spreads for all genes between samples
+#' unless the total expressed RNA per sample is different.
+#'
 #' @name plotCountDensity
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera

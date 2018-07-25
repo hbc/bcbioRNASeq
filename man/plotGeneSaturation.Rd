@@ -38,7 +38,9 @@ color definitions are desired, we recommend using
 \code{ggplot}.
 }
 \description{
-Plot Gene Detection Saturation
+We should observe a linear trend in the number of genes detected with the
+number of mapped reads, which indicates that the sample input was not
+overloaded.
 }
 \examples{
 plotGeneSaturation(bcb_small, label = FALSE)

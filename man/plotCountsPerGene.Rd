@@ -41,8 +41,19 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 \code{ggplot}.
 }
 \description{
-Plot Counts Per Gene
+Generally, we expect similar count spreads for all genes between samples
+unless the library sizes or total RNA expression are different.
 }
+\section{TMM}{
+
+We recommend visualizing counts normalized with the Trimmed Mean of M-Values
+(TMM) method here (Robinson, et al., 2010). TMM normalization equates the
+overall expression levels of genes between samples under the assumption that
+the majority of them are not differentially expressed. Therefore, by
+normalizing for total RNA expression by sample, we expect the spread of the
+TMM-normalized counts per gene to be similar for every sample.
+}
+
 \examples{
 plotCountsPerGene(bcb_small)
 }

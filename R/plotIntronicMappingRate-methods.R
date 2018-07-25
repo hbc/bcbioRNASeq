@@ -1,5 +1,7 @@
 #' Plot Intronic Mapping Rate
 #'
+#' The majority of reads should map to exons and not introns.
+#'
 #' @name plotIntronicMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
