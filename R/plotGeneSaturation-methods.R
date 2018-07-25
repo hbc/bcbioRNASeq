@@ -1,9 +1,8 @@
-# TODO Consider using `scales::pretty_breaks()` here to avoid decimals in
-# the y-axis
-
-
-
 #' Plot Gene Detection Saturation
+#'
+#' We should observe a linear trend in the number of genes detected with the
+#' number of mapped reads, which indicates that the sample input was not
+#' overloaded.
 #'
 #' @name plotGeneSaturation
 #' @family Quality Control Functions
@@ -59,6 +58,7 @@ setMethod(
                 )
             ) +
             geom_point(size = 3L) +
+            scale_y_continuous(breaks = pretty_breaks()) +
             labs(
                 title = title,
                 x = "mapped reads per million",
