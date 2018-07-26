@@ -21,18 +21,12 @@ setMethod(
     function(object) {
         validObject(object)
 
-        # Extend the RangedSummarizedExperiment show method
+        # Extend the RangedSummarizedExperiment method
         rse <- as(object, "RangedSummarizedExperiment")
-        return <- capture.output(show(rse))
-
-        return[[1L]] <- paste(
-            "class:",
-            class(object),
-            metadata(object)[["version"]]
-        )
 
         return <- c(
-            return,
+            paste(class(object), metadata(object)[["version"]]),
+            capture.output(show(rse)),
             bcbioBase::separatorBar,
             paste(
                 "Upload Dir:",
@@ -94,11 +88,6 @@ setMethod(
                 paste("GFF File:", deparse(gffFile))
             )
         }
-
-        return <- c(
-            return,
-            paste("Installed Version:", packageVersion("bcbioRNASeq"))
-        )
 
         cat(return, sep = "\n")
     }
