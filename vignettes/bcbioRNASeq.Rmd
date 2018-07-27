@@ -1,6 +1,5 @@
 ---
 title: "bcbioRNASeq"
-author: "Michael Steinbaugh, Lorena Pantano"
 date: "`r BiocStyle::doc_date()`"
 output: BiocStyle::html_document
 bibliography: ../inst/rmarkdown/shared/bibliography.bib
@@ -23,11 +22,6 @@ abstract: >
 ```{r setup, include=FALSE, message=FALSE}
 devtools::load_all()
 ggplot2::theme_set(theme_paperwhite())
-knitr::opts_chunk[["set"]](
-    cache = TRUE,
-    fig.height = 10L,
-    fig.width = 10L
-)
 ```
 
 For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including detailed explanation of the `bcbioRNASeq` S4 class definition, first consult our [workflow paper][] published in *F1000 Research* [@Steinbaugh2018-rc]. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a [bcbio][] dataset and perform downstream quality control analysis.
@@ -183,29 +177,6 @@ rowRanges(bcb) %>% as.data.frame() %>% glimpse()
 ```
 
 When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a [general feature format (GFF)][GFF] file with the `gffFile` argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but [Ensembl][] GFFv3 files are also supported.
-
-```{r}
-gff_url <- paste(
-    "ftp://ftp.ensembl.org",
-    "pub",
-    "release-87",
-    "gtf",
-    "mus_musculus",
-    "Mus_musculus.GRCm38.87.gtf.gz",
-    sep = "/"
-)
-gff_file <- basename(gff_url)
-if (!file.exists(gff_file)) {
-    download.file(url = gff_url, destfile = gff_file)
-}
-bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
-    organism = "Mus musculus",
-    gffFile = gff_file
-)
-print(bcb)
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
-```
 
 If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERCCs), these features can be defined with the `transgeneNames` and `spikeNames` arguments, which will automatically populate the `rowRanges()` slot with placeholder metadata.
 
@@ -462,6 +433,10 @@ We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][
 sessionInfo()
 ```
 
+# References
+
+The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
+
 [AnnotationHub]: https://doi.org/doi:10.18129/B9.bioc.AnnotationHub
 [bcbio]: https://bcbio-nextgen.readthedocs.io
 [bcbioRNASeq]: http://bioinformatics.sph.harvard.edu/bcbioRNASeq
@@ -479,6 +454,7 @@ sessionInfo()
 [HISAT2]: https://ccb.jhu.edu/software/hisat2
 [KEGG]: https://www.genome.jp/kegg
 [Kallisto]: https://pachterlab.github.io/kallisto
+[Paperpile]: http://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: https://rmarkdown.rstudio.com
 [Salmon]: https://combine-lab.github.io/salmon
