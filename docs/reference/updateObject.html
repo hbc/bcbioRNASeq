@@ -78,6 +78,9 @@ originally loaded into R." />
   </a>
 </li>
 <li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -160,16 +163,25 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.3 to 0.2.6</span></div><div class='output co'>#&gt; <span class='message'>tx2gene: Renaming `txID` to `transcriptID`</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
-#&gt; Samples: 6
-#&gt; Genes: 500
-#&gt; Assays: counts, tpm, length, normalized, rlog, vst
-#&gt; Organism: Mus musculus
-#&gt; AnnotationHub: AH57770
-#&gt; Ensembl Release: 90
-#&gt; Genome Build: GRCm38
-#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(31): version level ... subset previousVersion
+#&gt; assays(6): counts tpm ... rlog vst
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): geneID geneName ... entrezID broadClass
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(25): sampleName day ... x5x3Bias xGC
+#&gt; ============================================================
+#&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-20</div></pre>
+#&gt; R Load Date: 2018-07-27
+#&gt; Level: "genes"
+#&gt; Caller: "salmon"
+#&gt; Organism: "Mus musculus"
+#&gt; AnnotationHub: "AH57770"
+#&gt; Ensembl Release: "90"
+#&gt; Genome Build: "GRCm38"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

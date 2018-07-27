@@ -34,7 +34,8 @@
   
 <meta property="og:title" content="Plot Counts Per Gene — plotCountsPerGene" />
 
-<meta property="og:description" content="Plot Counts Per Gene" />
+<meta property="og:description" content="Generally, we expect similar count spreads for all genes between samples
+unless the library sizes or total RNA expression are different." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,6 +77,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -106,7 +110,8 @@
 
     <div class="ref-description">
     
-    <p>Plot Counts Per Gene</p>
+    <p>Generally, we expect similar count spreads for all genes between samples
+unless the library sizes or total RNA expression are different.</p>
     
     </div>
 
@@ -162,6 +167,16 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
 
     <p><code>ggplot</code>.</p>
     
+    <h2 class="hasAnchor" id="tmm"><a class="anchor" href="#tmm"></a>TMM</h2>
+
+    
+    <p>We recommend visualizing counts normalized with the Trimmed Mean of M-Values
+(TMM) method here (Robinson, et al., 2010). TMM normalization equates the
+overall expression levels of genes between samples under the assumption that
+the majority of them are not differentially expressed. Therefore, by
+normalizing for total RNA expression by sample, we expect the spread of the
+TMM-normalized counts per gene to be similar for every sample.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
@@ -189,6 +204,8 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#tmm">TMM</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
