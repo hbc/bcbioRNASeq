@@ -83,6 +83,9 @@
       <p>RNA-seq analysis involves multiple steps from processing raw sequencing data to identifying, organizing, annotating, and reporting differentially expressed genes. bcbio is an open source, community-maintained framework providing automated and scalable RNA-seq methods for identifying gene abundance counts. We have developed bcbioRNASeq, a Bioconductor package that provides ready-to-render templates and wrapper functions to post-process bcbio output data. bcbioRNASeq automates the generation of high-level RNA-seq reports, including identification of differentially expressed genes, functional enrichment analysis and quality control analysis.</p>
     </div>
     
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>For a high-level overview of our <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> RNA-seq analysis pipeline, including detailed explanation of the <code>bcbioRNASeq</code> S4 class definition, first consult our <a href="http://dx.doi.org/10.12688/f1000research.12093.2">workflow paper</a> published in <em>F1000 Research</em> <span class="citation">(Steinbaugh et al. 2018)</span>. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> dataset and perform downstream quality control analysis.</p>
 <p><strong>Note:</strong> if you use <a href="http://bioinformatics.sph.harvard.edu/bcbioRNASeq">bcbioRNASeq</a> in published research, please include this citation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
@@ -108,7 +111,7 @@
 ##     url = {https://f1000research.com/articles/6-1976/v2},
 ##     doi = {10.12688/f1000research.12093.2},
 ##   }</code></pre>
-<hr>
+</div>
 <div id="loading-bcbio-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#loading-bcbio-data" class="anchor"></a>Loading bcbio data</h1>
@@ -547,7 +550,6 @@
 ##  3rd Qu.: 2.985   3rd Qu.: 2.969   3rd Qu.: 2.950   3rd Qu.: 2.979  
 ##  Max.   :17.130   Max.   :17.322   Max.   :17.325   Max.   :17.405</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(bcb)</code></pre></div>
-<hr>
 </div>
 </div>
 <div id="use-case-dataset" class="section level1">
@@ -1036,7 +1038,8 @@ vst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/counts.
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
+<li><a href="#introduction">Introduction</a></li>
+      <li>
 <a href="#loading-bcbio-data">Loading bcbio data</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#upload-directory">Upload directory</a></li>
       <li><a href="#counts-level">Counts level</a></li>
