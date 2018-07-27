@@ -164,7 +164,7 @@ rowRanges(bcb) %>% as.data.frame() %>% glimpse()
 
 Alternatively, transcript-level annotations can also be obtained automatically using this method.
 
-```{r}
+```{r, message=FALSE}
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     level = "transcripts",
@@ -213,6 +213,7 @@ For the vignette, we are loading a pre-computed version of the example `bcbioRNA
 
 ```{r, message=FALSE}
 loadRemoteData("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
+print(bcb)
 ```
 
 # Sample metadata
