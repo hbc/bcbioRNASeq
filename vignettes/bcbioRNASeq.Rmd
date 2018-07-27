@@ -20,7 +20,6 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-devtools::load_all()
 ggplot2::theme_set(theme_paperwhite())
 ```
 
