@@ -11,37 +11,54 @@
 
 ## Installation
 
-### [Bioconductor][] method
+This is an [R][] package.
+
+### [Bioconductor][]
+
+We recommend installing the package with [BiocManager][].
 
 ```r
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("devtools")
-biocLite("remotes")
-biocLite("GenomeInfoDbData")
-biocLite(
-    "hbc/bcbioRNASeq",
+if (!require("BiocManager")) {
+    install.packages("BiocManager")
+}
+BiocManager::install(
+    pkgs = c(
+        "devtools",
+        "remotes",
+        "GenomeInfoDbData"
+    )
+)
+BiocManager::install(
+    pkgs = "hbc/bcbioRNASeq",
     dependencies = c("Depends", "Imports", "Suggests")
 )
 ```
 
-#### [F1000 paper][] version
+For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite()` instead of `BiocManager::install()`. This requires sourcing the legacy [Bioconductor][] `biocLite.R` script.
+
+```r
+# try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+```
+
+#### Pinned [workflow paper][] version
 
 ```r
 # v0.2.4
-biocLite("hbc/bcbioRNASeq", ref = "v0.2.4")
+BiocManager::install("hbc/bcbioRNASeq", ref = "v0.2.4")
 ```
 
-### [conda][] method
+### [conda][]
+
+Configure [conda][] to use the [bioconda][] channels.
 
 ```bash
 conda config --add channels defaults
 conda config --add channels conda-forge
 conda config --add channels bioconda
-conda install -c bioconda r-bcbiornaseq
 ```
 
-To avoid version issues, your `.condarc` file should be configured for [bioconda][], and only contain the following channels, in this order:
+To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
 
 ```
 channels:
@@ -53,8 +70,16 @@ channels:
 We recommend installing into a clean [conda][] environment:
 
 ```bash
-conda create --name r-bcbiornaseq
-conda activate r-bcbiornaseq
+conda create --name r
+conda activate r
+```
+
+Launch [R][] and check that it is set up correctly with the `capabilities()` function. Note that `X11 = TRUE` is required for graphical output, and requires X11 forwarding over SSH.
+
+Now you're ready to install `r-bcbiornaseq`.
+
+```bash
+conda install -c bioconda r-bcbiornaseq
 ```
 
 Note that there is currently a bug with [conda][] and `libgfortran`. You may need to install `libgfortran-ng` to get the bcbioRNASeq package to load in [R][].
@@ -123,7 +148,7 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 citation("bcbioRNASeq")
 ```
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000 paper] *F1000Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
 
 
 ## References
@@ -132,13 +157,14 @@ The papers and software cited in our workflows are available as a [shared librar
 
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
+[BiocManager]: https://cran.r-project.org/package=BiocManager
 [bioconda]: https://bioconda.github.io
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
 [DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
-[F1000 paper]: https://f1000research.com/articles/6-1976/v2
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
 [RangedSummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
+[Workflow paper]: https://f1000research.com/articles/6-1976/v2
