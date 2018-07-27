@@ -20,6 +20,7 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
+library("bcbioRNASeq")
 ggplot2::theme_set(theme_paperwhite())
 ```
 
