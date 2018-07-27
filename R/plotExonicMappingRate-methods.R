@@ -1,6 +1,6 @@
 #' Plot Exonic Mapping Rate
 #'
-#' Ideally, at least 60% of total reads should map to exons.
+#' Ideally, at least 60 percent of total reads should map to exons.
 #'
 #' @name plotExonicMappingRate
 #' @family Quality Control Functions
