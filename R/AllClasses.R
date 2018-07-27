@@ -213,7 +213,7 @@ bcbioRNASeq <- function(
     }
     # organism
     if (!"organism" %in% names(call)) {
-        warning(paste(
+        message(paste(
             "`organism` is recommended for defining",
             "annotations in `rowRanges()`"
         ))
