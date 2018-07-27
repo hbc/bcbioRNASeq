@@ -24,6 +24,8 @@ devtools::load_all()
 ggplot2::theme_set(theme_paperwhite())
 ```
 
+# Introduction
+
 For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including detailed explanation of the `bcbioRNASeq` S4 class definition, first consult our [workflow paper][] published in *F1000 Research* [@Steinbaugh2018-rc]. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a [bcbio][] dataset and perform downstream quality control analysis.
 
 **Note:** if you use [bcbioRNASeq][] in published research, please include this citation:
@@ -31,8 +33,6 @@ For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including 
 ```{r}
 citation("bcbioRNASeq")
 ```
-
-* * *
 
 # Loading bcbio data
 
@@ -202,8 +202,6 @@ counts(bcb, normalized = "vst") %>% summary()
 counts(bcb, normalized = "rlog") %>% summary()
 rm(bcb)
 ```
-
-* * *
 
 # Use case dataset
 
