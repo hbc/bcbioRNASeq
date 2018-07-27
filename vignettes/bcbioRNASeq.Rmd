@@ -464,8 +464,6 @@ We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][
 sessionInfo()
 ```
 
-# References
-
 [bcbio]: https://bcbio-nextgen.readthedocs.io
 [bcbioRNASeq]: http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 [clusterProfiler]: https://doi.org/doi:10.18129/B9.bioc.clusterProfiler
