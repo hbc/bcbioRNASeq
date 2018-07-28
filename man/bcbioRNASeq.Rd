@@ -28,7 +28,8 @@ transcript level ("\code{transcripts}"; \emph{advanced use}).}
 alignment-free, quasi-mapped counts.
 \item "\code{kallisto}". \href{https://pachterlab.github.io/kallisto}{Kallisto}
 alignment-free, pseudo-aligned counts.
-\item "\code{sailfish}". \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish}{Sailfish}
+\item "\code{sailfish}".
+\href{http://www.cs.cmu.edu/~ckingsf/software/sailfish}{Sailfish}
 alignment-free, lightweight counts.
 \item "\code{star}": \href{https://github.com/alexdobin/STAR}{STAR}
 (Spliced Transcripts Alignment to a Reference) aligned counts.
