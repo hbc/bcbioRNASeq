@@ -13,9 +13,9 @@ r:
   # - bioc-devel
 
 # blocklist
-branches:
-  except:
-  - develop
+# branches:
+#   except:
+#  - develop
 
 # safelist
 # branches:
