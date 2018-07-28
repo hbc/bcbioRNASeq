@@ -3,7 +3,6 @@
 \docType{methods}
 \name{tpm}
 \alias{tpm}
-\alias{tpm}
 \alias{tpm,bcbioRNASeq-method}
 \title{Transcripts Per Million (TPM)}
 \usage{
@@ -31,3 +30,4 @@ Other Data Functions: \code{\link{aggregateReplicates}},
 \author{
 Michael Steinbaugh
 }
+\concept{Data Functions}

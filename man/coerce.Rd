@@ -44,3 +44,4 @@ Other S4 Object: \code{\link{bcbioRNASeq}},
 \author{
 Michael Steinbaugh
 }
+\concept{S4 Object}

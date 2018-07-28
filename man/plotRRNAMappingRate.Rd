@@ -3,14 +3,14 @@
 \docType{methods}
 \name{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate}
-\alias{plotRRNAMappingRate}
 \alias{plotRRNAMappingRate,bcbioRNASeq-method}
 \title{Plot Ribosomal RNA (rRNA) Mapping Rate}
 \usage{
 plotRRNAMappingRate(object, ...)
 
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  limit = 10L, fill = NULL, flip = TRUE, title = "rRNA mapping rate")
+  limit = 10L, fill = NULL, flip = TRUE,
+  title = "rRNA mapping rate")
 }
 \arguments{
 \item{object}{Object.}
@@ -62,3 +62,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

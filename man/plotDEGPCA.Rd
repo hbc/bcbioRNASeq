@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA}
 \alias{plotDEGPCA,DESeqResults,SummarizedExperiment-method}
 \alias{plotDEGPCA,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
@@ -12,8 +11,8 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both", "up",
-  "down"), color = NULL, label = FALSE, return = c("ggplot",
+  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both",
+  "up", "down"), color = NULL, label = FALSE, return = c("ggplot",
   "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
@@ -59,7 +58,8 @@ the first item in the vector by default.}
 \code{ggplot} or \code{data.frame}.
 }
 \description{
-Plot DEG PCA
+Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
+(PCA) sample coloring and labeling.
 }
 \details{
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
@@ -93,3 +93,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
+\concept{Differential Expression Functions}

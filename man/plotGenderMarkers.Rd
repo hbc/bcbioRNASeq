@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers}
 \alias{plotGenderMarkers,SummarizedExperiment-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
@@ -73,3 +72,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Functions}

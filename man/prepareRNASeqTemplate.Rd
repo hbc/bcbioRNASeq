@@ -7,13 +7,14 @@
 prepareRNASeqTemplate(overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{\code{boolean}. Should existing destination files be overwritten?}
+\item{overwrite}{\code{logical}. Should existing destination files be overwritten?}
 }
 \value{
-Invisible \code{logical} indicating which files were copied.
+Invisible \code{logical} vector indicating which files were copied.
 }
 \description{
-Prepare RNA-Seq R Markdown Template
+If the required template dependency files aren't present, download latest
+versions from the package website. Existing files are never overwritten.
 }
 \details{
 By default, this function will create local copies of these files:
@@ -50,3 +51,4 @@ Other R Markdown Functions: \code{\link{topTables}}
 \author{
 Michael Steinbaugh
 }
+\concept{R Markdown Functions}

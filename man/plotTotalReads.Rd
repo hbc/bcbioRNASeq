@@ -3,14 +3,13 @@
 \docType{methods}
 \name{plotTotalReads}
 \alias{plotTotalReads}
-\alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
 \title{Plot Total Reads}
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups, limit = 10L,
-  fill = NULL, flip = TRUE, title = "total reads")
+\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
+  limit = 10L, fill = NULL, flip = TRUE, title = "total reads")
 }
 \arguments{
 \item{object}{Object.}
@@ -59,3 +58,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

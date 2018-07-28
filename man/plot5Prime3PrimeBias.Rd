@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plot5Prime3PrimeBias}
 \alias{plot5Prime3PrimeBias}
-\alias{plot5Prime3PrimeBias}
 \alias{plot5Prime3PrimeBias,bcbioRNASeq-method}
 \title{Plot 5'->3' Bias}
 \usage{
@@ -62,3 +61,4 @@ Other Quality Control Functions: \code{\link{plotCorrelationHeatmap}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Functions}

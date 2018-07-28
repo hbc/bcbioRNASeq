@@ -8,7 +8,8 @@
 \alias{sampleData<-,bcbioRNASeq,DataFrame-method}
 \title{Sample Data}
 \usage{
-\S4method{sampleData}{bcbioRNASeq}(object, interestingGroups, clean = FALSE)
+\S4method{sampleData}{bcbioRNASeq}(object, interestingGroups,
+  clean = FALSE)
 
 \S4method{sampleData}{bcbioRNASeq,DataFrame}(object) <- value
 }
@@ -56,3 +57,4 @@ Other Data Functions: \code{\link{aggregateReplicates}},
 \author{
 Michael Steinbaugh
 }
+\concept{Data Functions}

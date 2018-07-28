@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotMeanSD}
 \alias{plotMeanSD}
-\alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
 \title{Plot Row Standard Deviations vs. Row Means}
@@ -70,3 +69,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
+\concept{Quality Control Functions}

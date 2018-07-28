@@ -3,7 +3,6 @@
 \docType{methods}
 \name{contrastName}
 \alias{contrastName}
-\alias{contrastName}
 \alias{contrastName,DESeqResults-method}
 \title{Contrast Name}
 \usage{
@@ -35,3 +34,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
+\concept{Differential Expression Functions}

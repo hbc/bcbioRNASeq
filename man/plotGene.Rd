@@ -13,8 +13,8 @@
   countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
   legend = TRUE, headerLevel = 2L, return = c("facet", "wide"))
 
-\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
-  "tpm", "rle"), ...)
+\S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
+  "tmm", "tpm", "rle"), ...)
 
 \S4method{plotGene}{DESeqDataSet}(object, ...)
 
@@ -87,3 +87,4 @@ plotGene(rld_small, genes = genes)
 \author{
 Michael Steinbaugh
 }
+\concept{Gene Expression Functions}

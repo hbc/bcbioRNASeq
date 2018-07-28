@@ -3,7 +3,6 @@
 \docType{methods}
 \name{alphaSummary}
 \alias{alphaSummary}
-\alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
 \alias{alphaSummary,bcbioRNASeq-method}
 \title{Alpha Level Cutoff Summary Statistics}
@@ -52,3 +51,4 @@ Other Differential Expression Functions: \code{\link{contrastName}},
 \author{
 Michael Steinbaugh, Lorena Patano
 }
+\concept{Differential Expression Functions}

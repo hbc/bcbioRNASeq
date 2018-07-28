@@ -15,7 +15,12 @@
 \code{show} returns an invisible \code{NULL}.
 }
 \description{
-Show an Object
+Display the object, by printing, plotting or whatever suits its
+  class.  This function exists to be specialized by methods.  The
+  default method calls \code{\link{showDefault}}.
+
+  Formal methods for \code{show} will
+  usually be invoked for automatic printing (see the details).
 }
 \details{
 Objects from an S4 class (a class defined by a call to
@@ -42,3 +47,4 @@ Other S4 Object: \code{\link{bcbioRNASeq}},
 \author{
 Michael Steinbuagh
 }
+\concept{S4 Object}

@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotCountDensity}
 \alias{plotCountDensity}
-\alias{plotCountDensity}
 \alias{plotCountDensity,bcbioRNASeq-method}
 \title{Plot Count Density}
 \usage{
@@ -72,3 +71,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

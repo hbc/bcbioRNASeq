@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
-\alias{plotGeneSaturation}
 \alias{plotGeneSaturation,bcbioRNASeq-method}
 \title{Plot Gene Detection Saturation}
 \usage{
@@ -65,3 +64,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

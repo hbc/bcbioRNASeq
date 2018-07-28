@@ -11,8 +11,8 @@
   samples = NULL, interestingGroups, color = NULL, label = FALSE,
   title = "pca", subtitle = NULL, return = c("ggplot", "data.frame"))
 
-\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog", "tmm",
-  "tpm", "rle"), ...)
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
+  "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -106,3 +106,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Functions}

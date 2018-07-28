@@ -60,3 +60,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Functions}

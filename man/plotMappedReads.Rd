@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotMappedReads}
 \alias{plotMappedReads}
-\alias{plotMappedReads}
 \alias{plotMappedReads,bcbioRNASeq-method}
 \title{Plot Mapped Reads}
 \usage{
@@ -60,3 +59,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

@@ -3,7 +3,6 @@
 \docType{methods}
 \name{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables}
 \alias{resultsTables,DESeqResults,DESeqDataSet-method}
 \alias{resultsTables,DESeqResults,missingOrNULL-method}
 \title{Differential Expression Results Tables}
@@ -11,8 +10,8 @@
 resultsTables(results, counts, ...)
 
 \S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts, alpha,
-  lfcThreshold = 0L, summary = TRUE, write = FALSE, headerLevel = 2L,
-  dir = ".", dropboxDir = NULL, rdsToken = NULL)
+  lfcThreshold = 0L, summary = TRUE, write = FALSE,
+  headerLevel = 2L, dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
 \item{results}{\code{DESeqResults} object.}
@@ -71,3 +70,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
+\concept{Differential Expression Functions}

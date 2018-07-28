@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotVolcano}
 \alias{plotVolcano}
-\alias{plotVolcano}
 \alias{plotVolcano,DESeqResults-method}
 \title{Plot Volcano}
 \usage{
@@ -104,3 +103,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 }
+\concept{Differential Expression Functions}

@@ -57,3 +57,4 @@ Other Data Functions: \code{\link{aggregateReplicates}},
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
+\concept{Data Functions}

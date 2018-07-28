@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
@@ -11,8 +10,8 @@
 \usage{
 plotDEGHeatmap(results, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results, counts,
-  alpha, lfcThreshold = 0L, title = TRUE, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
+  counts, alpha, lfcThreshold = 0L, title = TRUE, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
@@ -30,7 +29,7 @@ plotDEGHeatmap(results, counts, ...)
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
-\item{title}{\code{string} or \code{NULL}. Plot title.}
+\item{title}{\emph{Optional.} Plot title.}
 
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{
@@ -91,3 +90,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 Michael Steinbaugh
 }
+\concept{Differential Expression Functions}

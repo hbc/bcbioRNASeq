@@ -3,7 +3,6 @@
 \docType{methods}
 \name{topTables}
 \alias{topTables}
-\alias{topTables}
 \alias{topTables,DESeqResults-method}
 \alias{topTables,list-method}
 \title{Top Tables of Differential Expression Results}
@@ -48,3 +47,4 @@ Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}
 \author{
 Michael Steinbaugh
 }
+\concept{R Markdown Functions}

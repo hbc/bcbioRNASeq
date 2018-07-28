@@ -9,10 +9,11 @@
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-  interestingGroups = "sampleName", samples = NULL, censorSamples = NULL,
-  sampleMetadataFile = NULL, organism = NULL, genomeBuild = NULL,
-  ensemblRelease = NULL, gffFile = NULL, transgeneNames = NULL,
-  spikeNames = NULL, vst = TRUE, rlog = FALSE, ...)
+  interestingGroups = "sampleName", samples = NULL,
+  censorSamples = NULL, sampleMetadataFile = NULL, organism = NULL,
+  genomeBuild = NULL, ensemblRelease = NULL, gffFile = NULL,
+  transgeneNames = NULL, spikeNames = NULL, vst = TRUE,
+  rlog = FALSE, ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -80,11 +81,11 @@ are supported. The function will internally generate a \code{TxDb} containing
 transcript-to-gene mappings and construct a \code{GRanges} object containing the
 genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
-\item{transgeneNames}{\code{character} or \code{NULL}. Vector indicating which
-\code{\link[=assay]{assay()}} rows denote transgenes (e.g. EGFP, TDTOMATO).}
+\item{transgeneNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows
+denote transgenes (e.g. EGFP, TDTOMATO).}
 
-\item{spikeNames}{\code{character} or \code{NULL}. Vector indicating which \code{\link[=assay]{assay()}}
-rows denote spike-in sequences (e.g. ERCCs).}
+\item{spikeNames}{\code{character} vector indicating which \code{\link[=assay]{assay()}} rows denote
+spike-in sequences (e.g. ERCCs).}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
@@ -201,3 +202,4 @@ Other S4 Object: \code{\link{coerce}},
 \author{
 Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 }
+\concept{S4 Object}

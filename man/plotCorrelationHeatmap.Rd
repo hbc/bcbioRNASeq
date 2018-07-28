@@ -7,8 +7,8 @@
 \alias{plotCorrelationHeatmap,DESeqTransform-method}
 \title{Plot Correlation Heatmap}
 \usage{
-\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), ...)
+\S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 
 \S4method{plotCorrelationHeatmap}{DESeqTransform}(object, ...)
 }
@@ -78,3 +78,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh
 }
+\concept{Quality Control Functions}

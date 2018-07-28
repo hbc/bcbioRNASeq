@@ -18,4 +18,5 @@ Other GSE65267: \code{\link{bcb_small}},
 \author{
 Lorena Pantano, Michael Steinbaugh
 }
+\concept{GSE65267}
 \keyword{datasets}

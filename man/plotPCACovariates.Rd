@@ -3,7 +3,6 @@
 \docType{methods}
 \name{plotPCACovariates}
 \alias{plotPCACovariates}
-\alias{plotPCACovariates}
 \alias{plotPCACovariates,bcbioRNASeq-method}
 \title{Find Correlation Between Principal Components (PCs) and Covariates}
 \usage{
@@ -66,3 +65,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Lorena Pantano, Michael Steinbaugh
 }
+\concept{Quality Control Functions}

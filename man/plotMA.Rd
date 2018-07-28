@@ -8,9 +8,10 @@
 \title{MA Plot}
 \usage{
 \S4method{plotMA}{DESeqResults}(object, alpha, lfcThreshold = 0L,
-  genes = NULL, gene2symbol = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = "gray50", sigPointColor = c(upregulated =
-  "purple", downregulated = "orange"), return = c("ggplot", "data.frame"))
+  genes = NULL, gene2symbol = NULL, ntop = 0L,
+  direction = c("both", "up", "down"), pointColor = "gray50",
+  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
+  return = c("ggplot", "data.frame"))
 }
 \arguments{
 \item{...}{Additional arguments.}
@@ -98,3 +99,4 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
 \author{
 Rory Kirchner, Michael Steinbaugh
 }
+\concept{Differential Expression Functions}

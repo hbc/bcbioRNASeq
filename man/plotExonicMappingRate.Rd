@@ -4,14 +4,14 @@
 \docType{methods}
 \name{plotExonicMappingRate}
 \alias{plotExonicMappingRate}
-\alias{plotExonicMappingRate}
 \alias{plotExonicMappingRate,bcbioRNASeq-method}
 \title{Plot Exonic Mapping Rate}
 \usage{
 plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  limit = 60L, fill = NULL, flip = TRUE, title = "exonic mapping rate")
+  limit = 60L, fill = NULL, flip = TRUE,
+  title = "exonic mapping rate")
 }
 \arguments{
 \item{object}{Object.}
@@ -59,3 +59,4 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
+\concept{Quality Control Functions}

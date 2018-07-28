@@ -118,3 +118,4 @@ Other S4 Object: \code{\link{bcbioRNASeq}},
 \author{
 Lorena Pantano, Michael Steinbaugh
 }
+\concept{S4 Object}
