@@ -1,9 +1,3 @@
-# TODO Inform the user about loading counts at gene or transcript level
-# TODO Reduce the message spam about project-summary.yaml in the load call
-# TODO Inform the user that we're using featureCounts for STAR, HISAT2
-
-
-
 # Class Definitions ============================================================
 #' @rdname bcbioRNASeq
 #' @aliases NULL
@@ -94,7 +88,8 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'     alignment-free, quasi-mapped counts.
 #'   - "`kallisto`". [Kallisto](https://pachterlab.github.io/kallisto)
 #'     alignment-free, pseudo-aligned counts.
-#'   - "`sailfish`". [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish)
+#'   - "`sailfish`".
+#'     [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish)
 #'     alignment-free, lightweight counts.
 #'   - "`star`": [STAR](https://github.com/alexdobin/STAR)
 #'     (Spliced Transcripts Alignment to a Reference) aligned counts.
