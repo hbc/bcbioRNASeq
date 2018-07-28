@@ -11,29 +11,7 @@ bcb <- suppressWarnings(bcbioRNASeq(
 ))
 validObject(bcb)
 
-test_that("bcbioRNASeq : GFF3 file", {
-    # 87 is the oldest version supported by AnnotationHub
-    # Note that gzip compression is supported for GFF/GTF files
-    gffURL <- paste(
-        "ftp://ftp.ensembl.org",
-        "pub",
-        "release-87",
-        "gff3",
-        "mus_musculus",
-        "Mus_musculus.GRCm38.87.gff3.gz",
-        sep = "/"
-    )
-    gffFile <- basename(gffURL)
-    if (!file.exists(gffFile)) {
-        download.file(url = gffURL, destfile = gffFile)
-    }
-    x <- bcbioRNASeq(
-        uploadDir = uploadDir,
-        organism = "Mus musculus",
-        gffFile = gffFile
-    )
-})
-
+# GFF3 files are also supported
 test_that("bcbioRNASeq : GTF file", {
     gtfURL <- paste(
         "ftp://ftp.ensembl.org",
