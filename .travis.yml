@@ -6,10 +6,11 @@ cache: packages
 
 os:
   - linux
-  - osx
+  # - osx
 
 r:
   - bioc-release
+  # - bioc-devel
 
 # blocklist
 branches:
