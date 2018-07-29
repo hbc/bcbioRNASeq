@@ -27,7 +27,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-07-19
+# Last modified 2018-07-29
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -53,8 +53,6 @@ invisible(validObject(bcb))
 ```{r header, child="_header.Rmd"}
 ```
 
-
-
 # Create `DESeqDataSet`
 
 Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
@@ -73,8 +71,6 @@ dds <- as(bcb, "DESeqDataSet")
 print(dds)
 ```
 
-
-
 # Design
 
 The design formula, specified with the `design()` function, must contain factor columns from `colData()`.
@@ -83,8 +79,6 @@ The design formula, specified with the `design()` function, must contain factor 
 # colnames(colData(dds))
 design(dds) <- params$design
 ```
-
-
 
 # Pre-filtering
 
@@ -96,8 +90,6 @@ keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep, ]
 print(dds)
 ```
-
-
 
 # Factor reference level
 
@@ -121,8 +113,6 @@ dds$condition <- relevel(dds$condition, ref = "Control")
 print(dds$condition)
 ```
 
-
-
 # Differential expression analysis
 
 Now that our `DESeqDataSet` is properly set up, we can move on to performing the differential expression. The standard differential expression analysis steps for [DESeq2][] are wrapped into a single function, `DESeq()`. Results tables are generated using the function `results()`, which extracts a results table with log2 fold changes, *P* values and adjusted *P* values. With no additional arguments to `results()`, the log2 fold change and Wald test *P* value will be for the last variable in the design formula (`design()`), and if this is a factor, the comparison will be the last level of this variable over the reference level (see previous note on factor levels). However, the order of the variables of the design do not matter so long as the user specifies the comparison to build a results table for, using the name or contrast arguments of results.
@@ -131,8 +121,6 @@ Now that our `DESeqDataSet` is properly set up, we can move on to performing the
 dds <- DESeq(dds)
 saveData(dds, dir = params$data_dir)
 ```
-
-
 
 # Variance stabilization
 
@@ -143,8 +131,6 @@ After we perform the differential expression, we need to calculate variance-stab
 rld <- varianceStabilizingTransformation(dds)
 saveData(rld, dir = params$data_dir)
 ```
-
-
 
 # Results
 
@@ -214,13 +200,11 @@ lapply(res_list_shrunken, priorInfo)
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc_threshold`.
 
-
-
 # Plots
 
 ## Mean average (MA)
 
-An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang:2002ty].
+An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang2002-sx].
 
 ```{r plot_ma}
 mapply(
@@ -231,10 +215,9 @@ mapply(
 )
 ```
 
-
 ## Volcano
 
-A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui:2003kh; @Li:2014fv]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
+A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot_volcano}
 mapply(
@@ -244,7 +227,6 @@ mapply(
     SIMPLIFY = FALSE
 )
 ```
-
 
 ## PCA
 
@@ -264,10 +246,9 @@ mapply(
 )
 ```
 
-
 ## Heatmap
 
-This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@WardJr:1963eu].
+This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@Ward1963-xf].
 
 ```{r plot_deg_heatmap}
 # help("pheatmap", "pheatmap")
@@ -283,8 +264,6 @@ invisible(mapply(
     SIMPLIFY = FALSE
 ))
 ```
-
-
 
 # Results tables
 
@@ -320,7 +299,6 @@ Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, an
 - `pvalue`: Walt test *P* value.
 - `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
 
-
 ## Top tables
 
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
@@ -332,8 +310,6 @@ invisible(mapply(
     MoreArgs = list(n = 20L, coding = FALSE)
 ))
 ```
-
-
 
 ```{r footer, child="_footer.Rmd"}
 ```

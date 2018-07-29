@@ -10,7 +10,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-06-29
+# Last modified 2018-07-29
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -31,8 +31,6 @@ invisible(validObject(bcb))
 ```{r header, child="_header.Rmd"}
 ```
 
-
-
 ```{r sample_data}
 # getMethod("sampleData", "SummarizedExperiment")
 sample_data <- sampleData(bcb, clean = TRUE) %>% as.data.frame()
@@ -44,8 +42,6 @@ sample_data
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
-
-
 
 # Count matrices
 
@@ -71,8 +67,6 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 - [`tpm.csv.gz`](`r file.path(params$results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
 - [`raw_counts.csv.gz`](`r file.path(params$results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
-
-
 # Read metrics {.tabset}
 
 ## Total reads
@@ -84,7 +78,6 @@ High quality RNA-seq samples ideally should have at least 10 million reads per s
 plotTotalReads(bcb)
 ```
 
-
 ## Mapped reads
 
 The number of mapped reads should correspond to the number of total reads.
@@ -93,7 +86,6 @@ The number of mapped reads should correspond to the number of total reads.
 # getMethod("plotMappedReads", "bcbioRNASeq")
 plotMappedReads(bcb)
 ```
-
 
 ## Mapping rate
 
@@ -104,14 +96,12 @@ The genomic mapping rate represents the percentage of reads mapping to the refer
 plotMappingRate(bcb)
 ```
 
-
 ## Number of genes detected
 
 ```{r plot_genes_detected}
 # getMethod("plotGenesDetected", "bcbioRNASeq")
 plotGenesDetected(bcb)
 ```
-
 
 ## Gene detection saturation
 
@@ -135,7 +125,6 @@ plotGeneSaturation(
 )
 ```
 
-
 ## Exonic mapping rate
 
 Ideally, at least 60% of total reads should map to exons.
@@ -144,7 +133,6 @@ Ideally, at least 60% of total reads should map to exons.
 # getMethod("plotExonicMappingRate", "bcbioRNASeq")
 plotExonicMappingRate(bcb)
 ```
-
 
 ## Intronic mapping rate
 
@@ -155,7 +143,6 @@ The majority of reads should map to exons and not introns.
 plotIntronicMappingRate(bcb)
 ```
 
-
 ## rRNA mapping rate
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
@@ -164,7 +151,6 @@ Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 # getMethod("plotRRNAMappingRate", "bcbioRNASeq")
 plotRRNAMappingRate(bcb)
 ```
-
 
 ## 5'->3' bias
 
@@ -175,18 +161,16 @@ RNA-seq data can have specific biases at either the 5’ or 3’ end of sequence
 plot5Prime3PrimeBias(bcb)
 ```
 
-
 ## Counts per gene
 
 Generally, we expect similar count spreads for all genes between samples unless the library sizes or total RNA expression are different.
 
-We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson:2010dd]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
+We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson2010-np]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
 # getMethod("plotCountsPerGene", "bcbioRNASeq")
 plotCountsPerGene(bcb, normalized = "tmm")
 ```
-
 
 ```{r plot_biotype, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE}
 mdHeader("TPM per biotype", level = 2)
@@ -231,7 +215,6 @@ ggplot(
     theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
 ```
 
-
 ```{r plot_broad_class, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE}
 mdHeader("TPM per broad biotype class", level = 2)
 asis_output("The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.")
@@ -267,7 +250,6 @@ ggplot(
     theme(axis.text.x = element_text(angle = 90L, hjust = 1L, vjust = 0.5))
 ```
 
-
 ## Count density
 
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
@@ -277,12 +259,9 @@ Generally, we expect similar count spreads for all genes between samples unless 
 plotCountDensity(bcb)
 ```
 
-
-
 # Fit modeling
 
 Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
-
 
 ## Dispersion
 
@@ -293,7 +272,6 @@ The following plot shows the dispersion by mean of normalized counts. We expect 
 plotDispEsts(bcb)
 ```
 
-
 ## Variance stabilization
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
@@ -303,16 +281,13 @@ These plots show the standard deviation of normalized counts using `log2()`, `va
 plotMeanSD(bcb)
 ```
 
-
-
 # Sample similarity analysis
 
-Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a regularized log ("rlog"; base 2) transformation that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@DESeq2], which we will later use for differential gene expression analysis.
-
+Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a regularized log ("rlog"; base 2) transformation that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@Love2014-sq], which we will later use for differential gene expression analysis.
 
 ## Principal component analysis (PCA) {.tabset}
 
-PCA [@Jolliffe:2002wx] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
+PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
 ```{r plot_pca}
 # getMethod("plotPCA", "bcbioRNASeq")
@@ -323,7 +298,6 @@ plotPCA(bcb, label = TRUE)
 markdownHeader("Unlabeled", level = 3)
 plotPCA(bcb, label = FALSE)
 ```
-
 
 ## Covariates correlation with PCs
 
@@ -336,7 +310,6 @@ Here we are showing the correlational analysis of the rlog transformed count dat
 plotPCACovariates(bcb)
 ```
 
-
 ## Hierarchical clustering
 
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
@@ -345,8 +318,6 @@ Inter-correlation analysis (ICA) is another way to look at how well samples clus
 # getMethod("plotCorrelationHeatmap", "bcbioRNASeq")
 plotCorrelationHeatmap(bcb)
 ```
-
-
 
 # Save additional data
 
@@ -360,7 +331,6 @@ write.csv(
 )
 ```
 
-
 ## Gene annotations
 
 ```{r gene_annotations}
@@ -370,8 +340,6 @@ write.csv(
     file = file.path(params$results_dir, "gene_annotations.csv")
 )
 ```
-
-
 
 ```{r footer, child="_footer.Rmd"}
 ```
