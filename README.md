@@ -8,7 +8,6 @@
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
-
 ## Installation
 
 This is an [R][] package.
@@ -88,7 +87,6 @@ Note that there is currently a bug with [conda][] and `libgfortran`. You may nee
 conda install libgfortran-ng
 ```
 
-
 ## Load [bcbio][] run
 
 ```r
@@ -128,7 +126,6 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 | sample3     | wildtype |
 | sample4     | knockout |
 
-
 ## [R Markdown][] templates
 
 This package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis.
@@ -141,7 +138,6 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 - [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
 
-
 ## Citation
 
 ```r
@@ -150,11 +146,9 @@ citation("bcbioRNASeq")
 
 Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
 
-
 ## References
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
-
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen
 [BiocManager]: https://cran.r-project.org/package=BiocManager
