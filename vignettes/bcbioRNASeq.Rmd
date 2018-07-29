@@ -429,7 +429,7 @@ We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][
 # R session information
 
 ```{r}
-sessionInfo()
+sessioninfo::session_info()
 ```
 
 # References
