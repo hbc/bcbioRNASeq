@@ -248,7 +248,11 @@ Generally, we expect similar count spreads for all genes between samples unless 
 
 ```{r plot_count_density}
 # getMethod("plotCountDensity", "bcbioRNASeq")
-plotCountDensity(bcb)
+plotCountDensity(
+    object = bcb,
+    interestingGroups = "sampleName",
+    normalized = "tmm"
+)
 ```
 
 # Fit modeling
