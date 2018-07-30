@@ -29,7 +29,7 @@ plotDEGHeatmap(results, counts, ...)
 
 \item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
 
-\item{title}{\emph{Optional.} Plot title.}
+\item{title}{\code{string} or \code{NULL}. Plot title.}
 
 \item{normalized}{Character indicating which normalization method to apply:
 \itemize{
