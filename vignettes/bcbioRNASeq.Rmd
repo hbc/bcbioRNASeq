@@ -453,7 +453,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [HISAT2]: https://ccb.jhu.edu/software/hisat2
 [KEGG]: https://www.genome.jp/kegg
 [Kallisto]: https://pachterlab.github.io/kallisto
-[Paperpile]: http://paperpile.com
+[Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: https://rmarkdown.rstudio.com
 [Salmon]: https://combine-lab.github.io/salmon
