@@ -289,10 +289,18 @@ PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize t
 # getMethod("plotPCA", "bcbioRNASeq")
 
 markdownHeader("Labeled", level = 3)
-plotPCA(bcb, label = TRUE)
+plotPCA(
+    object = bcb,
+    normalized = "vst",
+    label = TRUE
+)
 
 markdownHeader("Unlabeled", level = 3)
-plotPCA(bcb, label = FALSE)
+plotPCA(
+    object = bcb,
+    normalized = "vst",
+    label = FALSE
+)
 ```
 
 ## Covariates correlation with PCs
