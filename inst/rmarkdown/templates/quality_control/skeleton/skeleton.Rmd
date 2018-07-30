@@ -111,18 +111,10 @@ We should observe a linear trend in the number of genes detected with the number
 # getMethod("plotGeneSaturation", "bcbioRNASeq")
 
 markdownHeader("Labeled")
-plotGeneSaturation(
-    object = bcb,
-    interestingGroups = "sampleName",
-    label = TRUE
-)
+plotGeneSaturation(bcb, label = TRUE)
 
 markdownHeader("Unlabeled")
-plotGeneSaturation(
-    object = bcb,
-    interestingGroups = "sampleName",
-    label = FALSE
-)
+plotGeneSaturation(bcb, label = FALSE)
 ```
 
 ## Exonic mapping rate
