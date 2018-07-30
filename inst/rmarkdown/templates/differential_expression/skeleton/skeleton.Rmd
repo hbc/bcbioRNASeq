@@ -162,7 +162,10 @@ print(contrasts)
 res_list_unshrunken <- mapply(
     FUN = results,
     contrast = contrasts,
-    MoreArgs = list(object = dds, alpha = params$alpha),
+    MoreArgs = list(
+        object = dds,
+        alpha = params$alpha
+    ),
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
 )
@@ -185,7 +188,10 @@ res_list_shrunken <- mapply(
     FUN = lfcShrink,
     res = res_list_unshrunken,
     contrast = contrasts,
-    MoreArgs = list(dds = dds, type = "normal"),
+    MoreArgs = list(
+        dds = dds,
+        type = "normal"
+    ),
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
 )
@@ -210,7 +216,7 @@ An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average)
 mapply(
     FUN = plotMA,
     object = res_list_shrunken,
-    MoreArgs = list(lfcThreshold = params$lfc, alpha = 0.01),
+    MoreArgs = list(lfcThreshold = params$lfc),
     SIMPLIFY = FALSE
 )
 ```
@@ -233,14 +239,11 @@ mapply(
 ```{r plot_deg_pca}
 # help("pheatmap", "pheatmap")
 mapply(
-    FUN = function(...) {
-        plotDEGPCA(..., label = FALSE) %>% show()
-        plotDEGPCA(..., label = TRUE) %>% show()
-    },
+    FUN = plotDEGPCA,
     results = res_list_shrunken,
     MoreArgs = list(
         counts = rld,
-        interestingGroups = "condition"
+        label = TRUE
     ),
     SIMPLIFY = FALSE
 )
