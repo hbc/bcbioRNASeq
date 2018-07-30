@@ -57,6 +57,7 @@ setAs(
         assay(rse) <- round(assay(rse), digits = 0L)
         # Prepare using an empty design formula
         to <- DESeqDataSet(se = rse, design = ~ 1L)
+        interestingGroups(to) <- interestingGroups(from)
         validObject(to)
         to
     }
