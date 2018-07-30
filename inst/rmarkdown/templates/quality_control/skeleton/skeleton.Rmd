@@ -320,7 +320,7 @@ Inter-correlation analysis (ICA) is another way to look at how well samples clus
 
 ```{r plot_correlation_heatmap}
 # getMethod("plotCorrelationHeatmap", "bcbioRNASeq")
-plotCorrelationHeatmap(bcb)
+plotCorrelationHeatmap(bcb, normalized = "vst")
 ```
 
 # Save additional data
