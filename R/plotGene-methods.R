@@ -224,6 +224,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(legend)

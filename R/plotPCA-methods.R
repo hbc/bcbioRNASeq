@@ -88,6 +88,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
         assertIsAStringOrNULL(title)

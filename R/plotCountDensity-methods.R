@@ -40,6 +40,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         normalized <- match.arg(normalized)
         style <- match.arg(style)
         assertIsColorScaleDiscreteOrNULL(color)

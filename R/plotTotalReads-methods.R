@@ -37,6 +37,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)

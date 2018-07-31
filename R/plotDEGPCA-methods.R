@@ -55,6 +55,7 @@ setMethod(
         if (missing(alpha)) {
             alpha <- metadata(results)[["alpha"]]
         }
+        assert_is_character(interestingGroups)
         assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)

@@ -41,6 +41,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         assertIsAnImplicitInteger(minCounts)
         assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
         assert_is_a_bool(trendline)

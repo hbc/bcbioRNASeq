@@ -46,6 +46,7 @@ setMethod(
         } else {
             interestingGroups(object) <- interestingGroups
         }
+        assert_is_character(interestingGroups)
         normalized <- match.arg(normalized)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
