@@ -9,7 +9,8 @@
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
-  limit = 10L, fill = NULL, flip = TRUE, title = "total reads")
+  limit = 1e+07, fill = getOption("bcbio.fill", NULL),
+  flip = getOption("bcbio.flip", TRUE), title = "total reads")
 }
 \arguments{
 \item{object}{Object.}

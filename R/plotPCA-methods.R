@@ -55,8 +55,8 @@ setMethod(
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = NULL,
-        label = FALSE,
+        color = getOption("bcbio.color", NULL),
+        label = getOption("bcbio.label", FALSE),
         title = "pca",
         subtitle = NULL,
         return = c("ggplot", "data.frame")

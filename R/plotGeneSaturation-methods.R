@@ -30,9 +30,9 @@ setMethod(
         object,
         interestingGroups,
         minCounts = 1L,
-        label = FALSE,
         trendline = FALSE,
-        color = NULL,
+        label = getOption("bcbio.label", FALSE),
+        color = getOption("bcbio.color", NULL),
         title = "gene saturation"
     ) {
         validObject(object)
@@ -45,6 +45,7 @@ setMethod(
         assertIsAnImplicitInteger(minCounts)
         assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
         assert_is_a_bool(trendline)
+        assert_is_a_bool(label)
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAStringOrNULL(title)
 

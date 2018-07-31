@@ -126,7 +126,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        legend = FALSE
+        legend = getOption("bcbio.legend", FALSE)
     ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
@@ -147,7 +147,7 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
-        legend = FALSE
+        legend = getOption("bcbio.legend", FALSE)
     ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),

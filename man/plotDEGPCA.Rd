@@ -12,7 +12,8 @@ plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
   interestingGroups, alpha, lfcThreshold = 0L, direction = c("both",
-  "up", "down"), color = NULL, label = FALSE, return = c("ggplot",
+  "up", "down"), color = getOption("bcbio.color", NULL),
+  label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "data.frame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)

@@ -29,9 +29,9 @@ setMethod(
     function(
         object,
         interestingGroups,
-        limit = 10L,
-        fill = NULL,
-        flip = TRUE,
+        limit = 0.1,
+        fill = getOption("bcbio.fill", NULL),
+        flip = getOption("bcbio.flip", TRUE),
         title = "rRNA mapping rate"
     ) {
         validObject(object)
@@ -41,7 +41,7 @@ setMethod(
             interestingGroups(object) <- interestingGroups
         }
         assert_is_character(interestingGroups)
-        assertIsAnImplicitInteger(limit)
+        assert_is_a_number(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
@@ -67,7 +67,15 @@ setMethod(
             )
 
         if (is_positive(limit)) {
-            p <- p + bcbio_geom_abline(yintercept = limit)
+            # Convert to percentage
+            if (limit > 1) {
+                warning("`limit`: Use ratio (0-1) instead of percentage")
+            } else {
+                limit <- limit * 100L
+            }
+            if (limit < 100L) {
+                p <- p + bcbio_geom_abline(yintercept = limit)
+            }
         }
 
         if (is(fill, "ScaleDiscrete")) {

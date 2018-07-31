@@ -9,9 +9,11 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = FALSE)
+\S4method{plotMeanSD}{bcbioRNASeq}(object,
+  legend = getOption("bcbio.legend", FALSE))
 
-\S4method{plotMeanSD}{DESeqDataSet}(object, legend = FALSE)
+\S4method{plotMeanSD}{DESeqDataSet}(object,
+  legend = getOption("bcbio.legend", FALSE))
 }
 \arguments{
 \item{object}{Object.}

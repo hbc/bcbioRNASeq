@@ -22,6 +22,7 @@
 #' @examples
 #' # Gene identifiers
 #' genes <- head(rownames(bcb_small), 4L)
+#' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
 #' plotGene(bcb_small, genes = genes, return = "facet")
@@ -212,8 +213,8 @@ setMethod(
         interestingGroups,
         countsAxisLabel = "counts",
         medianLine = TRUE,
-        color = NULL,
-        legend = TRUE,
+        color = getOption("bcbio.color", NULL),
+        legend = getOption("bcbio.legend", TRUE),
         headerLevel = 2L,
         return = c("facet", "wide")
     ) {

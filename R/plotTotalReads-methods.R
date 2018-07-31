@@ -26,9 +26,9 @@ setMethod(
     function(
         object,
         interestingGroups,
-        limit = 10L,
-        fill = NULL,
-        flip = TRUE,
+        limit = 10e6,
+        fill = getOption("bcbio.fill", NULL),
+        flip = getOption("bcbio.flip", TRUE),
         title = "total reads"
     ) {
         validObject(object)
@@ -64,7 +64,15 @@ setMethod(
             )
 
         if (is_positive(limit)) {
-            p <- p + bcbio_geom_abline(yintercept = limit)
+            # Convert limit to per million
+            if (limit < 1e6) {
+                warning("`limit`: Use absolute value, not per million")
+            } else {
+                limit <- limit / 1e6
+            }
+            if (limit > 1L) {
+                p <- p + bcbio_geom_abline(yintercept = limit)
+            }
         }
 
         if (is(fill, "ScaleDiscrete")) {

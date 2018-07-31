@@ -41,8 +41,8 @@ setMethod(
         alpha,
         lfcThreshold = 0L,
         direction = c("both", "up", "down"),
-        color = NULL,
-        label = FALSE,
+        color = getOption("bcbio.color", NULL),
+        label = getOption("bcbio.label", FALSE),
         return = c("ggplot", "data.frame")
     ) {
         validObject(results)

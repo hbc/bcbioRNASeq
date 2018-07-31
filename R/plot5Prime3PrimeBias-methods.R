@@ -29,9 +29,9 @@ setMethod(
     function(
         object,
         interestingGroups,
-        limit = 2L,
-        fill = NULL,
-        flip = TRUE,
+        limit = 0L,
+        fill = getOption("bcbio.fill", NULL),
+        flip = getOption("bcbio.flip", TRUE),
         title = "5'->3' bias"
     ) {
         validObject(object)
@@ -41,7 +41,7 @@ setMethod(
             interestingGroups(object) <- interestingGroups
         }
         assert_is_character(interestingGroups)
-        assertIsAnImplicitInteger(limit)
+        assert_is_a_number(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)

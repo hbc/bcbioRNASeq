@@ -30,8 +30,8 @@ setMethod(
         interestingGroups,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         style = c("line", "solid"),
-        color = NULL,
-        fill = NULL,
+        color = getOption("bcbio.color", NULL),
+        fill = getOption("bcbio.fill", NULL),
         title = "count density"
     ) {
         validObject(object)

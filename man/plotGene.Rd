@@ -10,8 +10,10 @@
 \title{Plot Individual Genes}
 \usage{
 \S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
-  countsAxisLabel = "counts", medianLine = TRUE, color = NULL,
-  legend = TRUE, headerLevel = 2L, return = c("facet", "wide"))
+  countsAxisLabel = "counts", medianLine = TRUE,
+  color = getOption("bcbio.color", NULL),
+  legend = getOption("bcbio.legend", TRUE), headerLevel = 2L,
+  return = c("facet", "wide"))
 
 \S4method{plotGene}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "tpm", "rle"), ...)
@@ -70,6 +72,7 @@ Plot Individual Genes
 \examples{
 # Gene identifiers
 genes <- head(rownames(bcb_small), 4L)
+glimpse(genes)
 
 # bcbioRNASeq ====
 plotGene(bcb_small, genes = genes, return = "facet")

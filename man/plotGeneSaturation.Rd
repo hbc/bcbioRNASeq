@@ -9,7 +9,8 @@
 plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
-  minCounts = 1L, label = FALSE, trendline = FALSE, color = NULL,
+  minCounts = 1L, trendline = FALSE, label = getOption("bcbio.label",
+  FALSE), color = getOption("bcbio.color", NULL),
   title = "gene saturation")
 }
 \arguments{
@@ -22,9 +23,9 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{minCounts}{Minimum number of counts per gene in the counts matrix.}
 
-\item{label}{Superimpose sample text labels on the plot.}
-
 \item{trendline}{Include a trendline for each group.}
+
+\item{label}{Superimpose sample text labels on the plot.}
 
 \item{color}{Desired ggplot color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual

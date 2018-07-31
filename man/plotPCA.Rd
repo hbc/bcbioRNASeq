@@ -8,8 +8,9 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups, color = NULL, label = FALSE,
-  title = "pca", subtitle = NULL, return = c("ggplot", "data.frame"))
+  samples = NULL, interestingGroups, color = getOption("bcbio.color",
+  NULL), label = getOption("bcbio.label", FALSE), title = "pca",
+  subtitle = NULL, return = c("ggplot", "data.frame"))
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "tpm", "rle"), ...)

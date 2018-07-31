@@ -9,8 +9,8 @@
 plotGenesDetected(object, ...)
 
 \S4method{plotGenesDetected}{bcbioRNASeq}(object, interestingGroups,
-  limit = 0L, minCounts = 1L, fill = NULL, flip = TRUE,
-  title = "genes detected")
+  limit = 0L, minCounts = 1L, fill = getOption("bcbio.fill", NULL),
+  flip = getOption("bcbio.flip", TRUE), title = "genes detected")
 }
 \arguments{
 \item{object}{Object.}
