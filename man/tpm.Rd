@@ -20,7 +20,7 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
-tpm(bcb_small) \%>\% glimpse()
+tpm(bcb_small) \%>\% summary()
 }
 \seealso{
 Other Data Functions: \code{\link{aggregateReplicates}},

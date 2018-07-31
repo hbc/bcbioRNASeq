@@ -9,7 +9,7 @@
 #' @return `matrix`.
 #'
 #' @examples
-#' tpm(bcb_small) %>% glimpse()
+#' tpm(bcb_small) %>% summary()
 NULL
 
 
@@ -22,8 +22,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         validObject(object)
-        data <- assays(object)[["tpm"]]
-        assert_is_matrix(data)
-        data
+        assays(object)[["tpm"]]
     }
 )
