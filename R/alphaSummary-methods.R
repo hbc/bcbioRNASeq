@@ -1,5 +1,8 @@
 #' Alpha Level Cutoff Summary Statistics
 #'
+#' Quickly generate a summary table of various alpha level cutoffs, for use in
+#' an R Markdown report.
+#'
 #' @note `bcbioRNASeq` class does currently support contrast definitions, since
 #'   the object contains an internal `DESeqDataSet` with an empty design
 #'   formula.
@@ -10,10 +13,11 @@
 #'
 #' @inheritParams general
 #' @inheritParams DESeq2::results
-#' @param alpha Numeric vector of multiple alpha cutoffs.
-#' @param caption *Optional.* Character string to use as a caption.
-#' @param ... *Optional.* Passthrough arguments to [DESeq2::results()]. Use
-#'   either `contrast` or `name` arguments to define the desired contrast.
+#' @param alpha `numeric`. Multiple alpha cutoffs.
+#' @param caption `string` or `NULL`. Table caption. If set `NULL`, will be
+#'   generated automatically from the contrast used.
+#' @param ... Passthrough arguments to [DESeq2::results()]. Use either
+#'   `contrast` or `name` arguments to define the desired contrast.
 #'
 #' @return `kable`.
 #'
