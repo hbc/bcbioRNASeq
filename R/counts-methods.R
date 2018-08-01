@@ -12,8 +12,7 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param normalized Logical or character indicating which normalization
-#'   method to apply:
+#' @param normalized `string` or `boolean`. Which normalization method to apply:
 #'   - `FALSE`: Raw counts (tximport).
 #'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
 #'   - "`tpm`": Transcripts per million (tximport).
