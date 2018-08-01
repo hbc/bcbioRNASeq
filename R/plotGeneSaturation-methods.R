@@ -32,7 +32,7 @@ setMethod(
         minCounts = 1L,
         trendline = FALSE,
         label = getOption("bcbio.label", FALSE),
-        color = getOption("bcbio.color", NULL),
+        color = getOption("bcbio.discrete.color", NULL),
         title = "gene saturation"
     ) {
         validObject(object)

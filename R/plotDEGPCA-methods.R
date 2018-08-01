@@ -41,7 +41,7 @@ setMethod(
         alpha,
         lfcThreshold = 0L,
         direction = c("both", "up", "down"),
-        color = getOption("bcbio.color", NULL),
+        color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
         return = c("ggplot", "data.frame")
     ) {

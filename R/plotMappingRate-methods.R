@@ -28,7 +28,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 0.9,
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "mapping rate"
     ) {

@@ -25,7 +25,7 @@ setMethod(
         interestingGroups,
         limit = 0L,
         minCounts = 1L,
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "genes detected"
     ) {

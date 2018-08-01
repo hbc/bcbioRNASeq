@@ -30,7 +30,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 0L,
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "5'->3' bias"
     ) {

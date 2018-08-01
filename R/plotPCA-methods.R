@@ -55,7 +55,7 @@ setMethod(
         genes = NULL,
         samples = NULL,
         interestingGroups,
-        color = getOption("bcbio.color", NULL),
+        color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
         title = "pca",
         subtitle = NULL,

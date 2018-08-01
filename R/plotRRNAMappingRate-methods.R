@@ -30,7 +30,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 0.1,
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "rRNA mapping rate"
     ) {

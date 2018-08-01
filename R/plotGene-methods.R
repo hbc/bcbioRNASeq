@@ -213,7 +213,7 @@ setMethod(
         interestingGroups,
         countsAxisLabel = "counts",
         medianLine = TRUE,
-        color = getOption("bcbio.color", NULL),
+        color = getOption("bcbio.discrete.color", NULL),
         legend = getOption("bcbio.legend", TRUE),
         headerLevel = 2L,
         return = c("facet", "wide")

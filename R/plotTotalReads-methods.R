@@ -27,7 +27,7 @@ setMethod(
         object,
         interestingGroups,
         limit = 10e6,
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "total reads"
     ) {

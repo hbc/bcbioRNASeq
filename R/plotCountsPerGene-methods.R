@@ -35,7 +35,7 @@ setMethod(
         object,
         interestingGroups,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        fill = getOption("bcbio.fill", NULL),
+        fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "counts per gene"
     ) {
