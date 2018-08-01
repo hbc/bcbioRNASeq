@@ -175,10 +175,8 @@ Internal count transformations are rescaled automatically, if defined.</p>
     </tr>
     <tr>
       <th>transform</th>
-      <td><p><code>logical</code>. Apply DESeq2 transformations
-(<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>, <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>).
-Recommended by default but takes a long time to calculate for large
-datasets (&gt; 50 samples).</p></td>
+      <td><p><code>boolean</code>. Recalculate slotted DESeq2 transformations.
+Recommended by default but can take a while for large datasets.</p></td>
     </tr>
     </table>
     
@@ -221,10 +219,11 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ============================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-27
+#&gt; R Load Date: 2018-07-31
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
 #&gt; AnnotationHub: "AH57770"
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'>
@@ -242,10 +241,11 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ============================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-27
+#&gt; R Load Date: 2018-07-31
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
 #&gt; AnnotationHub: "AH57770"
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'>
@@ -263,10 +263,11 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ============================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-27
+#&gt; R Load Date: 2018-07-31
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
 #&gt; AnnotationHub: "AH57770"
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "rlog"      
@@ -286,10 +287,11 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ============================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-07-27
+#&gt; R Load Date: 2018-07-31
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
 #&gt; AnnotationHub: "AH57770"
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'><span class='fu'>names</span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized"</div></pre>

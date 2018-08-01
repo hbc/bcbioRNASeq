@@ -34,7 +34,11 @@
   
 <meta property="og:title" content="Show an Object — show" />
 
-<meta property="og:description" content="Show an Object" />
+<meta property="og:description" content="Display the object, by printing, plotting or whatever suits its
+  class.  This function exists to be specialized by methods.  The
+  default method calls showDefault.
+Formal methods for show will
+  usually be invoked for automatic printing (see the details)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,7 +113,11 @@
 
     <div class="ref-description">
     
-    <p>Show an Object</p>
+    <p>Display the object, by printing, plotting or whatever suits its
+  class.  This function exists to be specialized by methods.  The
+  default method calls <code>showDefault</code>.</p>
+<p>Formal methods for <code>show</code> will
+  usually be invoked for automatic printing (see the details).</p>
     
     </div>
 
@@ -168,6 +176,7 @@ the discussion in <code>setIs</code> for the general concept.</p>
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
 #&gt; AnnotationHub: "AH57770"
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div></pre>

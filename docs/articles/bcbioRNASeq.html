@@ -70,7 +70,7 @@
     <div class="page-header toc-ignore">
       <h1>bcbioRNASeq</h1>
             
-            <h4 class="date">27 July 2018</h4>
+            <h4 class="date">31 July 2018</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hbc/bcbioRNASeq/blob/master/vignettes/bcbioRNASeq.Rmd"><code>vignettes/bcbioRNASeq.Rmd</code></a></small>
       <div class="hidden name"><code>bcbioRNASeq.Rmd</code></div>
@@ -142,7 +142,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">upload_dir &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata/bcbio"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)
 <span class="kw">stopifnot</span>(<span class="kw">file.exists</span>(upload_dir))
 <span class="kw">print</span>(upload_dir)</code></pre></div>
-<pre><code>## [1] "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"</code></pre>
+<pre><code>## [1] "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"</code></pre>
 <p><a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> outputs RNA-seq data in a standardized directory structure, which is described in detail in our <a href="http://dx.doi.org/10.12688/f1000research.12093.2">workflow paper</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir</span>(<span class="dt">path =</span> upload_dir, <span class="dt">full.names =</span> <span class="ot">FALSE</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##  [1] "2017-05-23_rnaseq/bcbio-nextgen-commands.log"
@@ -176,12 +176,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <p>Alternatively, if you want to perform transcript-aware analysis, such as differential exon usage or splicing analysis, transcript-level counts can be obtained using <code>level = "transcripts"</code>. Note that when counts are loaded at transcript level, TPMs are generated with <a href="https://doi.org/doi:10.18129/B9.bioc.tximport">tximport</a> internally, but no additional normalizations or transformations normally calculated for gene-level counts with <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a> are generated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> upload_dir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
 <span class="kw">print</span>(bcb)</code></pre></div>
@@ -197,12 +198,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "transcripts"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 </div>
 <div id="expression-callers" class="section level2">
 <h2 class="hasAnchor">
@@ -223,12 +225,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assayNames</span>(salmon_genes)</code></pre></div>
 <pre><code>## [1] "counts"     "tpm"        "length"     "normalized" "vst"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">salmon_tx &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> upload_dir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
@@ -245,12 +248,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "transcripts"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assayNames</span>(salmon_tx)</code></pre></div>
 <pre><code>## [1] "counts" "tpm"    "length"</code></pre>
 <p><a href="https://github.com/alexdobin/STAR">STAR</a> and <a href="https://ccb.jhu.edu/software/hisat2">HISAT2</a> aligned counts processed with <a href="http://bioinf.wehi.edu.au/featureCounts">featureCounts</a> are also supported, but only at gene level.</p>
@@ -268,12 +272,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "star"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assayNames</span>(star)</code></pre></div>
 <pre><code>## [1] "counts"     "normalized" "vst"</code></pre>
 </div>
@@ -298,12 +303,13 @@
 ## colnames(2): group1_1 group1_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sampleNames</span>(bcb)</code></pre></div>
 <pre><code>##   group1_1   group1_2 
 ## "group1_1" "group1_2"</code></pre>
@@ -325,12 +331,13 @@
 ## colnames(3): group1_1 group1_2 group2_1
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sampleNames</span>(bcb)</code></pre></div>
 <pre><code>##   group1_1   group1_2   group2_1 
 ## "group1_1" "group1_2" "group2_1"</code></pre>
@@ -362,13 +369,14 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(22): sampleName fileName ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
 ## Organism: character(0)
-## Metadata File: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio/sample_metadata.csv"</code></pre>
+## Interesting Groups: "sampleName"
+## Metadata File: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio/sample_metadata.csv"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sampleData.html">sampleData</a></span>(bcb, <span class="dt">clean =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## DataFrame with 4 rows and 2 columns
 ##          sampleName    group
@@ -404,12 +412,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
 ## Organism: "Mus musculus"
+## Interesting Groups: "sampleName"
 ## AnnotationHub: "AH53222"
 ## Ensembl Release: "87"
 ## Genome Build: "GRCm38"</code></pre>
@@ -467,12 +476,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "transcripts"
 ## Caller: "salmon"
 ## Organism: "Mus musculus"
+## Interesting Groups: "sampleName"
 ## AnnotationHub: "AH53222"
 ## Ensembl Release: "87"
 ## Genome Build: "GRCm38"</code></pre>
@@ -514,12 +524,13 @@
 ## colnames(4): group1_1 group1_2 group2_1 group2_2
 ## colData names(21): sampleName description ... x5x3Bias xGC
 ## ============================================================
-## Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+## Upload Dir: "/Users/mike/R/library/3.5-bioc-release/library/bcbioRNASeq/extdata/bcbio"
 ## Upload Date: 2017-05-23
-## R Load Date: 2018-07-27
+## R Load Date: 2018-07-31
 ## Level: "genes"
 ## Caller: "salmon"
-## Organism: character(0)</code></pre>
+## Organism: character(0)
+## Interesting Groups: "sampleName"</code></pre>
 </div>
 <div id="variance-stabilization" class="section level2">
 <h2 class="hasAnchor">
@@ -577,6 +588,7 @@
 ## Level: "genes"
 ## Caller: "salmon"
 ## Organism: "Mus musculus"
+## Interesting Groups: "day"
 ## AnnotationHub: "AH57770"
 ## Ensembl Release: "90"
 ## Genome Build: "GRCm38"</code></pre>
@@ -619,50 +631,50 @@
 <div id="read-counts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#read-counts" class="anchor"></a>Read counts</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotTotalReads</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotTotalReads.html">plotTotalReads</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMappedReads</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotMappedReads.html">plotMappedReads</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-20-2.png" width="700"></p>
 </div>
 <div id="mapping-rates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mapping-rates" class="anchor"></a>Mapping rates</h2>
 <p>Note that the overall mapping rate is relatively low per sample, while the exonic mapping rate is acceptable. High quality samples should have low intronic mapping rate, and high values are indicative of sample degradation and/or contamination.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMappingRate</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotMappingRate.html">plotMappingRate</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotExonicMappingRate</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotExonicMappingRate.html">plotExonicMappingRate</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-21-2.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotIntronicMappingRate</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotIntronicMappingRate.html">plotIntronicMappingRate</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-21-3.png" width="700"></p>
 </div>
 <div id="rrna-mapping-rate" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrna-mapping-rate" class="anchor"></a>rRNA mapping rate</h2>
 <p>Note that the samples here have a high rRNA mapping rate. This can be indicative of the polyA enrichment or ribo depletion protocol not having removed all ribosomal RNA (rRNA) transcripts. This will reduce the number of biologically meaningful reads in the experiment and is best avoided.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotRRNAMappingRate</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotRRNAMappingRate.html">plotRRNAMappingRate</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
 <div id="bias" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bias" class="anchor"></a>5’-&gt;3’ bias</h2>
 <p>RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced fragments. It is common to see a small amount of bias, especially if polyA enrichment was performed, or if there is any sample degradation. If a large amount of bias is observed here, be sure to analyze the samples with a Bioanalyzer and check the RIN scores.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot5Prime3PrimeBias</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot5Prime3PrimeBias.html">plot5Prime3PrimeBias</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 </div>
 <div id="gene-distributions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gene-distributions" class="anchor"></a>Gene distributions</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotGenesDetected</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotGenesDetected.html">plotGenesDetected</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotGeneSaturation</span>(bcb, <span class="dt">label =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotGeneSaturation.html">plotGeneSaturation</a></span>(bcb, <span class="dt">label =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotGeneSaturation</span>(bcb, <span class="dt">label =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotGeneSaturation.html">plotGeneSaturation</a></span>(bcb, <span class="dt">label =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-25-2.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotCountsPerGene</span>(bcb)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotCountsPerGene.html">plotCountsPerGene</a></span>(bcb)</code></pre></div>
 <pre><code>## 38142 non-zero genes detected</code></pre>
 <pre><code>## Applying trimmed mean of M-values (TMM) normalization</code></pre>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotCountDensity</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotCountDensity.html">plotCountDensity</a></span>(
     <span class="dt">object =</span> bcb,
     <span class="dt">interestingGroups =</span> <span class="st">"sampleName"</span>,
     <span class="dt">style =</span> <span class="st">"line"</span>
@@ -694,8 +706,8 @@
 <div id="variance-stabilization-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variance-stabilization-1" class="anchor"></a>Variance stabilization</h2>
-<p>These plots show the standard deviation of normalized counts using <code>log2()</code>, <code>varianceStabilizingTransform()</code>, <code>rlog()</code>, and <code>tmm()</code> by <code>rank(mean)</code>. Note that all counts shown are log2 scale.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMeanSD</span>(bcb)</code></pre></div>
+<p>These plots show the standard deviation of normalized counts using <code>log2()</code>, <code>varianceStabilizingTransform()</code>, <code>rlog()</code>, and <code><a href="../reference/tmm.html">tmm()</a></code> by <code>rank(mean)</code>. Note that all counts shown are log2 scale.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotMeanSD.html">plotMeanSD</a></span>(bcb)</code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
 </div>
 <div id="sample-similarity" class="section level2">
@@ -831,9 +843,11 @@ vst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/counts.
 ##     rse &lt;- as(from, "RangedSummarizedExperiment")
 ##     assay(rse) &lt;- round(assay(rse), digits = 0L)
 ##     to &lt;- DESeqDataSet(se = rse, design = ~1L)
+##     interestingGroups(to) &lt;- interestingGroups(from)
 ##     validObject(to)
 ##     to
 ## }
+## &lt;bytecode: 0x7fcc7eb73410&gt;
 ## &lt;environment: namespace:bcbioRNASeq&gt;
 ## 
 ## Signatures:
@@ -887,99 +901,95 @@ vst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/counts.
 ## [17] BiocStyle_2.8.2            
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] SparseM_1.77                  dendsort_0.3.3               
-##   [3] rtracklayer_1.40.3            R.methodsS3_1.7.1            
-##   [5] tidyr_0.8.1                   ggplot2_3.0.0                
-##   [7] acepack_1.4.1                 bit64_0.9-7                  
-##   [9] knitr_1.20                    R.utils_2.6.0                
-##  [11] data.table_1.11.4             rpart_4.1-13                 
-##  [13] assertive.data_0.0-1          RCurl_1.95-4.11              
-##  [15] AnnotationFilter_1.4.0        GenomicFeatures_1.32.0       
-##  [17] preprocessCore_1.42.0         cowplot_0.9.3                
-##  [19] RSQLite_2.1.1                 commonmark_1.5               
-##  [21] bit_1.1-14                    xml2_1.2.0                   
-##  [23] lubridate_1.7.4               httpuv_1.4.5                 
-##  [25] assertthat_0.2.0              tidyverse_1.2.1              
-##  [27] viridis_0.5.1                 xfun_0.3                     
-##  [29] tximport_1.8.0                hms_0.4.2                    
-##  [31] evaluate_0.11                 promises_1.0.1               
-##  [33] BiocInstaller_1.30.0          fansi_0.2.3                  
-##  [35] progress_1.2.0                assertive.files_0.0-2        
-##  [37] readxl_1.1.0                  DBI_1.0.0                    
-##  [39] geneplotter_1.58.0            htmlwidgets_1.2              
-##  [41] reshape_0.8.7                 DEGreport_1.16.0             
-##  [43] purrr_0.2.5                   dplyr_0.7.6                  
-##  [45] backports_1.1.2               bookdown_0.7                 
-##  [47] annotate_1.58.0               biomaRt_2.36.1               
-##  [49] quantreg_5.36                 ensembldb_2.4.1              
-##  [51] withr_2.1.2                   grr_0.9.5                    
-##  [53] checkmate_1.8.5               GenomicAlignments_1.16.0     
-##  [55] prettyunits_1.0.2             mnormt_1.5-5                 
-##  [57] cluster_2.0.7-1               lazyeval_0.2.1               
-##  [59] crayon_1.3.4                  genefilter_1.62.0            
-##  [61] labeling_0.3                  edgeR_3.22.3                 
-##  [63] pkgconfig_2.0.1               nlme_3.1-137                 
-##  [65] ProtGenerics_1.12.0           nnet_7.3-12                  
-##  [67] devtools_1.13.6               bindr_0.1.1                  
-##  [69] rlang_0.2.1                   MatrixModels_0.4-1           
-##  [71] affyio_1.50.0                 modelr_0.1.2                 
-##  [73] AnnotationHub_2.12.0          cellranger_1.1.0             
-##  [75] rprojroot_1.3-2               Matrix_1.2-14                
-##  [77] Matrix.utils_0.9.7            base64enc_0.1-3              
-##  [79] GlobalOptions_0.1.0           pheatmap_1.0.10              
-##  [81] viridisLite_0.3.0             rjson_0.2.20                 
-##  [83] clisymbols_1.2.0              bitops_1.0-6                 
-##  [85] R.oo_1.22.0                   ConsensusClusterPlus_1.44.0  
-##  [87] Biostrings_2.48.0             blob_1.1.1                   
-##  [89] shape_1.4.4                   stringr_1.3.1                
-##  [91] readr_1.1.1                   scales_0.5.0                 
-##  [93] memoise_1.1.0                 magrittr_1.5                 
-##  [95] plyr_1.8.4                    zlibbioc_1.26.0              
-##  [97] compiler_3.5.1                RColorBrewer_1.1-2           
-##  [99] Rsamtools_1.32.2              cli_1.0.0                    
-## [101] affy_1.58.0                   XVector_0.20.0               
-## [103] pbapply_1.3-4                 assertive.sets_0.0-3         
-## [105] htmlTable_1.12                Formula_1.2-3                
-## [107] MASS_7.3-50                   tidyselect_0.2.4             
-## [109] vsn_3.48.1                    stringi_1.2.4                
-## [111] forcats_0.3.0                 yaml_2.2.0                   
-## [113] assertive.numbers_0.0-2       locfit_1.5-9.1               
-## [115] latticeExtra_0.6-28           ggrepel_0.8.0                
-## [117] grid_3.5.1                    tools_3.5.1                  
-## [119] rio_0.5.10                    circlize_0.4.4               
-## [121] rstudioapi_0.7                foreign_0.8-71               
-## [123] logging_0.7-103               gridExtra_2.3                
-## [125] assertive.types_0.0-3         digest_0.6.15                
-## [127] shiny_1.1.0                   Rcpp_0.12.18                 
-## [129] broom_0.5.0                   later_0.7.3                  
-## [131] httr_1.3.1                    Nozzle.R1_1.1-1              
-## [133] AnnotationDbi_1.42.1          ComplexHeatmap_1.18.1        
-## [135] psych_1.8.4                   assertive.properties_0.0-4   
-## [137] assertive.strings_0.0-3       assertive.code_0.0-1         
-## [139] colorspace_1.3-2              rvest_0.3.2                  
-## [141] XML_3.98-1.12                 fs_1.2.4                     
-## [143] splines_3.5.1                 pkgdown_1.1.0                
-## [145] sessioninfo_1.0.0             xtable_1.8-2                 
-## [147] jsonlite_1.5                  assertive.base_0.0-7         
-## [149] testthat_2.0.0                R6_2.2.2                     
-## [151] Hmisc_4.1-1                   pillar_1.3.0                 
-## [153] htmltools_0.3.6               mime_0.5                     
-## [155] glue_1.3.0                    interactiveDisplayBase_1.18.0
-## [157] codetools_0.2-15              utf8_1.1.4                   
-## [159] lattice_0.20-35               tibble_1.4.2                 
-## [161] curl_3.2                      rdrop2_0.8.1                 
-## [163] zip_1.0.0                     openxlsx_4.1.0               
-## [165] survival_2.42-6               limma_3.36.2                 
-## [167] roxygen2_6.0.1                rmarkdown_1.10               
-## [169] desc_1.2.0                    munsell_0.5.0                
-## [171] GetoptLong_0.1.7              GenomeInfoDbData_1.1.0       
-## [173] haven_1.1.2                   reshape2_1.4.3               
-## [175] gtable_0.2.0</code></pre>
+##   [1] utf8_1.1.4                    R.utils_2.6.0                
+##   [3] tidyselect_0.2.4              RSQLite_2.1.1                
+##   [5] AnnotationDbi_1.42.1          htmlwidgets_1.2              
+##   [7] grid_3.5.1                    munsell_0.5.0                
+##   [9] preprocessCore_1.42.0         codetools_0.2-15             
+##  [11] withr_2.1.2                   colorspace_1.3-2             
+##  [13] BiocInstaller_1.30.0          knitr_1.20                   
+##  [15] rstudioapi_0.7                assertive.base_0.0-7         
+##  [17] rdrop2_0.8.1                  labeling_0.3                 
+##  [19] tximport_1.8.0                GenomeInfoDbData_1.1.0       
+##  [21] mnormt_1.5-5                  bit64_0.9-7                  
+##  [23] pheatmap_1.0.10               rprojroot_1.3-2              
+##  [25] Matrix.utils_0.9.7            xfun_0.3                     
+##  [27] R6_2.2.2                      assertive.sets_0.0-3         
+##  [29] locfit_1.5-9.1                AnnotationFilter_1.4.0       
+##  [31] reshape_0.8.7                 bitops_1.0-6                 
+##  [33] assertthat_0.2.0              promises_1.0.1               
+##  [35] scales_0.5.0                  nnet_7.3-12                  
+##  [37] gtable_0.2.0                  affy_1.58.0                  
+##  [39] ensembldb_2.4.1               rlang_0.2.1                  
+##  [41] clisymbols_1.2.0              MatrixModels_0.4-1           
+##  [43] genefilter_1.62.0             GlobalOptions_0.1.0          
+##  [45] splines_3.5.1                 rtracklayer_1.40.3           
+##  [47] lazyeval_0.2.1                acepack_1.4.1                
+##  [49] checkmate_1.8.5               reshape2_1.4.3               
+##  [51] yaml_2.2.0                    GenomicFeatures_1.32.0       
+##  [53] backports_1.1.2               httpuv_1.4.5                 
+##  [55] Hmisc_4.1-1                   tools_3.5.1                  
+##  [57] psych_1.8.4                   bookdown_0.7                 
+##  [59] logging_0.7-103               ggplot2_3.0.0                
+##  [61] affyio_1.50.0                 assertive.strings_0.0-3      
+##  [63] RColorBrewer_1.1-2            sessioninfo_1.0.0            
+##  [65] Rcpp_0.12.18                  plyr_1.8.4                   
+##  [67] base64enc_0.1-3               progress_1.2.0               
+##  [69] zlibbioc_1.26.0               purrr_0.2.5                  
+##  [71] RCurl_1.95-4.11               prettyunits_1.0.2            
+##  [73] dendsort_0.3.3                rpart_4.1-13                 
+##  [75] pbapply_1.3-4                 GetoptLong_0.1.7             
+##  [77] viridis_0.5.1                 cowplot_0.9.3                
+##  [79] haven_1.1.2                   grr_0.9.5                    
+##  [81] ggrepel_0.8.0                 cluster_2.0.7-1              
+##  [83] fs_1.2.5                      magrittr_1.5                 
+##  [85] data.table_1.11.4             assertive.data_0.0-1         
+##  [87] openxlsx_4.1.0                SparseM_1.77                 
+##  [89] circlize_0.4.4                ProtGenerics_1.12.0          
+##  [91] hms_0.4.2                     mime_0.5                     
+##  [93] evaluate_0.11                 xtable_1.8-2                 
+##  [95] XML_3.98-1.12                 rio_0.5.10                   
+##  [97] readxl_1.1.0                  gridExtra_2.3                
+##  [99] shape_1.4.4                   compiler_3.5.1               
+## [101] biomaRt_2.36.1                tibble_1.4.2                 
+## [103] crayon_1.3.4                  R.oo_1.22.0                  
+## [105] htmltools_0.3.6               later_0.7.3                  
+## [107] Formula_1.2-3                 tidyr_0.8.1                  
+## [109] geneplotter_1.58.0            DBI_1.0.0                    
+## [111] assertive.files_0.0-2         ComplexHeatmap_1.18.1        
+## [113] MASS_7.3-50                   assertive.numbers_0.0-2      
+## [115] Matrix_1.2-14                 readr_1.1.1                  
+## [117] cli_1.0.0                     vsn_3.48.1                   
+## [119] assertive.types_0.0-3         R.methodsS3_1.7.1            
+## [121] bindr_0.1.1                   forcats_0.3.0                
+## [123] pkgconfig_2.0.1               pkgdown_1.1.0                
+## [125] GenomicAlignments_1.16.0      foreign_0.8-71               
+## [127] xml2_1.2.0                    roxygen2_6.1.0               
+## [129] annotate_1.58.0               XVector_0.20.0               
+## [131] stringr_1.3.1                 digest_0.6.15                
+## [133] ConsensusClusterPlus_1.44.0   assertive.code_0.0-1         
+## [135] Biostrings_2.48.0             cellranger_1.1.0             
+## [137] rmarkdown_1.10                htmlTable_1.12               
+## [139] edgeR_3.22.3                  curl_3.2                     
+## [141] shiny_1.1.0                   Rsamtools_1.32.2             
+## [143] commonmark_1.5                quantreg_5.36                
+## [145] rjson_0.2.20                  nlme_3.1-137                 
+## [147] jsonlite_1.5                  DEGreport_1.16.0             
+## [149] fansi_0.2.3                   desc_1.2.0                   
+## [151] viridisLite_0.3.0             limma_3.36.2                 
+## [153] pillar_1.3.0                  lattice_0.20-35              
+## [155] Nozzle.R1_1.1-1               httr_1.3.1                   
+## [157] survival_2.42-6               interactiveDisplayBase_1.18.0
+## [159] glue_1.3.0                    zip_1.0.0                    
+## [161] bit_1.1-14                    assertive.properties_0.0-4   
+## [163] stringi_1.2.4                 blob_1.1.1                   
+## [165] AnnotationHub_2.12.0          latticeExtra_0.6-28          
+## [167] memoise_1.1.0                 dplyr_0.7.6</code></pre>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<p>The papers and software cited in our workflows are available as a <a href="https://paperpile.com/shared/e1q8fn">shared library</a> on <a href="http://paperpile.com">Paperpile</a>.</p>
+<p>The papers and software cited in our workflows are available as a <a href="https://paperpile.com/shared/e1q8fn">shared library</a> on <a href="https://paperpile.com">Paperpile</a>.</p>
 <div id="refs" class="references">
 <div id="ref-Bray2016-me">
 <p>Bray, Nicolas L, Harold Pimentel, Páll Melsted, and Lior Pachter. 2016. “Near-Optimal Probabilistic RNA-seq Quantification.” <em>Nat. Biotechnol.</em> 34 (5): 525–27. doi:<a href="https://doi.org/10.1038/nbt.3519">10.1038/nbt.3519</a>.</p>

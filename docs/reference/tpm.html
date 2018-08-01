@@ -135,14 +135,24 @@
 
     <div class='dont-index'><p>Other Data Functions: <code><a href='aggregateReplicates.html'>aggregateReplicates</a></code>,
   <code><a href='counts.html'>counts</a></code>, <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='sampleData.html'>sampleData</a></code>, <code>tmm</code></p></div>
+  <code><a href='sampleData.html'>sampleData</a></code>, <code><a href='tmm.html'>tmm</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tpm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt;  num [1:500, 1:6] 138.4 27.2 56.7 55 50.2 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:500] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346" "ENSMUSG00000000740" ...
-#&gt;   ..$ : chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>tpm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
+#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.45  
+#&gt;  1st Qu.:    50.08   1st Qu.:    55.4   1st Qu.:    65.8   1st Qu.:    93.10  
+#&gt;  Median :    83.12   Median :    95.0   Median :   107.6   Median :   143.80  
+#&gt;  Mean   :  1828.24   Mean   :  1817.1   Mean   :  1787.9   Mean   :  1671.45  
+#&gt;  3rd Qu.:   184.63   3rd Qu.:   181.8   3rd Qu.:   219.1   3rd Qu.:   254.47  
+#&gt;  Max.   :292758.61   Max.   :320187.5   Max.   :337651.9   Max.   :272312.78  
+#&gt;   fa_day7_rep2        fa_day7_rep3      
+#&gt;  Min.   :     0.00   Min.   :     0.00  
+#&gt;  1st Qu.:    92.77   1st Qu.:    78.54  
+#&gt;  Median :   138.55   Median :   117.01  
+#&gt;  Mean   :  1661.65   Mean   :  1733.66  
+#&gt;  3rd Qu.:   236.03   3rd Qu.:   210.51  
+#&gt;  Max.   :291312.78   Max.   :270608.66  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

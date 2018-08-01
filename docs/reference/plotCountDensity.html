@@ -120,7 +120,9 @@ unless the total expressed RNA per sample is different.</p>
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"line"</span>,
-  <span class='st'>"solid"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
+  <span class='st'>"solid"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.fill"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,12 +137,12 @@ unless the total expressed RNA per sample is different.</p>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p>Character vector denoting groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>. Groups of interest that define the
+samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
 <li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
 <li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
 <li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
@@ -149,24 +151,29 @@ define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>Desired plot style ("<code>line</code>" or "<code>solid</code>").</p></td>
+      <td><p><code>string</code>. Desired plot style ("<code>line</code>" or "<code>solid</code>").</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Desired ggplot color scale. Must supply discrete values. When
-set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
-color definitions are desired, we recommend using
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_colour_manual()</a></code>.</p></td>
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
+scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.
+To set the discrete color palette globally, use
+<code>options(bcbio.discrete.color = scale_color_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p>Desired ggplot fill scale. Must supply discrete values. When set
-to <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.</p></td>
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 fill scale.
+Must supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
+palette will be used. If manual color definitions are desired, we recommend
+using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.
+To set the discrete fill palette globally, use
+<code>options(bcbio.discrete.fill = scale_fill_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title of plot.</p></td>
+      <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
     </tr>
     </table>
     
@@ -176,20 +183,20 @@ definitions are desired, we recommend using <code><a href='http://www.rdocumenta
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code>plotCountsPerGene</code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
-  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p></div>
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
+  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

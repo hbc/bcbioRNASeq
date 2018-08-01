@@ -136,54 +136,56 @@ arguments should be formatted in camel case, not snake case.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
+      <td><p><code>scalar numeric</code>. Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
       <th>lfcThreshold</th>
-      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
+      <td><p><code>scalar numeric</code>. Log fold change ratio (base 2) cutoff
+threshold.</p></td>
     </tr>
     <tr>
       <th>ylim</th>
-      <td><p>Upper boundary limit for y-axis. Helps preserve dynamic range
-for gene sets containing highly significant P values (e.g. <code>1e-100</code>).</p></td>
+      <td><p><code>scalar numeric</code>. Upper boundary limit for y-axis. Helps preserve
+dynamic range for gene sets containing highly significant P values (e.g.
+<code>1e-100</code>).</p></td>
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>Character vector of genes to include. These must match the
-rownames of the object. It is best practice to use the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
+      <td><p><code>character</code>. Genes to include. These must match the rownames of
+the object. It is best practice to use the stable gene identifiers from
+Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p><code>data.frame</code> containing gene-to-symbol mappings. Must
-contain the columns <code>geneID</code> and <code>geneName</code>.</p></td>
+      <td><p><code>data.frame</code>. Gene-to-symbol mappings. Must contain the
+columns <code>geneID</code> and <code>geneName</code>.</p></td>
     </tr>
     <tr>
       <th>ntop</th>
-      <td><p>Number of top genes to label.</p></td>
+      <td><p><code>scalar integer</code>. Number of top genes to label.</p></td>
     </tr>
     <tr>
       <th>direction</th>
-      <td><p>Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
+      <td><p><code>string</code>. Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
     </tr>
     <tr>
       <th>pointColor</th>
-      <td><p>Default point color for the plot.</p></td>
+      <td><p><code>string</code>. Default point color for the plot.</p></td>
     </tr>
     <tr>
       <th>sigPointColor</th>
-      <td><p><code>character</code> vector containing color names for labeling
-upregulated and downregulated genes. Also supports a character string for
-labeling DEGs with the same color, regardless of direction.</p></td>
+      <td><p><code>character</code>. Color names for labeling upregulated and
+downregulated genes. Also supports a character string for labeling DEGs
+with the same color, regardless of direction.</p></td>
     </tr>
     <tr>
       <th>histograms</th>
-      <td><p>Show LFC and P value histograms.</p></td>
+      <td><p><code>boolean</code>. Show LFC and P value histograms.</p></td>
     </tr>
     <tr>
       <th>return</th>
-      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
-the first item in the vector by default.</p></td>
+      <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
+and picks the first item in the vector by default.</p></td>
     </tr>
     </table>
     
@@ -195,10 +197,10 @@ the first item in the vector by default.</p></td>
 
     <div class='dont-index'><p>This function is an updated variant of
 <code>CHBUtils::volcano_density_plot()</code>.</p>
-<p>Other Differential Expression Functions: <code>alphaSummary</code>,
-  <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotDEGPCA</code>, <code><a href='plotMA.html'>plotMeanAverage</a></code>,
-  <code>resultsTables</code></p></div>
+<p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
+  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
+  <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>, <code><a href='plotMA.html'>plotMeanAverage</a></code>,
+  <code><a href='resultsTables.html'>resultsTables</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
