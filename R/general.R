@@ -12,16 +12,19 @@
 #' @param alpha Adjusted P value ("alpha") cutoff.
 #' @param colData `data.frame` describing the columns of the object. Must
 #'   contain `rownames` identical to the `colnames` of the object.
-#' @param color Desired ggplot color scale. Must supply discrete values. When
+#' @param color Desired ggplot2 color scale. Must supply discrete values. When
 #'   set to `NULL`, the default ggplot2 color palette will be used. If manual
 #'   color definitions are desired, we recommend using
-#'   [ggplot2::scale_colour_manual()].
+#'   [ggplot2::scale_color_manual()]. To set the discrete color palette
+#'   globally, use `options(bcbio.discrete.color = function)`.
 #' @param counts Object containing a normalized counts matrix.
 #' @param dir Local directory path.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.
 #' @param fill Desired ggplot fill scale. Must supply discrete values. When set
 #'   to `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
+#'   To set the discrete fill palette globally, use
+#'   `options(bcbio.discrete.fill = function)`.
 #' @param flip Flip x and y axes.
 #' @param gene2symbol `data.frame` containing gene-to-symbol mappings. Must
 #'   contain the columns `geneID` and `geneName`.
