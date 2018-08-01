@@ -16,7 +16,8 @@
 #'   set to `NULL`, the default ggplot2 color palette will be used. If manual
 #'   color definitions are desired, we recommend using
 #'   [ggplot2::scale_color_manual()]. To set the discrete color palette
-#'   globally, use `options(bcbio.discrete.color = function)`.
+#'   globally, use
+#'   `options(bcbio.discrete.color = scale_color_viridis_d())`.
 #' @param counts Object containing a normalized counts matrix.
 #' @param dir Local directory path.
 #' @param direction Plot "`both`", "`up`", or "`down`" directions.
@@ -24,7 +25,7 @@
 #'   to `NULL`, the default ggplot2 color palette will be used. If manual color
 #'   definitions are desired, we recommend using [ggplot2::scale_fill_manual()].
 #'   To set the discrete fill palette globally, use
-#'   `options(bcbio.discrete.fill = function)`.
+#'   `options(bcbio.discrete.fill = scale_fill_viridis_d())`.
 #' @param flip Flip x and y axes.
 #' @param gene2symbol `data.frame` containing gene-to-symbol mappings. Must
 #'   contain the columns `geneID` and `geneName`.
