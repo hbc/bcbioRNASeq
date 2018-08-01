@@ -15,18 +15,20 @@ alphaSummary(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{\emph{Optional.} Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use
-either \code{contrast} or \code{name} arguments to define the desired contrast.}
+\item{...}{Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use either
+\code{contrast} or \code{name} arguments to define the desired contrast.}
 
-\item{alpha}{Numeric vector of multiple alpha cutoffs.}
+\item{alpha}{\code{numeric}. Multiple alpha cutoffs.}
 
-\item{caption}{\emph{Optional.} Character string to use as a caption.}
+\item{caption}{\code{string} or \code{NULL}. Table caption. If set \code{NULL}, will be
+generated automatically from the contrast used.}
 }
 \value{
 \code{kable}.
 }
 \description{
-Alpha Level Cutoff Summary Statistics
+Quickly generate a summary table of various alpha level cutoffs, for use in
+an R Markdown report.
 }
 \note{
 \code{bcbioRNASeq} class does currently support contrast definitions, since

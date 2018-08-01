@@ -14,24 +14,25 @@ resultsTables(results, counts, ...)
   headerLevel = 2L, dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
-\item{results}{\code{DESeqResults} object.}
+\item{results}{\code{DESeqResults}.}
 
 \item{counts}{\code{DESeqDataSet} containing the counts that were used to generate
 the \code{DESeqResults}.}
 
 \item{...}{Additional arguments.}
 
-\item{alpha}{Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
-\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
+\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
+threshold.}
 
 \item{summary}{Show summary statistics.}
 
 \item{write}{Write CSV files to disk.}
 
-\item{headerLevel}{R Markdown header level.}
+\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
 
-\item{dir}{Local directory path.}
+\item{dir}{\code{string}. Local directory path.}
 
 \item{dropboxDir}{Dropbox directory path where to archive the results tables
 for permanent storage (e.g. Stem Cell Commons). When this option is

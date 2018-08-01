@@ -19,19 +19,20 @@ plotDEGHeatmap(results, counts, ...)
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
-\item{results}{\code{DESeqResults} object.}
+\item{results}{\code{DESeqResults}.}
 
-\item{counts}{Object containing a normalized counts matrix.}
+\item{counts}{\code{matrix}. Normalized counts.}
 
 \item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
 
-\item{alpha}{Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
-\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
+\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
+threshold.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 
-\item{normalized}{Character indicating which normalization method to apply:
+\item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.

@@ -18,29 +18,30 @@
 
 \item{object}{Object.}
 
-\item{alpha}{Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
-\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
+\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
+threshold.}
 
-\item{genes}{Character vector of genes to include. These must match the
-rownames of the object. It is best practice to use the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+\item{genes}{\code{character}. Genes to include. These must match the rownames of
+the object. It is best practice to use the stable gene identifiers from
+Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{\code{data.frame} containing gene-to-symbol mappings. Must
-contain the columns \code{geneID} and \code{geneName}.}
+\item{gene2symbol}{\code{data.frame}. Gene-to-symbol mappings. Must contain the
+columns \code{geneID} and \code{geneName}.}
 
-\item{ntop}{Number of top genes to label.}
+\item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
-\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
-\item{pointColor}{Default point color for the plot.}
+\item{pointColor}{\code{string}. Default point color for the plot.}
 
-\item{sigPointColor}{\code{character} vector containing color names for labeling
-upregulated and downregulated genes. Also supports a character string for
-labeling DEGs with the same color, regardless of direction.}
+\item{sigPointColor}{\code{character}. Color names for labeling upregulated and
+downregulated genes. Also supports a character string for labeling DEGs
+with the same color, regardless of direction.}
 
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
+and picks the first item in the vector by default.}
 }
 \value{
 \code{ggplot}.

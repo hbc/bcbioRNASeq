@@ -19,32 +19,32 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{Character vector of genes to include. These must match the
-rownames of the object. It is best practice to use the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+\item{genes}{\code{character}. Genes to include. These must match the rownames of
+the object. It is best practice to use the stable gene identifiers from
+Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{samples}{Character vector of samples to include.}
+\item{samples}{\code{character} or \code{NULL}. Samples to include.}
 
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
-set to \code{NULL}, the default ggplot2 color palette will be used. If manual
-color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
-globally, use
+\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+To set the discrete color palette globally, use
 \code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
 
-\item{label}{Superimpose sample text labels on the plot.}
+\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{title}{Title of plot.}
+\item{title}{\code{string} or \code{NULL}. Plot title.}
 
-\item{subtitle}{Subtitle of plot.}
+\item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
 
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
+and picks the first item in the vector by default.}
 
-\item{normalized}{Character indicating which normalization method to apply:
+\item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.

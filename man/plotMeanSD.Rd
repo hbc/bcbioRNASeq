@@ -20,7 +20,7 @@ plotMeanSD(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{legend}{Show plot legend.}
+\item{legend}{\code{boolean}. Show plot legend.}
 }
 \value{
 \code{ggplot} grid.

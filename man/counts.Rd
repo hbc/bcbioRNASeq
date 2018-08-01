@@ -11,8 +11,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{Logical or character indicating which normalization
-method to apply:
+\item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
 \itemize{
 \item \code{FALSE}: Raw counts (tximport).
 \item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.

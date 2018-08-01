@@ -16,8 +16,8 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{clean}{\code{logical}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}

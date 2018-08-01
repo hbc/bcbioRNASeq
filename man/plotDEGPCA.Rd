@@ -22,34 +22,35 @@ plotDEGPCA(results, counts, ...)
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
-\item{results}{\code{DESeqResults} object.}
+\item{results}{\code{DESeqResults}.}
 
-\item{counts}{Object containing a normalized counts matrix.}
+\item{counts}{\code{matrix}. Normalized counts.}
 
 \item{...}{Additional arguments.}
 
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
-\item{alpha}{Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
-\item{lfcThreshold}{Log fold change ratio (base 2) cutoff threshold.}
+\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
+threshold.}
 
-\item{direction}{Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
-\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
-set to \code{NULL}, the default ggplot2 color palette will be used. If manual
-color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
-globally, use
+\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+To set the discrete color palette globally, use
 \code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
 
-\item{label}{Superimpose sample text labels on the plot.}
+\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
+and picks the first item in the vector by default.}
 
-\item{normalized}{Character indicating which normalization method to apply:
+\item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.

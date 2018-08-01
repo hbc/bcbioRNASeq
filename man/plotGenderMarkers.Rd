@@ -25,7 +25,7 @@ plotGenderMarkers(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{normalized}{Character indicating which normalization method to apply:
+\item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.

@@ -38,8 +38,8 @@ alignment-free, lightweight counts.
 aligned counts.
 }}
 
-\item{interestingGroups}{Character vector denoting groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{samples}{\code{character} or \code{NULL}. \emph{Optional.} Specify a subset of samples
 to load. The names must match the \code{description} specified in the bcbio YAML
