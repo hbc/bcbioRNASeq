@@ -8,7 +8,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param style Desired plot style ("`line`" or "`solid`").
+#' @param style `string`. Desired plot style ("`line`" or "`solid`").
 #'
 #' @return `ggplot`.
 #'

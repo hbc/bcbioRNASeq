@@ -15,9 +15,8 @@
 #' @noRd
 #'
 #' @inheritParams tximport::tximport
-#' @param sampleDirs Sample directories to import.
-#' @param type *Optional.* Manually specify the expression caller to use.
-#'   If `NULL`, if defaults to our preferred priority.
+#' @param sampleDirs `character`. Sample directories to import.
+#' @param type `string`. Expression caller to use.
 #'
 #' @seealso [tximport::tximport()].
 #'

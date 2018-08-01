@@ -14,13 +14,14 @@ topTables(object, ...)
 \S4method{topTables}{list}(object, n = 50L, coding = FALSE)
 }
 \arguments{
-\item{object}{\code{\link[=resultsTables]{resultsTables()}} return \code{list}.}
+\item{object}{\code{DESeqResults} or \code{list}. For \code{list} method, must use
+\code{\link[=resultsTables]{resultsTables()}} return.}
 
 \item{...}{Additional arguments.}
 
-\item{n}{Number genes to report.}
+\item{n}{\code{scalar integer}. Number genes to report.}
 
-\item{coding}{Whether to only return coding genes.}
+\item{coding}{\code{boolean}. Whether to only return coding genes.}
 }
 \value{
 \code{kable}.

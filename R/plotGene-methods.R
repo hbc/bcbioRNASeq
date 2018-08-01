@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param countsAxisLabel Label to use for the counts axis.
-#' @param medianLine Include median line for each group. Disabled if samples
-#'   are colored by sample name.
+#' @param countsAxisLabel `string`. Label to use for the counts axis.
+#' @param medianLine `boolean`. Include median line for each group. Disabled if
+#'   samples are colored by sample name.
 #'
 #' @return
 #' - "`facet`": `ggplot` grouped by `sampleName`, with [ggplot2::facet_wrap()]

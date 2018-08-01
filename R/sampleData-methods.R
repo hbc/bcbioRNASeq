@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param clean `logical`. Only return `factor` columns not defined in
+#' @param clean `boolean`. Only return `factor` columns not defined in
 #'   [bcbioBase::metadataBlacklist].
 #'
 #' @return `DataFrame`.

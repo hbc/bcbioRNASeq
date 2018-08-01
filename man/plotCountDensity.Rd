@@ -30,7 +30,7 @@ samples. If left unset, defaults to \code{sampleName}.}
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{style}{Desired plot style ("\code{line}" or "\code{solid}").}
+\item{style}{\code{string}. Desired plot style ("\code{line}" or "\code{solid}").}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2

@@ -6,7 +6,7 @@
 #'
 #' @inheritParams general
 #'
-#' @return Contrast name `string`.
+#' @return `string`. Contrast name.
 #'
 #' @examples
 #' # DESeqResults ====

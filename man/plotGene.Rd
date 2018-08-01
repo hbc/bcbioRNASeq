@@ -32,10 +32,10 @@ Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
 
-\item{countsAxisLabel}{Label to use for the counts axis.}
+\item{countsAxisLabel}{\code{string}. Label to use for the counts axis.}
 
-\item{medianLine}{Include median line for each group. Disabled if samples
-are colored by sample name.}
+\item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
+samples are colored by sample name.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2

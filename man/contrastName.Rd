@@ -16,7 +16,7 @@ contrastName(object, ...)
 \item{...}{Additional arguments.}
 }
 \value{
-Contrast name \code{string}.
+\code{string}. Contrast name.
 }
 \description{
 Contrast Name

@@ -6,9 +6,10 @@
 #'
 #' @inheritParams general
 #'
-#' @param object [resultsTables()] return `list`.
-#' @param n Number genes to report.
-#' @param coding Whether to only return coding genes.
+#' @param object `DESeqResults` or `list`. For `list` method, must use
+#'   [resultsTables()] return.
+#' @param n `scalar integer`. Number genes to report.
+#' @param coding `boolean`. Whether to only return coding genes.
 #'
 #' @return `kable`.
 #'

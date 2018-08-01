@@ -6,9 +6,10 @@
 #'
 #' @inheritParams bcbioBase::plotHeatmap
 #' @inheritParams general
-#' @param ylim Upper boundary limit for y-axis. Helps preserve dynamic range
-#'   for gene sets containing highly significant P values (e.g. `1e-100`).
-#' @param histograms Show LFC and P value histograms.
+#' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve
+#'   dynamic range for gene sets containing highly significant P values (e.g.
+#'   `1e-100`).
+#' @param histograms `boolean`. Show LFC and P value histograms.
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.

@@ -25,8 +25,9 @@ arguments should be formatted in camel case, not snake case.}
 \item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
 threshold.}
 
-\item{ylim}{Upper boundary limit for y-axis. Helps preserve dynamic range
-for gene sets containing highly significant P values (e.g. \code{1e-100}).}
+\item{ylim}{\code{scalar numeric}. Upper boundary limit for y-axis. Helps preserve
+dynamic range for gene sets containing highly significant P values (e.g.
+\code{1e-100}).}
 
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from
@@ -45,7 +46,7 @@ columns \code{geneID} and \code{geneName}.}
 downregulated genes. Also supports a character string for labeling DEGs
 with the same color, regardless of direction.}
 
-\item{histograms}{Show LFC and P value histograms.}
+\item{histograms}{\code{boolean}. Show LFC and P value histograms.}
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}

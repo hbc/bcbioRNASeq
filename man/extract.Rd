@@ -66,10 +66,8 @@
     \code{\link{drop}} for further details.
   }
 
-\item{transform}{\code{logical}. Apply DESeq2 transformations
-(\code{\link[DESeq2:rlog]{DESeq2::rlog()}}, \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}).
-Recommended by default but takes a long time to calculate for large
-datasets (> 50 samples).}
+\item{transform}{\code{boolean}. Recalculate slotted DESeq2 transformations.
+Recommended by default but can take a while for large datasets.}
 }
 \value{
 \code{bcbioRNASeq}.

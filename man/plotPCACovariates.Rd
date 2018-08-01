@@ -16,9 +16,9 @@ plotPCACovariates(object, ...)
 
 \item{...}{Additional arguments, passed to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
 
-\item{metrics}{Include sample summary metrics as covariates. Defaults to
-include all metrics columns (\code{TRUE}), but desired columns can be specified
-here as a character vector.}
+\item{metrics}{\code{boolean}. Include sample summary metrics as covariates.
+Defaults to include all metrics columns (\code{TRUE}), but desired columns can
+be specified here as a character vector.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{

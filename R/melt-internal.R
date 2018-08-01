@@ -6,7 +6,7 @@
 #'
 #' @seealso [reshape2::melt()].
 #'
-#' @return Melted `grouped_df`, grouped by `sampleID` and `geneID`.
+#' @return `grouped_df`, grouped by `sampleID` and `geneID`.
 #'
 #' @examples
 #' counts <- counts(bcb_small)

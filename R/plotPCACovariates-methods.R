@@ -7,9 +7,9 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param metrics Include sample summary metrics as covariates. Defaults to
-#'   include all metrics columns (`TRUE`), but desired columns can be specified
-#'   here as a character vector.
+#' @param metrics `boolean`. Include sample summary metrics as covariates.
+#'   Defaults to include all metrics columns (`TRUE`), but desired columns can
+#'   be specified here as a character vector.
 #' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
 #'
 #' @seealso

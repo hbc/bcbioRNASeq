@@ -9,7 +9,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
-#' @param trendline Include a trendline for each group.
+#' @param trendline `boolean`. Include a trendline for each group.
 #'
 #' @return `ggplot`.
 #'

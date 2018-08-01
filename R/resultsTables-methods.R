@@ -11,16 +11,18 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param counts `DESeqDataSet` containing the counts that were used to generate
-#'   the `DESeqResults`.
-#' @param summary Show summary statistics.
-#' @param write Write CSV files to disk.
-#' @param dropboxDir Dropbox directory path where to archive the results tables
-#'   for permanent storage (e.g. Stem Cell Commons). When this option is
-#'   enabled, unique links per file are generated internally with the rdrop2
-#'   package. Note that local files are written to [base::tempdir()] and the
-#'   `dir` argument is ignored, if this is enabled.
-#' @param rdsToken RDS file token to use for Dropbox authentication.
+#' @param counts `DESeqDataSet`. Corresponding object containing the counts that
+#'   were used to generate the `DESeqResults` object.
+#' @param summary `boolean`. Show summary statistics.
+#' @param write `boolean`. Write CSV files to disk.
+#' @param dropboxDir `string` or `NULL`. Dropbox directory path where to archive
+#'   the results tables for permanent storage (e.g. Stem Cell Commons). When
+#'   this option is enabled, unique links per file are generated internally with
+#'   the rdrop2 package. Note that local files are written to [base::tempdir()]
+#'   and the `dir` argument is ignored, if this is enabled.
+#' @param rdsToken `string` or `NULL`. RDS file token to use for Dropbox
+#'   authentication. If set `NULL` and `dropboxDir` is defined, then an
+#'   interactive prompt will appear requesting authorization.
 #'
 #' @return `list` containing modified `DESeqResults` return, including
 #'   additional gene-level metadata and normalized counts.
