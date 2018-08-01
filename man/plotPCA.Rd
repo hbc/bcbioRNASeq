@@ -8,8 +8,9 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups, color = getOption("bcbio.color",
-  NULL), label = getOption("bcbio.label", FALSE), title = "pca",
+  samples = NULL, interestingGroups,
+  color = getOption("bcbio.discrete.color", NULL),
+  label = getOption("bcbio.label", FALSE), title = "pca",
   subtitle = NULL, return = c("ggplot", "data.frame"))
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
@@ -27,10 +28,11 @@ identifiers from Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 \item{interestingGroups}{Character vector denoting groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{Desired ggplot color scale. Must supply discrete values. When
+\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
+globally, use \code{options(bcbio.discrete.color = function)}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 

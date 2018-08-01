@@ -10,8 +10,8 @@ plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
   normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-  fill = getOption("bcbio.fill", NULL), flip = getOption("bcbio.flip",
-  TRUE), title = "counts per gene")
+  fill = getOption("bcbio.discrete.fill", NULL),
+  flip = getOption("bcbio.flip", TRUE), title = "counts per gene")
 }
 \arguments{
 \item{object}{Object.}
@@ -31,7 +31,9 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+To set the discrete fill palette globally, use
+\code{options(bcbio.discrete.fill = function)}.}
 
 \item{flip}{Flip x and y axes.}
 

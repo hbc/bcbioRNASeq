@@ -10,8 +10,9 @@ plotCountDensity(object, ...)
 
 \S4method{plotCountDensity}{bcbioRNASeq}(object, interestingGroups,
   normalized = c("tmm", "vst", "rlog", "tpm", "rle"), style = c("line",
-  "solid"), color = getOption("bcbio.color", NULL),
-  fill = getOption("bcbio.fill", NULL), title = "count density")
+  "solid"), color = getOption("bcbio.discrete.color", NULL),
+  fill = getOption("bcbio.discrete.fill", NULL),
+  title = "count density")
 }
 \arguments{
 \item{object}{Object.}
@@ -31,14 +32,17 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{style}{Desired plot style ("\code{line}" or "\code{solid}").}
 
-\item{color}{Desired ggplot color scale. Must supply discrete values. When
+\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
+globally, use \code{options(bcbio.discrete.color = function)}.}
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+To set the discrete fill palette globally, use
+\code{options(bcbio.discrete.fill = function)}.}
 
 \item{title}{Title of plot.}
 }

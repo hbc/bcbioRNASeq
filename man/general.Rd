@@ -19,10 +19,11 @@
 \item{colData}{\code{data.frame} describing the columns of the object. Must
 contain \code{rownames} identical to the \code{colnames} of the object.}
 
-\item{color}{Desired ggplot color scale. Must supply discrete values. When
+\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
+globally, use \code{options(bcbio.discrete.color = function)}.}
 
 \item{counts}{Object containing a normalized counts matrix.}
 
@@ -32,7 +33,9 @@ color definitions are desired, we recommend using
 
 \item{fill}{Desired ggplot fill scale. Must supply discrete values. When set
 to \code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.}
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+To set the discrete fill palette globally, use
+\code{options(bcbio.discrete.fill = function)}.}
 
 \item{flip}{Flip x and y axes.}
 

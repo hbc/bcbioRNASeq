@@ -10,7 +10,7 @@ plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object, interestingGroups,
   minCounts = 1L, trendline = FALSE, label = getOption("bcbio.label",
-  FALSE), color = getOption("bcbio.color", NULL),
+  FALSE), color = getOption("bcbio.discrete.color", NULL),
   title = "gene saturation")
 }
 \arguments{
@@ -27,10 +27,11 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{label}{Superimpose sample text labels on the plot.}
 
-\item{color}{Desired ggplot color scale. Must supply discrete values. When
+\item{color}{Desired ggplot2 color scale. Must supply discrete values. When
 set to \code{NULL}, the default ggplot2 color palette will be used. If manual
 color definitions are desired, we recommend using
-\code{\link[ggplot2:scale_colour_manual]{ggplot2::scale_colour_manual()}}.}
+\code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color palette
+globally, use \code{options(bcbio.discrete.color = function)}.}
 
 \item{title}{Title of plot.}
 }
