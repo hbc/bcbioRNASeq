@@ -60,9 +60,9 @@ test_that("plotDEGHeatmap : No DEGs", {
 
 
 
-# plotMeanAverage ==============================================================
-test_that("plotMeanAverage : DESeqResults", {
-    p <- plotMeanAverage(res_small)
+# plotMA =======================================================================
+test_that("plotMA : DESeqResults", {
+    p <- plotMA(res_small)
     expect_is(p, "ggplot")
 
     # Check geom classes
@@ -89,8 +89,38 @@ test_that("plotMeanAverage : DESeqResults", {
     )
 })
 
-test_that("plotMeanAverage : Gene labels", {
-    p <- plotMeanAverage(res_small, genes = genes)
+test_that("plotMA : Specific genes", {
+    p <- plotMA(
+        object = res_small,
+        genes = genes,
+        gene2symbol = gene2symbol(bcb_small)
+    )
+    expect_is(p, "ggplot")
+})
+
+test_that("plotMA: ntop mode", {
+    p <- plotMA(
+        object = res_small,
+        ntop = 10L,
+        gene2symbol = gene2symbol(bcb_small)
+    )
+})
+
+test_that("plotMA : Directional support", {
+    # Upregulated
+    p <- plotMA(
+        object = res_small,
+        direction = "up",
+        sigPointColor = "red"
+    )
+    expect_is(p, "ggplot")
+
+    # Downregulated
+    p <- plotMA(
+        object = res_small,
+        direction = "down",
+        sigPointColor = "green"
+    )
     expect_is(p, "ggplot")
 })
 
