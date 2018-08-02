@@ -112,7 +112,7 @@ setMethod(
 
         # Check to see if we should use `sval` instead of `padj`
         if ("svalue" %in% names(object)) {
-            testCol <- "svalue"
+            testCol <- "svalue"  # nocov
         } else {
             testCol <- "padj"
         }

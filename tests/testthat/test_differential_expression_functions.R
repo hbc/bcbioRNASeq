@@ -71,6 +71,10 @@ test_that("plotVolcano : DESeqResults", {
     p <- plotVolcano(res_small, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
 
+    # Enable histograms
+    p <- plotVolcano(res_small, histograms = TRUE)
+    expect_is(p, "ggplot")
+
     # Label the top genes
     p <- plotVolcano(res_small, ntop = 5L, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
@@ -78,6 +82,16 @@ test_that("plotVolcano : DESeqResults", {
     # Label specific genes
     p <- plotVolcano(res_small, genes = genes, gene2symbol = gene2symbol)
     expect_is(p, "ggplot")
+
+    # Directional support
+    p <- plotVolcano(res_small, direction = "up", sigPointColor = "red")
+    expect_is(p, "ggplot")
+    p <- plotVolcano(res_small, direction = "down", sigPointColor = "green")
+    expect_is(p, "ggplot")
+
+    # Return data.frame
+    x <- plotVolcano(res_small, return = "data.frame")
+    expect_is(x, "data.frame")
 })
 
 
