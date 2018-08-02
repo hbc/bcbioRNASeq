@@ -105,6 +105,7 @@ NULL
         names(object)
     )
     if ("dropboxFiles" %in% names(object)) {
+        # nocov start : use local Dropbox token
         paths <- vapply(
             X = object[["dropboxFiles"]],
             FUN = function(x) {
@@ -114,6 +115,7 @@ NULL
         )
         basenames <- basename(paths) %>%
             gsub("\\?.*$", "", .)
+        # nocov end
     } else if ("localFiles" %in% names(object)) {
         paths <- object[["localFiles"]]
         basenames <- basename(paths)
@@ -178,7 +180,7 @@ setMethod(
 
         # Write local files to tempdir if Dropbox mode is enabled
         if (is_a_string(dropboxDir)) {
-            dir <- tempdir()
+            dir <- tempdir()  # nocov
         } else {
             dir <- initializeDirectory(dir)
         }
@@ -276,12 +278,14 @@ setMethod(
 
             # Write the results tables to local directory
             if (length(dropboxDir)) {
+                # nocov start : use local Dropbox token
                 message(paste(
                     "Writing",
                     toString(basename(localFiles)),
                     "to Dropbox",
                     paste0("(", dropboxDir, ")")
                 ))
+                # nocov end
             } else {
                 message(paste(
                     "Writing", toString(basename(localFiles)), "to", dir
