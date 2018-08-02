@@ -23,9 +23,39 @@ test_that("DESeqResults, DESeqTransform", {
 
 
 # plotDEGHeatmap ===============================================================
-test_that("plotDEGHeatmap", {
-    p <- plotDEGHeatmap(res_small, counts = rld_small)
+test_that("plotDEGHeatmap : bcbioRNASeq", {
+    p <- plotDEGHeatmap(
+        results = res_small,
+        counts = bcb_small,
+        normalized = "vst",
+        title = "testthat"
+    )
     expect_identical(names(p), pheatmapNames)
+})
+
+test_that("plotDEGHeatmap : DESeqTransform", {
+    p <- plotDEGHeatmap(
+        results = res_small,
+        counts = rld_small
+    )
+    expect_identical(names(p), pheatmapNames)
+})
+
+test_that("plotDEGHeatmap : DESeqDataSet", {
+    p <- plotDEGHeatmap(
+        results = res_small,
+        counts = dds_small
+    )
+    expect_identical(names(p), pheatmapNames)
+})
+
+test_that("plotDEGHeatmap : No DEGs", {
+    p <- suppressWarnings(plotDEGHeatmap(
+        results = res_small,
+        counts = bcb_small,
+        lfcThreshold = Inf
+    ))
+    expect_null(p)
 })
 
 

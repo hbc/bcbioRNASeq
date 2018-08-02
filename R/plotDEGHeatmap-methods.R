@@ -93,6 +93,7 @@ setMethod(
 
         # Early return if there are no DEGs
         if (!length(deg)) {
+            warning("No significant DEGs to plot")
             return(invisible())
         }
 
