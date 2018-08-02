@@ -90,69 +90,6 @@ NULL
 
 
 
-.plotGeneList <- function(
-    object,
-    interestingGroups,
-    countsAxisLabel = "counts",
-    medianLine = TRUE,
-    color = NULL,
-    legend = TRUE
-) {
-    stopifnot(is(object, "SummarizedExperiment"))
-    stopifnot(length(rownames(object)) <= 50L)
-
-    object <- convertGenesToSymbols(object)
-    assert_is_character(interestingGroups)
-
-    data <- .meltCounts(
-        counts = assay(object),
-        sampleData = sampleData(object, clean = FALSE)
-    )
-
-    list <- lapply(
-        X = rownames(object),
-        FUN = function(geneID) {
-            data <- data[data[["geneID"]] == geneID, , drop = FALSE]
-            p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = !!sym("geneID"),
-                    y = !!sym("counts"),
-                    color = !!sym("interestingGroups")
-                )
-            ) +
-                .genePoint(show.legend = legend) +
-                labs(
-                    title = geneID,
-                    x = NULL,
-                    y = countsAxisLabel,
-                    color = paste(interestingGroups, collapse = ":\n")
-                ) +
-                theme(
-                    axis.text.x = element_blank(),
-                    axis.ticks.x = element_blank()
-                )
-
-            if (
-                isTRUE(medianLine) &&
-                !identical(interestingGroups, "sampleName")
-            ) {
-                p <- p + .geneMedianLine
-            }
-
-            if (is(color, "ScaleDiscrete")) {
-                p <- p + color
-            }
-
-            p
-        }
-    )
-    names(list) <- rownames(object)
-    list
-}
-
-
-
 .plotGeneWide <- function(
     object,
     interestingGroups,
