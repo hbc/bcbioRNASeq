@@ -27,7 +27,7 @@ setMethod(
     function(
         object,
         interestingGroups,
-        limit = 10e6,
+        limit = 10e6L,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "mapped reads"
@@ -66,10 +66,10 @@ setMethod(
 
         if (is_positive(limit)) {
             # Convert limit to per million
-            if (limit < 1e6) {
+            if (limit < 1e6L) {
                 warning("`limit`: Use absolute value, not per million")
             } else {
-                limit <- limit / 1e6
+                limit <- limit / 1e6L
             }
             if (limit >= 1L) {
                 p <- p + bcbio_geom_abline(yintercept = limit)
