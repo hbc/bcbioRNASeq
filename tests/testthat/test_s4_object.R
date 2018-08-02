@@ -343,8 +343,12 @@ test_that("updateObject", {
     )
 
     # NULL rowRanges (default)
-    x <- updateObject(bcb_invalid)
+    x <- suppressWarnings(updateObject(bcb_invalid))
     expect_s4_class(x, "bcbioRNASeq")
+    expect_warning(
+        updateObject(bcb_invalid),
+        "`rowRanges` are now recommended for gene annotations"
+    )
 
     # Rich rowRanges metadata
     organism <- slot(bcb_invalid, "metadata")[["organism"]]

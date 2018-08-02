@@ -67,8 +67,10 @@ setMethod(
         rownames <- rownames(assays[[1L]])
         # This section needs to come before the assay modifications
         if (.hasSlot(object, "rowRanges")) {
+            hasRowRanges <- TRUE
             intRowRanges <- slot(object, "rowRanges")
         } else {
+            hasRowRanges <- FALSE
             # Generate empty genomic ranges if not supplied by the user
             intRowRanges <- emptyRanges(names = rownames)
         }
@@ -84,6 +86,9 @@ setMethod(
         validObject(rse)
         rm(assays, intRowRanges)
         if (is.null(rowRanges)) {
+            if (!isTRUE(hasRowRanges)) {
+                warning("`rowRanges` are now recommended for gene annotations")
+            }
             rowRanges <- rowRanges(rse)
         }
 
