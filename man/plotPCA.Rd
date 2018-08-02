@@ -21,7 +21,8 @@
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
 
-\item{ntop}{\code{scalar integer}. Number of top genes to label.}
+\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
+Use \code{Inf} to include all genes.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -48,9 +49,6 @@ and picks the first item in the vector by default.}
 }}
 
 \item{...}{Additional arguments.}
-
-\item{ntop.}{\code{scalar integer} or \code{Inf}. Number of most variable genes to
-plot. Use \code{Inf} to include all genes.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
