@@ -18,8 +18,8 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param ntop. `scalar integer` or `Inf`. Number of most variable genes to
-#'   plot. Use `Inf` to include all genes.
+#' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
+#'   Use `Inf` to include all genes.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
