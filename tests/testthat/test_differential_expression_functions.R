@@ -14,14 +14,6 @@ test_that("alphaSummary : DESeqDataSet", {
 
 
 
-# plotDEGPCA ===================================================================
-test_that("DESeqResults, DESeqTransform", {
-    p <- plotDEGPCA(results = res_small, counts = rld_small)
-    expect_is(p, "ggplot")
-})
-
-
-
 # plotDEGHeatmap ===============================================================
 test_that("plotDEGHeatmap : bcbioRNASeq", {
     p <- plotDEGHeatmap(
@@ -51,6 +43,33 @@ test_that("plotDEGHeatmap : DESeqDataSet", {
 
 test_that("plotDEGHeatmap : No DEGs", {
     p <- suppressWarnings(plotDEGHeatmap(
+        results = res_small,
+        counts = bcb_small,
+        lfcThreshold = Inf
+    ))
+    expect_null(p)
+})
+
+
+
+# plotDEGPCA ===================================================================
+test_that("plotDEGPCA : DESeqResults, bcbioRNASeq", {
+    p <- plotDEGPCA(results = res_small, counts = bcb_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotDEGPCA : DESeqResults, DESeqTransform", {
+    p <- plotDEGPCA(results = res_small, counts = rld_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotDEGPCA : DESeqResults, DESeqDataSet", {
+    p <- plotDEGPCA(results = res_small, counts = dds_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotDEGPCA : No DEGs", {
+    p <- suppressWarnings(plotDEGPCA(
         results = res_small,
         counts = bcb_small,
         lfcThreshold = Inf
