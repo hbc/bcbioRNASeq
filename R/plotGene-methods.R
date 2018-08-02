@@ -40,6 +40,7 @@ NULL
 # Constructors =================================================================
 .plotGeneFacet <- function(
     object,
+    interestingGroups,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -49,10 +50,7 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- .prepareInterestingGroups(
-        object = object,
-        interestingGroups = interestingGroups
-    )
+    assert_is_character(interestingGroups)
 
     data <- .meltCounts(
         counts = assay(object),
@@ -94,6 +92,7 @@ NULL
 
 .plotGeneList <- function(
     object,
+    interestingGroups,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -103,10 +102,7 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- .prepareInterestingGroups(
-        object = object,
-        interestingGroups = interestingGroups
-    )
+    assert_is_character(interestingGroups)
 
     data <- .meltCounts(
         counts = assay(object),
@@ -159,6 +155,7 @@ NULL
 
 .plotGeneWide <- function(
     object,
+    interestingGroups,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -168,10 +165,7 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- .prepareInterestingGroups(
-        object = object,
-        interestingGroups = interestingGroups
-    )
+    assert_is_character(interestingGroups)
 
     data <- .meltCounts(
         counts = assay(object),
@@ -252,6 +246,7 @@ setMethod(
 
         fxn(
             object = rse,
+            interestingGroups = interestingGroups,
             countsAxisLabel = countsAxisLabel,
             medianLine = medianLine,
             color = color,
@@ -274,19 +269,14 @@ setMethod(
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
-
         counts <- counts(object, normalized = normalized)
         # Ensure counts are log2 scale
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
         countsAxisLabel <- paste(normalized, "counts (log2)")
-
-        # Coerce to RangedSummarizedExperiment and subset the genes
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
-        # RangedSummarizedExperiment
         plotGene(
             object = rse,
             countsAxisLabel = countsAxisLabel,
@@ -304,13 +294,10 @@ setMethod(
     signature("DESeqDataSet"),
     function(object, ...) {
         validObject(object)
-
         # Ensure counts are log2 scale
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
-        # RangedSummarizedExperiment
         plotGene(
             object = rse,
             countsAxisLabel = "normalized counts (log2)",
