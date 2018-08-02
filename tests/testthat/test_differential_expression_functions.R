@@ -210,6 +210,16 @@ test_that("resultsTables : Summary and write support", {
     )
 })
 
+# Providing a corresponding DESeqDataSet for counts is recommended
+test_that("resultsTables : DESeqResults minimal mode", {
+    x <- resultsTables(
+        results = res_small,
+        alpha = 0.01,
+        lfcThreshold = 1L
+    )
+    expect_is(x, "list")
+})
+
 if (file.exists("token.rds")) {
     test_that("resultsTables : Dropbox mode", {
         resTbl <- resultsTables(
