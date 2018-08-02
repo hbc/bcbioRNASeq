@@ -71,6 +71,10 @@ setMethod(
             rownames <- rownames(assays[[1L]])
             # Generate empty genomic ranges if not supplied by the user
             rowRanges <- emptyRanges(names = rownames)
+        } else {
+            # Require that all rows are defined
+            assert_is_subset(rownames, names(rowRanges))
+            rowRanges <- rowRanges[rownames]
         }
         assert_is_all_of(rowRanges, "GRanges")
 
