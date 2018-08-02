@@ -6,7 +6,7 @@
     if (missing(interestingGroups)) {
         interestingGroups <- basejump::interestingGroups(object)
         if (is.null(interestingGroups)) {
-            interestingGroups <- "sampleName"
+            interestingGroups <- "sampleName"  # nocov
         }
     } else if (is.null(interestingGroups)) {
         interestingGroups <- "sampleName"
