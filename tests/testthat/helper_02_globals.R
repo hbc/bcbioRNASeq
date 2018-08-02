@@ -7,5 +7,6 @@ options(
 lfc <- 0.25
 pheatmapNames <- c("tree_row", "tree_col", "kmeans", "gtable")
 
-# vst
+# DESeqTransform
+rld_small <- DESeq2::rlog(dds_small)
 vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
