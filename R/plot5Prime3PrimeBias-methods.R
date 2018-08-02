@@ -35,12 +35,10 @@ setMethod(
         title = "5'->3' bias"
     ) {
         validObject(object)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         assert_is_a_number(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)

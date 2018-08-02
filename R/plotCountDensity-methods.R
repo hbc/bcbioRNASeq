@@ -35,12 +35,10 @@ setMethod(
         title = "count density"
     ) {
         validObject(object)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         normalized <- match.arg(normalized)
         style <- match.arg(style)
         assertIsColorScaleDiscreteOrNULL(color)

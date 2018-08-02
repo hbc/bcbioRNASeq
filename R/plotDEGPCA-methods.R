@@ -47,15 +47,10 @@ setMethod(
     ) {
         validObject(results)
         validObject(counts)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(counts)
-        } else {
-            interestingGroups(counts) <- interestingGroups
-        }
-        if (missing(alpha)) {
-            alpha <- metadata(results)[["alpha"]]
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)

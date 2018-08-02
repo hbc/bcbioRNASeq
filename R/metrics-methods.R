@@ -25,6 +25,11 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, interestingGroups) {
         validObject(object)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
+
         # Stop on fast-rnaseq pipline detection
         if (!"totalReads" %in% colnames(colData(object))) {
             # Parse the YAML metadata or log file here instead?
@@ -33,13 +38,14 @@ setMethod(
                 "Metrics were not calculated."
             ), call. = FALSE)
         }
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
+
         data <- as.data.frame(colData(object))
         data <- uniteInterestingGroups(data, interestingGroups)
+
+        assert_is_subset(
+            x = c("sampleName", "interestingGroups"),
+            y = colnames(data)
+        )
         data
     }
 )

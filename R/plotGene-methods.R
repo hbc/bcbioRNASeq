@@ -49,7 +49,10 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
+    interestingGroups <- .prepareInterestingGroups(
+        object = object,
+        interestingGroups = interestingGroups
+    )
 
     data <- .meltCounts(
         counts = assay(object),
@@ -100,7 +103,10 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
+    interestingGroups <- .prepareInterestingGroups(
+        object = object,
+        interestingGroups = interestingGroups
+    )
 
     data <- .meltCounts(
         counts = assay(object),
@@ -162,7 +168,10 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
+    interestingGroups <- .prepareInterestingGroups(
+        object = object,
+        interestingGroups = interestingGroups
+    )
 
     data <- .meltCounts(
         counts = assay(object),
@@ -220,12 +229,10 @@ setMethod(
     ) {
         validObject(object)
         assert_is_character(genes)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(legend)
