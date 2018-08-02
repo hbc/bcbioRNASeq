@@ -4,8 +4,8 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
-\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(results, counts, ...)
@@ -13,10 +13,10 @@ plotDEGHeatmap(results, counts, ...)
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
   counts, alpha, lfcThreshold = 0L, title = TRUE, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
-
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults}.}
@@ -55,10 +55,18 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \code{DESeqDataSet}).
 }
 \examples{
-# DESeqResults, SummarizedExperiment ====
+# DESeqResults, bcbioRNASeq ====
 plotDEGHeatmap(
     results = res_small,
-    counts = rld_small
+    counts = bcb_small,
+    normalized = "vst"
+)
+
+# DESeqResults, DESeqTransform ====
+vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+plotDEGHeatmap(
+    results = res_small,
+    counts = vst_small
 )
 
 # DESeqResults, DESeqDataSet ====
@@ -69,12 +77,6 @@ plotDEGHeatmap(
     counts = dds_small,
     color = NULL,
     legendColor = NULL
-)
-
-# DESeqResults, bcbioRNASeq ====
-plotDEGHeatmap(
-    results = res_small,
-    counts = bcb_small
 )
 }
 \seealso{

@@ -100,8 +100,31 @@ test_that("counts : apply transformationLimit", {
 
 
 
+# interestingGroups ============================================================
+test_that("interestingGroups : NULL handling", {
+    expect_is(
+        metrics(bcb_small, interestingGroups = NULL),
+        "data.frame"
+    )
+    expect_is(
+        plotTotalReads(bcb_small, interestingGroups = NULL),
+        "ggplot"
+    )
+    expect_is(
+        sampleData(bcb_small, interestingGroups = NULL),
+        "DataFrame"
+    )
+
+    x <- bcb_small
+    expect_error(interestingGroups(x) <- NULL)
+    metadata(x)[["interestingGroups"]] <- NULL
+    expect_error(validObject(x))
+})
+
+
+
 # sampleData ===================================================================
-test_that("sampleData: Verbose mode (default)", {
+test_that("sampleData : Verbose mode (default)", {
     # Match colData when `interestingGroups = NULL`
     expect_identical(
         sampleData(bcb_small, clean = FALSE, interestingGroups = NULL),
@@ -145,6 +168,12 @@ test_that("sampleData : Clean mode", {
     }))
 })
 
+test_that("sampleData assignment", {
+    x <- bcb_small
+    sampleData(x)[["testthat"]] <- factor("XXX")
+    expect_identical(levels(sampleData(x)[["testthat"]]), "XXX")
+})
+
 
 
 # selectSamples ================================================================
@@ -160,4 +189,13 @@ test_that("selectSamples : bcbioRNASeq", {
 test_that("selectSamples : DESeqDataSet", {
     x <- selectSamples(dds_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
+})
+
+
+
+# tmm ==========================================================================
+test_that("tmm", {
+    expect_is(tmm(bcb_small), "matrix")
+    expect_is(tmm(dds_small), "matrix")
+    expect_is(tmm(assay(bcb_small)), "matrix")
 })

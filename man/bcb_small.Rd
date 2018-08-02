@@ -13,7 +13,7 @@ bcb_small
 }
 \seealso{
 Other GSE65267: \code{\link{dds_small}},
-  \code{\link{res_small}}, \code{\link{rld_small}}
+  \code{\link{res_small}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

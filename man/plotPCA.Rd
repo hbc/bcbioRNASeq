@@ -7,9 +7,8 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups,
-  color = getOption("bcbio.discrete.color", NULL),
+\S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
+  ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), title = "pca",
   subtitle = NULL, return = c("ggplot", "data.frame"))
 
@@ -19,14 +18,11 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\code{character}. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
-
-\item{samples}{\code{character} or \code{NULL}. Samples to include.}
-
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
+
+\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
+Use \code{Inf} to include all genes.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -71,19 +67,17 @@ a way to look at how samples are clustering.
 }
 \examples{
 # bcbioRNASeq ====
-plotPCA(bcb_small, label = FALSE)
-plotPCA(bcb_small, label = TRUE)
-
-# Select samples
 plotPCA(
     object = bcb_small,
-    samples = head(colnames(bcb_small), 4L),
+    normalized = "vst",
     label = TRUE
 )
-
-# DESeqDataSet ====
-# DESeqTransform method is preferred
-plotPCA(dds_small)
+plotPCA(
+    object = bcb_small,
+    normalized = "rlog",
+    interestingGroups = "sampleName",
+    label = FALSE
+)
 }
 \seealso{
 \itemize{

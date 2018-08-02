@@ -8,17 +8,19 @@
 #' @inheritParams general
 #'
 #' @examples
-#' # DESeqResults, SummarizedExperiment ====
-#' plotDEGPCA(
-#'     results = res_small,
-#'     counts = rld_small,
-#'     label = TRUE
-#' )
-#'
 #' # DESeqResults, bcbioRNASeq ====
 #' plotDEGPCA(
 #'     results = res_small,
 #'     counts = bcb_small,
+#'     normalized = "vst",
+#'     label = TRUE
+#' )
+#'
+#' # DESeqResults, DESeqTransform ====
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotDEGPCA(
+#'     results = res_small,
+#'     counts = vst_small,
 #'     label = TRUE
 #' )
 NULL
@@ -47,15 +49,13 @@ setMethod(
     ) {
         validObject(results)
         validObject(counts)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(counts)
-        } else {
-            interestingGroups(counts) <- interestingGroups
-        }
+        interestingGroups <- .prepareInterestingGroups(
+            object = counts,
+            interestingGroups = interestingGroups
+        )
         if (missing(alpha)) {
             alpha <- metadata(results)[["alpha"]]
         }
-        assert_is_character(interestingGroups)
         assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
@@ -77,6 +77,7 @@ setMethod(
 
         # Early return if there are no DEGs
         if (!length(deg)) {
+            warning("No significant DEGs to plot")
             return(invisible())
         }
 
@@ -87,8 +88,8 @@ setMethod(
         rse <- as(counts, "RangedSummarizedExperiment")
         plotPCA(
             object = rse,
-            genes = rownames(rse),
             interestingGroups = interestingGroups,
+            ntop = Inf,
             label = label,
             title = contrastName(results),
             subtitle = paste(nrow(rse), "genes"),

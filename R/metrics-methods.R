@@ -25,21 +25,29 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, interestingGroups) {
         validObject(object)
-        # Stop on fast-rnaseq pipline detection
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
+
+        # Stop on fast-rnaseq pipline detection.
+        # Consider parsing the YAML metadata as an alternate approach.
         if (!"totalReads" %in% colnames(colData(object))) {
-            # Parse the YAML metadata or log file here instead?
+            # nocov start
             stop(paste(
                 "Fast mode detected.",
                 "Metrics were not calculated."
             ), call. = FALSE)
+            # nocov end
         }
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
+
         data <- as.data.frame(colData(object))
         data <- uniteInterestingGroups(data, interestingGroups)
+
+        assert_is_subset(
+            x = c("sampleName", "interestingGroups"),
+            y = colnames(data)
+        )
         data
     }
 )

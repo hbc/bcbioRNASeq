@@ -116,9 +116,8 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
+<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
+  <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500L</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"pca"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))
 
@@ -134,19 +133,14 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>genes</th>
-      <td><p><code>character</code>. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
-    </tr>
-    <tr>
-      <th>samples</th>
-      <td><p><code>character</code> or <code>NULL</code>. Samples to include.</p></td>
-    </tr>
-    <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>. Groups of interest that define the
 samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ntop</th>
+      <td><p><code>scalar integer</code> or <code>Inf</code>. Number of most variable genes to plot.
+Use <code>Inf</code> to include all genes.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -227,16 +221,16 @@ a way to look at how samples are clustering.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 most variable genes</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 most variable genes</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Select samples</span>
 <span class='fu'>plotPCA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
-    <span class='kw'>samples</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='fu'>colnames</span>(<span class='no'>bcb_small</span>), <span class='fl'>4L</span>),
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 most variable genes</span></div><div class='img'><img src='plotPCA-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqDataSet ====</span>
-<span class='co'># DESeqTransform method is preferred</span>
-<span class='fu'>plotPCA</span>(<span class='no'>dds_small</span>)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 most variable genes</span></div><div class='img'><img src='plotPCA-4.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
+    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
+    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

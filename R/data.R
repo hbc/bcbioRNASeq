@@ -2,7 +2,7 @@
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
-"genderMarkers"
+"gender_markers"
 
 
 
@@ -28,11 +28,3 @@
 #' @family GSE65267
 #' @author Lorena Pantano, Michael Steinbaugh
 "res_small"
-
-
-
-#' `DESeqTransform` Example
-#'
-#' @family GSE65267
-#' @author Lorena Pantano, Michael Steinbaugh
-"rld_small"

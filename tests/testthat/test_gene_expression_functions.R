@@ -26,11 +26,22 @@ test_that("plotGenderMarkers : DESeqTransform", {
 # plotGene =====================================================================
 test_that("plotGene : bcbioRNASeq", {
     # facet
-    p <- plotGene(bcb_small, genes = genes, return = "facet")
+    p <- plotGene(
+        object = bcb_small,
+        genes = genes,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        return = "facet"
+    )
     expect_is(p, "ggplot")
 
     # wide
-    p <- plotGene(bcb_small, genes = genes, return = "wide")
+    p <- plotGene(
+        object = bcb_small,
+        genes = genes,
+        normalized = "tpm",
+        return = "wide"
+    )
     expect_is(p, "ggplot")
 })
 
@@ -40,7 +51,12 @@ test_that("plotGene : DESeqDataSet", {
 })
 
 test_that("plotGene : DESeqTransform", {
+    # rlog
     p <- plotGene(rld_small, genes = genes)
+    expect_is(p, "ggplot")
+
+    # vst
+    p <- plotGene(vst_small, genes = genes)
     expect_is(p, "ggplot")
 })
 

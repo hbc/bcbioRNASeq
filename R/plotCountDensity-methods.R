@@ -35,12 +35,10 @@ setMethod(
         title = "count density"
     ) {
         validObject(object)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         normalized <- match.arg(normalized)
         style <- match.arg(style)
         assertIsColorScaleDiscreteOrNULL(color)
@@ -63,7 +61,8 @@ setMethod(
         }
 
         # Melt the counts into long format
-        data <- fxn(counts, sampleData = sampleData(object))
+        sampleData <- sampleData(object, interestingGroups = interestingGroups)
+        data <- fxn(counts, sampleData = sampleData)
 
         # Subtitle
         if (is_a_string(title)) {
@@ -99,10 +98,6 @@ setMethod(
             if (is(fill, "ScaleDiscrete")) {
                 p <- p + fill
             }
-        }
-
-        if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
         }
 
         p

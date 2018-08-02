@@ -25,14 +25,12 @@
 #' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
-#' plotGene(bcb_small, genes = genes, return = "facet")
-#' plotGene(bcb_small, genes = genes, return = "wide")
-#'
-#' # DESeqDataSet ====
-#' plotGene(dds_small, genes = genes)
+#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "facet")
+#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "wide")
 #'
 #' # DESeqTransform ====
-#' plotGene(rld_small, genes = genes)
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotGene(vst_small, genes = genes)
 NULL
 
 
@@ -40,6 +38,7 @@ NULL
 # Constructors =================================================================
 .plotGeneFacet <- function(
     object,
+    interestingGroups,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -49,7 +48,7 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
+    assert_is_character(interestingGroups)
 
     data <- .meltCounts(
         counts = assay(object),
@@ -89,70 +88,9 @@ NULL
 
 
 
-.plotGeneList <- function(
-    object,
-    countsAxisLabel = "counts",
-    medianLine = TRUE,
-    color = NULL,
-    legend = TRUE
-) {
-    stopifnot(is(object, "SummarizedExperiment"))
-    stopifnot(length(rownames(object)) <= 50L)
-
-    object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
-
-    data <- .meltCounts(
-        counts = assay(object),
-        sampleData = sampleData(object, clean = FALSE)
-    )
-
-    list <- lapply(
-        X = rownames(object),
-        FUN = function(geneID) {
-            data <- data[data[["geneID"]] == geneID, , drop = FALSE]
-            p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = !!sym("geneID"),
-                    y = !!sym("counts"),
-                    color = !!sym("interestingGroups")
-                )
-            ) +
-                .genePoint(show.legend = legend) +
-                labs(
-                    title = geneID,
-                    x = NULL,
-                    y = countsAxisLabel,
-                    color = paste(interestingGroups, collapse = ":\n")
-                ) +
-                theme(
-                    axis.text.x = element_blank(),
-                    axis.ticks.x = element_blank()
-                )
-
-            if (
-                isTRUE(medianLine) &&
-                !identical(interestingGroups, "sampleName")
-            ) {
-                p <- p + .geneMedianLine
-            }
-
-            if (is(color, "ScaleDiscrete")) {
-                p <- p + color
-            }
-
-            p
-        }
-    )
-    names(list) <- rownames(object)
-    list
-}
-
-
-
 .plotGeneWide <- function(
     object,
+    interestingGroups,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -162,7 +100,7 @@ NULL
     stopifnot(length(rownames(object)) <= 50L)
 
     object <- convertGenesToSymbols(object)
-    interestingGroups <- interestingGroups(object)
+    assert_is_character(interestingGroups)
 
     data <- .meltCounts(
         counts = assay(object),
@@ -192,10 +130,6 @@ NULL
         p <- p + color
     }
 
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(color = FALSE)
-    }
-
     p
 }
 
@@ -220,12 +154,10 @@ setMethod(
     ) {
         validObject(object)
         assert_is_character(genes)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(legend)
@@ -245,6 +177,7 @@ setMethod(
 
         fxn(
             object = rse,
+            interestingGroups = interestingGroups,
             countsAxisLabel = countsAxisLabel,
             medianLine = medianLine,
             color = color,
@@ -267,19 +200,14 @@ setMethod(
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
-
         counts <- counts(object, normalized = normalized)
         # Ensure counts are log2 scale
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
         countsAxisLabel <- paste(normalized, "counts (log2)")
-
-        # Coerce to RangedSummarizedExperiment and subset the genes
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
-        # RangedSummarizedExperiment
         plotGene(
             object = rse,
             countsAxisLabel = countsAxisLabel,
@@ -297,13 +225,10 @@ setMethod(
     signature("DESeqDataSet"),
     function(object, ...) {
         validObject(object)
-
         # Ensure counts are log2 scale
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-
-        # RangedSummarizedExperiment
         plotGene(
             object = rse,
             countsAxisLabel = "normalized counts (log2)",

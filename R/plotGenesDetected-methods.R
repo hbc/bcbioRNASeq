@@ -30,12 +30,10 @@ setMethod(
         title = "genes detected"
     ) {
         validObject(object)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
         assertIsAnImplicitInteger(minCounts)

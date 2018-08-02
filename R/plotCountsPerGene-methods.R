@@ -41,12 +41,10 @@ setMethod(
     ) {
         # Passthrough: fill, flip, title
         validObject(object)
-        if (missing(interestingGroups)) {
-            interestingGroups <- basejump::interestingGroups(object)
-        } else {
-            interestingGroups(object) <- interestingGroups
-        }
-        assert_is_character(interestingGroups)
+        interestingGroups <- .prepareInterestingGroups(
+            object = object,
+            interestingGroups = interestingGroups
+        )
         normalized <- match.arg(normalized)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)

@@ -13,9 +13,6 @@ stopifnot(identical(
     c("Intercept", "treatment_folic_acid_vs_control")
 ))
 
-rld_small <- rlog(dds_small)
-validObject(rld_small)
-
 resultsNames(dds_small)
 res_small <- results(
     dds_small,
@@ -34,6 +31,6 @@ res_small <- lfcShrink(
 validObject(res_small)
 
 use_data(
-    dds_small, rld_small, res_small,
+    dds_small, res_small,
     overwrite = TRUE, compress = "xz"
 )
