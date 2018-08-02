@@ -61,7 +61,8 @@ setMethod(
         }
 
         # Melt the counts into long format
-        data <- fxn(counts, sampleData = sampleData(object))
+        sampleData <- sampleData(object, interestingGroups = interestingGroups)
+        data <- fxn(counts, sampleData = sampleData)
 
         # Subtitle
         if (is_a_string(title)) {
@@ -97,10 +98,6 @@ setMethod(
             if (is(fill, "ScaleDiscrete")) {
                 p <- p + fill
             }
-        }
-
-        if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
         }
 
         p
