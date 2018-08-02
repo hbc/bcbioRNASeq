@@ -96,7 +96,7 @@ for visualization.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
 
-\item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
+\item{...}{Additional arguments.}
 }
 \value{
 \code{bcbioRNASeq}.
