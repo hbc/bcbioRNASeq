@@ -322,6 +322,13 @@ test_that("extract : DESeq2 transforms", {
 test_that("show", {
     x <- capture.output(show(bcb_small))
     expect_true(grepl("bcbioRNASeq", x[[1L]]))
+
+    # Fake metadata for code coverage
+    object <- bcb_small
+    metadata(object)[["sampleMetadataFile"]] <- "XXX"
+    metadata(object)[["gffFile"]] <- "XXX"
+    x <- capture.output(show(object))
+    expect_true(grepl("bcbioRNASeq", x[[1L]]))
 })
 
 
