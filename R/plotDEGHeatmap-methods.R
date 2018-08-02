@@ -23,10 +23,18 @@
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
-#' # DESeqResults, SummarizedExperiment ====
+#' # DESeqResults, bcbioRNASeq ====
 #' plotDEGHeatmap(
 #'     results = res_small,
-#'     counts = rld_small
+#'     counts = bcb_small,
+#'     normalized = "vst"
+#' )
+#'
+#' # DESeqResults, DESeqTransform ====
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotDEGHeatmap(
+#'     results = res_small,
+#'     counts = vst_small
 #' )
 #'
 #' # DESeqResults, DESeqDataSet ====
@@ -37,12 +45,6 @@
 #'     counts = dds_small,
 #'     color = NULL,
 #'     legendColor = NULL
-#' )
-#'
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGHeatmap(
-#'     results = res_small,
-#'     counts = bcb_small
 #' )
 NULL
 
@@ -66,6 +68,12 @@ setMethod(
         ...
     ) {
         validObject(results)
+        validObject(counts)
+        # Coerce to RSE then SE to preserve rowData
+        if (is(counts, "RangedSummarizedExperiment")) {
+            counts <- as(counts, "RangedSummarizedExperiment")
+        }
+        counts <- as(counts, "SummarizedExperiment")
         assert_are_identical(rownames(results), rownames(counts))
         if (missing(alpha)) {
             alpha <- metadata(results)[["alpha"]]
@@ -108,17 +116,19 @@ setMethod(
     "plotDEGHeatmap",
     signature(
         results = "DESeqResults",
-        counts = "DESeqDataSet"
+        counts = "bcbioRNASeq"
     ),
     function(
         results,
         counts,
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(counts)
-        message("Using normalized counts")
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
+        assays(rse) <- list(counts = counts(counts, normalized = normalized))
         plotDEGHeatmap(
             results = results,
             counts = rse,
@@ -135,19 +145,17 @@ setMethod(
     "plotDEGHeatmap",
     signature(
         results = "DESeqResults",
-        counts = "bcbioRNASeq"
+        counts = "DESeqDataSet"
     ),
     function(
         results,
         counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
         validObject(counts)
-        normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
+        message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts(counts, normalized = normalized))
+        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
         plotDEGHeatmap(
             results = results,
             counts = rse,
