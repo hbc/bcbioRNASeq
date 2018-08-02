@@ -64,6 +64,22 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
 
 
 
+# plotMeanSD ===================================================================
+test_that("plotMeanSD : DESeqDataSet", {
+    p <- plotMeanSD(dds_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotMeanSD : bcbioRNASeq : No stashed DESeq transforms", {
+    x <- bcb_small
+    assays(x)[["rlog"]] <- NULL
+    assays(x)[["vst"]] <- NULL
+    p <- plotMeanSD(x)
+    expect_is(p, "ggplot")
+})
+
+
+
 # plotPCA ======================================================================
 test_that("plotPCA : Label", {
     p <- plotPCA(bcb_small, label = FALSE)
