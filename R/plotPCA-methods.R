@@ -18,6 +18,8 @@
 #' @export
 #'
 #' @inheritParams general
+#' @param `scalar integer` or `Inf`. Number of most variable genes to plot.
+#'   Use `Inf` to include all genes.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
@@ -48,9 +50,8 @@ setMethod(
     signature("SummarizedExperiment"),
     function(
         object,
-        genes = NULL,
-        samples = NULL,
         interestingGroups,
+        ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
         title = "pca",
@@ -59,12 +60,13 @@ setMethod(
     ) {
         # Legacy arguments =====================================================
         call <- match.call()
-        # censorSamples
-        if ("censorSamples" %in% names(call)) {
-            warning("`censorSamples` is deprecated in favor of `samples`")
-            censorSamples <- call[["censorSamples"]]
-            assert_is_subset(censorSamples, colnames(object))
-            samples <- setdiff(colnames(object), censorSamples)
+        # genes
+        if ("genes" %in% names(call)) {
+            stop("`genes` is defunct. Use `ntop` argument instead.")
+        }
+        # samples / censorSamples
+        if (any(c("samples", "censorSamples") %in% names(call))) {
+            stop("Sample selection is defunct. Use bracket-based subsetting.")
         }
         # returnData
         if ("returnData" %in% names(call)) {
@@ -77,12 +79,11 @@ setMethod(
 
         # Assert checks ========================================================
         validObject(object)
-        assert_is_any_of(genes, c("character", "NULL"))
-        assert_is_any_of(samples, c("character", "NULL"))
         interestingGroups <- .prepareInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )
+        assert_is_a_number(ntop)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
         assertIsAStringOrNULL(title)
@@ -91,25 +92,14 @@ setMethod(
             return <- match.arg(return)
         }
 
-        # Prepare counts matrix ================================================
-        # Subset samples, if desired
-        if (length(samples)) {
-            object <- object[, samples]
-        }
-
-        # Subset genes, if desired
-        if (length(genes)) {
-            object <- object[genes, , drop = FALSE]
-            # Set ntop to the number of genes requested
-            ntop <- length(genes)
-            message(paste("Plotting PCA using", ntop, "genes"))
+        if (identical(ntop, Inf)) {
+            nGene <- nrow(object)
         } else {
-            # Recommended DESeq default of most variable genes
-            ntop <- 500L
-            message(paste("Plotting PCA using", ntop, "most variable genes"))
+            nGene <- ntop
         }
+        message(paste("Plotting PCA using", nGene, "genes"))
 
-        # Get PCA data using DESeqTransform method =============================
+        # Get coordinates using DESeqTransform method
         dt <- DESeqTransform(object)
         colData <- colData(object)
         data <- plotPCA(

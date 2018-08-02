@@ -7,9 +7,8 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object, genes = NULL,
-  samples = NULL, interestingGroups,
-  color = getOption("bcbio.discrete.color", NULL),
+\S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
+  ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), title = "pca",
   subtitle = NULL, return = c("ggplot", "data.frame"))
 
@@ -19,14 +18,10 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\code{character}. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
-
-\item{samples}{\code{character} or \code{NULL}. Samples to include.}
-
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
+
+\item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -53,6 +48,8 @@ and picks the first item in the vector by default.}
 }}
 
 \item{...}{Additional arguments.}
+
+\item{`scalar}{integer\code{or}Inf\code{. Number of most variable genes to plot. Use}Inf` to include all genes.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
