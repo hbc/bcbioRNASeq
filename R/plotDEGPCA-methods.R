@@ -87,8 +87,8 @@ setMethod(
         rse <- as(counts, "RangedSummarizedExperiment")
         plotPCA(
             object = rse,
-            genes = rownames(rse),
             interestingGroups = interestingGroups,
+            ntop = Inf,
             label = label,
             title = contrastName(results),
             subtitle = paste(nrow(rse), "genes"),
