@@ -680,10 +680,10 @@ setValidity(
             USE.NAMES = TRUE
         ))
         if (!all(classChecks)) {
-            print(classChecks)
             stop(paste(
                 "Metadata class checks failed.",
                 bcbioBase::updateMessage,
+                printString(classChecks),
                 sep = "\n"
             ))
         }
