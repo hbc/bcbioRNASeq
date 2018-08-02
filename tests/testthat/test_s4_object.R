@@ -328,15 +328,27 @@ test_that("show", {
 
 # updateObject =================================================================
 test_that("updateObject", {
+    load("bcb_invalid.rda")
     expect_error(validObject(bcb_invalid))
     expect_identical(
         slot(bcb_invalid, "metadata")[["version"]],
         package_version("0.1.4")
     )
+
+    # NULL rowRanges (default)
+    x <- updateObject(bcb_invalid)
+    expect_s4_class(x, "bcbioRNASeq")
+
+    # Rich rowRanges metadata
     organism <- slot(bcb_invalid, "metadata")[["organism"]]
+    expect_is(organism, "character")
     rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
-    # Suppressing expected warning about ENSMUSG00000104475, ENSMUSG00000109048
-    x <- suppressWarnings(updateObject(bcb_invalid, rowRanges = rowRanges))
+    # Suppressing expected warning about genes:
+    # ENSMUSG00000104475, ENSMUSG00000109048
+    x <- suppressWarnings(
+        updateObject(bcb_invalid, rowRanges = rowRanges)
+    )
+    expect_s4_class(x, "bcbioRNASeq")
     expect_identical(
         metadata(x)[["version"]],
         packageVersion
