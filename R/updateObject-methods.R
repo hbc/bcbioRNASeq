@@ -64,29 +64,28 @@ setMethod(
         names(assays) <- assayNames(object)
 
         # Row data =============================================================
+        rownames <- rownames(assays[[1L]])
         # This section needs to come before the assay modifications
         if (.hasSlot(object, "rowRanges")) {
-            rowRanges <- slot(object, "rowRanges")
-        } else if (is.null(rowRanges)) {
-            rownames <- rownames(assays[[1L]])
-            # Generate empty genomic ranges if not supplied by the user
-            rowRanges <- emptyRanges(names = rownames)
+            intRowRanges <- slot(object, "rowRanges")
         } else {
-            # Require that all rows are defined
-            assert_is_subset(rownames, names(rowRanges))
-            rowRanges <- rowRanges[rownames]
+            # Generate empty genomic ranges if not supplied by the user
+            intRowRanges <- emptyRanges(names = rownames)
         }
-        assert_is_all_of(rowRanges, "GRanges")
+        assert_is_all_of(intRowRanges, "GRanges")
 
         # Regenerate RangedSummarizedExperiment ================================
         rse <- SummarizedExperiment(
             assays = assays,
-            rowRanges = rowRanges,
+            rowRanges = intRowRanges,
             colData = colData(object),
             metadata = metadata(object)
         )
-        rm(assays, rowRanges)
         validObject(rse)
+        rm(assays, intRowRanges)
+        if (is.null(rowRanges)) {
+            rowRanges <- rowRanges(rse)
+        }
 
         # Metadata =============================================================
         metadata <- metadata(rse)
@@ -351,7 +350,8 @@ setMethod(
         # Return ===============================================================
         .new.bcbioRNASeq(
             assays = assays(rse),
-            rowRanges = rowRanges(rse),
+            # This will handle mismatches
+            rowRanges = rowRanges,
             colData = colData(rse),
             metadata = metadata(rse)
         )
