@@ -11,8 +11,8 @@ skipWarning <- paste(
 
 
 
-# Metrics ======================================================================
-test_that("Quality Control Metrics Plots", {
+# Loop across QC plots =========================================================
+test_that("Quality Control Plots", {
     fxns <- c(
         "plot5Prime3PrimeBias",
         "plotCountDensity",
@@ -60,6 +60,25 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
     )
     p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
     expect_identical(names(p), pheatmapNames)
+})
+
+
+
+# plotCountDensity =============================================================
+test_that("plotCountDensity", {
+    # solid style
+    p <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
+    expect_is(p, "ggplot")
+
+    # vst
+    # Set title = NULL to check disabling of subtitle
+    p <- plotCountDensity(
+        object = bcb_small,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        title = NULL
+    )
+    expect_is(p, "ggplot")
 })
 
 
