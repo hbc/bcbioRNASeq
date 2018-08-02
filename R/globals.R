@@ -10,3 +10,4 @@ requiredAssays <- "counts"
 tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
+validLevels <- c("genes", "transcripts")

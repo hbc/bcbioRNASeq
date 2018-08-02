@@ -697,7 +697,7 @@ setValidity(
         # level
         assert_is_subset(
             x = metadata[["level"]],
-            y = c("genes", "transcripts")
+            y = validLevels
         )
         # tx2gene
         tx2gene <- metadata[["tx2gene"]]
