@@ -56,9 +56,6 @@ reference:
   - title: R Markdown Functions
     contents:
     - prepareRNASeqTemplate
-  - title: Internal Data
-    contents:
-    - genderMarkers
   - title: Example Data
     desc: GSE65267
     contents:

@@ -49,7 +49,8 @@ and picks the first item in the vector by default.}
 
 \item{...}{Additional arguments.}
 
-\item{`scalar}{integer\code{or}Inf\code{. Number of most variable genes to plot. Use}Inf` to include all genes.}
+\item{ntop.}{\code{scalar integer} or \code{Inf}. Number of most variable genes to
+plot. Use \code{Inf} to include all genes.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
@@ -68,14 +69,16 @@ a way to look at how samples are clustering.
 }
 \examples{
 # bcbioRNASeq ====
-plotPCA(bcb_small, normalized = "vst", label = FALSE)
-plotPCA(bcb_small, normalized = "vst", label = TRUE)
-
-# Select samples
 plotPCA(
     object = bcb_small,
-    samples = head(colnames(bcb_small), 4L),
+    normalized = "vst",
     label = TRUE
+)
+plotPCA(
+    object = bcb_small,
+    normalized = "rlog",
+    interestingGroups = "sampleName"
+    label = FALSE
 )
 }
 \seealso{

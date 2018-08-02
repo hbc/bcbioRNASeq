@@ -18,8 +18,8 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param `scalar integer` or `Inf`. Number of most variable genes to plot.
-#'   Use `Inf` to include all genes.
+#' @param ntop. `scalar integer` or `Inf`. Number of most variable genes to
+#'   plot. Use `Inf` to include all genes.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
@@ -29,14 +29,16 @@
 #'
 #' @examples
 #' # bcbioRNASeq ====
-#' plotPCA(bcb_small, normalized = "vst", label = FALSE)
-#' plotPCA(bcb_small, normalized = "vst", label = TRUE)
-#'
-#' # Select samples
 #' plotPCA(
 #'     object = bcb_small,
-#'     samples = head(colnames(bcb_small), 4L),
+#'     normalized = "vst",
 #'     label = TRUE
+#' )
+#' plotPCA(
+#'     object = bcb_small,
+#'     normalized = "rlog",
+#'     interestingGroups = "sampleName"
+#'     label = FALSE
 #' )
 NULL
 
