@@ -37,7 +37,7 @@
 #' plotPCA(
 #'     object = bcb_small,
 #'     normalized = "rlog",
-#'     interestingGroups = "sampleName"
+#'     interestingGroups = "sampleName",
 #'     label = FALSE
 #' )
 NULL
