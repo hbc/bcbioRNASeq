@@ -344,7 +344,7 @@ bcbioRNASeq <- function(
         metrics <- metrics[rownames(colData), , drop = FALSE]
         colData <- cbind(colData, metrics)
     } else {
-        message("Fast mode detected. No metrics were calculated.")
+        message("Fast mode detected. No metrics were calculated.")  # nocov
     }
 
     # Subset sample directories by metadata ====================================
@@ -482,10 +482,12 @@ bcbioRNASeq <- function(
                 rlog <- NULL
             }
         } else {
+            # nocov start
             warning("Data has no variation. Skipping transformations.")
             dds <- estimateSizeFactors(dds)
             vst <- NULL
             rlog <- NULL
+            # nocov end
         }
         normalized <- counts(dds, normalized = TRUE)
     } else if (level == "transcripts") {

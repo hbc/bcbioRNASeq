@@ -1,41 +1,18 @@
 context("S4 Object")
 
-
-
-# bcbioRNASeq Constructor ==============================================
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-bcb <- suppressWarnings(bcbioRNASeq(
-    uploadDir = uploadDir,
-    organism = "Mus musculus",
-    ensemblRelease = 87L
-))
-validObject(bcb)
-
-# GFF3 files are also supported
-test_that("bcbioRNASeq : GTF file", {
-    gtfURL <- paste(
-        "ftp://ftp.ensembl.org",
-        "pub",
-        "release-87",
-        "gtf",
-        "mus_musculus",
-        "Mus_musculus.GRCm38.87.gtf.gz",
-        sep = "/"
-    )
-    gtfFile <- basename(gtfURL)
-    if (!file.exists(gtfFile)) {
-        download.file(url = gtfURL, destfile = gtfFile)
-    }
-    x <- bcbioRNASeq(
-        uploadDir = uploadDir,
-        organism = "Mus musculus",
-        gffFile = gtfFile
-    )
-})
 
 
 
 # bcbioRNASeq Object Structure =================================================
+bcb <- suppressWarnings(bcbioRNASeq(
+    uploadDir = uploadDir,
+    organism = "Mus musculus",
+    ensemblRelease = 87L,
+    testthat = "XXX"
+))
+expect_true(validObject(bcb))
+
 test_that("Slots", {
     expect_identical(
         slotNames(bcb),
@@ -152,6 +129,8 @@ test_that("Metadata", {
             bcbioCommandsLog = "character",
             allSamples = "logical",
             call = "call",
+            # Check for user-defined metadata
+            testthat = "character",
             date = "Date",
             wd = "character",
             utilsSessionInfo = "sessionInfo",
@@ -167,42 +146,31 @@ test_that("Metadata", {
 
 
 
-# extract ======================================================================
-test_that("extract : Normal gene and sample selection", {
-    x <- bcb_small[seq_len(100L), seq_len(4L)]
-    expect_s4_class(x, "bcbioRNASeq")
-    expect_identical(dim(x), c(100L, 4L))
-    expect_identical(
-        rownames(x)[[1L]],
-        rownames(bcb_small)[[1L]]
-    )
-    expect_identical(
-        colnames(x),
-        head(colnames(bcb_small), 4L)
-    )
-    expect_identical(
-        names(assays(x)),
-        c("counts", "tpm", "length", "normalized", "rlog", "vst")
-    )
-})
-
-test_that("extract : Minimal selection ranges", {
-    # Require at least 100 genes, 2 samples
-    x <- bcb_small[seq_len(100L), seq_len(2L)]
-    expect_error(bcb_small[seq_len(99L), ])
-    expect_error(bcb_small[, seq_len(1L)])
-    expect_identical(
-        dimnames(x),
-        list(
-            head(rownames(bcb_small), 100L),
-            head(colnames(bcb_small), 2L)
-        )
-    )
-})
-
-
-
 # bcbioRNASeq ==================================================================
+test_that("bcbioRNASeq : Aligned counts", {
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        caller = "star"
+    )
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        assayNames(x),
+        c("counts", "normalized", "vst")
+    )
+})
+
+test_that("bcbioRNASeq : Transcripts", {
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "transcripts"
+    )
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(
+        assayNames(x),
+        c("counts", "tpm", "length")
+    )
+})
+
 test_that("bcbioRNASeq : organism = NULL", {
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
@@ -212,6 +180,28 @@ test_that("bcbioRNASeq : organism = NULL", {
     expect_identical(
         levels(seqnames(x)),
         "unknown"
+    )
+})
+
+# GFF3 files are also supported, but we're not testing for speed
+test_that("bcbioRNASeq : GTF file", {
+    gtfURL <- paste(
+        "ftp://ftp.ensembl.org",
+        "pub",
+        "release-87",
+        "gtf",
+        "mus_musculus",
+        "Mus_musculus.GRCm38.87.gtf.gz",
+        sep = "/"
+    )
+    gtfFile <- basename(gtfURL)
+    if (!file.exists(gtfFile)) {
+        download.file(url = gtfURL, destfile = gtfFile)
+    }
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        gffFile = gtfFile
     )
 })
 
@@ -253,9 +243,63 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
     )
 })
 
+test_that("bcbioRNASeq: Sample selection", {
+    # samples
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        samples = head(colnames(bcb), 2L)
+    )
+    expect_identical(
+        colnames(x),
+        head(colnames(bcb), 2L)
+    )
+
+    # censor samples
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        censorSamples = head(colnames(bcb), 1L)
+    )
+    expect_identical(
+        colnames(x),
+        colnames(bcb)[-1L]
+    )
+})
 
 
-# Extract method ===============================================================
+
+# extract ======================================================================
+test_that("extract : Normal gene and sample selection", {
+    x <- bcb_small[seq_len(100L), seq_len(4L)]
+    expect_s4_class(x, "bcbioRNASeq")
+    expect_identical(dim(x), c(100L, 4L))
+    expect_identical(
+        rownames(x)[[1L]],
+        rownames(bcb_small)[[1L]]
+    )
+    expect_identical(
+        colnames(x),
+        head(colnames(bcb_small), 4L)
+    )
+    expect_identical(
+        names(assays(x)),
+        c("counts", "tpm", "length", "normalized", "rlog", "vst")
+    )
+})
+
+test_that("extract : Minimal selection ranges", {
+    # Require at least 100 genes, 2 samples
+    x <- bcb_small[seq_len(100L), seq_len(2L)]
+    expect_error(bcb_small[seq_len(99L), ])
+    expect_error(bcb_small[, seq_len(1L)])
+    expect_identical(
+        dimnames(x),
+        list(
+            head(rownames(bcb_small), 100L),
+            head(colnames(bcb_small), 2L)
+        )
+    )
+})
+
 test_that("extract : DESeq2 transforms", {
     # Transform by default
     x <- bcb_small[1L:100L, 1L:2L]
