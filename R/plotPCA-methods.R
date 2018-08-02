@@ -59,6 +59,7 @@ setMethod(
         return = c("ggplot", "data.frame")
     ) {
         # Legacy arguments =====================================================
+        # nocov start
         call <- match.call()
         # genes
         if ("genes" %in% names(call)) {
@@ -76,6 +77,7 @@ setMethod(
                 return <- "data.frame"
             }
         }
+        # nocov end
 
         # Assert checks ========================================================
         validObject(object)

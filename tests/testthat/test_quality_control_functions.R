@@ -65,6 +65,18 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
 
 
 # plotPCA ======================================================================
+test_that("plotPCA : Label", {
+    p <- plotPCA(bcb_small, label = FALSE)
+    expect_is(p, "ggplot")
+    p <- plotPCA(bcb_small, label = TRUE)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotPCA : data.frame", {
+    p <- plotPCA(bcb_small, return = "data.frame")
+    expect_is(p, "data.frame")
+})
+
 test_that("plotPCA : transformationLimit", {
     expect_warning(
         plotPCA(skip, normalized = "rlog"),
