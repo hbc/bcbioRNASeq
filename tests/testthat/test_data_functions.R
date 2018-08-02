@@ -161,3 +161,12 @@ test_that("selectSamples : DESeqDataSet", {
     x <- selectSamples(dds_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
 })
+
+
+
+# tmm ==========================================================================
+test_that("tmm", {
+    expect_is(tmm(bcb_small), "matrix")
+    expect_is(tmm(dds_small), "matrix")
+    expect_is(tmm(assay(bcb_small)), "matrix")
+})

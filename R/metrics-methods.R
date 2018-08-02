@@ -30,13 +30,15 @@ setMethod(
             interestingGroups = interestingGroups
         )
 
-        # Stop on fast-rnaseq pipline detection
+        # Stop on fast-rnaseq pipline detection.
+        # Consider parsing the YAML metadata as an alternate approach.
         if (!"totalReads" %in% colnames(colData(object))) {
-            # Parse the YAML metadata or log file here instead?
+            # nocov start
             stop(paste(
                 "Fast mode detected.",
                 "Metrics were not calculated."
             ), call. = FALSE)
+            # nocov end
         }
 
         data <- as.data.frame(colData(object))
