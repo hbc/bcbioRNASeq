@@ -71,8 +71,8 @@ a way to look at how samples are clustering.
 }
 \examples{
 # bcbioRNASeq ====
-plotPCA(bcb_small, label = FALSE)
-plotPCA(bcb_small, label = TRUE)
+plotPCA(bcb_small, normalized = "vst", label = FALSE)
+plotPCA(bcb_small, normalized = "vst", label = TRUE)
 
 # Select samples
 plotPCA(
@@ -80,10 +80,6 @@ plotPCA(
     samples = head(colnames(bcb_small), 4L),
     label = TRUE
 )
-
-# DESeqDataSet ====
-# DESeqTransform method is preferred
-plotPCA(dds_small)
 }
 \seealso{
 \itemize{

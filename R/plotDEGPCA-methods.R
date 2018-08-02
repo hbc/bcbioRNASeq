@@ -8,17 +8,19 @@
 #' @inheritParams general
 #'
 #' @examples
-#' # DESeqResults, SummarizedExperiment ====
-#' plotDEGPCA(
-#'     results = res_small,
-#'     counts = rld_small,
-#'     label = TRUE
-#' )
-#'
 #' # DESeqResults, bcbioRNASeq ====
 #' plotDEGPCA(
 #'     results = res_small,
 #'     counts = bcb_small,
+#'     normalized = "vst",
+#'     label = TRUE
+#' )
+#'
+#' # DESeqResults, DESeqTransform ====
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotDEGPCA(
+#'     results = res_small,
+#'     counts = vst_small,
 #'     label = TRUE
 #' )
 NULL

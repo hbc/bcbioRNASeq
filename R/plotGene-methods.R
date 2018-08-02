@@ -25,14 +25,12 @@
 #' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
-#' plotGene(bcb_small, genes = genes, return = "facet")
-#' plotGene(bcb_small, genes = genes, return = "wide")
-#'
-#' # DESeqDataSet ====
-#' plotGene(dds_small, genes = genes)
+#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "facet")
+#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "wide")
 #'
 #' # DESeqTransform ====
-#' plotGene(rld_small, genes = genes)
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotGene(vst_small, genes = genes)
 NULL
 
 
@@ -130,10 +128,6 @@ NULL
 
     if (is(color, "ScaleDiscrete")) {
         p <- p + color
-    }
-
-    if (identical(interestingGroups, "sampleName")) {
-        p <- p + guides(color = FALSE)
     }
 
     p

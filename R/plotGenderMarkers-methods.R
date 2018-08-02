@@ -17,13 +17,11 @@
 #'
 #' @examples
 #' # bcbioRNASeq ====
-#' plotGenderMarkers(bcb_small)
-#'
-#' # DESeqDataSet ====
-#' plotGenderMarkers(dds_small)
+#' plotGenderMarkers(bcb_small, normalized = "vst")
 #'
 #' # DESeqTransform ====
-#' plotGenderMarkers(rld_small)
+#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
+#' plotGenderMarkers(vst_small)
 NULL
 
 
@@ -39,7 +37,7 @@ setMethod(
         # Load the relevant internal gender markers data
         organism <- metadata(object)[["organism"]]
         assert_is_a_string(organism)
-        markers <- bcbioRNASeq::genderMarkers
+        markers <- bcbioRNASeq::gender_markers
         assert_is_subset(camel(organism), names(markers))
         markers <- markers[[camel(organism)]]
 
