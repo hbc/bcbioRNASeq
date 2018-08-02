@@ -123,6 +123,7 @@ test_that("plotMA: ntop mode", {
         ntop = 10L,
         gene2symbol = gene2symbol(bcb_small)
     )
+    expect_is(p, "ggplot")
 })
 
 test_that("plotMA : Directional support", {
