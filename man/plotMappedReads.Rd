@@ -9,7 +9,7 @@
 plotMappedReads(object, ...)
 
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups,
-  limit = 1e+07, fill = getOption("bcbio.discrete.fill", NULL),
+  limit = 10000000L, fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "mapped reads")
 }
 \arguments{
