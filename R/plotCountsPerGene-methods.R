@@ -41,7 +41,7 @@ setMethod(
     ) {
         # Passthrough: fill, flip, title
         validObject(object)
-        interestingGroups <- .returnInterestingGroups(
+        interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

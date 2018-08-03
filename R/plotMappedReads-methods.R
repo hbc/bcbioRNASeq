@@ -33,7 +33,7 @@ setMethod(
         title = "mapped reads"
     ) {
         validObject(object)
-        interestingGroups <- .returnInterestingGroups(
+        interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

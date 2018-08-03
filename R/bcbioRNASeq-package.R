@@ -37,7 +37,7 @@
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   markdownHeader markdownList markdownPlotlist readFileByExtension readYAML
 #'   sampleData sanitizeRowData sanitizeSampleData snake stripTranscriptVersions
-#'   uniteInterestingGroups .returnInterestingGroups
+#'   uniteInterestingGroups matchInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox flatFiles plotHeatmap
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog

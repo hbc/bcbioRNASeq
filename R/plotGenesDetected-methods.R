@@ -30,7 +30,7 @@ setMethod(
         title = "genes detected"
     ) {
         validObject(object)
-        interestingGroups <- .returnInterestingGroups(
+        interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

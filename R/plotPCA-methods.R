@@ -83,7 +83,7 @@ setMethod(
 
         # Assert checks ========================================================
         validObject(object)
-        interestingGroups <- .returnInterestingGroups(
+        interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )
