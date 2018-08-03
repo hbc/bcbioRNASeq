@@ -62,6 +62,12 @@ test_that("counts : normalized argument", {
         tmm(bcb_small)
     )
 
+    # rle: calculated on the fly
+    expect_is(
+        counts(bcb_small, normalized = "rle"),
+        "matrix"
+    )
+
     # rlog
     expect_identical(
         counts(bcb_small, normalized = "rlog"),

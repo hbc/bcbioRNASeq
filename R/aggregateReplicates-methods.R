@@ -75,7 +75,7 @@ setMethod(
             unique() %>%
             as("DataFrame")
         if (!identical(nrow(colData), expected)) {
-            stop("Failed to aggregate sample metadata uniquely")
+            stop("Failed to aggregate sample metadata uniquely")  # nocov
         }
         rownames(colData) <- makeNames(colData[["sampleName"]])
         assert_are_identical(colnames(counts), rownames(colData))

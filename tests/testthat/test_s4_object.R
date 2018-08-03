@@ -316,6 +316,11 @@ test_that("extract : DESeq2 transforms", {
     )
 })
 
+test_that("extract : unmodified", {
+    x <- bcb_small[, ]
+    expect_identical(x, bcb_small)
+})
+
 
 
 # show =========================================================================

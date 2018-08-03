@@ -32,9 +32,14 @@ test_that("topTables : resultsTables list", {
         .[[1L]]
     # Check for geneID column in header
     expect_true(grepl("geneID", output[[3L]]))
+
+    # Coding mode
+    output <- capture_output(topTables(x, coding = TRUE))
+    expect_true(grepl("protein_coding", output))
 })
 
 test_that("topTables : DESeqResults", {
     output <- capture.output(topTables(res_small))
     expect_true(grepl("^\\|geneID", output[[3L]]))
 })
+

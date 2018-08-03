@@ -71,7 +71,7 @@ NULL
 
     # Early return NULL when there are no significant DEGs
     if (!nrow(data)) {
-        return(NULL)
+        return(NULL)  # nocov
     }
 
     keepCols <- c(requiredCols, c("geneName", "geneBiotype", "description"))

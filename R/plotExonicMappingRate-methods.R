@@ -63,7 +63,9 @@ setMethod(
         if (is_positive(limit)) {
             # Convert to percentage
             if (limit > 1) {
+                # nocov start
                 warning("`limit`: Use ratio (0-1) instead of percentage")
+                # nocov end
             } else {
                 limit <- limit * 100L
             }

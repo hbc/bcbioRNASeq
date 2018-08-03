@@ -65,7 +65,9 @@ setMethod(
         if (is_positive(limit)) {
             # Convert limit to per million
             if (limit < 1e6) {
+                # nocov start
                 warning("`limit`: Use absolute value, not per million")
+                # nocov end
             } else {
                 limit <- limit / 1e6
             }

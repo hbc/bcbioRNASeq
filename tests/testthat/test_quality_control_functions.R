@@ -31,7 +31,10 @@ test_that("Quality Control Metrics Plots", {
     invisible(lapply(fxns, function(fxn) {
         fxn <- get(fxn, inherits = TRUE)
         expect_is(fxn, "nonstandardGenericFunction")
-        p <- fxn(bcb_small)
+        p <- fxn(
+            object = bcb_small,
+            interestingGroups = "sampleName"
+        )
         expect_is(p, "ggplot")
     }))
 })
@@ -65,6 +68,19 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
     )
     p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
     expect_identical(names(p), pheatmapNames)
+})
+
+
+
+# plotCountsPerGene ============================================================
+test_that("plotCountsPerGene", {
+    p <- plotCountsPerGene(
+        object = bcb_small,
+        normalized = "vst",
+        title = NULL,
+        interestingGroups = "sampleName"
+    )
+    expect_is(p, "ggplot")
 })
 
 

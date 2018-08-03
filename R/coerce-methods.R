@@ -43,7 +43,7 @@ setAs(
     function(from) {
         validObject(from)
         if (metadata(from)[["level"]] != "genes") {
-            stop("Gene-level counts are required")
+            stop("Gene-level counts are required")  # nocov
         }
         message(paste(
             "Coercing bcbioRNASeq to DESeqDataSet with DESeq2",

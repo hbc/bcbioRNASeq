@@ -65,7 +65,7 @@ setMethod(
             )
 
         if (is_positive(limit)) {
-            p <- p + bcbio_geom_abline(yintercept = limit)
+            p <- p + bcbio_geom_abline(yintercept = limit)  # nocov
         }
 
         if (is(fill, "ScaleDiscrete")) {

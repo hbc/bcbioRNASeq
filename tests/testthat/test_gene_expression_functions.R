@@ -7,7 +7,12 @@ gene2symbol <- gene2symbol(bcb_small)
 
 # plotGenderMarkers ============================================================
 test_that("plotGenderMarkers : bcbioRNASeq", {
-    p <- plotGenderMarkers(bcb_small)
+    # vst
+    p <- plotGenderMarkers(bcb_small, normalized = "vst")
+    expect_is(p, "ggplot")
+
+    # tpm
+    p <- plotGenderMarkers(bcb_small, normalized = "tpm")
     expect_is(p, "ggplot")
 })
 
@@ -17,7 +22,12 @@ test_that("plotGenderMarkers : DESeqDataSet", {
 })
 
 test_that("plotGenderMarkers : DESeqTransform", {
+    # rlog
     p <- plotGenderMarkers(rld_small, interestingGroups = "treatment")
+    expect_is(p, "ggplot")
+
+    # vst
+    p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
     expect_is(p, "ggplot")
 })
 
