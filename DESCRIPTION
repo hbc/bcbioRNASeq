@@ -151,7 +151,7 @@ Suggests:
     testthat (>= 2.0)
 Remotes:
     hbc/bcbioBase,
-    steinbaugh/basejump@develop
+    steinbaugh/basejump
 biocViews:
     DataImport,
     DataRepresentation,
