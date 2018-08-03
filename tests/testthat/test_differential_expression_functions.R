@@ -31,8 +31,7 @@ test_that("plotDEGHeatmap : bcbioRNASeq", {
     p <- plotDEGHeatmap(
         results = res_small,
         counts = bcb_small,
-        normalized = "vst",
-        title = "testthat"
+        normalized = "vst"
     )
     expect_identical(names(p), pheatmapNames)
 })
@@ -48,7 +47,8 @@ test_that("plotDEGHeatmap : DESeqTransform", {
 test_that("plotDEGHeatmap : DESeqDataSet", {
     p <- plotDEGHeatmap(
         results = res_small,
-        counts = dds_small
+        counts = dds_small,
+        title = NULL
     )
     expect_identical(names(p), pheatmapNames)
 })

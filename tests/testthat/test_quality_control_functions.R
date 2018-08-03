@@ -138,15 +138,21 @@ test_that("plotPCACovariates", {
     )
 })
 
-test_that("plotPCACovariates : Significant covars", {
+test_that("plotPCACovariates : Metrics", {
     p <- plotPCACovariates(
-        bcb_small,
+        object = bcb_small,
         metrics = c("exonicRate", "intronicRate")
     )
     # Don't expect these to be significant with the example dataset
     expect_identical(
         as.character(p[["significantCovars"]]),
         character()
+    )
+
+    # If metrics = FALSE, we require at least 2 interesting groups
+    expect_error(
+        p <- plotPCACovariates(bcb_small, metrics = FALSE),
+        "`plotPCACovariates\\(\\)` requires >= 2 metrics"
     )
 })
 

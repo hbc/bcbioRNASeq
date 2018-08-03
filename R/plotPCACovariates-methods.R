@@ -64,9 +64,11 @@ setMethod(
             col <- metrics
         }
 
-        # Stop on 1 metrics column
-        assert_all_are_greater_than(length(col), 1L)
         assert_is_subset(col, colnames(metadata))
+        # Stop on 1 metrics column
+        if (length(col) < 2L) {
+            stop("`plotPCACovariates()` requires >= 2 metrics")
+        }
         metadata <- metadata[, col, drop = FALSE]
 
         degCovariates(
