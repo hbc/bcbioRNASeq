@@ -35,7 +35,7 @@ setMethod(
         title = "5'->3' bias"
     ) {
         validObject(object)
-        interestingGroups <- .prepareInterestingGroups(
+        interestingGroups <- .returnInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

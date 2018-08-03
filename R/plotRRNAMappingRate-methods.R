@@ -35,7 +35,7 @@ setMethod(
         title = "rRNA mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- .prepareInterestingGroups(
+        interestingGroups <- .returnInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

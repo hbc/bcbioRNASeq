@@ -35,9 +35,9 @@
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   markdownHeader markdownList markdownPlotlist
-#'   readFileByExtension readYAML sampleData sanitizeRowData sanitizeSampleData
-#'   snake stripTranscriptVersions uniteInterestingGroups
+#'   markdownHeader markdownList markdownPlotlist readFileByExtension readYAML
+#'   sampleData sanitizeRowData sanitizeSampleData snake stripTranscriptVersions
+#'   uniteInterestingGroups .returnInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox flatFiles plotHeatmap
 #'   prepareSummarizedExperiment prepareTemplate readDataVersions readLog

@@ -49,7 +49,7 @@ setMethod(
     ) {
         validObject(results)
         validObject(counts)
-        interestingGroups <- .prepareInterestingGroups(
+        interestingGroups <- .returnInterestingGroups(
             object = counts,
             interestingGroups = interestingGroups
         )

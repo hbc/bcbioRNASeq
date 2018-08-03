@@ -25,7 +25,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, interestingGroups) {
         validObject(object)
-        interestingGroups <- .prepareInterestingGroups(
+        interestingGroups <- .returnInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )

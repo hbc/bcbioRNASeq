@@ -154,7 +154,7 @@ setMethod(
     ) {
         validObject(object)
         assert_is_character(genes)
-        interestingGroups <- .prepareInterestingGroups(
+        interestingGroups <- .returnInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )
