@@ -39,7 +39,7 @@ test_that("Quality Control Metrics Plots", {
 
 
 # plotCorrelationHeatmap =======================================================
-test_that("plotCorrelationHeatmap", {
+test_that("plotCorrelationHeatmap : bcbioRNASeq", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb_small)
     expect_identical(names(p), pheatmapNames)
@@ -53,6 +53,11 @@ test_that("plotCorrelationHeatmap", {
     )
 })
 
+test_that("plotCorrelationHeatmap : DESeqTransform", {
+    p <- plotCorrelationHeatmap(vst_small)
+    expect_identical(names(p), pheatmapNames)
+})
+
 test_that("plotCorrelationHeatmap : transformationLimit", {
     expect_warning(
         plotCorrelationHeatmap(skip, normalized = "rlog"),
@@ -60,6 +65,18 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
     )
     p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
     expect_identical(names(p), pheatmapNames)
+})
+
+
+
+# plotGeneSaturation ===========================================================
+test_that("plotGeneSaturation", {
+    p <- plotGeneSaturation(
+        object = bcb_small,
+        trendline = TRUE,
+        label = TRUE
+    )
+    expect_is(p, "ggplot")
 })
 
 

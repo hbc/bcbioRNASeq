@@ -50,11 +50,6 @@ setMethod(
         assertIsAStringOrNULL(caption)
         dots <- list(...)
 
-        # Abort on empty design formula
-        if (design(object) == ~ 1) {  # nolint
-            warning("Empty design formula detected")
-        }
-
         # Generate an automatic caption
         if (is.null(caption)) {
             if (!is.null(dots[["contrast"]])) {
@@ -92,18 +87,5 @@ setMethod(
                 "cutoff"
             )) %>%
             kable(caption = caption)
-    }
-)
-
-
-
-#' @rdname alphaSummary
-#' @usage NULL
-#' @export
-setMethod(
-    "alphaSummary",
-    signature("bcbioRNASeq"),
-    function(object, ...) {
-        .Defunct("DESeqDataSet method")  # nocov
     }
 )

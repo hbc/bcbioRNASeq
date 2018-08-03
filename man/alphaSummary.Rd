@@ -4,7 +4,6 @@
 \name{alphaSummary}
 \alias{alphaSummary}
 \alias{alphaSummary,DESeqDataSet-method}
-\alias{alphaSummary,bcbioRNASeq-method}
 \title{Alpha Level Cutoff Summary Statistics}
 \usage{
 alphaSummary(object, ...)

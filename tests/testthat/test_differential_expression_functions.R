@@ -10,6 +10,18 @@ test_that("alphaSummary : DESeqDataSet", {
     x <- alphaSummary(dds_small)
     expect_is(x, "knitr_kable")
     expect_true(grepl("1e-06", x[[1L]]))
+
+    x <- alphaSummary(
+        object = dds_small,
+        contrast = c("treatment", "folic_acid", "control")
+    )
+    expect_is(x, "knitr_kable")
+
+    x <- alphaSummary(
+        object = dds_small,
+        name = "treatment_folic_acid_vs_control"
+    )
+    expect_is(x, "knitr_kable")
 })
 
 
@@ -141,6 +153,12 @@ test_that("plotMA : Directional support", {
         sigPointColor = "green"
     )
     expect_is(p, "ggplot")
+})
+
+test_that("plotMA : data.frame return", {
+    x <- plotMA(res_small, return = "data.frame")
+    expect_is(x, "data.frame")
+    expect_true("isDE" %in% colnames(x))
 })
 
 
