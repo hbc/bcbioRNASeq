@@ -31,10 +31,7 @@ test_that("Quality Control Plots", {
     invisible(lapply(fxns, function(fxn) {
         fxn <- get(fxn, inherits = TRUE)
         expect_is(fxn, "nonstandardGenericFunction")
-        p <- fxn(
-            object = bcb_small,
-            interestingGroups = "sampleName"
-        )
+        p <- fxn(object = bcb_small)
         expect_is(p, "ggplot")
     }))
 })
