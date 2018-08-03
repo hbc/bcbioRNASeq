@@ -42,4 +42,3 @@ test_that("topTables : DESeqResults", {
     output <- capture.output(topTables(res_small))
     expect_true(grepl("^\\|geneID", output[[3L]]))
 })
-
