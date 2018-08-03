@@ -11,8 +11,8 @@ skipWarning <- paste(
 
 
 
-# Metrics ======================================================================
-test_that("Quality Control Metrics Plots", {
+# Loop across QC plots =========================================================
+test_that("Quality Control Plots", {
     fxns <- c(
         "plot5Prime3PrimeBias",
         "plotCountDensity",
@@ -85,6 +85,25 @@ test_that("plotCountsPerGene", {
 
 
 
+# plotCountDensity =============================================================
+test_that("plotCountDensity", {
+    # solid style
+    p <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
+    expect_is(p, "ggplot")
+
+    # vst
+    # Set title = NULL to check disabling of subtitle
+    p <- plotCountDensity(
+        object = bcb_small,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        title = NULL
+    )
+    expect_is(p, "ggplot")
+})
+
+
+
 # plotGeneSaturation ===========================================================
 test_that("plotGeneSaturation", {
     p <- plotGeneSaturation(
@@ -92,6 +111,22 @@ test_that("plotGeneSaturation", {
         trendline = TRUE,
         label = TRUE
     )
+    expect_is(p, "ggplot")
+})
+
+
+
+# plotMeanSD ===================================================================
+test_that("plotMeanSD : DESeqDataSet", {
+    p <- plotMeanSD(dds_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotMeanSD : bcbioRNASeq : No stashed DESeq transforms", {
+    x <- bcb_small
+    assays(x)[["rlog"]] <- NULL
+    assays(x)[["vst"]] <- NULL
+    p <- plotMeanSD(x)
     expect_is(p, "ggplot")
 })
 

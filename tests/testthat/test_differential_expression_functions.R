@@ -135,6 +135,7 @@ test_that("plotMA: ntop mode", {
         ntop = 10L,
         gene2symbol = gene2symbol(bcb_small)
     )
+    expect_is(p, "ggplot")
 })
 
 test_that("plotMA : Directional support", {
@@ -309,11 +310,7 @@ test_that("resultsTables : Summary and write support", {
 
 # Providing a corresponding DESeqDataSet for counts is recommended
 test_that("resultsTables : DESeqResults minimal mode", {
-    x <- resultsTables(
-        results = res_small,
-        alpha = 0.01,
-        lfcThreshold = 1L
-    )
+    x <- resultsTables(results = res_small)
     expect_is(x, "list")
 })
 

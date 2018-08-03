@@ -53,117 +53,44 @@ setMethod(
             message("Legacy bcbio slot detected")
         }
 
-        # Coerce to RangedSummarizedExperiment
-        rse <- as(object, "RangedSummarizedExperiment")
-
-        # Assays ===============================================================
+        # Coerce assays to list ================================================
+        # Ensure this comes before the rowRanges handling
         # Using `slot()` here to avoid error on missing rowRanges
-        assays <- slot(rse, "assays")
-        if (!all(assayNames(rse) %in% requiredAssays)) {
-            # Coerce ShallowSimpleListAssays to list
-            assays <- lapply(seq_along(assays), function(a) {
-                assays[[a]]
-            })
-            names(assays) <- assayNames(rse)
-
-            # raw counts
-            if ("raw" %in% names(assays)) {
-                message("Renaming `raw` assay to `counts`")
-                assays[["counts"]] <- assays[["raw"]]
-                assays[["raw"]] <- NULL
-            }
-
-            # length (from tximport)
-            if (!"length" %in% names(assays)) {
-                message("Moving length matrix from legacy bcbio slot to assays")
-                length <- slot(object, "bcbio")[["tximport"]][["length"]]
-                assert_is_matrix(length)
-                assays[["length"]] <- length
-            }
-
-            # DESeq2 normalized counts
-            if (!"normalized" %in% names(assays)) {
-                dds <- .regenerateDESeqDataSet(rse)
-                message("Dropping legacy DESeq2 normalized counts from assays")
-                assays[["normalized"]] <- NULL
-            }
-
-            # rlog
-            if (is(assays[["rlog"]], "DESeqTransform")) {
-                message("Coercing rlog DESeqTransform to matrix in assays")
-                assays[["rlog"]] <- assay(assays[["rlog"]])
-            }
-
-            # tmm
-            if ("tmm" %in% names(assays)) {
-                message(paste(
-                    "Dropping tmm from assays.",
-                    "Now calculated on the fly instead."
-                ))
-                assays[["tmm"]] <- NULL
-            }
-
-            # vst
-            if (is(assays[["vst"]], "DESeqTransform")) {
-                message("Coercing vst DESeqTransform to matrix in assays")
-                assays[["vst"]] <- assay(assays[["vst"]])
-            }
-
-            assays <- Filter(Negate(is.null), assays)
-            # Put the required assays first, in order
-            assays <- assays[unique(c(requiredAssays, names(assays)))]
-            assert_is_subset(requiredAssays, names(assays))
-        }
+        assays <- slot(object, "assays")
+        # Coerce ShallowSimpleListAssays to list
+        assays <- lapply(seq_along(assays), function(a) {
+            assays[[a]]
+        })
+        names(assays) <- assayNames(object)
 
         # Row data =============================================================
-        if (.hasSlot(rse, "rowRanges")) {
-            rowRanges <- slot(rse, "rowRanges")
+        rownames <- rownames(assays[[1L]])
+        # This section needs to come before the assay modifications
+        if (.hasSlot(object, "rowRanges")) {
+            hasRowRanges <- TRUE
+            intRowRanges <- slot(object, "rowRanges")
+        } else {
+            hasRowRanges <- FALSE
+            # Generate empty genomic ranges if not supplied by the user
+            intRowRanges <- emptyRanges(names = rownames)
         }
-        assert_is_all_of(rowRanges, "GRanges")
+        assert_is_all_of(intRowRanges, "GRanges")
 
-        # Column data ==========================================================
-        colData <- colData(rse)
-
-        # Move metrics from metadata into colData, if necessary
-        metrics <- metadata(rse)[["metrics"]]
-        if (is.data.frame(metrics)) {
-            message("Moving metrics from metadata into colData")
-
-            # Always remove legacy `name` column
-            metrics[["name"]] <- NULL
-
-            # Rename 5'3' bias
-            if ("x53Bias" %in% colnames(metrics)) {
-                message("Renaming x53Bias to x5x3Bias")
-                metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
-                metrics[["x53Bias"]] <- NULL
+        # Regenerate RangedSummarizedExperiment ================================
+        rse <- SummarizedExperiment(
+            assays = assays,
+            rowRanges = intRowRanges,
+            colData = colData(object),
+            metadata = metadata(object)
+        )
+        validObject(rse)
+        rm(assays, intRowRanges)
+        if (is.null(rowRanges)) {
+            if (!isTRUE(hasRowRanges)) {
+                warning("`rowRanges` are now recommended for gene annotations")
             }
-
-            # Rename rRNA rate
-            if (!"rrnaRate" %in% colnames(metrics)) {
-                col <- grep(
-                    pattern = "rrnarate",
-                    x = colnames(metrics),
-                    ignore.case = TRUE,
-                    value = TRUE
-                )
-                assert_is_a_string(col)
-                message(paste("Renaming", col, "to rrnaRate"))
-                metrics[["rrnaRate"]] <- metrics[[col]]
-                metrics[[col]] <- NULL
-            }
-
-            # Only include columns not already present in colData
-            setdiff <- setdiff(colnames(metrics), colnames(colData))
-            metrics <- metrics[, sort(setdiff), drop = FALSE]
-
-            colData <- cbind(colData, metrics)
-            metadata(rse)[["metrics"]] <- NULL
+            rowRanges <- rowRanges(rse)
         }
-
-        # Remove legacy `sampleID` and `description` columns, if present
-        colData[["sampleID"]] <- NULL
-        colData[["description"]] <- NULL
 
         # Metadata =============================================================
         metadata <- metadata(rse)
@@ -248,7 +175,7 @@ setMethod(
 
         # programVersions
         if (!"programVersions" %in% names(metadata) &&
-            "programs" %in% names(metadata)) {
+                "programs" %in% names(metadata)) {
             message("Renaming programs to programVersions")
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
@@ -308,12 +235,130 @@ setMethod(
         metadata[["previousVersion"]] <- metadata[["version"]]
         metadata[["version"]] <- packageVersion
 
+        metadata(rse) <- metadata
+        rm(metadata)
+
+        # Update Assays ========================================================
+        caller <- metadata(rse)[["caller"]]
+        assert_is_a_string(caller)
+        assert_is_subset(caller, validCallers)
+
+        level <- metadata(rse)[["level"]]
+        assert_is_a_string(level)
+        assert_is_subset(level, validLevels)
+
+        # Rename main assay from "raw" to "counts"
+        if ("raw" %in% assayNames(rse)) {
+            message("Renaming main `raw` assay to `counts`")
+            assays(rse)[["counts"]] <- assays(rse)[["raw"]]
+            assays(rse)[["raw"]] <- NULL
+        }
+
+        # Caller-specific assays
+        if (caller %in% tximportCallers) {
+            # length (from tximport)
+            if (!"length" %in% assayNames(rse)) {
+                message("Moving length matrix to assays")
+                length <- slot(object, "bcbio")[["tximport"]][["length"]]
+                assert_is_matrix(length)
+                assays(rse)[["length"]] <- length
+            }
+            assert_is_subset(tximportAssays, assayNames(rse))
+        } else if (caller %in% featureCountsCallers) {
+            assert_is_subset(featureCountsAssays, assayNames(rse))
+        }
+
+        # Gene-level-specific assays (DESeq2)
+        if (level == "genes") {
+            # DESeq2 normalized counts
+            if (is(assays(rse)[["normalized"]], "DESeqDataSet")) {
+                assays(rse)[["normalized"]] <-
+                    assay(assays(rse)[["normalized"]])
+            } else if (!"normalized" %in% names(assays)) {
+                dds <- .regenerateDESeqDataSet(rse)
+                assays(rse)[["normalized"]] <- assay(dds)
+            }
+
+            # vst
+            if (is(assays(rse)[["vst"]], "DESeqTransform")) {
+                message("Coercing vst DESeqTransform to matrix in assays")
+                assays(rse)[["vst"]] <- assay(assays(rse)[["vst"]])
+            }
+
+            # rlog
+            if (is(assays(rse)[["rlog"]], "DESeqTransform")) {
+                message("Coercing rlog DESeqTransform to matrix in assays")
+                assays(rse)[["rlog"]] <- assay(assays(rse)[["rlog"]])
+            }
+        }
+
+        # Defunct assays
+        # tmm
+        if ("tmm" %in% assayNames(rse)) {
+            message(paste(
+                "Dropping tmm from assays.",
+                "Now calculated on the fly instead."
+            ))
+            assays(rse)[["tmm"]] <- NULL
+        }
+
+        # Put the required assays first
+        assays(rse) <- assays(rse)[unique(c(requiredAssays, assayNames(rse)))]
+        assert_is_subset(requiredAssays, assayNames(rse))
+
+        # Column data ==========================================================
+        colData <- colData(rse)
+
+        # Move metrics from metadata into colData, if necessary
+        metrics <- metadata(rse)[["metrics"]]
+        if (is.data.frame(metrics)) {
+            message("Moving metrics from metadata into colData")
+
+            # Always remove legacy `name` column
+            metrics[["name"]] <- NULL
+
+            # Rename 5'3' bias
+            if ("x53Bias" %in% colnames(metrics)) {
+                message("Renaming x53Bias to x5x3Bias")
+                metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
+                metrics[["x53Bias"]] <- NULL
+            }
+
+            # Rename rRNA rate
+            if (!"rrnaRate" %in% colnames(metrics)) {
+                col <- grep(
+                    pattern = "rrnarate",
+                    x = colnames(metrics),
+                    ignore.case = TRUE,
+                    value = TRUE
+                )
+                assert_is_a_string(col)
+                message(paste("Renaming", col, "to rrnaRate"))
+                metrics[["rrnaRate"]] <- metrics[[col]]
+                metrics[[col]] <- NULL
+            }
+
+            # Only include columns not already present in colData
+            setdiff <- setdiff(colnames(metrics), colnames(colData))
+            metrics <- metrics[, sort(setdiff), drop = FALSE]
+
+            colData <- cbind(colData, metrics)
+            metadata(rse)[["metrics"]] <- NULL
+        }
+
+        # Remove legacy `sampleID` and `description` columns, if present
+        colData[["sampleID"]] <- NULL
+        colData[["description"]] <- NULL
+
+        colData(rse) <- colData
+
         # Return ===============================================================
         .new.bcbioRNASeq(
-            assays = assays,
+            assays = assays(rse),
+            # This will handle mismatches
             rowRanges = rowRanges,
-            colData = colData,
-            metadata = metadata
+            colData = colData(rse),
+            metadata = metadata(rse)
         )
     }
 )

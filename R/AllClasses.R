@@ -229,7 +229,7 @@ bcbioRNASeq <- function(
     level <- match.arg(level)
     caller <- match.arg(caller)
     if (level == "transcripts") {
-        assert_is_subset(caller, c("salmon", "kallisto", "sailfish"))
+        assert_is_subset(caller, tximportCallers)
     }
     assertIsAStringOrNULL(sampleMetadataFile)
     assert_is_any_of(samples, c("character", "NULL"))
@@ -374,7 +374,7 @@ bcbioRNASeq <- function(
     # Read counts ==============================================================
     # Use tximport by default for transcript-aware callers.
     # Otherwise, resort to loading the featureCounts aligned counts data.
-    if (caller %in% c("salmon", "kallisto", "sailfish")) {
+    if (caller %in% tximportCallers) {
         # tximport
         if (level == "transcripts") {
             txOut <- TRUE
@@ -400,7 +400,7 @@ bcbioRNASeq <- function(
         # countsFromAbundance: character describing TPM
         countsFromAbundance <- txi[["countsFromAbundance"]]
         assert_is_character(countsFromAbundance)
-    } else if (caller %in% c("star", "hisat2")) {
+    } else if (caller %in% featureCountsCallers) {
         tpm <- NULL
         length <- NULL
         countsFromAbundance <- NULL
@@ -697,7 +697,7 @@ setValidity(
         # level
         assert_is_subset(
             x = metadata[["level"]],
-            y = c("genes", "transcripts")
+            y = validLevels
         )
         # tx2gene
         tx2gene <- metadata[["tx2gene"]]

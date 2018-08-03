@@ -67,7 +67,7 @@ setMethod(
         if ("genes" %in% names(call)) {
             stop("`genes` is defunct. Use `ntop` argument instead.")
         }
-        # samples / censorSamples
+        # samples, censorSamples
         if (any(c("samples", "censorSamples") %in% names(call))) {
             stop("Sample selection is defunct. Use bracket-based subsetting.")
         }

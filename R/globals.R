@@ -1,7 +1,15 @@
 globalVariables(".")
-legacyMetricsCols <- c("name", "x53Bias")
+
 packageVersion <- packageVersion("bcbioRNASeq")
+legacyMetricsCols <- c("name", "x53Bias")
+
 # v0.2.6: tpm and length are now optional, since we're supporting featureCounts
 requiredAssays <- "counts"
+
 # v0.2.6: added STAR and HISAT2 support
-validCallers <- c("salmon", "kallisto", "sailfish", "star", "hisat2")
+tximportAssays <- c("counts", "length", "tpm")
+tximportCallers <- c("salmon", "kallisto", "sailfish")
+featureCountsAssays <- requiredAssays
+featureCountsCallers <- c("star", "hisat2")
+validCallers <- c(tximportCallers, featureCountsCallers)
+validLevels <- c("genes", "transcripts")
