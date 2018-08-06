@@ -4,7 +4,6 @@
 #' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams bcbioBase::plotHeatmap
 #' @inheritParams general
 #' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve
 #'   dynamic range for gene sets containing highly significant P values (e.g.
