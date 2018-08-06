@@ -81,31 +81,6 @@ plot53Bias <- function(...) {
 }
 
 #' @rdname deprecated
-#' @importFrom bcbioBase bcbio
-#' @export
-setMethod(
-    "bcbio",
-    signature("bcbioRNASeq"),
-    function(object, ...) {
-        .Defunct()
-    }
-)
-
-#' @rdname deprecated
-#' @importFrom bcbioBase bcbio<-
-#' @export
-setMethod(
-    "bcbio<-",
-    signature(
-        object = "bcbioRNASeq",
-        value = "ANY"
-    ),
-    function(object, ..., value) {
-        .Defunct()
-    }
-)
-
-#' @rdname deprecated
 #' @export
 setMethod(
     "design",
