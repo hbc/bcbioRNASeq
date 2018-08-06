@@ -217,6 +217,15 @@ test_that("resultsTables : Default return with local files only", {
             lfcThreshold = "numeric"
         )
     )
+    # Ensure that the counts columns are correct
+    expect_identical(
+        rownames(dds_small),
+        rownames(x[["all"]])
+    )
+    expect_identical(
+        counts(dds_small, normalized = TRUE),
+        as.matrix(x[["all"]][, colnames(assay(dds_small))])
+    )
 })
 
 test_that("resultsTables : Summary and write support", {
