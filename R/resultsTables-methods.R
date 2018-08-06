@@ -193,30 +193,18 @@ setMethod(
         contrast <- contrastName(results)
         fileStem <- snake(contrast)
 
-        # Now safe to coerce to DataFrame
         results <- as.data.frame(results)
         results[["geneID"]] <- rownames(results)
 
         # Add gene annotations (rowData) =======================================
-        rowRanges <- rowRanges(counts)
-        mcols <- mcols(rowRanges)
-        mcols <- mcols[, vapply(
-            X = mcols,
-            FUN = function(x) {
-                is.character(x) || is.factor(x)
-            },
-            FUN.VALUE = logical(1L)
-        )]
-        mcols(rowRanges) <- mcols
-        # Coerce to `data.frame` here first instead of `DataFrame` so the
-        # GRanges gets collapsed into columns. `DataFrame` nests this data in a
-        # column named `X` otherwise, and that won't write to disk in CSV
-        # format.
-        rowData <- rowRanges %>%
+        rowData <- rowRanges(counts) %>%
             as.data.frame() %>%
-            as("DataFrame")
-        # Drop columns already present in results
-        rowData <- rowData[, setdiff(colnames(rowData), colnames(results))]
+            rownames_to_column() %>%
+            # Drop any nested complex columns (e.g. entrezID list)
+            select_if(is.atomic) %>%
+            select(!!!syms(setdiff(colnames(.), colnames(results)))) %>%
+            column_to_rownames()
+        assert_are_identical(rownames(results), rownames(rowData))
         results <- cbind(results, rowData)
 
         # Add normalized counts matrix =========================================
@@ -226,6 +214,7 @@ setMethod(
             colnames(matrix) <- colData(counts)[["sampleName"]]
             matrix <- matrix[, sort(colnames(matrix)), drop = FALSE]
         }
+        assert_are_identical(rownames(results), rownames(matrix))
         results <- cbind(results, matrix)
 
         # Check for overall gene expression with base mean
