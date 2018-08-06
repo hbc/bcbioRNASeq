@@ -148,7 +148,8 @@ Suggests:
     org.Mm.eg.db,
     pathview (>= 1.20),
     roxygen2,
-    testthat (>= 2.0)
+    testthat (>= 2.0),
+    viridis
 Remotes:
     hbc/bcbioBase@develop,
     steinbaugh/basejump@develop
