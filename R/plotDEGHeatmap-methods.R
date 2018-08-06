@@ -13,7 +13,7 @@
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
-#' @inherit bcbioBase::plotHeatmap
+#' @inherit basejump::plotHeatmap
 #'
 #' @inheritParams general
 #' @param ... Passthrough arguments to [plotHeatmap()].

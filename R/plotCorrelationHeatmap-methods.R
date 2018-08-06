@@ -10,7 +10,7 @@
 #' @importFrom bcbioBase plotCorrelationHeatmap
 #' @export
 #'
-#' @inherit bcbioBase::plotCorrelationHeatmap
+#' @inherit basejump::plotCorrelationHeatmap
 #'
 #' @inheritParams general
 #' @param ... Passthrough arguments to `SummarizedExperiment` method.
