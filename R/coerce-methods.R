@@ -5,11 +5,13 @@
 #' @family S4 Object
 #' @author Michael Steinbaugh
 #'
-#' @inherit bcbioBase::coerce
+#' @inheritParams methods::setAs
+#'
+#' @return Object of new class.
 #'
 #' @seealso
 #' - [methods::as()].
-#' - [methods::coerce()].
+#' - [methods::setAs()].
 #'
 #' @examples
 #' # DESeqDataSet ====
