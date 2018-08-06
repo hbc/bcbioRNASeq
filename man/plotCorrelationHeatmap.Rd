@@ -39,20 +39,6 @@ plotCorrelationHeatmap(bcb_small, method = "pearson")
 
 # Spearman correlation
 plotCorrelationHeatmap(bcb_small, method = "spearman")
-
-# Inferno palette
-plotCorrelationHeatmap(
-    bcb_small,
-    color = viridis::inferno,
-    legendColor = viridis::inferno
-)
-
-# Default pheatmap palette
-plotCorrelationHeatmap(
-    bcb_small,
-    color = NULL,
-    legendColor = NULL
-)
 }
 \seealso{
 \itemize{
