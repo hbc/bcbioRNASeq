@@ -4,7 +4,7 @@
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom bcbioBase metrics
+#' @importFrom basejump metrics
 #' @export
 #'
 #' @inheritParams general

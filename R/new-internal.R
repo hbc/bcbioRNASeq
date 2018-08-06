@@ -6,7 +6,7 @@
     transgeneNames = NULL,
     spikeNames = NULL
 ) {
-    rse <- prepareSummarizedExperiment(
+    rse <- makeSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
