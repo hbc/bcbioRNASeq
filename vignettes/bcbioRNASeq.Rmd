@@ -343,13 +343,13 @@ plotCorrelationHeatmap(
     bcb,
     method = "pearson",
     normalized = "vst",
-    color = viridis
+    color = viridis::viridis
 )
 plotCorrelationHeatmap(
     bcb,
     method = "spearman",
     normalized = "vst",
-    color = plasma
+    color = virids::plasma
 )
 ```
 
@@ -358,13 +358,13 @@ plotCorrelationHeatmap(
     object = bcb,
     method = "pearson",
     normalized = "rlog",
-    color = viridis
+    color = viridis::viridis
 )
 plotCorrelationHeatmap(
     object = bcb,
     method = "spearman",
     normalized = "rlog",
-    color = plasma
+    color = viridis::plasma
 )
 ```
 
