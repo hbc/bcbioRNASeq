@@ -150,8 +150,8 @@ Suggests:
     roxygen2,
     testthat (>= 2.0)
 Remotes:
-    hbc/bcbioBase,
-    steinbaugh/basejump
+    hbc/bcbioBase@develop,
+    steinbaugh/basejump@develop
 biocViews:
     DataImport,
     DataRepresentation,
