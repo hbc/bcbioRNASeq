@@ -11,8 +11,6 @@
 \alias{txi}
 \alias{meltLog10}
 \alias{plot53Bias}
-\alias{bcbio,bcbioRNASeq-method}
-\alias{bcbio<-,bcbioRNASeq-method}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
 \title{Defunct or Deprecated Functions}
@@ -32,10 +30,6 @@ txi(...)
 meltLog10(object, ...)
 
 plot53Bias(...)
-
-\S4method{bcbio}{bcbioRNASeq}(object, ...)
-
-\S4method{bcbio}{bcbioRNASeq}(object, ...) <- value
 
 \S4method{design}{bcbioRNASeq}(object, ...)
 
