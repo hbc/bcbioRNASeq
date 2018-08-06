@@ -43,8 +43,8 @@ plotCorrelationHeatmap(bcb_small, method = "spearman")
 # Inferno palette
 plotCorrelationHeatmap(
     bcb_small,
-    color = inferno,
-    legendColor = inferno
+    color = viridis::inferno,
+    legendColor = viridis::inferno
 )
 
 # Default pheatmap palette
