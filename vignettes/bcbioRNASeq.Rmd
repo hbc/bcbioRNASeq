@@ -349,7 +349,7 @@ plotCorrelationHeatmap(
     bcb,
     method = "spearman",
     normalized = "vst",
-    color = virids::plasma
+    color = viridis::plasma
 )
 ```
 
