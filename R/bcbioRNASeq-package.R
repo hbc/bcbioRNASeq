@@ -36,8 +36,9 @@
 #'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment markdownHeader markdownList markdownPlotlist
-#'   readFileByExtension readYAML sampleData sanitizeRowData sanitizeSampleData
-#'   snake stripTranscriptVersions uniteInterestingGroups matchInterestingGroups
+#'   plotHeatmap readFileByExtension readYAML sampleData sanitizeRowData
+#'   sanitizeSampleData snake stripTranscriptVersions uniteInterestingGroups
+#'   matchInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox prepareTemplate readDataVersions
 #'   readLog readProgramVersions readSampleData readTx2gene readYAMLSampleData
