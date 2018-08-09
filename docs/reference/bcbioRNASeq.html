@@ -83,6 +83,9 @@ analysis." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -105,7 +108,7 @@ analysis." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1><code>bcbioRNASeq</code> Object and Constructor</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllClasses.R'><code>R/AllClasses.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllClasses.R'><code>R/AllClasses.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/bcbioRNASeq-constructor.R'><code>R/bcbioRNASeq-constructor.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
     <div class="hidden name"><code>bcbioRNASeq.Rd</code></div>
     </div>
 
@@ -275,7 +278,7 @@ if possible.</p>
     <h2 class="hasAnchor" id="metadata"><a class="anchor" href="#metadata"></a>Metadata</h2>
 
     
-    <p>The <code>metadata()</code> accessor contains:</p><ul>
+    <p>The <code>metadata()</code> slot contains:</p><ul>
 <li><p>Sample quality control metrics.</p></li>
 <li><p>Ensembl annotations.</p></li>
 <li><p>Server run paths.</p></li>
@@ -289,7 +292,7 @@ if possible.</p>
 stabilized counts are slotted into <code>assays()</code>. If the number of samples is
 bigger than the <code>transformationLimit</code> argument, <code>rlog</code> and <code>vst</code> counts will
 not be slotted into <code>assays()</code>. In this case, we recommend visualization
-using <code><a href='tmm.html'>tmm()</a></code> counts, which are automatically calculated using edgeR.</p>
+using TMM counts, which are automatically calculated using edgeR.</p>
     
     <h2 class="hasAnchor" id="remote-data"><a class="anchor" href="#remote-data"></a>Remote data</h2>
 
@@ -369,10 +372,10 @@ as a remote connection over
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(21): sampleName description ... x5x3Bias xGC
-#&gt; ================================================================================
+#&gt; ====================================================================================================
 #&gt; Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-08-02
+#&gt; R Load Date: 2018-08-09
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
@@ -435,10 +438,10 @@ as a remote connection over
 #&gt;   transcriptSupportLevel
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(21): sampleName description ... x5x3Bias xGC
-#&gt; ================================================================================
+#&gt; ====================================================================================================
 #&gt; Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-08-02
+#&gt; R Load Date: 2018-08-09
 #&gt; Level: "transcripts"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
