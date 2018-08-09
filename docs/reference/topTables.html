@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -74,6 +74,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -103,7 +106,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Top Tables of Differential Expression Results</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-topTables.R'><code>R/methods-topTables.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/topTables-methods.R'><code>R/topTables-methods.R</code></a></small>
     <div class="hidden name"><code>topTables.Rd</code></div>
     </div>
 
@@ -126,7 +129,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><code>resultsTables()</code> return <code>list</code>.</p></td>
+      <td><p><code>DESeqResults</code> or <code>list</code>. For <code>list</code> method, must use
+<code><a href='resultsTables.html'>resultsTables()</a></code> return.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -134,11 +138,11 @@
     </tr>
     <tr>
       <th>n</th>
-      <td><p>Number genes to report.</p></td>
+      <td><p><code>scalar integer</code>. Number genes to report.</p></td>
     </tr>
     <tr>
       <th>coding</th>
-      <td><p>Whether to only return coding genes.</p></td>
+      <td><p><code>boolean</code>. Whether to only return coding genes.</p></td>
     </tr>
     </table>
     
@@ -174,7 +178,7 @@
 #&gt; |ENSMUSG00000061906 |     7413|-1.98 |7.50e-10 |</div><div class='input'>
 <span class='co'># `resultsTables()` return list ====</span>
 <span class='co'># Return with gene annotations and DESeq2 normalized counts</span>
-<span class='no'>res_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>resultsTables</span>(
+<span class='no'>res_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='resultsTables.html'>resultsTables</a></span>(
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds_small</span>
 )</div><div class='output co'>#&gt; 

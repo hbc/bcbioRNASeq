@@ -11,8 +11,8 @@ skipWarning <- paste(
 
 
 
-# Metrics ======================================================================
-test_that("Quality Control Metrics Plots", {
+# Loop across QC plots =========================================================
+test_that("Quality Control Plots", {
     fxns <- c(
         "plot5Prime3PrimeBias",
         "plotCountDensity",
@@ -31,7 +31,7 @@ test_that("Quality Control Metrics Plots", {
     invisible(lapply(fxns, function(fxn) {
         fxn <- get(fxn, inherits = TRUE)
         expect_is(fxn, "nonstandardGenericFunction")
-        p <- fxn(bcb_small)
+        p <- fxn(object = bcb_small)
         expect_is(p, "ggplot")
     }))
 })
@@ -39,7 +39,7 @@ test_that("Quality Control Metrics Plots", {
 
 
 # plotCorrelationHeatmap =======================================================
-test_that("plotCorrelationHeatmap", {
+test_that("plotCorrelationHeatmap : bcbioRNASeq", {
     # Pearson (default)
     p <- plotCorrelationHeatmap(bcb_small)
     expect_identical(names(p), pheatmapNames)
@@ -53,6 +53,11 @@ test_that("plotCorrelationHeatmap", {
     )
 })
 
+test_that("plotCorrelationHeatmap : DESeqTransform", {
+    p <- plotCorrelationHeatmap(vst_small)
+    expect_identical(names(p), pheatmapNames)
+})
+
 test_that("plotCorrelationHeatmap : transformationLimit", {
     expect_warning(
         plotCorrelationHeatmap(skip, normalized = "rlog"),
@@ -64,7 +69,79 @@ test_that("plotCorrelationHeatmap : transformationLimit", {
 
 
 
+# plotCountsPerGene ============================================================
+test_that("plotCountsPerGene", {
+    p <- plotCountsPerGene(
+        object = bcb_small,
+        normalized = "vst",
+        title = NULL,
+        interestingGroups = "sampleName"
+    )
+    expect_is(p, "ggplot")
+})
+
+
+
+# plotCountDensity =============================================================
+test_that("plotCountDensity", {
+    # solid style
+    p <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
+    expect_is(p, "ggplot")
+
+    # vst
+    # Set title = NULL to check disabling of subtitle
+    p <- plotCountDensity(
+        object = bcb_small,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        title = NULL
+    )
+    expect_is(p, "ggplot")
+})
+
+
+
+# plotGeneSaturation ===========================================================
+test_that("plotGeneSaturation", {
+    p <- plotGeneSaturation(
+        object = bcb_small,
+        trendline = TRUE,
+        label = TRUE
+    )
+    expect_is(p, "ggplot")
+})
+
+
+
+# plotMeanSD ===================================================================
+test_that("plotMeanSD : DESeqDataSet", {
+    p <- plotMeanSD(dds_small)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotMeanSD : bcbioRNASeq : No stashed DESeq transforms", {
+    x <- bcb_small
+    assays(x)[["rlog"]] <- NULL
+    assays(x)[["vst"]] <- NULL
+    p <- plotMeanSD(x)
+    expect_is(p, "ggplot")
+})
+
+
+
 # plotPCA ======================================================================
+test_that("plotPCA : Label", {
+    p <- plotPCA(bcb_small, label = FALSE)
+    expect_is(p, "ggplot")
+    p <- plotPCA(bcb_small, label = TRUE)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotPCA : data.frame", {
+    p <- plotPCA(bcb_small, return = "data.frame")
+    expect_is(p, "data.frame")
+})
+
 test_that("plotPCA : transformationLimit", {
     expect_warning(
         plotPCA(skip, normalized = "rlog"),
@@ -93,15 +170,21 @@ test_that("plotPCACovariates", {
     )
 })
 
-test_that("plotPCACovariates : Significant covars", {
+test_that("plotPCACovariates : Metrics", {
     p <- plotPCACovariates(
-        bcb_small,
+        object = bcb_small,
         metrics = c("exonicRate", "intronicRate")
     )
     # Don't expect these to be significant with the example dataset
     expect_identical(
         as.character(p[["significantCovars"]]),
         character()
+    )
+
+    # If metrics = FALSE, we require at least 2 interesting groups
+    expect_error(
+        p <- plotPCACovariates(bcb_small, metrics = FALSE),
+        "`plotPCACovariates\\(\\)` requires >= 2 metrics"
     )
 })
 

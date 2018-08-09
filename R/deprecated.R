@@ -49,8 +49,7 @@ loadRNASeqRun <- function(...) {
 #' @rdname deprecated
 #' @export
 plotGeneHeatmap <- function(...) {
-    .Deprecated("plotHeatmap")
-    plotHeatmap(...)
+    .Defunct()
 }
 
 
@@ -79,31 +78,6 @@ plot53Bias <- function(...) {
     .Deprecated("plot5Prime3PrimeBias")
     plot5Prime3PrimeBias(...)
 }
-
-#' @rdname deprecated
-#' @importFrom bcbioBase bcbio
-#' @export
-setMethod(
-    "bcbio",
-    signature("bcbioRNASeq"),
-    function(object, ...) {
-        .Defunct()
-    }
-)
-
-#' @rdname deprecated
-#' @importFrom bcbioBase bcbio<-
-#' @export
-setMethod(
-    "bcbio<-",
-    signature(
-        object = "bcbioRNASeq",
-        value = "ANY"
-    ),
-    function(object, ..., value) {
-        .Defunct()
-    }
-)
 
 #' @rdname deprecated
 #' @export
@@ -139,5 +113,18 @@ loadRNASeq <- function(...) {
     .Deprecated("bcbioRNASeq")
     bcbioRNASeq(...)
 }
+
+
+
+# v0.2.6 =======================================================================
+#' @rdname plotMA
+#' @usage NULL
+#' @export
+plotMeanAverage <- function(...) {
+    # Soft deprecation, since used in F1000 paper
+    plotMA(...)
+}
+
+
 
 # nocov end

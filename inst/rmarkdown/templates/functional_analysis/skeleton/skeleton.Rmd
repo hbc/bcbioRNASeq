@@ -4,17 +4,17 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-    dds_file: "data/YYYY-MM-DD/dds.rda"
-    res_file: "data/YYYY-MM-DD/res.rda"
-    organism: "Mus musculus"
-    go_class: "BP"
-    lfc_threshold: 0
-    data_dir: !r file.path("data", Sys.Date())
-    results_dir: !r file.path("results", Sys.Date(), "functional_analysis")
+  dds_file: "data/YYYY-MM-DD/dds.rda"
+  res_file: "data/YYYY-MM-DD/res.rda"
+  organism: "Mus musculus"
+  go_class: "BP"
+  lfc_threshold: 0
+  data_dir: !r file.path("data", Sys.Date())
+  results_dir: !r file.path("results", Sys.Date(), "functional_analysis")
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-05-24
+# Last modified 2018-07-29
 
 # KEGG supported organisms
 # http://www.genome.jp/kegg/catalog/org_list.html
@@ -102,8 +102,6 @@ stopifnot(params$go_class %in% c("BP", "CC", "MF"))
 ```{r header, child="_header.Rmd"}
 ```
 
-
-
 ```{r results}
 alpha <- metadata(res)$alpha
 
@@ -137,8 +135,6 @@ names(lfc_vec) <- rownames(sig_res_df)
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 glimpse(lfc_vec)
 ```
-
-
 
 # GO enrichment analysis
 
@@ -184,20 +180,17 @@ write_csv(
 enrich_go_tbl
 ```
 
-
 ## Dot plot
 
 ```{r dotplot, fig.width=8}
 dotplot(enrich_go, showCategory = 25)
 ```
 
-
 ## GO terms map
 
 ```{r emapplot, fig.width=8, fig.height=8}
 emapplot(enrich_go, showCategory = 25)
 ```
-
 
 ## Gene map
 
@@ -208,7 +201,6 @@ Here we are plotting genes colored by LFC for top 5 most significant [GO][] term
 ```{r cnetplot, fig.width=8, fig.height=8}
 cnetplot(enrich_go, foldChange = lfc_vec)
 ```
-
 
 ## GO GSEA analysis
 
@@ -259,8 +251,6 @@ write_csv(
 
 gsea_go_tbl
 ```
-
-
 
 # KEGG enrichment analysis
 
@@ -373,7 +363,6 @@ write_csv(
 kegg_tbl
 ```
 
-
 ## KEGG GSEA analysis
 
 [GSEA][] analysis is performed with the [clusterProfiler][] tool using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
@@ -459,8 +448,6 @@ if (length(pathways)) {
     }))
 }
 ```
-
-
 
 ```{r footer, child="_footer.Rmd"}
 ```

@@ -34,7 +34,9 @@
   
 <meta property="og:title" content="Plot Sexually Dimorphic Gender Markers — plotGenderMarkers" />
 
-<meta property="og:description" content="Plot Sexually Dimorphic Gender Markers" />
+<meta property="og:description" content="This is a convenience function that wraps plotGene() to quickly plot known
+sexually dimorphic genes. Currently only Homo sapiens and Mus musculus
+genomes are supported." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -74,6 +76,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -103,13 +108,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Sexually Dimorphic Gender Markers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotGenderMarkers.R'><code>R/methods-plotGenderMarkers.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
     <div class="hidden name"><code>plotGenderMarkers.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot Sexually Dimorphic Gender Markers</p>
+    <p>This is a convenience function that wraps <code><a href='plotGene.html'>plotGene()</a></code> to quickly plot known
+sexually dimorphic genes. Currently only <em>Homo sapiens</em> and <em>Mus musculus</em>
+genomes are supported.</p>
     
     </div>
 
@@ -141,7 +148,7 @@
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
 <li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
 <li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
 <li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
@@ -156,29 +163,29 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+    <div class='dont-index'><p><code><a href='plotGene.html'>plotGene()</a></code>.</p>
+<p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
+  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>, <code>plotMeanSD</code>,
-  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p></div>
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
+  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqDataSet ====</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>dds_small</span>)</div><div class='img'><img src='plotGenderMarkers-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqTransform ====</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>rld_small</span>)</div><div class='img'><img src='plotGenderMarkers-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>vst_small</span>)</div><div class='img'><img src='plotGenderMarkers-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

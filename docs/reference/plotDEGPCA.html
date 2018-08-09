@@ -34,7 +34,8 @@
   
 <meta property="og:title" content="Plot DEG PCA — plotDEGPCA" />
 
-<meta property="og:description" content="Plot DEG PCA" />
+<meta property="og:description" content="Wrapper for DESeq2::plotPCA() that improves principal component analysis
+(PCA) sample coloring and labeling." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -74,6 +75,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -103,13 +107,14 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot DEG PCA</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotDEGPCA.R'><code>R/methods-plotDEGPCA.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotDEGPCA-methods.R'><code>R/plotDEGPCA-methods.R</code></a></small>
     <div class="hidden name"><code>plotDEGPCA.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot DEG PCA</p>
+    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
+(PCA) sample coloring and labeling.</p>
     
     </div>
 
@@ -117,8 +122,9 @@
 
 <span class='co'># S4 method for DESeqResults,SummarizedExperiment</span>
 <span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>,
-  <span class='st'>"down"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
+  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
+  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
   <span class='st'>"data.frame"</span>))
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
@@ -133,11 +139,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>results</th>
-      <td><p><code>DESeqResults</code> object.</p></td>
+      <td><p><code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>counts</th>
-      <td><p>Object containing a normalized counts matrix.</p></td>
+      <td><p><code>matrix</code>. Normalized counts.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -145,40 +151,43 @@
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p>Character vector denoting groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>. Groups of interest that define the
+samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
+      <td><p><code>scalar numeric</code>. Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
       <th>lfcThreshold</th>
-      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
+      <td><p><code>scalar numeric</code>. Log fold change ratio (base 2) cutoff
+threshold.</p></td>
     </tr>
     <tr>
       <th>direction</th>
-      <td><p>Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
+      <td><p><code>string</code>. Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p>Desired ggplot color scale. Must supply discrete values. When
-set to <code>NULL</code>, the default ggplot2 color palette will be used. If manual
-color definitions are desired, we recommend using
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_colour_manual()</a></code>.</p></td>
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
+scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.
+To set the discrete color palette globally, use
+<code>options(bcbio.discrete.color = scale_color_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p>Superimpose sample text labels on the plot.</p></td>
+      <td><p><code>boolean</code>. Superimpose sample text labels on the plot.</p></td>
     </tr>
     <tr>
       <th>return</th>
-      <td><p>Object class to return. Uses <code>match.arg()</code> internally and picks
-the first item in the vector by default.</p></td>
+      <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
+and picks the first item in the vector by default.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
 <li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
 <li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
 <li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
@@ -191,27 +200,38 @@ the first item in the vector by default.</p></td>
 
     <p><code>ggplot</code> or <code>data.frame</code>.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
+summarize the systematic patterns of variations in the data. PCA takes the
+expression levels for genes and transforms it in principal component space,
+reducing each sample into one point. Thereby, we can separate samples by
+expression variation, and identify potential sample outliers. The PCA plot is
+a way to look at how samples are clustering.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Differential Expression Functions: <code>alphaSummary</code>,
-  <code>contrastName</code>, <code>plotDEGHeatmap</code>,
-  <code>plotMeanAverage</code>, <code>plotVolcano</code>,
-  <code>resultsTables</code></p></div>
+    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
+  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
+  <code><a href='plotMA.html'>plotMeanAverage</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code>,
+  <code><a href='resultsTables.html'>resultsTables</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults, SummarizedExperiment ====</span>
-<span class='fu'>plotDEGPCA</span>(
-    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>rld_small</span>,
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqResults, bcbioRNASeq ====</span>
+    <pre class="examples"><div class='input'><span class='co'># DESeqResults, bcbioRNASeq ====</span>
 <span class='fu'>plotDEGPCA</span>(
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqResults, DESeqTransform ====</span>
+<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
+<span class='fu'>plotDEGPCA</span>(
+    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>vst_small</span>,
+    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -219,6 +239,8 @@ the first item in the vector by default.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -62,6 +62,12 @@ test_that("counts : normalized argument", {
         tmm(bcb_small)
     )
 
+    # rle: calculated on the fly
+    expect_is(
+        counts(bcb_small, normalized = "rle"),
+        "matrix"
+    )
+
     # rlog
     expect_identical(
         counts(bcb_small, normalized = "rlog"),
@@ -100,6 +106,82 @@ test_that("counts : apply transformationLimit", {
 
 
 
+# interestingGroups ============================================================
+test_that("interestingGroups : NULL handling", {
+    expect_is(
+        metrics(bcb_small, interestingGroups = NULL),
+        "data.frame"
+    )
+    expect_is(
+        plotTotalReads(bcb_small, interestingGroups = NULL),
+        "ggplot"
+    )
+    expect_is(
+        sampleData(bcb_small, interestingGroups = NULL),
+        "DataFrame"
+    )
+
+    x <- bcb_small
+    expect_error(interestingGroups(x) <- NULL)
+    metadata(x)[["interestingGroups"]] <- NULL
+    expect_error(validObject(x))
+})
+
+
+
+# sampleData ===================================================================
+test_that("sampleData : Verbose mode (default)", {
+    # Match colData when `interestingGroups = NULL`
+    expect_identical(
+        sampleData(bcb_small, clean = FALSE, interestingGroups = NULL),
+        colData(bcb_small)
+    )
+
+    # Return `interestingGroups` factor column by default
+    x <- sampleData(bcb_small, clean = FALSE)
+    expect_is(x[["interestingGroups"]], "factor")
+
+    # Interesting groups
+    x <- sampleData(bcb_small, clean = FALSE, interestingGroups = NULL)
+    expect_identical(
+        x[["interestingGruops"]],
+        NULL
+    )
+    x <- sampleData(bcb_small, clean = FALSE, interestingGroups = "day")
+    expect_identical(
+        levels(x[["interestingGroups"]]),
+        c("0", "7")
+    )
+})
+
+test_that("sampleData : Clean mode", {
+    # Return useful factor columns
+    x <- sampleData(bcb_small, clean = TRUE)
+    expect_identical(
+        colnames(x),
+        c(
+            "sampleName",
+            "day",
+            "replicate",
+            "strain",
+            "tissue",
+            "treatment"
+        )
+    )
+    # Ensure all columns are factor
+    invisible(lapply(x, function(x) {
+        expect_is(x, "factor")
+    }))
+})
+
+test_that("sampleData assignment", {
+    x <- bcb_small
+    sampleData(x)[["testthat"]] <- factor("XXX")
+    expect_identical(levels(sampleData(x)[["testthat"]]), "XXX")
+})
+
+
+
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
     x <- selectSamples(bcb_small, treatment = "folic_acid")
@@ -113,4 +195,13 @@ test_that("selectSamples : bcbioRNASeq", {
 test_that("selectSamples : DESeqDataSet", {
     x <- selectSamples(dds_small, treatment = "folic_acid")
     expect_identical(dim(x), c(500L, 3L))
+})
+
+
+
+# tmm ==========================================================================
+test_that("tmm", {
+    expect_is(tmm(bcb_small), "matrix")
+    expect_is(tmm(dds_small), "matrix")
+    expect_is(tmm(assay(bcb_small)), "matrix")
 })

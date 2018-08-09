@@ -6,11 +6,11 @@ cache: packages
 
 r:
   - bioc-release
-  - bioc-devel
+  # - bioc-devel
 
 os:
   - linux
-  - osx
+  # - osx
 
 matrix:
   exclude:
@@ -18,9 +18,9 @@ matrix:
     r: bioc-devel
 
 # blocklist
-branches:
-  except:
-  - develop
+# branches:
+#   except:
+#  - develop
 
 # safelist
 # branches:

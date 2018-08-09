@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -74,6 +74,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -103,7 +106,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Row Standard Deviations vs. Row Means</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotMeanSD.R'><code>R/methods-plotMeanSD.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotMeanSD-methods.R'><code>R/plotMeanSD-methods.R</code></a></small>
     <div class="hidden name"><code>plotMeanSD.Rd</code></div>
     </div>
 
@@ -116,10 +119,12 @@
     <pre class="usage"><span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>FALSE</span>))
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>FALSE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +139,7 @@
     </tr>
     <tr>
       <th>legend</th>
-      <td><p>Show plot legend.</p></td>
+      <td><p><code>boolean</code>. Show plot legend.</p></td>
     </tr>
     </table>
     
@@ -158,23 +163,23 @@
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
-<li><p><code>tmm()</code>.</p></li>
+<li><p><code><a href='tmm.html'>tmm()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Quality Control Functions: <code>plot5Prime3PrimeBias</code>,
+    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code>plotCountDensity</code>,
-  <code>plotCountsPerGene</code>,
+  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code>plotExonicMappingRate</code>,
-  <code>plotGenderMarkers</code>,
-  <code>plotGeneSaturation</code>,
-  <code>plotGenesDetected</code>,
-  <code>plotIntronicMappingRate</code>,
-  <code>plotMappedReads</code>,
-  <code>plotMappingRate</code>,
-  <code>plotPCACovariates</code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code>plotRRNAMappingRate</code>,
-  <code>plotTotalReads</code></p></div>
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
+  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

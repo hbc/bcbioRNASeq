@@ -7,7 +7,12 @@ gene2symbol <- gene2symbol(bcb_small)
 
 # plotGenderMarkers ============================================================
 test_that("plotGenderMarkers : bcbioRNASeq", {
-    p <- plotGenderMarkers(bcb_small)
+    # vst
+    p <- plotGenderMarkers(bcb_small, normalized = "vst")
+    expect_is(p, "ggplot")
+
+    # tpm
+    p <- plotGenderMarkers(bcb_small, normalized = "tpm")
     expect_is(p, "ggplot")
 })
 
@@ -17,7 +22,12 @@ test_that("plotGenderMarkers : DESeqDataSet", {
 })
 
 test_that("plotGenderMarkers : DESeqTransform", {
+    # rlog
     p <- plotGenderMarkers(rld_small, interestingGroups = "treatment")
+    expect_is(p, "ggplot")
+
+    # vst
+    p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
     expect_is(p, "ggplot")
 })
 
@@ -26,35 +36,23 @@ test_that("plotGenderMarkers : DESeqTransform", {
 # plotGene =====================================================================
 test_that("plotGene : bcbioRNASeq", {
     # facet
-    p <- plotGene(bcb_small, genes = genes, return = "facet")
+    p <- plotGene(
+        object = bcb_small,
+        genes = genes,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        return = "facet"
+    )
     expect_is(p, "ggplot")
 
     # wide
-    p <- plotGene(bcb_small, genes = genes, return = "wide")
+    p <- plotGene(
+        object = bcb_small,
+        genes = genes,
+        normalized = "tpm",
+        return = "wide"
+    )
     expect_is(p, "ggplot")
-
-    # grid
-    p <- plotGene(bcb_small, genes = genes, return = "grid")
-    expect_is(p, "ggplot")
-
-    # markdown
-    gene <- gene2symbol[1L, "geneName", drop = TRUE]
-    output <- capture.output(
-        plotGene(bcb_small, genes = genes, return = "markdown")
-    )
-    expect_identical(
-        output[[3L]],
-        paste("##", gene)
-    )
-
-    # list
-    x <- plotGene(bcb_small, genes = genes, return = "list")
-    expect_is(x, "list")
-    expect_true(
-        lapply(x, function(x) is(x, "ggplot")) %>%
-            unlist() %>%
-            all()
-    )
 })
 
 test_that("plotGene : DESeqDataSet", {
@@ -63,7 +61,12 @@ test_that("plotGene : DESeqDataSet", {
 })
 
 test_that("plotGene : DESeqTransform", {
+    # rlog
     p <- plotGene(rld_small, genes = genes)
+    expect_is(p, "ggplot")
+
+    # vst
+    p <- plotGene(vst_small, genes = genes)
     expect_is(p, "ggplot")
 })
 
