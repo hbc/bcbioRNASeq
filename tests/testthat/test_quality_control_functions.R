@@ -12,7 +12,7 @@ skipWarning <- paste(
 
 
 # Loop across QC plots =========================================================
-test_that("Quality Control Plots", {
+test_that("Plots supporting interesting groups", {
     fxns <- c(
         "plot5Prime3PrimeBias",
         "plotCountDensity",
@@ -23,7 +23,6 @@ test_that("Quality Control Plots", {
         "plotIntronicMappingRate",
         "plotMappedReads",
         "plotMappingRate",
-        "plotMeanSD",
         "plotPCA",
         "plotRRNAMappingRate",
         "plotTotalReads"
@@ -32,6 +31,8 @@ test_that("Quality Control Plots", {
         fxn <- get(fxn, inherits = TRUE)
         expect_is(fxn, "nonstandardGenericFunction")
         p <- fxn(object = bcb_small)
+        expect_is(p, "ggplot")
+        p <- fxn(object = bcb_small, interestingGroups = "sampleName")
         expect_is(p, "ggplot")
     }))
 })
