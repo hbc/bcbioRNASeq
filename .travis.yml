@@ -9,8 +9,8 @@ r:
   # - bioc-devel
 
 os:
-  - linux
-  # - osx
+  # - linux
+  - osx
 
 matrix:
   exclude:
