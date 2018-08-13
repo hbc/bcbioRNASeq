@@ -8,19 +8,19 @@
 #' @inheritParams general
 #'
 #' @examples
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGPCA(
-#'     results = res_small,
-#'     counts = bcb_small,
-#'     normalized = "vst",
-#'     label = TRUE
-#' )
-#'
 #' # DESeqResults, DESeqTransform ====
 #' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 #' plotDEGPCA(
 #'     results = res_small,
 #'     counts = vst_small,
+#'     label = TRUE
+#' )
+#'
+#' # DESeqResults, bcbioRNASeq ====
+#' plotDEGPCA(
+#'     results = res_small,
+#'     counts = bcb_small,
+#'     normalized = "vst",
 #'     label = TRUE
 #' )
 NULL
@@ -106,6 +106,35 @@ setMethod(
     "plotDEGPCA",
     signature(
         results = "DESeqResults",
+        counts = "bcbioRNASeq"
+    ),
+    function(
+        results,
+        counts,
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+        ...
+    ) {
+        validObject(counts)
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assay(rse) <- counts(counts, normalized = normalized)
+        plotDEGPCA(
+            results = results,
+            counts = rse,
+            ...
+        )
+    }
+)
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    "plotDEGPCA",
+    signature(
+        results = "DESeqResults",
         counts = "DESeqDataSet"
     ),
     function(
@@ -133,23 +162,13 @@ setMethod(
     "plotDEGPCA",
     signature(
         results = "DESeqResults",
-        counts = "bcbioRNASeq"
+        counts = "DESeqTransform"
     ),
-    function(
-        results,
-        counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
-    ) {
-        validObject(counts)
-        normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
-        rse <- as(counts, "RangedSummarizedExperiment")
-        assay(rse) <- counts(counts, normalized = normalized)
-        plotDEGPCA(
-            results = results,
-            counts = rse,
-            ...
+    getMethod(
+        "plotDEGPCA",
+        signature(
+            results = "DESeqResults",
+            counts = "SummarizedExperiment"
         )
-    }
+    )
 )

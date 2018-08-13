@@ -4,8 +4,9 @@
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
 \alias{plotDEGPCA,DESeqResults,SummarizedExperiment-method}
-\alias{plotDEGPCA,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
+\alias{plotDEGPCA,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
 \title{Plot DEG PCA}
 \usage{
 plotDEGPCA(results, counts, ...)
@@ -16,10 +17,16 @@ plotDEGPCA(results, counts, ...)
   label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "data.frame"))
 
-\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
-
 \S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(results, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
+
+\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
+
+\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(results, counts,
+  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both",
+  "up", "down"), color = getOption("bcbio.discrete.color", NULL),
+  label = getOption("bcbio.label", FALSE), return = c("ggplot",
+  "data.frame"))
 }
 \arguments{
 \item{results}{\code{DESeqResults}.}
@@ -74,19 +81,19 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
-# DESeqResults, bcbioRNASeq ====
-plotDEGPCA(
-    results = res_small,
-    counts = bcb_small,
-    normalized = "vst",
-    label = TRUE
-)
-
 # DESeqResults, DESeqTransform ====
 vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 plotDEGPCA(
     results = res_small,
     counts = vst_small,
+    label = TRUE
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGPCA(
+    results = res_small,
+    counts = bcb_small,
+    normalized = "vst",
     label = TRUE
 )
 }
