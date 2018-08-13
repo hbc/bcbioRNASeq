@@ -164,3 +164,22 @@ setMethod(
         )
     }
 )
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqTransform"
+    ),
+    getMethod(
+        "plotDEGHeatmap",
+        signature(
+            results = "DESeqResults",
+            counts = "SummarizedExperiment"
+        )
+    )
+)
