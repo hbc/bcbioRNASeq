@@ -21,8 +21,14 @@
 #'     "bibliography.bib"
 #' ))
 prepareRNASeqTemplate <- function(overwrite = FALSE) {
+    package <- "bcbioRNASeq"
     prepareTemplate(
-        package = "bcbioRNASeq",
+        package = package,
+        sourceDir = system.file(
+            "rmarkdown/shared",
+            package = package,
+            mustWork = TRUE
+        ),
         overwrite = overwrite
     )
 }
