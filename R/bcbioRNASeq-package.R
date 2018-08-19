@@ -36,12 +36,12 @@
 #'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment markdownHeader markdownList markdownPlotlist
-#'   plotHeatmap readFileByExtension readYAML sampleData sanitizeRowData
-#'   sanitizeSampleData snake stripTranscriptVersions uniteInterestingGroups
-#'   matchInterestingGroups
+#'   plotHeatmap prepareTemplate readFileByExtension readYAML sampleData
+#'   sanitizeRowData sanitizeSampleData snake stripTranscriptVersions
+#'   uniteInterestingGroups matchInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
-#'   bcbio_geom_label_repel copyToDropbox prepareTemplate readDataVersions
-#'   readLog readProgramVersions readSampleData readTx2gene readYAMLSampleData
+#'   bcbio_geom_label_repel copyToDropbox readDataVersions readLog
+#'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design
 #' @importFrom cowplot draw_plot ggdraw plot_grid

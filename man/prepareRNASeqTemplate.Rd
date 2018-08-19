@@ -13,19 +13,13 @@ prepareRNASeqTemplate(overwrite = FALSE)
 Invisible \code{logical} indicating which files were copied.
 }
 \description{
-If the required template dependency files aren't present, download latest
-versions from the package website. Existing files are never overwritten.
+If the required template dependency files aren't present, copy them from the
+requested package. Existing files are not overwritten by default. This
+function will copy dependency files from a requested package inside the
+\code{rmarkdown/shared} directory. If a package doesn't contain this
+subdirectory, the function will return an error.
 }
 \details{
-By default, this function will create local copies of these files:
-\itemize{
-\item \code{_footer.Rmd}
-\item \code{_header.Rmd}
-\item \code{_output.yaml}
-\item \code{_setup.R}
-\item \code{bibliography.bib}
-}
-
 This code is used internally by:
 \itemize{
 \item \code{bcbioRNASeq::prepareRNASeqTemplate()}.
