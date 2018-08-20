@@ -165,22 +165,21 @@ samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>samples</th>
-      <td><p><code>character</code> or <code>NULL</code>. <em>Optional.</em> Specify a subset of samples
-to load. The names must match the <code>description</code> specified in the bcbio YAML
+      <td><p><code>character</code> or <code>NULL</code>. Specify a subset of samples to load.
+The names must match the <code>description</code> specified in the bcbio YAML
 metadata. If a <code>sampleMetadataFile</code> is provided, that will take priority
 for sample selection. Typically this can be left unset.</p></td>
     </tr>
     <tr>
       <th>censorSamples</th>
-      <td><p><code>character</code> or <code>NULL</code>. <em>Optional.</em> Samples to exclude
-from the analysis.</p></td>
+      <td><p><code>character</code> or <code>NULL</code>. Samples to exclude from the
+analysis.</p></td>
     </tr>
     <tr>
       <th>sampleMetadataFile</th>
-      <td><p><code>string</code> or <code>NULL</code>. <em>Optional.</em> Custom metadata
-file containing sample information. Otherwise defaults to sample metadata
-saved in the YAML file. Remote URLs are supported. Typically this can be
-left unset.</p></td>
+      <td><p><code>string</code> or <code>NULL</code>. Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file. Remote URLs are supported. Typically this can be left unset.</p></td>
     </tr>
     <tr>
       <th>organism</th>
@@ -193,30 +192,29 @@ experiments involving multiple genomes.</p></td>
     </tr>
     <tr>
       <th>genomeBuild</th>
-      <td><p><code>string</code> or <code>NULL</code>. <em>Optional.</em> Ensembl genome build name
-(e.g. "GRCh38"). This will be passed to AnnotationHub for <code>EnsDb</code>
-annotation matching, unless <code>gffFile</code> is set.</p></td>
+      <td><p><code>string</code> or <code>NULL</code>. Ensembl genome build name (e.g.
+"GRCh38"). This will be passed to AnnotationHub for <code>EnsDb</code> annotation
+matching, unless <code>gffFile</code> is set.</p></td>
     </tr>
     <tr>
       <th>ensemblRelease</th>
-      <td><p><em>Optional.</em> Ensembl release version. If unset,
-defaults to current release, and does not typically need to be
+      <td><p><code>scalar integer</code> or <code>NULL</code>. Ensembl release version. If
+unset, defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for <code>EnsDb</code> annotation matching,
 unless <code>gffFile</code> is set.</p></td>
     </tr>
     <tr>
       <th>gffFile</th>
-      <td><p><code>string</code> or <code>NULL</code>. <em>Advanced use; not recommended.</em> By
-default, we recommend leaving this <code>NULL</code> for genomes that are supported on
-Ensembl. In this case, the row annotations (<code>rowRanges()</code>) will be obtained
-automatically from Ensembl by passing the <code>organism</code>, <code>genomeBuild</code>, and
-<code>ensemblRelease</code> arguments to AnnotationHub and ensembldb. For a genome
-that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
-Feature Format) file is required. Generally, we recommend using a GTF
-(GFFv2) file here over a GFF3 file if possible, although all GFF formats
-are supported. The function will internally generate a <code>TxDb</code> containing
-transcript-to-gene mappings and construct a <code>GRanges</code> object containing the
-genomic ranges (<code>rowRanges()</code>).</p></td>
+      <td><p><code>string</code> or <code>NULL</code>. By default, we recommend leaving this
+<code>NULL</code> for genomes that are supported on Ensembl. In this case, the row
+annotations (<code>rowRanges()</code>) will be obtained automatically from Ensembl by
+passing the <code>organism</code>, <code>genomeBuild</code>, and <code>ensemblRelease</code> arguments to
+AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
+and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
+Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
+possible, although all GFF formats are supported. The function will
+internally generate a <code>TxDb</code> containing transcript-to-gene mappings and
+construct a <code>GRanges</code> object containing the genomic ranges (<code>rowRanges()</code>).</p></td>
     </tr>
     <tr>
       <th>transgeneNames</th>
@@ -358,7 +356,7 @@ as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-30)</span></div><div class='output co'>#&gt; <span class='message'>Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-30)</span></div><div class='output co'>#&gt; <span class='message'>Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
@@ -372,10 +370,10 @@ as a remote connection over
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(21): sampleName description ... x5x3Bias xGC
-#&gt; ====================================================================================================
-#&gt; Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+#&gt; ================================================================================
+#&gt; Upload Dir: "/Users/mike/GitHub/bcbioRNASeq/inst/extdata/bcbio"
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-08-09
+#&gt; R Load Date: 2018-08-19
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
@@ -423,7 +421,7 @@ as a remote connection over
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-30)</span></div><div class='output co'>#&gt; <span class='message'>Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl with AnnotationHub 2.12.0 (2018-04-30)</span></div><div class='output co'>#&gt; <span class='message'>Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>id: "AH53222"</span>
 #&gt; <span class='message'>organism: "Mus musculus"</span>
 #&gt; <span class='message'>build: "GRCm38"</span>
 #&gt; <span class='message'>release: "87"</span>
@@ -438,10 +436,10 @@ as a remote connection over
 #&gt;   transcriptSupportLevel
 #&gt; colnames(4): group1_1 group1_2 group2_1 group2_2
 #&gt; colData names(21): sampleName description ... x5x3Bias xGC
-#&gt; ====================================================================================================
-#&gt; Upload Dir: "/Users/mike/GitHub/hbc/bcbioRNASeq/inst/extdata/bcbio"
+#&gt; ================================================================================
+#&gt; Upload Dir: "/Users/mike/GitHub/bcbioRNASeq/inst/extdata/bcbio"
 #&gt; Upload Date: 2017-05-23
-#&gt; R Load Date: 2018-08-09
+#&gt; R Load Date: 2018-08-19
 #&gt; Level: "transcripts"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"

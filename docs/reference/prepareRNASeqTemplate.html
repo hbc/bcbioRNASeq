@@ -34,8 +34,11 @@
   
 <meta property="og:title" content="Prepare RNA-Seq R Markdown Template — prepareRNASeqTemplate" />
 
-<meta property="og:description" content="If the required template dependency files aren't present, download latest
-versions from the package website. Existing files are never overwritten." />
+<meta property="og:description" content="If the required template dependency files aren't present, copy them from the
+requested package. Existing files are not overwritten by default. This
+function will copy dependency files from a requested package inside the
+rmarkdown/shared directory. If a package doesn't contain this
+subdirectory, the function will return an error." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,8 +116,11 @@ versions from the package website. Existing files are never overwritten." />
 
     <div class="ref-description">
     
-    <p>If the required template dependency files aren't present, download latest
-versions from the package website. Existing files are never overwritten.</p>
+    <p>If the required template dependency files aren't present, copy them from the
+requested package. Existing files are not overwritten by default. This
+function will copy dependency files from a requested package inside the
+<code>rmarkdown/shared</code> directory. If a package doesn't contain this
+subdirectory, the function will return an error.</p>
     
     </div>
 
@@ -135,13 +141,6 @@ versions from the package website. Existing files are never overwritten.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>By default, this function will create local copies of these files:</p><ul>
-<li><p><code>_footer.Rmd</code></p></li>
-<li><p><code>_header.Rmd</code></p></li>
-<li><p><code>_output.yaml</code></p></li>
-<li><p><code>_setup.R</code></p></li>
-<li><p><code>bibliography.bib</code></p></li>
-</ul>
     <p>This code is used internally by:</p><ul>
 <li><p><code>bcbioRNASeq::prepareRNASeqTemplate()</code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/bcbioSingleCell/topics/prepareSingleCellTemplate'>bcbioSingleCell::prepareSingleCellTemplate()</a></code>.</p></li>

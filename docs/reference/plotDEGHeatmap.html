@@ -133,7 +133,11 @@ function.</p>
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults,DESeqTransform</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
+  <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
