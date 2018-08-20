@@ -36,9 +36,6 @@
 #' counts(bcb_small, normalized = TRUE) %>% summary()
 #' counts(bcb_small, normalized = "tpm") %>% summary()
 #' counts(bcb_small, normalized = "vst") %>% summary()
-#' counts(bcb_small, normalized = "rlog") %>% summary()
-#' counts(bcb_small, normalized = "tmm") %>% summary()
-#' counts(bcb_small, normalized = "rle") %>% summary()
 NULL
 
 
