@@ -1,7 +1,7 @@
 library(devtools)
 library(readxl)
 library(tidyverse)
-load_all()
+
 file <- "data-raw/gender_markers.xlsx"
 sheets <- excel_sheets(file)
 gender_markers <- lapply(seq_along(sheets), function(a) {
