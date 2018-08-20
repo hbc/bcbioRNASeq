@@ -101,15 +101,11 @@ flat <- flatFiles(bcb)
 saveData(bcb, flat)
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
 
-Parameters:
-
-- `uploadDir`: Path to the [bcbio][] final upload directory.
-- `interestingGroups`: Character vector of the column names of interest in the sample metadata, which is stored in the `colData()` accessor slot of the `bcbioRNASeq` object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. `interestingGroups(bcb) <- c("batch", "age")`). They are used for data visualization in the quality control utility functions.
-- `organism`: Organism name. Use the full latin name (e.g. "Homo sapiens").
-
-Consult `help("bcbioRNASeq", "bcbioRNASeq")` for additional documentation.
+```r
+help(topic = "bcbioRNASeq", package = "bcbioRNASeq")
+```
 
 ### Sample metadata
 
