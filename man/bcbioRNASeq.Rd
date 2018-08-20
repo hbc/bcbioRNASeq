@@ -42,18 +42,17 @@ aligned counts.
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
 
-\item{samples}{\code{character} or \code{NULL}. \emph{Optional.} Specify a subset of samples
-to load. The names must match the \code{description} specified in the bcbio YAML
+\item{samples}{\code{character} or \code{NULL}. Specify a subset of samples to load.
+The names must match the \code{description} specified in the bcbio YAML
 metadata. If a \code{sampleMetadataFile} is provided, that will take priority
 for sample selection. Typically this can be left unset.}
 
-\item{censorSamples}{\code{character} or \code{NULL}. \emph{Optional.} Samples to exclude
-from the analysis.}
+\item{censorSamples}{\code{character} or \code{NULL}. Samples to exclude from the
+analysis.}
 
-\item{sampleMetadataFile}{\code{string} or \code{NULL}. \emph{Optional.} Custom metadata
-file containing sample information. Otherwise defaults to sample metadata
-saved in the YAML file. Remote URLs are supported. Typically this can be
-left unset.}
+\item{sampleMetadataFile}{\code{string} or \code{NULL}. Custom metadata file containing
+sample information. Otherwise defaults to sample metadata saved in the YAML
+file. Remote URLs are supported. Typically this can be left unset.}
 
 \item{organism}{\code{string} or \code{NULL}. Organism name. Use the full Latin name
 (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
@@ -62,26 +61,25 @@ the function call will skip loading gene/transcript-level annotations into
 \code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
 experiments involving multiple genomes.}
 
-\item{genomeBuild}{\code{string} or \code{NULL}. \emph{Optional.} Ensembl genome build name
-(e.g. "GRCh38"). This will be passed to AnnotationHub for \code{EnsDb}
-annotation matching, unless \code{gffFile} is set.}
+\item{genomeBuild}{\code{string} or \code{NULL}. Ensembl genome build name (e.g.
+"GRCh38"). This will be passed to AnnotationHub for \code{EnsDb} annotation
+matching, unless \code{gffFile} is set.}
 
-\item{ensemblRelease}{\emph{Optional.} Ensembl release version. If unset,
-defaults to current release, and does not typically need to be
+\item{ensemblRelease}{\code{scalar integer} or \code{NULL}. Ensembl release version. If
+unset, defaults to current release, and does not typically need to be
 user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
 unless \code{gffFile} is set.}
 
-\item{gffFile}{\code{string} or \code{NULL}. \emph{Advanced use; not recommended.} By
-default, we recommend leaving this \code{NULL} for genomes that are supported on
-Ensembl. In this case, the row annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained
-automatically from Ensembl by passing the \code{organism}, \code{genomeBuild}, and
-\code{ensemblRelease} arguments to AnnotationHub and ensembldb. For a genome
-that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
-Feature Format) file is required. Generally, we recommend using a GTF
-(GFFv2) file here over a GFF3 file if possible, although all GFF formats
-are supported. The function will internally generate a \code{TxDb} containing
-transcript-to-gene mappings and construct a \code{GRanges} object containing the
-genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
+\item{gffFile}{\code{string} or \code{NULL}. By default, we recommend leaving this
+\code{NULL} for genomes that are supported on Ensembl. In this case, the row
+annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically from Ensembl by
+passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease} arguments to
+AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
+and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
+Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
+possible, although all GFF formats are supported. The function will
+internally generate a \code{TxDb} containing transcript-to-gene mappings and
+construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
 
 \item{transgeneNames}{\code{character} or \code{NULL}. Vector indicating which
 \code{\link[=assay]{assay()}} rows denote transgenes (e.g. EGFP, TDTOMATO).}
