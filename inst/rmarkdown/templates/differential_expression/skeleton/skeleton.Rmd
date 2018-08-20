@@ -3,20 +3,18 @@ title: "Differential Expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
+# Using bcbioRNASeq::bcb_small dataset for example params here
 params:
+  # bcbioRNASeq object
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
-  design: !r formula("~ condition")
+  # Design formula must contain columns defined in `colData()`
+  design: !r formula("~ treatment")
   # Multiple contrasts are supported
   contrasts: !r list(
       c(
-        factor = "condition",
-        numerator = "treated",
-        denominator = "untreated"
-      ),
-      c(
-        factor = "condition",
-        numerator = "treated",
-        denominator = "untreated"
+        factor = "treatment",
+        numerator = "folic_acid",
+        denominator = "control"
       )
     )
   alpha: 0.01
@@ -27,7 +25,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-07-29
+# Last modified 2018-08-19
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -48,6 +46,7 @@ bcb_name <- load(params$bcb_file)
 bcb <- get(bcb_name, inherits = FALSE)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
+print(bcb)
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -93,24 +92,20 @@ print(dds)
 
 # Factor reference level
 
-By default, R will choose a reference level for factors based on alphabetical order. Then, if you never tell the DESeq2 functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the DESeq2 analysis, not during or afterward. Setting the factor levels can be done in two ways, either using factor:
+By default, [R][] will choose a reference level for factors based on alphabetical order. Then, if you never tell the [DESeq2][] functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the [DESeq2][] analysis, not during or afterward. Setting the factor levels can be done in two ways, using either the `factor()` or `relevel()` functions. Generally we recommend using `relevel()` here.
 
-```{r relevel_examples, eval=FALSE}
-# EXAMPLE: Don't run this chunk
-
+```{r relevel, eval=FALSE}
 # Specify the reference level (preferred)
-dds$condition <- relevel(dds$condition, ref = "untreated")
+dds$treatment <- relevel(dds$treatment, ref = "control")
 
 # Alternatively, can explicitly define, using `factor()`
-dds$condition <- factor(dds$condition, levels = c("untreated", "treated"))
+# When using this approach, put the reference level (control) first
+dds$treatment <- factor(dds$treatment, levels = c("control", "folic_acid"))
 
-# If samples have been subset, ensure factor levels match
-dds$condition <- droplevels(dds$condition)
-```
+# If samples have been subset, ensure that the levels match
+dds$treatment <- droplevels(dds$treatment)
 
-```{r relevel, eval=TRUE}
-dds$condition <- relevel(dds$condition, ref = "Control")
-print(dds$condition)
+print(dds$treatment)
 ```
 
 # Differential expression analysis
@@ -127,8 +122,9 @@ saveData(dds, dir = params$data_dir)
 After we perform the differential expression, we need to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object. These transformed counts are useful for visualization. We currently recommend using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 
 ```{r variance_stabilization}
-# Alternatively, can use `rlog()` but it is slower
+# Alternatively, can use `rlog()` here, but it is slower
 rld <- varianceStabilizingTransformation(dds)
+interestingGroups(rld) <- "treatment"
 saveData(rld, dir = params$data_dir)
 ```
 
@@ -260,7 +256,6 @@ invisible(mapply(
     results = res_list_shrunken,
     MoreArgs = list(
         counts = rld,
-        interestingGroups = "condition",
         clusteringMethod = "ward.D2",
         scale = "row"
     ),

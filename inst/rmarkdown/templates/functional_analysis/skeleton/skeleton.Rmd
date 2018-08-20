@@ -4,7 +4,9 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
+  # DESeqDataSet object
   dds_file: "data/YYYY-MM-DD/dds.rda"
+  # DESeqResults object
   res_file: "data/YYYY-MM-DD/res.rda"
   organism: "Mus musculus"
   go_class: "BP"
@@ -14,16 +16,18 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-07-29
+# Last modified 2018-08-19
+bcbioRNASeq::prepareRNASeqTemplate()
+source("_setup.R")
 
+# Additional required packages =================================================
 # KEGG supported organisms
 # http://www.genome.jp/kegg/catalog/org_list.html
 
 # OrgDb supported organisms
 # http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 
-# OrgDb package (e.g. "org.Hs.eg.db")
-library(stringr)
+# OrgDb package (e.g. "org.Mm.eg.db")
 match <- str_match(
     string = params$organism,
     pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
@@ -37,7 +41,6 @@ org_db <- paste(
 )
 rm(match)
 
-# Additional required packages =================================================
 packages <- c(
     "clusterProfiler",
     "DOSE",
@@ -45,6 +48,7 @@ packages <- c(
     org_db
 )
 print(packages)
+
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
@@ -52,14 +56,11 @@ invisible(lapply(
         stopifnot(require(package, character.only = TRUE))
     }
 ))
-# Bioconductor 3.6
-stopifnot(packageVersion("clusterProfiler") >= 3.6)
-stopifnot(packageVersion("DOSE") >= 3.4)
-stopifnot(packageVersion("pathview") >= 1.18)
 
-# Prepare template =============================================================
-bcbioRNASeq::prepareRNASeqTemplate()
-source("_setup.R")
+# Require Bioconductor 3.7 package versions
+stopifnot(packageVersion("clusterProfiler") >= 3.8)
+stopifnot(packageVersion("DOSE") >= 3.6)
+stopifnot(packageVersion("pathview") >= 1.20)
 
 # Directory paths ==============================================================
 kegg_plots_dir <- file.path(params$results_dir, "kegg_plots")
@@ -76,16 +77,18 @@ stopifnot(is(dds, "DESeqDataSet"))
 invisible(validObject(dds))
 # Require `entrezID` mappings column in `rowData()`.
 stopifnot(is(rowData(dds)$entrezID, "list"))
+print(dds)
 
 res_name <- load(params$res_file)
 res <- get(res_name, inherits = FALSE)
 stopifnot(is(res, "DESeqResults"))
 invisible(validObject(res))
+summary(res)
 
 # Ensure that DESeqDataSet and DESeqResults are matched
 stopifnot(identical(rownames(dds), rownames(res)))
 
-# KEGG organism code (e.g. "hsa" for Homo sapiens)
+# KEGG organism code (e.g. "mmu" for Mus musculus)
 kegg_code <- params$organism %>%
     search_kegg_organism("scientific_name") %>%
     pull("kegg_code")
@@ -133,7 +136,7 @@ lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
 # Sort from upregulated to downregulated
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
-glimpse(lfc_vec)
+summary(lfc_vec)
 ```
 
 # GO enrichment analysis
@@ -141,7 +144,6 @@ glimpse(lfc_vec)
 [Gene Ontology (GO)][GO] term enrichment is a technique for interpreting sets of genes making use of the [Gene Ontology][GO] system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
 
 ```{r enrich_go}
-# help("enrichGO", "clusterProfiler")
 enrich_go <- enrichGO(
     gene = sig_genes,
     OrgDb = org_db,
@@ -151,12 +153,12 @@ enrich_go <- enrichGO(
     qvalueCutoff = 0.05,
     readable = TRUE
 )
+print(enrich_go)
 enrich_go_tbl <- enrich_go %>%
     slot("result") %>%
     as_tibble() %>%
     camel()
 saveData(enrich_go, enrich_go_tbl, dir = params$data_dir)
-
 write_csv(
     enrich_go_tbl,
     path = file.path(
@@ -176,19 +178,18 @@ write_csv(
         )
     )
 )
-
 enrich_go_tbl
 ```
 
 ## Dot plot
 
-```{r dotplot, fig.width=8}
+```{r dotplot}
 dotplot(enrich_go, showCategory = 25)
 ```
 
 ## GO terms map
 
-```{r emapplot, fig.width=8, fig.height=8}
+```{r emapplot}
 emapplot(enrich_go, showCategory = 25)
 ```
 
@@ -198,7 +199,7 @@ In order to consider the potentially biological complexities in which a gene may
 
 Here we are plotting genes colored by LFC for top 5 most significant [GO][] terms.
 
-```{r cnetplot, fig.width=8, fig.height=8}
+```{r cnetplot}
 cnetplot(enrich_go, foldChange = lfc_vec)
 ```
 
@@ -212,7 +213,7 @@ A common approach in analyzing gene expression profiles was identifying differen
 gene_list <- 1 - res_df$padj
 names(gene_list) <- row.names(res_df)
 gene_list <- sort(gene_list, decreasing = TRUE)
-glimpse(gene_list)
+summary(gene_list)
 
 # Now run GSEA
 # help("gseGO", "clusterProfiler")
@@ -224,12 +225,12 @@ gsea_go <- gseGO(
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
+print(gsea_go)
 gsea_go_tbl <- gsea_go %>%
     slot("result") %>%
     as_tibble() %>%
     camel()
 saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
-
 write_csv(
     gsea_go_tbl,
     path = file.path(
@@ -248,7 +249,6 @@ write_csv(
         )
     )
 )
-
 gsea_go_tbl
 ```
 
@@ -263,12 +263,12 @@ gsea_go_tbl
 gene2entrez <- rowData(dds)$entrezID
 stopifnot(is.list(gene2entrez))
 stopifnot(!is.null(names(gene2entrez)))
+# For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
+# Also, ensure the IDs are coerced to character.
 gene2entrez <- lapply(gene2entrez, function(x) {
     if (all(is.na(x))) {
         NULL
     } else {
-        # For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
-        # Also, ensure the IDs are coerced to character.
         as.character(sort(x)[[1L]])
     }
 })
@@ -335,12 +335,12 @@ kegg <- enrichKEGG(
     universe = as.character(all_entrez),
     qvalueCutoff = 0.05
 )
+print(kegg)
 kegg_tbl <- kegg %>%
     slot("result") %>%
     as_tibble() %>%
     camel()
 saveData(kegg, kegg_tbl, dir = params$data_dir)
-
 write_csv(
     kegg_tbl,
     path = file.path(
@@ -359,7 +359,6 @@ write_csv(
         )
     )
 )
-
 kegg_tbl
 ```
 
@@ -379,12 +378,12 @@ gsea_kegg <- gseKEGG(
     organism = kegg_code,
     keyType = "ncbi-geneid"
 )
+print(gsea_kegg)
 gsea_kegg_tbl <- gsea_kegg %>%
     slot("result") %>%
     as_tibble() %>%
     camel()
 saveData(gsea_kegg, dir = params$data_dir)
-
 write_csv(
     gsea_kegg_tbl,
     path = file.path(
@@ -404,11 +403,10 @@ write_csv(
         )
     )
 )
-
 gsea_kegg_tbl
 ```
 
-```{r kegg_plots, message=FALSE, results='asis'}
+```{r kegg_plots, message=FALSE, results="asis"}
 # help("pathview", "pathview")
 # 
 # There is currently no way to set the output path of the pathview PNG files, so
