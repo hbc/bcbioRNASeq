@@ -65,7 +65,7 @@ originally loaded into R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -76,6 +76,9 @@ originally loaded into R." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -105,7 +108,7 @@ originally loaded into R." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Update an Object to Its Current Class Definition</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-updateObject.R'><code>R/methods-updateObject.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/updateObject-methods.R'><code>R/updateObject-methods.R</code></a></small>
     <div class="hidden name"><code>updateObject.Rd</code></div>
     </div>
 
@@ -118,7 +121,7 @@ originally loaded into R.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>rowRanges</span>)</pre>
+<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='kw'>rowRanges</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,9 +132,10 @@ originally loaded into R.</p>
     </tr>
     <tr>
       <th>rowRanges</th>
-      <td><p><code>GRanges</code> object that defines the row annotations. Since
-we converted to <code>RangedSummarizedExperiment</code> in v0.2.0, this option had
-to be added to enable updating of newly required <code>rowRanges()</code> slot.</p></td>
+      <td><p><code>GRanges</code> or <code>NULL</code>. Row annotations. Since we converted to
+<code>RangedSummarizedExperiment</code> in v0.2.0, this option had to be added to
+enable updating of newly required <code>rowRanges()</code> slot. Objects that are &gt;=
+v0.2 don't require this argument and it can be left <code>NULL</code>.</p></td>
     </tr>
     </table>
     
@@ -160,16 +164,27 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.3 to 0.2.5</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.5
-#&gt; Samples: 6
-#&gt; Genes: 500
-#&gt; Organism: Mus musculus
-#&gt; AnnotationHub: AH57770
-#&gt; Ensembl Release: 90
-#&gt; Genome Build: GRCm38
-#&gt; Upload Dir: /mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.2.6 to 0.2.6</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(31): version level ... subset previousVersion
+#&gt; assays(5): counts tpm length normalized vst
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(25): sampleName day ... x5x3Bias xGC
+#&gt; ================================================================================
+#&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-06-21</div></pre>
+#&gt; R Load Date: 2018-08-19
+#&gt; Level: "genes"
+#&gt; Caller: "salmon"
+#&gt; Organism: "Mus musculus"
+#&gt; Interesting Groups: "treatment"
+#&gt; AnnotationHub: "AH57770"
+#&gt; Ensembl Release: "90"
+#&gt; Genome Build: "GRCm38"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -66,7 +66,7 @@ function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -77,6 +77,9 @@ function." />
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -106,7 +109,7 @@ function." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Differentially Expressed Gene Heatmap</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/methods-plotDEGHeatmap.R'><code>R/methods-plotDEGHeatmap.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotDEGHeatmap-methods.R'><code>R/plotDEGHeatmap-methods.R</code></a></small>
     <div class="hidden name"><code>plotDEGHeatmap.Rd</code></div>
     </div>
 
@@ -122,26 +125,30 @@ function.</p>
     <pre class="usage"><span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,SummarizedExperiment</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>,
+  <span class='no'>counts</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults,bcbioRNASeq</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults,bcbioRNASeq</span>
+<span class='co'># S4 method for DESeqResults,DESeqTransform</span>
 <span class='fu'>plotDEGHeatmap</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
+  <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>results</th>
-      <td><p><code>DESeqResults</code> object.</p></td>
+      <td><p><code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>counts</th>
-      <td><p>Object containing a normalized counts matrix.</p></td>
+      <td><p><code>matrix</code>. Normalized counts.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -149,19 +156,20 @@ function.</p>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Adjusted P value ("alpha") cutoff.</p></td>
+      <td><p><code>scalar numeric</code>. Adjusted P value ("alpha") cutoff.</p></td>
     </tr>
     <tr>
       <th>lfcThreshold</th>
-      <td><p>Log fold change ratio (base 2) cutoff threshold.</p></td>
+      <td><p><code>scalar numeric</code>. Log fold change ratio (base 2) cutoff
+threshold.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><em>Optional.</em> Plot title.</p></td>
+      <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Character indicating which normalization method to apply:</p><ul>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
 <li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
 <li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
 <li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
@@ -186,18 +194,25 @@ argument, which must contain a <code>SummarizedExperiment</code> (e.g. <code>DES
 <li><p><code>help("plotHeatmap", "bcbioBase")</code>.</p></li>
 <li><p><code>findMethod("plotHeatmap", "SummarizedExperiment")</code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Differential Expression Functions: <code>alphaSummary</code>,
-  <code>contrastName</code>, <code>plotDEGPCA</code>,
-  <code>plotMeanAverage</code>, <code>plotVolcano</code>,
-  <code>resultsTables</code></p></div>
+    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
+  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>,
+  <code><a href='plotMA.html'>plotMeanAverage</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code>,
+  <code><a href='resultsTables.html'>resultsTables</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults, SummarizedExperiment ====</span>
+    <pre class="examples"><div class='input'><span class='co'># DESeqResults, bcbioRNASeq ====</span>
 <span class='fu'>plotDEGHeatmap</span>(
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>rld_small</span>
-)</div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqResults, DESeqTransform ====</span>
+<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
+<span class='fu'>plotDEGHeatmap</span>(
+    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>vst_small</span>
+)</div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqResults, DESeqDataSet ====</span>
 <span class='co'># This always uses normalized counts</span>
 <span class='co'># Using default ggplot2 colors</span>
@@ -206,12 +221,7 @@ argument, which must contain a <code>SummarizedExperiment</code> (e.g. <code>DES
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds_small</span>,
     <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
     <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using normalized counts</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqResults, bcbioRNASeq ====</span>
-<span class='fu'>plotDEGHeatmap</span>(
-    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='img'><img src='plotDEGHeatmap-3.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using normalized counts</span></div><div class='img'><img src='plotDEGHeatmap-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

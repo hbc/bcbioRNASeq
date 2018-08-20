@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
       </span>
     </div>
 
@@ -41,6 +41,9 @@
     <span class="fa fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="articles/bcbioRNASeq.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -75,29 +78,57 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<div id="bioconductor-method-recommended" class="section level3">
+<p>This is an <a href="https://www.r-project.org">R</a> package.</p>
+<div id="bioconductor" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bioconductor-method-recommended" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method (recommended)</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## try http:// if https:// URLs are not supported
-<span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)
-<span class="kw">biocLite</span>(<span class="st">"devtools"</span>)
-<span class="kw">biocLite</span>(<span class="st">"remotes"</span>)
-<span class="kw">biocLite</span>(<span class="st">"GenomeInfoDbData"</span>)
-<span class="kw">biocLite</span>(
-    <span class="st">"hbc/bcbioRNASeq"</span>,
+<a href="#bioconductor" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a>
+</h3>
+<p>We recommend installing the package with <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">"BiocManager"</span>)) {
+    <span class="kw">install.packages</span>(<span class="st">"BiocManager"</span>)
+}
+BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(
+    <span class="dt">pkgs =</span> <span class="kw">c</span>(
+        <span class="st">"devtools"</span>,
+        <span class="st">"remotes"</span>,
+        <span class="st">"GenomeInfoDbData"</span>
+    )
+)
+BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(
+    <span class="dt">pkgs =</span> <span class="st">"hbc/bcbioRNASeq"</span>,
     <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
 )</code></pre></div>
-<div id="f1000-paper-version" class="section level4">
+<p>For <a href="https://www.r-project.org">R</a> &lt; 3.5, <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> is not supported. Use <code><a href="http://www.rdocumentation.org/packages/BiocInstaller/topics/biocLite">BiocInstaller::biocLite()</a></code> instead of <code><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">BiocManager::install()</a></code>. This requires sourcing the legacy <a href="https://bioconductor.org">Bioconductor</a> <code>biocLite.R</code> script.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># try http:// if https:// URLs are not supported</span>
+<span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
+<div id="pinned-workflow-paper-version" class="section level4">
 <h4 class="hasAnchor">
-<a href="#f1000-paper-version" class="anchor"></a><a href="https://f1000research.com/articles/6-1976/v2">F1000 paper</a> version</h4>
+<a href="#pinned-workflow-paper-version" class="anchor"></a>Pinned <a href="https://f1000research.com/articles/6-1976/v2">workflow paper</a> version</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># v0.2.4</span>
-<span class="kw">biocLite</span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"v0.2.4"</span>)</code></pre></div>
+BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"v0.2.4"</span>)</code></pre></div>
 </div>
 </div>
-<div id="conda-method" class="section level3">
+<div id="conda" class="section level3">
 <h3 class="hasAnchor">
-<a href="#conda-method" class="anchor"></a><a href="https://conda.io">conda</a> method</h3>
+<a href="#conda" class="anchor"></a><a href="https://conda.io">conda</a>
+</h3>
+<p>Configure <a href="https://conda.io">conda</a> to use the <a href="https://bioconda.github.io">bioconda</a> channels.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> config --add channels defaults
+<span class="ex">conda</span> config --add channels conda-forge
+<span class="ex">conda</span> config --add channels bioconda</code></pre></div>
+<p>To avoid version issues, your <code>.condarc</code> file should only contain the following channels, in this order:</p>
+<pre><code>channels:
+  - bioconda
+  - conda-forge
+  - defaults</code></pre>
+<p>We recommend installing into a clean <a href="https://conda.io">conda</a> environment:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> create --name r
+<span class="ex">conda</span> activate r</code></pre></div>
+<p>Launch <a href="https://www.r-project.org">R</a> and check that it is set up correctly with the <code>capabilities()</code> function. Note that <code>X11 = TRUE</code> is required for graphical output, and requires X11 forwarding over SSH.</p>
+<p>Now you’re ready to install <code>r-bcbiornaseq</code>.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</code></pre></div>
+<p>Note that there is currently a bug with <a href="https://conda.io">conda</a> and <code>libgfortran</code>. You may need to install <code>libgfortran-ng</code> to get the bcbioRNASeq package to load in <a href="https://www.r-project.org">R</a>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install libgfortran-ng</code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-run" class="section level2">
@@ -112,17 +143,8 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASe
 <span class="co"># Back up all data inside bcbioRNASeq object</span>
 flat &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
 <span class="kw">saveData</span>(bcb, flat)</code></pre></div>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class.</p>
-<p>Parameters:</p>
-<ul>
-<li>
-<code>uploadDir</code>: Path to the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> final upload directory.</li>
-<li>
-<code>interestingGroups</code>: Character vector of the column names of interest in the sample metadata, which is stored in the <code>colData()</code> accessor slot of the <code>bcbioRNASeq</code> object. These values should be formatted in camelCase, and can be reassigned in the object after creation (e.g. <code>interestingGroups(bcb) &lt;- c("batch", "age")</code>). They are used for data visualization in the quality control utility functions.</li>
-<li>
-<code>organism</code>: Organism name. Use the full latin name (e.g. “Homo sapiens”).</li>
-</ul>
-<p>Consult <code>help("bcbioRNASeq", "bcbioRNASeq")</code> for additional documentation.</p>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
@@ -177,7 +199,7 @@ flat &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
-<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2017). <a href="https://f1000research.com/articles/6-1976/v2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
+<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="https://f1000research.com/articles/6-1976/v2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
