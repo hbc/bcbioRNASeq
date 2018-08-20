@@ -73,40 +73,38 @@
 #'   - "`hisat2`": [HISAT2](https://ccb.jhu.edu/software/hisat2)
 #'     (Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
 #'     aligned counts.
-#' @param samples `character` or `NULL`. *Optional.* Specify a subset of samples
-#'   to load. The names must match the `description` specified in the bcbio YAML
+#' @param samples `character` or `NULL`. Specify a subset of samples to load.
+#'   The names must match the `description` specified in the bcbio YAML
 #'   metadata. If a `sampleMetadataFile` is provided, that will take priority
 #'   for sample selection. Typically this can be left unset.
-#' @param censorSamples `character` or `NULL`. *Optional.* Samples to exclude
-#'   from the analysis.
-#' @param sampleMetadataFile `string` or `NULL`. *Optional.* Custom metadata
-#'   file containing sample information. Otherwise defaults to sample metadata
-#'   saved in the YAML file. Remote URLs are supported. Typically this can be
-#'   left unset.
+#' @param censorSamples `character` or `NULL`. Samples to exclude from the
+#'   analysis.
+#' @param sampleMetadataFile `string` or `NULL`. Custom metadata file containing
+#'   sample information. Otherwise defaults to sample metadata saved in the YAML
+#'   file. Remote URLs are supported. Typically this can be left unset.
 #' @param organism `string` or `NULL`. Organism name. Use the full Latin name
 #'   (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
 #'   and ensembldb, unless `gffFile` is set. If left `NULL` (*not recommended*),
 #'   the function call will skip loading gene/transcript-level annotations into
 #'   [rowRanges()]. This can be useful for poorly annotation genomes or
 #'   experiments involving multiple genomes.
-#' @param genomeBuild `string` or `NULL`. *Optional.* Ensembl genome build name
-#'   (e.g. "GRCh38"). This will be passed to AnnotationHub for `EnsDb`
-#'   annotation matching, unless `gffFile` is set.
-#' @param ensemblRelease *Optional.* Ensembl release version. If unset,
-#'   defaults to current release, and does not typically need to be
+#' @param genomeBuild `string` or `NULL`. Ensembl genome build name (e.g.
+#'   "GRCh38"). This will be passed to AnnotationHub for `EnsDb` annotation
+#'   matching, unless `gffFile` is set.
+#' @param ensemblRelease `scalar integer` or `NULL`. Ensembl release version. If
+#'   unset, defaults to current release, and does not typically need to be
 #'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
 #'   unless `gffFile` is set.
-#' @param gffFile `string` or `NULL`. *Advanced use; not recommended.* By
-#'   default, we recommend leaving this `NULL` for genomes that are supported on
-#'   Ensembl. In this case, the row annotations ([rowRanges()]) will be obtained
-#'   automatically from Ensembl by passing the `organism`, `genomeBuild`, and
-#'   `ensemblRelease` arguments to AnnotationHub and ensembldb. For a genome
-#'   that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
-#'   Feature Format) file is required. Generally, we recommend using a GTF
-#'   (GFFv2) file here over a GFF3 file if possible, although all GFF formats
-#'   are supported. The function will internally generate a `TxDb` containing
-#'   transcript-to-gene mappings and construct a `GRanges` object containing the
-#'   genomic ranges ([rowRanges()]).
+#' @param gffFile `string` or `NULL`. By default, we recommend leaving this
+#'   `NULL` for genomes that are supported on Ensembl. In this case, the row
+#'   annotations ([rowRanges()]) will be obtained automatically from Ensembl by
+#'   passing the `organism`, `genomeBuild`, and `ensemblRelease` arguments to
+#'   AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
+#'   and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
+#'   Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
+#'   possible, although all GFF formats are supported. The function will
+#'   internally generate a `TxDb` containing transcript-to-gene mappings and
+#'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
 #' @param vst `boolean`. Calculate variance-stabilizing transformation using
 #'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default
 #'   for visualization.
@@ -396,13 +394,15 @@ bcbioRNASeq <- function(
     # Row data =================================================================
     rowRangesMetadata <- NULL
     if (is_a_string(gffFile)) {
+        message("Using `makeGRangesFromGFF()` for annotations")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
+        message("Using `makeGRangesFromEnsembl()` for annotations")
         # ah: AnnotationHub
         ah <- makeGRangesFromEnsembl(
             organism = organism,
             format = level,
-            genomeBuild = genomeBuild,
+            build = genomeBuild,
             release = ensemblRelease,
             metadata = TRUE
         )
