@@ -269,47 +269,47 @@ test_that("bcbioRNASeq: Sample selection", {
 
 # extract ======================================================================
 test_that("extract : Normal gene and sample selection", {
-    x <- bcb_small[seq_len(100L), seq_len(4L)]
+    x <- bcb[seq_len(100L), seq_len(4L)]
     expect_s4_class(x, "bcbioRNASeq")
     expect_identical(dim(x), c(100L, 4L))
     expect_identical(
         rownames(x)[[1L]],
-        rownames(bcb_small)[[1L]]
+        rownames(bcb)[[1L]]
     )
     expect_identical(
         colnames(x),
-        head(colnames(bcb_small), 4L)
+        head(colnames(bcb), 4L)
     )
     expect_identical(
-        names(assays(x)),
-        c("counts", "tpm", "length", "normalized", "rlog", "vst")
+        assayNames(x),
+        c("counts", "tpm", "length", "normalized", "vst")
     )
 })
 
 test_that("extract : Minimal selection ranges", {
     # Require at least 100 genes, 2 samples
-    x <- bcb_small[seq_len(100L), seq_len(2L)]
-    expect_error(bcb_small[seq_len(99L), ])
-    expect_error(bcb_small[, seq_len(1L)])
+    x <- bcb[seq_len(100L), seq_len(2L)]
+    expect_error(bcb[seq_len(99L), ])
+    expect_error(bcb[, seq_len(1L)])
     expect_identical(
         dimnames(x),
         list(
-            head(rownames(bcb_small), 100L),
-            head(colnames(bcb_small), 2L)
+            head(rownames(bcb), 100L),
+            head(colnames(bcb), 2L)
         )
     )
 })
 
 test_that("extract : DESeq2 transforms", {
     # Transform by default
-    x <- bcb_small[1L:100L, 1L:2L]
+    x <- bcb[1L:100L, 1L:2L]
     expect_identical(
-        names(assays(x)),
-        c("counts", "tpm", "length", "normalized", "rlog", "vst")
+        assayNames(x),
+        c("counts", "tpm", "length", "normalized", "vst")
     )
 
     # Allow the user to skip, using `transform` argument
-    x <- bcb_small[1L:100L, 1L:2L, transform = FALSE]
+    x <- bcb[1L:100L, 1L:2L, transform = FALSE]
     expect_identical(
         names(assays(x)),
         c("counts", "tpm", "length", "normalized")
@@ -317,19 +317,19 @@ test_that("extract : DESeq2 transforms", {
 })
 
 test_that("extract : unmodified", {
-    x <- bcb_small[, ]
-    expect_identical(x, bcb_small)
+    x <- bcb[, ]
+    expect_identical(x, bcb)
 })
 
 
 
 # show =========================================================================
 test_that("show", {
-    x <- capture.output(show(bcb_small))
+    x <- capture.output(show(bcb))
     expect_true(grepl("bcbioRNASeq", x[[1L]]))
 
     # Fake metadata for code coverage
-    object <- bcb_small
+    object <- bcb
     metadata(object)[["sampleMetadataFile"]] <- "XXX"
     metadata(object)[["gffFile"]] <- "XXX"
     x <- capture.output(show(object))
