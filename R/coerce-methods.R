@@ -4,6 +4,7 @@
 #' @aliases as
 #' @family S4 Object
 #' @author Michael Steinbaugh
+#' @exportMethod coerce
 #'
 #' @inheritParams methods::setAs
 #'
@@ -38,7 +39,7 @@ NULL
 
 # Methods ======================================================================
 #' @rdname coerce
-#' @name coerce-bcbioRNASeq-DESeqDataSet
+#' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
     from = "bcbioRNASeq",
     to = "DESeqDataSet",

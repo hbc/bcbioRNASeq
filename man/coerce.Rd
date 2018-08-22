@@ -3,7 +3,7 @@
 \name{coerce}
 \alias{coerce}
 \alias{as}
-\alias{coerce-bcbioRNASeq-DESeqDataSet}
+\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
