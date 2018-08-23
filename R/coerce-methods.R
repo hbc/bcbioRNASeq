@@ -6,13 +6,11 @@
 #' @author Michael Steinbaugh
 #' @exportMethod coerce
 #'
-#' @inheritParams methods::setAs
-#'
 #' @return Object of new class.
 #'
 #' @seealso
 #' - [methods::as()].
-#' - [methods::setAs()].
+#' - [methods::canCoerce()].
 #'
 #' @examples
 #' # DESeqDataSet ====

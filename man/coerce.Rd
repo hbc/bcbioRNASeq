@@ -34,7 +34,7 @@ show(x)
 \seealso{
 \itemize{
 \item \code{\link[methods:as]{methods::as()}}.
-\item \code{\link[methods:setAs]{methods::setAs()}}.
+\item \code{\link[methods:canCoerce]{methods::canCoerce()}}.
 }
 
 Other S4 Object: \code{\link{bcbioRNASeq}},
