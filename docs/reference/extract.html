@@ -64,7 +64,7 @@ Internal count transformations are rescaled automatically, if defined." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
       </span>
     </div>
 
@@ -209,10 +209,10 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>colnames</span>(<span class='no'>object</span>), <span class='fl'>2L</span>)
 <span class='fu'>head</span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2"</div><div class='input'>
 <span class='co'># Extract by sample name</span>
-<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.7
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 2 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
+#&gt; metadata(31): version level ... subset originalVersion
 #&gt; assays(5): counts tpm length normalized vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
@@ -222,7 +222,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ================================================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-08-19
+#&gt; R Load Date: 2018-08-23
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
@@ -231,10 +231,10 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'>
 <span class='co'># Extract by gene list</span>
-<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='output co'>#&gt; bcbioRNASeq 0.2.7
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 6 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
+#&gt; metadata(31): version level ... subset originalVersion
 #&gt; assays(5): counts tpm length normalized vst
 #&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000024503 ENSMUSG00000024610
@@ -244,7 +244,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ================================================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-08-19
+#&gt; R Load Date: 2018-08-23
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
@@ -253,10 +253,10 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Ensembl Release: "90"
 #&gt; Genome Build: "GRCm38"</div><div class='input'>
 <span class='co'># Extract by both genes and samples</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 variance stabilizations (transform = TRUE)</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.7
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 2 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
+#&gt; metadata(31): version level ... subset originalVersion
 #&gt; assays(5): counts tpm length normalized vst
 #&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000024503 ENSMUSG00000024610
@@ -266,7 +266,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ================================================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-08-19
+#&gt; R Load Date: 2018-08-23
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
@@ -276,10 +276,10 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; Genome Build: "GRCm38"</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"     "tpm"        "length"     "normalized" "vst"       </div><div class='input'>
 <span class='co'># Fast subsetting, by skipping DESeq2 transformations</span>
 <span class='co'># Note that rlog and vst counts will not be defined</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 variance stabilizations (transform = FALSE)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Updating normalized counts</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>using just counts from tximport</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 variance stabilizations (transform = FALSE)</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.7
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 2 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
+#&gt; metadata(31): version level ... subset originalVersion
 #&gt; assays(4): counts tpm length normalized
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
@@ -289,7 +289,7 @@ and either <code>rlog</code> or <code>vst</code> counts are defined in <code>ass
 #&gt; ================================================================================
 #&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-08-19
+#&gt; R Load Date: 2018-08-23
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contributing to bcbioRNASeq development • bcbioRNASeq</title>
+<title>Contributing to development • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Contributing to bcbioRNASeq development" />
+<meta property="og:title" content="Contributing to development" />
 
 
 
@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
       </span>
     </div>
 
@@ -102,54 +102,28 @@
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Contributing to bcbioRNASeq development</h1>
+      <h1>Contributing to development</h1>
     </div>
 
-<div id="contributing-to-bcbiornaseq-development" class="section level1">
+<div id="contributing-to-development" class="section level1">
 
-<ul>
-<li>For all changes, fork or create a new branch, then issue a pull request that will be reviewed.</li>
-<li>Do not commit changes directly to master branch.</li>
-<li>Open issues for any changes affecting <code>bcbioRNASeq</code> class.</li>
-<li>Support is only provided for the current release version.</li>
-</ul>
-<div id="package-style-syntax" class="section level2">
+<p>Please follow all <a href="https://steinbaugh.com/basejump/CONTRIBUTING.html">recommended guidelines</a> defined in the <a href="https://steinbaugh.com/basejump">basejump</a> package.</p>
+<div id="administrator-guidelines" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-style-syntax" class="anchor"></a>Package style syntax</h2>
-<p>Attempt to follow these style guides, by priority: (1) <a href="https://www.bioconductor.org/developers/how-to/coding-style/">Bioconductor coding style</a>; (2) <a href="http://style.tidyverse.org">tidyverse style guide</a>; (3) <a href="https://google.github.io/styleguide/Rguide.xml">Google R style guide</a>.</p>
+<a href="#administrator-guidelines" class="anchor"></a>Administrator guidelines</h2>
 <ul>
-<li>Object and function parameter arguments should be formated in lowerCamelCase.</li>
-<li>Use spaces instead of tabs. Indent with 4 spaces.</li>
-<li>Use <code>&lt;-</code> and not <code>=</code> for assignment.</li>
-<li>Explicitly define <code>if</code>/<code>then</code> statements using opening and closing brackets (<code>{</code>, <code>}</code>).</li>
-<li>
-<code>else</code> declarations should be on the same line as the closing bracket.</li>
-<li>Use spaces around assignment operators (<code>&lt;-</code>), brackets (<code>{</code>), and comma delimiters (e.g. <code>c("foo", "bar")</code> not <code>c("foo","bar")</code>.</li>
+<li>Do not commit changes directly to master branch.</li>
+<li>Please avoid creating unnecessary new branches. Use a fork instead.</li>
 </ul>
 </div>
-<div id="required-checks" class="section level2">
+<div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
-<a href="#required-checks" class="anchor"></a>Required checks</h2>
-<p>If there are changes to <code>bcbioRNASeq</code> class or <code><a href="reference/bcbioRNASeq.html">loadRNASeq()</a></code> function, be sure to rebuild all working example data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="kw">file.path</span>(<span class="st">"data-raw"</span>, <span class="st">"examples.R"</span>))</code></pre></div>
-<p>For all package updates, run these commands prior to a pull request:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lintr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lintr/topics/lint_package">lint_package</a></span>()
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/document">document</a></span>()
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/run_examples">run_examples</a></span>()
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/test">test</a></span>()
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/check">check</a></span>()
-BiocCheck<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocCheck/topics/BiocCheck">BiocCheck</a></span>(<span class="kw">getwd</span>())</code></pre></div>
-<div id="rebuild-website" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rebuild-website" class="anchor"></a>Rebuild website</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlink</span>(<span class="st">"docs"</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)
-pkgdown<span class="op">::</span><span class="kw"><a href="http://pkgdown.r-lib.org/reference/build_site.html">build_site</a></span>()</code></pre></div>
-<p>Beside this, the package should be able to run the templates. This should be done in the parent directory of <code>bcbioRNASeq</code> folder.</p>
+<a href="#r-markdown-templates" class="anchor"></a>R Markdown templates</h2>
+<p>Check that all templates render correctly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">git clone https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>bcbio<span class="op">/</span>bcbio_rnaseq_output_example.git
 cd bcbio_rnaseq_output_example
 Rscript <span class="op">-</span>e <span class="st">'testthat::test_file("test_reports.R")'</span></code></pre></div>
-<p>Make sure <code>qc.html</code> and <code>de.html</code> are created inside <code>reports</code> folder and the figures and tables look as expected.</p>
-</div>
+<p>Ensure that all expected HTML files are created inside the <code>reports/</code> directory, and that all figures and tables look correct.</p>
 </div>
 </div>
 
