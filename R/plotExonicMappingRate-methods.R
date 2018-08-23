@@ -16,7 +16,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotExonicMappingRate
 #' @export
 setMethod(

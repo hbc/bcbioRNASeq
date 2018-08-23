@@ -18,7 +18,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotMappingRate
 #' @export
 setMethod(

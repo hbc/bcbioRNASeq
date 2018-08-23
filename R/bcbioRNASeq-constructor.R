@@ -168,7 +168,7 @@ bcbioRNASeq <- function(
 ) {
     dots <- list(...)
 
-    # Legacy arguments =========================================================
+    # Legacy arguments ---------------------------------------------------------
     # nocov start
     call <- match.call(expand.dots = TRUE)
     # annotable
@@ -198,7 +198,7 @@ bcbioRNASeq <- function(
     dots <- Filter(Negate(is.null), dots)
     # nocov end
 
-    # Assert checks ============================================================
+    # Assert checks ------------------------------------------------------------
     assert_is_a_string(uploadDir)
     assert_all_are_dirs(uploadDir)
     level <- match.arg(level)
@@ -222,7 +222,7 @@ bcbioRNASeq <- function(
     assert_is_a_bool(vst)
     assert_is_a_bool(rlog)
 
-    # Directory paths ==========================================================
+    # Directory paths ----------------------------------------------------------
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
     projectDir <- list.files(
         path = uploadDir,
@@ -240,12 +240,12 @@ bcbioRNASeq <- function(
     sampleDirs <- sampleDirs(uploadDir)
     assert_all_are_dirs(sampleDirs)
 
-    # Project summary YAML =====================================================
+    # Project summary YAML -----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     assert_all_are_existing_files(yamlFile)
     yaml <- readYAML(yamlFile)
 
-    # bcbio run information ====================================================
+    # bcbio run information ----------------------------------------------------
     dataVersions <- readDataVersions(
         file = file.path(projectDir, "data_versions.csv")
     )
@@ -266,7 +266,7 @@ bcbioRNASeq <- function(
     )
     assert_is_character(bcbioCommandsLog)
 
-    # Sequencing lanes =========================================================
+    # Sequencing lanes ---------------------------------------------------------
     if (any(grepl(x = sampleDirs, pattern = bcbioBase::lanePattern))) {
         # nocov start
         lanes <- str_match(names(sampleDirs), bcbioBase::lanePattern) %>%
@@ -282,7 +282,7 @@ bcbioRNASeq <- function(
     }
     assert_is_an_integer(lanes)
 
-    # Column data ==============================================================
+    # Column data --------------------------------------------------------------
     colData <- readYAMLSampleData(yamlFile)
 
     # Subset the samples
@@ -322,7 +322,7 @@ bcbioRNASeq <- function(
         message("Fast mode detected. No metrics were calculated.")  # nocov
     }
 
-    # Subset sample directories by metadata ====================================
+    # Subset sample directories by metadata ------------------------------------
     samples <- rownames(colData)
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
@@ -337,16 +337,16 @@ bcbioRNASeq <- function(
         allSamples <- TRUE
     }
 
-    # Interesting groups =======================================================
+    # Interesting groups -------------------------------------------------------
     interestingGroups <- camel(interestingGroups)
     assert_is_subset(interestingGroups, colnames(colData))
 
-    # Transcript-to-gene mappings ==============================================
+    # Transcript-to-gene mappings ----------------------------------------------
     tx2geneFile <- file.path(projectDir, "tx2gene.csv")
     assert_all_are_existing_files(tx2geneFile)
     tx2gene <- readTx2gene(tx2geneFile)
 
-    # Read counts ==============================================================
+    # Read counts --------------------------------------------------------------
     # Use tximport by default for transcript-aware callers.
     # Otherwise, resort to loading the featureCounts aligned counts data.
     if (caller %in% tximportCallers) {
@@ -391,7 +391,7 @@ bcbioRNASeq <- function(
     # Ensure `colData` matches the colnames in `assays()`
     colData <- colData[colnames(counts), , drop = FALSE]
 
-    # Row data =================================================================
+    # Row data -----------------------------------------------------------------
     rowRangesMetadata <- NULL
     if (is_a_string(gffFile)) {
         message("Using `makeGRangesFromGFF()` for annotations")
@@ -420,7 +420,7 @@ bcbioRNASeq <- function(
         rowRanges <- emptyRanges(rownames(counts))
     }
 
-    # Gene-level variance stabilization ========================================
+    # Gene-level variance stabilization ----------------------------------------
     if (level == "genes") {
         message(paste(
             "Generating DESeqDataSet with DESeq2",
@@ -473,7 +473,7 @@ bcbioRNASeq <- function(
         rlog <- NULL
     }
 
-    # Assays ===================================================================
+    # Assays -------------------------------------------------------------------
     assays <- list(
         counts = counts,
         tpm = tpm,
@@ -483,7 +483,7 @@ bcbioRNASeq <- function(
         rlog = rlog
     )
 
-    # Metadata =================================================================
+    # Metadata -----------------------------------------------------------------
     metadata <- list(
         version = packageVersion,
         level = level,
@@ -517,7 +517,7 @@ bcbioRNASeq <- function(
         metadata <- c(metadata, dots)
     }
 
-    # Return ===================================================================
+    # Return -------------------------------------------------------------------
     .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
@@ -530,7 +530,6 @@ bcbioRNASeq <- function(
 
 
 
-# Internal Functions ===========================================================
 # Used for bcbio pipeline checks
 .dataHasVariation <- function(dds) {
     !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))

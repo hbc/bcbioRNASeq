@@ -54,7 +54,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotVolcano
 #' @export
 setMethod(
@@ -169,7 +168,7 @@ setMethod(
             return(data)
         }
 
-        # LFC density ==========================================================
+        # LFC density ----------------------------------------------------------
         lfcHist <- ggplot(
             data = data,
             mapping = aes(x = !!sym(lfcCol))
@@ -194,7 +193,7 @@ setMethod(
                 axis.ticks.y = element_blank()
             )
 
-        # P value density ======================================================
+        # P value density ------------------------------------------------------
         pvalueHist <- ggplot(
             data = data,
             mapping = aes(x = !!sym(negLogTestCol))
@@ -219,7 +218,7 @@ setMethod(
                 axis.ticks.y = element_blank()
             )
 
-        # Volcano plot =========================================================
+        # Volcano plot ---------------------------------------------------------
         p <- ggplot(
             data = data,
             mapping = aes(
@@ -257,7 +256,7 @@ setMethod(
                 )
         }
 
-        # Gene text labels =====================================================
+        # Gene text labels -----------------------------------------------------
         if (is.null(genes) && is_positive(ntop)) {
             genes <- data[1L:ntop, "geneID", drop = TRUE]
         }
@@ -275,7 +274,7 @@ setMethod(
                 )
         }
 
-        # Grid layout ==========================================================
+        # Grid layout ----------------------------------------------------------
         if (isTRUE(histograms)) {
             ggdraw() +
                 # Coordinates are relative to lower left corner

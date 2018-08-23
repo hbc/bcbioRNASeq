@@ -5,7 +5,7 @@ setValidity(
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
 
-        # Assays ===============================================================
+        # Assays ---------------------------------------------------------------
         # Note that `rlog` and `vst` DESeqTransform objects are optional
         assert_is_subset(requiredAssays, assayNames(object))
         # Check that all assays are matrices
@@ -31,14 +31,14 @@ setValidity(
             assert_is_subset("normalized", names(assays(object)))
         }
 
-        # Row data =============================================================
+        # Row data -------------------------------------------------------------
         assert_is_all_of(rowRanges(object), "GRanges")
         assert_is_all_of(rowData(object), "DataFrame")
 
-        # Column data ==========================================================
+        # Column data ----------------------------------------------------------
         assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
 
-        # Metadata =============================================================
+        # Metadata -------------------------------------------------------------
         metadata <- metadata(object)
 
         # Check that interesting groups defined in metadata are valid

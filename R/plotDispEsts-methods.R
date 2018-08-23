@@ -36,7 +36,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotDispEsts
 #' @export
 setMethod(

@@ -34,7 +34,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname updateObject
 #' @export
 setMethod(
@@ -53,7 +52,7 @@ setMethod(
             message("Legacy bcbio slot detected")
         }
 
-        # Coerce assays to list ================================================
+        # Coerce assays to list ------------------------------------------------
         # Ensure this comes before the rowRanges handling
         # Using `slot()` here to avoid error on missing rowRanges
         assays <- slot(object, "assays")
@@ -63,7 +62,7 @@ setMethod(
         })
         names(assays) <- assayNames(object)
 
-        # Row data =============================================================
+        # Row data -------------------------------------------------------------
         rownames <- rownames(assays[[1L]])
         # This section needs to come before the assay modifications
         if (.hasSlot(object, "rowRanges")) {
@@ -76,7 +75,7 @@ setMethod(
         }
         assert_is_all_of(intRowRanges, "GRanges")
 
-        # Regenerate RangedSummarizedExperiment ================================
+        # Regenerate RangedSummarizedExperiment --------------------------------
         rse <- SummarizedExperiment(
             assays = assays,
             rowRanges = intRowRanges,
@@ -92,7 +91,7 @@ setMethod(
             rowRanges <- rowRanges(rse)
         }
 
-        # Metadata =============================================================
+        # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
 
         # bcbioLog
@@ -238,7 +237,7 @@ setMethod(
         metadata(rse) <- metadata
         rm(metadata)
 
-        # Update Assays ========================================================
+        # Update assays --------------------------------------------------------
         caller <- metadata(rse)[["caller"]]
         assert_is_a_string(caller)
         assert_is_subset(caller, validCallers)
@@ -306,7 +305,7 @@ setMethod(
         assays(rse) <- assays(rse)[unique(c(requiredAssays, assayNames(rse)))]
         assert_is_subset(requiredAssays, assayNames(rse))
 
-        # Column data ==========================================================
+        # Column data ----------------------------------------------------------
         colData <- colData(rse)
 
         # Move metrics from metadata into colData, if necessary
@@ -352,7 +351,7 @@ setMethod(
 
         colData(rse) <- colData
 
-        # Return ===============================================================
+        # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays(rse),
             # This will handle mismatches

@@ -4,6 +4,7 @@
 #' @aliases as
 #' @family S4 Object
 #' @author Michael Steinbaugh
+#' @importFrom methods coerce
 #' @exportMethod coerce
 #'
 #' @return Object of new class.
@@ -35,7 +36,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(

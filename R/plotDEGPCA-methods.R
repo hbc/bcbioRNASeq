@@ -27,7 +27,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotDEGPCA
 #' @export
 setMethod(

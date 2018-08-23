@@ -30,7 +30,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotCorrelationHeatmap
 #' @export
 setMethod(

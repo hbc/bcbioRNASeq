@@ -25,7 +25,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotCountsPerGene
 #' @export
 setMethod(

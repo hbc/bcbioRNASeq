@@ -50,7 +50,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(

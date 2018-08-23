@@ -35,7 +35,6 @@ NULL
 
 
 
-# Constructors =================================================================
 .plotGeneFacet <- function(
     object,
     interestingGroups,
@@ -135,7 +134,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotGene
 #' @export
 setMethod(

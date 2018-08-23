@@ -1,12 +1,3 @@
-#' Gender Marker Genes
-#'
-#' @author Michael Steinbaugh
-#' @keywords internal
-"gender_markers"
-
-
-
-# Minimal Examples =============================================================
 #' `bcbioRNASeq` Example
 #'
 #' @family GSE65267
@@ -20,6 +11,14 @@
 #' @family GSE65267
 #' @author Lorena Pantano, Michael Steinbaugh
 "dds_small"
+
+
+
+#' Gender Marker Genes
+#'
+#' @author Michael Steinbaugh
+#' @keywords internal
+"gender_markers"
 
 
 

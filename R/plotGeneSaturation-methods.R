@@ -20,7 +20,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotGeneSaturation
 #' @export
 setMethod(
