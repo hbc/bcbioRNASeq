@@ -16,7 +16,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotIntronicMappingRate
 #' @export
 setMethod(

@@ -1,3 +1,14 @@
+## bcbioRNASeq 0.2.7 (2018-08-22)
+
+### Minor changes
+
+- Bug fix for `as()` coercion method support. Need to ensure
+  `exportMethods(coerce)` is included in `NAMESPACE` file, otherwise
+  `bcbioRNASeq` to `DESeqDataSet` coercion using `as(bcb, "DESeqDataSet")` won't
+  work when called from an Rscript without the package library loaded. Thanks
+  @roryk for noticing this.
+
+
 ## bcbioRNASeq 0.2.6 (2018-08-19)
 
 ### Major changes

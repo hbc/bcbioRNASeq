@@ -28,7 +28,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotPCACovariates
 #' @export
 setMethod(

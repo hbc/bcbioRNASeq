@@ -36,7 +36,6 @@ NULL
 
 
 
-# Constructors =================================================================
 .degList <- function(
     results,
     alpha,
@@ -149,7 +148,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname resultsTables
 #' @export
 setMethod(
@@ -185,7 +183,7 @@ setMethod(
             dir <- initializeDirectory(dir)
         }
 
-        # Extract internal parameters from DESeqResults object =================
+        # Extract internal parameters from DESeqResults object -----------------
         if (missing(alpha)) {
             alpha <- metadata(results)[["alpha"]]
         }
@@ -196,7 +194,7 @@ setMethod(
         results <- as.data.frame(results)
         results[["geneID"]] <- rownames(results)
 
-        # Add gene annotations (rowData) =======================================
+        # Add gene annotations (rowData) ---------------------------------------
         rowData <- rowRanges(counts) %>%
             as.data.frame() %>%
             rownames_to_column() %>%
@@ -207,7 +205,7 @@ setMethod(
         assert_are_identical(rownames(results), rownames(rowData))
         results <- cbind(results, rowData)
 
-        # Add normalized counts matrix =========================================
+        # Add normalized counts matrix -----------------------------------------
         matrix <- counts(counts, normalized = TRUE)
         # Use the `sampleName` metadata for columns, if defined
         if ("sampleName" %in% colnames(colData(counts))) {
@@ -258,7 +256,7 @@ setMethod(
         if (isTRUE(write)) {
             tables <- list[c("all", "deg", "degLFCUp", "degLFCDown")]
 
-            # Local files (required) ===========================================
+            # Local files (required) -------------------------------------------
             localFiles <- file.path(
                 dir,
                 paste0(fileStem, "_", snake(names(tables)), ".csv.gz")
@@ -296,7 +294,7 @@ setMethod(
             # Update the list with the file paths
             list[["localFiles"]] <- localFiles
 
-            # Copy to Dropbox (optional) =======================================
+            # Copy to Dropbox (optional) ---------------------------------------
             if (is.character(dropboxDir)) {
                 # nocov start
                 dropboxFiles <- copyToDropbox(

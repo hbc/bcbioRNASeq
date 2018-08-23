@@ -29,7 +29,6 @@ NULL
 
 
 
-# Constructors =================================================================
 .subsetTop <- function(
     object,
     direction = c("up", "down"),
@@ -103,7 +102,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname topTables
 #' @export
 setMethod(

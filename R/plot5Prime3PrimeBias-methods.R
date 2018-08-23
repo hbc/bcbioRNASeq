@@ -20,7 +20,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plot5Prime3PrimeBias
 #' @export
 setMethod(

@@ -44,7 +44,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotPCA
 #' @export
 setMethod(
@@ -60,7 +59,7 @@ setMethod(
         subtitle = NULL,
         return = c("ggplot", "data.frame")
     ) {
-        # Legacy arguments =====================================================
+        # Legacy arguments -----------------------------------------------------
         # nocov start
         call <- match.call()
         # genes
@@ -81,7 +80,7 @@ setMethod(
         }
         # nocov end
 
-        # Assert checks ========================================================
+        # Assert checks --------------------------------------------------------
         validObject(object)
         interestingGroups <- matchInterestingGroups(
             object = object,

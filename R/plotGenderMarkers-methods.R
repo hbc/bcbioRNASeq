@@ -26,7 +26,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(

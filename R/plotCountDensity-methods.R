@@ -19,7 +19,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotCountDensity
 #' @export
 setMethod(

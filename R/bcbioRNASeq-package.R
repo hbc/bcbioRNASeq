@@ -65,7 +65,8 @@
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom matrixStats colMedians
-#' @importFrom methods .hasSlot as as<- is new show slot slot<- validObject
+#' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
+#'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
 #' @importFrom rlang := !! !!! sym syms
