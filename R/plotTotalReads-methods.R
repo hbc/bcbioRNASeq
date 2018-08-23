@@ -17,7 +17,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotTotalReads
 #' @export
 setMethod(

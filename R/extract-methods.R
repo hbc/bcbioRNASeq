@@ -49,7 +49,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname extract
 #' @export
 setMethod(
@@ -92,7 +91,7 @@ setMethod(
             return(x)
         }
 
-        # Assays ===============================================================
+        # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
         # Always recalculate DESeq2 normalized counts
@@ -131,7 +130,7 @@ setMethod(
             assays[["vst"]] <- NULL
         }
 
-        # Column data ==========================================================
+        # Column data ----------------------------------------------------------
         # Ensure factors get releveled
         colData <- colData(rse) %>%
             as.data.frame() %>%
@@ -141,7 +140,7 @@ setMethod(
             column_to_rownames() %>%
             as("DataFrame")
 
-        # Metadata =============================================================
+        # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
         metadata[["subset"]] <- TRUE
         # Update version, if necessary
@@ -150,7 +149,7 @@ setMethod(
             metadata[["version"]] <- packageVersion
         }
 
-        # Return ===============================================================
+        # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays,
             rowRanges = rowRanges(rse),

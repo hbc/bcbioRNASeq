@@ -18,7 +18,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotMappedReads
 #' @export
 setMethod(

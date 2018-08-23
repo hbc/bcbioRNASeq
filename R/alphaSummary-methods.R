@@ -33,7 +33,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname alphaSummary
 #' @export
 setMethod(

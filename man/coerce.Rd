@@ -3,7 +3,7 @@
 \name{coerce}
 \alias{coerce}
 \alias{as}
-\alias{coerce-bcbioRNASeq-DESeqDataSet}
+\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
@@ -34,7 +34,7 @@ show(x)
 \seealso{
 \itemize{
 \item \code{\link[methods:as]{methods::as()}}.
-\item \code{\link[methods:setAs]{methods::setAs()}}.
+\item \code{\link[methods:canCoerce]{methods::canCoerce()}}.
 }
 
 Other S4 Object: \code{\link{bcbioRNASeq}},

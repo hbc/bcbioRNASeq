@@ -58,7 +58,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname plotMA
 #' @export
 setMethod(
@@ -202,7 +201,7 @@ setMethod(
                 )
         }
 
-        # Gene text labels =====================================================
+        # Gene text labels -----------------------------------------------------
         labelData <- NULL
         if (is.null(genes) && is_positive(ntop)) {
             genes <- data[1L:ntop, "geneID", drop = TRUE]

@@ -4,14 +4,14 @@
 #' @aliases as
 #' @family S4 Object
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams methods::setAs
+#' @importFrom methods coerce
+#' @exportMethod coerce
 #'
 #' @return Object of new class.
 #'
 #' @seealso
 #' - [methods::as()].
-#' - [methods::setAs()].
+#' - [methods::canCoerce()].
 #'
 #' @examples
 #' # DESeqDataSet ====
@@ -36,9 +36,8 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname coerce
-#' @name coerce-bcbioRNASeq-DESeqDataSet
+#' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
     from = "bcbioRNASeq",
     to = "DESeqDataSet",

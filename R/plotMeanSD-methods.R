@@ -32,7 +32,6 @@ NULL
 
 
 
-# Constructors =================================================================
 .plotMeanSD <- function(
     raw,
     normalized,
@@ -116,7 +115,6 @@ NULL
 
 
 
-# Methods ======================================================================
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
 #' @rdname plotMeanSD

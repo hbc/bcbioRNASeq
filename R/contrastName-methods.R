@@ -15,7 +15,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname contrastName
 #' @export
 setMethod(

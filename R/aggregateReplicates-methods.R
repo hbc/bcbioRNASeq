@@ -24,7 +24,6 @@ NULL
 
 
 
-# Methods ======================================================================
 #' @rdname aggregateReplicates
 #' @export
 setMethod(
@@ -59,12 +58,12 @@ setMethod(
         groupings <- factor(remap[["sampleIDAggregate"]])
         names(groupings) <- remap[["sampleID"]]
 
-        # Assays ===============================================================
+        # Assays ---------------------------------------------------------------
         message("Aggregating counts")
         counts <- aggregateReplicates(counts(object), groupings = groupings)
         assert_are_identical(sum(counts), sum(counts(object)))
 
-        # Column data ==========================================================
+        # Column data ----------------------------------------------------------
         # Return minimal metadata with `sampleName` column only
         expected <- length(levels(colData[["aggregate"]]))
         colData <- colData %>%
@@ -80,7 +79,7 @@ setMethod(
         rownames(colData) <- makeNames(colData[["sampleName"]])
         assert_are_identical(colnames(counts), rownames(colData))
 
-        # Return ===============================================================
+        # Return ---------------------------------------------------------------
         SummarizedExperiment(
             assays = list(counts = counts),
             colData = colData,
