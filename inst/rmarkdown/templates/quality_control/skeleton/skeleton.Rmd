@@ -124,7 +124,9 @@ plotIntronicMappingRate(bcb)
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
-```{r plot_rrna_mapping_rate}
+```{r plot_rrna_mapping_rate, eval="rrnaRate" %in% colnames(rowData(bcb)), echo=FALSE}
+mdHeader("rRNA mapping rate", level = 2)
+asis_output("Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.")
 plotRRNAMappingRate(bcb)
 ```
 
