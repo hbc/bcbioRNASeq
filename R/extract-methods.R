@@ -143,11 +143,6 @@ setMethod(
         # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
         metadata[["subset"]] <- TRUE
-        # Update version, if necessary
-        if (!identical(metadata[["version"]], packageVersion)) {
-            metadata[["originalVersion"]] <- metadata[["version"]]
-            metadata[["version"]] <- packageVersion
-        }
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
