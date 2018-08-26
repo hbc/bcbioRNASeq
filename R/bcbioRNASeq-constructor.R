@@ -167,6 +167,8 @@ bcbioRNASeq <- function(
     ...
 ) {
     dots <- list(...)
+    projectDirPattern <- bcbioBase::projectDirPattern
+    lanePattern <- basejump::lanePattern
 
     # Legacy arguments ---------------------------------------------------------
     # nocov start
@@ -226,13 +228,13 @@ bcbioRNASeq <- function(
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
     projectDir <- list.files(
         path = uploadDir,
-        pattern = bcbioBase::projectDirPattern,
+        pattern = projectDirPattern,
         full.names = FALSE,
         recursive = FALSE
     )
     assert_is_a_string(projectDir)
     message(projectDir)
-    match <- str_match(projectDir, bcbioBase::projectDirPattern)
+    match <- str_match(projectDir, projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
     projectDir <- file.path(uploadDir, projectDir)
@@ -267,9 +269,9 @@ bcbioRNASeq <- function(
     assert_is_character(bcbioCommandsLog)
 
     # Sequencing lanes ---------------------------------------------------------
-    if (any(grepl(x = sampleDirs, pattern = bcbioBase::lanePattern))) {
+    if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         # nocov start
-        lanes <- str_match(names(sampleDirs), bcbioBase::lanePattern) %>%
+        lanes <- str_match(names(sampleDirs), lanePattern) %>%
             .[, 2L] %>%
             unique() %>%
             length()
