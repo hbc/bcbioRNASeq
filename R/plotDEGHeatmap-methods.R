@@ -19,7 +19,7 @@
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @seealso
-#' - `help("plotHeatmap", "bcbioBase")`.
+#' - `help("plotHeatmap", "basejump")`.
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
@@ -68,7 +68,7 @@ setMethod(
     ) {
         validObject(results)
         validObject(counts)
-        # Coerce to RSE then SE to preserve rowData
+        # Coerce to RSE then SE to preserve rowData.
         if (is(counts, "RangedSummarizedExperiment")) {
             counts <- as(counts, "RangedSummarizedExperiment")
         }
@@ -90,16 +90,16 @@ setMethod(
 
         deg <- significants(results, padj = alpha, fc = lfcThreshold)
 
-        # Early return if there are no DEGs
+        # Early return if there are no DEGs.
         if (!length(deg)) {
             warning("No significant DEGs to plot")
             return(invisible())
         }
 
-        # Subset the counts to only contain DEGs
+        # Subset the counts to only contain DEGs.
         counts <- counts[deg, , drop = FALSE]
 
-        # SummarizedExperiment method
+        # Using SummarizedExperiment method here.
         plotHeatmap(
             object = counts,
             title = title,

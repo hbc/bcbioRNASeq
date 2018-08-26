@@ -16,7 +16,7 @@
 #' @param ... Passthrough arguments to `SummarizedExperiment` method.
 #'
 #' @seealso
-#' - `help("plotCorrelationHeatmap", "bcbioBase")`.
+#' - `help("plotCorrelationHeatmap", "basejump")`.
 #' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
