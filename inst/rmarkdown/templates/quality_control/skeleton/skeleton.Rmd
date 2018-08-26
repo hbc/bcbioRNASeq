@@ -11,7 +11,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-08-19
+# Last modified 2018-08-26
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -34,7 +34,6 @@ print(bcb)
 ```
 
 ```{r sample_data}
-# getMethod("sampleData", "SummarizedExperiment")
 sample_data <- sampleData(bcb, clean = TRUE) %>% as.data.frame()
 write.csv(
     x = sample_data,
@@ -121,7 +120,7 @@ plotIntronicMappingRate(bcb)
 ```
 
 ```{r plot_rrna_mapping_rate, eval="rrnaRate" %in% colnames(rowData(bcb)), echo=FALSE}
-mdHeader("rRNA mapping rate", level = 2)
+markdownHeader("rRNA mapping rate", level = 2)
 asis_output("Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.")
 plotRRNAMappingRate(bcb)
 ```
@@ -145,7 +144,7 @@ plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
 ```{r plot_biotype, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE}
-mdHeader("TPM per biotype", level = 2)
+markdownHeader("TPM per biotype", level = 2)
 asis_output("Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.")
 
 keep_biotypes <- rowData(bcb) %>%
@@ -188,7 +187,7 @@ ggplot(
 ```
 
 ```{r plot_broad_class, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE}
-mdHeader("TPM per broad biotype class", level = 2)
+markdownHeader("TPM per broad biotype class", level = 2)
 asis_output("The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.")
 
 broad_tpm <- tpm(bcb) %>%
@@ -238,14 +237,14 @@ plotCountDensity(
 
 Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
 
-```{r identical_samples?, echo=FALSE, results='hide', message=FALSE}
-## If there are no replicates, or samples are identical, don't plot dispersions
-dds = as(bcb, "DESeqDataSet")
-identical_samples = all(rowSums(assay(dds) == assay(dds)[,1]) == ncol(dds))
+```{r identical_samples, echo=FALSE, results="hide", message=FALSE}
+# If there are no replicates, or samples are identical, don't plot dispersions.
+dds <- as(bcb, "DESeqDataSet")
+identical_samples <- all(rowSums(assay(dds) == assay(dds)[, 1]) == ncol(dds))
 ```
 
 ```{r plot_disp_ests, eval=!identical_samples}
-mdHeader("Dispersion", level = 2)
+markdownHeader("Dispersion", level = 2)
 asis_output("The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.")
 plotDispEsts(bcb)
 ```
@@ -265,7 +264,7 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 ## Principal component analysis (PCA)
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 ```{r plot_pca}
-label = !identical_samples
+label <- !identical_samples
 plotPCA(
     object = bcb,
     normalized = "vst",
@@ -284,7 +283,7 @@ plotPCACovariates(bcb)
 ```
 
 ```{r plot_correlation_heatmap, eval=!identical_samples}
-mdHeader("Hierarchical clustering", level = 2)
+markdownHeader("Hierarchical clustering", level = 2)
 asis_output("Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.")
 plotCorrelationHeatmap(bcb, normalized = "vst")
 ```
