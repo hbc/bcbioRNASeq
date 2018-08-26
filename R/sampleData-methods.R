@@ -56,23 +56,21 @@ setMethod(
     ) {
         data <- colData(object)
         assert_is_a_bool(clean)
-
-        # Only return factor columns, if desired
+        # Only return factor columns, if desired.
         if (isTRUE(clean)) {
             data <- data[, vapply(data, is.factor, logical(1L)), drop = FALSE]
-            # Drop remaining blacklisted columns
-            setdiff <- setdiff(colnames(data), bcbioBase::metadataBlacklist)
+            # Drop remaining blacklisted columns.
+            setdiff <- setdiff(colnames(data), metadataBlacklist)
             data <- data[, setdiff, drop = FALSE]
         } else {
-            # Include `interestingGroups` column, if not NULL
-            if (missing(interestingGroups)) {
-                interestingGroups <- bcbioBase::interestingGroups(object)
-            }
+            interestingGroups <- matchInterestingGroups(
+                object = object,
+                interestingGroups = interestingGroups
+            )
             if (length(interestingGroups)) {
                 data <- uniteInterestingGroups(data, interestingGroups)
             }
         }
-
         as(data, "DataFrame")
     }
 )
