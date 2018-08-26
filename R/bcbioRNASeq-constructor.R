@@ -167,8 +167,6 @@ bcbioRNASeq <- function(
     ...
 ) {
     dots <- list(...)
-    projectDirPattern <- bcbioBase::projectDirPattern
-    lanePattern <- basejump::lanePattern
 
     # Legacy arguments ---------------------------------------------------------
     # nocov start

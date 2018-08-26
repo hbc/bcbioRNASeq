@@ -21,7 +21,7 @@ setValidity(
                     "Assays that are not matrix:",
                     toString(names(assayCheck[!assayCheck]))
                 ),
-                bcbioBase::updateMessage,
+                updateMessage,
                 sep = "\n"
             ))
         }
@@ -51,7 +51,7 @@ setValidity(
         if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
                 "`metrics` saved in `metadata()` instead of `colData()`.",
-                bcbioBase::updateMessage
+                updateMessage
             ))
         }
 
@@ -72,7 +72,7 @@ setValidity(
                     "Legacy metadata slots:",
                     toString(sort(intersect))
                 ),
-                bcbioBase::updateMessage,
+                updateMessage,
                 sep = "\n"
             ))
         }
@@ -126,7 +126,7 @@ setValidity(
         if (!all(classChecks)) {
             stop(paste(
                 "Metadata class checks failed.",
-                bcbioBase::updateMessage,
+                updateMessage,
                 printString(classChecks),
                 sep = "\n"
             ))
