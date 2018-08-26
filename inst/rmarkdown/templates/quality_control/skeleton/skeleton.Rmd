@@ -120,11 +120,9 @@ The majority of reads should map to exons and not introns.
 plotIntronicMappingRate(bcb)
 ```
 
-## rRNA mapping rate
-
-Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
-
-```{r plot_rrna_mapping_rate}
+```{r plot_rrna_mapping_rate, eval="rrnaRate" %in% colnames(rowData(bcb)), echo=FALSE}
+mdHeader("rRNA mapping rate", level = 2)
+asis_output("Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.")
 plotRRNAMappingRate(bcb)
 ```
 
@@ -240,11 +238,15 @@ plotCountDensity(
 
 Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
 
-## Dispersion
+```{r identical_samples?, echo=FALSE, results='hide', message=FALSE}
+## If there are no replicates, or samples are identical, don't plot dispersions
+dds = as(bcb, "DESeqDataSet")
+identical_samples = all(rowSums(assay(dds) == assay(dds)[,1]) == ncol(dds))
+```
 
-The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
-
-```{r plot_disp_ests}
+```{r plot_disp_ests, eval=!identical_samples}
+mdHeader("Dispersion", level = 2)
+asis_output("The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.")
 plotDispEsts(bcb)
 ```
 
@@ -261,14 +263,13 @@ plotMeanSD(bcb)
 Before performing similarity analysis, we transform counts to log2, which acts to minimize large differences in sequencing depth and helps normalize all samples to a similar dynamic range. For RNA-seq count data, variance increases with the mean. Logarithmic transformation of normalized count values with a small pseudocount will account for large variations seen between the highest expressing genes so that these genes won't dominate the PCA plots. However, due to the strong noise among low count values due to Poisson, the general log2 transformation will amplify this noise, and instead, low count genes will now dominate the PCA plots. So instead, we use a regularized log ("rlog"; base 2) transformation that gives similar results for high counts as a log2 transformation but also shrinks the values of low counts towards the genes’ average across samples. We do this with the `rlog()` function in the [DESeq2][] package [@Love2014-sq], which we will later use for differential gene expression analysis.
 
 ## Principal component analysis (PCA)
-
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
-
 ```{r plot_pca}
+label = !identical_samples
 plotPCA(
     object = bcb,
     normalized = "vst",
-    label = TRUE
+    label = label
 )
 ```
 
@@ -282,11 +283,9 @@ Here we are showing the correlational analysis of the rlog transformed count dat
 plotPCACovariates(bcb)
 ```
 
-## Hierarchical clustering
-
-Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
-
-```{r plot_correlation_heatmap}
+```{r plot_correlation_heatmap, eval=!identical_samples}
+mdHeader("Hierarchical clustering", level = 2)
+asis_output("Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.")
 plotCorrelationHeatmap(bcb, normalized = "vst")
 ```
 
