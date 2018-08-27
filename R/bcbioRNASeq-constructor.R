@@ -310,6 +310,14 @@ bcbioRNASeq <- function(
     # Column data --------------------------------------------------------------
     colData <- readYAMLSampleData(yamlFile)
 
+    # Require that all sample IDs defined here in the column data (rownames)
+    # match the names in the `sampleDirs` vector.
+    setdiff <- setdiff(names(sampleDirs), rownames(colData))
+    if (length(setdiff)) {
+        stop(paste("Mismatch detected in sampleDirs and colData:", setdiff))
+    }
+    assert_are_identical(names(sampleDirs), rownames(colData))
+
     # Subset the samples.
     if (is_a_string(sampleMetadataFile)) {
         # Replace columns with external, user-defined metadata, if desired. This
