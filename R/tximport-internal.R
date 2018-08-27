@@ -30,10 +30,7 @@
     ignoreTxVersion = TRUE
 ) {
     assert_all_are_dirs(sampleDirs)
-    assert_are_identical(
-        x = names(sampleDirs),
-        y = basename(sampleDirs)
-    )
+    assert_are_identical(names(sampleDirs), basename(sampleDirs))
     type <- match.arg(type)
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
