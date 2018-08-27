@@ -297,7 +297,7 @@ bcbioRNASeq <- function(
     # Column data --------------------------------------------------------------
     colData <- readYAMLSampleData(yamlFile)
 
-    # Subset the samples
+    # Subset the samples.
     if (is_a_string(sampleMetadataFile)) {
         # Replace columns with external, user-defined metadata, if desired. This
         # is nice for correcting metadata issues that aren't easy to fix by
@@ -318,7 +318,7 @@ bcbioRNASeq <- function(
             .[!.[["description"]] %in% censorSamples, , drop = FALSE]
     }
 
-    # Sanitize into factors
+    # Sanitize into factors.
     colData <- sanitizeSampleData(colData)
 
     # Sample metrics. Note that sample metrics used for QC plots are not
@@ -544,7 +544,7 @@ bcbioRNASeq <- function(
 
 
 
-# Used for bcbio pipeline checks
+# Used for bcbio pipeline checks.
 .dataHasVariation <- function(dds) {
     !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
 }
