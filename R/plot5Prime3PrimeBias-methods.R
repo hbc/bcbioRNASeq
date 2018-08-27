@@ -44,11 +44,21 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
+        data <- metrics(object)
+
+        # The formatting of this column can vary depending on the version of
+        # `camel()` used. This change was added in v0.2.7.
+        yCol <- grep(
+            pattern = ".+5.+3bias$",
+            x = tolower(colnames(data)),
+            value = TRUE
+        )
+
         p <- ggplot(
-                data = metrics(object),
+                data = data,
                 mapping = aes(
                     x = !!sym("sampleName"),
-                    y = !!sym("x5x3Bias"),
+                    y = !!sym(yCol),
                     fill = !!sym("interestingGroups")
                 )
             ) +
