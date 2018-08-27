@@ -235,9 +235,10 @@ bcbioRNASeq <- function(
     # directory, and warn when this is detected.
     if (length(projectDir) > 1L) {
         dirs <- projectDir
-        projectDir <- tail(projectDir)
+        projectDir <- tail(projectDir, n = 1L)
         warning(paste(
-            paste("Multiple project directories detected:", toString(dirs)),
+            "Multiple project directories detected:",
+            printString(dirs),
             paste("Using most recent:", projectDir),
             sep = "\n"
         ), call. = FALSE)
