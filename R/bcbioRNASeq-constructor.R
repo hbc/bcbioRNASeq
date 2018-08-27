@@ -230,6 +230,18 @@ bcbioRNASeq <- function(
         full.names = FALSE,
         recursive = FALSE
     )
+    assert_is_non_empty(projectDir)
+    # Check to see if user has run bcbio multiple times to the same upload
+    # directory, and warn when this is detected.
+    if (length(projectDir) > 1L) {
+        dirs <- projectDir
+        projectDir <- tail(projectDir)
+        warning(paste(
+            paste("Multiple project directories detected:", toString(dirs)),
+            paste("Using most recent:", projectDir),
+            sep = "\n"
+        ), call. = FALSE)
+    }
     assert_is_a_string(projectDir)
     message(projectDir)
     match <- str_match(projectDir, projectDirPattern)
@@ -291,10 +303,10 @@ bcbioRNASeq <- function(
         # is nice for correcting metadata issues that aren't easy to fix by
         # editing the bcbio YAML output.
         userColData <- readSampleData(sampleMetadataFile, lanes = lanes)
-        # Drop columns that are defined from the auto metadata
+        # Drop columns that are defined from the auto metadata.
         setdiff <- setdiff(colnames(colData), colnames(userColData))
         # Note that we're allowing the user to subset the samples by the
-        # metadata input here
+        # metadata input here.
         colData <- colData[rownames(userColData), setdiff, drop = FALSE]
         colData <- cbind(userColData, colData)
     } else if (is.character(samples)) {
@@ -363,32 +375,32 @@ bcbioRNASeq <- function(
             txOut = txOut,
             tx2gene = tx2gene
         )
-        # TPM/abundance: transcripts per million
+        # `tpm` (abundance): transcripts per million.
         tpm <- txi[["abundance"]]
         assert_is_matrix(tpm)
-        # counts: raw counts
+        # `counts`: raw counts
         counts <- txi[["counts"]]
         assert_is_matrix(counts)
-        # length: average transcript length
+        # Length: average transcript length.
         length <- txi[["length"]]
         assert_is_matrix(length)
-        # countsFromAbundance: character describing TPM
+        # `countsFromAbundance`: `string` describing how TPMs were calculated.
         countsFromAbundance <- txi[["countsFromAbundance"]]
         assert_is_character(countsFromAbundance)
     } else if (caller %in% featureCountsCallers) {
         tpm <- NULL
         length <- NULL
         countsFromAbundance <- NULL
-        # Load up the featureCounts aligned counts matrix
+        # Load up the featureCounts aligned counts matrix.
         counts <- readFileByExtension(file.path(projectDir, "combined.counts"))
         assert_is_matrix(counts)
         colnames(counts) <- makeNames(colnames(counts))
-        # Subset the combined matrix to match the samples
+        # Subset the combined matrix to match the samples.
         assert_is_subset(names(sampleDirs), colnames(counts))
         counts <- counts[, names(sampleDirs), drop = FALSE]
     }
 
-    # Ensure `colData` matches the colnames in `assays()`
+    # Ensure `colData` matches the colnames in `assays()`.
     colData <- colData[colnames(counts), , drop = FALSE]
 
     # Row data -----------------------------------------------------------------
@@ -397,8 +409,8 @@ bcbioRNASeq <- function(
         message("Using `makeGRangesFromGFF()` for annotations")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
+        # Using AnnotationHub/ensembldb to obtain the annotations.
         message("Using `makeGRangesFromEnsembl()` for annotations")
-        # ah: AnnotationHub
         ah <- makeGRangesFromEnsembl(
             organism = organism,
             format = level,
@@ -427,24 +439,25 @@ bcbioRNASeq <- function(
             packageVersion("DESeq2")
         ))
         if (is.list(txi)) {
-            # Create DESeqDataSet from tximport list by default
+            # Create `DESeqDataSet` from `tximport()` return `list` by default.
             dds <- DESeqDataSetFromTximport(
                 txi = txi,
                 colData = colData,
-                # Use an empty design formula
+                # Set an empty design formula here.
                 design = ~ 1L
             )
         } else {
-            # Otherwise fall back to creating from the counts matrix
+            # Otherwise fall back to creating from the counts matrix.
+            # This applies to datasets using aligned counts (e.g. STAR).
             dds <- DESeqDataSetFromMatrix(
                 countData = counts,
                 colData = colData,
                 design = ~ 1L
             )
         }
-        # Skip full DESeq2 calculations, for internal bcbio test data
+        # Skip full DESeq2 calculations, for internal bcbio test data.
         if (.dataHasVariation(dds)) {
-            # Suppress warning about empty design formula
+            # Suppress expected warnings about the design formula.
             dds <- suppressWarnings(DESeq(dds))
             if (isTRUE(vst)) {
                 message("Applying variance-stabilizing transformation")
@@ -459,6 +472,7 @@ bcbioRNASeq <- function(
                 rlog <- NULL
             }
         } else {
+            # This step is covered by the bcbio pipeline tests.
             # nocov start
             warning("Data has no variation. Skipping transformations.")
             dds <- estimateSizeFactors(dds)
@@ -511,7 +525,7 @@ bcbioRNASeq <- function(
         allSamples = allSamples,
         call = match.call()
     )
-    # Add user-defined custom metadata, if specified
+    # Add user-defined custom metadata, if specified.
     if (length(dots)) {
         assert_are_disjoint_sets(metadata, dots)
         metadata <- c(metadata, dots)
