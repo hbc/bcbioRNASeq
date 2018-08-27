@@ -119,6 +119,20 @@ be loaded at gene or transcript level.
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
 }
+\section{Valid names}{
+
+
+R is strict about values that are considered valid for use in \code{\link[=names]{names()}} and
+\code{\link[=dimnames]{dimnames()}} (i.e. \code{\link[=rownames]{rownames()}} and \code{\link[=colnames]{colnames()}}). Non-alphanumeric
+characters, spaces, and \strong{dashes} are not valid. Use either underscores or
+periods in place of dashes when working in R. Also note that names should
+\strong{not begin with a number}, and will be prefixed with an \code{X} when sanitized.
+Consult the documentation in the \code{\link[base:make.names]{base::make.names()}} function for more
+information. We strongly recommend adhering to these conventions when
+labeling samples, to help avoid unexpected downstream behavior in R due to
+\code{\link[=dimnames]{dimnames()}} mismatches.
+}
+
 \section{Genome build}{
 
 
