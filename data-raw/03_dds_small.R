@@ -1,7 +1,9 @@
-library(devtools)
-library(DESeq2)
-load_all()
+#' DESeq2 example objects
+#' Last updated 2018-08-27
 
+library(DESeq2)
+
+# DESeqDataSet =================================================================
 dds_small <- as(bcb_small, "DESeqDataSet")
 design(dds_small) <- ~ treatment
 dds_small <- DESeq(dds_small)
@@ -13,6 +15,7 @@ stopifnot(identical(
     c("Intercept", "treatment_folic_acid_vs_control")
 ))
 
+# DESeqResults =================================================================
 resultsNames(dds_small)
 res_small <- results(
     dds_small,
@@ -30,7 +33,8 @@ res_small <- lfcShrink(
 )
 validObject(res_small)
 
-use_data(
+# Save =========================================================================
+devtools::use_data(
     dds_small, res_small,
     overwrite = TRUE, compress = "xz"
 )

@@ -1,4 +1,6 @@
-library(devtools)
+# Dimorphic gender markers
+# Last updated 2018-08-27
+
 library(readxl)
 library(tidyverse)
 
@@ -10,4 +12,5 @@ gender_markers <- lapply(seq_along(sheets), function(a) {
         select(-include)
 })
 names(gender_markers) <- camel(sheets)
-use_data(gender_markers, compress = "xz", overwrite = TRUE)
+
+devtools::use_data(gender_markers, compress = "xz", overwrite = TRUE)
