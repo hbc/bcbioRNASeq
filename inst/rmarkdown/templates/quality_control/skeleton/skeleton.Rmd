@@ -11,7 +11,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-08-26
+# Last modified 2018-08-27
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
