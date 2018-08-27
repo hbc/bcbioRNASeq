@@ -42,7 +42,7 @@ plotCorrelationHeatmap(bcb_small, method = "spearman")
 }
 \seealso{
 \itemize{
-\item \code{help("plotCorrelationHeatmap", "bcbioBase")}.
+\item \code{help("plotCorrelationHeatmap", "basejump")}.
 \item \code{findMethod("plotCorrelationHeatmap", "SummarizedExperiment")}.
 }
 

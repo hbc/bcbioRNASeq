@@ -85,7 +85,7 @@ plotDEGHeatmap(
 }
 \seealso{
 \itemize{
-\item \code{help("plotHeatmap", "bcbioBase")}.
+\item \code{help("plotHeatmap", "basejump")}.
 \item \code{findMethod("plotHeatmap", "SummarizedExperiment")}.
 }
 
