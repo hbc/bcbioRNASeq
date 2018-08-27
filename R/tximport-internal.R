@@ -30,53 +30,46 @@
     ignoreTxVersion = TRUE
 ) {
     assert_all_are_dirs(sampleDirs)
+    assert_are_identical(
+        x = names(sampleDirs),
+        y = basename(sampleDirs)
+    )
     type <- match.arg(type)
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
 
-    # Check for count output format, by using the first sample directory
-    subdirs <- list.dirs(
-        path = sampleDirs[[1L]],
-        full.names = TRUE,
-        recursive = FALSE
-    )
-    assert_are_intersecting_sets(basename(subdirs), validCallers)
+    # Locate the counts files --------------------------------------------------
+    subdirs <- file.path(sampleDirs, type)
+    assert_all_are_dirs(subdirs)
 
-    # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        files <- list.files(
-            path = file.path(sampleDirs, type),
-            pattern = "quant.sf",
-            full.names = TRUE,
-            recursive = TRUE
-        )
+        # Use `quant.sf` file for salmon or sailfish.
+        files <- file.path(subdirs, "quant.sf")
     } else if (type == "kallisto") {
-        files <- list.files(
-            path = file.path(sampleDirs, type),
-            pattern = "abundance.h5",
-            full.names = TRUE,
-            recursive = TRUE
-        )
+        # Use `abundance.h5` file (HDF5) for kallisto.
+        files <- file.path(subdirs, "abundance.h5")
     }
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
 
-    # Begin loading of selected counts
-    message(paste(
-        "Reading", type, "counts using tximport",
-        packageVersion("tximport")
-    ))
-
-    # Ensure transcript IDs are stripped from tx2gene, if desired
+    # Transcript versions ------------------------------------------------------
+    # Ensure transcript IDs are stripped from tx2gene, if desired.
     if (isTRUE(ignoreTxVersion)) {
         tx2gene[["transcriptID"]] <-
             stripTranscriptVersions(tx2gene[["transcriptID"]])
         rownames(tx2gene) <- tx2gene[["transcriptID"]]
     }
 
-    tximport(
+    # Import counts using tximport ---------------------------------------------
+    # Note that this step can take a long time when processing a lot of samples,
+    # and is recommended to be run on an HPC cluster, rather than locally.
+    message(paste(
+        "Reading", type, "counts using tximport",
+        packageVersion("tximport")
+    ))
+    list <- tximport(
         files = files,
         type = type,
         txIn = txIn,
@@ -86,6 +79,28 @@
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
+
+    # Assert checks before return ----------------------------------------------
+    assert_is_list(list)
+    assert_are_identical(
+        names(list),
+        c("abundance", "counts", "length", "countsFromAbundance")
+    )
+    # Run assert checks on the matrices
+    invisible(lapply(
+        X = list[c("abundance", "counts", "length")],
+        FUN = function(x) {
+            assert_is_matrix(x)
+            assert_are_identical(
+                x = colnames(x),
+                y = names(sampleDirs)
+            )
+        }
+    ))
+    assert_is_non_empty(list[["countsFromAbundance"]])
+
+    # Return tximport list -----------------------------------------------------
+    list
 }
 
 
