@@ -264,6 +264,12 @@ bcbioRNASeq <- function(
     assert_all_are_dirs(projectDir)
     sampleDirs <- sampleDirs(uploadDir)
     assert_all_are_dirs(sampleDirs)
+    # Require that the names (sampleID) match the directory name exactly.
+    # This was changed in v0.2.7 to make sample loading stricter.
+    assert_are_identical(
+        x = names(sampleDirs),
+        y = basename(sampleDirs)
+    )
 
     # Project summary YAML -----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
@@ -339,7 +345,8 @@ bcbioRNASeq <- function(
             .[!.[["description"]] %in% censorSamples, , drop = FALSE]
     }
 
-    # Sanitize into factors.
+    # Sanitize the column data to only contain factors, before adding our
+    # metrics calculations.
     colData <- sanitizeSampleData(colData)
 
     # Sample metrics. Note that sample metrics used for QC plots are not
@@ -349,6 +356,8 @@ bcbioRNASeq <- function(
     if (length(metrics)) {
         assert_is_data.frame(metrics)
         assert_are_disjoint_sets(colnames(colData), colnames(metrics))
+        # Subset metrics to match the colData, since we may have subset the
+        # number of samples above.
         metrics <- metrics[rownames(colData), , drop = FALSE]
         colData <- cbind(colData, metrics)
     } else {
@@ -398,16 +407,12 @@ bcbioRNASeq <- function(
         )
         # `tpm` (abundance): transcripts per million.
         tpm <- txi[["abundance"]]
-        assert_is_matrix(tpm)
         # `counts`: raw counts
         counts <- txi[["counts"]]
-        assert_is_matrix(counts)
         # Length: average transcript length.
         length <- txi[["length"]]
-        assert_is_matrix(length)
         # `countsFromAbundance`: `string` describing how TPMs were calculated.
         countsFromAbundance <- txi[["countsFromAbundance"]]
-        assert_is_character(countsFromAbundance)
     } else if (caller %in% featureCountsCallers) {
         tpm <- NULL
         length <- NULL
@@ -461,10 +466,10 @@ bcbioRNASeq <- function(
         ))
         if (is.list(txi)) {
             # Create `DESeqDataSet` from `tximport()` return `list` by default.
+            # Note that we're setting an empty design formula here.
             dds <- DESeqDataSetFromTximport(
                 txi = txi,
                 colData = colData,
-                # Set an empty design formula here.
                 design = ~ 1L
             )
         } else {
