@@ -1,3 +1,6 @@
+#' Dimorphic genes
+#' Last updated 2018-08-27
+
 library(devtools)
 library(readxl)
 library(tidyverse)
@@ -9,5 +12,5 @@ gender_markers <- lapply(seq_along(sheets), function(a) {
         filter(include == TRUE) %>%
         select(-include)
 })
-names(gender_markers) <- camel(sheets)
+names(gender_markers) <- basejump::camel(sheets)
 use_data(gender_markers, compress = "xz", overwrite = TRUE)
