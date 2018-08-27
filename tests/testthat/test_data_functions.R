@@ -137,22 +137,14 @@ test_that("interestingGroups : NULL handling", {
 
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
-    # Match colData when `interestingGroups = NULL`
-    expect_identical(
-        sampleData(bcb, clean = FALSE, interestingGroups = NULL),
-        colData(bcb)
-    )
-
-    # Return `interestingGroups` factor column by default
+    # Return `interestingGroups` factor column by default.
     x <- sampleData(bcb, clean = FALSE)
     expect_is(x[["interestingGroups"]], "factor")
+    x[["interestingGroups"]] <- NULL
+    y <- colData(bcb)
+    expect_identical(x, y)
 
-    # Interesting groups
-    x <- sampleData(bcb, clean = FALSE, interestingGroups = NULL)
-    expect_identical(
-        x[["interestingGruops"]],
-        NULL
-    )
+    # Check that interesting groups passthrough works.
     x <- sampleData(bcb, clean = FALSE, interestingGroups = "group")
     expect_identical(
         levels(x[["interestingGroups"]]),
