@@ -40,7 +40,7 @@
 #'   readYAML sampleData sanitizeRowData sanitizeSampleData snake
 #'   stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
-#'   bcbio_geom_label_repel copyToDropbox readDataVersions readLog
+#'   bcbio_geom_label_repel copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design
