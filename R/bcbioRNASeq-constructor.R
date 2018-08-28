@@ -237,19 +237,18 @@ bcbioRNASeq <- function(
     # Directory paths ----------------------------------------------------------
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
     projectDir <- projectDir(uploadDir)
-    match <- str_match(projectDir, projectDirPattern)
+    sampleDirs <- sampleDirs(uploadDir)
+
+    # Run date and template name -----------------------------------------------
+    # Get run date and template name from project directory.
+    # This information will be stashed in `metadata()`.
+    match <- str_match(
+        string = basename(projectDir),
+        pattern = projectDirPattern
+    )
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
-    projectDir <- file.path(uploadDir, projectDir)
-    assert_all_are_dirs(projectDir)
-    sampleDirs <- sampleDirs(uploadDir)
-    assert_all_are_dirs(sampleDirs)
-    # Require that the names (sampleID) match the directory name exactly.
-    # This was changed in v0.2.7 to make sample loading stricter.
-    assert_are_identical(
-        x = names(sampleDirs),
-        y = basename(sampleDirs)
-    )
+    rm(match)
 
     # Project summary YAML -----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
@@ -294,6 +293,9 @@ bcbioRNASeq <- function(
     assert_is_an_integer(lanes)
 
     # Column data --------------------------------------------------------------
+    # FIXME Assert that `description` matches `names(sampleNames)`.
+    # Consider running this against user-defined sample metadata too.
+
     colData <- readYAMLSampleData(yamlFile)
 
     # Require that all sample IDs defined here in the column data (rownames)
