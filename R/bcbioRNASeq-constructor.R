@@ -236,27 +236,7 @@ bcbioRNASeq <- function(
 
     # Directory paths ----------------------------------------------------------
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
-    projectDir <- list.files(
-        path = uploadDir,
-        pattern = projectDirPattern,
-        full.names = FALSE,
-        recursive = FALSE
-    )
-    assert_is_non_empty(projectDir)
-    # Check to see if user has run bcbio multiple times to the same upload
-    # directory, and warn when this is detected.
-    if (length(projectDir) > 1L) {
-        dirs <- projectDir
-        projectDir <- tail(projectDir, n = 1L)
-        warning(paste(
-            "Multiple project directories detected:",
-            printString(dirs),
-            paste("Using most recent:", projectDir),
-            sep = "\n"
-        ), call. = FALSE)
-    }
-    assert_is_a_string(projectDir)
-    message(projectDir)
+    projectDir <- projectDir(uploadDir)
     match <- str_match(projectDir, projectDirPattern)
     runDate <- as.Date(match[[2L]])
     template <- match[[3L]]
