@@ -50,9 +50,9 @@ sampleData(x)[["test"]] <- seq_len(ncol(x))
 \seealso{
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.
 
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{counts}}, \code{\link{metrics}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{counts}},
+  \code{\link{metrics}}, \code{\link{tmm}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh

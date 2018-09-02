@@ -38,9 +38,9 @@ tmm(dds_small) \%>\% summary()
 counts(bcb_small) \%>\% tmm() \%>\% summary()
 }
 \seealso{
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{counts}}, \code{\link{metrics}},
-  \code{\link{sampleData}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{counts}},
+  \code{\link{metrics}}, \code{\link{sampleData}},
+  \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
