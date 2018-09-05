@@ -10,7 +10,7 @@ prepareRNASeqTemplate(overwrite = FALSE)
 \item{overwrite}{\code{boolean}. Should existing destination files be overwritten?}
 }
 \value{
-Invisible \code{logical} indicating which files were copied.
+Invisible \code{logical}. Was the file copied?.
 }
 \description{
 If the required template dependency files aren't present, copy them from the
