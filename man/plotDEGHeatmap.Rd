@@ -12,7 +12,11 @@
 plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
-  counts, alpha, lfcThreshold = 0L, title = TRUE, ...)
+  counts, alpha, lfcThreshold = 0L, scale = c("row", "column", "none"),
+  title = TRUE, interestingGroups, clusterRows = TRUE,
+  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
+  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
+  legendColor = NULL, borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
@@ -20,21 +24,69 @@ plotDEGHeatmap(results, counts, ...)
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(results, counts,
-  alpha, lfcThreshold = 0L, title = TRUE, ...)
+  alpha, lfcThreshold = 0L, scale = c("row", "column", "none"),
+  title = TRUE, interestingGroups, clusterRows = TRUE,
+  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
+  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
+  legendColor = NULL, borderColor = NULL, ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults}.}
 
 \item{counts}{\code{matrix}. Normalized counts.}
 
-\item{...}{Passthrough arguments to \code{\link[=plotHeatmap]{plotHeatmap()}}.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments should be formatted in camel case, not snake case.}
 
 \item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
 \item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
 threshold.}
 
+\item{scale}{\code{string}. Whether the values should be centered and scaled in
+either the row or column direction ("\code{row}", "\code{column}"), or remain
+unscaled ("\code{none}").}
+
 \item{title}{\code{string} or \code{NULL}. Plot title.}
+
+\item{interestingGroups}{\code{character}. Groups of interest.}
+
+\item{clusterRows}{\code{boolean}. Arrange with hierarchical
+clustering.}
+
+\item{clusterCols}{\code{boolean}. Arrange with hierarchical
+clustering.}
+
+\item{showRownames}{\code{boolean}. Show row or column names.}
+
+\item{showColnames}{\code{boolean}. Show row or column names.}
+
+\item{treeheightRow}{\code{scalar integer}. Size of the row and
+column dendrograms. Use \code{0} to disable.}
+
+\item{treeheightCol}{\code{scalar integer}. Size of the row and
+column dendrograms. Use \code{0} to disable.}
+
+\item{color}{\code{function}, \code{character}, or \code{NULL}. Hexadecimal color function
+or values to use for plot. We generally recommend these hexadecimal
+functions from the viridis package:
+\itemize{
+\item \code{\link[viridis:viridis]{viridis::viridis()}} (\emph{default}).
+\item \code{\link[viridis:inferno]{viridis::inferno()}}.
+\item \code{\link[viridis:magma]{viridis::magma()}}.
+\item \code{\link[viridis:plasma]{viridis::plasma()}}.
+Alternatively, colors can be defined manually using hexadecimal values
+(e.g. \code{c("#FF0000", "#0000FF")}), but this is not generally recommended.
+Refer to the RColorBrewer package for hexadecimal color palettes that may
+be suitable. If set \code{NULL}, will use the default pheatmap colors.
+}}
+
+\item{legendColor}{\code{function} or \code{NULL}. Hexadecimal color function to use
+for legend labels. Note that hexadecimal values are not supported. If set
+\code{NULL}, will use the default pheatmap colors.}
+
+\item{borderColor}{\code{string} or \code{NULL}. Border color. Disabled by default for
+improved aesthetics.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{

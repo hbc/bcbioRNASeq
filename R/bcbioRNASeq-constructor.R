@@ -123,7 +123,6 @@
 #' @param rlog `boolean`. Calcualte regularized log transformation using
 #'   [DESeq2::rlog()]. This calculation is slow for large datasets and now
 #'   discouraged by default for visualization.
-#' @param ... Additional arguments, slotted into the [metadata()] accessor.
 #'
 #' @return `bcbioRNASeq`.
 #' @export
@@ -136,30 +135,30 @@
 #' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
-#' upload_dir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
 #' # Gene level
-#' x <- bcbioRNASeq(
-#'     uploadDir = upload_dir,
+#' object <- bcbioRNASeq(
+#'     uploadDir = uploadDir,
 #'     level = "genes",
 #'     caller = "salmon",
 #'     organism = "Mus musculus",
 #'     ensemblRelease = 87L
 #' )
-#' show(x)
-#' is(x, "RangedSummarizedExperiment")
-#' validObject(x)
+#' show(object)
+#' is(object, "RangedSummarizedExperiment")
+#' validObject(object)
 #'
 #' # Transcript level
-#' x <- bcbioRNASeq(
-#'     uploadDir = upload_dir,
+#' object <- bcbioRNASeq(
+#'     uploadDir = uploadDir,
 #'     level = "transcripts",
 #'     caller = "salmon",
 #'     organism = "Mus musculus",
 #'     ensemblRelease = 87L
 #' )
-#' show(x)
-#' validObject(x)
+#' show(object)
+#' validObject(object)
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -178,11 +177,9 @@ bcbioRNASeq <- function(
     rlog = FALSE,
     ...
 ) {
-    dots <- list(...)
-
     # Legacy arguments ---------------------------------------------------------
     # nocov start
-    call <- match.call(expand.dots = TRUE)
+    call <- match.call()
     # annotable
     if ("annotable" %in% names(call)) {
         stop("`annotable` is defunct. Consider using `gffFile` instead.")
@@ -191,7 +188,6 @@ bcbioRNASeq <- function(
     if ("ensemblVersion" %in% names(call)) {
         warning("Use `ensemblRelease` instead of `ensemblVersion`")
         ensemblRelease <- call[["ensemblVersion"]]
-        dots[["ensemblVersion"]] <- NULL
     }
     # organism
     if (!"organism" %in% names(call)) {
@@ -207,7 +203,6 @@ bcbioRNASeq <- function(
             "separate `vst` and `rlog` arguments"
         ))
     }
-    dots <- Filter(Negate(is.null), dots)
     # nocov end
 
     # Assert checks ------------------------------------------------------------
@@ -293,7 +288,7 @@ bcbioRNASeq <- function(
     assert_is_an_integer(lanes)
 
     # Column data --------------------------------------------------------------
-    # FIXME Assert that `description` matches `names(sampleNames)`.
+    # TODO Assert that `description` matches `names(sampleNames)`.
     # Consider running this against user-defined sample metadata too.
 
     colData <- readYAMLSampleData(yamlFile)
@@ -336,7 +331,7 @@ bcbioRNASeq <- function(
     # MultiQC and aligned counts generated with STAR.
     metrics <- readYAMLSampleMetrics(yamlFile)
     if (length(metrics)) {
-        assert_is_data.frame(metrics)
+        assert_is_all_of(metrics, "DataFrame")
         assert_are_disjoint_sets(colnames(colData), colnames(metrics))
         # Subset metrics to match the colData, since we may have subset the
         # number of samples above.
@@ -348,6 +343,7 @@ bcbioRNASeq <- function(
 
     # Subset sample directories by metadata ------------------------------------
     samples <- rownames(colData)
+    assertAllAreValidNames(samples)
     assert_is_subset(samples, names(sampleDirs))
     if (length(samples) < length(sampleDirs)) {
         message(paste(
@@ -533,11 +529,6 @@ bcbioRNASeq <- function(
         allSamples = allSamples,
         call = match.call()
     )
-    # Add user-defined custom metadata, if specified.
-    if (length(dots)) {
-        assert_are_disjoint_sets(metadata, dots)
-        metadata <- c(metadata, dots)
-    }
 
     # Return -------------------------------------------------------------------
     .new.bcbioRNASeq(

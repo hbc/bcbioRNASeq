@@ -95,7 +95,7 @@ for visualization.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
 
-\item{...}{Additional arguments, slotted into the \code{\link[=metadata]{metadata()}} accessor.}
+\item{...}{Additional arguments.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -175,30 +175,30 @@ as a remote connection over
 }
 
 \examples{
-upload_dir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 # Gene level
-x <- bcbioRNASeq(
-    uploadDir = upload_dir,
+object <- bcbioRNASeq(
+    uploadDir = uploadDir,
     level = "genes",
     caller = "salmon",
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
-show(x)
-is(x, "RangedSummarizedExperiment")
-validObject(x)
+show(object)
+is(object, "RangedSummarizedExperiment")
+validObject(object)
 
 # Transcript level
-x <- bcbioRNASeq(
-    uploadDir = upload_dir,
+object <- bcbioRNASeq(
+    uploadDir = uploadDir,
     level = "transcripts",
     caller = "salmon",
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
-show(x)
-validObject(x)
+show(object)
+validObject(object)
 }
 \seealso{
 \itemize{

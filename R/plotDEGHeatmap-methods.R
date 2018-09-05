@@ -16,7 +16,6 @@
 #' @inherit basejump::plotHeatmap
 #'
 #' @inheritParams general
-#' @param ... Passthrough arguments to [plotHeatmap()].
 #'
 #' @seealso
 #' - `help("plotHeatmap", "basejump")`.
@@ -50,8 +49,81 @@ NULL
 
 
 
-# FIXME Improve the documentation to use formals from `plotHeatmap`.
-# FIXME Set to use row scaling by default.
+.plotDEGHeatmap <-  # nolint
+function(
+    results,
+    counts,
+    alpha,
+    lfcThreshold = 0L,
+    scale = c("row", "column", "none"),
+    title = TRUE
+    # Defining additional formals below.
+) {
+    validObject(results)
+    validObject(counts)
+    # Coerce to RSE then SE to preserve rowData.
+    if (is(counts, "RangedSummarizedExperiment")) {
+        counts <- as(counts, "RangedSummarizedExperiment")
+    }
+    counts <- as(counts, "SummarizedExperiment")
+    assert_are_identical(rownames(results), rownames(counts))
+    if (missing(alpha)) {
+        alpha <- metadata(results)[["alpha"]]
+    }
+    assert_is_a_number(alpha)
+    assert_is_a_number(lfcThreshold)
+    assert_all_are_non_negative(lfcThreshold)
+    scale <- match.arg(scale)
+
+    # Title
+    if (isTRUE(title)) {
+        title <- contrastName(results)
+    } else if (!is_a_string(title)) {
+        title <- NULL
+    }
+
+    deg <- significants(results, padj = alpha, fc = lfcThreshold)
+
+    # Early return if there are no DEGs.
+    if (!length(deg)) {
+        warning("No significant DEGs to plot")
+        return(invisible())
+    }
+
+    # Subset the counts to only contain DEGs.
+    counts <- counts[deg, , drop = FALSE]
+
+    # Using SummarizedExperiment method here.
+    # args <- as.list(matchS4Call())[-1L]
+    args <- as.list(match.call())[-1L]
+    args[["object"]] <- counts
+    args <- args[setdiff(
+        x = names(args),
+        y = c(
+            "results",
+            "counts",
+            "alpha",
+            "lfcThreshold"
+        )
+    )]
+    do.call(what = plotHeatmap, args = args)
+}
+
+# Define the formals.
+f1 <- formals(.plotDEGHeatmap)
+f2 <- methodFormals(
+    f = "plotHeatmap",
+    signature = "SummarizedExperiment"
+)
+f2 <- f2[setdiff(
+    x = names(f2),
+    y = c(names(f1), "object")
+)]
+f <- c(f1, f2)
+formals(.plotDEGHeatmap) <- as.pairlist(f)
+
+
+
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
@@ -60,54 +132,7 @@ setMethod(
         results = "DESeqResults",
         counts = "SummarizedExperiment"
     ),
-    function(
-        results,
-        counts,
-        alpha,
-        lfcThreshold = 0L,
-        title = TRUE,
-        ...
-    ) {
-        validObject(results)
-        validObject(counts)
-        # Coerce to RSE then SE to preserve rowData.
-        if (is(counts, "RangedSummarizedExperiment")) {
-            counts <- as(counts, "RangedSummarizedExperiment")
-        }
-        counts <- as(counts, "SummarizedExperiment")
-        assert_are_identical(rownames(results), rownames(counts))
-        if (missing(alpha)) {
-            alpha <- metadata(results)[["alpha"]]
-        }
-        assert_is_a_number(alpha)
-        assert_is_a_number(lfcThreshold)
-        assert_all_are_non_negative(lfcThreshold)
-
-        # Title
-        if (isTRUE(title)) {
-            title <- contrastName(results)
-        } else if (!is_a_string(title)) {
-            title <- NULL
-        }
-
-        deg <- significants(results, padj = alpha, fc = lfcThreshold)
-
-        # Early return if there are no DEGs.
-        if (!length(deg)) {
-            warning("No significant DEGs to plot")
-            return(invisible())
-        }
-
-        # Subset the counts to only contain DEGs.
-        counts <- counts[deg, , drop = FALSE]
-
-        # Using SummarizedExperiment method here.
-        plotHeatmap(
-            object = counts,
-            title = title,
-            ...
-        )
-    }
+    .plotDEGHeatmap
 )
 
 
