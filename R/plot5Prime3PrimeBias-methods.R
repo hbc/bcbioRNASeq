@@ -50,7 +50,8 @@ setMethod(
         # `camel()` used. This change was added in v0.2.7.
         yCol <- grep(
             pattern = ".+5.+3bias$",
-            x = tolower(colnames(data)),
+            x = colnames(data),
+            ignore.case = TRUE,
             value = TRUE
         )
 
