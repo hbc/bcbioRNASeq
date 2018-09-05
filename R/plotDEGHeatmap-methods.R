@@ -50,6 +50,8 @@ NULL
 
 
 
+# FIXME Improve the documentation to use formals from `plotHeatmap`.
+# FIXME Set to use row scaling by default.
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
