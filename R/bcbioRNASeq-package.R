@@ -10,6 +10,8 @@
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
 #'
+#' @importMethodsFrom basejump coerce
+#'
 #' @importFrom assertive.base assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
@@ -27,10 +29,10 @@
 #'   assert_is_character assert_is_data.frame assert_is_factor assert_is_formula
 #'   assert_is_list assert_is_matrix assert_is_numeric assert_is_tbl_df
 #'   is_a_string
-#' @importFrom basejump assertAreGeneAnnotations assertIsHexColorFunctionOrNULL
-#'   assertFormalGene2symbol assertIsAHeaderLevel assertIsAStringOrNULL
-#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
-#'   assertIsImplicitInteger assertIsGene2symbol
+#' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
+#'   assertIsHexColorFunctionOrNULL assertFormalGene2symbol assertIsAHeaderLevel
+#'   assertIsAStringOrNULL assertIsAnImplicitInteger
+#'   assertIsAnImplicitIntegerOrNULL assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
 #'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
