@@ -13,7 +13,7 @@ plotVolcano(object, ...)
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
   pointColor = "gray50", sigPointColor = c(upregulated = "purple",
   downregulated = "orange"), histograms = FALSE, return = c("ggplot",
-  "data.frame"))
+  "DataFrame"))
 }
 \arguments{
 \item{object}{Object.}
