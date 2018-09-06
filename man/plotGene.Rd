@@ -9,9 +9,9 @@
 \alias{plotGene,DESeqTransform-method}
 \title{Plot Individual Genes}
 \usage{
-\S4method{plotGene}{SummarizedExperiment}(object, genes, interestingGroups,
-  countsAxisLabel = "counts", medianLine = TRUE,
-  color = getOption("bcbio.discrete.color", NULL),
+\S4method{plotGene}{SummarizedExperiment}(object, genes,
+  interestingGroups = NULL, countsAxisLabel = "counts",
+  medianLine = TRUE, color = getOption("bcbio.discrete.color", NULL),
   legend = getOption("bcbio.legend", TRUE), headerLevel = 2L,
   return = c("facet", "wide"))
 

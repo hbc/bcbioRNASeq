@@ -8,11 +8,12 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha, lfcThreshold = 0L,
-  ylim = 1e-10, genes = NULL, gene2symbol = NULL, ntop = 0L,
-  direction = c("both", "up", "down"), pointColor = "gray50",
-  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
-  histograms = FALSE, return = c("ggplot", "data.frame"))
+\S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
+  lfcThreshold = 0L, ylim = 1e-10, genes = NULL,
+  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
+  "data.frame"))
 }
 \arguments{
 \item{object}{Object.}

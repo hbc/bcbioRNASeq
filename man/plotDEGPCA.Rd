@@ -12,8 +12,9 @@
 plotDEGPCA(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
-  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both",
-  "up", "down"), color = getOption("bcbio.discrete.color", NULL),
+  interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
+  direction = c("both", "up", "down"),
+  color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "data.frame"))
 
@@ -23,8 +24,9 @@ plotDEGPCA(results, counts, ...)
 \S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(results, counts,
-  interestingGroups, alpha, lfcThreshold = 0L, direction = c("both",
-  "up", "down"), color = getOption("bcbio.discrete.color", NULL),
+  interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
+  direction = c("both", "up", "down"),
+  color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "data.frame"))
 }

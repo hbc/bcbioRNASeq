@@ -8,16 +8,12 @@
 \alias{sampleData<-,bcbioRNASeq,DataFrame-method}
 \title{Sample Data}
 \usage{
-\S4method{sampleData}{bcbioRNASeq}(object, interestingGroups,
-  clean = FALSE)
+\S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE)
 
 \S4method{sampleData}{bcbioRNASeq,DataFrame}(object) <- value
 }
 \arguments{
 \item{object}{Object.}
-
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
 
 \item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}

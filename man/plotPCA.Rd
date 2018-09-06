@@ -7,8 +7,9 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
-  ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
+\S4method{plotPCA}{SummarizedExperiment}(object,
+  interestingGroups = NULL, ntop = 500L,
+  color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), title = "pca",
   subtitle = NULL, return = c("ggplot", "data.frame"))
 

@@ -8,7 +8,7 @@
 \usage{
 plotMappingRate(object, ...)
 
-\S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups,
+\S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 0.9, fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "mapping rate")
 }
