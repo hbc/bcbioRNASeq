@@ -12,18 +12,18 @@
 plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
-  counts, alpha, lfcThreshold = 0L, scale = c("row", "column", "none"),
+  counts, alpha = NULL, lfcThreshold = 0L, scale = "row",
   title = TRUE, interestingGroups, clusterRows = TRUE,
   clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
   treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
   legendColor = NULL, borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(results, counts,
-  alpha, lfcThreshold = 0L, scale = c("row", "column", "none"),
-  title = TRUE, interestingGroups, clusterRows = TRUE,
-  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
-  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
-  legendColor = NULL, borderColor = NULL, ...)
+  alpha = NULL, lfcThreshold = 0L, scale = "row", title = TRUE,
+  interestingGroups, clusterRows = TRUE, clusterCols = TRUE,
+  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
+  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
+  borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
 

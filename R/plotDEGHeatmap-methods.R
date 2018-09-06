@@ -53,9 +53,9 @@ NULL
 function(
     results,
     counts,
-    alpha,
+    alpha = NULL,
     lfcThreshold = 0L,
-    scale = c("row", "column", "none"),
+    scale = "row",
     title = TRUE
     # Defining additional formals below.
 ) {
@@ -67,16 +67,17 @@ function(
     }
     counts <- as(counts, "SummarizedExperiment")
     assert_are_identical(rownames(results), rownames(counts))
-    if (missing(alpha)) {
+    if (is.null(alpha)) {
         alpha <- metadata(results)[["alpha"]]
     }
     assert_is_a_number(alpha)
     assert_is_a_number(lfcThreshold)
     assert_all_are_non_negative(lfcThreshold)
-    scale <- match.arg(scale)
-    interestingGroups <- matchInterestingGroups(
-        object = counts,
-        interestingGroups = interestingGroups
+    # Hiding the choices from the user by default, because in most cases row
+    # scaling should be used.
+    scale <- match.arg(
+        arg = scale,
+        choices = c("row", "column", "none")
     )
 
     # Title
