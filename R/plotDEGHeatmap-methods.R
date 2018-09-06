@@ -99,7 +99,7 @@ function(
     counts <- counts[deg, , drop = FALSE]
 
     # Using `do.call()` return with SummarizedExperiment method here.
-    args <- .setArgs(
+    args <- setArgsToDoCall(
         args = list(
             object = counts,
             interestingGroups = interestingGroups,
@@ -107,7 +107,7 @@ function(
             title = title,
             ...
         ),
-        remove = c(
+        removeArgs = c(
             "results",
             "counts",
             "alpha",

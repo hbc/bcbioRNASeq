@@ -40,7 +40,8 @@
 #'   makeSummarizedExperiment markdownHeader markdownList markdownPlotlist
 #'   matchInterestingGroups matchS4Call methodFormals plotHeatmap
 #'   prepareTemplate readFileByExtension readYAML sampleData sanitizeRowData
-#'   sanitizeSampleData snake stripTranscriptVersions uniteInterestingGroups
+#'   sanitizeSampleData setArgsToDoCall snake stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
