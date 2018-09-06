@@ -13,14 +13,14 @@ plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
   counts, alpha = NULL, lfcThreshold = 0L, scale = "row",
-  title = TRUE, interestingGroups, clusterRows = TRUE,
+  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
   clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
   treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
   legendColor = NULL, borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(results, counts,
   alpha = NULL, lfcThreshold = 0L, scale = "row", title = TRUE,
-  interestingGroups, clusterRows = TRUE, clusterCols = TRUE,
+  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
   treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
   borderColor = NULL, ...)
