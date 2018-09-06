@@ -1,4 +1,7 @@
-# FIXME Include the alpha information in the plot.
+# TODO Include the alpha information in the plot.
+# TODO Require gene2symbol if ntop, genes are set?
+# TODO Add a warning if user is visualizing genes without gene2symbol.
+# FIXME Use `mapGenesToRownames()` to handle `genes` input.
 
 
 
@@ -78,7 +81,7 @@ setMethod(
             downregulated = "orange"
         ),
         histograms = FALSE,
-        return = c("ggplot", "data.frame")
+        return = c("ggplot", "DataFrame")
     ) {
         validObject(object)
         if (is.null(alpha)) {
@@ -122,13 +125,12 @@ setMethod(
         lfcCol <- "log2FoldChange"
         negLogTestCol <- camel(paste("neg", "log10", testCol))
 
+        # FIXME Use tibble coercion.
         data <- object %>%
-            as.data.frame() %>%
-            rownames_to_column("geneID") %>%
-            as_tibble() %>%
+            as("tbl_df") %>%
             camel() %>%
             # Select columns used for plots
-            .[, c("geneID", "baseMean", lfcCol, testCol)] %>%
+            .[, c("rowname", "baseMean", lfcCol, testCol)] %>%
             # Remove rows with any NA values (e.g. padj)
             .[complete.cases(.), , drop = FALSE] %>%
             # Remove rows with zero counts
@@ -155,21 +157,19 @@ setMethod(
             data <- data[data[[lfcCol]] < 0L, , drop = FALSE]
         }
 
-        # Gene-to-symbol mappings
-        if (is.data.frame(gene2symbol)) {
+        # Gene-to-symbol mappings.
+        if (length(gene2symbol)) {
             assertIsGene2symbol(gene2symbol)
+            gene2symbol <- as(gene2symbol, "tbl_df")
+            data <- left_join(data, gene2symbol, by = "rowname")
             labelCol <- "geneName"
-            data <- left_join(data, gene2symbol, by = "geneID")
         } else {
-            labelCol <- "geneID"
+            labelCol <- "rowname"
         }
 
         # Early return data frame, if desired
-        if (return == "data.frame") {
-            data <- data %>%
-                as.data.frame() %>%
-                column_to_rownames("geneID")
-            return(data)
+        if (return == "DataFrame") {
+            return(as(data, "DataFrame"))
         }
 
         # LFC density ----------------------------------------------------------
@@ -261,12 +261,17 @@ setMethod(
         }
 
         # Gene text labels -----------------------------------------------------
+        # FIXME Use `mapGenesToRownames()` here instead.
+        stop("Rework this section")
+        if (length(genes)) {
+            stop("Reworking this method.")
+        }
         if (is.null(genes) && is_positive(ntop)) {
-            genes <- data[1L:ntop, "geneID", drop = TRUE]
+            genes <- data[1L:ntop, "rowname", drop = TRUE]
         }
         if (is.character(genes)) {
-            assert_is_subset(genes, data[["geneID"]])
-            labelData <- data[data[["geneID"]] %in% genes, , drop = FALSE]
+            assert_is_subset(genes, data[["rowname"]])
+            labelData <- data[data[["rowname"]] %in% genes, , drop = FALSE]
             p <- p +
                 bcbio_geom_label_repel(
                     data = labelData,

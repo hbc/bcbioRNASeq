@@ -1,4 +1,6 @@
 # FIXME Include the alpha information in the plot.
+# FIXME Use `mapGenesToRownames()` to handle `genes` input.
+# FIXME Improve gene2symbol mapping support (see plotVolcano.)
 
 
 
@@ -80,7 +82,7 @@ setMethod(
             upregulated = "purple",
             downregulated = "orange"
         ),
-        return = c("ggplot", "data.frame")
+        return = c("ggplot", "DataFrame")
     ) {
         validObject(object)
         if (is.null(alpha)) {
@@ -114,9 +116,7 @@ setMethod(
         lfcCol <- "log2FoldChange"
 
         data <- object %>%
-            as.data.frame() %>%
-            rownames_to_column("geneID") %>%
-            as_tibble() %>%
+            as("tbl_df") %>%
             camel() %>%
             # Remove genes with very low expression
             filter(!!sym("baseMean") >= 1L) %>%
@@ -139,18 +139,16 @@ setMethod(
         # Gene-to-symbol mappings
         if (is.data.frame(gene2symbol)) {
             assertIsGene2symbol(gene2symbol)
+            gene2symbol <- as(gene2symbol, "tbl_df")
+            data <- left_join(data, gene2symbol, by = "rowname")
             labelCol <- "geneName"
-            data <- left_join(data, gene2symbol, by = "geneID")
         } else {
-            labelCol <- "geneID"
+            labelCol <- "rowname"
         }
 
         # Early return data frame, if desired
-        if (return == "data.frame") {
-            data <- data %>%
-                as.data.frame() %>%
-                column_to_rownames("geneID")
-            return(data)
+        if (return == "DataFrame") {
+            return(as(data, "DataFrame"))
         }
 
         xFloor <- data[["baseMean"]] %>%
@@ -206,13 +204,15 @@ setMethod(
         }
 
         # Gene text labels -----------------------------------------------------
+        # FIXME
+        stop("Rework this section")
         labelData <- NULL
         if (is.null(genes) && is_positive(ntop)) {
-            genes <- data[1L:ntop, "geneID", drop = TRUE]
+            genes <- data[1L:ntop, "rowname", drop = TRUE]
         }
         if (is.character(genes)) {
-            assert_is_subset(genes, data[["geneID"]])
-            labelData <- data[data[["geneID"]] %in% genes, , drop = FALSE]
+            assert_is_subset(genes, data[["rowname"]])
+            labelData <- data[data[["rowname"]] %in% genes, , drop = FALSE]
             p <- p +
                 bcbio_geom_label_repel(
                     data = labelData,
