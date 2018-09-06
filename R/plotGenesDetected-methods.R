@@ -21,7 +21,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0L,
         minCounts = 1L,
         fill = getOption("bcbio.discrete.fill", NULL),
@@ -33,6 +33,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
         assertIsAnImplicitInteger(minCounts)

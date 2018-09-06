@@ -1,3 +1,7 @@
+# FIXME Include the alpha information in the plot.
+
+
+
 #' MA Plot
 #'
 #' An MA plot is an application of a Bland–Altman plot for visual representation
@@ -65,7 +69,7 @@ setMethod(
     signature("DESeqResults"),
     function(
         object,
-        alpha,
+        alpha = NULL,
         lfcThreshold = 0L,
         genes = NULL,
         gene2symbol = NULL,
@@ -79,7 +83,7 @@ setMethod(
         return = c("ggplot", "data.frame")
     ) {
         validObject(object)
-        if (missing(alpha)) {
+        if (is.null(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }
         assert_is_a_number(alpha)

@@ -22,7 +22,7 @@ NULL
 setMethod(
     "metrics",
     signature("bcbioRNASeq"),
-    function(object, interestingGroups) {
+    function(object, interestingGroups = NULL) {
         validObject(object)
         interestingGroups <- matchInterestingGroups(
             object = object,

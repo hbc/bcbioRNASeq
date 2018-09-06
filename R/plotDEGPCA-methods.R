@@ -38,8 +38,8 @@ setMethod(
     function(
         results,
         counts,
-        interestingGroups,
-        alpha,
+        interestingGroups = NULL,
+        alpha = NULL,
         lfcThreshold = 0L,
         direction = c("both", "up", "down"),
         color = getOption("bcbio.discrete.color", NULL),
@@ -52,7 +52,8 @@ setMethod(
             object = counts,
             interestingGroups = interestingGroups
         )
-        if (missing(alpha)) {
+        interestingGroups(counts) <- interestingGroups
+        if (is.null(alpha)) {
             alpha <- metadata(results)[["alpha"]]
         }
         assert_is_a_number(alpha)

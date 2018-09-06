@@ -1,3 +1,7 @@
+# FIXME Include the alpha information in the plot.
+
+
+
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -61,7 +65,7 @@ setMethod(
     signature("DESeqResults"),
     function(
         object,
-        alpha,
+        alpha = NULL,
         lfcThreshold = 0L,
         ylim = 1e-10,
         genes = NULL,
@@ -77,7 +81,7 @@ setMethod(
         return = c("ggplot", "data.frame")
     ) {
         validObject(object)
-        if (missing(alpha)) {
+        if (is.null(alpha)) {
             alpha <- metadata(object)[["alpha"]]
         }
         assert_all_are_in_left_open_range(

@@ -49,11 +49,7 @@ NULL
 setMethod(
     "sampleData",
     signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        clean = FALSE
-    ) {
+    function(object, clean = FALSE) {
         data <- colData(object)
         assert_is_a_bool(clean)
         # Only return factor columns, if desired.
@@ -63,10 +59,7 @@ setMethod(
             setdiff <- setdiff(colnames(data), metadataBlacklist)
             data <- data[, setdiff, drop = FALSE]
         } else {
-            interestingGroups <- matchInterestingGroups(
-                object = object,
-                interestingGroups = interestingGroups
-            )
+            interestingGroups <- interestingGroups(object)
             if (length(interestingGroups)) {
                 data <- uniteInterestingGroups(data, interestingGroups)
             }
