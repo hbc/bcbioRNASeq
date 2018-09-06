@@ -54,7 +54,7 @@ NULL
     object <- convertGenesToSymbols(object)
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(object, clean = FALSE)
+        sampleData = sampleData(object)
     )
 
     p <- ggplot(
