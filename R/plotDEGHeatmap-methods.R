@@ -99,32 +99,23 @@ function(
     counts <- counts[deg, , drop = FALSE]
 
     # Using `do.call()` return with SummarizedExperiment method here.
-    args <- list(
-        object = counts,
-        interestingGroups = interestingGroups,
-        scale = scale,
-        title = title,
-        ...
-    )
-    callArgs <- matchS4Call() %>%
-        as.list() %>%
-        .[-1L] %>%
-        .[setdiff(names(.), names(args))]
-    args <- c(args, callArgs)
-    formalArgs <- sys.function() %>%
-        formals() %>%
-        .[setdiff(names(.), names(args))]
-    args <- c(args, formalArgs)
-    args <- args[setdiff(
-        names(args),
-        c(
+    args <- .setArgs(
+        args = list(
+            object = counts,
+            interestingGroups = interestingGroups,
+            scale = scale,
+            title = title,
+            ...
+        ),
+        remove = c(
             "results",
             "counts",
             "alpha",
             "lfcThreshold"
-        )
-    )]
-    stopifnot(!any(duplicated(names(args))))
+        ),
+        call = matchS4Call(),
+        fun = sys.function()
+    )
     do.call(what = plotHeatmap, args = args)
 }
 
