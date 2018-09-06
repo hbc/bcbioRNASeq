@@ -21,7 +21,7 @@
 #'
 #' @examples
 #' # Gene identifiers
-#' genes <- head(rownames(bcb_small), 4L)
+#' genes <- head(rownames(bcb_small), n = 4L)
 #' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
