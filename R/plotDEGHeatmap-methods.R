@@ -74,6 +74,10 @@ function(
     assert_is_a_number(lfcThreshold)
     assert_all_are_non_negative(lfcThreshold)
     scale <- match.arg(scale)
+    interestingGroups <- matchInterestingGroups(
+        object = counts,
+        interestingGroups = interestingGroups
+    )
 
     # Title
     if (isTRUE(title)) {
@@ -93,19 +97,33 @@ function(
     # Subset the counts to only contain DEGs.
     counts <- counts[deg, , drop = FALSE]
 
-    # Using SummarizedExperiment method here.
-    # args <- as.list(matchS4Call())[-1L]
-    args <- as.list(match.call())[-1L]
-    args[["object"]] <- counts
+    # Using `do.call()` return with SummarizedExperiment method here.
+    args <- list(
+        object = counts,
+        interestingGroups = interestingGroups,
+        scale = scale,
+        title = title,
+        ...
+    )
+    callArgs <- matchS4Call() %>%
+        as.list() %>%
+        .[-1L] %>%
+        .[setdiff(names(.), names(args))]
+    args <- c(args, callArgs)
+    formalArgs <- sys.function() %>%
+        formals() %>%
+        .[setdiff(names(.), names(args))]
+    args <- c(args, formalArgs)
     args <- args[setdiff(
-        x = names(args),
-        y = c(
+        names(args),
+        c(
             "results",
             "counts",
             "alpha",
             "lfcThreshold"
         )
     )]
+    stopifnot(!any(duplicated(names(args))))
     do.call(what = plotHeatmap, args = args)
 }
 
@@ -117,10 +135,13 @@ f2 <- methodFormals(
 )
 f2 <- f2[setdiff(
     x = names(f2),
-    y = c(names(f1), "object")
+    y = c(
+        names(f1),
+        "object"
+    )
 )]
 f <- c(f1, f2)
-formals(.plotDEGHeatmap) <- as.pairlist(f)
+formals(.plotDEGHeatmap) <- f
 
 
 
@@ -133,6 +154,53 @@ setMethod(
         counts = "SummarizedExperiment"
     ),
     .plotDEGHeatmap
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqTransform"
+    ),
+    getMethod(
+        "plotDEGHeatmap",
+        signature(
+            results = "DESeqResults",
+            counts = "SummarizedExperiment"
+        )
+    )
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    function(
+        results,
+        counts,
+        ...
+    ) {
+        validObject(counts)
+        message("Using normalized counts")
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
+        args <- list(
+            results = results,
+            counts = rse,
+            ...
+        )
+        do.call(what = plotDEGHeatmap, args = args)
+    }
 )
 
 
@@ -156,56 +224,11 @@ setMethod(
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = normalized))
-        plotDEGHeatmap(
+        args <- list(
             results = results,
             counts = rse,
             ...
         )
+        do.call(what = plotDEGHeatmap, args = args)
     }
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqDataSet"
-    ),
-    function(
-        results,
-        counts,
-        ...
-    ) {
-        validObject(counts)
-        message("Using normalized counts")
-        rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
-        plotDEGHeatmap(
-            results = results,
-            counts = rse,
-            ...
-        )
-    }
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
-    getMethod(
-        "plotDEGHeatmap",
-        signature(
-            results = "DESeqResults",
-            counts = "SummarizedExperiment"
-        )
-    )
 )
