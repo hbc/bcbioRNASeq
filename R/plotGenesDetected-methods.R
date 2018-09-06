@@ -1,3 +1,9 @@
+# FIXME Include an option to use the mapped genes from STAR or the genes
+# detected from salmon output.
+# Explain the minCounts logic in more detail in the documentation.
+
+
+
 #' Plot Genes Detected
 #'
 #' @name plotGenesDetected

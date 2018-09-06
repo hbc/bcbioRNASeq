@@ -1,3 +1,8 @@
+# TODO Add an option to compare STAR/salmon. Explain this in more detail in
+# the documentation and vignette...confusing.
+
+
+
 #' Plot Total Reads
 #'
 #' High quality RNA-seq samples ideally should have at least 10 million reads

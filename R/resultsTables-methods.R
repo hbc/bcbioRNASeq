@@ -1,3 +1,10 @@
+# TODO Add as many assert checks as possible here to look for mismatch.
+# TODO Require valid names for the rownames.
+# TODO Improve the documentation about what types of counts to use here.
+# Recommend using normalized counts or DESeqTransform.
+
+
+
 #' Differential Expression Results Tables
 #'
 #' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
