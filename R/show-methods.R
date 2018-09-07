@@ -25,6 +25,9 @@ setMethod(
 
         return <- c(
             paste(class(object), metadata(object)[["version"]]),
+            "http://bioinformatics.sph.harvard.edu/bcbioRNASeq",
+            "citation(\"bcbioRNASeq\")",
+            separatorBar,
             capture.output(show(rse)),
             separatorBar,
             paste(
