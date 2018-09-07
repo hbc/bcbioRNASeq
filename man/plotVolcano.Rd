@@ -59,9 +59,18 @@ Plot Volcano
 }
 \examples{
 gene2symbol <- gene2symbol(bcb_small)
+print(gene2symbol)
+
+geneIDs <- head(gene2symbol[["geneID"]])
+print(geneIDs)
+
+geneNames <- head(gene2symbol[["geneName"]])
+print(geneNames)
 
 # DESeqResults ====
-# Color DEGs in each direction separately
+summary(res_small)
+
+# Color DEGs in each direction separately.
 plotVolcano(
     object = res_small,
     sigPointColor = c(
@@ -70,10 +79,10 @@ plotVolcano(
     )
 )
 
-# Label DEGs with a single color
+# Label DEGs with a single color.
 plotVolcano(res_small, sigPointColor = "purple")
 
-# Directional support
+# Directional support (up or down).
 plotVolcano(
     object = res_small,
     direction = "up",
@@ -89,9 +98,18 @@ plotVolcano(
     histograms = TRUE
 )
 
-# Return coordinates as a data.frame
-x <- plotVolcano(res_small, return = "data.frame")
-glimpse(x)
+# Label genes manually.
+# Note that either gene IDs or names (symbols) are supported.
+plotVolcano(
+    object = res_small,
+    genes = geneIDs,
+    gene2symbol = gene2symbol
+)
+plotVolcano(
+    object = res_small,
+    genes = geneNames,
+    gene2symbol = gene2symbol
+)
 }
 \seealso{
 This function is an updated variant of

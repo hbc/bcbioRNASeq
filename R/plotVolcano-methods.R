@@ -1,10 +1,3 @@
-# TODO Include the alpha information in the plot.
-# TODO Require gene2symbol if ntop, genes are set?
-# TODO Add a warning if user is visualizing genes without gene2symbol.
-# FIXME Use `mapGenesToRownames()` to handle `genes` input.
-
-
-
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -24,9 +17,18 @@
 #'
 #' @examples
 #' gene2symbol <- gene2symbol(bcb_small)
+#' print(gene2symbol)
+#'
+#' geneIDs <- head(gene2symbol[["geneID"]])
+#' print(geneIDs)
+#'
+#' geneNames <- head(gene2symbol[["geneName"]])
+#' print(geneNames)
 #'
 #' # DESeqResults ====
-#' # Color DEGs in each direction separately
+#' summary(res_small)
+#'
+#' # Color DEGs in each direction separately.
 #' plotVolcano(
 #'     object = res_small,
 #'     sigPointColor = c(
@@ -35,10 +37,10 @@
 #'     )
 #' )
 #'
-#' # Label DEGs with a single color
+#' # Label DEGs with a single color.
 #' plotVolcano(res_small, sigPointColor = "purple")
 #'
-#' # Directional support
+#' # Directional support (up or down).
 #' plotVolcano(
 #'     object = res_small,
 #'     direction = "up",
@@ -54,9 +56,18 @@
 #'     histograms = TRUE
 #' )
 #'
-#' # Return coordinates as a data.frame
-#' x <- plotVolcano(res_small, return = "data.frame")
-#' glimpse(x)
+#' # Label genes manually.
+#' # Note that either gene IDs or names (symbols) are supported.
+#' plotVolcano(
+#'     object = res_small,
+#'     genes = geneIDs,
+#'     gene2symbol = gene2symbol
+#' )
+#' plotVolcano(
+#'     object = res_small,
+#'     genes = geneNames,
+#'     gene2symbol = gene2symbol
+#' )
 NULL
 
 
@@ -99,7 +110,6 @@ setMethod(
             lower = 1e-100,
             upper = 1e-3
         )
-        assertFormalGene2symbol(object, genes, gene2symbol)
         assertIsImplicitInteger(ntop)
         direction <- match.arg(direction)
         assert_all_are_non_negative(c(lfcThreshold, ntop))
@@ -122,19 +132,19 @@ setMethod(
             testCol <- "padj"
         }
 
+        # Placeholder variable for matching the LFC column.
         lfcCol <- "log2FoldChange"
         negLogTestCol <- camel(paste("neg", "log10", testCol))
 
-        # FIXME Use tibble coercion.
         data <- object %>%
             as("tbl_df") %>%
             camel() %>%
-            # Select columns used for plots
-            .[, c("rowname", "baseMean", lfcCol, testCol)] %>%
-            # Remove rows with any NA values (e.g. padj)
-            .[complete.cases(.), , drop = FALSE] %>%
-            # Remove rows with zero counts
-            .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
+            # Select columns used for plots.
+            select(!!!syms(c("rowname", "baseMean", lfcCol, testCol))) %>%
+            # Remove genes with NA adjusted P values.
+            filter(!is.na(!!sym(testCol))) %>%
+            # Remove genes with zero counts.
+            filter(!!sym("baseMean") > 0L) %>%
             # Negative log10 transform the test values. Add `ylim` here to
             # prevent `Inf` values resulting from log transformation.
             # This will also define the upper bound of the y-axis.
@@ -151,23 +161,14 @@ setMethod(
                 lfcThreshold = lfcThreshold
             )
 
+        # Apply directional filtering, if desired.
         if (direction == "up") {
-            data <- data[data[[lfcCol]] > 0L, , drop = FALSE]
+            data <- filter(data, !!sym(lfcCol) > 0L)
         } else if (direction == "down") {
-            data <- data[data[[lfcCol]] < 0L, , drop = FALSE]
+            data <- filter(data, !!sym(lfcCol) < 0L)
         }
 
-        # Gene-to-symbol mappings.
-        if (length(gene2symbol)) {
-            assertIsGene2symbol(gene2symbol)
-            gene2symbol <- as(gene2symbol, "tbl_df")
-            data <- left_join(data, gene2symbol, by = "rowname")
-            labelCol <- "geneName"
-        } else {
-            labelCol <- "rowname"
-        }
-
-        # Early return data frame, if desired
+        # Early return the data, if desired.
         if (return == "DataFrame") {
             return(as(data, "DataFrame"))
         }
@@ -242,6 +243,7 @@ setMethod(
             guides(color = FALSE) +
             labs(
                 title = contrastName(object),
+                subtitle = paste("alpha", "<", alpha),
                 x = "log2 fold change",
                 y = "-log10 adj p value"
             )
@@ -261,29 +263,51 @@ setMethod(
         }
 
         # Gene text labels -----------------------------------------------------
-        # FIXME Use `mapGenesToRownames()` here instead.
-        stop("Rework this section")
-        if (length(genes)) {
-            stop("Reworking this method.")
+        # Get the genes to visualize when `ntop` is declared.
+        if (ntop > 0L) {
+            assert_is_subset(
+                x = c("rowname", "rank"),
+                y = colnames(data)
+            )
+            # Double check that data is arranged by `rank` column.
+            assert_are_identical(
+                x = data[["rank"]],
+                y = sort(data[["rank"]])
+            )
+            # Since we know the data is arranged by rank, simply take the head.
+            genes <- head(data[["rowname"]], n = ntop)
         }
-        if (is.null(genes) && is_positive(ntop)) {
-            genes <- data[1L:ntop, "rowname", drop = TRUE]
-        }
-        if (is.character(genes)) {
-            assert_is_subset(genes, data[["rowname"]])
-            labelData <- data[data[["rowname"]] %in% genes, , drop = FALSE]
+
+        # Visualize specific genes on the plot, if desired.
+        if (!is.null(genes)) {
+            validObject(gene2symbol)
+            assertFormalGene2symbol(
+                object = object,
+                genes = genes,
+                gene2symbol = gene2symbol
+            )
+            # Map the user-defined `genes` to `gene2symbol` rownames.
+            # We're using this to match back to the `DESeqResults` object.
+            rownames <- mapGenesToRownames(
+                object = gene2symbol,
+                genes = genes
+            )
+            # Prepare the label data tibble.
+            labelData <- data %>%
+                .[match(x = rownames, table = .[["rowname"]]), ] %>%
+                left_join(as(gene2symbol, "tbl_df"), by = "rowname")
             p <- p +
                 basejump_geom_label_repel(
                     data = labelData,
                     mapping = aes(
                         x = !!sym(lfcCol),
                         y = !!sym(negLogTestCol),
-                        label = !!sym(labelCol)
+                        label = !!sym("geneName")
                     )
                 )
         }
 
-        # Grid layout ----------------------------------------------------------
+        # Return ---------------------------------------------------------------
         if (isTRUE(histograms)) {
             ggdraw() +
                 # Coordinates are relative to lower left corner
