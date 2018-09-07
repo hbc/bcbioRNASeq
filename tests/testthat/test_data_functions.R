@@ -9,106 +9,88 @@ dds <- as(bcb, "DESeqDataSet")
 
 
 
-# aggregateReplicates ==========================================================
-test_that("aggregateReplicates", {
-    # Assign groupings into `aggregate` column of `colData()`
-    aggregate <- as.factor(sub("^([a-z0-9]+)_.*", "\\1", colnames(bcb)))
-    names(aggregate) <- colnames(bcb)
-    bcb[["aggregate"]] <- aggregate
-    x <- aggregateReplicates(bcb)
-    expect_identical(colnames(x), c("group1", "group2"))
-    expect_identical(sum(counts(x)), sum(counts(bcb)))
-    expect_equal(rowSums(counts(x)), rowSums(counts(bcb)))
+# aggregateCols ================================================================
+test_that("aggregateCols", {
+    object <- bcb
+    # Assign groupings into `aggregate` column of `colData()`.
+    aggregate <- as.factor(sub("^([a-z0-9]+)_.*", "\\1", colnames(object)))
+    names(aggregate) <- colnames(object)
+    object[["aggregate"]] <- aggregate
+    object <- aggregateCols(object)
+    expect_identical(
+        object = colnames(object),
+        expected = c("group1", "group2")
+    )
+    expect_identical(
+        object = sum(counts(object)),
+        expected = sum(counts(bcb))
+    )
+    expect_equal(
+        object = rowSums(counts(object)),
+        expected = rowSums(counts(bcb))
+    )
 })
 
 
 
 # counts =======================================================================
-test_that("counts : normalized argument", {
-    normalized <- list(FALSE, TRUE, "tpm", "tmm", "vst")
-
-    # Check that all are matrices
-    expect_true(all(vapply(
-        X = normalized,
-        FUN = function(arg) {
-            is.matrix(counts(bcb, normalized = arg))
-        },
-        FUN.VALUE = logical(1L)
-    )))
-
-    # FALSE
-    expect_identical(
-        counts(bcb, normalized = FALSE),
-        assays(bcb)[["counts"]]
-    )
-    expect_identical(
-        counts(bcb, normalized = FALSE),
-        assay(bcb)
-    )
-
-    # TRUE
-    expect_identical(
-        counts(bcb, normalized = TRUE),
-        assays(bcb)[["normalized"]]
-    )
-
-    # tpm
-    expect_identical(
-        counts(bcb, normalized = "tpm"),
-        assays(bcb)[["tpm"]]
-    )
-    expect_identical(
-        counts(bcb, normalized = "tpm"),
-        tpm(bcb)
-    )
-
-    # tmm: calculated on the fly
-    expect_identical(
-        counts(bcb, normalized = "tmm"),
-        tmm(bcb)
-    )
-
-    # rle: calculated on the fly
-    expect_is(
-        counts(bcb, normalized = "rle"),
-        "matrix"
-    )
-
-    # rlog
-    expect_identical(
-        counts(bcb, normalized = "rlog"),
-        assays(bcb)[["rlog"]]
-    )
-
-    # vst
-    expect_identical(
-        counts(bcb, normalized = "vst"),
-        assays(bcb)[["vst"]]
-    )
-})
-
-test_that("counts : skipped DESeq2 transforms", {
-    skip <- bcb
-    # Using `assays<-` will coerce bcbioRNASeq to SummarizedExperiment
-    slot(skip, "assays")[["rlog"]] <- NULL
-    slot(skip, "assays")[["vst"]] <- NULL
-    expect_warning(
-        counts(skip, normalized = "rlog"),
-        paste(
-            "rlog not present in assays.",
-            "Calculating log2 TMM counts instead."
+with_parameters_test_that(
+    "counts : Slotted assays", {
+        # Check that all are matrices.
+        expect_is(
+            object = counts(bcb, normalized = normalized),
+            class = "matrix"
         )
-    )
-    expect_warning(
-        counts(skip, normalized = "vst"),
-        paste(
-            "vst not present in assays.",
-            "Calculating log2 TMM counts instead."
+        # Check that we're matching the expected assay matrix.
+        expect_identical(
+            object = counts(bcb, normalized = normalized),
+            expected = assays(bcb)[[assay]]
         )
+    },
+    normalized = list(
+        FALSE,
+        TRUE,
+        "tpm",
+        "vst",
+        "rlog"
+    ),
+    assay = list(
+        "counts",
+        "normalized",
+        "tpm",
+        "vst",
+        "rlog"
     )
-    counts <- suppressWarnings(counts(skip, normalized = "rlog"))
-    expect_is(counts, "matrix")
-})
+)
+
+with_parameters_test_that(
+    "counts : On the fly assays", {
+        expect_is(
+            object = counts(bcb, normalized = normalized),
+            class = "matrix"
+        )
+        expect_null(assays(bcb)[[normalized]])
+    },
+    normalized = c("tmm", "rle")
+)
+
+with_parameters_test_that(
+    "counts : Skipped DESeq2 transforms", {
+        object <- bcb
+        assays(object)[[normalized]] <- NULL
+        expect_warning(
+            object = counts(object, normalized = normalized),
+            regexp = paste(
+                "Calculating log2 TMM counts instead"
+            )
+        )
+        expect_is(
+            object = suppressWarnings(counts(object, normalized = normalized)),
+            class = "matrix"
+        )
+    },
+    normalized = c("rlog", "vst")
+)
 
 
 
@@ -127,10 +109,10 @@ test_that("interestingGroups : NULL handling", {
         "DataFrame"
     )
 
-    x <- bcb
-    expect_error(interestingGroups(x) <- NULL)
-    metadata(x)[["interestingGroups"]] <- NULL
-    expect_error(validObject(x))
+    object <- bcb
+    expect_error(interestingGroups(object) <- NULL)
+    metadata(object)[["interestingGroups"]] <- NULL
+    expect_error(validObject(object))
 })
 
 
@@ -138,54 +120,54 @@ test_that("interestingGroups : NULL handling", {
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
     # Return `interestingGroups` factor column by default.
-    x <- sampleData(bcb, clean = FALSE)
-    expect_is(x[["interestingGroups"]], "factor")
-    x[["interestingGroups"]] <- NULL
-    y <- colData(bcb)
-    expect_identical(x, y)
+    object <- sampleData(bcb, clean = FALSE)
+    expect_is(object[["interestingGroups"]], "factor")
+    object[["interestingGroups"]] <- NULL
+    expected <- colData(bcb)
+    expect_identical(object, expected)
 
     # Check that interesting groups passthrough works.
-    x <- sampleData(bcb, clean = FALSE, interestingGroups = "group")
+    object <- sampleData(bcb, clean = FALSE, interestingGroups = "group")
     expect_identical(
-        levels(x[["interestingGroups"]]),
+        levels(object[["interestingGroups"]]),
         c("ctrl", "ko")
     )
 })
 
 test_that("sampleData : Clean mode", {
     # Return useful factor columns
-    x <- sampleData(bcb, clean = TRUE)
+    object <- sampleData(bcb, clean = TRUE)
     expect_identical(
-        colnames(x),
+        colnames(object),
         c("sampleName", "group")
     )
     # Ensure all columns are factor
-    invisible(lapply(x, function(x) {
-        expect_is(x, "factor")
+    invisible(lapply(object, function(object) {
+        expect_is(object, "factor")
     }))
 })
 
 test_that("sampleData assignment", {
-    x <- bcb
-    sampleData(x)[["testthat"]] <- factor("XXX")
-    expect_identical(levels(sampleData(x)[["testthat"]]), "XXX")
+    object <- bcb
+    sampleData(object)[["testthat"]] <- factor("XXX")
+    expect_identical(levels(sampleData(object)[["testthat"]]), "XXX")
 })
 
 
 
 # selectSamples ================================================================
 test_that("selectSamples : bcbioRNASeq", {
-    x <- selectSamples(bcb, group = "ctrl")
-    expect_identical(colnames(x), c("group1_1", "group1_2"))
+    object <- selectSamples(bcb, group = "ctrl")
+    expect_identical(colnames(object), c("group1_1", "group1_2"))
     expect_identical(
-        assayNames(x),
+        assayNames(object),
         c("counts", "tpm", "length", "normalized", "vst", "rlog")
     )
 })
 
 test_that("selectSamples : DESeqDataSet", {
-    x <- selectSamples(dds, group = "ctrl")
-    expect_identical(colnames(x), c("group1_1", "group1_2"))
+    object <- selectSamples(dds, group = "ctrl")
+    expect_identical(colnames(object), c("group1_1", "group1_2"))
 })
 
 
