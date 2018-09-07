@@ -107,13 +107,14 @@ setMethod(
         assert_is_of_length(sigPointColor, n = 2L)
         return <- match.arg(return)
 
-        # Check to see if we should use `sval` instead of `padj`
+        # Check to see if we should use `sval` column instead of `padj`.
         if ("svalue" %in% names(object)) {
             testCol <- "svalue"  # nocov
         } else {
             testCol <- "padj"
         }
 
+        # Placeholder variable for matching the LFC column.
         lfcCol <- "log2FoldChange"
 
         data <- object %>%
