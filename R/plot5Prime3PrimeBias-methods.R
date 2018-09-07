@@ -76,7 +76,7 @@ setMethod(
             )
 
         if (is_positive(limit)) {
-            p <- p + bcbio_geom_abline(yintercept = limit)  # nocov
+            p <- p + basejump_geom_abline(yintercept = limit)  # nocov
         }
 
         if (is(fill, "ScaleDiscrete")) {

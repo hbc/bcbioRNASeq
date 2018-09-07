@@ -150,7 +150,7 @@ setMethod(
         }
 
         if (isTRUE(label)) {
-            p <- p + bcbio_geom_label_repel(
+            p <- p + basejump_geom_label_repel(
                 mapping = aes(label = !!sym("sampleName"))
             )
         }

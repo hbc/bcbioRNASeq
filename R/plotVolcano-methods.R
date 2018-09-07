@@ -273,7 +273,7 @@ setMethod(
             assert_is_subset(genes, data[["rowname"]])
             labelData <- data[data[["rowname"]] %in% genes, , drop = FALSE]
             p <- p +
-                bcbio_geom_label_repel(
+                basejump_geom_label_repel(
                     data = labelData,
                     mapping = aes(
                         x = !!sym(lfcCol),

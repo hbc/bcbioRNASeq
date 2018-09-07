@@ -74,7 +74,7 @@ setMethod(
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
