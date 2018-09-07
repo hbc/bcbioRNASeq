@@ -133,7 +133,7 @@ setMethod(
         data <- object %>%
             as("tbl_df") %>%
             camel() %>%
-            # Remove genes with very low expression
+            # Remove genes with very low expression.
             filter(!!sym("baseMean") >= 1L) %>%
             mutate(rankScore = abs(!!sym("log2FoldChange"))) %>%
             arrange(desc(!!sym("rankScore"))) %>%
@@ -170,12 +170,12 @@ setMethod(
             return(invisible())
         }
 
-        # Early return data frame, if desired.
+        # Early return the data, if desired.
         if (return == "DataFrame") {
             return(as(data, "DataFrame"))
         }
 
-        # ggplot ---------------------------------------------------------------
+        # MA plot --------------------------------------------------------------
         xFloor <- data[["baseMean"]] %>%
             min() %>%
             log10() %>%
