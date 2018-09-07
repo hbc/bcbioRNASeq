@@ -27,8 +27,8 @@
 #'   `options(bcbio.discrete.fill = scale_fill_viridis_d())`.
 #' @param flip `boolean`. Flip x and y axes. Recommended for quality control
 #'   plots containing many samples.
-#' @param gene2symbol `data.frame`. Gene-to-symbol mappings. Must contain the
-#'   columns `geneID` and `geneName`.
+#' @param gene2symbol `gene2symbol`. Gene-to-symbol mappings. Must contain
+#'   `geneID` and `geneName` columns, with rownames defined.
 #' @param genes `character`. Genes to include. These must match the rownames of
 #'   the object. It is best practice to use the stable gene identifiers from
 #'   Ensembl (e.g. "ENSG00000000003") and not the gene symbols.
