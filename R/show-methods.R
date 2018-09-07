@@ -24,38 +24,38 @@ setMethod(
         rse <- as(object, "RangedSummarizedExperiment")
 
         return <- c(
-            paste(class(object), metadata(object)[["version"]]),
+            bold(paste(class(object), metadata(object)[["version"]])),
             "http://bioinformatics.sph.harvard.edu/bcbioRNASeq",
             "citation(\"bcbioRNASeq\")",
             separatorBar,
             capture.output(show(rse)),
             separatorBar,
             paste(
-                "Upload Dir:",
+                bold("Upload Dir:"),
                 deparse(metadata(object)[["uploadDir"]])
             ),
             paste(
-                "Upload Date:",
+                bold("Upload Date:"),
                 metadata(object)[["runDate"]]
             ),
             paste(
-                "R Load Date:",
+                bold("R Load Date:"),
                 metadata(object)[["date"]]
             ),
             paste(
-                "Level:",
+                bold("Level:"),
                 deparse(metadata(object)[["level"]])
             ),
             paste(
-                "Caller:",
+                bold("Caller:"),
                 deparse(metadata(object)[["caller"]])
             ),
             paste(
-                "Organism:",
+                bold("Organism:"),
                 deparse(metadata(object)[["organism"]])
             ),
             paste(
-                "Interesting Groups:",
+                bold("Interesting Groups:"),
                 deparse(metadata(object)[["interestingGroups"]])
             )
         )
@@ -65,7 +65,7 @@ setMethod(
         if (length(sampleMetadataFile)) {
             return <- c(
                 return,
-                paste("Metadata File:", deparse(sampleMetadataFile))
+                paste(bold("Metadata File:"), deparse(sampleMetadataFile))
             )
         }
 
@@ -80,9 +80,9 @@ setMethod(
                 m[m[["name"]] == "genome_build", "value", drop = TRUE]
             return <- c(
                 return,
-                paste("AnnotationHub:", deparse(annotationHub)),
-                paste("Ensembl Release:", deparse(ensemblRelease)),
-                paste("Genome Build:", deparse(genomeBuild))
+                paste(bold("AnnotationHub:"), deparse(annotationHub)),
+                paste(bold("Ensembl Release:"), deparse(ensemblRelease)),
+                paste(bold("Genome Build:"), deparse(genomeBuild))
             )
         }
 
@@ -91,7 +91,7 @@ setMethod(
         if (length(gffFile)) {
             return <- c(
                 return,
-                paste("GFF File:", deparse(gffFile))
+                paste(bold("GFF File:"), deparse(gffFile))
             )
         }
 

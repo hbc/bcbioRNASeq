@@ -48,6 +48,7 @@
 #'   readYAMLSampleMetrics sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design
 #' @importFrom cowplot draw_plot ggdraw plot_grid
+#' @importFrom crayon bold
 #' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqTransform estimateDispersions
