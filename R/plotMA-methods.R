@@ -27,9 +27,18 @@
 #'
 #' @examples
 #' gene2symbol <- gene2symbol(bcb_small)
+#' print(gene2symbol)
+#'
+#' geneIDs <- head(gene2symbol[["geneID"]])
+#' print(geneIDs)
+#'
+#' geneNames <- head(gene2symbol[["geneName"]])
+#' print(geneNames)
 #'
 #' # DESeqResults ====
-#' # Color DEGs in each direction separately
+#' summary(res_small)
+#'
+#' # Color DEGs in each direction separately.
 #' plotMA(
 #'     object = res_small,
 #'     sigPointColor = c(
@@ -38,10 +47,10 @@
 #'     )
 #' )
 #'
-#' # Label DEGs with a single color
+#' # Label DEGs with a single color.
 #' plotMA(res_small, sigPointColor = "purple")
 #'
-#' # Directional support
+#' # Directional support (up or down).
 #' plotMA(
 #'     object = res_small,
 #'     direction = "up",
@@ -55,10 +64,16 @@
 #'     gene2symbol = gene2symbol
 #' )
 #'
-#' # Label genes manually
+#' # Label genes manually.
+#' # Note that either gene IDs or names (symbols) are supported.
 #' plotMA(
 #'     object = res_small,
-#'     genes = head(rownames(res_small)),
+#'     genes = geneIDs,
+#'     gene2symbol = gene2symbol
+#' )
+#' plotMA(
+#'     object = res_small,
+#'     genes = geneNames,
 #'     gene2symbol = gene2symbol
 #' )
 NULL
@@ -93,9 +108,13 @@ setMethod(
         assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
-        assertFormalGene2symbol(object, genes, gene2symbol)
+        assert_is_any_of(genes, c("character", "NULL"))
+        assert_is_any_of(gene2symbol, c("gene2symbol", "NULL"))
         direction <- match.arg(direction)
         assert_all_are_non_negative(ntop)
+        if (!is.null(genes) && !is.null(ntop)) {
+            stop("Specify either `genes` or `ntop`, but not both")
+        }
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
@@ -131,28 +150,38 @@ setMethod(
                 lfcCol = lfcCol,
                 lfcThreshold = lfcThreshold
             )
+        assert_is_subset(
+            x = c(
+                "rowname",
+                "baseMean",
+                lfcCol,
+                testCol,
+                "rankScore",
+                "rank",
+                "isDE"
+            ),
+            y = colnames(data)
+        )
 
+        # Apply directional filtering, if desired.
         if (direction == "up") {
-            data <- data[data[[lfcCol]] > 0L, , drop = FALSE]
+            data <- filter(data, sym(lfcCol) > 0L)
         } else if (direction == "down") {
-            data <- data[data[[lfcCol]] < 0L, , drop = FALSE]
+            data <- filter(data, sym(lfcCol) < 0L)
         }
 
-        # Gene-to-symbol mappings
-        if (is.data.frame(gene2symbol)) {
-            assertIsGene2symbol(gene2symbol)
-            gene2symbol <- as(gene2symbol, "tbl_df")
-            data <- left_join(data, gene2symbol, by = "rowname")
-            labelCol <- "geneName"
-        } else {
-            labelCol <- "rowname"
+        # Check for no genes passing cutoffs and early return.
+        if (!nrow(data)) {
+            warning("No genes passed cutoffs")
+            return(invisible())
         }
 
-        # Early return data frame, if desired
+        # Early return data frame, if desired.
         if (return == "DataFrame") {
             return(as(data, "DataFrame"))
         }
 
+        # ggplot ---------------------------------------------------------------
         xFloor <- data[["baseMean"]] %>%
             min() %>%
             log10() %>%
@@ -192,6 +221,8 @@ setMethod(
                 y = "log2 fold change"
             )
 
+        # Color the significant points.
+        # Note that we're using direction-specific coloring by default.
         if (is_a_string(pointColor) && is.character(sigPointColor)) {
             p <- p +
                 scale_color_manual(
@@ -207,26 +238,48 @@ setMethod(
         }
 
         # Gene text labels -----------------------------------------------------
-        # FIXME
-        warning("Rework the gene section")
-        labelData <- NULL
-        if (is.null(genes) && is_positive(ntop)) {
-            genes <- data[1L:ntop, "rowname", drop = TRUE]
+        # Get the genes to visualize when `ntop` is declared.
+        if (length(ntop)) {
+            assert_is_subset(
+                x = c("rowname", "rank"),
+                y = colnames(data)
+            )
+            # Double check that data is arranged by `rank` column.
+            assert_are_identical(
+                x = seq_len(nrow(data)),
+                y = data[["rank"]]
+            )
+            # Since we know the data is arranged by rank, simply take the head.
+            genes <- head(data[["rowname"]], n = ntop)
         }
-        if (is.character(genes)) {
-            assert_is_subset(genes, data[["rowname"]])
-            labelData <- data[data[["rowname"]] %in% genes, , drop = FALSE]
+
+        # Visualize specific genes on the plot, if desired.
+        if (length(genes)) {
+            validObject(gene2symbol)
+            assertFormalGene2symbol(
+                object = object,
+                genes = genes,
+                gene2symbol = gene2symbol
+            )
+            # Map the user-defined `genes` to `gene2symbol` rownames.
+            # We're using this to match back to the `DESeqResults` object.
+            rownames <- mapGenesToRownames(object = gene2symbol, genes = genes)
+            # Prepare the label data tibble.
+            labelData <- data %>%
+                .[match(x = rownames, table = .[["rowname"]]), ] %>%
+                left_join(as(gene2symbol, "tbl_df"), by = "rowname")
             p <- p +
                 basejump_geom_label_repel(
                     data = labelData,
                     mapping = aes(
                         x = !!sym("baseMean"),
                         y = !!sym(lfcCol),
-                        label = !!sym(labelCol)
+                        label = !!sym("geneName")
                     )
                 )
         }
 
+        # Return ---------------------------------------------------------------
         p
     }
 )

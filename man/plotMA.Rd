@@ -54,9 +54,18 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 }
 \examples{
 gene2symbol <- gene2symbol(bcb_small)
+print(gene2symbol)
+
+geneIDs <- head(gene2symbol[["geneID"]])
+print(geneIDs)
+
+geneNames <- head(gene2symbol[["geneName"]])
+print(geneNames)
 
 # DESeqResults ====
-# Color DEGs in each direction separately
+summary(res_small)
+
+# Color DEGs in each direction separately.
 plotMA(
     object = res_small,
     sigPointColor = c(
@@ -65,10 +74,10 @@ plotMA(
     )
 )
 
-# Label DEGs with a single color
+# Label DEGs with a single color.
 plotMA(res_small, sigPointColor = "purple")
 
-# Directional support
+# Directional support (up or down).
 plotMA(
     object = res_small,
     direction = "up",
@@ -82,10 +91,16 @@ plotMA(
     gene2symbol = gene2symbol
 )
 
-# Label genes manually
+# Label genes manually.
+# Note that either gene IDs or names (symbols) are supported.
 plotMA(
     object = res_small,
-    genes = head(rownames(res_small)),
+    genes = geneIDs,
+    gene2symbol = gene2symbol
+)
+plotMA(
+    object = res_small,
+    genes = geneNames,
     gene2symbol = gene2symbol
 )
 }
