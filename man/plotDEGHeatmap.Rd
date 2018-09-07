@@ -4,23 +4,31 @@
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
 \alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
-\alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
+\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
+\alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(results, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
-  counts, alpha, lfcThreshold = 0L, scale = c("row", "column", "none"),
-  title = TRUE, interestingGroups, clusterRows = TRUE,
+  counts, alpha = NULL, lfcThreshold = 0L, scale = "row",
+  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
   clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
   treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
   legendColor = NULL, borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(results, counts,
+  alpha = NULL, lfcThreshold = 0L, scale = "row", title = TRUE,
+  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
+  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
+  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
+  borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
+
+\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{results}{\code{DESeqResults}.}

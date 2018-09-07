@@ -1,3 +1,8 @@
+# TODO Add an option to compare STAR/salmon. Explain this in more detail in
+# the documentation and vignette...confusing.
+
+
+
 #' Plot Total Reads
 #'
 #' High quality RNA-seq samples ideally should have at least 10 million reads
@@ -24,7 +29,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 10e6L,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -35,6 +40,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)

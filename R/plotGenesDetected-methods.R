@@ -1,3 +1,9 @@
+# FIXME Include an option to use the mapped genes from STAR or the genes
+# detected from salmon output.
+# Explain the minCounts logic in more detail in the documentation.
+
+
+
 #' Plot Genes Detected
 #'
 #' @name plotGenesDetected
@@ -21,7 +27,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0L,
         minCounts = 1L,
         fill = getOption("bcbio.discrete.fill", NULL),
@@ -33,6 +39,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
         assertIsAnImplicitInteger(minCounts)

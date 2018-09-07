@@ -32,7 +32,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -44,6 +44,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         normalized <- match.arg(normalized)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)

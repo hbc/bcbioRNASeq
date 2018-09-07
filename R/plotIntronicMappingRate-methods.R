@@ -23,7 +23,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.2,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -34,6 +34,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assert_is_a_number(limit)
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)

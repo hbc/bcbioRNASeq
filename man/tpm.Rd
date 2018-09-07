@@ -20,7 +20,8 @@ tpm(object)
 Transcripts Per Million (TPM)
 }
 \examples{
-tpm(bcb_small) \%>\% summary()
+x <- tpm(bcb_small)
+summary(x)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},

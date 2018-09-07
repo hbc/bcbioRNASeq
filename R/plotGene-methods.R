@@ -21,7 +21,7 @@
 #'
 #' @examples
 #' # Gene identifiers
-#' genes <- head(rownames(bcb_small), 4L)
+#' genes <- head(rownames(bcb_small), n = 4L)
 #' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
@@ -37,7 +37,7 @@ NULL
 
 .plotGeneFacet <- function(
     object,
-    interestingGroups,
+    interestingGroups = NULL,
     countsAxisLabel = "counts",
     medianLine = TRUE,
     color = NULL,
@@ -45,13 +45,16 @@ NULL
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
+    interestingGroups <- matchInterestingGroups(
+        object = object,
+        interestingGroups = interestingGroups
+    )
+    interestingGroups(object) <- interestingGroups
 
     object <- convertGenesToSymbols(object)
-    assert_is_character(interestingGroups)
-
     data <- .meltCounts(
         counts = assay(object),
-        sampleData = sampleData(object, clean = FALSE)
+        sampleData = sampleData(object)
     )
 
     p <- ggplot(
@@ -97,10 +100,13 @@ NULL
 ) {
     stopifnot(is(object, "SummarizedExperiment"))
     stopifnot(length(rownames(object)) <= 50L)
+    interestingGroups <- matchInterestingGroups(
+        object = object,
+        interestingGroups = interestingGroups
+    )
+    interestingGroups(object) <- interestingGroups
 
     object <- convertGenesToSymbols(object)
-    assert_is_character(interestingGroups)
-
     data <- .meltCounts(
         counts = assay(object),
         sampleData = sampleData(object)
@@ -142,7 +148,7 @@ setMethod(
     function(
         object,
         genes,
-        interestingGroups,
+        interestingGroups = NULL,
         countsAxisLabel = "counts",
         medianLine = TRUE,
         color = getOption("bcbio.discrete.color", NULL),
@@ -156,6 +162,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assert_is_a_bool(medianLine)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(legend)

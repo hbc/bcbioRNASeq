@@ -53,9 +53,9 @@ NULL
 function(
     results,
     counts,
-    alpha,
+    alpha = NULL,
     lfcThreshold = 0L,
-    scale = c("row", "column", "none"),
+    scale = "row",
     title = TRUE
     # Defining additional formals below.
 ) {
@@ -67,13 +67,18 @@ function(
     }
     counts <- as(counts, "SummarizedExperiment")
     assert_are_identical(rownames(results), rownames(counts))
-    if (missing(alpha)) {
+    if (is.null(alpha)) {
         alpha <- metadata(results)[["alpha"]]
     }
     assert_is_a_number(alpha)
     assert_is_a_number(lfcThreshold)
     assert_all_are_non_negative(lfcThreshold)
-    scale <- match.arg(scale)
+    # Hiding the choices from the user by default, because in most cases row
+    # scaling should be used.
+    scale <- match.arg(
+        arg = scale,
+        choices = c("row", "column", "none")
+    )
 
     # Title
     if (isTRUE(title)) {
@@ -93,19 +98,24 @@ function(
     # Subset the counts to only contain DEGs.
     counts <- counts[deg, , drop = FALSE]
 
-    # Using SummarizedExperiment method here.
-    args <- as.list(matchS4Call())[-1L]
-    args[["object"]] <- counts
-    args <- args[setdiff(
-        x = names(args),
-        y = c(
+    # Using `do.call()` return with SummarizedExperiment method here.
+    args <- setArgsToDoCall(
+        args = list(
+            object = counts,
+            interestingGroups = interestingGroups,
+            scale = scale,
+            title = title,
+            ...
+        ),
+        removeArgs = c(
             "results",
             "counts",
             "alpha",
-            "lfcThreshold",
-            "..."
-        )
-    )]
+            "lfcThreshold"
+        ),
+        call = matchS4Call(),
+        fun = sys.function()
+    )
     do.call(what = plotHeatmap, args = args)
 }
 
@@ -120,7 +130,7 @@ f2 <- f2[setdiff(
     y = c(names(f1), "object")
 )]
 f <- c(f1, f2)
-formals(.plotDEGHeatmap) <- as.pairlist(f)
+formals(.plotDEGHeatmap) <- f
 
 
 
@@ -133,6 +143,53 @@ setMethod(
         counts = "SummarizedExperiment"
     ),
     .plotDEGHeatmap
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqTransform"
+    ),
+    getMethod(
+        "plotDEGHeatmap",
+        signature(
+            results = "DESeqResults",
+            counts = "SummarizedExperiment"
+        )
+    )
+)
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    "plotDEGHeatmap",
+    signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    function(
+        results,
+        counts,
+        ...
+    ) {
+        validObject(counts)
+        message("Using normalized counts")
+        rse <- as(counts, "RangedSummarizedExperiment")
+        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
+        args <- list(
+            results = results,
+            counts = rse,
+            ...
+        )
+        do.call(what = plotDEGHeatmap, args = args)
+    }
 )
 
 
@@ -156,40 +213,11 @@ setMethod(
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = normalized))
-        plotDEGHeatmap(
+        args <- list(
             results = results,
             counts = rse,
             ...
         )
-    }
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqDataSet"
-    ),
-    function(
-        results,
-        counts,
-        ...
-    ) {
-        validObject(counts)
-        message("Using normalized counts")
-        rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts(counts, normalized = TRUE))
-        # FIXME
-        print(sys.calls())
-        args <- as.list(matchS4Call())[-1L]
-        args[["counts"]] <- rse
-        do.call(
-            what = plotDEGHeatmap,
-            args = args
-        )
+        do.call(what = plotDEGHeatmap, args = args)
     }
 )

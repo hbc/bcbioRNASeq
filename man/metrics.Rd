@@ -6,7 +6,7 @@
 \alias{metrics,bcbioRNASeq-method}
 \title{Sample Metrics}
 \usage{
-\S4method{metrics}{bcbioRNASeq}(object, interestingGroups)
+\S4method{metrics}{bcbioRNASeq}(object, interestingGroups = NULL)
 }
 \arguments{
 \item{object}{Object.}

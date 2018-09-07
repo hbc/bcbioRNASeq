@@ -9,7 +9,8 @@
 #' @return `matrix`.
 #'
 #' @examples
-#' tpm(bcb_small) %>% summary()
+#' x <- tpm(bcb_small)
+#' summary(x)
 NULL
 
 

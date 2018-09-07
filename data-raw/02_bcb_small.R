@@ -2,8 +2,6 @@ library(devtools)
 library(tidyverse)
 load_all()
 
-
-
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 # HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2
@@ -28,14 +26,10 @@ gse65267 <- bcbioRNASeq(
 )
 saveData(gse65267, dir = "data-raw")
 
-
-
 # F1000 paper ==================================================================
 # Subset days 0, 1, 3, 7
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000, dir = "data-raw")
-
-
 
 # bcb_small ====================================================================
 # Minimal working example: days 0, 7

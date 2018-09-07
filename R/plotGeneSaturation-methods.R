@@ -1,3 +1,7 @@
+# TODO Consider setting y-int to zero here, or scaling on a sqrt or log2...
+
+
+
 #' Plot Gene Detection Saturation
 #'
 #' We should observe a linear trend in the number of genes detected with the
@@ -27,7 +31,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         minCounts = 1L,
         trendline = FALSE,
         label = getOption("bcbio.label", FALSE),
@@ -39,6 +43,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(minCounts)
         assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
         assert_is_a_bool(trendline)

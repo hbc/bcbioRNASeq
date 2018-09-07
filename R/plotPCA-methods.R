@@ -51,7 +51,7 @@ setMethod(
     signature("SummarizedExperiment"),
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
@@ -86,6 +86,7 @@ setMethod(
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         assert_is_a_number(ntop)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
