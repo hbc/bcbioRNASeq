@@ -85,7 +85,9 @@ with_parameters_test_that(
             )
         )
         expect_is(
-            object = suppressWarnings(counts(object, normalized = normalized)),
+            object = suppressWarnings(
+                counts(object, normalized = normalized)
+            ),
             class = "matrix"
         )
     },
@@ -95,20 +97,7 @@ with_parameters_test_that(
 
 
 # interestingGroups ============================================================
-test_that("interestingGroups : NULL handling", {
-    expect_is(
-        metrics(bcb, interestingGroups = NULL),
-        "data.frame"
-    )
-    expect_is(
-        plotTotalReads(bcb, interestingGroups = NULL),
-        "ggplot"
-    )
-    expect_is(
-        sampleData(bcb, interestingGroups = NULL),
-        "DataFrame"
-    )
-
+test_that("interestingGroups : NULL validity checks", {
     object <- bcb
     expect_error(interestingGroups(object) <- NULL)
     metadata(object)[["interestingGroups"]] <- NULL
@@ -119,62 +108,71 @@ test_that("interestingGroups : NULL handling", {
 
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
-    # Return `interestingGroups` factor column by default.
     object <- sampleData(bcb, clean = FALSE)
+
+    # Return `interestingGroups` factor column by default.
     expect_is(object[["interestingGroups"]], "factor")
+
+    # Otherwise it should be identical to `colData`.
     object[["interestingGroups"]] <- NULL
     expected <- colData(bcb)
     expect_identical(object, expected)
-
-    # Check that interesting groups passthrough works.
-    object <- sampleData(bcb, clean = FALSE, interestingGroups = "group")
-    expect_identical(
-        levels(object[["interestingGroups"]]),
-        c("ctrl", "ko")
-    )
 })
 
 test_that("sampleData : Clean mode", {
-    # Return useful factor columns
     object <- sampleData(bcb, clean = TRUE)
+    # Return only useful factor columns.
     expect_identical(
-        colnames(object),
-        c("sampleName", "group")
+        object = colnames(object),
+        expected = c("sampleName", "group")
     )
-    # Ensure all columns are factor
+    # Require that all clean columns are factor.
     invisible(lapply(object, function(object) {
         expect_is(object, "factor")
     }))
 })
 
-test_that("sampleData assignment", {
+test_that("sampleData<-", {
     object <- bcb
     sampleData(object)[["testthat"]] <- factor("XXX")
-    expect_identical(levels(sampleData(object)[["testthat"]]), "XXX")
+    expect_identical(
+        object = levels(sampleData(object)[["testthat"]]),
+        expected = "XXX"
+    )
 })
 
 
 
 # selectSamples ================================================================
-test_that("selectSamples : bcbioRNASeq", {
-    object <- selectSamples(bcb, group = "ctrl")
-    expect_identical(colnames(object), c("group1_1", "group1_2"))
-    expect_identical(
-        assayNames(object),
-        c("counts", "tpm", "length", "normalized", "vst", "rlog")
+with_parameters_test_that(
+    "selectSamples", {
+        # All objects have the same `group` column defined.
+        object <- selectSamples(object, group = "ctrl")
+        expect_s4_class(object, class = "SummarizedExperiment")
+        expect_identical(
+            object = colnames(object),
+            expected = c("group1_1", "group1_2")
+        )
+    },
+    object = list(
+        bcbioRNASeq = bcb,
+        DESeqDataSet = dds
     )
-})
-
-test_that("selectSamples : DESeqDataSet", {
-    object <- selectSamples(dds, group = "ctrl")
-    expect_identical(colnames(object), c("group1_1", "group1_2"))
-})
+)
 
 
 
 # tmm ==========================================================================
-test_that("tmm", {
-    expect_is(tmm(bcb), "matrix")
-    expect_is(tmm(dds), "matrix")
-    expect_is(tmm(assay(bcb)), "matrix")
-})
+with_parameters_test_that(
+    "tmm", {
+        expect_is(
+            object = tmm(object),
+            class = "matrix"
+        )
+    },
+    object = list(
+        bcbioRNASeq = bcb,
+        DESeqDataSet = dds,
+        matrix = assay(bcb)
+    )
+)
