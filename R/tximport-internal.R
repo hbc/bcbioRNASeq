@@ -1,3 +1,7 @@
+# FIXME Require and check for `tx2gene` class object.
+
+
+
 #' Import Transcript-Level Abundances and Counts
 #'
 #' Import RNA-seq counts using
