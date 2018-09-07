@@ -111,8 +111,9 @@ setMethod(
         assert_is_any_of(genes, c("character", "NULL"))
         assert_is_any_of(gene2symbol, c("gene2symbol", "NULL"))
         direction <- match.arg(direction)
+        assert_is_a_number(ntop)
         assert_all_are_non_negative(ntop)
-        if (!is.null(genes) && !is.null(ntop)) {
+        if (!is.null(genes) && ntop > 0L) {
             stop("Specify either `genes` or `ntop`, but not both")
         }
         assert_is_a_string(pointColor)
@@ -239,22 +240,22 @@ setMethod(
 
         # Gene text labels -----------------------------------------------------
         # Get the genes to visualize when `ntop` is declared.
-        if (length(ntop)) {
+        if (ntop > 0L) {
             assert_is_subset(
                 x = c("rowname", "rank"),
                 y = colnames(data)
             )
             # Double check that data is arranged by `rank` column.
             assert_are_identical(
-                x = seq_len(nrow(data)),
-                y = data[["rank"]]
+                x = data[["rank"]],
+                y = sort(data[["rank"]])
             )
             # Since we know the data is arranged by rank, simply take the head.
             genes <- head(data[["rowname"]], n = ntop)
         }
 
         # Visualize specific genes on the plot, if desired.
-        if (length(genes)) {
+        if (!is.null(genes)) {
             validObject(gene2symbol)
             assertFormalGene2symbol(
                 object = object,
@@ -263,7 +264,10 @@ setMethod(
             )
             # Map the user-defined `genes` to `gene2symbol` rownames.
             # We're using this to match back to the `DESeqResults` object.
-            rownames <- mapGenesToRownames(object = gene2symbol, genes = genes)
+            rownames <- mapGenesToRownames(
+                object = gene2symbol,
+                genes = genes
+            )
             # Prepare the label data tibble.
             labelData <- data %>%
                 .[match(x = rownames, table = .[["rowname"]]), ] %>%
