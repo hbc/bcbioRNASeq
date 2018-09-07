@@ -39,8 +39,8 @@ To set the discrete fill palette globally, use
 \item{flip}{\code{boolean}. Flip x and y axes. Recommended for quality control
 plots containing many samples.}
 
-\item{gene2symbol}{\code{data.frame}. Gene-to-symbol mappings. Must contain the
-columns \code{geneID} and \code{geneName}.}
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from

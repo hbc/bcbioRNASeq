@@ -27,8 +27,8 @@ threshold.}
 the object. It is best practice to use the stable gene identifiers from
 Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{\code{data.frame}. Gene-to-symbol mappings. Must contain the
-columns \code{geneID} and \code{geneName}.}
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
