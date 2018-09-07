@@ -2,21 +2,24 @@ context("S4 Object")
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
-
-
-# bcbioRNASeq Object Structure =================================================
 bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     organism = "Mus musculus",
     ensemblRelease = 87L,
     testthat = "XXX"
 ))
-expect_true(validObject(bcb))
 
-test_that("Slots", {
+
+
+# bcbioRNASeq Object Structure =================================================
+test_that("Validity", {
+    expect_true(validObject(bcb))
+})
+
+test_that("Slot names", {
     expect_identical(
-        slotNames(bcb),
-        c(
+        object = slotNames(bcb),
+        expected = c(
             "rowRanges",
             "colData",
             "assays",
@@ -25,45 +28,50 @@ test_that("Slots", {
             "metadata"
         )
     )
-    expect_identical(
-        lapply(seq_along(slotNames(bcb)), function(a) {
-            class(slot(bcb, slotNames(bcb)[[a]]))
-        }),
-        list(
-            structure(
-                "GRanges",
-                package = "GenomicRanges"
-            ),
-            structure(
-                "DataFrame",
-                package = "S4Vectors"
-            ),
-            structure(
-                "ShallowSimpleListAssays",
-                package = "SummarizedExperiment"
-            ),
-            "NULL",  # character for SummarizedExperiment
-            structure(
-                "DataFrame",
-                package = "S4Vectors"
-            ),
-            "list"
-        )
-    )
 })
+
+with_parameters_test_that(
+    "Slot definitions", {
+        expect_identical(
+            object = class(slot(bcb, slotName)),
+            expected = expected
+        )
+    },
+    slotName = slotNames(bcb),
+    expected = list(
+        rowRanges = structure(
+            "GRanges",
+            package = "GenomicRanges"
+        ),
+        colData = structure(
+            "DataFrame",
+            package = "S4Vectors"
+        ),
+        assays = structure(
+            "ShallowSimpleListAssays",
+            package = "SummarizedExperiment"
+        ),
+        NAMES = "NULL",
+        elementMetadata = structure(
+            "DataFrame",
+            package = "S4Vectors"
+        ),
+        metadata = "list"
+    )
+)
 
 test_that("Dimensions", {
     expect_identical(
-        dim(bcb),
-        c(502L, 4L)
+        object = dim(bcb),
+        expected = c(502L, 4L)
     )
     expect_identical(
-        colnames(bcb),
-        c("group1_1", "group1_2", "group2_1", "group2_2")
+        object = colnames(bcb),
+        expected = c("group1_1", "group1_2", "group2_1", "group2_2")
     )
     expect_identical(
-        rownames(bcb)[1L:4L],
-        c(
+        object = head(rownames(bcb), n = 4L),
+        expected = c(
             "ENSMUSG00000002459",
             "ENSMUSG00000004768",
             "ENSMUSG00000005886",
@@ -72,32 +80,29 @@ test_that("Dimensions", {
     )
 })
 
-test_that("Assays", {
-    # All assays should be a matrix
-    expect_true(all(vapply(
-        X = assays(bcb),
-        FUN = function(assay) {
-            is.matrix(assay)
-        },
-        FUN.VALUE = logical(1L)
-    )))
-})
+with_parameters_test_that(
+    "Assays", {
+        expect_is(object, "matrix")
+    },
+    object = as.list(assays(bcb))
+)
 
-test_that("Row data", {
-    # Ensembl annotations from AnnotationHub, using ensembldb
-    expect_identical(
-        lapply(rowData(bcb), class),
-        list(
-            broadClass = "factor",
-            description = "factor",
-            entrezID = "list",
-            geneBiotype = "factor",
-            geneID = "character",
-            geneName = "factor",
-            seqCoordSystem = "factor"
-        )
+# Ensembl annotations from AnnotationHub, using ensembldb.
+with_parameters_test_that(
+    "Row data structure", {
+        expect_identical(object, expected)
+    },
+    object = lapply(rowData(bcb), class),
+    expected = list(
+        broadClass = "factor",
+        description = "factor",
+        entrezID = "list",
+        geneBiotype = "factor",
+        geneID = "character",
+        geneName = "factor",
+        seqCoordSystem = "factor"
     )
-})
+)
 
 test_that("Metadata", {
     tibble <- c("tbl_df", "tbl", "data.frame")
