@@ -4,3 +4,4 @@
 .httr-oauth
 data-raw/*.rda
 inst/doc/
+*.pdf
