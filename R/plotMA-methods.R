@@ -165,9 +165,9 @@ setMethod(
 
         # Apply directional filtering, if desired.
         if (direction == "up") {
-            data <- filter(data, sym(lfcCol) > 0L)
+            data <- filter(data, !!sym(lfcCol) > 0L)
         } else if (direction == "down") {
-            data <- filter(data, sym(lfcCol) < 0L)
+            data <- filter(data, !!sym(lfcCol) < 0L)
         }
 
         # Check for no genes passing cutoffs and early return.
