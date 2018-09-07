@@ -94,8 +94,7 @@ function(
     counts <- counts[deg, , drop = FALSE]
 
     # Using SummarizedExperiment method here.
-    # args <- as.list(matchS4Call())[-1L]
-    args <- as.list(match.call())[-1L]
+    args <- as.list(matchS4Call())[-1L]
     args[["object"]] <- counts
     args <- args[setdiff(
         x = names(args),
@@ -103,7 +102,8 @@ function(
             "results",
             "counts",
             "alpha",
-            "lfcThreshold"
+            "lfcThreshold",
+            "..."
         )
     )]
     do.call(what = plotHeatmap, args = args)
@@ -183,29 +183,13 @@ setMethod(
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = TRUE))
-        plotDEGHeatmap(
-            results = results,
-            counts = rse,
-            ...
+        # FIXME
+        print(sys.calls())
+        args <- as.list(matchS4Call())[-1L]
+        args[["counts"]] <- rse
+        do.call(
+            what = plotDEGHeatmap,
+            args = args
         )
     }
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    "plotDEGHeatmap",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
-    getMethod(
-        "plotDEGHeatmap",
-        signature(
-            results = "DESeqResults",
-            counts = "SummarizedExperiment"
-        )
-    )
 )
