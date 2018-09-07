@@ -1,10 +1,3 @@
-# FIXME Include the alpha information in the plot.
-# FIXME Use `mapGenesToRownames()` to handle `genes` input.
-# FIXME Improve gene2symbol mapping support (see plotVolcano.)
-# FIXME `useMapGenesToRownames()` for `DataFrame` method.
-
-
-
 #' MA Plot
 #'
 #' An MA plot is an application of a Bland–Altman plot for visual representation
