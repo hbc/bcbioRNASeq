@@ -1,6 +1,7 @@
 # FIXME Include the alpha information in the plot.
 # FIXME Use `mapGenesToRownames()` to handle `genes` input.
 # FIXME Improve gene2symbol mapping support (see plotVolcano.)
+# FIXME `useMapGenesToRownames()` for `DataFrame` method.
 
 
 
@@ -89,7 +90,7 @@ setMethod(
             alpha <- metadata(object)[["alpha"]]
         }
         assert_is_a_number(alpha)
-        assert_all_are_in_left_open_range(alpha, 0L, 1L)
+        assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assertFormalGene2symbol(object, genes, gene2symbol)
@@ -103,7 +104,7 @@ setMethod(
                 downregulated = sigPointColor
             )
         }
-        assert_is_of_length(sigPointColor, 2L)
+        assert_is_of_length(sigPointColor, n = 2L)
         return <- match.arg(return)
 
         # Check to see if we should use `sval` instead of `padj`
@@ -185,6 +186,7 @@ setMethod(
             guides(color = FALSE) +
             labs(
                 title = contrastName(object),
+                subtitle = paste("alpha", "<", alpha),
                 x = "mean expression across all samples",
                 y = "log2 fold change"
             )
@@ -205,7 +207,7 @@ setMethod(
 
         # Gene text labels -----------------------------------------------------
         # FIXME
-        stop("Rework this section")
+        warning("Rework the gene section")
         labelData <- NULL
         if (is.null(genes) && is_positive(ntop)) {
             genes <- data[1L:ntop, "rowname", drop = TRUE]

@@ -11,7 +11,7 @@
   lfcThreshold = 0L, genes = NULL, gene2symbol = NULL, ntop = 0L,
   direction = c("both", "up", "down"), pointColor = "gray50",
   sigPointColor = c(upregulated = "purple", downregulated = "orange"),
-  return = c("ggplot", "data.frame"))
+  return = c("ggplot", "DataFrame"))
 }
 \arguments{
 \item{...}{Additional arguments.}
