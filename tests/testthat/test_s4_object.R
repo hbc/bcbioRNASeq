@@ -1,7 +1,5 @@
 context("S4 Object")
 
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-
 bcb <- bcbioRNASeq(
     uploadDir = uploadDir,
     organism = "Mus musculus",
