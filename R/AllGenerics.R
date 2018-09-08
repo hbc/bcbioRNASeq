@@ -185,6 +185,18 @@ setGeneric(
 
 
 
+# FIXME
+#' #' @rdname plotTotalCounts
+#' #' @export
+#' setGeneric(
+#'     "plotTotalCounts",
+#'     function(object, ...) {
+#'         standardGeneric("plotTotalCounts")
+#'     }
+#' )
+
+
+
 #' @rdname plotTotalReads
 #' @export
 setGeneric(
