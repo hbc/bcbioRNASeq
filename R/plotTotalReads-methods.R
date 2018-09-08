@@ -1,8 +1,3 @@
-# TODO Add an option to compare STAR/salmon. Explain this in more detail in
-# the documentation and vignette...confusing.
-
-
-
 #' Plot Total Reads
 #'
 #' High quality RNA-seq samples ideally should have at least 10 million reads
@@ -67,7 +62,7 @@ setMethod(
             )
 
         if (is_positive(limit)) {
-            # Convert limit to per million
+            # Convert limit to per million.
             if (limit < 1e6L) {
                 # nocov start
                 warning("`limit`: Use absolute value, not per million")
