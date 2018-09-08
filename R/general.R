@@ -48,7 +48,7 @@
 #'     - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'     - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'     - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#'   Only applies to gene-level counts.
+#'   Transcript-level counts support only "`tpm`".
 #' @param ntop `scalar integer`. Number of top genes to label.
 #' @param passLimit `scalar numeric`. Threshold to plot pass color marker.
 #' @param pointColor `string`. Default point color for the plot.

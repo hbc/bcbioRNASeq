@@ -1,4 +1,4 @@
-# TODO Consider setting y-int to zero here, or scaling on a sqrt or log2...
+# FIXME Improve y-axis scaling / intercept here.
 
 
 

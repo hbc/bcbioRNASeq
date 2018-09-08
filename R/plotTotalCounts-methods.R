@@ -4,9 +4,8 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
+#' @inheritParams counts
 #' @inheritParams general
-#' @param normalized `boolean`. Use raw counts (`FALSE`) or DESeq2 normailzed
-#'   counts (`TRUE`). Only applies to gene-level counts.
 #'
 #' @return `ggplot`.
 #'
@@ -25,20 +24,16 @@ setMethod(
         object,
         normalized = FALSE,
         interestingGroups = NULL,
-        limit = 10e6L,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "total counts"
     ) {
         validObject(object)
-        assert_is_a_bool(normalized)
         interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
         )
         interestingGroups(object) <- interestingGroups
-        assertIsAnImplicitInteger(limit)
-        assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
@@ -65,20 +60,6 @@ setMethod(
                 y = "counts per million",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
-
-        if (is_positive(limit)) {
-            # Convert limit to per million.
-            if (limit < 1e6L) {
-                # nocov start
-                warning("`limit`: Use absolute value, not per million")
-                # nocov end
-            } else {
-                limit <- limit / 1e6L
-            }
-            if (limit > 1L) {
-                p <- p + basejump_geom_abline(yintercept = limit)
-            }
-        }
 
         if (is(fill, "ScaleDiscrete")) {
             p <- p + fill
