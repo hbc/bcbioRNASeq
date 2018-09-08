@@ -9,23 +9,26 @@
 plotTotalCounts(object, ...)
 
 \S4method{plotTotalCounts}{bcbioRNASeq}(object, normalized = FALSE,
-  interestingGroups = NULL, limit = 10000000L,
-  fill = getOption("bcbio.discrete.fill", NULL),
-  flip = getOption("bcbio.flip", TRUE), title = "total counts")
+  interestingGroups = NULL, fill = getOption("bcbio.discrete.fill",
+  NULL), flip = getOption("bcbio.flip", TRUE), title = "total counts")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{normalized}{\code{boolean}. Use raw counts (\code{FALSE}) or DESeq2 normailzed
-counts (\code{TRUE}). Only applies to gene-level counts.}
+\item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
+- \code{FALSE}: Raw counts (tximport).
+- \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+- "\code{tpm}": Transcripts per million (tximport).
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+- "\code{rle}": Relative log expression transformation.
+Transcript-level counts support only \code{FALSE} and "\code{tpm}".}
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
-
-\item{limit}{\code{scalar numeric}. Threshold to denote on the plot, using a
-dashed line.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color

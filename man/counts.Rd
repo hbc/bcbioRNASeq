@@ -19,7 +19,7 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 - "\code{rle}": Relative log expression transformation.
-Only applies to gene-level counts.}
+Transcript-level counts support only \code{FALSE} and "\code{tpm}".}
 }
 \value{
 \code{matrix}.

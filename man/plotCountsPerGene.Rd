@@ -25,8 +25,7 @@ samples. If left unset, defaults to \code{sampleName}.}
 - "\code{tpm}": Transcripts per million (tximport).
 - "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-Only applies to gene-level counts.}
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color

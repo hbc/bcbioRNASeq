@@ -55,8 +55,7 @@ and picks the first item in the vector by default.}
 - "\code{tpm}": Transcripts per million (tximport).
 - "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-Only applies to gene-level counts.}
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
 \item{...}{Additional arguments.}
 }
