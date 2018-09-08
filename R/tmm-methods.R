@@ -33,6 +33,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         validObject(object)
+        .assertIsGeneLevel(object)
         tmm(assay(object))
     }
 )
