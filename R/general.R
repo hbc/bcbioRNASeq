@@ -44,10 +44,11 @@
 #' @param minCounts `scalar integer`. Minimum number of counts per gene in the
 #'   counts matrix.
 #' @param normalized `string`. Which normalization method to apply:
-#'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'     - "`tpm`": Transcripts per million (tximport).
+#'     - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+#'     - "`rlog`": DESeq2 **log2** regularized log transformation.
+#'     - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'   Only applies to gene-level counts.
 #' @param ntop `scalar integer`. Number of top genes to label.
 #' @param passLimit `scalar numeric`. Threshold to plot pass color marker.
 #' @param pointColor `string`. Default point color for the plot.

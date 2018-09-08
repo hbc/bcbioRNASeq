@@ -13,13 +13,14 @@
 #'
 #' @inheritParams general
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
-#'   - `FALSE`: Raw counts (tximport).
-#'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
-#'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rle`": Relative log expression transformation.
+#'     - `FALSE`: Raw counts (tximport).
+#'     - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
+#'     - "`tpm`": Transcripts per million (tximport).
+#'     - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#'     - "`rlog`": DESeq2 **log2** regularized log transformation.
+#'     - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+#'     - "`rle`": Relative log expression transformation.
+#'   Only applies to gene-level counts.
 #'
 #' @return `matrix`.
 #'
