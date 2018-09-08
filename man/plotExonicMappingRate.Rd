@@ -60,6 +60,7 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
   \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotTotalCounts}},
   \code{\link{plotTotalReads}}
 }
 \author{

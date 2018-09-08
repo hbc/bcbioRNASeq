@@ -12,15 +12,14 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
-\itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rle}": Relative log expression transformation.
-}}
+- \code{FALSE}: Raw counts (tximport).
+- \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+- "\code{tpm}": Transcripts per million (tximport).
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+- "\code{rle}": Relative log expression transformation.
+Only applies to gene-level counts.}
 }
 \value{
 \code{matrix}.

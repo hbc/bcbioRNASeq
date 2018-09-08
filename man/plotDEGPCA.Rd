@@ -60,12 +60,11 @@ To set the discrete color palette globally, use
 and picks the first item in the vector by default.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
+- "\code{tpm}": Transcripts per million (tximport).
+- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+Only applies to gene-level counts.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.
