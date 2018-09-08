@@ -1,8 +1,8 @@
 #' @rdname alphaSummary
 #' @export
 setGeneric(
-    "alphaSummary",
-    function(object, ...) {
+    name = "alphaSummary",
+    def = function(object, ...) {
         standardGeneric("alphaSummary")
     }
 )
@@ -12,8 +12,8 @@ setGeneric(
 #' @rdname contrastName
 #' @export
 setGeneric(
-    "contrastName",
-    function(object, ...) {
+    name = "contrastName",
+    def = function(object, ...) {
         standardGeneric("contrastName")
     }
 )
@@ -23,8 +23,8 @@ setGeneric(
 #' @rdname plot5Prime3PrimeBias
 #' @export
 setGeneric(
-    "plot5Prime3PrimeBias",
-    function(object, ...) {
+    name = "plot5Prime3PrimeBias",
+    def = function(object, ...) {
         standardGeneric("plot5Prime3PrimeBias")
     }
 )
@@ -34,8 +34,8 @@ setGeneric(
 #' @rdname plotCountDensity
 #' @export
 setGeneric(
-    "plotCountDensity",
-    function(object, ...) {
+    name = "plotCountDensity",
+    def = function(object, ...) {
         standardGeneric("plotCountDensity")
     }
 )
@@ -45,8 +45,8 @@ setGeneric(
 #' @rdname plotCountsPerGene
 #' @export
 setGeneric(
-    "plotCountsPerGene",
-    function(object, ...) {
+    name = "plotCountsPerGene",
+    def = function(object, ...) {
         standardGeneric("plotCountsPerGene")
     }
 )
@@ -56,8 +56,8 @@ setGeneric(
 #' @rdname plotDEGHeatmap
 #' @export
 setGeneric(
-    "plotDEGHeatmap",
-    function(results, counts, ...) {
+    name = "plotDEGHeatmap",
+    def = function(results, counts, ...) {
         standardGeneric("plotDEGHeatmap")
     }
 )
@@ -67,8 +67,8 @@ setGeneric(
 #' @rdname plotDEGPCA
 #' @export
 setGeneric(
-    "plotDEGPCA",
-    function(results, counts, ...) {
+    name = "plotDEGPCA",
+    def = function(results, counts, ...) {
         standardGeneric("plotDEGPCA")
     }
 )
@@ -78,8 +78,8 @@ setGeneric(
 #' @rdname plotExonicMappingRate
 #' @export
 setGeneric(
-    "plotExonicMappingRate",
-    function(object, ...) {
+    name = "plotExonicMappingRate",
+    def = function(object, ...) {
         standardGeneric("plotExonicMappingRate")
     }
 )
@@ -89,8 +89,8 @@ setGeneric(
 #' @rdname plotGenderMarkers
 #' @export
 setGeneric(
-    "plotGenderMarkers",
-    function(object, ...) {
+    name = "plotGenderMarkers",
+    def = function(object, ...) {
         standardGeneric("plotGenderMarkers")
     }
 )
@@ -100,8 +100,8 @@ setGeneric(
 #' @rdname plotGeneSaturation
 #' @export
 setGeneric(
-    "plotGeneSaturation",
-    function(object, ...) {
+    name = "plotGeneSaturation",
+    def = function(object, ...) {
         standardGeneric("plotGeneSaturation")
     }
 )
@@ -111,8 +111,8 @@ setGeneric(
 #' @rdname plotGenesDetected
 #' @export
 setGeneric(
-    "plotGenesDetected",
-    function(object, ...) {
+    name = "plotGenesDetected",
+    def = function(object, ...) {
         standardGeneric("plotGenesDetected")
     }
 )
@@ -122,8 +122,8 @@ setGeneric(
 #' @rdname plotIntronicMappingRate
 #' @export
 setGeneric(
-    "plotIntronicMappingRate",
-    function(object, ...) {
+    name = "plotIntronicMappingRate",
+    def = function(object, ...) {
         standardGeneric("plotIntronicMappingRate")
     }
 )
@@ -133,8 +133,8 @@ setGeneric(
 #' @rdname plotMappedReads
 #' @export
 setGeneric(
-    "plotMappedReads",
-    function(object, ...) {
+    name = "plotMappedReads",
+    def = function(object, ...) {
         standardGeneric("plotMappedReads")
     }
 )
@@ -144,8 +144,8 @@ setGeneric(
 #' @rdname plotMappingRate
 #' @export
 setGeneric(
-    "plotMappingRate",
-    function(object, ...) {
+    name = "plotMappingRate",
+    def = function(object, ...) {
         standardGeneric("plotMappingRate")
     }
 )
@@ -155,8 +155,8 @@ setGeneric(
 #' @rdname plotMeanSD
 #' @export
 setGeneric(
-    "plotMeanSD",
-    function(object, ...) {
+    name = "plotMeanSD",
+    def = function(object, ...) {
         standardGeneric("plotMeanSD")
     }
 )
@@ -166,8 +166,8 @@ setGeneric(
 #' @rdname plotPCACovariates
 #' @export
 setGeneric(
-    "plotPCACovariates",
-    function(object, ...) {
+    name = "plotPCACovariates",
+    def = function(object, ...) {
         standardGeneric("plotPCACovariates")
     }
 )
@@ -177,31 +177,30 @@ setGeneric(
 #' @rdname plotRRNAMappingRate
 #' @export
 setGeneric(
-    "plotRRNAMappingRate",
-    function(object, ...) {
+    name = "plotRRNAMappingRate",
+    def = function(object, ...) {
         standardGeneric("plotRRNAMappingRate")
     }
 )
 
 
 
-# FIXME
-#' #' @rdname plotTotalCounts
-#' #' @export
-#' setGeneric(
-#'     "plotTotalCounts",
-#'     function(object, ...) {
-#'         standardGeneric("plotTotalCounts")
-#'     }
-#' )
+#' @rdname plotTotalCounts
+#' @export
+setGeneric(
+    name = "plotTotalCounts",
+    def = function(object, ...) {
+        standardGeneric("plotTotalCounts")
+    }
+)
 
 
 
 #' @rdname plotTotalReads
 #' @export
 setGeneric(
-    "plotTotalReads",
-    function(object, ...) {
+    name = "plotTotalReads",
+    def = function(object, ...) {
         standardGeneric("plotTotalReads")
     }
 )
@@ -211,8 +210,8 @@ setGeneric(
 #' @rdname plotVolcano
 #' @export
 setGeneric(
-    "plotVolcano",
-    function(object, ...) {
+    name = "plotVolcano",
+    def = function(object, ...) {
         standardGeneric("plotVolcano")
     }
 )
@@ -222,8 +221,8 @@ setGeneric(
 #' @rdname resultsTables
 #' @export
 setGeneric(
-    "resultsTables",
-    function(results, counts, ...) {
+    name = "resultsTables",
+    def = function(results, counts, ...) {
         standardGeneric("resultsTables")
     }
 )
@@ -233,8 +232,8 @@ setGeneric(
 #' @rdname tmm
 #' @export
 setGeneric(
-    "tmm",
-    function(object) {
+    name = "tmm",
+    def = function(object) {
         standardGeneric("tmm")
     }
 )
@@ -244,8 +243,8 @@ setGeneric(
 #' @rdname topTables
 #' @export
 setGeneric(
-    "topTables",
-    function(object, ...) {
+    name = "topTables",
+    def = function(object, ...) {
         standardGeneric("topTables")
     }
 )
@@ -255,8 +254,8 @@ setGeneric(
 #' @rdname tpm
 #' @export
 setGeneric(
-    "tpm",
-    function(object) {
+    name = "tpm",
+    def = function(object) {
         standardGeneric("tpm")
     }
 )
