@@ -20,7 +20,7 @@
 #'     - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'     - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'     - "`rle`": Relative log expression transformation.
-#'   Only applies to gene-level counts.
+#'   Transcript-level counts support only `FALSE` and "`tpm`".
 #'
 #' @return `matrix`.
 #'
@@ -49,6 +49,10 @@ setMethod(
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
+        # Restrict the `normalized` arguments for transcript-level objects.
+        if (.isTranscriptLevel(object)) {
+            assert_is_subset(normalized, list(FALSE, "tpm"))
+        }
 
         if (is.logical(normalized)) {
             if (identical(normalized, FALSE)) {
@@ -63,17 +67,17 @@ setMethod(
                 y = c("tpm", "vst", "rlog", "tmm", "rle")
             )
             if (normalized == "tmm") {
-                # Calculate TMM on the fly
+                # Calculate TMM on the fly.
                 counts <- tmm(assay(object))
             } else if (normalized == "rle") {
-                # Calculate RLE on the fly
+                # Calculate RLE on the fly.
                 counts <- t(t(assay(object)) / colMedians(assay(object)))
             } else {
-                # Use matrices slotted into `assays()`
+                # Use matrices slotted into `assays()`.
                 counts <- assays(object)[[normalized]]
             }
             if (!is.matrix(counts)) {
-                # Support for skipped DESeq2 transforms: log2 TMM
+                # Support for skipped DESeq2 transforms: log2 TMM.
                 warning(paste(
                     normalized, "not present in assays.",
                     "Calculating log2 TMM counts instead."
