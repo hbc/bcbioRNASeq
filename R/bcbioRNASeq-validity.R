@@ -101,7 +101,7 @@ setValidity(
             sampleDirs = "character",
             sampleMetadataFile = "character",
             template = "character",
-            tx2gene = c("DataFrame", "data.frame"),
+            tx2gene = c("tx2gene", "data.frame"),
             uploadDir = "character",
             utilsSessionInfo = "sessionInfo",
             version = "package_version",
