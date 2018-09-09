@@ -91,7 +91,7 @@ function(
 
     # Early return if there are no DEGs.
     if (!length(deg)) {
-        warning("No significant DEGs to plot")
+        warning("No significant DEGs to plot", call. = FALSE)
         return(invisible())
     }
 
