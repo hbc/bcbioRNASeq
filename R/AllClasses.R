@@ -20,8 +20,9 @@ setClass(
 setClass(
     Class = "DESeqAnalysis",
     slots = list(
-        data = "DESeqDataSet",
-        transform = "DESeqTransform",
-        results = "list"
+        DESeqDataSet = "DESeqDataSet",
+        DESeqTransform = "DESeqTransform",
+        DESeqResults = "list",
+        lfcShrink = "list"
     )
 )

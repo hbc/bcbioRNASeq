@@ -7,28 +7,39 @@
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @param data `DESeqDataSet`.
-#' @param transform `DESeqTransform`.
-#' @param results `list`. One or more `DESeqResults`. We're using a list here
-#'   to support multiple pairwise contrasts.
+#' @param DESeqDataSet `DESeqDataSet`.
+#' @param DESeqTransform `DESeqTransform`.
+#' @param DESeqResults `list`. One or more `DESeqResults`. We're using a list
+#'   here to support multiple pairwise contrasts.
+#' @param lfcShrink `list`. One or more `DESeqResults` returned from
+#'   [DESeq2::lfcShrink()].
+#'
+#' @return `DESeqAnalysis`.
 #'
 #' @examples
 #' x <- DESeqAnalysis(
-#'     data = dds_small,
-#'     transform = vst_small,
-#'     results = list(res_small)
+#'     DESeqDataSet = dds_small,
+#'     DESeqTransform = vst_small,
+#'     DESeqResults = list(
+#'         contrast1 = res_small
+#'     ),
+#'     lfcShrink = list(
+#'         contrast1 = DESeq2::lfcShrink(dds = dds_small, coef = 2L)
+#'     )
 #' )
 #' class(x)
 #' slotNames(x)
 DESeqAnalysis <- function(
-    data,
-    transform,
-    results
+    DESeqDataSet,
+    DESeqTransform,
+    DESeqResults,
+    lfcShrink
 ) {
     new(
         Class = "DESeqAnalysis",
-        data = data,
-        transform = transform,
-        results = results
+        DESeqDataSet = DESeqDataSet,
+        DESeqTransform = DESeqTransform,
+        DESeqResults = DESeqResults,
+        lfcShrink = lfcShrink
     )
 }

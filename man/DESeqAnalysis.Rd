@@ -5,15 +5,21 @@
 \alias{DESeqAnalysis}
 \title{DESeq2 Differential Expression Analysis}
 \usage{
-DESeqAnalysis(data, transform, results)
+DESeqAnalysis(DESeqDataSet, DESeqTransform, DESeqResults, lfcShrink)
 }
 \arguments{
-\item{data}{\code{DESeqDataSet}.}
+\item{DESeqDataSet}{\code{DESeqDataSet}.}
 
-\item{transform}{\code{DESeqTransform}.}
+\item{DESeqTransform}{\code{DESeqTransform}.}
 
-\item{results}{\code{list}. One or more \code{DESeqResults}. We're using a list here
-to support multiple pairwise contrasts.}
+\item{DESeqResults}{\code{list}. One or more \code{DESeqResults}. We're using a list
+here to support multiple pairwise contrasts.}
+
+\item{lfcShrink}{\code{list}. One or more \code{DESeqResults} returned from
+\code{\link[DESeq2:lfcShrink]{DESeq2::lfcShrink()}}.}
+}
+\value{
+\code{DESeqAnalysis}.
 }
 \description{
 Class containing all elements generated during differential expression
@@ -21,9 +27,14 @@ analysis with DESeq2.
 }
 \examples{
 x <- DESeqAnalysis(
-    data = dds_small,
-    transform = vst_small,
-    results = list(res_small)
+    DESeqDataSet = dds_small,
+    DESeqTransform = vst_small,
+    DESeqResults = list(
+        contrast1 = res_small
+    ),
+    lfcShrink = list(
+        contrast1 = DESeq2::lfcShrink(dds = dds_small, coef = 2L)
+    )
 )
 class(x)
 slotNames(x)
