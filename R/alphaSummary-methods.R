@@ -3,9 +3,7 @@
 #' Quickly generate a summary table of various alpha level cutoffs, for use in
 #' an R Markdown report.
 #'
-#' @note `bcbioRNASeq` class does currently support contrast definitions, since
-#'   the object contains an internal `DESeqDataSet` with an empty design
-#'   formula.
+#' @note Use either `contrast` or `name` to specify the desired contrast.
 #'
 #' @name alphaSummary
 #' @family Differential Expression Functions
@@ -16,12 +14,12 @@
 #' @param alpha `numeric`. Multiple alpha cutoffs.
 #' @param caption `string` or `NULL`. Table caption. If set `NULL`, will be
 #'   generated automatically from the contrast used.
-#' @param ... Passthrough arguments to [DESeq2::results()]. Use either
-#'   `contrast` or `name` arguments to define the desired contrast.
 #'
 #' @return `kable`.
 #'
-#' @seealso [DESeq2::results()].
+#' @seealso
+#' - [DESeq2::results()].
+#' - [DESeq2::resultsNames()].
 #'
 #' @examples
 #' # DESeqDataSet ====
@@ -36,55 +34,77 @@ NULL
 #' @rdname alphaSummary
 #' @export
 setMethod(
-    "alphaSummary",
-    signature("DESeqDataSet"),
-    function(
+    f = "alphaSummary",
+    signature = signature("DESeqDataSet"),
+    definition = function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        caption = NULL,
-        ...
+        contrast,
+        name,
+        caption = NULL
     ) {
         validObject(object)
         assert_is_numeric(alpha)
         assertIsAStringOrNULL(caption)
-        dots <- list(...)
+        # Require either `contrast` or `name`.
+        if (
+            (missing(contrast) && missing(name)) ||
+            (!missing(contrast) && !missing(name))
+        ) {
+            stop(
+                "Specify either `contrast` or `name` (but not both)",
+                call. = FALSE
+            )
+        } else if (!missing(contrast)) {
+            assert_is_character(contrast)
+            name <- NULL
+        } else if (!missing(name)) {
+            assert_is_a_string(name)
+            contrast <- NULL
+        }
 
-        # Generate an automatic caption
+        # Generate an automatic caption.
         if (is.null(caption)) {
-            if (!is.null(dots[["contrast"]])) {
-                caption <- paste(dots[["contrast"]], collapse = " ")
-            } else if (!is.null(dots[["name"]])) {
-                caption <- dots[["name"]]
+            if (!is.null(contrast)) {
+                caption <- paste(contrast, collapse = " ")
+            } else if (!is.null(name)) {
+                caption <- name
             }
         }
 
-        dflist <- lapply(alpha, function(x) {
-            output <- capture.output(
-                summary(results(object, ..., alpha = x))
-            )
-            # Subset the lines of interest from summary
-            output <- output[4L:8L]
-            # Extract the values after the colon in summary
-            values <- vapply(
-                X = output,
-                FUN = function(x) {
-                    gsub("^.+\\:\\s(.+)\\s$", "\\1", x)
-                },
-                FUN.VALUE = "character"
-            )
-            data.frame(alpha = values)
-        })
+        data <- sapply(
+            X = alpha,
+            FUN = function(alpha) {
+                args <- list(
+                    object = object,
+                    contrast = contrast,
+                    name = name,
+                    alpha = alpha
+                )
+                args <- Filter(Negate(is.null), args)
+                results <- do.call(what = results, args = args)
+                output <- capture.output(summary(results))
+                # Subset the lines of interest from summary.
+                # Keep only the summary lines that contain a colon.
+                output <- output[grepl(" : ", output)]
+                # Extract the values after the colon in summary.
 
-        dflist %>%
-            bind_cols() %>%
-            set_colnames(alpha) %>%
-            set_rownames(c(
-                "LFC > 0 (up)",
-                "LFC < 0 (down)",
-                "outliers",
-                "low counts",
-                "cutoff"
-            )) %>%
-            kable(caption = caption)
+                x <- str_match(
+                    string = output,
+                    pattern = "^(.+)\\s\\:\\s(.+)$"
+                )
+                names <- gsub("\\s+$", "", x[, 2L])
+                values <- x[, 3L]
+                names(values) <- names
+                values
+            }
+        )
+        # Coerce to data.frame.
+        data <- data %>%
+            as.data.frame(stringsAsFactors = FALSE) %>%
+            set_colnames(as.character(alpha))
+
+        kable(data, caption = caption)
+
     }
 )
