@@ -48,6 +48,10 @@ setMethod(
     ) {
         validObject(results)
         validObject(counts)
+        assert_are_identical(
+            x = rownames(results),
+            y = rownames(counts)
+        )
         interestingGroups <- matchInterestingGroups(
             object = counts,
             interestingGroups = interestingGroups
@@ -114,7 +118,12 @@ setMethod(
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
+        validObject(results)
         validObject(counts)
+        assert_are_identical(
+            x = rownames(results),
+            y = rownames(counts)
+        )
         normalized <- match.arg(normalized)
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
@@ -142,7 +151,12 @@ setMethod(
         counts,
         ...
     ) {
+        validObject(results)
         validObject(counts)
+        assert_are_identical(
+            x = rownames(results),
+            y = rownames(counts)
+        )
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
         assay(rse) <- counts(counts, normalized = TRUE)
