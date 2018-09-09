@@ -1,10 +1,187 @@
-context("S4 Object")
+organism <- "Mus musculus"
+ensemblRelease <- 87L
 
 object <- bcbioRNASeq(
     uploadDir = uploadDir,
-    organism = "Mus musculus",
-    ensemblRelease = 87L
+    level = "genes",
+    caller = "salmon",
+    organism = organism,
+    ensemblRelease = ensemblRelease
 )
+
+
+
+# `bcbioRNASeq()` Constructor ==================================================
+context("Constructor Function")
+
+test_that("bcbioRNASeq : transcripts", {
+    object <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "transcripts",
+        organism = organism,
+        ensemblRelease = ensemblRelease
+    )
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(
+        object = assayNames(object),
+        expected = c("counts", "tpm", "length")
+    )
+    # Transcript-level counts are not integer.
+    # nolint start
+    expect_identical(
+        object = round(sum(counts(object))),
+        expected = 1861378
+    )
+    expect_identical(
+        object = round(colSums(counts(object))),
+        expected = c(
+            group1_1 = 289453,
+            group1_2 = 515082,
+            group2_1 = 494089,
+            group2_2 = 562753
+        )
+    )
+    # nolint end
+})
+
+test_that("bcbioRNASeq : Aligned counts", {
+    object <- bcbioRNASeq(uploadDir, caller = "star")
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(
+        object = assayNames(object),
+        expected = c("counts", "normalized", "vst")
+    )
+    # Aligned counts are integer.
+    expect_identical(
+        object = sum(counts(object)),
+        expected = 979020L
+    )
+    expect_identical(
+        object = colSums(counts(object)),
+        expected = c(
+            # nolint start
+            group1_1 = 222940,
+            group1_2 = 255196,
+            group2_1 = 250838,
+            group2_2 = 250046
+            # nolint end
+        )
+    )
+})
+
+# This works for both gene- and transcript-level objects.
+test_that("bcbioRNASeq : organism = NULL", {
+    object <- bcbioRNASeq(uploadDir, organism = NULL)
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(
+        object = metadata(object)[["organism"]],
+        expected = character()
+    )
+    expect_identical(
+        object = ncol(rowData(object)),
+        expected = 0L
+    )
+    expect_identical(
+        object = levels(seqnames(object)),
+        expected = "unknown"
+    )
+})
+
+# GFF3 files are also supported, but we're only testing GTF here for speed.
+# This functionality is provided by basejump and covered by unit tests.
+test_that("bcbioRNASeq : GTF/GFF file", {
+    gtfURL <- paste(
+        "ftp://ftp.ensembl.org",
+        "pub",
+        "release-87",
+        "gtf",
+        "mus_musculus",
+        "Mus_musculus.GRCm38.87.gtf.gz",
+        sep = "/"
+    )
+    gtfFile <- basename(gtfURL)
+    if (!file.exists(gtfFile)) {
+        download.file(url = gtfURL, destfile = gtfFile)
+    }
+    object <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        organism = "Mus musculus",
+        gffFile = gtfFile
+    )
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(
+        object = colnames(rowData(object)),
+        expected = c(
+            "broadClass",
+            "geneBiotype",
+            "geneID",
+            "geneName",
+            "geneSource",
+            "geneVersion",
+            "havanaGene",
+            "havanaGeneVersion",
+            "source",
+            "type"
+        )
+    )
+})
+
+test_that("bcbioRNASeq : DESeq2 variance stabilization", {
+    object <- suppressWarnings(
+        bcbioRNASeq(
+            uploadDir = uploadDir,
+            vst = FALSE,
+            rlog = FALSE
+        )
+    )
+    expect_identical(
+        object = names(assays(object)),
+        expected = c("counts", "tpm", "length", "normalized")
+    )
+
+    object <- suppressWarnings(
+        bcbioRNASeq(
+            uploadDir = uploadDir,
+            vst = TRUE,
+            rlog = TRUE
+        )
+    )
+    expect_identical(
+        object = names(assays(object)),
+        expected = c("counts", "tpm", "length", "normalized", "vst", "rlog")
+    )
+})
+
+test_that("bcbioRNASeq : User-defined sample metadata", {
+    object <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
+    )
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(
+        basename(metadata(object)[["sampleMetadataFile"]]),
+        "sample_metadata.csv"
+    )
+})
+
+test_that("bcbioRNASeq: Sample selection", {
+    keep <- head(colnames(object), n = 2L)
+    censor <- setdiff(colnames(object), keep)
+
+    # keep samples
+    object <- bcbioRNASeq(uploadDir, samples = keep)
+    expect_identical(
+        object = colnames(object),
+        expected = keep
+    )
+
+    # censor samples
+    object <- bcbioRNASeq(uploadDir, censorSamples = censor)
+    expect_identical(
+        object = colnames(object),
+        expected = keep
+    )
+})
 
 
 
@@ -197,172 +374,6 @@ test_that("Metadata values", {
 
 
 
-# bcbioRNASeq Constructor ======================================================
-test_that("bcbioRNASeq : Aligned counts", {
-    object <- bcbioRNASeq(uploadDir, caller = "star")
-    expect_s4_class(object, "bcbioRNASeq")
-    expect_identical(
-        object = assayNames(object),
-        expected = c("counts", "normalized", "vst")
-    )
-    # Aligned counts are integer.
-    expect_identical(
-        object = sum(counts(object)),
-        expected = 979020L
-    )
-    expect_identical(
-        object = colSums(counts(object)),
-        expected = c(
-            # nolint start
-            group1_1 = 222940,
-            group1_2 = 255196,
-            group2_1 = 250838,
-            group2_2 = 250046
-            # nolint end
-        )
-    )
-})
-
-test_that("bcbioRNASeq : Transcripts", {
-    object <- bcbioRNASeq(uploadDir, level = "transcripts")
-    expect_s4_class(object, "bcbioRNASeq")
-    expect_identical(
-        object = assayNames(object),
-        expected = c("counts", "tpm", "length")
-    )
-    # Transcript-level counts are not integer.
-    # nolint start
-    expect_identical(
-        object = round(sum(counts(object))),
-        expected = 1861378
-    )
-    expect_identical(
-        object = round(colSums(counts(object))),
-        expected = c(
-            group1_1 = 289453,
-            group1_2 = 515082,
-            group2_1 = 494089,
-            group2_2 = 562753
-        )
-    )
-    # nolint end
-})
-
-test_that("bcbioRNASeq : organism = NULL", {
-    object <- bcbioRNASeq(uploadDir, organism = NULL)
-    expect_s4_class(object, "bcbioRNASeq")
-    expect_identical(
-        object = metadata(object)[["organism"]],
-        expected = character()
-    )
-    expect_identical(
-        object = ncol(rowData(object)),
-        expected = 0L
-    )
-    expect_identical(
-        object = levels(seqnames(object)),
-        expected = "unknown"
-    )
-})
-
-# GFF3 files are also supported, but we're only testing GTF here for speed.
-# This functionality is provided by basejump and covered by unit tests.
-test_that("bcbioRNASeq : GTF/GFF file", {
-    gtfURL <- paste(
-        "ftp://ftp.ensembl.org",
-        "pub",
-        "release-87",
-        "gtf",
-        "mus_musculus",
-        "Mus_musculus.GRCm38.87.gtf.gz",
-        sep = "/"
-    )
-    gtfFile <- basename(gtfURL)
-    if (!file.exists(gtfFile)) {
-        download.file(url = gtfURL, destfile = gtfFile)
-    }
-    object <- bcbioRNASeq(
-        uploadDir = uploadDir,
-        organism = "Mus musculus",
-        gffFile = gtfFile
-    )
-    expect_s4_class(object, "bcbioRNASeq")
-    expect_identical(
-        object = colnames(rowData(object)),
-        expected = c(
-            "broadClass",
-            "geneBiotype",
-            "geneID",
-            "geneName",
-            "geneSource",
-            "geneVersion",
-            "havanaGene",
-            "havanaGeneVersion",
-            "source",
-            "type"
-        )
-    )
-})
-
-test_that("bcbioRNASeq : DESeq2 variance stabilization", {
-    object <- suppressWarnings(
-        bcbioRNASeq(
-            uploadDir = uploadDir,
-            vst = FALSE,
-            rlog = FALSE
-        )
-    )
-    expect_identical(
-        object = names(assays(object)),
-        expected = c("counts", "tpm", "length", "normalized")
-    )
-
-    object <- suppressWarnings(
-        bcbioRNASeq(
-            uploadDir = uploadDir,
-            vst = TRUE,
-            rlog = TRUE
-        )
-    )
-    expect_identical(
-        object = names(assays(object)),
-        expected = c("counts", "tpm", "length", "normalized", "vst", "rlog")
-    )
-})
-
-test_that("bcbioRNASeq : User-defined sample metadata", {
-    object <- bcbioRNASeq(
-        uploadDir = uploadDir,
-        sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
-    )
-    expect_s4_class(object, "bcbioRNASeq")
-    expect_identical(
-        basename(metadata(object)[["sampleMetadataFile"]]),
-        "sample_metadata.csv"
-    )
-})
-
-test_that("bcbioRNASeq: Sample selection", {
-    keep <- head(colnames(object), n = 2L)
-    censor <- setdiff(colnames(object), keep)
-
-    # keep samples
-    object <- bcbioRNASeq(uploadDir, samples = keep)
-    expect_identical(
-        object = colnames(object),
-        expected = keep
-    )
-
-    # censor samples
-    object <- bcbioRNASeq(uploadDir, censorSamples = censor)
-    expect_identical(
-        object = colnames(object),
-        expected = keep
-    )
-})
-
-
-
 # extract ======================================================================
 test_that("extract : Normal gene and sample selection", {
     subset <- object[seq_len(100L), seq_len(4L)]
@@ -474,4 +485,33 @@ test_that("updateObject", {
     object <- suppressWarnings(updateObject(bcb_invalid))
     expect_s4_class(object, "bcbioRNASeq")
     expect_true(validObject(object))
+})
+
+
+
+# Transcript-Level Counts ======================================================
+context("Transcript-Level Counts")
+
+# Loading without rowRanges here, for speed.
+object <- bcbioRNASeq(uploadDir, level = "transcripts")
+
+test_that("counts", {
+    # Valid: FALSE, tpm
+    expect_is(counts(object, normalized = FALSE), "matrix")
+    expect_is(counts(object, normalized = "tpm"), "matrix")
+    # All other options are invalid.
+    expect_error(counts(object, normalized = TRUE))
+    expect_error(counts(object, normalized = "vst"))
+})
+
+test_that("Show method", {
+    output <- capture.output(show(object))
+    expect_true(any(grepl("transcripts", output)))
+})
+
+test_that("Invalid functions", {
+    expect_error(
+        object = plotDispEsts(object),
+        regexp = "Gene-level counts are required"
+    )
 })
