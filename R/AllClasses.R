@@ -87,9 +87,10 @@ setValidity(
 setClass(
     Class = "DESeqResultsTables",
     slots = list(
-        upregulated = "DataFrame",
-        downregulated = "DataFrame",
-        all = "DESeqResults"
+        all = "DESeqResults",
+        deg = "DataFrame",
+        degUp = "DataFrame",
+        degDown = "DataFrame"
     )
 )
 
