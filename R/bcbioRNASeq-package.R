@@ -38,11 +38,11 @@
 #'   basejump_geom_label_repel camel convertGenesToSymbols detectOrganism
 #'   emptyRanges fixNA gene2symbol hasRownames initializeDirectory
 #'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment markdownHeader
-#'   markdownList markdownPlotlist matchInterestingGroups matchS4Call
-#'   methodFormals plotHeatmap prepareTemplate readFileByExtension readYAML
-#'   sampleData sanitizeRowData sanitizeSampleData setArgsToDoCall snake
-#'   stripTranscriptVersions uniteInterestingGroups
+#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
+#'   markdownHeader markdownList markdownPlotlist matchInterestingGroups
+#'   matchS4Call methodFormals plotHeatmap prepareTemplate readFileByExtension
+#'   readYAML sampleData sanitizeRowData sanitizeSampleData setArgsToDoCall
+#'   snake stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
