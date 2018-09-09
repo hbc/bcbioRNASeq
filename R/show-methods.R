@@ -15,9 +15,9 @@ NULL
 #' @rdname show
 #' @export
 setMethod(
-    "show",
-    signature("bcbioRNASeq"),
-    function(object) {
+    f = "show",
+    signature = signature("bcbioRNASeq"),
+    definition = function(object) {
         validObject(object)
 
         # Extend the RangedSummarizedExperiment method
@@ -95,6 +95,34 @@ setMethod(
             )
         }
 
+        cat(return, sep = "\n")
+    }
+)
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("DESeqAnalysis"),
+    definition = function(object) {
+        version <- metadata(object@DESeqDataSet)[["version"]]
+        contrastNames <- vapply(
+            X = object@DESeqResults,
+            FUN = contrastName,
+            FUN.VALUE = character(1L)
+        )
+        return <- c(
+            bold(paste(class(object), version)),
+            printString(slotNames(object)),
+            separatorBar,
+            capture.output(show(object@DESeqDataSet)),
+            separatorBar,
+            paste(bold("Transform:"), .transformType(object@DESeqTransform)),
+            bold(paste0("Results (", length(contrastNames), "):")),
+            paste0("  - ", contrastNames)
+        )
         cat(return, sep = "\n")
     }
 )
