@@ -126,3 +126,46 @@ setMethod(
         cat(return, sep = "\n")
     }
 )
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("DESeqResultsTables"),
+    definition = function(object) {
+        validObject(object)
+
+        all <- slot(object, "all")
+        up <- slot(object, "upregulated")
+        down <- slot(object, "downregulated")
+
+        contrast <- contrastName(all)
+        alpha <- metadata(all)[["alpha"]]
+        lfc <- metadata(all)[["lfcThreshold"]]
+
+        summary <- capture.output(summary(all))
+        # Remove leading and trailing whitespace.
+        summary <- summary[!grepl("^$", summary)]
+
+        # Get back the number of genes that have adjusted P values.
+        nPadj <- sum(!is.na(all[["padj"]]))
+
+        return <- c(
+            bold(class(object)),
+            paste(bold("Contrast:"), contrast),
+            paste(bold("Alpha:"), alpha),
+            paste(bold("LFC threshold:"), lfc),
+            separatorBar,
+            paste(nrow(object@all), "genes total"),
+            paste(nPadj, "genes with adjusted P values"),
+            paste(nrow(up), "upregulated genes"),
+            paste(nrow(down), "downregulated genes"),
+            separatorBar,
+            summary
+        )
+
+        cat(return, sep = "\n")
+    }
+)
