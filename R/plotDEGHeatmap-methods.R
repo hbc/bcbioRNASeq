@@ -61,12 +61,15 @@ function(
 ) {
     validObject(results)
     validObject(counts)
+    assert_are_identical(
+        x = rownames(results),
+        y = rownames(counts)
+    )
     # Coerce to RSE then SE to preserve rowData.
     if (is(counts, "RangedSummarizedExperiment")) {
         counts <- as(counts, "RangedSummarizedExperiment")
     }
     counts <- as(counts, "SummarizedExperiment")
-    assert_are_identical(rownames(results), rownames(counts))
     if (is.null(alpha)) {
         alpha <- metadata(results)[["alpha"]]
     }
@@ -179,7 +182,12 @@ setMethod(
         counts,
         ...
     ) {
+        validObject(results)
         validObject(counts)
+        assert_are_identical(
+            x = rownames(results),
+            y = rownames(counts)
+        )
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = TRUE))
@@ -208,7 +216,12 @@ setMethod(
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
+        validObject(results)
         validObject(counts)
+        assert_are_identical(
+            x = rownames(results),
+            y = rownames(counts)
+        )
         normalized <- match.arg(normalized)
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
