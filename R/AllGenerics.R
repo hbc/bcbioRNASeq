@@ -57,7 +57,7 @@ setGeneric(
 #' @export
 setGeneric(
     name = "plotDEGHeatmap",
-    def = function(results, counts, ...) {
+    def = function(object, counts, ...) {
         standardGeneric("plotDEGHeatmap")
     }
 )
@@ -68,7 +68,7 @@ setGeneric(
 #' @export
 setGeneric(
     name = "plotDEGPCA",
-    def = function(results, counts, ...) {
+    def = function(object, counts, ...) {
         standardGeneric("plotDEGPCA")
     }
 )
@@ -222,7 +222,7 @@ setGeneric(
 #' @export
 setGeneric(
     name = "resultsTables",
-    def = function(results, counts, ...) {
+    def = function(object, ...) {
         standardGeneric("resultsTables")
     }
 )
