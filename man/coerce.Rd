@@ -37,9 +37,9 @@ show(x)
 \item \code{\link[methods:canCoerce]{methods::canCoerce()}}.
 }
 
-Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{extract}}, \code{\link{show}},
-  \code{\link{updateObject}}
+Other S4 Object: \code{\link{DESeqAnalysis}},
+  \code{\link{bcbioRNASeq}}, \code{\link{extract}},
+  \code{\link{show}}, \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh
