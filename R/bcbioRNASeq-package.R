@@ -30,9 +30,10 @@
 #'   assert_is_list assert_is_matrix assert_is_numeric assert_is_tbl_df
 #'   is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
-#'   assertIsHexColorFunctionOrNULL assertFormalGene2symbol assertIsAHeaderLevel
-#'   assertIsAStringOrNULL assertIsAnImplicitInteger
-#'   assertIsAnImplicitIntegerOrNULL assertIsImplicitInteger assertIsGene2symbol
+#'   assertIsHexColorFunctionOrNULL assertFormalGene2symbol
+#'   assertHasValidDimnames assertIsAHeaderLevel assertIsAStringOrNULL
+#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
+#'   assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene basejump_geom_abline basejump_geom_label
 #'   basejump_geom_label_repel camel convertGenesToSymbols detectOrganism
