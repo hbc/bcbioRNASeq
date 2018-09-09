@@ -25,15 +25,40 @@ here to support multiple pairwise contrasts.}
 Class containing all elements generated during differential expression
 analysis with DESeq2.
 }
+\section{DESeqDataSet}{
+
+
+We recommend generating the \code{DESeqDataSet} by coercion from \code{bcbioRNASeq}
+object using \code{as(dds, "bcbioRNASeq")}. Don't use the \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSet()}}
+or \code{\link[DESeq2:DESeqDataSetFromMatrix]{DESeq2::DESeqDataSetFromMatrix()}} constructors to generate the
+\code{DESeqDataSet} object.
+}
+
+\section{DESeqResults}{
+
+
+Don't modify any of the \code{DESeqResults} objects manually. This includes
+rearranging the rows or dropping genes without adjusted P values. We'll take
+care of this automatically in supported methods.
+}
+
 \examples{
+library(DESeq2)
+dds <- dds_small
+class(dds)
+vst <- varianceStabilizingTransformation(dds)
+class(vst)
+resultsNames(dds)
+res <- results(dds, name = resultsNames(dds)[[2L]])
+class(res)
 x <- DESeqAnalysis(
     DESeqDataSet = dds_small,
     DESeqTransform = vst_small,
     DESeqResults = list(
-        contrast1 = res_small
+        res_small
     ),
     lfcShrink = list(
-        contrast1 = DESeq2::lfcShrink(dds = dds_small, coef = 2L)
+        lfcShrink(dds = dds_small, coef = 2L)
     )
 )
 class(x)
