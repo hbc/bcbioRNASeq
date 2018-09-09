@@ -87,32 +87,32 @@ setValidity(
 setClass(
     Class = "DESeqResultsTables",
     slots = list(
-        DESeqResults = "DESeqResults",
-        degUp = "character",
-        degDown = "character"
+        upregulated = "DataFrame",
+        downregulated = "DataFrame",
+        all = "DESeqResults"
     )
 )
 
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        results <- slot(object, "DESeqResults")
-        assert_is_all_of(results, "DESeqResults")
-
-        contrastName <- contrastName(results)
-        assert_is_a_string(contrastName)
-
-        alpha <- metadata(results)[["alpha"]]
-        assert_is_a_number(alpha)
-
-        lfcThreshold <- metadata(results)[["lfcThreshold"]]
-        assert_is_a_number(lfcThreshold)
-
-        degUp <- slot(object, "degUp")
-        degDown <- slot(object, "degDown")
-        assert_is_subset(degUp, rownames(results))
-        assert_is_subset(degDown, rownames(results))
-        assert_are_disjoint_sets(degUp, degDown)
+        # results <- slot(object, "DESeqResults")
+        # assert_is_all_of(results, "DESeqResults")
+        #
+        # contrastName <- contrastName(results)
+        # assert_is_a_string(contrastName)
+        #
+        # alpha <- metadata(results)[["alpha"]]
+        # assert_is_a_number(alpha)
+        #
+        # lfcThreshold <- metadata(results)[["lfcThreshold"]]
+        # assert_is_a_number(lfcThreshold)
+        #
+        # degUp <- slot(object, "degUp")
+        # degDown <- slot(object, "degDown")
+        # assert_is_subset(degUp, rownames(results))
+        # assert_is_subset(degDown, rownames(results))
+        # assert_are_disjoint_sets(degUp, degDown)
 
         TRUE
     }
