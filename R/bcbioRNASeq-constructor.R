@@ -60,7 +60,6 @@
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
-#' @rdname bcbioRNASeq
 #' @aliases bcbioRNASeq-class
 #' @docType class
 #' @family S4 Object
