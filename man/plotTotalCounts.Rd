@@ -8,24 +8,14 @@
 \usage{
 plotTotalCounts(object, ...)
 
-\S4method{plotTotalCounts}{bcbioRNASeq}(object, normalized = FALSE,
-  interestingGroups = NULL, fill = getOption("bcbio.discrete.fill",
-  NULL), flip = getOption("bcbio.flip", TRUE), title = "total counts")
+\S4method{plotTotalCounts}{bcbioRNASeq}(object, interestingGroups = NULL,
+  fill = getOption("bcbio.discrete.fill", NULL),
+  flip = getOption("bcbio.flip", TRUE), title = "total counts")
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
-
-\item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
-- \code{FALSE}: Raw counts (tximport).
-- \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rle}": Relative log expression transformation.
-Transcript-level counts support only \code{FALSE} and "\code{tpm}".}
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
@@ -69,6 +59,6 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotTotalReads}}
 }
 \author{
-Michael Steinbaugh, Rory Kirchner, Victor Barrera
+Michael Steinbaugh
 }
 \concept{Quality Control Functions}

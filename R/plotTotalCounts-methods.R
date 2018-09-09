@@ -2,9 +2,8 @@
 #'
 #' @name plotTotalCounts
 #' @family Quality Control Functions
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @author Michael Steinbaugh
 #'
-#' @inheritParams counts
 #' @inheritParams general
 #'
 #' @return `ggplot`.
@@ -22,7 +21,6 @@ setMethod(
     signature("bcbioRNASeq"),
     function(
         object,
-        normalized = FALSE,
         interestingGroups = NULL,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -38,7 +36,7 @@ setMethod(
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        counts <- counts(object, normalized = normalized)
+        counts <- counts(object)
         data <- sampleData(object)
         data[["totalCounts"]] <- colSums(counts)
 
