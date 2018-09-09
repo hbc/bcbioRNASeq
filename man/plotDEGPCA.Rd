@@ -88,14 +88,6 @@ plotDEGPCA(
     counts = vst_small,
     label = TRUE
 )
-
-# DESeqResults, bcbioRNASeq ====
-plotDEGPCA(
-    results = res_small,
-    counts = bcb_small,
-    normalized = "vst",
-    label = TRUE
-)
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},

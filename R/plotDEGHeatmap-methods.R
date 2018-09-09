@@ -1,3 +1,7 @@
+# FIXME Include the alpha on the plot
+
+
+
 #' Differentially Expressed Gene Heatmap
 #'
 #' This function is a simplified version of [plotHeatmap()] that is
@@ -22,28 +26,11 @@
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGHeatmap(
-#'     results = res_small,
-#'     counts = bcb_small,
-#'     normalized = "vst"
-#' )
-#'
 #' # DESeqResults, DESeqTransform ====
 #' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 #' plotDEGHeatmap(
 #'     results = res_small,
 #'     counts = vst_small
-#' )
-#'
-#' # DESeqResults, DESeqDataSet ====
-#' # This always uses normalized counts
-#' # Using default ggplot2 colors
-#' plotDEGHeatmap(
-#'     results = res_small,
-#'     counts = dds_small,
-#'     color = NULL,
-#'     legendColor = NULL
 #' )
 NULL
 

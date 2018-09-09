@@ -1,3 +1,7 @@
+# FIXME Include the alpha on the plot
+
+
+
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA
@@ -13,14 +17,6 @@
 #' plotDEGPCA(
 #'     results = res_small,
 #'     counts = vst_small,
-#'     label = TRUE
-#' )
-#'
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGPCA(
-#'     results = res_small,
-#'     counts = bcb_small,
-#'     normalized = "vst",
 #'     label = TRUE
 #' )
 NULL

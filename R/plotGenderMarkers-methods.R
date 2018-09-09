@@ -1,3 +1,7 @@
+# FIXME Need to improve the formals
+
+
+
 #' Plot Sexually Dimorphic Gender Markers
 #'
 #' This is a convenience function that wraps [plotGene()] to quickly plot known
@@ -130,16 +134,10 @@ setMethod(
     signature("DESeqTransform"),
     function(object, ...) {
         validObject(object)
-        if ("rlogIntercept" %in% colnames(mcols(object))) {
-            normalized <- "rlog"
-        } else {
-            normalized <- "vst"
-        }
-        countsAxisLabel <- paste(normalized, "counts (log2)")
         rse <- as(object, "RangedSummarizedExperiment")
         plotGenderMarkers(
             object = rse,
-            countsAxisLabel = countsAxisLabel,
+            countsAxisLabel = .transformCountsAxisLabel(object),
             ...
         )
     }
