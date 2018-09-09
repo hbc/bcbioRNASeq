@@ -96,23 +96,35 @@ setClass(
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        # results <- slot(object, "DESeqResults")
-        # assert_is_all_of(results, "DESeqResults")
-        #
-        # contrastName <- contrastName(results)
-        # assert_is_a_string(contrastName)
-        #
-        # alpha <- metadata(results)[["alpha"]]
-        # assert_is_a_number(alpha)
-        #
-        # lfcThreshold <- metadata(results)[["lfcThreshold"]]
-        # assert_is_a_number(lfcThreshold)
-        #
-        # degUp <- slot(object, "degUp")
-        # degDown <- slot(object, "degDown")
-        # assert_is_subset(degUp, rownames(results))
-        # assert_is_subset(degDown, rownames(results))
-        # assert_are_disjoint_sets(degUp, degDown)
+        assert_is_a_string(contrastName(object@all))
+        assert_is_a_number(metadata(object@all)[["alpha"]])
+        assert_is_a_number(metadata(object@all)[["lfcThreshold"]])
+        assert_is_subset(
+            x = rownames(object@downregulated),
+            y = rownames(object@all)
+        )
+        assert_is_subset(
+            x = rownames(object@upregulated),
+            y = rownames(object@all)
+        )
+        assert_are_disjoint_sets(
+            x = rownames(object@upregulated),
+            y = rownames(object@downregulated)
+        )
+
+        # Require that the subsets match the `DESeqResults` summary.
+        match <- removeNA(str_match(
+            string = capture.output(summary(object@all)),
+            pattern = "^LFC.*\\s\\:\\s([0-9]+).*"
+        ))
+        assert_are_identical(
+            x = nrow(object@upregulated),
+            y = as.integer(match[1, 2])
+        )
+        assert_are_identical(
+            x = nrow(object@downregulated),
+            y = as.integer(match[2, 2])
+        )
 
         TRUE
     }
