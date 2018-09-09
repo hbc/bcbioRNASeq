@@ -87,25 +87,33 @@ setValidity(
 setClass(
     Class = "DESeqResultsTables",
     slots = list(
-        deg = "tbl_df",
-        degLFC = "tbl_df",
-        degLFCUp = "tbl_df",
-        degLFCDown = "tbl_df",
-        all = "DESeqResults",
-        contrast = "character",
-        alpha = "numeric",
-        lfcThreshold = "numeric"
+        DESeqResults = "DESeqResults",
+        degUp = "character",
+        degDown = "character"
     )
 )
 
-# FIXME Improve this.
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        assert_is_subset(
-            x = c("all", "deg", "degLFCDown", "degLFCUp"),
-            y = names(object)
-        )
+        results <- slot(object, "DESeqResults")
+        assert_is_all_of(results, "DESeqResults")
+
+        contrastName <- contrastName(results)
+        assert_is_a_string(contrastName)
+
+        alpha <- metadata(results)[["alpha"]]
+        assert_is_a_number(alpha)
+
+        lfcThreshold <- metadata(results)[["lfcThreshold"]]
+        assert_is_a_number(lfcThreshold)
+
+        degUp <- slot(object, "degUp")
+        degDown <- slot(object, "degDown")
+        assert_is_subset(degUp, rownames(results))
+        assert_is_subset(degDown, rownames(results))
+        assert_are_disjoint_sets(degUp, degDown)
+
         TRUE
     }
 )
