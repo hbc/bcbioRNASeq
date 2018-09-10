@@ -6,7 +6,7 @@ setClassUnion(
 
 
 # bcbioRNASeq ==================================================================
-#' bcbioRNASeq Class
+#' `bcbioRNASeq` Class
 #'
 #' Inherits from `RangedSummarizedExperiment`.
 #'
@@ -181,7 +181,7 @@ setValidity(
 
 
 # DESeqAnalysis ================================================================
-#' DESeqAnalysis Class
+#' `DESeqAnalysis` Class
 #'
 #' Class containing all elements generated during differential expression
 #' analysis with DESeq2.
@@ -203,12 +203,11 @@ setValidity(
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @slot data `DESeqDataSet`.
 #' @slot transform `DESeqTransform`.
-#' @slot results `list`. One or more `DESeqResults`. We're using a list
-#'   here to support multiple pairwise contrasts.
-#' @slot lfcShrink `list`. One or more `DESeqResults` returned from
-#'   [DESeq2::lfcShrink()].
+#' @slot results `list`. One or more unshrunken `DESeqResults`. Assign the
+#'   [DESeq2::results()] return here.
+#' @slot lfcShrink `list`. One or more shrunken `DESeqResults`. Assign the
+#'   [DESeq2::lfcShrink()] return here.
 #'
 #' @return `DESeqAnalysis`.
 #'
@@ -224,7 +223,7 @@ setValidity(
 #' res <- results(dds, name = resultsNames(dds)[[2L]])
 #' class(res)
 #' x <- DESeqAnalysis(
-#'     data = dds,
+#'     dds,
 #'     transform = vst,
 #'     results = list(res),
 #'     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
@@ -233,8 +232,8 @@ setValidity(
 #' slotNames(x)
 DESeqAnalysis <- setClass(
     Class = "DESeqAnalysis",
+    contains = "DESeqDataSet",
     slots = c(
-        data = "DESeqDataSet",
         transform = "DESeqTransform",
         results = "list",
         lfcShrink = "list"
@@ -245,17 +244,17 @@ setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
         # Require valid dimnames for data set.
-        assertHasValidDimnames(object@data)
+        assertHasValidDimnames(object)
 
         # Require gene-to-symbol mappings.
-        assert_is_all_of(
-            x = gene2symbol(object@data),
-            classes = "gene2symbol"
+        assert_is_subset(
+            x = c("geneID", "geneName"),
+            y = colnames(rowData(object))
         )
 
         # DESeqDataSet and DESeqTransform must match.
         assert_are_identical(
-            x = dimnames(object@data),
+            x = dimnames(object),
             y = dimnames(object@transform)
         )
 
@@ -265,7 +264,7 @@ setValidity(
             FUN = function(res) {
                 assert_are_identical(
                     x = rownames(res),
-                    y = rownames(object@data)
+                    y = rownames(object)
                 )
             }
         ))
@@ -291,8 +290,8 @@ setValidity(
 
 
 
-# resultsTables ================================================================
-#' DESeqResultsTables Class
+# DESeqResultsTables ===========================================================
+#' `DESeqResultsTables` Class
 #'
 #' @family S4 Object
 #' @author Michael Steinbaugh
