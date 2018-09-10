@@ -138,8 +138,8 @@ setMethod(
         validObject(object)
 
         all <- slot(object, "all")
-        up <- slot(object, "upregulated")
-        down <- slot(object, "downregulated")
+        up <- slot(object, "degUp")
+        down <- slot(object, "degDown")
 
         contrast <- contrastName(all)
         alpha <- metadata(all)[["alpha"]]
@@ -158,7 +158,7 @@ setMethod(
             paste(bold("Alpha:"), alpha),
             paste(bold("LFC threshold:"), lfc),
             separatorBar,
-            paste(nrow(object@all), "genes total"),
+            paste(nrow(all), "genes total"),
             paste(nPadj, "genes with adjusted P values"),
             paste(nrow(up), "upregulated genes"),
             paste(nrow(down), "downregulated genes"),

@@ -6,28 +6,239 @@ setClassUnion(
 
 
 # bcbioRNASeq ==================================================================
-#' @rdname bcbioRNASeq
-#' @aliases NULL
-#' @exportClass bcbioRNASeq
-#' @usage NULL
+#' bcbioRNASeq Class
+#'
+#' Inherits from `RangedSummarizedExperiment`.
+#'
+#' @family S4 Object
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @seealso [bcbioRNASeq()].
+#'
+#' @examples
+#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+#' x <- bcbioRNASeq(uploadDir)
+#' print(x)
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
 )
 
+setValidity(
+    Class = "bcbioRNASeq",
+    method = function(object) {
+        stopifnot(metadata(object)[["version"]] >= 0.2)
+        assert_is_all_of(object, "RangedSummarizedExperiment")
+        assert_has_dimnames(object)
+
+        # Assays ---------------------------------------------------------------
+        # Note that `rlog` and `vst` DESeqTransform objects are optional
+        assert_is_subset(requiredAssays, assayNames(object))
+        # Check that all assays are matrices
+        assayCheck <- vapply(
+            X = assays(object),
+            FUN = is.matrix,
+            FUN.VALUE = logical(1L),
+            USE.NAMES = TRUE
+        )
+        if (!all(assayCheck)) {
+            stop(paste(
+                paste(
+                    "Assays that are not matrix:",
+                    toString(names(assayCheck[!assayCheck]))
+                ),
+                updateMessage,
+                sep = "\n"
+            ))
+        }
+
+        # Gene-level specific
+        if (metadata(object)[["level"]] == "genes") {
+            assert_is_subset("normalized", names(assays(object)))
+        }
+
+        # Row data -------------------------------------------------------------
+        assert_is_all_of(rowRanges(object), "GRanges")
+        assert_is_all_of(rowData(object), "DataFrame")
+
+        # Column data ----------------------------------------------------------
+        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
+
+        # Metadata -------------------------------------------------------------
+        metadata <- metadata(object)
+
+        # Check that interesting groups defined in metadata are valid
+        assert_is_subset(
+            x = metadata[["interestingGroups"]],
+            y = colnames(colData(object))
+        )
+
+        # Detect legacy metrics
+        if (is.data.frame(metadata[["metrics"]])) {
+            stop(paste(
+                "`metrics` saved in `metadata()` instead of `colData()`.",
+                updateMessage
+            ))
+        }
+
+        # Detect legacy slots
+        legacyMetadata <- c(
+            "design",
+            "ensemblVersion",
+            "gtf",
+            "gtfFile",
+            "missingGenes",
+            "programs",
+            "yamlFile"
+        )
+        intersect <- intersect(names(metadata), legacyMetadata)
+        if (length(intersect)) {
+            stop(paste(
+                paste(
+                    "Legacy metadata slots:",
+                    toString(sort(intersect))
+                ),
+                updateMessage,
+                sep = "\n"
+            ))
+        }
+
+        # v0.2.6: countsFromAbundance is now optional, since we're supporting
+        # featureCounts aligned counts
+
+        # Class checks (order independent)
+        requiredMetadata <- list(
+            allSamples = "logical",
+            bcbioCommandsLog = "character",
+            bcbioLog = "character",
+            caller = "character",
+            date = "Date",
+            devtoolsSessionInfo = "session_info",
+            ensemblRelease = "integer",
+            genomeBuild = "character",
+            gffFile = "character",
+            interestingGroups = "character",
+            lanes = "integer",
+            level = "character",
+            organism = "character",
+            programVersions = "tbl_df",
+            projectDir = "character",
+            runDate = "Date",
+            sampleDirs = "character",
+            sampleMetadataFile = "character",
+            template = "character",
+            tx2gene = c("tx2gene", "data.frame"),
+            uploadDir = "character",
+            utilsSessionInfo = "sessionInfo",
+            version = "package_version",
+            wd = "character",
+            yaml = "list"
+        )
+        classChecks <- invisible(mapply(
+            name <- names(requiredMetadata),
+            expected <- requiredMetadata,
+            MoreArgs = list(metadata = metadata),
+            FUN = function(name, expected, metadata) {
+                actual <- class(metadata[[name]])
+                if (!length(intersect(expected, actual))) {
+                    FALSE
+                } else {
+                    TRUE
+                }
+            },
+            SIMPLIFY = TRUE,
+            USE.NAMES = TRUE
+        ))
+        if (!all(classChecks)) {
+            stop(paste(
+                "Metadata class checks failed.",
+                updateMessage,
+                printString(classChecks),
+                sep = "\n"
+            ))
+        }
+
+        # Additional assert checks
+        # caller
+        assert_is_subset(
+            x = metadata[["caller"]],
+            y = validCallers
+        )
+        # level
+        assert_is_subset(
+            x = metadata[["level"]],
+            y = validLevels
+        )
+        # tx2gene
+        tx2gene <- metadata[["tx2gene"]]
+        assertIsTx2gene(tx2gene)
+
+        TRUE
+    }
+)
+
 
 
 # DESeqAnalysis ================================================================
-#' @rdname DESeqAnalysis
-#' @aliases NULL
-#' @exportClass DESeqAnalysis
-#' @usage NULL
-setClass(
+# FIXME Need to document the slots.
+#' DESeqAnalysis Class
+#'
+#' Class containing all elements generated during differential expression
+#' analysis with DESeq2.
+#'
+#' @section DESeqDataSet:
+#'
+#' We recommend generating the `DESeqDataSet` by coercion from `bcbioRNASeq`
+#' object using `as(dds, "bcbioRNASeq")`. Don't use the [DESeq2::DESeqDataSet()]
+#' or [DESeq2::DESeqDataSetFromMatrix()] constructors to generate the
+#' `DESeqDataSet` object.
+#'
+#' @section DESeqResults:
+#'
+#' Don't modify any of the `DESeqResults` objects manually. This includes
+#' rearranging the rows or dropping genes without adjusted P values. We'll take
+#' care of this automatically in supported methods.
+#'
+#' @family S4 Object
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @slot data `DESeqDataSet`.
+#' @slot transform `DESeqTransform`.
+#' @slot results `list`. One or more `DESeqResults`. We're using a list
+#'   here to support multiple pairwise contrasts.
+#' @slot lfcShrink `list`. One or more `DESeqResults` returned from
+#'   [DESeq2::lfcShrink()].
+#'
+#' @return `DESeqAnalysis`.
+#'
+#' @examples
+#' library(DESeq2)
+#' dds <- as(bcb_small, "DESeqDataSet")
+#' dds <- DESeq(dds)
+#' class(dds)
+#' vst <- varianceStabilizingTransformation(dds)
+#' class(vst)
+#' resultsNames(dds)
+#' res <- results(dds, name = resultsNames(dds)[[2L]])
+#' class(res)
+#' x <- DESeqAnalysis(
+#'     data = dds,
+#'     transform = vst,
+#'     results = list(res),
+#'     lfcShrink = list(
+#'         lfcShrink(dds = dds_small, coef = 2L)
+#'     )
+#' )
+#' class(x)
+#' slotNames(x)
+DESeqAnalysis <- setClass(
     Class = "DESeqAnalysis",
-    slots = list(
-        DESeqDataSet = "DESeqDataSet",
-        DESeqTransform = "DESeqTransform",
-        DESeqResults = "list",
+    slots = c(
+        data = "DESeqDataSet",
+        transform = "DESeqTransform",
+        results = "list",
         lfcShrink = "list"
     )
 )
@@ -80,13 +291,25 @@ setValidity(
 
 
 # resultsTables ================================================================
-#' @rdname resultsTables
-#' @aliases NULL
-#' @exportClass resultsTables
-#' @usage NULL
-setClass(
+# FIXME Need to document the slots.
+#' DESeqResultsTables Class
+#'
+#' @family S4 Object
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @slot all `DESeqResults`.
+#' @slot deg `DataFrame`.
+#' @slot degUp `DataFrame`.
+#' @slot degDown `DataFrame`.
+#'
+#' @return `DESeqResultsTables`.
+#'
+#' @examples
+#' print("FIXME")
+DESeqResultsTables <- setClass(
     Class = "DESeqResultsTables",
-    slots = list(
+    slots = c(
         all = "DESeqResults",
         deg = "DataFrame",
         degUp = "DataFrame",
@@ -101,16 +324,16 @@ setValidity(
         assert_is_a_number(metadata(object@all)[["alpha"]])
         assert_is_a_number(metadata(object@all)[["lfcThreshold"]])
         assert_is_subset(
-            x = rownames(object@downregulated),
+            x = rownames(object@degUp),
             y = rownames(object@all)
         )
         assert_is_subset(
-            x = rownames(object@upregulated),
+            x = rownames(object@degDown),
             y = rownames(object@all)
         )
         assert_are_disjoint_sets(
-            x = rownames(object@upregulated),
-            y = rownames(object@downregulated)
+            x = rownames(object@degUp),
+            y = rownames(object@degDown)
         )
 
         # Require that the subsets match the `DESeqResults` summary.
@@ -119,11 +342,11 @@ setValidity(
             pattern = "^LFC.*\\s\\:\\s([0-9]+).*"
         ))
         assert_are_identical(
-            x = nrow(object@upregulated),
+            x = nrow(object@degUp),
             y = as.integer(match[1, 2])
         )
         assert_are_identical(
-            x = nrow(object@downregulated),
+            x = nrow(object@degDown),
             y = as.integer(match[2, 2])
         )
 
