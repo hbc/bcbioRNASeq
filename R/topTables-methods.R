@@ -5,7 +5,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param results `scalar`. Position or name of `DESeqResults`.
 #' @param n `scalar integer`. Number genes to report.
 #'
 #' @return `kable`.
@@ -91,12 +90,10 @@ setMethod(
     signature("DESeqAnalysis"),
     function(
         object,
-        results = 1L,
+        results,
         n = 50L
     ) {
-        assert_is_scalar(results)
-        results <- slot(object, name = "results")[[results]]
-        assert_is_all_of(results, "DESeqResults")
+        results <- .matchResults(object, results)
         do.call(
             what = topTables,
             args = list(
@@ -135,8 +132,7 @@ setMethod(
     function(object, n = 50L) {
         validObject(object)
         assertIsAnImplicitInteger(n)
-        # FIXME Add method support for `contrastName` on `DESeqResultsTables`.
-        contrast <- contrastName(object@all)
+        contrast <- contrastName(object)
         assert_is_a_string(contrast)
 
         # Upregulated
