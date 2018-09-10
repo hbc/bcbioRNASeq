@@ -1,3 +1,8 @@
+# TODO Double check `DESeqAnalysis class support`
+# TODO Unit test rowname, geneID, and geneName pass-in for `genes`
+
+
+
 #' MA Plot
 #'
 #' An MA plot is an application of a Bland–Altman plot for visual representation
@@ -7,8 +12,7 @@
 #'
 #' @name plotMA
 #' @family Differential Expression Functions
-#' @author Rory Kirchner, Michael Steinbaugh
-#'
+#' @author Michael Steinbaugh, Rory Kirchner
 #' @importFrom BiocGenerics plotMA
 #' @export
 #'
@@ -293,15 +297,12 @@ NULL
             args = args
         )
     }
+
+# Assign the formals.
 f1 <- formals(.plotMA.DESeqAnalysis)
 f2 <- formals(.plotMA.DESeqResults)
-f <- c(
-    f1,
-    f2[setdiff(
-        names(f2),
-        c(names(f1), "gene2symbol")
-    )]
-)
+f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]
+f <- c(f1, f2)
 formals(.plotMA.DESeqAnalysis) <- f
 
 
