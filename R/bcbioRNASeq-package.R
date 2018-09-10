@@ -74,7 +74,7 @@
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom reshape2 melt
-#' @importFrom rlang := !! !!! sym syms
+#' @importFrom rlang := !! !!! sym syms UQ
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
 #'   metadata na.omit
 #' @importFrom scales pretty_breaks
