@@ -181,7 +181,6 @@ setValidity(
 
 
 # DESeqAnalysis ================================================================
-# FIXME Need to document the slots.
 #' DESeqAnalysis Class
 #'
 #' Class containing all elements generated during differential expression
@@ -290,23 +289,25 @@ setValidity(
 
 
 # resultsTables ================================================================
-# FIXME Need to document the slots.
 #' DESeqResultsTables Class
 #'
 #' @family S4 Object
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @slot all `DESeqResults`.
-#' @slot deg `DataFrame`.
-#' @slot degUp `DataFrame`.
-#' @slot degDown `DataFrame`.
+#' @slot all `DESeqResults`. Original unmodified `DESeqResults`. Should contain
+#'   all genes, including those with `NA` adjusted *P* values.
+#' @slot deg `DataFrame`. Subset containing genes that pass adjusted *P* value
+#'   and log2 fold change cutoffs.
+#' @slot degUp `DataFrame`. Directional subset containing only upregulated
+#'   genes.
+#' @slot degDown `DataFrame`. Directional subset containing only downregulated
+#'   genes.
 #'
 #' @return `DESeqResultsTables`.
 #'
 #' @examples
-#' # FIXME Don't access the slot directly?
-#' object <- deseq_small@results
+#' object <- deseq_small@results[[1L]]
 #' x <- resultsTables(object)
 #' print(x)
 setClass(
