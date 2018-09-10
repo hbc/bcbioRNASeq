@@ -17,6 +17,7 @@
 #' @name plotMeanSD
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Lorena Patano
+#' @export
 #'
 #' @inheritParams general
 #'
@@ -35,19 +36,27 @@ NULL
 .plotMeanSD <- function(
     raw,
     normalized,
-    rlog,
-    vst,
+    vst = NULL,
+    rlog = NULL,
     legend = FALSE
 ) {
     assert_is_matrix(raw)
     assert_is_matrix(normalized)
-    # rlog and vst are optional (transformationLimit)
+    assert_are_identical(dimnames(normalized), dimnames(raw))
+    assert_is_any_of(vst, c("matrix", "NULL"))
+    if (is.matrix(vst)) {
+        assert_are_identical(dimnames(vst), dimnames(raw))
+    }
+    assert_is_any_of(rlog, c("matrix", "NULL"))
+    if (is.matrix(rlog)) {
+        assert_are_identical(dimnames(rlog), dimnames(raw))
+    }
     assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
 
-    # DESeq2 log2 normalized
+    # DESeq2 log2 normalized.
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
@@ -57,7 +66,7 @@ NULL
         ggtitle("DESeq2 log2") +
         xlab(xlab)
 
-    # DESeq2 regularized log
+    # DESeq2 regularized log.
     if (is.matrix(rlog)) {
         ggrlog <- rlog %>%
             .[nonzero, , drop = FALSE] %>%
@@ -70,7 +79,7 @@ NULL
         ggrlog <- NULL
     }
 
-    # DESeq2 variance stabilizing transformation
+    # DESeq2 variance stabilizing transformation.
     if (is.matrix(vst)) {
         ggvst <- vst %>%
             .[nonzero, , drop = FALSE] %>%
@@ -83,9 +92,9 @@ NULL
         ggvst <- NULL
     }
 
-    # edgeR log2 tmm
-    tmm <- suppressMessages(tmm(raw))
-    ggtmm <- tmm %>%
+    # edgeR log2 tmm.
+    ggtmm <- raw %>%
+        tmm() %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
         log2() %>%
@@ -100,10 +109,10 @@ NULL
         vst = ggvst,
         tmm = ggtmm
     )
-    # Remove NULL assays if present (e.g. rlog, vst)
+    # Remove NULL assays if present (e.g. rlog, vst).
     plotlist <- Filter(Negate(is.null), plotlist)
 
-    # Remove the plot (color) legend, if desired
+    # Remove the plot (color) legend, if desired.
     if (!isTRUE(legend)) {
         plotlist <- lapply(plotlist, function(p) {
             p <- p + theme(legend.position = "none")
@@ -145,13 +154,28 @@ setMethod(
     signature("DESeqDataSet"),
     function(
         object,
+        vst = TRUE,
+        rlog = FALSE,
         legend = getOption("bcbio.legend", FALSE)
     ) {
+        validObject(object)
+        assert_is_a_bool(vst)
+        if (isTRUE(vst)) {
+            vst <- assay(varianceStabilizingTransformation(object))
+        } else {
+            vst <- NULL
+        }
+        assert_is_a_bool(rlog)
+        if (isTRUE(rlog)) {
+            rlog <- assay(rlog(object))
+        } else {
+            rlog <- NULL
+        }
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
-            rlog = assay(rlog(object)),
-            vst = assay(varianceStabilizingTransformation(object)),
+            vst = vst,
+            rlog = rlog,
             legend = legend
         )
     }
