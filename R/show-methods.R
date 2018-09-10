@@ -28,8 +28,6 @@ setMethod(
             "http://bioinformatics.sph.harvard.edu/bcbioRNASeq",
             "citation(\"bcbioRNASeq\")",
             separatorBar,
-            capture.output(show(rse)),
-            separatorBar,
             paste(
                 bold("Upload Dir:"),
                 deparse(metadata(object)[["uploadDir"]])
@@ -94,6 +92,13 @@ setMethod(
                 paste(bold("GFF File:"), deparse(gffFile))
             )
         }
+
+        # Include standard `SummarizedExperiment` information.
+        return <- c(
+            return,
+            separatorBar,
+            capture.output(show(rse))
+        )
 
         cat(return, sep = "\n")
     }
