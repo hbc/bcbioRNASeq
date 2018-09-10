@@ -72,6 +72,26 @@ NULL
 
 
 
+# FIXME Improve the formals.
+#' @rdname plotVolcano
+#' @export
+setMethod(
+    "plotVolcano",
+    signature("DESeqAnalysis"),
+    function(object, results, ...) {
+        do.call(
+            what = plotVolcano,
+            args = list(
+                object = .matchResults(object, results),
+                gene2symbol = gene2symbol(object@data),
+                ...
+            )
+        )
+    }
+)
+
+
+
 #' @rdname plotVolcano
 #' @export
 setMethod(
