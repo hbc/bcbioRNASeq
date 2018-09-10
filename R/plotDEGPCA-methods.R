@@ -16,7 +16,7 @@
 #' @examples
 #' # DESeqResults, DESeqTransform ====
 #' plotDEGPCA(
-#'     object = deseq_small@results,
+#'     object = deseq_small@lfcShrink[[1L]],
 #'     counts = deseq_small@transform,
 #'     label = TRUE
 #' )
@@ -24,40 +24,29 @@ NULL
 
 
 
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
+.plotDEGPCA.DESeqResults.DESeqTransform <-  # nolint
     function(
         object,
         counts,
         interestingGroups = NULL,
-        alpha = NULL,
-        lfcThreshold = 0L,
         direction = c("both", "up", "down"),
         color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
         return = c("ggplot", "DataFrame")
     ) {
+        assert_is_all_of(object, "DESeqResults")
         validObject(object)
+        assert_is_all_of(counts, "DESeqTransform")
         validObject(counts)
-        assert_are_identical(
-            x = rownames(object),
-            y = rownames(counts)
-        )
+        assert_are_identical(rownames(object), rownames(counts))
         interestingGroups <- matchInterestingGroups(
             object = counts,
             interestingGroups = interestingGroups
         )
         interestingGroups(counts) <- interestingGroups
-        if (is.null(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
+        alpha <- metadata(object)[["alpha"]]
         assert_is_a_number(alpha)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assertIsColorScaleDiscreteOrNULL(color)
@@ -65,7 +54,7 @@ setMethod(
         assert_is_a_bool(label)
         return <- match.arg(return)
 
-        # Get DEG vector using DEGreport
+        # Get DEG vector using DEGreport.
         if (direction == "both") {
             direction <- NULL
         }
@@ -76,44 +65,34 @@ setMethod(
             direction = direction
         )
 
-        # Early return if there are no DEGs
-        if (!length(deg)) {
+        # Early return if there are no DEGs.
+        if (!length(deg) > 0L) {
             warning("No significant DEGs to plot", call. = FALSE)
             return(invisible())
         }
 
-        # Subset the counts
-        counts <- counts[deg, , drop = FALSE]
-
-        # SummarizedExperiment method
-        rse <- as(counts, "RangedSummarizedExperiment")
-        plotPCA(
-            object = rse,
-            interestingGroups = interestingGroups,
-            ntop = Inf,
-            label = label,
-            title = contrastName(object),
-            subtitle = paste(nrow(rse), "genes"),
-            return = return
+        # Using our internal `SummarizedExperiment` method.
+        do.call(
+            what = .plotPCA.SummarizedExperiment,
+            args = list(
+                object = counts[deg, , drop = FALSE],
+                interestingGroups = interestingGroups,
+                ntop = Inf,
+                label = label,
+                title = contrastName(object),
+                subtitle = paste(length(deg), "genes"),
+                return = return
+            )
         )
     }
-)
 
 
 
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "bcbioRNASeq"
-    ),
+.plotDEGPCA.DESeqResults.bcbioRNASeq <-  # nolint
     function(
         object,
         counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
     ) {
         validObject(object)
         validObject(counts)
@@ -131,4 +110,30 @@ setMethod(
             ...
         )
     }
+# FIXME Set the formals.
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    f = "plotDEGPCA",
+    signature = signature(
+        object = "DESeqResults",
+        counts = "DESeqTransform"
+    ),
+    definition = .plotDEGPCA.DESeqResults.DESeqTransform
+)
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    f = "plotDEGPCA",
+    signature = signature(
+        object = "DESeqResults",
+        counts = "bcbioRNASeq"
+    ),
+    definition = .plotDEGPCA.DESeqResults.bcbioRNASeq
 )
