@@ -23,6 +23,8 @@
     msg <- paste(bold("DESeqResults:"), contrastName(results))
     if (isTRUE(lfcShrink)) {
         msg <- paste(msg, "(shrunken LFC)")
+    } else {
+        msg <- paste(msg, "(unshrunken LFC)")
     }
     message(msg)
 
