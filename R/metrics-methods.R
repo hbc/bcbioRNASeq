@@ -3,7 +3,6 @@
 #' @name metrics
 #' @family Data Functions
 #' @author Michael Steinbaugh
-#'
 #' @importFrom basejump metrics
 #' @export
 #'
@@ -12,7 +11,8 @@
 #' @return `data.frame`.
 #'
 #' @examples
-#' metrics(bcb_small) %>% glimpse()
+#' x <- metrics(bcb_small)
+#' glimpse(x)
 NULL
 
 
@@ -24,29 +24,18 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object, interestingGroups = NULL) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
-        )
-
-        # Stop on fast-rnaseq pipline detection.
-        # Consider parsing the YAML metadata as an alternate approach.
-        if (!"totalReads" %in% colnames(colData(object))) {
-            # nocov start
-            stop(paste(
-                "Fast mode detected.",
-                "Metrics were not calculated."
-            ), call. = FALSE)
-            # nocov end
+        if (!is.null(interestingGroups)) {
+            interestingGroups(object) <- interestingGroups
         }
-
-        data <- as.data.frame(colData(object))
-        data <- uniteInterestingGroups(data, interestingGroups)
-
-        assert_is_subset(
-            x = c("sampleName", "interestingGroups"),
-            y = colnames(data)
+        data <- do.call(
+            what = metrics,
+            args = list(
+                object = as(object, "SummarizedExperiment")
+            )
         )
-        data
+        # Returning as `data.frame` instead of `DataFrame`.
+        # `metrics()` return is being used in tidyverse/ggplot scripts.
+        # Consider returning `DataFrame` instead in a future update.
+        as.data.frame(data)
     }
 )

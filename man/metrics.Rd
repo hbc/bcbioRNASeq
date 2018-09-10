@@ -21,7 +21,8 @@ samples. If left unset, defaults to \code{sampleName}.}
 Sample Metrics
 }
 \examples{
-metrics(bcb_small) \%>\% glimpse()
+x <- metrics(bcb_small)
+glimpse(x)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
