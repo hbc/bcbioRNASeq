@@ -1,8 +1,3 @@
-# FIXME Switch to DESeqAnalysis instead of list
-# Rethink how we're approaching the methods here.
-
-
-
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables
