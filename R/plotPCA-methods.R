@@ -42,14 +42,11 @@ NULL
 
 
 
-#' @rdname plotPCA
-#' @export
-setMethod(
-    f = "plotPCA",
-    signature = signature("bcbioRNASeq"),
-    definition = function(
+# We're using this internal constructor for `plotDEGHeatmap()` also.
+# Keep this code separate from the bcbioRNASeq method, but don't export.
+.plotPCA.SummarizedExperiment <-  # nolint
+    function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         interestingGroups = NULL,
         ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
@@ -60,7 +57,7 @@ setMethod(
     ) {
         # Legacy arguments -----------------------------------------------------
         # nocov start
-        call <- matchS4Call()
+        call <- match.call()
         # genes
         if ("genes" %in% names(call)) {
             stop("`genes` is defunct. Use `ntop` argument instead.")
@@ -80,7 +77,6 @@ setMethod(
         # nocov end
 
         validObject(object)
-        normalized <- match.arg(normalized)
         interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
@@ -100,21 +96,14 @@ setMethod(
         } else {
             nGene <- ntop
         }
+        message(paste("Plotting PCA using", nGene, "genes"))
 
-        message(paste(
-            "Plotting PCA using",
-            normalized, "counts;",
-            nGene, "genes"
-        ))
-
-        # Coerce to `DESeqTransform` and use DESeq2 method internally to obtain
-        # the PCA coordinates.
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts(object, normalized = normalized)
+        # Using the `DESeq2::plotPCA()` `DESeqTransform` method to obtain the
+        # PCA coordinates in a data frame.
         data <- do.call(
             what = plotPCA,
             args = list(
-                object = DESeqTransform(rse),
+                object = DESeqTransform(object),
                 intgroup = interestingGroups,
                 ntop = ntop,
                 returnData = TRUE
@@ -177,4 +166,43 @@ setMethod(
 
         p
     }
+
+
+
+.plotPCA.bcbioRNASeq <-  # nolint
+    function(
+        object,
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+    ) {
+        validObject(object)
+        normalized <- match.arg(normalized)
+        message(paste("Using", normalized, "counts"))
+        rse <- as(object, "RangedSummarizedExperiment")
+        assays(rse) <- list(counts(object, normalized = normalized))
+        args <- setArgsToDoCall(
+            args = list(object = rse),
+            removeArgs = "normalized",
+            call = matchS4Call()
+        )
+        do.call(
+            what = .plotPCA.SummarizedExperiment,
+            args = args
+        )
+    }
+
+# Assign the formals.
+f1 <- formals(.plotPCA.bcbioRNASeq)
+f2 <- formals(.plotPCA.SummarizedExperiment)
+f2 <- f2[setdiff(names(f2), names(f1))]
+f <- c(f1, f2)
+formals(.plotPCA.bcbioRNASeq) <- f
+
+
+
+#' @rdname plotPCA
+#' @export
+setMethod(
+    f = "plotPCA",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotPCA.bcbioRNASeq
 )
