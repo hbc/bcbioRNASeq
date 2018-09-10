@@ -174,9 +174,10 @@ bcbioRNASeq <- function(
     rlog = FALSE,
     ...
 ) {
+    call <- matchCall()
+
     # Legacy arguments ---------------------------------------------------------
     # nocov start
-    call <- match.call()
     # annotable
     if ("annotable" %in% names(call)) {
         stop("`annotable` is defunct. Consider using `gffFile` instead.")
@@ -524,7 +525,7 @@ bcbioRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        call = match.call()
+        call = call
     )
 
     # Return -------------------------------------------------------------------

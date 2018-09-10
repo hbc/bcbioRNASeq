@@ -41,10 +41,11 @@
 #'   emptyRanges fixNA gene2symbol hasRownames initializeDirectory
 #'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchInterestingGroups
-#'   matchCall methodFormals plotHeatmap prepareTemplate printString
-#'   readFileByExtension readYAML sampleData sanitizeRowData sanitizeSampleData
-#'   setArgsToDoCall snake stripTranscriptVersions uniteInterestingGroups
+#'   markdownHeader markdownList markdownPlotlist matchCall
+#'   matchInterestingGroups methodFormals plotHeatmap prepareTemplate
+#'   printString readFileByExtension readYAML sampleData sanitizeRowData
+#'   sanitizeSampleData setArgsToDoCall snake stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
