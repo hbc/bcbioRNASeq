@@ -402,16 +402,10 @@ print(dds)
 
 Since both `bcbioRNASeq` and `DESeqDataSet` classes extend `RangedSummarizedExperiment`, internally we coerce the original `bcbioRNASeq` object to a `RangedSummarizedExperiment` and then use the `DESeqDataSet()` constructor, which requires a `SummarizedExperiment` with integer counts.
 
-Here is the source code responsible for handing off the data to [DESeq2][].
+The source code for our `bcbioRNASeq` to `DESeqDataSet` coercion is accessible with `getMethod()`.
 
-```{r}
-getMethod(
-    f = "coerce",
-    signature(
-        from = "bcbioRNASeq",
-        to = "DESeqDataSet"
-    )
-)
+```{r, eval=FALSE}
+getMethod("coerce", signature(from = "bcbioRNASeq", to = "DESeqDataSet"))
 ```
 
 Now you can perform differential expression analysis with [DESeq2][]. The authors of that package have provided a number of detailed, well documented references online:
@@ -424,7 +418,7 @@ We also provide a parameterized [R Markdown][] template for standard [DESeq2][] 
 
 # Functional analysis
 
-We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][GSEA] and [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] pathway enrichment analysis [@Kanehisa2000-hk; @Subramanian2005-zk], which leverages the functionality of the [clusterProfiler][] package [@Yu2012-ae]. This workflow is described in detail in our [workflow paper][], and is outside the scope of this advanced use vignette. For more information on functional analysis, consult the [clusterProfiler][] vignette, which is extremely detailed and thorough.
+We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][GSEA] and [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] pathway enrichment analysis [@Kanehisa2000-hk; @Subramanian2005-zk], which leverages the functionality of the [clusterProfiler][] package [@Yu2012-ae]. This workflow is described in detail in our [workflow paper][], and is outside the scope of this advanced use vignette. For more information on functional analysis, consult the [clusterProfiler][] vignette, which is extremely detailed.
 
 # R session information
 
