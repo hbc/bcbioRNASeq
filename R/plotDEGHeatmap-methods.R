@@ -1,3 +1,4 @@
+# FIXME Define and recommend DESeqAnalysis method
 # FIXME Include the alpha on the plot
 
 
@@ -27,10 +28,9 @@
 #'
 #' @examples
 #' # DESeqResults, DESeqTransform ====
-#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 #' plotDEGHeatmap(
-#'     results = res_small,
-#'     counts = vst_small
+#'     object = deseq_small@results,
+#'     counts = deseq_small@transform
 #' )
 NULL
 
@@ -38,7 +38,7 @@ NULL
 
 .plotDEGHeatmap <-  # nolint
 function(
-    results,
+    object,
     counts,
     alpha = NULL,
     lfcThreshold = 0L,
@@ -46,10 +46,10 @@ function(
     title = TRUE
     # Defining additional formals below.
 ) {
-    validObject(results)
+    validObject(object)
     validObject(counts)
     assert_are_identical(
-        x = rownames(results),
+        x = rownames(object),
         y = rownames(counts)
     )
     # Coerce to RSE then SE to preserve rowData.
@@ -58,7 +58,7 @@ function(
     }
     counts <- as(counts, "SummarizedExperiment")
     if (is.null(alpha)) {
-        alpha <- metadata(results)[["alpha"]]
+        alpha <- metadata(object)[["alpha"]]
     }
     assert_is_a_number(alpha)
     assert_is_a_number(lfcThreshold)
@@ -72,12 +72,12 @@ function(
 
     # Title
     if (isTRUE(title)) {
-        title <- contrastName(results)
+        title <- contrastName(object)
     } else if (!is_a_string(title)) {
         title <- NULL
     }
 
-    deg <- significants(results, padj = alpha, fc = lfcThreshold)
+    deg <- significants(object, padj = alpha, fc = lfcThreshold)
 
     # Early return if there are no DEGs.
     if (!length(deg)) {
@@ -98,7 +98,7 @@ function(
             ...
         ),
         removeArgs = c(
-            "results",
+            "object",
             "counts",
             "alpha",
             "lfcThreshold"
@@ -129,7 +129,7 @@ formals(.plotDEGHeatmap) <- f
 setMethod(
     "plotDEGHeatmap",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "SummarizedExperiment"
     ),
     .plotDEGHeatmap
@@ -142,13 +142,13 @@ setMethod(
 setMethod(
     "plotDEGHeatmap",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "DESeqTransform"
     ),
     getMethod(
         "plotDEGHeatmap",
         signature(
-            results = "DESeqResults",
+            object = "DESeqResults",
             counts = "SummarizedExperiment"
         )
     )
@@ -161,25 +161,25 @@ setMethod(
 setMethod(
     "plotDEGHeatmap",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "DESeqDataSet"
     ),
     function(
-        results,
+        object,
         counts,
         ...
     ) {
-        validObject(results)
+        validObject(object)
         validObject(counts)
         assert_are_identical(
-            x = rownames(results),
+            x = rownames(object),
             y = rownames(counts)
         )
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = TRUE))
         args <- list(
-            results = results,
+            object = object,
             counts = rse,
             ...
         )
@@ -194,19 +194,19 @@ setMethod(
 setMethod(
     "plotDEGHeatmap",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "bcbioRNASeq"
     ),
     function(
-        results,
+        object,
         counts,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
-        validObject(results)
+        validObject(object)
         validObject(counts)
         assert_are_identical(
-            x = rownames(results),
+            x = rownames(object),
             y = rownames(counts)
         )
         normalized <- match.arg(normalized)
@@ -214,7 +214,7 @@ setMethod(
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts(counts, normalized = normalized))
         args <- list(
-            results = results,
+            object = object,
             counts = rse,
             ...
         )

@@ -1,4 +1,6 @@
+# FIXME Define and recommend DESeqAnalysis method
 # FIXME Include the alpha on the plot
+# FIXME Check `DataFrame` return
 
 
 
@@ -13,10 +15,9 @@
 #'
 #' @examples
 #' # DESeqResults, DESeqTransform ====
-#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 #' plotDEGPCA(
-#'     results = res_small,
-#'     counts = vst_small,
+#'     object = deseq_small@results,
+#'     counts = deseq_small@transform,
 #'     label = TRUE
 #' )
 NULL
@@ -28,11 +29,11 @@ NULL
 setMethod(
     "plotDEGPCA",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "SummarizedExperiment"
     ),
     function(
-        results,
+        object,
         counts,
         interestingGroups = NULL,
         alpha = NULL,
@@ -40,12 +41,12 @@ setMethod(
         direction = c("both", "up", "down"),
         color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
-        return = c("ggplot", "data.frame")
+        return = c("ggplot", "DataFrame")
     ) {
-        validObject(results)
+        validObject(object)
         validObject(counts)
         assert_are_identical(
-            x = rownames(results),
+            x = rownames(object),
             y = rownames(counts)
         )
         interestingGroups <- matchInterestingGroups(
@@ -54,7 +55,7 @@ setMethod(
         )
         interestingGroups(counts) <- interestingGroups
         if (is.null(alpha)) {
-            alpha <- metadata(results)[["alpha"]]
+            alpha <- metadata(object)[["alpha"]]
         }
         assert_is_a_number(alpha)
         assert_is_a_number(lfcThreshold)
@@ -69,7 +70,7 @@ setMethod(
             direction <- NULL
         }
         deg <- significants(
-            results,
+            object,
             padj = alpha,
             fc = lfcThreshold,
             direction = direction
@@ -91,7 +92,7 @@ setMethod(
             interestingGroups = interestingGroups,
             ntop = Inf,
             label = label,
-            title = contrastName(results),
+            title = contrastName(object),
             subtitle = paste(nrow(rse), "genes"),
             return = return
         )
@@ -105,19 +106,19 @@ setMethod(
 setMethod(
     "plotDEGPCA",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "bcbioRNASeq"
     ),
     function(
-        results,
+        object,
         counts,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         ...
     ) {
-        validObject(results)
+        validObject(object)
         validObject(counts)
         assert_are_identical(
-            x = rownames(results),
+            x = rownames(object),
             y = rownames(counts)
         )
         normalized <- match.arg(normalized)
@@ -125,7 +126,7 @@ setMethod(
         rse <- as(counts, "RangedSummarizedExperiment")
         assay(rse) <- counts(counts, normalized = normalized)
         plotDEGPCA(
-            results = results,
+            object = object,
             counts = rse,
             ...
         )
@@ -139,25 +140,25 @@ setMethod(
 setMethod(
     "plotDEGPCA",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "DESeqDataSet"
     ),
     function(
-        results,
+        object,
         counts,
         ...
     ) {
-        validObject(results)
+        validObject(object)
         validObject(counts)
         assert_are_identical(
-            x = rownames(results),
+            x = rownames(object),
             y = rownames(counts)
         )
         message("Using normalized counts")
         rse <- as(counts, "RangedSummarizedExperiment")
         assay(rse) <- counts(counts, normalized = TRUE)
         plotDEGPCA(
-            results = results,
+            object = object,
             counts = rse,
             ...
         )
@@ -171,13 +172,13 @@ setMethod(
 setMethod(
     "plotDEGPCA",
     signature(
-        results = "DESeqResults",
+        object = "DESeqResults",
         counts = "DESeqTransform"
     ),
     getMethod(
         "plotDEGPCA",
         signature(
-            results = "DESeqResults",
+            object = "DESeqResults",
             counts = "SummarizedExperiment"
         )
     )
