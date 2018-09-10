@@ -3,7 +3,7 @@
 \docType{class}
 \name{bcbioRNASeq-class}
 \alias{bcbioRNASeq-class}
-\title{bcbioRNASeq Class}
+\title{\code{bcbioRNASeq} Class}
 \description{
 Inherits from \code{RangedSummarizedExperiment}.
 }

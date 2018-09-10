@@ -1,3 +1,8 @@
+# FIXME Improve error message about gene2symbol for DESeqResults method.
+# FIXME Check the `lfcThreshold` documentation.
+
+
+
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -26,12 +31,12 @@
 #' geneNames <- head(gene2symbol[["geneName"]])
 #' print(geneNames)
 #'
-#' # DESeqResults ====
-#' summary(res_small)
+#' # DESeqAnalysis ====
+#' plotVolcano(deseq_small)
 #'
 #' # Color DEGs in each direction separately.
 #' plotVolcano(
-#'     object = res_small,
+#'     object = deseq_small,
 #'     sigPointColor = c(
 #'         upregulated = "purple",
 #'         downregulated = "orange"
@@ -73,7 +78,6 @@ NULL
 
 
 
-# FIXME Check the `lfcThreshold` documentation.
 .plotVolcano.DESeqResults <-  # nolint
     function(
         object,

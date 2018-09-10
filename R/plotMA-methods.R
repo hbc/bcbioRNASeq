@@ -33,6 +33,9 @@
 #' geneNames <- head(gene2symbol[["geneName"]])
 #' print(geneNames)
 #'
+#' # DESeqAnalysis ====
+#' plotMA(deseq_small)
+#'
 #' # DESeqResults ====
 #' summary(res_small)
 #'
@@ -286,6 +289,7 @@ NULL
         results,
         lfcShrink = TRUE
     ) {
+        validObject(object)
         args <- setArgsToDoCall(
             args = list(
                 object = .matchResults(
@@ -295,13 +299,10 @@ NULL
                 ),
                 gene2symbol = gene2symbol(object@data)
             ),
-            removeArgs = c("results"),
+            removeArgs = c("results", "lfcShrink"),
             call = matchCall()
         )
-        do.call(
-            what = plotMA,
-            args = args
-        )
+        do.call(what = plotMA, args = args)
     }
 
 # Assign the formals.

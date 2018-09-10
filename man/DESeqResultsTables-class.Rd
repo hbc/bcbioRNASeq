@@ -3,12 +3,12 @@
 \docType{class}
 \name{DESeqResultsTables-class}
 \alias{DESeqResultsTables-class}
-\title{DESeqResultsTables Class}
+\title{\code{DESeqResultsTables} Class}
 \value{
 \code{DESeqResultsTables}.
 }
 \description{
-DESeqResultsTables Class
+\code{DESeqResultsTables} Class
 }
 \section{Slots}{
 

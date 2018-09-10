@@ -66,6 +66,9 @@ print(geneIDs)
 geneNames <- head(gene2symbol[["geneName"]])
 print(geneNames)
 
+# DESeqAnalysis ====
+plotMA(deseq_small)
+
 # DESeqResults ====
 summary(res_small)
 

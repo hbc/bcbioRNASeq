@@ -4,7 +4,7 @@
 \name{DESeqAnalysis-class}
 \alias{DESeqAnalysis-class}
 \alias{DESeqAnalysis}
-\title{DESeqAnalysis Class}
+\title{\code{DESeqAnalysis} Class}
 \value{
 \code{DESeqAnalysis}.
 }
@@ -15,15 +15,13 @@ analysis with DESeq2.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{\code{DESeqDataSet}.}
-
 \item{\code{transform}}{\code{DESeqTransform}.}
 
-\item{\code{results}}{\code{list}. One or more \code{DESeqResults}. We're using a list
-here to support multiple pairwise contrasts.}
+\item{\code{results}}{\code{list}. One or more unshrunken \code{DESeqResults}. Assign the
+\code{\link[DESeq2:results]{DESeq2::results()}} return here.}
 
-\item{\code{lfcShrink}}{\code{list}. One or more \code{DESeqResults} returned from
-\code{\link[DESeq2:lfcShrink]{DESeq2::lfcShrink()}}.}
+\item{\code{lfcShrink}}{\code{list}. One or more shrunken \code{DESeqResults}. Assign the
+\code{\link[DESeq2:lfcShrink]{DESeq2::lfcShrink()}} return here.}
 }}
 
 \section{DESeqDataSet}{
@@ -55,7 +53,7 @@ resultsNames(dds)
 res <- results(dds, name = resultsNames(dds)[[2L]])
 class(res)
 x <- DESeqAnalysis(
-    data = dds,
+    dds,
     transform = vst,
     results = list(res),
     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
