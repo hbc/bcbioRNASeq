@@ -121,9 +121,13 @@ NULL
     function(
         object,
         counts = NULL,
-        results = 1L
+        results
     ) {
-        results <- object@lfcShrink[[results]]
+        results <- .matchResults(
+            object = object,
+            results = results,
+            lfcShrink = TRUE
+        )
         counts <- object@transform
         args <- setArgsToDoCall(
             args = list(

@@ -157,7 +157,7 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
     function(
         object,
         counts = NULL,
-        results = 1L
+        results
     ) {
         results <- object@lfcShrink[[results]]
         counts <- object@transform
