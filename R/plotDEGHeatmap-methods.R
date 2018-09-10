@@ -1,7 +1,3 @@
-# FIXME Define and recommend DESeqAnalysis method
-
-
-
 #' Differentially Expressed Gene Heatmap
 #'
 #' This function is a simplified version of [plotHeatmap()] that is
