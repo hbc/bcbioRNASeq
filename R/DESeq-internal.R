@@ -1,3 +1,12 @@
+.matchResults <- function(object, results) {
+    assert_is_scalar(results)
+    results <- slot(object, name = "results")[[results]]
+    assert_is_all_of(results, "DESeqResults")
+    results
+}
+
+
+
 .regenerateDESeqDataSet <- function(object) {
     assert_is_all_of(object, "RangedSummarizedExperiment")
     message(paste(
