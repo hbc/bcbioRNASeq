@@ -16,7 +16,6 @@
 #' @name updateObject
 #' @family S4 Object
 #' @author Michael Steinbaugh
-#'
 #' @importFrom BiocGenerics updateObject
 #' @export
 #'
@@ -47,16 +46,16 @@ setMethod(
         assert_is_all_of(version, c("package_version", "numeric_version"))
         message(paste("Upgrading from", version, "to", packageVersion))
 
-        # Check for legacy bcbio slot
+        # Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
             message("Legacy bcbio slot detected")
         }
 
         # Coerce assays to list ------------------------------------------------
-        # Ensure this comes before the rowRanges handling
-        # Using `slot()` here to avoid error on missing rowRanges
+        # Ensure this comes before the rowRanges handling.
+        # Using `slot()` here to avoid error on missing rowRanges.
         assays <- slot(object, "assays")
-        # Coerce ShallowSimpleListAssays to list
+        # Coerce ShallowSimpleListAssays to list.
         assays <- lapply(seq_along(assays), function(a) {
             assays[[a]]
         })
@@ -64,13 +63,13 @@ setMethod(
 
         # Row data -------------------------------------------------------------
         rownames <- rownames(assays[[1L]])
-        # This section needs to come before the assay modifications
+        # This section needs to come before the assay modifications.
         if (.hasSlot(object, "rowRanges")) {
             hasRowRanges <- TRUE
             intRowRanges <- slot(object, "rowRanges")
         } else {
             hasRowRanges <- FALSE
-            # Generate empty genomic ranges if not supplied by the user
+            # Generate empty genomic ranges if not supplied by the user.
             intRowRanges <- emptyRanges(names = rownames)
         }
         assert_is_all_of(intRowRanges, "GRanges")
@@ -214,7 +213,7 @@ setMethod(
         }
         assertIsTx2gene(metadata[["tx2gene"]])
 
-        # Dead genes: "missing" or "unannotated"
+        # Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {
             message("Dropping missingGenes from metadata")
             metadata[["missingGenes"]] <- NULL
@@ -246,7 +245,7 @@ setMethod(
         assert_is_a_string(level)
         assert_is_subset(level, validLevels)
 
-        # Rename main assay from "raw" to "counts"
+        # Rename main assay from "raw" to "counts".
         if ("raw" %in% assayNames(rse)) {
             message("Renaming main `raw` assay to `counts`")
             assays(rse)[["counts"]] <- assays(rse)[["raw"]]
@@ -301,29 +300,29 @@ setMethod(
             assays(rse)[["tmm"]] <- NULL
         }
 
-        # Put the required assays first
+        # Put the required assays first.
         assays(rse) <- assays(rse)[unique(c(requiredAssays, assayNames(rse)))]
         assert_is_subset(requiredAssays, assayNames(rse))
 
         # Column data ----------------------------------------------------------
         colData <- colData(rse)
 
-        # Move metrics from metadata into colData, if necessary
+        # Move metrics from metadata into colData, if necessary.
         metrics <- metadata(rse)[["metrics"]]
         if (is.data.frame(metrics)) {
             message("Moving metrics from metadata into colData")
 
-            # Always remove legacy `name` column
+            # Always remove legacy `name` column.
             metrics[["name"]] <- NULL
 
-            # Rename 5'3' bias
+            # Rename 5'3' bias.
             if ("x53Bias" %in% colnames(metrics)) {
                 message("Renaming x53Bias to x5x3Bias")
                 metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
                 metrics[["x53Bias"]] <- NULL
             }
 
-            # Rename rRNA rate
+            # Rename rRNA rate.
             if (!"rrnaRate" %in% colnames(metrics)) {
                 col <- grep(
                     pattern = "rrnarate",
@@ -337,7 +336,7 @@ setMethod(
                 metrics[[col]] <- NULL
             }
 
-            # Only include columns not already present in colData
+            # Only include columns not already present in colData.
             setdiff <- setdiff(colnames(metrics), colnames(colData))
             metrics <- metrics[, sort(setdiff), drop = FALSE]
 
@@ -345,7 +344,7 @@ setMethod(
             metadata(rse)[["metrics"]] <- NULL
         }
 
-        # Remove legacy `sampleID` and `description` columns, if present
+        # Remove legacy `sampleID` and `description` columns, if present.
         colData[["sampleID"]] <- NULL
         colData[["description"]] <- NULL
 
@@ -354,7 +353,6 @@ setMethod(
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays(rse),
-            # This will handle mismatches
             rowRanges = rowRanges,
             colData = colData(rse),
             metadata = metadata(rse)
