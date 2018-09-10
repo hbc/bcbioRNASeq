@@ -23,7 +23,6 @@
 #' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
 #' plotCorrelationHeatmap(bcb_small, method = "pearson")
 #' plotCorrelationHeatmap(bcb_small, method = "spearman")
 NULL

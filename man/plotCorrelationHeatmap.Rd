@@ -76,7 +76,6 @@ This function calculates a correlation matrix based on feature expression per
 sample.
 }
 \examples{
-# bcbioRNASeq ====
 plotCorrelationHeatmap(bcb_small, method = "pearson")
 plotCorrelationHeatmap(bcb_small, method = "spearman")
 }
