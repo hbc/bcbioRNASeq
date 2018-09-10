@@ -43,7 +43,7 @@ NULL
         dds <- suppressWarnings(DESeq(dds))
         args <- setArgsToDoCall(
             args = list(object = dds),
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(what = plotDispEsts, args = args)
     }
