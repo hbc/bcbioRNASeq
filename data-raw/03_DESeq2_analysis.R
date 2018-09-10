@@ -1,9 +1,10 @@
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-09-09
+#' Last updated 2018-09-10
 
 library("DESeq2")
 
 # DESeqDataSet
+# Coerce from bcbioRNASeq object.
 dds <- as(bcb_small, "DESeqDataSet")
 design(dds) <- ~ treatment
 dds <- DESeq(dds)
@@ -39,11 +40,12 @@ res_shrunken <- lfcShrink(
 validObject(res_shrunken)
 
 deseq_small <- DESeqAnalysis(
-    data = dds,
+    dds,
     transform = vst,
     results = list(res),
     lfcShrink = list(res_shrunken)
 )
+validObject(deseq_small)
 print(deseq_small)
 
 devtools::use_data(deseq_small, overwrite = TRUE, compress = "xz")
