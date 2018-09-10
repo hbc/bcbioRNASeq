@@ -107,21 +107,19 @@ setMethod(
     f = "show",
     signature = signature("DESeqAnalysis"),
     definition = function(object) {
-        version <- metadata(object@DESeqDataSet)[["version"]]
+        version <- metadata(object@data)[["version"]]
         contrastNames <- vapply(
-            X = object@DESeqResults,
+            X = object@results,
             FUN = contrastName,
             FUN.VALUE = character(1L)
         )
         return <- c(
             bold(paste(class(object), version)),
-            printString(slotNames(object)),
-            separatorBar,
-            capture.output(show(object@DESeqDataSet)),
-            separatorBar,
-            paste(bold("Transform:"), .transformType(object@DESeqTransform)),
+            paste(bold("Transform:"), .transformType(object@transform)),
             bold(paste0("Results (", length(contrastNames), "):")),
-            paste0("  - ", contrastNames)
+            paste0("  - ", contrastNames),
+            separatorBar,
+            capture.output(show(object@data))
         )
         cat(return, sep = "\n")
     }
