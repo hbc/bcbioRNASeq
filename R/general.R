@@ -37,6 +37,7 @@
 #'   samples. If left unset, defaults to `sampleName`.
 #' @param label `boolean`. Superimpose sample text labels on the plot.
 #' @param legend `boolean`. Show plot legend.
+#' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
 #' @param lfcThreshold `scalar numeric`. Log fold change ratio (base 2) cutoff
 #'   threshold.
 #' @param limit `scalar numeric`. Threshold to denote on the plot, using a

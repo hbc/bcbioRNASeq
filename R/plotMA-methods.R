@@ -1,5 +1,6 @@
 # TODO Double check `DESeqAnalysis class support`
 # TODO Unit test rowname, geneID, and geneName pass-in for `genes`
+# FIXME Need to document lfcShrink.
 
 
 
@@ -282,11 +283,16 @@ NULL
 .plotMA.DESeqAnalysis <-  # nolint
     function(
         object,
-        results
+        results,
+        lfcShrink = TRUE
     ) {
         args <- setArgsToDoCall(
             args = list(
-                object = .matchResults(object, results),
+                object = .matchResults(
+                    object = object,
+                    results = results,
+                    lfcShrink = lfcShrink
+                ),
                 gene2symbol = gene2symbol(object@data)
             ),
             removeArgs = c("results"),

@@ -8,8 +8,8 @@
 \alias{plotMA,DESeqResults-method}
 \title{MA Plot}
 \usage{
-\S4method{plotMA}{DESeqAnalysis}(object, results, genes = NULL,
-  ntop = 0L, direction = c("both", "up", "down"),
+\S4method{plotMA}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
+  genes = NULL, ntop = 0L, direction = c("both", "up", "down"),
   pointColor = "gray50", sigPointColor = c(upregulated = "purple",
   downregulated = "orange"), return = c("ggplot", "DataFrame"))
 
@@ -24,6 +24,8 @@
 \item{object}{Object.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from
@@ -115,6 +117,6 @@ Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{resultsTables}}
 }
 \author{
-Rory Kirchner, Michael Steinbaugh
+Michael Steinbaugh, Rory Kirchner
 }
 \concept{Differential Expression Functions}

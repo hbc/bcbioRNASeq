@@ -1,3 +1,7 @@
+# FIXME Add DESeqAnalysis class support
+
+
+
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -73,35 +77,12 @@ NULL
 
 
 
-# FIXME Improve the formals.
-#' @rdname plotVolcano
-#' @export
-setMethod(
-    "plotVolcano",
-    signature("DESeqAnalysis"),
-    function(object, results, ...) {
-        do.call(
-            what = plotVolcano,
-            args = list(
-                object = .matchResults(object, results),
-                gene2symbol = gene2symbol(object@data),
-                ...
-            )
-        )
-    }
-)
-
-
-
-#' @rdname plotVolcano
-#' @export
-setMethod(
-    "plotVolcano",
-    signature("DESeqResults"),
+# FIXME Check the `lfcThreshold` documentation.
+.plotVolcano.DESeqResults <-  # nolint
     function(
         object,
         alpha = NULL,
-        lfcThreshold = 0L,
+        lfcThreshold = NULL,
         ylim = 1e-10,
         genes = NULL,
         gene2symbol = NULL,
@@ -124,6 +105,9 @@ setMethod(
             lower = 0L,
             upper = 1L
         )
+        if (is.null(lfcThreshold)) {
+            lfcThreshold <- metadata(object)[["lfcThreshold"]]
+        }
         assert_is_a_number(lfcThreshold)
         assert_is_a_number(ylim)
         assert_all_are_in_range(
@@ -132,8 +116,8 @@ setMethod(
             upper = 1e-3
         )
         assertIsImplicitInteger(ntop)
-        direction <- match.arg(direction)
         assert_all_are_non_negative(c(lfcThreshold, ntop))
+        direction <- match.arg(direction)
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
         if (is_a_string(sigPointColor)) {
@@ -142,7 +126,7 @@ setMethod(
                 downregulated = sigPointColor
             )
         }
-        assert_is_of_length(sigPointColor, 2L)
+        assert_is_of_length(sigPointColor, n = 2L)
         assert_is_a_bool(histograms)
         return <- match.arg(return)
 
@@ -351,4 +335,45 @@ setMethod(
             p
         }
     }
+
+
+
+.plotVolcano.DESeqAnalysis <-  # nolint
+    function(
+        object,
+        results,
+        lfcShrink = TRUE,
+        ...) {
+        do.call(
+            what = plotVolcano,
+            args = list(
+                object = .matchResults(
+                    object = object,
+                    results = results,
+                    lfcShrink = lfcShrink
+                ),
+                gene2symbol = gene2symbol(object@data),
+                ...
+            )
+        )
+    }
+
+
+
+#' @rdname plotVolcano
+#' @export
+setMethod(
+    f = "plotVolcano",
+    signature = signature("DESeqAnalysis"),
+    definition = .plotVolcano.DESeqAnalysis
+)
+
+
+
+#' @rdname plotVolcano
+#' @export
+setMethod(
+    "plotVolcano",
+    signature("DESeqResults"),
+    definition = .plotVolcano.DESeqResults
 )

@@ -55,6 +55,8 @@ samples. If left unset, defaults to \code{sampleName}.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
 
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
+
 \item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
 threshold.}
 

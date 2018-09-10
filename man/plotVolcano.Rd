@@ -9,10 +9,11 @@
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqAnalysis}(object, results, ...)
+\S4method{plotVolcano}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
+  ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
-  lfcThreshold = 0L, ylim = 1e-10, genes = NULL,
+  lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
   pointColor = "gray50", sigPointColor = c(upregulated = "purple",
   downregulated = "orange"), histograms = FALSE, return = c("ggplot",
@@ -24,6 +25,8 @@ plotVolcano(object, ...)
 \item{...}{Additional arguments.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
 \item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 
