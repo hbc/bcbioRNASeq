@@ -73,6 +73,26 @@ NULL
 
 
 
+# FIXME Improve the formals.
+#' @rdname plotMA
+#' @export
+setMethod(
+    "plotMA",
+    signature("DESeqAnalysis"),
+    function(object, results, ...) {
+        do.call(
+            what = plotMA,
+            args = list(
+                object = .matchResults(object, results),
+                gene2symbol = gene2symbol(object@data),
+                ...
+            )
+        )
+    }
+)
+
+
+
 #' @rdname plotMA
 #' @export
 setMethod(
