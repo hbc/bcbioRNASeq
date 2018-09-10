@@ -11,6 +11,7 @@
 #' @name plotGenderMarkers
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams plotGene
 #' @inheritParams general

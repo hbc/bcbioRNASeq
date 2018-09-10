@@ -5,6 +5,7 @@
 #' @name plotIntronicMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @export
 #'
 #' @inheritParams general
 #'
