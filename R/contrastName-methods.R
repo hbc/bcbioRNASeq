@@ -25,10 +25,12 @@ setMethod(
     "contrastName",
     signature("DESeqAnalysis"),
     function(object, results) {
-        assert_is_scalar(results)
-        results <- slot(object, name = "results")[[results]]
-        assert_is_all_of(results, "DESeqResults")
-        contrastName(results)
+        do.call(
+            what = contrastName,
+            args = list(
+                object = .matchResults(object, results)
+            )
+        )
     }
 )
 
