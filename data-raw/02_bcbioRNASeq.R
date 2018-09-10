@@ -1,6 +1,9 @@
-library(devtools)
-library(tidyverse)
-load_all()
+#' Example bcbioRNASeq object
+#' Last updated 2018-09-09
+
+library("tidyverse")
+
+# FIXME Improve the object size limit method here (see basejump example)
 
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
@@ -77,4 +80,4 @@ lapply(assays(bcb), pryr::object_size)
 lapply(metadata(bcb), pryr::object_size)
 
 bcb_small <- bcb
-use_data(bcb_small, overwrite = TRUE, compress = "xz")
+devtools::use_data(bcb_small, overwrite = TRUE, compress = "xz")

@@ -1,8 +1,8 @@
 #' Dimorphic gender markers
 #' Last updated 2018-08-27
 
-library(readxl)
-library(tidyverse)
+library("readxl")
+library("tidyverse")
 
 file <- "data-raw/gender_markers.xlsx"
 sheets <- excel_sheets(file)
