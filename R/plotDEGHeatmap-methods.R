@@ -1,5 +1,4 @@
 # FIXME Define and recommend DESeqAnalysis method
-# FIXME Include the alpha on the plot
 
 
 
@@ -69,7 +68,7 @@ NULL
 
         # Title
         if (isTRUE(title)) {
-            title <- contrastName(object)
+            title <- paste0(contrastName(object), " (alpha < ", alpha, ")")
         } else if (!is_a_string(title)) {
             title <- NULL
         }
@@ -103,6 +102,7 @@ NULL
         )
         do.call(what = plotHeatmap, args = args)
     }
+
 # Assign the formals.
 f1 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
 f2 <- methodFormals(
@@ -143,12 +143,55 @@ formals(.plotDEGHeatmap.DESeqResults.DESeqTransform) <- f
         )
         do.call(what = plotDEGHeatmap, args = args)
     }
+
 # Assign the formals.
 f1 <- formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq)
 f2 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
 formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
+
+
+
+.plotDEGHeatmap.DESeqAnalysis <-  # nolint
+    function(
+        object,
+        counts = NULL,
+        results = 1L
+    ) {
+        results <- object@lfcShrink[[results]]
+        counts <- object@transform
+        args <- setArgsToDoCall(
+            args = list(
+                object = results,
+                counts = counts
+            ),
+            removeArgs = "results",
+            call = matchS4Call()
+        )
+        do.call(what = plotDEGHeatmap, args = args)
+    }
+
+# Assign the formals.
+f1 <- formals(.plotDEGHeatmap.DESeqAnalysis)
+f2 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
+f2 <- f2[setdiff(names(f2), names(f1))]
+f <- c(f1, f2)
+formals(.plotDEGHeatmap.DESeqAnalysis) <- f
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    f = "plotDEGHeatmap",
+    signature = signature(
+        object = "DESeqAnalysis",
+        counts = "missingOrNULL"
+    ),
+    definition = .plotDEGHeatmap.DESeqAnalysis
+)
+
 
 
 

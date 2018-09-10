@@ -3,11 +3,19 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
+\alias{plotDEGHeatmap,DESeqAnalysis,missingOrNULL-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(object, counts, ...)
+
+\S4method{plotDEGHeatmap}{DESeqAnalysis,missingOrNULL}(object,
+  counts = NULL, results = 1L, scale = "row", title = TRUE,
+  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
+  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
+  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
+  borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
   scale = "row", title = TRUE, interestingGroups = NULL,
@@ -30,6 +38,8 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments should be formatted in camel case, not snake case.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{scale}{\code{string}. Whether the values should be centered and scaled in
 either the row or column direction ("\code{row}", "\code{column}"), or remain
