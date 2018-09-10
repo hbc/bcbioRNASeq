@@ -1,7 +1,3 @@
-# FIXME Improve y-axis scaling / intercept here.
-
-
-
 #' Plot Gene Detection Saturation
 #'
 #' We should observe a linear trend in the number of genes detected with the
@@ -63,6 +59,7 @@ setMethod(
             ) +
             geom_point(size = 3L) +
             scale_y_continuous(breaks = pretty_breaks()) +
+            expand_limits(x = 0L, y = 0L) +
             labs(
                 title = title,
                 x = "mapped reads per million",
