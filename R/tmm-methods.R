@@ -16,12 +16,6 @@
 #' @examples
 #' # bcbioRNASeq ====
 #' tmm(bcb_small) %>% summary()
-#'
-#' # DESeqDataSet ====
-#' tmm(dds_small) %>% summary()
-#'
-#' # matrix ====
-#' counts(bcb_small) %>% tmm() %>% summary()
 NULL
 
 
