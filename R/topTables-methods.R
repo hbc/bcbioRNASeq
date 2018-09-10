@@ -46,10 +46,10 @@ NULL
     )
     keepCols <- c(
         requiredCols,
-        "description",
+        "rowname",
         "geneName",
         "geneBiotype",
-        "rowname"
+        "description"
     )
     assert_is_subset(requiredCols, colnames(data))
 
@@ -95,6 +95,21 @@ setMethod(
         n = 50L
     ) {
         results <- .matchResults(object, results)
+        geneCols <- c("geneName", "geneBiotype", "description")
+        assert_are_disjoint_sets(geneCols, colnames(results))
+
+        # Add useful gene annotations.
+        rowData <- rowData(object@data)
+        assert_is_subset(geneCols, colnames(rowData))
+
+        rowData <- rowData[, geneCols, drop = FALSE]
+        # Don't use cbind or merge...it will coerce to `DataFrame`.
+        results[["geneName"]] <- rowData[["geneName"]]
+        results[["geneBiotype"]] <- rowData[["geneBiotype"]]
+        results[["description"]] <- rowData[["description"]]
+        assert_is_all_of(results, "DESeqResults")
+
+        # Using DESeqResults method.
         do.call(
             what = topTables,
             args = list(
