@@ -24,6 +24,7 @@ NULL
 
 
 
+# FIXME Use the formals defined in `plotPCA`...
 .plotDEGPCA.DESeqResults.DESeqTransform <-  # nolint
     function(
         object,
@@ -31,7 +32,7 @@ NULL
         interestingGroups = NULL,
         direction = c("both", "up", "down"),
         color = getOption("bcbio.discrete.color", NULL),
-        label = getOption("bcbio.label", FALSE),
+        label = getOption("bcbio.label", TRUE),
         return = c("ggplot", "DataFrame")
     ) {
         assert_is_all_of(object, "DESeqResults")
@@ -92,25 +93,61 @@ NULL
     function(
         object,
         counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+        ...
     ) {
         validObject(object)
         validObject(counts)
-        assert_are_identical(
-            x = rownames(object),
-            y = rownames(counts)
-        )
+        assert_are_identical(rownames(object), rownames(counts))
         normalized <- match.arg(normalized)
         message(paste("Using", normalized, "counts"))
         rse <- as(counts, "RangedSummarizedExperiment")
-        assay(rse) <- counts(counts, normalized = normalized)
-        plotDEGPCA(
-            object = object,
-            counts = rse,
-            ...
+        assays(rse) <- list(counts(counts, normalized = normalized))
+        # Handing off to `DESeqResults,DESeqTransform` method.
+        do.call(
+            what = plotDEGPCA,
+            args = list(
+                object = object,
+                counts = DESeqTransform(rse),
+                ...
+            )
         )
     }
 # FIXME Set the formals.
+
+
+
+.plotDEGPCA.DESeqAnalysis <-  # nolint
+    function(
+        object,
+        counts = NULL,
+        results = 1L
+    ) {
+        results <- object@lfcShrink[[results]]
+        counts <- object@transform
+        args <- setArgsToDoCall(
+            args = list(
+                object = results,
+                counts = counts
+            ),
+            removeArgs = "results",
+            call = matchCall()
+        )
+        do.call(what = plotDEGPCA, args = args)
+    }
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    f = "plotDEGPCA",
+    signature = signature(
+        object = "DESeqAnalysis",
+        counts = "missingOrNULL"
+    ),
+    definition = .plotDEGPCA.DESeqAnalysis
+)
 
 
 
