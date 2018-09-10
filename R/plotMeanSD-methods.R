@@ -27,7 +27,7 @@
 #' plotMeanSD(bcb_small)
 #'
 #' # DESeqDataSet ====
-#' plotMeanSD(dds_small)
+#' plotMeanSD(deseq_small@data)
 NULL
 
 
