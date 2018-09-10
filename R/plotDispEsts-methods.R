@@ -9,11 +9,12 @@
 #' @name plotDispEsts
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @importFrom BiocGenerics plotDispEsts
 #'
-#' @inheritParams general
-#' @param ... Passthrough arguments to [DESeq2::plotDispEsts()].
+#' @inherit DESeq2::plotDispEsts
+#' @param object Object.
 #'
 #' @seealso
 #' - [DESeq2::plotDispEsts()].
@@ -22,12 +23,11 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
 #' plotDispEsts(bcb_small)
 #'
-#' # Custom colors, using DESeq2 parameters
+#' # Custom colors, using DESeq2 parameters.
 #' plotDispEsts(
-#'     bcb_small,
+#'     object = bcb_small,
 #'     genecol = "gray",
 #'     fitcol = "purple",
 #'     finalcol = "orange"
@@ -36,15 +36,28 @@ NULL
 
 
 
-#' @rdname plotDispEsts
-#' @export
-setMethod(
-    "plotDispEsts",
-    signature("bcbioRNASeq"),
-    function(object, ...) {
+.plotDispEsts.bcbioRNASeq <-  # nolint
+    function() {
         validObject(object)
         dds <- as(object, "DESeqDataSet")
         dds <- suppressWarnings(DESeq(dds))
-        plotDispEsts(dds, ...)
+        args <- setArgsToDoCall(
+            args = list(object = dds),
+            call = matchS4Call()
+        )
+        do.call(what = plotDispEsts, args = args)
     }
+formals(.plotDispEsts.bcbioRNASeq) <- methodFormals(
+    f = "plotDispEsts",
+    signature = "DESeqDataSet"
+)
+
+
+
+#' @rdname plotDispEsts
+#' @export
+setMethod(
+    f = "plotDispEsts",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotDispEsts.bcbioRNASeq
 )
