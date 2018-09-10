@@ -270,17 +270,20 @@ setValidity(
             }
         ))
 
-        # DESeqResults and lfcShrink rownames must match.
-        invisible(mapply(
-            unshrunken = object@results,
-            shrunken = object@lfcShrink,
-            FUN = function(unshrunken, shrunken) {
-                assert_are_identical(
-                    x = rownames(unshrunken),
-                    y = rownames(shrunken)
-                )
-            }
-        ))
+        # DESeqResults and lfcShrink rownames must match, if shrinkage has been
+        # calculated.
+        if (length(object@lfcShrink) > 0L) {
+            invisible(mapply(
+                unshrunken = object@results,
+                shrunken = object@lfcShrink,
+                FUN = function(unshrunken, shrunken) {
+                    assert_are_identical(
+                        x = rownames(unshrunken),
+                        y = rownames(shrunken)
+                    )
+                }
+            ))
+        }
 
         TRUE
     }
