@@ -114,7 +114,7 @@ setMethod(
     f = "show",
     signature = signature("DESeqAnalysis"),
     definition = function(object) {
-        version <- metadata(object@data)[["version"]]
+        version <- metadata(object)[["version"]]
         contrastNames <- vapply(
             X = object@results,
             FUN = contrastName,
@@ -126,7 +126,7 @@ setMethod(
             bold(paste0("Results (", length(contrastNames), "):")),
             paste0("  - ", contrastNames),
             separatorBar,
-            capture.output(show(object@data))
+            capture.output(show(as(object, "DESeqDataSet")))
         )
         cat(return, sep = "\n")
     }
