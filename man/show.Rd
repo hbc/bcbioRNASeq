@@ -5,11 +5,14 @@
 \alias{show}
 \alias{show,bcbioRNASeq-method}
 \alias{show,DESeqAnalysis-method}
+\alias{show,DESeqResultsTables-method}
 \title{Show an Object}
 \usage{
 \S4method{show}{bcbioRNASeq}(object)
 
 \S4method{show}{DESeqAnalysis}(object)
+
+\S4method{show}{DESeqResultsTables}(object)
 }
 \arguments{
 \item{object}{Any R object}
@@ -43,7 +46,9 @@ the discussion in \code{\link{setIs}} for the general concept.
 show(bcb_small)
 }
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis}},
+Other S4 Object: \code{\link{DESeqAnalysis-class}},
+  \code{\link{DESeqResultsTables-class}},
+  \code{\link{bcbioRNASeq-class}},
   \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{updateObject}}
 }

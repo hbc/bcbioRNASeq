@@ -9,29 +9,29 @@
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
-plotDEGHeatmap(results, counts, ...)
+plotDEGHeatmap(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(results,
+\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(object,
   counts, alpha = NULL, lfcThreshold = 0L, scale = "row",
   title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
   clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
   treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
   legendColor = NULL, borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(results, counts,
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
   alpha = NULL, lfcThreshold = 0L, scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
   treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
   borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(results, counts, ...)
+\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(results, counts,
+\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(object, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 }
 \arguments{
-\item{results}{\code{DESeqResults}.}
+\item{object}{Object.}
 
 \item{counts}{\code{matrix}. Normalized counts.}
 
@@ -110,10 +110,9 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 }
 \examples{
 # DESeqResults, DESeqTransform ====
-vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 plotDEGHeatmap(
-    results = res_small,
-    counts = vst_small
+    object = deseq_small@results,
+    counts = deseq_small@transform
 )
 }
 \seealso{

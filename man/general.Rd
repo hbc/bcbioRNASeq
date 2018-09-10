@@ -76,7 +76,7 @@ counts matrix.}
 
 \item{pointColor}{\code{string}. Default point color for the plot.}
 
-\item{results}{\code{DESeqResults}.}
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}

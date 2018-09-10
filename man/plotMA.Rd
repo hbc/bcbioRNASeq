@@ -4,9 +4,12 @@
 \name{plotMeanAverage}
 \alias{plotMeanAverage}
 \alias{plotMA}
+\alias{plotMA,DESeqAnalysis-method}
 \alias{plotMA,DESeqResults-method}
 \title{MA Plot}
 \usage{
+\S4method{plotMA}{DESeqAnalysis}(object, results, ...)
+
 \S4method{plotMA}{DESeqResults}(object, alpha = NULL,
   lfcThreshold = 0L, genes = NULL, gene2symbol = NULL, ntop = 0L,
   direction = c("both", "up", "down"), pointColor = "gray50",
@@ -17,6 +20,8 @@
 \item{...}{Additional arguments.}
 
 \item{object}{Object.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 

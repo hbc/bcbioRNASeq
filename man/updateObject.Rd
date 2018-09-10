@@ -41,7 +41,9 @@ objects from versions <= 0.0.20. We changed the name of the package to
 updateObject(bcb_small)
 }
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis}},
+Other S4 Object: \code{\link{DESeqAnalysis-class}},
+  \code{\link{DESeqResultsTables-class}},
+  \code{\link{bcbioRNASeq-class}},
   \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}}
 }

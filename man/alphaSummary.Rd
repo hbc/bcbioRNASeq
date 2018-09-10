@@ -9,15 +9,39 @@
 alphaSummary(object, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), caption = NULL, ...)
+  0.001, 1e-06), contrast, name, caption = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[DESeq2:results]{DESeq2::results()}}. Use either
-\code{contrast} or \code{name} arguments to define the desired contrast.}
+\item{...}{Additional arguments.}
 
 \item{alpha}{\code{numeric}. Multiple alpha cutoffs.}
+
+\item{contrast}{this argument specifies what comparison to extract from
+the \code{object} to build a results table. one of either:
+\itemize{
+ \item a character vector with exactly three elements:
+the name of a factor in the design formula,
+the name of the numerator level for the fold change,
+and the name of the denominator level for the fold change
+(simplest case)
+ \item a list of 2 character vectors: the names of the fold changes
+for the numerator, and the names of the fold changes
+for the denominator.
+these names should be elements of \code{resultsNames(object)}.
+if the list is length 1, a second element is added which is the
+empty character vector, \code{character()}.
+(more general case, can be to combine interaction terms and main effects)
+ \item a numeric contrast vector with one element
+for each element in \code{resultsNames(object)} (most general case)
+}
+If specified, the \code{name} argument is ignored.}
+
+\item{name}{the name of the individual effect (coefficient) for
+building a results table. Use this argument rather than \code{contrast}
+for continuous variables, individual effects or for individual interaction terms.
+The value provided to \code{name} must be an element of \code{resultsNames(object)}.}
 
 \item{caption}{\code{string} or \code{NULL}. Table caption. If set \code{NULL}, will be
 generated automatically from the contrast used.}
@@ -30,19 +54,21 @@ Quickly generate a summary table of various alpha level cutoffs, for use in
 an R Markdown report.
 }
 \note{
-\code{bcbioRNASeq} class does currently support contrast definitions, since
-the object contains an internal \code{DESeqDataSet} with an empty design
-formula.
+Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
 # DESeqDataSet ====
-design(dds_small)
-resultsNames(dds_small)
-alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
-alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
+object <- deseq_small@data
+design(object)
+resultsNames(object)
+alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
+alphaSummary(object, name = "treatment_folic_acid_vs_control")
 }
 \seealso{
-\code{\link[DESeq2:results]{DESeq2::results()}}.
+\itemize{
+\item \code{\link[DESeq2:results]{DESeq2::results()}}.
+\item \code{\link[DESeq2:resultsNames]{DESeq2::resultsNames()}}.
+}
 
 Other Differential Expression Functions: \code{\link{contrastName}},
   \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},

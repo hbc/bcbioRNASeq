@@ -11,12 +11,14 @@ bcb_small
 \description{
 \code{bcbioRNASeq} Example
 }
+\examples{
+print(bcb_small)
+}
 \seealso{
-Other GSE65267: \code{\link{dds_small}},
-  \code{\link{res_small}}
+Other GSE65267: \code{\link{deseq_small}}
 }
 \author{
-Lorena Pantano, Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 }
 \concept{GSE65267}
 \keyword{datasets}

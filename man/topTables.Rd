@@ -10,7 +10,7 @@
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqAnalysis}(object, results = 1L, n = 50L)
+\S4method{topTables}{DESeqAnalysis}(object, results, n = 50L)
 
 \S4method{topTables}{DESeqResults}(object, n = 50L)
 

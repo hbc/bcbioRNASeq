@@ -3,17 +3,25 @@
 \docType{methods}
 \name{contrastName}
 \alias{contrastName}
+\alias{contrastName,DESeqAnalysis-method}
 \alias{contrastName,DESeqResults-method}
+\alias{contrastName,DESeqResultsTables-method}
 \title{Contrast Name}
 \usage{
 contrastName(object, ...)
 
+\S4method{contrastName}{DESeqAnalysis}(object, results)
+
 \S4method{contrastName}{DESeqResults}(object)
+
+\S4method{contrastName}{DESeqResultsTables}(object)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 \code{string}. Contrast name.
@@ -22,8 +30,12 @@ contrastName(object, ...)
 Contrast Name
 }
 \examples{
+# DESeqAnalysis ====
+contrastName(deseq_small, results = 1L)
+
 # DESeqResults ====
-contrastName(res_small)
+object <- deseq_small@results[[1L]]
+contrastName(object)
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},

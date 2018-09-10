@@ -3,28 +3,22 @@
 \docType{methods}
 \name{resultsTables}
 \alias{resultsTables}
-\alias{resultsTables,DESeqResults,DESeqDataSet-method}
-\alias{resultsTables,DESeqResults,missingOrNULL-method}
+\alias{resultsTables,DESeqResults-method}
+\alias{resultsTables,DESeqAnalysis-method}
 \title{Differential Expression Results Tables}
 \usage{
-resultsTables(results, counts, ...)
+resultsTables(object, ...)
 
-\S4method{resultsTables}{DESeqResults,DESeqDataSet}(results, counts, alpha,
-  lfcThreshold = 0L, summary = TRUE, write = FALSE,
-  headerLevel = 2L, dir = ".", dropboxDir = NULL, rdsToken = NULL)
+\S4method{resultsTables}{DESeqResults}(object)
+
+\S4method{resultsTables}{DESeqAnalysis}(object, summary = TRUE,
+  write = FALSE, headerLevel = 2L, dir = ".", dropboxDir = NULL,
+  rdsToken = NULL)
 }
 \arguments{
-\item{results}{\code{DESeqResults}.}
-
-\item{counts}{\code{DESeqDataSet}. Corresponding object containing the counts that
-were used to generate the \code{DESeqResults} object.}
+\item{object}{Object.}
 
 \item{...}{Additional arguments.}
-
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
-
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
 
 \item{summary}{\code{boolean}. Show summary statistics.}
 
@@ -45,8 +39,7 @@ authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
 interactive prompt will appear requesting authorization.}
 }
 \value{
-\code{list} containing modified \code{DESeqResults} return, including
-additional gene-level metadata and normalized counts.
+\code{DESeqResultsTables}.
 }
 \description{
 Differential Expression Results Tables
@@ -59,10 +52,10 @@ See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information a
 on expected fold changes.
 }
 \examples{
-# DESeqResults, DESeqDataSet ====
-x <- resultsTables(results = res_small, counts = dds_small)
-names(x)
-glimpse(x[["deg"]])
+# DESeqResults ====
+x <- resultsTables(res_small)
+class(x)
+slotNames(x)
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},

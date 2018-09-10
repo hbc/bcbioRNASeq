@@ -109,7 +109,9 @@ names(assays(x))
 \seealso{
 \code{help("[", "base")}.
 
-Other S4 Object: \code{\link{DESeqAnalysis}},
+Other S4 Object: \code{\link{DESeqAnalysis-class}},
+  \code{\link{DESeqResultsTables-class}},
+  \code{\link{bcbioRNASeq-class}},
   \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{show}}, \code{\link{updateObject}}
 }

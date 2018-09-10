@@ -9,29 +9,29 @@
 \alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
 \title{Plot DEG PCA}
 \usage{
-plotDEGPCA(results, counts, ...)
+plotDEGPCA(object, counts, ...)
 
-\S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(results, counts,
+\S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(object, counts,
   interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
   direction = c("both", "up", "down"),
   color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), return = c("ggplot",
-  "data.frame"))
+  "DataFrame"))
 
-\S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(results, counts,
+\S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(object, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 
-\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(results, counts, ...)
+\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(object, counts, ...)
 
-\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(results, counts,
+\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
   interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
   direction = c("both", "up", "down"),
   color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), return = c("ggplot",
-  "data.frame"))
+  "DataFrame"))
 }
 \arguments{
-\item{results}{\code{DESeqResults}.}
+\item{object}{Object.}
 
 \item{counts}{\code{matrix}. Normalized counts.}
 
@@ -82,10 +82,9 @@ a way to look at how samples are clustering.
 }
 \examples{
 # DESeqResults, DESeqTransform ====
-vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 plotDEGPCA(
-    results = res_small,
-    counts = vst_small,
+    object = deseq_small@results,
+    counts = deseq_small@transform,
     label = TRUE
 )
 }

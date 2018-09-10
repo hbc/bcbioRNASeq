@@ -41,11 +41,12 @@ genomes are supported.
 }
 \examples{
 # bcbioRNASeq ====
-plotGenderMarkers(bcb_small, normalized = "vst")
+object <- bcb_small
+plotGenderMarkers(object, normalized = "vst")
 
 # DESeqTransform ====
-vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
-plotGenderMarkers(vst_small)
+object <- deseq_small@transform
+plotGenderMarkers(object)
 }
 \seealso{
 \code{\link[=plotGene]{plotGene()}}.

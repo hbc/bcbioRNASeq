@@ -3,10 +3,13 @@
 \docType{methods}
 \name{plotVolcano}
 \alias{plotVolcano}
+\alias{plotVolcano,DESeqAnalysis-method}
 \alias{plotVolcano,DESeqResults-method}
 \title{Plot Volcano}
 \usage{
 plotVolcano(object, ...)
+
+\S4method{plotVolcano}{DESeqAnalysis}(object, results, ...)
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
   lfcThreshold = 0L, ylim = 1e-10, genes = NULL,
@@ -19,6 +22,8 @@ plotVolcano(object, ...)
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
 

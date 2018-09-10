@@ -72,15 +72,16 @@ Plot Individual Genes
 \examples{
 # Gene identifiers
 genes <- head(rownames(bcb_small), n = 4L)
-glimpse(genes)
+print(genes)
 
 # bcbioRNASeq ====
-plotGene(bcb_small, genes = genes, normalized = "vst", return = "facet")
-plotGene(bcb_small, genes = genes, normalized = "vst", return = "wide")
+object <- bcb_small
+plotGene(object, genes = genes, normalized = "vst", return = "facet")
+plotGene(object, genes = genes, normalized = "vst", return = "wide")
 
 # DESeqTransform ====
-vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
-plotGene(vst_small, genes = genes)
+object <- deseq_small@transform
+plotGene(object, genes = genes)
 }
 \seealso{
 \code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.

@@ -11,6 +11,9 @@ gender_markers
 \description{
 Gender Marker Genes
 }
+\examples{
+names(gender_markers)
+}
 \author{
 Michael Steinbaugh
 }
