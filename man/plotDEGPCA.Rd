@@ -11,7 +11,7 @@
 plotDEGPCA(object, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqAnalysis,missingOrNULL}(object, counts = NULL,
-  results = 1L)
+  results)
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
   interestingGroups = NULL, direction = c("both", "up", "down"),

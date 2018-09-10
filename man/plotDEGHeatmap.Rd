@@ -11,7 +11,7 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqAnalysis,missingOrNULL}(object,
-  counts = NULL, results = 1L, scale = "row", title = TRUE,
+  counts = NULL, results, scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
   treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
