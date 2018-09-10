@@ -11,16 +11,23 @@
 plotDEGPCA(object, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqAnalysis,missingOrNULL}(object, counts = NULL,
-  results)
+  results, direction = c("both", "up", "down"),
+  interestingGroups = NULL, color = getOption("bcbio.discrete.color",
+  NULL), label = getOption("bcbio.label", TRUE), return = c("ggplot",
+  "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
-  interestingGroups = NULL, direction = c("both", "up", "down"),
+  direction = c("both", "up", "down"), interestingGroups = NULL,
   color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", TRUE), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(object, counts,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+  direction = c("both", "up", "down"), interestingGroups = NULL,
+  color = getOption("bcbio.discrete.color", NULL),
+  label = getOption("bcbio.label", TRUE), return = c("ggplot",
+  "DataFrame"))
 }
 \arguments{
 \item{object}{Object.}
@@ -31,10 +38,10 @@ plotDEGPCA(object, counts, ...)
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
+\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
+
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
-
-\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -70,11 +77,20 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
+# DESeqAnalysis ====
+plotDEGPCA(deseq_small)
+
 # DESeqResults, DESeqTransform ====
 plotDEGPCA(
     object = deseq_small@lfcShrink[[1L]],
-    counts = deseq_small@transform,
-    label = TRUE
+    counts = deseq_small@transform
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGPCA(
+    object = deseq_small@lfcShrink[[1L]],
+    counts = bcb_small,
+    normalized = "vst"
 )
 }
 \seealso{

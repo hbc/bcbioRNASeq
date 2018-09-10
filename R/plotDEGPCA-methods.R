@@ -1,39 +1,38 @@
-# FIXME Define and recommend DESeqAnalysis method
-# FIXME Include the alpha on the plot
-# FIXME Check `DataFrame` return
-
-
-
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
+#' @include plotPCA-methods.R
 #'
 #' @inherit plotPCA
 #' @inheritParams general
 #'
 #' @examples
+#' # DESeqAnalysis ====
+#' plotDEGPCA(deseq_small)
+#'
 #' # DESeqResults, DESeqTransform ====
 #' plotDEGPCA(
 #'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = deseq_small@transform,
-#'     label = TRUE
+#'     counts = deseq_small@transform
+#' )
+#'
+#' # DESeqResults, bcbioRNASeq ====
+#' plotDEGPCA(
+#'     object = deseq_small@lfcShrink[[1L]],
+#'     counts = bcb_small,
+#'     normalized = "vst"
 #' )
 NULL
 
 
 
-# FIXME Use the formals defined in `plotPCA`...
 .plotDEGPCA.DESeqResults.DESeqTransform <-  # nolint
     function(
         object,
         counts,
-        interestingGroups = NULL,
-        direction = c("both", "up", "down"),
-        color = getOption("bcbio.discrete.color", NULL),
-        label = getOption("bcbio.label", TRUE),
-        return = c("ggplot", "DataFrame")
+        direction = c("both", "up", "down")
     ) {
         assert_is_all_of(object, "DESeqResults")
         validObject(object)
@@ -81,11 +80,21 @@ NULL
                 ntop = Inf,
                 label = label,
                 title = contrastName(object),
-                subtitle = paste(length(deg), "genes"),
+                subtitle = paste(
+                    length(deg), "genes;",
+                    "alpha <", alpha
+                ),
                 return = return
             )
         )
     }
+
+# Assign the formals.
+f1 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
+f2 <- formals(.plotPCA.SummarizedExperiment)
+f2 <- f2[c("interestingGroups", "color", "label", "return")]
+f <- c(f1, f2)
+formals(.plotDEGPCA.DESeqResults.DESeqTransform) <- f
 
 
 
@@ -93,8 +102,7 @@ NULL
     function(
         object,
         counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
     ) {
         validObject(object)
         validObject(counts)
@@ -104,16 +112,23 @@ NULL
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(counts, normalized = normalized))
         # Handing off to `DESeqResults,DESeqTransform` method.
-        do.call(
-            what = plotDEGPCA,
+        args <- setArgsToDoCall(
             args = list(
                 object = object,
-                counts = DESeqTransform(rse),
-                ...
-            )
+                counts = DESeqTransform(rse)
+            ),
+            removeArgs = "normalized",
+            call = matchCall()
         )
+        do.call(what = plotDEGPCA, args = args)
     }
-# FIXME Set the formals.
+
+# Assign the formals.
+f1 <- formals(.plotDEGPCA.DESeqResults.bcbioRNASeq)
+f2 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
+f2 <- f2[setdiff(names(f2), names(f1))]
+f <- c(f1, f2)
+formals(.plotDEGPCA.DESeqResults.bcbioRNASeq) <- f
 
 
 
@@ -140,6 +155,12 @@ NULL
         do.call(what = plotDEGPCA, args = args)
     }
 
+# Assign the formals.
+f1 <- formals(.plotDEGPCA.DESeqAnalysis)
+f2 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
+f2 <- f2[setdiff(names(f2), names(f1))]
+f <- c(f1, f2)
+formals(.plotDEGPCA.DESeqAnalysis) <- f
 
 
 #' @rdname plotDEGPCA
