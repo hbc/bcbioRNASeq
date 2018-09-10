@@ -3,25 +3,27 @@
 \docType{methods}
 \name{topTables}
 \alias{topTables}
+\alias{topTables,DESeqAnalysis-method}
 \alias{topTables,DESeqResults-method}
-\alias{topTables,list-method}
+\alias{topTables,DESeqResultsTables-method}
 \title{Top Tables of Differential Expression Results}
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqResults}(object, n = 50L, coding = FALSE)
+\S4method{topTables}{DESeqAnalysis}(object, results = 1L, n = 50L)
 
-\S4method{topTables}{list}(object, n = 50L, coding = FALSE)
+\S4method{topTables}{DESeqResults}(object, n = 50L)
+
+\S4method{topTables}{DESeqResultsTables}(object, n = 50L)
 }
 \arguments{
-\item{object}{\code{DESeqResults} or \code{list}. For \code{list} method, must use
-\code{\link[=resultsTables]{resultsTables()}} return.}
+\item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{n}{\code{scalar integer}. Number genes to report.}
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
-\item{coding}{\code{boolean}. Whether to only return coding genes.}
+\item{n}{\code{scalar integer}. Number genes to report.}
 }
 \value{
 \code{kable}.
@@ -30,17 +32,12 @@ topTables(object, ...)
 Top Tables of Differential Expression Results
 }
 \examples{
-# DESeqResults ====
-# Minimal return
-topTables(res_small, n = 5L)
+# DESeqAnalysis ====
+topTables(deseq_small, results = 1L, n = 5L)
 
-# `resultsTables()` return list ====
-# Return with gene annotations and DESeq2 normalized counts
-res_tbl <- resultsTables(
-    results = res_small,
-    counts = dds_small
-)
-topTables(res_tbl, n = 5L)
+# DESeqResults ====
+object <- deseq_small@results[[1L]]
+topTables(object, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}

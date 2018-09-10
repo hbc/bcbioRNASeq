@@ -1,3 +1,8 @@
+# FIXME Switch to DESeqAnalysis instead of list
+# Rethink how we're approaching the methods here.
+
+
+
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables
@@ -5,89 +10,55 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#'
-#' @param object `DESeqResults` or `list`. For `list` method, must use
-#'   [resultsTables()] return.
+#' @param results `scalar`. Position or name of `DESeqResults`.
 #' @param n `scalar integer`. Number genes to report.
-#' @param coding `boolean`. Whether to only return coding genes.
 #'
 #' @return `kable`.
 #'
 #' @examples
-#' # DESeqResults ====
-#' # Minimal return
-#' topTables(res_small, n = 5L)
+#' # DESeqAnalysis ====
+#' topTables(deseq_small, results = 1L, n = 5L)
 #'
-#' # `resultsTables()` return list ====
-#' # Return with gene annotations and DESeq2 normalized counts
-#' res_tbl <- resultsTables(
-#'     results = res_small,
-#'     counts = dds_small
-#' )
-#' topTables(res_tbl, n = 5L)
+#' # DESeqResults ====
+#' object <- deseq_small@results[[1L]]
+#' topTables(object, n = 5L)
 NULL
 
 
 
-.subsetTop <- function(
+.topTable <- function(
     object,
     direction = c("up", "down"),
-    n = 50L,
-    coding = FALSE
+    n = 50L
 ) {
-    data <- as.data.frame(object)
-    assert_has_colnames(data)
-    assert_has_rows(data)
+    assert_is_all_of(object, "DESeqResultsTables")
+    validObject(object)
+    direction <- match.arg(direction)
     assertIsImplicitInteger(n)
-    assert_is_a_bool(coding)
-    # Note that `geneName` and `description` columns are optional
-    requiredCols <- c("geneID", "baseMean", "log2FoldChange", "padj")
-    if (!"geneID" %in% colnames(data)) {
-        data <- rownames_to_column(data, "geneID")
+
+    data <- slot(object, name = camel(paste("deg", direction)))
+    assert_is_all_of(data, "DataFrame")
+
+    # Early return `NULL` when there are no significant DEGs
+    if (!nrow(data)) {
+        return(invisible())  # nocov
     }
+
+    requiredCols <- c(
+        "baseMean",
+        "log2FoldChange",
+        "padj"
+    )
+    keepCols <- c(
+        requiredCols,
+        "description",
+        "geneName",
+        "geneBiotype",
+        "rowname"
+    )
     assert_is_subset(requiredCols, colnames(data))
 
-    # Coerce to tibble and arrange by adjusted P value
-    data <- data %>%
-        as_tibble() %>%
-        remove_rownames() %>%
-        # Remove rows containing NA P value
-        filter(!is.na(!!sym("padj"))) %>%
-        arrange(!!sym("padj"))
-
-    # Apply direction
-    if (direction == "up") {
-        data <- filter(data, !!sym("log2FoldChange") > 0L)
-    } else if (direction == "down") {
-        data <- filter(data, !!sym("log2FoldChange") < 0L)
-    }
-
-    # Coding genes only, if desired
-    if (isTRUE(coding)) {
-        assert_is_subset("broadClass", colnames(data))
-        data <- filter(data, !!sym("broadClass") == "coding")
-    }
-
-    # Early return NULL when there are no significant DEGs
-    if (!nrow(data)) {
-        return(NULL)  # nocov
-    }
-
-    keepCols <- c(requiredCols, c("geneName", "geneBiotype", "description"))
-    data <- data %>%
-        head(n = n) %>%
-        mutate(
-            baseMean = round(!!sym("baseMean")),
-            log2FoldChange = format(!!sym("log2FoldChange"), digits = 3L),
-            padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
-        ) %>%
-        .[, which(colnames(.) %in% keepCols)] %>%
-        # Shorten `log2FoldChange` to `lfc` to keep column width compact
-        rename(lfc = !!sym("log2FoldChange")) %>%
-        # Ensure `gene*` columns appear first
-        select(starts_with("gene"), everything())
-
-    # Sanitize the description, if necessary
+    # Sanitize the description, if necessary.
     if ("description" %in% colnames(data)) {
         # Remove symbol information in description, if present
         data[["description"]] <- gsub(
@@ -97,7 +68,23 @@ NULL
         )
     }
 
-    data
+    # Coerce to `tbl_df` and use dplyr functions, then return `data.frame`.
+    data %>%
+        as("tbl_df") %>%
+        head(n = n) %>%
+        mutate(
+            baseMean = round(!!sym("baseMean")),
+            log2FoldChange = format(!!sym("log2FoldChange"), digits = 3L),
+            padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
+        ) %>%
+        # Select only the desired keep columns (see above).
+        .[, which(colnames(.) %in% keepCols)] %>%
+        # Shorten `log2FoldChange` to `lfc` to keep column width compact.
+        rename(lfc = !!sym("log2FoldChange")) %>%
+        # Ensure `gene*` annotation columns appear first.
+        select(starts_with("gene"), everything()) %>%
+        # This coercion will automatically set rownames.
+        as("DataFrame")
 }
 
 
@@ -106,34 +93,22 @@ NULL
 #' @export
 setMethod(
     "topTables",
-    signature("DESeqResults"),
+    signature("DESeqAnalysis"),
     function(
         object,
-        n = 50L,
-        coding = FALSE
+        results = 1L,
+        n = 50L
     ) {
-        assertIsAnImplicitInteger(n)
-        assert_is_a_bool(coding)
-        contrast <- contrastName(object)
-
-        up <- .subsetTop(object, direction = "up", n = n, coding = coding)
-        down <- .subsetTop(object, direction = "down", n = n, coding = coding)
-
-        if (length(up)) {
-            show(kable(
-                x = up,
-                caption = paste(contrast, "(upregulated)")
-            ))
-        }
-        if (length(down)) {
-            show(kable(
-                x = down,
-                caption = paste(contrast, "(downregulated)")
-            ))
-        }
-
-        # Invisibly return list containing the subset data.frames
-        invisible(list(up = up, down = down))
+        assert_is_scalar(results)
+        results <- slot(object, name = "results")[[results]]
+        assert_is_all_of(results, "DESeqResults")
+        do.call(
+            what = topTables,
+            args = list(
+                object = resultsTables(results),
+                n = n
+            )
+        )
     }
 )
 
@@ -143,48 +118,51 @@ setMethod(
 #' @export
 setMethod(
     "topTables",
-    signature("list"),
-    function(
-        object,
-        n = 50L,
-        coding = FALSE
-    ) {
-        assertIsAnImplicitInteger(n)
-        assert_is_a_bool(coding)
-        assert_is_subset(
-            x = c("all", "deg", "degLFCDown", "degLFCUp"),
-            y = names(object)
+    signature("DESeqResults"),
+    function(object, n = 50L) {
+        do.call(
+            what = topTables,
+            args = list(
+                object = resultsTables(object),
+                n = n
+            )
         )
-        contrast <- object[["contrast"]]
+    }
+)
+
+
+
+#' @rdname topTables
+#' @export
+setMethod(
+    "topTables",
+    signature("DESeqResultsTables"),
+    function(object, n = 50L) {
+        validObject(object)
+        assertIsAnImplicitInteger(n)
+        # FIXME Add method support for `contrastName` on `DESeqResultsTables`.
+        contrast <- contrastName(object@all)
         assert_is_a_string(contrast)
 
-        up <- .subsetTop(
-            object = object[["degLFCUp"]],
-            direction = "up",
-            n = n,
-            coding = coding
-        )
-        down <- .subsetTop(
-            object = object[["degLFCDown"]],
-            direction = "down",
-            n = n,
-            coding = coding
-        )
-
+        # Upregulated
+        up <- .topTable(object, direction = "up", n = n)
         if (length(up)) {
             show(kable(
-                x = up,
+                x = as.data.frame(up),
                 caption = paste(contrast, "(upregulated)")
             ))
         }
+
+        # Downregulated
+        down <- .topTable(object, direction = "down", n = n)
         if (length(down)) {
             show(kable(
-                x = down,
+                x = as.data.frame(down),
                 caption = paste(contrast, "(downregulated)")
             ))
         }
 
-        # Invisibly return list containing the subset data.frames
+        # Invisibly return list containing the subsets.
         invisible(list(up = up, down = down))
     }
 )
