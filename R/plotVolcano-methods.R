@@ -352,7 +352,7 @@ NULL
                     results = results,
                     lfcShrink = lfcShrink
                 ),
-                gene2symbol = gene2symbol(object@data)
+                gene2symbol = gene2symbol(object)
             ),
             removeArgs = c("results", "lfcShrink"),
             call = matchCall()

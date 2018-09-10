@@ -41,7 +41,8 @@ plotMeanSD(object, ...)
 plotMeanSD(bcb_small)
 
 # DESeqDataSet ====
-plotMeanSD(deseq_small@data)
+dds_small <- as(deseq_small, "DESeqDataSet")
+plotMeanSD(dds_small)
 }
 \seealso{
 \itemize{

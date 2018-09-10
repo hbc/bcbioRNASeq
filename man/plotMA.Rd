@@ -57,7 +57,7 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-gene2symbol <- gene2symbol(bcb_small)
+gene2symbol <- gene2symbol(deseq_small)
 print(gene2symbol)
 
 geneIDs <- head(gene2symbol[["geneID"]])
@@ -70,6 +70,7 @@ print(geneNames)
 plotMA(deseq_small)
 
 # DESeqResults ====
+res_small <- deseq_small@results[[1L]]
 summary(res_small)
 
 # Color DEGs in each direction separately.

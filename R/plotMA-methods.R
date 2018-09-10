@@ -24,7 +24,7 @@
 #' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' gene2symbol <- gene2symbol(bcb_small)
+#' gene2symbol <- gene2symbol(deseq_small)
 #' print(gene2symbol)
 #'
 #' geneIDs <- head(gene2symbol[["geneID"]])
@@ -37,6 +37,7 @@
 #' plotMA(deseq_small)
 #'
 #' # DESeqResults ====
+#' res_small <- deseq_small@results[[1L]]
 #' summary(res_small)
 #'
 #' # Color DEGs in each direction separately.
@@ -297,7 +298,7 @@ NULL
                     results = results,
                     lfcShrink = lfcShrink
                 ),
-                gene2symbol = gene2symbol(object@data)
+                gene2symbol = gene2symbol(object)
             ),
             removeArgs = c("results", "lfcShrink"),
             call = matchCall()

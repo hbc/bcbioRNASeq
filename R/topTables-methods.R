@@ -99,7 +99,7 @@ setMethod(
         assert_are_disjoint_sets(geneCols, colnames(results))
 
         # Add useful gene annotations.
-        rowData <- rowData(object@data)
+        rowData <- rowData(object)
         assert_is_subset(geneCols, colnames(rowData))
 
         rowData <- rowData[, geneCols, drop = FALSE]

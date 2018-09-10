@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' # DESeqDataSet ====
-#' object <- deseq_small@data
+#' object <- as(deseq_small, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)
 #' alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
