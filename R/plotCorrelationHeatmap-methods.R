@@ -39,7 +39,7 @@ NULL
         args <- setArgsToDoCall(
             args = list(object = rse),
             removeArgs = c("normalized"),
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(what = plotCorrelationHeatmap, args = args)
     }

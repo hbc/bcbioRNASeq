@@ -286,7 +286,7 @@ NULL
                 gene2symbol = gene2symbol(object@data)
             ),
             removeArgs = c("results"),
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(
             what = plotMA,

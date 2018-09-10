@@ -98,7 +98,7 @@ NULL
                 "alpha",
                 "lfcThreshold"
             ),
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(what = plotHeatmap, args = args)
     }
@@ -139,7 +139,7 @@ formals(.plotDEGHeatmap.DESeqResults.DESeqTransform) <- f
                 counts = dt
             ),
             removeArgs = "normalized",
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(what = plotDEGHeatmap, args = args)
     }
@@ -167,7 +167,7 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
                 counts = counts
             ),
             removeArgs = "results",
-            call = matchS4Call()
+            call = matchCall()
         )
         do.call(what = plotDEGHeatmap, args = args)
     }

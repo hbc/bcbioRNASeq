@@ -42,7 +42,7 @@
 #'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
 #'   markdownHeader markdownList markdownPlotlist matchInterestingGroups
-#'   matchS4Call methodFormals plotHeatmap prepareTemplate printString
+#'   matchCall methodFormals plotHeatmap prepareTemplate printString
 #'   readFileByExtension readYAML sampleData sanitizeRowData sanitizeSampleData
 #'   setArgsToDoCall snake stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
