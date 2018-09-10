@@ -8,6 +8,7 @@
 #' @name alphaSummary
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh, Lorena Patano
+#' @export
 #'
 #' @inheritParams general
 #' @inheritParams DESeq2::results

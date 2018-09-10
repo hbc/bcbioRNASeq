@@ -1,7 +1,3 @@
-# FIXME Improve the formals here.
-
-
-
 #' Plot Correlation Heatmap
 #'
 #' This function calculates a correlation matrix based on feature expression per
@@ -10,7 +6,6 @@
 #' @name plotCorrelationHeatmap
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
 #' @importFrom basejump plotCorrelationHeatmap
 #' @export
 #'

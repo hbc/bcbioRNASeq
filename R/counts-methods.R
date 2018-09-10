@@ -7,7 +7,6 @@
 #' @name counts
 #' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
-#'
 #' @importFrom BiocGenerics counts
 #' @export
 #'

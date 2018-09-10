@@ -9,9 +9,8 @@
 #' @name plotDispEsts
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#' @export
-#'
 #' @importFrom BiocGenerics plotDispEsts
+#' @export
 #'
 #' @inherit DESeq2::plotDispEsts
 #' @param object Object.

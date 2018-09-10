@@ -6,6 +6,7 @@
 #' @name plotCountDensity
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @export
 #'
 #' @inheritParams general
 #' @param style `string`. Desired plot style ("`line`" or "`solid`").
