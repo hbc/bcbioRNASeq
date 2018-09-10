@@ -26,18 +26,7 @@
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
-#' # DESeqResults, DESeqTransform ====
-#' plotDEGHeatmap(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = deseq_small@transform
-#' )
-#'
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGHeatmap(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = bcb_small,
-#'     normalized = "vst"
-#' )
+#' plotDEGHeatmap(deseq_small)
 NULL
 
 
@@ -49,14 +38,11 @@ NULL
         scale = "row",
         title = TRUE
     ) {
+        assert_is_all_of(object, "DESeqResults")
         validObject(object)
+        assert_is_all_of(counts, "DESeqTransform")
         validObject(counts)
         assert_are_identical(rownames(object), rownames(counts))
-        # Coerce to RSE then SE to preserve rowData.
-        if (is(counts, "RangedSummarizedExperiment")) {
-            counts <- as(counts, "RangedSummarizedExperiment")
-        }
-        counts <- as(counts, "SummarizedExperiment")
         alpha <- metadata(object)[["alpha"]]
         assert_is_a_number(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
@@ -80,6 +66,12 @@ NULL
             warning("No significant DEGs to plot", call. = FALSE)
             return(invisible())
         }
+
+        # Coerce DESeqTransform to RSE then SE to preserve rowData.
+        if (is(counts, "RangedSummarizedExperiment")) {
+            counts <- as(counts, "RangedSummarizedExperiment")
+        }
+        counts <- as(counts, "SummarizedExperiment")
 
         # Subset the counts to only contain DEGs.
         counts <- counts[deg, , drop = FALSE]
