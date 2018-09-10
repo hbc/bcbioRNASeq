@@ -216,6 +216,7 @@ setValidity(
 #' @examples
 #' library(DESeq2)
 #' dds <- as(bcb_small, "DESeqDataSet")
+#' design(dds) <- ~ treatment
 #' dds <- DESeq(dds)
 #' class(dds)
 #' vst <- varianceStabilizingTransformation(dds)
@@ -227,9 +228,7 @@ setValidity(
 #'     data = dds,
 #'     transform = vst,
 #'     results = list(res),
-#'     lfcShrink = list(
-#'         lfcShrink(dds = dds_small, coef = 2L)
-#'     )
+#'     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
 #' )
 #' class(x)
 #' slotNames(x)
@@ -247,34 +246,34 @@ setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
         # Require valid dimnames for data set.
-        assertHasValidDimnames(object@DESeqDataSet)
+        assertHasValidDimnames(object@data)
 
         # Require gene-to-symbol mappings.
         assert_is_all_of(
-            x = gene2symbol(object@DESeqDataSet),
+            x = gene2symbol(object@data),
             classes = "gene2symbol"
         )
 
         # DESeqDataSet and DESeqTransform must match.
         assert_are_identical(
-            x = dimnames(object@DESeqDataSet),
-            y = dimnames(object@DESeqTransform)
+            x = dimnames(object@data),
+            y = dimnames(object@transform)
         )
 
         # DESeqDataSet and DESeqResults must match.
         invisible(lapply(
-            X = object@DESeqResults,
+            X = object@results,
             FUN = function(res) {
                 assert_are_identical(
                     x = rownames(res),
-                    y = rownames(object@DESeqDataSet)
+                    y = rownames(object@data)
                 )
             }
         ))
 
         # DESeqResults and lfcShrink rownames must match.
         invisible(mapply(
-            unshrunken = object@DESeqResults,
+            unshrunken = object@results,
             shrunken = object@lfcShrink,
             FUN = function(unshrunken, shrunken) {
                 assert_are_identical(
@@ -306,8 +305,11 @@ setValidity(
 #' @return `DESeqResultsTables`.
 #'
 #' @examples
-#' print("FIXME")
-DESeqResultsTables <- setClass(
+#' # FIXME Don't access the slot directly?
+#' object <- deseq_small@results
+#' x <- resultsTables(object)
+#' print(x)
+setClass(
     Class = "DESeqResultsTables",
     slots = c(
         all = "DESeqResults",
