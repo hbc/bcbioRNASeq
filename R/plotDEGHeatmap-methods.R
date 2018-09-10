@@ -22,7 +22,22 @@
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
+#' # DESeqAnalysis ====
+#' # This is the current recommended default method.
 #' plotDEGHeatmap(deseq_small)
+#'
+#' # DESeqResults, DESeqTransform ====
+#' plotDEGHeatmap(
+#'     object = deseq_small@lfcShrink[[1L]],
+#'     counts = deseq_small@transform
+#' )
+#'
+#' # DESeqResults, bcbioRNASeq ====
+#' plotDEGHeatmap(
+#'     object = deseq_small@lfcShrink[[1L]],
+#'     counts = bcb_small,
+#'     normalized = "vst"
+#' )
 NULL
 
 
@@ -58,7 +73,7 @@ NULL
         deg <- significants(object, padj = alpha, fc = lfcThreshold)
 
         # Early return if there are no DEGs.
-        if (!length(deg)) {
+        if (!length(deg) > 0L) {
             warning("No significant DEGs to plot", call. = FALSE)
             return(invisible())
         }
@@ -76,10 +91,7 @@ NULL
         args <- setArgsToDoCall(
             args = list(
                 object = counts,
-                interestingGroups = interestingGroups,
-                scale = scale,
-                title = title,
-                ...
+                title = title
             ),
             removeArgs = c(
                 "counts",
