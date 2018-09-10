@@ -1,6 +1,22 @@
-.matchResults <- function(object, results) {
+# FIXME Add a message here to inform the user about which results...
+.matchResults <- function(
+    object,
+    results,
+    lfcShrink = TRUE
+) {
+    assert_is_all_of(object, "DESeqAnalysis")
+    # Default to using the first contrast, for convenience.
+    if (missing(results)) {
+        results <- 1L
+    }
     assert_is_scalar(results)
-    results <- slot(object, name = "results")[[results]]
+    assert_is_a_bool(lfcShrink)
+    if (isTRUE(lfcShrink)) {
+        slotName <- "lfcShrink"
+    } else {
+        slotName <- "results"
+    }
+    results <- slot(object, name = slotName)[[results]]
     assert_is_all_of(results, "DESeqResults")
     results
 }
