@@ -107,7 +107,22 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \code{DESeqDataSet}).
 }
 \examples{
+# DESeqAnalysis ====
+# This is the current recommended default method.
 plotDEGHeatmap(deseq_small)
+
+# DESeqResults, DESeqTransform ====
+plotDEGHeatmap(
+    object = deseq_small@lfcShrink[[1L]],
+    counts = deseq_small@transform
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGHeatmap(
+    object = deseq_small@lfcShrink[[1L]],
+    counts = bcb_small,
+    normalized = "vst"
+)
 }
 \seealso{
 \itemize{

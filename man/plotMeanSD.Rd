@@ -12,7 +12,7 @@ plotMeanSD(object, ...)
 \S4method{plotMeanSD}{bcbioRNASeq}(object,
   legend = getOption("bcbio.legend", FALSE))
 
-\S4method{plotMeanSD}{DESeqDataSet}(object,
+\S4method{plotMeanSD}{DESeqDataSet}(object, vst = TRUE, rlog = FALSE,
   legend = getOption("bcbio.legend", FALSE))
 }
 \arguments{

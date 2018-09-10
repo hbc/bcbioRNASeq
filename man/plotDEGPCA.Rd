@@ -3,17 +3,20 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
+\alias{plotDEGPCA,DESeqAnalysis,missingOrNULL-method}
 \alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
 \alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
 \title{Plot DEG PCA}
 \usage{
 plotDEGPCA(object, counts, ...)
 
+\S4method{plotDEGPCA}{DESeqAnalysis,missingOrNULL}(object, counts = NULL,
+  results = 1L)
+
 \S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
-  interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
-  direction = c("both", "up", "down"),
+  interestingGroups = NULL, direction = c("both", "up", "down"),
   color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), return = c("ggplot",
+  label = getOption("bcbio.label", TRUE), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(object, counts,
@@ -26,13 +29,10 @@ plotDEGPCA(object, counts, ...)
 
 \item{...}{Additional arguments.}
 
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
-
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
-
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
 
 \item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
@@ -55,7 +55,7 @@ and picks the first item in the vector by default.}
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 }
 \value{
-\code{ggplot} or \code{data.frame}.
+\code{ggplot} or \code{DataFrame}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
@@ -72,7 +72,7 @@ a way to look at how samples are clustering.
 \examples{
 # DESeqResults, DESeqTransform ====
 plotDEGPCA(
-    object = deseq_small@results,
+    object = deseq_small@lfcShrink[[1L]],
     counts = deseq_small@transform,
     label = TRUE
 )

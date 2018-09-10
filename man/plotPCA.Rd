@@ -9,7 +9,7 @@
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "tpm", "rle"), interestingGroups = NULL, ntop = 500L,
   color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), title = "PCA",
+  label = getOption("bcbio.label", TRUE), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"))
 }
 \arguments{
