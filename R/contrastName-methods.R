@@ -9,9 +9,28 @@
 #' @return `string`. Contrast name.
 #'
 #' @examples
+#' # DESeqAnalysis ====
+#' contrastName(deseq_small, results = 1L)
+#'
 #' # DESeqResults ====
-#' contrastName(res_small)
+#' object <- deseq_small@results[[1L]]
+#' contrastName(object)
 NULL
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    "contrastName",
+    signature("DESeqAnalysis"),
+    function(object, results) {
+        assert_is_scalar(results)
+        results <- slot(object, name = "results")[[results]]
+        assert_is_all_of(results, "DESeqResults")
+        contrastName(results)
+    }
+)
 
 
 
@@ -29,5 +48,17 @@ setMethod(
             gsub("_", " ", .) %>%
             # Improve appearance for difference of differences
             gsub("\\+", " \\+\n    ", .)
+    }
+)
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    "contrastName",
+    signature("DESeqResultsTables"),
+    function(object) {
+        contrastName(object@all)
     }
 )
