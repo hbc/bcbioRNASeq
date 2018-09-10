@@ -3,6 +3,7 @@
 #' @name tpm
 #' @family Data Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #'
@@ -22,6 +23,7 @@ setMethod(
     signature("bcbioRNASeq"),
     function(object) {
         validObject(object)
+        assert_is_subset("tpm", assayNames(object))
         assays(object)[["tpm"]]
     }
 )
