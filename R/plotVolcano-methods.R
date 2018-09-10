@@ -1,7 +1,3 @@
-# FIXME Add DESeqAnalysis class support
-
-
-
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -342,21 +338,30 @@ NULL
     function(
         object,
         results,
-        lfcShrink = TRUE,
-        ...) {
-        do.call(
-            what = plotVolcano,
+        lfcShrink = TRUE
+    ) {
+        validObject(object)
+        args <- setArgsToDoCall(
             args = list(
                 object = .matchResults(
                     object = object,
                     results = results,
                     lfcShrink = lfcShrink
                 ),
-                gene2symbol = gene2symbol(object@data),
-                ...
-            )
+                gene2symbol = gene2symbol(object@data)
+            ),
+            removeArgs = c("results", "lfcShrink"),
+            call = matchCall()
         )
+        do.call(what = plotVolcano, args = args)
     }
+
+# Assign the formals.
+f1 <- formals(.plotVolcano.DESeqAnalysis)
+f2 <- formals(.plotVolcano.DESeqResults)
+f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]
+f <- c(f1, f2)
+formals(.plotVolcano.DESeqAnalysis) <- f
 
 
 

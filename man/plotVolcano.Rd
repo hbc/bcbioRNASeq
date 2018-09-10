@@ -10,7 +10,11 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
-  ...)
+  alpha = NULL, lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
+  ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
+  "DataFrame"))
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
   lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
@@ -41,9 +45,6 @@ dynamic range for gene sets containing highly significant P values (e.g.
 the object. It is best practice to use the stable gene identifiers from
 Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
-
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
 \item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
@@ -58,6 +59,9 @@ with the same color, regardless of direction.}
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
+
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 }
 \value{
 \code{ggplot}.
