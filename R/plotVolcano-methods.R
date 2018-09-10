@@ -3,6 +3,7 @@
 #' @name plotVolcano
 #' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
+#' @export
 #'
 #' @inheritParams general
 #' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve

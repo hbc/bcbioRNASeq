@@ -7,11 +7,11 @@
 #' @name tmm
 #' @family Data Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #'
 #' @return `matrix`.
-#' @export
 #'
 #' @examples
 #' # bcbioRNASeq ====

@@ -3,6 +3,7 @@
 #' @name topTables
 #' @family R Markdown Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #' @param n `scalar integer`. Number genes to report.

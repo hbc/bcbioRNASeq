@@ -3,6 +3,8 @@
 #' @name show
 #' @family S4 Object
 #' @author Michael Steinbuagh
+#' @importFrom methods show
+#' @export
 #'
 #' @inherit methods::show
 #'

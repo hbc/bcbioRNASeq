@@ -5,6 +5,7 @@
 #' @name plotPCACovariates
 #' @family Quality Control Functions
 #' @author Lorena Pantano, Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #' @param metrics `boolean`. Include sample summary metrics as covariates.

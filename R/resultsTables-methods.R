@@ -19,6 +19,7 @@
 #' @name resultsTables
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #' @param summary `boolean`. Show summary statistics.
