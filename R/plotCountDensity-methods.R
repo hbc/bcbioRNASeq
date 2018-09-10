@@ -13,7 +13,6 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
 #' plotCountDensity(bcb_small)
 NULL
 
@@ -45,7 +44,7 @@ setMethod(
         assertIsFillScaleDiscreteOrNULL(fill)
         assertIsAStringOrNULL(title)
 
-        styleLab <- paste(interestingGroups, collapse = ":\n")
+        label <- paste(interestingGroups, collapse = ":\n")
 
         # Subset the counts matrix to only include non-zero genes
         nonzero <- .nonzeroGenes(object)
@@ -84,8 +83,8 @@ setMethod(
                 title = title,
                 subtitle = subtitle,
                 x = paste(normalized, "counts (log2)"),
-                color = styleLab,
-                fill = styleLab
+                color = label,
+                fill = label
             )
 
         if (style == "line") {
