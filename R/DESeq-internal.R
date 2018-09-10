@@ -1,4 +1,3 @@
-# FIXME Add a message here to inform the user about which results...
 .matchResults <- function(
     object,
     results,
