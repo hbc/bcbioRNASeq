@@ -17,7 +17,11 @@ plotDEGHeatmap(object, counts, ...)
   ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(object, counts,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
+  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), scale = "row",
+  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
+  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
+  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
+  legendColor = NULL, borderColor = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -95,13 +99,13 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \examples{
 # DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
-    object = deseq_small@results[[1L]],
+    object = deseq_small@lfcShrink[[1L]],
     counts = deseq_small@transform
 )
 
 # DESeqResults, bcbioRNASeq ====
 plotDEGHeatmap(
-    object = deseq_small@results[[1L]],
+    object = deseq_small@lfcShrink[[1L]],
     counts = bcb_small,
     normalized = "vst"
 )
