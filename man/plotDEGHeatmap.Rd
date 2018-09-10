@@ -3,29 +3,18 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqResults,SummarizedExperiment-method}
 \alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
-\alias{plotDEGHeatmap,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(object, counts, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,SummarizedExperiment}(object,
-  counts, alpha = NULL, lfcThreshold = 0L, scale = "row",
-  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
-  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
-  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
-  legendColor = NULL, borderColor = NULL, ...)
-
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
-  alpha = NULL, lfcThreshold = 0L, scale = "row", title = TRUE,
-  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
-  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
-  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
-  borderColor = NULL, ...)
-
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqDataSet}(object, counts, ...)
+  scale = "row", title = TRUE, interestingGroups = NULL,
+  clusterRows = TRUE, clusterCols = TRUE, showRownames = FALSE,
+  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
+  color = viridis::viridis, legendColor = NULL, borderColor = NULL,
+  ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(object, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
@@ -37,11 +26,6 @@ plotDEGHeatmap(object, counts, ...)
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments should be formatted in camel case, not snake case.}
-
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
-
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
 
 \item{scale}{\code{string}. Whether the values should be centered and scaled in
 either the row or column direction ("\code{row}", "\code{column}"), or remain
@@ -111,8 +95,15 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 \examples{
 # DESeqResults, DESeqTransform ====
 plotDEGHeatmap(
-    object = deseq_small@results,
+    object = deseq_small@results[[1L]],
     counts = deseq_small@transform
+)
+
+# DESeqResults, bcbioRNASeq ====
+plotDEGHeatmap(
+    object = deseq_small@results[[1L]],
+    counts = bcb_small,
+    normalized = "vst"
 )
 }
 \seealso{
