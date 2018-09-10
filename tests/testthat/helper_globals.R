@@ -8,10 +8,5 @@
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 lfc <- 0.25
-pheatmapNames <- c("tree_row", "tree_col", "kmeans", "gtable")
-
-# DESeqTransform
-rld_small <- DESeq2::rlog(dds_small)
-vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
 
 # nolint end
