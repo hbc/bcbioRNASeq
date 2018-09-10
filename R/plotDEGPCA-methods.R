@@ -30,7 +30,7 @@ setMethod(
     "plotDEGPCA",
     signature(
         object = "DESeqResults",
-        counts = "SummarizedExperiment"
+        counts = "DESeqTransform"
     ),
     function(
         object,
@@ -131,55 +131,4 @@ setMethod(
             ...
         )
     }
-)
-
-
-
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqDataSet"
-    ),
-    function(
-        object,
-        counts,
-        ...
-    ) {
-        validObject(object)
-        validObject(counts)
-        assert_are_identical(
-            x = rownames(object),
-            y = rownames(counts)
-        )
-        message("Using normalized counts")
-        rse <- as(counts, "RangedSummarizedExperiment")
-        assay(rse) <- counts(counts, normalized = TRUE)
-        plotDEGPCA(
-            object = object,
-            counts = rse,
-            ...
-        )
-    }
-)
-
-
-
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    "plotDEGPCA",
-    signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
-    getMethod(
-        "plotDEGPCA",
-        signature(
-            object = "DESeqResults",
-            counts = "SummarizedExperiment"
-        )
-    )
 )

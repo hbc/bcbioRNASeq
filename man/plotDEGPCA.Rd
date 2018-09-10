@@ -3,15 +3,13 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqResults,SummarizedExperiment-method}
-\alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
-\alias{plotDEGPCA,DESeqResults,DESeqDataSet-method}
 \alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
+\alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
 \title{Plot DEG PCA}
 \usage{
 plotDEGPCA(object, counts, ...)
 
-\S4method{plotDEGPCA}{DESeqResults,SummarizedExperiment}(object, counts,
+\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
   interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
   direction = c("both", "up", "down"),
   color = getOption("bcbio.discrete.color", NULL),
@@ -20,15 +18,6 @@ plotDEGPCA(object, counts, ...)
 
 \S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(object, counts,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
-
-\S4method{plotDEGPCA}{DESeqResults,DESeqDataSet}(object, counts, ...)
-
-\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
-  interestingGroups = NULL, alpha = NULL, lfcThreshold = 0L,
-  direction = c("both", "up", "down"),
-  color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), return = c("ggplot",
-  "DataFrame"))
 }
 \arguments{
 \item{object}{Object.}
