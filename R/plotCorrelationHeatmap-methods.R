@@ -17,7 +17,6 @@
 #' @inherit basejump::plotCorrelationHeatmap
 #'
 #' @inheritParams general
-#' @param ... Passthrough arguments to `SummarizedExperiment` method.
 #'
 #' @seealso
 #' - `help("plotCorrelationHeatmap", "basejump")`.
@@ -25,55 +24,47 @@
 #'
 #' @examples
 #' # bcbioRNASeq ====
-#' # Pearson correlation
 #' plotCorrelationHeatmap(bcb_small, method = "pearson")
-#'
-#' # Spearman correlation
 #' plotCorrelationHeatmap(bcb_small, method = "spearman")
 NULL
 
 
 
-#' @rdname plotCorrelationHeatmap
-#' @export
-setMethod(
-    "plotCorrelationHeatmap",
-    signature("bcbioRNASeq"),
+.plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
+        # Coerce to RangedSummarizedExperiment.
+        rse <- as(object, "RangedSummarizedExperiment")
         message(paste("Using", normalized, "counts"))
         counts <- counts(object, normalized = normalized)
-
-        # Coerce to RangedSummarizedExperiment
-        rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts)
-        validObject(rse)
-
-        plotCorrelationHeatmap(rse, ...)
+        args <- setArgsToDoCall(
+            args = list(object = rse),
+            removeArgs = c("normalized"),
+            call = matchS4Call()
+        )
+        do.call(what = plotCorrelationHeatmap, args = args)
     }
+
+# Set the formals.
+f1 <- formals(.plotCorrelationHeatmap.bcbioRNASeq)
+f2 <- methodFormals(
+    f = "plotCorrelationHeatmap",
+    signature = "SummarizedExperiment"
 )
+f <- c(f1, f2[setdiff(names(f2), names(f1))])
+formals(.plotCorrelationHeatmap.bcbioRNASeq) <- f
 
 
 
 #' @rdname plotCorrelationHeatmap
 #' @export
 setMethod(
-    "plotCorrelationHeatmap",
-    signature("DESeqTransform"),
-    function(object, ...) {
-        validObject(object)
-        counts <- assay(object)
-
-        # Coerce to RangedSummarizedExperiment
-        rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts)
-        validObject(rse)
-
-        plotCorrelationHeatmap(rse, ...)
-    }
+    f = "plotCorrelationHeatmap",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotCorrelationHeatmap.bcbioRNASeq
 )
