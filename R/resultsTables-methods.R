@@ -1,7 +1,10 @@
-# TODO Add as many assert checks as possible here to look for mismatch.
-# TODO Require valid names for the rownames.
-# TODO Improve the documentation about what types of counts to use here.
-# Recommend using normalized counts or DESeqTransform.
+# FIXME Define and recommend DESeqAnalysis method
+# FIXME Add as many assert checks as possible here to look for mismatch.
+# FIXME Require valid names for the rownames.
+# FIXME Improve the documentation about what types of counts to use here.
+# FIXME Recommend using normalized counts or DESeqTransform.
+# FIXME Define resultsTables S4 class
+# FIXME Simplify how we're handling rowData?
 
 
 
@@ -18,8 +21,6 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param counts `DESeqDataSet`. Corresponding object containing the counts that
-#'   were used to generate the `DESeqResults` object.
 #' @param summary `boolean`. Show summary statistics.
 #' @param write `boolean`. Write CSV files to disk.
 #' @param dropboxDir `string` or `NULL`. Dropbox directory path where to archive
@@ -31,62 +32,18 @@
 #'   authentication. If set `NULL` and `dropboxDir` is defined, then an
 #'   interactive prompt will appear requesting authorization.
 #'
-#' @return `list` containing modified `DESeqResults` return, including
-#'   additional gene-level metadata and normalized counts.
+#' @return `DESeqResultsTables`.
 #'
 #' @examples
-#' # DESeqResults, DESeqDataSet ====
-#' x <- resultsTables(results = res_small, counts = dds_small)
-#' names(x)
-#' glimpse(x[["deg"]])
+#' # DESeqResults ====
+#' x <- resultsTables(res_small)
+#' class(x)
+#' slotNames(x)
 NULL
 
 
 
-.degList <- function(
-    results,
-    alpha,
-    lfcThreshold = 0L,
-    contrast
-) {
-    assert_is_subset(c("log2FoldChange", "padj"), colnames(results))
-    if (missing(alpha)) {
-        alpha <- metadata(results)[["alpha"]]
-    }
-    assert_is_a_number(alpha)
-    assert_is_a_number(lfcThreshold)
-    if (missing(contrast)) {
-        contrast <- contrastName(results)
-    }
-    assert_is_a_string(contrast)
-
-    all <- as.data.frame(results)
-    # DEG tables are sorted by BH adjusted P value
-    deg <- all %>%
-        .[!is.na(.[["padj"]]), , drop = FALSE] %>%
-        .[.[["padj"]] < alpha, , drop = FALSE] %>%
-        .[order(.[["padj"]]), , drop = FALSE]
-    degLFC <- deg %>%
-        .[.[["log2FoldChange"]] > lfcThreshold |
-              .[["log2FoldChange"]] < -lfcThreshold, , drop = FALSE]
-    degLFCUp <- degLFC %>%
-        .[.[["log2FoldChange"]] > 0L, , drop = FALSE]
-    degLFCDown <- degLFC %>%
-        .[.[["log2FoldChange"]] < 0L, , drop = FALSE]
-
-    list(
-        deg = deg,
-        degLFC = degLFC,
-        degLFCUp = degLFCUp,
-        degLFCDown = degLFCDown,
-        all = all,
-        contrast = contrast,
-        alpha = alpha,
-        lfcThreshold = lfcThreshold
-    )
-}
-
-
+# FIXME We need to tweak this function.
 
 #' Markdown List of Results Files
 #'
@@ -97,10 +54,10 @@ NULL
 #'
 #' @return [writeLines()] output.
 #' @noRd
-.markdownResultsTables <- function(object, headerLevel = 2L) {
+.markdownTables <- function(object, headerLevel = 2L) {
     assert_is_list(object)
     assert_is_subset(
-        c("all", "deg", "degLFCDown", "degLFCUp"),
+        c("all", "deg", "degDown", "degUp"),
         names(object)
     )
     assertIsImplicitInteger(headerLevel)
@@ -138,17 +95,18 @@ NULL
         paste0(
             "[`", basenames[["deg"]], "`]",
             "(", paths[["deg"]], "): ",
-            "Genes that pass the alpha (FDR) cutoff."
+            "Genes that pass the alpha (FDR) and",
+            "log2 fold change (LFC) cutoffs."
         ),
         paste0(
-            "[`", basenames[["degLFCUp"]], "`]",
+            "[`", basenames[["degUp"]], "`]",
             "(", paths[["degLFCUp"]], "): ",
-            "Upregulated DEG; positive log2 fold change."
+            "Upregulated DEG; positive fold change."
         ),
         paste0(
-            "[`", basenames[["degLFCDown"]], "`]",
-            "(", paths[["degLFCDown"]], "): ",
-            "Downregulated DEG; negative log2 fold change."
+            "[`", basenames[["degDown"]], "`]",
+            "(", paths[["degDown"]], "): ",
+            "Downregulated DEG; negative fold change."
         )
     ), asis = TRUE)
 }
@@ -159,15 +117,62 @@ NULL
 #' @export
 setMethod(
     "resultsTables",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqDataSet"
-    ),
+    signature("DESeqResults"),
+    function(object) {
+        validObject(object)
+        assert_is_all_of(object, "DESeqResults")
+        assert_is_subset(c("log2FoldChange", "padj"), colnames(object))
+        alpha <- metadata(object)[["alpha"]]
+        assert_is_a_number(alpha)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
+        assert_is_a_number(lfcThreshold)
+
+        # Set LFC and test (P value) columns.
+        lfcCol <- "log2FoldChange"
+        testCol <- "padj"
+        lfc <- sym(lfcCol)
+        test <- sym(testCol)
+        assert_is_subset(
+            x = c(lfcCol, testCol),
+            y = colnames(object)
+        )
+
+        # DEG tables are sorted by adjusted P value.
+        deg <- object %>%
+            as("tbl_df") %>%
+            # Remove genes without an adjusted P value.
+            filter(!is.na(!!test)) %>%
+            # Remove genes that don't pass alpha cutoff.
+            filter(!!test < !!alpha) %>%
+            # Arrange by adjusted P value.
+            arrange(!!test) %>%
+            # Remove genes that don't pass LFC threshold.
+            filter(!!lfc > !!lfcThreshold | !!lfc < -UQ(lfcThreshold))
+        # Get directional subsets.
+        degUp <- filter(deg, !!lfc > 0L)
+        degDown <- filter(deg, !!lfc < 0L)
+
+        new(
+            Class = "DESeqResultsTables",
+            all = object,
+            deg = as(deg, "DataFrame"),
+            degUp = as(degUp, "DataFrame"),
+            degDown = as(degDown, "DataFrame")
+        )
+    }
+)
+
+
+
+# TODO Using the normalized counts, not the DESeqTransform here.
+
+#' @rdname resultsTables
+#' @export
+setMethod(
+    "resultsTables",
+    signature("DESeqAnalysis"),
     function(
-        results,
-        counts,
-        alpha,
-        lfcThreshold = 0L,
+        object,
         summary = TRUE,
         write = FALSE,
         headerLevel = 2L,
@@ -175,11 +180,8 @@ setMethod(
         dropboxDir = NULL,
         rdsToken = NULL
     ) {
-        validObject(results)
-        validObject(counts)
-        assert_are_identical(rownames(results), rownames(counts))
-        assert_is_a_number(lfcThreshold)
-        assert_all_are_non_negative(lfcThreshold)
+        validObject(object)
+        assert_are_identical(rownames(object), rownames(counts))
         assert_is_a_bool(summary)
         assert_is_a_bool(write)
 
@@ -191,14 +193,15 @@ setMethod(
         }
 
         # Extract internal parameters from DESeqResults object -----------------
-        if (missing(alpha)) {
-            alpha <- metadata(results)[["alpha"]]
-        }
+        alpha <- metadata(object)[["alpha"]]
         assert_is_a_number(alpha)
-        contrast <- contrastName(results)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
+        assert_is_a_number(lfcThreshold)
+        contrast <- contrastName(object)
         fileStem <- snake(contrast)
 
-        results <- as.data.frame(results)
+        # FIXME Rework this step...
+        results <- as.data.frame(object)
         results[["geneID"]] <- rownames(results)
 
         # Add gene annotations (rowData) ---------------------------------------
@@ -230,14 +233,14 @@ setMethod(
             .[.[["baseMean"]] > 1L, , drop = FALSE] %>%
             nrow()
 
-        list <- .degList(
+        # FIXME
+        list <- .resultsTables(
             results = results,
             alpha = alpha,
-            lfcThreshold = lfcThreshold,
-            contrast = contrast
+            lfcThreshold = lfcThreshold
         )
 
-        # Print a markdown header containing the contrast (useful for looping)
+        # Print a markdown header containing the contrast (useful for looping).
         if (isTRUE(summary) || isTRUE(write)) {
             markdownHeader(contrast, level = headerLevel, asis = TRUE)
         }
@@ -295,10 +298,10 @@ setMethod(
                 }
             )
 
-            # Check that writes were successful
+            # Check that writes were successful.
             assert_all_are_existing_files(localFiles)
 
-            # Update the list with the file paths
+            # Update the list with the file paths.
             list[["localFiles"]] <- localFiles
 
             # Copy to Dropbox (optional) ---------------------------------------
@@ -314,36 +317,10 @@ setMethod(
                 # nocov end
             }
 
-            # Output file information in Markdown format
-            .markdownResultsTables(list, headerLevel = headerLevel + 1L)
+            # Output file information in Markdown format.
+            .markdownTables(list, headerLevel = headerLevel + 1L)
         }
 
         list
-    }
-)
-
-
-
-# Minimal method that is used by other functions inside the package
-#' @rdname resultsTables
-#' @usage NULL
-#' @export
-setMethod(
-    "resultsTables",
-    signature(
-        results = "DESeqResults",
-        counts = "missingOrNULL"
-    ),
-    function(
-        results,
-        counts = NULL,
-        alpha,
-        lfcThreshold = 0L
-    ) {
-        .degList(
-            results = results,
-            alpha = alpha,
-            lfcThreshold = lfcThreshold
-        )
     }
 )
