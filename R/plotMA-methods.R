@@ -73,35 +73,9 @@ NULL
 
 
 
-# FIXME Improve the formals.
-#' @rdname plotMA
-#' @export
-setMethod(
-    "plotMA",
-    signature("DESeqAnalysis"),
-    function(object, results, ...) {
-        do.call(
-            what = plotMA,
-            args = list(
-                object = .matchResults(object, results),
-                gene2symbol = gene2symbol(object@data),
-                ...
-            )
-        )
-    }
-)
-
-
-
-#' @rdname plotMA
-#' @export
-setMethod(
-    "plotMA",
-    signature("DESeqResults"),
+.plotMA.DESeqResults <-  # nolint
     function(
         object,
-        alpha = NULL,
-        lfcThreshold = 0L,
         genes = NULL,
         gene2symbol = NULL,
         ntop = 0L,
@@ -114,11 +88,10 @@ setMethod(
         return = c("ggplot", "DataFrame")
     ) {
         validObject(object)
-        if (is.null(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
+        alpha <- metadata(object)[["alpha"]]
         assert_is_a_number(alpha)
         assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assert_is_any_of(genes, c("character", "NULL"))
@@ -299,4 +272,54 @@ setMethod(
         # Return ---------------------------------------------------------------
         p
     }
+
+
+
+.plotMA.DESeqAnalysis <-  # nolint
+    function(
+        object,
+        results
+    ) {
+        args <- setArgsToDoCall(
+            args = list(
+                object = .matchResults(object, results),
+                gene2symbol = gene2symbol(object@data)
+            ),
+            removeArgs = c("results"),
+            call = matchS4Call()
+        )
+        do.call(
+            what = plotMA,
+            args = args
+        )
+    }
+f1 <- formals(.plotMA.DESeqAnalysis)
+f2 <- formals(.plotMA.DESeqResults)
+f <- c(
+    f1,
+    f2[setdiff(
+        names(f2),
+        c(names(f1), "gene2symbol")
+    )]
+)
+formals(.plotMA.DESeqAnalysis) <- f
+
+
+
+#' @rdname plotMA
+#' @export
+setMethod(
+    f = "plotMA",
+    signature = signature("DESeqAnalysis"),
+    definition = .plotMA.DESeqAnalysis
+)
+
+
+
+#' @rdname plotMA
+#' @export
+setMethod(
+    f = "plotMA",
+    signature = signature("DESeqResults"),
+    definition = .plotMA.DESeqResults
 )

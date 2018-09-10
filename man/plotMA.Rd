@@ -8,13 +8,15 @@
 \alias{plotMA,DESeqResults-method}
 \title{MA Plot}
 \usage{
-\S4method{plotMA}{DESeqAnalysis}(object, results, ...)
+\S4method{plotMA}{DESeqAnalysis}(object, results, genes = NULL,
+  ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), return = c("ggplot", "DataFrame"))
 
-\S4method{plotMA}{DESeqResults}(object, alpha = NULL,
-  lfcThreshold = 0L, genes = NULL, gene2symbol = NULL, ntop = 0L,
-  direction = c("both", "up", "down"), pointColor = "gray50",
-  sigPointColor = c(upregulated = "purple", downregulated = "orange"),
-  return = c("ggplot", "DataFrame"))
+\S4method{plotMA}{DESeqResults}(object, genes = NULL,
+  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
+  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
+  downregulated = "orange"), return = c("ggplot", "DataFrame"))
 }
 \arguments{
 \item{...}{Additional arguments.}
@@ -23,17 +25,9 @@
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
-
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
-
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from
 Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
-
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
@@ -47,6 +41,9 @@ with the same color, regardless of direction.}
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
+
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 }
 \value{
 \code{ggplot}.
