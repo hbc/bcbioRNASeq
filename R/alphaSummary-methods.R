@@ -23,10 +23,11 @@
 #'
 #' @examples
 #' # DESeqDataSet ====
-#' design(dds_small)
-#' resultsNames(dds_small)
-#' alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
-#' alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
+#' object <- deseq_small@data
+#' design(object)
+#' resultsNames(object)
+#' alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
+#' alphaSummary(object, name = "treatment_folic_acid_vs_control")
 NULL
 
 
