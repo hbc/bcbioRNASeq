@@ -1,106 +1,111 @@
 context("Differential Expression Functions")
 
-genes <- head(rownames(res_small))
 gene2symbol <- gene2symbol(bcb_small)
+geneIDs <- head(gene2symbol[["geneID"]])
+geneNames <- head(gene2symbol[["geneName"]])
 
 
 
 # alphaSummary =================================================================
 test_that("alphaSummary : DESeqDataSet", {
-    x <- alphaSummary(dds_small)
-    expect_is(x, "knitr_kable")
-    expect_true(grepl("1e-06", x[[1L]]))
+    # Default, no contrast specified.
+    object <- alphaSummary(dds_small)
+    expect_is(object, "knitr_kable")
+    expect_true(grepl("1e-06", object[[1L]]))
 
-    x <- alphaSummary(
+    # contrast vector
+    object <- alphaSummary(
         object = dds_small,
         contrast = c("treatment", "folic_acid", "control")
     )
-    expect_is(x, "knitr_kable")
+    expect_is(object, "knitr_kable")
 
-    x <- alphaSummary(
+    # contrast name
+    object <- alphaSummary(
         object = dds_small,
         name = "treatment_folic_acid_vs_control"
     )
-    expect_is(x, "knitr_kable")
+    expect_is(object, "knitr_kable")
 })
 
 
 
 # plotDEGHeatmap ===============================================================
-test_that("plotDEGHeatmap : bcbioRNASeq", {
-    p <- plotDEGHeatmap(
-        results = res_small,
-        counts = bcb_small,
-        normalized = "vst"
+with_parameters_test_that(
+    "plotDEGHeatmap", {
+        expect_is(
+            object = plotDEGHeatmap(
+                results = res_small,
+                counts = counts
+            ),
+            class = "pheatmap"
+        )
+    },
+    counts = list(
+        bcbioRNASeq = bcb_small,
+        DESeqDataSet = dds_small,
+        DESeqTransform = vst_small
     )
-    expect_identical(names(p), pheatmapNames)
-})
-
-test_that("plotDEGHeatmap : DESeqTransform", {
-    p <- plotDEGHeatmap(
-        results = res_small,
-        counts = rld_small
-    )
-    expect_identical(names(p), pheatmapNames)
-})
-
-test_that("plotDEGHeatmap : DESeqDataSet", {
-    p <- plotDEGHeatmap(
-        results = res_small,
-        counts = dds_small,
-        title = NULL
-    )
-    expect_identical(names(p), pheatmapNames)
-})
+)
 
 test_that("plotDEGHeatmap : No DEGs", {
-    p <- suppressWarnings(plotDEGHeatmap(
+    args <- list(
         results = res_small,
         counts = bcb_small,
         lfcThreshold = Inf
-    ))
-    expect_null(p)
+    )
+    expect_null(do.call(what = plotDEGHeatmap, args = args))
+    expect_warning(
+        object = do.call(what = plotDEGHeatmap, args = args),
+        regexp = "No significant DEGs to plot"
+    )
 })
 
 
 
 # plotDEGPCA ===================================================================
-test_that("plotDEGPCA : DESeqResults, bcbioRNASeq", {
-    p <- plotDEGPCA(results = res_small, counts = bcb_small)
-    expect_is(p, "ggplot")
-})
-
-test_that("plotDEGPCA : DESeqResults, DESeqTransform", {
-    p <- plotDEGPCA(results = res_small, counts = rld_small)
-    expect_is(p, "ggplot")
-})
-
-test_that("plotDEGPCA : DESeqResults, DESeqDataSet", {
-    p <- plotDEGPCA(results = res_small, counts = dds_small)
-    expect_is(p, "ggplot")
-})
+with_parameters_test_that(
+    "plotDEGPCA", {
+        expect_is(
+            object = plotDEGPCA(
+                results = res_small,
+                counts = counts
+            ),
+            class = "ggplot"
+        )
+    },
+    counts = list(
+        bcbioRNASeq = bcb_small,
+        DESeqDataSet = dds_small,
+        DESeqTransform = vst_small
+    )
+)
 
 test_that("plotDEGPCA : No DEGs", {
-    p <- suppressWarnings(plotDEGPCA(
+    args <- list(
         results = res_small,
         counts = bcb_small,
         lfcThreshold = Inf
-    ))
-    expect_null(p)
+    )
+    expect_null(do.call(what = plotDEGPCA, args = args))
+    expect_warning(
+        object = do.call(what = plotDEGPCA, args = args),
+        regexp = "No significant DEGs to plot"
+    )
 })
 
 
 
 # plotMA =======================================================================
 test_that("plotMA : DESeqResults", {
-    p <- plotMA(res_small)
-    expect_is(p, "ggplot")
+    object <- plotMA(res_small)
+    expect_is(object, "ggplot")
 
     # Check geom classes
     geomtype <- vapply(
-        X = p[["layers"]],
-        FUN = function(x) {
-            class(x[["geom"]])[[1L]]
+        X = object[["layers"]],
+        FUN = function(object) {
+            class(object[["geom"]])[[1L]]
         },
         FUN.VALUE = character(1L)
     )
@@ -111,101 +116,104 @@ test_that("plotMA : DESeqResults", {
 
     # Check plot labels
     expect_identical(
-        p[["labels"]][["y"]],
+        object[["labels"]][["y"]],
         "log2 fold change"
     )
     expect_identical(
-        p[["labels"]][["x"]],
+        object[["labels"]][["object"]],
         "mean expression across all samples"
     )
 })
 
 test_that("plotMA : Specific genes", {
-    p <- plotMA(
+    object <- plotMA(
         object = res_small,
         genes = genes,
         gene2symbol = gene2symbol(bcb_small)
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 })
 
 test_that("plotMA: ntop mode", {
-    p <- plotMA(
+    object <- plotMA(
         object = res_small,
         ntop = 10L,
         gene2symbol = gene2symbol(bcb_small)
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 })
 
 test_that("plotMA : Directional support", {
     # Upregulated
-    p <- plotMA(
+    object <- plotMA(
         object = res_small,
         direction = "up",
         sigPointColor = "red"
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 
     # Downregulated
-    p <- plotMA(
+    object <- plotMA(
         object = res_small,
         direction = "down",
         sigPointColor = "green"
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 })
 
-test_that("plotMA : data.frame return", {
-    x <- plotMA(res_small, return = "data.frame")
-    expect_is(x, "data.frame")
-    expect_true("isDE" %in% colnames(x))
+test_that("plotMA : DataFrame return", {
+    object <- plotMA(res_small, return = "DataFrame")
+    expect_s4_class(object, "DataFrame")
+    expect_true("isDE" %in% colnames(object))
 })
 
 
 
 # plotVolcano ==================================================================
 test_that("plotVolcano : DESeqResults", {
-    p <- plotVolcano(res_small, gene2symbol = gene2symbol)
-    expect_is(p, "ggplot")
+    object <- plotVolcano(res_small, gene2symbol = gene2symbol)
+    expect_is(object, "ggplot")
 
     # Enable histograms
-    p <- plotVolcano(res_small, histograms = TRUE)
-    expect_is(p, "ggplot")
+    object <- plotVolcano(res_small, histograms = TRUE)
+    expect_is(object, "ggplot")
 
     # Label the top genes
-    p <- plotVolcano(res_small, ntop = 5L, gene2symbol = gene2symbol)
-    expect_is(p, "ggplot")
+    object <- plotVolcano(res_small, ntop = 5L, gene2symbol = gene2symbol)
+    expect_is(object, "ggplot")
 
     # Label specific genes
-    p <- plotVolcano(res_small, genes = genes, gene2symbol = gene2symbol)
-    expect_is(p, "ggplot")
+    object <- plotVolcano(res_small, genes = genes, gene2symbol = gene2symbol)
+    expect_is(object, "ggplot")
 
     # Directional support
-    p <- plotVolcano(res_small, direction = "up", sigPointColor = "red")
-    expect_is(p, "ggplot")
-    p <- plotVolcano(res_small, direction = "down", sigPointColor = "green")
-    expect_is(p, "ggplot")
+    object <- plotVolcano(res_small, direction = "up", sigPointColor = "red")
+    expect_is(object, "ggplot")
+    object <- plotVolcano(res_small, direction = "down", sigPointColor = "green")
+    expect_is(object, "ggplot")
 
-    # Return data.frame
-    x <- plotVolcano(res_small, return = "data.frame")
-    expect_is(x, "data.frame")
+    # Return DataFrame
+    object <- plotVolcano(res_small, return = "DataFrame")
+    expect_s4_class(object, "DataFrame")
 })
+
+# FIXME Improve counts pass-in checks
+# FIXME Check gene symbols
 
 
 
 # resultsTables ================================================================
 test_that("resultsTables : Default return with local files only", {
-    x <- resultsTables(
+    object <- resultsTables(
         results = res_small,
         counts = dds_small,
         lfcThreshold = lfc,
         summary = FALSE,
         write = FALSE
     )
-    expect_identical(class(x), "list")
+    expect_identical(class(object), "list")
     expect_identical(
-        lapply(x, class),
+        lapply(object, class),
         list(
             deg = "data.frame",
             degLFC = "data.frame",
@@ -220,11 +228,11 @@ test_that("resultsTables : Default return with local files only", {
     # Ensure that the counts columns are correct
     expect_identical(
         rownames(dds_small),
-        rownames(x[["all"]])
+        rownames(object[["all"]])
     )
     expect_identical(
         counts(dds_small, normalized = TRUE),
-        as.matrix(x[["all"]][, colnames(assay(dds_small))])
+        as.matrix(object[["all"]][, colnames(assay(dds_small))])
     )
 })
 
@@ -319,8 +327,8 @@ test_that("resultsTables : Summary and write support", {
 
 # Providing a corresponding DESeqDataSet for counts is recommended
 test_that("resultsTables : DESeqResults minimal mode", {
-    x <- resultsTables(results = res_small)
-    expect_is(x, "list")
+    object <- resultsTables(results = res_small)
+    expect_is(object, "list")
 })
 
 if (file.exists("token.rds")) {

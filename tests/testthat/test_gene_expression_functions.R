@@ -23,7 +23,7 @@ test_that("plotGenderMarkers : DESeqDataSet", {
 
 test_that("plotGenderMarkers : DESeqTransform", {
     # rlog
-    p <- plotGenderMarkers(rld_small, interestingGroups = "treatment")
+    p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
     expect_is(p, "ggplot")
 
     # vst
@@ -62,7 +62,7 @@ test_that("plotGene : DESeqDataSet", {
 
 test_that("plotGene : DESeqTransform", {
     # rlog
-    p <- plotGene(rld_small, genes = genes)
+    p <- plotGene(rlog_small, genes = genes)
     expect_is(p, "ggplot")
 
     # vst
@@ -73,6 +73,7 @@ test_that("plotGene : DESeqTransform", {
 
 
 # plotHeatmap ==================================================================
+# FIXME Check for is pheatmap instead
 test_that("plotHeatmap : bcbioRNASeq", {
     genes <- head(rownames(bcb_small), n = 100L)
     p <- plotHeatmap(bcb_small[genes, ])

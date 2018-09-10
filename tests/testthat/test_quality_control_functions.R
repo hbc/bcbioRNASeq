@@ -39,6 +39,7 @@ test_that("Plots supporting interesting groups", {
 
 
 
+# FIXME Check for is pheatmap instead
 # plotCorrelationHeatmap =======================================================
 test_that("plotCorrelationHeatmap : bcbioRNASeq", {
     # Pearson (default)
