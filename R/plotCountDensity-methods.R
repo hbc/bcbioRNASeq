@@ -46,12 +46,12 @@ setMethod(
 
         label <- paste(interestingGroups, collapse = ":\n")
 
-        # Subset the counts matrix to only include non-zero genes
+        # Subset the counts matrix to only include non-zero genes.
         nonzero <- .nonzeroGenes(object)
         counts <- counts(object, normalized = normalized)
         counts <- counts[nonzero, , drop = FALSE]
 
-        # Apply log2 transformation, if  necessary
+        # Apply log2 transformation, if  necessary.
         if (normalized %in% c("rlog", "vst")) {
             # Already log2
             fxn <- .meltCounts
@@ -59,7 +59,7 @@ setMethod(
             fxn <- .meltLog2Counts
         }
 
-        # Melt the counts into long format
+        # Melt the counts into long format.
         sampleData <- sampleData(object)
         data <- fxn(counts, sampleData = sampleData)
 
