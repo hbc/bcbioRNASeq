@@ -3,21 +3,23 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
-\alias{plotPCA,SummarizedExperiment-method}
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Sample PCA Plot for Transformed Data}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object,
-  interestingGroups = NULL, ntop = 500L,
-  color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), title = "pca",
-  subtitle = NULL, return = c("ggplot", "data.frame"))
-
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
-  "tmm", "tpm", "rle"), ...)
+  "tmm", "tpm", "rle"), interestingGroups = NULL, ntop = 500L,
+  color = getOption("bcbio.discrete.color", NULL),
+  label = getOption("bcbio.label", FALSE), title = "PCA",
+  subtitle = NULL, return = c("ggplot", "DataFrame"))
 }
 \arguments{
 \item{object}{Object.}
+
+\item{normalized}{\code{string}. Which normalization method to apply:
+- "\code{tpm}": Transcripts per million (tximport).
+- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
@@ -40,17 +42,9 @@ To set the discrete color palette globally, use
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
-
-\item{normalized}{\code{string}. Which normalization method to apply:
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
-
-\item{...}{Additional arguments.}
 }
 \value{
-\code{ggplot} or \code{data.frame}.
+\code{ggplot} or \code{DataFrame}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
@@ -65,7 +59,6 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
-# bcbioRNASeq ====
 plotPCA(
     object = bcb_small,
     normalized = "vst",

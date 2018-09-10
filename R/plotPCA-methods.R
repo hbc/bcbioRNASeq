@@ -13,7 +13,6 @@
 #' @name plotPCA
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
 #' @importFrom BiocGenerics plotPCA
 #' @export
 #'
@@ -25,10 +24,9 @@
 #' - [DESeq2::plotPCA()].
 #' - `getMethod("plotPCA", "DESeqTransform")`
 #'
-#' @return `ggplot` or `data.frame`.
+#' @return `ggplot` or `DataFrame`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
 #' plotPCA(
 #'     object = bcb_small,
 #'     normalized = "vst",
@@ -47,21 +45,22 @@ NULL
 #' @rdname plotPCA
 #' @export
 setMethod(
-    "plotPCA",
-    signature("SummarizedExperiment"),
-    function(
+    f = "plotPCA",
+    signature = signature("bcbioRNASeq"),
+    definition = function(
         object,
+        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
         interestingGroups = NULL,
         ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
         label = getOption("bcbio.label", FALSE),
-        title = "pca",
+        title = "PCA",
         subtitle = NULL,
-        return = c("ggplot", "data.frame")
+        return = c("ggplot", "DataFrame")
     ) {
         # Legacy arguments -----------------------------------------------------
         # nocov start
-        call <- match.call()
+        call <- matchS4Call()
         # genes
         if ("genes" %in% names(call)) {
             stop("`genes` is defunct. Use `ntop` argument instead.")
@@ -75,13 +74,13 @@ setMethod(
             warning("`returnData` is deprecated in favor of `return`")
             returnData <- call[["returnData"]]
             if (isTRUE(returnData)) {
-                return <- "data.frame"
+                return <- "DataFrame"
             }
         }
         # nocov end
 
-        # Assert checks --------------------------------------------------------
         validObject(object)
+        normalized <- match.arg(normalized)
         interestingGroups <- matchInterestingGroups(
             object = object,
             interestingGroups = interestingGroups
@@ -91,7 +90,7 @@ setMethod(
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
         assertIsAStringOrNULL(title)
-        # exists check is needed for legacy `returnData` match above
+        # `exists()` check here is needed for legacy `returnData` match above.
         if (!exists(return, inherits = FALSE)) {
             return <- match.arg(return)
         }
@@ -101,38 +100,59 @@ setMethod(
         } else {
             nGene <- ntop
         }
-        message(paste("Plotting PCA using", nGene, "genes"))
 
-        # Get coordinates using DESeqTransform method
-        dt <- DESeqTransform(object)
-        colData <- colData(object)
-        data <- plotPCA(
-            object = dt,
-            intgroup = interestingGroups,
-            ntop = ntop,
-            returnData = TRUE
-        ) %>%
-            camel()
+        message(paste(
+            "Plotting PCA using",
+            normalized, "counts;",
+            nGene, "genes"
+        ))
 
-        # Early return if `data.frame` is requested
-        if (return == "data.frame") {
-            return(data)
+        # Coerce to `DESeqTransform` and use DESeq2 method internally to obtain
+        # the PCA coordinates.
+        rse <- as(object, "RangedSummarizedExperiment")
+        assay(rse) <- counts(object, normalized = normalized)
+        data <- do.call(
+            what = plotPCA,
+            args = list(
+                object = DESeqTransform(rse),
+                intgroup = interestingGroups,
+                ntop = ntop,
+                returnData = TRUE
+            )
+        )
+        # Check to make sure data is returning as expected.
+        assert_is_subset(
+            x = c("PC1", "PC2", "group", "name"),
+            y = colnames(data)
+        )
+        assert_are_identical(
+            x = rownames(data),
+            y = rownames(colData(object))
+        )
+
+        # Standardize the columns to match our conventions.
+        colnames(data) <- gsub("^group$", "interestingGroups", colnames(data))
+        data[["name"]] <- NULL
+        data[["sampleName"]] <- colData(object)[["sampleName"]]
+
+        # Make sure `percentVar` attribute is set.
+        assert_is_numeric(attr(data, "percentVar"))
+
+        # Early return if `DataFrame` is requested.
+        if (return == "DataFrame") {
+            return(as(data, "DataFrame"))
         }
 
-        # Use `sampleName` for plot labels
-        if (isTRUE(label)) {
-            data[["sampleName"]] <- colData[["sampleName"]]
-        }
-
+        # Improve the appearance of the percent variation.
         percentVar <- round(100L * attr(data, "percentVar"))
 
-        # `DESeq2::plotPCA()` defines interesting groups in `group` column
+        # `DESeq2::plotPCA()` defines interesting groups in `group` column.
         p <- ggplot(
             data = data,
             mapping = aes(
-                x = !!sym("pc1"),
-                y = !!sym("pc2"),
-                color = !!sym("group")
+                x = !!sym("PC1"),
+                y = !!sym("PC2"),
+                color = !!sym("interestingGroups")
             )
         ) +
             geom_point(size = 4L) +
@@ -140,8 +160,8 @@ setMethod(
             labs(
                 title = title,
                 subtitle = subtitle,
-                x = paste0("pc1: ", percentVar[[1L]], "% variance"),
-                y = paste0("pc2: ", percentVar[[2L]], "% variance"),
+                x = paste0("PC1: ", percentVar[[1L]], "% variance"),
+                y = paste0("PC2: ", percentVar[[2L]], "% variance"),
                 color = paste(interestingGroups, collapse = ":\n")
             )
 
@@ -156,27 +176,5 @@ setMethod(
         }
 
         p
-    }
-)
-
-
-
-#' @rdname plotPCA
-#' @export
-setMethod(
-    "plotPCA",
-    signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
-    ) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
-        counts <- counts(object, normalized = normalized)
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts
-        plotPCA(rse, ...)
     }
 )
