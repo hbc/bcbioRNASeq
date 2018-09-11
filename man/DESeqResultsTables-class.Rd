@@ -24,6 +24,10 @@ genes.}
 
 \item{\code{degDown}}{\code{DataFrame}. Directional subset containing only downregulated
 genes.}
+
+\item{\code{localFiles}}{\code{list}. Local file paths.}
+
+\item{\code{dropboxFiles}}{\code{list}. Dropbox file paths.}
 }}
 
 \examples{

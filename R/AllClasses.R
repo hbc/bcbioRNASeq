@@ -308,6 +308,8 @@ setValidity(
 #'   genes.
 #' @slot degDown `DataFrame`. Directional subset containing only downregulated
 #'   genes.
+#' @slot localFiles `list`. Local file paths.
+#' @slot dropboxFiles `list`. Dropbox file paths.
 #'
 #' @return `DESeqResultsTables`.
 #'
@@ -321,7 +323,14 @@ setClass(
         all = "DESeqResults",
         deg = "DataFrame",
         degUp = "DataFrame",
-        degDown = "DataFrame"
+        degDown = "DataFrame",
+        localFiles = "list",
+        dropboxFiles = "list"
+    ),
+    # Consider setting an initialize method instead.
+    prototype = list(
+        localFiles = list(),
+        dropboxFiles = list()
     )
 )
 
