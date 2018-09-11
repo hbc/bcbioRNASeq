@@ -3,22 +3,16 @@
 \docType{methods}
 \name{sampleData}
 \alias{sampleData}
-\alias{sampleData<-}
 \alias{sampleData,bcbioRNASeq-method}
-\alias{sampleData<-,bcbioRNASeq,DataFrame-method}
 \title{Sample Data}
 \usage{
 \S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE)
-
-\S4method{sampleData}{bcbioRNASeq,DataFrame}(object) <- value
 }
 \arguments{
 \item{object}{Object.}
 
 \item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}
-
-\item{value}{Value to assign.}
 }
 \value{
 \code{DataFrame}.

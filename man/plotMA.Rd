@@ -57,10 +57,10 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-gene2symbol <- gene2symbol(bcb_small)
-geneIDs <- head(gene2symbol[["geneID"]])
+g2s <- gene2symbol(bcb_small)
+geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
-geneNames <- head(gene2symbol[["geneName"]])
+geneNames <- head(g2s[["geneName"]])
 print(geneNames)
 
 # DESeqAnalysis ====

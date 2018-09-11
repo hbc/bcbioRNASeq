@@ -72,10 +72,10 @@ and picks the first item in the vector by default.}
 Plot Volcano
 }
 \examples{
-gene2symbol <- gene2symbol(bcb_small)
-geneIDs <- head(gene2symbol[["geneID"]])
+g2s <- gene2symbol(bcb_small)
+geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
-geneNames <- head(gene2symbol[["geneName"]])
+geneNames <- head(g2s[["geneName"]])
 print(geneNames)
 
 # DESeqAnalysis ====
