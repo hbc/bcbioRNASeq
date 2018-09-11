@@ -157,13 +157,11 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
     function(
         object,
         counts = NULL,
-        results,
-        lfcShrink = TRUE
+        results
     ) {
         results <- .matchResults(
             object = object,
-            results = results,
-            lfcShrink = lfcShrink
+            results = results
         )
         counts <- object@transform
         args <- setArgsToDoCall(
@@ -171,7 +169,7 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
                 object = results,
                 counts = counts
             ),
-            removeArgs = c("results", "lfcShrink"),
+            removeArgs = "results",
             call = matchCall()
         )
         do.call(what = plotDEGHeatmap, args = args)

@@ -140,8 +140,7 @@ formals(.plotDEGPCA.DESeqResults.bcbioRNASeq) <- f
     ) {
         results <- .matchResults(
             object = object,
-            results = results,
-            lfcShrink = TRUE
+            results = results
         )
         counts <- object@transform
         args <- setArgsToDoCall(

@@ -1,7 +1,7 @@
 .matchResults <- function(
     object,
     results,
-    lfcShrink = TRUE
+    lfcShrink = FALSE
 ) {
     assert_is_all_of(object, "DESeqAnalysis")
     # Default to using the first contrast, for convenience.
@@ -22,8 +22,6 @@
     msg <- paste(bold("DESeqResults:"), contrastName(results))
     if (isTRUE(lfcShrink)) {
         msg <- paste(msg, "(shrunken LFC)")
-    } else {
-        msg <- paste(msg, "(unshrunken LFC)")
     }
     message(msg)
 
