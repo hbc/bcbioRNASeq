@@ -57,60 +57,41 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-gene2symbol <- gene2symbol(deseq_small)
-print(gene2symbol)
-
+gene2symbol <- gene2symbol(bcb_small)
 geneIDs <- head(gene2symbol[["geneID"]])
 print(geneIDs)
-
 geneNames <- head(gene2symbol[["geneName"]])
 print(geneNames)
 
 # DESeqAnalysis ====
-plotMA(deseq_small)
+# This is the current recommended method.
+object <- deseq_small
+print(object)
 
-# DESeqResults ====
-res_small <- deseq_small@results[[1L]]
-summary(res_small)
+plotMA(object)
 
-# Color DEGs in each direction separately.
+# Customize the colors.
 plotMA(
-    object = res_small,
+    object = object,
+    pointColor = "black",
+    sigPointColor = "purple"
+)
+plotMA(
+    object = object,
     sigPointColor = c(
-        upregulated = "purple",
-        downregulated = "orange"
+        upregulated = "green",
+        downregulated = "red"
     )
 )
 
-# Label DEGs with a single color.
-plotMA(res_small, sigPointColor = "purple")
-
 # Directional support (up or down).
-plotMA(
-    object = res_small,
-    direction = "up",
-    ntop = 5L,
-    gene2symbol = gene2symbol
-)
-plotMA(
-    object = res_small,
-    direction = "down",
-    ntop = 5L,
-    gene2symbol = gene2symbol
-)
+plotMA(object, direction = "up", ntop = 5L)
+plotMA(object, direction = "down", ntop = 5L)
 
 # Label genes manually.
 # Note that either gene IDs or names (symbols) are supported.
-plotMA(
-    object = res_small,
-    genes = geneIDs,
-    gene2symbol = gene2symbol
-)
-plotMA(
-    object = res_small,
-    genes = geneNames,
-    gene2symbol = gene2symbol
-)
+plotMA(object = object, genes = geneIDs)
+plotMA(object = object, genes = geneNames)
 }
 \seealso{
 \code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.

@@ -9,7 +9,8 @@
 #' @param x Object.
 #' @param ... Additional arguments.
 #'
-#' @param alpha `scalar numeric`. Adjusted P value ("alpha") cutoff.
+#' @param alpha `scalar numeric` or `NULL`. Adjusted P value ("alpha") cutoff.
+#'   If left `NULL`, will use the cutoff defined in the object.
 #' @param color `ggproto`/`ScaleDiscrete` or `NULL`. Desired ggplot2 color
 #'   scale. Must supply discrete values. When set to `NULL`, the default ggplot2
 #'   color palette will be used. If manual color definitions are desired, we
@@ -38,8 +39,9 @@
 #' @param label `boolean`. Superimpose sample text labels on the plot.
 #' @param legend `boolean`. Show plot legend.
 #' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
-#' @param lfcThreshold `scalar numeric`. Log fold change ratio (base 2) cutoff
-#'   threshold.
+#' @param lfcThreshold `scalar numeric` or `NULL`. Log fold change ratio (base
+#'   2) cutoff threshold. If left `NULL`, will use the cutoff defined in the
+#'   object.
 #' @param limit `scalar numeric`. Threshold to denote on the plot, using a
 #'   dashed line.
 #' @param minCounts `scalar integer`. Minimum number of counts per gene in the

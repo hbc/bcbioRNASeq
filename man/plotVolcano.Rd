@@ -32,10 +32,12 @@ plotVolcano(object, ...)
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric} or \code{NULL}. Adjusted P value ("alpha") cutoff.
+If left \code{NULL}, will use the cutoff defined in the object.}
 
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
+\item{lfcThreshold}{\code{scalar numeric} or \code{NULL}. Log fold change ratio (base
+2) cutoff threshold. If left \code{NULL}, will use the cutoff defined in the
+object.}
 
 \item{ylim}{\code{scalar numeric}. Upper boundary limit for y-axis. Helps preserve
 dynamic range for gene sets containing highly significant P values (e.g.
@@ -71,57 +73,47 @@ Plot Volcano
 }
 \examples{
 gene2symbol <- gene2symbol(bcb_small)
-print(gene2symbol)
-
 geneIDs <- head(gene2symbol[["geneID"]])
 print(geneIDs)
-
 geneNames <- head(gene2symbol[["geneName"]])
 print(geneNames)
 
 # DESeqAnalysis ====
-plotVolcano(deseq_small)
+object <- deseq_small
+print(object)
 
-# Color DEGs in each direction separately.
+plotVolcano(object)
+
+# Customize the colors.
 plotVolcano(
-    object = deseq_small,
+    object = object,
+    pointColor = "black",
+    sigPointColor = "purple"
+)
+plotVolcano(
+    object = object,
     sigPointColor = c(
-        upregulated = "purple",
-        downregulated = "orange"
+        upregulated = "green",
+        downregulated = "red"
     )
 )
 
-# Label DEGs with a single color.
-plotVolcano(res_small, sigPointColor = "purple")
-
 # Directional support (up or down).
 plotVolcano(
-    object = res_small,
+    object = object,
     direction = "up",
-    ntop = 5L,
-    gene2symbol = gene2symbol,
-    histograms = TRUE
+    ntop = 5L
 )
 plotVolcano(
-    object = res_small,
+    object = object,
     direction = "down",
-    ntop = 5L,
-    gene2symbol = gene2symbol,
-    histograms = TRUE
+    ntop = 5L
 )
 
 # Label genes manually.
 # Note that either gene IDs or names (symbols) are supported.
-plotVolcano(
-    object = res_small,
-    genes = geneIDs,
-    gene2symbol = gene2symbol
-)
-plotVolcano(
-    object = res_small,
-    genes = geneNames,
-    gene2symbol = gene2symbol
-)
+plotVolcano(object, genes = geneIDs)
+plotVolcano(object, genes = geneNames)
 }
 \seealso{
 This function is an updated variant of

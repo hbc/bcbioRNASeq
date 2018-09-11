@@ -14,7 +14,8 @@
 
 \item{...}{Additional arguments.}
 
-\item{alpha}{\code{scalar numeric}. Adjusted P value ("alpha") cutoff.}
+\item{alpha}{\code{scalar numeric} or \code{NULL}. Adjusted P value ("alpha") cutoff.
+If left \code{NULL}, will use the cutoff defined in the object.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -57,8 +58,9 @@ samples. If left unset, defaults to \code{sampleName}.}
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
-\item{lfcThreshold}{\code{scalar numeric}. Log fold change ratio (base 2) cutoff
-threshold.}
+\item{lfcThreshold}{\code{scalar numeric} or \code{NULL}. Log fold change ratio (base
+2) cutoff threshold. If left \code{NULL}, will use the cutoff defined in the
+object.}
 
 \item{limit}{\code{scalar numeric}. Threshold to denote on the plot, using a
 dashed line.}

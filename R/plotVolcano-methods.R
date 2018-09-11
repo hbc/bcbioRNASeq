@@ -1,5 +1,4 @@
-# FIXME Improve error message about gene2symbol for DESeqResults method.
-# FIXME Check the `lfcThreshold` documentation.
+# TODO Improve error message about gene2symbol for DESeqResults method.
 
 
 
@@ -23,57 +22,47 @@
 #'
 #' @examples
 #' gene2symbol <- gene2symbol(bcb_small)
-#' print(gene2symbol)
-#'
 #' geneIDs <- head(gene2symbol[["geneID"]])
 #' print(geneIDs)
-#'
 #' geneNames <- head(gene2symbol[["geneName"]])
 #' print(geneNames)
 #'
 #' # DESeqAnalysis ====
-#' plotVolcano(deseq_small)
+#' object <- deseq_small
+#' print(object)
 #'
-#' # Color DEGs in each direction separately.
+#' plotVolcano(object)
+#'
+#' # Customize the colors.
 #' plotVolcano(
-#'     object = deseq_small,
+#'     object = object,
+#'     pointColor = "black",
+#'     sigPointColor = "purple"
+#' )
+#' plotVolcano(
+#'     object = object,
 #'     sigPointColor = c(
-#'         upregulated = "purple",
-#'         downregulated = "orange"
+#'         upregulated = "green",
+#'         downregulated = "red"
 #'     )
 #' )
 #'
-#' # Label DEGs with a single color.
-#' plotVolcano(res_small, sigPointColor = "purple")
-#'
 #' # Directional support (up or down).
 #' plotVolcano(
-#'     object = res_small,
+#'     object = object,
 #'     direction = "up",
-#'     ntop = 5L,
-#'     gene2symbol = gene2symbol,
-#'     histograms = TRUE
+#'     ntop = 5L
 #' )
 #' plotVolcano(
-#'     object = res_small,
+#'     object = object,
 #'     direction = "down",
-#'     ntop = 5L,
-#'     gene2symbol = gene2symbol,
-#'     histograms = TRUE
+#'     ntop = 5L
 #' )
 #'
 #' # Label genes manually.
 #' # Note that either gene IDs or names (symbols) are supported.
-#' plotVolcano(
-#'     object = res_small,
-#'     genes = geneIDs,
-#'     gene2symbol = gene2symbol
-#' )
-#' plotVolcano(
-#'     object = res_small,
-#'     genes = geneNames,
-#'     gene2symbol = gene2symbol
-#' )
+#' plotVolcano(object, genes = geneIDs)
+#' plotVolcano(object, genes = geneNames)
 NULL
 
 
@@ -318,18 +307,18 @@ NULL
                 # Coordinates are relative to lower left corner
                 draw_plot(
                     plot = p,
-                    x = 0L, y = 0.15,
-                    width = 1L, height = 0.85
+                    x = 0L, y = 0.2,
+                    width = 1L, height = 0.8
                 ) +
                 draw_plot(
                     plot = lfcHist,
                     x = 0L, y = 0L,
-                    width = 0.45, height = 0.15
+                    width = 0.5, height = 0.2
                 ) +
                 draw_plot(
                     plot = pvalueHist,
-                    x = 0.55, y = 0L,
-                    width = 0.45, height = 0.15
+                    x = 0.5, y = 0L,
+                    width = 0.5, height = 0.2
                 )
         } else {
             p
@@ -352,7 +341,7 @@ NULL
                     results = results,
                     lfcShrink = lfcShrink
                 ),
-                gene2symbol = gene2symbol(object)
+                gene2symbol = gene2symbol(object@data)
             ),
             removeArgs = c("results", "lfcShrink"),
             call = matchCall()
