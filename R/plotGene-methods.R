@@ -93,7 +93,6 @@ formals(.plotGene.bcbioRNASeq) <- f
         args <- setArgsToDoCall(
             args = list(
                 object = rse,
-                genes = genes,
                 countsAxisLabel = "normalized counts (log2)"
             ),
             removeArgs = "normalized",
@@ -120,7 +119,6 @@ formals(.plotGene.DESeqDataSet) <- f
         args <- setArgsToDoCall(
             args = list(
                 object = as(object, "RangedSummarizedExperiment"),
-                genes = genes,
                 countsAxisLabel = paste(normalized, "counts (log2)")
             ),
             call = matchCall()
@@ -135,12 +133,39 @@ formals(.plotGene.DESeqTransform) <- f
 
 
 
+.plotGene.DESeqAnalysis <-  # nolint
+    function() {
+        validObject(object)
+        args <- setArgsToDoCall(
+            args = list(object = object@transform),
+            call = matchCall()
+        )
+        do.call(what = plotGene, args = args)
+    }
+
+# Assign the formals.
+f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
+f <- f[setdiff(names(f), "countsAxisLabel")]
+formals(.plotGene.DESeqAnalysis) <- f
+
+
+
 #' @rdname plotGene
 #' @export
 setMethod(
     f = "plotGene",
     signature = signature("bcbioRNASeq"),
     definition = .plotGene.bcbioRNASeq
+)
+
+
+
+#' @rdname plotGene
+#' @export
+setMethod(
+    f = "plotGene",
+    signature = signature("DESeqAnalysis"),
+    definition = .plotGene.DESeqAnalysis
 )
 
 
