@@ -37,39 +37,35 @@
 #'
 #' @examples
 #' # DESeqResults ====
-#' x <- resultsTables(res_small)
+#' res <- deseq_small@lfcShrink[[1L]]
+#' x <- resultsTables(res)
 #' class(x)
 #' slotNames(x)
 NULL
 
 
 
-# FIXME We need to tweak this function.
-
-#' Markdown List of Results Files
+#' Markdown Links to Results Files
 #'
-#' Enables looping of results contrast file links for RMarkdown.
+#' Enables looping of results contrast file links for R Markdown.
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
 #' @return [writeLines()] output.
 #' @noRd
-.markdownTables <- function(object, headerLevel = 2L) {
-    assert_is_list(object)
-    assert_is_subset(
-        c("all", "deg", "degDown", "degUp"),
-        names(object)
-    )
+.markdownResultsLinks <- function(object, headerLevel = 2L) {
+    assert_is_all_of(object, "DESeqResultsTables")
+    validObject(object)
     assertIsImplicitInteger(headerLevel)
 
-    # Prioritze `dropboxFiles` over `localFiles` for path return
-    assert_are_intersecting_sets(
-        c("dropboxFiles", "localFiles"),
-        names(object)
-    )
+    markdownHeader(contrast, level = headerLevel, asis = TRUE)
+
+    # Prioritze `dropboxFiles` over `localFiles` for path return.
+    # FIXME Need to switch to using slots.
     if ("dropboxFiles" %in% names(object)) {
-        # nocov start : use local Dropbox token
+        # nocov start
+        # Using local Dropbox token for code coverage here.
         paths <- vapply(
             X = object[["dropboxFiles"]],
             FUN = function(x) {
@@ -110,6 +106,78 @@ NULL
             "Downregulated DEG; negative fold change."
         )
     ), asis = TRUE)
+}
+
+
+
+.writeResultsTables <- function(
+    object,
+    dir = ".",
+    dropboxDir = NULL,
+    rdsToken = rdsToken
+) {
+    # Write local files to tempdir if Dropbox mode is enabled
+    if (is_a_string(dropboxDir)) {
+        dir <- tempdir()  # nocov
+    } else {
+        dir <- initializeDirectory(dir)
+    }
+
+    tables <- list[c("all", "deg", "degLFCUp", "degLFCDown")]
+
+    # Local files (required) -------------------------------------------
+    localFiles <- file.path(
+        dir,
+        paste0(fileStem, "_", snake(names(tables)), ".csv.gz")
+    )
+    names(localFiles) <- names(tables)
+
+    # Write the results tables to local directory
+    if (length(dropboxDir)) {
+        # nocov start : use local Dropbox token
+        message(paste(
+            "Writing",
+            toString(basename(localFiles)),
+            "to Dropbox",
+            paste0("(", dropboxDir, ")")
+        ))
+        # nocov end
+    } else {
+        message(paste(
+            "Writing", toString(basename(localFiles)), "to", dir
+        ))
+    }
+
+    mapply(
+        x = tables,
+        path = localFiles,
+        FUN = function(x, path) {
+            assert_is_subset("geneID", colnames(x))
+            write_csv(x = x, path = path)
+        }
+    )
+
+    # Check that writes were successful.
+    assert_all_are_existing_files(localFiles)
+
+    # Update the list with the file paths.
+    list[["localFiles"]] <- localFiles
+
+    # Copy to Dropbox (optional) ---------------------------------------
+    if (is.character(dropboxDir)) {
+        # nocov start
+        dropboxFiles <- copyToDropbox(
+            files = localFiles,
+            dir = dropboxDir,
+            rdsToken = rdsToken
+        )
+        assert_is_list(dropboxFiles)
+        list[["dropboxFiles"]] <- dropboxFiles
+        # nocov end
+    }
+
+    # Output file information in Markdown format.
+    # FIXME
 }
 
 
@@ -166,6 +234,7 @@ setMethod(
 
 
 # TODO Using the normalized counts, not the DESeqTransform here.
+# TODO By default loop across all results if it's not set here.
 
 #' @rdname resultsTables
 #' @export
@@ -174,154 +243,79 @@ setMethod(
     signature("DESeqAnalysis"),
     function(
         object,
-        summary = TRUE,
+        results,
+        lfcShrink = TRUE,
         write = FALSE,
-        headerLevel = 2L,
         dir = ".",
         dropboxDir = NULL,
-        rdsToken = NULL
+        rdsToken = NULL,
+        markdown = FALSE,
+        headerLevel = 2L,
     ) {
         validObject(object)
-        assert_are_identical(rownames(object), rownames(counts))
-        assert_is_a_bool(summary)
         assert_is_a_bool(write)
-
-        # Write local files to tempdir if Dropbox mode is enabled
-        if (is_a_string(dropboxDir)) {
-            dir <- tempdir()  # nocov
-        } else {
-            dir <- initializeDirectory(dir)
-        }
+        assert_is_a_bool(markdown)
 
         # Extract internal parameters from DESeqResults object -----------------
-        alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
-        lfcThreshold <- metadata(object)[["lfcThreshold"]]
-        assert_is_a_number(lfcThreshold)
-        contrast <- contrastName(object)
-        fileStem <- snake(contrast)
-
-        # FIXME Rework this step...
-        results <- as.data.frame(object)
-        results[["geneID"]] <- rownames(results)
-
-        # Add gene annotations (rowData) ---------------------------------------
-        rowData <- rowRanges(counts) %>%
-            as.data.frame() %>%
-            rownames_to_column() %>%
-            # Drop any nested complex columns (e.g. entrezID list)
-            select_if(is.atomic) %>%
-            select(!!!syms(setdiff(colnames(.), colnames(results)))) %>%
-            column_to_rownames()
-        assert_are_identical(rownames(results), rownames(rowData))
-        results <- cbind(results, rowData)
-
-        # Add normalized counts matrix -----------------------------------------
-        matrix <- counts(counts, normalized = TRUE)
-        # Use the `sampleName` metadata for columns, if defined
-        if ("sampleName" %in% colnames(colData(counts))) {
-            colnames(matrix) <- colData(counts)[["sampleName"]]
-            matrix <- matrix[, sort(colnames(matrix)), drop = FALSE]
-        }
-        assert_are_identical(rownames(results), rownames(matrix))
-        results <- cbind(results, matrix)
-
-        # Check for overall gene expression with base mean
-        baseMeanGt0 <- results %>%
-            .[.[["baseMean"]] > 0L, , drop = FALSE] %>%
-            nrow()
-        baseMeanGt1 <- results %>%
-            .[.[["baseMean"]] > 1L, , drop = FALSE] %>%
-            nrow()
-
-        # FIXME
-        list <- .resultsTables(
+        results <- .matchResults(
+            object = object,
             results = results,
-            alpha = alpha,
-            lfcThreshold = lfcThreshold
+            lfcShrink = lfcShrink
+        )
+        # Coerce to `DataFrame`.
+        # We'll regenerate a modified `DESeqResults` from this below.
+        data <- as(results, "DataFrame")
+
+        # Add row annotations --------------------------------------------------
+        message("Adding `rowData()` annotations (atomic columns only)")
+        rowData <- sanitizeRowData(rowData(object@data))
+        # DESeq2 includes additional information in `rowData()` that isn't
+        # informative for a user, and doesn't need to be included in the CSV.
+        # Use our `bcb_small` example dataset to figure out which columns
+        # are worth including.
+        keep <- intersect(
+            x = colnames(rowData),
+            y = colnames(rowData(bcbioRNASeq::bcb_small))
+        )
+        rowData <- rowData[, keep, drop = FALSE]
+        assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
+        assert_is_non_empty(rowData)
+        assert_are_disjoint_sets(colnames(data), colnames(rowData))
+        data <- cbind(data, rowData)
+
+        # Add the DESeq2 normalized counts -------------------------------------
+        message("Adding DESeq2 normalized counts")
+        counts <- counts(object@data, normalized = TRUE)
+        assert_are_disjoint_sets(colnames(data), colnames(counts))
+        assert_are_identical(rownames(data), rownames(counts))
+        data <- cbind(data, counts)
+
+        # Regenerate modified DESeqResults -------------------------------------
+        # Consider adding information to elementMetadata.
+        results <- DESeqResults(
+            DataFrame = data,
+            priorInfo = priorInfo(results)
         )
 
-        # Print a markdown header containing the contrast (useful for looping).
-        if (isTRUE(summary) || isTRUE(write)) {
-            markdownHeader(contrast, level = headerLevel, asis = TRUE)
-        }
+        # Return DESeqResultsTables --------------------------------------------
+        tables <- resultsTables(results)
 
-        if (isTRUE(summary)) {
-            markdownHeader(
-                "Summary statistics",
-                level = headerLevel + 1L,
-                asis = TRUE
-            )
-            markdownList(c(
-                paste(nrow(results), "genes in counts matrix"),
-                paste("Base mean > 0:", baseMeanGt0, "genes (non-zero)"),
-                paste("Base mean > 1:", baseMeanGt1, "genes"),
-                paste("Alpha:", alpha),
-                paste("LFC threshold:", lfcThreshold),
-                paste("DEG pass alpha:", nrow(list[["deg"]]), "genes"),
-                paste("DEG LFC up:", nrow(list[["degLFCUp"]]), "genes"),
-                paste("DEG LFC down:", nrow(list[["degLFCDown"]]), "genes")
-            ), asis = TRUE)
-        }
-
+        # Write the files to disk in CSV format.
+        # Assign back to keep track of file paths (either local or Dropbox).
         if (isTRUE(write)) {
-            tables <- list[c("all", "deg", "degLFCUp", "degLFCDown")]
-
-            # Local files (required) -------------------------------------------
-            localFiles <- file.path(
-                dir,
-                paste0(fileStem, "_", snake(names(tables)), ".csv.gz")
+            tables <- .writeResultsTables(
+                object = tables,
+                dir = dir,
+                dropboxDir = dropboxDir,
+                rdsToken = rdsToken
             )
-            names(localFiles) <- names(tables)
-
-            # Write the results tables to local directory
-            if (length(dropboxDir)) {
-                # nocov start : use local Dropbox token
-                message(paste(
-                    "Writing",
-                    toString(basename(localFiles)),
-                    "to Dropbox",
-                    paste0("(", dropboxDir, ")")
-                ))
-                # nocov end
-            } else {
-                message(paste(
-                    "Writing", toString(basename(localFiles)), "to", dir
-                ))
-            }
-
-            mapply(
-                x = tables,
-                path = localFiles,
-                FUN = function(x, path) {
-                    assert_is_subset("geneID", colnames(x))
-                    write_csv(x = x, path = path)
-                }
-            )
-
-            # Check that writes were successful.
-            assert_all_are_existing_files(localFiles)
-
-            # Update the list with the file paths.
-            list[["localFiles"]] <- localFiles
-
-            # Copy to Dropbox (optional) ---------------------------------------
-            if (is.character(dropboxDir)) {
-                # nocov start
-                dropboxFiles <- copyToDropbox(
-                    files = localFiles,
-                    dir = dropboxDir,
-                    rdsToken = rdsToken
-                )
-                assert_is_list(dropboxFiles)
-                list[["dropboxFiles"]] <- dropboxFiles
-                # nocov end
-            }
-
-            # Output file information in Markdown format.
-            .markdownTables(list, headerLevel = headerLevel + 1L)
         }
 
-        list
+        # Include Markdown links, if desired.
+        if (isTRUE(markdown)) {
+            .markdownResultsLinks(tables, headerLevel = headerLevel)
+        }
+
+        tables
     }
 )

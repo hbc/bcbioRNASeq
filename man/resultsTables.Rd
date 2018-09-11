@@ -11,16 +11,18 @@ resultsTables(object, ...)
 
 \S4method{resultsTables}{DESeqResults}(object)
 
-\S4method{resultsTables}{DESeqAnalysis}(object, summary = TRUE,
-  write = FALSE, headerLevel = 2L, dir = ".", dropboxDir = NULL,
-  rdsToken = NULL)
+\S4method{resultsTables}{DESeqAnalysis}(object, results,
+  lfcShrink = TRUE, write = FALSE, markdown = TRUE,
+  headerLevel = 2L, dir = ".", dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{summary}{\code{boolean}. Show summary statistics.}
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
 \item{write}{\code{boolean}. Write CSV files to disk.}
 
@@ -37,6 +39,8 @@ and the \code{dir} argument is ignored, if this is enabled.}
 \item{rdsToken}{\code{string} or \code{NULL}. RDS file token to use for Dropbox
 authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
 interactive prompt will appear requesting authorization.}
+
+\item{summary}{\code{boolean}. Show summary statistics.}
 }
 \value{
 \code{DESeqResultsTables}.
@@ -53,7 +57,8 @@ on expected fold changes.
 }
 \examples{
 # DESeqResults ====
-x <- resultsTables(res_small)
+res <- deseq_small@lfcShrink[[1L]]
+x <- resultsTables(res)
 class(x)
 slotNames(x)
 }
