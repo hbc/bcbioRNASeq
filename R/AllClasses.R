@@ -240,6 +240,9 @@ DESeqAnalysis <- setClass(
         transform = "DESeqTransform",
         results = "list",
         lfcShrink = "list"
+    ),
+    prototype = list(
+        lfcShrink = list()
     )
 )
 
