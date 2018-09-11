@@ -63,35 +63,52 @@ NULL
 #'
 #' @return [writeLines()] output.
 #' @noRd
-.markdownResultsTables <- function(object, headerLevel = 2L) {
+.markdownResultsTables <- function(
+    object,
+    headerLevel = 2L,
+    topTables = TRUE,
+    n = 50
+) {
     assert_is_all_of(object, "DESeqResultsTables")
     validObject(object)
     assertIsImplicitInteger(headerLevel)
+    assert_is_a_bool(topTables)
+    assertIsImplicitInteger(n)
 
+    # Include a contrast header, which is useful for looping.
+    contrast <- contrastName(object)
     markdownHeader(contrast, level = headerLevel, asis = TRUE)
+    headerLevel <- headerLevel + 1L
 
-    # Prioritze `dropboxFiles` over `localFiles` for path return.
-    # FIXME Need to switch to using slots.
-    if ("dropboxFiles" %in% names(object)) {
+    # Top tables ---------------------------------------------------------------
+    if (isTRUE(topTables)) {
+        markdownHeader("Top tables", level = headerLevel, asis = TRUE)
+        topTables(object, n = n)
+    }
+
+    # CSV file links -----------------------------------------------------------
+    # Prioritze `dropboxFiles` over `localFiles`.
+    if (length(object@dropboxFiles) > 0L) {
         # nocov start
         # Using local Dropbox token for code coverage here.
         paths <- vapply(
-            X = object[["dropboxFiles"]],
+            X = object@dropboxFiles,
             FUN = function(x) {
                 x[["url"]]
             },
             FUN.VALUE = "character"
         )
-        basenames <- basename(paths) %>%
-            gsub("\\?.*$", "", .)
+        basenames <- gsub("\\?.*$", "", basename(paths))
         # nocov end
-    } else if ("localFiles" %in% names(object)) {
-        paths <- object[["localFiles"]]
+    } else if (length(object@localFiles) > 0L) {
+        paths <- object@localFiles
         basenames <- basename(paths)
+    } else {
+        stop("Object doesn't contain saved file paths")
     }
     names(basenames) <- names(paths)
 
-    markdownHeader("Results tables", level = headerLevel, asis = TRUE)
+    markdownHeader("CSV file links", level = headerLevel, asis = TRUE)
     markdownList(c(
         paste0(
             "[`", basenames[["all"]], "`]",
@@ -106,7 +123,7 @@ NULL
         ),
         paste0(
             "[`", basenames[["degUp"]], "`]",
-            "(", paths[["degLFCUp"]], "): ",
+            "(", paths[["degUp"]], "): ",
             "Upregulated DEG; positive fold change."
         ),
         paste0(
