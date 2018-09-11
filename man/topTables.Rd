@@ -10,7 +10,8 @@
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqAnalysis}(object, results, n = 50L)
+\S4method{topTables}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
+  n = 50L)
 
 \S4method{topTables}{DESeqResults}(object, n = 50L)
 
@@ -22,6 +23,8 @@ topTables(object, ...)
 \item{...}{Additional arguments.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
 \item{n}{\code{scalar integer}. Number genes to report.}
 }
