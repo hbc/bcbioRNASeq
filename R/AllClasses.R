@@ -184,7 +184,9 @@ setValidity(
 #' `DESeqAnalysis` Class
 #'
 #' Class containing all elements generated during differential expression
-#' analysis with DESeq2.
+#' analysis with DESeq2. This class is essentially a `list` with validity checks
+#' to ensure `DESeqTransform` and `DESeqResults` correspond to the
+#' `DESeqDataSet`.
 #'
 #' @section DESeqDataSet:
 #'
@@ -203,6 +205,7 @@ setValidity(
 #' @author Michael Steinbaugh
 #' @export
 #'
+#' @slot data `DESeqDataSet`.
 #' @slot transform `DESeqTransform`.
 #' @slot results `list`. One or more unshrunken `DESeqResults`. Assign the
 #'   [DESeq2::results()] return here.
@@ -223,7 +226,7 @@ setValidity(
 #' res <- results(dds, name = resultsNames(dds)[[2L]])
 #' class(res)
 #' x <- DESeqAnalysis(
-#'     dds,
+#'     data = dds,
 #'     transform = vst,
 #'     results = list(res),
 #'     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
@@ -232,8 +235,8 @@ setValidity(
 #' slotNames(x)
 DESeqAnalysis <- setClass(
     Class = "DESeqAnalysis",
-    contains = "DESeqDataSet",
     slots = c(
+        data = "DESeqDataSet",
         transform = "DESeqTransform",
         results = "list",
         lfcShrink = "list"
@@ -244,17 +247,17 @@ setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
         # Require valid dimnames for data set.
-        assertHasValidDimnames(object)
+        assertHasValidDimnames(object@data)
 
         # Require gene-to-symbol mappings.
         assert_is_subset(
             x = c("geneID", "geneName"),
-            y = colnames(rowData(object))
+            y = colnames(rowData(object@data))
         )
 
         # DESeqDataSet and DESeqTransform must match.
         assert_are_identical(
-            x = dimnames(object),
+            x = dimnames(object@data),
             y = dimnames(object@transform)
         )
 
@@ -264,7 +267,7 @@ setValidity(
             FUN = function(res) {
                 assert_are_identical(
                     x = rownames(res),
-                    y = rownames(object)
+                    y = rownames(object@data)
                 )
             }
         ))

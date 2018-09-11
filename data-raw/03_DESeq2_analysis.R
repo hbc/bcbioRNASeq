@@ -1,5 +1,5 @@
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-09-10
+#' Last updated 2018-09-11
 
 library("DESeq2")
 
@@ -40,7 +40,7 @@ res_shrunken <- lfcShrink(
 validObject(res_shrunken)
 
 deseq_small <- DESeqAnalysis(
-    dds,
+    data = dds,
     transform = vst,
     results = list(res),
     lfcShrink = list(res_shrunken)

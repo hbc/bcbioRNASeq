@@ -10,11 +10,15 @@
 }
 \description{
 Class containing all elements generated during differential expression
-analysis with DESeq2.
+analysis with DESeq2. This class is essentially a \code{list} with validity checks
+to ensure \code{DESeqTransform} and \code{DESeqResults} correspond to the
+\code{DESeqDataSet}.
 }
 \section{Slots}{
 
 \describe{
+\item{\code{data}}{\code{DESeqDataSet}.}
+
 \item{\code{transform}}{\code{DESeqTransform}.}
 
 \item{\code{results}}{\code{list}. One or more unshrunken \code{DESeqResults}. Assign the
@@ -53,7 +57,7 @@ resultsNames(dds)
 res <- results(dds, name = resultsNames(dds)[[2L]])
 class(res)
 x <- DESeqAnalysis(
-    dds,
+    data = dds,
     transform = vst,
     results = list(res),
     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))

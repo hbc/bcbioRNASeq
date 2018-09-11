@@ -4,7 +4,7 @@
 \name{deseq_small}
 \alias{deseq_small}
 \title{\code{DESeqAnalysis} Example}
-\format{An object of class \code{DESeqAnalysis} with 500 rows and 6 columns.}
+\format{An object of class \code{DESeqAnalysis} of length 1.}
 \usage{
 deseq_small
 }
