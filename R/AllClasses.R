@@ -327,12 +327,12 @@ setClass(
         deg = "DataFrame",
         degUp = "DataFrame",
         degDown = "DataFrame",
-        localFiles = "list",
+        localFiles = "character",
         dropboxFiles = "list"
     ),
     # Consider setting an initialize method instead.
     prototype = list(
-        localFiles = list(),
+        localFiles = character(),
         dropboxFiles = list()
     )
 )
@@ -369,6 +369,8 @@ setValidity(
             x = nrow(object@degDown),
             y = as.integer(match[2, 2])
         )
+
+        # FIXME Object should have local or Dropbox, but not both.
 
         TRUE
     }

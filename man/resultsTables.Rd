@@ -62,6 +62,10 @@ See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information a
 on expected fold changes.
 }
 \examples{
+# DESeqAnalysis ====
+# This is the recommended default method.
+x <- resultsTables(res)
+
 # DESeqResults ====
 res <- deseq_small@lfcShrink[[1L]]
 x <- resultsTables(res)

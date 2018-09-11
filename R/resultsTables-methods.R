@@ -39,6 +39,10 @@
 #' @return `DESeqResultsTables`.
 #'
 #' @examples
+#' # DESeqAnalysis ====
+#' # This is the recommended default method.
+#' x <- resultsTables(res)
+#'
 #' # DESeqResults ====
 #' res <- deseq_small@lfcShrink[[1L]]
 #' x <- resultsTables(res)
@@ -47,6 +51,8 @@
 NULL
 
 
+
+# TODO Consider using `topTables()` here...
 
 #' Markdown Links to Results Files
 #'
@@ -57,7 +63,7 @@ NULL
 #'
 #' @return [writeLines()] output.
 #' @noRd
-.markdownResultsLinks <- function(object, headerLevel = 2L) {
+.markdownResultsTables <- function(object, headerLevel = 2L) {
     assert_is_all_of(object, "DESeqResultsTables")
     validObject(object)
     assertIsImplicitInteger(headerLevel)
@@ -117,21 +123,25 @@ NULL
     object,
     dir = ".",
     dropboxDir = NULL,
-    rdsToken = rdsToken
+    rdsToken = NULL
 ) {
-    # Write local files to tempdir if Dropbox mode is enabled
+    validObject(object)
+    assertIsAStringOrNULL(dropboxDir)
+    # Write local files to tempdir if Dropbox mode is enabled.
     if (is_a_string(dropboxDir)) {
         dir <- tempdir()  # nocov
     } else {
         dir <- initializeDirectory(dir)
     }
 
-    tables <- list[c("all", "deg", "degLFCUp", "degLFCDown")]
+    # Extract the results tables from the object.
+    tables <- flatFiles(object)[c("all", "deg", "degUp", "degDown")]
 
     # Local files (required) -------------------------------------------
+    stem <- snake(contrastName(object))
     localFiles <- file.path(
         dir,
-        paste0(fileStem, "_", snake(names(tables)), ".csv.gz")
+        paste0(stem, "_", snake(names(tables)), ".csv.gz")
     )
     names(localFiles) <- names(tables)
 
@@ -151,36 +161,42 @@ NULL
         ))
     }
 
-    mapply(
+    invisible(mapply(
         x = tables,
         path = localFiles,
         FUN = function(x, path) {
-            assert_is_subset("geneID", colnames(x))
+            x <- as(x, "tbl_df")
+            assert_is_subset("rowname", colnames(x))
             write_csv(x = x, path = path)
-        }
-    )
+        },
+        SIMPLIFY = FALSE,
+        USE.NAMES = FALSE
+    ))
 
-    # Check that writes were successful.
+    # Check that all writes were successful.
     assert_all_are_existing_files(localFiles)
 
-    # Update the list with the file paths.
-    list[["localFiles"]] <- localFiles
+    # Assign the local file paths to the object.
+    # Slot these only when we're not saving to Dropbox.
+    if (is.null(dropboxDir)) {
+        slot(object, "localFiles") <- localFiles
+    }
 
     # Copy to Dropbox (optional) ---------------------------------------
     if (is.character(dropboxDir)) {
         # nocov start
+        # Using a local token to cover this code.
         dropboxFiles <- copyToDropbox(
             files = localFiles,
             dir = dropboxDir,
             rdsToken = rdsToken
         )
         assert_is_list(dropboxFiles)
-        list[["dropboxFiles"]] <- dropboxFiles
+        slot(object, "dropboxFiles") <- dropboxFiles
         # nocov end
     }
 
-    # Output file information in Markdown format.
-    # FIXME
+    object
 }
 
 
@@ -326,7 +342,7 @@ setMethod(
             )
             # Include Markdown links, if desired.
             if (isTRUE(markdown)) {
-                .markdownResultsLinks(tables, headerLevel = headerLevel)
+                .markdownResultsTables(tables, headerLevel = headerLevel)
             }
         }
 
