@@ -19,6 +19,10 @@ tpm(object)
 \description{
 Transcripts Per Million (TPM)
 }
+\note{
+Both gene- and transcript-level counts are supported, as long as they
+were imported using a tximport caller (e.g. salmon, kallisto).
+}
 \examples{
 x <- tpm(bcb_small)
 summary(x)

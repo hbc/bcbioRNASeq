@@ -4,6 +4,8 @@
 #' of genes are not differentially expressed. We use this as a quality control
 #' tool when plotting counts per gene.
 #'
+#' @note Only gene-level counts are supported.
+#'
 #' @name tmm
 #' @family Data Functions
 #' @author Michael Steinbaugh
@@ -14,8 +16,8 @@
 #' @return `matrix`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
-#' tmm(bcb_small) %>% summary()
+#' x <- tmm(bcb_small)
+#' summary(x)
 NULL
 
 

@@ -27,9 +27,12 @@ TMM normalization is recommended for RNA-seq data generally when the majority
 of genes are not differentially expressed. We use this as a quality control
 tool when plotting counts per gene.
 }
+\note{
+Only gene-level counts are supported.
+}
 \examples{
-# bcbioRNASeq ====
-tmm(bcb_small) \%>\% summary()
+x <- tmm(bcb_small)
+summary(x)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
