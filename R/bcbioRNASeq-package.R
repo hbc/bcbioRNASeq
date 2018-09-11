@@ -54,8 +54,9 @@
 #' @importFrom crayon bold
 #' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
-#'   DESeqDataSetFromTximport DESeqTransform estimateDispersions
-#'   estimateSizeFactors results rlog varianceStabilizingTransformation
+#'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
+#'   estimateSizeFactors priorInfo results rlog
+#'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
 #'   starts_with
