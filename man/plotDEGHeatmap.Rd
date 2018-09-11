@@ -11,11 +11,11 @@
 plotDEGHeatmap(object, counts, ...)
 
 \S4method{plotDEGHeatmap}{DESeqAnalysis,missingOrNULL}(object,
-  counts = NULL, results, scale = "row", title = TRUE,
-  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
-  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
-  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
-  borderColor = NULL, ...)
+  counts = NULL, results, lfcShrink = TRUE, scale = "row",
+  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
+  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
+  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
+  legendColor = NULL, borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
   scale = "row", title = TRUE, interestingGroups = NULL,
@@ -40,6 +40,8 @@ plotDEGHeatmap(object, counts, ...)
 arguments should be formatted in camel case, not snake case.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
 \item{scale}{\code{string}. Whether the values should be centered and scaled in
 either the row or column direction ("\code{row}", "\code{column}"), or remain
