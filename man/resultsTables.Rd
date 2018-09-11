@@ -12,8 +12,9 @@ resultsTables(object, ...)
 \S4method{resultsTables}{DESeqResults}(object)
 
 \S4method{resultsTables}{DESeqAnalysis}(object, results,
-  lfcShrink = TRUE, write = FALSE, markdown = TRUE,
-  headerLevel = 2L, dir = ".", dropboxDir = NULL, rdsToken = NULL)
+  lfcShrink = TRUE, rowData = TRUE, counts = TRUE, write = FALSE,
+  dir = ".", dropboxDir = NULL, rdsToken = NULL, markdown = FALSE,
+  headerLevel = 2L)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,9 +25,11 @@ resultsTables(object, ...)
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
-\item{write}{\code{boolean}. Write CSV files to disk.}
+\item{rowData}{\code{boolean}. Include gene annotations.}
 
-\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
+\item{counts}{\code{boolean}. Include DESeq2 normalized counts.}
+
+\item{write}{\code{boolean}. Write CSV files to disk.}
 
 \item{dir}{\code{string}. Local directory path.}
 
@@ -40,7 +43,10 @@ and the \code{dir} argument is ignored, if this is enabled.}
 authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
 interactive prompt will appear requesting authorization.}
 
-\item{summary}{\code{boolean}. Show summary statistics.}
+\item{markdown}{\code{boolean}. Include Markdown links to file paths. Only applies
+when \code{write = TRUE}.}
+
+\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
 }
 \value{
 \code{DESeqResultsTables}.

@@ -22,7 +22,8 @@
 #' @export
 #'
 #' @inheritParams general
-#' @param summary `boolean`. Show summary statistics.
+#' @param rowData `boolean`. Include gene annotations.
+#' @param counts `boolean`. Include DESeq2 normalized counts.
 #' @param write `boolean`. Write CSV files to disk.
 #' @param dropboxDir `string` or `NULL`. Dropbox directory path where to archive
 #'   the results tables for permanent storage (e.g. Stem Cell Commons). When
@@ -32,6 +33,8 @@
 #' @param rdsToken `string` or `NULL`. RDS file token to use for Dropbox
 #'   authentication. If set `NULL` and `dropboxDir` is defined, then an
 #'   interactive prompt will appear requesting authorization.
+#' @param markdown `boolean`. Include Markdown links to file paths. Only applies
+#'   when `write = TRUE`.
 #'
 #' @return `DESeqResultsTables`.
 #'
@@ -233,9 +236,6 @@ setMethod(
 
 
 
-# TODO Using the normalized counts, not the DESeqTransform here.
-# TODO By default loop across all results if it's not set here.
-
 #' @rdname resultsTables
 #' @export
 setMethod(
@@ -245,57 +245,72 @@ setMethod(
         object,
         results,
         lfcShrink = TRUE,
+        rowData = TRUE,
+        counts = TRUE,
         write = FALSE,
         dir = ".",
         dropboxDir = NULL,
         rdsToken = NULL,
         markdown = FALSE,
-        headerLevel = 2L,
+        headerLevel = 2L
     ) {
         validObject(object)
+        assert_is_a_bool(rowData)
+        assert_is_a_bool(counts)
         assert_is_a_bool(write)
         assert_is_a_bool(markdown)
 
-        # Extract internal parameters from DESeqResults object -----------------
+        # Match the DESeqResults object.
         results <- .matchResults(
             object = object,
             results = results,
             lfcShrink = lfcShrink
         )
-        # Coerce to `DataFrame`.
-        # We'll regenerate a modified `DESeqResults` from this below.
-        data <- as(results, "DataFrame")
 
-        # Add row annotations --------------------------------------------------
-        message("Adding `rowData()` annotations (atomic columns only)")
-        rowData <- sanitizeRowData(rowData(object@data))
-        # DESeq2 includes additional information in `rowData()` that isn't
-        # informative for a user, and doesn't need to be included in the CSV.
-        # Use our `bcb_small` example dataset to figure out which columns
-        # are worth including.
-        keep <- intersect(
-            x = colnames(rowData),
-            y = colnames(rowData(bcbioRNASeq::bcb_small))
-        )
-        rowData <- rowData[, keep, drop = FALSE]
-        assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
-        assert_is_non_empty(rowData)
-        assert_are_disjoint_sets(colnames(data), colnames(rowData))
-        data <- cbind(data, rowData)
+        # Add columns (optional) -----------------------------------------------
+        if (
+            isTRUE(rowData) ||
+            isTRUE(counts)
+        ) {
+            # Coerce to `DataFrame`.
+            # We'll regenerate a modified `DESeqResults` from this below.
+            data <- as(results, "DataFrame")
 
-        # Add the DESeq2 normalized counts -------------------------------------
-        message("Adding DESeq2 normalized counts")
-        counts <- counts(object@data, normalized = TRUE)
-        assert_are_disjoint_sets(colnames(data), colnames(counts))
-        assert_are_identical(rownames(data), rownames(counts))
-        data <- cbind(data, counts)
+            # Row annotations
+            if (isTRUE(rowData)) {
+                message("Adding `rowData()` annotations (atomic columns only)")
+                rowData <- sanitizeRowData(rowData(object@data))
+                # DESeq2 includes additional information in `rowData()` that
+                # isn't informative for a user, and doesn't need to be included
+                # in the CSV. Use our `bcb_small` example dataset to figure out
+                # which columns are worth including.
+                keep <- intersect(
+                    x = colnames(rowData),
+                    y = colnames(rowData(bcbioRNASeq::bcb_small))
+                )
+                rowData <- rowData[, keep, drop = FALSE]
+                assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
+                assert_is_non_empty(rowData)
+                assert_are_disjoint_sets(colnames(data), colnames(rowData))
+                data <- cbind(data, rowData)
+            }
 
-        # Regenerate modified DESeqResults -------------------------------------
-        # Consider adding information to elementMetadata.
-        results <- DESeqResults(
-            DataFrame = data,
-            priorInfo = priorInfo(results)
-        )
+            # DESeq2 normalized counts
+            if (isTRUE(counts)) {
+                message("Adding DESeq2 normalized counts")
+                counts <- counts(object@data, normalized = TRUE)
+                assert_are_disjoint_sets(colnames(data), colnames(counts))
+                assert_are_identical(rownames(data), rownames(counts))
+                data <- cbind(data, counts)
+            }
+
+            # Regenerate the DESeqResults.
+            # Consider adding information to elementMetadata?
+            results <- DESeqResults(
+                DataFrame = data,
+                priorInfo = priorInfo(results)
+            )
+        }
 
         # Return DESeqResultsTables --------------------------------------------
         tables <- resultsTables(results)
@@ -309,11 +324,10 @@ setMethod(
                 dropboxDir = dropboxDir,
                 rdsToken = rdsToken
             )
-        }
-
-        # Include Markdown links, if desired.
-        if (isTRUE(markdown)) {
-            .markdownResultsLinks(tables, headerLevel = headerLevel)
+            # Include Markdown links, if desired.
+            if (isTRUE(markdown)) {
+                .markdownResultsLinks(tables, headerLevel = headerLevel)
+            }
         }
 
         tables
