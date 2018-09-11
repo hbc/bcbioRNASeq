@@ -36,14 +36,6 @@ NULL
 
 
 #' @rdname sampleData
-#' @name sampleData<-
-#' @importFrom basejump sampleData<-
-#' @export
-NULL
-
-
-
-#' @rdname sampleData
 #' @export
 setMethod(
     "sampleData",
@@ -59,27 +51,10 @@ setMethod(
             data <- data[, setdiff, drop = FALSE]
         } else {
             interestingGroups <- interestingGroups(object)
-            if (length(interestingGroups)) {
+            if (length(interestingGroups) > 0L) {
                 data <- uniteInterestingGroups(data, interestingGroups)
             }
         }
-        as(data, "DataFrame")
-    }
-)
-
-
-
-#' @rdname sampleData
-#' @export
-setMethod(
-    "sampleData<-",
-    signature(
-        object = "bcbioRNASeq",
-        value = "DataFrame"
-    ),
-    function(object, value) {
-        value[["interestingGroups"]] <- NULL
-        colData(object) <- value
-        object
+        data
     }
 )
