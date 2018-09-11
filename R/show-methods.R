@@ -153,9 +153,14 @@ setMethod(
         summary <- capture.output(summary(all))
         # Remove leading and trailing whitespace.
         summary <- summary[!grepl("^$", summary)]
+        # Remove the lines about results documentation.
+        summary <- summary[!grepl("\\?results$", summary)]
 
         # Get back the number of genes that have adjusted P values.
         nPadj <- sum(!is.na(all[["padj"]]))
+
+        # Base mean information.
+        nBaseMeanGT1 <- nrow(all[all[["baseMean"]] > 1L, , drop = FALSE])
 
         return <- c(
             bold(class(object)),
@@ -164,6 +169,7 @@ setMethod(
             paste(bold("LFC threshold:"), lfc),
             separatorBar,
             paste(nrow(all), "genes total"),
+            paste(nBaseMeanGT1, "genes with base mean > 1"),
             paste(nPadj, "genes with adjusted P values"),
             paste(nrow(up), "upregulated genes"),
             paste(nrow(down), "downregulated genes"),
