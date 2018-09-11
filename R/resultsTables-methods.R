@@ -1,10 +1,5 @@
-# FIXME Define and recommend DESeqAnalysis method
-# FIXME Add as many assert checks as possible here to look for mismatch.
-# FIXME Require valid names for the rownames.
-# FIXME Improve the documentation about what types of counts to use here.
-# FIXME Recommend using normalized counts or DESeqTransform.
-# FIXME Define resultsTables S4 class
-# FIXME Simplify how we're handling rowData?
+# TODO Consider making `resultsTables()` have fewer options...split these out
+# into separate functions.
 
 
 
@@ -52,7 +47,6 @@ NULL
 
 
 
-# TODO Consider using `topTables()` here...
 
 #' Markdown Links to Results Files
 #'
@@ -65,26 +59,16 @@ NULL
 #' @noRd
 .markdownResultsTables <- function(
     object,
-    headerLevel = 2L,
-    topTables = TRUE,
-    n = 50
+    headerLevel = 2L
 ) {
     assert_is_all_of(object, "DESeqResultsTables")
     validObject(object)
     assertIsImplicitInteger(headerLevel)
-    assert_is_a_bool(topTables)
-    assertIsImplicitInteger(n)
 
     # Include a contrast header, which is useful for looping.
     contrast <- contrastName(object)
     markdownHeader(contrast, level = headerLevel, asis = TRUE)
     headerLevel <- headerLevel + 1L
-
-    # Top tables ---------------------------------------------------------------
-    if (isTRUE(topTables)) {
-        markdownHeader("Top tables", level = headerLevel, asis = TRUE)
-        topTables(object, n = n)
-    }
 
     # CSV file links -----------------------------------------------------------
     # Prioritze `dropboxFiles` over `localFiles`.
@@ -358,8 +342,12 @@ setMethod(
                 rdsToken = rdsToken
             )
             # Include Markdown links, if desired.
+            # FIXME Break this out into a separate function.
             if (isTRUE(markdown)) {
-                .markdownResultsTables(tables, headerLevel = headerLevel)
+                .markdownResultsTables(
+                    object = tables,
+                    headerLevel = headerLevel
+                )
             }
         }
 

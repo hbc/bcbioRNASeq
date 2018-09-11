@@ -177,6 +177,8 @@ setMethod(
             summary
         )
 
+        # FIXME Include the file paths, if they're set.
+
         cat(return, sep = "\n")
     }
 )
