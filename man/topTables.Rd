@@ -26,7 +26,7 @@ topTables(object, ...)
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
-\item{n}{\code{scalar integer}. Number genes to report.}
+\item{n}{\code{scalar integer}. Number of genes (per direction) to report.}
 }
 \value{
 \code{kable}.
