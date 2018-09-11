@@ -58,7 +58,7 @@ Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
 # DESeqDataSet ====
-object <- as(deseq_small, "DESeqDataSet")
+object <- deseq_small@data
 design(object)
 resultsNames(object)
 alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
