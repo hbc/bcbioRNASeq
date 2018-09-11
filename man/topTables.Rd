@@ -37,10 +37,6 @@ Top Tables of Differential Expression Results
 \examples{
 # DESeqAnalysis ====
 topTables(deseq_small, results = 1L, n = 5L)
-
-# DESeqResults ====
-object <- deseq_small@results[[1L]]
-topTables(object, n = 5L)
 }
 \seealso{
 Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}
