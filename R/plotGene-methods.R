@@ -9,8 +9,6 @@
 #' @inherit basejump::plotGene
 #'
 #' @examples
-#'
-#' @examples
 #' g2s <- gene2symbol(bcb_small)
 #' geneIDs <- head(g2s[["geneID"]])
 #' print(geneIDs)
@@ -40,7 +38,8 @@ NULL
 
 
 # FIXME This is failing
-# plotGene(object, genes = geneIDs)
+# plotGene(bcb_small, genes = geneIDs)
+# `matchArgsToDoCall()` isn't matching `object` correctly...
 
 .plotGene.bcbioRNASeq <-  # nolint
     function(
@@ -79,7 +78,6 @@ formals(.plotGene.bcbioRNASeq) <- f
 
 
 
-# FIXME This is failing.
 .plotGene.DESeqDataSet <-  # nolint
     function(object, genes) {
         validObject(object)
@@ -108,7 +106,6 @@ formals(.plotGene.DESeqDataSet) <- f
 
 
 
-# FIXME This is failing.
 .plotGene.DESeqTransform <-  # nolint
     function(object) {
         validObject(object)
@@ -135,12 +132,6 @@ f <- f[setdiff(names(f), "countsAxisLabel")]
 formals(.plotGene.DESeqTransform) <- f
 
 
-
-# FIXME This is failing...debug
-# $names
-# [1] "object"            NA                  "genes"
-# [4] "return"            "interestingGroups" "medianLine"
-# [7] "color"             "legend"            "headerLevel"
 
 .plotGene.DESeqAnalysis <-  # nolint
     function(object) {

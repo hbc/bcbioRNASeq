@@ -59,7 +59,6 @@ applied to panel the samples.
 Plot Gene Expression
 }
 \examples{
-
 g2s <- gene2symbol(bcb_small)
 geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
