@@ -37,9 +37,6 @@
 NULL
 
 
-# FIXME This is failing
-# plotGene(bcb_small, genes = geneIDs)
-# `matchArgsToDoCall()` isn't matching `object` correctly...
 
 .plotGene.bcbioRNASeq <-  # nolint
     function(
@@ -63,8 +60,7 @@ NULL
                     object = rse,
                     countsAxisLabel = paste(normalized, "counts (log2)")
                 ),
-                removeArgs = "normalized",
-                verbose = TRUE
+                removeArgs = "normalized"
             )
         )
     }
@@ -93,8 +89,7 @@ formals(.plotGene.bcbioRNASeq) <- f
                     object = rse,
                     countsAxisLabel = "normalized counts (log2)"
                 ),
-                removeArgs = "normalized",
-                verbose = TRUE
+                removeArgs = "normalized"
             )
         )
     }
@@ -119,8 +114,7 @@ formals(.plotGene.DESeqDataSet) <- f
             args = matchArgsToDoCall(
                 args = list(
                     object = as(object, "RangedSummarizedExperiment"),
-                    countsAxisLabel = paste(normalized, "counts (log2)"),
-                    verbose = TRUE
+                    countsAxisLabel = paste(normalized, "counts (log2)")
                 )
             )
         )
@@ -139,8 +133,7 @@ formals(.plotGene.DESeqTransform) <- f
         do.call(
             what = plotGene,
             args = matchArgsToDoCall(
-                args = list(object = slot(object, "transform")),
-                verbose = TRUE
+                args = list(object = slot(object, "transform"))
             )
         )
     }
