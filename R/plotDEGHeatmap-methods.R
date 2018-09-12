@@ -88,19 +88,20 @@ NULL
         counts <- counts[deg, , drop = FALSE]
 
         # Using `do.call()` return with SummarizedExperiment method here.
-        args <- setArgsToDoCall(
-            args = list(
-                object = counts,
-                title = title
-            ),
-            removeArgs = c(
-                "counts",
-                "alpha",
-                "lfcThreshold"
-            ),
-            call = matchCall()
+        do.call(
+            what = plotHeatmap,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = counts,
+                    title = title
+                ),
+                removeArgs = c(
+                    "counts",
+                    "alpha",
+                    "lfcThreshold"
+                )
+            )
         )
-        do.call(what = plotHeatmap, args = args)
     }
 
 # Assign the formals.
@@ -133,15 +134,16 @@ formals(.plotDEGHeatmap.DESeqResults.DESeqTransform) <- f
         dt <- DESeqTransform(rse)
 
         # Using `DESeqTransform` method.
-        args <- setArgsToDoCall(
-            args = list(
-                object = object,
-                counts = dt
-            ),
-            removeArgs = "normalized",
-            call = matchCall()
+        args <- do.call(
+            what = plotDEGHeatmap,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = object,
+                    counts = dt
+                ),
+                removeArgs = "normalized"
+            )
         )
-        do.call(what = plotDEGHeatmap, args = args)
     }
 
 # Assign the formals.
@@ -164,15 +166,16 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
             results = results
         )
         counts <- object@transform
-        args <- setArgsToDoCall(
-            args = list(
-                object = results,
-                counts = counts
-            ),
-            removeArgs = "results",
-            call = matchCall()
+        do.call(
+            what = plotDEGHeatmap,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = results,
+                    counts = counts
+                ),
+                removeArgs = "results"
+            )
         )
-        do.call(what = plotDEGHeatmap, args = args)
     }
 
 # Assign the formals.

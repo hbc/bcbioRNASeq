@@ -40,12 +40,13 @@ NULL
         validObject(object)
         dds <- as(object, "DESeqDataSet")
         dds <- suppressWarnings(DESeq(dds))
-        args <- setArgsToDoCall(
-            args = list(object = dds),
-            call = matchCall()
+        do.call(
+            what = plotDispEsts,
+            args = matchArgsToDoCall(args = list(object = dds))
         )
-        do.call(what = plotDispEsts, args = args)
     }
+
+# Assign the formals.
 formals(.plotDispEsts.bcbioRNASeq) <- methodFormals(
     f = "plotDispEsts",
     signature = "DESeqDataSet"

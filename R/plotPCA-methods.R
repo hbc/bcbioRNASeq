@@ -179,14 +179,12 @@ NULL
         message(paste("Using", normalized, "counts"))
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(object, normalized = normalized))
-        args <- setArgsToDoCall(
-            args = list(object = rse),
-            removeArgs = "normalized",
-            call = matchCall()
-        )
         do.call(
             what = .plotPCA.SummarizedExperiment,
-            args = args
+            args = matchArgsToDoCall(
+                args = list(object = rse),
+                removeArgs = "normalized"
+            )
         )
     }
 

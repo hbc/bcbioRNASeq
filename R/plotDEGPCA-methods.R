@@ -112,15 +112,16 @@ formals(.plotDEGPCA.DESeqResults.DESeqTransform) <- f
         rse <- as(counts, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(counts, normalized = normalized))
         # Handing off to `DESeqResults,DESeqTransform` method.
-        args <- setArgsToDoCall(
-            args = list(
-                object = object,
-                counts = DESeqTransform(rse)
-            ),
-            removeArgs = "normalized",
-            call = matchCall()
+        do.call(
+            what = plotDEGPCA,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = object,
+                    counts = DESeqTransform(rse)
+                ),
+                removeArgs = "normalized"
+            )
         )
-        do.call(what = plotDEGPCA, args = args)
     }
 
 # Assign the formals.
@@ -143,15 +144,16 @@ formals(.plotDEGPCA.DESeqResults.bcbioRNASeq) <- f
             results = results
         )
         counts <- object@transform
-        args <- setArgsToDoCall(
-            args = list(
-                object = results,
-                counts = counts
-            ),
-            removeArgs = "results",
-            call = matchCall()
+        do.call(
+            what = plotDEGPCA,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = results,
+                    counts = counts
+                ),
+                removeArgs = "results"
+            )
         )
-        do.call(what = plotDEGPCA, args = args)
     }
 
 # Assign the formals.

@@ -334,19 +334,20 @@ NULL
         lfcShrink = TRUE
     ) {
         validObject(object)
-        args <- setArgsToDoCall(
-            args = list(
-                object = .matchResults(
-                    object = object,
-                    results = results,
-                    lfcShrink = lfcShrink
+        do.call(
+            what = plotVolcano,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = .matchResults(
+                        object = object,
+                        results = results,
+                        lfcShrink = lfcShrink
+                    ),
+                    gene2symbol = gene2symbol(object@data)
                 ),
-                gene2symbol = gene2symbol(object@data)
-            ),
-            removeArgs = c("results", "lfcShrink"),
-            call = matchCall()
+                removeArgs = c("results", "lfcShrink")
+            )
         )
-        do.call(what = plotVolcano, args = args)
     }
 
 # Assign the formals.

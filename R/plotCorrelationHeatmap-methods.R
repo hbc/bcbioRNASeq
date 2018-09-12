@@ -36,12 +36,13 @@ NULL
         message(paste("Using", normalized, "counts"))
         counts <- counts(object, normalized = normalized)
         assays(rse) <- list(counts = counts)
-        args <- setArgsToDoCall(
-            args = list(object = rse),
-            removeArgs = c("normalized"),
-            call = matchCall()
+        do.call(
+            what = plotCorrelationHeatmap,
+            args = matchArgsToDoCall(
+                args = list(object = rse),
+                removeArgs = c("normalized")
+            )
         )
-        do.call(what = plotCorrelationHeatmap, args = args)
     }
 
 # Set the formals.
