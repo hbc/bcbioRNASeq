@@ -1,9 +1,3 @@
-# FIXME Need to improve the formals.
-# FIXME Add `DESeqAnalysis` support.
-# FIXME Add DESeqAnalysis method support.
-
-
-
 #' Plot Gene Expression
 #'
 #' @name plotGene
@@ -45,6 +39,8 @@
 NULL
 
 
+# FIXME This is failing
+# plotGene(object, genes = geneIDs)
 
 .plotGene.bcbioRNASeq <-  # nolint
     function(
@@ -61,16 +57,17 @@ NULL
         }
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts)
-        args <- setArgsToDoCall(
-            args = list(
-                object = rse,
-                genes = genes,
-                countsAxisLabel = paste(normalized, "counts (log2)")
-            ),
-            removeArgs = "normalized",
-            call = matchCall()
+        do.call(
+            what = plotGene,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = rse,
+                    countsAxisLabel = paste(normalized, "counts (log2)")
+                ),
+                removeArgs = "normalized",
+                verbose = TRUE
+            )
         )
-        do.call(what = plotGene, args = args)
     }
 
 # Assign the formals.
@@ -82,23 +79,26 @@ formals(.plotGene.bcbioRNASeq) <- f
 
 
 
+# FIXME This is failing.
 .plotGene.DESeqDataSet <-  # nolint
-    function() {
+    function(object, genes) {
         validObject(object)
         counts <- counts(object, normalized = TRUE)
         # Ensure counts are log2 scale.
         counts <- log2(counts + 1L)
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts)
-        args <- setArgsToDoCall(
-            args = list(
-                object = rse,
-                countsAxisLabel = "normalized counts (log2)"
-            ),
-            removeArgs = "normalized",
-            call = matchCall()
+        do.call(
+            what = plotGene,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = rse,
+                    countsAxisLabel = "normalized counts (log2)"
+                ),
+                removeArgs = "normalized",
+                verbose = TRUE
+            )
         )
-        do.call(what = plotGene, args = args)
     }
 
 # Assign the formals.
@@ -108,22 +108,25 @@ formals(.plotGene.DESeqDataSet) <- f
 
 
 
+# FIXME This is failing.
 .plotGene.DESeqTransform <-  # nolint
-    function() {
+    function(object) {
         validObject(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {
             normalized <- "rlog"
         } else {
             normalized <- "vst"
         }
-        args <- setArgsToDoCall(
-            args = list(
-                object = as(object, "RangedSummarizedExperiment"),
-                countsAxisLabel = paste(normalized, "counts (log2)")
-            ),
-            call = matchCall()
+        do.call(
+            what = plotGene,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = as(object, "RangedSummarizedExperiment"),
+                    countsAxisLabel = paste(normalized, "counts (log2)"),
+                    verbose = TRUE
+                )
+            )
         )
-        do.call(what = plotGene, args = args)
     }
 
 # Assign the formals.
@@ -133,14 +136,22 @@ formals(.plotGene.DESeqTransform) <- f
 
 
 
+# FIXME This is failing...debug
+# $names
+# [1] "object"            NA                  "genes"
+# [4] "return"            "interestingGroups" "medianLine"
+# [7] "color"             "legend"            "headerLevel"
+
 .plotGene.DESeqAnalysis <-  # nolint
-    function() {
+    function(object) {
         validObject(object)
-        args <- setArgsToDoCall(
-            args = list(object = object@transform),
-            call = matchCall()
+        do.call(
+            what = plotGene,
+            args = matchArgsToDoCall(
+                args = list(object = slot(object, "transform")),
+                verbose = TRUE
+            )
         )
-        do.call(what = plotGene, args = args)
     }
 
 # Assign the formals.
