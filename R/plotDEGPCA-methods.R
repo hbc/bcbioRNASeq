@@ -7,28 +7,22 @@
 #'
 #' @inherit plotPCA
 #' @inheritParams general
+#' @param counts `DESeqTransform`.
 #'
 #' @examples
 #' # DESeqAnalysis ====
 #' plotDEGPCA(deseq_small)
 #'
-#' # DESeqResults, DESeqTransform ====
+#' # DESeqResults ====
 #' plotDEGPCA(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = deseq_small@transform
-#' )
-#'
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGPCA(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = bcb_small,
-#'     normalized = "vst"
+#'     object = as(deseq_small, "DESeqResults"),
+#'     counts = as(deseq_small, "DESeqTransform")
 #' )
 NULL
 
 
 
-.plotDEGPCA.DESeqResults.DESeqTransform <-  # nolint
+.plotDEGPCA.DESeqResults <-  # nolint
     function(
         object,
         counts,
@@ -90,46 +84,12 @@ NULL
     }
 
 # Assign the formals.
-f1 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
+f1 <- formals(.plotDEGPCA.DESeqResults)
+# Note that we're not exporting the plotPCA SE method.
 f2 <- formals(.plotPCA.SummarizedExperiment)
 f2 <- f2[c("interestingGroups", "color", "label", "return")]
 f <- c(f1, f2)
-formals(.plotDEGPCA.DESeqResults.DESeqTransform) <- f
-
-
-
-.plotDEGPCA.DESeqResults.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
-    ) {
-        validObject(object)
-        validObject(counts)
-        assert_are_identical(rownames(object), rownames(counts))
-        normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
-        rse <- as(counts, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts(counts, normalized = normalized))
-        # Handing off to `DESeqResults,DESeqTransform` method.
-        do.call(
-            what = plotDEGPCA,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = object,
-                    counts = DESeqTransform(rse)
-                ),
-                removeArgs = "normalized"
-            )
-        )
-    }
-
-# Assign the formals.
-f1 <- formals(.plotDEGPCA.DESeqResults.bcbioRNASeq)
-f2 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
-f2 <- f2[setdiff(names(f2), names(f1))]
-f <- c(f1, f2)
-formals(.plotDEGPCA.DESeqResults.bcbioRNASeq) <- f
+formals(.plotDEGPCA.DESeqResults) <- f
 
 
 
@@ -158,20 +118,18 @@ formals(.plotDEGPCA.DESeqResults.bcbioRNASeq) <- f
 
 # Assign the formals.
 f1 <- formals(.plotDEGPCA.DESeqAnalysis)
-f2 <- formals(.plotDEGPCA.DESeqResults.DESeqTransform)
+f2 <- formals(.plotDEGPCA.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
 formals(.plotDEGPCA.DESeqAnalysis) <- f
+
 
 
 #' @rdname plotDEGPCA
 #' @export
 setMethod(
     f = "plotDEGPCA",
-    signature = signature(
-        object = "DESeqAnalysis",
-        counts = "missingOrNULL"
-    ),
+    signature = signature("DESeqAnalysis"),
     definition = .plotDEGPCA.DESeqAnalysis
 )
 
@@ -181,22 +139,6 @@ setMethod(
 #' @export
 setMethod(
     f = "plotDEGPCA",
-    signature = signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
-    definition = .plotDEGPCA.DESeqResults.DESeqTransform
-)
-
-
-
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    f = "plotDEGPCA",
-    signature = signature(
-        object = "DESeqResults",
-        counts = "bcbioRNASeq"
-    ),
-    definition = .plotDEGPCA.DESeqResults.bcbioRNASeq
+    signature = signature("DESeqResults"),
+    definition = .plotDEGPCA.DESeqResults
 )

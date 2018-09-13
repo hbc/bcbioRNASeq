@@ -16,6 +16,7 @@
 #' @inherit basejump::plotHeatmap
 #'
 #' @inheritParams general
+#' @param counts `DESeqTransform`.
 #'
 #' @seealso
 #' - `help("plotHeatmap", "basejump")`.
@@ -23,26 +24,18 @@
 #'
 #' @examples
 #' # DESeqAnalysis ====
-#' # This is the current recommended default method.
 #' plotDEGHeatmap(deseq_small)
 #'
-#' # DESeqResults, DESeqTransform ====
+#' # DESeqResults ====
 #' plotDEGHeatmap(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = deseq_small@transform
-#' )
-#'
-#' # DESeqResults, bcbioRNASeq ====
-#' plotDEGHeatmap(
-#'     object = deseq_small@lfcShrink[[1L]],
-#'     counts = bcb_small,
-#'     normalized = "vst"
+#'     object = as(deseq_small, "DESeqResults"),
+#'     counts = as(deseq_small, "DESeqTransform")
 #' )
 NULL
 
 
 
-.plotDEGHeatmap.DESeqResults.DESeqTransform <-  # nolint
+.plotDEGHeatmap.DESeqResults <-  # nolint
     function(
         object,
         counts,
@@ -105,73 +98,27 @@ NULL
     }
 
 # Assign the formals.
-f1 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
-f2 <- methodFormals(
-    f = "plotHeatmap",
-    signature = "SummarizedExperiment"
-)
+f1 <- formals(.plotDEGHeatmap.DESeqResults)
+f2 <- methodFormals(f = "plotHeatmap", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "object"))]
 f <- c(f1, f2)
-formals(.plotDEGHeatmap.DESeqResults.DESeqTransform) <- f
-
-
-
-.plotDEGHeatmap.DESeqResults.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        counts,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
-    ) {
-        validObject(object)
-        validObject(counts)
-        assert_are_identical(rownames(object), rownames(counts))
-        normalized <- match.arg(normalized)
-
-        # Coerce to `DESeqTransform`.
-        rse <- as(counts, "RangedSummarizedExperiment")
-        message(paste("Using", normalized, "counts"))
-        assays(rse) <- list(counts = counts(counts, normalized = normalized))
-        dt <- DESeqTransform(rse)
-
-        # Using `DESeqTransform` method.
-        args <- do.call(
-            what = plotDEGHeatmap,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = object,
-                    counts = dt
-                ),
-                removeArgs = "normalized"
-            )
-        )
-    }
-
-# Assign the formals.
-f1 <- formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq)
-f2 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
-f2 <- f2[setdiff(names(f2), names(f1))]
-f <- c(f1, f2)
-formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
+formals(.plotDEGHeatmap.DESeqResults) <- f
 
 
 
 .plotDEGHeatmap.DESeqAnalysis <-  # nolint
-    function(
-        object,
-        counts = NULL,
-        results
-    ) {
-        results <- .matchResults(
-            object = object,
-            results = results
-        )
-        counts <- object@transform
+    function(object, results) {
         do.call(
             what = plotDEGHeatmap,
             args = matchArgsToDoCall(
                 args = list(
-                    object = results,
-                    counts = counts
+                    # DESeqResults
+                    object = .matchResults(
+                        object = object,
+                        results = results
+                    ),
+                    # DESeqTransform
+                    counts = as(object, "DESeqTransform")
                 ),
                 removeArgs = "results"
             )
@@ -180,7 +127,7 @@ formals(.plotDEGHeatmap.DESeqResults.bcbioRNASeq) <- f
 
 # Assign the formals.
 f1 <- formals(.plotDEGHeatmap.DESeqAnalysis)
-f2 <- formals(.plotDEGHeatmap.DESeqResults.DESeqTransform)
+f2 <- formals(.plotDEGHeatmap.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
 formals(.plotDEGHeatmap.DESeqAnalysis) <- f
@@ -191,36 +138,16 @@ formals(.plotDEGHeatmap.DESeqAnalysis) <- f
 #' @export
 setMethod(
     f = "plotDEGHeatmap",
-    signature = signature(
-        object = "DESeqAnalysis",
-        counts = "missingOrNULL"
-    ),
+    signature = signature("DESeqAnalysis"),
     definition = .plotDEGHeatmap.DESeqAnalysis
 )
 
 
 
-
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
     f = "plotDEGHeatmap",
-    signature = signature(
-        object = "DESeqResults",
-        counts = "DESeqTransform"
-    ),
-    definition = .plotDEGHeatmap.DESeqResults.DESeqTransform
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    f = "plotDEGHeatmap",
-    signature = signature(
-        object = "DESeqResults",
-        counts = "bcbioRNASeq"
-    ),
-    definition = .plotDEGHeatmap.DESeqResults.bcbioRNASeq
+    signature = signature("DESeqResults"),
+    definition = .plotDEGHeatmap.DESeqResults
 )
