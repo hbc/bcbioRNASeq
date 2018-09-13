@@ -4,6 +4,9 @@
 \alias{coerce}
 \alias{as}
 \alias{coerce,bcbioRNASeq,DESeqDataSet-method}
+\alias{coerce,DESeqAnalysis,DESeqDataSet-method}
+\alias{coerce,DESeqAnalysis,DESeqTransform-method}
+\alias{coerce,DESeqAnalysis,DESeqResults-method}
 \title{Methods for Coercing an Object to a Class}
 \value{
 Object of new class.
@@ -12,24 +15,34 @@ Object of new class.
 Methods for Coercing an Object to a Class
 }
 \examples{
-# DESeqDataSet ====
+# bcbioRNASeq to DESeqDataSet ====
 x <- as(bcb_small, "DESeqDataSet")
 names(S4Vectors::mcols(x))
 class(x)
 show(x)
 
-# RangedSummarizedExperiment ====
+# bcbioRNASeq to RangedSummarizedExperiment ====
 x <- as(bcb_small, "RangedSummarizedExperiment")
 slotNames(x)
 show(x)
 
-# SummarizedExperiment ====
+# bcbioRNASeq to SummarizedExperiment ====
 # Coerce to RangedSummarizedExperiment first.
 x <- as(bcb_small, "RangedSummarizedExperiment")
 x <- as(x, "SummarizedExperiment")
 class(x)
 slotNames(x)
 show(x)
+
+# DESeqAnalysis ====
+dds <- as(deseq_small, "DESeqDataSet")
+print(dds)
+dt <- as(deseq_small, "DESeqTransform")
+print(dt)
+# Pulls the first results slotted.
+res <- as(deseq_small, "DESeqResults")
+contrastName(res)
+summary(res)
 }
 \seealso{
 \itemize{

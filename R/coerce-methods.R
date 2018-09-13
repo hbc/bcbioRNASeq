@@ -14,24 +14,34 @@
 #' - [methods::canCoerce()].
 #'
 #' @examples
-#' # DESeqDataSet ====
+#' # bcbioRNASeq to DESeqDataSet ====
 #' x <- as(bcb_small, "DESeqDataSet")
 #' names(S4Vectors::mcols(x))
 #' class(x)
 #' show(x)
 #'
-#' # RangedSummarizedExperiment ====
+#' # bcbioRNASeq to RangedSummarizedExperiment ====
 #' x <- as(bcb_small, "RangedSummarizedExperiment")
 #' slotNames(x)
 #' show(x)
 #'
-#' # SummarizedExperiment ====
+#' # bcbioRNASeq to SummarizedExperiment ====
 #' # Coerce to RangedSummarizedExperiment first.
 #' x <- as(bcb_small, "RangedSummarizedExperiment")
 #' x <- as(x, "SummarizedExperiment")
 #' class(x)
 #' slotNames(x)
 #' show(x)
+#'
+#' # DESeqAnalysis ====
+#' dds <- as(deseq_small, "DESeqDataSet")
+#' print(dds)
+#' dt <- as(deseq_small, "DESeqTransform")
+#' print(dt)
+#' # Pulls the first results slotted.
+#' res <- as(deseq_small, "DESeqResults")
+#' contrastName(res)
+#' summary(res)
 NULL
 
 
@@ -59,6 +69,51 @@ setAs(
         # Prepare using an empty design formula
         to <- DESeqDataSet(se = rse, design = ~ 1L)
         interestingGroups(to) <- interestingGroups(from)
+        validObject(to)
+        to
+    }
+)
+
+
+
+#' @rdname coerce
+#' @name coerce,DESeqAnalysis,DESeqDataSet-method
+setAs(
+    from = "DESeqAnalysis",
+    to = "DESeqDataSet",
+    function(from) {
+        validObject(from)
+        to <- slot(from, "data")
+        validObject(to)
+        to
+    }
+)
+
+
+
+#' @rdname coerce
+#' @name coerce,DESeqAnalysis,DESeqTransform-method
+setAs(
+    from = "DESeqAnalysis",
+    to = "DESeqTransform",
+    function(from) {
+        validObject(from)
+        to <- slot(from, "transform")
+        validObject(to)
+        to
+    }
+)
+
+
+
+#' @rdname coerce
+#' @name coerce,DESeqAnalysis,DESeqResults-method
+setAs(
+    from = "DESeqAnalysis",
+    to = "DESeqResults",
+    function(from) {
+        validObject(from)
+        to <- slot(from, "results")[[1L]]
         validObject(to)
         to
     }
