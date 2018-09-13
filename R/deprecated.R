@@ -127,4 +127,15 @@ plotMeanAverage <- function(...) {
 
 
 
+# v0.99.0 ======================================================================
+#' @rdname plotCountsPerGene
+#' @usage NULL
+#' @export
+plotCountDensity <- function(...) {
+    .Deprecated("plotCountsPerGene(object, geom = \"density\")")
+    plotCountsPerGene(..., geom = "density")
+}
+
+
+
 # nocov end
