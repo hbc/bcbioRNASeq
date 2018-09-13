@@ -77,6 +77,27 @@ setAs(
 
 
 #' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqTransform-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqTransform",
+    function(from) {
+        validObject(from)
+        # First, generate a DESeqDataSet.
+        dds <- as(from, "DESeqDataSet")
+        validObject(dds)
+        # Coerce using a new on-the-fly calculation.
+        # We're using VST here because it's faster than rlog.
+        message("Applying variance stabilizing transformation")
+        dt <- varianceStabilizingTransformation(dds)
+        validObject(dt)
+        dt
+    }
+)
+
+
+
+#' @rdname coerce
 #' @name coerce,DESeqAnalysis,DESeqDataSet-method
 setAs(
     from = "DESeqAnalysis",
