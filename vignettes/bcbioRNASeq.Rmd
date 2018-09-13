@@ -84,13 +84,11 @@ Since [bcbio][] is flexible and supports a number of expression callers, we have
 
 ```{r, message=FALSE}
 salmon_genes <- bcbioRNASeq(uploadDir = upload_dir, caller = "salmon")
-print(salmon_genes)
 assayNames(salmon_genes)
 ```
 
 ```{r, message=FALSE}
 salmon_tx <- bcbioRNASeq(uploadDir = upload_dir, level = "transcripts")
-print(salmon_tx)
 assayNames(salmon_tx)
 ```
 
@@ -98,7 +96,6 @@ assayNames(salmon_tx)
 
 ```{r, message=FALSE}
 star <- bcbioRNASeq(uploadDir = upload_dir, caller = "star")
-print(star)
 assayNames(star)
 ```
 
@@ -111,7 +108,6 @@ bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     samples = c("group1_1", "group1_2")
 )
-print(bcb)
 sampleNames(bcb)
 ```
 
@@ -122,7 +118,6 @@ bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     censorSamples = "group2_2"
 )
-print(bcb)
 sampleNames(bcb)
 ```
 
@@ -139,7 +134,6 @@ bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     sampleMetadataFile = sample_metadata_file
 )
-print(bcb)
 sampleData(bcb, clean = TRUE)
 ```
 
@@ -157,9 +151,8 @@ bcb <- bcbioRNASeq(
     genomeBuild = "GRCm38",
     ensemblRelease = 87
 )
-print(bcb)
 metadata(bcb)$rowRangesMetadata
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+rowData(bcb) %>% str()
 ```
 
 Alternatively, transcript-level annotations can also be obtained automatically using this method.
@@ -172,8 +165,7 @@ bcb <- bcbioRNASeq(
     genomeBuild = "GRCm38",
     ensemblRelease = 87
 )
-print(bcb)
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+rowData(bcb) %>% str()
 ```
 
 When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a [general feature format (GFF)][GFF] file with the `gffFile` argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but [Ensembl][] GFFv3 files are also supported.
@@ -285,16 +277,16 @@ plotGeneSaturation(bcb, label = FALSE)
 plotGeneSaturation(bcb, label = TRUE)
 ```
 
-```{r}
-plotCountsPerGene(bcb, geom = "violin")
+```{r, message=FALSE}
 plotCountsPerGene(bcb, geom = "density", interestingGroups = "sampleName")
+plotCountsPerGene(bcb, geom = "density")
 ```
 
 ## Dispersion
 
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
-```{r}
+```{r, message=FALSE}
 plotDispEsts(bcb)
 ```
 
@@ -302,7 +294,7 @@ plotDispEsts(bcb)
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
-```{r}
+```{r, message=FALSE}
 plotMeanSD(bcb)
 ```
 
@@ -320,16 +312,7 @@ plotPCA(bcb, normalized = "vst", label = TRUE)
 Let's visualize the `rlog` counts for comparison. The performance is similar overall, with some slight differences, but the grouping more or less remains the same.
 
 ```{r}
-plotPCA(
-    object = bcb,
-    normalized = "rlog",
-    label = FALSE
-)
-plotPCA(
-    object = bcb,
-    normalized = "rlog",
-    label = TRUE
-)
+plotPCA(bcb, normalized = "rlog")
 ```
 
 Generally, the `varianceStabilizationTransformation()` and `rlog()` functions provide similar performance, as seen here.
