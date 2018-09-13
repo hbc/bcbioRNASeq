@@ -35,6 +35,7 @@ NULL
 
 
 
+# Match the vst, rlog conventions to `bcbioRNASeq()` generator.
 .plotMeanSD <- function(
     raw,
     normalized,

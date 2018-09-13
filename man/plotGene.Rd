@@ -38,6 +38,12 @@
 
 \item{genes}{\code{character}. Gene identifiers.}
 
+\item{normalized}{\code{string}. Which normalization method to apply:
+- "\code{tpm}": Transcripts per million (tximport).
+- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
+
 \item{interestingGroups}{\code{character}. Groups of interest.}
 
 \item{medianLine}{\code{boolean}. Include median line for each group. Disabled if

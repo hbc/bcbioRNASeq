@@ -8,6 +8,8 @@
 #'
 #' @inherit basejump::plotGene
 #'
+#' @inheritParams general
+#'
 #' @examples
 #' g2s <- gene2symbol(bcb_small)
 #' geneIDs <- head(g2s[["geneID"]])
