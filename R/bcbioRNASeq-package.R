@@ -38,7 +38,7 @@
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene basejump_geom_abline basejump_geom_label
 #'   basejump_geom_label_repel camel convertGenesToSymbols detectOrganism
-#'   emptyRanges fixNA gene2symbol hasRownames initializeDirectory
+#'   emptyRanges fixNA flatFiles gene2symbol hasRownames initializeDirectory
 #'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
 #'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall matchCall
