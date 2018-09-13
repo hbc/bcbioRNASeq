@@ -36,7 +36,7 @@ setMethod(
         object,
         interestingGroups = NULL,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        geom = c("violin", "density", "boxplot"),
+        geom = c("density", "violin", "boxplot"),
         color = getOption("bcbio.discrete.color", NULL),
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -66,21 +66,15 @@ setMethod(
 
         # Construct the ggplot.
         p <- ggplot(data = data)
-        countsAxisLabel <- paste(normalized, "counts (log2)")
 
-        if (geom == "violin") {
-            p <- p +
-                geom_violin(
-                    mapping = aes(
-                        x = !!sym("sampleName"),
-                        y = !!sym("counts"),
-                        fill = !!sym("interestingGroups")
-                    ),
-                    color = "black",
-                    scale = "width"
-                ) +
-                labs(x = NULL, y = countsAxisLabel)
-        } else if (geom == "density") {
+        # Set the counts axis label.
+        countsAxisLabel <- paste(normalized, "counts")
+        trans <- .normalizedTrans(normalized)
+        if (trans != "identity") {
+            countsAxisLabel <- paste(trans, countsAxisLabel)
+        }
+
+        if (geom == "density") {
             p <- p +
                 geom_density(
                     mapping = aes(
@@ -92,6 +86,18 @@ setMethod(
                     size = 1L
                 ) +
                 labs(x = countsAxisLabel)
+        } else if (geom == "violin") {
+            p <- p +
+                geom_violin(
+                    mapping = aes(
+                        x = !!sym("sampleName"),
+                        y = !!sym("counts"),
+                        fill = !!sym("interestingGroups")
+                    ),
+                    color = "black",
+                    scale = "width"
+                ) +
+                labs(x = NULL, y = countsAxisLabel)
         } else if (geom == "boxplot") {
             p <- p +
                 geom_boxplot(
@@ -103,7 +109,7 @@ setMethod(
                     color = "black",
                     outlier.shape = NA
                 ) +
-                labs(x = countsAxisLabel, y = NULL)
+                labs(x = NULL, y = countsAxisLabel)
         }
 
         # Add the axis and legend labels.

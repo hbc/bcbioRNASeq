@@ -12,7 +12,7 @@ plotCountsPerGene(object, ...)
 
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object,
   interestingGroups = NULL, normalized = c("tmm", "vst", "rlog", "tpm",
-  "rle"), geom = c("violin", "density", "boxplot"),
+  "rle"), geom = c("density", "violin", "boxplot"),
   color = getOption("bcbio.discrete.color", NULL),
   fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "counts per gene")
