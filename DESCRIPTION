@@ -189,7 +189,6 @@ Collate:
     'new-internal.R'
     'plot5Prime3PrimeBias-methods.R'
     'plotCorrelationHeatmap-methods.R'
-    'plotCountDensity-methods.R'
     'plotCountsPerGene-methods.R'
     'plotDEGHeatmap-methods.R'
     'plotPCA-methods.R'
