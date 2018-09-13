@@ -5,7 +5,13 @@
 \alias{bcbioRNASeq-class}
 \title{\code{bcbioRNASeq} Class}
 \description{
-Inherits from \code{RangedSummarizedExperiment}.
+\code{bcbioRNASeq} is an S4 class that extends \code{RangedSummarizedExperiment}, and
+is designed to store a \href{https://bcbio-nextgen.readthedocs.org}{bcbio} RNA-seq
+analysis.
+}
+\note{
+\code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
+migrated to \code{RangedSummarizedExperiment}.
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -13,15 +19,14 @@ x <- bcbioRNASeq(uploadDir)
 print(x)
 }
 \seealso{
-\code{\link[=bcbioRNASeq]{bcbioRNASeq()}}.
-
 Other S4 Object: \code{\link{DESeqAnalysis-class}},
+  \code{\link{DESeqAnalysis}},
   \code{\link{DESeqResultsTables-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+  \code{\link{DESeqResultsTables}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
 \author{
-Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 }
 \concept{S4 Object}

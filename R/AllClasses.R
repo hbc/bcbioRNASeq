@@ -8,13 +8,16 @@ setClassUnion(
 # bcbioRNASeq ==================================================================
 #' `bcbioRNASeq` Class
 #'
-#' Inherits from `RangedSummarizedExperiment`.
+#' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
+#' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
+#' analysis.
+#'
+#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
+#'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @family S4 Object
-#' @author Michael Steinbaugh
+#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
-#'
-#' @seealso [bcbioRNASeq()].
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -24,6 +27,8 @@ setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
 )
+
+
 
 setValidity(
     Class = "bcbioRNASeq",
@@ -205,11 +210,37 @@ setValidity(
 #' @author Michael Steinbaugh
 #' @export
 #'
+#' @inheritParams general
 #' @slot data `DESeqDataSet`.
 #' @slot transform `DESeqTransform`.
-#' @slot results `list`. One or more unshrunken `DESeqResults`. Assign the
+#' @slot results `list`. One or more unshrunken `DESeqResults`.
+#' @slot lfcShrink `list`. One or more shrunken `DESeqResults`.
+setClass(
+    Class = "DESeqAnalysis",
+    slots = c(
+        data = "DESeqDataSet",
+        transform = "DESeqTransform",
+        results = "list",
+        lfcShrink = "list"
+    ),
+    prototype = list(
+        lfcShrink = list()
+    )
+)
+
+
+
+#' `DESeqAnalysis` Generator
+#'
+#' @family S4 Object
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @param data `DESeqDataSet`.
+#' @param transform `DESeqTransform`.
+#' @param results `list`. One or more unshrunken `DESeqResults`. Assign the
 #'   [DESeq2::results()] return here.
-#' @slot lfcShrink `list`. One or more shrunken `DESeqResults`. Assign the
+#' @param lfcShrink `list`. One or more shrunken `DESeqResults`. Assign the
 #'   [DESeq2::lfcShrink()] return here.
 #'
 #' @return `DESeqAnalysis`.
@@ -231,20 +262,23 @@ setValidity(
 #'     results = list(res),
 #'     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
 #' )
-#' class(x)
-#' slotNames(x)
-DESeqAnalysis <- setClass(
-    Class = "DESeqAnalysis",
-    slots = c(
-        data = "DESeqDataSet",
-        transform = "DESeqTransform",
-        results = "list",
-        lfcShrink = "list"
-    ),
-    prototype = list(
-        lfcShrink = list()
+#' print(x)
+DESeqAnalysis <- function(
+    data,
+    transform,
+    results,
+    lfcShrink
+) {
+    new(
+        Class = "DESeqAnalysis",
+        data = data,
+        transform = transform,
+        results = results,
+        lfcShrink = lfcShrink
     )
-)
+}
+
+
 
 setValidity(
     Class = "DESeqAnalysis",
@@ -303,6 +337,7 @@ setValidity(
 #' @author Michael Steinbaugh
 #' @export
 #'
+#' @inheritParams general
 #' @slot all `DESeqResults`. Original unmodified `DESeqResults`. Should contain
 #'   all genes, including those with `NA` adjusted *P* values.
 #' @slot deg `DataFrame`. Subset containing genes that pass adjusted *P* value
@@ -313,13 +348,6 @@ setValidity(
 #'   genes.
 #' @slot localFiles `list`. Local file paths.
 #' @slot dropboxFiles `list`. Dropbox file paths.
-#'
-#' @return `DESeqResultsTables`.
-#'
-#' @examples
-#' object <- deseq_small@results[[1L]]
-#' x <- resultsTables(object)
-#' print(x)
 setClass(
     Class = "DESeqResultsTables",
     slots = c(
@@ -336,6 +364,29 @@ setClass(
         dropboxFiles = list()
     )
 )
+
+
+
+#' `DESeqResultsTables` Generator
+#'
+#' @family S4 Object
+#' @author Michael Steinbaugh
+#' @export
+#'
+#' @param object `DESeqResults`.
+#'
+#' @return `DESeqResultsTables`.
+#'
+#' @examples
+#' object <- deseq_small@results[[1L]]
+#' class(object)
+#' x <- DESeqResultsTables(object)
+#' print(x)
+DESeqResultsTables <- function(object) {
+    resultsTables(object)
+}
+
+
 
 setValidity(
     Class = "DESeqResultsTables",

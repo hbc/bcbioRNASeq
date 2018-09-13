@@ -4,9 +4,6 @@
 \name{DESeqResultsTables-class}
 \alias{DESeqResultsTables-class}
 \title{\code{DESeqResultsTables} Class}
-\value{
-\code{DESeqResultsTables}.
-}
 \description{
 \code{DESeqResultsTables} Class
 }
@@ -30,15 +27,11 @@ genes.}
 \item{\code{dropboxFiles}}{\code{list}. Dropbox file paths.}
 }}
 
-\examples{
-object <- deseq_small@results[[1L]]
-x <- resultsTables(object)
-print(x)
-}
 \seealso{
 Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+  \code{\link{DESeqAnalysis}},
+  \code{\link{DESeqResultsTables}},
+  \code{\link{bcbioRNASeq-class}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }

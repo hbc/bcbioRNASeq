@@ -174,7 +174,7 @@ Collate:
     'DESeq-internal.R'
     'alphaSummary-methods.R'
     'assert-internal.R'
-    'bcbioRNASeq-constructor.R'
+    'bcbioRNASeq-generator.R'
     'bcbioRNASeq-package.R'
     'coerce-methods.R'
     'contrastName-methods.R'

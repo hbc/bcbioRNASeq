@@ -3,11 +3,7 @@
 \docType{class}
 \name{DESeqAnalysis-class}
 \alias{DESeqAnalysis-class}
-\alias{DESeqAnalysis}
 \title{\code{DESeqAnalysis} Class}
-\value{
-\code{DESeqAnalysis}.
-}
 \description{
 Class containing all elements generated during differential expression
 analysis with DESeq2. This class is essentially a \code{list} with validity checks
@@ -21,11 +17,9 @@ to ensure \code{DESeqTransform} and \code{DESeqResults} correspond to the
 
 \item{\code{transform}}{\code{DESeqTransform}.}
 
-\item{\code{results}}{\code{list}. One or more unshrunken \code{DESeqResults}. Assign the
-\code{\link[DESeq2:results]{DESeq2::results()}} return here.}
+\item{\code{results}}{\code{list}. One or more unshrunken \code{DESeqResults}.}
 
-\item{\code{lfcShrink}}{\code{list}. One or more shrunken \code{DESeqResults}. Assign the
-\code{\link[DESeq2:lfcShrink]{DESeq2::lfcShrink()}} return here.}
+\item{\code{lfcShrink}}{\code{list}. One or more shrunken \code{DESeqResults}.}
 }}
 
 \section{DESeqDataSet}{
@@ -45,30 +39,11 @@ rearranging the rows or dropping genes without adjusted P values. We'll take
 care of this automatically in supported methods.
 }
 
-\examples{
-library(DESeq2)
-dds <- as(bcb_small, "DESeqDataSet")
-design(dds) <- ~ treatment
-dds <- DESeq(dds)
-class(dds)
-vst <- varianceStabilizingTransformation(dds)
-class(vst)
-resultsNames(dds)
-res <- results(dds, name = resultsNames(dds)[[2L]])
-class(res)
-x <- DESeqAnalysis(
-    data = dds,
-    transform = vst,
-    results = list(res),
-    lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
-)
-class(x)
-slotNames(x)
-}
 \seealso{
-Other S4 Object: \code{\link{DESeqResultsTables-class}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+Other S4 Object: \code{\link{DESeqAnalysis}},
+  \code{\link{DESeqResultsTables-class}},
+  \code{\link{DESeqResultsTables}},
+  \code{\link{bcbioRNASeq-class}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
