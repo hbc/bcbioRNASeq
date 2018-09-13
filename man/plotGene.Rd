@@ -43,6 +43,15 @@
 \item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
 samples are colored by sample name.}
 
+\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+To set the discrete color palette globally, use
+\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+
+\item{legend}{\code{boolean}. Show plot legend.}
+
 \item{headerLevel}{\code{scalar integer}. Markdown header level (1-7).}
 
 \item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
@@ -86,8 +95,6 @@ plotGene(object, genes = geneIDs, return = "facet")
 plotGene(object, genes = geneNames, return = "wide")
 }
 \seealso{
-\code{\link[DESeq2:plotCounts]{DESeq2::plotCounts()}}.
-
 Other Plot Functions: \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotHeatmap}},
   \code{\link{plotQuantileHeatmap}}
