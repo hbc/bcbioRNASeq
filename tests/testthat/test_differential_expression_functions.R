@@ -30,69 +30,34 @@ test_that("alphaSummary : DESeqDataSet", {
 
 
 
-# plotDEGHeatmap ===============================================================
+# plotDEG* =====================================================================
 with_parameters_test_that(
-    "plotDEGHeatmap", {
-        expect_is(
-            object = plotDEGHeatmap(
-                results = res_small,
-                counts = counts
-            ),
-            class = "pheatmap"
+    "plotDEG*", {
+        with_parameters_test_that(
+            "plotDEG* : Class", {
+                expect_is(
+                    object = do.call(what = fun, args = args),
+                    class = class
+                )
+            },
+            args = list(
+                DESeqResults = list(
+                    object = res_small,
+                    counts = vst_small
+                ),
+                DESeqAnalysis = list(object = deseq_small)
+            )
         )
     },
-    counts = list(
-        bcbioRNASeq = bcb_small,
-        DESeqDataSet = dds_small,
-        DESeqTransform = vst_small
+    fun = list(
+        plotDEGHeatmap,
+        plotDEGPCA
+    ),
+    class = c(
+        "pheatmap",
+        "ggplot"
     )
 )
-
-test_that("plotDEGHeatmap : No DEGs", {
-    args <- list(
-        results = res_small,
-        counts = bcb_small,
-        lfcThreshold = Inf
-    )
-    expect_null(do.call(what = plotDEGHeatmap, args = args))
-    expect_warning(
-        object = do.call(what = plotDEGHeatmap, args = args),
-        regexp = "No significant DEGs to plot"
-    )
-})
-
-
-
-# plotDEGPCA ===================================================================
-with_parameters_test_that(
-    "plotDEGPCA", {
-        expect_is(
-            object = plotDEGPCA(
-                results = res_small,
-                counts = counts
-            ),
-            class = "ggplot"
-        )
-    },
-    counts = list(
-        bcbioRNASeq = bcb_small,
-        DESeqDataSet = dds_small,
-        DESeqTransform = vst_small
-    )
-)
-
-test_that("plotDEGPCA : No DEGs", {
-    args <- list(
-        results = res_small,
-        counts = bcb_small,
-        lfcThreshold = Inf
-    )
-    expect_null(do.call(what = plotDEGPCA, args = args))
-    expect_warning(
-        object = do.call(what = plotDEGPCA, args = args),
-        regexp = "No significant DEGs to plot"
-    )
-})
 
 
 
