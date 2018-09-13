@@ -20,6 +20,7 @@
 #' @export
 #'
 #' @inheritParams general
+#' @inheritParams bcbioRNASeq
 #'
 #' @return `ggplot` grid.
 #'

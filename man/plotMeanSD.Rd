@@ -21,6 +21,14 @@ plotMeanSD(object, ...)
 \item{...}{Additional arguments.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
+
+\item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
+for visualization.}
+
+\item{rlog}{\code{boolean}. Calcualte regularized log transformation using
+\code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
+discouraged by default for visualization.}
 }
 \value{
 \code{ggplot} grid.
