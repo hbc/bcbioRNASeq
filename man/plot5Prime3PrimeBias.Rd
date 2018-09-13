@@ -51,7 +51,6 @@ plot5Prime3PrimeBias(bcb_small)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},

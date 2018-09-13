@@ -53,7 +53,6 @@ plotGeneSaturation(bcb_small, label = TRUE)
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountDensity}},
   \code{\link{plotCountsPerGene}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
