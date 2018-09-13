@@ -31,17 +31,6 @@ setGeneric(
 
 
 
-#' @rdname plotCountDensity
-#' @export
-setGeneric(
-    name = "plotCountDensity",
-    def = function(object, ...) {
-        standardGeneric("plotCountDensity")
-    }
-)
-
-
-
 #' @rdname plotCountsPerGene
 #' @export
 setGeneric(
