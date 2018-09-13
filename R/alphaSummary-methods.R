@@ -41,28 +41,23 @@ setMethod(
     definition = function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
-        contrast,
-        name,
+        contrast = NULL,
+        name = NULL,
         caption = NULL
     ) {
         validObject(object)
         assert_is_numeric(alpha)
+        assert_is_any_of(contrast, c("character", "NULL"))
+        assertIsAStringOrNULL(name)
         assertIsAStringOrNULL(caption)
-        # Require either `contrast` or `name`.
-        if (
-            (missing(contrast) && missing(name)) ||
-            (!missing(contrast) && !missing(name))
-        ) {
+
+        # Either `contrast` or `name`.
+        # If neither are defined, we're checking the intercept.
+        if (!is.null(contrast) && !is.null(name)) {
             stop(
                 "Specify either `contrast` or `name` (but not both)",
                 call. = FALSE
             )
-        } else if (!missing(contrast)) {
-            assert_is_character(contrast)
-            name <- NULL
-        } else if (!missing(name)) {
-            assert_is_a_string(name)
-            contrast <- NULL
         }
 
         # Generate an automatic caption.
@@ -71,8 +66,15 @@ setMethod(
                 caption <- paste(contrast, collapse = " ")
             } else if (!is.null(name)) {
                 caption <- name
+            } else {
+                caption <- resultsNames(object)[[1L]]
             }
         }
+        message(paste(
+            caption,
+            paste("Alpha cutoffs:", toString(alpha)),
+            sep = "\n"
+        ))
 
         data <- sapply(
             X = alpha,

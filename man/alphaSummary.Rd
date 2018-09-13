@@ -9,7 +9,7 @@
 alphaSummary(object, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), contrast, name, caption = NULL)
+  0.001, 1e-06), contrast = NULL, name = NULL, caption = NULL)
 }
 \arguments{
 \item{object}{Object.}
