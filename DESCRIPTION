@@ -153,8 +153,8 @@ Suggests:
     testthat (>= 2.0),
     viridis
 Remotes:
-    hbc/bcbioBase@develop,
-    steinbaugh/basejump@develop
+    hbc/bcbioBase@bioconductor,
+    steinbaugh/basejump@bioconductor
 biocViews:
     DataImport,
     DataRepresentation,
