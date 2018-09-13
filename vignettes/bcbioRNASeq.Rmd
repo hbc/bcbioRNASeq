@@ -286,12 +286,8 @@ plotGeneSaturation(bcb, label = TRUE)
 ```
 
 ```{r}
-plotCountsPerGene(bcb)
-plotCountDensity(
-    object = bcb,
-    interestingGroups = "sampleName",
-    style = "line"
-)
+plotCountsPerGene(bcb, geom = "violin")
+plotCountsPerGene(bcb, geom = "density", interestingGroups = "sampleName")
 ```
 
 ## Dispersion
