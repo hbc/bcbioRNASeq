@@ -16,7 +16,7 @@ setClassUnion(
 #'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @family S4 Object
-#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
+#' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
 #' @examples

@@ -46,7 +46,8 @@ print(x)
 Other S4 Object: \code{\link{DESeqAnalysis-class}},
   \code{\link{DESeqResultsTables-class}},
   \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}}, \code{\link{coerce}},
+  \code{\link{bcbioRNASeq-class}},
+  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }

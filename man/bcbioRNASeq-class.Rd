@@ -22,11 +22,12 @@ print(x)
 Other S4 Object: \code{\link{DESeqAnalysis-class}},
   \code{\link{DESeqAnalysis}},
   \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}}, \code{\link{coerce}},
+  \code{\link{DESeqResultsTables}},
+  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}},
   \code{\link{updateObject}}
 }
 \author{
-Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
+Michael Steinbaugh, Lorena Pantano
 }
 \concept{S4 Object}
