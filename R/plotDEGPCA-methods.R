@@ -111,7 +111,7 @@ formals(.plotDEGPCA.DESeqResults) <- f
                     object = results,
                     counts = counts
                 ),
-                removeArgs = "results"
+                removeFormals = "results"
             )
         )
     }

@@ -57,7 +57,7 @@ NULL
     ) {
         # Legacy arguments -----------------------------------------------------
         # nocov start
-        call <- matchCall()
+        call <- standardizeCall()
         # genes
         if ("genes" %in% names(call)) {
             stop("`genes` is defunct. Use `ntop` argument instead.")
@@ -183,7 +183,7 @@ NULL
             what = .plotPCA.SummarizedExperiment,
             args = matchArgsToDoCall(
                 args = list(object = rse),
-                removeArgs = "normalized"
+                removeFormals = "normalized"
             )
         )
     }

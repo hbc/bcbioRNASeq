@@ -172,7 +172,7 @@ bcbioRNASeq <- function(
     rlog = FALSE,
     ...
 ) {
-    call <- matchCall()
+    call <- match.call()
 
     # Legacy arguments ---------------------------------------------------------
     # nocov start

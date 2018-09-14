@@ -345,7 +345,7 @@ NULL
                     ),
                     gene2symbol = gene2symbol(object@data)
                 ),
-                removeArgs = c("results", "lfcShrink")
+                removeFormals = c("results", "lfcShrink")
             )
         )
     }

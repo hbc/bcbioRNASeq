@@ -41,10 +41,11 @@
 #'   emptyRanges fixNA flatFiles gene2symbol hasRownames initializeDirectory
 #'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall matchCall
+#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
 #'   matchInterestingGroups meltCounts methodFormals plotHeatmap prepareTemplate
 #'   printString readFileByExtension readYAML sampleData sanitizeRowData
-#'   sanitizeSampleData snake stripTranscriptVersions uniteInterestingGroups
+#'   sanitizeSampleData snake standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
@@ -54,7 +55,7 @@
 #' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
-#'   estimateSizeFactors priorInfo results rlog
+#'   estimateSizeFactors priorInfo results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if

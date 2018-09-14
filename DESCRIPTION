@@ -184,6 +184,7 @@ Collate:
     'extract-methods.R'
     'general.R'
     'globals.R'
+    'markdown-methods.R'
     'meltCounts-internal.R'
     'metrics-methods.R'
     'new-internal.R'

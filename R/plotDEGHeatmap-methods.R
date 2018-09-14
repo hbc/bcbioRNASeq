@@ -88,7 +88,7 @@ NULL
                     object = counts,
                     title = title
                 ),
-                removeArgs = c(
+                removeFormals = c(
                     "counts",
                     "alpha",
                     "lfcThreshold"
@@ -120,7 +120,7 @@ formals(.plotDEGHeatmap.DESeqResults) <- f
                     # DESeqTransform
                     counts = as(object, "DESeqTransform")
                 ),
-                removeArgs = "results"
+                removeFormals = "results"
             )
         )
     }

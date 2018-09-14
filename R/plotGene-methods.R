@@ -62,7 +62,7 @@ NULL
                     object = rse,
                     countsAxisLabel = paste(normalized, "counts (log2)")
                 ),
-                removeArgs = "normalized"
+                removeFormals = "normalized"
             )
         )
     }
@@ -91,7 +91,7 @@ formals(.plotGene.bcbioRNASeq) <- f
                     object = rse,
                     countsAxisLabel = "normalized counts (log2)"
                 ),
-                removeArgs = "normalized"
+                removeFormals = "normalized"
             )
         )
     }
