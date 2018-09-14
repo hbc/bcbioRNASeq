@@ -343,6 +343,7 @@ NULL
                         results = results,
                         lfcShrink = lfcShrink
                     ),
+                    genes = genes,
                     gene2symbol = gene2symbol(object@data)
                 ),
                 removeFormals = c("results", "lfcShrink")

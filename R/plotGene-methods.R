@@ -1,3 +1,10 @@
+# FIXME
+# Error in assert_engine(is_character, x, .xname = get_name_in_parent(x),  :
+# object 'geneIDs' not found
+# Not matching the environment in call correctly?
+
+
+
 #' Plot Gene Expression
 #'
 #' @name plotGene
@@ -60,9 +67,11 @@ NULL
             args = matchArgsToDoCall(
                 args = list(
                     object = rse,
+                    genes = genes,
                     countsAxisLabel = paste(normalized, "counts (log2)")
                 ),
-                removeFormals = "normalized"
+                removeFormals = "normalized",
+                verbose = TRUE
             )
         )
     }
@@ -89,6 +98,7 @@ formals(.plotGene.bcbioRNASeq) <- f
             args = matchArgsToDoCall(
                 args = list(
                     object = rse,
+                    genes = genes,
                     countsAxisLabel = "normalized counts (log2)"
                 ),
                 removeFormals = "normalized"
@@ -116,6 +126,7 @@ formals(.plotGene.DESeqDataSet) <- f
             args = matchArgsToDoCall(
                 args = list(
                     object = as(object, "RangedSummarizedExperiment"),
+                    genes = genes,
                     countsAxisLabel = paste(normalized, "counts (log2)")
                 )
             )
@@ -135,7 +146,10 @@ formals(.plotGene.DESeqTransform) <- f
         do.call(
             what = plotGene,
             args = matchArgsToDoCall(
-                args = list(object = slot(object, "transform"))
+                args = list(
+                    object = slot(object, "transform"),
+                    genes = genes
+                )
             )
         )
     }
