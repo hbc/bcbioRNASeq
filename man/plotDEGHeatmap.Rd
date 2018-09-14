@@ -3,29 +3,20 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqAnalysis,missingOrNULL-method}
-\alias{plotDEGHeatmap,DESeqResults,DESeqTransform-method}
-\alias{plotDEGHeatmap,DESeqResults,bcbioRNASeq-method}
+\alias{plotDEGHeatmap,DESeqAnalysis-method}
+\alias{plotDEGHeatmap,DESeqResults-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
-plotDEGHeatmap(object, counts, ...)
+plotDEGHeatmap(object, ...)
 
-\S4method{plotDEGHeatmap}{DESeqAnalysis,missingOrNULL}(object,
-  counts = NULL, results, scale = "row", title = TRUE,
-  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
-  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
-  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
-  borderColor = NULL, ...)
-
-\S4method{plotDEGHeatmap}{DESeqResults,DESeqTransform}(object, counts,
+\S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
   scale = "row", title = TRUE, interestingGroups = NULL,
   clusterRows = TRUE, clusterCols = TRUE, showRownames = FALSE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
   color = viridis::viridis, legendColor = NULL, borderColor = NULL,
   ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults,bcbioRNASeq}(object, counts,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), scale = "row",
+\S4method{plotDEGHeatmap}{DESeqResults}(object, counts, scale = "row",
   title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
   clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
   treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
@@ -34,12 +25,12 @@ plotDEGHeatmap(object, counts, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{\code{matrix}. Normalized counts.}
-
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments should be formatted in camel case, not snake case.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{counts}{\code{DESeqTransform}.}
 
 \item{scale}{\code{string}. Whether the values should be centered and scaled in
 either the row or column direction ("\code{row}", "\code{column}"), or remain
@@ -85,12 +76,6 @@ for legend labels. Note that hexadecimal values are not supported. If set
 
 \item{borderColor}{\code{string} or \code{NULL}. Border color. Disabled by default for
 improved aesthetics.}
-
-\item{normalized}{\code{string}. Which normalization method to apply:
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 }
 \value{
 Show heatmap and invisibly return a \code{list} of the components.
@@ -108,20 +93,12 @@ argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTran
 }
 \examples{
 # DESeqAnalysis ====
-# This is the current recommended default method.
 plotDEGHeatmap(deseq_small)
 
-# DESeqResults, DESeqTransform ====
+# DESeqResults ====
 plotDEGHeatmap(
-    object = deseq_small@lfcShrink[[1L]],
-    counts = deseq_small@transform
-)
-
-# DESeqResults, bcbioRNASeq ====
-plotDEGHeatmap(
-    object = deseq_small@lfcShrink[[1L]],
-    counts = bcb_small,
-    normalized = "vst"
+    object = as(deseq_small, "DESeqResults"),
+    counts = as(deseq_small, "DESeqTransform")
 )
 }
 \seealso{

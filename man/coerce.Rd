@@ -4,6 +4,7 @@
 \alias{coerce}
 \alias{as}
 \alias{coerce,bcbioRNASeq,DESeqDataSet-method}
+\alias{coerce,bcbioRNASeq,DESeqTransform-method}
 \alias{coerce,DESeqAnalysis,DESeqDataSet-method}
 \alias{coerce,DESeqAnalysis,DESeqTransform-method}
 \alias{coerce,DESeqAnalysis,DESeqResults-method}

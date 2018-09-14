@@ -3,28 +3,20 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqAnalysis,missingOrNULL-method}
-\alias{plotDEGPCA,DESeqResults,DESeqTransform-method}
-\alias{plotDEGPCA,DESeqResults,bcbioRNASeq-method}
+\alias{plotDEGPCA,DESeqAnalysis-method}
+\alias{plotDEGPCA,DESeqResults-method}
 \title{Plot DEG PCA}
 \usage{
-plotDEGPCA(object, counts, ...)
+plotDEGPCA(object, ...)
 
-\S4method{plotDEGPCA}{DESeqAnalysis,missingOrNULL}(object, counts = NULL,
-  results, direction = c("both", "up", "down"),
-  interestingGroups = NULL, color = getOption("bcbio.discrete.color",
-  NULL), label = getOption("bcbio.label", TRUE), return = c("ggplot",
-  "DataFrame"))
-
-\S4method{plotDEGPCA}{DESeqResults,DESeqTransform}(object, counts,
+\S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
   direction = c("both", "up", "down"), interestingGroups = NULL,
   color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", TRUE), return = c("ggplot",
   "DataFrame"))
 
-\S4method{plotDEGPCA}{DESeqResults,bcbioRNASeq}(object, counts,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-  direction = c("both", "up", "down"), interestingGroups = NULL,
+\S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
+  "up", "down"), interestingGroups = NULL,
   color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", TRUE), return = c("ggplot",
   "DataFrame"))
@@ -32,9 +24,9 @@ plotDEGPCA(object, counts, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{counts}{\code{matrix}. Normalized counts.}
-
 \item{...}{Additional arguments.}
+
+\item{counts}{\code{DESeqTransform}.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
@@ -54,12 +46,6 @@ To set the discrete color palette globally, use
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
-
-\item{normalized}{\code{string}. Which normalization method to apply:
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.
@@ -80,17 +66,10 @@ a way to look at how samples are clustering.
 # DESeqAnalysis ====
 plotDEGPCA(deseq_small)
 
-# DESeqResults, DESeqTransform ====
+# DESeqResults ====
 plotDEGPCA(
-    object = deseq_small@lfcShrink[[1L]],
-    counts = deseq_small@transform
-)
-
-# DESeqResults, bcbioRNASeq ====
-plotDEGPCA(
-    object = deseq_small@lfcShrink[[1L]],
-    counts = bcb_small,
-    normalized = "vst"
+    object = as(deseq_small, "DESeqResults"),
+    counts = as(deseq_small, "DESeqTransform")
 )
 }
 \seealso{
