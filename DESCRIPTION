@@ -181,6 +181,7 @@ Collate:
     'counts-methods.R'
     'data.R'
     'deprecated.R'
+    'export-methods.R'
     'extract-methods.R'
     'general.R'
     'globals.R'

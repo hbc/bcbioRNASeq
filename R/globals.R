@@ -7,7 +7,7 @@ legacyMetricsCols <- c("name", "x53Bias")
 metadataBlacklist <- bcbioBase::metadataBlacklist
 packageVersion <- packageVersion("bcbioRNASeq")
 projectDirPattern <- bcbioBase::projectDirPattern
-separatorBar <- basejump::separatorBar
+separatorBar <- basejump::separator()
 tximportAssays <- c("counts", "length", "tpm")
 tximportCallers <- c("salmon", "kallisto", "sailfish")
 updateMessage <- basejump::updateMessage
