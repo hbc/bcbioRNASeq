@@ -12,9 +12,7 @@ resultsTables(object, ...)
 \S4method{resultsTables}{DESeqResults}(object)
 
 \S4method{resultsTables}{DESeqAnalysis}(object, results,
-  lfcShrink = TRUE, rowData = TRUE, counts = TRUE, write = FALSE,
-  dir = ".", dropboxDir = NULL, rdsToken = NULL, markdown = FALSE,
-  headerLevel = 2L)
+  lfcShrink = TRUE, rowData = TRUE, counts = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -28,25 +26,6 @@ resultsTables(object, ...)
 \item{rowData}{\code{boolean}. Include gene annotations.}
 
 \item{counts}{\code{boolean}. Include DESeq2 normalized counts.}
-
-\item{write}{\code{boolean}. Write CSV files to disk.}
-
-\item{dir}{\code{string}. Local directory path.}
-
-\item{dropboxDir}{\code{string} or \code{NULL}. Dropbox directory path where to archive
-the results tables for permanent storage (e.g. Stem Cell Commons). When
-this option is enabled, unique links per file are generated internally with
-the rdrop2 package. Note that local files are written to \code{\link[base:tempdir]{base::tempdir()}}
-and the \code{dir} argument is ignored, if this is enabled.}
-
-\item{rdsToken}{\code{string} or \code{NULL}. RDS file token to use for Dropbox
-authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
-interactive prompt will appear requesting authorization.}
-
-\item{markdown}{\code{boolean}. Include Markdown links to file paths. Only applies
-when \code{write = TRUE}.}
-
-\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
 }
 \value{
 \code{DESeqResultsTables}.
@@ -64,15 +43,20 @@ on expected fold changes.
 \examples{
 # DESeqAnalysis ====
 # This is the recommended default method.
-x <- resultsTables(res)
+x <- resultsTables(deseq_small)
+print(x)
 
 # DESeqResults ====
-res <- deseq_small@lfcShrink[[1L]]
+res <- as(deseq_small, "DESeqResults")
 x <- resultsTables(res)
-class(x)
-slotNames(x)
+print(x)
 }
 \seealso{
+\itemize{
+\item \code{\link[=markdown]{markdown()}}.
+\item \code{\link[=write]{write()}}.
+}
+
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
   \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
