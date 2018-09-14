@@ -9,4 +9,8 @@
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 lfc <- 0.25
 
+dds_small <- as(deseq_small, "DESeqDataSet")
+vst_small <- as(deseq_small, "DESeqTransform")
+res_small <- as(deseq_small, "DESeqResults")
+
 # nolint end
