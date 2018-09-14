@@ -38,7 +38,11 @@ classes in Bioconductor.
 }
 \examples{
 x <- resultsTables(deseq_small)
-export(x, dir = "~")
+export(x, dir = "example")
+list.files("example")
+
+# Clean up
+unlink("example", recursive = TRUE)
 }
 \seealso{
 \code{\link[rio:export]{rio::export()}}.
