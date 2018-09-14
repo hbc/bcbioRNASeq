@@ -37,15 +37,15 @@
 #'   assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene basejump_geom_abline basejump_geom_label
-#'   basejump_geom_label_repel camel convertGenesToSymbols detectOrganism
-#'   emptyRanges fixNA flatFiles gene2symbol hasRownames initializeDirectory
-#'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups meltCounts methodFormals plotHeatmap prepareTemplate
-#'   printString readFileByExtension readYAML sampleData sanitizeRowData
-#'   sanitizeSampleData snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups
+#'   basejump_geom_label_repel camel coerceToList convertGenesToSymbols
+#'   detectOrganism emptyRanges fixNA gene2symbol hasRownames
+#'   initializeDirectory interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
+#'   methodFormals plotHeatmap prepareTemplate printString readFileByExtension
+#'   readYAML sampleData sanitizeRowData sanitizeSampleData separator snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
