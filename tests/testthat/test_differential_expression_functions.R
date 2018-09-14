@@ -1,3 +1,7 @@
+# FIXME Check against DESeqAnalysis
+
+
+
 context("Differential Expression Functions")
 
 gene2symbol <- gene2symbol(bcb_small)
@@ -13,14 +17,14 @@ test_that("alphaSummary : DESeqDataSet", {
     expect_is(object, "knitr_kable")
     expect_true(grepl("1e-06", object[[1L]]))
 
-    # contrast vector
+    # Contrast vector.
     object <- alphaSummary(
         object = dds_small,
         contrast = c("treatment", "folic_acid", "control")
     )
     expect_is(object, "knitr_kable")
 
-    # contrast name
+    # Contrast name.
     object <- alphaSummary(
         object = dds_small,
         name = "treatment_folic_acid_vs_control"
@@ -85,7 +89,7 @@ test_that("plotMA : DESeqResults", {
         "log2 fold change"
     )
     expect_identical(
-        object[["labels"]][["object"]],
+        object[["labels"]][["x"]],
         "mean expression across all samples"
     )
 })
@@ -93,8 +97,8 @@ test_that("plotMA : DESeqResults", {
 test_that("plotMA : Specific genes", {
     object <- plotMA(
         object = res_small,
-        genes = genes,
-        gene2symbol = gene2symbol(bcb_small)
+        genes = geneNames,
+        gene2symbol = gene2symbol
     )
     expect_is(object, "ggplot")
 })
@@ -103,7 +107,7 @@ test_that("plotMA: ntop mode", {
     object <- plotMA(
         object = res_small,
         ntop = 10L,
-        gene2symbol = gene2symbol(bcb_small)
+        gene2symbol = gene2symbol
     )
     expect_is(object, "ggplot")
 })
@@ -148,13 +152,25 @@ test_that("plotVolcano : DESeqResults", {
     expect_is(object, "ggplot")
 
     # Label specific genes
-    object <- plotVolcano(res_small, genes = genes, gene2symbol = gene2symbol)
+    object <- plotVolcano(
+        object = res_small,
+        genes = geneNames,
+        gene2symbol = gene2symbol
+    )
     expect_is(object, "ggplot")
 
     # Directional support
-    object <- plotVolcano(res_small, direction = "up", sigPointColor = "red")
+    object <- plotVolcano(
+        object = res_small,
+        direction = "up",
+        sigPointColor = "red"
+    )
     expect_is(object, "ggplot")
-    object <- plotVolcano(res_small, direction = "down", sigPointColor = "green")
+    object <- plotVolcano(
+        object = res_small,
+        direction = "down",
+        sigPointColor = "green"
+    )
     expect_is(object, "ggplot")
 
     # Return DataFrame
@@ -162,46 +178,15 @@ test_that("plotVolcano : DESeqResults", {
     expect_s4_class(object, "DataFrame")
 })
 
-# FIXME Improve counts pass-in checks
-# FIXME Check gene symbols
-
 
 
 # resultsTables ================================================================
-test_that("resultsTables : Default return with local files only", {
-    object <- resultsTables(
-        results = res_small,
-        counts = dds_small,
-        lfcThreshold = lfc,
-        summary = FALSE,
-        write = FALSE
-    )
-    expect_identical(class(object), "list")
-    expect_identical(
-        lapply(object, class),
-        list(
-            deg = "data.frame",
-            degLFC = "data.frame",
-            degLFCUp = "data.frame",
-            degLFCDown = "data.frame",
-            all = "data.frame",
-            contrast = "character",
-            alpha = "numeric",
-            lfcThreshold = "numeric"
-        )
-    )
-    # Ensure that the counts columns are correct
-    expect_identical(
-        rownames(dds_small),
-        rownames(object[["all"]])
-    )
-    expect_identical(
-        counts(dds_small, normalized = TRUE),
-        as.matrix(object[["all"]][, colnames(assay(dds_small))])
-    )
+test_that("resultsTables : DESeqResults", {
+    object <- resultsTables(res_small)
+    expect_s4_class(object, "DESeqResultsTables")
 })
 
-test_that("resultsTables : Summary and write support", {
+test_that("resultsTables : DESeqAnalysis", {
     # This is also capturing the contents of the list return. Not sure how to
     # fix here for knitr asis_output
     dir <- file.path(getwd(), "resultsTables")
@@ -290,14 +275,8 @@ test_that("resultsTables : Summary and write support", {
     )
 })
 
-# Providing a corresponding DESeqDataSet for counts is recommended
-test_that("resultsTables : DESeqResults minimal mode", {
-    object <- resultsTables(results = res_small)
-    expect_is(object, "list")
-})
-
 if (file.exists("token.rds")) {
-    test_that("resultsTables : Dropbox mode", {
+    test_that("resultsTables : DESeqAnalysis : Dropbox mode", {
         resTbl <- resultsTables(
             results = res_small,
             counts = dds_small,
