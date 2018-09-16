@@ -51,7 +51,7 @@ NULL
         }
 
         # Extract the results tables from the object.
-        tables <- coerceToList(x)[c("all", "deg", "degUp", "degDown")]
+        tables <- coerceS4ToList(x)[c("all", "deg", "degUp", "degDown")]
 
         # Local files (required) -----------------------------------------------
         stem <- snake(contrastName(x))

@@ -78,7 +78,7 @@ for legend labels. Note that hexadecimal values are not supported. If set
 improved aesthetics.}
 }
 \value{
-Show heatmap and invisibly return a \code{list} of the components.
+\code{pheatmap}.
 }
 \description{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is

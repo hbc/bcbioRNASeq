@@ -37,7 +37,7 @@
 #'   assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene basejump_geom_abline basejump_geom_label
-#'   basejump_geom_label_repel camel coerceToList convertGenesToSymbols
+#'   basejump_geom_label_repel camel coerceS4ToList convertGenesToSymbols
 #'   detectOrganism emptyRanges fixNA gene2symbol hasRownames
 #'   initializeDirectory interestingGroups interestingGroups<-
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames

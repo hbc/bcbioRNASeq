@@ -13,25 +13,25 @@
   "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
   NULL), legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  return = c("facet", "wide"))
+  style = c("facet", "wide"))
 
 \S4method{plotGene}{DESeqAnalysis}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
   legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  return = c("facet", "wide"))
+  style = c("facet", "wide"))
 
 \S4method{plotGene}{DESeqTransform}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
   legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  return = c("facet", "wide"))
+  style = c("facet", "wide"))
 
 \S4method{plotGene}{DESeqDataSet}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
   legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  return = c("facet", "wide"))
+  style = c("facet", "wide"))
 }
 \arguments{
 \item{object}{Object.}
@@ -60,14 +60,13 @@ To set the discrete color palette globally, use
 
 \item{headerLevel}{\code{scalar integer}. Markdown header level (1-7).}
 
-\item{return}{Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally and picks
-the first item in the vector by default.}
+\item{style}{\code{string}. Plot style.}
 }
 \value{
 \itemize{
-\item "\code{facet}": \code{ggplot} grouped by \code{sampleName}, with \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}
-applied to panel the samples.
-\item "\code{wide}": Show \code{ggplot} in wide format, with genes on the x-axis.
+\item \code{style = "facet"}: \code{ggplot} grouped by \code{sampleName}, with
+\code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} applied to panel the samples.
+\item \code{style = "wide"}: \code{ggplot} in wide format, with genes on the x-axis.
 }
 }
 \description{
@@ -102,8 +101,9 @@ plotGene(object, genes = geneNames, return = "wide")
 }
 \seealso{
 Other Plot Functions: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotHeatmap}},
-  \code{\link{plotQuantileHeatmap}}
+  \code{\link{plotHeatmap}}, \code{\link{plotQC}},
+  \code{\link{plotQuantileHeatmap}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
