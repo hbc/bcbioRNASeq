@@ -1,13 +1,12 @@
 #' Markdown
 #'
-#' Markdownify an S4 object.
-#'
 #' @name markdown
 #' @author Michael Steinbaugh
 #' @importFrom basejump markdown
+#' @inherit basejump::markdown
 #' @export
 #'
-#' @return [writeLines()] output.
+#' @inheritParams general
 #'
 #' @examples
 #' object <- resultsTables(deseq_small)
@@ -16,11 +15,7 @@ NULL
 
 
 
-#' @rdname markdown
-#' @export
-setMethod(
-    "markdown",
-    signature("DESeqResultsTables"),
+.markdown.DESeqResultsTables <-  # nolint
     function(
         object,
         headerLevel = 2L
@@ -89,4 +84,12 @@ setMethod(
         topTables(object)
     }
 
+
+
+#' @rdname markdown
+#' @export
+setMethod(
+    f = "markdown",
+    signature = signature("DESeqResultsTables"),
+    definition = .markdown.DESeqResultsTables
 )

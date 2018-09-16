@@ -8,11 +8,16 @@
 \usage{
 \S4method{markdown}{DESeqResultsTables}(object, headerLevel = 2L)
 }
+\arguments{
+\item{object}{Object.}
+
+\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
+}
 \value{
-\code{\link[=writeLines]{writeLines()}} output.
+Markdown output.
 }
 \description{
-Markdownify an S4 object.
+Markdown
 }
 \examples{
 object <- resultsTables(deseq_small)
