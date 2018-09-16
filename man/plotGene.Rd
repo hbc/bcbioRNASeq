@@ -85,19 +85,19 @@ plotGene(
     object = object,
     genes = geneIDs,
     normalized = "vst",
-    return = "facet"
+    style = "facet"
 )
 plotGene(
     object = object,
     genes = geneNames,
     normalized = "vst",
-    return = "wide"
+    style = "wide"
 )
 
 # DESeqAnalysis ====
 object <- deseq_small
-plotGene(object, genes = geneIDs, return = "facet")
-plotGene(object, genes = geneNames, return = "wide")
+plotGene(object, genes = geneIDs, style = "facet")
+plotGene(object, genes = geneNames, style = "wide")
 }
 \seealso{
 Other Plot Functions: \code{\link{plotCorrelationHeatmap}},

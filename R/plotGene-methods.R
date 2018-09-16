@@ -1,10 +1,3 @@
-# FIXME
-# Error in assert_engine(is_character, x, .xname = get_name_in_parent(x),  :
-# object 'geneIDs' not found
-# Not matching the environment in call correctly?
-
-
-
 #' Plot Gene Expression
 #'
 #' @name plotGene
@@ -30,19 +23,19 @@
 #'     object = object,
 #'     genes = geneIDs,
 #'     normalized = "vst",
-#'     return = "facet"
+#'     style = "facet"
 #' )
 #' plotGene(
 #'     object = object,
 #'     genes = geneNames,
 #'     normalized = "vst",
-#'     return = "wide"
+#'     style = "wide"
 #' )
 #'
 #' # DESeqAnalysis ====
 #' object <- deseq_small
-#' plotGene(object, genes = geneIDs, return = "facet")
-#' plotGene(object, genes = geneNames, return = "wide")
+#' plotGene(object, genes = geneIDs, style = "facet")
+#' plotGene(object, genes = geneNames, style = "wide")
 NULL
 
 
@@ -70,13 +63,10 @@ NULL
                     genes = genes,
                     countsAxisLabel = paste(normalized, "counts (log2)")
                 ),
-                removeFormals = "normalized",
-                verbose = TRUE
+                removeFormals = "normalized"
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotGene.bcbioRNASeq)
 f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "countsAxisLabel"))]
@@ -105,8 +95,6 @@ formals(.plotGene.bcbioRNASeq) <- f
             )
         )
     }
-
-# Assign the formals.
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f <- f[setdiff(names(f), "countsAxisLabel")]
 formals(.plotGene.DESeqDataSet) <- f
@@ -132,8 +120,6 @@ formals(.plotGene.DESeqDataSet) <- f
             )
         )
     }
-
-# Assign the formals.
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f <- f[setdiff(names(f), "countsAxisLabel")]
 formals(.plotGene.DESeqTransform) <- f
@@ -153,8 +139,6 @@ formals(.plotGene.DESeqTransform) <- f
             )
         )
     }
-
-# Assign the formals.
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f <- f[setdiff(names(f), "countsAxisLabel")]
 formals(.plotGene.DESeqAnalysis) <- f
