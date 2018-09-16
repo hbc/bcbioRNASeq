@@ -55,18 +55,18 @@ setMethod(
             pull("geneID")
 
         rse <- as(object, "RangedSummarizedExperiment")
-        return <- "wide"
+        style <- "wide"
         xPlot <- plotGene(
             object = rse,
             genes = xGenes,
-            return = return,
+            style = style,
             ...
         ) +
             ggtitle("X chromosome")
         yPlot <- plotGene(
             object = rse,
             genes = yGenes,
-            return = return,
+            style = style,
             ...
         ) +
             ggtitle("Y chromosome")
