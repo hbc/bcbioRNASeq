@@ -413,7 +413,7 @@ bcbioRNASeq <- function(
         message("Using `makeGRangesFromEnsembl()` for annotations")
         ah <- makeGRangesFromEnsembl(
             organism = organism,
-            format = level,
+            level = level,
             build = genomeBuild,
             release = ensemblRelease,
             metadata = TRUE
