@@ -29,11 +29,7 @@ NULL
 
 
 
-#' @rdname plotPCACovariates
-#' @export
-setMethod(
-    "plotPCACovariates",
-    signature("bcbioRNASeq"),
+.plotPCACovariates.bcbioRNASeq <-  # nolint
     function(
         object,
         metrics = TRUE,
@@ -71,10 +67,22 @@ setMethod(
         }
         metadata <- metadata[, col, drop = FALSE]
 
-        degCovariates(
-            counts = counts,
-            metadata = metadata,
-            ...
+        do.call(
+            what = degCovariates,
+            args = list(
+                counts = counts,
+                metadata = metadata,
+                ...
+            )
         )
     }
+
+
+
+#' @rdname plotPCACovariates
+#' @export
+setMethod(
+    f = "plotPCACovariates",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotPCACovariates.bcbioRNASeq
 )
