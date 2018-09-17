@@ -19,14 +19,3 @@
 #' @examples
 #' print(deseq_small)
 "deseq_small"
-
-
-
-#' Gender Marker Genes
-#'
-#' @author Michael Steinbaugh
-#' @keywords internal
-#'
-#' @examples
-#' names(gender_markers)
-"gender_markers"
