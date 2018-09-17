@@ -1,22 +1,17 @@
-# FIXME Need to improve the formals
+# FIXME Need to improve the formals to match basejump.
 
 
 
-#' Plot Sexually Dimorphic Gender Markers
-#'
-#' This is a convenience function that wraps [plotGene()] to quickly plot known
-#' sexually dimorphic genes. Currently only *Homo sapiens* and *Mus musculus*
-#' genomes are supported.
+#' Plot Sexually Dimorphic Gender Marker Genes
 #'
 #' @name plotGenderMarkers
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
+#' @importFrom basejump plotGenderMarkers
+#' @inherit basejump::plotGenderMarkers
 #' @export
 #'
-#' @inheritParams plotGene
 #' @inheritParams general
-#'
-#' @seealso [plotGene()].
 #'
 #' @return `ggplot`.
 #'
@@ -26,63 +21,13 @@
 #' plotGenderMarkers(object, normalized = "vst")
 #'
 #' # DESeqTransform ====
-#' object <- deseq_small@transform
+#' object <- as(deseq_small, "DESeqTransform")
 #' plotGenderMarkers(object)
 NULL
 
 
 
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("SummarizedExperiment"),
-    function(object, ...) {
-        validObject(object)
-        # Load the relevant internal gender markers data
-        organism <- metadata(object)[["organism"]]
-        assert_is_a_string(organism)
-        markers <- bcbioRNASeq::gender_markers
-        assert_is_subset(camel(organism), names(markers))
-        markers <- markers[[camel(organism)]]
-
-        # Get the X and Y chromosome marker genes
-        xGenes <- markers %>%
-            filter(!!sym("chromosome") == "X") %>%
-            pull("geneID")
-        yGenes <- markers %>%
-            filter(!!sym("chromosome") == "Y") %>%
-            pull("geneID")
-
-        rse <- as(object, "RangedSummarizedExperiment")
-        style <- "wide"
-        xPlot <- plotGene(
-            object = rse,
-            genes = xGenes,
-            style = style,
-            ...
-        ) +
-            ggtitle("X chromosome")
-        yPlot <- plotGene(
-            object = rse,
-            genes = yGenes,
-            style = style,
-            ...
-        ) +
-            ggtitle("Y chromosome")
-
-        plotlist <- list(x = xPlot, y = yPlot)
-        plot_grid(plotlist = plotlist)
-    }
-)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("bcbioRNASeq"),
+.plotGenderMarkers.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
@@ -98,33 +43,59 @@ setMethod(
         countsAxisLabel <- paste(normalized, "counts (log2)")
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = countsAxisLabel,
-            ...
+        do.call(
+            what = plotGenderMarkers,
+            args = list(
+                object = rse,
+                countsAxisLabel = countsAxisLabel,
+                ...
+            )
         )
     }
-)
 
 
 
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("DESeqDataSet"),
+.plotGenderMarkers.DESeqDataSet <-  # nolint
     function(object, ...) {
         validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         countsAxisLabel <- "normalized counts (log2)"
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = countsAxisLabel,
-            ...
+        do.call(
+            what = plotGenderMarkers,
+            args = list(
+                object = rse,
+                countsAxisLabel = countsAxisLabel,
+                ...
+            )
         )
     }
+
+
+
+.plotGenderMarkers.DESeqTransform <-  # nolint
+    function(object, ...) {
+        validObject(object)
+        rse <- as(object, "RangedSummarizedExperiment")
+        do.call(
+            what = plotGenderMarkers,
+            args = list(
+                object = rse,
+                countsAxisLabel = .transformCountsAxisLabel(object),
+                ...
+            )
+        )
+    }
+
+
+
+#' @rdname plotGenderMarkers
+#' @export
+setMethod(
+    f = "plotGenderMarkers",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotGenderMarkers.bcbioRNASeq
 )
 
 
@@ -132,15 +103,17 @@ setMethod(
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
-    "plotGenderMarkers",
-    signature("DESeqTransform"),
-    function(object, ...) {
-        validObject(object)
-        rse <- as(object, "RangedSummarizedExperiment")
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = .transformCountsAxisLabel(object),
-            ...
-        )
-    }
+    f = "plotGenderMarkers",
+    signature = signature("DESeqDataSet"),
+    definition = .plotGenderMarkers.DESeqDataSet
+)
+
+
+
+#' @rdname plotGenderMarkers
+#' @export
+setMethod(
+    f = "plotGenderMarkers",
+    signature = signature("DESeqTransform"),
+    definition = .plotGenderMarkers.DESeqTransform
 )

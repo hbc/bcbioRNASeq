@@ -3,15 +3,12 @@
 \docType{methods}
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
-\alias{plotGenderMarkers,SummarizedExperiment-method}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \alias{plotGenderMarkers,DESeqDataSet-method}
 \alias{plotGenderMarkers,DESeqTransform-method}
-\title{Plot Sexually Dimorphic Gender Markers}
+\title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
 plotGenderMarkers(object, ...)
-
-\S4method{plotGenderMarkers}{SummarizedExperiment}(object, ...)
 
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "tpm", "rle"), ...)
@@ -35,9 +32,7 @@ plotGenderMarkers(object, ...)
 \code{ggplot}.
 }
 \description{
-This is a convenience function that wraps \code{\link[=plotGene]{plotGene()}} to quickly plot known
-sexually dimorphic genes. Currently only \emph{Homo sapiens} and \emph{Mus musculus}
-genomes are supported.
+Plot Sexually Dimorphic Gender Marker Genes
 }
 \examples{
 # bcbioRNASeq ====
@@ -45,12 +40,10 @@ object <- bcb_small
 plotGenderMarkers(object, normalized = "vst")
 
 # DESeqTransform ====
-object <- deseq_small@transform
+object <- as(deseq_small, "DESeqTransform")
 plotGenderMarkers(object)
 }
 \seealso{
-\code{\link[=plotGene]{plotGene()}}.
-
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotCountsPerGene}},
