@@ -1,6 +1,7 @@
 #' Export
 #'
 #' @name export
+#' @author Michael Steinbaugh
 #' @importFrom basejump export
 #' @inherit basejump::export
 #' @export

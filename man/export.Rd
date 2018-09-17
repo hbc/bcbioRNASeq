@@ -47,3 +47,6 @@ unlink("example", recursive = TRUE)
 \seealso{
 \code{\link[rio:export]{rio::export()}}.
 }
+\author{
+Michael Steinbaugh
+}
