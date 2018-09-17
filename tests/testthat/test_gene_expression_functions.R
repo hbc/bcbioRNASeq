@@ -1,44 +1,33 @@
 context("Gene Expression Functions")
 
-genes <- head(rownames(bcb_small), 4L)
 gene2symbol <- gene2symbol(bcb_small)
+geneIDs <- head(gene2symbol[["geneID"]])
+geneNames <- head(gene2symbol[["geneName"]])
 
 
 
 # plotGenderMarkers ============================================================
-test_that("plotGenderMarkers : bcbioRNASeq", {
-    # vst
-    p <- plotGenderMarkers(bcb_small, normalized = "vst")
-    expect_is(p, "ggplot")
-
-    # tpm
-    p <- plotGenderMarkers(bcb_small, normalized = "tpm")
-    expect_is(p, "ggplot")
-})
-
-test_that("plotGenderMarkers : DESeqDataSet", {
-    p <- plotGenderMarkers(dds_small, interestingGroups = "treatment")
-    expect_is(p, "ggplot")
-})
-
-test_that("plotGenderMarkers : DESeqTransform", {
-    # rlog
-    p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
-    expect_is(p, "ggplot")
-
-    # vst
-    p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
-    expect_is(p, "ggplot")
-})
+with_parameters_test_that(
+    "plotGenderMarkers", {
+        x <- plotGenderMarkers(object)
+        expect_is(x, "ggplot")
+    },
+    object = list(
+        bcbioRNASeq = bcb_small,
+        DESeqDataSet = dds_small,
+        DESeqTransform = vst_small
+    )
+)
 
 
 
 # plotGene =====================================================================
+# FIXME parameterize
 test_that("plotGene : bcbioRNASeq", {
     # facet
     p <- plotGene(
         object = bcb_small,
-        genes = genes,
+        genes = geneNames,
         normalized = "vst",
         interestingGroups = "sampleName",
         style = "facet"
@@ -48,7 +37,7 @@ test_that("plotGene : bcbioRNASeq", {
     # wide
     p <- plotGene(
         object = bcb_small,
-        genes = genes,
+        genes = geneNames,
         normalized = "tpm",
         style = "wide"
     )
@@ -56,23 +45,24 @@ test_that("plotGene : bcbioRNASeq", {
 })
 
 test_that("plotGene : DESeqDataSet", {
-    p <- plotGene(dds_small, genes = genes)
+    p <- plotGene(dds_small, genes = geneNames)
     expect_is(p, "ggplot")
 })
 
 test_that("plotGene : DESeqTransform", {
     # rlog
-    p <- plotGene(rlog_small, genes = genes)
+    p <- plotGene(rlog_small, genes = geneNames)
     expect_is(p, "ggplot")
 
     # vst
-    p <- plotGene(vst_small, genes = genes)
+    p <- plotGene(vst_small, genes = geneNames)
     expect_is(p, "ggplot")
 })
 
 
 
 # plotHeatmap ==================================================================
+# FIXME parameterize
 test_that("plotHeatmap : bcbioRNASeq", {
     genes <- head(rownames(bcb_small), n = 100L)
     p <- plotHeatmap(bcb_small[genes, ])
