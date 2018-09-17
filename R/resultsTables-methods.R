@@ -1,8 +1,3 @@
-# TODO Consider adding back `lfcThreshold` argument.
-# TODO Consider adding information to elementMetadata.
-
-
-
 #' Differential Expression Results Tables
 #'
 #' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
