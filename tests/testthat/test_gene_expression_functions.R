@@ -41,7 +41,7 @@ test_that("plotGene : bcbioRNASeq", {
         genes = genes,
         normalized = "vst",
         interestingGroups = "sampleName",
-        return = "facet"
+        style = "facet"
     )
     expect_is(p, "ggplot")
 
@@ -50,7 +50,7 @@ test_that("plotGene : bcbioRNASeq", {
         object = bcb_small,
         genes = genes,
         normalized = "tpm",
-        return = "wide"
+        style = "wide"
     )
     expect_is(p, "ggplot")
 })
@@ -73,15 +73,14 @@ test_that("plotGene : DESeqTransform", {
 
 
 # plotHeatmap ==================================================================
-# FIXME Check for is pheatmap instead
 test_that("plotHeatmap : bcbioRNASeq", {
     genes <- head(rownames(bcb_small), n = 100L)
     p <- plotHeatmap(bcb_small[genes, ])
-    expect_identical(names(p), pheatmapNames)
+    expect_is(p, "pheatmap")
 })
 
 test_that("plotHeatmap : DESeqDataSet", {
     genes <- head(rownames(dds_small), n = 20L)
     p <- plotHeatmap(dds_small[genes, ])
-    expect_identical(names(p), pheatmapNames)
+    expect_is(p, "pheatmap")
 })
