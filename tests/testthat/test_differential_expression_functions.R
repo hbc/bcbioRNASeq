@@ -1,7 +1,3 @@
-# FIXME Check against DESeqAnalysis
-
-
-
 context("Differential Expression Functions")
 
 gene2symbol <- gene2symbol(bcb_small)
@@ -34,32 +30,39 @@ test_that("alphaSummary : DESeqDataSet", {
 
 
 
-# plotDEG* =====================================================================
+# plotDEGHeatmap ===============================================================
 with_parameters_test_that(
-    "plotDEG*", {
-        with_parameters_test_that(
-            "plotDEG* : Class", {
-                expect_is(
-                    object = do.call(what = fun, args = args),
-                    class = class
-                )
-            },
-            args = list(
-                DESeqResults = list(
-                    object = res_small,
-                    counts = vst_small
-                ),
-                DESeqAnalysis = list(object = deseq_small)
-            )
+    "plotDEGHeatmap", {
+        expect_is(
+            object = do.call(what = plotDEGHeatmap, args = args),
+            class = "pheatmap"
         )
     },
-    fun = list(
-        plotDEGHeatmap,
-        plotDEGPCA
-    ),
-    class = c(
-        "pheatmap",
-        "ggplot"
+    args = list(
+        DESeqResults = list(
+            object = res_small,
+            counts = vst_small
+        ),
+        DESeqAnalysis = list(object = deseq_small)
+    )
+)
+
+
+
+# plotDEGPCA ===================================================================
+with_parameters_test_that(
+    "plotDEGPCA", {
+        expect_is(
+            object = do.call(what = plotDEGPCA, args = args),
+            class = "ggplot"
+        )
+    },
+    args = list(
+        DESeqResults = list(
+            object = res_small,
+            counts = vst_small
+        ),
+        DESeqAnalysis = list(object = deseq_small)
     )
 )
 
@@ -181,127 +184,15 @@ test_that("plotVolcano : DESeqResults", {
 
 
 # resultsTables ================================================================
-test_that("resultsTables : DESeqResults", {
-    object <- resultsTables(res_small)
-    expect_s4_class(object, "DESeqResultsTables")
-})
-
-test_that("resultsTables : DESeqAnalysis", {
-    # This is also capturing the contents of the list return. Not sure how to
-    # fix here for knitr asis_output
-    dir <- file.path(getwd(), "resultsTables")
-    output <- capture.output(
-        resultsTables(
-            results = res_small,
-            counts = dds_small,
-            lfcThreshold = lfc,
-            summary = TRUE,
-            headerLevel = 2L,
-            write = TRUE,
-            dir = "resultsTables"
-        ),
-        type = "output"
-    ) %>%
-        # Just evaluate the R Markdown output
-        head(28L)
-    expect_identical(
-        output,
-        c(
-            "",
-            "",
-            "## treatment folic acid vs control",
-            "",
-            "",
-            "",
-            "### Summary statistics",
-            "",
-            "",
-            "- 500 genes in counts matrix",
-            "- Base mean > 0: 500 genes (non-zero)",
-            "- Base mean > 1: 500 genes",
-            "- Alpha: 0.1",
-            "- LFC threshold: 0.25",
-            "- DEG pass alpha: 254 genes",
-            "- DEG LFC up: 115 genes",
-            "- DEG LFC down: 139 genes",
-            "",
-            "",
-            "",
-            "### Results tables",
-            "",
-            "",
-            paste0(
-                "- [`treatment_folic_acid_vs_control_all.csv.gz`]",
-                "(",
-                file.path(
-                    dir,
-                    "treatment_folic_acid_vs_control_all.csv.gz"
-                ),
-                "): ",
-                "All genes, sorted by Ensembl identifier."
-            ),
-            paste0(
-                "- [`treatment_folic_acid_vs_control_deg.csv.gz`]",
-                "(",
-                file.path(
-                    dir,
-                    "treatment_folic_acid_vs_control_deg.csv.gz"
-                ),
-                "): ",
-                "Genes that pass the alpha (FDR) cutoff."
-            ),
-            paste0(
-                "- [`treatment_folic_acid_vs_control_deg_lfc_up.csv.gz`]",
-                "(",
-                file.path(
-                    dir,
-                    "treatment_folic_acid_vs_control_deg_lfc_up.csv.gz"
-                ),
-                "): ",
-                "Upregulated DEG; positive log2 fold change."
-            ),
-            paste0(
-                "- [`treatment_folic_acid_vs_control_deg_lfc_down.csv.gz`]",
-                "(",
-                file.path(
-                    dir,
-                    "treatment_folic_acid_vs_control_deg_lfc_down.csv.gz"
-                ),
-                "): ",
-                "Downregulated DEG; negative log2 fold change."
-            ),
-            ""
+with_parameters_test_that(
+    "resultsTables", {
+        expect_s4_class(
+            object = resultsTables(object),
+            class = "DESeqResultsTables"
         )
+    },
+    object = list(
+        DESeqAnalysis = deseq_small,
+        DESeqResults = res_small
     )
-})
-
-if (file.exists("token.rds")) {
-    test_that("resultsTables : DESeqAnalysis : Dropbox mode", {
-        resTbl <- resultsTables(
-            results = res_small,
-            counts = dds_small,
-            lfcThreshold = lfc,
-            summary = FALSE,
-            write = TRUE,
-            dir = "resultsTables",
-            dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-            rdsToken = "token.rds"
-        )
-        expect_true("dropboxFiles" %in% names(resTbl))
-        # Check for Dropbox URLs
-        expect_true(all(vapply(
-            X = resTbl[["dropboxFiles"]],
-            FUN = function(file) {
-                grepl("^https://www.dropbox.com/s/", file[["url"]])
-            },
-            FUN.VALUE = logical(1L)
-        )))
-        # Now check the Markdown code
-        output <- capture.output(.markdownResultsTables(resTbl))
-        # The function currently returns links to 4 DEG files
-        expect_identical(
-            length(which(grepl("https://www.dropbox.com/s/", output))),
-            4L
-        )
-    })
-}
+)
