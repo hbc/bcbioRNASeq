@@ -69,117 +69,138 @@ with_parameters_test_that(
 
 
 # plotMA =======================================================================
-test_that("plotMA : DESeqResults", {
-    object <- plotMA(res_small)
-    expect_is(object, "ggplot")
+with_parameters_test_that(
+    "plotMA", {
+        x <- plotMA(object)
+        expect_is(x, "ggplot")
 
-    # Check geom classes
-    geomtype <- vapply(
-        X = object[["layers"]],
-        FUN = function(object) {
-            class(object[["geom"]])[[1L]]
-        },
-        FUN.VALUE = character(1L)
-    )
-    expect_identical(
-        geomtype,
-        c("GeomHline", "GeomPoint", "GeomLogticks")
-    )
+        # Check geom classes.
+        geomtype <- vapply(
+            X = x[["layers"]],
+            FUN = function(x) {
+                class(x[["geom"]])[[1L]]
+            },
+            FUN.VALUE = character(1L)
+        )
+        expect_identical(
+            object = geomtype,
+            expected = c("GeomHline", "GeomPoint", "GeomLogticks")
+        )
 
-    # Check plot labels
-    expect_identical(
-        object[["labels"]][["y"]],
-        "log2 fold change"
-    )
-    expect_identical(
-        object[["labels"]][["x"]],
-        "mean expression across all samples"
-    )
-})
+        # Check plot labels.
+        expect_identical(
+            object = x[["labels"]][["y"]],
+            expected = "log2 fold change"
+        )
+        expect_identical(
+            object = x[["labels"]][["x"]],
+            expected = "mean expression across all samples"
+        )
 
-test_that("plotMA : Specific genes", {
-    object <- plotMA(
-        object = res_small,
-        genes = geneNames,
-        gene2symbol = gene2symbol
-    )
-    expect_is(object, "ggplot")
-})
+        # Directional support.
+        x <- plotMA(
+            object = object,
+            direction = "up",
+            sigPointColor = "red"
+        )
+        expect_is(x, "ggplot")
+        x <- plotMA(
+            object = object,
+            direction = "down",
+            sigPointColor = "green"
+        )
+        expect_is(x, "ggplot")
 
-test_that("plotMA: ntop mode", {
-    object <- plotMA(
-        object = res_small,
-        ntop = 10L,
-        gene2symbol = gene2symbol
-    )
-    expect_is(object, "ggplot")
-})
+        # Label the top genes.
+        args <- list(
+            object = object,
+            ntop = 10L
+        )
+        if (!is(object, "DESeqAnalysis")) {
+            args[["gene2symbol"]] <- gene2symbol
+        }
+        x <- do.call(what = plotMA, args = args)
+        expect_is(x, "ggplot")
 
-test_that("plotMA : Directional support", {
-    # Upregulated
-    object <- plotMA(
-        object = res_small,
-        direction = "up",
-        sigPointColor = "red"
-    )
-    expect_is(object, "ggplot")
+        # Label specific genes.
+        args <- list(
+            object = object,
+            genes = geneNames
+        )
+        if (!is(object, "DESeqAnalysis")) {
+            args[["gene2symbol"]] <- gene2symbol
+        }
+        x <- do.call(what = plotMA, args = args)
+        expect_is(x, "ggplot")
 
-    # Downregulated
-    object <- plotMA(
-        object = res_small,
-        direction = "down",
-        sigPointColor = "green"
+        # DataFrame return.
+        x <- plotMA(object, return = "DataFrame")
+        expect_s4_class(x, "DataFrame")
+        expect_true("isDE" %in% colnames(x))
+    },
+    object = list(
+        DESeqAnalysis = deseq_small,
+        DESeqResults = res_small
     )
-    expect_is(object, "ggplot")
-})
-
-test_that("plotMA : DataFrame return", {
-    object <- plotMA(res_small, return = "DataFrame")
-    expect_s4_class(object, "DataFrame")
-    expect_true("isDE" %in% colnames(object))
-})
+)
 
 
 
 # plotVolcano ==================================================================
-test_that("plotVolcano : DESeqResults", {
-    object <- plotVolcano(res_small, gene2symbol = gene2symbol)
-    expect_is(object, "ggplot")
+with_parameters_test_that(
+    "plotVolcano", {
+        x <- plotVolcano(object)
+        expect_is(x, "ggplot")
 
-    # Enable histograms
-    object <- plotVolcano(res_small, histograms = TRUE)
-    expect_is(object, "ggplot")
+        # Enable histograms.
+        x <- plotVolcano(object, histograms = TRUE)
+        expect_is(x, "ggplot")
 
-    # Label the top genes
-    object <- plotVolcano(res_small, ntop = 5L, gene2symbol = gene2symbol)
-    expect_is(object, "ggplot")
+        # Directional support.
+        x <- plotVolcano(
+            object = object,
+            direction = "up",
+            sigPointColor = "red"
+        )
+        expect_is(x, "ggplot")
+        x <- plotVolcano(
+            object = object,
+            direction = "down",
+            sigPointColor = "green"
+        )
+        expect_is(x, "ggplot")
 
-    # Label specific genes
-    object <- plotVolcano(
-        object = res_small,
-        genes = geneNames,
-        gene2symbol = gene2symbol
+        # Label the top genes.
+        args <- list(
+            object = object,
+            ntop = 5L
+        )
+        if (!is(object, "DESeqAnalysis")) {
+            args[["gene2symbol"]] <- gene2symbol
+        }
+        x <- do.call(what = plotVolcano, args = args)
+        expect_is(x, "ggplot")
+
+        # Label specific genes.
+        args <- list(
+            object = object,
+            genes = geneNames
+        )
+        if (!is(object, "DESeqAnalysis")) {
+            args[["gene2symbol"]] <- gene2symbol
+        }
+        x <- do.call(what = plotVolcano, args = args)
+        expect_is(x, "ggplot")
+
+        # Return DataFrame.
+        x <- plotVolcano(object, return = "DataFrame")
+        expect_s4_class(x, "DataFrame")
+    },
+    object = list(
+        DESeqAnalysis = deseq_small,
+        DESeqResults = res_small
     )
-    expect_is(object, "ggplot")
-
-    # Directional support
-    object <- plotVolcano(
-        object = res_small,
-        direction = "up",
-        sigPointColor = "red"
-    )
-    expect_is(object, "ggplot")
-    object <- plotVolcano(
-        object = res_small,
-        direction = "down",
-        sigPointColor = "green"
-    )
-    expect_is(object, "ggplot")
-
-    # Return DataFrame
-    object <- plotVolcano(res_small, return = "DataFrame")
-    expect_s4_class(object, "DataFrame")
-})
+)
 
 
 
