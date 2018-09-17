@@ -11,6 +11,8 @@ lfc <- 0.25
 
 dds_small <- as(deseq_small, "DESeqDataSet")
 vst_small <- as(deseq_small, "DESeqTransform")
+# FIXME Consider loading a pre-saved object, for speed.
+rlog_small <- DESeq2::rlog(dds_small)
 res_small <- as(deseq_small, "DESeqResults")
 
 # nolint end

@@ -11,75 +11,86 @@ skipWarning <- paste(
 
 
 
-# Loop across QC plots =========================================================
-test_that("Plots supporting interesting groups", {
-    fxns <- c(
-        "plot5Prime3PrimeBias",
-        "plotCountDensity",
-        "plotCountsPerGene",
-        "plotExonicMappingRate",
-        "plotGeneSaturation",
-        "plotGenesDetected",
-        "plotIntronicMappingRate",
-        "plotMappedReads",
-        "plotMappingRate",
-        "plotPCA",
-        "plotRRNAMappingRate",
-        "plotTotalReads"
+# QC plots with interesting groups =============================================
+with_parameters_test_that(
+    "Plots supporting interesting groups", {
+        expect_is(fun, "function")
+        object <- fun(object = bcb_small)
+        expect_is(object, "ggplot")
+        object <- fun(object = bcb_small, interestingGroups = "sampleName")
+        expect_is(object, "ggplot")
+    },
+    fun = list(
+        plot5Prime3PrimeBias,
+        plotCountDensity,
+        plotCountsPerGene,
+        plotExonicMappingRate,
+        plotGeneSaturation,
+        plotGenesDetected,
+        plotIntronicMappingRate,
+        plotMappedReads,
+        plotMappingRate,
+        plotPCA,
+        plotRRNAMappingRate,
+        plotTotalCounts,
+        plotTotalReads
     )
-    invisible(lapply(fxns, function(fxn) {
-        fxn <- get(fxn, inherits = TRUE)
-        expect_is(fxn, "nonstandardGenericFunction")
-        p <- fxn(object = bcb_small)
-        expect_is(p, "ggplot")
-        p <- fxn(object = bcb_small, interestingGroups = "sampleName")
-        expect_is(p, "ggplot")
-    }))
-})
+)
 
 
 
-# FIXME Check for is pheatmap instead
 # plotCorrelationHeatmap =======================================================
-test_that("plotCorrelationHeatmap : bcbioRNASeq", {
-    # Pearson (default)
-    p <- plotCorrelationHeatmap(bcb_small)
-    expect_identical(names(p), pheatmapNames)
-    # Spearman
-    p <- plotCorrelationHeatmap(bcb_small, method = "spearman")
-    expect_identical(names(p), pheatmapNames)
-    # Bad method
-    expect_error(
-        plotCorrelationHeatmap(bcb_small, method = "XXX"),
-        "'arg' should be one of"
+with_parameters_test_that(
+    "plotCorrelationHeatmap", {
+        # Pearson
+        expect_is(
+            object = plotCorrelationHeatmap(object, method = "pearson"),
+            class = "pheatmap"
+        )
+        # Spearman
+        expect_is(
+            object = plotCorrelationHeatmap(object, method = "spearman"),
+            class = "pheatmap"
+        )
+        # Bad method
+        expect_error(
+            object = plotCorrelationHeatmap(object, method = "XXX"),
+            regexp = "'arg' should be one of"
+        )
+    },
+    object = list(
+        bcbioRNASeq = bcb_small,
+        DESeqDataSet = dds_small,
+        DESeqResults = vst_small
     )
-})
+)
 
-test_that("plotCorrelationHeatmap : DESeqTransform", {
-    p <- plotCorrelationHeatmap(vst_small)
-    expect_identical(names(p), pheatmapNames)
-})
-
-test_that("plotCorrelationHeatmap : transformationLimit", {
+test_that("plotCorrelationHeatmap : Skipped DESeq transform", {
     expect_warning(
-        plotCorrelationHeatmap(skip, normalized = "rlog"),
-        skipWarning
+        object = plotCorrelationHeatmap(skip, normalized = "rlog"),
+        regexp = skipWarning
     )
-    p <- suppressWarnings(plotCorrelationHeatmap(skip, normalized = "rlog"))
-    expect_identical(names(p), pheatmapNames)
+    expect_is(
+        object = suppressWarnings(
+            plotCorrelationHeatmap(skip, normalized = "rlog")
+        ),
+        class = "pheatmap"
+    )
 })
 
 
 
 # plotCountsPerGene ============================================================
 test_that("plotCountsPerGene", {
-    p <- plotCountsPerGene(
-        object = bcb_small,
-        normalized = "vst",
-        title = NULL,
-        interestingGroups = "sampleName"
+    expect_is(
+        object = plotCountsPerGene(
+            object = bcb_small,
+            normalized = "vst",
+            title = NULL,
+            interestingGroups = "sampleName"
+        ),
+        class = "ggplot"
     )
-    expect_is(p, "ggplot")
 })
 
 
@@ -87,61 +98,61 @@ test_that("plotCountsPerGene", {
 # plotCountDensity =============================================================
 test_that("plotCountDensity", {
     # solid style
-    p <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
-    expect_is(p, "ggplot")
+    object <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
+    expect_is(object, "ggplot")
 
     # vst
     # Set title = NULL to check disabling of subtitle
-    p <- plotCountDensity(
+    object <- plotCountDensity(
         object = bcb_small,
         normalized = "vst",
         interestingGroups = "sampleName",
         title = NULL
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 })
 
 
 
 # plotGeneSaturation ===========================================================
 test_that("plotGeneSaturation", {
-    p <- plotGeneSaturation(
+    object <- plotGeneSaturation(
         object = bcb_small,
         trendline = TRUE,
         label = TRUE
     )
-    expect_is(p, "ggplot")
+    expect_is(object, "ggplot")
 })
 
 
 
 # plotMeanSD ===================================================================
 test_that("plotMeanSD : DESeqDataSet", {
-    p <- plotMeanSD(dds_small)
-    expect_is(p, "ggplot")
+    object <- plotMeanSD(dds_small)
+    expect_is(object, "ggplot")
 })
 
 test_that("plotMeanSD : bcbioRNASeq : No stashed DESeq transforms", {
     x <- bcb_small
     assays(x)[["rlog"]] <- NULL
     assays(x)[["vst"]] <- NULL
-    p <- plotMeanSD(x)
-    expect_is(p, "ggplot")
+    object <- plotMeanSD(x)
+    expect_is(object, "ggplot")
 })
 
 
 
 # plotPCA ======================================================================
 test_that("plotPCA : Label", {
-    p <- plotPCA(bcb_small, label = FALSE)
-    expect_is(p, "ggplot")
-    p <- plotPCA(bcb_small, label = TRUE)
-    expect_is(p, "ggplot")
+    object <- plotPCA(bcb_small, label = FALSE)
+    expect_is(object, "ggplot")
+    object <- plotPCA(bcb_small, label = TRUE)
+    expect_is(object, "ggplot")
 })
 
 test_that("plotPCA : data.frame", {
-    p <- plotPCA(bcb_small, return = "data.frame")
-    expect_is(p, "data.frame")
+    object <- plotPCA(bcb_small, return = "data.frame")
+    expect_is(object, "data.frame")
 })
 
 test_that("plotPCA : transformationLimit", {
@@ -149,8 +160,8 @@ test_that("plotPCA : transformationLimit", {
         plotPCA(skip, normalized = "rlog"),
         skipWarning
     )
-    p <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
-    expect_is(p, "ggplot")
+    object <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
+    expect_is(object, "ggplot")
 })
 
 
@@ -159,10 +170,10 @@ test_that("plotPCA : transformationLimit", {
 test_that("plotPCACovariates", {
     # BioC 3.6 version of DEGreport returns warnings.
     # Test against GitHub version >= 1.15
-    p <- plotPCACovariates(bcb_small)
-    expect_is(p, "list")
+    object <- plotPCACovariates(bcb_small)
+    expect_is(object, "list")
     expect_identical(
-        names(p),
+        names(object),
         c("significantCovars",
           "plot",
           "corMatrix",
@@ -173,19 +184,19 @@ test_that("plotPCACovariates", {
 })
 
 test_that("plotPCACovariates : Metrics", {
-    p <- plotPCACovariates(
+    object <- plotPCACovariates(
         object = bcb_small,
         metrics = c("exonicRate", "intronicRate")
     )
     # Don't expect these to be significant with the example dataset
     expect_identical(
-        as.character(p[["significantCovars"]]),
+        as.character(object[["significantCovars"]]),
         character()
     )
 
     # If metrics = FALSE, we require at least 2 interesting groups
     expect_error(
-        p <- plotPCACovariates(bcb_small, metrics = FALSE),
+        object <- plotPCACovariates(bcb_small, metrics = FALSE),
         "`plotPCACovariates\\(\\)` requires >= 2 metrics"
     )
 })
@@ -195,18 +206,18 @@ test_that("plotPCACovariates : Skip DESeq2 transforms", {
         plotPCACovariates(skip, normalized = "rlog"),
         skipWarning
     )
-    p <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
-    expect_is(p, "ggplot")
+    object <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
+    expect_is(object, "ggplot")
 })
 
 
 
 # plotDispEsts =================================================================
 test_that("plotDispEsts", {
-    p <- plotDispEsts(bcb_small)
-    expect_is(p, "list")
+    object <- plotDispEsts(bcb_small)
+    expect_is(object, "list")
     expect_identical(
-        names(p),
+        names(object),
         c("rect", "text")
     )
 })

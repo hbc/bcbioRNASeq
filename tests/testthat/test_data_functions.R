@@ -16,18 +16,18 @@ test_that("aggregateCols", {
     aggregate <- as.factor(sub("^([a-z0-9]+)_.*", "\\1", colnames(object)))
     names(aggregate) <- colnames(object)
     object[["aggregate"]] <- aggregate
-    object <- aggregateCols(object)
+    x <- aggregateCols(object)
     expect_identical(
-        object = colnames(object),
+        object = colnames(x),
         expected = c("group1", "group2")
     )
     expect_identical(
-        object = sum(counts(object)),
-        expected = sum(counts(bcb))
+        object = sum(counts(x)),
+        expected = sum(counts(object))
     )
     expect_equal(
-        object = rowSums(counts(object)),
-        expected = rowSums(counts(bcb))
+        object = rowSums(counts(x)),
+        expected = rowSums(counts(object))
     )
 })
 
@@ -36,15 +36,16 @@ test_that("aggregateCols", {
 # counts =======================================================================
 with_parameters_test_that(
     "counts : Slotted assays", {
+        object <- bcb
         # Check that all are matrices.
         expect_is(
-            object = counts(bcb, normalized = normalized),
+            object = counts(object, normalized = normalized),
             class = "matrix"
         )
         # Check that we're matching the expected assay matrix.
         expect_identical(
-            object = counts(bcb, normalized = normalized),
-            expected = assays(bcb)[[assay]]
+            object = counts(object, normalized = normalized),
+            expected = assays(object)[[assay]]
         )
     },
     normalized = list(
@@ -65,11 +66,12 @@ with_parameters_test_that(
 
 with_parameters_test_that(
     "counts : On the fly assays", {
+        object <- bcb
         expect_is(
-            object = counts(bcb, normalized = normalized),
+            object = counts(object, normalized = normalized),
             class = "matrix"
         )
-        expect_null(assays(bcb)[[normalized]])
+        expect_null(assays(object)[[normalized]])
     },
     normalized = c("tmm", "rle")
 )
@@ -108,27 +110,31 @@ test_that("interestingGroups : NULL validity checks", {
 
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
-    object <- sampleData(bcb, clean = FALSE)
+    object <- bcb
+    x <- sampleData(object, clean = FALSE)
 
     # Return `interestingGroups` factor column by default.
-    expect_is(object[["interestingGroups"]], "factor")
+    expect_is(x[["interestingGroups"]], "factor")
 
     # Otherwise it should be identical to `colData`.
-    object[["interestingGroups"]] <- NULL
-    expected <- colData(bcb)
-    expect_identical(object, expected)
+    x[["interestingGroups"]] <- NULL
+    expect_identical(
+        object = x,
+        expected = colData(object)
+    )
 })
 
 test_that("sampleData : Clean mode", {
-    object <- sampleData(bcb, clean = TRUE)
+    object <- bcb
+    x <- sampleData(object, clean = TRUE)
     # Return only useful factor columns.
     expect_identical(
-        object = colnames(object),
+        object = colnames(x),
         expected = c("sampleName", "group")
     )
     # Require that all clean columns are factor.
-    invisible(lapply(object, function(object) {
-        expect_is(object, "factor")
+    invisible(lapply(x, function(x) {
+        expect_is(x, "factor")
     }))
 })
 
