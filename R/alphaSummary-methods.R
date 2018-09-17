@@ -33,12 +33,8 @@ NULL
 
 
 
-#' @rdname alphaSummary
-#' @export
-setMethod(
-    f = "alphaSummary",
-    signature = signature("DESeqDataSet"),
-    definition = function(
+.alphaSummary.DESeqDataSet <-  # nolint
+    function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
         contrast = NULL,
@@ -111,4 +107,13 @@ setMethod(
         kable(data, caption = caption)
 
     }
+
+
+
+#' @rdname alphaSummary
+#' @export
+setMethod(
+    f = "alphaSummary",
+    signature = signature("DESeqDataSet"),
+    definition = .alphaSummary.DESeqDataSet
 )
