@@ -8,24 +8,26 @@ geneNames <- head(gene2symbol[["geneName"]])
 
 # alphaSummary =================================================================
 test_that("alphaSummary : DESeqDataSet", {
+    object <- dds_small
+
     # Default, no contrast specified.
-    object <- alphaSummary(dds_small)
-    expect_is(object, "knitr_kable")
-    expect_true(grepl("1e-06", object[[1L]]))
+    x <- alphaSummary(object)
+    expect_is(x, "knitr_kable")
+    expect_true(grepl("1e-06", x[[1L]]))
 
     # Contrast vector.
-    object <- alphaSummary(
-        object = dds_small,
+    x <- alphaSummary(
+        object = object,
         contrast = c("treatment", "folic_acid", "control")
     )
-    expect_is(object, "knitr_kable")
+    expect_is(x, "knitr_kable")
 
     # Contrast name.
-    object <- alphaSummary(
-        object = dds_small,
+    x <- alphaSummary(
+        object = object,
         name = "treatment_folic_acid_vs_control"
     )
-    expect_is(object, "knitr_kable")
+    expect_is(x, "knitr_kable")
 })
 
 
