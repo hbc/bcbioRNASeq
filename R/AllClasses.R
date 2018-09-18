@@ -177,6 +177,7 @@ setValidity(
         )
         # tx2gene
         tx2gene <- metadata[["tx2gene"]]
+        # Switch to requiring `tx2gene` class in a future update.
         assertIsTx2gene(tx2gene)
 
         TRUE

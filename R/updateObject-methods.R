@@ -211,6 +211,7 @@ setMethod(
             )
             colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
+        # Switch to requiring `tx2gene` class in a future update.
         assertIsTx2gene(metadata[["tx2gene"]])
 
         # Dead genes: "missing" or "unannotated".
