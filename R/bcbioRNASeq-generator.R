@@ -392,7 +392,7 @@ bcbioRNASeq <- function(
         length <- NULL
         countsFromAbundance <- NULL
         # Load up the featureCounts aligned counts matrix.
-        counts <- readFileByExtension(file.path(projectDir, "combined.counts"))
+        counts <- import(file.path(projectDir, "combined.counts"))
         assert_is_matrix(counts)
         colnames(counts) <- makeNames(colnames(counts))
         # Subset the combined matrix to match the samples.
