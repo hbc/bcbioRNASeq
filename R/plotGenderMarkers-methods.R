@@ -1,7 +1,3 @@
-# FIXME Need to improve the formals to match basejump.
-
-
-
 #' Plot Sexually Dimorphic Gender Marker Genes
 #'
 #' @name plotGenderMarkers
