@@ -166,7 +166,30 @@ setMethod(
             bold(class(object)),
             paste(bold("Contrast:"), contrast),
             paste(bold("Alpha:"), alpha),
-            paste(bold("LFC threshold:"), lfc),
+            paste(bold("LFC threshold:"), lfc)
+        )
+
+        # Include the file paths, if they're set.
+        if (length(object@dropboxFiles) > 0L) {
+            paths <- object@dropboxFiles
+            prefix <- "Dropbox"
+        } else if (length(object@localFiles) > 0L) {
+            paths <- object@localFiles
+            prefix <- "Local"
+        } else {
+            paths <- character()
+        }
+        if (length(paths) > 0L) {
+            dirname <- unique(dirname(paths))
+            assert_is_a_string(dirname)
+            return <- c(
+                return,
+                paste(bold(paste(prefix, "files:")), dirname)
+            )
+        }
+
+        return <- c(
+            return,
             separatorBar,
             paste(nrow(all), "genes total"),
             paste(nBaseMeanGT1, "genes with base mean > 1"),
@@ -176,8 +199,6 @@ setMethod(
             separatorBar,
             summary
         )
-
-        # FIXME Include the file paths, if they're set.
 
         cat(return, sep = "\n")
     }
