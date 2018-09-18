@@ -6,6 +6,7 @@
 #' @name bcbioRNASeq-package
 #' @docType package
 #'
+#' @importClassesFrom basejump tx2gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
