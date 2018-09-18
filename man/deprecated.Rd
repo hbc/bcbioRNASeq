@@ -10,7 +10,6 @@
 \alias{plotGeneHeatmap}
 \alias{txi}
 \alias{meltLog10}
-\alias{plot53Bias}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
 \alias{plotCountDensity}
@@ -29,8 +28,6 @@ plotGeneHeatmap(...)
 txi(...)
 
 meltLog10(object, ...)
-
-plot53Bias(...)
 
 \S4method{design}{bcbioRNASeq}(object, ...)
 

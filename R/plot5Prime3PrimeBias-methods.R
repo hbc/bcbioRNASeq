@@ -21,11 +21,7 @@ NULL
 
 
 
-#' @rdname plot5Prime3PrimeBias
-#' @export
-setMethod(
-    "plot5Prime3PrimeBias",
-    signature("bcbioRNASeq"),
+.plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -58,13 +54,13 @@ setMethod(
         )
 
         p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = !!sym("sampleName"),
-                    y = !!sym(yCol),
-                    fill = !!sym("interestingGroups")
-                )
-            ) +
+            data = data,
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym(yCol),
+                fill = !!sym("interestingGroups")
+            )
+        ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
@@ -94,4 +90,12 @@ setMethod(
 
         p
     }
+
+
+#' @rdname plot5Prime3PrimeBias
+#' @export
+setMethod(
+    f = "plot5Prime3PrimeBias",
+    signature = signature("bcbioRNASeq"),
+    definition = .plot5Prime3PrimeBias.bcbioRNASeq
 )
