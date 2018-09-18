@@ -1,7 +1,3 @@
-# FIXME Define SE method in basejump.
-
-
-
 #' Plot Counts Per Gene
 #'
 #' Generally, we expect similar count spreads for all genes between samples
@@ -18,12 +14,11 @@
 #' @name plotCountsPerGene
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @importFrom basejump plotCountsPerGene
+#' @inherit basejump::plotCountsPerGene
 #' @export
 #'
 #' @inheritParams general
-#' @param geom `string`. Type of ggplot2 geometric object to use.
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' plotCountsPerGene(bcb_small)
@@ -31,45 +26,19 @@ NULL
 
 
 
-#' @rdname plotCountsPerGene
-#' @export
-setMethod(
-    "plotCountsPerGene",
-    signature("bcbioRNASeq"),
+.plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups = NULL,
-        normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        geom = c("density", "violin", "boxplot"),
-        color = getOption("bcbio.discrete.color", NULL),
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
-        title = "counts per gene"
+        normalized = c("tmm", "vst", "rlog", "tpm", "rle")
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
-        )
-        interestingGroups(object) <- interestingGroups
         normalized <- match.arg(normalized)
-        geom <- match.arg(geom)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
-        data <- .meltCounts(object = object, normalized = normalized)
-        count <- length(unique(data[["rowname"]]))
-
-        # Subtitle
-        if (is_a_string(title)) {
-            subtitle <- paste(count, "non-zero genes")
-        } else {
-            subtitle <- NULL
-        }
-
-        # Construct the ggplot.
-        p <- ggplot(data = data)
+        # Coerce to RSE.
+        rse <- as(object, "RangedSummarizedExperiment")
+        counts <- counts(object, normalized = normalized)
+        assays(rse) <- list(counts)
+        assayNames(rse) <- normalized
 
         # Set the counts axis label.
         countsAxisLabel <- paste(normalized, "counts")
@@ -78,66 +47,30 @@ setMethod(
             countsAxisLabel <- paste(trans, countsAxisLabel)
         }
 
-        if (geom == "density") {
-            p <- p +
-                geom_density(
-                    mapping = aes(
-                        x = !!sym("counts"),
-                        group = !!sym("interestingGroups"),
-                        color = !!sym("interestingGroups")
-                    ),
-                    fill = NA,
-                    size = 1L
-                ) +
-                labs(x = countsAxisLabel)
-        } else if (geom == "violin") {
-            p <- p +
-                geom_violin(
-                    mapping = aes(
-                        x = !!sym("sampleName"),
-                        y = !!sym("counts"),
-                        fill = !!sym("interestingGroups")
-                    ),
-                    color = "black",
-                    scale = "width"
-                ) +
-                labs(x = NULL, y = countsAxisLabel)
-        } else if (geom == "boxplot") {
-            p <- p +
-                geom_boxplot(
-                    mapping = aes(
-                        x = !!sym("sampleName"),
-                        y = !!sym("counts"),
-                        fill = !!sym("interestingGroups")
-                    ),
-                    color = "black",
-                    outlier.shape = NA
-                ) +
-                labs(x = NULL, y = countsAxisLabel)
-        }
-
-        # Add the axis and legend labels.
-        p <- p +
-            labs(
-                title = title,
-                subtitle = subtitle,
-                color = paste(interestingGroups, collapse = ":\n"),
-                fill = paste(interestingGroups, collapse = ":\n")
+        do.call(
+            what = plotCountsPerGene,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = rse,
+                    trans = trans,
+                    countsAxisLabel = countsAxisLabel
+                ),
+                removeFormals = "normalized"
             )
-
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
-
-        # Flip the axis for plots with counts on y-axis, if desired.
-        if (isTRUE(flip) && !geom %in% "density") {
-            p <- p + coord_flip()
-        }
-
-        if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(color = FALSE, fill = FALSE)
-        }
-
-        p
+        )
     }
+f1 <- formals(.plotCountsPerGene.bcbioRNASeq)
+f2 <- methodFormals("plotCountsPerGene", "SummarizedExperiment")
+f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
+f <- c(f1, f2)
+formals(.plotCountsPerGene.bcbioRNASeq) <- f
+
+
+
+#' @rdname plotCountsPerGene
+#' @export
+setMethod(
+    f = "plotCountsPerGene",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotCountsPerGene.bcbioRNASeq
 )
