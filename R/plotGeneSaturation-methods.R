@@ -30,6 +30,7 @@ setMethod(
         object,
         interestingGroups = NULL,
         minCounts = 1L,
+        perMillion = TRUE,
         trendline = FALSE,
         label = getOption("bcbio.label", FALSE),
         color = getOption("bcbio.discrete.color", NULL),
@@ -43,27 +44,38 @@ setMethod(
         interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(minCounts)
         assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
+        assert_is_a_bool(perMillion)
         assert_is_a_bool(trendline)
         assert_is_a_bool(label)
         assertIsColorScaleDiscreteOrNULL(color)
         assertIsAStringOrNULL(title)
 
         counts <- counts(object, normalized = FALSE)
-        p <- metrics(object) %>%
-            mutate(geneCount = colSums(!!counts >= !!minCounts)) %>%
-            ggplot(
-                mapping = aes(
-                    x = !!sym("mappedReads") / 1e6L,
-                    y = !!sym("geneCount"),
-                    color = !!sym("interestingGroups")
-                )
-            ) +
+        data <- metrics(object) %>%
+            as("tbl_df") %>%
+            mutate(geneCount = colSums(!!counts >= !!minCounts))
+
+        # Convert to per million, if desired.
+        xLab <- "mapped reads"
+        if (isTRUE(perMillion)) {
+            data <- mutate(data, mappedReads = !!sym("mappedReads") / 1e6L)
+            xLab <- paste(xLab, "per million")
+        }
+
+        p <- ggplot(
+            data = data,
+            mapping = aes(
+                x = !!sym("mappedReads"),
+                y = !!sym("geneCount"),
+                color = !!sym("interestingGroups")
+            )
+        ) +
             geom_point(size = 3L) +
             scale_y_continuous(breaks = pretty_breaks()) +
             expand_limits(x = 0L, y = 0L) +
             labs(
                 title = title,
-                x = "mapped reads per million",
+                x = xLab,
                 y = "gene count",
                 color = paste(interestingGroups, collapse = ":\n")
             )
