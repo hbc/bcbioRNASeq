@@ -24,6 +24,8 @@ samples. If left unset, defaults to \code{sampleName}.}
 \item{limit}{\code{scalar numeric}. Threshold to denote on the plot, using a
 dashed line.}
 
+\item{perMillion}{\code{boolean}. Display as counts per million.}
+
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend

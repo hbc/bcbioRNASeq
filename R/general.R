@@ -53,6 +53,7 @@
 #'     - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 #' @param ntop `scalar integer`. Number of top genes to label.
 #' @param passLimit `scalar numeric`. Threshold to plot pass color marker.
+#' @param perMillion `boolean`. Display as counts per million.
 #' @param pointColor `string`. Default point color for the plot.
 #' @param results `scalar`. Position or name of `DESeqResults`.
 #' @param return `string`. Object class to return. Uses [match.arg()] internally

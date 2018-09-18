@@ -25,6 +25,8 @@ samples. If left unset, defaults to \code{sampleName}.}
 \item{minCounts}{\code{scalar integer}. Minimum number of counts per gene in the
 counts matrix.}
 
+\item{perMillion}{\code{boolean}. Display as counts per million.}
+
 \item{trendline}{\code{boolean}. Include a trendline for each group.}
 
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}

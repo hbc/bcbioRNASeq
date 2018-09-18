@@ -78,6 +78,8 @@ counts matrix.}
 
 \item{passLimit}{\code{scalar numeric}. Threshold to plot pass color marker.}
 
+\item{perMillion}{\code{boolean}. Display as counts per million.}
+
 \item{pointColor}{\code{string}. Default point color for the plot.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
