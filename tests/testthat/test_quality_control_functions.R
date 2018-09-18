@@ -22,7 +22,6 @@ with_parameters_test_that(
     },
     fun = list(
         plot5Prime3PrimeBias,
-        plotCountDensity,
         plotCountsPerGene,
         plotExonicMappingRate,
         plotGeneSaturation,
