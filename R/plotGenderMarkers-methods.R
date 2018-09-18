@@ -17,8 +17,7 @@
 #'
 #' @examples
 #' # bcbioRNASeq ====
-#' object <- bcb_small
-#' plotGenderMarkers(object, normalized = "vst")
+#' plotGenderMarkers(bcb_small, normalized = "vst")
 #'
 #' # DESeqTransform ====
 #' object <- as(deseq_small, "DESeqTransform")
