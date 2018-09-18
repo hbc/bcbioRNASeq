@@ -31,17 +31,6 @@ setGeneric(
 
 
 
-#' @rdname plotCountsPerGene
-#' @export
-setGeneric(
-    name = "plotCountsPerGene",
-    def = function(object, ...) {
-        standardGeneric("plotCountsPerGene")
-    }
-)
-
-
-
 #' @rdname plotDEGHeatmap
 #' @export
 setGeneric(
@@ -81,17 +70,6 @@ setGeneric(
     name = "plotGeneSaturation",
     def = function(object, ...) {
         standardGeneric("plotGeneSaturation")
-    }
-)
-
-
-
-#' @rdname plotGenesDetected
-#' @export
-setGeneric(
-    name = "plotGenesDetected",
-    def = function(object, ...) {
-        standardGeneric("plotGenesDetected")
     }
 )
 
@@ -158,17 +136,6 @@ setGeneric(
     name = "plotRRNAMappingRate",
     def = function(object, ...) {
         standardGeneric("plotRRNAMappingRate")
-    }
-)
-
-
-
-#' @rdname plotTotalCounts
-#' @export
-setGeneric(
-    name = "plotTotalCounts",
-    def = function(object, ...) {
-        standardGeneric("plotTotalCounts")
     }
 )
 
