@@ -1,3 +1,7 @@
+# FIXME Define SE method for this in basejump.
+
+
+
 #' Plot Total Counts
 #'
 #' @name plotTotalCounts

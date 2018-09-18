@@ -1,3 +1,7 @@
+# FIXME Define SE method in basejump.
+
+
+
 #' Plot Counts Per Gene
 #'
 #' Generally, we expect similar count spreads for all genes between samples
