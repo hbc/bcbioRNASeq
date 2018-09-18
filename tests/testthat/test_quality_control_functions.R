@@ -1,8 +1,8 @@
 context("Quality Control Functions")
 
-skip <- bcb_small
-assays(skip)[["rlog"]] <- NULL
-assays(skip)[["vst"]] <- NULL
+bcb_skip <- bcb_small
+assays(bcb_skip)[["rlog"]] <- NULL
+assays(bcb_skip)[["vst"]] <- NULL
 
 skipWarning <- paste(
     "rlog not present in assays.",
@@ -67,12 +67,12 @@ with_parameters_test_that(
 
 test_that("plotCorrelationHeatmap : Skipped DESeq transform", {
     expect_warning(
-        object = plotCorrelationHeatmap(skip, normalized = "rlog"),
+        object = plotCorrelationHeatmap(bcb_skip, normalized = "rlog"),
         regexp = skipWarning
     )
     expect_is(
         object = suppressWarnings(
-            plotCorrelationHeatmap(skip, normalized = "rlog")
+            plotCorrelationHeatmap(bcb_skip, normalized = "rlog")
         ),
         class = "pheatmap"
     )
@@ -81,6 +81,7 @@ test_that("plotCorrelationHeatmap : Skipped DESeq transform", {
 
 
 # plotCountsPerGene ============================================================
+# FIXME Can we parameterize the functions that support normalized?
 test_that("plotCountsPerGene", {
     expect_is(
         object = plotCountsPerGene(
@@ -95,22 +96,27 @@ test_that("plotCountsPerGene", {
 
 
 
-# plotCountDensity =============================================================
-test_that("plotCountDensity", {
-    # solid style
-    object <- plotCountDensity(bcb_small, normalized = "tmm", style = "solid")
-    expect_is(object, "ggplot")
+# plotCountsPerGene ============================================================
+with_parameters_test_that(
+    "plotCountsPerGene", {
+        x <- plotCountsPerGene(bcb_small, geom = geom)
+        expect_is(x, "ggplot")
 
-    # vst
-    # Set title = NULL to check disabling of subtitle
-    object <- plotCountDensity(
-        object = bcb_small,
-        normalized = "vst",
-        interestingGroups = "sampleName",
-        title = NULL
-    )
-    expect_is(object, "ggplot")
-})
+        x <- plotCountsPerGene(
+            object = bcb_small,
+            normalized = "vst",
+            interestingGroups = "sampleName",
+            title = NULL
+        )
+        expect_is(x, "ggplot")
+    },
+    geom = methodFormals(
+        f = "plotCountsPerGene",
+        signature = "bcbioRNASeq"
+    ) %>%
+        .[["geom"]] %>%
+        eval()
+)
 
 
 
@@ -127,18 +133,17 @@ test_that("plotGeneSaturation", {
 
 
 # plotMeanSD ===================================================================
-test_that("plotMeanSD : DESeqDataSet", {
-    object <- plotMeanSD(dds_small)
-    expect_is(object, "ggplot")
-})
-
-test_that("plotMeanSD : bcbioRNASeq : No stashed DESeq transforms", {
-    x <- bcb_small
-    assays(x)[["rlog"]] <- NULL
-    assays(x)[["vst"]] <- NULL
-    object <- plotMeanSD(x)
-    expect_is(object, "ggplot")
-})
+with_parameters_test_that(
+    "plotMeanSD", {
+        x <- plotMeanSD(object)
+        expect_is(x, "ggplot")
+    },
+    object = list(
+        bcbioRNASeq1 = bcb_small,
+        bcbioRNASeq2 = bcb_skip,
+        DESeqDataSet = dds_small
+    )
+)
 
 
 
@@ -150,17 +155,17 @@ test_that("plotPCA : Label", {
     expect_is(object, "ggplot")
 })
 
-test_that("plotPCA : data.frame", {
-    object <- plotPCA(bcb_small, return = "data.frame")
-    expect_is(object, "data.frame")
+test_that("plotPCA : DataFrame", {
+    object <- plotPCA(bcb_small, return = "DataFrame")
+    expect_is(object, "DataFrame")
 })
 
-test_that("plotPCA : transformationLimit", {
+test_that("plotPCA : Skipped DESeq2 transforms", {
     expect_warning(
-        plotPCA(skip, normalized = "rlog"),
+        plotPCA(bcb_skip, normalized = "rlog"),
         skipWarning
     )
-    object <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
+    object <- suppressWarnings(plotPCA(bcb_skip, normalized = "rlog"))
     expect_is(object, "ggplot")
 })
 
@@ -169,7 +174,7 @@ test_that("plotPCA : transformationLimit", {
 # plotPCACovariates ============================================================
 test_that("plotPCACovariates", {
     # BioC 3.6 version of DEGreport returns warnings.
-    # Test against GitHub version >= 1.15
+    # Test against version >= 1.15.
     object <- plotPCACovariates(bcb_small)
     expect_is(object, "list")
     expect_identical(
@@ -201,12 +206,12 @@ test_that("plotPCACovariates : Metrics", {
     )
 })
 
-test_that("plotPCACovariates : Skip DESeq2 transforms", {
+test_that("plotPCACovariates : Skipped DESeq2 transforms", {
     expect_warning(
-        plotPCACovariates(skip, normalized = "rlog"),
+        plotPCACovariates(bcb_skip, normalized = "rlog"),
         skipWarning
     )
-    object <- suppressWarnings(plotPCA(skip, normalized = "rlog"))
+    object <- suppressWarnings(plotPCA(bcb_skip, normalized = "rlog"))
     expect_is(object, "ggplot")
 })
 
