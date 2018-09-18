@@ -421,7 +421,11 @@ setValidity(
             y = as.integer(match[2, 2])
         )
 
-        # FIXME Object should have local or Dropbox, but not both.
+        # Object can have either local or Dropbox file paths, but not both.
+        stopifnot(!all(
+            length(object@localFiles) > 0L,
+            length(object@dropboxFiles) > 0L
+        ))
 
         TRUE
     }
