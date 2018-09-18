@@ -74,13 +74,6 @@ meltLog10 <- function(object, ...) {
 
 #' @rdname deprecated
 #' @export
-plot53Bias <- function(...) {
-    .Deprecated("plot5Prime3PrimeBias")
-    plot5Prime3PrimeBias(...)
-}
-
-#' @rdname deprecated
-#' @export
 setMethod(
     "design",
     signature("bcbioRNASeq"),
