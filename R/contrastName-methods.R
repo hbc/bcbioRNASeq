@@ -20,11 +20,7 @@ NULL
 
 
 
-#' @rdname contrastName
-#' @export
-setMethod(
-    "contrastName",
-    signature("DESeqAnalysis"),
+.contrastName.DESeqAnalysis <-  # nolint
     function(object, results) {
         do.call(
             what = contrastName,
@@ -33,15 +29,10 @@ setMethod(
             )
         )
     }
-)
 
 
 
-#' @rdname contrastName
-#' @export
-setMethod(
-    "contrastName",
-    signature("DESeqResults"),
+.contrastName.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
         contrast <- mcols(object)[2L, "description"]
@@ -52,6 +43,22 @@ setMethod(
             # Improve appearance for difference of differences
             gsub("\\+", " \\+\n    ", .)
     }
+
+
+
+.contrastName.DESeqResultsTables <-  # nolint
+    function(object) {
+        contrastName(slot(object, name = "all"))
+    }
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    f = "contrastName",
+    signature = signature("DESeqAnalysis"),
+    definition = .contrastName.DESeqAnalysis
 )
 
 
@@ -59,9 +66,17 @@ setMethod(
 #' @rdname contrastName
 #' @export
 setMethod(
-    "contrastName",
-    signature("DESeqResultsTables"),
-    function(object) {
-        contrastName(object@all)
-    }
+    f = "contrastName",
+    signature = signature("DESeqResults"),
+    definition = .contrastName.DESeqResults
+)
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    f = "contrastName",
+    signature = signature("DESeqResultsTables"),
+    definition = .contrastName.DESeqResultsTables
 )

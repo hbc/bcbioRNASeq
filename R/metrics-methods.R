@@ -17,11 +17,7 @@ NULL
 
 
 
-#' @rdname metrics
-#' @export
-setMethod(
-    "metrics",
-    signature("bcbioRNASeq"),
+.metrics.bcbioRNASeq <-  # nolint
     function(object, interestingGroups = NULL) {
         validObject(object)
         if (!is.null(interestingGroups)) {
@@ -38,4 +34,13 @@ setMethod(
         # Consider returning `DataFrame` instead in a future update.
         as.data.frame(data)
     }
+
+
+
+#' @rdname metrics
+#' @export
+setMethod(
+    f = "metrics",
+    signature = signature("bcbioRNASeq"),
+    definition = .metrics.bcbioRNASeq
 )

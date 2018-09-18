@@ -40,11 +40,7 @@ NULL
 
 
 
-#' @rdname counts
-#' @export
-setMethod(
-    "counts",
-    signature("bcbioRNASeq"),
+.counts.bcbioRNASeq <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
@@ -90,4 +86,13 @@ setMethod(
         assert_is_matrix(counts)
         counts
     }
+
+
+
+#' @rdname counts
+#' @export
+setMethod(
+    f = "counts",
+    signature = signature("bcbioRNASeq"),
+    definition = .counts.bcbioRNASeq
 )
