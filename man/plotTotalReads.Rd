@@ -9,7 +9,8 @@
 plotTotalReads(object, ...)
 
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 10000000L, fill = getOption("bcbio.discrete.fill", NULL),
+  limit = 10000000L, perMillion = TRUE,
+  fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "total reads")
 }
 \arguments{
@@ -53,13 +54,11 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
   \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
   \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalCounts}}
+  \code{\link{plotRRNAMappingRate}}
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

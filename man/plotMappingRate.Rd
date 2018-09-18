@@ -54,12 +54,10 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
   \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}}, \code{\link{plotMeanSD}},
   \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalCounts}},
   \code{\link{plotTotalReads}}
 }
 \author{

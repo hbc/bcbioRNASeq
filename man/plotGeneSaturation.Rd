@@ -9,8 +9,8 @@
 plotGeneSaturation(object, ...)
 
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
-  interestingGroups = NULL, minCounts = 1L, trendline = FALSE,
-  label = getOption("bcbio.label", FALSE),
+  interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
+  trendline = FALSE, label = getOption("bcbio.label", FALSE),
   color = getOption("bcbio.discrete.color", NULL),
   title = "gene saturation")
 }
@@ -57,13 +57,11 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotDispEsts}},
   \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
-  \code{\link{plotGenesDetected}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
   \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
   \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
   \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalCounts}},
   \code{\link{plotTotalReads}}
 }
 \author{
