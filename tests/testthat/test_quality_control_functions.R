@@ -31,7 +31,6 @@ with_parameters_test_that(
         plotMappingRate,
         plotPCA,
         plotRRNAMappingRate,
-        plotTotalCounts,
         plotTotalReads
     )
 )
