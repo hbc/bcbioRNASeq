@@ -284,9 +284,6 @@ bcbioRNASeq <- function(
     assert_is_an_integer(lanes)
 
     # Column data --------------------------------------------------------------
-    # TODO Assert that `description` matches `names(sampleNames)`.
-    # Consider running this against user-defined sample metadata too.
-
     colData <- readYAMLSampleData(yamlFile)
 
     # Require that all sample IDs defined here in the column data (rownames)
