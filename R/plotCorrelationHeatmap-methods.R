@@ -1,7 +1,3 @@
-# FIXME Require DESeqDataSet to use normalized counts
-
-
-
 #' Plot Correlation Heatmap
 #'
 #' This function calculates a correlation matrix based on feature expression per
