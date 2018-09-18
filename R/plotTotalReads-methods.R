@@ -18,15 +18,12 @@ NULL
 
 
 
-#' @rdname plotTotalReads
-#' @export
-setMethod(
-    "plotTotalReads",
-    signature("bcbioRNASeq"),
+.plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 10e6L,
+        perMillion = TRUE,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
         title = "total reads"
@@ -39,15 +36,23 @@ setMethod(
         interestingGroups(object) <- interestingGroups
         assertIsAnImplicitInteger(limit)
         assert_all_are_non_negative(limit)
+        assert_is_a_bool(perMillion)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        p <- metrics(object) %>%
-            ggplot(
+        data <- as(metrics(object), "tbl_df")
+        yLab <- "reads"
+        if (isTRUE(perMillion)) {
+            data <- mutate(data, totalReads = !!sym("totalReads") / 1e6L)
+            yLab <- paste(yLab, "per million")
+        }
+
+        p <- ggplot(
+                data = data,
                 mapping = aes(
                     x = !!sym("sampleName"),
-                    y = !!sym("totalReads") / 1e6L,
+                    y = !!sym("totalReads"),
                     fill = !!sym("interestingGroups")
                 )
             ) +
@@ -58,22 +63,19 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "reads per million",
+                y = yLab,
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (is_positive(limit)) {
-            # Convert limit to per million.
-            if (limit < 1e6L) {
-                # nocov start
-                warning("`limit`: Use absolute value, not per million")
-                # nocov end
-            } else {
-                limit <- limit / 1e6L
+            if (isTRUE(perMillion)) {
+                if (limit < 1e6L) {
+                    warning("`limit`: Use absolute value, not per million")
+                } else {
+                    limit <- limit / 1e6L
+                }
             }
-            if (limit > 1L) {
-                p <- p + basejump_geom_abline(yintercept = limit)
-            }
+            p <- p + basejump_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {
@@ -90,4 +92,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotTotalReads
+#' @export
+setMethod(
+    "plotTotalReads",
+    signature("bcbioRNASeq"),
+    definition = .plotTotalReads.bcbioRNASeq
 )
