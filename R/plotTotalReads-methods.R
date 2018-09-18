@@ -42,6 +42,8 @@ NULL
         assertIsAStringOrNULL(title)
 
         data <- as(metrics(object), "tbl_df")
+
+        # Convert to per million, if desired.
         yLab <- "reads"
         if (isTRUE(perMillion)) {
             data <- mutate(data, totalReads = !!sym("totalReads") / 1e6L)
