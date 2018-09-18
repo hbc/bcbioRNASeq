@@ -13,6 +13,7 @@
 \alias{plot53Bias}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
+\alias{plotCountDensity}
 \title{Defunct or Deprecated Functions}
 \usage{
 download(...)
@@ -34,6 +35,8 @@ plot53Bias(...)
 \S4method{design}{bcbioRNASeq}(object, ...)
 
 \S4method{design}{bcbioRNASeq,formula}(object, ...) <- value
+
+plotCountDensity(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
