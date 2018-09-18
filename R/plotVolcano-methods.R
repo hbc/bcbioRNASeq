@@ -1,7 +1,3 @@
-# TODO Improve error message about gene2symbol for DESeqResults method.
-
-
-
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -77,10 +73,13 @@ NULL
         gene2symbol = NULL,
         ntop = 0L,
         direction = c("both", "up", "down"),
-        pointColor = "gray50",
-        sigPointColor = c(
-            upregulated = "purple",
-            downregulated = "orange"
+        pointColor = getOption("bcbio.point.color", "gray50"),
+        sigPointColor = getOption(
+            "bcbio.sig.point.color",
+            c(
+                upregulated = "purple",
+                downregulated = "orange"
+            )
         ),
         histograms = FALSE,
         return = c("ggplot", "DataFrame")

@@ -1,10 +1,3 @@
-# TODO Double check `DESeqAnalysis class support`
-# TODO Unit test rowname, geneID, and geneName pass-in for `genes`
-# FIXME Need to document lfcShrink.
-# TODO Set pointColor and sigPointColor as global options...
-
-
-
 #' MA Plot
 #'
 #' An MA plot is an application of a Bland–Altman plot for visual representation
@@ -71,10 +64,13 @@ NULL
         gene2symbol = NULL,
         ntop = 0L,
         direction = c("both", "up", "down"),
-        pointColor = "gray50",
-        sigPointColor = c(
-            upregulated = "purple",
-            downregulated = "orange"
+        pointColor = getOption("bcbio.point.color", "gray50"),
+        sigPointColor = getOption(
+            "bcbio.sig.point.color",
+            c(
+                upregulated = "purple",
+                downregulated = "orange"
+            )
         ),
         return = c("ggplot", "DataFrame")
     ) {

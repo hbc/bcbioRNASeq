@@ -12,16 +12,18 @@ plotVolcano(object, ...)
 \S4method{plotVolcano}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
   alpha = NULL, lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
   ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
-  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
-  "DataFrame"))
+  pointColor = getOption("bcbio.point.color", "gray50"),
+  sigPointColor = getOption("bcbio.sig.point.color", c(upregulated =
+  "purple", downregulated = "orange")), histograms = FALSE,
+  return = c("ggplot", "DataFrame"))
 
 \S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
   lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = "gray50", sigPointColor = c(upregulated = "purple",
-  downregulated = "orange"), histograms = FALSE, return = c("ggplot",
-  "DataFrame"))
+  pointColor = getOption("bcbio.point.color", "gray50"),
+  sigPointColor = getOption("bcbio.sig.point.color", c(upregulated =
+  "purple", downregulated = "orange")), histograms = FALSE,
+  return = c("ggplot", "DataFrame"))
 }
 \arguments{
 \item{object}{Object.}
