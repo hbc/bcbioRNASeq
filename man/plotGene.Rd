@@ -12,26 +12,26 @@
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
   "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
-  NULL), legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
+  NULL), legend = getOption("basejump.legend", TRUE),
   style = c("facet", "wide"))
 
 \S4method{plotGene}{DESeqAnalysis}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  style = c("facet", "wide"))
+  legend = getOption("basejump.legend", TRUE), style = c("facet",
+  "wide"))
 
 \S4method{plotGene}{DESeqTransform}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  style = c("facet", "wide"))
+  legend = getOption("basejump.legend", TRUE), style = c("facet",
+  "wide"))
 
 \S4method{plotGene}{DESeqDataSet}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), headerLevel = 2L,
-  style = c("facet", "wide"))
+  legend = getOption("basejump.legend", TRUE), style = c("facet",
+  "wide"))
 }
 \arguments{
 \item{object}{Object.}
@@ -57,8 +57,6 @@ To set the discrete color palette globally, use
 \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
-
-\item{headerLevel}{\code{scalar integer}. Markdown header level (1-7).}
 
 \item{style}{\code{string}. Plot style.}
 }
