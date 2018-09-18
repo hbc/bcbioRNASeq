@@ -14,5 +14,6 @@ vst_small <- as(deseq_small, "DESeqTransform")
 # FIXME Consider loading a pre-saved object, for speed.
 rlog_small <- DESeq2::rlog(dds_small)
 res_small <- as(deseq_small, "DESeqResults")
+res_tables <- resultsTables(res_small)
 
 # nolint end
