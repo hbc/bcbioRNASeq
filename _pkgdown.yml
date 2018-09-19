@@ -30,9 +30,15 @@ reference:
   - title: Package Information
     contents:
     - bcbioRNASeq-package
-  - title: S4 Object
+  - title: S4 Classes
+    contents:
+    - ends_with("-class")
+  - title: S4 Generators
     contents:
     - bcbioRNASeq
+    - DESeqAnalysis
+    - DESeqResultsTables
+  - title: S4 Functions
     - coerce
     - extract
     - show
