@@ -170,11 +170,12 @@ RoxygenNote: 6.1.0
 VignetteBuilder: knitr
 Collate: 
     'AllClasses.R'
+    'AllGenerators.R'
     'AllGenerics.R'
+    'AllValidity.R'
     'DESeq-internal.R'
     'alphaSummary-methods.R'
     'assert-internal.R'
-    'bcbioRNASeq-generator.R'
     'bcbioRNASeq-package.R'
     'coerce-methods.R'
     'contrastName-methods.R'
