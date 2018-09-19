@@ -41,15 +41,10 @@ objects from versions <= 0.0.20. We changed the name of the package to
 updateObject(bcb_small)
 }
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+Other S4 Functions: \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{show}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Object}
+\concept{S4 Functions}

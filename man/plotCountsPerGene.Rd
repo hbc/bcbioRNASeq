@@ -48,6 +48,8 @@ To set the discrete fill palette globally, use
 \item{flip}{\code{boolean}. Flip x and y axes. Recommended for quality control
 plots containing many samples.}
 
+\item{countsAxisLabel}{\code{string}. Counts axis label.}
+
 \item{title}{\code{string}. Plot title.}
 }
 \value{

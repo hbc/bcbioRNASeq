@@ -19,15 +19,10 @@ x <- bcbioRNASeq(uploadDir)
 print(x)
 }
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
-  \code{\link{extract}}, \code{\link{show}},
-  \code{\link{updateObject}}
+Other S4 Classes: \code{\link{DESeqAnalysis-class}},
+  \code{\link{DESeqResultsTables-class}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
-\concept{S4 Object}
+\concept{S4 Classes}

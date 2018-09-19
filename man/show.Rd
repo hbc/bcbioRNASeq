@@ -46,15 +46,10 @@ the discussion in \code{\link{setIs}} for the general concept.
 show(bcb_small)
 }
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+Other S4 Functions: \code{\link{coerce}},
   \code{\link{extract}}, \code{\link{updateObject}}
 }
 \author{
 Michael Steinbuagh
 }
-\concept{S4 Object}
+\concept{S4 Functions}

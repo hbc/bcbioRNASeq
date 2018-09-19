@@ -109,15 +109,10 @@ names(assays(x))
 \seealso{
 \code{help("[", "base")}.
 
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
+Other S4 Functions: \code{\link{coerce}},
   \code{\link{show}}, \code{\link{updateObject}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh
 }
-\concept{S4 Object}
+\concept{S4 Functions}

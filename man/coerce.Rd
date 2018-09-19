@@ -51,15 +51,10 @@ summary(res)
 \item \code{\link[methods:canCoerce]{methods::canCoerce()}}.
 }
 
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables-class}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{extract}},
+Other S4 Functions: \code{\link{extract}},
   \code{\link{show}}, \code{\link{updateObject}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Object}
+\concept{S4 Functions}

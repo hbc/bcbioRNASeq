@@ -28,15 +28,10 @@ genes.}
 }}
 
 \seealso{
-Other S4 Object: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq-class}},
-  \code{\link{bcbioRNASeq}}, \code{\link{coerce}},
-  \code{\link{extract}}, \code{\link{show}},
-  \code{\link{updateObject}}
+Other S4 Classes: \code{\link{DESeqAnalysis-class}},
+  \code{\link{bcbioRNASeq-class}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Object}
+\concept{S4 Classes}
