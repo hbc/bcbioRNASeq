@@ -1,7 +1,3 @@
-# FIXME Simply stash `sessioninfo::session_info()` in the metadata.
-
-
-
 #' Update an Object to Its Current Class Definition
 #'
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -18,7 +14,7 @@
 #' `bcbioRNASeq` starting in v0.0.21.
 #'
 #' @name updateObject
-#' @family S4 Object
+#' @family S4 Functions
 #' @author Michael Steinbaugh
 #' @importFrom BiocGenerics updateObject
 #' @export
@@ -37,11 +33,7 @@ NULL
 
 
 
-#' @rdname updateObject
-#' @export
-setMethod(
-    "updateObject",
-    signature("bcbioRNASeq"),
+.updateObject.bcbioRNASeq <-  # nolint
     function(
         object,
         rowRanges = NULL
@@ -177,7 +169,7 @@ setMethod(
 
         # programVersions
         if (!"programVersions" %in% names(metadata) &&
-                "programs" %in% names(metadata)) {
+            "programs" %in% names(metadata)) {
             message("Renaming programs to programVersions")
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
@@ -193,6 +185,14 @@ setMethod(
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             message("Setting sampleMetadataFile as empty character")
             metadata[["sampleMetadataFile"]] <- character()
+        }
+
+        # sessionInfo
+        if ("devtoolsSessionInfo" %in% names(metadata)) {
+            message("Moving devtoolsSessionInfo to sessionInfo")
+            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
+            metadata[["devtoolsSessionInfo"]] <- NULL
+            metadata[["utilsSessionInfo"]] <- NULL
         }
 
         # tx2gene
@@ -363,4 +363,13 @@ setMethod(
             metadata = metadata(rse)
         )
     }
+
+
+
+#' @rdname updateObject
+#' @export
+setMethod(
+    f = "updateObject",
+    signature = signature("bcbioRNASeq"),
+    definition = .updateObject.bcbioRNASeq
 )
