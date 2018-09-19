@@ -7,7 +7,7 @@
 #'   and either `rlog` or `vst` counts are defined in [assays()].
 #'
 #' @name extract
-#' @family S4 Object
+#' @family S4 Functions
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams base::`[`

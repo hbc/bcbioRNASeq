@@ -2,7 +2,7 @@
 #'
 #' @name coerce
 #' @aliases as
-#' @family S4 Object
+#' @family S4 Functions
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce

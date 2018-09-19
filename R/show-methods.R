@@ -1,7 +1,7 @@
 #' Show an Object
 #'
 #' @name show
-#' @family S4 Object
+#' @family S4 Functions
 #' @author Michael Steinbuagh
 #' @importFrom methods show
 #' @inherit methods::show
