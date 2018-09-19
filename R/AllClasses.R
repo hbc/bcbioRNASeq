@@ -1,3 +1,8 @@
+# FIXME Relax the check for `sessionInfo`
+# Previously stashed devtoolsSessionInfo and utilsSessionInfo
+
+
+
 setClassUnion(
     name = "missingOrNULL",
     members = c("missing", "NULL")
@@ -119,7 +124,6 @@ setValidity(
             bcbioLog = "character",
             caller = "character",
             date = "Date",
-            devtoolsSessionInfo = "session_info",
             ensemblRelease = "integer",
             genomeBuild = "character",
             gffFile = "character",
@@ -134,8 +138,8 @@ setValidity(
             sampleMetadataFile = "character",
             template = "character",
             tx2gene = c("tx2gene", "data.frame"),
+            sessionInfo = "session_info",
             uploadDir = "character",
-            utilsSessionInfo = "sessionInfo",
             version = "package_version",
             wd = "character",
             yaml = "list"

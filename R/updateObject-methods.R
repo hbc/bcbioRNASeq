@@ -1,3 +1,7 @@
+# FIXME Simply stash `sessioninfo::session_info()` in the metadata.
+
+
+
 #' Update an Object to Its Current Class Definition
 #'
 #' Update old objects created by the bcbioRNASeq package. The session

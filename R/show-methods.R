@@ -4,9 +4,8 @@
 #' @family S4 Object
 #' @author Michael Steinbuagh
 #' @importFrom methods show
-#' @export
-#'
 #' @inherit methods::show
+#' @export
 #'
 #' @examples
 #' show(bcb_small)
@@ -14,12 +13,8 @@ NULL
 
 
 
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature("bcbioRNASeq"),
-    definition = function(object) {
+.show.bcbioRNASeq <-  # nolint
+    function(object) {
         validObject(object)
 
         # Extend the RangedSummarizedExperiment method
@@ -104,16 +99,11 @@ setMethod(
 
         cat(return, sep = "\n")
     }
-)
 
 
 
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature("DESeqAnalysis"),
-    definition = function(object) {
+.show.DESeqAnalysis <-  # nolint
+    function(object) {
         version <- metadata(object@data)[["version"]]
         contrastNames <- vapply(
             X = object@results,
@@ -130,16 +120,11 @@ setMethod(
         )
         cat(return, sep = "\n")
     }
-)
 
 
 
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature("DESeqResultsTables"),
-    definition = function(object) {
+.show.DESeqResultsTables <-  # nolint
+    function(object) {
         validObject(object)
 
         all <- slot(object, "all")
@@ -202,4 +187,33 @@ setMethod(
 
         cat(return, sep = "\n")
     }
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("bcbioRNASeq"),
+    definition = .show.bcbioRNASeq
+)
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("DESeqAnalysis"),
+    definition = .show.DESeqAnalysis
+)
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("DESeqResultsTables"),
+    definition = .show.DESeqResultsTables
 )
