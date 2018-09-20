@@ -75,8 +75,7 @@ plotDEGPCA(
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
-  \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh

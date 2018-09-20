@@ -3,35 +3,29 @@
 \docType{methods}
 \name{deprecated}
 \alias{deprecated}
-\alias{download}
 \alias{plotGeneDetectionSaturation}
 \alias{plotDispersion}
 \alias{loadRNASeqRun}
-\alias{plotGeneHeatmap}
-\alias{txi}
 \alias{meltLog10}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
+\alias{loadRNASeq}
 \alias{plotCountDensity}
-\title{Defunct or Deprecated Functions}
+\title{Deprecated Functions}
 \usage{
-download(...)
-
 plotGeneDetectionSaturation(...)
 
 plotDispersion(...)
 
 loadRNASeqRun(...)
 
-plotGeneHeatmap(...)
-
-txi(...)
-
 meltLog10(object, ...)
 
 \S4method{design}{bcbioRNASeq}(object, ...)
 
 \S4method{design}{bcbioRNASeq,formula}(object, ...) <- value
+
+loadRNASeq(...)
 
 plotCountDensity(...)
 }
@@ -43,9 +37,12 @@ plotCountDensity(...)
 \item{value}{Value to assign.}
 }
 \value{
-No value.
+\code{\link[=.Deprecated]{.Deprecated()}}.
 }
 \description{
-Defunct or Deprecated Functions
+Deprecated Functions
+}
+\author{
+Michael Steinbaugh
 }
 \keyword{internal}

@@ -72,8 +72,7 @@ alphaSummary(object, name = "treatment_folic_acid_vs_control")
 
 Other Differential Expression Functions: \code{\link{contrastName}},
   \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
-  \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

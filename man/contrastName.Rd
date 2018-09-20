@@ -40,8 +40,7 @@ contrastName(object)
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
-  \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh

@@ -109,8 +109,7 @@ plotDEGHeatmap(
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMeanAverage}}, \code{\link{plotVolcano}},
-  \code{\link{resultsTables}}
+  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh

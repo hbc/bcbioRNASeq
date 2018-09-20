@@ -629,7 +629,7 @@ DESeqAnalysis <- function(
 #'   on expected fold changes.
 #'
 #' @name DESeqResultsTables
-#' @family Differential Expression Functions
+#' @family S4 Generators
 #' @author Michael Steinbaugh
 #' @include AllGenerics.R
 #' @export

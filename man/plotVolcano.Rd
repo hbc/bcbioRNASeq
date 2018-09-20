@@ -123,8 +123,7 @@ This function is an updated variant of
 
 Other Differential Expression Functions: \code{\link{alphaSummary}},
   \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMeanAverage}},
-  \code{\link{resultsTables}}
+  \code{\link{plotDEGPCA}}, \code{\link{plotMA}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
