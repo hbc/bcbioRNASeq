@@ -42,11 +42,11 @@ setMethod(
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("bcbioRNASeq"),
-    definition = function(object) {
+    signature = signature("SummarizedExperiment"),
+    definition = function(object, assay = 1L) {
+        assert_is_scalar(assay)
         validObject(object)
-        .assertIsGeneLevel(object)
-        tmm(assay(object))
+        tmm(assays(object)[[assay]])
     }
 )
 
@@ -56,9 +56,10 @@ setMethod(
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("DESeqDataSet"),
+    signature = signature("bcbioRNASeq"),
     definition = function(object) {
         validObject(object)
+        .assertIsGeneLevel(object)
         tmm(assay(object))
     }
 )
