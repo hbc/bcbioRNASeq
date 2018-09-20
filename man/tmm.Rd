@@ -3,18 +3,18 @@
 \docType{methods}
 \name{tmm}
 \alias{tmm}
+\alias{tmm,matrix-method}
 \alias{tmm,bcbioRNASeq-method}
 \alias{tmm,DESeqDataSet-method}
-\alias{tmm,matrix-method}
 \title{\strong{T}rimmed \strong{M}ean of \strong{M}-Values (TMM) Normalization}
 \usage{
 tmm(object)
 
+\S4method{tmm}{matrix}(object)
+
 \S4method{tmm}{bcbioRNASeq}(object)
 
 \S4method{tmm}{DESeqDataSet}(object)
-
-\S4method{tmm}{matrix}(object)
 }
 \arguments{
 \item{object}{Object.}
