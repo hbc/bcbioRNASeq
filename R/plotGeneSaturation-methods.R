@@ -21,11 +21,7 @@ NULL
 
 
 
-#' @rdname plotGeneSaturation
-#' @export
-setMethod(
-    "plotGeneSaturation",
-    signature("bcbioRNASeq"),
+.plotGeneSaturation.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -96,4 +92,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotGeneSaturation
+#' @export
+setMethod(
+    f = "plotGeneSaturation",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotGeneSaturation.bcbioRNASeq
 )

@@ -132,9 +132,9 @@ NULL
 #' @rdname plotMeanSD
 #' @export
 setMethod(
-    "plotMeanSD",
-    signature("bcbioRNASeq"),
-    function(
+    f = "plotMeanSD",
+    signature = signature("bcbioRNASeq"),
+    definition = function(
         object,
         legend = getOption("bcbio.legend", FALSE)
     ) {
@@ -153,9 +153,9 @@ setMethod(
 #' @rdname plotMeanSD
 #' @export
 setMethod(
-    "plotMeanSD",
-    signature("DESeqDataSet"),
-    function(
+    f = "plotMeanSD",
+    signature = signature("DESeqDataSet"),
+    definition = function(
         object,
         vst = TRUE,
         rlog = FALSE,

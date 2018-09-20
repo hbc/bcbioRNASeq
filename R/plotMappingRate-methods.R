@@ -19,11 +19,7 @@ NULL
 
 
 
-#' @rdname plotMappingRate
-#' @export
-setMethod(
-    "plotMappingRate",
-    signature("bcbioRNASeq"),
+.plotMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -92,4 +88,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotMappingRate
+#' @export
+setMethod(
+    f = "plotMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotMappingRate.bcbioRNASeq
 )
