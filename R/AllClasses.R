@@ -18,6 +18,8 @@ setClassUnion(
 #' @family S4 Classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
+#'
+#' @seealso [bcbioRNASeq()].
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
@@ -54,6 +56,8 @@ setClass(
 #' @slot transform `DESeqTransform`.
 #' @slot results `list`. One or more unshrunken `DESeqResults`.
 #' @slot lfcShrink `list`. One or more shrunken `DESeqResults`.
+#'
+#' @seealso [DESeqAnalysis()].
 setClass(
     Class = "DESeqAnalysis",
     slots = c(
@@ -86,6 +90,8 @@ setClass(
 #'   genes.
 #' @slot localFiles `list`. Local file paths.
 #' @slot dropboxFiles `list`. Dropbox file paths.
+#'
+#' @seealso [DESeqResultsTables()].
 setClass(
     Class = "DESeqResultsTables",
     slots = c(

@@ -40,6 +40,8 @@ care of this automatically in supported methods.
 }
 
 \seealso{
+\code{\link[=DESeqAnalysis]{DESeqAnalysis()}}.
+
 Other S4 Classes: \code{\link{DESeqResultsTables-class}},
   \code{\link{bcbioRNASeq-class}}
 }

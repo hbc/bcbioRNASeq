@@ -28,6 +28,8 @@ genes.}
 }}
 
 \seealso{
+\code{\link[=DESeqResultsTables]{DESeqResultsTables()}}.
+
 Other S4 Classes: \code{\link{DESeqAnalysis-class}},
   \code{\link{bcbioRNASeq-class}}
 }

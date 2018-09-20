@@ -14,6 +14,8 @@ analysis.
 migrated to \code{RangedSummarizedExperiment}.
 }
 \seealso{
+\code{\link[=bcbioRNASeq]{bcbioRNASeq()}}.
+
 Other S4 Classes: \code{\link{DESeqAnalysis-class}},
   \code{\link{DESeqResultsTables-class}}
 }
