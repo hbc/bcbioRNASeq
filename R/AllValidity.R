@@ -101,7 +101,7 @@
             lanes = "integer",
             level = "character",
             organism = "character",
-            programVersions = "tbl_df",
+            programVersions = c("DataFrame", "tbl_df"),
             projectDir = "character",
             runDate = "Date",
             sampleDirs = "character",
