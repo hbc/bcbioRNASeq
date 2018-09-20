@@ -80,11 +80,7 @@ NULL
 
 
 
-#' @rdname topTables
-#' @export
-setMethod(
-    "topTables",
-    signature("DESeqAnalysis"),
+.topTables.DESeqAnalysis <-  # nolint
     function(
         object,
         results,
@@ -119,15 +115,10 @@ setMethod(
             )
         )
     }
-)
 
 
 
-#' @rdname topTables
-#' @export
-setMethod(
-    "topTables",
-    signature("DESeqResults"),
+.topTables.DESeqResults <-  # nolint
     function(object, n = 50L) {
         do.call(
             what = topTables,
@@ -137,15 +128,10 @@ setMethod(
             )
         )
     }
-)
 
 
 
-#' @rdname topTables
-#' @export
-setMethod(
-    "topTables",
-    signature("DESeqResultsTables"),
+.topTables.DESeqResultsTables <-  # nolint
     function(object, n = 50L) {
         validObject(object)
         assertIsAnImplicitInteger(n)
@@ -173,4 +159,33 @@ setMethod(
         # Invisibly return list containing the subsets.
         invisible(list(up = up, down = down))
     }
+
+
+
+#' @rdname topTables
+#' @export
+setMethod(
+    f = "topTables",
+    signature = signature("DESeqAnalysis"),
+    definition = .topTables.DESeqAnalysis
+)
+
+
+
+#' @rdname topTables
+#' @export
+setMethod(
+    f = "topTables",
+    signature = signature("DESeqResults"),
+    definition = .topTables.DESeqResults
+)
+
+
+
+#' @rdname topTables
+#' @export
+setMethod(
+    "topTables",
+    signature("DESeqResultsTables"),
+    definition = .topTables.DESeqResultsTables
 )
