@@ -83,7 +83,7 @@
         names(list),
         c("abundance", "counts", "length", "countsFromAbundance")
     )
-    # Run assert checks on the matrices
+    # Run assert checks on the matrices.
     invisible(lapply(
         X = list[c("abundance", "counts", "length")],
         FUN = function(x) {
