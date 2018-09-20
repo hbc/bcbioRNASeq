@@ -41,7 +41,7 @@
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
 #'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
 #'   matchInterestingGroups meltCounts methodFormals organism plotHeatmap
-#'   prepareTemplate printString readYAML sampleData sanitizeRowData
+#'   prepareTemplate printString readYAML removeNA sampleData sanitizeRowData
 #'   sanitizeSampleData separator snake standardizeCall
 #'   stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
