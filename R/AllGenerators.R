@@ -537,6 +537,30 @@ bcbioRNASeq <- function(
 
 
 
+.new.bcbioRNASeq <-  # nolint
+    function(
+        assays,
+        rowRanges,
+        colData,
+        metadata,
+        transgeneNames = NULL,
+        spikeNames = NULL
+    ) {
+        new(
+            Class = "bcbioRNASeq",
+            makeSummarizedExperiment(
+                assays = assays,
+                rowRanges = rowRanges,
+                colData = colData,
+                metadata = metadata,
+                transgeneNames = transgeneNames,
+                spikeNames = spikeNames
+            )
+        )
+    }
+
+
+
 # Used for bcbio pipeline checks.
 .dataHasVariation <- function(dds) {
     !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
