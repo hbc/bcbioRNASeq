@@ -9,7 +9,7 @@
 #' @inheritParams general
 #'
 #' @examples
-#' object <- resultsTables(deseq_small)
+#' object <- DESeqResultsTables(deseq_small)
 #' markdown(object)
 NULL
 

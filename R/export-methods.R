@@ -23,7 +23,7 @@
 #' - `DESeqResultsTables`: CSV files.
 #'
 #' @examples
-#' x <- resultsTables(deseq_small)
+#' x <- DESeqResultsTables(deseq_small)
 #' export(x, dir = "example")
 #' list.files("example")
 #'

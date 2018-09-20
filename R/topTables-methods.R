@@ -110,7 +110,7 @@ NULL
         do.call(
             what = topTables,
             args = list(
-                object = resultsTables(results),
+                object = DESeqResultsTables(results),
                 n = n
             )
         )
@@ -123,7 +123,7 @@ NULL
         do.call(
             what = topTables,
             args = list(
-                object = resultsTables(object),
+                object = DESeqResultsTables(object),
                 n = n
             )
         )
