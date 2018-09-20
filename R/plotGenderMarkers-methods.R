@@ -12,12 +12,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
 #' plotGenderMarkers(bcb_small, normalized = "vst")
-#'
-#' # DESeqTransform ====
-#' object <- as(deseq_small, "DESeqTransform")
-#' plotGenderMarkers(object)
 NULL
 
 
@@ -50,65 +45,10 @@ NULL
 
 
 
-.plotGenderMarkers.DESeqDataSet <-  # nolint
-    function(object, ...) {
-        validObject(object)
-        counts <- log2(counts(object, normalized = TRUE) + 1L)
-        countsAxisLabel <- "normalized counts (log2)"
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts
-        do.call(
-            what = plotGenderMarkers,
-            args = list(
-                object = rse,
-                countsAxisLabel = countsAxisLabel,
-                ...
-            )
-        )
-    }
-
-
-
-.plotGenderMarkers.DESeqTransform <-  # nolint
-    function(object, ...) {
-        validObject(object)
-        rse <- as(object, "RangedSummarizedExperiment")
-        do.call(
-            what = plotGenderMarkers,
-            args = list(
-                object = rse,
-                countsAxisLabel = .transformCountsAxisLabel(object),
-                ...
-            )
-        )
-    }
-
-
-
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
     f = "plotGenderMarkers",
     signature = signature("bcbioRNASeq"),
     definition = .plotGenderMarkers.bcbioRNASeq
-)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    f = "plotGenderMarkers",
-    signature = signature("DESeqDataSet"),
-    definition = .plotGenderMarkers.DESeqDataSet
-)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    f = "plotGenderMarkers",
-    signature = signature("DESeqTransform"),
-    definition = .plotGenderMarkers.DESeqTransform
 )
