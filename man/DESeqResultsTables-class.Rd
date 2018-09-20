@@ -5,7 +5,7 @@
 \alias{DESeqResultsTables-class}
 \title{\code{DESeqResultsTables} Class}
 \description{
-\code{DESeqResultsTables} Class
+\code{DESeqResults} object with \code{DataFrame} subsets and file path information.
 }
 \section{Slots}{
 

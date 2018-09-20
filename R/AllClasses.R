@@ -76,6 +76,8 @@ setClass(
 # DESeqResultsTables ===========================================================
 #' `DESeqResultsTables` Class
 #'
+#' `DESeqResults` object with `DataFrame` subsets and file path information.
+#'
 #' @family S4 Classes
 #' @author Michael Steinbaugh
 #' @export
