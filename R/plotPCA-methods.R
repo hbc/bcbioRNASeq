@@ -187,8 +187,6 @@ NULL
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotPCA.bcbioRNASeq)
 f2 <- formals(.plotPCA.SummarizedExperiment)
 f2 <- f2[setdiff(names(f2), names(f1))]
