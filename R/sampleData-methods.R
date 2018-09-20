@@ -35,11 +35,7 @@ NULL
 
 
 
-#' @rdname sampleData
-#' @export
-setMethod(
-    "sampleData",
-    signature("bcbioRNASeq"),
+.sampleData.bcbioRNASeq <-  # nolint
     function(object, clean = FALSE) {
         data <- colData(object)
         assert_is_a_bool(clean)
@@ -57,4 +53,13 @@ setMethod(
         }
         data
     }
+
+
+
+#' @rdname sampleData
+#' @export
+setMethod(
+    f = "sampleData",
+    signature = signature("bcbioRNASeq"),
+    definition = .sampleData.bcbioRNASeq
 )
