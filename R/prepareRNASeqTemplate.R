@@ -3,9 +3,7 @@
 #' @name prepareRNASeqTemplate
 #' @family R Markdown Functions
 #' @author Michael Steinbaugh
-#'
 #' @inherit basejump::prepareTemplate
-#'
 #' @export
 #'
 #' @examples
