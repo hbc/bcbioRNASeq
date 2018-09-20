@@ -96,8 +96,6 @@ NULL
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotDEGHeatmap.DESeqResults)
 f2 <- methodFormals(f = "plotHeatmap", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "object"))]
@@ -124,8 +122,6 @@ formals(.plotDEGHeatmap.DESeqResults) <- f
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotDEGHeatmap.DESeqAnalysis)
 f2 <- formals(.plotDEGHeatmap.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]

@@ -82,8 +82,6 @@ NULL
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotDEGPCA.DESeqResults)
 # Note that we're not exporting the plotPCA SE method.
 f2 <- formals(.plotPCA.SummarizedExperiment)
@@ -115,8 +113,6 @@ formals(.plotDEGPCA.DESeqResults) <- f
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotDEGPCA.DESeqAnalysis)
 f2 <- formals(.plotDEGPCA.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]
