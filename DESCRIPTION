@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.0
-Date: 2018-09-16
+Date: 2018-09-19
 Authors@R: c(
     person(
         given = "Michael",
@@ -170,8 +170,8 @@ RoxygenNote: 6.1.0
 VignetteBuilder: knitr
 Collate: 
     'AllClasses.R'
-    'AllGenerators.R'
     'AllGenerics.R'
+    'AllGenerators.R'
     'AllValidity.R'
     'DESeq-internal.R'
     'alphaSummary-methods.R'
@@ -209,8 +209,7 @@ Collate:
     'plotRRNAMappingRate-methods.R'
     'plotTotalReads-methods.R'
     'plotVolcano-methods.R'
-    'prepareRNASeqTemplate-methods.R'
-    'resultsTables-methods.R'
+    'prepareRNASeqTemplate.R'
     'sampleData-methods.R'
     'show-methods.R'
     'tmm-methods.R'
