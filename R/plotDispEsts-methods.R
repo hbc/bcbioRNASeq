@@ -45,10 +45,8 @@ NULL
             args = matchArgsToDoCall(args = list(object = dds))
         )
     }
-formals(.plotDispEsts.bcbioRNASeq) <- methodFormals(
-    f = "plotDispEsts",
-    signature = "DESeqDataSet"
-)
+formals(.plotDispEsts.bcbioRNASeq) <-
+    methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
 
 
 
