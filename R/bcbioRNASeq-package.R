@@ -47,7 +47,7 @@
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
-#' @importFrom BiocGenerics cbind colSums density design
+#' @importFrom BiocGenerics cbind colSums density design lapply sapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom crayon bold
 #' @importFrom DEGreport degCovariates significants
@@ -76,11 +76,12 @@
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang := !! !!! sym syms UQ
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
-#'   metadata na.omit
+#'   metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks
 #' @importFrom stringr str_match str_trunc
-#' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
-#'   colData colData<- metadata<- rowData rowRanges SummarizedExperiment
+#' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
+#'   assays<- colData colData<- rowData rowRanges
+#'   SummarizedExperiment
 #' @importFrom tibble as_tibble column_to_rownames glimpse remove_rownames
 #'   rownames_to_column tibble
 #' @importFrom tximport tximport
