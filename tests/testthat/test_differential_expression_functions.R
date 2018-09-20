@@ -206,11 +206,12 @@ with_parameters_test_that(
 
 
 
-# resultsTables ================================================================
+# FIXME Move to generators...
+# DESeqResultsTables ===========================================================
 with_parameters_test_that(
-    "resultsTables", {
+    "DESeqResultsTables", {
         expect_s4_class(
-            object = resultsTables(object),
+            object = DESeqResultsTables(object),
             class = "DESeqResultsTables"
         )
     },

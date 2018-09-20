@@ -37,7 +37,7 @@ This is a wrapper for \code{\link[rio:export]{rio::export()}} that adds support 
 classes in Bioconductor.
 }
 \examples{
-x <- resultsTables(deseq_small)
+x <- DESeqResultsTables(deseq_small)
 export(x, dir = "example")
 list.files("example")
 
