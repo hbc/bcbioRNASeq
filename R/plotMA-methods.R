@@ -285,8 +285,6 @@ NULL
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotMA.DESeqAnalysis)
 f2 <- formals(.plotMA.DESeqResults)
 f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]

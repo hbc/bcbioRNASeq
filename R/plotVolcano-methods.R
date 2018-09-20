@@ -349,8 +349,6 @@ NULL
             )
         )
     }
-
-# Assign the formals.
 f1 <- formals(.plotVolcano.DESeqAnalysis)
 f2 <- formals(.plotVolcano.DESeqResults)
 f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]
