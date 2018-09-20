@@ -5,7 +5,6 @@
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
 \alias{plotGene,DESeqAnalysis-method}
-\alias{plotGene,DESeqTransform-method}
 \title{Plot Gene Expression}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
@@ -15,12 +14,6 @@
   style = c("facet", "wide"))
 
 \S4method{plotGene}{DESeqAnalysis}(object, genes,
-  interestingGroups = NULL, medianLine = TRUE,
-  color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), style = c("facet",
-  "wide"))
-
-\S4method{plotGene}{DESeqTransform}(object, genes,
   interestingGroups = NULL, medianLine = TRUE,
   color = getOption("basejump.discrete.color", NULL),
   legend = getOption("basejump.legend", TRUE), style = c("facet",

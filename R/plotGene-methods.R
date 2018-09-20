@@ -75,40 +75,23 @@ formals(.plotGene.bcbioRNASeq) <- f
 
 
 
-.plotGene.DESeqTransform <-  # nolint
+.plotGene.DESeqAnalysis <-  # nolint
     function(object) {
         validObject(object)
-        if ("rlogIntercept" %in% colnames(mcols(object))) {
-            normalized <- "rlog"
+        # Using DESeqTransform
+        dt <- slot(object, "transform")
+        if ("rlogIntercept" %in% colnames(dt)) {
+            countsAxisLabel <- "rlog counts (log2)"
         } else {
-            normalized <- "vst"
+            countsAxisLabel <- "vst counts (log2)"
         }
         do.call(
             what = plotGene,
             args = matchArgsToDoCall(
                 args = list(
-                    object = as(object, "RangedSummarizedExperiment"),
+                    object = dt,
                     genes = genes,
-                    countsAxisLabel = paste(normalized, "counts (log2)")
-                )
-            )
-        )
-    }
-f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
-f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
-formals(.plotGene.DESeqTransform) <- f
-
-
-
-.plotGene.DESeqAnalysis <-  # nolint
-    function(object) {
-        validObject(object)
-        do.call(
-            what = plotGene,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = slot(object, "transform"),
-                    genes = genes
+                    countsAxisLabel = countsAxisLabel
                 )
             )
         )
@@ -135,14 +118,4 @@ setMethod(
     f = "plotGene",
     signature = signature("DESeqAnalysis"),
     definition = .plotGene.DESeqAnalysis
-)
-
-
-
-#' @rdname plotGene
-#' @export
-setMethod(
-    f = "plotGene",
-    signature = signature("DESeqTransform"),
-    definition = .plotGene.DESeqTransform
 )
