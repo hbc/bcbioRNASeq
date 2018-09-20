@@ -358,8 +358,7 @@ test_that("Metadata", {
             call = "call",
             date = "Date",
             wd = "character",
-            utilsSessionInfo = "sessionInfo",
-            devtoolsSessionInfo = "session_info"
+            sessionInfo = "session_info"
         )
     )
 })
