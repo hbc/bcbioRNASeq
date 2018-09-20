@@ -229,16 +229,19 @@ NULL
                 genes = genes,
                 gene2symbol = gene2symbol
             )
+
             # Map the user-defined `genes` to `gene2symbol` rownames.
             # We're using this to match back to the `DESeqResults` object.
             rownames <- mapGenesToRownames(
                 object = gene2symbol,
                 genes = genes
             )
+
             # Prepare the label data tibble.
             labelData <- data %>%
                 .[match(x = rownames, table = .[["rowname"]]), ] %>%
                 left_join(as(gene2symbol, "tbl_df"), by = "rowname")
+
             p <- p +
                 basejump_geom_label_repel(
                     data = labelData,
