@@ -28,7 +28,6 @@
 #' # This is the current recommended method.
 #' object <- deseq_small
 #' print(object)
-#'
 #' plotMA(object)
 #'
 #' # Customize the colors.
@@ -156,15 +155,10 @@ NULL
         }
 
         # MA plot --------------------------------------------------------------
-        xFloor <- data[["baseMean"]] %>%
-            min() %>%
-            log10() %>%
-            floor()
-        xCeiling <- data[["baseMean"]] %>%
-            max() %>%
-            log10() %>%
-            ceiling()
-        xBreaks <- 10L ^ seq(from = xFloor, to = xCeiling, by = 1L)
+        log10BaseMean <- log10(data[["baseMean"]])
+        floor <- min(floor(log10BaseMean))
+        ceiling <- max(ceiling(log10BaseMean))
+        xBreaks <- 10L ^ seq(from = floor, to = ceiling, by = 1L)
 
         p <- ggplot(
             data = data,

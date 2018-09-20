@@ -73,7 +73,6 @@ print(geneNames)
 # This is the current recommended method.
 object <- deseq_small
 print(object)
-
 plotMA(object)
 
 # Customize the colors.
