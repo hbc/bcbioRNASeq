@@ -4,7 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @name bcbioRNASeq-package
-#' @docType package
+#' @aliases NULL
 #'
 #' @importClassesFrom basejump tx2gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
@@ -89,4 +89,4 @@
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
-NULL
+"_PACKAGE"
