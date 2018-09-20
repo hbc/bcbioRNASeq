@@ -1,24 +1,35 @@
 # nocov start
+# nolint start
 
-#' Defunct or Deprecated Functions
+
+
+#' Deprecated Functions
 #'
 #' @name deprecated
+#' @author Michael Steinbaugh
 #' @keywords internal
 #'
 #' @inheritParams general
 #'
-#' @return No value.
+#' @return [.Deprecated()].
+NULL
+
+
+
+#' Defunct Functions
+#'
+#' @name defunct
+#' @author Michael Steinbaugh
+#' @keywords internal
+#'
+#' @inheritParams general
+#'
+#' @return [.Defunct()].
 NULL
 
 
 
 # v0.0.25 ======================================================================
-#' @rdname deprecated
-#' @export
-download <- function(...) {
-    .Defunct("prepareRNASeqTemplate")
-}
-
 #' @rdname deprecated
 #' @export
 plotGeneDetectionSaturation <- function(...) {
@@ -46,19 +57,19 @@ loadRNASeqRun <- function(...) {
 
 
 # v0.1.2 =======================================================================
-#' @rdname deprecated
+#' @rdname defunct
 #' @export
 plotGeneHeatmap <- function(...) {
-    .Defunct()
+    .Defunct("plotHeatmap")
 }
 
 
 
 # v0.1.3 =======================================================================
-#' @rdname deprecated
+#' @rdname defunct
 #' @export
 txi <- function(...) {
-    .Defunct()
+    .Defunct("assays")
 }
 
 
@@ -69,7 +80,7 @@ txi <- function(...) {
 #' @rdname deprecated
 #' @export
 meltLog10 <- function(object, ...) {
-    .Defunct()
+    .Defunct("meltCounts")
 }
 
 #' @rdname deprecated
@@ -78,7 +89,7 @@ setMethod(
     "design",
     signature("bcbioRNASeq"),
     function(object, ...) {
-        .Defunct()
+        .Defunct(msg = "Object no longer supports design formula")
     }
 )
 
@@ -92,30 +103,18 @@ setMethod(
         value = "formula"
     ),
     function(object, ..., value) {
-        .Defunct()
+        .Defunct(msg = "Object no longer supports design formula")
     }
 )
 
 
 
 # v0.2.2 =======================================================================
-#' @rdname bcbioRNASeq
-#' @usage NULL
+#' @rdname deprecated
 #' @export
 loadRNASeq <- function(...) {
     .Deprecated("bcbioRNASeq")
     bcbioRNASeq(...)
-}
-
-
-
-# v0.2.6 =======================================================================
-#' @rdname plotMA
-#' @usage NULL
-#' @export
-plotMeanAverage <- function(...) {
-    # Soft deprecation, since used in F1000 paper
-    plotMA(...)
 }
 
 
@@ -128,6 +127,13 @@ plotCountDensity <- function(...) {
     plotCountsPerGene(...)
 }
 
+#' @rdname defunct
+#' @export
+resultsTables <- function(...) {
+    .Defunct("DESeqResultsTables")
+}
 
 
+
+# nolint end
 # nocov end
