@@ -12,21 +12,24 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
-- \code{FALSE}: Raw counts (tximport).
-- \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rle}": Relative log expression transformation.
-Transcript-level counts support only \code{FALSE} and "\code{tpm}".}
+\itemize{
+\item \code{FALSE}: Raw counts (tximport).
+\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
+\item \code{"tpm"}: Transcripts per million (tximport).
+\item \code{"vst"}: DESeq2 \strong{log2} variance stabilizing transformation.
+\item \code{"rlog"}: DESeq2 \strong{log2} regularized log transformation.
+\item \code{"tmm"}: edgeR trimmed mean of M-values. Calculated on the fly.
+\item \code{"rle"}: Relative log expression transformation.
+}
+
+Note that transcript-level counts support only \code{FALSE} and \code{"tpm"}.}
 }
 \value{
 \code{matrix}.
 }
 \description{
 By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the "\code{normalized}"
+transcripts per million (TPM) can be accessed using the \code{"normalized"}
 argument.
 }
 \examples{

@@ -1,7 +1,7 @@
 #' Count Matrix Accessors
 #'
 #' By default, [counts()] returns the raw counts. Normalized counts, including
-#' transcripts per million (TPM) can be accessed using the "`normalized`"
+#' transcripts per million (TPM) can be accessed using the `"normalized"`
 #' argument.
 #'
 #' @name counts
@@ -12,14 +12,16 @@
 #'
 #' @inheritParams general
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
-#'     - `FALSE`: Raw counts (tximport).
-#'     - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
-#'     - "`tpm`": Transcripts per million (tximport).
-#'     - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#'     - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'     - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'     - "`rle`": Relative log expression transformation.
-#'   Transcript-level counts support only `FALSE` and "`tpm`".
+#'
+#'   - `FALSE`: Raw counts (tximport).
+#'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
+#'   - `"tpm"`: Transcripts per million (tximport).
+#'   - `"vst"`: DESeq2 **log2** variance stabilizing transformation.
+#'   - `"rlog"`: DESeq2 **log2** regularized log transformation.
+#'   - `"tmm"`: edgeR trimmed mean of M-values. Calculated on the fly.
+#'   - `"rle"`: Relative log expression transformation.
+#'
+#'   Note that transcript-level counts support only `FALSE` and `"tpm"`.
 #'
 #' @return `matrix`.
 #'
