@@ -312,3 +312,12 @@ setMethod(
     signature = signature("DESeqResults"),
     definition = .plotMA.DESeqResults
 )
+
+
+
+# Aliases ======================================================================
+#' @rdname plotMA
+#' @export
+plotMeanAverage <- function(...) {
+    plotMA(...)
+}
