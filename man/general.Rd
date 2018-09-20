@@ -17,6 +17,9 @@
 \item{alpha}{\code{scalar numeric} or \code{NULL}. Adjusted P value ("alpha") cutoff.
 If left \code{NULL}, will use the cutoff defined in the object.}
 
+\item{assay}{\code{scalar}. Name or index of counts matrix slotted in \code{\link[=assays]{assays()}}.
+When passing in a \code{string}, the name must be defined in \code{\link[=assayNames]{assayNames()}}.}
+
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we

@@ -26,8 +26,7 @@ glimpse(x)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
-  \code{\link{sampleData}}, \code{\link{tmm}},
-  \code{\link{tpm}}
+  \code{\link{sampleData}}, \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh

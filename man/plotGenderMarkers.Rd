@@ -4,16 +4,10 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
-\alias{plotGenderMarkers,DESeqDataSet-method}
-\alias{plotGenderMarkers,DESeqTransform-method}
 \title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "tpm", "rle"), ...)
-
-\S4method{plotGenderMarkers}{DESeqDataSet}(object, ...)
-
-\S4method{plotGenderMarkers}{DESeqTransform}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -36,12 +30,7 @@ chromosomes. Currently only \emph{Homo sapiens} and \emph{Mus musculus}
 genomes are supported.
 }
 \examples{
-# bcbioRNASeq ====
 plotGenderMarkers(bcb_small, normalized = "vst")
-
-# DESeqTransform ====
-object <- as(deseq_small, "DESeqTransform")
-plotGenderMarkers(object)
 }
 \seealso{
 Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},

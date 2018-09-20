@@ -4,26 +4,10 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
-\alias{plotCorrelationHeatmap,DESeqDataSet-method}
-\alias{plotCorrelationHeatmap,DESeqTransform-method}
 \title{Plot Correlation Heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-  interestingGroups = NULL, method = c("pearson", "spearman"),
-  clusteringMethod = "ward.D2", showRownames = TRUE,
-  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
-  color = viridis::viridis, legendColor = NULL, borderColor = NULL,
-  title = TRUE, ...)
-
-\S4method{plotCorrelationHeatmap}{DESeqDataSet}(object,
-  interestingGroups = NULL, method = c("pearson", "spearman"),
-  clusteringMethod = "ward.D2", showRownames = TRUE,
-  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
-  color = viridis::viridis, legendColor = NULL, borderColor = NULL,
-  title = TRUE, ...)
-
-\S4method{plotCorrelationHeatmap}{DESeqTransform}(object,
   interestingGroups = NULL, method = c("pearson", "spearman"),
   clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
