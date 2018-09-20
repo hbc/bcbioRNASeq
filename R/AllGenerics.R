@@ -178,7 +178,7 @@ setGeneric(
 #' @export
 setGeneric(
     name = "tmm",
-    def = function(object) {
+    def = function(object, ...) {
         standardGeneric("tmm")
     }
 )
@@ -191,16 +191,5 @@ setGeneric(
     name = "topTables",
     def = function(object, ...) {
         standardGeneric("topTables")
-    }
-)
-
-
-
-#' @rdname tpm
-#' @export
-setGeneric(
-    name = "tpm",
-    def = function(object) {
-        standardGeneric("tpm")
     }
 )
