@@ -9,7 +9,7 @@
 deseq_small
 }
 \description{
-Minimal DESeq2 differential expression analysis using \link{bcb_small}.
+Minimal DESeq2 differential expression analysis.
 }
 \examples{
 print(deseq_small)

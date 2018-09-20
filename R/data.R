@@ -11,7 +11,7 @@
 
 #' `DESeqAnalysis` Example
 #'
-#' Minimal DESeq2 differential expression analysis using [bcb_small].
+#' Minimal DESeq2 differential expression analysis.
 #'
 #' @family GSE65267
 #' @author Michael Steinbaugh, Lorena Pantano
