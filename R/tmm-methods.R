@@ -25,9 +25,25 @@ NULL
 #' @rdname tmm
 #' @export
 setMethod(
-    "tmm",
-    signature("bcbioRNASeq"),
-    function(object) {
+    f = "tmm",
+    signature = signature("matrix"),
+    definition = function(object) {
+        message("Applying trimmed mean of M-values (TMM) normalization")
+        object %>%
+            DGEList() %>%
+            calcNormFactors() %>%
+            cpm(normalized.lib.sizes = TRUE)
+    }
+)
+
+
+
+#' @rdname tmm
+#' @export
+setMethod(
+    f = "tmm",
+    signature = signature("bcbioRNASeq"),
+    definition = function(object) {
         validObject(object)
         .assertIsGeneLevel(object)
         tmm(assay(object))
@@ -39,26 +55,10 @@ setMethod(
 #' @rdname tmm
 #' @export
 setMethod(
-    "tmm",
-    signature("DESeqDataSet"),
-    function(object) {
+    f = "tmm",
+    signature = signature("DESeqDataSet"),
+    definition = function(object) {
         validObject(object)
         tmm(assay(object))
-    }
-)
-
-
-
-#' @rdname tmm
-#' @export
-setMethod(
-    "tmm",
-    signature("matrix"),
-    function(object) {
-        message("Applying trimmed mean of M-values (TMM) normalization")
-        object %>%
-            DGEList() %>%
-            calcNormFactors() %>%
-            cpm(normalized.lib.sizes = TRUE)
     }
 )

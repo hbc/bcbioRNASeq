@@ -22,9 +22,9 @@ NULL
 #' @rdname tpm
 #' @export
 setMethod(
-    "tpm",
-    signature("bcbioRNASeq"),
-    function(object) {
+    f = "tpm",
+    signature = signature("bcbioRNASeq"),
+    definition = function(object) {
         validObject(object)
         assert_is_subset("tpm", assayNames(object))
         assays(object)[["tpm"]]

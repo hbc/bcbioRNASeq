@@ -52,14 +52,14 @@ NULL
 #' @rdname extract
 #' @export
 setMethod(
-    "[",
-    signature(
+    f = "[",
+    signature = signature(
         x = "bcbioRNASeq",
         i = "ANY",
         j = "ANY",
         drop = "ANY"
     ),
-    function(
+    definition = function(
         x,
         i,
         j,
