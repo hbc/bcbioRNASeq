@@ -20,7 +20,7 @@ Markdown output.
 Markdown
 }
 \examples{
-object <- resultsTables(deseq_small)
+object <- DESeqResultsTables(deseq_small)
 markdown(object)
 }
 \author{
