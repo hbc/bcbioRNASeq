@@ -100,7 +100,7 @@ NULL
 #' @rdname plotTotalReads
 #' @export
 setMethod(
-    "plotTotalReads",
+    f = "plotTotalReads",
     signature("bcbioRNASeq"),
     definition = .plotTotalReads.bcbioRNASeq
 )
