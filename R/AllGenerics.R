@@ -20,6 +20,17 @@ setGeneric(
 
 
 
+#' @rdname DESeqResultsTables
+#' @export
+setGeneric(
+    name = "DESeqResultsTables",
+    def = function(object, ...) {
+        standardGeneric("DESeqResultsTables")
+    }
+)
+
+
+
 #' @rdname plot5Prime3PrimeBias
 #' @export
 setGeneric(
@@ -158,17 +169,6 @@ setGeneric(
     name = "plotVolcano",
     def = function(object, ...) {
         standardGeneric("plotVolcano")
-    }
-)
-
-
-
-#' @rdname resultsTables
-#' @export
-setGeneric(
-    name = "resultsTables",
-    def = function(object, ...) {
-        standardGeneric("resultsTables")
     }
 )
 
