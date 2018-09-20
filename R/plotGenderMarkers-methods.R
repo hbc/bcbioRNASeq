@@ -1,3 +1,10 @@
+# FIXME
+# Error in .local(object, ...) :
+#     unused arguments (assay = 1, countsAxisLabel = "counts")
+# Calls: plotGenderMarkers ... .local -> do.call -> do.call -> <Anonymous> -> <Anonymous>
+
+
+
 #' Plot Sexually Dimorphic Gender Marker Genes
 #'
 #' @name plotGenderMarkers
