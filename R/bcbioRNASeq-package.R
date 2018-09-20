@@ -3,16 +3,13 @@
 #' Quality control and differential expression for
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
-#' @name bcbioRNASeq-package
 #' @aliases NULL
 #'
 #' @importClassesFrom basejump tx2gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
-#'
 #' @importMethodsFrom basejump coerce
-#'
 #' @importFrom assertive.base assert_all_are_true assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
