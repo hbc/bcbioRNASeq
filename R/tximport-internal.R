@@ -96,18 +96,15 @@
     ))
     assert_is_non_empty(list[["countsFromAbundance"]])
 
-    # Return tximport list -----------------------------------------------------
+    # Return -------------------------------------------------------------------
     list
 }
 
 
 
 .regenerateTximportList <- function(object) {
-    assert_is_any_of(
-        x = object,
-        classes = c("bcbioRNASeq", "RangedSummarizedExperiment")
-    )
-    assert_is_subset(c("tpm", "counts", "length"), names(assays(object)))
+    assert_is_all_of(object, "RangedSummarizedExperiment")
+    assert_is_subset(c("tpm", "counts", "length"), assayNames(object))
     assert_is_subset("countsFromAbundance", names(metadata(object)))
     list(
         abundance = assays(object)[["tpm"]],
