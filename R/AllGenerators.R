@@ -402,33 +402,28 @@ bcbioRNASeq <- function(
     colData <- colData[colnames(counts), , drop = FALSE]
 
     # Row data -----------------------------------------------------------------
-    rowRangesMetadata <- NULL
     if (is_a_string(gffFile)) {
         message("Using `makeGRangesFromGFF()` for annotations")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
         # Using AnnotationHub/ensembldb to obtain the annotations.
         message("Using `makeGRangesFromEnsembl()` for annotations")
-        ah <- makeGRangesFromEnsembl(
+        rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
             build = genomeBuild,
-            release = ensemblRelease,
-            metadata = TRUE
+            release = ensemblRelease
         )
-        assert_is_list(ah)
-        assert_are_identical(names(ah), c("data", "metadata"))
-        rowRanges <- ah[["data"]]
-        assert_is_all_of(rowRanges, "GRanges")
-        rowRangesMetadata <- ah[["metadata"]]
-        assert_is_data.frame(rowRangesMetadata)
-        genomeBuild <- rowRangesMetadata %>%
-            filter(!!sym("name") == "genome_build") %>%
-            pull("value")
-        assert_is_a_string(genomeBuild)
+        if (is.null(genomeBuild)) {
+            genomeBuild <- metadata(rowRanges)[["build"]]
+        }
+        if (is.null(ensemblRelease)) {
+            ensemblRelease <- metadata(rowRanges)[["release"]]
+        }
     } else {
         rowRanges <- emptyRanges(rownames(counts))
     }
+    assert_is_all_of(rowRanges, "GRanges")
 
     # Gene-level variance stabilization ----------------------------------------
     if (level == "genes") {
@@ -511,7 +506,6 @@ bcbioRNASeq <- function(
         organism = as.character(organism),
         genomeBuild = as.character(genomeBuild),
         ensemblRelease = as.integer(ensemblRelease),
-        rowRangesMetadata = rowRangesMetadata,
         gffFile = as.character(gffFile),
         tx2gene = tx2gene,
         lanes = lanes,
