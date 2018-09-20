@@ -50,7 +50,7 @@ f2 <- methodFormals(
     f = "plotCorrelationHeatmap",
     signature = "SummarizedExperiment"
 )
-f <- c(f1, f2[setdiff(names(f2), names(f1))])
+f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
 formals(.plotCorrelationHeatmap.bcbioRNASeq) <- f
 
 

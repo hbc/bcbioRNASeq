@@ -69,7 +69,7 @@ NULL
     }
 f1 <- formals(.plotGene.bcbioRNASeq)
 f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
-f2 <- f2[setdiff(names(f2), c(names(f1), "countsAxisLabel"))]
+f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
 formals(.plotGene.bcbioRNASeq) <- f
 
@@ -95,7 +95,7 @@ formals(.plotGene.bcbioRNASeq) <- f
         )
     }
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
-f <- f[setdiff(names(f), "countsAxisLabel")]
+f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
 formals(.plotGene.DESeqTransform) <- f
 
 
@@ -114,7 +114,7 @@ formals(.plotGene.DESeqTransform) <- f
         )
     }
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
-f <- f[setdiff(names(f), "countsAxisLabel")]
+f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
 formals(.plotGene.DESeqAnalysis) <- f
 
 
