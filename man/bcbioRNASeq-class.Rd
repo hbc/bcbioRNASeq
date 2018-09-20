@@ -13,11 +13,6 @@ analysis.
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
 }
-\examples{
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-x <- bcbioRNASeq(uploadDir)
-print(x)
-}
 \seealso{
 Other S4 Classes: \code{\link{DESeqAnalysis-class}},
   \code{\link{DESeqResultsTables-class}}

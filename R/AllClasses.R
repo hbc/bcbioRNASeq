@@ -18,11 +18,6 @@ setClassUnion(
 #' @family S4 Classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
-#'
-#' @examples
-#' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-#' x <- bcbioRNASeq(uploadDir)
-#' print(x)
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
@@ -55,7 +50,6 @@ setClass(
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @inheritParams general
 #' @slot data `DESeqDataSet`.
 #' @slot transform `DESeqTransform`.
 #' @slot results `list`. One or more unshrunken `DESeqResults`.
@@ -82,7 +76,6 @@ setClass(
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @inheritParams general
 #' @slot all `DESeqResults`. Original unmodified `DESeqResults`. Should contain
 #'   all genes, including those with `NA` adjusted *P* values.
 #' @slot deg `DataFrame`. Subset containing genes that pass adjusted *P* value
