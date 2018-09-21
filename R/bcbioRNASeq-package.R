@@ -30,9 +30,8 @@
 #'   is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
 #'   assertIsHexColorFunctionOrNULL assertFormalGene2symbol
-#'   assertHasValidDimnames assertIsAHeaderLevel assertIsAStringOrNULL
-#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
-#'   assertIsImplicitInteger assertIsGene2symbol
+#'   assertHasValidDimnames assertIsAStringOrNULL assertIsAnImplicitInteger
+#'   assertIsAnImplicitIntegerOrNULL assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene basejump_geom_abline basejump_geom_label
 #'   basejump_geom_label_repel camel coerceS4ToList convertGenesToSymbols
@@ -42,8 +41,8 @@
 #'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
 #'   matchInterestingGroups meltCounts methodFormals organism plotHeatmap
 #'   prepareTemplate printString readYAML removeNA sampleData sanitizeRowData
-#'   sanitizeSampleData separator snake standardizeCall
-#'   stripTranscriptVersions uniteInterestingGroups
+#'   sanitizeSampleData separator snake standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
