@@ -29,20 +29,20 @@
 #'   assert_is_list assert_is_matrix assert_is_numeric assert_is_tbl_df
 #'   is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
-#'   assertIsHexColorFunctionOrNULL assertFormalGene2symbol
-#'   assertHasValidDimnames assertIsAStringOrNULL assertIsAnImplicitInteger
-#'   assertIsAnImplicitIntegerOrNULL assertIsImplicitInteger assertIsGene2symbol
+#'   assertFormalGene2symbol assertHasValidDimnames assertIsAStringOrNULL
+#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
-#'   assertIsTx2gene basejump_geom_abline basejump_geom_label
-#'   basejump_geom_label_repel camel coerceS4ToList convertGenesToSymbols
-#'   emptyRanges fixNA gene2symbol hasRownames import initializeDirectory
-#'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups meltCounts methodFormals organism plotHeatmap
-#'   prepareTemplate printString readYAML removeNA sampleData sanitizeRowData
-#'   sanitizeSampleData separator snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups
+#'   assertIsGene2symbol assertIsHeaderLevel assertIsHexColorFunctionOrNULL
+#'   assertIsImplicitInteger assertIsTx2gene basejump_geom_abline
+#'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
+#'   convertGenesToSymbols emptyRanges fixNA gene2symbol hasRownames import
+#'   initializeDirectory interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
+#'   methodFormals organism plotHeatmap prepareTemplate printString readYAML
+#'   removeNA sampleData sanitizeRowData sanitizeSampleData separator snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs

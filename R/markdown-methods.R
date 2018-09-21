@@ -22,7 +22,7 @@ NULL
     ) {
         assert_is_all_of(object, "DESeqResultsTables")
         validObject(object)
-        assertIsImplicitInteger(headerLevel)
+        assertIsHeaderLevel(headerLevel)
 
         # Include a contrast header, which is useful for looping.
         contrast <- contrastName(object)
