@@ -57,7 +57,7 @@ setMethod(
         x = "bcbioRNASeq",
         i = "ANY",
         j = "ANY",
-        drop = "ANY"
+        drop = "logical"
     ),
     definition = function(
         x,
@@ -67,26 +67,28 @@ setMethod(
         transform = TRUE
     ) {
         validObject(x)
+        # Never allow the user to drop on extraction.
+        stopifnot(!isTRUE(drop))
 
         # Genes (rows)
         if (missing(i)) {
-            i <- 1L:nrow(x)
+            i <- seq_len(x)
         }
-        # Require at least 100 genes
+        # Require at least 100 genes.
         assert_all_are_in_range(length(i), lower = 100L, upper = Inf)
 
         # Samples (columns)
         if (missing(j)) {
-            j <- 1L:ncol(x)
+            j <- seq_len(x)
         }
-        # Require at least 2 samples
+        # Require at least 2 samples.
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
-        # Regenerate RangedSummarizedExperiment
+        # Regenerate RangedSummarizedExperiment.
         rse <- as(x, "RangedSummarizedExperiment")
-        rse <- rse[i, j, drop = drop]
+        rse <- rse[i, j, drop = FALSE]
 
-        # Early return if dimensions are unmodified
+        # Early return if dimensions are unmodified.
         if (identical(dim(rse), dim(x))) {
             return(x)
         }
@@ -94,18 +96,18 @@ setMethod(
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
-        # Always recalculate DESeq2 normalized counts
+        # Always recalculate DESeq2 normalized counts.
         message("Updating normalized counts")
         dds <- .regenerateDESeqDataSet(rse)
         assays[["normalized"]] <- counts(dds, normalized = TRUE)
 
-        # Optionally, recalculate DESeq2 transformations (rlog, vst)
+        # Optionally, recalculate DESeq2 transformations (rlog, vst).
         if (
             any(c("rlog", "vst") %in% names(assays)) &&
             isTRUE(transform)
         ) {
             # Update DESeq2 transformations by default, but only if they are
-            # already defined in assays (rlog, vst)
+            # already defined in assays (rlog, vst).
             message(paste(
                 "Recalculating DESeq2 variance stabilizations",
                 "(transform = TRUE)"
@@ -121,7 +123,7 @@ setMethod(
                 assays[["rlog"]] <- assay(rlog(dds))
             }
         } else {
-            # Otherwise, ensure previous calculations are removed from assays
+            # Otherwise, ensure previous calculations are removed from assays.
             message(paste(
                 "Skipping DESeq2 variance stabilizations",
                 "(transform = FALSE)"
@@ -131,7 +133,7 @@ setMethod(
         }
 
         # Column data ----------------------------------------------------------
-        # Ensure factors get releveled
+        # Ensure factors get releveled.
         colData <- colData(rse) %>%
             as.data.frame() %>%
             rownames_to_column() %>%
