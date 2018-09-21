@@ -3,10 +3,10 @@
 \docType{methods}
 \name{extract}
 \alias{extract}
-\alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
+\alias{[,bcbioRNASeq,ANY,ANY,logical-method}
 \title{Extract or Replace Parts of an Object}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE,
+\S4method{[}{bcbioRNASeq,ANY,ANY,logical}(x, i, j, drop = FALSE,
   transform = TRUE)
 }
 \arguments{
