@@ -345,7 +345,6 @@ test_that("Metadata", {
             organism = "character",
             genomeBuild = "character",
             ensemblRelease = "integer",
-            rowRangesMetadata = tibble,
             gffFile = "character",
             tx2gene = structure("tx2gene", package = "basejump"),
             lanes = "integer",
