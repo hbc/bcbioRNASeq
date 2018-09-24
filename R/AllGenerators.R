@@ -674,7 +674,7 @@ NULL
 
         # DEG tables are sorted by adjusted P value.
         deg <- object %>%
-            as("tbl_df") %>%
+            as_tibble(rownames = "rowname") %>%
             # Remove genes without an adjusted P value.
             filter(!is.na(!!test)) %>%
             # Remove genes that don't pass alpha cutoff.
