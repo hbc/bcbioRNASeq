@@ -41,7 +41,7 @@ summary(x)
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{sampleData}}
+  \code{\link{sampleData}}
 }
 \author{
 Michael Steinbaugh
