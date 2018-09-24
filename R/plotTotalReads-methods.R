@@ -41,7 +41,7 @@ NULL
         assert_is_a_bool(flip)
         assertIsAStringOrNULL(title)
 
-        data <- as(metrics(object), "tbl_df")
+        data <- as_tibble(metrics(object))
 
         # Convert to per million, if desired.
         yLab <- "reads"
