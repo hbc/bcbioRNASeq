@@ -48,7 +48,7 @@ NULL
 
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object) %>%
-            as("tbl_df") %>%
+            as_tibble() %>%
             mutate(geneCount = colSums(!!counts >= !!minCounts))
 
         # Convert to per million, if desired.
