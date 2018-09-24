@@ -187,7 +187,6 @@ Collate:
     'globals.R'
     'markdown-methods.R'
     'meltCounts-internal.R'
-    'metrics-methods.R'
     'plot5Prime3PrimeBias-methods.R'
     'plotCorrelationHeatmap-methods.R'
     'plotCountsPerGene-methods.R'
