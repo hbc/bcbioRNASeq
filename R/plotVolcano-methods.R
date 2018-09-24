@@ -130,7 +130,7 @@ NULL
         negLogTestCol <- camel(paste("neg", "log10", testCol))
 
         data <- object %>%
-            as("tbl_df") %>%
+            as_tibble(rownames = "rowname") %>%
             camel() %>%
             # Select columns used for plots.
             select(!!!syms(c("rowname", "baseMean", lfcCol, testCol))) %>%
