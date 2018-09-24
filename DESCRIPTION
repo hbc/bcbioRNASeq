@@ -172,7 +172,6 @@ Collate:
     'AllClasses.R'
     'AllGenerics.R'
     'AllGenerators.R'
-    'AllValidity.R'
     'DESeq2-internal.R'
     'alphaSummary-methods.R'
     'assert-internal.R'
