@@ -110,7 +110,7 @@ NULL
         lfcCol <- "log2FoldChange"
 
         data <- object %>%
-            as("tbl_df") %>%
+            as_tibble(rownames = "rowname") %>%
             camel() %>%
             # Remove genes with very low expression.
             filter(!!sym("baseMean") >= 1L) %>%
