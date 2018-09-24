@@ -3,11 +3,11 @@
 \docType{methods}
 \name{extract}
 \alias{extract}
-\alias{[,bcbioRNASeq,ANY,ANY,logical-method}
+\alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
 \title{Extract or Replace Parts of an Object}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,logical}(x, i, j, drop = FALSE,
-  transform = TRUE)
+\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE,
+  recalculate = TRUE)
 }
 \arguments{
 \item{x}{
@@ -66,8 +66,9 @@
     \code{\link{drop}} for further details.
   }
 
-\item{transform}{\code{boolean}. Recalculate slotted DESeq2 transformations.
-Recommended by default but can take a while for large datasets.}
+\item{recalculate}{\code{boolean}. Recalculate DESeq2 normalized counts and
+variance-stabilizing transformations defined in \code{\link[=assays]{assays()}}. Recommended by
+default, but can take a long time for large datasets.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -77,7 +78,7 @@ Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
 Internal count transformations are rescaled automatically, if defined.
 }
 \note{
-DESeq2 transformations will only be calculated when \code{transform = TRUE}
+DESeq2 transformations will only be updated when \code{recalculate = TRUE}
 and either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
 }
 \examples{
@@ -100,9 +101,9 @@ x <- object[genes, samples]
 print(x)
 assayNames(x)
 
-# Fast subsetting, by skipping DESeq2 transformations
-# Note that rlog and vst counts will not be defined
-x <- object[, samples, transform = FALSE]
+# Fast subsetting, by skipping DESeq2 recalculations.
+# Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+x <- object[, samples, recalculate = FALSE]
 print(x)
 names(assays(x))
 }
