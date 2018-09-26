@@ -173,10 +173,9 @@ bcbioRNASeq <- function(
     rlog = FALSE,
     ...
 ) {
-    call <- match.call()
-
     # Legacy arguments ---------------------------------------------------------
     # nocov start
+    call <- match.call()
     # annotable
     if ("annotable" %in% names(call)) {
         stop("`annotable` is defunct. Consider using `gffFile` instead.")
@@ -200,6 +199,7 @@ bcbioRNASeq <- function(
             "separate `vst` and `rlog` arguments"
         ))
     }
+    rm(call)
     # nocov end
 
     # Assert checks ------------------------------------------------------------
@@ -269,6 +269,7 @@ bcbioRNASeq <- function(
     assert_is_character(bcbioCommandsLog)
 
     # Sequencing lanes ---------------------------------------------------------
+    # FIXME Make this a function.
     if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
         # nocov start
         lanes <- str_match(names(sampleDirs), lanePattern) %>%
@@ -515,7 +516,7 @@ bcbioRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        call = call
+        call = match.call()
     )
 
     # Return -------------------------------------------------------------------

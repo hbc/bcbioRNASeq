@@ -36,6 +36,19 @@ Export data out of R and write to disk.
 This is a wrapper for \code{\link[rio:export]{rio::export()}} that adds support for additional S4
 classes in Bioconductor.
 }
+\section{Row names}{
+
+
+
+The standard \code{\link[rio:export]{rio::export()}} call will drop rownames when exporting to CSV.
+The \code{readr::write_*()} family of functions also never write rownames. This is
+a \emph{really poor} default setting for handling genomic data, which often
+contain gene identifiers in the rownames. Here we're performing any internal
+tibble coercion step to ensure rownames are always moved to a "\code{rowname}"
+column in the CSV export.
+
+}
+
 \examples{
 x <- DESeqResultsTables(deseq_small)
 export(x, dir = "example")
