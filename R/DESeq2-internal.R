@@ -74,9 +74,9 @@
 
 .regenerateDESeqDataSet <- function(object) {
     assert_is_all_of(object, "RangedSummarizedExperiment")
-    message(paste(
-        "Generating DESeqDataSet with DESeq2",
-        packageVersion("DESeq2")
+    message(paste0(
+        "Generating DESeqDataSet with DESeq2 ",
+        packageVersion("DESeq2"), "..."
     ))
     txi <- .regenerateTximportList(object)
     dds <- DESeqDataSetFromTximport(

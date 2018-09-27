@@ -63,7 +63,7 @@ NULL
         assert_is_subset(col, colnames(metadata))
         # Stop on 1 metrics column
         if (length(col) < 2L) {
-            stop("`plotPCACovariates()` requires >= 2 metrics")
+            stop("`plotPCACovariates()` requires >= 2 metrics.")
         }
         metadata <- metadata[, col, drop = FALSE]
 

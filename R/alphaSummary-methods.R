@@ -51,7 +51,7 @@ NULL
         # If neither are defined, we're checking the intercept.
         if (!is.null(contrast) && !is.null(name)) {
             stop(
-                "Specify either `contrast` or `name` (but not both)",
+                "Specify either `contrast` or `name`.",
                 call. = FALSE
             )
         }

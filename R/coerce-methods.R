@@ -54,11 +54,11 @@ setAs(
     function(from) {
         validObject(from)
         if (metadata(from)[["level"]] != "genes") {
-            stop("Gene-level counts are required")
+            stop("Gene-level counts are required.")
         }
-        message(paste(
-            "Coercing bcbioRNASeq to DESeqDataSet with DESeq2",
-            packageVersion("DESeq2")
+        message(paste0(
+            "Coercing bcbioRNASeq to DESeqDataSet with DESeq2 ",
+            packageVersion("DESeq2"), "..."
         ))
         # Creating `DESeqDataSet` from `RangedSummarizedExperiment` is
         # preferable to `DESeqDataSetFromTximport` method because `rowRanges`
@@ -88,7 +88,7 @@ setAs(
         validObject(dds)
         # Coerce using a new on-the-fly calculation.
         # We're using VST here because it's faster than rlog.
-        message("Applying variance stabilizing transformation")
+        message("Applying variance stabilizing transformation...")
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
         dt

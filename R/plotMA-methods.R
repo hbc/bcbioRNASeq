@@ -86,7 +86,7 @@ NULL
         assert_is_a_number(ntop)
         assert_all_are_non_negative(ntop)
         if (!is.null(genes) && ntop > 0L) {
-            stop("Specify either `genes` or `ntop`, but not both")
+            stop("Specify either `genes` or `ntop`.")
         }
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
@@ -145,7 +145,7 @@ NULL
 
         # Check for no genes passing cutoffs and early return.
         if (!nrow(data)) {
-            warning("No genes passed cutoffs")
+            warning("No genes passed cutoffs.")
             return(invisible())
         }
 

@@ -78,7 +78,7 @@ NULL
             ggtitle("DESeq2 rlog") +
             xlab(xlab)
     } else {
-        message("Skipping regularized log")
+        message("Skipping regularized log.")
         ggrlog <- NULL
     }
 
@@ -91,7 +91,7 @@ NULL
             ggtitle("DESeq2 vst") +
             xlab(xlab)
     } else {
-        message("Skipping variance stabilizing transformation")
+        message("Skipping variance stabilizing transformation.")
         ggvst <- NULL
     }
 

@@ -67,7 +67,7 @@ NULL
 
         # Early return if there are no DEGs.
         if (!length(deg) > 0L) {
-            warning("No significant DEGs to plot", call. = FALSE)
+            warning("No significant DEGs to plot.", call. = FALSE)
             return(invisible())
         }
 

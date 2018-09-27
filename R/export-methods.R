@@ -65,16 +65,17 @@ NULL
         # Write the results tables to local directory
         if (length(dropboxDir)) {
             # nocov start : use local Dropbox token
-            message(paste(
-                "Writing",
+            message(paste0(
+                "Writing ",
                 toString(basename(localFiles)),
-                "to Dropbox",
-                paste0("(", dropboxDir, ")")
+                " to Dropbox (", dropboxDir, ")..."
             ))
             # nocov end
         } else {
-            message(paste(
-                "Writing", toString(basename(localFiles)), "to", dir
+            message(paste0(
+                "Writing ",
+                toString(basename(localFiles)),
+                " to ", dir, "..."
             ))
         }
 

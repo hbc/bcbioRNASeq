@@ -72,7 +72,7 @@ NULL
         if (is_positive(limit)) {
             if (isTRUE(perMillion)) {
                 if (limit < 1e6L) {
-                    warning("`limit`: Use absolute value, not per million")
+                    warning("`limit`: Use absolute value, not per million.")
                 } else {
                     limit <- limit / 1e6L
                 }
