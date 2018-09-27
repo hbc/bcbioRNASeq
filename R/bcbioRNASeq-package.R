@@ -35,8 +35,8 @@
 #'   assertIsGene2symbol assertIsHeaderLevel assertIsHexColorFunctionOrNULL
 #'   assertIsImplicitInteger assertIsTx2gene basejump_geom_abline
 #'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
-#'   convertGenesToSymbols emptyRanges fixNA gene2symbol hasRownames import
-#'   initializeDirectory interestingGroups interestingGroups<-
+#'   convertGenesToSymbols detectLanes emptyRanges fixNA gene2symbol hasRownames
+#'   import initializeDirectory interestingGroups interestingGroups<-
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
