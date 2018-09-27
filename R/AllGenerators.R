@@ -182,21 +182,21 @@ bcbioRNASeq <- function(
     }
     # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
-        warning("Use `ensemblRelease` instead of `ensemblVersion`")
+        warning("Use `ensemblRelease` instead of `ensemblVersion`.")
         ensemblRelease <- call[["ensemblVersion"]]
     }
     # organism
     if (!"organism" %in% names(call)) {
         message(paste(
             "`organism` is recommended for defining",
-            "annotations in `rowRanges()`"
+            "annotations in `rowRanges()`."
         ))
     }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
         stop(paste(
             "`transformationLimit` is deprecated in favor of",
-            "separate `vst` and `rlog` arguments"
+            "separate `vst` and `rlog` arguments."
         ))
     }
     rm(call)
@@ -361,11 +361,11 @@ bcbioRNASeq <- function(
 
     # Row data -----------------------------------------------------------------
     if (is_a_string(gffFile)) {
-        message("Using `makeGRangesFromGFF()` for annotations")
+        message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
         # Using AnnotationHub/ensembldb to obtain the annotations.
-        message("Using `makeGRangesFromEnsembl()` for annotations")
+        message("Using `makeGRangesFromEnsembl()` for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -379,16 +379,16 @@ bcbioRNASeq <- function(
             ensemblRelease <- metadata(rowRanges)[["release"]]
         }
     } else {
-        message("Unknown organism. Skipping gene annotations.")
+        message("Unknown organism. Skipping annotations.")
         rowRanges <- emptyRanges(rownames(counts))
     }
     assert_is_all_of(rowRanges, "GRanges")
 
     # Gene-level variance stabilization ----------------------------------------
     if (level == "genes") {
-        message(paste(
-            "Generating DESeqDataSet with DESeq2",
-            packageVersion("DESeq2")
+        message(paste0(
+            "Generating DESeqDataSet with DESeq2 ",
+            packageVersion("DESeq2"), "..."
         ))
         if (is.list(txi)) {
             # Create `DESeqDataSet` from `tximport()` return `list` by default.
@@ -412,13 +412,13 @@ bcbioRNASeq <- function(
             # Suppress expected warnings about the design formula.
             dds <- suppressWarnings(DESeq(dds))
             if (isTRUE(vst)) {
-                message("Applying variance-stabilizing transformation")
+                message("Applying variance-stabilizing transformation...")
                 vst <- assay(varianceStabilizingTransformation(dds))
             } else {
                 vst <- NULL
             }
             if (isTRUE(rlog)) {
-                message("Applying regularized log transformation")
+                message("Applying regularized log transformation...")
                 rlog <- assay(rlog(dds))
             } else {
                 rlog <- NULL
@@ -701,7 +701,9 @@ NULL
 
             # Row annotations
             if (isTRUE(rowData)) {
-                message("Adding `rowData()` annotations (atomic columns only)")
+                message(paste(
+                    "Adding `rowData()` annotations (atomic columns only)..."
+                ))
                 rowData <- sanitizeRowData(rowData(object@data))
                 # DESeq2 includes additional information in `rowData()` that
                 # isn't informative for a user, and doesn't need to be included
@@ -720,7 +722,7 @@ NULL
 
             # DESeq2 normalized counts
             if (isTRUE(counts)) {
-                message("Adding DESeq2 normalized counts")
+                message("Adding DESeq2 normalized counts...")
                 counts <- counts(object@data, normalized = TRUE)
                 assert_are_disjoint_sets(colnames(data), colnames(counts))
                 assert_are_identical(rownames(data), rownames(counts))
