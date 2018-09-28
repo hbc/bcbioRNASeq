@@ -72,7 +72,7 @@
 #' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
-#' @importFrom rlang := !! !!! sym syms UQ
+#' @importFrom rlang := !! !!! has_length sym syms UQ
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
 #'   metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks
