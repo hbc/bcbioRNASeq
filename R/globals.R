@@ -1,17 +1,22 @@
 globalVariables(".")
 
-requiredAssays <- "counts"
-featureCountsCallers <- c("star", "hisat2")
-lanePattern <- basejump::lanePattern
-legacyMetricsCols <- c("name", "x53Bias")
-metadataBlacklist <- bcbioBase::metadataBlacklist
 packageVersion <- packageVersion("bcbioRNASeq")
-projectDirPattern <- bcbioBase::projectDirPattern
+
+lanePattern <- basejump::lanePattern
 separatorBar <- basejump::separator()
-tximportAssays <- c("counts", "length", "tpm")
-tximportCallers <- c("salmon", "kallisto", "sailfish")
 updateMessage <- basejump::updateMessage
+
+metadataBlacklist <- bcbioBase::metadataBlacklist
+projectDirPattern <- bcbioBase::projectDirPattern
+
 validLevels <- c("genes", "transcripts")
 
+requiredAssays <- "counts"
+tximportAssays <- c("counts", "length", "tpm")
 featureCountsAssays <- requiredAssays
+
+tximportCallers <- c("salmon", "kallisto", "sailfish")
+featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
+
+legacyMetricsCols <- c("name", "x53Bias")
