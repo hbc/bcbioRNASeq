@@ -26,8 +26,8 @@
 #' @importFrom assertive.types assert_is_a_bool assert_is_a_number
 #'   assert_is_a_string assert_is_all_of assert_is_an_integer assert_is_any_of
 #'   assert_is_character assert_is_data.frame assert_is_factor assert_is_formula
-#'   assert_is_list assert_is_matrix assert_is_numeric assert_is_tbl_df
-#'   is_a_string
+#'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
+#'   assert_is_tbl_df is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
 #'   assertFormalGene2symbol assertHasValidDimnames assertIsAStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
