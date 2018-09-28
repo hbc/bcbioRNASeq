@@ -1,3 +1,7 @@
+# FIXME Change color options to use "basejump" instead of "bcbio"
+
+
+
 #' Plot Gene Detection Saturation
 #'
 #' We should observe a linear trend in the number of genes detected with the
@@ -47,9 +51,9 @@ NULL
         assertIsAStringOrNULL(title)
 
         counts <- counts(object, normalized = FALSE)
-        data <- metrics(object) %>%
-            as_tibble() %>%
-            mutate(geneCount = colSums(!!counts >= !!minCounts))
+        data <- metrics(object)
+        assert_are_identical(colnames(counts), data[["sampleID"]])
+        data[["geneCount"]] <- colSums(counts >= minCounts)
 
         # Convert to per million, if desired.
         xLab <- "mapped reads"
