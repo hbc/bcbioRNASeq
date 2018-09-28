@@ -1,3 +1,7 @@
+# FIXME Include `n` in title.
+
+
+
 #' Differentially Expressed Gene Heatmap
 #'
 #' This function is a simplified version of [plotHeatmap()] that is
@@ -39,6 +43,7 @@ NULL
     function(
         object,
         counts,
+        direction = c("both", "up", "down"),
         scale = "row",
         title = TRUE
     ) {
@@ -48,10 +53,11 @@ NULL
         validObject(counts)
         assert_are_identical(rownames(object), rownames(counts))
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
+        direction <- match.arg(direction)
         # Hiding the choices from the user by default, because in most cases row
         # scaling should be used.
         scale <- match.arg(scale, choices = c("row", "column", "none"))
@@ -63,10 +69,14 @@ NULL
             title <- NULL
         }
 
-        deg <- significants(object, padj = alpha, fc = lfcThreshold)
-
-        # Early return if there are no DEGs.
-        if (!length(deg) > 0L) {
+        # Get the character vector of DEGs.
+        deg <- .deg(
+            object = object,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold,
+            direction = direction
+        )
+        if (!has_length(deg)) {
             warning("No significant DEGs to plot.", call. = FALSE)
             return(invisible())
         }
@@ -91,7 +101,8 @@ NULL
                 removeFormals = c(
                     "counts",
                     "alpha",
-                    "lfcThreshold"
+                    "lfcThreshold",
+                    "direction"
                 )
             )
         )

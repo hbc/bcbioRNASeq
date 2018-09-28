@@ -48,19 +48,14 @@ NULL
         assert_is_a_bool(label)
         return <- match.arg(return)
 
-        # Get DEG vector using DEGreport.
-        if (direction == "both") {
-            direction <- NULL
-        }
-        deg <- significants(
-            object,
-            padj = alpha,
-            fc = lfcThreshold,
+        # Get the character vector of DEGs.
+        deg <- .deg(
+            object = object,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold,
             direction = direction
         )
-
-        # Early return if there are no DEGs.
-        if (!length(deg) > 0L) {
+        if (!has_length(deg)) {
             warning("No significant DEGs to plot.", call. = FALSE)
             return(invisible())
         }
