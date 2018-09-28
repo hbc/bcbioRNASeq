@@ -9,7 +9,7 @@
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "tpm", "rle"), interestingGroups = NULL, ntop = 500L,
   color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", TRUE), title = "PCA",
+  label = getOption("bcbio.label", FALSE), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"))
 }
 \arguments{
@@ -87,7 +87,7 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
   \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotQC}}, \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }
 \author{

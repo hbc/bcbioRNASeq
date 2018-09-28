@@ -12,13 +12,13 @@ plotDEGPCA(object, ...)
 \S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
   direction = c("both", "up", "down"), interestingGroups = NULL,
   color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", TRUE), return = c("ggplot",
+  label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
   "up", "down"), interestingGroups = NULL,
   color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", TRUE), return = c("ggplot",
+  label = getOption("bcbio.label", FALSE), return = c("ggplot",
   "DataFrame"))
 }
 \arguments{

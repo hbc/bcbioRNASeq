@@ -59,7 +59,8 @@ Other Quality Control Functions: \code{\link{plotCorrelationHeatmap}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
   \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotPCA}}, \code{\link{plotQC}},
+  \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }
 \author{
