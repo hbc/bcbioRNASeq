@@ -10,17 +10,18 @@
 plotDEGHeatmap(object, ...)
 
 \S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
-  scale = "row", title = TRUE, interestingGroups = NULL,
-  clusterRows = TRUE, clusterCols = TRUE, showRownames = FALSE,
-  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
-  color = viridis::viridis, legendColor = NULL, borderColor = NULL,
-  ...)
+  direction = c("both", "up", "down"), scale = "row", title = TRUE,
+  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
+  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
+  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
+  borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults}(object, counts, scale = "row",
-  title = TRUE, interestingGroups = NULL, clusterRows = TRUE,
-  clusterCols = TRUE, showRownames = FALSE, showColnames = TRUE,
-  treeheightRow = 0L, treeheightCol = 50L, color = viridis::viridis,
-  legendColor = NULL, borderColor = NULL, ...)
+\S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
+  direction = c("both", "up", "down"), scale = "row", title = TRUE,
+  interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
+  showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
+  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
+  borderColor = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -31,6 +32,8 @@ arguments should be formatted in camel case, not snake case.}
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{counts}{\code{DESeqTransform}.}
+
+\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
 \item{scale}{\code{string}. Whether the values should be centered and scaled in
 either the row or column direction ("\code{row}", "\code{column}"), or remain
