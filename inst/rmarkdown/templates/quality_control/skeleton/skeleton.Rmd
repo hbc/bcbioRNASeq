@@ -144,6 +144,7 @@ plotCountsPerGene(bcb, normalized = "tmm")
 ```
 
 ```{r plot_biotype, eval="geneBiotype" %in% colnames(rowData(bcb)), echo=FALSE}
+# FIXME Convert these to functions.
 markdownHeader("TPM per biotype", level = 2)
 asis_output("Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.")
 
@@ -187,6 +188,7 @@ ggplot(
 ```
 
 ```{r plot_broad_class, eval="broadClass" %in% colnames(rowData(bcb)), echo=FALSE}
+# FIXME Convert these to functions.
 markdownHeader("TPM per broad biotype class", level = 2)
 asis_output("The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.")
 
@@ -225,9 +227,10 @@ ggplot(
 
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
-```{r plot_count_density}
-plotCountDensity(
+```{r plot_counts_per_gene}
+plotCountsPerGene(
     object = bcb,
+    geom = "density",
     interestingGroups = "sampleName",
     normalized = "tmm"
 )
