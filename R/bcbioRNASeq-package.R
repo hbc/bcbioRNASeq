@@ -49,7 +49,6 @@
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom crayon bold
-#' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors priorInfo results resultsNames rlog

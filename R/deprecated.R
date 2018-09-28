@@ -129,6 +129,12 @@ plotCountDensity <- function(...) {
 
 #' @rdname defunct
 #' @export
+plotPCACovariates <- function(...) {
+    .Deprecated("DEGreport::degCovariates")
+}
+
+#' @rdname defunct
+#' @export
 resultsTables <- function(...) {
     .Defunct("DESeqResultsTables")
 }
