@@ -1,7 +1,3 @@
-# FIXME Include `n` in title.
-
-
-
 #' Differentially Expressed Gene Heatmap
 #'
 #' This function is a simplified version of [plotHeatmap()] that is
