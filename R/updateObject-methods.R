@@ -368,6 +368,13 @@ NULL
 
 
 
+# FIXME Consider a utility that we can use in `[` and `updateObject`.
+# .updateMetadata <- function(metadata) {
+#     metadata[["template"]] <- NULL
+# }
+
+
+
 #' @rdname updateObject
 #' @export
 setMethod(
