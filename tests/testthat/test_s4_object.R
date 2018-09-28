@@ -159,8 +159,8 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
     )
     expect_s4_class(object, "bcbioRNASeq")
     expect_identical(
-        basename(metadata(object)[["sampleMetadataFile"]]),
-        "sample_metadata.csv"
+        object = basename(metadata(object)[["sampleMetadataFile"]]),
+        expected = "sample_metadata.csv"
     )
 })
 
@@ -493,7 +493,7 @@ context("Transcript-Level Counts")
 object <- bcbioRNASeq(uploadDir, level = "transcripts")
 
 test_that("counts", {
-    # Valid: FALSE, tpm
+    # Valid: FALSE, tpm.
     expect_is(counts(object, normalized = FALSE), "matrix")
     expect_is(counts(object, normalized = "tpm"), "matrix")
     # All other options are invalid.
