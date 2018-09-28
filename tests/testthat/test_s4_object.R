@@ -339,7 +339,6 @@ test_that("Metadata", {
             sampleDirs = "character",
             sampleMetadataFile = "character",
             projectDir = "character",
-            template = "character",
             runDate = "Date",
             interestingGroups = "character",
             organism = "character",
@@ -413,12 +412,12 @@ test_that("extract : Calculate DESeq2 transforms", {
         expected = c("counts", "tpm", "length", "normalized", "vst")
     )
 
-    # Allow the user to skip, using `transform` argument.
+    # Allow the user to skip, using `recalculate` argument.
     expect_identical(
         object = object %>%
-            .[seq_len(100L), , transform = FALSE] %>%
+            .[seq_len(100L), , recalculate = FALSE] %>%
             assayNames(),
-        expected = c("counts", "tpm", "length", "normalized")
+        expected = c("counts", "tpm", "length")
     )
 })
 
