@@ -98,16 +98,6 @@ with_parameters_test_that(
 
 
 
-# interestingGroups ============================================================
-test_that("interestingGroups : NULL validity checks", {
-    object <- bcb
-    expect_error(interestingGroups(object) <- NULL)
-    metadata(object)[["interestingGroups"]] <- NULL
-    expect_error(validObject(object))
-})
-
-
-
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
     object <- bcb
