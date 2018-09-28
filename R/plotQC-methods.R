@@ -25,9 +25,20 @@ NULL
                 plotRRNAMappingRate(object),
                 plot5Prime3PrimeBias(object),
                 plotGenesDetected(object),
-                plotGeneSaturation(object),
                 plotCountsPerGene(object),
                 plotPCA(object)
-            )
+            ),
+            nrow = 3L,
+            ncol = 3L
         )
     }
+
+
+
+#' @rdname plotQC
+#' @export
+setMethod(
+    f = "plotQC",
+    signature = signature("bcbioRNASeq"),
+    definition = .plotQC.bcbioRNASeq
+)
