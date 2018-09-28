@@ -50,7 +50,7 @@ NULL
         interestingGroups = NULL,
         ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
-        label = getOption("bcbio.label", TRUE),
+        label = getOption("bcbio.label", FALSE),
         title = "PCA",
         subtitle = NULL,
         return = c("ggplot", "DataFrame")
