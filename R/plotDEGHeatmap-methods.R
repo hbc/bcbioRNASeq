@@ -62,13 +62,6 @@ NULL
         # scaling should be used.
         scale <- match.arg(scale, choices = c("row", "column", "none"))
 
-        # Title
-        if (isTRUE(title)) {
-            title <- paste0(contrastName(object), " (alpha < ", alpha, ")")
-        } else if (!is_a_string(title)) {
-            title <- NULL
-        }
-
         # Get the character vector of DEGs.
         deg <- .deg(
             object = object,
@@ -89,6 +82,19 @@ NULL
 
         # Subset the counts to only contain DEGs.
         counts <- counts[deg, , drop = FALSE]
+
+        # Title
+        if (isTRUE(title)) {
+            title <- paste0(
+                contrastName(object), "\n",
+                "(",
+                "alpha < ", alpha, "; ",
+                "n = ", length(deg),
+                ")"
+            )
+        } else if (!is_a_string(title)) {
+            title <- NULL
+        }
 
         # Using `do.call()` return with SummarizedExperiment method here.
         do.call(
