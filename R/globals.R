@@ -2,6 +2,16 @@ globalVariables(".")
 
 packageVersion <- packageVersion("bcbioRNASeq")
 
+#' Cache URL
+#' @keywords internal
+#' @export
+#' @examples
+#' bcbioRNASeqCacheURL
+bcbioRNASeqCacheURL <- paste0(
+    "http://bcbiobase.seq.cloud/",
+    "v", packageVersion$major, ".", packageVersion$minor
+)
+
 lanePattern <- basejump::lanePattern
 separatorBar <- basejump::separator()
 updateMessage <- basejump::updateMessage
