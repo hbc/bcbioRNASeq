@@ -45,12 +45,11 @@
 # It's just performing a simple subset to get the identifiers as a character.
 .deg <- function(
     object,
-    direction = c("both", "up", "down"),
     alpha = NULL,
-    lfcThreshold = NULL
+    lfcThreshold = NULL,
+    direction = c("both", "up", "down")
 ) {
     assert_is_all_of(object, "DESeqResults")
-    direction <- match.arg(direction)
     if (is.null(alpha)) {
         alpha <- metadata(object)[["alpha"]]
     }
@@ -60,6 +59,7 @@
     }
     assert_is_a_number(lfcThreshold)
     assert_all_are_non_negative(lfcThreshold)
+    direction <- match.arg(direction)
 
     # Define symbols to use in dplyr calls below.
     padj <- sym("padj")
@@ -89,7 +89,9 @@
         data <- filter(data, !!lfc < 0L)
     }
 
-    pull(data, "rowname")
+    deg <- pull(data, "rowname")
+    message(paste(length(deg), "differentially expressed genes detected."))
+    deg
 }
 
 
