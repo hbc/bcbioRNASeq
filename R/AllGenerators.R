@@ -450,16 +450,6 @@ bcbioRNASeq <- function(
     )
 
     # Metadata -----------------------------------------------------------------
-    # TODO Make this a function in bcbioBase.
-    # Run date and template name.
-    match <- str_match(
-        string = basename(projectDir),
-        pattern = projectDirPattern
-    )
-    date <- as.Date(match[[2L]])
-    template <- match[[3L]]
-    rm(match)
-
     # Interesting groups.
     interestingGroups <- camel(interestingGroups)
     assert_is_subset(interestingGroups, colnames(colData))
@@ -473,8 +463,7 @@ bcbioRNASeq <- function(
         sampleDirs = sampleDirs,
         sampleMetadataFile = as.character(sampleMetadataFile),
         projectDir = projectDir,
-        template = template,
-        runDate = runDate,
+        runDate = runDate(projectDir),
         interestingGroups = interestingGroups,
         organism = as.character(organism),
         genomeBuild = as.character(genomeBuild),
