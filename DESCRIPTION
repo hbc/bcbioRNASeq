@@ -203,6 +203,7 @@ Collate:
     'plotMappedReads-methods.R'
     'plotMappingRate-methods.R'
     'plotMeanSD-methods.R'
+    'plotQC-methods.R'
     'plotRRNAMappingRate-methods.R'
     'plotTotalReads-methods.R'
     'plotVolcano-methods.R'
