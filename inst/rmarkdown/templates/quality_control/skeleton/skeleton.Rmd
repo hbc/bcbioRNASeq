@@ -4,14 +4,13 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-  # bcbioRNASeq object
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
   data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "quality_control")
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-08-26
+# Last modified 2018-09-28
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -34,12 +33,12 @@ print(bcb)
 ```
 
 ```{r sample_data}
-sample_data <- sampleData(bcb, clean = TRUE) %>% as.data.frame()
-write.csv(
+sample_data <- sampleData(bcb, clean = TRUE)
+export(
     x = sample_data,
     file = file.path(params$results_dir, "sample_data.csv")
 )
-sample_data
+as_tibble(sample_data)
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
@@ -148,8 +147,9 @@ plotCountsPerGene(bcb, normalized = "tmm")
 markdownHeader("TPM per biotype", level = 2)
 asis_output("Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.")
 
-keep_biotypes <- rowData(bcb) %>%
-    as.data.frame() %>%
+rowData <- as_tibble(rowData(bcb))
+keep_biotypes <- rowData %>%
+    as_tibble() %>%
     group_by(geneBiotype) %>%
     summarise(nBiotype = n()) %>%
     arrange(-nBiotype) %>%
@@ -157,10 +157,9 @@ keep_biotypes <- rowData(bcb) %>%
     pull(geneBiotype) %>%
     droplevels()
 biotype_tpm <- tpm(bcb) %>%
-    as.data.frame() %>%
-    rownames_to_column("geneID") %>%
+    as_tibble(rownames = "geneID") %>%
     gather(key = sampleID, value = tpm, -geneID) %>%
-    left_join(as.data.frame(rowData(bcb)), by = "geneID") %>%
+    left_join(rowData, by = "geneID") %>%
     filter(geneBiotype %in% keep_biotypes) %>%
     filter(tpm > 0)
 
