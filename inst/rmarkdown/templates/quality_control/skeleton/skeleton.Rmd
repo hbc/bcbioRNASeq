@@ -120,7 +120,7 @@ The majority of reads should map to exons and not introns.
 plotIntronicMappingRate(bcb)
 ```
 
-```{r plot_rrna_mapping_rate, eval="rrnaRate" %in% colnames(rowData(bcb)), echo=FALSE}
+```{r plot_rrna_mapping_rate, eval="rrnaRate" %in% colnames(metrics(bcb)), echo=FALSE}
 mdHeader("rRNA mapping rate", level = 2)
 asis_output("Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.")
 plotRRNAMappingRate(bcb)
