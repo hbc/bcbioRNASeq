@@ -73,9 +73,9 @@ NULL
         gene2symbol = NULL,
         ntop = 0L,
         direction = c("both", "up", "down"),
-        pointColor = getOption("bcbio.point.color", "gray50"),
+        pointColor = getOption("basejump.point.color", "gray50"),
         sigPointColor = getOption(
-            "bcbio.sig.point.color",
+            "basejump.sig.point.color",
             c(
                 upregulated = "purple",
                 downregulated = "orange"

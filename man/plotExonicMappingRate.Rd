@@ -11,8 +11,9 @@ plotExonicMappingRate(object, ...)
 
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.6,
-  fill = getOption("bcbio.discrete.fill", NULL),
-  flip = getOption("bcbio.flip", TRUE), title = "exonic mapping rate")
+  fill = getOption("basejump.discrete.fill", NULL),
+  flip = getOption("basejump.flip", TRUE),
+  title = "exonic mapping rate")
 }
 \arguments{
 \item{object}{Object.}

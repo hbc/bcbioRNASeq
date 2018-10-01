@@ -10,10 +10,10 @@
 plotMeanSD(object, ...)
 
 \S4method{plotMeanSD}{bcbioRNASeq}(object,
-  legend = getOption("bcbio.legend", FALSE))
+  legend = getOption("basejump.legend", FALSE))
 
 \S4method{plotMeanSD}{DESeqDataSet}(object, vst = TRUE, rlog = FALSE,
-  legend = getOption("bcbio.legend", FALSE))
+  legend = getOption("basejump.legend", FALSE))
 }
 \arguments{
 \item{object}{Object.}

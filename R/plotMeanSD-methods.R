@@ -136,7 +136,7 @@ setMethod(
     signature = signature("bcbioRNASeq"),
     definition = function(
         object,
-        legend = getOption("bcbio.legend", FALSE)
+        legend = getOption("basejump.legend", FALSE)
     ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
@@ -159,7 +159,7 @@ setMethod(
         object,
         vst = TRUE,
         rlog = FALSE,
-        legend = getOption("bcbio.legend", FALSE)
+        legend = getOption("basejump.legend", FALSE)
     ) {
         validObject(object)
         assert_is_a_bool(vst)

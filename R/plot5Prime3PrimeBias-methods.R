@@ -26,8 +26,8 @@ NULL
         object,
         interestingGroups = NULL,
         limit = 0L,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill = getOption("basejump.discrete.fill", NULL),
+        flip = getOption("basejump.flip", TRUE),
         title = "5'->3' bias"
     ) {
         validObject(object)

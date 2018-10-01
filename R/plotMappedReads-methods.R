@@ -24,8 +24,8 @@ NULL
         object,
         interestingGroups = NULL,
         limit = 10e6L,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill = getOption("basejump.discrete.fill", NULL),
+        flip = getOption("basejump.flip", TRUE),
         title = "mapped reads"
     ) {
         validObject(object)

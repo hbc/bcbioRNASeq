@@ -26,8 +26,8 @@ NULL
         object,
         interestingGroups = NULL,
         limit = 0.1,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill = getOption("basejump.discrete.fill", NULL),
+        flip = getOption("basejump.flip", TRUE),
         title = "rRNA mapping rate"
     ) {
         validObject(object)

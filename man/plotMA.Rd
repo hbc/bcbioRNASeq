@@ -10,15 +10,15 @@
 \usage{
 \S4method{plotMA}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
   genes = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = getOption("bcbio.point.color", "gray50"),
-  sigPointColor = getOption("bcbio.sig.point.color", c(upregulated =
+  pointColor = getOption("basejump.point.color", "gray50"),
+  sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
   "purple", downregulated = "orange")), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotMA}{DESeqResults}(object, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = getOption("bcbio.point.color", "gray50"),
-  sigPointColor = getOption("bcbio.sig.point.color", c(upregulated =
+  pointColor = getOption("basejump.point.color", "gray50"),
+  sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
   "purple", downregulated = "orange")), return = c("ggplot",
   "DataFrame"))
 

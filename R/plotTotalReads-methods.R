@@ -24,8 +24,8 @@ NULL
         interestingGroups = NULL,
         limit = 10e6L,
         perMillion = TRUE,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill = getOption("basejump.discrete.fill", NULL),
+        flip = getOption("basejump.flip", TRUE),
         title = "total reads"
     ) {
         validObject(object)

@@ -11,8 +11,8 @@ plotIntronicMappingRate(object, ...)
 
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.2,
-  fill = getOption("bcbio.discrete.fill", NULL),
-  flip = getOption("bcbio.flip", TRUE),
+  fill = getOption("basejump.discrete.fill", NULL),
+  flip = getOption("basejump.flip", TRUE),
   title = "intronic mapping rate")
 }
 \arguments{
