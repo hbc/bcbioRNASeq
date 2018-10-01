@@ -34,39 +34,6 @@ setValidity(
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
 
-        # Assays ---------------------------------------------------------------
-        # Note that `rlog` and `vst` DESeqTransform objects are optional
-        assert_is_subset(requiredAssays, assayNames(object))
-        # Check that all assays are matrices
-        assayCheck <- vapply(
-            X = assays(object),
-            FUN = is.matrix,
-            FUN.VALUE = logical(1L),
-            USE.NAMES = TRUE
-        )
-        if (!all(assayCheck)) {
-            stop(paste(
-                paste(
-                    "Assays that are not matrix:",
-                    toString(names(assayCheck[!assayCheck]))
-                ),
-                updateMessage,
-                sep = "\n"
-            ))
-        }
-
-        # Gene-level specific
-        if (metadata(object)[["level"]] == "genes") {
-            assert_is_subset("normalized", names(assays(object)))
-        }
-
-        # Row data -------------------------------------------------------------
-        assert_is_all_of(rowRanges(object), "GRanges")
-        assert_is_all_of(rowData(object), "DataFrame")
-
-        # Column data ----------------------------------------------------------
-        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
-
         # Metadata -------------------------------------------------------------
         metadata <- metadata(object)
 
@@ -83,7 +50,7 @@ setValidity(
             y = colnames(colData(object))
         )
 
-        # Detect legacy metrics
+        # Detect legacy metrics.
         if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
                 "`metrics` saved in `metadata()` instead of `colData()`.",
@@ -116,7 +83,7 @@ setValidity(
         # v0.2.6: countsFromAbundance is now optional, since we're supporting
         # featureCounts aligned counts.
 
-        # Class checks (order independent)
+        # Class checks (order independent).
         requiredMetadata <- list(
             allSamples = "logical",
             bcbioCommandsLog = "character",
@@ -167,7 +134,7 @@ setValidity(
             ))
         }
 
-        # Additional assert checks
+        # Additional assert checks.
         # caller
         assert_is_subset(
             x = metadata[["caller"]],
@@ -182,6 +149,40 @@ setValidity(
         tx2gene <- metadata[["tx2gene"]]
         # Switch to requiring `tx2gene` class in a future update.
         assertIsTx2gene(tx2gene)
+
+        # Assays ---------------------------------------------------------------
+        assert_is_subset(requiredAssays, assayNames(object))
+        # Check that all assays are matrices.
+        assayCheck <- vapply(
+            X = assays(object),
+            FUN = is.matrix,
+            FUN.VALUE = logical(1L),
+            USE.NAMES = TRUE
+        )
+        if (!all(assayCheck)) {
+            stop(paste(
+                paste(
+                    "Assays that are not matrix:",
+                    toString(names(assayCheck[!assayCheck]))
+                ),
+                updateMessage,
+                sep = "\n"
+            ))
+        }
+
+        # Caller-specific checks.
+        # DESeq2 calculations (`normalized`, `rlog`, `vst`) are optional.
+        caller <- metadata[["caller"]]
+        if (caller %in% tximportCallers) {
+            assert_is_subset(tximportAssays, assayNames(object))
+        }
+
+        # Row data -------------------------------------------------------------
+        assert_is_all_of(rowRanges(object), "GRanges")
+        assert_is_all_of(rowData(object), "DataFrame")
+
+        # Column data ----------------------------------------------------------
+        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
 
         TRUE
     }
