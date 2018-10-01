@@ -126,7 +126,7 @@ If you're working with a bcbio run that has incorrect or outdated metadata, the 
 ```{r}
 sample_metadata_file <- file.path(upload_dir, "sample_metadata.csv")
 stopifnot(file.exists(sample_metadata_file))
-readSampleData(sample_metadata_file)
+bcbioBase::readSampleData(sample_metadata_file)
 ```
 
 ```{r, message=FALSE}
