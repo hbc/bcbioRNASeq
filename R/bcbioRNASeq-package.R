@@ -26,8 +26,8 @@
 #' @importFrom assertive.types assert_is_a_bool assert_is_a_number
 #'   assert_is_a_string assert_is_all_of assert_is_an_integer assert_is_any_of
 #'   assert_is_character assert_is_data.frame assert_is_factor assert_is_formula
-#'   assert_is_list assert_is_matrix assert_is_numeric assert_is_tbl_df
-#'   is_a_string
+#'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
+#'   assert_is_tbl_df is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
 #'   assertFormalGene2symbol assertHasValidDimnames assertIsAStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
@@ -35,8 +35,8 @@
 #'   assertIsGene2symbol assertIsHeaderLevel assertIsHexColorFunctionOrNULL
 #'   assertIsImplicitInteger assertIsTx2gene basejump_geom_abline
 #'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
-#'   convertGenesToSymbols emptyRanges fixNA gene2symbol hasRownames import
-#'   initializeDirectory interestingGroups interestingGroups<-
+#'   convertGenesToSymbols detectLanes emptyRanges fixNA gene2symbol hasRownames
+#'   import initializeDirectory interestingGroups interestingGroups<-
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
@@ -45,11 +45,10 @@
 #'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
-#'   readYAMLSampleMetrics sampleDirs
+#'   readYAMLSampleMetrics runDate sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom crayon bold
-#' @importFrom DEGreport degCovariates significants
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors priorInfo results resultsNames rlog
@@ -73,7 +72,7 @@
 #' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
-#' @importFrom rlang := !! !!! sym syms UQ
+#' @importFrom rlang := !! !!! has_length sym syms UQ
 #' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
 #'   metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks

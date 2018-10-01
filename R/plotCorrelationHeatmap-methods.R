@@ -33,7 +33,7 @@ NULL
         normalized <- match.arg(normalized)
         # Coerce to RangedSummarizedExperiment.
         rse <- as(object, "RangedSummarizedExperiment")
-        message(paste("Using", normalized, "counts"))
+        message(paste("Using", normalized, "counts."))
         counts <- counts(object, normalized = normalized)
         assays(rse) <- list(counts)
         assayNames(rse) <- normalized

@@ -98,16 +98,6 @@ with_parameters_test_that(
 
 
 
-# interestingGroups ============================================================
-test_that("interestingGroups : NULL validity checks", {
-    object <- bcb
-    expect_error(interestingGroups(object) <- NULL)
-    metadata(object)[["interestingGroups"]] <- NULL
-    expect_error(validObject(object))
-})
-
-
-
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
     object <- bcb
@@ -127,11 +117,6 @@ test_that("sampleData : Verbose mode (default)", {
 test_that("sampleData : Clean mode", {
     object <- bcb
     x <- sampleData(object, clean = TRUE)
-    # Return only useful factor columns.
-    expect_identical(
-        object = colnames(x),
-        expected = c("sampleName", "group")
-    )
     # Require that all clean columns are factor.
     invisible(lapply(x, function(x) {
         expect_is(x, "factor")
@@ -146,25 +131,6 @@ test_that("sampleData<-", {
         expected = "XXX"
     )
 })
-
-
-
-# selectSamples ================================================================
-with_parameters_test_that(
-    "selectSamples", {
-        # All objects have the same `group` column defined.
-        object <- selectSamples(object, group = "ctrl")
-        expect_s4_class(object, class = "SummarizedExperiment")
-        expect_identical(
-            object = colnames(object),
-            expected = c("group1_1", "group1_2")
-        )
-    },
-    object = list(
-        bcbioRNASeq = bcb,
-        DESeqDataSet = dds
-    )
-)
 
 
 

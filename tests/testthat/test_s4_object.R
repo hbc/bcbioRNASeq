@@ -159,8 +159,8 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
     )
     expect_s4_class(object, "bcbioRNASeq")
     expect_identical(
-        basename(metadata(object)[["sampleMetadataFile"]]),
-        "sample_metadata.csv"
+        object = basename(metadata(object)[["sampleMetadataFile"]]),
+        expected = "sample_metadata.csv"
     )
 })
 
@@ -339,7 +339,6 @@ test_that("Metadata", {
             sampleDirs = "character",
             sampleMetadataFile = "character",
             projectDir = "character",
-            template = "character",
             runDate = "Date",
             interestingGroups = "character",
             organism = "character",
@@ -413,12 +412,12 @@ test_that("extract : Calculate DESeq2 transforms", {
         expected = c("counts", "tpm", "length", "normalized", "vst")
     )
 
-    # Allow the user to skip, using `transform` argument.
+    # Allow the user to skip, using `recalculate` argument.
     expect_identical(
         object = object %>%
-            .[seq_len(100L), , transform = FALSE] %>%
+            .[seq_len(100L), , recalculate = FALSE] %>%
             assayNames(),
-        expected = c("counts", "tpm", "length", "normalized")
+        expected = c("counts", "tpm", "length")
     )
 })
 
@@ -494,7 +493,7 @@ context("Transcript-Level Counts")
 object <- bcbioRNASeq(uploadDir, level = "transcripts")
 
 test_that("counts", {
-    # Valid: FALSE, tpm
+    # Valid: FALSE, tpm.
     expect_is(counts(object, normalized = FALSE), "matrix")
     expect_is(counts(object, normalized = "tpm"), "matrix")
     # All other options are invalid.

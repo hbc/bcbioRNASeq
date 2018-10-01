@@ -4,12 +4,18 @@
 \alias{defunct}
 \alias{plotGeneHeatmap}
 \alias{txi}
+\alias{plotCountDensity}
+\alias{plotPCACovariates}
 \alias{resultsTables}
 \title{Defunct Functions}
 \usage{
 plotGeneHeatmap(...)
 
 txi(...)
+
+plotCountDensity(...)
+
+plotPCACovariates(...)
 
 resultsTables(...)
 }

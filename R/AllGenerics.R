@@ -130,17 +130,6 @@ setGeneric(
 
 
 
-#' @rdname plotPCACovariates
-#' @export
-setGeneric(
-    name = "plotPCACovariates",
-    def = function(object, ...) {
-        standardGeneric("plotPCACovariates")
-    }
-)
-
-
-
 #' @rdname plotRRNAMappingRate
 #' @export
 setGeneric(

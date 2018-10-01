@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.0
-Date: 2018-09-24
+Date: 2018-09-28
 Authors@R: c(
     person(
         given = "Michael",
@@ -104,7 +104,6 @@ Depends:
     R (>= 3.4),
     SummarizedExperiment,
     basejump (>= 0.99.0),
-    bcbioBase (>= 0.99.0),
     DESeq2 (>= 1.18)
 Imports:
     assertive.base,
@@ -114,10 +113,10 @@ Imports:
     assertive.sets,
     assertive.strings,
     assertive.types,
+    bcbioBase (>= 0.99.0),
     BiocGenerics,
     cowplot (>= 0.9),
     crayon,
-    DEGreport (>= 1.14),
     dplyr (>= 0.7),
     edgeR (>= 3.20),
     GenomicFeatures,
@@ -143,6 +142,7 @@ Imports:
 Suggests:
     BiocStyle,
     clusterProfiler (>= 3.8),
+    DEGreport,
     DOSE (>= 3.6),
     EnsDb.Hsapiens.v75,
     org.Hs.eg.db,
@@ -203,7 +203,7 @@ Collate:
     'plotMappedReads-methods.R'
     'plotMappingRate-methods.R'
     'plotMeanSD-methods.R'
-    'plotPCACovariates-methods.R'
+    'plotQC-methods.R'
     'plotRRNAMappingRate-methods.R'
     'plotTotalReads-methods.R'
     'plotVolcano-methods.R'

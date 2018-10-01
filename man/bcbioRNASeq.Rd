@@ -6,11 +6,10 @@
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-  interestingGroups = "sampleName", samples = NULL,
-  censorSamples = NULL, sampleMetadataFile = NULL, organism = NULL,
-  genomeBuild = NULL, ensemblRelease = NULL, gffFile = NULL,
-  transgeneNames = NULL, spikeNames = NULL, vst = TRUE,
-  rlog = FALSE, ...)
+  samples = NULL, censorSamples = NULL, sampleMetadataFile = NULL,
+  organism = NULL, genomeBuild = NULL, ensemblRelease = NULL,
+  gffFile = NULL, transgeneNames = NULL, spikeNames = NULL,
+  vst = TRUE, rlog = FALSE, interestingGroups = "sampleName", ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -34,9 +33,6 @@ alignment-free, lightweight counts.
 (Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
 aligned counts.
 }}
-
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
 
 \item{samples}{\code{character} or \code{NULL}. Specify a subset of samples to load.
 The names must match the \code{description} specified in the bcbio YAML
@@ -90,6 +86,9 @@ for visualization.}
 \item{rlog}{\code{boolean}. Calcualte regularized log transformation using
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
+
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{...}{Additional arguments.}
 }
@@ -193,11 +192,11 @@ validObject(object)
 }
 \seealso{
 \itemize{
+\item \code{.S4methods(class = "bcbioRNASeq")}.
 \item \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment()}}.
 \item \code{\link[methods:initialize]{methods::initialize()}}.
 \item \code{\link[methods:validObject]{methods::validObject()}}.
 \item \code{\link[BiocGenerics:updateObject]{BiocGenerics::updateObject()}}.
-\item \code{.S4methods(class = "bcbioRNASeq")}.
 }
 
 Other S4 Generators: \code{\link{DESeqAnalysis}},

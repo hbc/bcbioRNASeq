@@ -169,52 +169,6 @@ test_that("plotPCA : Skipped DESeq2 transforms", {
 
 
 
-# plotPCACovariates ============================================================
-test_that("plotPCACovariates", {
-    # BioC 3.6 version of DEGreport returns warnings.
-    # Test against version >= 1.15.
-    object <- plotPCACovariates(bcb_small)
-    expect_is(object, "list")
-    expect_identical(
-        names(object),
-        c("significantCovars",
-          "plot",
-          "corMatrix",
-          "pcsMatrix",
-          "scatterPlot",
-          "effectsSignificantCovars")
-    )
-})
-
-test_that("plotPCACovariates : Metrics", {
-    object <- plotPCACovariates(
-        object = bcb_small,
-        metrics = c("exonicRate", "intronicRate")
-    )
-    # Don't expect these to be significant with the example dataset
-    expect_identical(
-        as.character(object[["significantCovars"]]),
-        character()
-    )
-
-    # If metrics = FALSE, we require at least 2 interesting groups
-    expect_error(
-        object <- plotPCACovariates(bcb_small, metrics = FALSE),
-        "`plotPCACovariates\\(\\)` requires >= 2 metrics"
-    )
-})
-
-test_that("plotPCACovariates : Skipped DESeq2 transforms", {
-    expect_warning(
-        plotPCACovariates(bcb_skip, normalized = "rlog"),
-        skipWarning
-    )
-    object <- suppressWarnings(plotPCA(bcb_skip, normalized = "rlog"))
-    expect_is(object, "ggplot")
-})
-
-
-
 # plotDispEsts =================================================================
 test_that("plotDispEsts", {
     object <- plotDispEsts(bcb_small)

@@ -47,7 +47,7 @@ NULL
         } else if (length(object@localFiles) > 0L) {
             paths <- object@localFiles
         } else {
-            message("Object doesn't contain saved file paths")
+            message("Object doesn't contain saved file paths.")
         }
 
         if (length(paths) > 0L) {

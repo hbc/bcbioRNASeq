@@ -63,7 +63,7 @@ NULL
             # Convert limit to per million
             if (limit < 1e6L) {
                 # nocov start
-                warning("`limit`: Use absolute value, not per million")
+                warning("`limit`: Use absolute value, not per million.")
                 # nocov end
             } else {
                 limit <- limit / 1e6L

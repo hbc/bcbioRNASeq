@@ -124,11 +124,11 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @seealso
+#' - `.S4methods(class = "bcbioRNASeq")`.
 #' - [SummarizedExperiment::SummarizedExperiment()].
 #' - [methods::initialize()].
 #' - [methods::validObject()].
 #' - [BiocGenerics::updateObject()].
-#' - `.S4methods(class = "bcbioRNASeq")`.
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -159,7 +159,6 @@ bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
     caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-    interestingGroups = "sampleName",
     samples = NULL,
     censorSamples = NULL,
     sampleMetadataFile = NULL,
@@ -171,35 +170,36 @@ bcbioRNASeq <- function(
     spikeNames = NULL,
     vst = TRUE,
     rlog = FALSE,
+    interestingGroups = "sampleName",
     ...
 ) {
-    call <- match.call()
-
     # Legacy arguments ---------------------------------------------------------
     # nocov start
+    call <- match.call()
     # annotable
     if ("annotable" %in% names(call)) {
         stop("`annotable` is defunct. Consider using `gffFile` instead.")
     }
     # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
-        warning("Use `ensemblRelease` instead of `ensemblVersion`")
+        warning("Use `ensemblRelease` instead of `ensemblVersion`.")
         ensemblRelease <- call[["ensemblVersion"]]
     }
     # organism
     if (!"organism" %in% names(call)) {
         message(paste(
             "`organism` is recommended for defining",
-            "annotations in `rowRanges()`"
+            "annotations in `rowRanges()`."
         ))
     }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
         stop(paste(
             "`transformationLimit` is deprecated in favor of",
-            "separate `vst` and `rlog` arguments"
+            "separate `vst` and `rlog` arguments."
         ))
     }
+    rm(call)
     # nocov end
 
     # Assert checks ------------------------------------------------------------
@@ -210,10 +210,9 @@ bcbioRNASeq <- function(
     if (level == "transcripts") {
         assert_is_subset(caller, tximportCallers)
     }
-    assertIsAStringOrNULL(sampleMetadataFile)
     assert_is_any_of(samples, c("character", "NULL"))
     assert_is_any_of(censorSamples, c("character", "NULL"))
-    assert_is_character(interestingGroups)
+    assertIsAStringOrNULL(sampleMetadataFile)
     assertIsAStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsAStringOrNULL(genomeBuild)
@@ -225,120 +224,68 @@ bcbioRNASeq <- function(
     }
     assert_is_a_bool(vst)
     assert_is_a_bool(rlog)
+    assert_is_character(interestingGroups)
 
     # Directory paths ----------------------------------------------------------
     uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
     projectDir <- projectDir(uploadDir)
     sampleDirs <- sampleDirs(uploadDir)
 
-    # Run date and template name -----------------------------------------------
-    # Get run date and template name from project directory.
-    # This information will be stashed in `metadata()`.
-    match <- str_match(
-        string = basename(projectDir),
-        pattern = projectDirPattern
-    )
-    runDate <- as.Date(match[[2L]])
-    template <- match[[3L]]
-    rm(match)
-
     # Project summary YAML -----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
-    assert_all_are_existing_files(yamlFile)
-    yaml <- readYAML(yamlFile)
+    yaml <- import(yamlFile)
+    assert_is_list(yaml)
 
     # bcbio run information ----------------------------------------------------
-    dataVersions <- readDataVersions(
-        file = file.path(projectDir, "data_versions.csv")
-    )
+    dataVersions <-
+        readDataVersions(file.path(projectDir, "data_versions.csv"))
+    programVersions <-
+        readProgramVersions(file.path(projectDir, "programs.txt"))
+    bcbioLog <-
+        readLog(file.path(projectDir, "bcbio-nextgen.log"))
+    bcbioCommandsLog <-
+        readLog(file.path(projectDir, "bcbio-nextgen-commands.log"))
+
     assert_is_tbl_df(dataVersions)
-
-    programVersions <- readProgramVersions(
-        file = file.path(projectDir, "programs.txt")
-    )
     assert_is_tbl_df(programVersions)
-
-    bcbioLog <- readLog(
-        file = file.path(projectDir, "bcbio-nextgen.log")
-    )
     assert_is_character(bcbioLog)
-
-    bcbioCommandsLog <- readLog(
-        file = file.path(projectDir, "bcbio-nextgen-commands.log")
-    )
     assert_is_character(bcbioCommandsLog)
 
     # Sequencing lanes ---------------------------------------------------------
-    if (any(grepl(x = sampleDirs, pattern = lanePattern))) {
-        # nocov start
-        lanes <- str_match(names(sampleDirs), lanePattern) %>%
-            .[, 2L] %>%
-            unique() %>%
-            length()
-        message(paste(
-            lanes, "sequencing lane detected", "(technical replicates)"
-        ))
-        # nocov end
-    } else {
-        lanes <- 1L
-    }
-    assert_is_an_integer(lanes)
+    lanes <- detectLanes(sampleDirs)
+    assert_is_integer(lanes)
 
-    # Column data --------------------------------------------------------------
-    colData <- readYAMLSampleData(yamlFile)
-
-    # Require that all sample IDs defined here in the column data (rownames)
-    # match the names in the `sampleDirs` vector.
-    setdiff <- setdiff(names(sampleDirs), rownames(colData))
-    if (length(setdiff)) {
-        stop(paste("Mismatch detected in sampleDirs and colData:", setdiff))
-    }
-    assert_are_identical(names(sampleDirs), rownames(colData))
-
-    # Subset the samples.
+    # Determine which samples to load ------------------------------------------
+    # Get the sample data.
     if (is_a_string(sampleMetadataFile)) {
-        # Replace columns with external, user-defined metadata, if desired. This
-        # is nice for correcting metadata issues that aren't easy to fix by
-        # editing the bcbio YAML output.
-        userColData <- readSampleData(sampleMetadataFile, lanes = lanes)
-        # Drop columns that are defined from the auto metadata.
-        setdiff <- setdiff(colnames(colData), colnames(userColData))
-        # Note that we're allowing the user to subset the samples by the
-        # metadata input here.
-        colData <- colData[rownames(userColData), setdiff, drop = FALSE]
-        colData <- cbind(userColData, colData)
-    } else if (is.character(samples)) {
-        assert_is_subset(samples, colData[["description"]])
-        colData <- colData %>%
-            .[.[["description"]] %in% samples, , drop = FALSE]
-    } else if (is.character(censorSamples)) {
-        colData <- colData %>%
-            .[!.[["description"]] %in% censorSamples, , drop = FALSE]
-    }
-
-    # Sanitize the column data to only contain factors, before adding our
-    # metrics calculations.
-    colData <- sanitizeSampleData(colData)
-
-    # Sample metrics. Note that sample metrics used for QC plots are not
-    # currently generated when using fast RNA-seq workflow. This depends upon
-    # MultiQC and aligned counts generated with STAR.
-    metrics <- readYAMLSampleMetrics(yamlFile)
-    if (length(metrics)) {
-        assert_is_all_of(metrics, "DataFrame")
-        assert_are_disjoint_sets(colnames(colData), colnames(metrics))
-        # Subset metrics to match the colData, since we may have subset the
-        # number of samples above.
-        metrics <- metrics[rownames(colData), , drop = FALSE]
-        colData <- cbind(colData, metrics)
+        # User-defined external file.
+        sampleData <- readSampleData(file = sampleMetadataFile, lanes = lanes)
     } else {
-        message("Fast mode detected. No metrics were calculated.")  # nocov
+        # Automatic metadata from YAML file.
+        sampleData <- readYAMLSampleData(file = yamlFile)
     }
+    assert_is_subset(rownames(sampleData), names(sampleDirs))
 
-    # Subset sample directories by metadata ------------------------------------
-    samples <- rownames(colData)
-    assertAllAreValidNames(samples)
+    # Subset the sample directories, if necessary.
+    if (is.character(samples) || is.character(censorSamples)) {
+        # Matching against the YAML "description" input here.
+        description <- as.character(sampleData[["description"]])
+        assert_is_non_empty(description)
+        if (is.character(samples)) {
+            assert_is_subset(samples, description)
+        } else {
+            samples <- description
+        }
+        if (is.character(censorSamples)) {
+            assert_is_subset(censorSamples, samples)
+            samples <- setdiff(samples, censorSamples)
+        }
+        assert_is_non_empty(samples)
+        sampleData <- filter(sampleData, !!sym("description") %in% !!samples)
+    }
+    samples <- rownames(sampleData)
     assert_is_subset(samples, names(sampleDirs))
+    assertAllAreValidNames(samples)
     if (length(samples) < length(sampleDirs)) {
         message(paste(
             "Loading a subset of samples:",
@@ -346,19 +293,32 @@ bcbioRNASeq <- function(
             sep = "\n"
         ))
         allSamples <- FALSE
-        sampleDirs <- sampleDirs[samples]
     } else {
         allSamples <- TRUE
     }
+    sampleDirs <- sampleDirs[samples]
 
-    # Interesting groups -------------------------------------------------------
-    interestingGroups <- camel(interestingGroups)
-    assert_is_subset(interestingGroups, colnames(colData))
+    # Column data --------------------------------------------------------------
+    # Sample metrics. Note that sample metrics used for QC plots are not
+    # currently generated when using fast RNA-seq workflow. This depends upon
+    # MultiQC and aligned counts generated with STAR.
+    colData <- readYAMLSampleMetrics(yamlFile)
+    if (has_length(colData)) {
+        assert_are_disjoint_sets(colnames(colData), colnames(sampleData))
+        assert_is_subset(rownames(sampleData), rownames(colData))
+        colData <- colData[rownames(sampleData), , drop = FALSE]
+        colData <- cbind(colData, sampleData)
+    } else {
+        message("Fast mode detected. No metrics were calculated.")
+        colData <- sampleData
+    }
+    assert_is_all_of(colData, "DataFrame")
+    assert_are_identical(samples, rownames(colData))
 
     # Transcript-to-gene mappings ----------------------------------------------
     tx2geneFile <- file.path(projectDir, "tx2gene.csv")
-    assert_all_are_existing_files(tx2geneFile)
     tx2gene <- readTx2gene(tx2geneFile)
+    assert_is_all_of(tx2gene, "tx2gene")
 
     # Read counts --------------------------------------------------------------
     # Use tximport by default for transcript-aware callers.
@@ -390,24 +350,22 @@ bcbioRNASeq <- function(
         length <- NULL
         countsFromAbundance <- NULL
         # Load up the featureCounts aligned counts matrix.
-        counts <- import(file.path(projectDir, "combined.counts"))
+        counts <- import(file = file.path(projectDir, "combined.counts"))
         assert_is_matrix(counts)
         colnames(counts) <- makeNames(colnames(counts))
         # Subset the combined matrix to match the samples.
-        assert_is_subset(names(sampleDirs), colnames(counts))
-        counts <- counts[, names(sampleDirs), drop = FALSE]
+        assert_is_subset(samples, colnames(counts))
+        counts <- counts[, samples, drop = FALSE]
     }
-
-    # Ensure `colData` matches the colnames in `assays()`.
-    colData <- colData[colnames(counts), , drop = FALSE]
+    assert_are_identical(colnames(counts), rownames(colData))
 
     # Row data -----------------------------------------------------------------
     if (is_a_string(gffFile)) {
-        message("Using `makeGRangesFromGFF()` for annotations")
+        message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
         # Using AnnotationHub/ensembldb to obtain the annotations.
-        message("Using `makeGRangesFromEnsembl()` for annotations")
+        message("Using `makeGRangesFromEnsembl()` for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -421,15 +379,16 @@ bcbioRNASeq <- function(
             ensemblRelease <- metadata(rowRanges)[["release"]]
         }
     } else {
+        message("Unknown organism. Skipping annotations.")
         rowRanges <- emptyRanges(rownames(counts))
     }
     assert_is_all_of(rowRanges, "GRanges")
 
     # Gene-level variance stabilization ----------------------------------------
     if (level == "genes") {
-        message(paste(
-            "Generating DESeqDataSet with DESeq2",
-            packageVersion("DESeq2")
+        message(paste0(
+            "Generating DESeqDataSet with DESeq2 ",
+            packageVersion("DESeq2"), "..."
         ))
         if (is.list(txi)) {
             # Create `DESeqDataSet` from `tximport()` return `list` by default.
@@ -453,13 +412,13 @@ bcbioRNASeq <- function(
             # Suppress expected warnings about the design formula.
             dds <- suppressWarnings(DESeq(dds))
             if (isTRUE(vst)) {
-                message("Applying variance-stabilizing transformation")
+                message("Applying variance-stabilizing transformation...")
                 vst <- assay(varianceStabilizingTransformation(dds))
             } else {
                 vst <- NULL
             }
             if (isTRUE(rlog)) {
-                message("Applying regularized log transformation")
+                message("Applying regularized log transformation...")
                 rlog <- assay(rlog(dds))
             } else {
                 rlog <- NULL
@@ -491,6 +450,10 @@ bcbioRNASeq <- function(
     )
 
     # Metadata -----------------------------------------------------------------
+    # Interesting groups.
+    interestingGroups <- camel(interestingGroups)
+    assert_is_subset(interestingGroups, colnames(colData))
+
     metadata <- list(
         version = packageVersion,
         level = level,
@@ -500,8 +463,7 @@ bcbioRNASeq <- function(
         sampleDirs = sampleDirs,
         sampleMetadataFile = as.character(sampleMetadataFile),
         projectDir = projectDir,
-        template = template,
-        runDate = runDate,
+        runDate = runDate(projectDir),
         interestingGroups = interestingGroups,
         organism = as.character(organism),
         genomeBuild = as.character(genomeBuild),
@@ -515,7 +477,7 @@ bcbioRNASeq <- function(
         bcbioLog = bcbioLog,
         bcbioCommandsLog = bcbioCommandsLog,
         allSamples = allSamples,
-        call = call
+        call = match.call()
     )
 
     # Return -------------------------------------------------------------------
@@ -728,7 +690,9 @@ NULL
 
             # Row annotations
             if (isTRUE(rowData)) {
-                message("Adding `rowData()` annotations (atomic columns only)")
+                message(paste(
+                    "Adding `rowData()` annotations (atomic columns only)..."
+                ))
                 rowData <- sanitizeRowData(rowData(object@data))
                 # DESeq2 includes additional information in `rowData()` that
                 # isn't informative for a user, and doesn't need to be included
@@ -747,7 +711,7 @@ NULL
 
             # DESeq2 normalized counts
             if (isTRUE(counts)) {
-                message("Adding DESeq2 normalized counts")
+                message("Adding DESeq2 normalized counts...")
                 counts <- counts(object@data, normalized = TRUE)
                 assert_are_disjoint_sets(colnames(data), colnames(counts))
                 assert_are_identical(rownames(data), rownames(counts))

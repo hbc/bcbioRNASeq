@@ -39,6 +39,7 @@ NULL
     function(
         object,
         counts,
+        direction = c("both", "up", "down"),
         scale = "row",
         title = TRUE
     ) {
@@ -48,26 +49,24 @@ NULL
         validObject(counts)
         assert_are_identical(rownames(object), rownames(counts))
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
+        direction <- match.arg(direction)
         # Hiding the choices from the user by default, because in most cases row
         # scaling should be used.
         scale <- match.arg(scale, choices = c("row", "column", "none"))
 
-        # Title
-        if (isTRUE(title)) {
-            title <- paste0(contrastName(object), " (alpha < ", alpha, ")")
-        } else if (!is_a_string(title)) {
-            title <- NULL
-        }
-
-        deg <- significants(object, padj = alpha, fc = lfcThreshold)
-
-        # Early return if there are no DEGs.
-        if (!length(deg) > 0L) {
-            warning("No significant DEGs to plot", call. = FALSE)
+        # Get the character vector of DEGs.
+        deg <- .deg(
+            object = object,
+            alpha = alpha,
+            lfcThreshold = lfcThreshold,
+            direction = direction
+        )
+        if (!has_length(deg)) {
+            warning("No significant DEGs to plot.", call. = FALSE)
             return(invisible())
         }
 
@@ -80,6 +79,19 @@ NULL
         # Subset the counts to only contain DEGs.
         counts <- counts[deg, , drop = FALSE]
 
+        # Title
+        if (isTRUE(title)) {
+            title <- paste0(
+                contrastName(object), "\n",
+                "(",
+                "alpha < ", alpha, "; ",
+                "n = ", length(deg),
+                ")"
+            )
+        } else if (!is_a_string(title)) {
+            title <- NULL
+        }
+
         # Using `do.call()` return with SummarizedExperiment method here.
         do.call(
             what = plotHeatmap,
@@ -91,7 +103,8 @@ NULL
                 removeFormals = c(
                     "counts",
                     "alpha",
-                    "lfcThreshold"
+                    "lfcThreshold",
+                    "direction"
                 )
             )
         )

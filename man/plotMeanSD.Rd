@@ -70,9 +70,8 @@ Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
   \code{\link{plotGeneSaturation}},
   \code{\link{plotIntronicMappingRate}},
   \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}},
-  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
-  \code{\link{plotRRNAMappingRate}},
+  \code{\link{plotMappingRate}}, \code{\link{plotPCA}},
+  \code{\link{plotQC}}, \code{\link{plotRRNAMappingRate}},
   \code{\link{plotTotalReads}}
 }
 \author{

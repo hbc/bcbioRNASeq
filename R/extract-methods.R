@@ -102,7 +102,7 @@ setMethod(
         if (isTRUE(recalculate)) {
             message(paste(
                 "Recalculating DESeq2 normalizations",
-                "(recalculate = TRUE)"
+                "(recalculate = TRUE)..."
             ))
 
             # Normalized counts
@@ -113,16 +113,16 @@ setMethod(
             if (any(c("rlog", "vst") %in% names(assays))) {
                 # Update DESeq2 transformations by default, but only if they are
                 # already defined in assays (rlog, vst).
-                message("Recalculating DESeq2 variance stabilizations")
+                message("Recalculating DESeq2 variance stabilizations...")
                 # vst
                 if ("vst" %in% names(assays)) {
-                    message("Applying variance-stabilizing transformation")
+                    message("Applying variance-stabilizing transformation...")
                     assays[["vst"]] <-
                         assay(varianceStabilizingTransformation(dds))
                 }
                 # rlog
                 if ("rlog" %in% names(assays)) {
-                    message("Applying rlog transformation")
+                    message("Applying rlog transformation...")
                     assays[["rlog"]] <- assay(rlog(dds))
                 }
             }

@@ -10,7 +10,7 @@
     rse <- rse[keep, , drop = FALSE]
     message(paste(
         nrow(rse), "/", nrow(object),
-        "non-zero genes detected"
+        "non-zero genes detected."
     ))
 
     # Subset the desired normalized counts, and slot into our SE object.

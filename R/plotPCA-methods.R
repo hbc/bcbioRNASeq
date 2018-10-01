@@ -50,7 +50,7 @@ NULL
         interestingGroups = NULL,
         ntop = 500L,
         color = getOption("bcbio.discrete.color", NULL),
-        label = getOption("bcbio.label", TRUE),
+        label = getOption("bcbio.label", FALSE),
         title = "PCA",
         subtitle = NULL,
         return = c("ggplot", "DataFrame")
@@ -68,7 +68,7 @@ NULL
         }
         # returnData
         if ("returnData" %in% names(call)) {
-            warning("`returnData` is deprecated in favor of `return`")
+            warning("`returnData` is deprecated in favor of `return`.")
             returnData <- call[["returnData"]]
             if (isTRUE(returnData)) {
                 return <- "DataFrame"
@@ -96,7 +96,7 @@ NULL
         } else {
             nGene <- ntop
         }
-        message(paste("Plotting PCA using", nGene, "genes"))
+        message(paste("Plotting PCA using", nGene, "genes."))
 
         # Using the `DESeq2::plotPCA()` `DESeqTransform` method to obtain the
         # PCA coordinates in a data frame.
@@ -176,7 +176,7 @@ NULL
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
+        message(paste("Using", normalized, "counts."))
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(object, normalized = normalized))
         do.call(
