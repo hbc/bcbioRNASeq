@@ -77,7 +77,7 @@
         importer = read_tsv
     )
 
-    # Assert checks before return ----------------------------------------------
+    # Assert checks on tximport list -------------------------------------------
     assert_is_list(list)
     assert_are_identical(
         names(list),
@@ -95,6 +95,19 @@
         }
     ))
     assert_is_non_empty(list[["countsFromAbundance"]])
+
+    # Ensure versions are stripped ---------------------------------------------
+    # Counts from GENCODE annotations can require additional sanitization.
+    if (isTRUE(ignoreTxVersion)) {
+        rownames <- rownames(list[["abundance"]])
+        assert_are_identical(rownames, rownames(list[["counts"]]))
+        assert_are_identical(rownames, rownames(list[["length"]]))
+        rownames <- stripTranscriptVersions(rownames)
+        assert_has_no_duplicates(rownames)
+        rownames(list[["abundance"]]) <- rownames
+        rownames(list[["counts"]]) <- rownames
+        rownames(list[["length"]]) <- rownames
+    }
 
     # Return -------------------------------------------------------------------
     list
