@@ -48,8 +48,8 @@ counts(bcb_small, normalized = "vst") \%>\% summary()
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 
-Other Data Functions: \code{\link{metrics}},
-  \code{\link{sampleData}}, \code{\link{tmm}}
+Other Data Functions: \code{\link{sampleData}},
+  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

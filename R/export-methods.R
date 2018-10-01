@@ -82,7 +82,8 @@ NULL
             x = tables,
             path = localFiles,
             FUN = function(x, path) {
-                x <- as(x, "tbl_df")
+                # FIXME Simply use `export()` here, for consistency.
+                x <- as_tibble(rownames = "rowname")
                 assert_is_subset("rowname", colnames(x))
                 write_csv(x = x, path = path)
             },

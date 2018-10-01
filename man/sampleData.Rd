@@ -41,7 +41,7 @@ sampleData(x)[["test"]] <- seq_len(ncol(x))
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.
 
 Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{tmm}}
+  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh
