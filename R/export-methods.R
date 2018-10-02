@@ -1,8 +1,3 @@
-# FIXME Error in as_tibble.default(rownames = "rowname") :
-# argument "x" is missing, with no default
-
-
-
 #' Export
 #'
 #' @name export
@@ -86,12 +81,9 @@ NULL
 
         invisible(mapply(
             x = tables,
-            path = localFiles,
-            FUN = function(x, path) {
-                # FIXME Simply use `export()` here, for consistency.
-                x <- as_tibble(rownames = "rowname")
-                assert_is_subset("rowname", colnames(x))
-                write_csv(x = x, path = path)
+            file = localFiles,
+            FUN = function(x, file) {
+                export(x = x, file = file)
             },
             SIMPLIFY = FALSE,
             USE.NAMES = FALSE
