@@ -106,11 +106,16 @@
 
         # Update the inferential replicates.
         infReps <- txi[["infReps"]]
-        infReps <- lapply(infReps, function(x) {
-            rownames(x) <- genes
-            x
-        })
-        txi[["infReps"]] <- infReps
+        if (
+            is.list(infReps) &&
+            has_length(infReps)
+        ) {
+            infReps <- lapply(infReps, function(x) {
+                rownames(x) <- genes
+                x
+            })
+            txi[["infReps"]] <- infReps
+        }
     }
 
     # Return -------------------------------------------------------------------
@@ -143,7 +148,10 @@
     assert_are_identical(dimnames(abundance), dimnames(length))
 
     # Inferential replicates added in v1.9.
-    if (is.list(infReps)) {
+    if (
+        is.list(infReps) &&
+        has_length(infReps)
+    ) {
         assert_are_identical(names(infReps), colnames(abundance))
         assert_are_identical(rownames(infReps[[1L]]), rownames(abundance))
     }

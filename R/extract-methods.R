@@ -105,12 +105,17 @@ setMethod(
 
         # Resize inferential replicates, if defined.
         infReps <- metadata[["infReps"]]
-        if (is.list(infReps)) {
+        if (
+            is.list(infReps) &&
+            has_length(infReps)
+        ) {
             message("Resizing inferential replicates...")
             infReps <- infReps[colnames(rse)]
             infReps <- lapply(infReps, function(x) {
                 x[rownames(rse), , drop = FALSE]
             })
+        } else {
+            infReps <- NULL
         }
         metadata[["infReps"]] <- infReps
         metadata(rse) <- metadata
