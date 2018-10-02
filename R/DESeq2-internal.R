@@ -134,7 +134,7 @@
         "Generating DESeqDataSet with DESeq2 ",
         packageVersion("DESeq2"), "..."
     ))
-    txi <- .regenerateTximportList(object)
+    txi <- .regenerateTximport(object)
     dds <- DESeqDataSetFromTximport(
         txi = txi,
         colData = colData(object),

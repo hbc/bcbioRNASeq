@@ -321,6 +321,10 @@ bcbioRNASeq <- function(
     assert_is_all_of(tx2gene, "tx2gene")
 
     # Read counts --------------------------------------------------------------
+    tpm <- NULL
+    infReps <- NULL
+    length <- NULL
+    countsFromAbundance <- NULL
     # Use tximport by default for transcript-aware callers.
     # Otherwise, resort to loading the featureCounts aligned counts data.
     if (caller %in% tximportCallers) {
@@ -341,14 +345,13 @@ bcbioRNASeq <- function(
         tpm <- txi[["abundance"]]
         # `counts`: raw counts
         counts <- txi[["counts"]]
-        # Length: average transcript length.
+        # `infReps`: Inferential replicates.
+        infReps <- txi[["infReps"]]
+        # `length`: average transcript length.
         length <- txi[["length"]]
         # `countsFromAbundance`: `string` describing how TPMs were calculated.
         countsFromAbundance <- txi[["countsFromAbundance"]]
     } else if (caller %in% featureCountsCallers) {
-        tpm <- NULL
-        length <- NULL
-        countsFromAbundance <- NULL
         # Load up the featureCounts aligned counts matrix.
         counts <- import(file = file.path(projectDir, "combined.counts"))
         assert_is_matrix(counts)
@@ -385,6 +388,9 @@ bcbioRNASeq <- function(
     assert_is_all_of(rowRanges, "GRanges")
 
     # Gene-level variance stabilization ----------------------------------------
+    normalized <- NULL
+    vst <- NULL
+    rlog <- NULL
     if (level == "genes") {
         message(paste0(
             "Generating DESeqDataSet with DESeq2 ",
@@ -414,29 +420,19 @@ bcbioRNASeq <- function(
             if (isTRUE(vst)) {
                 message("Applying variance-stabilizing transformation...")
                 vst <- assay(varianceStabilizingTransformation(dds))
-            } else {
-                vst <- NULL
             }
             if (isTRUE(rlog)) {
                 message("Applying regularized log transformation...")
                 rlog <- assay(rlog(dds))
-            } else {
-                rlog <- NULL
             }
         } else {
             # This step is covered by the bcbio pipeline tests.
             # nocov start
             warning("Data has no variation. Skipping transformations.")
             dds <- estimateSizeFactors(dds)
-            vst <- NULL
-            rlog <- NULL
             # nocov end
         }
         normalized <- counts(dds, normalized = TRUE)
-    } else if (level == "transcripts") {
-        normalized <- NULL
-        vst <- NULL
-        rlog <- NULL
     }
 
     # Assays -------------------------------------------------------------------
@@ -458,6 +454,7 @@ bcbioRNASeq <- function(
         version = packageVersion,
         level = level,
         caller = caller,
+        infReps = infReps,
         countsFromAbundance = countsFromAbundance,
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
