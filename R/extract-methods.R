@@ -157,6 +157,14 @@ setMethod(
             assays[["vst"]] <- NULL
         }
 
+        # Row data -------------------------------------------------------------
+        # Ensure factors get releveled.
+        rowRanges <- rowRanges(rse)
+        mcols(rowRanges) <- mcols(rowRanges) %>%
+            as("tbl_df") %>%
+            mutate_if(is.factor, droplevels) %>%
+            as("DataFrame")
+
         # Column data ----------------------------------------------------------
         # Ensure factors get releveled.
         colData <- colData(rse) %>%
@@ -170,7 +178,7 @@ setMethod(
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays,
-            rowRanges = rowRanges(rse),
+            rowRanges = rowRanges,
             colData = colData,
             metadata = metadata
         )
