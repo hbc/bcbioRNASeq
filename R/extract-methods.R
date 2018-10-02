@@ -86,14 +86,34 @@ setMethod(
         # Require at least 2 samples.
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
+        # Early return if dimensions are unmodified.
+        if (identical(
+            x = dim(x),
+            y = c(length(i), length(j))
+        )) {
+            message("Returning object unmodified.")
+            return(x)
+        }
+
         # Regenerate RangedSummarizedExperiment.
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = FALSE]
 
-        # Early return if dimensions are unmodified.
-        if (identical(dim(rse), dim(x))) {
-            return(x)
+        # Metadata -------------------------------------------------------------
+        metadata <- metadata(rse)
+        metadata[["subset"]] <- TRUE
+
+        # Resize inferential replicates, if defined.
+        infReps <- metadata[["infReps"]]
+        if (is.list(infReps)) {
+            message("Resizing inferential replicates...")
+            infReps <- infReps[colnames(rse)]
+            infReps <- lapply(infReps, function(x) {
+                x[rownames(rse), , drop = FALSE]
+            })
         }
+        metadata[["infReps"]] <- infReps
+        metadata(rse) <- metadata
 
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
@@ -146,10 +166,6 @@ setMethod(
             mutate_if(is.factor, droplevels) %>%
             column_to_rownames() %>%
             as("DataFrame")
-
-        # Metadata -------------------------------------------------------------
-        metadata <- metadata(rse)
-        metadata[["subset"]] <- TRUE
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
