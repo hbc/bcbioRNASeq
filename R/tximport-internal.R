@@ -66,7 +66,7 @@
         "Reading", type, "counts using tximport",
         packageVersion("tximport")
     ))
-    list <- tximport(
+    txi <- tximport(
         files = files,
         type = type,
         txIn = txIn,
@@ -76,16 +76,13 @@
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
-
-    # Assert checks on tximport list -------------------------------------------
-    assert_is_list(list)
-    assert_are_identical(
-        names(list),
-        c("abundance", "counts", "length", "countsFromAbundance")
-    )
     # Run assert checks on the matrices.
     invisible(lapply(
-        X = list[c("abundance", "counts", "length")],
+        X = txi[c(
+            "abundance",
+            "counts",
+            "length"
+        )],
         FUN = function(x) {
             assert_is_matrix(x)
             assert_are_identical(
@@ -94,35 +91,100 @@
             )
         }
     ))
-    assert_is_non_empty(list[["countsFromAbundance"]])
 
     # Ensure versions are stripped ---------------------------------------------
     # Counts from GENCODE annotations can require additional sanitization.
     if (isTRUE(ignoreTxVersion)) {
-        rownames <- rownames(list[["abundance"]])
-        assert_are_identical(rownames, rownames(list[["counts"]]))
-        assert_are_identical(rownames, rownames(list[["length"]]))
-        rownames <- stripTranscriptVersions(rownames)
-        assert_has_no_duplicates(rownames)
-        rownames(list[["abundance"]]) <- rownames
-        rownames(list[["counts"]]) <- rownames
-        rownames(list[["length"]]) <- rownames
+        genes <- rownames(txi[["abundance"]])
+        genes <- stripTranscriptVersions(genes)
+        assert_has_no_duplicates(genes)
+
+        # Update the matrices.
+        rownames(txi[["abundance"]]) <- genes
+        rownames(txi[["counts"]]) <- genes
+        rownames(txi[["length"]]) <- genes
+
+        # Update the inferential replicates.
+        infReps <- txi[["infReps"]]
+        infReps <- lapply(infReps, function(x) {
+            rownames(x) <- genes
+            x
+        })
+        txi[["infReps"]] <- infReps
     }
 
     # Return -------------------------------------------------------------------
-    list
+    .assertIsTximport(txi)
+    txi
 }
 
 
 
-.regenerateTximportList <- function(object) {
-    assert_is_all_of(object, "RangedSummarizedExperiment")
-    assert_is_subset(c("tpm", "counts", "length"), assayNames(object))
-    assert_is_subset("countsFromAbundance", names(metadata(object)))
-    list(
-        abundance = assays(object)[["tpm"]],
-        counts = assays(object)[["counts"]],
-        length = assays(object)[["length"]],
-        countsFromAbundance = metadata(object)[["countsFromAbundance"]]
+.assertIsTximport <- function(txi) {
+    assert_is_list(txi)
+
+    assert_are_identical(
+        x = c(
+            "abundance",
+            "counts",
+            "infReps",  # v1.9+
+            "length",
+            "countsFromAbundance"
+        ),
+        y = names(txi)
     )
+
+    assert_are_identical(
+        dimnames(txi[["abundance"]]),
+        dimnames(txi[["counts"]])
+    )
+    assert_are_identical(
+        dimnames(txi[["abundance"]]),
+        dimnames(txi[["length"]])
+    )
+
+    assert_is_list(txi[["infReps"]])
+    assert_are_identical(
+        x = names(txi[["infReps"]]),
+        y = colnames(txi[["abundance"]])
+    )
+    assert_are_identical(
+        x = rownames(txi[["infReps"]][[1L]]),
+        y = rownames(txi[["abundance"]])
+    )
+
+    assert_is_non_empty(txi[["countsFromAbundance"]])
+}
+
+
+
+.regenerateTximport <- function(object) {
+    validObject(object)
+    assert_is_all_of(object, "RangedSummarizedExperiment")
+
+    samples <- colnames(object)
+    genes <- rownames(object)
+
+    abundance <- assays(object)[["tpm"]]
+    counts <- assays(object)[["counts"]]
+    length <- assays(object)[["length"]]
+
+    infReps <- metadata(object)[["infReps"]]
+    infReps <- infReps[samples]
+    infReps <- lapply(infReps, function(x) {
+        x[genes, , drop = FALSE]
+    })
+
+    countsFromAbundance <- metadata(object)[["countsFromAbundance"]]
+
+    txi <- list(
+        abundance = abundance,
+        counts = counts,
+        infReps = infReps,
+        length = length,
+        countsFromAbundance = countsFromAbundance
+    )
+
+    .assertIsTximport(txi)
+    txi
 }
