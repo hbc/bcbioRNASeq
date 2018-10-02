@@ -9,8 +9,11 @@ geneNames <- head(gene2symbol[["geneName"]])
 # plotGenderMarkers ============================================================
 with_parameters_test_that(
     "plotGenderMarkers", {
-        x <- plotGenderMarkers(object)
-        expect_is(x, "ggplot")
+        # Check the handling when dimorphic genes aren't present.
+        expect_message(
+            object = plotGenderMarkers(object),
+            regexp = "All genes failed to map"
+        )
     },
     object = list(
         bcbioRNASeq = bcb_small,
