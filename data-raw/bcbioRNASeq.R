@@ -1,5 +1,5 @@
 # bcbioRNASeq Example
-# Last updated 2018-10-01
+# Last updated 2018-10-02
 
 library(tidyverse)
 
