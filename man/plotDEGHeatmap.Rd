@@ -13,15 +13,15 @@ plotDEGHeatmap(object, ...)
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
-  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
-  borderColor = NULL, ...)
+  treeheightCol = 50L, color = viridis::viridis,
+  legendColor = viridis::viridis, borderColor = NULL, ...)
 
 \S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
-  treeheightCol = 50L, color = viridis::viridis, legendColor = NULL,
-  borderColor = NULL, ...)
+  treeheightCol = 50L, color = viridis::viridis,
+  legendColor = viridis::viridis, borderColor = NULL, ...)
 }
 \arguments{
 \item{object}{Object.}

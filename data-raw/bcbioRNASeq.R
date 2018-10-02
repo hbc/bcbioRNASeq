@@ -1,19 +1,20 @@
-#' Example bcbioRNASeq object
-#' Last updated 2018-09-09
+# bcbioRNASeq Example
+# Last updated 2018-10-01
 
-library("tidyverse")
+library(tidyverse)
 
-# FIXME Improve the object size limit method here (see basejump example)
+# Restrict to 1 MB per file.
+limit <- structure(1e6, class = "object_size")
 
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 # HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2
-# Using sshfs connection to O2 here
+# Using sshfs connection to O2 here.
 gse65267 <- bcbioRNASeq(
     uploadDir = file.path(
         "~",
         "O2",
-        "bcbio",
+        "hbc",
         "bcbioRNASeq",
         "F1000v2",
         "GSE65267-merged",
@@ -30,15 +31,16 @@ gse65267 <- bcbioRNASeq(
 saveData(gse65267, dir = "data-raw")
 
 # F1000 paper ==================================================================
-# Subset days 0, 1, 3, 7
+# Subset days 0, 1, 3, 7.
+# FIXME This is broken now with `infReps`.
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000, dir = "data-raw")
 
 # bcb_small ====================================================================
-# Minimal working example: days 0, 7
+# Minimal working example: days 0, 7.
 bcb <- selectSamples(gse65267, day = c(0L, 7L))
 
-# Minimize metadata slots that are too large for a working example
+# Minimize metadata slots that are too large for a working example.
 metadata(bcb)[["bcbioCommandsLog"]] <- character()
 metadata(bcb)[["bcbioLog"]] <- character()
 metadata(bcb)[["dataVersions"]] <- tibble()
@@ -46,38 +48,47 @@ metadata(bcb)[["programVersions"]] <- tibble()
 metadata(bcb)[["tx2gene"]] <- head(metadata(bcb)[["tx2gene"]])
 metadata(bcb)[["yaml"]] <- list()
 
-# Sort the genes by abundance
+# Sort the genes by abundance.
 abundance <- tpm(bcb) %>%
     rowSums() %>%
     sort(decreasing = TRUE) %>%
     names()
-# Ensure all dimorphic gender markers are included
+# Ensure all dimorphic gender markers are included.
 dimorphic <- bcbioRNASeq::gender_markers[["musMusculus"]] %>%
     pull(geneID) %>%
     sort() %>%
     intersect(rownames(bcb))
-# Subset to include only the top genes of interest
+# Subset to include only the top genes of interest.
 genes <- c(dimorphic, abundance) %>%
     unique() %>%
     head(500L) %>%
     sort()
 bcb <- bcb[genes, ]
 
-# Update the interesting groups and design formula
+# Update the interesting groups and design formula.
 interestingGroups(bcb) <- "treatment"
 
-# DESeq2 doesn't like spaces in design factors, so fix that in colData
+# DESeq2 doesn't like spaces in design factors, so fix that in colData.
 bcb[["treatment"]] <- snake(bcb[["treatment"]])
 
-# Check that object is valid
+# Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))
 validObject(bcb)
 
-# Check the object size
+# Check the object size.
 format(object.size(bcb), units = "auto")
 pryr::object_size(bcb)
 lapply(assays(bcb), pryr::object_size)
 lapply(metadata(bcb), pryr::object_size)
+
+# Report the size of each slot in bytes.
+vapply(
+    X = coerceS4ToList(rse),
+    FUN = object.size,
+    FUN.VALUE = numeric(1L)
+)
+stopifnot(object.size(rse) < limit)
+stopifnot(validObject(rse))
 
 bcb_small <- bcb
 devtools::use_data(bcb_small, overwrite = TRUE, compress = "xz")
