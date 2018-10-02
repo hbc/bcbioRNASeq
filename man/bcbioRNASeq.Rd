@@ -175,9 +175,7 @@ object <- bcbioRNASeq(
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
-show(object)
-is(object, "RangedSummarizedExperiment")
-validObject(object)
+print(object)
 
 # Transcript level
 object <- bcbioRNASeq(
@@ -187,8 +185,7 @@ object <- bcbioRNASeq(
     organism = "Mus musculus",
     ensemblRelease = 87L
 )
-show(object)
-validObject(object)
+print(object)
 }
 \seealso{
 \itemize{
