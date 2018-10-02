@@ -1,4 +1,5 @@
 # FIXME Need to remove `assay` from formals.
+# FIXME Unit test with rle -- need to handle non-finite values better.
 
 
 
@@ -52,7 +53,10 @@ f2 <- methodFormals(
     f = "plotGenderMarkers",
     signature = "SummarizedExperiment"
 )
-f2 <- f2[setdiff(names(f2), names(f1))]
+f2 <- f2[setdiff(
+    x = names(f2),
+    y = c(names(f1), "assay", "countsAxisLabel")
+)]
 f <- c(f1, f2)
 formals(.plotGenderMarkers.bcbioRNASeq) <- f
 

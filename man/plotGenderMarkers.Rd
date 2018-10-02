@@ -7,10 +7,9 @@
 \title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), assay = 1L, interestingGroups = NULL,
-  countsAxisLabel = "counts", medianLine = TRUE,
-  color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), style = "wide")
+  "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
+  medianLine = TRUE, color = getOption("basejump.discrete.color",
+  NULL), legend = getOption("basejump.legend", TRUE), style = "wide")
 }
 \arguments{
 \item{object}{Object.}
@@ -21,12 +20,7 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
-\item{assay}{\code{scalar}. Name or index of counts matrix slotted in \code{\link[=assays]{assays()}}.
-When passing in a \code{string}, the name must be defined in \code{\link[=assayNames]{assayNames()}}.}
-
 \item{interestingGroups}{\code{character}. Groups of interest.}
-
-\item{countsAxisLabel}{\code{string}. Label to use for the counts axis.}
 
 \item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
 samples are colored by sample name.}
