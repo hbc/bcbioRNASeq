@@ -1,3 +1,7 @@
+# FIXME Add a size limit -- figure out how to shrink this more.
+
+
+
 #' Example DESeq2 differential expression analysis
 #' Last updated 2018-10-02
 
