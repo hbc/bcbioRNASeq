@@ -3,8 +3,8 @@
 
 library(tidyverse)
 
-# Restrict to 1 MB per file.
-limit <- structure(1e6, class = "object_size")
+# Restrict to 2 MB.
+limit <- structure(2e6, class = "object_size")
 
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
@@ -32,7 +32,6 @@ saveData(gse65267, dir = "data-raw")
 
 # F1000 paper ==================================================================
 # Subset days 0, 1, 3, 7.
-# FIXME This is broken now with `infReps`.
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000, dir = "data-raw")
 
@@ -49,46 +48,36 @@ metadata(bcb)[["tx2gene"]] <- head(metadata(bcb)[["tx2gene"]])
 metadata(bcb)[["yaml"]] <- list()
 
 # Sort the genes by abundance.
-abundance <- tpm(bcb) %>%
+genes <- tpm(bcb) %>%
     rowSums() %>%
     sort(decreasing = TRUE) %>%
+    head(n = 500L) %>%
     names()
-# Ensure all dimorphic gender markers are included.
-dimorphic <- bcbioRNASeq::gender_markers[["musMusculus"]] %>%
-    pull(geneID) %>%
-    sort() %>%
-    intersect(rownames(bcb))
-# Subset to include only the top genes of interest.
-genes <- c(dimorphic, abundance) %>%
-    unique() %>%
-    head(500L) %>%
-    sort()
 bcb <- bcb[genes, ]
 
 # Update the interesting groups and design formula.
 interestingGroups(bcb) <- "treatment"
 
-# DESeq2 doesn't like spaces in design factors, so fix that in colData.
+# DESeq2 doesn't like spaces in design formula factors.
 bcb[["treatment"]] <- snake(bcb[["treatment"]])
 
-# Check that object is valid.
-stopifnot(is(bcb, "bcbioRNASeq"))
-validObject(bcb)
+# Report the size of each slot in bytes.
+vapply(
+    X = coerceS4ToList(bcb),
+    FUN = object.size,
+    FUN.VALUE = numeric(1L)
+)
+stopifnot(object.size(bcb) < limit)
 
-# Check the object size.
+# Additional size checks.
 format(object.size(bcb), units = "auto")
 pryr::object_size(bcb)
 lapply(assays(bcb), pryr::object_size)
 lapply(metadata(bcb), pryr::object_size)
 
-# Report the size of each slot in bytes.
-vapply(
-    X = coerceS4ToList(rse),
-    FUN = object.size,
-    FUN.VALUE = numeric(1L)
-)
-stopifnot(object.size(rse) < limit)
-stopifnot(validObject(rse))
+# Check that object is valid.
+stopifnot(is(bcb, "bcbioRNASeq"))
+stopifnot(validObject(bcb))
 
 bcb_small <- bcb
 devtools::use_data(bcb_small, overwrite = TRUE, compress = "xz")
