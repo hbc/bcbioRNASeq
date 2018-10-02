@@ -1,4 +1,6 @@
 # FIXME rlog isn't getting stashed correctly. Double check the code.
+# TODO Add automatic support for loading transcriptome (bcbio v1.1+)
+# FIXME Stash the bcbio commit number/version in metadata.
 
 
 
@@ -145,9 +147,7 @@
 #'     organism = "Mus musculus",
 #'     ensemblRelease = 87L
 #' )
-#' show(object)
-#' is(object, "RangedSummarizedExperiment")
-#' validObject(object)
+#' print(object)
 #'
 #' # Transcript level
 #' object <- bcbioRNASeq(
@@ -157,8 +157,7 @@
 #'     organism = "Mus musculus",
 #'     ensemblRelease = 87L
 #' )
-#' show(object)
-#' validObject(object)
+#' print(object)
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -392,9 +391,6 @@ bcbioRNASeq <- function(
     assert_is_all_of(rowRanges, "GRanges")
 
     # Gene-level variance stabilization ----------------------------------------
-    normalized <- NULL
-    vst <- NULL
-    rlog <- NULL
     if (level == "genes") {
         message(paste0(
             "Generating DESeqDataSet with DESeq2 ",
@@ -424,19 +420,29 @@ bcbioRNASeq <- function(
             if (isTRUE(vst)) {
                 message("Applying variance-stabilizing transformation...")
                 vst <- assay(varianceStabilizingTransformation(dds))
+            } else {
+                vst <- NULL
             }
             if (isTRUE(rlog)) {
                 message("Applying regularized log transformation...")
                 rlog <- assay(rlog(dds))
+            } else {
+                rlog <- NULL
             }
         } else {
             # This step is covered by the bcbio pipeline tests.
             # nocov start
             warning("Data has no variation. Skipping transformations.")
             dds <- estimateSizeFactors(dds)
+            vst <- NULL
+            rlog <- NULL
             # nocov end
         }
         normalized <- counts(dds, normalized = TRUE)
+    }  else if (level == "transcripts") {
+        normalized <- NULL
+        vst <- NULL
+        rlog <- NULL
     }
 
     # Assays -------------------------------------------------------------------
