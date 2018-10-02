@@ -144,7 +144,6 @@
 
     # Inferential replicates added in v1.9.
     if (is.list(infReps)) {
-        print(infReps)
         assert_are_identical(names(infReps), colnames(abundance))
         assert_are_identical(rownames(infReps[[1L]]), rownames(abundance))
     }
