@@ -1,7 +1,7 @@
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-09-11
+#' Last updated 2018-10-02
 
-library("DESeq2")
+library(DESeq2)
 
 # DESeqDataSet
 # Coerce from bcbioRNASeq object.
