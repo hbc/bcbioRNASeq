@@ -122,8 +122,7 @@
 
 .assertIsTximport <- function(txi) {
     assert_is_list(txi)
-
-    assert_are_identical(
+    assert_are_intersecting_sets(
         x = c(
             "abundance",
             "counts",
@@ -134,26 +133,24 @@
         y = names(txi)
     )
 
-    assert_are_identical(
-        dimnames(txi[["abundance"]]),
-        dimnames(txi[["counts"]])
-    )
-    assert_are_identical(
-        dimnames(txi[["abundance"]]),
-        dimnames(txi[["length"]])
-    )
+    abundance <- txi[["abundance"]]
+    counts <- txi[["counts"]]
+    infReps <- txi[["infReps"]]
+    length <- txi[["length"]]
+    countsFromAbundance <- txi[["countsFromAbundance"]]
 
-    assert_is_list(txi[["infReps"]])
-    assert_are_identical(
-        x = names(txi[["infReps"]]),
-        y = colnames(txi[["abundance"]])
-    )
-    assert_are_identical(
-        x = rownames(txi[["infReps"]][[1L]]),
-        y = rownames(txi[["abundance"]])
-    )
+    assert_are_identical(dimnames(abundance), dimnames(counts))
+    assert_are_identical(dimnames(abundance), dimnames(length))
 
-    assert_is_non_empty(txi[["countsFromAbundance"]])
+    # Inferential replicates added in v1.9.
+    if (is.list(infReps)) {
+        print(infReps)
+        assert_are_identical(names(infReps), colnames(abundance))
+        assert_are_identical(rownames(infReps[[1L]]), rownames(abundance))
+    }
+
+    assert_is_a_string(countsFromAbundance)
+    assert_is_non_empty(countsFromAbundance)
 }
 
 
@@ -170,10 +167,12 @@
     length <- assays(object)[["length"]]
 
     infReps <- metadata(object)[["infReps"]]
-    infReps <- infReps[samples]
-    infReps <- lapply(infReps, function(x) {
-        x[genes, , drop = FALSE]
-    })
+    if (is.list(infReps)) {
+        infReps <- infReps[samples]
+        infReps <- lapply(infReps, function(x) {
+            x[genes, , drop = FALSE]
+        })
+    }
 
     countsFromAbundance <- metadata(object)[["countsFromAbundance"]]
 
@@ -184,6 +183,7 @@
         length = length,
         countsFromAbundance = countsFromAbundance
     )
+    txi <- Filter(Negate(is.null), txi)
 
     .assertIsTximport(txi)
     txi
