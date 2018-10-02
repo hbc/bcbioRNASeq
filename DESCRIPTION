@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.0
-Date: 2018-09-28
+Date: 2018-10-02
 Authors@R: c(
     person(
         given = "Michael",
@@ -101,10 +101,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
-    R (>= 3.4),
+    R (>= 3.5),
     SummarizedExperiment,
     basejump (>= 0.99.0),
-    DESeq2 (>= 1.18)
+    DESeq2 (>= 1.21)
 Imports:
     assertive.base,
     assertive.files,
@@ -118,7 +118,7 @@ Imports:
     cowplot (>= 0.9),
     crayon,
     dplyr (>= 0.7),
-    edgeR (>= 3.20),
+    edgeR (>= 3.23),
     GenomicFeatures,
     ggplot2 (>= 3.0),
     ggrepel (>= 0.8),
