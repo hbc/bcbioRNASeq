@@ -1,3 +1,7 @@
+# FIXME rlog isn't getting stashed correctly. Double check the code.
+
+
+
 # bcbioRNASeq ==================================================================
 #' `bcbioRNASeq` Generator
 #'

@@ -7,7 +7,10 @@
 \title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), ...)
+  "rlog", "tmm", "tpm", "rle"), assay = 1L, interestingGroups = NULL,
+  countsAxisLabel = "counts", medianLine = TRUE,
+  color = getOption("basejump.discrete.color", NULL),
+  legend = getOption("basejump.legend", TRUE), style = "wide")
 }
 \arguments{
 \item{object}{Object.}
@@ -18,7 +21,25 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
-\item{...}{Additional arguments.}
+\item{assay}{\code{scalar}. Name or index of counts matrix slotted in \code{\link[=assays]{assays()}}.
+When passing in a \code{string}, the name must be defined in \code{\link[=assayNames]{assayNames()}}.}
+
+\item{interestingGroups}{\code{character}. Groups of interest.}
+
+\item{countsAxisLabel}{\code{string}. Label to use for the counts axis.}
+
+\item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
+samples are colored by sample name.}
+
+\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
+palette globally, use \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+
+\item{legend}{\code{boolean}. Show plot legend.}
+
+\item{style}{\code{string}. Plot style.}
 }
 \value{
 \code{ggplot}.
