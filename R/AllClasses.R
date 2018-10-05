@@ -5,6 +5,8 @@ setClassUnion(
 
 
 
+# FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
+
 # bcbioRNASeq ==================================================================
 #' `bcbioRNASeq` Class
 #'
