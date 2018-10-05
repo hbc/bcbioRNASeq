@@ -26,6 +26,7 @@
     type = c("salmon", "kallisto", "sailfish"),
     txIn = TRUE,
     txOut = FALSE,
+    countsFromAbundance = "lengthScaledTPM",
     tx2gene,
     ignoreTxVersion = TRUE
 ) {
@@ -34,8 +35,8 @@
     type <- match.arg(type)
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
+    assert_is_a_string(countsFromAbundance)
     assert_is_all_of(tx2gene, "tx2gene")
-    tx2gene <- as.data.frame(tx2gene)
 
     # Locate the counts files --------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
@@ -51,9 +52,10 @@
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
 
-    # Transcript versions ------------------------------------------------------
-    # Ensure transcript IDs are stripped from tx2gene, if desired.
+    # tx2gene ------------------------------------------------------------------
+    tx2gene <- as.data.frame(tx2gene)
     if (isTRUE(ignoreTxVersion)) {
+        # Ensure transcript IDs are stripped from tx2gene.
         tx2gene[["transcriptID"]] <-
             stripTranscriptVersions(tx2gene[["transcriptID"]])
         rownames(tx2gene) <- tx2gene[["transcriptID"]]
@@ -71,11 +73,13 @@
         type = type,
         txIn = txIn,
         txOut = txOut,
+        countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
-    # Run assert checks on the matrices.
+
+    # Assert checks before return.
     invisible(lapply(
         X = txi[c(
             "abundance",
@@ -90,35 +94,8 @@
             )
         }
     ))
-
-    # Ensure versions are stripped ---------------------------------------------
-    # Counts from GENCODE annotations can require additional sanitization.
-    if (isTRUE(ignoreTxVersion)) {
-        genes <- rownames(txi[["abundance"]])
-        genes <- stripTranscriptVersions(genes)
-        assert_has_no_duplicates(genes)
-
-        # Update the matrices.
-        rownames(txi[["abundance"]]) <- genes
-        rownames(txi[["counts"]]) <- genes
-        rownames(txi[["length"]]) <- genes
-
-        # Update the inferential replicates.
-        infReps <- txi[["infReps"]]
-        if (
-            is.list(infReps) &&
-            has_length(infReps)
-        ) {
-            infReps <- lapply(infReps, function(x) {
-                rownames(x) <- genes
-                x
-            })
-            txi[["infReps"]] <- infReps
-        }
-    }
-
-    # Return -------------------------------------------------------------------
     .assertIsTximport(txi)
+
     txi
 }
 
