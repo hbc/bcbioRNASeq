@@ -27,10 +27,7 @@ BiocManager::install(
         "GenomeInfoDbData"
     )
 )
-BiocManager::install(
-    pkgs = "hbc/bcbioRNASeq",
-    dependencies = c("Depends", "Imports", "Suggests")
-)
+BiocManager::install("hbc/bcbioRNASeq")
 ```
 
 For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite()` instead of `BiocManager::install()`. This requires sourcing the legacy [Bioconductor][] `biocLite.R` script.
