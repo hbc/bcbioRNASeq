@@ -40,6 +40,13 @@
 
 
 
+# Used for bcbio pipeline checks.
+.dataHasVariation <- function(dds) {
+    !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
+}
+
+
+
 .ddsMsg <- function() {
     message(paste0(
         "Generating DESeqDataSet with DESeq2 ",
