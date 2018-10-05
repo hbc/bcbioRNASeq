@@ -203,10 +203,10 @@ identical_samples <- all(rowSums(assay(dds) == assay(dds)[, 1]) == ncol(dds))
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
 ```{r plot_disp_ests}
-if (!identical_samples) {
-    plotDispEsts(bcb)
-} else {
+if (isTRUE(identical_samples)) {
     message("Samples are identical. Skipping dispersion plot.")
+} else {
+    plotDispEsts(bcb)
 }
 ```
 
@@ -225,13 +225,22 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 ## Principal component analysis (PCA)
 
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
+
 ```{r plot_pca}
-label <- !identical_samples
-plotPCA(
-    object = bcb,
-    normalized = "vst",
-    label = label
-)
+if (isTRUE(identical_samples)) {
+    message("Samples are identical. Skipping PCA.")
+} else {
+    plotPCA(
+        object = bcb,
+        normalized = "vst",
+        label = FALSE
+    )
+    plotPCA(
+        object = bcb,
+        normalized = "vst",
+        label = TRUE
+    )
+}
 ```
 
 ## Hierarchical clustering
@@ -239,10 +248,10 @@ plotPCA(
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-if (!identical_samples) {
-    plotCorrelationHeatmap(bcb, normalized = "vst")
-} else {
+if (isTRUE(identical_samples)) {
     message("Samples are identical. Skipping correlation heatmap.")
+} else {
+    plotCorrelationHeatmap(bcb, normalized = "vst")
 }
 ```
 
