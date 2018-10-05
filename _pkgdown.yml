@@ -39,6 +39,7 @@ reference:
     - DESeqAnalysis
     - DESeqResultsTables
   - title: S4 Functions
+    contents:
     - coerce
     - extract
     - show

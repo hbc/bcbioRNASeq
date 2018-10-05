@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -94,10 +94,7 @@ BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocum
         <span class="st">"GenomeInfoDbData"</span>
     )
 )
-BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(
-    <span class="dt">pkgs =</span> <span class="st">"hbc/bcbioRNASeq"</span>,
-    <span class="dt">dependencies =</span> <span class="kw">c</span>(<span class="st">"Depends"</span>, <span class="st">"Imports"</span>, <span class="st">"Suggests"</span>)
-)</code></pre></div>
+BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
 <p>For <a href="https://www.r-project.org">R</a> &lt; 3.5, <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> is not supported. Use <code><a href="http://www.rdocumentation.org/packages/BiocInstaller/topics/biocLite">BiocInstaller::biocLite()</a></code> instead of <code><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">BiocManager::install()</a></code>. This requires sourcing the legacy <a href="https://bioconductor.org">Bioconductor</a> <code>biocLite.R</code> script.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># try http:// if https:// URLs are not supported</span>
 <span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
