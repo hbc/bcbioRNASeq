@@ -22,8 +22,10 @@ projectDirPattern <- bcbioBase::projectDirPattern
 validLevels <- c("genes", "transcripts")
 
 requiredAssays <- "counts"
-tximportAssays <- c("counts", "avgTxLength", "tpm")
+tximportAssays <- c("counts", "tpm")
 featureCountsAssays <- requiredAssays
+# avgTxLength should only be present when counts aren't scaled.
+deseqAssays <- c("counts", "avgTxLength")
 
 tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
