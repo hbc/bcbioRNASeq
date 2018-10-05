@@ -46,6 +46,7 @@ NULL
 
 
 
+# Refer to `DESeq2::DESeqDataSetFromTximport()`.
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
@@ -54,19 +55,21 @@ setAs(
     function(from) {
         validObject(from)
         if (metadata(from)[["level"]] != "genes") {
+            # Consider adding summarize to gene support here.
+            # Consult the tximport vignette if we decide to add this.
             stop("Gene-level counts are required.")
         }
         message(paste0(
             "Coercing bcbioRNASeq to DESeqDataSet with DESeq2 ",
             packageVersion("DESeq2"), "..."
         ))
-        # Creating `DESeqDataSet` from `RangedSummarizedExperiment` is
-        # preferable to `DESeqDataSetFromTximport` method because `rowRanges`
-        # are defined, with richer metadata
         rse <- as(from, "RangedSummarizedExperiment")
-        # Integer counts are required
-        assay(rse) <- round(assay(rse), digits = 0L)
-        # Prepare using an empty design formula
+        assays(rse) <- assays(rse)[intersect(assayNames(rse), deseqAssays)]
+        # Integer counts are required.
+        counts <- round(counts(rse), digits = 0L)
+        mode(counts) <- "integer"
+        counts(rse) <- counts
+        # Coerce using an empty design formula.
         to <- DESeqDataSet(se = rse, design = ~ 1L)
         interestingGroups(to) <- interestingGroups(from)
         validObject(to)
