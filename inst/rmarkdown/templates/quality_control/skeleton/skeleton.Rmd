@@ -45,11 +45,11 @@ as_tibble(sample_data)
 # Count matrices
 
 ```{r counts}
-# Raw counts (don't use for plotting)
+# Raw counts (don't use for plotting).
 raw_counts <- counts(bcb, normalized = FALSE)
-# DESeq2 normalized counts
+# DESeq2 normalized counts.
 normalized_counts <- counts(bcb, normalized = TRUE)
-# Transcripts per million
+# Transcripts per million.
 tpm <- counts(bcb, normalized = "tpm")
 # Fragments per kilobase per million mapped fragments.
 fpkm <- fpkm(as(bcb, "DESeqDataSet"))
@@ -61,6 +61,7 @@ The results are saved as gzip-compressed comma separated values (CSV). Gzip comp
 
 - [`normalized_counts.csv.gz`](`r file.path(params$results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
 - [`tpm.csv.gz`](`r file.path(params$results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
+- [`fpkm.csv.gz`](`r file.path(params$results_dir, "fpkm.csv.gz")`): Fragments per kilobase per million mapped fragments. Legacy format. We recommend using transcripts per million instead.
 - [`raw_counts.csv.gz`](`r file.path(params$results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
 
 # Read metrics {.tabset}
