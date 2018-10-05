@@ -3,13 +3,11 @@ title: "Differential Expression"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
-# Using bcbioRNASeq::bcb_small dataset for example params here
 params:
-  # bcbioRNASeq object
   bcb_file: "data/YYYY-MM-DD/bcb.rda"
-  # Design formula must contain columns defined in `colData()`
+  # Design formula must contain columns defined in `colData()`.
   design: !r formula("~ treatment")
-  # Multiple contrasts are supported
+  # Multiple contrasts are supported.
   contrasts: !r list(
       c(
         factor = "treatment",
@@ -25,7 +23,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-08-19
+# Last modified 2018-10-05
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -36,14 +34,13 @@ invisible(mapply(
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 
-# Authenticate with Dropbox, if enabled
+# Authenticate with Dropbox, if necessary.
 if (!is.null(params$dropbox_dir)) {
     rdrop2::drop_auth()
 }
 
 # Load object ==================================================================
-bcb_name <- load(params$bcb_file)
-bcb <- get(bcb_name, inherits = FALSE)
+bcb <- readRDS(file = params$bcb_file)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
 print(bcb)
