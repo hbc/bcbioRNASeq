@@ -1,3 +1,7 @@
+# FIXME Rework how we handle extraction.
+
+
+
 #' Extract or Replace Parts of an Object
 #'
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object.
@@ -67,6 +71,9 @@ setMethod(
         drop = FALSE,
         recalculate = TRUE
     ) {
+        # FIXME
+        stop("REWORK")
+
         validObject(x)
         # Never allow the user to drop on extraction.
         stopifnot(!isTRUE(drop))
@@ -99,27 +106,6 @@ setMethod(
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = FALSE]
 
-        # Metadata -------------------------------------------------------------
-        metadata <- metadata(rse)
-        metadata[["subset"]] <- TRUE
-
-        # Resize inferential replicates, if defined.
-        infReps <- metadata[["infReps"]]
-        if (
-            is.list(infReps) &&
-            has_length(infReps)
-        ) {
-            message("Resizing inferential replicates...")
-            infReps <- infReps[colnames(rse)]
-            infReps <- lapply(infReps, function(x) {
-                x[rownames(rse), , drop = FALSE]
-            })
-        } else {
-            infReps <- NULL
-        }
-        metadata[["infReps"]] <- infReps
-        metadata(rse) <- metadata
-
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
@@ -130,8 +116,9 @@ setMethod(
                 "(recalculate = TRUE)..."
             ))
 
-            # Normalized counts
-            dds <- .regenerateDESeqDataSet(rse)
+            # Normalized counts.
+            dds <- DESeqDataSet(se = rse, design = ~ 1L)
+            dds <- estimateSizeFactors(dds)
             assays[["normalized"]] <- counts(dds, normalized = TRUE)
 
             # Variance-stabilizing transformations.
@@ -179,6 +166,10 @@ setMethod(
             mutate_if(is.factor, droplevels) %>%
             column_to_rownames() %>%
             as("DataFrame")
+
+        # Metadata -------------------------------------------------------------
+        metadata <- metadata(rse)
+        metadata[["subset"]] <- TRUE
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
