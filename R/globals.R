@@ -22,7 +22,7 @@ projectDirPattern <- bcbioBase::projectDirPattern
 validLevels <- c("genes", "transcripts")
 
 requiredAssays <- "counts"
-tximportAssays <- c("counts", "length", "tpm")
+tximportAssays <- c("counts", "avgTxLength", "tpm")
 featureCountsAssays <- requiredAssays
 
 tximportCallers <- c("salmon", "kallisto", "sailfish")
