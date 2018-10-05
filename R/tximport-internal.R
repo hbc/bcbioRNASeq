@@ -71,7 +71,6 @@
         type = type,
         txIn = txIn,
         txOut = txOut,
-        countsFromAbundance = "lengthScaledTPM",
         tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
@@ -158,40 +157,4 @@
 
     assert_is_a_string(countsFromAbundance)
     assert_is_non_empty(countsFromAbundance)
-}
-
-
-
-.regenerateTximport <- function(object) {
-    validObject(object)
-    assert_is_all_of(object, "RangedSummarizedExperiment")
-
-    samples <- colnames(object)
-    genes <- rownames(object)
-
-    abundance <- assays(object)[["tpm"]]
-    counts <- assays(object)[["counts"]]
-    length <- assays(object)[["length"]]
-
-    infReps <- metadata(object)[["infReps"]]
-    if (is.list(infReps)) {
-        infReps <- infReps[samples]
-        infReps <- lapply(infReps, function(x) {
-            x[genes, , drop = FALSE]
-        })
-    }
-
-    countsFromAbundance <- metadata(object)[["countsFromAbundance"]]
-
-    txi <- list(
-        abundance = abundance,
-        counts = counts,
-        infReps = infReps,
-        length = length,
-        countsFromAbundance = countsFromAbundance
-    )
-    txi <- Filter(Negate(is.null), txi)
-
-    .assertIsTximport(txi)
-    txi
 }
