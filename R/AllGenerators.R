@@ -69,6 +69,7 @@
 #' on the remote server, if possible.
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
+#' @inheritParams tximport::tximport
 #' @inheritParams general
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
@@ -170,6 +171,7 @@ bcbioRNASeq <- function(
     gffFile = NULL,
     transgeneNames = NULL,
     spikeNames = NULL,
+    countsFromAbundance = "lengthScaledTPM",
     vst = TRUE,
     rlog = FALSE,
     interestingGroups = "sampleName",
@@ -224,6 +226,7 @@ bcbioRNASeq <- function(
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
+    assert_is_a_string(countsFromAbundance)
     assert_is_a_bool(vst)
     assert_is_a_bool(rlog)
     assert_is_character(interestingGroups)
@@ -337,19 +340,19 @@ bcbioRNASeq <- function(
             type = caller,
             txIn = TRUE,
             txOut = txOut,
+            countsFromAbundance = countsFromAbundance,
             tx2gene = tx2gene
         )
-        # Currently requiring counts matrix using length-scaled TPM.
-        assert_are_identical(
-            x = txi[["countsFromAbundance"]],
-            y = "lengthScaledTPM"
-        )
 
-        # Raw counts. Note that lengthScaledTPM is applied by default, so we
-        # don't need a corresponding average transcript length matrix.
+        # Raw counts. By default, we're using length-scaled TPM.
         assays[["counts"]] <- txi[["counts"]]
         # Transcripts per million.
         assays[["tpm"]] <- txi[["abundance"]]
+        # Average transcript lengths. Only necessary when raw counts matrix
+        # isn't scaled during tximport call.
+        if (txi[["countsFromAbundance"]] == "no") {
+            assays[["avgTxLength"]] <- txi[["length"]]
+        }
 
         if (level == "genes") {
             # tximport-DESeq2 (refer to the vignette).
@@ -360,15 +363,10 @@ bcbioRNASeq <- function(
                 design = ~ 1L
             )
             if (txi[["countsFromAbundance"]] == "no") {
-                # nocov start
-                # By default, we're applying lengthScaledTPM (see above).
-                # Keep this assert check, which is useful in the future in case
-                # we switch the `tximport()` approach.
                 assert_are_identical(
                     x = assayNames(dds),
                     y = c("counts", "avgTxLength")
                 )
-                # nocov end
             } else {
                 assert_are_identical(
                     x = assayNames(dds),
