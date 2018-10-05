@@ -323,10 +323,10 @@ bcbioRNASeq <- function(
     assert_is_all_of(tx2gene, "tx2gene")
 
     # Assays -------------------------------------------------------------------
+    assays <- list()
     # Use tximport by default for transcript-aware callers.
     # Otherwise, resort to loading the featureCounts aligned counts data.
     if (caller %in% tximportCallers) {
-        # tximport
         if (level == "transcripts") {
             txOut <- TRUE
         } else {
@@ -339,6 +339,18 @@ bcbioRNASeq <- function(
             txOut = txOut,
             tx2gene = tx2gene
         )
+        # Currently requiring counts matrix using length-scaled TPM.
+        assert_are_identical(
+            x = txi[["countsFromAbundance"]],
+            y = "lengthScaledTPM"
+        )
+
+        # Raw counts. Note that lengthScaledTPM is applied by default, so we
+        # don't need a corresponding average transcript length matrix.
+        assays[["counts"]] <- txi[["counts"]]
+        # Transcripts per million.
+        assays[["tpm"]] <- txi[["abundance"]]
+
         if (level == "genes") {
             # tximport-DESeq2 (refer to the vignette).
             .ddsMsg()
@@ -347,12 +359,16 @@ bcbioRNASeq <- function(
                 colData = colData,
                 design = ~ 1L
             )
-            # By default, we're applying lengthScaledTPM.
             if (txi[["countsFromAbundance"]] == "no") {
+                # nocov start
+                # By default, we're applying lengthScaledTPM (see above).
+                # Keep this assert check, which is useful in the future in case
+                # we switch the `tximport()` approach.
                 assert_are_identical(
                     x = assayNames(dds),
                     y = c("counts", "avgTxLength")
                 )
+                # nocov end
             } else {
                 assert_are_identical(
                     x = assayNames(dds),
@@ -363,9 +379,8 @@ bcbioRNASeq <- function(
             dds <- NULL
         }
     } else if (caller %in% featureCountsCallers) {
-        # featureCounts (always gene level).
-        assert_are_identical(level, "genes")
         txi <- NULL
+        assert_are_identical(level, "genes")
 
         # Load up the featureCounts aligned counts matrix.
         counts <- import(file = file.path(projectDir, "combined.counts"))
@@ -374,6 +389,8 @@ bcbioRNASeq <- function(
         # Subset the combined matrix to match the samples.
         assert_is_subset(samples, colnames(counts))
         counts <- counts[, samples, drop = FALSE]
+
+        assays[["counts"]] <- counts
 
         # Generate the DESeqDataSet from matrix.
         .ddsMsg()
@@ -385,11 +402,9 @@ bcbioRNASeq <- function(
         assert_are_identical(assayNames(dds), "counts")
     }
 
-    # Prepare assays (gene or transcript level).
+    # Calculate DESeq2 normalizations for gene-level counts.
     if (level == "genes") {
-        # Define assays from DESeqDataSet.
         assert_is_all_of(dds, "DESeqDataSet")
-        assays <- assays(dds)
         # Skip full DESeq2 calculations, for internal bcbio test data.
         if (.dataHasVariation(dds)) {
             # Suppress expected warning about the empty design formula.
@@ -418,12 +433,8 @@ bcbioRNASeq <- function(
         assays[["normalized"]] <- counts(dds, normalized = TRUE)
         assays[["vst"]] <- vst
         assays[["rlog"]] <- rlog
-    } else if (level == "transcripts") {
-        # Define assays from tximport.
-        assays <- list(counts = txi[["counts"]])
     }
-    # Transcripts per million.
-    assays[["tpm"]] <- txi[["abundance"]]
+
     assert_are_identical(names(assays)[[1L]], "counts")
     assert_are_identical(colnames(assays[[1L]]), rownames(colData))
 
@@ -517,13 +528,6 @@ bcbioRNASeq <- function(
             )
         )
     }
-
-
-
-# Used for bcbio pipeline checks.
-.dataHasVariation <- function(dds) {
-    !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
-}
 
 
 
