@@ -40,6 +40,15 @@
 
 
 
+.ddsMsg <- function() {
+    message(paste0(
+        "Generating DESeqDataSet with DESeq2 ",
+        packageVersion("DESeq2"), "..."
+    ))
+}
+
+
+
 # Get differential expressed genes (DEGs) from DESeqResults table.
 # Note that we're not sorting the identifiers here by LFC or P value.
 # It's just performing a simple subset to get the identifiers as a character.
@@ -124,27 +133,6 @@
     message(msg)
 
     results
-}
-
-
-
-.regenerateDESeqDataSet <- function(object) {
-    assert_is_all_of(object, "RangedSummarizedExperiment")
-    message(paste0(
-        "Generating DESeqDataSet with DESeq2 ",
-        packageVersion("DESeq2"), "..."
-    ))
-    txi <- .regenerateTximport(object)
-    dds <- DESeqDataSetFromTximport(
-        txi = txi,
-        colData = colData(object),
-        # Use an empty design formula
-        design = ~ 1L
-    )
-    # Suppress warning about empty design formula
-    dds <- suppressWarnings(DESeq(dds))
-    validObject(dds)
-    dds
 }
 
 
