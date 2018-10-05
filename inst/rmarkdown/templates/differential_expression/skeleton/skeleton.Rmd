@@ -63,6 +63,7 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 #         to = "DESeqDataSet"
 #     )
 # )
+print(bcb)
 dds <- as(bcb, "DESeqDataSet")
 print(dds)
 ```
