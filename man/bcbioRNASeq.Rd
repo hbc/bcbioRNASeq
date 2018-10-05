@@ -9,7 +9,8 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   samples = NULL, censorSamples = NULL, sampleMetadataFile = NULL,
   organism = NULL, genomeBuild = NULL, ensemblRelease = NULL,
   gffFile = NULL, transgeneNames = NULL, spikeNames = NULL,
-  vst = TRUE, rlog = FALSE, interestingGroups = "sampleName", ...)
+  countsFromAbundance = "lengthScaledTPM", vst = TRUE, rlog = FALSE,
+  interestingGroups = "sampleName", ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -78,6 +79,24 @@ construct a \code{GRanges} object containing the genomic ranges (\code{\link[=ro
 
 \item{spikeNames}{\code{character} or \code{NULL}. Vector indicating which \code{\link[=assay]{assay()}}
 rows denote spike-in sequences (e.g. ERCCs).}
+
+\item{countsFromAbundance}{character, either "no" (default), "scaledTPM",
+"lengthScaledTPM", or "dtuScaledTPM".
+Whether to generate estimated counts using abundance estimates:
+\itemize{
+  \item scaled up to library size (scaledTPM),
+  \item scaled using the average transcript length over samples
+        and then the library size (lengthScaledTPM), or
+  \item scaled using the median transcript length among isoforms of a gene,
+        and then the library size (dtuScaledTPM). 
+}
+dtuScaledTPM is designed for DTU analysis in combination with \code{txOut=TRUE},
+and it requires specifing a \code{tx2gene} data.frame.
+dtuScaledTPM works such that within a gene, values from all samples and
+all transcripts get scaled by the same fixed median transcript length.
+If using scaledTPM, lengthScaledTPM, or geneLengthScaledTPM, 
+the counts are no longer correlated across samples with transcript length,
+and so the length offset matrix should not be used.}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
