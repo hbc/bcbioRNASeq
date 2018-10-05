@@ -4,13 +4,13 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-  bcb_file: "data/YYYY-MM-DD/bcb.rda"
+  bcb_file: "data/YYYY-MM-DD/bcb.rds"
   data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "quality_control")
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-09-28
+# Last modified 2018-10-05
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -22,8 +22,7 @@ invisible(mapply(
 ))
 
 # Load object ==================================================================
-bcb_name <- load(params$bcb_file)
-bcb <- get(bcb_name, inherits = FALSE)
+bcb <- readRDS(file = bcb_file)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
 print(bcb)
