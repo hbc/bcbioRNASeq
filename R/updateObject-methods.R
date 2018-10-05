@@ -1,3 +1,7 @@
+# FIXME Rework internal DESeqDataSet handling.
+
+
+
 #' Update an Object to Its Current Class Definition
 #'
 #' Update old objects created by the bcbioRNASeq package. The session
