@@ -347,10 +347,9 @@ bcbioRNASeq <- function(
                 colData = colData,
                 design = ~ 1L
             )
-            assert_are_identical(
-                x = assayNames(dds),
-                y = c("counts", "avgTxLength")
-            )
+            # This will include `avgTxLength` matrix if tximport is loaded with
+            # `countsFromAbundance = "no"`.
+            assert_are_identical(assayNames(dds), "counts")
         } else if (level == "transcripts") {
             dds <- NULL
         }
@@ -374,10 +373,7 @@ bcbioRNASeq <- function(
             colData = colData,
             design = ~ 1L
         )
-        assert_are_identical(
-            x = assayNames(dds),
-            y = "counts"
-        )
+        assert_are_identical(assayNames(dds), "counts")
     }
 
     # Prepare assays (gene or transcript level).
