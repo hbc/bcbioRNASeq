@@ -347,9 +347,18 @@ bcbioRNASeq <- function(
                 colData = colData,
                 design = ~ 1L
             )
-            # This will include `avgTxLength` matrix if tximport is loaded with
-            # `countsFromAbundance = "no"`.
-            assert_are_identical(assayNames(dds), "counts")
+            # By default, we're applying lengthScaledTPM.
+            if (txi[["countsFromAbundance"]] == "no") {
+                assert_are_identical(
+                    x = assayNames(dds),
+                    y = c("counts", "avgTxLength")
+                )
+            } else {
+                assert_are_identical(
+                    x = assayNames(dds),
+                    y = "counts"
+                )
+            }
         } else if (level == "transcripts") {
             dds <- NULL
         }
