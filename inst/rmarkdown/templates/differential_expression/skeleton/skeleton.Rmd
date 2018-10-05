@@ -4,7 +4,7 @@ author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
-  bcb_file: "data/YYYY-MM-DD/bcb.rda"
+  bcb_file: "data/YYYY-MM-DD/bcb.rds"
   # Design formula must contain columns defined in `colData()`.
   design: !r formula("~ treatment")
   # Multiple contrasts are supported.
