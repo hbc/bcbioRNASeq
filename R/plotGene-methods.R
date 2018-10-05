@@ -40,6 +40,8 @@ NULL
 
 
 
+# FIXME Generalize the `normalized` argument across functions.
+# Set this formal automatically, for consistency.
 .plotGene.bcbioRNASeq <-  # nolint
     function(
         object,
@@ -51,6 +53,7 @@ NULL
         counts <- counts(object, normalized = normalized)
         # Ensure counts are always log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
+            # FIXME Any benefit to using 0.1 instead?
             counts <- log2(counts + 1L)
         }
         rse <- as(object, "RangedSummarizedExperiment")
