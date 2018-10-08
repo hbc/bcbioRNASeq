@@ -63,14 +63,7 @@ setAs(
             "Coercing bcbioRNASeq to DESeqDataSet with DESeq2 ",
             packageVersion("DESeq2"), "..."
         ))
-        rse <- as(from, "RangedSummarizedExperiment")
-        assays(rse) <- assays(rse)[intersect(assayNames(rse), deseqAssays)]
-        # Integer counts are required.
-        counts <- round(counts(rse), digits = 0L)
-        mode(counts) <- "integer"
-        counts(rse) <- counts
-        # Coerce using an empty design formula.
-        to <- DESeqDataSet(se = rse, design = ~ 1L)
+        to <- .new.DESeqDataSet(se = as(from, "RangedSummarizedExperiment"))
         interestingGroups(to) <- interestingGroups(from)
         validObject(to)
         to

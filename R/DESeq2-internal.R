@@ -144,6 +144,21 @@
 
 
 
+.new.DESeqDataSet <- function(se) {  # nolint
+    stopifnot(is(se, "SummarizedExperiment"))
+    assays(se) <- assays(se)[intersect(assayNames(se), deseqAssays)]
+    # Integer counts are required.
+    counts <- round(counts(se), digits = 0L)
+    mode(counts) <- "integer"
+    counts(se) <- counts
+    # Using an empty design formula.
+    dds <- DESeqDataSet(se = se, design = ~ 1L)
+    validObject(dds)
+    dds
+}
+
+
+
 .transformCountsAxisLabel <- function(object) {
     paste(.transformType(object), "counts (log2)")
 }
