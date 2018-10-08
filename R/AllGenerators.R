@@ -323,7 +323,7 @@ bcbioRNASeq <- function(
     # Transcript-to-gene mappings ----------------------------------------------
     tx2geneFile <- file.path(projectDir, "tx2gene.csv")
     tx2gene <- readTx2gene(tx2geneFile)
-    assert_is_all_of(tx2gene, "tx2gene")
+    assert_is_all_of(tx2gene, "Tx2Gene")
 
     # Assays -------------------------------------------------------------------
     assays <- list()

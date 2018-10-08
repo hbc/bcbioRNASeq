@@ -94,6 +94,32 @@ To adjust the annotation columns, modify the \code{colData} of the \code{counts}
 argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTransform},
 \code{DESeqDataSet}).
 }
+\section{Hierarchical clustering}{
+
+
+
+By default, row- and column-wise hierarchical clustering is performed using
+the Ward method, but this behavior can be overrided by setting \code{clusterRows}
+or \code{clusterCols} to \code{FALSE}.
+
+}
+
+\section{Correlation heatmap}{
+
+
+
+Construct a correlation heatmap comparing the columns of the matrix.
+
+}
+
+\section{Quantile heatmap}{
+
+
+
+Apply quantile breaks.
+
+}
+
 \examples{
 # DESeqAnalysis ====
 plotDEGHeatmap(deseq_small)

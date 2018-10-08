@@ -75,6 +75,32 @@ arguments should be formatted in camel case, not snake case.}
 This function calculates a correlation matrix based on feature expression per
 sample.
 }
+\section{Hierarchical clustering}{
+
+
+
+By default, row- and column-wise hierarchical clustering is performed using
+the Ward method, but this behavior can be overrided by setting \code{clusterRows}
+or \code{clusterCols} to \code{FALSE}.
+
+}
+
+\section{Correlation heatmap}{
+
+
+
+Construct a correlation heatmap comparing the columns of the matrix.
+
+}
+
+\section{Quantile heatmap}{
+
+
+
+Apply quantile breaks.
+
+}
+
 \examples{
 plotCorrelationHeatmap(bcb_small, method = "pearson")
 plotCorrelationHeatmap(bcb_small, method = "spearman")

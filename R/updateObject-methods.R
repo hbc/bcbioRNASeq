@@ -221,8 +221,8 @@ NULL
             )
             colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
-        # Switch to requiring `tx2gene` class in a future update.
-        assertIsTx2gene(metadata[["tx2gene"]])
+        # FIXME Switch to requiring `tx2gene` class in a future update.
+        # assert_is_all_of(metadata[["tx2gene"]], "Tx2Gene")
 
         # Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {

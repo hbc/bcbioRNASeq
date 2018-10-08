@@ -104,7 +104,8 @@ setValidity(
             runDate = "Date",
             sampleDirs = "character",
             sampleMetadataFile = "character",
-            tx2gene = c("tx2gene", "data.frame"),
+            # Require only `Tx2Gene` class in a future update.
+            tx2gene = c("Tx2Gene", "data.frame"),
             sessionInfo = "session_info",
             uploadDir = "character",
             version = "package_version",
@@ -146,10 +147,6 @@ setValidity(
             x = metadata[["level"]],
             y = validLevels
         )
-        # tx2gene
-        tx2gene <- metadata[["tx2gene"]]
-        # Switch to requiring `tx2gene` class in a future update.
-        assertIsTx2gene(tx2gene)
 
         # Assays ---------------------------------------------------------------
         assert_is_subset(requiredAssays, assayNames(object))

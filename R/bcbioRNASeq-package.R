@@ -5,7 +5,7 @@
 #'
 #' @aliases NULL
 #'
-#' @importClassesFrom basejump tx2gene
+#' @importClassesFrom basejump Tx2Gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
@@ -29,15 +29,15 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
-#'   assertFormalGene2symbol assertHasValidDimnames assertIsAlpha
+#'   assertFormalGene2Symbol assertHasValidDimnames assertIsAlpha
 #'   assertIsAStringOrNULL assertIsAnImplicitInteger
 #'   assertIsAnImplicitIntegerOrNULL assertIsColorScaleDiscreteOrNULL
-#'   assertIsFillScaleDiscreteOrNULL assertIsGene2symbol assertIsHeaderLevel
-#'   assertIsHexColorFunctionOrNULL assertIsImplicitInteger assertIsTx2gene
-#'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
-#'   coerceS4ToList convertGenesToSymbols detectLanes emptyRanges fixNA
-#'   gene2symbol hasRownames import initializeDirectory interestingGroups
-#'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   assertIsFillScaleDiscreteOrNULL assertIsHeaderLevel
+#'   assertIsHexColorFunctionOrNULL assertIsImplicitInteger basejump_geom_abline
+#'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
+#'   convertGenesToSymbols detectLanes emptyRanges fixNA gene2symbol hasRownames
+#'   import initializeDirectory interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
