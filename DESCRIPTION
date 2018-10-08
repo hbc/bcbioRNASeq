@@ -171,10 +171,12 @@ VignetteBuilder: knitr
 Collate: 
     'AllClasses.R'
     'AllGenerics.R'
-    'AllGenerators.R'
     'DESeq2-internal.R'
+    'DESeqAnalysis.R'
+    'DESeqResults-methods.R'
     'alphaSummary-methods.R'
     'assert-internal.R'
+    'bcbioRNASeq-generator.R'
     'bcbioRNASeq-package.R'
     'coerce-methods.R'
     'contrastName-methods.R'
