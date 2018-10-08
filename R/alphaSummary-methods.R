@@ -1,3 +1,7 @@
+# FIXME Switch to integer matrix return instead of kable.
+
+
+
 #' Alpha Level Cutoff Summary Statistics
 #'
 #' Quickly generate a summary table of various alpha level cutoffs, for use in
@@ -16,15 +20,17 @@
 #' @param caption `string` or `NULL`. Table caption. If set `NULL`, will be
 #'   generated automatically from the contrast used.
 #'
-#' @return `kable`.
+#' @return `integer matrix`.
 #'
 #' @seealso
 #' - [DESeq2::results()].
 #' - [DESeq2::resultsNames()].
 #'
 #' @examples
+#' data(deseq_small)
+#'
 #' # DESeqDataSet ====
-#' object <- deseq_small@data
+#' object <- as(deseq_small, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)
 #' alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
@@ -50,10 +56,7 @@ NULL
         # Either `contrast` or `name`.
         # If neither are defined, we're checking the intercept.
         if (!is.null(contrast) && !is.null(name)) {
-            stop(
-                "Specify either `contrast` or `name`.",
-                call. = FALSE
-            )
+            stop("Specify either `contrast` or `name`.", call. = FALSE)
         }
 
         # Generate an automatic caption.
@@ -99,7 +102,7 @@ NULL
                 values
             }
         )
-        # Coerce to data.frame.
+        # Coerce to integer matrix.
         data <- data %>%
             as.data.frame(stringsAsFactors = FALSE) %>%
             set_colnames(as.character(alpha))
