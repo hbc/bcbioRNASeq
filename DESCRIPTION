@@ -99,7 +99,6 @@ URL:
 BugReports: https://github.com/hbc/bcbioRNASeq/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: TRUE
 Depends:
     R (>= 3.5),
     SummarizedExperiment,
