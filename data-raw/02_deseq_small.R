@@ -1,11 +1,10 @@
-# FIXME Add a size limit -- figure out how to shrink this more.
-
-
-
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-10-02
+#' Last updated 2018-10-08
 
 library(DESeq2)
+
+# Restrict to 2 MB.
+limit <- structure(2e6, class = "object_size")
 
 # DESeqDataSet
 # Coerce from bcbioRNASeq object.
@@ -51,5 +50,18 @@ deseq_small <- DESeqAnalysis(
 )
 validObject(deseq_small)
 print(deseq_small)
+
+# Report the size of each slot in bytes.
+vapply(
+    X = coerceS4ToList(deseq_small),
+    FUN = object.size,
+    FUN.VALUE = numeric(1L)
+)
+format(object.size(deseq_small), units = "auto")
+stopifnot(object.size(bcb) < limit)
+
+# Check that object is valid.
+stopifnot(is(deseq_small, "DESeqAnalysis"))
+stopifnot(validObject(deseq_small))
 
 devtools::use_data(deseq_small, overwrite = TRUE, compress = "xz")

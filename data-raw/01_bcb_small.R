@@ -1,10 +1,8 @@
 # bcbioRNASeq Example
 # Last updated 2018-10-08
 
-# library(tidyverse)
-
-# Restrict to 2 MB.
-limit <- structure(2e6, class = "object_size")
+# Restrict to 1 MB.
+limit <- structure(1e6, class = "object_size")
 
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
@@ -67,13 +65,8 @@ vapply(
     FUN = object.size,
     FUN.VALUE = numeric(1L)
 )
-stopifnot(object.size(bcb) < limit)
-
-# Additional size checks.
 format(object.size(bcb), units = "auto")
-pryr::object_size(bcb)
-lapply(assays(bcb), pryr::object_size)
-lapply(metadata(bcb), pryr::object_size)
+stopifnot(object.size(bcb) < limit)
 
 # Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))
