@@ -37,6 +37,8 @@ setValidity(
         assert_has_dimnames(object)
 
         # Metadata -------------------------------------------------------------
+        # FIXME Make the metadata slots stricter.
+        # Require the user to update to Bioconductor version.
         metadata <- metadata(object)
 
         # Support for legacy `devtoolsSessionInfo` stash, which has been
@@ -99,13 +101,13 @@ setValidity(
             lanes = "integer",
             level = "character",
             organism = "character",
+            # FIXME Make this stricter...pick one.
             programVersions = c("DataFrame", "tbl_df"),
             projectDir = "character",
             runDate = "Date",
             sampleDirs = "character",
             sampleMetadataFile = "character",
-            # Require only `Tx2Gene` class in a future update.
-            tx2gene = c("Tx2Gene", "data.frame"),
+            tx2gene = "Tx2Gene",
             sessionInfo = "session_info",
             uploadDir = "character",
             version = "package_version",

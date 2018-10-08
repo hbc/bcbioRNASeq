@@ -202,6 +202,7 @@ NULL
         }
 
         # tx2gene
+        # FIXME Improve the upgrade strategy to `Tx2Gene` class.
         if ("txID" %in% colnames(metadata[["tx2gene"]])) {
             message("tx2gene: Renaming `txID` to `transcriptID`.")
             assert_are_identical(
