@@ -6,6 +6,8 @@
 #     bcbio.discrete.fill = ggplot2::scale_fill_viridis_d()
 # )
 
+data(bcb_small, deseq_small, envir = environment())
+
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 lfc <- 0.25
 
