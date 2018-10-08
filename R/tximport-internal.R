@@ -36,7 +36,7 @@
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
     assert_is_a_string(countsFromAbundance)
-    assert_is_all_of(tx2gene, "tx2gene")
+    assert_is_all_of(tx2gene, "Tx2Gene")
 
     # Locate the counts files --------------------------------------------------
     subdirs <- file.path(sampleDirs, type)

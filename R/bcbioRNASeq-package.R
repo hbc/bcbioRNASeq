@@ -45,7 +45,7 @@
 #'   sanitizeSampleData separator snake standardizeCall stripTranscriptVersions
 #'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
-#'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
+#'   readProgramVersions readSampleData readTx2Gene readYAMLSampleData
 #'   readYAMLSampleMetrics runDate sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply
 #' @importFrom cowplot draw_plot ggdraw plot_grid
