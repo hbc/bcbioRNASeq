@@ -140,6 +140,7 @@ Imports:
     utils,
     vsn
 Suggests:
+    apeglm,
     BiocStyle,
     clusterProfiler (>= 3.9),
     DEGreport,
