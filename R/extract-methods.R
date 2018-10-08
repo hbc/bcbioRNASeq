@@ -108,10 +108,7 @@ setMethod(
 
         # Recalculate DESeq2 normalized counts and variance stabilizations.
         if (isTRUE(recalculate)) {
-            message(paste(
-                "Recalculating DESeq2 normalizations",
-                "(recalculate = TRUE)..."
-            ))
+            message("Recalculating DESeq2 normalizations...")
             dds <- .new.DESeqDataSet(se = rse)
             dds <- DESeq(dds)
             # Normalized counts.
@@ -129,10 +126,7 @@ setMethod(
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays.
-            message(paste(
-                "Skipping DESeq2 normalizations",
-                "(recalculate = FALSE)"
-            ))
+            message("Skipping DESeq2 normalizations...")
             assays[["normalized"]] <- NULL
             assays[["rlog"]] <- NULL
             assays[["vst"]] <- NULL
