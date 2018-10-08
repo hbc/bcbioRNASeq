@@ -28,7 +28,7 @@
 \item{geom}{\code{string}. Type of ggplot2 geometric object to use.}
 
 \item{trans}{\code{string}. Apply a log transformation (e.g. \code{log2(x + 1L)}) to
-the counts matrix prior to melting, if desired. Use \code{"identity"} to return
+the count matrix prior to melting, if desired. Use \code{"identity"} to return
 unmodified (default).}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color

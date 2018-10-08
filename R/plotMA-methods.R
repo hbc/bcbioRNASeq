@@ -224,7 +224,7 @@ NULL
         # Visualize specific genes on the plot, if desired.
         if (!is.null(genes)) {
             validObject(gene2symbol)
-            assertFormalGene2symbol(
+            assertFormalGene2Symbol(
                 object = object,
                 genes = genes,
                 gene2symbol = gene2symbol
