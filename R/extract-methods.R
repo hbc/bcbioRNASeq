@@ -71,9 +71,6 @@ setMethod(
         drop = FALSE,
         recalculate = TRUE
     ) {
-        # FIXME
-        stop("REWORK")
-
         validObject(x)
         # Never allow the user to drop on extraction.
         stopifnot(!isTRUE(drop))
@@ -115,28 +112,20 @@ setMethod(
                 "Recalculating DESeq2 normalizations",
                 "(recalculate = TRUE)..."
             ))
-
+            dds <- .new.DESeqDataSet(se = rse)
+            dds <- DESeq(dds)
             # Normalized counts.
-            dds <- DESeqDataSet(se = rse, design = ~ 1L)
-            dds <- estimateSizeFactors(dds)
             assays[["normalized"]] <- counts(dds, normalized = TRUE)
-
-            # Variance-stabilizing transformations.
-            if (any(c("rlog", "vst") %in% names(assays))) {
-                # Update DESeq2 transformations by default, but only if they are
-                # already defined in assays (rlog, vst).
-                message("Recalculating DESeq2 variance stabilizations...")
-                # vst
-                if ("vst" %in% names(assays)) {
-                    message("Applying variance-stabilizing transformation...")
-                    assays[["vst"]] <-
-                        assay(varianceStabilizingTransformation(dds))
-                }
-                # rlog
-                if ("rlog" %in% names(assays)) {
-                    message("Applying rlog transformation...")
-                    assays[["rlog"]] <- assay(rlog(dds))
-                }
+            # vst: variance-stabilizing transformation.
+            if ("vst" %in% names(assays)) {
+                message("Applying variance-stabilizing transformation...")
+                assays[["vst"]] <-
+                    assay(varianceStabilizingTransformation(dds))
+            }
+            # rlog: regularized log transformation.
+            if ("rlog" %in% names(assays)) {
+                message("Applying rlog transformation...")
+                assays[["rlog"]] <- assay(rlog(dds))
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays.
