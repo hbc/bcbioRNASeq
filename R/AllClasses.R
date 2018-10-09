@@ -5,7 +5,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 # FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
 
 # bcbioRNASeq ==================================================================
-#' `bcbioRNASeq` Class
+#' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
 #' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
@@ -21,6 +21,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 
+# TODO Make the metadata slots stricter.
 setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
@@ -29,7 +30,6 @@ setValidity(
         assert_has_dimnames(object)
 
         # Metadata -------------------------------------------------------------
-        # FIXME Make the metadata slots stricter.
         # Require the user to update to Bioconductor version.
         metadata <- metadata(object)
 
@@ -182,7 +182,7 @@ setValidity(
 
 
 # DESeqAnalysis ================================================================
-#' `DESeqAnalysis` Class
+#' DESeq2 Analysis Container
 #'
 #' Class containing all elements generated during differential expression
 #' analysis with DESeq2. This class is essentially a `list` with validity checks
@@ -276,7 +276,7 @@ setValidity(
 
 
 # DESeqResultsTables ===========================================================
-#' `DESeqResultsTables` Class
+#' DESeq2 Differential Expression Results Tables
 #'
 #' `DESeqResults` object with `DataFrame` subsets and file path information.
 #'
