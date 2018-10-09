@@ -43,7 +43,7 @@
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
 #'   prepareTemplate printString readYAML removeNA sampleData sanitizeRowData
 #'   sanitizeSampleData separator snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups
+#'   tx2gene uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox projectDir readDataVersions readLog
 #'   readProgramVersions readSampleData readTx2Gene readYAMLSampleData
 #'   readYAMLSampleMetrics runDate sampleDirs
@@ -74,8 +74,8 @@
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang := !! !!! has_length sym syms UQ
-#' @importFrom S4Vectors as.data.frame complete.cases head mcols mcols<-
-#'   metadata metadata<- na.omit
+#' @importFrom S4Vectors as.data.frame complete.cases DataFrame head mcols
+#'   mcols<- metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks
 #' @importFrom stringr str_match str_trunc
 #' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
