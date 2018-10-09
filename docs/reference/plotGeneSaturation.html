@@ -65,7 +65,7 @@ overloaded." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -123,9 +123,10 @@ overloaded.</p>
     <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>,
-  <span class='fl'>FALSE</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
+<span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>perMillion</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"gene saturation"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -148,6 +149,10 @@ samples. If left unset, defaults to <code>sampleName</code>.</p></td>
       <th>minCounts</th>
       <td><p><code>scalar integer</code>. Minimum number of counts per gene in the
 counts matrix.</p></td>
+    </tr>
+    <tr>
+      <th>perMillion</th>
+      <td><p><code>boolean</code>. Display as counts per million.</p></td>
     </tr>
     <tr>
       <th>trendline</th>
@@ -180,16 +185,14 @@ To set the discrete color palette globally, use
 
     <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
   <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
   <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
   <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
   <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotQC.html'>plotQC</a></code>,
   <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
   <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     

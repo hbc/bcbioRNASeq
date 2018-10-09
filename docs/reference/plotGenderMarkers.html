@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Sexually Dimorphic Gender Markers — plotGenderMarkers • bcbioRNASeq</title>
+<title>Plot Sexually Dimorphic Gender Marker Genes — plotGenderMarkers • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,10 +32,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Sexually Dimorphic Gender Markers — plotGenderMarkers" />
+<meta property="og:title" content="Plot Sexually Dimorphic Gender Marker Genes — plotGenderMarkers" />
 
 <meta property="og:description" content="This is a convenience function that wraps plotGene() to quickly plot known
-sexually dimorphic genes. Currently only Homo sapiens and Mus musculus
+sexually dimorphic genes, and overall gene experssion for the X and Y
+chromosomes. Currently only Homo sapiens and Mus musculus
 genomes are supported." />
 <meta name="twitter:card" content="summary" />
 
@@ -65,7 +66,7 @@ genomes are supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -107,33 +108,25 @@ genomes are supported." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Sexually Dimorphic Gender Markers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
+    <h1>Plot Sexually Dimorphic Gender Marker Genes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
     <div class="hidden name"><code>plotGenderMarkers.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>This is a convenience function that wraps <code><a href='plotGene.html'>plotGene()</a></code> to quickly plot known
-sexually dimorphic genes. Currently only <em>Homo sapiens</em> and <em>Mus musculus</em>
+sexually dimorphic genes, and overall gene experssion for the X and Y
+chromosomes. Currently only <em>Homo sapiens</em> and <em>Mus musculus</em>
 genomes are supported.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>,
-  <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+  <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>,
+  <span class='kw'>NULL</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,17 +136,37 @@ genomes are supported.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <th>normalized</th>
+      <td><p><code>string</code>. Which normalization method to apply:
+- "<code>tpm</code>": Transcripts per million (tximport).
+- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
+- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
+- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
+      <th>interestingGroups</th>
+      <td><p><code>character</code>. Groups of interest.</p></td>
+    </tr>
+    <tr>
+      <th>medianLine</th>
+      <td><p><code>boolean</code>. Include median line for each group. Disabled if
+samples are colored by sample name.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
+scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
+palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_color_viridis_d())</code>.</p></td>
+    </tr>
+    <tr>
+      <th>legend</th>
+      <td><p><code>boolean</code>. Show plot legend.</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p><code>string</code>. Plot style.</p></td>
     </tr>
     </table>
     
@@ -163,29 +176,22 @@ genomes are supported.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='plotGene.html'>plotGene()</a></code>.</p>
-<p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
+    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
   <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
   <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
   <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
   <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotQC.html'>plotQC</a></code>,
   <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
   <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqTransform ====</span>
-<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>vst_small</span>)</div><div class='img'><img src='plotGenderMarkers-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)</div><div class='output co'>#&gt; <span class='message'>Error: All genes failed to map: ENSMUSG00000086503, ENSMUSG00000069045, ENSMUSG00000056673, ENSMUSG00000068457</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

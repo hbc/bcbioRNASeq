@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -117,11 +117,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>sampleData</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S4 method for bcbioRNASeq,DataFrame</span>
-<span class='fu'>sampleData</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>sampleData</span>(<span class='no'>object</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,18 +127,9 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
       <th>clean</th>
       <td><p><code>boolean</code>. Only return <code>factor</code> columns not defined in
 <a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>Value to assign.</p></td>
     </tr>
     </table>
     
@@ -160,9 +147,8 @@ experiment).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>.</p>
-<p>Other Data Functions: <code><a href='aggregateReplicates.html'>aggregateReplicates</a></code>,
-  <code><a href='counts.html'>counts</a></code>, <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='tmm.html'>tmm</a></code>, <code><a href='tpm.html'>tpm</a></code></p></div>
+<p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='tmm.html'>tmm</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -170,28 +156,21 @@ experiment).</p>
 <span class='fu'>sampleData</span>(<span class='no'>bcb_small</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ nrows          : int 6
-#&gt;   ..@ listData       :List of 6
-#&gt;   .. ..$ sampleName: Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
-#&gt;   .. ..$ day       : Factor w/ 2 levels "0","7": 1 1 1 2 2 2
-#&gt;   .. ..$ replicate : Factor w/ 3 levels "1","2","3": 1 2 3 1 2 3
-#&gt;   .. ..$ strain    : Factor w/ 1 level "Balb/c": 1 1 1 1 1 1
-#&gt;   .. ..$ tissue    : Factor w/ 1 level "kidney": 1 1 1 1 1 1
-#&gt;   .. ..$ treatment : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
+#&gt;   ..@ listData       :List of 7
+#&gt;   .. ..$ sampleName       : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
+#&gt;   .. ..$ day              : Factor w/ 2 levels "0","7": 1 1 1 2 2 2
+#&gt;   .. ..$ replicate        : Factor w/ 3 levels "1","2","3": 1 2 3 1 2 3
+#&gt;   .. ..$ strain           : Factor w/ 1 level "Balb/c": 1 1 1 1 1 1
+#&gt;   .. ..$ tissue           : Factor w/ 1 level "kidney": 1 1 1 1 1 1
+#&gt;   .. ..$ treatment        : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
+#&gt;   .. ..$ interestingGroups: Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
+#&gt;   .. .. ..- attr(*, "names")= chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
 #&gt;   ..@ metadata       : list()</div><div class='input'><span class='fu'>sampleData</span>(<span class='no'>bcb_small</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ nrows          : int 6
 #&gt;   ..@ listData       :List of 27
-#&gt;   .. ..$ sampleName                   : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
-#&gt;   .. ..$ day                          : Factor w/ 2 levels "0","7": 1 1 1 2 2 2
-#&gt;   .. ..$ description                  : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
-#&gt;   .. ..$ genomeBuild                  : Factor w/ 1 level "GRCm38_90": 1 1 1 1 1 1
-#&gt;   .. ..$ replicate                    : Factor w/ 3 levels "1","2","3": 1 2 3 1 2 3
-#&gt;   .. ..$ samRef                       : Factor w/ 1 level "/n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa": 1 1 1 1 1 1
-#&gt;   .. ..$ strain                       : Factor w/ 1 level "Balb/c": 1 1 1 1 1 1
-#&gt;   .. ..$ tissue                       : Factor w/ 1 level "kidney": 1 1 1 1 1 1
-#&gt;   .. ..$ treatment                    : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
 #&gt;   .. ..$ averageInsertSize            : num [1:6] 243 254 238 235 248 ...
 #&gt;   .. ..$ averageReadLength            : num [1:6] 50 50 50 50 50 50
 #&gt;   .. ..$ duplicates                   : num [1:6] 0 0 0 0 0 0
@@ -201,6 +180,7 @@ experiment).</p>
 #&gt;   .. ..$ intronicRate                 : num [1:6] 0.203 0.217 0.167 0.296 0.296 ...
 #&gt;   .. ..$ mappedPairedReads            : num [1:6] 5.94e+07 1.23e+08 5.32e+07 6.79e+07 5.94e+07 ...
 #&gt;   .. ..$ mappedReads                  : num [1:6] 5.94e+07 1.23e+08 5.32e+07 6.79e+07 5.94e+07 ...
+#&gt;   .. ..$ percentGC                    : num [1:6] 46 45 43 40 41 46
 #&gt;   .. ..$ qualityFormat                : Factor w/ 1 level "standard": 1 1 1 1 1 1
 #&gt;   .. ..$ rrna                         : num [1:6] 16412535 31779476 15967974 14933148 13229240 ...
 #&gt;   .. ..$ rrnaRate                     : num [1:6] 0.614 0.585 0.645 0.555 0.558 ...
@@ -208,7 +188,15 @@ experiment).</p>
 #&gt;   .. ..$ sequencesFlaggedAsPoorQuality: num [1:6] 0 0 0 0 0 0
 #&gt;   .. ..$ totalReads                   : num [1:6] 9.72e+07 1.79e+08 7.68e+07 8.11e+07 7.41e+07 ...
 #&gt;   .. ..$ x5x3Bias                     : num [1:6] 0.88 0.77 0.91 0.45 0.76 0.65
-#&gt;   .. ..$ xGC                          : num [1:6] 46 45 43 40 41 46
+#&gt;   .. ..$ sampleName                   : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
+#&gt;   .. ..$ day                          : Factor w/ 2 levels "0","7": 1 1 1 2 2 2
+#&gt;   .. ..$ description                  : Factor w/ 6 levels "control_rep1",..: 1 2 3 4 5 6
+#&gt;   .. ..$ genomeBuild                  : Factor w/ 1 level "GRCm38_90": 1 1 1 1 1 1
+#&gt;   .. ..$ replicate                    : Factor w/ 3 levels "1","2","3": 1 2 3 1 2 3
+#&gt;   .. ..$ samRef                       : Factor w/ 1 level "/n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa": 1 1 1 1 1 1
+#&gt;   .. ..$ strain                       : Factor w/ 1 level "Balb/c": 1 1 1 1 1 1
+#&gt;   .. ..$ tissue                       : Factor w/ 1 level "kidney": 1 1 1 1 1 1
+#&gt;   .. ..$ treatment                    : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
 #&gt;   .. ..$ interestingGroups            : Factor w/ 2 levels "control","folic_acid": 1 1 1 2 2 2
 #&gt;   .. .. ..- attr(*, "names")= chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ elementType    : chr "ANY"

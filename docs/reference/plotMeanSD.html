@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -120,11 +120,11 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>FALSE</span>))
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>FALSE</span>))
 
 <span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>FALSE</span>))</pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>vst</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rlog</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>FALSE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +140,18 @@
     <tr>
       <th>legend</th>
       <td><p><code>boolean</code>. Show plot legend.</p></td>
+    </tr>
+    <tr>
+      <th>vst</th>
+      <td><p><code>boolean</code>. Calculate variance-stabilizing transformation using
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>. Recommended by default
+for visualization.</p></td>
+    </tr>
+    <tr>
+      <th>rlog</th>
+      <td><p><code>boolean</code>. Calcualte regularized log transformation using
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>. This calculation is slow for large datasets and now
+discouraged by default for visualization.</p></td>
     </tr>
     </table>
     
@@ -167,26 +179,24 @@
 </ul></div>
     <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
   <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
   <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
   <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
   <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotQC.html'>plotQC</a></code>, <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
   <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># DESeqDataSet ====</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>dds_small</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

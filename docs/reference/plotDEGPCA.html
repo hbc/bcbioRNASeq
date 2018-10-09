@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -118,61 +118,49 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults,SummarizedExperiment</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
-  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
-  <span class='st'>"data.frame"</span>))
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>results</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
+  <span class='st'>"DataFrame"</span>))
 
-<span class='co'># S4 method for DESeqResults,bcbioRNASeq</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqResults,DESeqDataSet</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqResults,DESeqTransform</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>results</span>, <span class='no'>counts</span>,
-  <span class='no'>interestingGroups</span>, <span class='no'>alpha</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
-  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
-  <span class='st'>"data.frame"</span>))</pre>
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
+  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
+  <span class='st'>"DataFrame"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>results</th>
-      <td><p><code>DESeqResults</code>.</p></td>
-    </tr>
-    <tr>
-      <th>counts</th>
-      <td><p><code>matrix</code>. Normalized counts.</p></td>
+      <th>object</th>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <th>counts</th>
+      <td><p><code>DESeqTransform</code>.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p><code>scalar numeric</code>. Adjusted P value ("alpha") cutoff.</p></td>
-    </tr>
-    <tr>
-      <th>lfcThreshold</th>
-      <td><p><code>scalar numeric</code>. Log fold change ratio (base 2) cutoff
-threshold.</p></td>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>direction</th>
       <td><p><code>string</code>. Plot "<code>both</code>", "<code>up</code>", or "<code>down</code>" directions.</p></td>
+    </tr>
+    <tr>
+      <th>interestingGroups</th>
+      <td><p><code>character</code>. Groups of interest that define the
+samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -192,20 +180,11 @@ To set the discrete color palette globally, use
       <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
 and picks the first item in the vector by default.</p></td>
     </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ggplot</code> or <code>data.frame</code>.</p>
+    <p><code>ggplot</code> or <code>DataFrame</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -220,25 +199,17 @@ a way to look at how samples are clustering.</p>
 
     <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
   <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
-  <code><a href='plotMA.html'>plotMeanAverage</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code>,
-  <code><a href='resultsTables.html'>resultsTables</a></code></p></div>
+  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults, DESeqTransform ====</span>
-<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
+    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 253 genes.</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqResults ====</span>
 <span class='fu'>plotDEGPCA</span>(
-    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>vst_small</span>,
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqResults, bcbioRNASeq ====</span>
-<span class='fu'>plotDEGPCA</span>(
-    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
-    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
+)</div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 253 genes.</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

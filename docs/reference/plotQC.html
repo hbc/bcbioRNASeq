@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aggregate Replicates — aggregateReplicates • bcbioRNASeq</title>
+<title>Plot Quality Control — plotQC • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Aggregate Replicates — aggregateReplicates" />
+<meta property="og:title" content="Plot Quality Control — plotQC" />
 
-<meta property="og:description" content="Aggregate Replicates" />
+<meta property="og:description" content="Plot Quality Control" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -105,19 +105,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Aggregate Replicates</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/aggregateReplicates-methods.R'><code>R/aggregateReplicates-methods.R</code></a></small>
-    <div class="hidden name"><code>aggregateReplicates.Rd</code></div>
+    <h1>Plot Quality Control</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotQC-methods.R'><code>R/plotQC-methods.R</code></a></small>
+    <div class="hidden name"><code>plotQC.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Aggregate Replicates</p>
+    <p>Plot Quality Control</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>aggregateReplicates</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>plotQC</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,43 +128,30 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>RangedSummarizedExperiment</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
-  <code><a href='metrics.html'>metrics</a></code>, <code><a href='sampleData.html'>sampleData</a></code>,
-  <code><a href='tmm.html'>tmm</a></code>, <code><a href='tpm.html'>tpm</a></code></p></div>
+    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
+  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
+  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
+  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
+  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
+  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
+  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
+  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>
-<span class='fu'>colnames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"
-#&gt; [6] "fa_day7_rep3"</div><div class='input'><span class='co'># Assign groupings into `aggregate` column of `colData()`</span>
-<span class='no'>aggregate</span> <span class='kw'>&lt;-</span> <span class='fu'>as.factor</span>(<span class='fu'>sub</span>(<span class='st'>"^([a-z]+)_.*"</span>, <span class='st'>"\\1"</span>, <span class='fu'>colnames</span>(<span class='no'>bcb</span>)))
-<span class='fu'>names</span>(<span class='no'>aggregate</span>) <span class='kw'>&lt;-</span> <span class='fu'>colnames</span>(<span class='no'>bcb</span>)
-<span class='no'>aggregate</span></div><div class='output co'>#&gt; control_rep1 control_rep2 control_rep3 fa_day7_rep1 fa_day7_rep2 fa_day7_rep3 
-#&gt;      control      control      control           fa           fa           fa 
-#&gt; Levels: control fa</div><div class='input'><span class='no'>bcb</span>$<span class='no'>aggregate</span> <span class='kw'>&lt;-</span> <span class='no'>aggregate</span>
-<span class='fu'>aggregateReplicates</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>New sample IDs: control, fa</span></div><div class='output co'>#&gt; <span class='message'>Aggregating counts</span></div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 2 
-#&gt; metadata(0):
-#&gt; assays(1): counts
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(2): control fa
-#&gt; colData names(1): sampleName</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotQC</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='output co'>#&gt; <span class='message'>500 non-zero genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Applying log2(x + 1) transformation...</span></div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotQC-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

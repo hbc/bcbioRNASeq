@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.0
-Date: 2018-10-08
+Date: 2018-10-09
 Authors@R: c(
     person(
         given = "Michael",
@@ -173,7 +173,7 @@ Collate:
     'AllGenerics.R'
     'DESeq2-internal.R'
     'DESeqAnalysis.R'
-    'DESeqResults-methods.R'
+    'DESeqResultsTables-methods.R'
     'alphaSummary-methods.R'
     'assert-internal.R'
     'bcbioRNASeq-generator.R'

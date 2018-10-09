@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -118,31 +118,38 @@
 
     <pre class="usage"><span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='kw'>coding</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='no'>results</span>, <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)
 
-<span class='co'># S4 method for list</span>
-<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='kw'>coding</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)
+
+<span class='co'># S4 method for DESeqResultsTables</span>
+<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><code>DESeqResults</code> or <code>list</code>. For <code>list</code> method, must use
-<code><a href='resultsTables.html'>resultsTables()</a></code> return.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p><code>scalar integer</code>. Number genes to report.</p></td>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
-      <th>coding</th>
-      <td><p><code>boolean</code>. Whether to only return coding genes.</p></td>
+      <th>lfcShrink</th>
+      <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p><code>scalar integer</code>. Number of genes (per direction) to report.</p></td>
     </tr>
     </table>
     
@@ -156,66 +163,25 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults ====</span>
-<span class='co'># Minimal return</span>
-<span class='fu'>topTables</span>(<span class='no'>res_small</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
+<span class='fu'>topTables</span>(<span class='no'>deseq_small</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |geneID             | baseMean|lfc  |padj      |
-#&gt; |:------------------|--------:|:----|:---------|
-#&gt; |ENSMUSG00000024164 |    12562|8.27 |3.89e-194 |
-#&gt; |ENSMUSG00000029304 |    69340|5.36 |9.03e-76  |
-#&gt; |ENSMUSG00000003617 |     3560|4.08 |7.16e-45  |
-#&gt; |ENSMUSG00000022037 |     3544|3.56 |3.87e-42  |
-#&gt; |ENSMUSG00000040405 |     3002|3.74 |1.63e-37  |
-#&gt; 
-#&gt; 
-#&gt; |geneID             | baseMean|lfc   |padj     |
-#&gt; |:------------------|--------:|:-----|:--------|
-#&gt; |ENSMUSG00000027199 |    11624|-2.31 |9.65e-13 |
-#&gt; |ENSMUSG00000005980 |     5795|-2.72 |1.10e-12 |
-#&gt; |ENSMUSG00000049152 |    13888|-1.72 |6.78e-11 |
-#&gt; |ENSMUSG00000028713 |    14806|-1.65 |1.90e-10 |
-#&gt; |ENSMUSG00000061906 |     7413|-1.98 |7.50e-10 |</div><div class='input'>
-<span class='co'># `resultsTables()` return list ====</span>
-<span class='co'># Return with gene annotations and DESeq2 normalized counts</span>
-<span class='no'>res_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='resultsTables.html'>resultsTables</a></span>(
-    <span class='kw'>results</span> <span class='kw'>=</span> <span class='no'>res_small</span>,
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='no'>dds_small</span>
-)</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; ## treatment folic acid vs control
+#&gt; |                   |geneName |geneBiotype    | baseMean|lfc  |padj      |description                           |
+#&gt; |:------------------|:--------|:--------------|--------:|:----|:---------|:-------------------------------------|
+#&gt; |ENSMUSG00000024164 |C3       |protein_coding |    12578|8.70 |4.32e-193 |complement component 3                |
+#&gt; |ENSMUSG00000029304 |Spp1     |protein_coding |    69411|5.65 |3.47e-76  |secreted phosphoprotein 1             |
+#&gt; |ENSMUSG00000003617 |Cp       |protein_coding |     3563|4.28 |3.54e-45  |ceruloplasmin                         |
+#&gt; |ENSMUSG00000022037 |Clu      |protein_coding |     3547|3.70 |1.88e-42  |clusterin                             |
+#&gt; |ENSMUSG00000040405 |Havcr1   |protein_coding |     3004|3.92 |9.93e-38  |hepatitis A virus cellular receptor 1 |
 #&gt; 
 #&gt; 
-#&gt; 
-#&gt; ### Summary statistics
-#&gt; 
-#&gt; 
-#&gt; - 500 genes in counts matrix
-#&gt; - Base mean &gt; 0: 500 genes (non-zero)
-#&gt; - Base mean &gt; 1: 500 genes
-#&gt; - Alpha: 0.1
-#&gt; - LFC threshold: 0
-#&gt; - DEG pass alpha: 254 genes
-#&gt; - DEG LFC up: 115 genes
-#&gt; - DEG LFC down: 139 genes
-#&gt; </div><div class='input'><span class='fu'>topTables</span>(<span class='no'>res_tbl</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; |geneID             |geneBiotype    |geneName | baseMean|lfc  |padj      |description                           |
-#&gt; |:------------------|:--------------|:--------|--------:|:----|:---------|:-------------------------------------|
-#&gt; |ENSMUSG00000024164 |protein_coding |C3       |    12562|8.27 |3.89e-194 |complement component 3                |
-#&gt; |ENSMUSG00000029304 |protein_coding |Spp1     |    69340|5.36 |9.03e-76  |secreted phosphoprotein 1             |
-#&gt; |ENSMUSG00000003617 |protein_coding |Cp       |     3560|4.08 |7.16e-45  |ceruloplasmin                         |
-#&gt; |ENSMUSG00000022037 |protein_coding |Clu      |     3544|3.56 |3.87e-42  |clusterin                             |
-#&gt; |ENSMUSG00000040405 |protein_coding |Havcr1   |     3002|3.74 |1.63e-37  |hepatitis A virus cellular receptor 1 |
-#&gt; 
-#&gt; 
-#&gt; |geneID             |geneBiotype    |geneName | baseMean|lfc   |padj     |description                                                        |
-#&gt; |:------------------|:--------------|:--------|--------:|:-----|:--------|:------------------------------------------------------------------|
-#&gt; |ENSMUSG00000027199 |protein_coding |Gatm     |    11624|-2.31 |9.65e-13 |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
-#&gt; |ENSMUSG00000005980 |protein_coding |Dnase1   |     5795|-2.72 |1.10e-12 |deoxyribonuclease I                                                |
-#&gt; |ENSMUSG00000049152 |protein_coding |Ugt3a2   |    13888|-1.72 |6.78e-11 |UDP glycosyltransferases 3 family, polypeptide A2                  |
-#&gt; |ENSMUSG00000028713 |protein_coding |Cyp4b1   |    14806|-1.65 |1.90e-10 |cytochrome P450, family 4, subfamily b, polypeptide 1              |
-#&gt; |ENSMUSG00000061906 |protein_coding |Ugt2b38  |     7413|-1.98 |7.50e-10 |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
+#&gt; |                   |geneName |geneBiotype    | baseMean|lfc   |padj     |description                                                        |
+#&gt; |:------------------|:--------|:--------------|--------:|:-----|:--------|:------------------------------------------------------------------|
+#&gt; |ENSMUSG00000027199 |Gatm     |protein_coding |    11590|-2.39 |1.37e-12 |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
+#&gt; |ENSMUSG00000005980 |Dnase1   |protein_coding |     5779|-2.89 |1.71e-12 |deoxyribonuclease I                                                |
+#&gt; |ENSMUSG00000049152 |Ugt3a2   |protein_coding |    13854|-1.74 |1.02e-10 |UDP glycosyltransferases 3 family, polypeptide A2                  |
+#&gt; |ENSMUSG00000028713 |Cyp4b1   |protein_coding |    14769|-1.67 |2.28e-10 |cytochrome P450, family 4, subfamily b, polypeptide 1              |
+#&gt; |ENSMUSG00000061906 |Ugt2b38  |protein_coding |     7395|-2.02 |1.03e-09 |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

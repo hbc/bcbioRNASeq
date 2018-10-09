@@ -67,7 +67,7 @@ Formal methods for show will
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -125,6 +125,12 @@ Formal methods for show will
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>show</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>show</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for DESeqResultsTables</span>
 <span class='fu'>show</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -156,33 +162,33 @@ the discussion in <code>setIs</code> for the general concept.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other S4 Object: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
-  <code><a href='coerce.html'>coerce</a></code>, <code><a href='extract.html'>extract</a></code>,
-  <code><a href='updateObject.html'>updateObject</a></code></p></div>
+    <div class='dont-index'><p>Other S4 Functions: <code><a href='coerce.html'>coerce</a></code>,
+  <code><a href='extract.html'>extract</a></code>, <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>show</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.2.6
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 6 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
-#&gt; assays(5): counts tpm length normalized vst
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): sampleName day ... x5x3Bias xGC
-#&gt; ================================================================================
-#&gt; Upload Dir: "/mnt/O2/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final"
+    <pre class="examples"><div class='input'><span class='fu'>show</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
+#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+#&gt; citation("bcbioRNASeq")
+#&gt; ────────────────────────────────────────────────────────────────────────
+#&gt; Upload Dir: "/mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final"
 #&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-08-19
+#&gt; R Load Date: 2018-10-08
 #&gt; Level: "genes"
 #&gt; Caller: "salmon"
 #&gt; Organism: "Mus musculus"
 #&gt; Interesting Groups: "treatment"
-#&gt; AnnotationHub: "AH57770"
-#&gt; Ensembl Release: "90"
-#&gt; Genome Build: "GRCm38"</div></pre>
+#&gt; ────────────────────────────────────────────────────────────────────────
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(4): counts tpm normalized vst
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

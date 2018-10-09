@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -130,7 +130,33 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-s-object" class="hasAnchor"><a href="#section-s-object" class="anchor"></a>S4 Object</h2>
+          <h2 id="section-s-classes" class="hasAnchor"><a href="#section-s-classes" class="anchor"></a>S4 Classes</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="DESeqAnalysis-class.html">DESeqAnalysis-class</a></code> </p>
+        </td>
+        <td><p>DESeq2 Analysis Container</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DESeqResultsTables-class.html">DESeqResultsTables-class</a></code> </p>
+        </td>
+        <td><p>DESeq2 Differential Expression Results Tables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bcbioRNASeq-class.html">bcbioRNASeq-class</a></code> </p>
+        </td>
+        <td><p>bcbio RNA-Seq Data Set</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-s-generators" class="hasAnchor"><a href="#section-s-generators" class="anchor"></a>S4 Generators</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -139,8 +165,28 @@
         <td>
           <p><code><a href="bcbioRNASeq.html">bcbioRNASeq()</a></code> </p>
         </td>
-        <td><p><code>bcbioRNASeq</code> Object and Constructor</p></td>
+        <td><p><code>bcbioRNASeq</code> Generator</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="DESeqAnalysis.html">DESeqAnalysis()</a></code> </p>
+        </td>
+        <td><p><code>DESeqAnalysis</code> Generator</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DESeqResultsTables.html">DESeqResultsTables()</a></code> </p>
+        </td>
+        <td><p><code>DESeqResultsTables</code> Generator</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-s-functions" class="hasAnchor"><a href="#section-s-functions" class="anchor"></a>S4 Functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="coerce.html">coerce</a></code> </p>
@@ -155,7 +201,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="show.html">show(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+          <p><code><a href="show.html">show(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
         </td>
         <td><p>Show an Object</p></td>
       </tr><tr>
@@ -175,25 +221,19 @@
       <tr>
         
         <td>
-          <p><code><a href="aggregateReplicates.html">aggregateReplicates(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Aggregate Replicates</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="counts.html">counts(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
         <td><p>Count Matrix Accessors</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="metrics.html">metrics(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+          <p><code><a href="export.html">export(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Sample Metrics</p></td>
+        <td><p>Export</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="sampleData.html">sampleData(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="sampleData.html">`sampleData<-`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;DataFrame&gt;</i>)</a></code> </p>
+          <p><code><a href="sampleData.html">sampleData(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
         <td><p>Sample Data</p></td>
       </tr><tr>
@@ -202,12 +242,6 @@
           <p><code><a href="tmm.html">tmm()</a></code> </p>
         </td>
         <td><p><strong>T</strong>rimmed <strong>M</strong>ean of <strong>M</strong>-Values (TMM) Normalization</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tpm.html">tpm()</a></code> </p>
-        </td>
-        <td><p>Transcripts Per Million (TPM)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -225,19 +259,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap(<i>&lt;DESeqTransform&gt;</i>)</a></code> </p>
+          <p><code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot Correlation Heatmap</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotCountDensity.html">plotCountDensity()</a></code> </p>
-        </td>
-        <td><p>Plot Count Density</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotCountsPerGene.html">plotCountsPerGene()</a></code> </p>
+          <p><code><a href="plotCountsPerGene.html">plotCountsPerGene(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot Counts Per Gene</p></td>
       </tr><tr>
@@ -267,15 +295,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotGenderMarkers.html">plotGenderMarkers()</a></code> </p>
+          <p><code><a href="plotGenderMarkers.html">plotGenderMarkers(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Plot Sexually Dimorphic Gender Markers</p></td>
+        <td><p>Plot Sexually Dimorphic Gender Marker Genes</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotGene.html">plotGene(<i>&lt;SummarizedExperiment&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;DESeqDataSet&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;DESeqTransform&gt;</i>)</a></code> </p>
+          <p><code><a href="plotGene.html">plotGene(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotGene.html">plotGene(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Plot Individual Genes</p></td>
+        <td><p>Plot Gene Expression</p></td>
       </tr><tr>
         
         <td>
@@ -285,19 +313,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotGenesDetected.html">plotGenesDetected()</a></code> </p>
-        </td>
-        <td><p>Plot Genes Detected</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plotIntronicMappingRate.html">plotIntronicMappingRate()</a></code> </p>
         </td>
         <td><p>Plot Intronic Mapping Rate</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotMA.html">plotMA(<i>&lt;DESeqResults&gt;</i>)</a></code> </p>
+          <p><code><a href="plotMA.html">plotMA(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="plotMA.html">plotMA(<i>&lt;DESeqResults&gt;</i>)</a></code> <code><a href="plotMA.html">plotMeanAverage()</a></code> </p>
         </td>
         <td><p>MA Plot</p></td>
       </tr><tr>
@@ -321,15 +343,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotPCA.html">plotPCA(<i>&lt;SummarizedExperiment&gt;</i>)</a></code> <code><a href="plotPCA.html">plotPCA(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+          <p><code><a href="plotPCA.html">plotPCA(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
         <td><p>Sample PCA Plot for Transformed Data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotPCACovariates.html">plotPCACovariates()</a></code> </p>
+          <p><code><a href="plotQC.html">plotQC(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Find Correlation Between Principal Components (PCs) and Covariates</p></td>
+        <td><p>Plot Quality Control</p></td>
       </tr><tr>
         
         <td>
@@ -371,9 +393,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="resultsTables.html">resultsTables()</a></code> </p>
+          <p><code><a href="DESeqResultsTables.html">DESeqResultsTables()</a></code> </p>
         </td>
-        <td><p>Differential Expression Results Tables</p></td>
+        <td><p><code>DESeqResultsTables</code> Generator</p></td>
       </tr><tr>
         
         <td>
@@ -389,6 +411,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="markdown.html">markdown(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Markdown</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="prepareRNASeqTemplate.html">prepareRNASeqTemplate()</a></code> </p>
@@ -411,15 +439,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="dds_small.html">dds_small</a></code> </p>
+          <p><code><a href="deseq_small.html">deseq_small</a></code> </p>
         </td>
-        <td><p><code>DESeqDataSet</code> Example</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="res_small.html">res_small</a></code> </p>
-        </td>
-        <td><p><code>DESeqResults</code> Example</p></td>
+        <td><p><code>DESeqAnalysis</code> Example</p></td>
       </tr>
     </tbody>
     </table>
@@ -429,7 +451,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-package-information">Package Information</a></li>
-      <li><a href="#section-s-object">S4 Object</a></li>
+      <li><a href="#section-s-classes">S4 Classes</a></li>
+      <li><a href="#section-s-generators">S4 Generators</a></li>
+      <li><a href="#section-s-functions">S4 Functions</a></li>
       <li><a href="#section-data-functions">Data Functions</a></li>
       <li><a href="#section-plot-functions">Plot Functions</a></li>
       <li><a href="#section-differential-expression-functions">Differential Expression Functions</a></li>

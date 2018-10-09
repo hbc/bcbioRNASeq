@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Individual Genes — plotGene • bcbioRNASeq</title>
+<title>Plot Gene Expression — plotGene • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Individual Genes — plotGene" />
+<meta property="og:title" content="Plot Gene Expression — plotGene" />
 
-<meta property="og:description" content="Plot Individual Genes" />
+<meta property="og:description" content="Plot Gene Expression" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -105,33 +105,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Individual Genes</h1>
+    <h1>Plot Gene Expression</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGene-methods.R'><code>R/plotGene-methods.R</code></a></small>
     <div class="hidden name"><code>plotGene.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot Individual Genes</p>
+    <p>Plot Gene Expression</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>,
+  <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>,
+  <span class='kw'>NULL</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))
 
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>,
-  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>,
+  <span class='st'>"wide"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,18 +139,19 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><code>character</code>. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
+      <td><p><code>character</code>. Gene identifiers.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p><code>string</code>. Which normalization method to apply:
+- "<code>tpm</code>": Transcripts per million (tximport).
+- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
+- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
+- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
-    </tr>
-    <tr>
-      <th>countsAxisLabel</th>
-      <td><p><code>string</code>. Label to use for the counts axis.</p></td>
+      <td><p><code>character</code>. Groups of interest.</p></td>
     </tr>
     <tr>
       <th>medianLine</th>
@@ -165,35 +163,16 @@ samples are colored by sample name.</p></td>
       <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
 scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.
-To set the discrete color palette globally, use
-<code>options(bcbio.discrete.color = scale_color_viridis_d())</code>.</p></td>
+recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
+palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_color_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>legend</th>
       <td><p><code>boolean</code>. Show plot legend.</p></td>
     </tr>
     <tr>
-      <th>headerLevel</th>
-      <td><p><code>scalar integer</code> (<code>1</code>-<code>7</code>). R Markdown header level.</p></td>
-    </tr>
-    <tr>
-      <th>return</th>
-      <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
-and picks the first item in the vector by default.</p></td>
-    </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <th>style</th>
+      <td><p><code>string</code>. Plot style.</p></td>
     </tr>
     </table>
     
@@ -201,26 +180,41 @@ and picks the first item in the vector by default.</p></td>
 
     
 <ul>
-<li><p>"<code>facet</code>": <code>ggplot</code> grouped by <code>sampleName</code>, with <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>ggplot2::facet_wrap()</a></code>
-applied to panel the samples.</p></li>
-<li><p>"<code>wide</code>": Show <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
+<li><p><code>style = "facet"</code>: <code>ggplot</code> grouped by <code>sampleName</code>, with
+<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>ggplot2::facet_wrap()</a></code> applied to panel the samples.</p></li>
+<li><p><code>style = "wide"</code>: <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p></div>
+    <div class='dont-index'><p>Other Plot Functions: <code>plotCountsPerBiotype</code>,
+  <code>plotHeatmap</code>, <code><a href='plotQC.html'>plotQC</a></code>,
+  <code>plotZerosVsDepth</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Gene identifiers</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='fu'>rownames</span>(<span class='no'>bcb_small</span>), <span class='fl'>4L</span>)
-<span class='fu'>glimpse</span>(<span class='no'>genes</span>)</div><div class='output co'>#&gt;  chr [1:4] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346" ...</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
+<span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
+<span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
+#&gt; [4] "ENSMUSG00000000563" "ENSMUSG00000000740" "ENSMUSG00000001175"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
+<span class='fu'>print</span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Cox5a"  "Comt"   "Dazap2" "Atp5f1" "Rpl13"  "Calm1" </div><div class='input'>
 <span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqTransform ====</span>
-<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
-<span class='fu'>plotGene</span>(<span class='no'>vst_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>
+<span class='fu'>plotGene</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>object</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>,
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
+    <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>
+)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>object</span>,
+    <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>,
+    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
+    <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>
+)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqAnalysis ====</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>
+<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

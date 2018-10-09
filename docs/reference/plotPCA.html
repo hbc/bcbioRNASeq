@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -118,15 +118,12 @@
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>,
-  <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500L</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"bcbio.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"pca"</span>,
-  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"data.frame"</span>))
-
-<span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>,
-  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
+  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500L</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"PCA"</span>,
+  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"DataFrame"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,6 +131,14 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p><code>string</code>. Which normalization method to apply:
+- "<code>tpm</code>": Transcripts per million (tximport).
+- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
+- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
+- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
@@ -171,24 +176,11 @@ To set the discrete color palette globally, use
       <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
 and picks the first item in the vector by default.</p></td>
     </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ggplot</code> or <code>data.frame</code>.</p>
+    <p><code>ggplot</code> or <code>DataFrame</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -207,33 +199,29 @@ a way to look at how samples are clustering.</p>
 </ul></div>
     <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
   <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
   <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
   <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
   <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
   <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
   <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
+  <code><a href='plotQC.html'>plotQC</a></code>, <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
   <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotPCA</span>(
+    <pre class="examples"><div class='input'><span class='fu'>plotPCA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(
+)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
     <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
     <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts</span></div><div class='output co'>#&gt; <span class='warning'>Warning: rlog not present in assays. Calculating log2 TMM counts instead.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt; <span class='message'>Applying log2 transformation to TMM values</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: rlog not present in assays. Calculating log2 TMM counts instead.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='output co'>#&gt; <span class='message'>Applying log2 transformation to TMM values...</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

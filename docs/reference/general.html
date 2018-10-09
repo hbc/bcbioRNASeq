@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -142,7 +142,13 @@
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p><code>scalar numeric</code>. Adjusted P value ("alpha") cutoff.</p></td>
+      <td><p><code>scalar numeric</code> or <code>NULL</code>. Adjusted P value ("alpha") cutoff.
+If left <code>NULL</code>, will use the cutoff defined in the object.</p></td>
+    </tr>
+    <tr>
+      <th>assay</th>
+      <td><p><code>scalar</code>. Name or index of counts matrix slotted in <code>assays()</code>.
+When passing in a <code>string</code>, the name must be defined in <code>assayNames()</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -181,8 +187,8 @@ plots containing many samples.</p></td>
     </tr>
     <tr>
       <th>gene2symbol</th>
-      <td><p><code>data.frame</code>. Gene-to-symbol mappings. Must contain the
-columns <code>geneID</code> and <code>geneName</code>.</p></td>
+      <td><p><code>gene2symbol</code>. Gene-to-symbol mappings. Must contain
+<code>geneID</code> and <code>geneName</code> columns, with rownames defined.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -208,9 +214,14 @@ samples. If left unset, defaults to <code>sampleName</code>.</p></td>
       <td><p><code>boolean</code>. Show plot legend.</p></td>
     </tr>
     <tr>
+      <th>lfcShrink</th>
+      <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
+    </tr>
+    <tr>
       <th>lfcThreshold</th>
-      <td><p><code>scalar numeric</code>. Log fold change ratio (base 2) cutoff
-threshold.</p></td>
+      <td><p><code>scalar numeric</code> or <code>NULL</code>. Log fold change ratio (base
+2) cutoff threshold. If left <code>NULL</code>, will use the cutoff defined in the
+object.</p></td>
     </tr>
     <tr>
       <th>limit</th>
@@ -224,12 +235,11 @@ counts matrix.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
+      <td><p><code>string</code>. Which normalization method to apply:
+- "<code>tpm</code>": Transcripts per million (tximport).
+- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
+- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
+- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
     </tr>
     <tr>
       <th>ntop</th>
@@ -240,12 +250,16 @@ counts matrix.</p></td>
       <td><p><code>scalar numeric</code>. Threshold to plot pass color marker.</p></td>
     </tr>
     <tr>
+      <th>perMillion</th>
+      <td><p><code>boolean</code>. Display as counts per million.</p></td>
+    </tr>
+    <tr>
       <th>pointColor</th>
       <td><p><code>string</code>. Default point color for the plot.</p></td>
     </tr>
     <tr>
       <th>results</th>
-      <td><p><code>DESeqResults</code>.</p></td>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>return</th>

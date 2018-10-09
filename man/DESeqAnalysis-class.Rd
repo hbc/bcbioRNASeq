@@ -3,7 +3,7 @@
 \docType{class}
 \name{DESeqAnalysis-class}
 \alias{DESeqAnalysis-class}
-\title{\code{DESeqAnalysis} Class}
+\title{DESeq2 Analysis Container}
 \description{
 Class containing all elements generated during differential expression
 analysis with DESeq2. This class is essentially a \code{list} with validity checks

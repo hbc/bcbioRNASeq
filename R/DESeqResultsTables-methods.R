@@ -1,4 +1,4 @@
-#' DESeq2 Differential Expression Results Tables
+#' `DESeqResultsTables` Generator
 #'
 #' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.

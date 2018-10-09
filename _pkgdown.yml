@@ -46,12 +46,10 @@ reference:
     - updateObject
   - title: Data Functions
     contents:
-    - starts_with("aggregate")
     - counts
-    - metrics
+    - export
     - sampleData
     - tmm
-    - tpm
   - title: Plot Functions
     contents:
     - starts_with("plot")
@@ -62,6 +60,7 @@ reference:
     - ends_with("Tables")
   - title: R Markdown Functions
     contents:
+    - markdown
     - prepareRNASeqTemplate
   - title: Example Data
     desc: GSE65267

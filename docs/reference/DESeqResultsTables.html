@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alpha Level Cutoff Summary Statistics — alphaSummary • bcbioRNASeq</title>
+<title><code>DESeqResultsTables</code> Generator — DESeqResultsTables • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,10 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Alpha Level Cutoff Summary Statistics — alphaSummary" />
+<meta property="og:title" content="<code>DESeqResultsTables</code> Generator — DESeqResultsTables" />
 
-<meta property="og:description" content="Quickly generate a summary table of various alpha level cutoffs, for use in
-an R Markdown report." />
+<meta property="og:description" content="DESeqResultsTables Generator" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,23 +105,25 @@ an R Markdown report." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Alpha Level Cutoff Summary Statistics</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/alphaSummary-methods.R'><code>R/alphaSummary-methods.R</code></a></small>
-    <div class="hidden name"><code>alphaSummary.Rd</code></div>
+    <h1><code>DESeqResultsTables</code> Generator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/DESeqResultsTables-methods.R'><code>R/DESeqResultsTables-methods.R</code></a></small>
+    <div class="hidden name"><code>DESeqResultsTables.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Quickly generate a summary table of various alpha level cutoffs, for use in
-an R Markdown report.</p>
+    <p><code>DESeqResultsTables</code> Generator</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>DESeqResultsTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.05</span>, <span class='fl'>0.01</span>,
-  <span class='fl'>0.001</span>, <span class='fl'>1e-06</span>), <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>DESeqResultsTables</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>DESeqResultsTables</span>(<span class='no'>object</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rowData</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,73 +137,87 @@ an R Markdown report.</p>
       <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p><code>numeric</code>. Multiple alpha cutoffs.</p></td>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
-      <th>contrast</th>
-      <td><p>this argument specifies what comparison to extract from
-the <code>object</code> to build a results table. one of either:</p><ul>
-<li><p>a character vector with exactly three elements:
-the name of a factor in the design formula,
-the name of the numerator level for the fold change,
-and the name of the denominator level for the fold change
-(simplest case)</p></li>
-<li><p>a list of 2 character vectors: the names of the fold changes
-for the numerator, and the names of the fold changes
-for the denominator.
-these names should be elements of <code>resultsNames(object)</code>.
-if the list is length 1, a second element is added which is the
-empty character vector, <code>character()</code>.
-(more general case, can be to combine interaction terms and main effects)</p></li>
-<li><p>a numeric contrast vector with one element
-for each element in <code>resultsNames(object)</code> (most general case)</p></li>
-</ul><p>If specified, the <code>name</code> argument is ignored.</p></td>
+      <th>lfcShrink</th>
+      <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>the name of the individual effect (coefficient) for
-building a results table. Use this argument rather than <code>contrast</code>
-for continuous variables, individual effects or for individual interaction terms.
-The value provided to <code>name</code> must be an element of <code>resultsNames(object)</code>.</p></td>
+      <th>rowData</th>
+      <td><p><code>boolean</code>. Include gene annotations.</p></td>
+    </tr>
+    <tr>
+      <th>counts</th>
+      <td><p><code>boolean</code>. Include DESeq2 normalized counts.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>integer matrix</code>.</p>
+    <p><code>DESeqResultsTables</code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Use either <code>contrast</code> or <code>name</code> to specify the desired contrast.</p>
+    <p>Log fold change cutoff threshold ("<code>lfcThreshold</code>") does not apply to
+statistical hypothesis testing, only gene filtering in the results tables.
+See <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using
+<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative hypothesis based
+on expected fold changes.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::resultsNames()</a></code>.</p></li>
+<li><p><code><a href='markdown.html'>markdown()</a></code>.</p></li>
+<li><p><code>write()</code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='contrastName.html'>contrastName</a></code>,
-  <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>, <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>,
-  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
+    <div class='dont-index'><p>Other S4 Generators: <code><a href='DESeqAnalysis.html'>DESeqAnalysis</a></code>,
+  <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
-
-<span class='co'># DESeqDataSet ====</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>design</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; ~treatment</div><div class='input'><span class='fu'>resultsNames</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; [1] "Intercept"                       "treatment_folic_acid_vs_control"</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treatment"</span>, <span class='st'>"folic_acid"</span>, <span class='st'>"control"</span>))</div><div class='output co'>#&gt; <span class='message'>treatment folic_acid control</span>
-#&gt; <span class='message'>Alpha cutoffs: 0.1, 0.05, 0.01, 0.001, 1e-06</span></div><div class='output co'>#&gt;                0.1 0.05 0.01 0.001 1e-06
-#&gt; LFC &gt; 0 (up)   115   91   58    32    19
-#&gt; LFC &lt; 0 (down) 138  121  100    59    13
-#&gt; outliers [1]     6    6    6     6     6
-#&gt; low counts [2]   0    0    0     0    49</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"treatment_folic_acid_vs_control"</span>)</div><div class='output co'>#&gt; <span class='message'>treatment_folic_acid_vs_control</span>
-#&gt; <span class='message'>Alpha cutoffs: 0.1, 0.05, 0.01, 0.001, 1e-06</span></div><div class='output co'>#&gt;                0.1 0.05 0.01 0.001 1e-06
-#&gt; LFC &gt; 0 (up)   115   91   58    32    19
-#&gt; LFC &lt; 0 (down) 138  121  100    59    13
-#&gt; outliers [1]     6    6    6     6     6
-#&gt; low counts [2]   0    0    0     0    49</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
+<span class='co'># This is the recommended default method.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqResultsTables</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; <span class='message'>Adding `rowData()` annotations (atomic columns only)...</span></div><div class='output co'>#&gt; <span class='message'>Adding DESeq2 normalized counts...</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables
+#&gt; Contrast: treatment folic acid vs control
+#&gt; Alpha: 0.1
+#&gt; LFC threshold: 0
+#&gt; ─────────────────────────────────────────────────────────────
+#&gt; 500 genes total
+#&gt; 500 genes with base mean &gt; 1
+#&gt; 494 genes with adjusted P values
+#&gt; 115 upregulated genes
+#&gt; 138 downregulated genes
+#&gt; ─────────────────────────────────────────────────────────────
+#&gt; out of 500 with nonzero total read count
+#&gt; adjusted p-value &lt; 0.1
+#&gt; LFC &gt; 0 (up)       : 115, 23%
+#&gt; LFC &lt; 0 (down)     : 138, 28%
+#&gt; outliers [1]       : 6, 1.2%
+#&gt; low counts [2]     : 0, 0%
+#&gt; (mean count &lt; 33)</div><div class='input'>
+<span class='co'># DESeqResults ====</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqResultsTables</span>(<span class='no'>res</span>)
+<span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables
+#&gt; Contrast: treatment folic acid vs control
+#&gt; Alpha: 0.1
+#&gt; LFC threshold: 0
+#&gt; ─────────────────────────────────────────────────────────────
+#&gt; 500 genes total
+#&gt; 500 genes with base mean &gt; 1
+#&gt; 494 genes with adjusted P values
+#&gt; 115 upregulated genes
+#&gt; 138 downregulated genes
+#&gt; ─────────────────────────────────────────────────────────────
+#&gt; out of 500 with nonzero total read count
+#&gt; adjusted p-value &lt; 0.1
+#&gt; LFC &gt; 0 (up)       : 115, 23%
+#&gt; LFC &lt; 0 (down)     : 138, 28%
+#&gt; outliers [1]       : 6, 1.2%
+#&gt; low counts [2]     : 0, 0%
+#&gt; (mean count &lt; 33)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,7 +235,7 @@ The value provided to <code>name</code> must be an element of <code>resultsNames
 
     <h2>Author</h2>
     
-Michael Steinbaugh, Lorena Patano
+Michael Steinbaugh
 
   </div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gender Marker Genes — gender_markers • bcbioRNASeq</title>
+<title>DESeq2 Differential Expression Results Tables — DESeqResultsTables-class • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Gender Marker Genes — gender_markers" />
+<meta property="og:title" content="DESeq2 Differential Expression Results Tables — DESeqResultsTables-class" />
 
-<meta property="og:description" content="Gender Marker Genes" />
+<meta property="og:description" content="DESeqResults object with DataFrame subsets and file path information." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -105,22 +105,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gender Marker Genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>gender_markers.Rd</code></div>
+    <h1>DESeq2 Differential Expression Results Tables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllClasses.R'><code>R/AllClasses.R</code></a></small>
+    <div class="hidden name"><code>DESeqResultsTables-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Gender Marker Genes</p>
+    <p><code>DESeqResults</code> object with <code>DataFrame</code> subsets and file path information.</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>gender_markers</span></pre>
         
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p>An object of class <code>list</code> of length 2.</p>
+    
+    <dl class='dl-horizontal'>
+<dt><code>all</code></dt><dd><p><code>DESeqResults</code>. Original unmodified <code>DESeqResults</code>. Should contain
+all genes, including those with <code>NA</code> adjusted <em>P</em> values.</p></dd>
+    <dt><code>deg</code></dt><dd><p><code>DataFrame</code>. Subset containing genes that pass adjusted <em>P</em> value
+and log2 fold change cutoffs.</p></dd>
+    <dt><code>degUp</code></dt><dd><p><code>DataFrame</code>. Directional subset containing only upregulated
+genes.</p></dd>
+    <dt><code>degDown</code></dt><dd><p><code>DataFrame</code>. Directional subset containing only downregulated
+genes.</p></dd>
+    <dt><code>localFiles</code></dt><dd><p><code>list</code>. Local file paths.</p></dd>
+    <dt><code>dropboxFiles</code></dt><dd><p><code>list</code>. Dropbox file paths.</p></dd>
+</dl>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='DESeqResultsTables.html'>DESeqResultsTables()</a></code>.</p>
+<p>Other S4 Classes: <code><a href='DESeqAnalysis-class.html'>DESeqAnalysis-class</a></code>,
+  <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code></p></div>
     
 
   </div>
@@ -128,7 +145,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#format">Format</a></li>
+      <li><a href="#slots">Slots</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>

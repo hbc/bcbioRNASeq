@@ -3,7 +3,7 @@
 \docType{class}
 \name{bcbioRNASeq-class}
 \alias{bcbioRNASeq-class}
-\title{\code{bcbioRNASeq} Class}
+\title{bcbio RNA-Seq Data Set}
 \description{
 \code{bcbioRNASeq} is an S4 class that extends \code{RangedSummarizedExperiment}, and
 is designed to store a \href{https://bcbio-nextgen.readthedocs.org}{bcbio} RNA-seq

@@ -64,7 +64,7 @@ sample." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -120,10 +120,12 @@ sample.</p>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqTransform</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>),
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"pearson"</span>, <span class='st'>"spearman"</span>),
+  <span class='kw'>clusteringMethod</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>treeheightCol</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>borderColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,51 +136,125 @@ sample.</p>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+      <td><p><code>string</code>. Which normalization method to apply:
+- "<code>tpm</code>": Transcripts per million (tximport).
+- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
+- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
+- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
+    </tr>
+    <tr>
+      <th>interestingGroups</th>
+      <td><p><code>character</code>. Groups of interest.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p><code>string</code>. Correlation coefficient (or covariance) method to be
+computed. Defaults to "<code>pearson</code>" but "<code>spearman</code>" can also be used.
+Consult the <code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code> documentation for more information.</p></td>
+    </tr>
+    <tr>
+      <th>clusteringMethod</th>
+      <td><p><code>string</code>. Clustering method. Accepts the same values
+as <code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>showRownames</th>
+      <td><p><code>boolean</code>. Show row or column names.</p></td>
+    </tr>
+    <tr>
+      <th>showColnames</th>
+      <td><p><code>boolean</code>. Show row or column names.</p></td>
+    </tr>
+    <tr>
+      <th>treeheightRow</th>
+      <td><p><code>scalar integer</code>. Size of the row and
+column dendrograms. Use <code>0</code> to disable.</p></td>
+    </tr>
+    <tr>
+      <th>treeheightCol</th>
+      <td><p><code>scalar integer</code>. Size of the row and
+column dendrograms. Use <code>0</code> to disable.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p><code>function</code>, <code>character</code>, or <code>NULL</code>. Hexadecimal color function
+or values to use for plot. We generally recommend these hexadecimal
+functions from the viridis package:</p><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code> (<em>default</em>).</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::inferno()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::magma()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::plasma()</a></code>.
+Alternatively, colors can be defined manually using hexadecimal values
+(e.g. <code>c("#FF0000", "#0000FF")</code>), but this is not generally recommended.
+Refer to the RColorBrewer package for hexadecimal color palettes that may
+be suitable. If set <code>NULL</code>, will use the default pheatmap colors.</p></li>
 </ul></td>
     </tr>
     <tr>
+      <th>legendColor</th>
+      <td><p><code>function</code> or <code>NULL</code>. Hexadecimal color function to use
+for legend labels. Note that hexadecimal values are not supported. If set
+<code>NULL</code>, will use the default pheatmap colors.</p></td>
+    </tr>
+    <tr>
+      <th>borderColor</th>
+      <td><p><code>string</code> or <code>NULL</code>. Border color. Disabled by default for
+improved aesthetics.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Passthrough arguments to <code>SummarizedExperiment</code> method.</p></td>
+      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
+arguments should be formatted in camel case, not snake case.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Show heatmap and invisibly return a <code>list</code> of the components.</p>
+    <p><code>pheatmap</code>.</p>
+    
+    <h2 class="hasAnchor" id="hierarchical-clustering"><a class="anchor" href="#hierarchical-clustering"></a>Hierarchical clustering</h2>
+
+    
+    <p>By default, row- and column-wise hierarchical clustering is performed using
+the Ward method, but this behavior can be overrided by setting <code>clusterRows</code>
+or <code>clusterCols</code> to <code>FALSE</code>.</p>
+    
+    <h2 class="hasAnchor" id="correlation-heatmap"><a class="anchor" href="#correlation-heatmap"></a>Correlation heatmap</h2>
+
+    
+    <p>Construct a correlation heatmap comparing the columns of the matrix.</p>
+    
+    <h2 class="hasAnchor" id="quantile-heatmap"><a class="anchor" href="#quantile-heatmap"></a>Quantile heatmap</h2>
+
+    
+    <p>Apply quantile breaks.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code>help("plotCorrelationHeatmap", "bcbioBase")</code>.</p></li>
+<li><p><code>help("plotCorrelationHeatmap", "basejump")</code>.</p></li>
 <li><p><code>findMethod("plotCorrelationHeatmap", "SummarizedExperiment")</code>.</p></li>
 </ul></div>
     <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCountDensity.html'>plotCountDensity</a></code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
   <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
   <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
   <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
   <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
   <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
   <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
   <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
+  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotQC.html'>plotQC</a></code>,
   <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
   <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='co'># Pearson correlation</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Spearman correlation</span>
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -186,6 +262,12 @@ sample.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#hierarchical-clustering">Hierarchical clustering</a></li>
+
+      <li><a href="#correlation-heatmap">Correlation heatmap</a></li>
+
+      <li><a href="#quantile-heatmap">Quantile heatmap</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

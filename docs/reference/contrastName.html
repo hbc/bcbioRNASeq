@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -118,7 +118,13 @@
 
     <pre class="usage"><span class='fu'>contrastName</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>contrastName</span>(<span class='no'>object</span>, <span class='no'>results</span>)
+
 <span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>contrastName</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for DESeqResultsTables</span>
 <span class='fu'>contrastName</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -132,6 +138,10 @@
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
+    <tr>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -142,13 +152,15 @@
 
     <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
   <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>, <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>,
-  <code><a href='plotMA.html'>plotMeanAverage</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code>,
-  <code><a href='resultsTables.html'>resultsTables</a></code></p></div>
+  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqResults ====</span>
-<span class='fu'>contrastName</span>(<span class='no'>res_small</span>)</div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
+<span class='fu'>contrastName</span>(<span class='no'>deseq_small</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div><div class='input'>
+<span class='co'># DESeqResults ====</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>@<span class='kw'>results</span><span class='kw'>[[</span><span class='fl'>1L</span>]]
+<span class='fu'>contrastName</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

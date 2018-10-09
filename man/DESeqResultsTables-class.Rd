@@ -3,7 +3,7 @@
 \docType{class}
 \name{DESeqResultsTables-class}
 \alias{DESeqResultsTables-class}
-\title{\code{DESeqResultsTables} Class}
+\title{DESeq2 Differential Expression Results Tables}
 \description{
 \code{DESeqResults} object with \code{DataFrame} subsets and file path information.
 }

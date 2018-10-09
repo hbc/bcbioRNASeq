@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample Metrics — metrics • bcbioRNASeq</title>
+<title>Cache URL — bcbioRNASeqCacheURL • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Sample Metrics — metrics" />
+<meta property="og:title" content="Cache URL — bcbioRNASeqCacheURL" />
 
-<meta property="og:description" content="Sample Metrics" />
+<meta property="og:description" content="Cache URL" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -105,91 +105,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample Metrics</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/metrics-methods.R'><code>R/metrics-methods.R</code></a></small>
-    <div class="hidden name"><code>metrics.Rd</code></div>
+    <h1>Cache URL</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/globals.R'><code>R/globals.R</code></a></small>
+    <div class="hidden name"><code>bcbioRNASeqCacheURL.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Sample Metrics</p>
+    <p>Cache URL</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>metrics</span>(<span class='no'>object</span>, <span class='no'>interestingGroups</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>bcbioRNASeqCacheURL</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><code>data.frame</code>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other Data Functions: <code><a href='aggregateReplicates.html'>aggregateReplicates</a></code>,
-  <code><a href='counts.html'>counts</a></code>, <code><a href='sampleData.html'>sampleData</a></code>,
-  <code><a href='tmm.html'>tmm</a></code>, <code><a href='tpm.html'>tpm</a></code></p></div>
+    <p>An object of class <code>character</code> of length 1.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>metrics</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Observations: 6
-#&gt; Variables: 27
-#&gt; $ sampleName                    &lt;fct&gt; control_rep1, control_rep2, control_r...
-#&gt; $ day                           &lt;fct&gt; 0, 0, 0, 7, 7, 7
-#&gt; $ description                   &lt;fct&gt; control_rep1, control_rep2, control_r...
-#&gt; $ genomeBuild                   &lt;fct&gt; GRCm38_90, GRCm38_90, GRCm38_90, GRCm...
-#&gt; $ replicate                     &lt;fct&gt; 1, 2, 3, 1, 2, 3
-#&gt; $ samRef                        &lt;fct&gt; /n/app/bcbio/dev/genomes/Mmusculus/GR...
-#&gt; $ strain                        &lt;fct&gt; Balb/c, Balb/c, Balb/c, Balb/c, Balb/...
-#&gt; $ tissue                        &lt;fct&gt; kidney, kidney, kidney, kidney, kidne...
-#&gt; $ treatment                     &lt;fct&gt; control, control, control, folic_acid...
-#&gt; $ averageInsertSize             &lt;dbl&gt; 243.3, 254.2, 238.0, 235.2, 248.1, 234.8
-#&gt; $ averageReadLength             &lt;dbl&gt; 50, 50, 50, 50, 50, 50
-#&gt; $ duplicates                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0
-#&gt; $ duplicationRateOfMapped       &lt;dbl&gt; 0.5392179, 0.5416344, 0.5659089, 0.45...
-#&gt; $ exonicRate                    &lt;dbl&gt; 0.7339, 0.7175, 0.7871, 0.6553, 0.645...
-#&gt; $ intergenicRate                &lt;dbl&gt; 0.0634, 0.0655, 0.0461, 0.0487, 0.058...
-#&gt; $ intronicRate                  &lt;dbl&gt; 0.2027, 0.2170, 0.1669, 0.2960, 0.295...
-#&gt; $ mappedPairedReads             &lt;dbl&gt; 59384400, 123430360, 53150852, 678719...
-#&gt; $ mappedReads                   &lt;dbl&gt; 59384400, 123430360, 53150852, 678719...
-#&gt; $ qualityFormat                 &lt;fct&gt; standard, standard, standard, standar...
-#&gt; $ rrna                          &lt;dbl&gt; 16412535, 31779476, 15967974, 1493314...
-#&gt; $ rrnaRate                      &lt;dbl&gt; 0.6135047, 0.5845699, 0.6448814, 0.55...
-#&gt; $ sequenceLength                &lt;dbl&gt; 50, 50, 50, 50, 50, 50
-#&gt; $ sequencesFlaggedAsPoorQuality &lt;dbl&gt; 0, 0, 0, 0, 0, 0
-#&gt; $ totalReads                    &lt;dbl&gt; 97249196, 178892010, 76818864, 810674...
-#&gt; $ x5x3Bias                      &lt;dbl&gt; 0.88, 0.77, 0.91, 0.45, 0.76, 0.65
-#&gt; $ xGC                           &lt;dbl&gt; 46, 45, 43, 40, 41, 46
-#&gt; $ interestingGroups             &lt;fct&gt; control, control, control, folic_acid...</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>bcbioRNASeqCacheURL</span></div><div class='output co'>#&gt; [1] "http://bcbiobase.seq.cloud/v0.99"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#format">Format</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
-
-    <h2>Author</h2>
-    
-Michael Steinbaugh
 
   </div>
 </div>

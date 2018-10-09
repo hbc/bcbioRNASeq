@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transcripts Per Million (TPM) — tpm • bcbioRNASeq</title>
+<title>DESeq2 Analysis Container — DESeqAnalysis-class • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Transcripts Per Million (TPM) — tpm" />
+<meta property="og:title" content="DESeq2 Analysis Container — DESeqAnalysis-class" />
 
-<meta property="og:description" content="Transcripts Per Million (TPM)" />
+<meta property="og:description" content="Class containing all elements generated during differential expression
+analysis with DESeq2. This class is essentially a list with validity checks
+to ensure DESeqTransform and DESeqResults correspond to the
+DESeqDataSet." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -105,69 +108,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transcripts Per Million (TPM)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/tpm-methods.R'><code>R/tpm-methods.R</code></a></small>
-    <div class="hidden name"><code>tpm.Rd</code></div>
+    <h1>DESeq2 Analysis Container</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllClasses.R'><code>R/AllClasses.R</code></a></small>
+    <div class="hidden name"><code>DESeqAnalysis-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Transcripts Per Million (TPM)</p>
+    <p>Class containing all elements generated during differential expression
+analysis with DESeq2. This class is essentially a <code>list</code> with validity checks
+to ensure <code>DESeqTransform</code> and <code>DESeqResults</code> correspond to the
+<code>DESeqDataSet</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>tpm</span>(<span class='no'>object</span>)
+        
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>tpm</span>(<span class='no'>object</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
-    </tr>
-    </table>
+    <dl class='dl-horizontal'>
+<dt><code>data</code></dt><dd><p><code>DESeqDataSet</code>.</p></dd>
+    <dt><code>transform</code></dt><dd><p><code>DESeqTransform</code>.</p></dd>
+    <dt><code>results</code></dt><dd><p><code>list</code>. One or more unshrunken <code>DESeqResults</code>.</p></dd>
+    <dt><code>lfcShrink</code></dt><dd><p><code>list</code>. One or more shrunken <code>DESeqResults</code>.</p></dd>
+</dl>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="deseqdataset"><a class="anchor" href="#deseqdataset"></a>DESeqDataSet</h2>
 
-    <p><code>matrix</code>.</p>
+    
+    <p>We recommend generating the <code>DESeqDataSet</code> by coercion from <code>bcbioRNASeq</code>
+object using <code><a href='coerce.html'>as(dds, "bcbioRNASeq")</a></code>. Don't use the <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSet()</a></code>
+or <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSetFromMatrix()</a></code> constructors to generate the
+<code>DESeqDataSet</code> object.</p>
+    
+    <h2 class="hasAnchor" id="deseqresults"><a class="anchor" href="#deseqresults"></a>DESeqResults</h2>
+
+    
+    <p>Don't modify any of the <code>DESeqResults</code> objects manually. This includes
+rearranging the rows or dropping genes without adjusted P values. We'll take
+care of this automatically in supported methods.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Data Functions: <code><a href='aggregateReplicates.html'>aggregateReplicates</a></code>,
-  <code><a href='counts.html'>counts</a></code>, <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='sampleData.html'>sampleData</a></code>, <code><a href='tmm.html'>tmm</a></code></p></div>
+    <div class='dont-index'><p><code><a href='DESeqAnalysis.html'>DESeqAnalysis()</a></code>.</p>
+<p>Other S4 Classes: <code><a href='DESeqResultsTables-class.html'>DESeqResultsTables-class</a></code>,
+  <code><a href='bcbioRNASeq-class.html'>bcbioRNASeq-class</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tpm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     0.45  
-#&gt;  1st Qu.:    50.08   1st Qu.:    55.4   1st Qu.:    65.8   1st Qu.:    93.10  
-#&gt;  Median :    83.12   Median :    95.0   Median :   107.6   Median :   143.80  
-#&gt;  Mean   :  1828.24   Mean   :  1817.1   Mean   :  1787.9   Mean   :  1671.45  
-#&gt;  3rd Qu.:   184.63   3rd Qu.:   181.8   3rd Qu.:   219.1   3rd Qu.:   254.47  
-#&gt;  Max.   :292758.61   Max.   :320187.5   Max.   :337651.9   Max.   :272312.78  
-#&gt;   fa_day7_rep2        fa_day7_rep3      
-#&gt;  Min.   :     0.00   Min.   :     0.00  
-#&gt;  1st Qu.:    92.77   1st Qu.:    78.54  
-#&gt;  Median :   138.55   Median :   117.01  
-#&gt;  Mean   :  1661.65   Mean   :  1733.66  
-#&gt;  3rd Qu.:   236.03   3rd Qu.:   210.51  
-#&gt;  Max.   :291312.78   Max.   :270608.66  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#slots">Slots</a></li>
+
+      <li><a href="#deseqdataset">DESeqDataSet</a></li>
+
+      <li><a href="#deseqresults">DESeqResults</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
     

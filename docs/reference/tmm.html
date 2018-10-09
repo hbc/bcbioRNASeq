@@ -65,7 +65,7 @@ tool when plotting counts per gene." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -120,15 +120,15 @@ tool when plotting counts per gene.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>tmm</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>tmm</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for DESeqDataSet</span>
-<span class='fu'>tmm</span>(<span class='no'>object</span>)
+    <pre class="usage"><span class='fu'>tmm</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for matrix</span>
+<span class='fu'>tmm</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for SummarizedExperiment</span>
+<span class='fu'>tmm</span>(<span class='no'>object</span>, <span class='kw'>assay</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>tmm</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -138,65 +138,46 @@ tool when plotting counts per gene.</p>
       <th>object</th>
       <td><p>Object.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>assay</th>
+      <td><p><code>scalar</code>. Name or index of counts matrix slotted in <code>assays()</code>.
+When passing in a <code>string</code>, the name must be defined in <code>assayNames()</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>matrix</code>.</p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Only gene-level counts are supported.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Data Functions: <code><a href='aggregateReplicates.html'>aggregateReplicates</a></code>,
-  <code><a href='counts.html'>counts</a></code>, <code><a href='metrics.html'>metrics</a></code>,
-  <code><a href='sampleData.html'>sampleData</a></code>, <code><a href='tpm.html'>tpm</a></code></p></div>
+    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
+  <code><a href='sampleData.html'>sampleData</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>tmm</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tmm</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
 #&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
-#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
-#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
-#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
-#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
+#&gt;  1st Qu.:    22.2   1st Qu.:    21.4   1st Qu.:    19.2   1st Qu.:    26.7  
+#&gt;  Median :    75.8   Median :    80.3   Median :    81.3   Median :    78.4  
+#&gt;  Mean   :  2301.0   Mean   :  1999.6   Mean   :  2461.9   Mean   :  1753.0  
+#&gt;  3rd Qu.:   250.7   3rd Qu.:   261.5   3rd Qu.:   251.5   3rd Qu.:   239.7  
+#&gt;  Max.   :621202.9   Max.   :523577.1   Max.   :693947.0   Max.   :472850.0  
 #&gt;   fa_day7_rep2       fa_day7_rep3     
 #&gt;  Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
-#&gt;  Median :    77.2   Median :    84.1  
-#&gt;  Mean   :  1715.5   Mean   :  1875.8  
-#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
-#&gt;  Max.   :479617.2   Max.   :536832.8  </div><div class='input'>
-<span class='co'># DESeqDataSet ====</span>
-<span class='fu'>tmm</span>(<span class='no'>dds_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
-#&gt;  Median :    73.4   Median :    78.7   Median :    78.7   Median :    76.8  
-#&gt;  Mean   :  2304.6   Mean   :  2001.5   Mean   :  2463.2   Mean   :  1751.4  
-#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.9   3rd Qu.:   246.8   3rd Qu.:   239.1  
-#&gt;  Max.   :622429.1   Max.   :524269.5   Max.   :694574.2   Max.   :472836.5  
-#&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
-#&gt;  Median :    77.2   Median :    84.1  
-#&gt;  Mean   :  1715.1   Mean   :  1875.4  
-#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.4  
-#&gt;  Max.   :479502.8   Max.   :536710.4  </div><div class='input'>
-<span class='co'># matrix ====</span>
-<span class='fu'><a href='counts.html'>counts</a></span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>tmm</span>() <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0   1st Qu.:    25.8  
-#&gt;  Median :    73.5   Median :    78.7   Median :    78.6   Median :    76.8  
-#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0   Mean   :  1751.8  
-#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7   3rd Qu.:   239.2  
-#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2   Max.   :472948.1  
-#&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    24.8   1st Qu.:    34.0  
-#&gt;  Median :    77.2   Median :    84.1  
-#&gt;  Mean   :  1715.5   Mean   :  1875.8  
-#&gt;  3rd Qu.:   239.9   3rd Qu.:   234.5  
-#&gt;  Max.   :479617.2   Max.   :536832.8  </div></pre>
+#&gt;  1st Qu.:    25.0   1st Qu.:    34.0  
+#&gt;  Median :    77.8   Median :    85.5  
+#&gt;  Mean   :  1719.9   Mean   :  1874.0  
+#&gt;  3rd Qu.:   240.5   3rd Qu.:   234.8  
+#&gt;  Max.   :480720.6   Max.   :536078.7  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,6 +185,8 @@ tool when plotting counts per gene.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

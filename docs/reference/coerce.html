@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.7</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
       </span>
     </div>
 
@@ -127,38 +127,39 @@
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/canCoerce'>methods::canCoerce()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other S4 Object: <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code>,
-  <code><a href='extract.html'>extract</a></code>, <code><a href='show.html'>show</a></code>,
-  <code><a href='updateObject.html'>updateObject</a></code></p></div>
+    <div class='dont-index'><p>Other S4 Functions: <code><a href='extract.html'>extract</a></code>,
+  <code><a href='show.html'>show</a></code>, <code><a href='updateObject.html'>updateObject</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Coercing bcbioRNASeq to DESeqDataSet with DESeq2 1.20.0</span></div><div class='output co'>#&gt; <span class='message'>converting counts to integer mode</span></div><div class='input'><span class='fu'>names</span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
+    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq to DESeqDataSet ====</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Coercing bcbioRNASeq to DESeqDataSet with DESeq2 1.21.22...</span></div><div class='input'><span class='fu'>names</span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
 #&gt; [5] "geneID"         "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'>class</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 500 6 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
-#&gt; assays(5): counts tpm length normalized vst
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(1): counts
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div><div class='input'>
-<span class='co'># RangedSummarizedExperiment ====</span>
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
+<span class='co'># bcbioRNASeq to RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
 #&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
-#&gt; assays(5): counts tpm length normalized vst
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(4): counts tpm normalized vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div><div class='input'>
-<span class='co'># SummarizedExperiment ====</span>
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
+<span class='co'># bcbioRNASeq to SummarizedExperiment ====</span>
 <span class='co'># Coerce to RangedSummarizedExperiment first.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb_small</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>x</span>, <span class='st'>"SummarizedExperiment"</span>)
@@ -167,13 +168,48 @@
 #&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
 #&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
 #&gt; dim: 500 6 
-#&gt; metadata(30): version level ... devtoolsSessionInfo subset
-#&gt; assays(5): counts tpm length normalized vst
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(4): counts tpm normalized vst
 #&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): sampleName day ... x5x3Bias xGC</div></pre>
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
+<span class='co'># DESeqAnalysis ====</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>print</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
+#&gt; dim: 500 6 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(4): counts mu H cooks
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(29): broadClass description ... deviance maxCooks
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(27): averageInsertSize averageReadLength ... treatment
+#&gt;   sizeFactor</div><div class='input'><span class='no'>dt</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
+<span class='fu'>print</span>(<span class='no'>dt</span>)</div><div class='output co'>#&gt; class: DESeqTransform 
+#&gt; dim: 500 6 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(1): ''
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(30): broadClass description ... dispGeneIter.1 dispFit
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(27): averageInsertSize averageReadLength ... treatment
+#&gt;   sizeFactor</div><div class='input'><span class='co'># Pulls the first results slotted.</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>)
+<span class='fu'><a href='contrastName.html'>contrastName</a></span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div><div class='input'><span class='fu'>summary</span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; 
+#&gt; out of 500 with nonzero total read count
+#&gt; adjusted p-value &lt; 0.1
+#&gt; LFC &gt; 0 (up)       : 115, 23%
+#&gt; LFC &lt; 0 (down)     : 138, 28%
+#&gt; outliers [1]       : 6, 1.2%
+#&gt; low counts [2]     : 0, 0%
+#&gt; (mean count &lt; 33)
+#&gt; [1] see 'cooksCutoff' argument of ?results
+#&gt; [2] see 'independentFiltering' argument of ?results
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
