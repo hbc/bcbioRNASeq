@@ -11,7 +11,7 @@ DESeqResultsTables(object, ...)
 
 \S4method{DESeqResultsTables}{DESeqResults}(object)
 
-\S4method{DESeqResultsTables}{DESeqAnalysis}(object, results,
+\S4method{DESeqResultsTables}{DESeqAnalysis}(object, results = 1L,
   lfcShrink = TRUE, rowData = TRUE, counts = TRUE)
 }
 \arguments{
