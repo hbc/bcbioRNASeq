@@ -146,6 +146,7 @@
 
 .new.DESeqDataSet <-  # nolint
     function(se) {
+        .ddsMsg()
         stopifnot(is(se, "SummarizedExperiment"))
         assays(se) <- assays(se)[intersect(assayNames(se), deseqAssays)]
         counts <- counts(se)
@@ -163,6 +164,7 @@
 
 .new.DESeqDataSetFromMatrix <-  # nolint
     function(countData) {
+        .ddsMsg()
         assert_is_matrix(countData)
         # Integer counts are required.
         countData <- round(countData, digits = 0L)
