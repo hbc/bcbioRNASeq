@@ -342,7 +342,6 @@ bcbioRNASeq <- function(
             countsFromAbundance = countsFromAbundance,
             tx2gene = tx2gene
         )
-
         # Raw counts. By default, we're using length-scaled TPM.
         assays[["counts"]] <- txi[["counts"]]
         # Transcripts per million.
@@ -351,29 +350,6 @@ bcbioRNASeq <- function(
         # isn't scaled during tximport call.
         if (txi[["countsFromAbundance"]] == "no") {
             assays[["avgTxLength"]] <- txi[["length"]]
-        }
-
-        if (level == "genes") {
-            # tximport-DESeq2 (refer to the vignette).
-            .ddsMsg()
-            dds <- DESeqDataSetFromTximport(
-                txi = txi,
-                colData = colData,
-                design = ~ 1L
-            )
-            if (txi[["countsFromAbundance"]] == "no") {
-                assert_are_identical(
-                    x = assayNames(dds),
-                    y = c("counts", "avgTxLength")
-                )
-            } else {
-                assert_are_identical(
-                    x = assayNames(dds),
-                    y = "counts"
-                )
-            }
-        } else if (level == "transcripts") {
-            dds <- NULL
         }
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
@@ -388,48 +364,6 @@ bcbioRNASeq <- function(
         counts <- counts[, samples, drop = FALSE]
 
         assays[["counts"]] <- counts
-
-        # Generate the DESeqDataSet from matrix.
-        .ddsMsg()
-        dds <- DESeqDataSetFromMatrix(
-            countData = counts,
-            colData = colData,
-            design = ~ 1L
-        )
-        assert_are_identical(assayNames(dds), "counts")
-    }
-
-    # Calculate DESeq2 normalizations for gene-level counts.
-    if (level == "genes") {
-        assert_is_all_of(dds, "DESeqDataSet")
-        # Skip full DESeq2 calculations, for internal bcbio test data.
-        if (.dataHasVariation(dds)) {
-            # Suppress expected warning about the empty design formula.
-            dds <- suppressWarnings(DESeq(dds))
-            if (isTRUE(vst)) {
-                message("Applying variance-stabilizing transformation...")
-                vst <- assay(varianceStabilizingTransformation(dds))
-            } else {
-                vst <- NULL
-            }
-            if (isTRUE(rlog)) {
-                message("Applying regularized log transformation...")
-                rlog <- assay(rlog(dds))
-            } else {
-                rlog <- NULL
-            }
-        } else {
-            # nocov start
-            # This step is covered by bcbio pipeline tests.
-            warning("Data has no variation. Skipping transformations.")
-            dds <- estimateSizeFactors(dds)
-            vst <- NULL
-            rlog <- NULL
-            # nocov end
-        }
-        assays[["normalized"]] <- counts(dds, normalized = TRUE)
-        assays[["vst"]] <- vst
-        assays[["rlog"]] <- rlog
     }
 
     assert_are_identical(names(assays)[[1L]], "counts")
@@ -491,8 +425,8 @@ bcbioRNASeq <- function(
         call = match.call()
     )
 
-    # Return -------------------------------------------------------------------
-    .new.bcbioRNASeq(
+    # Generate bcbioRNASeq object ----------------------------------------------
+    bcb <- .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
@@ -500,6 +434,50 @@ bcbioRNASeq <- function(
         transgeneNames = transgeneNames,
         spikeNames = spikeNames
     )
+
+    # DESeq2 normalizations ----------------------------------------------------
+    if (level == "genes") {
+        dds <- as(bcb, "DESeqDataSet")
+
+        # Calculate size factors for normalized counts.
+        message("Calculating normalized counts...")
+        dds <- estimateSizeFactors(dds)
+        assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
+
+        # Skip full DESeq2 calculations (for internal bcbio test data).
+        if (.dataHasVariation(dds)) {
+            message("Calculating transformations...")
+            # Expect warning about the empty design formula.
+            dds <- suppressWarnings(DESeq(dds))
+            if (isTRUE(vst)) {
+                message("Applying variance-stabilizing transformation...")
+                assays(bcb)[["vst"]] <-
+                    assay(varianceStabilizingTransformation(dds))
+            }
+            if (isTRUE(rlog)) {
+                message("Applying regularized log transformation...")
+                assays(bcb)[["rlog"]] <- assay(rlog(dds))
+            }
+        } else {
+            # nocov start
+            # This step is covered by bcbio pipeline tests.
+            warning(
+                "Data has no variation. Skipping transformations.",
+                call. = FALSE
+            )
+            # nocov end
+        }
+
+        # Calculate FPKM.
+        # Skip this step if we've slotted empty ranges.
+        if (length(unique(width(rowRanges(dds)))) > 1L) {
+            assays(bcb)[["fpkm"]] <- fpkm(dds)
+        }
+    }
+
+    # Return -------------------------------------------------------------------
+    validObject(bcb)
+    bcb
 }
 
 
