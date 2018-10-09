@@ -81,12 +81,12 @@ NULL
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         assert_is_any_of(genes, c("character", "NULL"))
-        assert_is_any_of(gene2symbol, c("gene2symbol", "NULL"))
+        assert_is_any_of(gene2symbol, c("Gene2Symbol", "NULL"))
         direction <- match.arg(direction)
         assert_is_a_number(ntop)
         assert_all_are_non_negative(ntop)
         if (!is.null(genes) && ntop > 0L) {
-            stop("Specify either `genes` or `ntop`.")
+            stop("Specify either `genes` or `ntop`.", call. = FALSE)
         }
         assert_is_a_string(pointColor)
         assert_is_character(sigPointColor)
@@ -262,7 +262,7 @@ NULL
 .plotMA.DESeqAnalysis <-  # nolint
     function(
         object,
-        results,
+        results = 1L,
         lfcShrink = TRUE
     ) {
         validObject(object)

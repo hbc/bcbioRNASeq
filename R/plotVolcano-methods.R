@@ -329,7 +329,7 @@ NULL
 .plotVolcano.DESeqAnalysis <-  # nolint
     function(
         object,
-        results,
+        results = 1L,
         lfcShrink = TRUE
     ) {
         validObject(object)
