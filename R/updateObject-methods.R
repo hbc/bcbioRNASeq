@@ -1,4 +1,8 @@
 # FIXME Rework internal DESeqDataSet handling.
+# FIXME Improve the upgrade strategy to `Tx2Gene` class.
+# FIXME Switch to requiring `tx2gene` class in a future update.
+# FIXME Simplify how we handle rowRanges
+# FIXME Simplify how we handle assays
 
 
 
@@ -87,7 +91,9 @@ NULL
         rm(assays, intRowRanges)
         if (is.null(rowRanges)) {
             if (!isTRUE(hasRowRanges)) {
-                warning("`rowRanges` are now recommended for gene annotations.")
+                warning(paste(
+                    "`rowRanges` are now recommended for gene annotations."
+                ), call. = FALSE)
             }
             rowRanges <- rowRanges(rse)
         }
@@ -202,12 +208,11 @@ NULL
         }
 
         # tx2gene
-        # FIXME Improve the upgrade strategy to `Tx2Gene` class.
         if ("txID" %in% colnames(metadata[["tx2gene"]])) {
             message("tx2gene: Renaming `txID` to `transcriptID`.")
             assert_are_identical(
-                c("txID", "geneID"),
-                colnames(metadata[["tx2gene"]])
+                x = c("txID", "geneID"),
+                y = colnames(metadata[["tx2gene"]])
             )
             colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
@@ -222,8 +227,7 @@ NULL
             )
             colnames(metadata[["tx2gene"]]) <- c("transcriptID", "geneID")
         }
-        # FIXME Switch to requiring `tx2gene` class in a future update.
-        # assert_is_all_of(metadata[["tx2gene"]], "Tx2Gene")
+        assert_is_all_of(metadata[["tx2gene"]], "Tx2Gene")
 
         # Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {
@@ -275,9 +279,9 @@ NULL
         if (level == "genes") {
             # DESeq2 normalized counts.
             if (is(assays(rse)[["normalized"]], "DESeqDataSet")) {
-                assays(rse)[["normalized"]] <-
-                    assay(assays(rse)[["normalized"]])
-            } else if (!"normalized" %in% names(assays)) {
+                dds <- assays[["normalized"]]
+                assays(rse)[["normalized"]] <- counts(dds, normalized = TRUE)
+            } else if (!"normalized" %in% assayNames(rse)) {
                 dds <- .new.DESeqDataSet(rse)
                 dds <- DESeq(dds)
                 assays(rse)[["normalized"]] <- counts(dds, normalized = TRUE)
