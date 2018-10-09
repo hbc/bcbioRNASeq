@@ -1,7 +1,3 @@
-# FIXME Switch to integer matrix return instead of kable.
-
-
-
 #' Alpha Level Cutoff Summary Statistics
 #'
 #' Quickly generate a summary table of various alpha level cutoffs, for use in
