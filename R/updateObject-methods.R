@@ -47,7 +47,7 @@ NULL
     ) {
         version <- slot(object, "metadata")[["version"]]
         assert_is_all_of(version, c("package_version", "numeric_version"))
-        message(paste(
+        message(paste0(
             "Upgrading from ", version, " to ", packageVersion, "..."
         ))
 
@@ -318,12 +318,8 @@ NULL
         }
 
         # tx2gene
-        # TODO Add `data.frame` class support and simplify this step.
         if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
-            metadata[["tx2gene"]] <-
-                metadata[["tx2gene"]] %>%
-                as_tibble(rownames = NULL) %>%
-                tx2gene()
+            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
         }
 
         # Dead genes: "missing" or "unannotated"
