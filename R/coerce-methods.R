@@ -55,15 +55,11 @@ setAs(
     function(from) {
         validObject(from)
         if (metadata(from)[["level"]] != "genes") {
-            # Consider adding summarize to gene support here.
-            # Consult the tximport vignette if we decide to add this.
-            stop("Gene-level counts are required.")
+            stop("Gene-level counts are required.", call. = FALSE)
         }
-        message(paste0(
-            "Coercing bcbioRNASeq to DESeqDataSet with DESeq2 ",
-            packageVersion("DESeq2"), "..."
-        ))
-        to <- .new.DESeqDataSet(se = as(from, "RangedSummarizedExperiment"))
+        se <- as(from, "RangedSummarizedExperiment")
+        validObject(se)
+        to <- .new.DESeqDataSet(se = se)
         interestingGroups(to) <- interestingGroups(from)
         validObject(to)
         to
