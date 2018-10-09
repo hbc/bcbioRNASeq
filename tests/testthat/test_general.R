@@ -1,4 +1,4 @@
-context("Data Functions")
+context("General")
 
 bcb <- bcbioRNASeq(
     uploadDir = system.file("extdata/bcbio", package = "bcbioRNASeq"),

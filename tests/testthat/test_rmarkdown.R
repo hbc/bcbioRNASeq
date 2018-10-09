@@ -1,4 +1,4 @@
-context("R Markdown Functions")
+context("R Markdown")
 
 
 

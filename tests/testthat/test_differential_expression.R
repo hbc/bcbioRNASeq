@@ -1,4 +1,4 @@
-context("Differential Expression Functions")
+context("Differential Expression")
 
 gene2symbol <- gene2symbol(bcb_small)
 geneIDs <- head(gene2symbol[["geneID"]])

@@ -38,27 +38,25 @@ reference:
     - bcbioRNASeq
     - DESeqAnalysis
     - DESeqResultsTables
-  - title: S4 Functions
+  - title: General
     contents:
     - coerce
-    - extract
-    - show
-    - updateObject
-  - title: Data Functions
-    contents:
     - counts
     - export
+    - extract
     - sampleData
     - tmm
-  - title: Plot Functions
+    - show
+    - updateObject
+  - title: Quality Control
     contents:
     - starts_with("plot")
-  - title: Differential Expression Functions
+  - title: Differential Expression
     contents:
     - alphaSummary
     - contrastName
     - ends_with("Tables")
-  - title: R Markdown Functions
+  - title: R Markdown
     contents:
     - markdown
     - prepareRNASeqTemplate
