@@ -85,7 +85,7 @@ NULL
 .DESeqResultsTables.DESeqAnalysis <-  # nolint
     function(
         object,
-        results,
+        results = 1L,
         lfcShrink = TRUE,
         rowData = TRUE,
         counts = TRUE
@@ -102,15 +102,12 @@ NULL
         )
 
         # Add columns (optional) -----------------------------------------------
-        if (
-            isTRUE(rowData) ||
-            isTRUE(counts)
-        ) {
+        if (isTRUE(rowData) || isTRUE(counts)) {
             # Coerce to `DataFrame`.
             # We'll regenerate a modified `DESeqResults` from this below.
             data <- as(results, "DataFrame")
 
-            # Row annotations
+            # Row annotations.
             if (isTRUE(rowData)) {
                 message(paste(
                     "Adding `rowData()` annotations (atomic columns only)..."
