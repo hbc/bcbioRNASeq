@@ -1,7 +1,4 @@
-setClassUnion(
-    name = "missingOrNULL",
-    members = c("missing", "NULL")
-)
+setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 
@@ -22,12 +19,7 @@ setClassUnion(
 #' @export
 #'
 #' @seealso [bcbioRNASeq()].
-setClass(
-    Class = "bcbioRNASeq",
-    contains = "RangedSummarizedExperiment"
-)
-
-
+setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 
 setValidity(
     Class = "bcbioRNASeq",
@@ -101,8 +93,7 @@ setValidity(
             lanes = "integer",
             level = "character",
             organism = "character",
-            # FIXME Make this stricter...pick one.
-            programVersions = c("DataFrame", "tbl_df"),
+            programVersions = "tbl_df",
             projectDir = "character",
             runDate = "Date",
             sampleDirs = "character",
@@ -234,8 +225,6 @@ setClass(
     )
 )
 
-
-
 setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
@@ -323,8 +312,6 @@ setClass(
         dropboxFiles = list()
     )
 )
-
-
 
 setValidity(
     Class = "DESeqResultsTables",
