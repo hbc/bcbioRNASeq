@@ -264,29 +264,23 @@ NULL
             assays(rse)[["raw"]] <- NULL
         }
 
-        # Caller-specific assays
+        # Caller-specific assays.
         if (caller %in% tximportCallers) {
-            # length (from tximport)
-            if (!"length" %in% assayNames(rse)) {
-                message("Moving TPM length matrix to assays.")
-                length <- slot(object, "bcbio")[["tximport"]][["length"]]
-                assert_is_matrix(length)
-                assays(rse)[["length"]] <- length
-            }
             assert_is_subset(tximportAssays, assayNames(rse))
         } else if (caller %in% featureCountsCallers) {
             assert_is_subset(featureCountsAssays, assayNames(rse))
         }
 
-        # Gene-level-specific assays (DESeq2)
+        # Gene-level-specific assays (DESeq2).
         if (level == "genes") {
-            # DESeq2 normalized counts
+            # DESeq2 normalized counts.
             if (is(assays(rse)[["normalized"]], "DESeqDataSet")) {
                 assays(rse)[["normalized"]] <-
                     assay(assays(rse)[["normalized"]])
             } else if (!"normalized" %in% names(assays)) {
-                dds <- .regenerateDESeqDataSet(rse)
-                assays(rse)[["normalized"]] <- assay(dds)
+                dds <- .new.DESeqDataSet(rse)
+                dds <- DESeq(dds)
+                assays(rse)[["normalized"]] <- counts(dds, normalized = TRUE)
             }
 
             # vst
