@@ -10,6 +10,8 @@
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
+#' data(deseq_small)
+#'
 #' # DESeqAnalysis ====
 #' plotDEGPCA(deseq_small)
 #'

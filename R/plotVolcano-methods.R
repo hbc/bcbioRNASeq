@@ -17,15 +17,18 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' g2s <- gene2symbol(bcb_small)
+#' data(deseq_small)
+#'
+#' object <- deseq_small
+#' print(object)
+#'
+#' # Get genes from DESeqDataSet.
+#' dds <- as(object, "DESeqDataSet")
+#' g2s <- gene2symbol(dds)
 #' geneIDs <- head(g2s[["geneID"]])
 #' print(geneIDs)
 #' geneNames <- head(g2s[["geneName"]])
 #' print(geneNames)
-#'
-#' # DESeqAnalysis ====
-#' object <- deseq_small
-#' print(object)
 #'
 #' plotVolcano(object)
 #'

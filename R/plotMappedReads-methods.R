@@ -14,6 +14,7 @@
 #' @seealso [plotMappingRate()].
 #'
 #' @examples
+#' data(bcb_small)
 #' plotMappedReads(bcb_small)
 NULL
 

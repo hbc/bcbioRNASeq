@@ -23,6 +23,8 @@
 #' - [write()].
 #'
 #' @examples
+#' data(deseq_small)
+#'
 #' # DESeqAnalysis ====
 #' # This is the recommended default method.
 #' x <- DESeqResultsTables(deseq_small)

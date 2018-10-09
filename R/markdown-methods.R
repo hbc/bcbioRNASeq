@@ -9,8 +9,9 @@
 #' @inheritParams general
 #'
 #' @examples
-#' object <- DESeqResultsTables(deseq_small)
-#' markdown(object)
+#' data(deseq_small)
+#' x <- DESeqResultsTables(deseq_small)
+#' markdown(x)
 NULL
 
 

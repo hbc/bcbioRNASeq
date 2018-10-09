@@ -12,6 +12,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotIntronicMappingRate(bcb_small)
 NULL
 

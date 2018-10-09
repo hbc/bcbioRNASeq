@@ -18,6 +18,7 @@
 #' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotCorrelationHeatmap(bcb_small, method = "pearson")
 #' plotCorrelationHeatmap(bcb_small, method = "spearman")
 NULL

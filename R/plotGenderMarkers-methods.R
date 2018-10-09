@@ -17,6 +17,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotGenderMarkers(bcb_small, normalized = "vst")
 NULL
 

@@ -16,6 +16,7 @@
 #' @return `matrix`.
 #'
 #' @examples
+#' data(bcb_small)
 #' x <- tmm(bcb_small)
 #' summary(x)
 NULL

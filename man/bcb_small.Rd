@@ -12,7 +12,7 @@ bcb_small
 \code{bcbioRNASeq} Example
 }
 \examples{
-bcbioRNASeq::bcb_small
+bcb_small
 }
 \seealso{
 Other GSE65267: \code{\link{deseq_small}}

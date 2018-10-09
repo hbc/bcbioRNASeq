@@ -35,6 +35,7 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
+#' data(bcb_small)
 #' updateObject(bcb_small)
 NULL
 

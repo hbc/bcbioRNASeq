@@ -14,6 +14,7 @@
 #' @return `DESeqAnalysis`.
 #'
 #' @examples
+#' data(bcb_small)
 #' library(DESeq2)
 #' dds <- as(bcb_small, "DESeqDataSet")
 #' design(dds) <- ~ treatment

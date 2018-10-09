@@ -16,6 +16,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plot5Prime3PrimeBias(bcb_small)
 NULL
 

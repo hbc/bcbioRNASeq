@@ -22,6 +22,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotDispEsts(bcb_small)
 #'
 #' # Custom colors, using DESeq2 parameters.

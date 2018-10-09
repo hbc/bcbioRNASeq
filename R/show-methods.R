@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' data(bcb_small)
 #' show(bcb_small)
 NULL
 

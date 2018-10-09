@@ -11,7 +11,7 @@
 #' @return `kable`.
 #'
 #' @examples
-#' # DESeqAnalysis ====
+#' data(deseq_small)
 #' topTables(deseq_small, results = 1L, n = 5L)
 NULL
 
@@ -83,7 +83,7 @@ NULL
 .topTables.DESeqAnalysis <-  # nolint
     function(
         object,
-        results,
+        results = 1L,
         lfcShrink = TRUE,
         n = 50L
     ) {

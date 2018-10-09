@@ -27,6 +27,7 @@
 #' @return `ggplot` or `DataFrame`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotPCA(
 #'     object = bcb_small,
 #'     normalized = "vst",

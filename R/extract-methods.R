@@ -26,6 +26,7 @@
 #' @seealso `help("[", "base")`.
 #'
 #' @examples
+#' data(bcb_small)
 #' object <- bcb_small
 #'
 #' # Minimum of 100 genes, 2 samples

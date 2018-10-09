@@ -25,6 +25,8 @@
 #' @return `ggplot` grid.
 #'
 #' @examples
+#' data(bcb_small, dds_small)
+#'
 #' # bcbioRNASeq ====
 #' plotMeanSD(bcb_small)
 #'

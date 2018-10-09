@@ -23,6 +23,8 @@
 #' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
+#' data(deseq_small)
+#'
 #' # DESeqAnalysis ====
 #' plotDEGHeatmap(deseq_small)
 #'

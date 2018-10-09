@@ -4,7 +4,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples
-#' print(bcb_small)
+#' bcb_small
 "bcb_small"
 
 
@@ -17,5 +17,5 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples
-#' print(deseq_small)
+#' deseq_small
 "deseq_small"

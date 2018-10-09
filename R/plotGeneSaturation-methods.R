@@ -19,6 +19,7 @@
 #' @return `ggplot`.
 #'
 #' @examples
+#' data(bcb_small)
 #' plotGeneSaturation(bcb_small, label = FALSE)
 #' plotGeneSaturation(bcb_small, label = TRUE)
 NULL

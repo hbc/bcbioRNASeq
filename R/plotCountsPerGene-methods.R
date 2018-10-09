@@ -21,6 +21,7 @@
 #' @inheritParams general
 #'
 #' @examples
+#' data(bcb_small)
 #' plotCountsPerGene(bcb_small)
 NULL
 
