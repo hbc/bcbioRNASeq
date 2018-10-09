@@ -203,6 +203,7 @@ For the vignette, we are loading a pre-computed version of the example `bcbioRNA
 
 ```{r, message=FALSE}
 loadRemoteData("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
+bcb <- updateObject(bcb)
 print(bcb)
 ```
 
