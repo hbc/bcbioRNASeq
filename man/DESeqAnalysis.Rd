@@ -24,6 +24,7 @@ DESeqAnalysis(data, transform, results, lfcShrink)
 \code{DESeqAnalysis} Generator
 }
 \examples{
+data(bcb_small)
 library(DESeq2)
 dds <- as(bcb_small, "DESeqDataSet")
 design(dds) <- ~ treatment

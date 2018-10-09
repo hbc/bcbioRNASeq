@@ -33,7 +33,7 @@ transcripts per million (TPM) can be accessed using the \code{"normalized"}
 argument.
 }
 \examples{
-# bcbioRNASeq ====
+data(bcb_small)
 counts(bcb_small, normalized = FALSE) \%>\% summary()
 counts(bcb_small, normalized = TRUE) \%>\% summary()
 counts(bcb_small, normalized = "tpm") \%>\% summary()

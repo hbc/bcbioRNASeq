@@ -27,11 +27,12 @@ the columns map to a single sample (e.g. cells for a single-cell RNA-seq
 experiment).
 }
 \examples{
-# SummarizedExperiment ====
+data(bcb_small)
+
 sampleData(bcb_small, clean = TRUE) \%>\% glimpse()
 sampleData(bcb_small, clean = FALSE) \%>\% glimpse()
 
-# Assignment support
+# Assignment support.
 x <- bcb_small
 sampleData(x)[["test"]] <- seq_len(ncol(x))
 # `test` column should be now defined

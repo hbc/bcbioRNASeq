@@ -10,8 +10,8 @@
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqAnalysis}(object, results, lfcShrink = TRUE,
-  n = 50L)
+\S4method{topTables}{DESeqAnalysis}(object, results = 1L,
+  lfcShrink = TRUE, n = 50L)
 
 \S4method{topTables}{DESeqResults}(object, n = 50L)
 
@@ -35,7 +35,7 @@ topTables(object, ...)
 Top Tables of Differential Expression Results
 }
 \examples{
-# DESeqAnalysis ====
+data(deseq_small)
 topTables(deseq_small, results = 1L, n = 5L)
 }
 \seealso{

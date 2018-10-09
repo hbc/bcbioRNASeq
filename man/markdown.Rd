@@ -20,8 +20,9 @@ Markdown output.
 Markdown
 }
 \examples{
-object <- DESeqResultsTables(deseq_small)
-markdown(object)
+data(deseq_small)
+x <- DESeqResultsTables(deseq_small)
+markdown(x)
 }
 \author{
 Michael Steinbaugh

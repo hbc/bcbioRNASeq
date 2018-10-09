@@ -63,6 +63,8 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
+data(deseq_small)
+
 # DESeqAnalysis ====
 plotDEGPCA(deseq_small)
 

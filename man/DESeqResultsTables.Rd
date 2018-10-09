@@ -41,6 +41,8 @@ See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information a
 on expected fold changes.
 }
 \examples{
+data(deseq_small)
+
 # DESeqAnalysis ====
 # This is the recommended default method.
 x <- DESeqResultsTables(deseq_small)

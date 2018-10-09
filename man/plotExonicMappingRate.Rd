@@ -45,6 +45,7 @@ plots containing many samples.}
 Ideally, at least 60 percent of total reads should map to exons.
 }
 \examples{
+data(bcb_small)
 plotExonicMappingRate(bcb_small)
 }
 \seealso{

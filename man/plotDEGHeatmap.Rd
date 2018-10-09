@@ -121,6 +121,8 @@ Apply quantile breaks.
 }
 
 \examples{
+data(deseq_small)
+
 # DESeqAnalysis ====
 plotDEGHeatmap(deseq_small)
 

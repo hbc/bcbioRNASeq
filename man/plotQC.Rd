@@ -15,6 +15,7 @@
 Plot Quality Control
 }
 \examples{
+data(bcb_small)
 plotQC(bcb_small)
 }
 \seealso{

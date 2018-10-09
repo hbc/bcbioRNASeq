@@ -49,6 +49,7 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.
 }
 \examples{
+data(bcb_small)
 plotGeneSaturation(bcb_small, label = FALSE)
 plotGeneSaturation(bcb_small, label = TRUE)
 }

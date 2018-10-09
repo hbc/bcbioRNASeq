@@ -52,6 +52,7 @@ Here we're generating a \code{DESeqDataSet} object on the fly, which already
 has method support for plotting dispersion, provided by the DESeq2 package.
 }
 \examples{
+data(bcb_small)
 plotDispEsts(bcb_small)
 
 # Custom colors, using DESeq2 parameters.

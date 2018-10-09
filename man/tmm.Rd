@@ -36,6 +36,7 @@ tool when plotting counts per gene.
 Only gene-level counts are supported.
 }
 \examples{
+data(bcb_small)
 x <- tmm(bcb_small)
 summary(x)
 }

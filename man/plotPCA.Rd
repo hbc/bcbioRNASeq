@@ -59,6 +59,7 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
+data(bcb_small)
 plotPCA(
     object = bcb_small,
     normalized = "vst",

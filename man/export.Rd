@@ -50,6 +50,7 @@ column in the CSV export.
 }
 
 \examples{
+data(deseq_small)
 x <- DESeqResultsTables(deseq_small)
 export(x, dir = "example")
 list.files("example")

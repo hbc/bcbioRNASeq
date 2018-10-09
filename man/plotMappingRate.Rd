@@ -44,6 +44,7 @@ reference genome. Low mapping rates are indicative of sample contamination,
 poor sequencing quality or other artifacts.
 }
 \examples{
+data(bcb_small)
 plotMappingRate(bcb_small)
 }
 \seealso{

@@ -63,16 +63,20 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-g2s <- gene2symbol(bcb_small)
+data(deseq_small)
+object <- deseq_small
+print(object)
+
+# DESeqAnalysis ====
+# This is the current recommended method.
+
+dds <- as(object, "DESeqDataSet")
+g2s <- gene2symbol(dds)
 geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
 geneNames <- head(g2s[["geneName"]])
 print(geneNames)
 
-# DESeqAnalysis ====
-# This is the current recommended method.
-object <- deseq_small
-print(object)
 plotMA(object)
 
 # Customize the colors.

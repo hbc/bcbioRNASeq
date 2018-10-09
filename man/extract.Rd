@@ -82,6 +82,7 @@ DESeq2 transformations will only be updated when \code{recalculate = TRUE}
 and either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
 }
 \examples{
+data(bcb_small)
 object <- bcb_small
 
 # Minimum of 100 genes, 2 samples
