@@ -20,7 +20,7 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-library("bcbioRNASeq")
+library(bcbioRNASeq)
 ggplot2::theme_set(theme_paperwhite())
 ```
 
@@ -227,7 +227,6 @@ This approach was inspired by the [DESeq2][] package, which uses the argument `i
 
 ```{r}
 interestingGroups(bcb) <- c("treatment", "day")
-interestingGroups(bcb)
 ```
 
 # Quality control
@@ -279,16 +278,8 @@ plotGeneSaturation(bcb, label = TRUE)
 ```
 
 ```{r, message=FALSE}
-plotCountsPerGene(bcb, geom = "density", interestingGroups = "sampleName")
+plotCountsPerGene(bcb, geom = "boxplot")
 plotCountsPerGene(bcb, geom = "density")
-```
-
-## Dispersion
-
-The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
-
-```{r, message=FALSE}
-plotDispEsts(bcb)
 ```
 
 ## Variance stabilization
@@ -301,51 +292,16 @@ plotMeanSD(bcb)
 
 ## Sample similarity
 
-We can visualize sample similarity with principal component analysis (PCA) and hierarchical clustering of sample correlations. These functions support multiple normalization methods with the `normalized` argument. We recommend using `normalized = "vst"` by default.
-
-Let's plot the PCA using our `vst` counts, the current recommended default.
+We can visualize sample similarity with principal component analysis (PCA) and hierarchical clustering of sample correlations. These functions support multiple normalization methods with the `normalized` argument.
 
 ```{r}
-plotPCA(bcb, normalized = "vst", label = FALSE)
-plotPCA(bcb, normalized = "vst", label = TRUE)
-```
-
-Let's visualize the `rlog` counts for comparison. The performance is similar overall, with some slight differences, but the grouping more or less remains the same.
-
-```{r}
-plotPCA(bcb, normalized = "rlog")
-```
-
-Generally, the `varianceStabilizationTransformation()` and `rlog()` functions provide similar performance, as seen here.
-
-```{r}
-plotCorrelationHeatmap(
-    bcb,
-    method = "pearson",
-    normalized = "vst",
-    color = viridis::viridis
-)
-plotCorrelationHeatmap(
-    bcb,
-    method = "spearman",
-    normalized = "vst",
-    color = viridis::plasma
-)
+plotPCA(bcb, label = FALSE)
+plotPCA(bcb, label = TRUE)
 ```
 
 ```{r}
-plotCorrelationHeatmap(
-    object = bcb,
-    method = "pearson",
-    normalized = "rlog",
-    color = viridis::viridis
-)
-plotCorrelationHeatmap(
-    object = bcb,
-    method = "spearman",
-    normalized = "rlog",
-    color = viridis::plasma
-)
+plotCorrelationHeatmap(bcb, method = "pearson")
+plotCorrelationHeatmap(bcb, method = "spearman")
 ```
 
 # Saving counts
@@ -385,7 +341,13 @@ Since both `bcbioRNASeq` and `DESeqDataSet` classes extend `RangedSummarizedExpe
 The source code for our `bcbioRNASeq` to `DESeqDataSet` coercion is accessible with `getMethod()`.
 
 ```{r, eval=FALSE}
-getMethod("coerce", signature(from = "bcbioRNASeq", to = "DESeqDataSet"))
+getMethod(
+    f = "coerce",
+    signature = signature(
+        from = "bcbioRNASeq",
+        to = "DESeqDataSet"
+    )
+)
 ```
 
 Now you can perform differential expression analysis with [DESeq2][]. The authors of that package have provided a number of detailed, well documented references online:
@@ -403,7 +365,7 @@ We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][
 # R session information
 
 ```{r}
-sessionInfo()
+sessioninfo::session_info()
 ```
 
 # References
