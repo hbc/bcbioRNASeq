@@ -9,7 +9,7 @@
 alphaSummary(object, ...)
 
 \S4method{alphaSummary}{DESeqDataSet}(object, alpha = c(0.1, 0.05, 0.01,
-  0.001, 1e-06), contrast = NULL, name = NULL, caption = NULL)
+  0.001, 1e-06), contrast = NULL, name = NULL)
 }
 \arguments{
 \item{object}{Object.}
@@ -42,12 +42,9 @@ If specified, the \code{name} argument is ignored.}
 building a results table. Use this argument rather than \code{contrast}
 for continuous variables, individual effects or for individual interaction terms.
 The value provided to \code{name} must be an element of \code{resultsNames(object)}.}
-
-\item{caption}{\code{string} or \code{NULL}. Table caption. If set \code{NULL}, will be
-generated automatically from the contrast used.}
 }
 \value{
-\code{kable}.
+\code{integer matrix}.
 }
 \description{
 Quickly generate a summary table of various alpha level cutoffs, for use in
@@ -57,8 +54,10 @@ an R Markdown report.
 Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
+data(deseq_small)
+
 # DESeqDataSet ====
-object <- deseq_small@data
+object <- as(deseq_small, "DESeqDataSet")
 design(object)
 resultsNames(object)
 alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
