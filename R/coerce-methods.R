@@ -46,6 +46,7 @@ NULL
 
 
 
+# FIXME Consider dropping the metrics from colData here.
 # Refer to `DESeq2::DESeqDataSetFromTximport()`.
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
