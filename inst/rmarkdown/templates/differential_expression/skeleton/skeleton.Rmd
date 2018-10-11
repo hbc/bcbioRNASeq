@@ -159,6 +159,8 @@ print(contrasts)
 ```{r res_unshrunken}
 # help(topic = "results", package = "DESeq2")
 # https://support.bioconductor.org/p/101504/
+# Also refer to "Hypothesis tests with thresholds on effect size" section in
+# the DESeq2 paper for more explanation on how to set `results()`.
 # Don't use post hoc LFC threshold filtering. 
 res_list_unshrunken <- mapply(
     FUN = results,
