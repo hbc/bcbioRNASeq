@@ -77,7 +77,7 @@
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
-        importer = read_tsv
+        importer = readr::read_tsv
     )
 
     # Assert checks before return.
