@@ -4,12 +4,11 @@
 # FIXME Stash the bcbio commit number/version in metadata.
 # TODO Consider always loading the annotations from GTF...simpler.
 # TODO Go back to seeing if we can detect organism automatically. This will
-# work for most cases
+# work for most cases.
 
 
 
-#' `bcbioRNASeq` Generator
-#'
+#' @inherit bcbioRNASeq-class
 #' @family S4 Generators
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
@@ -73,7 +72,6 @@
 #' on the remote server, if possible.
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
-#' @inheritParams tximport::tximport
 #' @inheritParams general
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
@@ -175,7 +173,6 @@ bcbioRNASeq <- function(
     gffFile = NULL,
     transgeneNames = NULL,
     spikeNames = NULL,
-    countsFromAbundance = "lengthScaledTPM",
     vst = TRUE,
     rlog = FALSE,
     interestingGroups = "sampleName",
@@ -223,7 +220,6 @@ bcbioRNASeq <- function(
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
-    assert_is_a_string(countsFromAbundance)
     assert_is_a_bool(vst)
     assert_is_a_bool(rlog)
     assert_is_character(interestingGroups)
@@ -346,7 +342,7 @@ bcbioRNASeq <- function(
             type = caller,
             txIn = TRUE,
             txOut = txOut,
-            countsFromAbundance = countsFromAbundance,
+            countsFromAbundance = "lengthScaledTPM",
             tx2gene = tx2gene
         )
         # Raw counts. By default, we're using length-scaled TPM.
@@ -356,6 +352,7 @@ bcbioRNASeq <- function(
         # Average transcript lengths. Only necessary when raw counts matrix
         # isn't scaled during tximport call.
         if (txi[["countsFromAbundance"]] == "no") {
+            # Currently this isn't possible, but keep for a future release.
             assays[["avgTxLength"]] <- txi[["length"]]
         }
     } else if (caller %in% featureCountsCallers) {
