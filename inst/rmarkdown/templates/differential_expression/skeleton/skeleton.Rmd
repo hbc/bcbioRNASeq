@@ -156,12 +156,14 @@ names(contrasts) <- names
 print(contrasts)
 ```
 
+Refer to "Hypothesis tests with thresholds on effect size" section in the DESeq2 paper for more explanation on how to set `results()`. Don't apply *post hoc* LFC threshold filtering, as this will destroy the meaning of the adjusted *P* values computed. If you are expecting a biological effect size past a particular threshold, set `lfcThreshold` here, but be conservative.
+
+This [thread on the Bioconductor forums](https://support.bioconductor.org/p/101504/) explains how `results()` should be used in nice detail. In particular, refer to the comment by Mike Love:
+
+> A common procedure is to disregard genes whose estimated LFC *β ir* is below some threshold, *β ir ≤ θ*. However, this approach loses the benefit of an easily interpretable FDR, as the reported *P* value and adjusted *P* value still correspond to the test of *zero* LFC. It is therefore desirable to include the threshold in the statistical testing procedure directly, i.e., not to filter post hoc on a reported fold-change *estimate*, but rather to evaluate statistically directly whether there is sufficient evidence that the LFC is above the chosen threshold.
+
 ```{r res_unshrunken}
 # help(topic = "results", package = "DESeq2")
-# https://support.bioconductor.org/p/101504/
-# Also refer to "Hypothesis tests with thresholds on effect size" section in
-# the DESeq2 paper for more explanation on how to set `results()`.
-# Don't use post hoc LFC threshold filtering. 
 res_list_unshrunken <- mapply(
     FUN = results,
     contrast = contrasts,
@@ -198,14 +200,13 @@ Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`.
     - Scales well for complex designs.
 
 We're using the `normal` shrinkage estimator by default.
+If using `coef` number, must match order in `resultsNames(dds)`.
+Consider using BiocParallel when shrinking many `DESeqResults`.
 
 ```{r res_shrunken}
 # help(topic = "lfcShrink", package = "DESeq2")
 # help(topic = "coef", package = "DESeq2")
 # help(topic = "resultsNames", package = "DESeq2")
-
-# If using `coef` number, must match order in `resultsNames(dds)`.
-# Consider using BiocParallel when shrinking many DESeqResults.
 res_list_shrunken <- mapply(
     FUN = lfcShrink,
     res = res_list_unshrunken,
