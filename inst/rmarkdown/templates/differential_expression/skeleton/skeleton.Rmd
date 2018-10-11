@@ -178,26 +178,31 @@ names(res_list_unshrunken) <- names
 saveData(res_list_unshrunken, dir = params$data_dir)
 ```
 
-Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doesn't work well with complex contrast designs.
+## Shrink log2 fold changes
+
+Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. DESeq2 supports multiple shrinkage estimators:
+
+### Shrinkage estimators
+
+- `type = "normal"`.
+    - Supports `coef` or `contrast`.
+    - Requires `lfcThreshold`.
+    - Scales well for complex designs.
+- `type = "apeglm"`.
+    - Only supports `coef`.
+    - Requires `lfcThreshold`.
+    - Doesn't scale for complex designs.
+- `type = "ashr"`.
+    - Only requires `res`.
+    - Doesn't require `lfcThreshold`.
+    - Scales well for complex designs.
+
+We're using the `normal` shrinkage estimator by default.
 
 ```{r res_shrunken}
 # help(topic = "lfcShrink", package = "DESeq2")
 # help(topic = "coef", package = "DESeq2")
 # help(topic = "resultsNames", package = "DESeq2")
-
-# Shrinkage estimators:
-# - `type = "normal"`
-#     > Supports `coef` or `contrast`.
-#     > Requires `lfcThreshold`.
-#     > Scales well for complex designs.
-# - `type = "apeglm"`
-#     > Only supports `coef`.
-#     > Requires `lfcThreshold`.
-#     > Doesn't scale for complex designs.
-# - `type = "ashr"`
-#     > Only requires `res`.
-#     > Doesn't require `lfcThreshold`.
-#     > Scales well for complex designs.
 
 # If using `coef` number, must match order in `resultsNames(dds)`.
 # Consider using BiocParallel when shrinking many DESeqResults.
