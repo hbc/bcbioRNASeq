@@ -16,6 +16,8 @@ params:
 ---
 
 ```{r setup, message=FALSE}
+# FIXME Add version checks for DESeq objects against the package version.
+
 # Last modified 2018-08-19
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
