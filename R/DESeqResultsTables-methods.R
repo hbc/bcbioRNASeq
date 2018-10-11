@@ -44,9 +44,10 @@ NULL
         assert_is_all_of(object, "DESeqResults")
         assert_is_subset(c("log2FoldChange", "padj"), colnames(object))
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
+        assert_all_are_non_negative(lfcThreshold)
 
         # Set LFC and test (P value) columns.
         lfcCol <- "log2FoldChange"
