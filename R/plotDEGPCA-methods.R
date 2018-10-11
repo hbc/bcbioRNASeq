@@ -24,6 +24,7 @@ NULL
 
 
 
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotDEGPCA.DESeqResults <-  # nolint
     function(
         object,
@@ -41,7 +42,7 @@ NULL
         )
         interestingGroups(counts) <- interestingGroups
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)

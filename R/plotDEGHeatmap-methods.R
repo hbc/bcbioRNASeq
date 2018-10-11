@@ -37,6 +37,7 @@ NULL
 
 
 
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotDEGHeatmap.DESeqResults <-  # nolint
     function(
         object,

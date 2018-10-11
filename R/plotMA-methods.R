@@ -60,6 +60,7 @@ NULL
 
 
 
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotMA.DESeqResults <-  # nolint
     function(
         object,
@@ -79,8 +80,7 @@ NULL
     ) {
         validObject(object)
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
-        assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)

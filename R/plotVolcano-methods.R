@@ -66,11 +66,10 @@ NULL
 
 
 
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotVolcano.DESeqResults <-  # nolint
     function(
         object,
-        alpha = NULL,
-        lfcThreshold = NULL,
         ylim = 1e-10,
         genes = NULL,
         gene2symbol = NULL,
@@ -88,17 +87,9 @@ NULL
         return = c("ggplot", "DataFrame")
     ) {
         validObject(object)
-        if (is.null(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
-        assert_all_are_in_left_open_range(
-            x = alpha,
-            lower = 0L,
-            upper = 1L
-        )
-        if (is.null(lfcThreshold)) {
-            lfcThreshold <- metadata(object)[["lfcThreshold"]]
-        }
+        alpha <- metadata(object)[["alpha"]]
+        assertIsAlpha(alpha)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_is_a_number(ylim)
         assert_all_are_in_range(
