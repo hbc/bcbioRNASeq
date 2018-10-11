@@ -5,6 +5,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 # FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
 
 # bcbioRNASeq ==================================================================
+# FIXME Consider warning or erroring if dimnames aren't valid.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
