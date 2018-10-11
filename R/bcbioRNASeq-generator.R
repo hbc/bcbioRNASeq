@@ -1,5 +1,6 @@
 # TODO Add automatic support for loading transcriptome (bcbio v1.1+)
 # FIXME Stash the bcbio commit number/version in metadata.
+# FIXME Ensure metadata file path gets normalized, if declared.
 
 
 
