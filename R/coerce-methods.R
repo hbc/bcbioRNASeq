@@ -46,7 +46,6 @@ NULL
 
 
 
-# FIXME Consider dropping the metrics from colData here.
 # Refer to `DESeq2::DESeqDataSetFromTximport()`.
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
@@ -59,6 +58,8 @@ setAs(
             stop("Gene-level counts are required.", call. = FALSE)
         }
         se <- as(from, "RangedSummarizedExperiment")
+        # Don't include the metrics columns inside bcbioRNASeq object.
+        colData(se) <- sampleData(from, clean = TRUE)
         validObject(se)
         to <- .new.DESeqDataSet(se = se)
         interestingGroups(to) <- interestingGroups(from)
