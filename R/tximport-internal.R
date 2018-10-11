@@ -64,10 +64,13 @@
     # Import counts using tximport ---------------------------------------------
     # Note that this step can take a long time when processing a lot of samples,
     # and is recommended to be run on an HPC cluster, rather than locally.
-    message(paste(
-        "Reading", type, "counts using tximport",
-        packageVersion("tximport")
+    message(paste0(
+        "Reading ", type, " counts using tximport ",
+        packageVersion("tximport"), "..."
     ))
+    if (countsFromAbundance != "no") {
+        message(paste0("Scaling using ", countsFromAbundance, "..."))
+    }
     txi <- tximport(
         files = files,
         type = type,
