@@ -24,7 +24,6 @@
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),
-    txIn = TRUE,
     txOut = FALSE,
     countsFromAbundance = "lengthScaledTPM",
     tx2gene,
@@ -33,7 +32,6 @@
     assert_all_are_dirs(sampleDirs)
     assert_are_identical(names(sampleDirs), basename(sampleDirs))
     type <- match.arg(type)
-    assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
     assert_is_a_string(countsFromAbundance)
     assert_is_all_of(tx2gene, "Tx2Gene")
@@ -74,7 +72,7 @@
     txi <- tximport(
         files = files,
         type = type,
-        txIn = txIn,
+        txIn = TRUE,
         txOut = txOut,
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
