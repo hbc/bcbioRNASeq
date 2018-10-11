@@ -348,16 +348,20 @@ bcbioRNASeq <- function(
             countsFromAbundance = "lengthScaledTPM",
             tx2gene = tx2gene
         )
-        # Raw counts. By default, we're using length-scaled TPM.
+
+        # Raw counts. By default, we're using length-scaled TPM, so a
+        # corresponding average transcript length matrix isn't necessary.
         assays[["counts"]] <- txi[["counts"]]
-        # Transcripts per million.
-        assays[["tpm"]] <- txi[["abundance"]]
+
         # Average transcript lengths. Only necessary when raw counts matrix
         # isn't scaled during tximport call.
+        # Currently this isn't possible, but keep code for a future release.
         if (txi[["countsFromAbundance"]] == "no") {
-            # Currently this isn't possible, but keep for a future release.
             assays[["avgTxLength"]] <- txi[["length"]]
         }
+
+        # Transcripts per million.
+        assays[["tpm"]] <- txi[["abundance"]]
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
         assert_are_identical(level, "genes")
