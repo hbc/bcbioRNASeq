@@ -10,7 +10,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-10-05
+# Last modified 2018-10-11
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -25,6 +25,7 @@ invisible(mapply(
 bcb <- readRDS(file = bcb_file)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
+stopifnot(identical(metadata(bcb)$version, packageVersion("bcbioRNASeq")))
 print(bcb)
 ```
 

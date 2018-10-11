@@ -44,6 +44,7 @@ if (!is.null(params$dropbox_dir)) {
 bcb <- readRDS(file = params$bcb_file)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
+stopifnot(identical(metadata(bcb)$version, packageVersion("bcbioRNASeq")))
 print(bcb)
 ```
 
