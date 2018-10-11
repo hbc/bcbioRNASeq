@@ -23,7 +23,7 @@ params:
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-10-05
+# Last modified 2018-10-11
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
@@ -82,7 +82,7 @@ design(dds) <- params$design
 While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2. Here we perform a minimal pre-filtering to keep only rows that have at least 10 reads total. Note that more strict filtering to increase power is automatically applied via independent filtering on the mean of normalized counts within the `results()` function.
 
 ```{r prefilter}
-# Note that this criteria can be made more stringent
+# Note that this criteria can be made more stringent.
 keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep, ]
 print(dds)
@@ -93,14 +93,14 @@ print(dds)
 By default, [R][] will choose a reference level for factors based on alphabetical order. Then, if you never tell the [DESeq2][] functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the [DESeq2][] analysis, not during or afterward. Setting the factor levels can be done in two ways, using either the `factor()` or `relevel()` functions. Generally we recommend using `relevel()` here.
 
 ```{r relevel, eval=FALSE}
-# Specify the reference level (preferred)
+# Specify the reference level (preferred).
 dds$treatment <- relevel(dds$treatment, ref = "control")
 
-# Alternatively, can explicitly define, using `factor()`
-# When using this approach, put the reference level (control) first
+# Alternatively, can explicitly define, using `factor()`.
+# When using this approach, put the reference level (control) first.
 dds$treatment <- factor(dds$treatment, levels = c("control", "folic_acid"))
 
-# If samples have been subset, ensure that the levels match
+# If samples have been subset, ensure that the levels match.
 dds$treatment <- droplevels(dds$treatment)
 
 print(dds$treatment)
