@@ -1,6 +1,10 @@
-# TODO Add automatic support for loading transcriptome (bcbio v1.1+)
+# TODO Add automatic support for loading transcriptome (bcbio v1.1+), if the
+# `transcriptome/` directory is created. Don't allow the user to get gene
+# annotations manually if this is the case.
 # FIXME Stash the bcbio commit number/version in metadata.
-# FIXME Ensure metadata file path gets normalized, if declared.
+# TODO Consider always loading the annotations from GTF...simpler.
+# TODO Go back to seeing if we can detect organism automatically. This will
+# work for most cases
 
 
 
@@ -189,13 +193,6 @@ bcbioRNASeq <- function(
         warning("Use `ensemblRelease` instead of `ensemblVersion`.")
         ensemblRelease <- call[["ensemblVersion"]]
     }
-    # organism
-    if (!"organism" %in% names(call)) {
-        message(paste(
-            "`organism` is recommended for defining",
-            "annotations in `rowRanges()`."
-        ))
-    }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
         stop(paste(
@@ -263,7 +260,16 @@ bcbioRNASeq <- function(
     # Determine which samples to load ------------------------------------------
     # Get the sample data.
     if (is_a_string(sampleMetadataFile)) {
+        # Normalize path of local file.
+        if (file.exists(sampleMetadataFile)) {
+            sampleMetadataFile <- normalizePath(
+                path = sampleMetadataFile,
+                winslash = "/",
+                mustWork = TRUE
+            )
+        }
         # User-defined external file.
+        # Note that `readSampleData()` also supports URLs.
         sampleData <- readSampleData(file = sampleMetadataFile, lanes = lanes)
     } else {
         # Automatic metadata from YAML file.
@@ -371,6 +377,12 @@ bcbioRNASeq <- function(
     assert_are_identical(colnames(assays[[1L]]), rownames(colData))
 
     # Row data -----------------------------------------------------------------
+    if (is.null(organism)) {
+        message(paste(
+            "`organism` is recommended for defining",
+            "annotations in `rowRanges()`."
+        ))
+    }
     if (is_a_string(gffFile)) {
         message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
