@@ -163,6 +163,7 @@ This [thread on the Bioconductor forums](https://support.bioconductor.org/p/1015
 > A common procedure is to disregard genes whose estimated LFC *β ir* is below some threshold, *β ir ≤ θ*. However, this approach loses the benefit of an easily interpretable FDR, as the reported *P* value and adjusted *P* value still correspond to the test of *zero* LFC. It is therefore desirable to include the threshold in the statistical testing procedure directly, i.e., not to filter post hoc on a reported fold-change *estimate*, but rather to evaluate statistically directly whether there is sufficient evidence that the LFC is above the chosen threshold.
 
 ```{r res_unshrunken}
+# FIXME Look into returning as GRanges instead of DataFrame.
 # help(topic = "results", package = "DESeq2")
 res_list_unshrunken <- mapply(
     FUN = results,
