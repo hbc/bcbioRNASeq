@@ -16,6 +16,7 @@ params:
       )
     )
   alpha: 0.01
+  # Only change this when expecting a specific biological effect size.
   lfc_threshold: 0
   data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "differential_expression")
