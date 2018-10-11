@@ -76,7 +76,10 @@
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
 #' @param level `string`. Import counts at gene level ("`genes`"; *default*) or
-#'   transcript level ("`transcripts`"; *advanced use*).
+#'   transcript level ("`transcripts`"; *advanced use*). Only
+#'   tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
+#'   at transcript level. Aligned counts from featureCounts-compatible callers
+#'   (e.g. STAR, HISAT2) can only be loaded at gene level.
 #' @param caller `string`. Expression caller:
 #'   - "`salmon`" (*default*): [Salmon](https://combine-lab.github.io/salmon)
 #'     alignment-free, quasi-mapped counts.

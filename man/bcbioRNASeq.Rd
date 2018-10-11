@@ -16,7 +16,10 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
 when running "\code{bcbio_nextgen -w template}".}
 
 \item{level}{\code{string}. Import counts at gene level ("\code{genes}"; \emph{default}) or
-transcript level ("\code{transcripts}"; \emph{advanced use}).}
+transcript level ("\code{transcripts}"; \emph{advanced use}). Only
+tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
+at transcript level. Aligned counts from featureCounts-compatible callers
+(e.g. STAR, HISAT2) can only be loaded at gene level.}
 
 \item{caller}{\code{string}. Expression caller:
 \itemize{
