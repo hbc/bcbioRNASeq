@@ -74,14 +74,12 @@ default, but can take a long time for large datasets.}
 \code{bcbioRNASeq}.
 }
 \description{
-Extract or Replace Parts of an Object
+Extract genes by row and samples by column.
 }
 \details{
-Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
-Internal count transformations are rescaled automatically, if defined.
-
-DESeq2 transformations will only be updated when \code{recalculate = TRUE} and
-either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
+Internal count transformations are rescaled automatically, if defined. DESeq2
+transformations will only be updated when \code{recalculate = TRUE} and either
+\code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
 }
 \examples{
 data(bcb_small)
@@ -110,8 +108,10 @@ x <- object[, samples, recalculate = FALSE]
 print(x)
 names(assays(x))
 }
-\seealso{
-\code{help("[", "base")}.
+\references{
+Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
+  \emph{The New S Language}.
+  Wadsworth & Brooks/Cole.
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

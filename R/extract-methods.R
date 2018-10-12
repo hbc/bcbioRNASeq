@@ -3,25 +3,22 @@
 
 
 #' @name extract
-#' @inherit base::Extract title
+#' @inherit base::Extract title params references
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @details
-#' Extract genes by row and samples by column from a `bcbioRNASeq` object.
-#' Internal count transformations are rescaled automatically, if defined.
+#' @description Extract genes by row and samples by column.
 #'
-#' DESeq2 transformations will only be updated when `recalculate = TRUE` and
-#' either `rlog` or `vst` counts are defined in [assays()].
+#' @details
+#' Internal count transformations are rescaled automatically, if defined. DESeq2
+#' transformations will only be updated when `recalculate = TRUE` and either
+#' `rlog` or `vst` counts are defined in [assays()].
 #
-#' @inheritParams base::Extract
 #' @inheritParams general
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
 #'   variance-stabilizing transformations defined in [assays()]. Recommended by
 #'   default, but can take a long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
-#'
-#' @seealso `help("[", "base")`.
 #'
 #' @examples
 #' data(bcb_small)
