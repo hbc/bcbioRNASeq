@@ -29,7 +29,7 @@ topTables(object, ...)
 \item{n}{\code{scalar integer}. Number of genes (per direction) to report.}
 }
 \value{
-\code{kable}.
+\code{kable}. Markdown tables.
 }
 \description{
 Top Tables of Differential Expression Results
@@ -38,10 +38,6 @@ Top Tables of Differential Expression Results
 data(deseq_small)
 topTables(deseq_small, results = 1L, n = 5L)
 }
-\seealso{
-Other R Markdown Functions: \code{\link{prepareRNASeqTemplate}}
-}
 \author{
 Michael Steinbaugh
 }
-\concept{R Markdown Functions}

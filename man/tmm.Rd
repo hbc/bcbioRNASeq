@@ -5,7 +5,7 @@
 \alias{tmm}
 \alias{tmm,matrix-method}
 \alias{tmm,SummarizedExperiment-method}
-\title{\strong{T}rimmed \strong{M}ean of \strong{M}-Values (TMM) Normalization}
+\title{Trimmed Mean of M-Values}
 \usage{
 tmm(object, ...)
 

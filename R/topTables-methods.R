@@ -1,14 +1,13 @@
 #' Top Tables of Differential Expression Results
 #'
 #' @name topTables
-#' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams general
 #' @param n `scalar integer`. Number of genes (per direction) to report.
 #'
-#' @return `kable`.
+#' @return `kable`. Markdown tables.
 #'
 #' @examples
 #' data(deseq_small)
@@ -138,7 +137,7 @@ NULL
         contrast <- contrastName(object)
         assert_is_a_string(contrast)
 
-        # Upregulated
+        # Upregulated.
         up <- .topTable(object, direction = "up", n = n)
         if (length(up)) {
             show(kable(
@@ -147,7 +146,7 @@ NULL
             ))
         }
 
-        # Downregulated
+        # Downregulated.
         down <- .topTable(object, direction = "down", n = n)
         if (length(down)) {
             show(kable(
