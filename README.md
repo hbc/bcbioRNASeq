@@ -8,13 +8,13 @@
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
-## Citation
+## Workflow paper
+
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000] *F1000Research* 6:1976.
 
 ```r
 citation("bcbioRNASeq")
 ```
-
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000] *F1000Research* 6:1976.
 
 ## Installation
 
@@ -85,7 +85,7 @@ Note that there is currently a bug with [conda][] and `libgfortran`. You may nee
 conda install libgfortran-ng
 ```
 
-### Pinned [F1000 workflow paper][F1000] version
+### Pinned [workflow paper][F1000] version
 
 Installing the specific version of [bcbioRNASeq][] used in the [F1000 workflow paper][F1000] is easiest using [conda][].
 
