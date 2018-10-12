@@ -146,17 +146,6 @@ sample4 \tab knockout
 }
 }
 
-\section{Automatic metadata}{
-
-
-The \code{\link[=metadata]{metadata()}} slot contains:
-\itemize{
-\item bcbio data provenance information.
-\item File paths and timestamps.
-\item R session information.
-}
-}
-
 \section{Valid names}{
 
 
@@ -200,6 +189,18 @@ When working on a local machine, it is possible to load bcbio run data over a
 remote connection using \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}. When loading a large number of samples, it
 is preferable to call \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} directly in R on the remote server, if
 possible.
+}
+
+\section{Automatic metadata}{
+
+
+The \code{\link[=metadata]{metadata()}} slot always contains:
+\itemize{
+\item Object version.
+\item bcbio data provenance information.
+\item File paths and timestamps.
+\item R session information.
+}
 }
 
 \examples{
