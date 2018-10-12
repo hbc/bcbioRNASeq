@@ -22,13 +22,13 @@ projectDirPattern <- bcbioBase::projectDirPattern
 validLevels <- c("genes", "transcripts")
 
 requiredAssays <- "counts"
-tximportAssays <- c("counts", "tpm")
+tximportAssays <- c(requiredAssays, "tpm")
 featureCountsAssays <- requiredAssays
-# avgTxLength should only be present when counts aren't scaled.
-deseqAssays <- c("counts", "avgTxLength")
 
 tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
+
+normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
 
 legacyMetricsCols <- c("name", "x53Bias")
