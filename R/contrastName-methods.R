@@ -1,7 +1,6 @@
 #' Contrast Name
 #'
 #' @name contrastName
-#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #' @export
 #'

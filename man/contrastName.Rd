@@ -40,4 +40,3 @@ contrastName(object)
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}
