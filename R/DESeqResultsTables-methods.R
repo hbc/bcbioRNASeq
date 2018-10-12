@@ -1,4 +1,8 @@
-#' `DESeqResultsTables` Generator
+#' @inherit DESeqResultsTables-class
+#' @name DESeqResultsTables
+#' @family S4 Generators
+#' @author Michael Steinbaugh
+#' @export
 #'
 #' @section Obtaining results from DESeq2:
 #'
@@ -45,11 +49,6 @@
 #' LFC is above the chosen threshold."
 #'
 #' [thread]: https://support.bioconductor.org/p/101504/
-#'
-#' @name DESeqResultsTables
-#' @family S4 Generators
-#' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #' @param rowData `boolean`. Include gene annotations.

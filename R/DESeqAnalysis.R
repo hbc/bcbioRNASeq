@@ -1,5 +1,4 @@
-#' `DESeqAnalysis` Generator
-#'
+#' @inherit DESeqAnalysis-class
 #' @family S4 Generators
 #' @author Michael Steinbaugh
 #' @export

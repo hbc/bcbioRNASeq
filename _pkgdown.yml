@@ -27,9 +27,6 @@ authors:
     href: http://bioinformatics.sph.harvard.edu
 
 reference:
-  - title: Package Information
-    contents:
-    - bcbioRNASeq-package
   - title: S4 Classes
     contents:
     - ends_with("-class")
@@ -38,28 +35,30 @@ reference:
     - bcbioRNASeq
     - DESeqAnalysis
     - DESeqResultsTables
-  - title: General
+  - title: Counts
     contents:
-    - coerce
     - counts
-    - export
-    - extract
-    - sampleData
+    - relativeLogExpression
     - tmm
-    - show
-    - updateObject
-  - title: Quality Control
+  - title: Plots
     contents:
     - starts_with("plot")
   - title: Differential Expression
     contents:
     - alphaSummary
     - contrastName
+    - starts_with("DESeq")
     - ends_with("Tables")
-  - title: R Markdown
+  - title: General
     contents:
+    - as
+    - export
+    - extract
     - markdown
     - prepareRNASeqTemplate
+    - sampleData
+    - show
+    - updateObject
   - title: Example Data
     desc: GSE65267
     contents:

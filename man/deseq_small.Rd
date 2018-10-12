@@ -3,7 +3,7 @@
 \docType{data}
 \name{deseq_small}
 \alias{deseq_small}
-\title{\code{DESeqAnalysis} Example}
+\title{DESeq2 Example Analysis}
 \format{An object of class \code{DESeqAnalysis} of length 1.}
 \usage{
 deseq_small

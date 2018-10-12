@@ -5,7 +5,7 @@
 \alias{DESeqResultsTables}
 \alias{DESeqResultsTables,DESeqResults-method}
 \alias{DESeqResultsTables,DESeqAnalysis-method}
-\title{\code{DESeqResultsTables} Generator}
+\title{DESeq2 Differential Expression Results Tables}
 \usage{
 DESeqResultsTables(object, ...)
 
@@ -31,7 +31,7 @@ DESeqResultsTables(object, ...)
 \code{DESeqResultsTables}.
 }
 \description{
-\code{DESeqResultsTables} Generator
+\code{DESeqResults} object with \code{DataFrame} subsets and file path information.
 }
 \section{Obtaining results from DESeq2}{
 

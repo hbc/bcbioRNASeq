@@ -54,13 +54,14 @@
 #' - RLE: Anders and Huber (2010).
 #'
 #' @seealso
-#' - [tmm()], [relativeLogExpression()].
+#' - [tximport::tximport()].
 #' - [DESeq2::counts()].
 #' - [DESeq2::sizeFactors()].
 #' - [DESeq2::varianceStabilizingTransformation()].
 #' - [DESeq2::rlog()].
 #' - [DESeq2::fpkm()].
 #' - [edgeR::calcNormFactors()].
+#' - [tmm()], [relativeLogExpression()].
 #'
 #' @examples
 #' data(bcb_small)

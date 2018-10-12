@@ -4,6 +4,7 @@
 #' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
 #'
 #' @aliases NULL
+#' @keywords internal
 #'
 #' @importClassesFrom basejump Tx2Gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
