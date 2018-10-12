@@ -9,7 +9,7 @@
 #' @examples
 #' data(bcb_small, deseq_small)
 #'
-#' # bcbioRNASeq ====
+#' ## bcbioRNASeq ====
 #' object <- bcb_small
 #' g2s <- gene2symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
@@ -30,7 +30,7 @@
 #'     style = "wide"
 #' )
 #'
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' object <- deseq_small
 #' plotGene(object, genes = geneIDs, style = "facet")
 #' plotGene(object, genes = geneNames, style = "wide")

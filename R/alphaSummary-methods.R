@@ -3,7 +3,7 @@
 #' Quickly generate a summary table of various alpha level cutoffs, for use in
 #' an R Markdown report.
 #'
-#' @note Use either `contrast` or `name` to specify the desired contrast.
+#' Use either `contrast` or `name` to specify the desired contrast.
 #'
 #' @name alphaSummary
 #' @author Michael Steinbaugh, Lorena Patano
@@ -22,7 +22,7 @@
 #' @examples
 #' data(deseq_small)
 #'
-#' # DESeqDataSet ====
+#' ## DESeqDataSet ====
 #' object <- as(deseq_small, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)

@@ -1,7 +1,7 @@
-#' @inherit basejump::plotQC
 #' @name plotQC
-#' @author Michael Steinbaugh
 #' @importFrom basejump plotQC
+#' @inherit basejump::plotQC
+#' @author Michael Steinbaugh
 #' @export
 #'
 #' @examples

@@ -1,14 +1,11 @@
-#' Export
-#'
 #' @name export
-#' @author Michael Steinbaugh
 #' @importFrom basejump export
 #' @inherit basejump::export
+#' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams bcbioBase::copyToDropbox
 #' @inheritParams general
-#'
 #' @param dir `string`. Local directory path.
 #' @param dropboxDir `string` or `NULL`. Dropbox directory path where to archive
 #'   the results tables for permanent storage (e.g. Stem Cell Commons). When
@@ -28,7 +25,7 @@
 #' export(x, dir = "example")
 #' list.files("example")
 #'
-#' # Clean up
+#' ## Clean up.
 #' unlink("example", recursive = TRUE)
 NULL
 

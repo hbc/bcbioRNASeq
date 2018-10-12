@@ -175,7 +175,7 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
-#' # Gene level
+#' ## Gene level
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "genes",
@@ -185,7 +185,7 @@
 #' )
 #' print(object)
 #'
-#' # Transcript level
+#' ## Transcript level
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",

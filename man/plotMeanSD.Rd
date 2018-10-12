@@ -50,10 +50,10 @@ discouraged by default for visualization.}
 \examples{
 data(bcb_small, deseq_small)
 
-# bcbioRNASeq ====
+## bcbioRNASeq ====
 plotMeanSD(bcb_small)
 
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 plotMeanSD(deseq_small)
 }
 \seealso{

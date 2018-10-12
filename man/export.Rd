@@ -55,7 +55,7 @@ x <- DESeqResultsTables(deseq_small)
 export(x, dir = "example")
 list.files("example")
 
-# Clean up
+## Clean up.
 unlink("example", recursive = TRUE)
 }
 \seealso{

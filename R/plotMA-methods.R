@@ -1,7 +1,7 @@
-#' @inherit BiocGenerics::plotMA
 #' @name plotMA
-#' @author Michael Steinbaugh, Rory Kirchner
 #' @importFrom BiocGenerics plotMA
+#' @inherit BiocGenerics::plotMA
+#' @author Michael Steinbaugh, Rory Kirchner
 #' @export
 #'
 #' @details
@@ -21,8 +21,8 @@
 #' object <- deseq_small
 #' print(object)
 #'
-#' # DESeqAnalysis ====
-#' # This is the current recommended method.
+#' ## DESeqAnalysis ====
+#' ## This is the current recommended method.
 #'
 #' dds <- as(object, "DESeqDataSet")
 #' g2s <- gene2symbol(dds)
@@ -33,7 +33,7 @@
 #'
 #' plotMA(object)
 #'
-#' # Customize the colors.
+#' ## Customize the colors.
 #' plotMA(
 #'     object = object,
 #'     pointColor = "black",
@@ -47,12 +47,12 @@
 #'     )
 #' )
 #'
-#' # Directional support (up or down).
+#' ## Directional support (up or down).
 #' plotMA(object, direction = "up", ntop = 5L)
 #' plotMA(object, direction = "down", ntop = 5L)
 #'
-#' # Label genes manually.
-#' # Note that either gene IDs or names (symbols) are supported.
+#' ## Label genes manually.
+#' ## Note that either gene IDs or names (symbols) are supported.
 #' plotMA(object = object, genes = geneIDs)
 #' plotMA(object = object, genes = geneNames)
 NULL

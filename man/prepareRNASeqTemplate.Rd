@@ -30,7 +30,7 @@ This code is used internally by:
 x <- prepareRNASeqTemplate()
 x
 
-# Clean up
+## Clean up
 unlink(c(
     "_footer.Rmd",
     "_header.Rmd",
@@ -40,7 +40,10 @@ unlink(c(
 ))
 }
 \seealso{
-Other R Markdown Functions: \code{\link{topTables}}
+Other Markdown Functions: \code{\link{markdownHeader}},
+  \code{\link{markdownLink}}, \code{\link{markdownList}},
+  \code{\link{markdownPlotlist}},
+  \code{\link{markdownTables}}, \code{\link{markdown}}
 }
 \author{
 Michael Steinbaugh

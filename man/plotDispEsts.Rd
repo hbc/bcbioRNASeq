@@ -72,7 +72,7 @@ from DESeq2.
 data(bcb_small)
 plotDispEsts(bcb_small)
 
-# Custom colors, using DESeq2 parameters.
+## Custom colors, using DESeq2 parameters.
 plotDispEsts(
     object = bcb_small,
     genecol = "gray",

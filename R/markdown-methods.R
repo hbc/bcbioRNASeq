@@ -1,9 +1,7 @@
-#' Markdown
-#'
 #' @name markdown
-#' @author Michael Steinbaugh
 #' @importFrom basejump markdown
 #' @inherit basejump::markdown
+#' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams general

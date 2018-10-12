@@ -22,7 +22,11 @@ plotDEGPCA(object, ...)
   "DataFrame"))
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{
+    
+    A data object, typically containing gene expression information.
+
+  }
 
 \item{...}{Additional arguments.}
 
@@ -51,10 +55,12 @@ and picks the first item in the vector by default.}
 \code{ggplot} or \code{DataFrame}.
 }
 \description{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
-(PCA) sample coloring and labeling.
+A generic function which produces a PCA-plot.
 }
 \details{
+Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
+(PCA) sample coloring and labeling. Always plots using normalized counts.
+
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
@@ -65,10 +71,10 @@ a way to look at how samples are clustering.
 \examples{
 data(deseq_small)
 
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 plotDEGPCA(deseq_small)
 
-# DESeqResults ====
+## DESeqResults ====
 plotDEGPCA(
     object = as(deseq_small, "DESeqResults"),
     counts = as(deseq_small, "DESeqTransform")

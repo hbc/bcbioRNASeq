@@ -1,5 +1,10 @@
 #' Differentially Expressed Gene Heatmap
+#' @name plotDEGHeatmap
+#' @inherit basejump::plotHeatmap
+#' @author Michael Steinbaugh
+#' @export
 #'
+#' @details
 #' This function is a simplified version of [plotHeatmap()] that is
 #' optimized for handling a `DESeqResults` object rather a gene vector. All of
 #' the optional parameters for [plotHeatmap()] are also available to this
@@ -9,25 +14,16 @@
 #' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
 #' `DESeqDataSet`).
 #'
-#' @name plotDEGHeatmap
-#' @inherit basejump::plotHeatmap
-#' @author Michael Steinbaugh
-#' @export
-#'
 #' @inheritParams general
 #' @param counts `DESeqTransform`.
-#'
-#' @seealso
-#' - `help("plotHeatmap", "basejump")`.
-#' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
 #' data(deseq_small)
 #'
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' plotDEGHeatmap(deseq_small)
 #'
-#' # DESeqResults ====
+#' ## DESeqResults ====
 #' plotDEGHeatmap(
 #'     object = as(deseq_small, "DESeqResults"),
 #'     counts = as(deseq_small, "DESeqTransform")

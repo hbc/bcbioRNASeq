@@ -2,21 +2,19 @@
 
 
 
-#' Extract or Replace Parts of an Object
+#' @name extract
+#' @inherit base::Extract title
+#' @author Michael Steinbaugh, Lorena Pantano
 #'
+#' @details
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object.
 #' Internal count transformations are rescaled automatically, if defined.
 #'
-#' @note DESeq2 transformations will only be updated when `recalculate = TRUE`
-#'   and either `rlog` or `vst` counts are defined in [assays()].
-#'
-#' @name extract
-#' @family S4 Functions
-#' @author Lorena Pantano, Michael Steinbaugh
-#'
-#' @inheritParams base::`[`
+#' DESeq2 transformations will only be updated when `recalculate = TRUE` and
+#' either `rlog` or `vst` counts are defined in [assays()].
+#
+#' @inheritParams base::Extract
 #' @inheritParams general
-#'
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
 #'   variance-stabilizing transformations defined in [assays()]. Recommended by
 #'   default, but can take a long time for large datasets.
@@ -29,25 +27,25 @@
 #' data(bcb_small)
 #' object <- bcb_small
 #'
-#' # Minimum of 100 genes, 2 samples
+#' ## Minimum of 100 genes, 2 samples.
 #' genes <- head(rownames(object), 100L)
 #' head(genes)
 #' samples <- head(colnames(object), 2L)
 #' head(samples)
 #'
-#' # Extract by sample name
+#' ## Extract by sample name.
 #' object[, samples]
 #'
-#' # Extract by gene list
+#' ## Extract by gene list.
 #' object[genes, ]
 #'
-#' # Extract by both genes and samples
+#' ## Extract by both genes and samples.
 #' x <- object[genes, samples]
 #' print(x)
 #' assayNames(x)
 #'
-#' # Fast subsetting, by skipping DESeq2 recalculations.
-#' # Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+#' ## Fast subsetting, by skipping DESeq2 recalculations.
+#' ## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
 #' x <- object[, samples, recalculate = FALSE]
 #' print(x)
 #' names(assays(x))

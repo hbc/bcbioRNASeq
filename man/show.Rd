@@ -47,8 +47,7 @@ data(bcb_small)
 show(bcb_small)
 }
 \seealso{
-Other S4 Functions: \code{\link{coerce}},
-  \code{\link{extract}}
+Other S4 Functions: \code{\link{coerce}}
 }
 \author{
 Michael Steinbuagh

@@ -82,12 +82,12 @@ LFC is above the chosen threshold."
 \examples{
 data(deseq_small)
 
-# DESeqAnalysis ====
-# This is the recommended default method.
+## DESeqAnalysis ====
+## This is the recommended default method.
 x <- DESeqResultsTables(deseq_small)
 print(x)
 
-# DESeqResults ====
+## DESeqResults ====
 res <- as(deseq_small, "DESeqResults")
 x <- DESeqResultsTables(res)
 print(x)

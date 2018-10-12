@@ -1,5 +1,4 @@
 #' Plot DEG PCA
-#'
 #' @name plotDEGPCA
 #' @author Michael Steinbaugh
 #' @include plotPCA-methods.R
@@ -12,10 +11,10 @@
 #' @examples
 #' data(deseq_small)
 #'
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' plotDEGPCA(deseq_small)
 #'
-#' # DESeqResults ====
+#' ## DESeqResults ====
 #' plotDEGPCA(
 #'     object = as(deseq_small, "DESeqResults"),
 #'     counts = as(deseq_small, "DESeqTransform")

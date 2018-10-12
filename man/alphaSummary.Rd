@@ -50,13 +50,13 @@ The value provided to \code{name} must be an element of \code{resultsNames(objec
 Quickly generate a summary table of various alpha level cutoffs, for use in
 an R Markdown report.
 }
-\note{
+\details{
 Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
 data(deseq_small)
 
-# DESeqDataSet ====
+## DESeqDataSet ====
 object <- as(deseq_small, "DESeqDataSet")
 design(object)
 resultsNames(object)

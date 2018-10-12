@@ -72,7 +72,7 @@ data(deseq_small)
 object <- deseq_small
 print(object)
 
-# Get genes from DESeqDataSet.
+## Get genes from DESeqDataSet.
 dds <- as(object, "DESeqDataSet")
 g2s <- gene2symbol(dds)
 geneIDs <- head(g2s[["geneID"]])
@@ -82,7 +82,7 @@ print(geneNames)
 
 plotVolcano(object)
 
-# Customize the colors.
+## Customize the colors.
 plotVolcano(
     object = object,
     pointColor = "black",
@@ -96,7 +96,7 @@ plotVolcano(
     )
 )
 
-# Directional support (up or down).
+## Directional support (up or down).
 plotVolcano(
     object = object,
     direction = "up",
@@ -108,8 +108,8 @@ plotVolcano(
     ntop = 5L
 )
 
-# Label genes manually.
-# Note that either gene IDs or names (symbols) are supported.
+## Label genes manually.
+## Note that either gene IDs or names (symbols) are supported.
 plotVolcano(object, genes = geneIDs)
 plotVolcano(object, genes = geneNames)
 }

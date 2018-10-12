@@ -37,7 +37,7 @@ sampleData(bcb_small, clean = FALSE) \%>\% glimpse()
 ## Assignment support.
 x <- bcb_small
 sampleData(x)[["test"]] <- seq_len(ncol(x))
-# `test` column should be now defined
+## `test` column should be now defined
 "test" \%in\% colnames(sampleData(x))
 }
 \seealso{

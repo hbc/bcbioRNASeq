@@ -9,10 +9,10 @@
 #' @return `string`. Contrast name.
 #'
 #' @examples
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' contrastName(deseq_small, results = 1L)
 #'
-#' # DESeqResults ====
+#' ## DESeqResults ====
 #' object <- deseq_small@results[[1L]]
 #' contrastName(object)
 NULL

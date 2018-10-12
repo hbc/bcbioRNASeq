@@ -30,10 +30,10 @@ contrastName(object, ...)
 Contrast Name
 }
 \examples{
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 contrastName(deseq_small, results = 1L)
 
-# DESeqResults ====
+## DESeqResults ====
 object <- deseq_small@results[[1L]]
 contrastName(object)
 }

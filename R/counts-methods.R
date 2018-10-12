@@ -54,12 +54,13 @@
 #' - RLE: Anders and Huber (2010).
 #'
 #' @seealso
-#' - [DESeq2::counts].
-#' - [DESeq2::sizeFactors].
-#' - [DESeq2::varianceStabilizingTransformation].
-#' - [DESeq2::rlog].
-#' - [DESeq2::fpkm].
-#' - [edgeR::calcNormFactors].
+#' - [tmm()], [relativeLogExpression()].
+#' - [DESeq2::counts()].
+#' - [DESeq2::sizeFactors()].
+#' - [DESeq2::varianceStabilizingTransformation()].
+#' - [DESeq2::rlog()].
+#' - [DESeq2::fpkm()].
+#' - [edgeR::calcNormFactors()].
 #'
 #' @examples
 #' data(bcb_small)
@@ -72,6 +73,8 @@ NULL
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
+        # Ensure that primary assay matches counts.
+        assert_are_identical(assayNames(object)[[1L]], "counts")
 
         # Restrict the `normalized` arguments for transcript-level objects.
         if (.isTranscriptLevel(object)) {
@@ -94,14 +97,14 @@ NULL
         assert_is_a_string(assayName)
 
         if (assayName == "tmm") {
-            # Calculate TMM on the fly.
-            counts <- tmm(assay(object))
+            counts <- assays(object)[["counts"]]
+            counts <- tmm(counts)
         } else if (assayName == "rle") {
-            # Calculate RLE on the fly.
-            counts <- t(t(assay(object)) / colMedians(assay(object)))
+            counts <- assays(object)[["counts"]]
+            counts <- relativeLogExpression(counts)
         } else {
             # Get matrix slotted in `assays()`.
-            # Note that we're killing the log2 TMM fall back support if
+            # Note that we've killed the log2 TMM fall back support if
             # DESeq2 transforms are skipped, because that is confusing.
             counts <- assays(object)[[assayName]]
         }

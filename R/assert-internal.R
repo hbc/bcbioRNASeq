@@ -4,6 +4,10 @@
     assert_all_are_true(.isGeneLevel(object))
 }
 
+.isGeneLevel <- function(object) {
+    identical(metadata(object)[["level"]], "genes")
+}
+
 
 
 .assertIsTranscriptLevel <- function(object) {
@@ -11,14 +15,6 @@
     assert_is_all_of(object, "bcbioRNASeq")
     assert_all_are_true(.isTranscriptLevel(object))
 }
-
-
-
-.isGeneLevel <- function(object) {
-    identical(metadata(object)[["level"]], "genes")
-}
-
-
 
 .isTranscriptLevel <- function(object) {
     identical(metadata(object)[["level"]], "transcripts")

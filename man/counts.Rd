@@ -65,16 +65,14 @@ counts(bcb_small) \%>\% summary()
 }
 \seealso{
 \itemize{
-\item \link[DESeq2:counts]{DESeq2::counts}.
-\item \link[DESeq2:sizeFactors]{DESeq2::sizeFactors}.
-\item \link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation}.
-\item \link[DESeq2:rlog]{DESeq2::rlog}.
-\item \link[DESeq2:fpkm]{DESeq2::fpkm}.
-\item \link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
+\item \code{\link[=tmm]{tmm()}}, \code{\link[=relativeLogExpression]{relativeLogExpression()}}.
+\item \code{\link[DESeq2:counts]{DESeq2::counts()}}.
+\item \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}}.
+\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
 }
-
-Other Data Functions: \code{\link{sampleData}},
-  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
