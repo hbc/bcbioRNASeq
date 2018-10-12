@@ -163,6 +163,18 @@ setGeneric(
 
 
 
+# Don't use "rle" because that's for run length encoding.
+#' @rdname relativeLogExpression
+#' @export
+setGeneric(
+    name = "relativeLogExpression",
+    def = function(object, ...) {
+        standardGeneric("relativeLogExpression")
+    }
+)
+
+
+
 #' @rdname tmm
 #' @export
 setGeneric(

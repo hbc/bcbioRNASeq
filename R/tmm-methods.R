@@ -1,19 +1,23 @@
 #' **T**rimmed **M**ean of **M**-Values (TMM) Normalization
 #'
 #' TMM normalization is recommended for RNA-seq data generally when the majority
-#' of genes are not differentially expressed. We use this as a quality control
-#' tool when plotting counts per gene.
+#' of genes are not differentially expressed.
 #'
-#' @note Only gene-level counts are supported.
+#' @note Only recommended for gene-level counts.
 #'
 #' @name tmm
-#' @family Data Functions
 #' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams general
 #'
 #' @return `matrix`.
+#'
+#' @references Robinson and Oshlack (2010).
+#'
+#' @seealso
+#' - [edgeR::calcNormFactors].
+#' - [edgeR::cpm].
 #'
 #' @examples
 #' data(bcb_small)
@@ -23,19 +27,34 @@ NULL
 
 
 
-#' @rdname tmm
-#' @export
-setMethod(
-    f = "tmm",
-    signature = signature("matrix"),
-    definition = function(object) {
+# matrix =======================================================================
+.tmm.matrix <-  # nolint
+    function(object) {
         message("Applying trimmed mean of M-values (TMM) normalization.")
         object %>%
             DGEList() %>%
             calcNormFactors() %>%
             cpm(normalized.lib.sizes = TRUE)
     }
+
+
+
+#' @rdname tmm
+#' @export
+setMethod(
+    f = "tmm",
+    signature = signature("matrix"),
+    definition = .tmm.matrix
 )
+
+
+
+# SummarizedExperiment =========================================================
+.tmm.SE <-  # nolint
+    function(object) {
+        validObject(object)
+        tmm(counts(object))
+    }
 
 
 
@@ -44,23 +63,5 @@ setMethod(
 setMethod(
     f = "tmm",
     signature = signature("SummarizedExperiment"),
-    definition = function(object, assay = 1L) {
-        assert_is_scalar(assay)
-        validObject(object)
-        tmm(assays(object)[[assay]])
-    }
-)
-
-
-
-#' @rdname tmm
-#' @export
-setMethod(
-    f = "tmm",
-    signature = signature("bcbioRNASeq"),
-    definition = function(object) {
-        validObject(object)
-        .assertIsGeneLevel(object)
-        tmm(assay(object))
-    }
+    definition = .tmm.SE
 )
