@@ -9,26 +9,27 @@
 # FIXME Make the tx2gene validity requirement less strict.
 
 
-#' Update an Object to Its Current Class Definition
+#' @name updateObject
+#' @importFrom BiocGenerics updateObject
+#' @inherit BiocGenerics::updateObject
+#' @author Michael Steinbaugh
+#' @export
 #'
+#' @details
 #' Update old objects created by the bcbioRNASeq package. The session
 #' information metadata is preserved from the time when the bcbio data was
 #' originally loaded into R.
 #'
 #' @section Legacy `bcbioRNADataSet` class:
+#'
 #' Support for `bcbioRNADataSet` objects was dropped in v0.2.0 of the package.
 #' If you need to load one of these objects, please install an older release.
 #'
 #' @section Legacy objects created with `bcbioRnaseq`:
+#'
 #' The previous `bcbioRnaseq` package (note case) must be reinstalled to load
 #' objects from versions <= 0.0.20. We changed the name of the package to
 #' `bcbioRNASeq` starting in v0.0.21.
-#'
-#' @name updateObject
-#' @family S4 Functions
-#' @author Michael Steinbaugh
-#' @importFrom BiocGenerics updateObject
-#' @export
 #'
 #' @inheritParams general
 #' @param rowRanges `GRanges` or `NULL`. Row annotations. Since we converted to
@@ -79,34 +80,19 @@ NULL
         assert_is_a_string(level)
         assert_is_subset(level, validLevels)
 
-        # Rename main assay from "raw" to "counts".
+        # Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
-            message("Renaming primary assay to counts.")
+            message("Renaming `raw` assay to `counts`.")
             assays[["counts"]] <- assays[["raw"]]
             assays[["raw"]] <- NULL
         }
 
-        # Legacy average transcript length matrix.
-        countsFromAbundance <- metadata(object)[["countsFromAbundance"]]
-        if (
-            "length" %in% names(assays) &&
-            countsFromAbundance != "no"
-        ) {
-            # Note that if we use `countsFromAbundance = "no"`, this will be
-            # imported as `avgTxLength`, which integrates with DESeq2. We don't
-            # want to keep average transcript lengths in assays when using
-            # `countsFromAbundance = "lengthScaledTPM"`, since these have
-            # already been applied to the raw counts matrix.
-            message(paste0(
-                "Dropping average transcript length matrix from assays.\n",
-                "Counts were imported with tximport using ",
-                "`countsFromAbundance = ", deparse(countsFromAbundance), "`. ",
-                "Since the counts are already scaled, ",
-                "inclusion of the length matrix isn't recommended."
-            ))
+        # Rename average transcript length matrix.
+        if ("length" %in% names(assays)) {
+            message("Renaming `length` assay to `avgTxLength`.")
+            assays[["avgTxLength"]] <- assays[["length"]]
             assays[["length"]] <- NULL
         }
-        rm(countsFromAbundance)
 
         # Legacy TMM counts.
         if ("tmm" %in% names(assays)) {
@@ -118,26 +104,32 @@ NULL
         }
 
         # Gene-level-specific assays (DESeq2).
+        # Handle legacy objects where size factor normalized counts aren't
+        # stashed as a matrix. Note that these will always be length scaled.
         if (level == "genes") {
             # DESeq2 normalized counts.
+            msg <- "Updating size factor normalied counts."
             if (is(assays[["normalized"]], "DESeqDataSet")) {
+                message(msg)
                 dds <- assays[["normalized"]]
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
             } else if (!"normalized" %in% names(assays)) {
+                message(msg)
                 dds <- .new.DESeqDataSetFromMatrix(assays[["counts"]])
                 dds <- DESeq(dds)
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
             }
+            rm(msg)
 
             # Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
-                message("Coercing vst DESeqTransform to matrix in assays.")
+                message("Coercing VST `DESeqTransform` to `matrix`.")
                 assays[["vst"]] <- assay(assays[["vst"]])
             }
 
             # Regularized log.
             if (is(assays[["rlog"]], "DESeqTransform")) {
-                message("Coercing rlog DESeqTransform to matrix in assays.")
+                message("Coercing rlog `DESeqTransform` to `matrix`.")
                 assays[["rlog"]] <- assay(assays[["rlog"]])
             }
         }
@@ -154,12 +146,8 @@ NULL
         }
 
         # Row data -------------------------------------------------------------
-        # Error if the object already has rowRanges, and the user is trying
-        # to supply new ones.
-        if (
-            .hasSlot(object, "rowRanges") &&
-            !is.null(rowRanges)
-        ) {
+        # Error if object has rowRanges and the user is trying to reslot.
+        if (.hasSlot(object, "rowRanges") && !is.null(rowRanges)) {
             stop(paste(
                 "Object already contains rowRanges.",
                 "Don't attempt to slot new ones with `rowRanges` argument.",
@@ -171,7 +159,7 @@ NULL
             warning(paste(
                 "`rowRanges` are now recommended for gene annotations."
             ), call. = FALSE)
-            # Generate empty ranges if not supplied by the user.
+            message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
         }
         assert_is_all_of(rowRanges, "GRanges")
@@ -226,120 +214,115 @@ NULL
 
         # bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
-            message("Setting bcbioLog as empty character")
+            warning("Setting `bcbioLog` as empty `character`.")
             metadata[["bcbioLog"]] <- character()
         }
 
         # bcbioCommandsLog
         if (is.null(metadata[["bcbioCommandsLog"]])) {
-            message("Setting bcbioCommands as empty character")
+            warning("Setting `bcbioCommands` as empty `character`.")
             metadata[["bcbioCommandsLog"]] <- character()
         }
 
         # caller
         if (!"caller" %in% names(metadata)) {
-            message("Setting caller as salmon")
+            message("Setting `caller` as salmon.")
             metadata[["caller"]] <- "salmon"
         }
 
         # countsFromAbundance
         if (!"countsFromAbundance" %in% names(metadata)) {
-            message("Setting countsFromAbundance as lengthScaledTPM")
+            message("Setting `countsFromAbundance` as lengthScaledTPM.")
             metadata[["countsFromAbundance"]] <- "lengthScaledTPM"
         }
 
         # design
         if ("design" %in% names(metadata)) {
-            message("Dropping legacy design formula")
+            message("Dropping legacy design formula.")
             metadata[["design"]] <- NULL
         }
 
         # ensemblRelease
         if ("ensemblVersion" %in% names(metadata)) {
-            # Renamed in v0.2.0
-            message("Renaming ensemblVersion to ensemblRelease")
+            # Renamed in v0.2.0.
+            message("Renaming `ensemblVersion` to `ensemblRelease`.")
             metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
             metadata[["ensemblVersion"]] <- NULL
         }
         if (!is.integer(metadata[["ensemblRelease"]])) {
-            message("Setting ensemblRelease as integer")
+            message("Setting `ensemblRelease` as `integer`.")
             metadata[["ensemblRelease"]] <-
                 as.integer(metadata[["ensemblRelease"]])
         }
 
         # genomeBuild
         if (!is.character(metadata[["genomeBuild"]])) {
-            message("Setting genomeBuild as empty character")
+            warning("Setting `genomeBuild` as empty `character`.")
             metadata[["genomeBuild"]] <- character()
         }
 
         # gffFile
         if ("gtfFile" %in% names(metadata)) {
-            message("Renaming gtfFile to gffFile")
+            message("Renaming `gtfFile` to `gffFile`.")
             metadata[["gffFile"]] <- metadata[["gtfFile"]]
             metadata[["gtfFile"]] <- NULL
         }
         if (!"gffFile" %in% names(metadata)) {
-            message("Setting gffFile as empty character")
+            message("Setting `gffFile` as empty `character`")
             metadata[["gffFile"]] <- character()
         }
 
         # gtf
         if ("gtf" %in% names(metadata)) {
-            message("Removing stashed GTF")
+            warning("Removing stashed GTF.")
             metadata <- metadata[setdiff(names(metadata), "gtf")]
         }
 
         # lanes
         if (!is.integer(metadata[["lanes"]])) {
-            message("Setting lanes as integer")
+            message("Setting `lanes` as `integer`.")
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
 
         # level
         if (!"level" %in% names(metadata)) {
-            message("Setting level as genes")
+            message("Setting `level` as genes.")
             metadata[["level"]] <- "genes"
         }
 
         # programVersions
         if (!"programVersions" %in% names(metadata) &&
             "programs" %in% names(metadata)) {
-            message("Renaming programs to programVersions")
+            message("Renaming `programs` to `programVersions`.")
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
         }
 
-        # rowRangesMetadata
-        if (!"rowRangesMetadata" %in% names(metadata)) {
-            message("Setting rowRangesMetadata as empty tibble")
-            metadata[["rowRangesMetadata"]] <- tibble()
-        }
-
         # sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
-            message("Setting sampleMetadataFile as empty character")
+            message("Setting `sampleMetadataFile` as empty `character`.")
             metadata[["sampleMetadataFile"]] <- character()
         }
 
         # tx2gene
         if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
+            message("Coercing `tx2gene` to `Tx2Gene` class.")
             metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
         }
 
         # Dead genes: "missing" or "unannotated"
         if ("missingGenes" %in% names(metadata)) {
-            message("Dropping missingGenes from metadata.")
+            warning("Dropping `missingGenes` from metadata.")
             metadata[["missingGenes"]] <- NULL
         }
         if ("unannotatedGenes" %in% names(metadata)) {
-            message("Dropping unannotatedGenes from metadata.")
+            warning("Dropping `unannotatedGenes` from metadata.")
             metadata[["unannotatedGenes"]] <- NULL
         }
 
         # yamlFile
         if ("yamlFile" %in% names(metadata)) {
-            message("Dropping yamlFile path.")
+            message("Dropping `yamlFile` file path.")
             metadata[["yamlFile"]] <- NULL
         }
 
