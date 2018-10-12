@@ -1,25 +1,16 @@
-#' Sample Data
-#'
-#' Return the sample metadata. Columns are always sanitized to factor.
-#'
-#' @note This is a complement to the standard [colData()] function, but improves
-#'   support for accessing sample metadata for datasets where multiple items in
-#'   the columns map to a single sample (e.g. cells for a single-cell RNA-seq
-#'   experiment).
-#'
 #' @name sampleData
-#' @family Data Functions
 #' @author Michael Steinbaugh
 #' @importFrom basejump sampleData
+#' @inherit basejump::sampleData
 #' @export
 #'
 #' @inheritParams general
 #' @param clean `boolean`. Only return `factor` columns not defined in
-#'   [bcbioBase::metadataBlacklist].
+#'   [bcbioBase::metadataBlacklist]. This removes metrics columns used for
+#'   quality control analysis, which are often not informative as sample
+#'   metadata.
 #'
 #' @return `DataFrame`.
-#'
-#' @seealso [bcbioBase::metadataBlacklist].
 #'
 #' @examples
 #' data(bcb_small)
@@ -27,7 +18,7 @@
 #' sampleData(bcb_small, clean = TRUE) %>% glimpse()
 #' sampleData(bcb_small, clean = FALSE) %>% glimpse()
 #'
-#' # Assignment support.
+#' ## Assignment support.
 #' x <- bcb_small
 #' sampleData(x)[["test"]] <- seq_len(ncol(x))
 #' # `test` column should be now defined

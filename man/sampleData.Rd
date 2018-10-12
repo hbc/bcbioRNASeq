@@ -12,15 +12,17 @@
 \item{object}{Object.}
 
 \item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
-\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}
+\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}. This removes metrics columns used for
+quality control analysis, which are often not informative as sample
+metadata.}
 }
 \value{
 \code{DataFrame}.
 }
 \description{
-Return the sample metadata. Columns are always sanitized to factor.
+Metadata that describes the samples.
 }
-\note{
+\details{
 This is a complement to the standard \code{\link[=colData]{colData()}} function, but improves
 support for accessing sample metadata for datasets where multiple items in
 the columns map to a single sample (e.g. cells for a single-cell RNA-seq
@@ -32,19 +34,28 @@ data(bcb_small)
 sampleData(bcb_small, clean = TRUE) \%>\% glimpse()
 sampleData(bcb_small, clean = FALSE) \%>\% glimpse()
 
-# Assignment support.
+## Assignment support.
 x <- bcb_small
 sampleData(x)[["test"]] <- seq_len(ncol(x))
 # `test` column should be now defined
 "test" \%in\% colnames(sampleData(x))
 }
 \seealso{
-\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.
+Other Metadata Functions: \code{\link{detectHPC}},
+  \code{\link{detectLanes}}, \code{\link{detectOrganism}},
+  \code{\link{interestingGroups}},
+  \code{\link{microplate}},
+  \code{\link{minimalSampleData}}, \code{\link{organism}},
+  \code{\link{sampleNames}},
+  \code{\link{uniteInterestingGroups}}
 
-Other Data Functions: \code{\link{counts}},
-  \code{\link{tmm}}
+Other SummarizedExperiment Functions: \code{\link{counts}},
+  \code{\link{interestingGroups}},
+  \code{\link{makeSummarizedExperiment}},
+  \code{\link{mapGenes}}, \code{\link{meltCounts}},
+  \code{\link{metrics}}, \code{\link{sampleNames}},
+  \code{\link{selectSamples}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Data Functions}
