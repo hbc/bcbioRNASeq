@@ -1,8 +1,11 @@
+# FIXME Consider dropping `tmm()` generic.
+
+
+
 #' Count Matrix Accessors
 #'
-#' By default, [counts()] returns the raw counts. Normalized counts, including
-#' transcripts per million (TPM) can be accessed using the `"normalized"`
-#' argument.
+#' By default, returns the raw counts. Normalized counts in a variety of formats
+#' can be accessed using the `normalized` argument.
 #'
 #' @name counts
 #' @family Data Functions
@@ -13,31 +16,54 @@
 #' @inheritParams general
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
 #'
-#'   - `FALSE`: Raw counts (tximport).
-#'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
-#'   - `"tpm"`: Transcripts per million (tximport).
-#'   - `"vst"`: DESeq2 **log2** variance stabilizing transformation.
-#'   - `"rlog"`: DESeq2 **log2** regularized log transformation.
-#'   - `"tmm"`: edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - `"rle"`: Relative log expression transformation.
+#'   - `FALSE`: Raw counts.
+#'     - When using a [tximport][]-compatible caller, these are length scaled
+#'       by default (see `countsFromAbundance`).
+#'     - When using a [featureCounts][]-compatible caller, these are `integer`.
 #'
-#'   Note that transcript-level counts support only `FALSE` and `"tpm"`.
+#' [tximport][] caller-specific normalizations:
+#'
+#'   - `"tpm"`: **T**ranscripts **p**er **m**illion.
+#'
+#' Additional gene-level-specific normalizations:
+#'
+#'   - `TRUE`: Size factor-adjusted counts.\cr
+#'     See [DESeq2::sizeFactors] for more information.
+#'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation.\cr
+#'     Requires `vst = TRUE` to be set during [bcbioRNASeq()] call.\cr
+#'     See [DESeq2::varianceStabilizingTransformation] for more information.
+#'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
+#'     Requires `rlog = TRUE` to be set during [bcbioRNASeq()] call.\cr
+#'     See [DESeq2::rlog] for more information.
+#'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
+#'     See [edgeR::calcNormFactors] for more information.
+#'   - `"rle"`: **R**elative **l**og **e**xpression transformation.
+#'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
+#'     fragments.\cr
+#'     Requires annotations in [rowRanges()] with defined [widths], otherwise
+#'     will be skipped during the [bcbioRNASeq()] load call.\cr
+#'     See [DESeq2::fpkm] for more information.
+#'
+#' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
+#' [tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
 #'
 #' @return `matrix`.
 #'
+#' @references
+#' - TMM: Robinson and Oshlack (2010).
+#' - RLE: Anders and Huber (2010).
+#'
 #' @seealso
-#' - [tpm()].
-#' - [tmm()].
-#' - [DESeq2::counts()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
+#' - [DESeq2::counts].
+#' - [DESeq2::sizeFactors].
+#' - [DESeq2::varianceStabilizingTransformation].
+#' - [DESeq2::rlog].
+#' - [DESeq2::fpkm].
+#' - [edgeR::calcNormFactors].
 #'
 #' @examples
 #' data(bcb_small)
-#' counts(bcb_small, normalized = FALSE) %>% summary()
-#' counts(bcb_small, normalized = TRUE) %>% summary()
-#' counts(bcb_small, normalized = "tpm") %>% summary()
-#' counts(bcb_small, normalized = "vst") %>% summary()
+#' counts(bcb_small) %>% summary()
 NULL
 
 
