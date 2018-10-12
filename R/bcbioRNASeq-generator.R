@@ -222,8 +222,7 @@ bcbioRNASeq <- function(
     }
     # ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
-        warning("Use `ensemblRelease` instead of `ensemblVersion`.")
-        ensemblRelease <- call[["ensemblVersion"]]
+        stop("Use `ensemblRelease` instead of `ensemblVersion`.")
     }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
@@ -409,19 +408,41 @@ bcbioRNASeq <- function(
     assert_are_identical(colnames(assays[[1L]]), rownames(colData))
 
     # Row data -----------------------------------------------------------------
-    # FIXME Pull the corresponding GTF file from the bcbio logs by default,
-    # and use that if it exists.
+    # Annotation priority:
+    # 1. GTF/GFF file. Use the bcbio GTF if possible.
+    # 2. AnnotationHub.
+    #    - Requires `organism` to be declared.
+    #    - Ensure that Ensembl release and genome build match.
+    # 3. Fall back to slotting empty ranges. This is offered as support for
+    #    complex datasets (e.g. multiple organisms).
+
+    # Inform the user about recommending `organism` argument.
     if (is.null(organism)) {
-        message(paste(
-            "`organism` is recommended for defining",
-            "annotations in `rowRanges()`."
-        ))
+        warning("`organism` is recommended.", call. = FALSE)
     }
-    if (is_a_string(gffFile)) {
+
+    # bcbio GTF file path.
+    if (is.null(gffFile)) {
+        gffFile <- getGTFFileFromYAML(yaml)
+        if (!file.exists(gffFile)) {
+            warning(paste0(
+                "bcbio GTF missing:",
+                "\n  ",
+                gffFile
+            ), call. = FALSE)
+        }
+    }
+
+    # Fetch the genomic ranges.
+    if (
+        is_a_string(gffFile) &&
+        file.exists(gffFile)
+    ) {
+        # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
-        # Using AnnotationHub/ensembldb to obtain the annotations.
+        # AnnotationHub/ensembldb.
         message("Using `makeGRangesFromEnsembl()` for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
@@ -429,17 +450,20 @@ bcbioRNASeq <- function(
             build = genomeBuild,
             release = ensemblRelease
         )
-        if (is.null(genomeBuild)) {
-            genomeBuild <- metadata(rowRanges)[["build"]]
-        }
-        if (is.null(ensemblRelease)) {
-            ensemblRelease <- metadata(rowRanges)[["release"]]
-        }
     } else {
-        message("Unknown organism. Skipping annotations.")
+        message("Unknown organism. Slotting empty ranges into `rowRanges().")
         rowRanges <- emptyRanges(rownames(assays[[1L]]))
     }
     assert_is_all_of(rowRanges, "GRanges")
+
+    # Attempt to get genome build and Ensembl release if not declared.
+    # Note that these will remain NULL when using GTF file (see above).
+    if (is.null(genomeBuild)) {
+        genomeBuild <- metadata(rowRanges)[["build"]]
+    }
+    if (is.null(ensemblRelease)) {
+        ensemblRelease <- metadata(rowRanges)[["release"]]
+    }
 
     # Metadata -----------------------------------------------------------------
     # Interesting groups.
@@ -521,7 +545,10 @@ bcbioRNASeq <- function(
             message("Calculating FPKM.")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
         } else {
-            message("Skipping FPKM calculation.")
+            warning(paste(
+                "`rowRanges()` contains empty ranges.",
+                "Skipping FPKM calculation."
+            ), call. = FALSE)
         }
     }
 
@@ -543,6 +570,8 @@ bcbioRNASeq <- function(
     ) {
         new(
             Class = "bcbioRNASeq",
+            # FIXME Make stricter.
+            # Error if there are any rowRanges mismatches.
             makeSummarizedExperiment(
                 assays = assays,
                 rowRanges = rowRanges,
