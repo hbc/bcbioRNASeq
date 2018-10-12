@@ -416,11 +416,6 @@ bcbioRNASeq <- function(
     # 3. Fall back to slotting empty ranges. This is offered as support for
     #    complex datasets (e.g. multiple organisms).
 
-    # Inform the user about recommending `organism` argument.
-    if (is.null(organism)) {
-        warning("`organism` is recommended.", call. = FALSE)
-    }
-
     # bcbio GTF file path.
     if (is.null(gffFile)) {
         gffFile <- getGTFFileFromYAML(yaml)
@@ -434,16 +429,17 @@ bcbioRNASeq <- function(
     }
 
     # Fetch the genomic ranges.
-    if (
-        is_a_string(gffFile) &&
-        file.exists(gffFile)
-    ) {
+    if (is_a_string(gffFile) && file.exists(gffFile)) {
         # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
         # AnnotationHub/ensembldb.
         message("Using `makeGRangesFromEnsembl()` for annotations.")
+        if (is.null(ensemblRelease)) {
+            stop("`ensemblRelease` is required.")
+        }
+        assertIsAnImplicitInteger(ensemblRelease)
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -451,10 +447,29 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
     } else {
-        message("Unknown organism. Slotting empty ranges into `rowRanges().")
+        warning("Slotting empty ranges into `rowRanges().", call. = FALSE)
         rowRanges <- emptyRanges(rownames(assays[[1L]]))
     }
     assert_is_all_of(rowRanges, "GRanges")
+
+    # Metadata -----------------------------------------------------------------
+    # Interesting groups.
+    interestingGroups <- camel(interestingGroups)
+    assert_is_subset(interestingGroups, colnames(colData))
+
+    # Organism.
+    # Attempt to detect automatically if not declared by user.
+    if (is.null(organism)) {
+        organism <- tryCatch(
+            expr = detectOrganism(rownames(assays[[1L]])),
+            error = function(e) {
+                stop(paste(
+                    "Failed to detect organism automatically.",
+                    "Specify this with `organism` argument."
+                ))
+            }
+        )
+    }
 
     # Attempt to get genome build and Ensembl release if not declared.
     # Note that these will remain NULL when using GTF file (see above).
@@ -464,11 +479,6 @@ bcbioRNASeq <- function(
     if (is.null(ensemblRelease)) {
         ensemblRelease <- metadata(rowRanges)[["release"]]
     }
-
-    # Metadata -----------------------------------------------------------------
-    # Interesting groups.
-    interestingGroups <- camel(interestingGroups)
-    assert_is_subset(interestingGroups, colnames(colData))
 
     metadata <- list(
         version = packageVersion,
