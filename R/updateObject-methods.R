@@ -4,9 +4,6 @@
 #     metadata
 # }
 
-# FIXME Rename `length` to `avgTxLength` if slotted
-
-# FIXME Make the tx2gene validity requirement less strict.
 
 
 #' @name updateObject
