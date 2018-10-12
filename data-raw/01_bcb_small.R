@@ -1,5 +1,5 @@
 # bcbioRNASeq Example
-# Last updated 2018-10-08
+# Last updated 2018-10-12
 
 # Restrict to 1 MB.
 limit <- structure(1e6, class = "object_size")
