@@ -1,21 +1,20 @@
-#' MA Plot
+#' @inherit BiocGenerics::plotMA
+#' @name plotMA
+#' @author Michael Steinbaugh, Rory Kirchner
+#' @importFrom BiocGenerics plotMA
+#' @export
 #'
+#' @details
 #' An MA plot is an application of a Bland–Altman plot for visual representation
 #' of genomic data. The plot visualizes the differences between measurements
 #' taken in two samples, by transforming the data onto M (log ratio) and A
 #' (mean average) scales, then plotting these values.
 #'
-#' @name plotMA
-#' @family Differential Expression Functions
-#' @author Michael Steinbaugh, Rory Kirchner
-#' @importFrom BiocGenerics plotMA
-#' @export
-#'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
 #'
-#' @seealso [DESeq2::plotMA()].
+#' @seealso [DESeq2::plotMA].
 #'
 #' @examples
 #' data(deseq_small)
@@ -60,6 +59,7 @@ NULL
 
 
 
+# DESeqResults =================================================================
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotMA.DESeqResults <-  # nolint
     function(
@@ -263,6 +263,17 @@ NULL
 
 
 
+#' @rdname plotMA
+#' @export
+setMethod(
+    f = "plotMA",
+    signature = signature("DESeqResults"),
+    definition = .plotMA.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 .plotMA.DESeqAnalysis <-  # nolint
     function(
         object,
@@ -304,19 +315,10 @@ setMethod(
 
 
 
-#' @rdname plotMA
-#' @export
-setMethod(
-    f = "plotMA",
-    signature = signature("DESeqResults"),
-    definition = .plotMA.DESeqResults
-)
-
-
-
 # Aliases ======================================================================
 #' @rdname plotMA
 #' @export
 plotMeanAverage <- function(...) {
+    # This function is soft deprecated.
     plotMA(...)
 }

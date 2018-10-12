@@ -3,18 +3,11 @@
 \docType{methods}
 \name{plotMA}
 \alias{plotMA}
-\alias{plotMA,DESeqAnalysis-method}
 \alias{plotMA,DESeqResults-method}
+\alias{plotMA,DESeqAnalysis-method}
 \alias{plotMeanAverage}
-\title{MA Plot}
+\title{MA-plot: plot differences versus averages for high-throughput data}
 \usage{
-\S4method{plotMA}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, genes = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = getOption("basejump.point.color",
-  "gray50"), sigPointColor = getOption("basejump.sig.point.color",
-  c(upregulated = "purple", downregulated = "orange")),
-  return = c("ggplot", "DataFrame"))
-
 \S4method{plotMA}{DESeqResults}(object, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
   pointColor = getOption("basejump.point.color", "gray50"),
@@ -22,18 +15,26 @@
   "purple", downregulated = "orange")), return = c("ggplot",
   "DataFrame"))
 
+\S4method{plotMA}{DESeqAnalysis}(object, results = 1L,
+  lfcShrink = TRUE, genes = NULL, ntop = 0L, direction = c("both",
+  "up", "down"), pointColor = getOption("basejump.point.color",
+  "gray50"), sigPointColor = getOption("basejump.sig.point.color",
+  c(upregulated = "purple", downregulated = "orange")),
+  return = c("ggplot", "DataFrame"))
+
 plotMeanAverage(...)
 }
 \arguments{
-\item{object}{Object.}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
-
-\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
+\item{object}{
+    A data object, typically containing count values from an RNA-Seq experiment or microarray intensity values.
+  }
 
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from
 Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
@@ -48,15 +49,22 @@ with the same color, regardless of direction.}
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
 
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
-\item{...}{Additional arguments.}
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
+
+\item{...}{
+    Additional arguments, for use in specific methods.
+  }
 }
 \value{
 \code{ggplot}.
 }
 \description{
+A generic function which produces an MA-plot for an object containing microarray, RNA-Seq
+  or other data.
+}
+\details{
 An MA plot is an application of a Bland–Altman plot for visual representation
 of genomic data. The plot visualizes the differences between measurements
 taken in two samples, by transforming the data onto M (log ratio) and A
@@ -103,13 +111,8 @@ plotMA(object = object, genes = geneIDs)
 plotMA(object = object, genes = geneNames)
 }
 \seealso{
-\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
-
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotVolcano}}
+\link[DESeq2:plotMA]{DESeq2::plotMA}.
 }
 \author{
 Michael Steinbaugh, Rory Kirchner
 }
-\concept{Differential Expression Functions}
