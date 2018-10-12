@@ -3,7 +3,6 @@
 #' Ideally, at least 60 percent of total reads should map to exons.
 #'
 #' @name plotExonicMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @export
 #'

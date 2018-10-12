@@ -72,26 +72,15 @@ plotPCA(
     label = FALSE
 )
 }
+\references{
+Jolliffe, et al., 2002.
+}
 \seealso{
 \itemize{
 \item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
 \item \code{getMethod("plotPCA", "DESeqTransform")}
 }
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotQC}}, \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

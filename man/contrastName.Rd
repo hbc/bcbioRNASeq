@@ -38,9 +38,7 @@ object <- deseq_small@results[[1L]]
 contrastName(object)
 }
 \seealso{
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+Other Differential Expression Functions: \code{\link{alphaSummary}}
 }
 \author{
 Michael Steinbaugh

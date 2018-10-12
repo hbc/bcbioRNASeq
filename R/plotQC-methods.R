@@ -1,10 +1,7 @@
-#' Plot Quality Control
-#'
+#' @inherit basejump::plotQC
 #' @name plotQC
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #' @importFrom basejump plotQC
-#' @inherit basejump::plotQC
 #' @export
 #'
 #' @examples

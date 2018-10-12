@@ -3,20 +3,20 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqAnalysis-method}
 \alias{plotDEGPCA,DESeqResults-method}
+\alias{plotDEGPCA,DESeqAnalysis-method}
 \title{Plot DEG PCA}
 \usage{
 plotDEGPCA(object, ...)
 
-\S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
-  direction = c("both", "up", "down"), interestingGroups = NULL,
+\S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
+  "up", "down"), interestingGroups = NULL,
   color = getOption("basejump.discrete.color", NULL),
   label = getOption("basejump.label", FALSE), return = c("ggplot",
   "DataFrame"))
 
-\S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
-  "up", "down"), interestingGroups = NULL,
+\S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
+  direction = c("both", "up", "down"), interestingGroups = NULL,
   color = getOption("basejump.discrete.color", NULL),
   label = getOption("basejump.label", FALSE), return = c("ggplot",
   "DataFrame"))
@@ -27,8 +27,6 @@ plotDEGPCA(object, ...)
 \item{...}{Additional arguments.}
 
 \item{counts}{\code{DESeqTransform}.}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
@@ -46,6 +44,8 @@ To set the discrete color palette globally, use
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.
@@ -74,12 +74,15 @@ plotDEGPCA(
     counts = as(deseq_small, "DESeqTransform")
 )
 }
+\references{
+Jolliffe, et al., 2002.
+}
 \seealso{
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+\itemize{
+\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\item \code{getMethod("plotPCA", "DESeqTransform")}
+}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}

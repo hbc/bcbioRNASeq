@@ -3,20 +3,20 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqAnalysis-method}
 \alias{plotDEGHeatmap,DESeqResults-method}
+\alias{plotDEGHeatmap,DESeqAnalysis-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(object, ...)
 
-\S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
+\S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
   treeheightCol = 50L, color = viridis::viridis,
   legendColor = viridis::viridis, borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
+\S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
@@ -28,8 +28,6 @@ plotDEGHeatmap(object, ...)
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments should be formatted in camel case, not snake case.}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{counts}{\code{DESeqTransform}.}
 
@@ -79,6 +77,8 @@ for legend labels. Note that hexadecimal values are not supported. If set
 
 \item{borderColor}{\code{string} or \code{NULL}. Border color. Disabled by default for
 improved aesthetics.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 \code{pheatmap}.
@@ -137,12 +137,7 @@ plotDEGHeatmap(
 \item \code{help("plotHeatmap", "basejump")}.
 \item \code{findMethod("plotHeatmap", "SummarizedExperiment")}.
 }
-
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}

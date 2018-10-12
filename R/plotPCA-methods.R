@@ -11,7 +11,6 @@
 #' a way to look at how samples are clustering.
 #'
 #' @name plotPCA
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #' @importFrom BiocGenerics plotPCA
 #' @export
@@ -19,6 +18,8 @@
 #' @inheritParams general
 #' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
 #'   Use `Inf` to include all genes.
+#'
+#' @references Jolliffe, et al., 2002.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].

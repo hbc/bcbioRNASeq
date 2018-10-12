@@ -10,10 +10,9 @@
 #' `DESeqDataSet`).
 #'
 #' @name plotDEGHeatmap
-#' @family Differential Expression Functions
-#' @author Michael Steinbaugh
-#'
 #' @inherit basejump::plotHeatmap
+#' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #' @param counts `DESeqTransform`.
@@ -37,6 +36,7 @@ NULL
 
 
 
+# DESeqResults =================================================================
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotDEGHeatmap.DESeqResults <-  # nolint
     function(
@@ -120,6 +120,17 @@ formals(.plotDEGHeatmap.DESeqResults) <- f
 
 
 
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    f = "plotDEGHeatmap",
+    signature = signature("DESeqResults"),
+    definition = .plotDEGHeatmap.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 .plotDEGHeatmap.DESeqAnalysis <-  # nolint
     function(object, results) {
         do.call(
@@ -152,14 +163,4 @@ setMethod(
     f = "plotDEGHeatmap",
     signature = signature("DESeqAnalysis"),
     definition = .plotDEGHeatmap.DESeqAnalysis
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    f = "plotDEGHeatmap",
-    signature = signature("DESeqResults"),
-    definition = .plotDEGHeatmap.DESeqResults
 )

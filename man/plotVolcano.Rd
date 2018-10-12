@@ -116,12 +116,7 @@ plotVolcano(object, genes = geneNames)
 \seealso{
 This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
-
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 }
-\concept{Differential Expression Functions}

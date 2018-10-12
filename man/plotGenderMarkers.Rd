@@ -46,23 +46,18 @@ genomes are supported.
 }
 \examples{
 data(bcb_small)
-plotGenderMarkers(bcb_small, normalized = "vst")
+plotGenderMarkers(bcb_small)
 }
 \seealso{
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
+\code{\link[=plotGene]{plotGene()}}.
+
+Other Plots: \code{\link{plotCountsPerBiotype}},
   \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotQC}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotHeatmap}}, \code{\link{plotQC}},
+  \code{\link{plotTotalCounts}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

@@ -69,9 +69,7 @@ alphaSummary(object, name = "treatment_folic_acid_vs_control")
 \item \code{\link[DESeq2:resultsNames]{DESeq2::resultsNames()}}.
 }
 
-Other Differential Expression Functions: \code{\link{contrastName}},
-  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+Other Differential Expression Functions: \code{\link{contrastName}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano

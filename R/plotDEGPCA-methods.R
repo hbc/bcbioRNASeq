@@ -1,11 +1,11 @@
 #' Plot DEG PCA
 #'
 #' @name plotDEGPCA
-#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #' @include plotPCA-methods.R
-#'
 #' @inherit plotPCA
+#' @export
+#'
 #' @inheritParams general
 #' @param counts `DESeqTransform`.
 #'
@@ -24,6 +24,7 @@ NULL
 
 
 
+# DESeqResults =================================================================
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotDEGPCA.DESeqResults <-  # nolint
     function(
@@ -89,6 +90,17 @@ formals(.plotDEGPCA.DESeqResults) <- f
 
 
 
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    f = "plotDEGPCA",
+    signature = signature("DESeqResults"),
+    definition = .plotDEGPCA.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 .plotDEGPCA.DESeqAnalysis <-  # nolint
     function(
         object,
@@ -125,14 +137,4 @@ setMethod(
     f = "plotDEGPCA",
     signature = signature("DESeqAnalysis"),
     definition = .plotDEGPCA.DESeqAnalysis
-)
-
-
-
-#' @rdname plotDEGPCA
-#' @export
-setMethod(
-    f = "plotDEGPCA",
-    signature = signature("DESeqResults"),
-    definition = .plotDEGPCA.DESeqResults
 )

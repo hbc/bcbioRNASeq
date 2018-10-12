@@ -1,7 +1,8 @@
-#' Plot Counts Per Gene
-#'
-#' Generally, we expect similar count spreads for all genes between samples
-#' unless the library sizes or total RNA expression are different.
+#' @name plotCountsPerGene
+#' @importFrom basejump plotCountsPerGene
+#' @inherit basejump::plotCountsPerGene
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @export
 #'
 #' @section TMM:
 #' We recommend visualizing counts normalized with the Trimmed Mean of M-Values
@@ -10,13 +11,6 @@
 #' the majority of them are not differentially expressed. Therefore, by
 #' normalizing for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
-#'
-#' @name plotCountsPerGene
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @importFrom basejump plotCountsPerGene
-#' @inherit basejump::plotCountsPerGene
-#' @export
 #'
 #' @inheritParams general
 #'

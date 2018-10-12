@@ -96,4 +96,3 @@ Other Plots: \code{\link{plotCountsPerBiotype}},
 \author{
 Michael Steinbaugh
 }
-\concept{Gene Expression Functions}

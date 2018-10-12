@@ -1,12 +1,8 @@
-#' Plot Gene Expression
-#'
 #' @name plotGene
-#' @family Gene Expression Functions
-#' @author Michael Steinbaugh
 #' @importFrom basejump plotGene
-#' @export
-#'
 #' @inherit basejump::plotGene
+#' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #'

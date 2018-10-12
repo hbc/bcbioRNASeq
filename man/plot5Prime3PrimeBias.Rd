@@ -50,21 +50,6 @@ Bioanalyzer and check the RIN scores.
 data(bcb_small)
 plot5Prime3PrimeBias(bcb_small)
 }
-\seealso{
-Other Quality Control Functions: \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotQC}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
-}
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

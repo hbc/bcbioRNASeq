@@ -1,7 +1,3 @@
-# FIXME Change color options to use "basejump" instead of "bcbio"
-
-
-
 #' Plot Gene Detection Saturation
 #'
 #' We should observe a linear trend in the number of genes detected with the
@@ -9,7 +5,6 @@
 #' overloaded.
 #'
 #' @name plotGeneSaturation
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @export
 #'

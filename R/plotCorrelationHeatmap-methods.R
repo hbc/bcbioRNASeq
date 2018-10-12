@@ -1,21 +1,10 @@
-#' Plot Correlation Heatmap
-#'
-#' This function calculates a correlation matrix based on feature expression per
-#' sample.
-#'
 #' @name plotCorrelationHeatmap
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh
 #' @importFrom basejump plotCorrelationHeatmap
+#' @inherit basejump::plotCorrelationHeatmap
+#' @author Michael Steinbaugh
 #' @export
 #'
-#' @inherit basejump::plotCorrelationHeatmap
-#'
 #' @inheritParams general
-#'
-#' @seealso
-#' - `help("plotCorrelationHeatmap", "basejump")`.
-#' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
 #' data(bcb_small)
@@ -26,10 +15,7 @@ NULL
 
 
 .plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         # Coerce to RangedSummarizedExperiment.

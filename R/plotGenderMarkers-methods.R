@@ -1,15 +1,12 @@
-# FIXME Need to remove `assay` from formals.
+# FIXME Need to include dimorphic genes in example dataset.
 # FIXME Unit test with rle -- need to handle non-finite values better.
 
 
 
-#' Plot Sexually Dimorphic Gender Marker Genes
-#'
 #' @name plotGenderMarkers
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh
 #' @importFrom basejump plotGenderMarkers
 #' @inherit basejump::plotGenderMarkers
+#' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams general
@@ -18,7 +15,7 @@
 #'
 #' @examples
 #' data(bcb_small)
-#' plotGenderMarkers(bcb_small, normalized = "vst")
+#' plotGenderMarkers(bcb_small)
 NULL
 
 
