@@ -46,43 +46,38 @@ NULL
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
+
         # Restrict the `normalized` arguments for transcript-level objects.
         if (.isTranscriptLevel(object)) {
-            assert_is_subset(normalized, list(FALSE, "tpm"))
-        }
-
-        if (is.logical(normalized)) {
-            if (identical(normalized, FALSE)) {
-                counts <- assay(object)
-            } else if (identical(normalized, TRUE)) {
-                counts <- assays(object)[["normalized"]]
-            }
-        } else if (is.character(normalized)) {
-            assert_is_a_string(normalized)
             assert_is_subset(
                 x = normalized,
-                y = c("tpm", "vst", "rlog", "tmm", "rle")
+                y = list(FALSE, "tpm")
             )
-            if (normalized == "tmm") {
-                # Calculate TMM on the fly.
-                counts <- tmm(assay(object))
-            } else if (normalized == "rle") {
-                # Calculate RLE on the fly.
-                counts <- t(t(assay(object)) / colMedians(assay(object)))
-            } else {
-                # Use matrices slotted into `assays()`.
-                counts <- assays(object)[[normalized]]
-            }
-            if (!is.matrix(counts)) {
-                # Support for skipped DESeq2 transforms: log2 TMM.
-                warning(paste(
-                    normalized, "not present in assays.",
-                    "Calculating log2 TMM counts instead."
-                ), call. = FALSE)
-                counts <- tmm(assay(object))
-                message("Applying log2 transformation to TMM values...")
-                counts <- log2(counts + 1L)
-            }
+        }
+
+        if (identical(normalized, FALSE)) {
+            assayName <- "counts"
+        } else if (identical(normalized, TRUE)) {
+            assayName <- "normalized"
+        } else {
+            assayName <- match.arg(
+                arg = normalized,
+                choices = normalizedCounts
+            )
+        }
+        assert_is_a_string(assayName)
+
+        if (assayName == "tmm") {
+            # Calculate TMM on the fly.
+            counts <- tmm(assay(object))
+        } else if (assayName == "rle") {
+            # Calculate RLE on the fly.
+            counts <- t(t(assay(object)) / colMedians(assay(object)))
+        } else {
+            # Get matrix slotted in `assays()`.
+            # Note that we're killing the log2 TMM fall back support if
+            # DESeq2 transforms are skipped, because that is confusing.
+            counts <- assays(object)[[assayName]]
         }
 
         assert_is_matrix(counts)
