@@ -276,16 +276,18 @@ bcbioRNASeq <- function(
     # bcbio run information ----------------------------------------------------
     dataVersions <-
         readDataVersions(file.path(projectDir, "data_versions.csv"))
+    assert_is_all_of(dataVersions, "DataFrame")
+
     programVersions <-
         readProgramVersions(file.path(projectDir, "programs.txt"))
-    bcbioLog <-
-        readLog(file.path(projectDir, "bcbio-nextgen.log"))
-    bcbioCommandsLog <-
-        readLog(file.path(projectDir, "bcbio-nextgen-commands.log"))
+    assert_is_all_of(programVersions, "DataFrame")
 
-    assert_is_tbl_df(dataVersions)
-    assert_is_tbl_df(programVersions)
+    bcbioLog <-
+        import(file.path(projectDir, "bcbio-nextgen.log"))
     assert_is_character(bcbioLog)
+
+    bcbioCommandsLog <-
+        import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     assert_is_character(bcbioCommandsLog)
 
     # Sequencing lanes ---------------------------------------------------------
@@ -308,7 +310,7 @@ bcbioRNASeq <- function(
         sampleData <- readSampleData(file = sampleMetadataFile, lanes = lanes)
     } else {
         # Automatic metadata from YAML file.
-        sampleData <- readYAMLSampleData(file = yamlFile)
+        sampleData <- getSampleDataFromYAML(yaml)
     }
     assert_is_subset(rownames(sampleData), names(sampleDirs))
 
@@ -348,7 +350,7 @@ bcbioRNASeq <- function(
     # Sample metrics. Note that sample metrics used for QC plots are not
     # currently generated when using fast RNA-seq workflow. This depends upon
     # MultiQC and aligned counts generated with STAR.
-    colData <- readYAMLSampleMetrics(yamlFile)
+    colData <- getMetricsFromYAML(yaml)
     if (has_length(colData)) {
         assert_are_disjoint_sets(colnames(colData), colnames(sampleData))
         assert_is_subset(rownames(sampleData), rownames(colData))
@@ -362,8 +364,7 @@ bcbioRNASeq <- function(
     assert_are_identical(samples, rownames(colData))
 
     # Transcript-to-gene mappings ----------------------------------------------
-    tx2geneFile <- file.path(projectDir, "tx2gene.csv")
-    tx2gene <- readTx2Gene(tx2geneFile)
+    tx2gene <- readTx2Gene(file.path(projectDir, "tx2gene.csv"))
     assert_is_all_of(tx2gene, "Tx2Gene")
 
     # Assays -------------------------------------------------------------------
