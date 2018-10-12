@@ -173,6 +173,24 @@
         mode(counts) <- "integer"
         counts(se) <- counts
 
+        # Subset and update metadata.
+        m <- metadata(se)
+        keep <- c(
+            "version",
+            "interestingGroups",
+            "uploadDir",
+            "caller",
+            "countsFromAbundance",
+            "organism",
+            "genomeBuild",
+            "ensemblRelease",
+            "runDate"
+        )
+        m <- m[intersect(names(m), keep)]
+        m[["date"]] <- Sys.Date()
+        m[["sessionInfo"]] <- session_info()
+        metadata(se) <- m
+
         # Generate the DESeqDataSet.
         # Using an empty design formula.
         dds <- DESeqDataSet(se = se, design = ~ 1L)
@@ -212,7 +230,7 @@
     if ("rlogIntercept" %in% colnames(mcols(object))) {
         "rlog"
     } else {
-        # varianceStabilizingTransformation
+        # varianceStabilizingTransformation.
         "vst"
     }
 }
