@@ -64,7 +64,7 @@
     # and is recommended to be run on an HPC cluster, rather than locally.
     message(paste0(
         "Reading ", type, " counts using tximport ",
-        packageVersion("tximport"), "..."
+        packageVersion("tximport"), "."
     ))
     if (countsFromAbundance != "no") {
         message(paste0("Scaling using ", countsFromAbundance, "."))
