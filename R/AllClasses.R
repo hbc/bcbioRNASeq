@@ -3,10 +3,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 # bcbioRNASeq ==================================================================
-# FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
-# FIXME Consider warning or erroring if dimnames aren't valid.
 # TODO Improve the object documentation here.
-# TODO Make the metadata slots stricter.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -31,14 +28,6 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
-
-# v0.2.6: countsFromAbundance is now optional, since we're supporting
-# featureCounts aligned counts.
-
-# Note that `avgTxLength` matrix isn't required because it isn't slotted in
-# some legacy arguments.
-
-# DESeq2 calculations (`normalized`, `rlog`, `vst`) are optional.
 
 setValidity(
     Class = "bcbioRNASeq",
@@ -202,6 +191,11 @@ setValidity(
             assert_is_subset(tximportAssays, assayNames)
         } else if (caller %in% featureCountsCallers) {
             assert_is_subset(featureCountsAssays, assayNames)
+        }
+
+        # Check for average transcript length matrix, if necessary.
+        if (metadata[["countsFromAbundance"]] == "no") {
+            assert_is_subset("avgTxLength", assayNames)
         }
 
         # Row data -------------------------------------------------------------
