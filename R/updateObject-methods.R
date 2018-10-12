@@ -316,6 +316,8 @@ NULL
         # Previously, we stashed both `devtools*` and `utils*` variants.
         if ("devtoolsSessionInfo" %in% names(metadata)) {
             metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
+            metadata[["devtoolsSessionInfo"]] <- NULL
+            metadata[["utilsSessionInfo"]] <- NULL
         }
 
         # tx2gene
