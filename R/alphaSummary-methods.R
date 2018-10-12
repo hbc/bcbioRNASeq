@@ -6,7 +6,6 @@
 #' @note Use either `contrast` or `name` to specify the desired contrast.
 #'
 #' @name alphaSummary
-#' @family Differential Expression Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #' @export
 #'
@@ -27,6 +26,7 @@
 #' object <- as(deseq_small, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)
+#' alphaSummary(object)
 #' alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
 #' alphaSummary(object, name = "treatment_folic_acid_vs_control")
 NULL

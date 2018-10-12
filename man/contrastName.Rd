@@ -37,9 +37,6 @@ contrastName(deseq_small, results = 1L)
 object <- deseq_small@results[[1L]]
 contrastName(object)
 }
-\seealso{
-Other Differential Expression Functions: \code{\link{alphaSummary}}
-}
 \author{
 Michael Steinbaugh
 }
