@@ -221,6 +221,12 @@ NULL
             metadata[["bcbioCommandsLog"]] <- character()
         }
 
+        # call
+        if (!"call" %in% names(metadata)) {
+            message("Stashing empty call.")
+            metadata[["call"]] <- call(name = "bcbioRNASeq")
+        }
+
         # caller
         if (!"caller" %in% names(metadata)) {
             message("Setting `caller` as salmon.")
@@ -305,6 +311,14 @@ NULL
             metadata[["programVersions"]] <- as(programVersions, "DataFrame")
         }
 
+        # rowRangesMetadata
+        if ("rowRangesMetadata" %in% names(metadata)) {
+            message("Moving `rowRangesMetadata` into `rowRanges()`.")
+            metadata(rowRanges)[["ensembldb"]] <-
+                metadata[["rowRangesMetadata"]]
+            metadata[["rowRangesMetadata"]] <- NULL
+        }
+
         # sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             message("Setting `sampleMetadataFile` as empty `character`.")
@@ -318,6 +332,12 @@ NULL
             metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
             metadata[["devtoolsSessionInfo"]] <- NULL
             metadata[["utilsSessionInfo"]] <- NULL
+        }
+
+        # template
+        if ("template" %in% names(metadata)) {
+            message("Dropping legacy `template`.")
+            metadata[["template"]] <- NULL
         }
 
         # tx2gene

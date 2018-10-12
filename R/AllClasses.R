@@ -68,6 +68,8 @@ setValidity(
             "gtfFile",
             "missingGenes",
             "programs",
+            "rowRangesMetadata",
+            "template",
             "utilsSessionInfo",
             "yamlFile"
         )
@@ -88,7 +90,10 @@ setValidity(
             allSamples = "logical",
             bcbioCommandsLog = "character",
             bcbioLog = "character",
+            call = "call",
             caller = "character",
+            countsFromAbundance = "character",
+            dataVersions = "DataFrame",
             date = "Date",
             ensemblRelease = "integer",
             genomeBuild = "character",
@@ -97,7 +102,6 @@ setValidity(
             lanes = "integer",
             level = "character",
             organism = "character",
-            dataVersions = "DataFrame",
             programVersions = "DataFrame",
             projectDir = "character",
             runDate = "Date",
