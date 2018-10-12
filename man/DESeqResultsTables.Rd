@@ -33,13 +33,52 @@ DESeqResultsTables(object, ...)
 \description{
 \code{DESeqResultsTables} Generator
 }
-\note{
-Log fold change cutoff threshold ("\code{lfcThreshold}") does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See \code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using
-\code{lfcThreshold} and \code{altHypothesis} to set an alternative hypothesis based
-on expected fold changes.
+\section{Obtaining results from DESeq2}{
+
+
+It is recommended to specify the \code{contrast} argument as \code{character}:
+\enumerate{
+\item Design matrix factor of interest.
+\item Numerator for LFC (expt).
+\item Denominator for LFC (control).
 }
+
+For example, to get the relative change in gene expression between mutant
+and wildtype samples, here's how to set the contrast vector:\preformatted{c(
+    factor = "genotype",
+    numerator = "mutant",
+    denominator = "wildtype"
+)
+}
+}
+
+\section{Log fold change threshold cutoffs}{
+
+
+Refer to \code{\link[DESeq2:results]{DESeq2::results()}} for additional information about using
+\code{lfcThreshold} and \code{altHypothesis} to set an alternative hypothesis based on
+expected fold changes. In addition, the "Hypothesis tests with thresholds on
+effect size" section in the DESeq2 paper provides additional explanation.
+
+Don't apply \emph{post hoc} LFC threshold filtering to obtain results tables, as
+this will destroy the meaning of the adjusted \emph{P} values computed. If you are
+expecting a biological effect size past a particular threshold, set
+\code{lfcThreshold}, but be conservative.
+
+This \href{https://support.bioconductor.org/p/101504/}{thread} on the Bioconductor forums explains how \code{\link[DESeq2:results]{DESeq2::results()}}
+should be called with regard to LFC cutoffs in nice detail. In particular,
+refer to Mike Love:
+
+"A common procedure is to disregard genes whose estimated LFC \emph{β ir} is below
+some threshold, \emph{β ir ≤ θ}. However, this approach loses the benefit of an
+easily interpretable FDR, as the reported \emph{P} value and adjusted \emph{P} value
+still correspond to the test of \emph{zero} LFC. It is therefore desirable to
+include the threshold in the statistical testing procedure directly, i.e.,
+not to filter post hoc on a reported fold-change \emph{estimate}, but rather to
+evaluate statistically directly whether there is sufficient evidence that the
+LFC is above the chosen threshold."
+}
+
 \examples{
 data(deseq_small)
 
@@ -55,8 +94,8 @@ print(x)
 }
 \seealso{
 \itemize{
-\item \code{\link[=markdown]{markdown()}}.
-\item \code{\link[=write]{write()}}.
+\item \code{\link[DESeq2:results]{DESeq2::results()}}.
+\item \code{\link[=markdown]{markdown()}}, \code{\link[=write]{write()}}.
 }
 
 Other S4 Generators: \code{\link{DESeqAnalysis}},
