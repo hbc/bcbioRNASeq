@@ -69,14 +69,13 @@ NULL
             message(paste0(
                 "Writing ",
                 toString(basename(localFiles)),
-                " to Dropbox (", dropboxDir, ")..."
+                " to Dropbox (", dropboxDir, ")."
             ))
             # nocov end
         } else {
             message(paste0(
-                "Writing ",
-                toString(basename(localFiles)),
-                " to ", dir, "..."
+                "Writing ", toString(basename(localFiles)),
+                " to ", dir, "."
             ))
         }
 

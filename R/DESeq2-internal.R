@@ -50,7 +50,7 @@
 .ddsMsg <- function() {
     message(paste0(
         "Generating DESeqDataSet with DESeq2 ",
-        packageVersion("DESeq2"), "..."
+        packageVersion("DESeq2"), "."
     ))
 }
 

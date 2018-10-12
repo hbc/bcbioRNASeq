@@ -113,7 +113,7 @@ NULL
             # Row annotations.
             if (isTRUE(rowData)) {
                 message(paste(
-                    "Adding `rowData()` annotations (atomic columns only)..."
+                    "Adding `rowData()` annotations (atomic columns only)."
                 ))
                 rowData <- sanitizeRowData(rowData(object@data))
                 # DESeq2 includes additional information in `rowData()` that
@@ -133,7 +133,7 @@ NULL
 
             # DESeq2 normalized counts
             if (isTRUE(counts)) {
-                message("Adding DESeq2 normalized counts...")
+                message("Adding DESeq2 normalized counts.")
                 counts <- counts(object@data, normalized = TRUE)
                 assert_are_disjoint_sets(colnames(data), colnames(counts))
                 assert_are_identical(rownames(data), rownames(counts))

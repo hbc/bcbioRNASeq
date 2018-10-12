@@ -109,25 +109,25 @@ setMethod(
 
         # Recalculate DESeq2 normalized counts and variance stabilizations.
         if (isTRUE(recalculate)) {
-            message("Recalculating DESeq2 normalizations...")
+            message("Recalculating DESeq2 normalizations.")
             dds <- .new.DESeqDataSet(se = rse)
             dds <- DESeq(dds)
             # Normalized counts.
             assays[["normalized"]] <- counts(dds, normalized = TRUE)
             # vst: variance-stabilizing transformation.
             if ("vst" %in% names(assays)) {
-                message("Applying variance-stabilizing transformation...")
+                message("Applying variance-stabilizing transformation.")
                 assays[["vst"]] <-
                     assay(varianceStabilizingTransformation(dds))
             }
             # rlog: regularized log transformation.
             if ("rlog" %in% names(assays)) {
-                message("Applying rlog transformation...")
+                message("Applying rlog transformation.")
                 assays[["rlog"]] <- assay(rlog(dds))
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays.
-            message("Skipping DESeq2 normalizations...")
+            message("Skipping DESeq2 normalizations.")
             assays[["normalized"]] <- NULL
             assays[["rlog"]] <- NULL
             assays[["vst"]] <- NULL

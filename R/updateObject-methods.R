@@ -1,8 +1,12 @@
 # TODO Consider a utility that we can use in `[` and `updateObject`.
 # .updateMetadata <- function(metadata) {
 #     metadata[["template"]] <- NULL
+#     metadata
 # }
 
+# FIXME Rename `length` to `avgTxLength` if slotted
+
+# FIXME Make the tx2gene validity requirement less strict.
 
 
 #' Update an Object to Its Current Class Definition
@@ -49,7 +53,7 @@ NULL
         version <- slot(object, "metadata")[["version"]]
         assert_is_all_of(version, c("package_version", "numeric_version"))
         message(paste0(
-            "Upgrading from ", version, " to ", packageVersion, "..."
+            "Upgrading from ", version, " to ", packageVersion, "."
         ))
 
         # Check for legacy bcbio slot.
