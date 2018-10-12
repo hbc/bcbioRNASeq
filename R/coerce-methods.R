@@ -46,7 +46,13 @@ NULL
 
 
 
-# Refer to `DESeq2::DESeqDataSetFromTximport()`.
+# FIXME Add this to documentation as a section.
+# Note that gene-level counts are required. Mention `summarizeToGene()`.
+# By default, we're using length-scaled TPM, so a corresponding average
+# transcript length matrix isn't necessary. The average transcript length matrix
+# is only necessary when raw counts matrix isn't scaled during tximport call
+# (see `countsFromAbundance`).
+# @seealso `tximport::tximport`, `DESeq2::DESeqDataSetFromTximport()`.
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
@@ -54,12 +60,10 @@ setAs(
     to = "DESeqDataSet",
     function(from) {
         validObject(from)
-        if (metadata(from)[["level"]] != "genes") {
-            stop("Gene-level counts are required.", call. = FALSE)
-        }
         se <- as(from, "RangedSummarizedExperiment")
         # Don't include the metrics columns inside bcbioRNASeq object.
         colData(se) <- sampleData(from, clean = TRUE)
+        # FIXME Minimize the metadata we're passing through.
         validObject(se)
         to <- .new.DESeqDataSet(se = se)
         interestingGroups(to) <- interestingGroups(from)

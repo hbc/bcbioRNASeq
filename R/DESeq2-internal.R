@@ -148,12 +148,32 @@
     function(se) {
         .ddsMsg()
         stopifnot(is(se, "SummarizedExperiment"))
-        assays(se) <- assays(se)[intersect(assayNames(se), deseqAssays)]
+
+        # Assert that counts are gene level.
+        level <- metadata(se)[["level"]]
+        assert_is_a_string(level)
+        if (level != "genes") {
+            stop("Gene-level counts are required.")
+        }
+
+        # Subset the assays. Average transcript length matrix should only be
+        # included when raw counts are not length scaled.
+        countsFromAbundance <- metadata(se)[["countsFromAbundance"]]
+        assert_is_a_string(countsFromAbundance)
+        if (countsFromAbundance == "no") {
+            assayNames <- c("counts", "avgTxLength")
+        } else {
+            assayNames <- "counts"
+        }
+        assays(se) <- assays(se)[assayNames]
+
+        # DESeq2 requires integer counts.
         counts <- counts(se)
-        # Integer counts are required.
         counts <- round(counts, digits = 0L)
         mode(counts) <- "integer"
         counts(se) <- counts
+
+        # Generate the DESeqDataSet.
         # Using an empty design formula.
         dds <- DESeqDataSet(se = se, design = ~ 1L)
         validObject(dds)
