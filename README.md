@@ -8,11 +8,19 @@
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
+## Citation
+
+```r
+citation("bcbioRNASeq")
+```
+
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
+
 ## Installation
 
 This is an [R][] package.
 
-### [Bioconductor][]
+### [Bioconductor][] method
 
 We recommend installing the package with [BiocManager][].
 
@@ -37,21 +45,14 @@ For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite(
 source("https://bioconductor.org/biocLite.R")
 ```
 
-#### Pinned [workflow paper][] version
-
-```r
-# v0.2.4
-BiocManager::install("hbc/bcbioRNASeq", ref = "v0.2.4")
-```
-
-### [conda][]
+### [conda][] method
 
 Configure [conda][] to use the [bioconda][] channels.
 
 ```bash
 conda config --add channels defaults
-conda config --add channels conda-forge
 conda config --add channels bioconda
+conda config --add channels conda-forge
 ```
 
 To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
@@ -84,6 +85,22 @@ Note that there is currently a bug with [conda][] and `libgfortran`. You may nee
 conda install libgfortran-ng
 ```
 
+### Pinned [F1000 workflow paper][] version
+
+Installing the specific version of [bcbioRNASeq][] used in the [F1000 workflow paper][] is easiest using [conda][].
+
+```bash
+conda install r-bcbiornaseq=0.2.4
+```
+
+Alternatively, you can use [devtools][] to install the pinned version [bcbioRNASeq][] and its dependencies. First install [bcbioRNASeq][] using [BiocManager][] (see above), and then run these commands.
+
+```r
+devtools::install("hbc/bcbioRNASeq", ref = "v0.2.4", dependencies = FALSE)
+devtools::install("hbc/bcbioBase", ref = "v0.2.12", dependencies = FALSE)
+devtools::install("steinbaugh/basejump", ref = "v0.5.0", dependencies = FALSE)
+```
+
 ## Load [bcbio][] run
 
 ```r
@@ -93,12 +110,10 @@ bcb <- bcbioRNASeq(
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-# Back up all data inside bcbioRNASeq object
-flat <- flatFiles(bcb)
-saveData(bcb, flat)
+saveData(bcb)
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters.
 
 ```r
 help(topic = "bcbioRNASeq", package = "bcbioRNASeq")
@@ -131,14 +146,6 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 - [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
 
-## Citation
-
-```r
-citation("bcbioRNASeq")
-```
-
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
-
 ## References
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
@@ -149,9 +156,10 @@ The papers and software cited in our workflows are available as a [shared librar
 [Bioconductor]: https://bioconductor.org
 [conda]: https://conda.io
 [DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
+[devtools]: https://cran.r-project.org/package=devtools
+[F1000 workflow paper]: https://f1000research.com/articles/6-1976/v2
 [Paperpile]: https://paperpile.com
 [R]: https://www.r-project.org
 [R Markdown]: http://rmarkdown.rstudio.com
 [RStudio]: https://www.rstudio.com
 [RangedSummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
-[Workflow paper]: https://f1000research.com/articles/6-1976/v2
