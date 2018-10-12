@@ -7,7 +7,7 @@
 \title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
+  "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
   NULL), legend = getOption("basejump.legend", TRUE), style = "wide")
 }

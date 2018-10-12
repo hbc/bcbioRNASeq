@@ -7,7 +7,7 @@
 \title{Plot Correlation Heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
   interestingGroups = NULL, method = c("pearson", "spearman"),
   clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,

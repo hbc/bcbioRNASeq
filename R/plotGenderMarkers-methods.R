@@ -26,7 +26,7 @@ NULL
 .plotGenderMarkers.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -59,6 +59,7 @@ f2 <- f2[setdiff(
     y = c(names(f1), "assay", "countsAxisLabel")
 )]
 f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
 formals(.plotGenderMarkers.bcbioRNASeq) <- f
 
 

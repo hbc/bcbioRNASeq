@@ -173,7 +173,7 @@ NULL
 .plotPCA.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -192,6 +192,7 @@ f1 <- formals(.plotPCA.bcbioRNASeq)
 f2 <- formals(.plotPCA.SummarizedExperiment)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
 formals(.plotPCA.bcbioRNASeq) <- f
 
 

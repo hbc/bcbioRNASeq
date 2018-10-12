@@ -7,7 +7,7 @@
 \title{Sample PCA Plot for Transformed Data}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
-  "tmm", "tpm", "rle"), interestingGroups = NULL, ntop = 500L,
+  "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
   color = getOption("basejump.discrete.color", NULL),
   label = getOption("basejump.label", FALSE), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"))

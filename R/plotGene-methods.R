@@ -42,20 +42,17 @@ NULL
 
 
 
-# FIXME Generalize the `normalized` argument across functions.
-# Set this formal automatically, for consistency.
 .plotGene.bcbioRNASeq <-  # nolint
     function(
         object,
         genes,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
         # Ensure counts are always log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
-            # FIXME Any benefit to using 0.1 instead?
             counts <- log2(counts + 1L)
         }
         rse <- as(object, "RangedSummarizedExperiment")
@@ -76,6 +73,7 @@ f1 <- formals(.plotGene.bcbioRNASeq)
 f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
 formals(.plotGene.bcbioRNASeq) <- f
 
 

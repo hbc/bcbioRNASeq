@@ -30,7 +30,7 @@ NULL
 .plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("tmm", "vst", "rlog", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -64,6 +64,8 @@ f1 <- formals(.plotCountsPerGene.bcbioRNASeq)
 f2 <- methodFormals("plotCountsPerGene", "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
+# Ensure TMM is set first.
+f[["normalized"]] <- unique(c("tmm", normalizedCounts))
 formals(.plotCountsPerGene.bcbioRNASeq) <- f
 
 

@@ -7,7 +7,7 @@
 \title{Plot Counts Per Gene}
 \usage{
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
-  "vst", "rlog", "tpm", "rle"), interestingGroups = NULL,
+  "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
   "log2", "log10"), color = getOption("basejump.discrete.color", NULL),
   fill = getOption("basejump.discrete.fill", NULL),

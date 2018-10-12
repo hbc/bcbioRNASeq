@@ -8,7 +8,7 @@
 \title{Plot Gene Expression}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
+  "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
   NULL), legend = getOption("basejump.legend", TRUE),
   style = c("facet", "wide"))

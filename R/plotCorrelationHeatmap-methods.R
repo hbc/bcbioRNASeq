@@ -28,7 +28,7 @@ NULL
 .plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -52,6 +52,7 @@ f2 <- methodFormals(
     signature = "SummarizedExperiment"
 )
 f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
+f[["normalized"]] <- normalizedCounts
 formals(.plotCorrelationHeatmap.bcbioRNASeq) <- f
 
 
