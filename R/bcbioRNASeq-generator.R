@@ -9,6 +9,8 @@
 # TODO Go back to seeing if we can detect organism automatically. This will
 # work for most cases.
 
+# FIXME Consider making `rowRanges` match strict.
+
 
 
 #' @inherit bcbioRNASeq-class
@@ -53,14 +55,6 @@
 #'     sample3 \tab wildtype\cr
 #'     sample4 \tab knockout
 #' }
-#'
-#' @section Automatic metadata:
-#'
-#' The [metadata()] slot contains:
-#'
-#' - bcbio data provenance information.
-#' - File paths and timestamps.
-#' - R session information.
 #'
 #' @section Valid names:
 #'
@@ -492,22 +486,22 @@ bcbioRNASeq <- function(
         dds <- as(bcb, "DESeqDataSet")
 
         # Calculate size factors for normalized counts.
-        message("Calculating normalized counts...")
+        message("Calculating normalized counts.")
         dds <- estimateSizeFactors(dds)
         assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
 
         # Skip full DESeq2 calculations (for internal bcbio test data).
         if (.dataHasVariation(dds)) {
-            message("Calculating transformations...")
+            message("Calculating transformations.")
             # Expect warning about the empty design formula.
             dds <- suppressWarnings(DESeq(dds))
             if (isTRUE(vst)) {
-                message("Applying variance-stabilizing transformation...")
+                message("Applying variance-stabilizing transformation.")
                 assays(bcb)[["vst"]] <-
                     assay(varianceStabilizingTransformation(dds))
             }
             if (isTRUE(rlog)) {
-                message("Applying regularized log transformation...")
+                message("Applying regularized log transformation.")
                 assays(bcb)[["rlog"]] <- assay(rlog(dds))
             }
         } else {
@@ -523,7 +517,10 @@ bcbioRNASeq <- function(
         # Calculate FPKM.
         # Skip this step if we've slotted empty ranges.
         if (length(unique(width(rowRanges(dds)))) > 1L) {
+            message("Calculating FPKM.")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
+        } else {
+            message("Skipping FPKM calculation.")
         }
     }
 
