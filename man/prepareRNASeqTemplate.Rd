@@ -30,7 +30,7 @@ This code is used internally by:
 x <- prepareRNASeqTemplate()
 x
 
-## Clean up
+## Clean up.
 unlink(c(
     "_footer.Rmd",
     "_header.Rmd",
