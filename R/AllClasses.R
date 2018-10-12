@@ -59,28 +59,16 @@ setValidity(
             y = colnames(colData(object))
         )
 
-        # Coerce legacy tx2gene to `Tx2Gene` class.
-        # Not erroring on this mismatch, since it's not essential.
-        if ("tx2gene" %in% names(metadata)) {
-            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
-        }
-
-        # Support for legacy `devtoolsSessionInfo` stash, which has been
-        # renamed to simply `sessionInfo`. Previously, we stashed both
-        # `devtoolsSessionInfo` and `utilsSessionInfo`.
-        # Don't error on detection of this yet.
-        if ("devtoolsSessionInfo" %in% names(metadata)) {
-            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
-        }
-
-        # Detect legacy slots.
+        # Error on legacy slot detection.
         legacyMetadata <- c(
             "design",
+            "devtoolsSessionInfo",
             "ensemblVersion",
             "gtf",
             "gtfFile",
             "missingGenes",
             "programs",
+            "utilsSessionInfo",
             "yamlFile"
         )
         intersect <- intersect(names(metadata), legacyMetadata)
@@ -109,7 +97,8 @@ setValidity(
             lanes = "integer",
             level = "character",
             organism = "character",
-            programVersions = "tbl_df",
+            dataVersions = "DataFrame",
+            programVersions = "DataFrame",
             projectDir = "character",
             runDate = "Date",
             sampleDirs = "character",
