@@ -47,9 +47,9 @@ data(bcb_small)
 show(bcb_small)
 }
 \seealso{
-Other S4 Functions: \code{\link{coerce}}
+\code{\link{showMethods}} prints all the methods for one or more
+  functions.
 }
 \author{
 Michael Steinbuagh
 }
-\concept{S4 Functions}
