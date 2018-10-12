@@ -106,9 +106,9 @@ devtools::install("steinbaugh/basejump", ref = "v0.5.0", dependencies = FALSE)
 ```r
 library(bcbioRNASeq)
 bcb <- bcbioRNASeq(
-    uploadDir = "bcbio_rnaseq_run/final",
-    interestingGroups = c("genotype", "treatment"),
-    organism = "Homo sapiens"
+    uploadDir = "bcbio/final",
+    organism = "Homo sapiens",
+    interestingGroups = c("genotype", "treatment")
 )
 saveData(bcb)
 ```
@@ -119,13 +119,7 @@ This will return a `bcbioRNASeq` object, which is an extension of the [Bioconduc
 help(topic = "bcbioRNASeq", package = "bcbioRNASeq")
 ```
 
-### Sample metadata
 
-When loading a [bcbio][] RNA-seq run, the sample metadata will be imported automatically from the `project-summary.yaml` file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into `bcbioRNASeq()` using the `sampleMetadataFile` argument.
-
-#### Metadata file example
-
-The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions. Do not attempt to set a `sampleID` column, as this is used internally by the package.
 
 | description | genotype |
 |-------------|----------|
