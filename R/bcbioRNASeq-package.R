@@ -77,6 +77,7 @@
 #' @importFrom S4Vectors as.data.frame complete.cases DataFrame head mcols
 #'   mcols<- metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks
+#' @importFrom sessioninfo session_info
 #' @importFrom stringr str_match str_trunc
 #' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
 #'   assays<- colData colData<- rowData rowRanges
