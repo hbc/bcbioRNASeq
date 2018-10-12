@@ -64,6 +64,7 @@ setAs(
         # Don't include the metrics columns inside bcbioRNASeq object.
         colData(se) <- sampleData(from, clean = TRUE)
         # FIXME Minimize the metadata we're passing through.
+        # FIXME Ensure sessionInfo is updated.
         validObject(se)
         to <- .new.DESeqDataSet(se = se)
         interestingGroups(to) <- interestingGroups(from)
