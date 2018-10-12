@@ -101,7 +101,7 @@ devtools::install("hbc/bcbioBase", ref = "v0.2.12", dependencies = FALSE)
 devtools::install("steinbaugh/basejump", ref = "v0.5.0", dependencies = FALSE)
 ```
 
-## Load [bcbio][] run
+## Loading [bcbio][] RNA-seq data
 
 ```r
 library(bcbioRNASeq)
