@@ -48,7 +48,7 @@ show(bcb_small)
 }
 \seealso{
 Other S4 Functions: \code{\link{coerce}},
-  \code{\link{extract}}, \code{\link{updateObject}}
+  \code{\link{extract}}
 }
 \author{
 Michael Steinbuagh

@@ -52,7 +52,7 @@ summary(res)
 }
 
 Other S4 Functions: \code{\link{extract}},
-  \code{\link{show}}, \code{\link{updateObject}}
+  \code{\link{show}}
 }
 \author{
 Michael Steinbaugh

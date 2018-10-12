@@ -112,7 +112,7 @@ names(assays(x))
 \code{help("[", "base")}.
 
 Other S4 Functions: \code{\link{coerce}},
-  \code{\link{show}}, \code{\link{updateObject}}
+  \code{\link{show}}
 }
 \author{
 Lorena Pantano, Michael Steinbaugh
