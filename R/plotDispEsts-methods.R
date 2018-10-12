@@ -1,23 +1,21 @@
 #' Plot Dispersion Estimates
+#' @name plotDispEsts
+#' @importFrom BiocGenerics plotDispEsts
+#' @inherit DESeq2::plotDispEsts
+#' @author Michael Steinbaugh
+#' @export
 #'
+#' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
 #' dispersion to decrease as the mean of normalized counts increases.
 #'
-#' @note Here we're generating a `DESeqDataSet` object on the fly, which already
-#'   has method support for plotting dispersion, provided by the DESeq2 package.
+#' Here we're generating a `DESeqDataSet` object on the fly, which already has
+#' method support for plotting dispersion, provided by the DESeq2 package.
 #'
-#' @name plotDispEsts
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh
-#' @importFrom BiocGenerics plotDispEsts
-#' @export
-#'
-#' @inherit DESeq2::plotDispEsts
+#' @inheritParams general
 #' @param object Object.
 #'
-#' @seealso
-#' - [DESeq2::plotDispEsts()].
-#' - `getMethod("plotDispEsts", "DESeqDataSet")`.
+#' @seealso [DESeq2::plotDispEsts].
 #'
 #' @return `ggplot`.
 #'
@@ -40,6 +38,7 @@ NULL
     function() {
         validObject(object)
         dds <- as(object, "DESeqDataSet")
+        # Expecting warning about empty design formula.
         dds <- suppressWarnings(DESeq(dds))
         do.call(
             what = plotDispEsts,
@@ -51,10 +50,32 @@ formals(.plotDispEsts.bcbioRNASeq) <-
 
 
 
-#' @rdname plotDispEsts
+#' @describeIn plotDispEsts Coerces to `DESeqDataSet` and inherits method from
+#'   DESeq2.
 #' @export
 setMethod(
     f = "plotDispEsts",
     signature = signature("bcbioRNASeq"),
     definition = .plotDispEsts.bcbioRNASeq
+)
+
+
+
+# DESeqAnalysis ================================================================
+.plotDispEsts.DESeqAnalysis <-  # nolint
+    function(object, ...) {
+        plotDispEsts(as(object, "DESeqDataSet"), ...)
+    }
+formals(.plotDispEsts.DESeqAnalysis) <-
+    methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
+
+
+
+#' @describeIn plotDispEsts Extracts internal `DESeqDataSet` and inherits method
+#'   from DESeq2.
+#' @export
+setMethod(
+    f = "plotDispEsts",
+    signature = signature("DESeqAnalysis"),
+    definition = .plotDispEsts.DESeqAnalysis
 )
