@@ -429,17 +429,19 @@ bcbioRNASeq <- function(
     }
 
     # Fetch the genomic ranges.
-    if (is_a_string(gffFile) && file.exists(gffFile)) {
+    if (
+        is_a_string(gffFile) &&
+        file.exists(gffFile)
+    ) {
         # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
         rowRanges <- makeGRangesFromGFF(gffFile)
-    } else if (is_a_string(organism)) {
+    } else if (
+        is_a_string(organism) &&
+        is.numeric(ensemblRelease)
+    ) {
         # AnnotationHub/ensembldb.
         message("Using `makeGRangesFromEnsembl()` for annotations.")
-        if (is.null(ensemblRelease)) {
-            stop("`ensemblRelease` is required.")
-        }
-        assertIsAnImplicitInteger(ensemblRelease)
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -463,10 +465,10 @@ bcbioRNASeq <- function(
         organism <- tryCatch(
             expr = detectOrganism(rownames(assays[[1L]])),
             error = function(e) {
-                stop(paste(
+                warning(paste(
                     "Failed to detect organism automatically.",
-                    "Specify this with `organism` argument."
-                ))
+                    "Specify with `organism` argument."
+                ), call. = FALSE)
             }
         )
     }
