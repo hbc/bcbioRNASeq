@@ -233,6 +233,12 @@ NULL
             metadata[["countsFromAbundance"]] <- "lengthScaledTPM"
         }
 
+        # dataVersions
+        dataVersions <- metadata[["dataVersions"]]
+        if (is(dataVersions, "data.frame")) {
+            metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
+        }
+
         # design
         if ("design" %in% names(metadata)) {
             message("Dropping legacy design formula.")
@@ -294,11 +300,22 @@ NULL
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
         }
+        programVersions <- metadata[["programVersions"]]
+        if (is(programVersions, "data.frame")) {
+            metadata[["programVersions"]] <- as(programVersions, "DataFrame")
+        }
 
         # sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             message("Setting `sampleMetadataFile` as empty `character`.")
             metadata[["sampleMetadataFile"]] <- character()
+        }
+
+        # sessionInfo
+        # Support for legacy `devtoolsSessionInfo` stash.
+        # Previously, we stashed both `devtools*` and `utils*` variants.
+        if ("devtoolsSessionInfo" %in% names(metadata)) {
+            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
         }
 
         # tx2gene
