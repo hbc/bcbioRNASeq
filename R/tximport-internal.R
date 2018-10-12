@@ -67,7 +67,7 @@
         packageVersion("tximport"), "..."
     ))
     if (countsFromAbundance != "no") {
-        message(paste0("Scaling using ", countsFromAbundance, "..."))
+        message(paste0("Scaling using ", countsFromAbundance, "."))
     }
     txi <- tximport(
         files = files,

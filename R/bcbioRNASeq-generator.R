@@ -355,7 +355,6 @@ bcbioRNASeq <- function(
         txi <- .tximport(
             sampleDirs = sampleDirs,
             type = caller,
-            txIn = TRUE,
             txOut = txOut,
             countsFromAbundance = countsFromAbundance,
             tx2gene = tx2gene
