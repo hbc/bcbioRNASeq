@@ -9,7 +9,8 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   samples = NULL, censorSamples = NULL, sampleMetadataFile = NULL,
   organism = NULL, genomeBuild = NULL, ensemblRelease = NULL,
   gffFile = NULL, transgeneNames = NULL, spikeNames = NULL,
-  vst = TRUE, rlog = FALSE, interestingGroups = "sampleName", ...)
+  countsFromAbundance = "lengthScaledTPM", vst = TRUE, rlog = FALSE,
+  interestingGroups = "sampleName", ...)
 }
 \arguments{
 \item{uploadDir}{\code{string}. Path to final upload directory. This path is set
@@ -81,6 +82,14 @@ construct a \code{GRanges} object containing the genomic ranges (\code{\link[=ro
 
 \item{spikeNames}{\code{character} or \code{NULL}. Vector indicating which \code{\link[=assay]{assay()}}
 rows denote spike-in sequences (e.g. ERCCs).}
+
+\item{countsFromAbundance}{\code{string}. Whether to generate estimated counts
+using abundance estimates (\emph{recommended by default}). \code{lengthScaledTPM} is
+a suitable default, and counts are scaled using the average transcript
+length over samples and then the library size. Refer to
+\link[tximport:tximport]{tximport::tximport} for more information on this parameter, but it should
+only ever be changed when loading some datasets at transcript level
+(e.g. for DTU analsyis).}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
 \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default

@@ -125,6 +125,13 @@
 #'   possible, although all GFF formats are supported. The function will
 #'   internally generate a `TxDb` containing transcript-to-gene mappings and
 #'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
+#' @param countsFromAbundance `string`. Whether to generate estimated counts
+#'   using abundance estimates (*recommended by default*). `lengthScaledTPM` is
+#'   a suitable default, and counts are scaled using the average transcript
+#'   length over samples and then the library size. Refer to
+#'   [tximport::tximport] for more information on this parameter, but it should
+#'   only ever be changed when loading some datasets at transcript level
+#'   (e.g. for DTU analsyis).
 #' @param vst `boolean`. Calculate variance-stabilizing transformation using
 #'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default
 #'   for visualization.
@@ -176,6 +183,7 @@ bcbioRNASeq <- function(
     gffFile = NULL,
     transgeneNames = NULL,
     spikeNames = NULL,
+    countsFromAbundance = "lengthScaledTPM",
     vst = TRUE,
     rlog = FALSE,
     interestingGroups = "sampleName",
@@ -223,6 +231,10 @@ bcbioRNASeq <- function(
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
+    match.arg(
+        arg = countsFromAbundance,
+        choices = eval(formals(tximport)[["countsFromAbundance"]])
+    )
     assert_is_a_bool(vst)
     assert_is_a_bool(rlog)
     assert_is_character(interestingGroups)
@@ -345,27 +357,19 @@ bcbioRNASeq <- function(
             type = caller,
             txIn = TRUE,
             txOut = txOut,
-            countsFromAbundance = "lengthScaledTPM",
+            countsFromAbundance = countsFromAbundance,
             tx2gene = tx2gene
         )
-
-        # Raw counts. By default, we're using length-scaled TPM, so a
-        # corresponding average transcript length matrix isn't necessary.
+        # Raw counts. Length scaled by default (see `countsFromAbundance`).
+        # These counts are expected to be non-integer.
         assays[["counts"]] <- txi[["counts"]]
-
-        # Average transcript lengths. Only necessary when raw counts matrix
-        # isn't scaled during tximport call.
-        # Currently this isn't possible, but keep code for a future release.
-        if (txi[["countsFromAbundance"]] == "no") {
-            assays[["avgTxLength"]] <- txi[["length"]]
-        }
-
         # Transcripts per million.
         assays[["tpm"]] <- txi[["abundance"]]
+        # Average transcript lengths.
+        assays[["avgTxLength"]] <- txi[["length"]]
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
         assert_are_identical(level, "genes")
-
         # Load up the featureCounts aligned counts matrix.
         counts <- import(file = file.path(projectDir, "combined.counts"))
         assert_is_matrix(counts)
@@ -373,7 +377,7 @@ bcbioRNASeq <- function(
         # Subset the combined matrix to match the samples.
         assert_is_subset(samples, colnames(counts))
         counts <- counts[, samples, drop = FALSE]
-
+        # Raw counts. These counts are expected to be integer.
         assays[["counts"]] <- counts
     }
 
@@ -381,6 +385,8 @@ bcbioRNASeq <- function(
     assert_are_identical(colnames(assays[[1L]]), rownames(colData))
 
     # Row data -----------------------------------------------------------------
+    # FIXME Pull the corresponding GTF file from the bcbio logs by default,
+    # and use that if it exists.
     if (is.null(organism)) {
         message(paste(
             "`organism` is recommended for defining",

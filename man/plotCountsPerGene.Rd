@@ -8,7 +8,7 @@
 \usage{
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "tpm", "rle"), interestingGroups = NULL,
-  geom = c("density", "boxplot", "violin"), trans = c("identity",
+  geom = c("boxplot", "density", "violin"), trans = c("identity",
   "log2", "log10"), color = getOption("basejump.discrete.color", NULL),
   fill = getOption("basejump.discrete.fill", NULL),
   flip = getOption("basejump.flip", TRUE), countsAxisLabel = "counts",
