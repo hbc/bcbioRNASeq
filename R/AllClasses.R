@@ -2,10 +2,11 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 
-# FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
-
 # bcbioRNASeq ==================================================================
+# FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
 # FIXME Consider warning or erroring if dimnames aren't valid.
+# TODO Improve the object documentation here.
+# TODO Make the metadata slots stricter.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -15,6 +16,15 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
+#' @section Automatic metadata:
+#'
+#' The [metadata()] slot always contains:
+#'
+#' - Object version.
+#' - bcbio data provenance information.
+#' - File paths and timestamps.
+#' - R session information.
+#'
 #' @family S4 Classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
@@ -22,23 +32,36 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 
-# TODO Make the metadata slots stricter.
+# v0.2.6: countsFromAbundance is now optional, since we're supporting
+# featureCounts aligned counts.
+
+# Note that `avgTxLength` matrix isn't required because it isn't slotted in
+# some legacy arguments.
+
+# DESeq2 calculations (`normalized`, `rlog`, `vst`) are optional.
+
 setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
+        # Return invalid for all objects older than v0.2.
         stopifnot(metadata(object)[["version"]] >= 0.2)
+
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
+        if (!all(validDimnames(object))) {
+            warning("Object does not contain valid names", call. = FALSE)
+        }
 
         # Metadata -------------------------------------------------------------
         # Require the user to update to Bioconductor version.
         metadata <- metadata(object)
 
-        # Support for legacy `devtoolsSessionInfo` stash, which has been
-        # renamed to simply `sessionInfo`. Previously, we stashed both
-        # `devtoolsSessionInfo` and `utilsSessionInfo`.
-        if ("devtoolsSessionInfo" %in% names(metadata)) {
-            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
+        # Detect legacy metrics.
+        if (is.data.frame(metadata[["metrics"]])) {
+            stop(paste(
+                "`metrics` saved in `metadata()` instead of `colData()`.",
+                updateMessage
+            ))
         }
 
         # Check that interesting groups defined in metadata are valid.
@@ -47,12 +70,18 @@ setValidity(
             y = colnames(colData(object))
         )
 
-        # Detect legacy metrics.
-        if (is.data.frame(metadata[["metrics"]])) {
-            stop(paste(
-                "`metrics` saved in `metadata()` instead of `colData()`.",
-                updateMessage
-            ))
+        # Coerce legacy tx2gene to `Tx2Gene` class.
+        # Not erroring on this mismatch, since it's not essential.
+        if ("tx2gene" %in% names(metadata)) {
+            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
+        }
+
+        # Support for legacy `devtoolsSessionInfo` stash, which has been
+        # renamed to simply `sessionInfo`. Previously, we stashed both
+        # `devtoolsSessionInfo` and `utilsSessionInfo`.
+        # Don't error on detection of this yet.
+        if ("devtoolsSessionInfo" %in% names(metadata)) {
+            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
         }
 
         # Detect legacy slots.
@@ -76,9 +105,6 @@ setValidity(
                 sep = "\n"
             ))
         }
-
-        # v0.2.6: countsFromAbundance is now optional, since we're supporting
-        # featureCounts aligned counts.
 
         # Class checks (order independent).
         requiredMetadata <- list(
@@ -131,20 +157,28 @@ setValidity(
         }
 
         # Additional assert checks.
-        # caller
-        assert_is_subset(
-            x = metadata[["caller"]],
-            y = validCallers
+        match.arg(
+            arg = metadata[["caller"]],
+            choices = validCallers
         )
-        # level
-        assert_is_subset(
-            x = metadata[["level"]],
-            y = validLevels
+        match.arg(
+            arg = metadata[["level"]],
+            choices = validLevels
         )
+        if (is.character(metadata[["countsFromAbundance"]])) {
+            match.arg(
+                arg = metadata[["countsFromAbundance"]],
+                choices = eval(formals(tximport)[["countsFromAbundance"]])
+            )
+        }
 
         # Assays ---------------------------------------------------------------
-        assert_is_subset(requiredAssays, assayNames(object))
+        assayNames <- assayNames(object)
+        assert_is_subset(requiredAssays, assayNames)
         # Check that all assays are matrices.
+        # Note that in previous versions, we slotted `DESeqDataSet` and
+        # `DESeqTransform`, which can result in metadata mismatches because
+        # those objects contain their own `colData()` and `rowData()`.
         assayCheck <- vapply(
             X = assays(object),
             FUN = is.matrix,
@@ -163,10 +197,11 @@ setValidity(
         }
 
         # Caller-specific checks.
-        # DESeq2 calculations (`normalized`, `rlog`, `vst`) are optional.
         caller <- metadata[["caller"]]
         if (caller %in% tximportCallers) {
-            assert_is_subset(tximportAssays, assayNames(object))
+            assert_is_subset(tximportAssays, assayNames)
+        } else if (caller %in% featureCountsCallers) {
+            assert_is_subset(featureCountsAssays, assayNames)
         }
 
         # Row data -------------------------------------------------------------
@@ -174,7 +209,11 @@ setValidity(
         assert_is_all_of(rowData(object), "DataFrame")
 
         # Column data ----------------------------------------------------------
-        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
+        # Error on legacy metrics columns.
+        assert_are_disjoint_sets(
+            x = colnames(colData(object)),
+            y = legacyMetricsCols
+        )
 
         TRUE
     }
