@@ -263,7 +263,7 @@ bcbioRNASeq <- function(
     assert_is_character(interestingGroups)
 
     # Directory paths ----------------------------------------------------------
-    uploadDir <- normalizePath(uploadDir, winslash = "/", mustWork = TRUE)
+    uploadDir <- realpath(uploadDir)
     projectDir <- projectDir(uploadDir)
     sampleDirs <- sampleDirs(uploadDir)
 
@@ -298,11 +298,7 @@ bcbioRNASeq <- function(
     if (is_a_string(sampleMetadataFile)) {
         # Normalize path of local file.
         if (file.exists(sampleMetadataFile)) {
-            sampleMetadataFile <- normalizePath(
-                path = sampleMetadataFile,
-                winslash = "/",
-                mustWork = TRUE
-            )
+            sampleMetadataFile <- realpath(sampleMetadataFile)
         }
         # User-defined external file.
         # Note that `readSampleData()` also supports URLs.
@@ -432,11 +428,10 @@ bcbioRNASeq <- function(
     if (is_a_string(gffFile)) {
         # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
-        stopifnot(file.exists(gffFile))
-        rowRanges <- makeGRangesFromGFF(
-            file = gffFile,
-            level = level
-        )
+        if (file.exists(gffFile)) {
+            gffFile <- realpath(gffFile)
+        }
+        rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
     } else if (
         is_a_string(organism) &&
         is.numeric(ensemblRelease)
