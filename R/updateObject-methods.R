@@ -235,8 +235,15 @@ NULL
 
         # countsFromAbundance
         if (!"countsFromAbundance" %in% names(metadata)) {
-            message("Setting `countsFromAbundance` as lengthScaledTPM.")
-            metadata[["countsFromAbundance"]] <- "lengthScaledTPM"
+            if (metadata[["caller"]] %in% tximportCallers) {
+                countsFromAbundance <- "lengthScaledTPM"
+            } else {
+                countsFromAbundance <- "no"
+            }
+            message(paste0(
+                "Setting `countsFromAbundance` as ", countsFromAbundance, "."
+            ))
+            metadata[["countsFromAbundance"]] <- countsFromAbundance
         }
 
         # dataVersions
