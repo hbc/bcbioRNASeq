@@ -433,7 +433,10 @@ bcbioRNASeq <- function(
         # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
         stopifnot(file.exists(gffFile))
-        rowRanges <- makeGRangesFromGFF(gffFile)
+        rowRanges <- makeGRangesFromGFF(
+            file = gffFile,
+            level = level
+        )
     } else if (
         is_a_string(organism) &&
         is.numeric(ensemblRelease)
