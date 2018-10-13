@@ -29,17 +29,8 @@
 #'
 #' @examples
 #' data(bcb_small)
-#' plotPCA(
-#'     object = bcb_small,
-#'     normalized = "vst",
-#'     label = TRUE
-#' )
-#' plotPCA(
-#'     object = bcb_small,
-#'     normalized = "rlog",
-#'     interestingGroups = "sampleName",
-#'     label = FALSE
-#' )
+#' plotPCA(bcb_small, label = FALSE)
+#' plotPCA(bcb_small, label = TRUE)
 NULL
 
 

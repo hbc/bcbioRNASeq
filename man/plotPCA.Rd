@@ -66,17 +66,8 @@ a way to look at how samples are clustering.
 }
 \examples{
 data(bcb_small)
-plotPCA(
-    object = bcb_small,
-    normalized = "vst",
-    label = TRUE
-)
-plotPCA(
-    object = bcb_small,
-    normalized = "rlog",
-    interestingGroups = "sampleName",
-    label = FALSE
-)
+plotPCA(bcb_small, label = FALSE)
+plotPCA(bcb_small, label = TRUE)
 }
 \references{
 Jolliffe, et al., 2002.
