@@ -1,4 +1,4 @@
-context("R Markdown")
+context("Markdown")
 
 
 

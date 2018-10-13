@@ -8,12 +8,12 @@
 
 data(bcb_small, deseq_small, envir = environment())
 
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-lfc <- 0.25
-
 dds_small <- as(deseq_small, "DESeqDataSet")
 vst_small <- as(deseq_small, "DESeqTransform")
 res_small <- as(deseq_small, "DESeqResults")
 res_tables <- DESeqResultsTables(res_small)
+
+# FIXME Set this manually, not as a global
+lfc <- 0.25
 
 # nolint end
