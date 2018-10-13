@@ -45,7 +45,6 @@
         basename <- "abundance.h5"
     }
     files <- file.path(subdirs, basename)
-    print(files)
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
 
