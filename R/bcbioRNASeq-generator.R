@@ -416,25 +416,22 @@ bcbioRNASeq <- function(
     # 3. Fall back to slotting empty ranges. This is offered as support for
     #    complex datasets (e.g. multiple organisms).
 
-    # bcbio GTF file path.
+    # Attempt to use bcbio GTF automatically.
     if (is.null(gffFile)) {
         gffFile <- getGTFFileFromYAML(yaml)
         if (!file.exists(gffFile)) {
             warning(paste0(
-                "bcbio GTF missing:",
-                "\n  ",
-                gffFile
+                "bcbio GTF file missing:", "\n  ", gffFile
             ), call. = FALSE)
         }
+        gffFile <- NULL
     }
 
     # Fetch the genomic ranges.
-    if (
-        is_a_string(gffFile) &&
-        file.exists(gffFile)
-    ) {
+    if (is_a_string(gffFile)) {
         # GTF/GFF file.
         message("Using `makeGRangesFromGFF()` for annotations.")
+        stopifnot(file.exists(gffFile))
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (
         is_a_string(organism) &&
