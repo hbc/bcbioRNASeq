@@ -17,7 +17,7 @@
 #' @section bcbioRNASeq to DESeqTransform:
 #'
 #' 1. Coerces to `DESeqDataSet`.
-#' 2. Calls [DESeq2::DESeq2()].
+#' 2. Calls [DESeq2::DESeq()].
 #' 3. Calls [DESeq2::varianceStabilizingTransformation()].
 #'
 #' @section DESeqAnalysis:

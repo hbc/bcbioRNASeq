@@ -28,7 +28,7 @@ updates \code{sessionInfo}.
 
 \enumerate{
 \item Coerces to \code{DESeqDataSet}.
-\item Calls \code{\link[DESeq2:DESeq2]{DESeq2::DESeq2()}}.
+\item Calls \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
 \item Calls \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 }
