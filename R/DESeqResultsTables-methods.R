@@ -150,18 +150,22 @@ NULL
 
             # Row annotations.
             if (isTRUE(rowData)) {
-                message(paste(
-                    "Adding `rowData()` annotations (atomic columns only)."
-                ))
                 rowData <- sanitizeRowData(rowData(object@data))
                 # DESeq2 includes additional information in `rowData()` that
                 # isn't informative for a user, and doesn't need to be included
                 # in the CSV. Use our `bcb_small` example dataset to figure out
                 # which columns are worth including.
+                data(bcb_small)
                 keep <- intersect(
                     x = colnames(rowData),
-                    y = colnames(rowData(bcbioRNASeq::bcb_small))
+                    y = colnames(rowData(bcb_small))
                 )
+                assert_is_non_empty(keep)
+                message(paste(
+                    "Adding `rowData()` annotations (atomic columns only).",
+                    printString(keep),
+                    sep = "\n"
+                ))
                 rowData <- rowData[, keep, drop = FALSE]
                 assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
                 assert_is_non_empty(rowData)
