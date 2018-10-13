@@ -12,22 +12,48 @@ test_that("alphaSummary : DESeqDataSet", {
 
     # Default, no contrast specified.
     x <- alphaSummary(object)
-    expect_is(x, "knitr_kable")
-    expect_true(grepl("1e-06", x[[1L]]))
+    expect_is(x, "matrix")
+    expect_equal(
+        object = x,
+        expected = matrix(
+            data = c(
+                115,  88,  58,  31,  19,
+                139, 120, 100,  59,  14,
+                  6,   6,   6,    6,  6,
+                  0,   0,   0,    0,  39
+            ),
+            nrow = 4L,
+            ncol = 5L,
+            byrow = TRUE,
+            dimnames = list(
+                c(
+                    "LFC > 0 (up)",
+                    "LFC < 0 (down)",
+                    "outliers [1]",
+                    "low counts [2]"
+                ),
+                c(1e-01, 0.5e-01, 1e-02, 1e-03, 1e-06)
+            )
+        )
+    )
 
     # Contrast vector.
-    x <- alphaSummary(
-        object = object,
-        contrast = c("treatment", "folic_acid", "control")
+    expect_identical(
+        object = alphaSummary(
+            object = object,
+            contrast = c("treatment", "folic_acid", "control")
+        ),
+        expected = x
     )
-    expect_is(x, "knitr_kable")
 
     # Contrast name.
-    x <- alphaSummary(
-        object = object,
-        name = "treatment_folic_acid_vs_control"
+    expect_identical(
+        object = alphaSummary(
+            object = object,
+            name = "treatment_folic_acid_vs_control"
+        ),
+        expected = x
     )
-    expect_is(x, "knitr_kable")
 })
 
 
