@@ -39,14 +39,13 @@
     # Locate the counts files --------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert_all_are_dirs(subdirs)
-
     if (type %in% c("salmon", "sailfish")) {
-        # Use `quant.sf` file for salmon or sailfish.
-        files <- file.path(subdirs, "quant.sf")
+        basename <- "quant.sf"
     } else if (type == "kallisto") {
-        # Use `abundance.h5` file (HDF5) for kallisto.
-        files <- file.path(subdirs, "abundance.h5")
+        basename <- "abundance.h5"
     }
+    files <- file.path(subdirs, basename)
+    print(files)
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
 
@@ -66,6 +65,7 @@
         "Reading ", type, " counts using tximport ",
         packageVersion("tximport"), "."
     ))
+    message(paste("Reading from", basename(files[[1L]]), "files."))
     if (countsFromAbundance != "no") {
         message(paste0("Scaling using ", countsFromAbundance, "."))
     }
