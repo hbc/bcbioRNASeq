@@ -562,6 +562,7 @@ bcbioRNASeq <- function(
     }
 
     # Return -------------------------------------------------------------------
+    assertHasValidDimnames(bcb)
     validObject(bcb)
     bcb
 }

@@ -37,9 +37,6 @@ setValidity(
 
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
-        if (!all(validDimnames(object))) {
-            warning("Object does not contain valid names", call. = FALSE)
-        }
 
         # Metadata -------------------------------------------------------------
         # Require the user to update to Bioconductor version.
