@@ -95,7 +95,6 @@ NULL
                 choices = normalizedCounts
             )
         }
-        assert_is_a_string(assayName)
 
         if (assayName == "tmm") {
             counts <- assays(object)[["counts"]]
@@ -104,9 +103,7 @@ NULL
             counts <- assays(object)[["counts"]]
             counts <- relativeLogExpression(counts)
         } else {
-            # Get matrix slotted in `assays()`.
-            # Note that we've killed the log2 TMM fall back support if
-            # DESeq2 transforms are skipped, because that is confusing.
+            assert_is_subset(assayName, assayNames(object))
             counts <- assays(object)[[assayName]]
         }
 
