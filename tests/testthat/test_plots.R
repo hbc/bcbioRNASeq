@@ -1,14 +1,5 @@
 context("Plots : Quality Control")
 
-bcb_skip <- bcb_small
-assays(bcb_skip)[["rlog"]] <- NULL
-assays(bcb_skip)[["vst"]] <- NULL
-
-skipWarning <- paste(
-    "rlog not present in assays.",
-    "Calculating log2 TMM counts instead."
-)
-
 
 
 # QC plots with interesting groups =============================================
@@ -62,19 +53,6 @@ with_parameters_test_that(
         DESeqResults = vst_small
     )
 )
-
-test_that("plotCorrelationHeatmap : Skipped DESeq transform", {
-    expect_warning(
-        object = plotCorrelationHeatmap(bcb_skip, normalized = "rlog"),
-        regexp = skipWarning
-    )
-    expect_is(
-        object = suppressWarnings(
-            plotCorrelationHeatmap(bcb_skip, normalized = "rlog")
-        ),
-        class = "pheatmap"
-    )
-})
 
 
 
@@ -137,8 +115,7 @@ with_parameters_test_that(
         expect_is(x, "ggplot")
     },
     object = list(
-        bcbioRNASeq1 = bcb_small,
-        bcbioRNASeq2 = bcb_skip,
+        bcbioRNASeq = bcb_small,
         DESeqDataSet = dds_small
     )
 )
@@ -156,15 +133,6 @@ test_that("plotPCA : Label", {
 test_that("plotPCA : DataFrame", {
     object <- plotPCA(bcb_small, return = "DataFrame")
     expect_is(object, "DataFrame")
-})
-
-test_that("plotPCA : Skipped DESeq2 transforms", {
-    expect_warning(
-        plotPCA(bcb_skip, normalized = "rlog"),
-        skipWarning
-    )
-    object <- suppressWarnings(plotPCA(bcb_skip, normalized = "rlog"))
-    expect_is(object, "ggplot")
 })
 
 
