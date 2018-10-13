@@ -4,6 +4,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 # bcbioRNASeq ==================================================================
 # TODO Improve the object documentation here.
+# TODO Consider adding countsFromAbundance check against tximport formals.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -184,7 +185,10 @@ setValidity(
         }
 
         # Check for average transcript length matrix, if necessary.
-        if (metadata[["countsFromAbundance"]] == "no") {
+        if (
+            metadata[["caller"]] %in% tximportCallers &&
+            metadata[["countsFromAbundance"]] == "no"
+        ) {
             assert_is_subset("avgTxLength", assayNames)
         }
 
