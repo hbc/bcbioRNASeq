@@ -1,5 +1,3 @@
-fileName,description,group
-group1_1_R1.fastq.gz,group1_1,ctrl
-group1_2_R1.fastq.gz,group1_2,ctrl
-group2_1_R1.fastq.gz,group2_1,ko
-group2_2_R1.fastq.gz,group2_2,ko
+fileName,description,treatment
+control_rep1_R1.fastq.gz,control_rep1,control
+control_rep2_R1.fastq.gz,control_rep2,control
