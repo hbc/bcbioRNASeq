@@ -392,6 +392,7 @@ bcbioRNASeq <- function(
         assays[["avgTxLength"]] <- txi[["length"]]
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
+        countsFromAbundance <- "no"
         assert_are_identical(level, "genes")
         # Load up the featureCounts aligned counts matrix.
         counts <- import(file = file.path(projectDir, "combined.counts"))
@@ -483,7 +484,7 @@ bcbioRNASeq <- function(
         version = packageVersion,
         level = level,
         caller = caller,
-        countsFromAbundance = txi[["countsFromAbundance"]],
+        countsFromAbundance = countsFromAbundance,
         uploadDir = uploadDir,
         sampleDirs = sampleDirs,
         sampleMetadataFile = as.character(sampleMetadataFile),

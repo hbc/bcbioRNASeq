@@ -157,10 +157,12 @@
         }
 
         # Subset the assays. Average transcript length matrix should only be
-        # included when raw counts are not length scaled.
-        countsFromAbundance <- metadata(se)[["countsFromAbundance"]]
-        assert_is_a_string(countsFromAbundance)
-        if (countsFromAbundance == "no") {
+        # included when raw counts are from tximport and not length scaled.
+        if (
+            metadata(se)[["caller"]] %in% tximportCallers &&
+            metadata(se)[["countsFromAbundance"]] == "no"
+        ) {
+            message("Including average transcript length matrix.")
             assayNames <- c("counts", "avgTxLength")
         } else {
             assayNames <- "counts"
