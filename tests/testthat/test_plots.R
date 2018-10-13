@@ -192,10 +192,9 @@ geneNames <- head(gene2symbol[["geneName"]])
 # plotGenderMarkers ============================================================
 with_parameters_test_that(
     "plotGenderMarkers", {
-        # Check the handling when dimorphic genes aren't present.
-        expect_message(
+        expect_is(
             object = plotGenderMarkers(object),
-            regexp = "All genes failed to map"
+            class = "ggplot"
         )
     },
     object = list(
@@ -208,47 +207,36 @@ with_parameters_test_that(
 
 
 # plotGene =====================================================================
-# FIXME parameterize
-test_that("plotGene : bcbioRNASeq", {
-    # facet
+with_parameters_test_that(
+    "plotGene", {
+    # Facet wrapped.
     p <- plotGene(
-        object = bcb_small,
+        object = object,
         genes = geneNames,
-        normalized = "vst",
         interestingGroups = "sampleName",
         style = "facet"
     )
     expect_is(p, "ggplot")
 
-    # wide
+    # Wide format.
     p <- plotGene(
         object = bcb_small,
         genes = geneNames,
-        normalized = "tpm",
         style = "wide"
     )
     expect_is(p, "ggplot")
-})
-
-test_that("plotGene : DESeqDataSet", {
-    p <- plotGene(dds_small, genes = geneNames)
-    expect_is(p, "ggplot")
-})
-
-test_that("plotGene : DESeqTransform", {
-    # rlog
-    p <- plotGene(rlog_small, genes = geneNames)
-    expect_is(p, "ggplot")
-
-    # vst
-    p <- plotGene(vst_small, genes = geneNames)
-    expect_is(p, "ggplot")
-})
+},
+    object = list(
+        bcbioRNASeq = bcb_small,
+        DESeqDataSet = dds_small,
+        DESeqTransform = vst_small,
+        DESeqAnalysis = deseq_small
+    )
+)
 
 
 
 # plotHeatmap ==================================================================
-# FIXME parameterize
 test_that("plotHeatmap : bcbioRNASeq", {
     genes <- head(rownames(bcb_small), n = 100L)
     p <- plotHeatmap(bcb_small[genes, ])
