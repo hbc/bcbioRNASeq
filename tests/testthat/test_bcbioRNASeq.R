@@ -1,11 +1,151 @@
-# FIXME Rework this and reorganize other unit tests.
-# FIXME Check slots using bcb_small for speed
+context("bcbioRNASeq : Slots")
+
+object <- bcb_small
+
+test_that("Slot names", {
+    expect_identical(
+        object = slotNames(object),
+        expected = c(
+            "rowRanges",
+            "colData",
+            "assays",
+            "NAMES",
+            "elementMetadata",
+            "metadata"
+        )
+    )
+})
+
+with_parameters_test_that(
+    "Slot definitions", {
+        expect_identical(
+            object = class(slot(object, slotName)),
+            expected = expected
+        )
+    },
+    slotName = slotNames(object),
+    expected = list(
+        rowRanges = structure(
+            "GRanges",
+            package = "GenomicRanges"
+        ),
+        colData = structure(
+            "DataFrame",
+            package = "S4Vectors"
+        ),
+        assays = structure(
+            "ShallowSimpleListAssays",
+            package = "SummarizedExperiment"
+        ),
+        NAMES = "NULL",
+        elementMetadata = structure(
+            "DataFrame",
+            package = "S4Vectors"
+        ),
+        metadata = "list"
+    )
+)
+
+test_that("Dimensions", {
+    expect_identical(
+        object = dim(object),
+        expected = c(500L, 6L)
+    )
+    expect_identical(
+        object = colnames(object),
+        expected = paste0(
+            rep(c("control", "fa_day7"), each = 3L),
+            "_rep", rep(seq_len(3L), times = 2L)
+        )
+    )
+    expect_identical(
+        object = head(rownames(object), n = 2L),
+        expected = c(
+            "ENSMUSG00000000088",
+            "ENSMUSG00000000326"
+        )
+    )
+})
+
+with_parameters_test_that(
+    "Assays", {
+        expect_is(object, "matrix")
+        # Check to make sure tximport loaded correctly.
+        # Transcript-to-gene counts aren't integer, so we're rounding here to
+        # check the values more easily.
+        expect_identical(
+            object = round(sum(object)),
+            expected = sum
+        )
+    },
+    object = as.list(assays(object)),
+    # nolint start
+    sum = list(
+        counts = 143758911,
+        tpm = 5249973,
+        avgTxLength = 2696963,
+        normalized = 137992370,
+        vst = 32371,
+        fpkm = 3800855
+    )
+    # nolint end
+)
+
+# Ensembl annotations from AnnotationHub, using ensembldb.
+with_parameters_test_that(
+    "Row data structure", {
+        expect_identical(object, expected)
+    },
+    object = lapply(rowData(object), class),
+    expected = list(
+        broadClass = "factor",
+        description = "factor",
+        entrezID = "AsIs",  # list
+        geneBiotype = "factor",
+        geneID = "character",
+        geneName = "factor",
+        seqCoordSystem = "factor"
+    )
+)
+
+test_that("Metadata", {
+    expect_identical(
+        object = lapply(metadata(object), class),
+        expected = list(
+            version = c("package_version", "numeric_version"),
+            level = "character",
+            caller = "character",
+            countsFromAbundance = "character",
+            uploadDir = "character",
+            sampleDirs = "character",
+            sampleMetadataFile = "character",
+            projectDir = "character",
+            runDate = "Date",
+            interestingGroups = "character",
+            organism = "character",
+            genomeBuild = "character",
+            ensemblRelease = "integer",
+            gffFile = "character",
+            tx2gene = structure("Tx2Gene", package = "basejump"),
+            lanes = "integer",
+            yaml = "list",
+            dataVersions = structure("DataFrame", package = "S4Vectors"),
+            programVersions = structure("DataFrame", package = "S4Vectors"),
+            bcbioLog = "character",
+            bcbioCommandsLog = "character",
+            allSamples = "logical",
+            call = "call",
+            date = "Date",
+            wd = "character",
+            sessionInfo = "session_info",
+            subset = "logical"
+        )
+    )
+})
 
 
 
-# bcbioRNASeq ==================================================================
-context("S4 Generators : bcbioRNASeq")
-
+context("bcbioRNASeq : Generator")
 # FIXME Parameterize and test transcripts also.
 # FIXME Parameterize unit test for STAR/featureCounts.
 
@@ -170,14 +310,14 @@ test_that("bcbioRNASeq: Sample selection", {
     keep <- head(colnames(object), n = 2L)
     censor <- setdiff(colnames(object), keep)
 
-    # keep samples
+    # Keep samples.
     object <- bcbioRNASeq(uploadDir, samples = keep)
     expect_identical(
         object = colnames(object),
         expected = keep
     )
 
-    # censor samples
+    # Censor samples.
     object <- bcbioRNASeq(uploadDir, censorSamples = censor)
     expect_identical(
         object = colnames(object),
@@ -187,189 +327,8 @@ test_that("bcbioRNASeq: Sample selection", {
 
 
 
-# bcbioRNASeq Object Structure =================================================
-test_that("Slot names", {
-    expect_identical(
-        object = slotNames(object),
-        expected = c(
-            "rowRanges",
-            "colData",
-            "assays",
-            "NAMES",
-            "elementMetadata",
-            "metadata"
-        )
-    )
-})
+context("bcbioRNASeq : Methods")
 
-with_parameters_test_that(
-    "Slot definitions", {
-        expect_identical(
-            object = class(slot(object, slotName)),
-            expected = expected
-        )
-    },
-    slotName = slotNames(object),
-    expected = list(
-        rowRanges = structure(
-            "GRanges",
-            package = "GenomicRanges"
-        ),
-        colData = structure(
-            "DataFrame",
-            package = "S4Vectors"
-        ),
-        assays = structure(
-            "ShallowSimpleListAssays",
-            package = "SummarizedExperiment"
-        ),
-        NAMES = "NULL",
-        elementMetadata = structure(
-            "DataFrame",
-            package = "S4Vectors"
-        ),
-        metadata = "list"
-    )
-)
-
-test_that("Dimensions", {
-    expect_identical(
-        object = dim(object),
-        expected = c(502L, 4L)
-    )
-    expect_identical(
-        object = colnames(object),
-        expected = c("group1_1", "group1_2", "group2_1", "group2_2")
-    )
-    expect_identical(
-        object = head(rownames(object), n = 4L),
-        expected = c(
-            "ENSMUSG00000002459",
-            "ENSMUSG00000004768",
-            "ENSMUSG00000005886",
-            "ENSMUSG00000016918"
-        )
-    )
-})
-
-with_parameters_test_that(
-    "Assays", {
-        expect_is(object, "matrix")
-        # Check to make sure tximport loaded correctly.
-        # Transcript-to-gene counts aren't integer, so we're rounding here to
-        # check the values more easily.
-        expect_identical(
-            object = round(sum(object)),
-            expected = sum
-        )
-        expect_identical(
-            object = round(colSums(object)),
-            expected = colSums
-        )
-    },
-    object = as.list(assays(object)),
-    # nolint start
-    sum = list(
-        counts = 1861378,
-        tpm = 145541,
-        length = 2587914,
-        normalized = 1837956,
-        vst = 13069
-    ),
-    colSums = list(
-        counts = c(
-            group1_1 = 289453,
-            group1_2 = 515082,
-            group2_1 = 494089,
-            group2_2 = 562753
-        ),
-        tpm = c(
-            group1_1 = 26800,
-            group1_2 = 36631,
-            group2_1 = 38619,
-            group2_2 = 43491
-        ),
-        length = c(
-            group1_1 = 646685,
-            group1_2 = 638827,
-            group2_1 = 656783,
-            group2_2 = 645620
-        ),
-        normalized = c(
-            group1_1 = 319030,
-            group1_2 = 499308,
-            group2_1 = 472147,
-            group2_2 = 547471
-        ),
-        vst = c(
-            group1_1 = 3266,
-            group1_2 = 3266,
-            group2_1 = 3272,
-            group2_2 = 3265
-        )
-    )
-    # nolint end
-)
-
-# Ensembl annotations from AnnotationHub, using ensembldb.
-with_parameters_test_that(
-    "Row data structure", {
-        expect_identical(object, expected)
-    },
-    object = lapply(rowData(object), class),
-    expected = list(
-        broadClass = "factor",
-        description = "factor",
-        entrezID = "list",
-        geneBiotype = "factor",
-        geneID = "character",
-        geneName = "factor",
-        seqCoordSystem = "factor"
-    )
-)
-
-test_that("Metadata", {
-    tibble <- c("tbl_df", "tbl", "data.frame")
-    expect_identical(
-        object = lapply(metadata(object), class),
-        expected = list(
-            version = c("package_version", "numeric_version"),
-            level = "character",
-            caller = "character",
-            countsFromAbundance = "character",
-            uploadDir = "character",
-            sampleDirs = "character",
-            sampleMetadataFile = "character",
-            projectDir = "character",
-            runDate = "Date",
-            interestingGroups = "character",
-            organism = "character",
-            genomeBuild = "character",
-            ensemblRelease = "integer",
-            gffFile = "character",
-            tx2gene = structure("tx2gene", package = "basejump"),
-            lanes = "integer",
-            yaml = "list",
-            dataVersions = tibble,
-            programVersions = tibble,
-            bcbioLog = "character",
-            bcbioCommandsLog = "character",
-            allSamples = "logical",
-            call = "call",
-            date = "Date",
-            wd = "character",
-            sessionInfo = "session_info"
-        )
-    )
-})
-
-test_that("Metadata values", {
-    # Interesting groups should default to `sampleName`.
-    expect_identical(
-        object = metadata(object)[["interestingGroups"]],
-        expected = "sampleName"
-    )
-})
 
 
 
@@ -489,7 +448,7 @@ test_that("updateObject", {
 
 
 # Transcript-Level Counts ======================================================
-context("Transcript-Level Counts")
+context("bcbioRNASeq : Transcript-Level Counts")
 
 # Loading without rowRanges here, for speed.
 object <- bcbioRNASeq(uploadDir, level = "transcripts")
@@ -516,125 +475,4 @@ test_that("Invalid functions", {
 })
 
 
-
-# export
-# markdown
-
-# FIXME This needs an update.
-# test_that("resultsTables : DESeqAnalysis", {
-#     output <- capture.output(
-#         resultsTables(
-#             object = res_small,
-#             counts = dds_small,
-#             lfcThreshold = lfc,
-#             summary = TRUE,
-#             headerLevel = 2L,
-#             write = TRUE,
-#             dir = "resultsTables"
-#         ),
-#         type = "output"
-#     ) %>%
-#         # Just evaluate the R Markdown output
-#         head(28L)
-#     expect_identical(
-#         output,
-#         c(
-#             "",
-#             "",
-#             "## treatment folic acid vs control",
-#             "",
-#             "",
-#             "",
-#             "### Summary statistics",
-#             "",
-#             "",
-#             "- 500 genes in counts matrix",
-#             "- Base mean > 0: 500 genes (non-zero)",
-#             "- Base mean > 1: 500 genes",
-#             "- Alpha: 0.1",
-#             "- LFC threshold: 0.25",
-#             "- DEG pass alpha: 254 genes",
-#             "- DEG LFC up: 115 genes",
-#             "- DEG LFC down: 139 genes",
-#             "",
-#             "",
-#             "",
-#             "### Results tables",
-#             "",
-#             "",
-#             paste0(
-#                 "- [`treatment_folic_acid_vs_control_all.csv.gz`]",
-#                 "(",
-#                 file.path(
-#                     dir,
-#                     "treatment_folic_acid_vs_control_all.csv.gz"
-#                 ),
-#                 "): ",
-#                 "All genes, sorted by Ensembl identifier."
-#             ),
-#             paste0(
-#                 "- [`treatment_folic_acid_vs_control_deg.csv.gz`]",
-#                 "(",
-#                 file.path(
-#                     dir,
-#                     "treatment_folic_acid_vs_control_deg.csv.gz"
-#                 ),
-#                 "): ",
-#                 "Genes that pass the alpha (FDR) cutoff."
-#             ),
-#             paste0(
-#                 "- [`treatment_folic_acid_vs_control_deg_lfc_up.csv.gz`]",
-#                 "(",
-#                 file.path(
-#                     dir,
-#                     "treatment_folic_acid_vs_control_deg_lfc_up.csv.gz"
-#                 ),
-#                 "): ",
-#                 "Upregulated DEG; positive log2 fold change."
-#             ),
-#             paste0(
-#                 "- [`treatment_folic_acid_vs_control_deg_lfc_down.csv.gz`]",
-#                 "(",
-#                 file.path(
-#                     dir,
-#                     "treatment_folic_acid_vs_control_deg_lfc_down.csv.gz"
-#                 ),
-#                 "): ",
-#                 "Downregulated DEG; negative log2 fold change."
-#             ),
-#             ""
-#         )
-#     )
-# })
-#
-# if (file.exists("token.rds")) {
-#     test_that("resultsTables : DESeqAnalysis : Dropbox mode", {
-#         resTbl <- resultsTables(
-#             results = res_small,
-#             counts = dds_small,
-#             lfcThreshold = lfc,
-#             summary = FALSE,
-#             write = TRUE,
-#             dir = "resultsTables",
-#             dropboxDir = file.path("bcbioRNASeq_examples", "resultsTables"),
-#             rdsToken = "token.rds"
-#         )
-#         expect_true("dropboxFiles" %in% names(resTbl))
-#         # Check for Dropbox URLs
-#         expect_true(all(vapply(
-#             X = resTbl[["dropboxFiles"]],
-#             FUN = function(file) {
-#                 grepl("^https://www.dropbox.com/s/", file[["url"]])
-#             },
-#             FUN.VALUE = logical(1L)
-#         )))
-#         # Now check the Markdown code
-#         output <- capture.output(.markdownResultsTables(resTbl))
-#         # The function currently returns links to 4 DEG files
-#         expect_identical(
-#             length(which(grepl("https://www.dropbox.com/s/", output))),
-#             4L
-#         )
-#     })
-# }
 
