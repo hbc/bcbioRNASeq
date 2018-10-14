@@ -35,22 +35,22 @@
 #'   assertIsAnImplicitIntegerOrNULL assertIsColorScaleDiscreteOrNULL
 #'   assertIsFillScaleDiscreteOrNULL assertIsHeaderLevel
 #'   assertIsHexColorFunctionOrNULL assertIsImplicitInteger basejump_geom_abline
-#'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges fixNA
-#'   gene2symbol hasRownames import initializeDirectory interestingGroups
+#'   basejump_geom_label basejump_geom_label_repel camel checkClasses
+#'   coerceS4ToList convertGenesToSymbols detectLanes detectOrganism emptyRanges
+#'   fixNA gene2symbol hasRownames import initializeDirectory interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
 #'   prepareTemplate printString readYAML realpath removeNA sampleData
-#'   sanitizeRowData sanitizeSampleData separator snake standardizeCall
-#'   stripTranscriptVersions tx2gene uniteInterestingGroups
+#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions tx2gene uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom crayon bold
+#' @importFrom crayon bold italic
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
