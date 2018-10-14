@@ -180,7 +180,8 @@ setValidity(
                     description = "factor",
                     entrezID = c("AsIs", "list"),
                     geneBiotype = "factor",
-                    geneID = "character",
+                    # Factor needed here for transcript-level data.
+                    geneID = c("character", "factor"),
                     geneName = "factor",
                     seqCoordSystem = "factor"
                 ),
