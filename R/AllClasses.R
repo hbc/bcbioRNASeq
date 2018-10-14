@@ -173,17 +173,15 @@ setValidity(
         assert_is_all_of(rowRanges(object), "GRanges")
         rowData <- rowData(object)
         if (has_length(colnames(rowData))) {
+            # FIXME Consider requiring description here.
             checkClasses(
                 object = rowData,
                 expected = list(
                     broadClass = "factor",
-                    description = "factor",
-                    entrezID = c("AsIs", "list"),
                     geneBiotype = "factor",
                     # Factor needed here for transcript-level data.
                     geneID = c("character", "factor"),
-                    geneName = "factor",
-                    seqCoordSystem = "factor"
+                    geneName = "factor"
                 ),
                 subset = TRUE
             )
