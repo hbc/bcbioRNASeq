@@ -76,8 +76,8 @@ setMethod(
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
-        # Require at least 100 genes.
-        assert_all_are_in_range(length(i), lower = 100L, upper = Inf)
+        # Require at least 50 genes.
+        assert_all_are_in_range(length(i), lower = 50L, upper = Inf)
 
         # Samples (columns)
         if (missing(j)) {
