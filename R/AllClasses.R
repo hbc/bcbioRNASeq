@@ -172,19 +172,21 @@ setValidity(
         # Row data -------------------------------------------------------------
         assert_is_all_of(rowRanges(object), "GRanges")
         rowData <- rowData(object)
-        checkClasses(
-            object = rowData,
-            expected = list(
-                broadClass = "factor",
-                description = "factor",
-                entrezID = c("AsIs", "list"),
-                geneBiotype = "factor",
-                geneID = "character",
-                geneName = "factor",
-                seqCoordSystem = "factor"
-            ),
-            subset = TRUE
-        )
+        if (has_length(colnames(rowData))) {
+            checkClasses(
+                object = rowData,
+                expected = list(
+                    broadClass = "factor",
+                    description = "factor",
+                    entrezID = c("AsIs", "list"),
+                    geneBiotype = "factor",
+                    geneID = "character",
+                    geneName = "factor",
+                    seqCoordSystem = "factor"
+                ),
+                subset = TRUE
+            )
+        }
 
         # Column data ----------------------------------------------------------
         colData <- colData(object)
