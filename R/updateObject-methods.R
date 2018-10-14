@@ -59,6 +59,174 @@ NULL
             message("Legacy bcbio slot detected.")
         }
 
+        # Metadata -------------------------------------------------------------
+        # Update this slot before colData, assays (see below).
+        metadata <- metadata(object)
+
+        # bcbioLog
+        if (is.null(metadata[["bcbioLog"]])) {
+            message("Setting `bcbioLog` as empty `character`.")
+            metadata[["bcbioLog"]] <- character()
+        }
+
+        # bcbioCommandsLog
+        if (is.null(metadata[["bcbioCommandsLog"]])) {
+            message("Setting `bcbioCommands` as empty `character`.")
+            metadata[["bcbioCommandsLog"]] <- character()
+        }
+
+        # call
+        if (!"call" %in% names(metadata)) {
+            message("Stashing empty call.")
+            metadata[["call"]] <- call(name = "bcbioRNASeq")
+        }
+
+        # caller
+        if (!"caller" %in% names(metadata)) {
+            message("Setting `caller` as salmon.")
+            metadata[["caller"]] <- "salmon"
+        }
+
+        # countsFromAbundance
+        if (!"countsFromAbundance" %in% names(metadata)) {
+            if (metadata[["caller"]] %in% tximportCallers) {
+                countsFromAbundance <- "lengthScaledTPM"
+            } else {
+                countsFromAbundance <- "no"
+            }
+            message(paste0(
+                "Setting `countsFromAbundance` as ", countsFromAbundance, "."
+            ))
+            metadata[["countsFromAbundance"]] <- countsFromAbundance
+        }
+
+        # dataVersions
+        dataVersions <- metadata[["dataVersions"]]
+        if (is(dataVersions, "data.frame")) {
+            metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
+        }
+
+        # design
+        if ("design" %in% names(metadata)) {
+            message("Dropping legacy design formula.")
+            metadata[["design"]] <- NULL
+        }
+
+        # ensemblRelease
+        if ("ensemblVersion" %in% names(metadata)) {
+            # Renamed in v0.2.0.
+            message("Renaming `ensemblVersion` to `ensemblRelease`.")
+            metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
+            metadata[["ensemblVersion"]] <- NULL
+        }
+        if (!is.integer(metadata[["ensemblRelease"]])) {
+            message("Setting `ensemblRelease` as `integer`.")
+            metadata[["ensemblRelease"]] <-
+                as.integer(metadata[["ensemblRelease"]])
+        }
+
+        # genomeBuild
+        if (!is.character(metadata[["genomeBuild"]])) {
+            message("Setting `genomeBuild` as empty `character`.")
+            metadata[["genomeBuild"]] <- character()
+        }
+
+        # gffFile
+        if ("gtfFile" %in% names(metadata)) {
+            message("Renaming `gtfFile` to `gffFile`.")
+            metadata[["gffFile"]] <- metadata[["gtfFile"]]
+            metadata[["gtfFile"]] <- NULL
+        }
+        if (!"gffFile" %in% names(metadata)) {
+            message("Setting `gffFile` as empty `character`")
+            metadata[["gffFile"]] <- character()
+        }
+
+        # gtf
+        if ("gtf" %in% names(metadata)) {
+            message("Removing stashed GTF.")
+            metadata <- metadata[setdiff(names(metadata), "gtf")]
+        }
+
+        # lanes
+        if (!is.integer(metadata[["lanes"]])) {
+            message("Setting `lanes` as `integer`.")
+            metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
+        }
+
+        # level
+        if (!"level" %in% names(metadata)) {
+            message("Setting `level` as genes.")
+            metadata[["level"]] <- "genes"
+        }
+
+        # programVersions
+        if (!"programVersions" %in% names(metadata) &&
+            "programs" %in% names(metadata)) {
+            message("Renaming `programs` to `programVersions`.")
+            metadata[["programVersions"]] <- metadata[["programs"]]
+            metadata <- metadata[setdiff(names(metadata), "programs")]
+        }
+        programVersions <- metadata[["programVersions"]]
+        if (is(programVersions, "data.frame")) {
+            metadata[["programVersions"]] <- as(programVersions, "DataFrame")
+        }
+
+        # rowRangesMetadata
+        if ("rowRangesMetadata" %in% names(metadata)) {
+            message("Moving `rowRangesMetadata` into `rowRanges()`.")
+            metadata(rowRanges)[["ensembldb"]] <-
+                metadata[["rowRangesMetadata"]]
+            metadata[["rowRangesMetadata"]] <- NULL
+        }
+
+        # sampleMetadataFile
+        if (!is.character(metadata[["sampleMetadataFile"]])) {
+            message("Setting `sampleMetadataFile` as empty `character`.")
+            metadata[["sampleMetadataFile"]] <- character()
+        }
+
+        # sessionInfo
+        # Support for legacy `devtoolsSessionInfo` stash.
+        # Previously, we stashed both `devtools*` and `utils*` variants.
+        if ("devtoolsSessionInfo" %in% names(metadata)) {
+            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
+            metadata[["devtoolsSessionInfo"]] <- NULL
+            metadata[["utilsSessionInfo"]] <- NULL
+        }
+
+        # template
+        if ("template" %in% names(metadata)) {
+            message("Dropping legacy `template`.")
+            metadata[["template"]] <- NULL
+        }
+
+        # tx2gene
+        if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
+            message("Coercing `tx2gene` to `Tx2Gene` class.")
+            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
+        }
+
+        # Dead genes: "missing" or "unannotated"
+        if ("missingGenes" %in% names(metadata)) {
+            warning("Dropping `missingGenes` from metadata.", call. = FALSE)
+            metadata[["missingGenes"]] <- NULL
+        }
+        if ("unannotatedGenes" %in% names(metadata)) {
+            warning("Dropping `unannotatedGenes` from metadata.", call. = FALSE)
+            metadata[["unannotatedGenes"]] <- NULL
+        }
+
+        # yamlFile
+        if ("yamlFile" %in% names(metadata)) {
+            message("Dropping `yamlFile` file path.")
+            metadata[["yamlFile"]] <- NULL
+        }
+
+        # version
+        metadata[["previousVersion"]] <- metadata[["version"]]
+        metadata[["version"]] <- packageVersion
+
         # Assays ---------------------------------------------------------------
         # Coerce the assays (e.g. ShallowSimpleListAssays) back to list.
         # Using `slot()` here to avoid error on missing rowRanges.
@@ -69,11 +237,11 @@ NULL
         })
         names(assays) <- assayNames(object)
 
-        caller <- metadata(object)[["caller"]]
+        caller <- metadata[["caller"]]
         assert_is_a_string(caller)
         assert_is_subset(caller, validCallers)
 
-        level <- metadata(object)[["level"]]
+        level <- metadata[["level"]]
         assert_is_a_string(level)
         assert_is_subset(level, validLevels)
 
@@ -158,14 +326,47 @@ NULL
             ), call. = FALSE)
             message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
+            rowData <- object@elementMetadata
+            mcols(rowRanges) <- rowData
         }
         assert_is_all_of(rowRanges, "GRanges")
+
+        # biotype
+        if ("biotype" %in% colnames(mcols(rowRanges))) {
+            message("Renaming `biotype` to `geneBiotype`.")
+            mcols(rowRanges)[["geneBiotype"]] <-
+                as.factor(mcols(rowRanges)[["biotype"]])
+            mcols(rowRanges)[["biotype"]] <- NULL
+        }
+        # broadClass
+        if (
+            "broadClass" %in% colnames(mcols(rowRanges)) &&
+            is.character(mcols(rowRanges)[["broadClass"]])
+        ) {
+            message("Setting `broadClass` to factor.")
+            mcols(rowRanges)[["broadClass"]] <-
+                as.factor(mcols(rowRanges)[["broadClass"]])
+        }
+        # ensgene
+        if ("ensgene" %in% colnames(mcols(rowRanges))) {
+            message("Renaming `ensgene` to `geneID`.")
+            mcols(rowRanges)[["geneID"]] <-
+                as.character(mcols(rowRanges)[["ensgene"]])
+            mcols(rowRanges)[["ensgene"]] <- NULL
+        }
+        # symbol
+        if ("symbol" %in% colnames(mcols(rowRanges))) {
+            message("Renaming `symbol` to `geneName`.")
+            mcols(rowRanges)[["geneName"]] <-
+                as.factor(mcols(rowRanges)[["symbol"]])
+            mcols(rowRanges)[["symbol"]] <- NULL
+        }
 
         # Column data ----------------------------------------------------------
         colData <- colData(object)
 
         # Move metrics from metadata into colData, if necessary.
-        metrics <- metadata(object)[["metrics"]]
+        metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {
             message("Moving metrics from `metadata()` into `colData()`.")
             assert_is_data.frame(metrics)
@@ -199,179 +400,12 @@ NULL
             metrics <- metrics[, sort(setdiff), drop = FALSE]
 
             colData <- cbind(colData, metrics)
-            metadata(object)[["metrics"]] <- NULL
+            metadata[["metrics"]] <- NULL
         }
 
         # Remove legacy `sampleID` and `description` columns, if present.
         colData[["sampleID"]] <- NULL
         colData[["description"]] <- NULL
-
-        # Metadata -------------------------------------------------------------
-        metadata <- metadata(object)
-
-        # bcbioLog
-        if (is.null(metadata[["bcbioLog"]])) {
-            warning("Setting `bcbioLog` as empty `character`.")
-            metadata[["bcbioLog"]] <- character()
-        }
-
-        # bcbioCommandsLog
-        if (is.null(metadata[["bcbioCommandsLog"]])) {
-            warning("Setting `bcbioCommands` as empty `character`.")
-            metadata[["bcbioCommandsLog"]] <- character()
-        }
-
-        # call
-        if (!"call" %in% names(metadata)) {
-            message("Stashing empty call.")
-            metadata[["call"]] <- call(name = "bcbioRNASeq")
-        }
-
-        # caller
-        if (!"caller" %in% names(metadata)) {
-            message("Setting `caller` as salmon.")
-            metadata[["caller"]] <- "salmon"
-        }
-
-        # countsFromAbundance
-        if (!"countsFromAbundance" %in% names(metadata)) {
-            if (metadata[["caller"]] %in% tximportCallers) {
-                countsFromAbundance <- "lengthScaledTPM"
-            } else {
-                countsFromAbundance <- "no"
-            }
-            message(paste0(
-                "Setting `countsFromAbundance` as ", countsFromAbundance, "."
-            ))
-            metadata[["countsFromAbundance"]] <- countsFromAbundance
-        }
-
-        # dataVersions
-        dataVersions <- metadata[["dataVersions"]]
-        if (is(dataVersions, "data.frame")) {
-            metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
-        }
-
-        # design
-        if ("design" %in% names(metadata)) {
-            message("Dropping legacy design formula.")
-            metadata[["design"]] <- NULL
-        }
-
-        # ensemblRelease
-        if ("ensemblVersion" %in% names(metadata)) {
-            # Renamed in v0.2.0.
-            message("Renaming `ensemblVersion` to `ensemblRelease`.")
-            metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
-            metadata[["ensemblVersion"]] <- NULL
-        }
-        if (!is.integer(metadata[["ensemblRelease"]])) {
-            message("Setting `ensemblRelease` as `integer`.")
-            metadata[["ensemblRelease"]] <-
-                as.integer(metadata[["ensemblRelease"]])
-        }
-
-        # genomeBuild
-        if (!is.character(metadata[["genomeBuild"]])) {
-            warning("Setting `genomeBuild` as empty `character`.")
-            metadata[["genomeBuild"]] <- character()
-        }
-
-        # gffFile
-        if ("gtfFile" %in% names(metadata)) {
-            message("Renaming `gtfFile` to `gffFile`.")
-            metadata[["gffFile"]] <- metadata[["gtfFile"]]
-            metadata[["gtfFile"]] <- NULL
-        }
-        if (!"gffFile" %in% names(metadata)) {
-            message("Setting `gffFile` as empty `character`")
-            metadata[["gffFile"]] <- character()
-        }
-
-        # gtf
-        if ("gtf" %in% names(metadata)) {
-            warning("Removing stashed GTF.")
-            metadata <- metadata[setdiff(names(metadata), "gtf")]
-        }
-
-        # lanes
-        if (!is.integer(metadata[["lanes"]])) {
-            message("Setting `lanes` as `integer`.")
-            metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
-        }
-
-        # level
-        if (!"level" %in% names(metadata)) {
-            message("Setting `level` as genes.")
-            metadata[["level"]] <- "genes"
-        }
-
-        # programVersions
-        if (!"programVersions" %in% names(metadata) &&
-            "programs" %in% names(metadata)) {
-            message("Renaming `programs` to `programVersions`.")
-            metadata[["programVersions"]] <- metadata[["programs"]]
-            metadata <- metadata[setdiff(names(metadata), "programs")]
-        }
-        programVersions <- metadata[["programVersions"]]
-        if (is(programVersions, "data.frame")) {
-            metadata[["programVersions"]] <- as(programVersions, "DataFrame")
-        }
-
-        # rowRangesMetadata
-        if ("rowRangesMetadata" %in% names(metadata)) {
-            message("Moving `rowRangesMetadata` into `rowRanges()`.")
-            metadata(rowRanges)[["ensembldb"]] <-
-                metadata[["rowRangesMetadata"]]
-            metadata[["rowRangesMetadata"]] <- NULL
-        }
-
-        # sampleMetadataFile
-        if (!is.character(metadata[["sampleMetadataFile"]])) {
-            message("Setting `sampleMetadataFile` as empty `character`.")
-            metadata[["sampleMetadataFile"]] <- character()
-        }
-
-        # sessionInfo
-        # Support for legacy `devtoolsSessionInfo` stash.
-        # Previously, we stashed both `devtools*` and `utils*` variants.
-        if ("devtoolsSessionInfo" %in% names(metadata)) {
-            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
-            metadata[["devtoolsSessionInfo"]] <- NULL
-            metadata[["utilsSessionInfo"]] <- NULL
-        }
-
-        # template
-        if ("template" %in% names(metadata)) {
-            message("Dropping legacy `template`.")
-            metadata[["template"]] <- NULL
-        }
-
-        # tx2gene
-        if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
-            message("Coercing `tx2gene` to `Tx2Gene` class.")
-            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
-        }
-
-        # Dead genes: "missing" or "unannotated"
-        if ("missingGenes" %in% names(metadata)) {
-            warning("Dropping `missingGenes` from metadata.")
-            metadata[["missingGenes"]] <- NULL
-        }
-        if ("unannotatedGenes" %in% names(metadata)) {
-            warning("Dropping `unannotatedGenes` from metadata.")
-            metadata[["unannotatedGenes"]] <- NULL
-        }
-
-        # yamlFile
-        if ("yamlFile" %in% names(metadata)) {
-            message("Dropping `yamlFile` file path.")
-            metadata[["yamlFile"]] <- NULL
-        }
-
-        # version
-        metadata[["previousVersion"]] <- metadata[["version"]]
-        metadata[["version"]] <- packageVersion
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
