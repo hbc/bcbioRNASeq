@@ -1,56 +1,7 @@
-context("bcbioRNASeq")
-
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-organism <- "Mus musculus"
-ensemblRelease <- 90L
-
-# GFF3 files are also supported, but we're only testing GTF here for speed.
-# This functionality is provided by basejump and covered by unit tests.
-gtfURL <- paste(
-    "ftp://ftp.ensembl.org",
-    "pub",
-    "release-90",
-    "gtf",
-    "mus_musculus",
-    "Mus_musculus.GRCm38.90.gtf.gz",
-    sep = "/"
-)
-gtfFile <- basename(gtfURL)
-if (!file.exists(gtfFile)) {
-    download.file(url = gtfURL, destfile = gtfFile)
-}
+# bcb_small ====================================================================
+context("bcbioRNASeq : bcb_small")
 
 object <- bcb_small
-
-with_parameters_test_that(
-    "Slot definitions", {
-        expect_identical(
-            object = class(slot(object, slotName)),
-            expected = expected
-        )
-    },
-    slotName = slotNames(object),
-    expected = list(
-        rowRanges = structure(
-            "GRanges",
-            package = "GenomicRanges"
-        ),
-        colData = structure(
-            "DataFrame",
-            package = "S4Vectors"
-        ),
-        assays = structure(
-            "ShallowSimpleListAssays",
-            package = "SummarizedExperiment"
-        ),
-        NAMES = "NULL",
-        elementMetadata = structure(
-            "DataFrame",
-            package = "S4Vectors"
-        ),
-        metadata = "list"
-    )
-)
 
 with_parameters_test_that(
     "Assays", {
@@ -76,9 +27,32 @@ with_parameters_test_that(
     # nolint end
 )
 
+rm(object)
 
 
+
+# Generator ====================================================================
 context("bcbioRNASeq : Generator")
+
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+organism <- "Mus musculus"
+ensemblRelease <- 90L
+
+# GFF3 files are also supported, but we're only testing GTF here for speed.
+# This functionality is provided by basejump and covered by unit tests.
+gtfURL <- paste(
+    "ftp://ftp.ensembl.org",
+    "pub",
+    "release-90",
+    "gtf",
+    "mus_musculus",
+    "Mus_musculus.GRCm38.90.gtf.gz",
+    sep = "/"
+)
+gtfFile <- basename(gtfURL)
+if (!file.exists(gtfFile)) {
+    download.file(url = gtfURL, destfile = gtfFile)
+}
 
 test_that("bcbioRNASeq : salmon (default)", {
     # Expecting warnings about rowRanges.
@@ -244,9 +218,9 @@ test_that("bcbioRNASeq: Sample selection", {
 
 
 
+# Methods ======================================================================
 context("bcbioRNASeq : Methods")
 
-# extract ======================================================================
 nrow <- 50L
 ncol <- 2L
 
@@ -308,7 +282,6 @@ test_that("extract : Calculate DESeq2 transforms", {
 
 
 
-# show =========================================================================
 test_that("show", {
     # Stash fake metadata for code coverage.
     metadata(object)[["sampleMetadataFile"]] <- "XXX"
@@ -325,7 +298,6 @@ test_that("show", {
 
 
 
-# updateObject =================================================================
 test_that("updateObject", {
     # Load a legacy object that doesn't contain rowRanges.
     load("bcb_invalid.rda")
