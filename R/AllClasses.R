@@ -58,21 +58,23 @@ setValidity(
         )
 
         # Error on legacy slot detection.
-        legacyMetadata <- c(
-            "design",
-            "devtoolsSessionInfo",
-            "ensemblVersion",
-            "gtf",
-            "gtfFile",
-            "missingGenes",
-            "programs",
-            "rowRangesMetadata",
-            "template",
-            "utilsSessionInfo",
-            "yamlFile"
+        intersect <- intersect(
+            x = names(metadata),
+            y = c(
+                "design",
+                "devtoolsSessionInfo",
+                "ensemblVersion",
+                "gtf",
+                "gtfFile",
+                "missingGenes",
+                "programs",
+                "rowRangesMetadata",
+                "template",
+                "utilsSessionInfo",
+                "yamlFile"
+            )
         )
-        intersect <- intersect(names(metadata), legacyMetadata)
-        if (length(intersect)) {
+        if (has_length(intersect)) {
             stop(paste(
                 paste(
                     "Legacy metadata slots:",
@@ -84,71 +86,46 @@ setValidity(
         }
 
         # Class checks (order independent).
-        requiredMetadata <- list(
-            allSamples = "logical",
-            bcbioCommandsLog = "character",
-            bcbioLog = "character",
-            call = "call",
-            caller = "character",
-            countsFromAbundance = "character",
-            dataVersions = "DataFrame",
-            date = "Date",
-            ensemblRelease = "integer",
-            genomeBuild = "character",
-            gffFile = "character",
-            interestingGroups = "character",
-            lanes = "integer",
-            level = "character",
-            organism = "character",
-            programVersions = "DataFrame",
-            projectDir = "character",
-            runDate = "Date",
-            sampleDirs = "character",
-            sampleMetadataFile = "character",
-            tx2gene = "Tx2Gene",
-            sessionInfo = "session_info",
-            uploadDir = "character",
-            version = "package_version",
-            wd = "character",
-            yaml = "list"
+        checkClasses(
+            object = metadata,
+            expected = list(
+                allSamples = "logical",
+                bcbioCommandsLog = "character",
+                bcbioLog = "character",
+                call = "call",
+                caller = "character",
+                countsFromAbundance = "character",
+                dataVersions = "DataFrame",
+                date = "Date",
+                ensemblRelease = "integer",
+                genomeBuild = "character",
+                gffFile = "character",
+                interestingGroups = "character",
+                lanes = "integer",
+                level = "character",
+                organism = "character",
+                programVersions = "DataFrame",
+                projectDir = "character",
+                runDate = "Date",
+                sampleDirs = "character",
+                sampleMetadataFile = "character",
+                tx2gene = "Tx2Gene",
+                sessionInfo = "session_info",
+                uploadDir = "character",
+                version = "package_version",
+                wd = "character",
+                yaml = "list"
+            ),
+            subset = TRUE
         )
-        classChecks <- invisible(mapply(
-            name <- names(requiredMetadata),
-            expected <- requiredMetadata,
-            MoreArgs = list(metadata = metadata),
-            FUN = function(name, expected, metadata) {
-                actual <- class(metadata[[name]])
-                if (!length(intersect(expected, actual))) {
-                    FALSE
-                } else {
-                    TRUE
-                }
-            },
-            SIMPLIFY = TRUE,
-            USE.NAMES = TRUE
-        ))
-        if (!all(classChecks)) {
-            stop(paste(
-                "Metadata class checks failed.",
-                updateMessage,
-                printString(classChecks),
-                sep = "\n"
-            ))
-        }
 
         # Additional assert checks.
-        match.arg(
-            arg = metadata[["caller"]],
-            choices = validCallers
-        )
-        match.arg(
-            arg = metadata[["level"]],
-            choices = validLevels
-        )
+        assert_is_subset(metadata[["caller"]], validCallers)
+        assert_is_subset(metadata[["level"]], validLevels)
         if (is.character(metadata[["countsFromAbundance"]])) {
-            match.arg(
-                arg = metadata[["countsFromAbundance"]],
-                choices = eval(formals(tximport)[["countsFromAbundance"]])
+            assert_is_subset(
+                x = metadata[["countsFromAbundance"]],
+                y = eval(formals(tximport)[["countsFromAbundance"]])
             )
         }
 
@@ -159,17 +136,17 @@ setValidity(
         # Note that in previous versions, we slotted `DESeqDataSet` and
         # `DESeqTransform`, which can result in metadata mismatches because
         # those objects contain their own `colData()` and `rowData()`.
-        assayCheck <- vapply(
+        valid <- vapply(
             X = assays(object),
             FUN = is.matrix,
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (!all(assayCheck)) {
+        if (!all(valid)) {
             stop(paste(
                 paste(
                     "Assays that are not matrix:",
-                    toString(names(assayCheck[!assayCheck]))
+                    toString(names(valid[!valid]))
                 ),
                 updateMessage,
                 sep = "\n"
@@ -194,14 +171,26 @@ setValidity(
 
         # Row data -------------------------------------------------------------
         assert_is_all_of(rowRanges(object), "GRanges")
-        assert_is_all_of(rowData(object), "DataFrame")
+        rowData <- rowData(object)
+        checkClasses(
+            object = rowData,
+            expected = list(
+                broadClass = "factor",
+                description = "factor",
+                entrezID = c("AsIs", "list"),
+                geneBiotype = "factor",
+                geneID = "character",
+                geneName = "factor",
+                seqCoordSystem = "factor"
+            ),
+            subset = TRUE
+        )
 
         # Column data ----------------------------------------------------------
+        colData <- colData(object)
+        assert_is_subset("sampleName", colnames(colData))
         # Error on legacy metrics columns.
-        assert_are_disjoint_sets(
-            x = colnames(colData(object)),
-            y = legacyMetricsCols
-        )
+        assert_are_disjoint_sets(colnames(colData), legacyMetricsCols)
 
         TRUE
     }
